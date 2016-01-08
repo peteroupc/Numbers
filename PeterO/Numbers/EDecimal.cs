@@ -1061,7 +1061,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
       if (other.Exponent.CompareTo((EInteger)1000) > 0) {
         // Very high exponents
         EInteger bignum = EInteger.One << 999;
-        if (this.Abs(null).CompareTo(EDecimal.FromBigInteger(bignum)) <=
+        if (this.Abs(null).CompareTo(EDecimal.FromEInteger(bignum)) <=
             0) {
           // this object's absolute value is less
           return (signA > 0) ? -1 : 1;
@@ -1105,18 +1105,18 @@ if (!(decimalPoint.AsInt32() == 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToBigInteger"]/*'/>
-    public EInteger ToBigInteger() {
-      return this.ToBigIntegerInternal(false);
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEInteger"]/*'/>
+    public EInteger ToEInteger() {
+      return this.ToEIntegerInternal(false);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToBigIntegerExact"]/*'/>
-    public EInteger ToBigIntegerExact() {
-      return this.ToBigIntegerInternal(true);
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEIntegerExact"]/*'/>
+    public EInteger ToEIntegerExact() {
+      return this.ToEIntegerInternal(true);
     }
 
-    private EInteger ToBigIntegerInternal(bool exact) {
+    private EInteger ToEIntegerInternal(bool exact) {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -1176,14 +1176,14 @@ if (!(decimalPoint.AsInt32() == 0)) {
       }
       if (bigintExp.IsZero) {
         // Integer
-        return EFloat.FromBigInteger(bigintMant);
+        return EFloat.FromEInteger(bigintMant);
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
         EInteger bigmantissa = bigintMant;
         bigintExp = DecimalUtility.FindPowerOfTenFromBig(bigintExp);
         bigmantissa *= (EInteger)bigintExp;
-        return EFloat.FromBigInteger(bigmantissa);
+        return EFloat.FromEInteger(bigmantissa);
       } else {
         // Fractional number
         FastInteger scale = FastInteger.FromBig(bigintExp);
@@ -1392,7 +1392,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
         }
-        return EDecimal.FromBigInteger(bigmantissa);
+        return EDecimal.FromEInteger(bigmantissa);
       } else {
         // Value has a fractional part
         var bigmantissa = (EInteger)valueFpMantissa;
@@ -1406,8 +1406,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromBigInteger(PeterO.Numbers.EInteger)"]/*'/>
-    public static EDecimal FromBigInteger(EInteger bigint) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromEInteger(PeterO.Numbers.EInteger)"]/*'/>
+    public static EDecimal FromEInteger(EInteger bigint) {
       return EDecimal.Create(bigint, EInteger.Zero);
     }
 
@@ -1438,7 +1438,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (value[1] & 0x80000) != 0;
         value[1] &= 0x3ffff;
-        EInteger info = FastInteger.WordsToBigInteger(value);
+        EInteger info = FastInteger.WordsToEInteger(value);
         value[0] = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
                 BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         return info.IsZero ? (quiet ? NaN : SignalingNaN) :
@@ -1461,12 +1461,12 @@ if (!(decimalPoint.AsInt32() == 0)) {
         return neg ? EDecimal.NegativeZero : EDecimal.Zero;
       }
       floatExponent -= 1075;
-      EInteger valueFpMantissaBig = FastInteger.WordsToBigInteger(value);
+      EInteger valueFpMantissaBig = FastInteger.WordsToEInteger(value);
       if (floatExponent == 0) {
         if (neg) {
           valueFpMantissaBig = -valueFpMantissaBig;
         }
-        return EDecimal.FromBigInteger(valueFpMantissaBig);
+        return EDecimal.FromEInteger(valueFpMantissaBig);
       }
       if (floatExponent > 0) {
         // Value is an integer
@@ -1475,7 +1475,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
         }
-        return EDecimal.FromBigInteger(bigmantissa);
+        return EDecimal.FromEInteger(bigmantissa);
       } else {
         // Value has a fractional part
         var bigmantissa = (EInteger)valueFpMantissaBig;
@@ -1512,7 +1512,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
       }
       if (bigintExp.IsZero) {
         // Integer
-        return EDecimal.FromBigInteger(bigintMant);
+        return EDecimal.FromEInteger(bigintMant);
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
@@ -1533,7 +1533,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
         }
-        return EDecimal.FromBigInteger(bigmantissa);
+        return EDecimal.FromEInteger(bigmantissa);
       } else {
         // Fractional number
         EInteger bigmantissa = bigintMant;
@@ -1843,7 +1843,6 @@ if (!(decimalPoint.AsInt32() == 0)) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal Add(EDecimal otherValue) {
-      // TODO: Use a consistent default rounding mode for version 3
       return this.Add(otherValue, EContext.Unlimited);
     }
 
@@ -2191,10 +2190,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
       return this.RoundToExponent((EInteger)exponentSmall, ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='exponentSmall'>Not documented yet.</param>
-    /// <param name='rounding'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {
@@ -2202,10 +2199,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
         EContext.ForRounding(rounding));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='exponentSmall'>Not documented yet.</param>
-    /// <param name='rounding'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
     public EDecimal RoundToExponent(
       int exponentSmall,
       ERounding rounding) {

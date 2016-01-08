@@ -148,8 +148,8 @@ EInteger denominator) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromBigInteger(PeterO.Numbers.EInteger)"]/*'/>
-    public static ERational FromBigInteger(EInteger bigint) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEInteger(PeterO.Numbers.EInteger)"]/*'/>
+    public static ERational FromEInteger(EInteger bigint) {
       return new ERational(bigint, EInteger.One);
     }
 
@@ -241,7 +241,7 @@ bool negative) {
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
       if (exp.IsZero) {
-        return FromBigInteger(num);
+        return FromEInteger(num);
       }
       bool neg = num.Sign < 0;
       num = num.Abs();
@@ -285,7 +285,7 @@ bool negative) {
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
       if (exp.IsZero) {
-        return FromBigInteger(num);
+        return FromEInteger(num);
       }
       bool neg = num.Sign < 0;
       num = num.Abs();
@@ -320,8 +320,8 @@ ctx);
         return EDecimal.NegativeInfinity;
       }
       EDecimal ef = (this.IsNegative && this.IsZero) ?
- EDecimal.NegativeZero : EDecimal.FromBigInteger(this.Numerator);
-      return ef.Divide(EDecimal.FromBigInteger(this.Denominator), ctx);
+ EDecimal.NegativeZero : EDecimal.FromEInteger(this.Numerator);
+      return ef.Divide(EDecimal.FromEInteger(this.Denominator), ctx);
     }
 
     /// <include file='../../docs.xml'
@@ -348,8 +348,8 @@ ctx);
         return EDecimal.NegativeZero;
       }
       EDecimal valueEdNum = (this.IsNegative && this.IsZero) ?
- EDecimal.NegativeZero : EDecimal.FromBigInteger(this.Numerator);
- EDecimal valueEdDen = EDecimal.FromBigInteger(this.Denominator);
+ EDecimal.NegativeZero : EDecimal.FromEInteger(this.Numerator);
+ EDecimal valueEdDen = EDecimal.FromEInteger(this.Denominator);
       EDecimal ed = valueEdNum.Divide(valueEdDen, null);
       if (ed.IsNaN()) {
         // Result would be inexact, try again using the precision context
@@ -381,8 +381,8 @@ ctx);
         return EFloat.NegativeInfinity;
       }
       EFloat ef = (this.IsNegative && this.IsZero) ?
-     EFloat.NegativeZero : EFloat.FromBigInteger(this.Numerator);
-      return ef.Divide(EFloat.FromBigInteger(this.Denominator), ctx);
+     EFloat.NegativeZero : EFloat.FromEInteger(this.Numerator);
+      return ef.Divide(EFloat.FromEInteger(this.Denominator), ctx);
     }
 
     /// <include file='../../docs.xml'
@@ -409,8 +409,8 @@ ctx);
           EFloat.Zero;
       }
       EFloat valueEdNum = (this.IsNegative && this.IsZero) ?
-     EFloat.NegativeZero : EFloat.FromBigInteger(this.Numerator);
-      EFloat valueEdDen = EFloat.FromBigInteger(this.Denominator);
+     EFloat.NegativeZero : EFloat.FromEInteger(this.Numerator);
+      EFloat valueEdDen = EFloat.FromEInteger(this.Denominator);
       EFloat ed = valueEdNum.Divide(valueEdDen, null);
       if (ed.IsNaN()) {
         // Result would be inexact, try again using the precision context
@@ -428,8 +428,8 @@ ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToBigInteger"]/*'/>
-    public EInteger ToBigInteger() {
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEInteger"]/*'/>
+    public EInteger ToEInteger() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -437,8 +437,8 @@ ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToBigIntegerExact"]/*'/>
-    public EInteger ToBigIntegerExact() {
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEIntegerExact"]/*'/>
+    public EInteger ToEIntegerExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -454,16 +454,14 @@ rem = divrem[1]; }
       return quo;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='smallint'>Not documented yet.</param>
-    /// <returns>An ERational object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
     public static ERational FromInt32(int smallint) {
       return new ERational((EInteger)smallint, EInteger.One);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='longInt'>Not documented yet.</param>
-    /// <returns>An ERational object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
     public static ERational FromInt64(long longInt) {
       return new ERational((EInteger)longInt, EInteger.One);
     }
@@ -484,8 +482,8 @@ rem = divrem[1]; }
         .ToSingle();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>An ERational object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>
     public ERational Abs() {
       if (this.IsNegative) {
         var er = new ERational(this.unsignedNumerator, this.denominator);
@@ -495,8 +493,8 @@ rem = divrem[1]; }
       return this;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>An ERational object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Negate"]/*'/>
     public ERational Negate() {
       var er = new ERational(this.unsignedNumerator, this.denominator);
       er.flags = this.flags ^ BigNumberFlags.FlagNegative;
@@ -648,7 +646,7 @@ EInteger[] divrem = this.UnsignedNumerator.DivRem(this.Denominator);
 thisInt = divrem[0];
 thisRem = divrem[1]; }
         EFloat otherAbs = other.Abs();
-        EFloat thisIntDec = EFloat.FromBigInteger(thisInt);
+        EFloat thisIntDec = EFloat.FromEInteger(thisInt);
         if (thisRem.IsZero) {
           // This object's value is an integer
           // Console.WriteLine("Shortcircuit IV");
@@ -663,15 +661,15 @@ thisRem = divrem[1]; }
         }
         // Round up
         thisInt += EInteger.One;
-        thisIntDec = EFloat.FromBigInteger(thisInt);
+        thisIntDec = EFloat.FromEInteger(thisInt);
         if (thisIntDec.CompareTo(otherAbs) < 0) {
           // Absolute value rounded up is less than other's unrounded
           // absolute value
           // Console.WriteLine("Shortcircuit II");
           return this.IsNegative ? 1 : -1;
         }
-      thisIntDec = EFloat.FromBigInteger(this.UnsignedNumerator).Divide(
-          EFloat.FromBigInteger(this.Denominator),
+      thisIntDec = EFloat.FromEInteger(this.UnsignedNumerator).Divide(
+          EFloat.FromEInteger(this.Denominator),
           EContext.ForPrecisionAndRounding(256, ERounding.Down));
         if (thisIntDec.CompareTo(otherAbs) > 0) {
           // Truncated absolute value is greater than other's untruncated
@@ -763,7 +761,7 @@ EInteger[] divrem = this.UnsignedNumerator.DivRem(this.Denominator);
 thisInt = divrem[0];
 thisRem = divrem[1]; }
         EDecimal otherAbs = other.Abs();
-        EDecimal thisIntDec = EDecimal.FromBigInteger(thisInt);
+        EDecimal thisIntDec = EDecimal.FromEInteger(thisInt);
         if (thisRem.IsZero) {
           // This object's value is an integer
           // Console.WriteLine("Shortcircuit IV");
@@ -778,7 +776,7 @@ thisRem = divrem[1]; }
         }
         // Round up
         thisInt += EInteger.One;
-        thisIntDec = EDecimal.FromBigInteger(thisInt);
+        thisIntDec = EDecimal.FromEInteger(thisInt);
         if (thisIntDec.CompareTo(otherAbs) < 0) {
           // Absolute value rounded up is less than other's unrounded
           // absolute value
@@ -787,8 +785,8 @@ thisRem = divrem[1]; }
         }
         // Conservative approximation of this rational number's absolute value,
         // as a decimal number. The true value will be greater or equal.
-    thisIntDec = EDecimal.FromBigInteger(this.UnsignedNumerator).Divide(
-          EDecimal.FromBigInteger(this.Denominator),
+    thisIntDec = EDecimal.FromEInteger(this.UnsignedNumerator).Divide(
+          EDecimal.FromEInteger(this.Denominator),
           EContext.ForPrecisionAndRounding(20, ERounding.Down));
         if (thisIntDec.CompareTo(otherAbs) > 0) {
           // Truncated absolute value is greater than other's untruncated
@@ -821,9 +819,8 @@ thisRem = divrem[1]; }
       return ad.CompareTo(bc);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>A Boolean object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)"]/*'/>
     public bool Equals(ERational other) {
       return this.Equals((object)other);
     }
@@ -915,19 +912,6 @@ BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
       return this;
     }
 
-    private ERational Simplify() {
-      // TODO: Don't simplify automatically in version 3.0
-      if ((this.flags & BigNumberFlags.FlagSpecial) == 0) {
-        int lowBit = this.unsignedNumerator.getLowBit();
-        lowBit = Math.Min(lowBit, this.denominator.getLowBit());
-        if (lowBit > 0) {
-          this.unsignedNumerator >>= lowBit;
-          this.denominator >>= lowBit;
-        }
-      }
-      return this;
-    }
-
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Add(PeterO.Numbers.ERational)"]/*'/>
     public ERational Add(ERational otherValue) {
@@ -960,7 +944,7 @@ otherValue.IsNegative);
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       ad += (EInteger)bc;
-      return new ERational(ad, bd).Simplify();
+      return new ERational(ad, bd);
     }
 
     /// <include file='../../docs.xml'
@@ -998,7 +982,7 @@ otherValue.IsNegative);
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       ad -= (EInteger)bc;
-      return new ERational(ad, bd).Simplify();
+      return new ERational(ad, bd);
     }
 
     /// <include file='../../docs.xml'
@@ -1034,7 +1018,7 @@ otherValue.IsNegative);
       EInteger ac = this.Numerator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       return ac.IsZero ? (resultNeg ? NegativeZero : Zero) : new
-        ERational(ac, bd).Simplify().ChangeSign(resultNeg);
+        ERational(ac, bd).ChangeSign(resultNeg);
     }
 
     /// <include file='../../docs.xml'
@@ -1075,7 +1059,7 @@ otherValue.IsNegative);
       }
       EInteger ad = this.Numerator * (EInteger)otherValue.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
-      return new ERational(ad, bc).Simplify().ChangeSign(resultNeg);
+      return new ERational(ad, bc).ChangeSign(resultNeg);
     }
 
     /// <include file='../../docs.xml'
@@ -1122,25 +1106,25 @@ otherValue.IsNegative);
       bc = thisDen * (EInteger)tnum;
       tden *= (EInteger)thisDen;
       ad -= (EInteger)bc;
-      return new ERational(ad, tden).Simplify().ChangeSign(resultNeg);
+      return new ERational(ad, tden).ChangeSign(resultNeg);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Zero"]/*'/>
 public static readonly ERational Zero =
-      FromBigInteger(EInteger.Zero);
+      FromEInteger(EInteger.Zero);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeZero"]/*'/>
     public static readonly ERational NegativeZero =
-      FromBigInteger(EInteger.Zero).ChangeSign(false);
+      FromEInteger(EInteger.Zero).ChangeSign(false);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.One"]/*'/>
-  public static readonly ERational One = FromBigInteger(EInteger.One);
+  public static readonly ERational One = FromEInteger(EInteger.One);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Ten"]/*'/>
-  public static readonly ERational Ten = FromBigInteger((EInteger)10);
+  public static readonly ERational Ten = FromEInteger((EInteger)10);
   }
 }

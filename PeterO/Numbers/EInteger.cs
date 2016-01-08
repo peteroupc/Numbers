@@ -64,24 +64,24 @@ namespace PeterO.Numbers {
       this.negative = negative;
     }
 
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>A value not documented yet.</value>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.One"]/*'/>
     public static EInteger One {
       get {
         return ValueOne;
       }
     }
 
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>A value not documented yet.</value>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Ten"]/*'/>
     public static EInteger Ten {
       get {
         return ValueTen;
       }
     }
 
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>A value not documented yet.</value>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Zero"]/*'/>
     public static EInteger Zero {
       get {
         return ValueZero;
@@ -168,9 +168,8 @@ namespace PeterO.Numbers {
                     newnegative));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='intValue'>Not documented yet.</param>
-    /// <returns>An EInteger object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
     public static EInteger FromInt32(int intValue) {
       if (intValue == 0) {
         return ValueZero;

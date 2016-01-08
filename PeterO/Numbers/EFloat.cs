@@ -331,18 +331,18 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToBigInteger"]/*'/>
-    public EInteger ToBigInteger() {
-      return this.ToBigIntegerInternal(false);
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToEInteger"]/*'/>
+    public EInteger ToEInteger() {
+      return this.ToEIntegerInternal(false);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToBigIntegerExact"]/*'/>
-    public EInteger ToBigIntegerExact() {
-      return this.ToBigIntegerInternal(true);
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToEIntegerExact"]/*'/>
+    public EInteger ToEIntegerExact() {
+      return this.ToEIntegerInternal(true);
     }
 
-    private EInteger ToBigIntegerInternal(bool exact) {
+    private EInteger ToEIntegerInternal(bool exact) {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -586,7 +586,7 @@ namespace PeterO.Numbers {
         subnormal = true;
         // Shift while number remains subnormal
         var accum = new BitShiftAccumulator(
-          FastInteger.WordsToBigInteger(mantissaBits),
+          FastInteger.WordsToEInteger(mantissaBits),
           0,
           0);
         FastInteger fi = FastInteger.Copy(bigexponent).SubtractInt(-1074).Abs();
@@ -677,8 +677,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromBigInteger(PeterO.Numbers.EInteger)"]/*'/>
-    public static EFloat FromBigInteger(EInteger bigint) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromEInteger(PeterO.Numbers.EInteger)"]/*'/>
+    public static EFloat FromEInteger(EInteger bigint) {
       return EFloat.Create(bigint, EInteger.Zero);
     }
 
@@ -709,7 +709,7 @@ namespace PeterO.Numbers {
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (value[1] & 0x80000) != 0;
         value[1] &= 0x3ffff;
-        EInteger info = FastInteger.WordsToBigInteger(value);
+        EInteger info = FastInteger.WordsToEInteger(value);
         if (info.IsZero) {
           return quiet ? NaN : SignalingNaN;
         }
@@ -732,13 +732,13 @@ namespace PeterO.Numbers {
         return neg ? EFloat.NegativeZero : EFloat.Zero;
       }
       return CreateWithFlags(
-        FastInteger.WordsToBigInteger(value),
+        FastInteger.WordsToEInteger(value),
         (EInteger)(floatExponent - 1075),
         neg ? BigNumberFlags.FlagNegative : 0);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToExtendedDecimal"]/*'/>
     public EDecimal ToExtendedDecimal() {
       return EDecimal.FromExtendedFloat(this);
     }

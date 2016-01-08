@@ -13,7 +13,7 @@ namespace PeterO.Numbers {
       private int[] data;
       private int wordCount;
 
-      internal static MutableNumber FromBigInteger(EInteger bigintVal) {
+      internal static MutableNumber FromEInteger(EInteger bigintVal) {
         var mnum = new MutableNumber(0);
         if (bigintVal.Sign < 0) {
           throw new ArgumentException("bigintVal's sign (" + bigintVal.Sign +
@@ -66,7 +66,7 @@ namespace PeterO.Numbers {
         return this;
       }
 
-      internal EInteger ToBigInteger() {
+      internal EInteger ToEInteger() {
         if (this.wordCount == 1 && (this.data[0] >> 31) == 0) {
           return (EInteger)((int)this.data[0]);
         }
@@ -432,7 +432,7 @@ namespace PeterO.Numbers {
       if (bigintVal.Sign > 0) {
         var fi = new FastInteger(0);
         fi.integerMode = 1;
-        fi.mnum = MutableNumber.FromBigInteger(bigintVal);
+        fi.mnum = MutableNumber.FromEInteger(bigintVal);
         return fi;
       } else {
         var fi = new FastInteger(0);
@@ -492,7 +492,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    internal static EInteger WordsToBigInteger(int[] words) {
+    internal static EInteger WordsToEInteger(int[] words) {
       int wordCount = words.Length;
       if (wordCount == 1 && (words[0] >> 31) == 0) {
         return (EInteger)((int)words[0]);
@@ -510,7 +510,7 @@ namespace PeterO.Numbers {
 
     internal static int[] GetLastWords(EInteger bigint, int numWords32Bit) {
       return
-      MutableNumber.FromBigInteger(bigint).GetLastWordsInternal(numWords32Bit);
+      MutableNumber.FromEInteger(bigint).GetLastWordsInternal(numWords32Bit);
     }
 
     internal FastInteger SetInt(int val) {
@@ -606,7 +606,7 @@ bigrem = divrem[1]; }
           case 1:
             if (val < 0) {
               this.integerMode = 2;
-              this.largeValue = this.mnum.ToBigInteger();
+              this.largeValue = this.mnum.ToEInteger();
               this.largeValue *= (EInteger)val;
             } else {
               mnum.Multiply(val);
@@ -630,14 +630,14 @@ bigrem = divrem[1]; }
             // would overflow, convert to large
             this.integerMode = 1;
             this.mnum =
-            MutableNumber.FromBigInteger(ValueNegativeInt32MinValue);
+            MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
           } else {
             smallValue = -smallValue;
           }
           break;
         case 1:
           this.integerMode = 2;
-          this.largeValue = this.mnum.ToBigInteger();
+          this.largeValue = this.mnum.ToEInteger();
           this.largeValue = -(EInteger)this.largeValue;
           break;
         case 2:
@@ -682,7 +682,7 @@ bigrem = divrem[1]; }
             mnum.SubtractInt(val.smallValue);
           } else {
             integerMode = 2;
-            largeValue = mnum.ToBigInteger();
+            largeValue = mnum.ToEInteger();
             valValue = val.AsBigInteger();
             largeValue -= (EInteger)valValue;
           }
@@ -727,7 +727,7 @@ bigrem = divrem[1]; }
           }
         case 1:
           this.integerMode = 2;
-          this.largeValue = this.mnum.ToBigInteger();
+          this.largeValue = this.mnum.ToEInteger();
           this.largeValue += bigintVal;
           break;
         case 2:
@@ -797,7 +797,7 @@ bigrem = divrem[1]; }
             this.mnum.Add(val.smallValue);
           } else {
             integerMode = 2;
-            largeValue = mnum.ToBigInteger();
+            largeValue = mnum.ToEInteger();
             valValue = val.AsBigInteger();
             largeValue += (EInteger)valValue;
           }
@@ -822,7 +822,7 @@ bigrem = divrem[1]; }
             this.smallValue %= divisor;
             break;
           case 1:
-            this.largeValue = this.mnum.ToBigInteger();
+            this.largeValue = this.mnum.ToEInteger();
             this.largeValue %= (EInteger)divisor;
             this.smallValue = (int)this.largeValue;
             this.integerMode = 0;
@@ -847,7 +847,7 @@ bigrem = divrem[1]; }
           ++this.smallValue;
         } else {
           this.integerMode = 1;
-          this.mnum = MutableNumber.FromBigInteger(ValueNegativeInt32MinValue);
+          this.mnum = MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
         }
         return this;
       }
@@ -860,7 +860,7 @@ bigrem = divrem[1]; }
           --this.smallValue;
         } else {
           this.integerMode = 1;
-          this.mnum = MutableNumber.FromBigInteger(ValueInt32MinValue);
+          this.mnum = MutableNumber.FromEInteger(ValueInt32MinValue);
           this.mnum.SubtractInt(1);
         }
         return this;
@@ -876,14 +876,14 @@ bigrem = divrem[1]; }
               // would overflow, convert to large
               this.integerMode = 1;
               this.mnum =
-              MutableNumber.FromBigInteger(ValueNegativeInt32MinValue);
+              MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
             } else {
               smallValue /= divisor;
             }
             break;
           case 1:
             this.integerMode = 2;
-            this.largeValue = this.mnum.ToBigInteger();
+            this.largeValue = this.mnum.ToEInteger();
             this.largeValue /= (EInteger)divisor;
             if (this.largeValue.IsZero) {
               this.integerMode = 0;
@@ -949,7 +949,7 @@ bigrem = divrem[1]; }
             this.mnum.Add(val);
           } else {
             integerMode = 2;
-            largeValue = mnum.ToBigInteger();
+            largeValue = mnum.ToEInteger();
             valValue = (EInteger)val;
             largeValue += (EInteger)valValue;
           }
@@ -1024,7 +1024,7 @@ bigrem = divrem[1]; }
         case 0:
           return IntToString(this.smallValue);
         case 1:
-          return this.mnum.ToBigInteger().ToString();
+          return this.mnum.ToEInteger().ToString();
         case 2:
           return this.largeValue.ToString();
         default: return String.Empty;
@@ -1071,7 +1071,7 @@ bigrem = divrem[1]; }
           return (val == this.smallValue) ? 0 : (this.smallValue < val ? -1 :
           1);
         case 1:
-          return this.mnum.ToBigInteger().CompareTo((EInteger)val);
+          return this.mnum.ToEInteger().CompareTo((EInteger)val);
         case 2:
           return this.largeValue.CompareTo((EInteger)val);
         default: return 0;
@@ -1083,7 +1083,7 @@ bigrem = divrem[1]; }
         case 0:
           return EInteger.FromInt64(this.smallValue);
         case 1:
-          return this.mnum.ToBigInteger();
+          return this.mnum.ToEInteger();
         case 2:
           return this.largeValue;
         default: throw new InvalidOperationException();

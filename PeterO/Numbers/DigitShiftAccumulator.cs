@@ -12,7 +12,7 @@ namespace PeterO.Numbers {
     private int bitLeftmost;
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.DigitShiftAccumulator.LastDiscardedDigit"]/*'/>
+  /// path='docs/doc[@name="P:PeterO.Numbers.DigitShiftAccumulator.LastDiscardedDigit"]/*'/>
     public int LastDiscardedDigit {
       get {
         return this.bitLeftmost;
@@ -22,7 +22,7 @@ namespace PeterO.Numbers {
     private int bitsAfterLeftmost;
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.DigitShiftAccumulator.OlderDiscardedDigits"]/*'/>
+  /// path='docs/doc[@name="P:PeterO.Numbers.DigitShiftAccumulator.OlderDiscardedDigits"]/*'/>
     public int OlderDiscardedDigits {
       get {
         return this.bitsAfterLeftmost;
@@ -51,7 +51,7 @@ namespace PeterO.Numbers {
     private static readonly EInteger ValueTen = (EInteger)10;
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.DigitShiftAccumulator.ShiftedInt"]/*'/>
+  /// path='docs/doc[@name="P:PeterO.Numbers.DigitShiftAccumulator.ShiftedInt"]/*'/>
     public EInteger ShiftedInt {
       get {
         return this.isSmall ? ((EInteger)this.shiftedSmall) :
