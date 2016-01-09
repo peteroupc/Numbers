@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>PeterO.Cbor</id>
+    <id>PeterO.Numbers</id>
     <version>0.1.0</version>
     <title>Numbers</title>
     <authors>Peter Occil</authors>
@@ -22,7 +22,7 @@
   <files>
     <file src="bin/Release/Numbers.dll" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
     <file src="bin/Release/Numbers.xml" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
-    <file src="bin/Release-Net40/Numbers.dll" target="lib/portable-net40+sl50+win+wpa81+wp80" />
-    <file src="bin/Release-Net40/Numbers.xml" target="lib/portable-net40+sl50+win+wpa81+wp80" />
+    <file src="bin/ReleaseNet40/Numbers.dll" target="lib/portable-net40+sl50+win+wpa81+wp80" />
+    <file src="bin/ReleaseNet40/Numbers.xml" target="lib/portable-net40+sl50+win+wpa81+wp80" />
   </files>
 </package>

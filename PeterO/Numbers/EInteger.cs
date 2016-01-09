@@ -65,7 +65,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.One"]/*'/>
+    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.One"]/*'/>
     public static EInteger One {
       get {
         return ValueOne;
@@ -73,7 +73,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Ten"]/*'/>
+    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Ten"]/*'/>
     public static EInteger Ten {
       get {
         return ValueTen;
@@ -81,7 +81,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Zero"]/*'/>
+    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Zero"]/*'/>
     public static EInteger Zero {
       get {
         return ValueZero;
@@ -169,7 +169,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
     public static EInteger FromInt32(int intValue) {
       if (intValue == 0) {
         return ValueZero;

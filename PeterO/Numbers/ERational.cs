@@ -455,13 +455,13 @@ rem = divrem[1]; }
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
     public static ERational FromInt32(int smallint) {
       return new ERational((EInteger)smallint, EInteger.One);
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
     public static ERational FromInt64(long longInt) {
       return new ERational((EInteger)longInt, EInteger.One);
     }
@@ -483,7 +483,7 @@ rem = divrem[1]; }
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>
     public ERational Abs() {
       if (this.IsNegative) {
         var er = new ERational(this.unsignedNumerator, this.denominator);
@@ -494,7 +494,7 @@ rem = divrem[1]; }
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Negate"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Negate"]/*'/>
     public ERational Negate() {
       var er = new ERational(this.unsignedNumerator, this.denominator);
       er.flags = this.flags ^ BigNumberFlags.FlagNegative;
@@ -820,7 +820,7 @@ thisRem = divrem[1]; }
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)"]/*'/>
     public bool Equals(ERational other) {
       return this.Equals((object)other);
     }

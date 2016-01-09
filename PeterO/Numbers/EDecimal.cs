@@ -2191,7 +2191,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {
@@ -2200,7 +2200,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
     public EDecimal RoundToExponent(
       int exponentSmall,
       ERounding rounding) {

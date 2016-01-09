@@ -738,7 +738,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToExtendedDecimal"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToExtendedDecimal"]/*'/>
     public EDecimal ToExtendedDecimal() {
       return EDecimal.FromExtendedFloat(this);
     }

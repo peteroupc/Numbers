@@ -128,13 +128,13 @@ EInteger mod) {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16"]/*'/>
     public static explicit operator short(EInteger bigValue) {
       return (short)(int)bigValue;
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'/>
     public static explicit operator byte(EInteger bigValue) {
       return (byte)(int)bigValue;
     }
@@ -170,7 +170,7 @@ EInteger otherValue) {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)"]/*'/>
     public long GetBits(int index, int numberBits) {
       if (numberBits < 0 || numberBits > 64) {
         throw new ArgumentOutOfRangeException("numberBits");
@@ -209,7 +209,7 @@ EInteger bigintSecond) {
       }
       return bigintFirst.gcd(bigintSecond);
     }
-    
+
     private static void OrWords(short[] r, short[] a, short[] b, int n) {
       for (var i = 0; i < n; ++i) {
         r[i] = unchecked((short)(a[i] | b[i]));
@@ -235,7 +235,7 @@ EInteger bigintSecond) {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)"]/*'/>
     public bool Equals(EInteger other) {
       return (other != null) && (this.CompareTo(other) == 0);
     }
