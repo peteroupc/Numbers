@@ -192,7 +192,7 @@ RandomBigInteger(r),
           sb.Append((char)('0' + r.NextValue(10)));
         }
       }
-      return (EInteger.fromString(sb.ToString()));
+      return (EInteger.FromString(sb.ToString()));
     }
 
     public static String RandomDecimalString(FastRandom r) {

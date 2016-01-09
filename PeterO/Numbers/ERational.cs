@@ -680,7 +680,7 @@ thisRem = divrem[1]; }
         if (other.Exponent.Sign > 0) {
           // NOTE: if unsigned numerator is 0, bitLength will return
           // 0 instead of 1, but the possibility of 0 was already excluded
-          int digitCount = this.UnsignedNumerator.bitLength();
+          int digitCount = this.UnsignedNumerator.GetBitLength();
           --digitCount;
           var bigDigitCount = (EInteger)digitCount;
           if (bigDigitCount.CompareTo(other.Exponent) < 0) {
@@ -796,7 +796,7 @@ thisRem = divrem[1]; }
         }
         // Console.WriteLine("---" + this + " " + other);
         if (other.Exponent.Sign > 0) {
-          int digitCount = this.UnsignedNumerator.getDigitCount();
+          int digitCount = this.UnsignedNumerator.GetDigitCount();
           --digitCount;
           var bigDigitCount = (EInteger)digitCount;
           if (bigDigitCount.CompareTo(other.Exponent) < 0) {

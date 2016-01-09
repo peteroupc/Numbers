@@ -187,12 +187,12 @@ int olderDiscarded) {
           this.bitLeftmost = odd ? 1 : 0;
         } else {
           this.bitsAfterLeftmost |= this.bitLeftmost;
-          int lowestSetBit = this.shiftedBigInt.getLowBit();
+          int lowestSetBit = this.shiftedBigInt.GetLowBit();
           if (lowestSetBit < bs - 1) {
             // One of the discarded bits after
             // the last one is set
             this.bitsAfterLeftmost |= 1;
-            this.bitLeftmost = this.shiftedBigInt.testBit(bs - 1) ? 1 : 0;
+            this.bitLeftmost = this.shiftedBigInt.TestBit(bs - 1) ? 1 : 0;
           } else if (lowestSetBit > bs - 1) {
             // Means all discarded bits are zero
             this.bitLeftmost = 0;
@@ -229,7 +229,7 @@ int olderDiscarded) {
         return new FastInteger(kb);
       }
       return new FastInteger(this.shiftedBigInt.IsZero ? 1 :
-      this.shiftedBigInt.bitLength());
+      this.shiftedBigInt.GetBitLength());
     }
 
     private void ShiftBigToBits(int bits) {
@@ -270,12 +270,12 @@ int olderDiscarded) {
           this.bitLeftmost = odd ? 1 : 0;
         } else {
           this.bitsAfterLeftmost |= this.bitLeftmost;
-          int lowestSetBit = this.shiftedBigInt.getLowBit();
+          int lowestSetBit = this.shiftedBigInt.GetLowBit();
           if (lowestSetBit < bs - 1) {
             // One of the discarded bits after
             // the last one is set
             this.bitsAfterLeftmost |= 1;
-            this.bitLeftmost = this.shiftedBigInt.testBit(bs - 1) ? 1 : 0;
+            this.bitLeftmost = this.shiftedBigInt.TestBit(bs - 1) ? 1 : 0;
           } else if (lowestSetBit > bs - 1) {
             // Means all discarded bits are zero
             this.bitLeftmost = 0;

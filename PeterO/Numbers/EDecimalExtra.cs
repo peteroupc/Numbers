@@ -40,6 +40,7 @@ bool neg) {
       }
       return new Decimal(new[] { a, b, c, d });
     }
+
     private static decimal ExtendedDecimalToDecimal(EDecimal
       extendedNumber) {
       if (extendedNumber.IsInfinity() || extendedNumber.IsNaN()) {

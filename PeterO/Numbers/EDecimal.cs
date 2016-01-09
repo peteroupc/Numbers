@@ -618,7 +618,7 @@ namespace PeterO.Numbers {
           return false;
         }
         // Eliminate factors of 2
-        int lowBit = tmpden.getLowBit();
+        int lowBit = tmpden.GetLowBit();
         tmpden >>= lowBit;
         // Eliminate factors of 5
         while (true) {
@@ -647,7 +647,7 @@ namespace PeterO.Numbers {
           return tmpbigint;
         }
         bool fitsInInt32 = power.CanFitInInt32();
-        int powerInt=(fitsInInt32) ? power.AsInt32() : 0;
+        int powerInt = fitsInInt32 ? power.AsInt32() : 0;
         if (fitsInInt32 && powerInt == 0) {
           return tmpbigint;
         }
@@ -1294,7 +1294,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         return EInteger.Zero;
       }
       EInteger ret = this.Exponent;
-      int smallPrecision = this.UnsignedMantissa.getDigitCount();
+      int smallPrecision = this.UnsignedMantissa.GetDigitCount();
       --smallPrecision;
       ret += (EInteger)smallPrecision;
       return ret;
@@ -1308,7 +1308,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         return EInteger.Zero;
       }
       EInteger ret = ef.Exponent;
-      int smallPrecision = ef.UnsignedMantissa.bitLength();
+      int smallPrecision = ef.UnsignedMantissa.GetBitLength();
       --smallPrecision;
       ret += (EInteger)smallPrecision;
       return ret;
@@ -2195,8 +2195,9 @@ if (!(decimalPoint.AsInt32() == 0)) {
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {
-      return this.RoundToExponentExact(exponentSmall,
-        EContext.ForRounding(rounding));
+      return this.RoundToExponentExact(
+exponentSmall,
+EContext.ForRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
@@ -2204,8 +2205,9 @@ if (!(decimalPoint.AsInt32() == 0)) {
     public EDecimal RoundToExponent(
       int exponentSmall,
       ERounding rounding) {
-      return this.RoundToExponent(exponentSmall,
-        EContext.ForRounding(rounding));
+      return this.RoundToExponent(
+exponentSmall,
+EContext.ForRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
@@ -2429,7 +2431,7 @@ EContext ctx) {
       if (this.IsZero) {
         return EInteger.One;
       }
-      int digcount = this.unsignedMantissa.getDigitCount();
+      int digcount = this.unsignedMantissa.GetDigitCount();
       return (EInteger)digcount;
     }
 

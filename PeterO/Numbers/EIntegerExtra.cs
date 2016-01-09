@@ -177,7 +177,7 @@ EInteger otherValue) {
       }
       long v = 0;
       for (int j = 0; j < numberBits; ++j) {
-        v |= (long)(this.testBit((int)(index + j)) ? 1 : 0) << j;
+        v |= (long)(this.TestBit((int)(index + j)) ? 1 : 0) << j;
       }
       return v;
     }
@@ -207,7 +207,7 @@ EInteger bigintSecond) {
       if (bigintFirst == null) {
         throw new ArgumentNullException("bigintFirst");
       }
-      return bigintFirst.gcd(bigintSecond);
+      return bigintFirst.Gcd(bigintSecond);
     }
 
     private static void OrWords(short[] r, short[] a, short[] b, int n) {

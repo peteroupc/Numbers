@@ -615,7 +615,7 @@ bigrem = divrem[1]; }
         }
         return new FastInteger(kb);
       }
-      return new FastInteger(this.shiftedBigInt.getDigitCount());
+      return new FastInteger(this.shiftedBigInt.GetDigitCount());
     }
 
     private void ShiftToBitsSmall(int digits) {
