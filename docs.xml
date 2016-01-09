@@ -3939,11 +3939,11 @@ of this class.</para>
             greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)">
-<summary>Divides this object by another big integer and returns the
+<summary>Divides this object by another arbitrary-precision integer and returns the
             quotient and remainder.</summary>
             <param name='divisor'>The parameter <paramref name='divisor'/> is
             not documented yet.</param>
-            <returns>An array with two big integers: the first is the quotient,
+            <returns>An array with two arbitrary-precision integers: the first is the quotient,
             and the second is the remainder.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             divisor is null.</exception>
@@ -3954,11 +3954,11 @@ of this class.</para>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)">
 <summary>Not documented yet.</summary>
-            <param name='dividend'>Big integer to be divided.</param>
+            <param name='dividend'>arbitrary-precision integer to be divided.</param>
             <param name='divisor'>An arbitrary-precision integer. (3).</param>
             <param name='remainder'>An arbitrary-precision integer.
             (4).</param>
-            <returns>An array of two big integers: the first is the quotient,
+            <returns>An array of two arbitrary-precision integers: the first is the quotient,
             and the second is the remainder.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='dividend'/> or <paramref name='divisor'/> is
@@ -3997,8 +3997,18 @@ of this class.</para>
 <doc name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)">
 <summary>Initializes an arbitrary-precision integer from an array
             of bytes.</summary>
-            <param name='bytes'>A byte array consisting of the two's-complement integer representation of the arbitrary-precision integer to create.
-The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, XOR each byte, and if the most-significant bit of the first byte isn't set, add an additional byte at the start with the value 255.  For little-endian, the byte order is reversed from the byte order just discussed.</param>
+            <param name='bytes'>A byte array consisting of the two's-complement integer representation of the arbitrary-precision integer to create.  The byte array is encoded using the following rules:<list>
+            <item>Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.</item>
+            <item>The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on.
+            For example, the number 300 can be encoded as <c>0x01, 0x2C</c> and 200 as <c>0x00, 0xC8</c>.
+            (Note that the second example contains a set high bit in <c>0xC8</c>, so an additional 0 is added at the start to ensure it's
+            interpreted as positive.)</item>
+            <item>To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number 
+            into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number 
+            will be all ones. For example, the number -450 can be encoded as
+            <c>0xFE, 0x70</c> and -52869 as <c>0xFF, 0x31, 0x7B</c>. (Note that the second example contains a cleared 
+            high bit in <c>0x31, 0x7B</c>, so an additional 0xFF is added at the start to ensure it's interpreted as negative.)</item></list>
+<para>For little-endian, the byte order is reversed from the byte order just discussed.</para></param>
             <param name='littleEndian'>If true, the byte order is little-endian,
             or least-significant-byte first.  If false, the byte order is big-endian,
             or most-significant-byte first.</param>
@@ -4216,16 +4226,17 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
             null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger,System.Int32)">
-<summary>Not documented yet.</summary>
+<summary>Raises an arbitrary-precision integer to a power.</summary>
             <param name='bigValue'>Another arbitrary-precision integer.</param>
-            <param name='power'>A 32-bit signed integer.</param>
-            <returns>An arbitrary-precision integer.</returns>
+            <param name='power'>The exponent to raise to.</param>
+            <returns>The result. Returns 1 if <paramref name='power'/> is
+            0.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigValue'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)">
 <summary>Raises an arbitrary-precision integer to a power, which is given as another
-            big integer.</summary>
+            arbitrary-precision integer.</summary>
             <param name='power'>The exponent to raise to.</param>
             <returns>The result. Returns 1 if <paramref name='power'/> is
             0.</returns>
@@ -4260,7 +4271,7 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)">
 <summary>Returns an arbitrary-precision integer with the bits shifted to the right.
-            For this operation, the big integer is treated as a two's
+            For this operation, the arbitrary-precision integer is treated as a two's
             complement representation. Thus, for negative values, the
             arbitrary-precision integer is sign-extended.</summary>
             <param name='numberBits'>Number of bits to shift right.</param>
@@ -4279,17 +4290,7 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.SqrtRem">
 <summary>Calculates the square root and the remainder.</summary>
-            <returns>An array of two big integers: the first integer is the
-            square root, and the second is the difference between this value
-            and the square of the first integer. Returns two zeros if this
-            value is 0 or less, or one and zero if this value equals
-            1.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.EInteger.SqrtRemInternal(System.Boolean)">
-<summary>Calculates the square root and the remainder.</summary>
-            <param name='useRem'>The parameter <paramref name='useRem'/> is not
-            documented yet.</param>
-            <returns>An array of two big integers: the first integer is the
+            <returns>An array of two arbitrary-precision integers: the first integer is the
             square root, and the second is the difference between this value
             and the square of the first integer. Returns two zeros if this
             value is 0 or less, or one and zero if this value equals
@@ -4305,7 +4306,7 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
             <paramref name='subtrahend'/> is null.</exception>
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Ten">
-<summary>Gets a value not documented yet.</summary>
+<summary>Gets the number 10 as an arbitrary-precision integer.</summary>
             <value>A value not documented yet.</value>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToString">
@@ -4380,7 +4381,7 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
             <paramref name='str'/> is null.</exception>
             <exception cref='T:System.FormatException'>The parameter <paramref name='str'/> is in an invalid format.</exception>
 </doc>
-<doc name="M:PeterO.Numbers.EInteger.gcd(PeterO.Numbers.EInteger)">
+<doc name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)">
 <summary>Returns the greatest common divisor of two integers. The
             greatest common divisor (GCD) is also known as the greatest common
             factor (GCF).</summary>
@@ -4390,7 +4391,7 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigintSecond'/> is null.</exception>
 </doc>
-<doc name="M:PeterO.Numbers.EInteger.getDigitCount">
+<doc name="M:PeterO.Numbers.EInteger.GetDigitCount">
 <summary>Finds the number of decimal digits this number
             has.</summary>
             <returns>The number of decimal digits. Returns 1 if this object' s
@@ -4398,10 +4399,10 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.getLowBit">
 <summary>Gets the lowest set bit in this number's absolute
-            value.</summary>
-            <returns>The lowest bit set in the number, starting at 0. Returns 0
-            if this value is 0 or odd. (NOTE: In future versions, may return -1
-            instead if this value is 0.).</returns>
+            value.  (This will also be the lowest set bit in the number's
+            two's-complement representation.)</summary>
+            <returns>The lowest bit set in the number, starting at 0. Returns -1
+            if this value is 0 or odd.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.getUnsignedBitLength">
 <summary>Finds the minimum number of bits needed to represent this
@@ -4649,14 +4650,16 @@ The last byte contains the lowest 8-bits, the next-to-last contains the next low
             representation of this object's value; otherwise, false.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.toBytes(System.Boolean)">
-<summary>Returns a byte array of this object&#x27;s value. The byte
-            array will take the form of the number's two' s-complement
-            representation, using the fewest bytes necessary to represent its
+<summary>Returns a byte array of this integer&#x27;s value. The byte
+            array will take the form of the number's two's-complement
+            representation, using the fewest bytes necessary to store its
             value unambiguously. If this value is negative, the bits that
-            appear "before" the most significant bit of the number will be all
-            ones.</summary>
-            <param name='littleEndian'>If true, the least significant bits will
-            appear first.</param>
+            appear beyond the most significant bit of the number will be all
+            ones.  The resulting byte array can be passed to the <c>FromBytes()</c>
+            method (with the same byte order) to reconstruct this integer's value.</summary>
+            <param name='littleEndian'>If true, the byte order is little-endian,
+            or least-significant-byte first.  If false, the byte order is big-endian,
+            or most-significant-byte first.</param>
             <returns>A byte array. If this value is 0, returns a byte array
             with the single element 0.</returns>
 </doc>

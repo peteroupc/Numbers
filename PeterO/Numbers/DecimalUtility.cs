@@ -624,7 +624,7 @@ throw new ArgumentException("doesn't satisfy precision==null || digits!=null");
         }
         if (radix == 2) {
           if (bitToTest < Int32.MaxValue) {
-            if (bigmant.TestBit(bitToTest)) {
+            if (bigmant.GetSignedBit(bitToTest)) {
               break;
             }
             ++bitToTest;

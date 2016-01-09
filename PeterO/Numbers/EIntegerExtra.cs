@@ -177,7 +177,7 @@ EInteger otherValue) {
       }
       long v = 0;
       for (int j = 0; j < numberBits; ++j) {
-        v |= (long)(this.TestBit((int)(index + j)) ? 1 : 0) << j;
+        v |= (long)(this.GetSignedBit((int)(index + j)) ? 1 : 0) << j;
       }
       return v;
     }

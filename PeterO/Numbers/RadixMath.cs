@@ -358,7 +358,7 @@ ctx);
             ctx) : this.RoundToPrecision(retval, ctx);
         // DebugUtility.Log("retval now " + retval);
       } else {
-        return IsNullOrSimpleContext(ctx) ? (retval) :
+        return IsNullOrSimpleContext(ctx) ? retval :
           this.RoundToPrecision(retval, ctx);
       }
     }
@@ -518,7 +518,7 @@ bool roundToOperandPrecision) {
         op1Mantissa.CanFitInInt32() && op2Mantissa.CanFitInInt32() &&
         (thisFlags & BigNumberFlags.FlagNegative) == 0 &&
         (otherFlags & BigNumberFlags.FlagNegative) != 0 &&
-        !op2Mantissa.IsZero && !(op1Mantissa.IsZero)) {
+        !op2Mantissa.IsZero && !op1Mantissa.IsZero) {
         var e1int = 0;
         var e2int = 0;
         var result = 0;
@@ -3143,9 +3143,8 @@ ctx,
         var lastDiscarded = 0;
         var olderDiscarded = 0;
         if (!mantissaDividend.IsZero) {
-        if (rounding == ERounding.HalfDown || rounding == ERounding.HalfEven
-            ||
-              rounding == ERounding.HalfUp) {
+        if (rounding == ERounding.HalfDown || rounding == ERounding.HalfEven ||
+            rounding == ERounding.HalfUp) {
             EInteger halfDivisor = mantissaDivisor >> 1;
             int cmpHalf = mantissaDividend.CompareTo(halfDivisor);
             if ((cmpHalf == 0) && mantissaDivisor.IsEven) {

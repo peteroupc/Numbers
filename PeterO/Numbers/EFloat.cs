@@ -1535,7 +1535,7 @@ EContext ctx) {
       if (this.IsZero) {
  return EInteger.One;
 }
-      int bitlen = this.unsignedMantissa.GetBitLength();
+      int bitlen = this.unsignedMantissa.GetSignedBitLength();
       return (EInteger)bitlen;
     }
 

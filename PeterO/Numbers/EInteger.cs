@@ -755,11 +755,11 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.bitLength"]/*'/>
-    public int GetBitLength() {
+    public int GetSignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
         if (this.negative) {
-          return this.Abs().Subtract(EInteger.One).GetBitLength();
+          return this.Abs().Subtract(EInteger.One).GetSignedBitLength();
         }
         int numberValue = ((int)this.words[wc - 1]) & 0xffff;
         wc = (wc - 1) << 4;
@@ -844,15 +844,11 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsPowerOfTwo"]/*'/>
     public bool IsPowerOfTwo {
       get {
-        int bits = this.GetBitLength();
-        var ret = 0;
-        for (var i = 0; i < bits; ++i) {
-          ret += this.GetUnsignedBit(i) ? 1 : 0;
-          if (ret >= 2) {
-            return false;
-          }
+        if (this.negative) {
+          return false;
         }
-        return ret == 1;
+        return (this.wordCount == 0) ? false : (this.GetUnsignedBitLength()
+          - 1 == this.GetLowBit());
       }
     }
 
@@ -1261,11 +1257,10 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.getLowBit"]/*'/>
     public int GetLowBit() {
-      // TODO: Support signed numbers
       var retSetBit = 0;
       for (var i = 0; i < this.wordCount; ++i) {
-        short c = this.words[i];
-        if (c == (short)0) {
+        int c = ((int)this.words[i]) & 0xffff;
+        if (c == 0) {
           retSetBit += 16;
         } else {
           return (((c << 15) & 0xffff) != 0) ? (retSetBit + 0) : ((((c <<
@@ -1286,7 +1281,7 @@ namespace PeterO.Numbers {
                     0) ? (retSetBit + 14) : (retSetBit + 15)))))))))))))));
         }
       }
-      return 0;
+      return -1;
     }
 
     /// <include file='../../docs.xml'
@@ -1455,7 +1450,8 @@ namespace PeterO.Numbers {
           ba = unchecked(ba * bb);
           productreg[0 ] = unchecked((short)(ba & 0xffff));
           productreg[1 ] = unchecked((short)((ba >> 16) & 0xffff));
-          wc = (productreg[1] = = 0) ? 1 : 2;
+          short preg = productreg[1];
+          wc = (preg == 0) ? 1 : 2;
           return new EInteger(
 wc,
 productreg,
@@ -1800,7 +1796,7 @@ this.negative ^ bigintMult.negative);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.testBit(System.Int32)"]/*'/>
-    public bool TestBit(int index) {
+    public bool GetSignedBit(int index) {
       if (index < 0) {
         throw new ArgumentOutOfRangeException("index");
       }
@@ -5267,12 +5263,13 @@ count);
       return (s == 0) ? wc : (((s >> 8) == 0) ? wc + 1 : wc + 2);
     }
 
-    private bool GetUnsignedBit(int n) {
-#if DEBUG
+    /// <summary>Not documented yet.</summary>
+    /// <param name='n'>A 32-bit signed integer.</param>
+    /// <returns>A Boolean object.</returns>
+    public bool GetUnsignedBit(int n) {
       if (n < 0) {
         throw new ArgumentException("n (" + n + ") is less than 0");
       }
-#endif
       return ((n >> 4) < this.words.Length) && ((bool)(((this.words[(n >>
                     4)] >> (int)(n & 15)) & 1) != 0));
     }
@@ -5348,8 +5345,6 @@ count);
       return new String(chars, 0, count);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.SqrtRemInternal(System.Boolean)"]/*'/>
     private EInteger[] SqrtRemInternal(bool useRem) {
       if (this.Sign <= 0) {
         return new[] { EInteger.Zero, EInteger.Zero };

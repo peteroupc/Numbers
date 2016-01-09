@@ -21,7 +21,7 @@ bool neg) {
         throw new ArgumentException(
 "scale (" + scale + ") is more than " + "28");
       }
-      byte[] data = bigmant.ToBytes(true);
+      var data = bigmant.ToBytes(true);
       var a = 0;
       var b = 0;
       var c = 0;
@@ -47,7 +47,7 @@ bool neg) {
         throw new OverflowException("This object's value is out of range");
       }
       try {
-        EDecimal newDecimal = extendedNumber.RoundToPrecision(
+        var newDecimal = extendedNumber.RoundToPrecision(
           EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
         return EncodeDecimal(
 newDecimal.Mantissa.Abs(),
@@ -61,7 +61,7 @@ newDecimal.Mantissa.Sign < 0);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(decimal dec) {
-      int[] bits = Decimal.GetBits(dec);
+      var bits = Decimal.GetBits(dec);
       int scale = (bits[3] >> 16) & 0xff;
       var data = new byte[13];
       data[0] = (byte)(bits[0] & 0xff);

@@ -1308,7 +1308,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         return EInteger.Zero;
       }
       EInteger ret = ef.Exponent;
-      int smallPrecision = ef.UnsignedMantissa.GetBitLength();
+      int smallPrecision = ef.UnsignedMantissa.GetSignedBitLength();
       --smallPrecision;
       ret += (EInteger)smallPrecision;
       return ret;

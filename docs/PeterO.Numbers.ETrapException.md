@@ -1,6 +1,6 @@
 ## PeterO.Numbers.ETrapException
 
-    public class ETrapException :
+    public sealed class ETrapException :
         System.ArithmeticException,
         System.Runtime.Serialization.ISerializable,
         System.Runtime.InteropServices._Exception
