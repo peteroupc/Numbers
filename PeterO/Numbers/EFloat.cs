@@ -262,7 +262,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
       public bool HasTerminatingRadixExpansion(EInteger num, EInteger den) {
-        EInteger gcd = EInteger.GreatestCommonDivisor(num, den);
+        EInteger gcd = num.Gcd(den);
         if (gcd.IsZero) {
           return false;
         }

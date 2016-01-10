@@ -605,30 +605,6 @@ Finds the minimum number of bits needed to represent this object's absolute valu
 
 The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
 
-### GreatestCommonDivisor
-
-    public static PeterO.Numbers.EInteger GreatestCommonDivisor(
-        PeterO.Numbers.EInteger bigintFirst,
-        PeterO.Numbers.EInteger bigintSecond);
-
-Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>bigintFirst</i>: Another arbitrary-precision integer.
-
- * <i>bigintSecond</i>: An arbitrary-precision integer. (3).
-
-<b>Returns:</b>
-
-An arbitrary-precision integer.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>bigintFirst</i>
- is null.
-
 ### Mod
 
     public PeterO.Numbers.EInteger Mod(

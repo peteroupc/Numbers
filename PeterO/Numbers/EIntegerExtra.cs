@@ -199,17 +199,6 @@ out EInteger remainder) {
       return result[0];
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GreatestCommonDivisor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-    public static EInteger GreatestCommonDivisor(
-EInteger bigintFirst,
-EInteger bigintSecond) {
-      if (bigintFirst == null) {
-        throw new ArgumentNullException("bigintFirst");
-      }
-      return bigintFirst.Gcd(bigintSecond);
-    }
-
     private static void OrWords(short[] r, short[] a, short[] b, int n) {
       for (var i = 0; i < n; ++i) {
         r[i] = unchecked((short)(a[i] | b[i]));

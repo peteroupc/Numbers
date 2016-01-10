@@ -1082,8 +1082,8 @@ of this class.</para>
             U+002D) (if '-' , the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
             after the first digit and before the last digit.</item>
-            <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
-            (negative exponent) plus one or more digits specifying the
+            <item>Optionally, "E"/"e" followed by an optional "+" (positive exponent) or "-"
+            (negative exponent) and followed by one or more digits specifying the
             exponent.</item></list>
             <para>The string can also be "-INF", "-Infinity", "Infinity", "INF"
             , quiet NaN ("NaN" /"-NaN") followed by any number of digits, or

@@ -609,9 +609,7 @@ namespace PeterO.Numbers {
         EInteger numerator,
         EInteger denominator) {
         // Simplify denominator based on numerator
-        EInteger gcd = EInteger.GreatestCommonDivisor(
-          numerator,
-          denominator);
+        EInteger gcd = numerator.Gcd(denominator);
         EInteger tmpden = denominator;
         tmpden /= gcd;
         if (tmpden.IsZero) {
