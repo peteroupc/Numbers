@@ -15,7 +15,7 @@ Source code is available in the [project page](https://github.com/peteroupc/CBOR
 
 How to Install
 ---------
-Starting with version 0.21.0, the C# implementation is available in the
+The library is available in the
 NuGet Package Gallery under the name
 [PeterO.Cbor](https://www.nuget.org/packages/PeterO.Cbor). To install
 this library as a NuGet package, enter `Install-Package PeterO.Cbor` in the

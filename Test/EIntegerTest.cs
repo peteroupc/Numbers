@@ -1406,7 +1406,7 @@ BigValueOf(longV).AsInt64Checked());
         ba *= (EInteger)bigprime;
         Assert.AreEqual(
           bigprime,
-          EInteger.GreatestCommonDivisor(bigprime, ba));
+          bigprime.Gcd(ba));
       }
       TestGcdPair((EInteger)(-1867), (EInteger)(-4456), EInteger.One);
       TestGcdPair((EInteger)4604, (EInteger)(-4516), (EInteger)4);
@@ -1489,8 +1489,8 @@ BigValueOf(longV).AsInt64Checked());
         }
         var biga = (EInteger)prime;
         var bigb = (EInteger)intB;
-        EInteger ba = EInteger.GreatestCommonDivisor(biga, bigb);
-        EInteger bb = EInteger.GreatestCommonDivisor(bigb, biga);
+        EInteger ba = biga.Gcd(bigb);
+        EInteger bb = bigb.Gcd(biga);
         Assert.AreEqual(ba, bb);
       }
     }
@@ -2223,8 +2223,8 @@ BigValueOf(longV).AsInt64Checked());
       EInteger biga,
       EInteger bigb,
       EInteger biggcd) {
-      EInteger ba = EInteger.GreatestCommonDivisor(biga, bigb);
-      EInteger bb = EInteger.GreatestCommonDivisor(bigb, biga);
+      EInteger ba = biga.Gcd(bigb);
+      EInteger bb = bigb.Gcd(biga);
       Assert.AreEqual(ba, biggcd);
       Assert.AreEqual(bb, biggcd);
     }

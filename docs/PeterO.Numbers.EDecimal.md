@@ -835,7 +835,7 @@ The format of the string generally consists of:
 
  * One or more digits, with a single optional decimal point after the first digit and before the last digit.
 
- * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent.
+ * Optionally, "E"/"e" followed by an optional "+" (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent.
 
 The string can also be "-INF", "-Infinity", "Infinity", "INF" , quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 
