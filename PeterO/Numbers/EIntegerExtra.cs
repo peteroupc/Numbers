@@ -127,16 +127,14 @@ EInteger mod) {
       return bigValue.AsInt32Checked();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 16-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16"]/*'/>
     public static explicit operator short(EInteger bigValue) {
       return (short)(int)bigValue;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A Byte object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'/>
     public static explicit operator byte(EInteger bigValue) {
       return (byte)(int)bigValue;
     }
@@ -171,17 +169,15 @@ EInteger otherValue) {
         (thisValue.CompareTo(otherValue) >= 0);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='index'>Not documented yet.</param>
-    /// <param name='numberBits'>Not documented yet.</param>
-    /// <returns>A 64-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)"]/*'/>
     public long GetBits(int index, int numberBits) {
       if (numberBits < 0 || numberBits > 64) {
         throw new ArgumentOutOfRangeException("numberBits");
       }
       long v = 0;
       for (int j = 0; j < numberBits; ++j) {
-        v |= (long)(this.testBit((int)(index + j)) ? 1 : 0) << j;
+        v |= (long)(this.GetSignedBit((int)(index + j)) ? 1 : 0) << j;
       }
       return v;
     }
@@ -201,46 +197,6 @@ out EInteger remainder) {
       EInteger[] result = dividend.DivRem(divisor);
       remainder = result[1];
       return result[0];
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GreatestCommonDivisor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-    public static EInteger GreatestCommonDivisor(
-EInteger bigintFirst,
-EInteger bigintSecond) {
-      if (bigintFirst == null) {
-        throw new ArgumentNullException("bigintFirst");
-      }
-      return bigintFirst.gcd(bigintSecond);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-    public static EInteger Pow(EInteger bigValue, EInteger power) {
-      if (bigValue == null) {
-        throw new ArgumentNullException("bigValue");
-      }
-      if (power == null) {
-        throw new ArgumentNullException("power");
-      }
-      if (power.Sign < 0) {
-        throw new ArgumentException("power's sign (" + power.Sign +
-          ") is less than 0");
-      }
-      return bigValue.PowBigIntVar(power);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger,System.Int32)"]/*'/>
-    public static EInteger Pow(EInteger bigValue, int power) {
-      if (bigValue == null) {
-        throw new ArgumentNullException("bigValue");
-      }
-      if (power < 0) {
-      throw new ArgumentException("power (" + power + ") is less than " +
-          "0");
-      }
-      return bigValue.pow(power);
     }
 
     private static void OrWords(short[] r, short[] a, short[] b, int n) {
@@ -267,9 +223,8 @@ EInteger bigintSecond) {
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>A Boolean object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)"]/*'/>
     public bool Equals(EInteger other) {
       return (other != null) && (this.CompareTo(other) == 0);
     }

@@ -9,47 +9,38 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EFloat {
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(long bigValue) {
       return FromInt64(bigValue);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(float bigValue) {
       return FromSingle(bigValue);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(double bigValue) {
       return FromDouble(bigValue);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='smallValue'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(int smallValue) {
       return FromInt32(smallValue);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='eint'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(EInteger eint) {
-      return FromBigInteger(eint);
+      return FromEInteger(eint);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>Not documented yet.</param>
-    /// <param name='augend'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator +(EFloat bthis, EFloat augend) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
@@ -57,12 +48,8 @@ namespace PeterO.Numbers {
       return bthis.Add(augend);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>Not documented yet.</param>
-    /// <param name='subtrahend'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator -(
    EFloat bthis,
    EFloat subtrahend) {
@@ -72,12 +59,8 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='operand1'>Not documented yet.</param>
-    /// <param name='operand2'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='operand1'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator *(
     EFloat operand1,
     EFloat operand2) {
@@ -87,12 +70,8 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='dividend'>Not documented yet.</param>
-    /// <param name='divisor'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator /(
    EFloat dividend,
    EFloat divisor) {
@@ -102,12 +81,8 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='dividend'>Not documented yet.</param>
-    /// <param name='divisor'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator %(
    EFloat dividend,
    EFloat divisor) {
@@ -117,11 +92,8 @@ namespace PeterO.Numbers {
       return dividend.Remainder(divisor, null);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator -(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
@@ -129,56 +101,47 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit signed integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64"]/*'/>
     public static explicit operator long (EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
       }
-      return (long)bigValue.ToBigInteger();
+      return (long)bigValue.ToEInteger();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EInteger object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger"]/*'/>
     public static explicit operator EInteger(EFloat bigValue) {
-      return bigValue.ToBigInteger();
+      return bigValue.ToEInteger();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit floating-point number.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double"]/*'/>
     public static explicit operator double (EFloat bigValue) {
       return bigValue.ToDouble();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit floating-point number.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single"]/*'/>
     public static explicit operator float (EFloat bigValue) {
       return bigValue.ToSingle();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32"]/*'/>
     public static explicit operator int (EFloat bigValue) {
-      return (int)bigValue.ToBigInteger();
+      return (int)bigValue.ToEInteger();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 16-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16"]/*'/>
     public static explicit operator short (EFloat bigValue) {
       return (short)(int)bigValue;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A Byte object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte"]/*'/>
     public static explicit operator byte (EFloat bigValue) {
       return (byte)(int)bigValue;
     }

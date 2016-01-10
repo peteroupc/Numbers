@@ -42,6 +42,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'ReleaseNet40' ">
     <ProjectGuid>{080E86D9-44D1-4B2A-B8F8-A0934D741BD1}</ProjectGuid>
+    <ProjectGuid>{23A1B70C-F064-47B6-8B7E-E2042CDAD8C7}</ProjectGuid>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile328</TargetFrameworkProfile>
@@ -57,6 +58,8 @@
     <DocumentationFile>bin\Debug\Numbers.xml</DocumentationFile>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\CBOR\CBOR.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DocumentationFile>bin\Release\Numbers.xml</DocumentationFile>
@@ -69,6 +72,7 @@
     <DocumentationFile>bin\ReleaseNet40\Numbers.xml</DocumentationFile>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
+    <DefineConstants>TRACE;NET40</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PeterO\DebugUtility.cs" />
@@ -104,4 +108,5 @@
   <!--
   <Import Project="$(MSBuildExtensionsPath)\StyleCop\v4.7\StyleCop.targets" />
   -->
+  <Import Project="$(MSBuildExtensionsPath)\StyleCop\v4.7\StyleCop.targets" />
 </Project>

@@ -97,7 +97,7 @@ namespace Test {
 
   Assert.IsTrue(Single.IsNegativeInfinity(ERational.NegativeInfinity.ToSingle()));
       try {
-        EDecimal.PositiveInfinity.ToBigInteger();
+        EDecimal.PositiveInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -106,7 +106,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EDecimal.NegativeInfinity.ToBigInteger();
+        EDecimal.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -115,7 +115,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.PositiveInfinity.ToBigInteger();
+        EFloat.PositiveInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -124,7 +124,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.NegativeInfinity.ToBigInteger();
+        EFloat.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -133,7 +133,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ERational.PositiveInfinity.ToBigInteger();
+        ERational.PositiveInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -142,7 +142,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ERational.NegativeInfinity.ToBigInteger();
+        ERational.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);

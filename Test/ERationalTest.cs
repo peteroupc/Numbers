@@ -256,13 +256,13 @@ namespace Test {
       // not implemented yet
     }
     [Test]
-    public void TestToBigInteger() {
+    public void TestToEInteger() {
       // not implemented yet
     }
     [Test]
-    public void TestToBigIntegerExact() {
+    public void TestToEIntegerExact() {
       try {
-        ERational.PositiveInfinity.ToBigIntegerExact();
+        ERational.PositiveInfinity.ToEIntegerExact();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -271,7 +271,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ERational.NegativeInfinity.ToBigIntegerExact();
+        ERational.NegativeInfinity.ToEIntegerExact();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -280,7 +280,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ERational.NaN.ToBigIntegerExact();
+        ERational.NaN.ToEIntegerExact();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -289,7 +289,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ERational.SignalingNaN.ToBigIntegerExact();
+        ERational.SignalingNaN.ToEIntegerExact();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);

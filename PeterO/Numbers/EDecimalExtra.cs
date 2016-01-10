@@ -9,34 +9,108 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EDecimal {
-    // TODO: Add .NET decimal operators
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    private static decimal EncodeDecimal(
+EInteger bigmant,
+int scale,
+bool neg) {
+      if (scale < 0) {
+        throw new ArgumentException(
+"scale (" + scale + ") is less than 0");
+      }
+      if (scale > 28) {
+        throw new ArgumentException(
+"scale (" + scale + ") is more than " + "28");
+      }
+      var data = bigmant.ToBytes(true);
+      var a = 0;
+      var b = 0;
+      var c = 0;
+      for (var i = 0; i < Math.Min(4, data.Length); ++i) {
+        a |= (((int)data[i]) & 0xff) << (i * 8);
+      }
+      for (int i = 4; i < Math.Min(8, data.Length); ++i) {
+        b |= (((int)data[i]) & 0xff) << ((i - 4) * 8);
+      }
+      for (int i = 8; i < Math.Min(12, data.Length); ++i) {
+        c |= (((int)data[i]) & 0xff) << ((i - 8) * 8);
+      }
+      int d = scale << 16;
+      if (neg) {
+        d |= 1 << 31;
+      }
+      return new Decimal(new[] { a, b, c, d });
+    }
+
+    private static decimal ExtendedDecimalToDecimal(EDecimal
+      extendedNumber) {
+      if (extendedNumber.IsInfinity() || extendedNumber.IsNaN()) {
+        throw new OverflowException("This object's value is out of range");
+      }
+      try {
+        var newDecimal = extendedNumber.RoundToPrecision(
+          EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
+        return EncodeDecimal(
+newDecimal.Mantissa.Abs(),
+-((int)newDecimal.Exponent),
+newDecimal.Mantissa.Sign < 0);
+      } catch (ETrapException ex) {
+        throw new OverflowException("This object's value is out of range", ex);
+      }
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal"]/*'/>
+    public static implicit operator EDecimal(decimal dec) {
+      var bits = Decimal.GetBits(dec);
+      int scale = (bits[3] >> 16) & 0xff;
+      var data = new byte[13];
+      data[0] = (byte)(bits[0] & 0xff);
+      data[1] = (byte)((bits[0] >> 8) & 0xff);
+      data[2] = (byte)((bits[0] >> 16) & 0xff);
+      data[3] = (byte)((bits[0] >> 24) & 0xff);
+      data[4] = (byte)(bits[1] & 0xff);
+      data[5] = (byte)((bits[1] >> 8) & 0xff);
+      data[6] = (byte)((bits[1] >> 16) & 0xff);
+      data[7] = (byte)((bits[1] >> 24) & 0xff);
+      data[8] = (byte)(bits[2] & 0xff);
+      data[9] = (byte)((bits[2] >> 8) & 0xff);
+      data[10] = (byte)((bits[2] >> 16) & 0xff);
+      data[11] = (byte)((bits[2] >> 24) & 0xff);
+      data[12] = 0;
+      var mantissa = EInteger.FromBytes(data, true);
+      bool negative = (bits[3] >> 31) != 0;
+      if (negative) {
+        mantissa = -mantissa;
+      }
+      return Create(mantissa, (EInteger)(-scale));
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal"]/*'/>
+    public static explicit operator decimal(EDecimal bigValue) {
+      return ExtendedDecimalToDecimal(bigValue);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(long bigValue) {
       return FromInt64(bigValue);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='smallValue'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(int smallValue) {
       return FromInt32(smallValue);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='eint'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(EInteger eint) {
-      return FromBigInteger(eint);
+      return FromEInteger(eint);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>Not documented yet.</param>
-    /// <param name='augend'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Addition(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator +(EDecimal bthis, EDecimal augend) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
@@ -44,12 +118,8 @@ namespace PeterO.Numbers {
       return bthis.Add(augend);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>Not documented yet.</param>
-    /// <param name='subtrahend'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Subtraction(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator -(
    EDecimal bthis,
    EDecimal subtrahend) {
@@ -59,12 +129,8 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='operand1'>Not documented yet.</param>
-    /// <param name='operand2'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='operand1'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator *(
     EDecimal operand1,
     EDecimal operand2) {
@@ -74,12 +140,8 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='dividend'>Not documented yet.</param>
-    /// <param name='divisor'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator /(
    EDecimal dividend,
    EDecimal divisor) {
@@ -89,12 +151,8 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='dividend'>Not documented yet.</param>
-    /// <param name='divisor'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator %(
    EDecimal dividend,
    EDecimal divisor) {
@@ -104,11 +162,8 @@ namespace PeterO.Numbers {
       return dividend.Remainder(divisor, null);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator -(EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
@@ -116,56 +171,47 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit signed integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64"]/*'/>
     public static explicit operator long (EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
       }
-      return (long)bigValue.ToBigInteger();
+      return (long)bigValue.ToEInteger();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EInteger object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.EInteger"]/*'/>
     public static explicit operator EInteger(EDecimal bigValue) {
-      return bigValue.ToBigInteger();
+      return bigValue.ToEInteger();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit floating-point number.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double"]/*'/>
     public static explicit operator double (EDecimal bigValue) {
       return bigValue.ToDouble();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit floating-point number.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single"]/*'/>
     public static explicit operator float (EDecimal bigValue) {
       return bigValue.ToSingle();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32"]/*'/>
     public static explicit operator int (EDecimal bigValue) {
-      return (int)bigValue.ToBigInteger();
+      return (int)bigValue.ToEInteger();
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 16-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16"]/*'/>
     public static explicit operator short (EDecimal bigValue) {
       return (short)(int)bigValue;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A Byte object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte"]/*'/>
     public static explicit operator byte (EDecimal bigValue) {
       return (byte)(int)bigValue;
     }

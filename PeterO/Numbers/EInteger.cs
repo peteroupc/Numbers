@@ -64,24 +64,24 @@ namespace PeterO.Numbers {
       this.negative = negative;
     }
 
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>A value not documented yet.</value>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.One"]/*'/>
     public static EInteger One {
       get {
         return ValueOne;
       }
     }
 
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>A value not documented yet.</value>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Ten"]/*'/>
     public static EInteger Ten {
       get {
         return ValueTen;
       }
     }
 
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>A value not documented yet.</value>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Zero"]/*'/>
     public static EInteger Zero {
       get {
         return ValueZero;
@@ -168,9 +168,8 @@ namespace PeterO.Numbers {
                     newnegative));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='intValue'>Not documented yet.</param>
-    /// <returns>An EInteger object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
     public static EInteger FromInt32(int intValue) {
       if (intValue == 0) {
         return ValueZero;
@@ -463,7 +462,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.fromString(System.String)"]/*'/>
-    public static EInteger fromString(string str) {
+    public static EInteger FromString(string str) {
       if (str == null) {
         throw new ArgumentNullException("str");
       }
@@ -756,11 +755,11 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.bitLength"]/*'/>
-    public int bitLength() {
+    public int GetSignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
         if (this.negative) {
-          return this.Abs().Subtract(EInteger.One).bitLength();
+          return this.Abs().Subtract(EInteger.One).GetSignedBitLength();
         }
         int numberValue = ((int)this.words[wc - 1]) & 0xffff;
         wc = (wc - 1) << 4;
@@ -845,15 +844,11 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsPowerOfTwo"]/*'/>
     public bool IsPowerOfTwo {
       get {
-        int bits = this.bitLength();
-        var ret = 0;
-        for (var i = 0; i < bits; ++i) {
-          ret += this.GetUnsignedBit(i) ? 1 : 0;
-          if (ret >= 2) {
-            return false;
-          }
+        if (this.negative) {
+          return false;
         }
-        return ret == 1;
+        return (this.wordCount == 0) ? false : (this.GetUnsignedBitLength()
+          - 1 == this.GetLowBit());
       }
     }
 
@@ -1026,7 +1021,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.gcd(PeterO.Numbers.EInteger)"]/*'/>
-    public EInteger gcd(EInteger bigintSecond) {
+    public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException("bigintSecond");
       }
@@ -1047,8 +1042,8 @@ namespace PeterO.Numbers {
       }
       if (thisValue.wordCount <= 10 && bigintSecond.wordCount <= 10) {
         int expOfTwo = Math.Min(
-          thisValue.getLowBit(),
-          bigintSecond.getLowBit());
+          thisValue.GetLowBit(),
+          bigintSecond.GetLowBit());
         while (true) {
           EInteger bigintA = (thisValue - (EInteger)bigintSecond).Abs();
           if (bigintA.IsZero) {
@@ -1057,7 +1052,7 @@ namespace PeterO.Numbers {
             }
             return thisValue;
           }
-          int setbit = bigintA.getLowBit();
+          int setbit = bigintA.GetLowBit();
           bigintA >>= setbit;
           bigintSecond = (thisValue.CompareTo(bigintSecond) < 0) ? thisValue :
             bigintSecond;
@@ -1079,7 +1074,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.getDigitCount"]/*'/>
-    public int getDigitCount() {
+    public int GetDigitCount() {
       if (this.IsZero) {
         return 1;
       }
@@ -1108,7 +1103,7 @@ namespace PeterO.Numbers {
                     3 : ((v2 >= 10) ? 2 : 1)))))));
         }
       }
-      int bitlen = this.getUnsignedBitLength();
+      int bitlen = this.GetUnsignedBitLength();
       if (bitlen <= 2135) {
         // (x*631305) >> 21 is an approximation
         // to trunc(x*log10(2)) that is correct up
@@ -1261,11 +1256,11 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.getLowBit"]/*'/>
-    public int getLowBit() {
+    public int GetLowBit() {
       var retSetBit = 0;
       for (var i = 0; i < this.wordCount; ++i) {
-        short c = this.words[i];
-        if (c == (short)0) {
+        int c = ((int)this.words[i]) & 0xffff;
+        if (c == 0) {
           retSetBit += 16;
         } else {
           return (((c << 15) & 0xffff) != 0) ? (retSetBit + 0) : ((((c <<
@@ -1286,12 +1281,12 @@ namespace PeterO.Numbers {
                     0) ? (retSetBit + 14) : (retSetBit + 15)))))))))))))));
         }
       }
-      return 0;
+      return -1;
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.getUnsignedBitLength"]/*'/>
-    public int getUnsignedBitLength() {
+    public int GetUnsignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
         int numberValue = ((int)this.words[wc - 1]) & 0xffff;
@@ -1383,7 +1378,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.mod(PeterO.Numbers.EInteger)"]/*'/>
-    public EInteger mod(EInteger divisor) {
+    public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException("divisor");
       }
@@ -1416,11 +1411,11 @@ namespace PeterO.Numbers {
       EInteger v = this;
       while (!pow.IsZero) {
         if (!pow.IsEven) {
-          r = (r * (EInteger)v).mod(mod);
+          r = (r * (EInteger)v).Mod(mod);
         }
         pow >>= 1;
         if (!pow.IsZero) {
-          v = (v * (EInteger)v).mod(mod);
+          v = (v * (EInteger)v).Mod(mod);
         }
       }
       return r;
@@ -1450,14 +1445,17 @@ namespace PeterO.Numbers {
           // NOTE: Result can't be 0 here, since checks
           // for 0 were already made earlier in this function
           productreg = new short[2];
-          int ba=((int)this.words[0]) & 0xffff;
-          int bb=((int)bigintMult.words[0]) & 0xffff;
-          ba = unchecked(ba*bb);
-          productreg[0]=unchecked((short)(ba & 0xffff));
-          productreg[1]=unchecked((short)((ba >> 16) & 0xffff));
-          wc=(productreg[1]==0) ? 1 : 2;
-          return new EInteger(wc, productreg,
-            this.negative ^ bigintMult.negative);
+          int ba = ((int)this.words[0]) & 0xffff;
+          int bb = ((int)bigintMult.words[0]) & 0xffff;
+          ba = unchecked(ba * bb);
+          productreg[0 ] = unchecked((short)(ba & 0xffff));
+          productreg[1 ] = unchecked((short)((ba >> 16) & 0xffff));
+          short preg = productreg[1];
+          wc = (preg == 0) ? 1 : 2;
+          return new EInteger(
+wc,
+productreg,
+this.negative ^ bigintMult.negative);
         }
         wc = bigintMult.wordCount;
         int regLength = RoundupSize(wc + 1);
@@ -1556,7 +1554,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.pow(System.Int32)"]/*'/>
-    public EInteger pow(int powerSmall) {
+    public EInteger Pow(int powerSmall) {
       if (powerSmall < 0) {
         throw new ArgumentException("powerSmall (" + powerSmall +
                     ") is less than 0");
@@ -1798,7 +1796,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.testBit(System.Int32)"]/*'/>
-    public bool testBit(int index) {
+    public bool GetSignedBit(int index) {
       if (index < 0) {
         throw new ArgumentOutOfRangeException("index");
       }
@@ -5265,12 +5263,13 @@ count);
       return (s == 0) ? wc : (((s >> 8) == 0) ? wc + 1 : wc + 2);
     }
 
-    private bool GetUnsignedBit(int n) {
-#if DEBUG
+    /// <summary>Not documented yet.</summary>
+    /// <param name='n'>A 32-bit signed integer.</param>
+    /// <returns>A Boolean object.</returns>
+    public bool GetUnsignedBit(int n) {
       if (n < 0) {
         throw new ArgumentException("n (" + n + ") is less than 0");
       }
-#endif
       return ((n >> 4) < this.words.Length) && ((bool)(((this.words[(n >>
                     4)] >> (int)(n & 15)) & 1) != 0));
     }
@@ -5346,8 +5345,6 @@ count);
       return new String(chars, 0, count);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.SqrtRemInternal(System.Boolean)"]/*'/>
     private EInteger[] SqrtRemInternal(bool useRem) {
       if (this.Sign <= 0) {
         return new[] { EInteger.Zero, EInteger.Zero };
@@ -5358,7 +5355,7 @@ count);
       EInteger bigintX;
       EInteger bigintY;
       EInteger thisValue = this;
-      int powerBits = (thisValue.getUnsignedBitLength() + 1) / 2;
+      int powerBits = (thisValue.GetUnsignedBitLength() + 1) / 2;
       if (thisValue.CanFitInInt32()) {
         int smallValue = thisValue.AsInt32Checked();
         // No need to check for ValueZero; already done above

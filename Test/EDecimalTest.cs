@@ -2012,9 +2012,9 @@ throw new InvalidOperationException(String.Empty, ex);
       }
     }
     [Test]
-    public void TestToBigInteger() {
+    public void TestToEInteger() {
       try {
-        EDecimal.PositiveInfinity.ToBigInteger();
+        EDecimal.PositiveInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -2023,7 +2023,7 @@ throw new InvalidOperationException(String.Empty, ex);
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EDecimal.NegativeInfinity.ToBigInteger();
+        EDecimal.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -2032,7 +2032,7 @@ throw new InvalidOperationException(String.Empty, ex);
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EDecimal.NaN.ToBigInteger();
+        EDecimal.NaN.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -2041,7 +2041,7 @@ throw new InvalidOperationException(String.Empty, ex);
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EDecimal.SignalingNaN.ToBigInteger();
+        EDecimal.SignalingNaN.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -2051,7 +2051,7 @@ throw new InvalidOperationException(String.Empty, ex);
       }
     }
     [Test]
-    public void TestToBigIntegerExact() {
+    public void TestToEIntegerExact() {
       // not implemented yet
     }
     [Test]

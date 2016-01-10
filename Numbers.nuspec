@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>PeterO.Cbor</id>
+    <id>PeterO.Numbers</id>
     <version>0.1.0</version>
-    <title>Numbers</title>
+    <title>Arbitrary-Precision Number Library</title>
     <authors>Peter Occil</authors>
     <owners>Peter Occil</owners>
     <licenseUrl>http://creativecommons.org/publicdomain/zero/1.0/</licenseUrl>
@@ -17,12 +17,12 @@
     First release
     </releaseNotes>
     <copyright>Written by Peter O. in 2016.  Any copyright is released to the Public Domain.</copyright>
-    <tags>numbers arithmetic</tags>
+    <tags>numbers arithmetic decimal math</tags>
   </metadata>
   <files>
     <file src="bin/Release/Numbers.dll" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
     <file src="bin/Release/Numbers.xml" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
-    <file src="bin/Release-Net40/Numbers.dll" target="lib/portable-net40+sl50+win+wpa81+wp80" />
-    <file src="bin/Release-Net40/Numbers.xml" target="lib/portable-net40+sl50+win+wpa81+wp80" />
+    <file src="bin/ReleaseNet40/Numbers.dll" target="lib/portable-net40+sl50+win+wpa81+wp80" />
+    <file src="bin/ReleaseNet40/Numbers.xml" target="lib/portable-net40+sl50+win+wpa81+wp80" />
   </files>
 </package>

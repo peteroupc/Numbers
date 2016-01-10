@@ -573,9 +573,9 @@ EFloat.Min(bigintA, bigintB));
       }
     }
     [Test]
-    public void TestToBigInteger() {
+    public void TestToEInteger() {
       try {
-        EFloat.PositiveInfinity.ToBigInteger();
+        EFloat.PositiveInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -584,7 +584,7 @@ EFloat.Min(bigintA, bigintB));
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.NegativeInfinity.ToBigInteger();
+        EFloat.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -593,7 +593,7 @@ EFloat.Min(bigintA, bigintB));
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.NaN.ToBigInteger();
+        EFloat.NaN.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -602,7 +602,7 @@ EFloat.Min(bigintA, bigintB));
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.SignalingNaN.ToBigInteger();
+        EFloat.SignalingNaN.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -612,7 +612,7 @@ EFloat.Min(bigintA, bigintB));
       }
     }
     [Test]
-    public void TestToBigIntegerExact() {
+    public void TestToEIntegerExact() {
       // not implemented yet
     }
     [Test]

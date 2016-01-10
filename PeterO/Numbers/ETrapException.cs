@@ -10,7 +10,7 @@ using System;
 namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.ETrapException"]/*'/>
-  public class ETrapException : ArithmeticException {
+  public sealed class ETrapException : ArithmeticException {
     private readonly Object result;
     private readonly EContext ctx;
 

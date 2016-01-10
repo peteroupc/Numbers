@@ -58,10 +58,10 @@ Console.Write(String.Empty);
     }
     [Test]
     public void TestExponentWithinRange() {
-  Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(EInteger.fromString(
+  Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(EInteger.FromString(
 "-9999999")));
 
-  Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(EInteger.fromString(
+  Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(EInteger.FromString(
 "9999999")));
       try {
  EContext.Unlimited.ExponentWithinRange(null);

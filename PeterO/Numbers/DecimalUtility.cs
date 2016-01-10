@@ -341,12 +341,12 @@ namespace PeterO.Numbers {
           break;
         }
         if (intcurexp.CompareToInt(9999999) <= 0) {
-          bigpow = FindPowerOfFive(1).pow(intcurexp.AsInt32());
+          bigpow = FindPowerOfFive(1).Pow(intcurexp.AsInt32());
           mantissa *= (EInteger)bigpow;
           break;
         }
         if (bigpow.IsZero) {
-          bigpow = FindPowerOfFive(1).pow(9999999);
+          bigpow = FindPowerOfFive(1).Pow(9999999);
         }
         mantissa *= bigpow;
         intcurexp.AddInt(-9999999);
@@ -470,7 +470,7 @@ namespace PeterO.Numbers {
         }
         if (precision <= 9999999) {
           // Console.WriteLine("calcing pow for "+precision);
-          bigpow = ValueBigIntPowersOfFive[1].pow(precision);
+          bigpow = ValueBigIntPowersOfFive[1].Pow(precision);
           if (precision != startPrecision) {
             var bigprec = (EInteger)precision;
             ValuePowerOfFiveCache.AddPower(bigprec, bigpow);
@@ -624,7 +624,7 @@ throw new ArgumentException("doesn't satisfy precision==null || digits!=null");
         }
         if (radix == 2) {
           if (bitToTest < Int32.MaxValue) {
-            if (bigmant.testBit(bitToTest)) {
+            if (bigmant.GetSignedBit(bitToTest)) {
               break;
             }
             ++bitToTest;
