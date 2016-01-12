@@ -183,7 +183,6 @@ namespace PeterO.Numbers {
       short[] retreg;
       bool retnegative;
       int retwordcount;
-      unchecked {
         retnegative = intValue < 0;
         if ((intValue >> 15) == 0) {
           retreg = new short[2];
@@ -198,6 +197,7 @@ namespace PeterO.Numbers {
           retreg[1] = unchecked((short)0x8000);
           retwordcount = 2;
         } else {
+        unchecked {
           retreg = new short[2];
           if (retnegative) {
             intValue = -intValue;
@@ -548,6 +548,23 @@ namespace PeterO.Numbers {
           int wcount = (sumreg[1] == 0) ? 1 : 2;
           return new EInteger(wcount, sumreg, this.negative);
         }
+        if (augendCount <= 2 && addendCount <= 2) {
+          int a = ((int)this.words[0]) & 0xffff;
+          a |= (((int)this.words[1]) & 0xffff) << 16;
+          int b = ((int)bigintAugend.words[0]) & 0xffff;
+          b |= (((int)bigintAugend.words[1]) & 0xffff) << 16;
+          long longResult = ((long)a) & 0xFFFFFFFFL;
+          longResult += ((long)b) & 0xFFFFFFFFL;
+          if ((longResult >> 32) == 0) {
+            a = unchecked((int)longResult);
+            sumreg = new short[2];
+            sumreg[0] = unchecked((short)(a & 0xffff));
+            sumreg[1] = unchecked((short)((a >> 16) & 0xffff));
+            int wcount = (sumreg[1] == 0) ? 1 : 2;
+            return new EInteger(wcount, sumreg, this.negative);
+          }
+        }
+        //        DebugUtility.Log("" + this + " + " + bigintAugend);
         sumreg = new short[(
           int)Math.Max(
                     this.words.Length,
@@ -2100,7 +2117,7 @@ this.negative ^ bigintMult.negative);
         this.ToRadixString(10);
     }
 
-    private static int Add(
+    private static int AddInternal(
       short[] c,
       int cstart,
       short[] words1,
@@ -2539,7 +2556,7 @@ this.negative ^ bigintMult.negative);
             }
           }
           if (
-            Add(
+            AddInternal(
               resultArr,
               resultStart + words1Count,
               resultArr,

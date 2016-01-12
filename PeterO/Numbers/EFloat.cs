@@ -1076,6 +1076,23 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat)"]/*'/>
     public EFloat Multiply(EFloat otherValue) {
+      if (this.IsFinite && otherValue.IsFinite) {
+        EInteger exp = this.exponent.Add(otherValue.exponent);
+        int newflags = otherValue.flags ^ this.flags;
+        if (this.unsignedMantissa.CanFitInInt32() &&
+          otherValue.unsignedMantissa.CanFitInInt32()) {
+            int integerA = this.unsignedMantissa.AsInt32Unchecked();
+            int integerB = otherValue.unsignedMantissa.AsInt32Unchecked();
+            long longA=((long)integerA)*((long)integerB);
+            int sign=(longA == 0) ? 0 : (newflags == 0 ? 1 : -1);
+            return CreateWithFlags((EInteger)longA, exp, newflags);
+        } else {
+            EInteger eintA = this.unsignedMantissa.Multiply(
+             otherValue.unsignedMantissa);
+            int sign=(eintA.IsZero) ? 0 : (newflags == 0 ? 1 : -1);
+            return CreateWithFlags(eintA, exp, newflags);
+        }
+      }
       return this.Multiply(otherValue, EContext.Unlimited);
     }
 

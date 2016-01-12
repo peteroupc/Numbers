@@ -79,7 +79,18 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)"]/*'/>
     public static EDecimal Create(int mantissaSmall, int exponentSmall) {
-      return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
+      if (mantissaSmall == Int32.MinValue) {
+        return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
+      } else if (mantissaSmall< 0) {
+        return new EDecimal((-(EInteger)mantissaSmall),
+          (EInteger)exponentSmall,
+          BigNumberFlags.FlagNegative, -1);
+      } else if (mantissaSmall == 0) {
+        return new EDecimal(EInteger.Zero, (EInteger)exponentSmall, 0, 0);
+      } else {
+      return new
+          EDecimal((EInteger)mantissaSmall, (EInteger)exponentSmall, 0, 1);
+      }
     }
 
     /// <include file='../../docs.xml'
@@ -97,8 +108,11 @@ namespace PeterO.Numbers {
       return new EDecimal(
         sign < 0 ? (-(EInteger)mantissa) : mantissa,
         exponent,
-        (sign < 0) ? BigNumberFlags.FlagNegative : 0);
+        (sign < 0) ? BigNumberFlags.FlagNegative : 0,
+        sign);
     }
+
+    private int sign;
 
     private EDecimal(
       EInteger unsignedMantissa,
@@ -118,6 +132,31 @@ namespace PeterO.Numbers {
       this.unsignedMantissa = unsignedMantissa;
       this.exponent = exponent;
       this.flags = flags;
+      this.sign = (((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
+                this.unsignedMantissa.IsZero) ? 0 : (((this.flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
+    }
+
+    private EDecimal(
+      EInteger unsignedMantissa,
+      EInteger exponent,
+      int flags,
+      int sign) {
+#if DEBUG
+      if (unsignedMantissa == null) {
+        throw new ArgumentNullException("unsignedMantissa");
+      }
+      if (exponent == null) {
+        throw new ArgumentNullException("exponent");
+      }
+      if (unsignedMantissa.Sign < 0) {
+        throw new ArgumentException("unsignedMantissa is less than 0.");
+      }
+#endif
+      this.unsignedMantissa = unsignedMantissa;
+      this.exponent = exponent;
+      this.flags = flags;
+      this.sign = sign;
     }
 
     internal static EDecimal CreateWithFlags(
@@ -130,11 +169,19 @@ namespace PeterO.Numbers {
       if (exponent == null) {
         throw new ArgumentNullException("exponent");
       }
-      int sign = mantissa == null ? 0 : mantissa.Sign;
+      #if DEBUG
+if (!(mantissa.Sign >= 0)) {
+  throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
+}
+#endif
+
       return new EDecimal(
-        sign < 0 ? (-(EInteger)mantissa) : mantissa,
+        mantissa,
         exponent,
-        flags);
+        flags,
+        (((flags & BigNumberFlags.FlagSpecial) == 0) &&
+                mantissa.IsZero) ? 0 : (((flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1));
     }
 
     /// <include file='../../docs.xml'
@@ -167,19 +214,22 @@ namespace PeterO.Numbers {
       }
       if (ctx != null && ctx.HasMaxPrecision) {
         flags |= BigNumberFlags.FlagQuietNaN;
-        EDecimal ef = CreateWithFlags(
+        var ef = new EDecimal(
           diag,
           EInteger.Zero,
-          flags).RoundToPrecision(ctx);
+          flags,
+          negative ? -1 : 1).RoundToPrecision(ctx);
         int newFlags = ef.flags;
         newFlags &= ~BigNumberFlags.FlagQuietNaN;
         newFlags |= signaling ? BigNumberFlags.FlagSignalingNaN :
           BigNumberFlags.FlagQuietNaN;
-        return new EDecimal(ef.unsignedMantissa, ef.exponent, newFlags);
+        return new EDecimal(ef.unsignedMantissa, ef.exponent, newFlags,
+          negative ? -1 : 1);
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      return CreateWithFlags(diag, EInteger.Zero, flags);
+      return new EDecimal(diag, EInteger.Zero, flags,
+        negative ? -1 : 1);
     }
 
     /// <include file='../../docs.xml'
@@ -290,10 +340,11 @@ namespace PeterO.Numbers {
           int flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagQuietNaN;
           if (i + 3 == endStr) {
-            return (!negative) ? NaN : CreateWithFlags(
+            return (!negative) ? NaN : new EDecimal(
               EInteger.Zero,
               EInteger.Zero,
-              flags2);
+              flags2,
+              -1);
           }
           i += 3;
           var digitCount = new FastInteger(0);
@@ -365,10 +416,11 @@ namespace PeterO.Numbers {
             int flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
               BigNumberFlags.FlagSignalingNaN;
             return (!negative) ? SignalingNaN :
-              CreateWithFlags(
+              new EDecimal(
                 EInteger.Zero,
                 EInteger.Zero,
-                flags2);
+                flags2,
+                -1);
           }
           i += 4;
           var digitCount = new FastInteger(0);
@@ -1359,10 +1411,11 @@ if (!(decimalPoint.AsInt32() == 0)) {
         value = (neg ? BigNumberFlags.FlagNegative : 0) |
        (quiet ? BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         return info.IsZero ? (quiet ? NaN : SignalingNaN) :
-          CreateWithFlags(
+          new EDecimal(
             info,
             EInteger.Zero,
-            value);
+            value,
+            neg ? -1 : 1);
       }
       if (floatExponent == 0) {
         ++floatExponent;
@@ -1440,10 +1493,11 @@ if (!(decimalPoint.AsInt32() == 0)) {
         value[0] = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
                 BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         return info.IsZero ? (quiet ? NaN : SignalingNaN) :
-          CreateWithFlags(
+          new EDecimal(
             info,
             EInteger.Zero,
-            value[0]);
+            value[0],
+            neg ? -1 : 1);
       }
       value[1] &= 0xfffff;
 
@@ -1694,9 +1748,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Sign"]/*'/>
     public int Sign {
       get {
-        return (((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
-                this.unsignedMantissa.IsZero) ? 0 : (((this.flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
+        return this.sign;
       }
     }
 
@@ -1705,7 +1757,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
     public bool IsZero {
       get {
         return ((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
-          this.unsignedMantissa.IsZero;
+          this.sign == 0;
       }
     }
 
@@ -1872,6 +1924,23 @@ if (!(decimalPoint.AsInt32() == 0)) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Multiply(PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal Multiply(EDecimal otherValue) {
+      if (this.IsFinite && otherValue.IsFinite) {
+        EInteger exp = this.exponent.Add(otherValue.exponent);
+        int newflags = otherValue.flags ^ this.flags;
+        if (this.unsignedMantissa.CanFitInInt32() &&
+          otherValue.unsignedMantissa.CanFitInInt32()) {
+            int integerA = this.unsignedMantissa.AsInt32Unchecked();
+            int integerB = otherValue.unsignedMantissa.AsInt32Unchecked();
+            long longA=((long)integerA)*((long)integerB);
+            int sign=(longA == 0) ? 0 : (newflags == 0 ? 1 : -1);
+            return new EDecimal((EInteger)longA, exp, newflags, sign);
+        } else {
+            EInteger eintA = this.unsignedMantissa.Multiply(
+             otherValue.unsignedMantissa);
+            int sign=(eintA.IsZero) ? 0 : (newflags == 0 ? 1 : -1);
+            return new EDecimal(eintA, exp, newflags, sign);
+        }
+      }
       return this.Multiply(otherValue, EContext.Unlimited);
     }
 
@@ -2067,6 +2136,11 @@ if (!(decimalPoint.AsInt32() == 0)) {
     public EDecimal Quantize(
       int desiredExponentSmall,
       ERounding rounding) {
+        EDecimal ret = RoundToExponentFast(desiredExponentSmall,
+          rounding);
+        if (ret != null) {
+ return ret;
+}
       return this.Quantize(
       EDecimal.Create(EInteger.One, (EInteger)desiredExponentSmall),
       EContext.ForRounding(rounding));
@@ -2077,6 +2151,15 @@ if (!(decimalPoint.AsInt32() == 0)) {
     public EDecimal Quantize(
       int desiredExponentSmall,
       EContext ctx) {
+      if (ctx == null ||
+         (!ctx.HasExponentRange && !ctx.HasFlags && ctx.Traps == 0 &&
+          !ctx.HasMaxPrecision && !ctx.IsSimplified)) {
+            EDecimal ret = RoundToExponentFast(desiredExponentSmall,
+              ctx == null ? ERounding.HalfEven : ctx.Rounding);
+        if (ret != null) {
+ return ret;
+}
+      }
       return this.Quantize(
       EDecimal.Create(EInteger.One, (EInteger)desiredExponentSmall),
       ctx);
@@ -2135,31 +2218,25 @@ if (!(decimalPoint.AsInt32() == 0)) {
       1000000000
     };
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.EContext)"]/*'/>
-    public EDecimal RoundToExponent(
-      int exponentSmall,
-      EContext ctx) {
-      if (this.IsFinite && (ctx == null ||
-         (!ctx.HasExponentRange && !ctx.HasFlags && ctx.Traps == 0 &&
-          !ctx.HasMaxPrecision && !ctx.IsSimplified))) {
-  if (this.exponent.CanFitInInt32() && this.unsignedMantissa.CanFitInInt32()) {
+    private EDecimal RoundToExponentFast(int exponentSmall, ERounding rounding) {
+        if (this.IsFinite && this.exponent.CanFitInInt32() &&
+          this.unsignedMantissa.CanFitInInt32()) {
           int thisExponentSmall = this.exponent.AsInt32Unchecked();
           if (thisExponentSmall == exponentSmall) {
             return this;
           }
           int thisMantissaSmall = this.unsignedMantissa.AsInt32Unchecked();
-          ERounding rounding = ctx.Rounding;
           if (thisExponentSmall >= -100 && thisExponentSmall <= 100 &&
             exponentSmall >= -100 && exponentSmall <= 100) {
             if (rounding == ERounding.Down) {
               int diff = exponentSmall - thisExponentSmall;
               if (diff >= 1 && diff <= 9) {
                 thisMantissaSmall /= ValueTenPowers[diff];
-                return CreateWithFlags(
+                return new EDecimal(
                   EInteger.FromInt32(thisMantissaSmall),
                   EInteger.FromInt32(exponentSmall),
-                  this.flags);
+                  this.flags,
+                  thisMantissaSmall == 0 ? 0 : ((this.flags == 0) ? 1 : -1));
               }
             } else if (rounding == ERounding.HalfEven &&
                 thisMantissaSmall != Int32.MaxValue) {
@@ -2176,14 +2253,31 @@ if (!(decimalPoint.AsInt32() == 0)) {
                 } else if (rem == 5 && (div2 & 1) == 1) {
                   ++div2;
                 }
-                return CreateWithFlags(
+                return new EDecimal(
                   EInteger.FromInt32(div2),
                   EInteger.FromInt32(exponentSmall),
-                  this.flags);
+                  this.flags,
+                  div2 == 0 ? 0 : ((this.flags == 0) ? 1 : -1));
               }
             }
           }
         }
+      return null;
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    public EDecimal RoundToExponent(
+      int exponentSmall,
+      EContext ctx) {
+      if (ctx == null ||
+         (!ctx.HasExponentRange && !ctx.HasFlags && ctx.Traps == 0 &&
+          !ctx.HasMaxPrecision && !ctx.IsSimplified)) {
+            EDecimal ret = RoundToExponentFast(exponentSmall,
+              ctx == null ? ERounding.HalfEven : ctx.Rounding);
+        if (ret != null) {
+ return ret;
+}
       }
       return this.RoundToExponent((EInteger)exponentSmall, ctx);
     }
@@ -2193,6 +2287,11 @@ if (!(decimalPoint.AsInt32() == 0)) {
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {
+        EDecimal ret = RoundToExponentFast(exponentSmall,
+          rounding);
+        if (ret != null) {
+ return ret;
+}
       return this.RoundToExponentExact(
 exponentSmall,
 EContext.ForRounding(rounding));
@@ -2203,6 +2302,11 @@ EContext.ForRounding(rounding));
     public EDecimal RoundToExponent(
       int exponentSmall,
       ERounding rounding) {
+        EDecimal ret = RoundToExponentFast(exponentSmall,
+          rounding);
+        if (ret != null) {
+ return ret;
+}
       return this.RoundToExponent(
 exponentSmall,
 EContext.ForRounding(rounding));
