@@ -134,8 +134,7 @@ bool roundToOperandPrecision) {
         }
         int m1, m2;
         var haveRetval = false;
-        if (expcmp == 0 || (e1int >= -100 && e1int < 100 && e2int >= -100 &&
-          e2int < 100)) {
+        if (expcmp == 0 || (Int32.MinValue + e2int < e1int)) {
           int ediff = (expcmp == 0) ? 0 : Math.Abs(e1int - e2int);
           int radix = this.thisRadix;
           if (expcmp == 0) {
@@ -247,8 +246,7 @@ bool roundToOperandPrecision) {
         }
         int m1, m2;
         var haveRetval = false;
-        if (expcmp == 0 || (e1int >= -100 && e1int < 100 && e2int >= -100 &&
-          e2int < 100)) {
+        if (expcmp == 0 || (Int32.MinValue + e2int < e1int)) {
           int ediff = (expcmp == 0) ? 0 : Math.Abs(e1int - e2int);
           int radix = this.thisRadix;
           if (expcmp == 0) {
@@ -2104,7 +2102,7 @@ ctxtmp);
   EInteger op2Mantissa,
   int radix) {
       int m1, m2;
-      if (e1int >= -100 && e1int < 100 && e2int >= -100 && e2int < 100) {
+      if (Int32.MinValue + e2int < e1int) {
         int ediff = Math.Abs(e1int - e2int);
         if (ediff <= 9 && radix == 10) {
           int power = ValueTenPowers[ediff];

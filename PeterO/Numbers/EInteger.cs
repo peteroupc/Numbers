@@ -6,7 +6,7 @@ the public-domain code from the library
 CryptoPP by Wei Dai.
 
 Any copyright is dedicated to the Public Domain.
-http://creativecommons.org/publicdomain/ValueZero/1.0/
+http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
 at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
  */
@@ -564,7 +564,7 @@ namespace PeterO.Numbers {
             return new EInteger(wcount, sumreg, this.negative);
           }
         }
-        //        DebugUtility.Log("" + this + " + " + bigintAugend);
+        //        DebugUtility.Log("" + this + " + " + (bigintAugend));
         sumreg = new short[(
           int)Math.Max(
                     this.words.Length,
