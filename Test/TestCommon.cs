@@ -214,27 +214,33 @@ string msg) where T :
         return "0";
       }
       bool neg = value < 0;
-      var chars = new char[24];
-      var count = 0;
+      var chars = new char[12];
+      var count = 11;
       if (neg) {
-        chars[0] = '-';
-        ++count;
         value = -value;
       }
-      while (value != 0) {
+      while (value > 43698) {
         int intdivvalue = value / 10;
         char digit = ValueDigits[(int)(value - (intdivvalue * 10))];
-        chars[count++] = digit;
+        chars[count--] = digit;
         value = intdivvalue;
       }
-      if (neg) {
-        ReverseChars(chars, 1, count - 1);
-      } else {
-        ReverseChars(chars, 0, count);
+      while (value > 9) {
+        int intdivvalue = (value * 26215) >> 18;
+        char digit = ValueDigits[(int)(value - (intdivvalue * 10))];
+        chars[count--] = digit;
+        value = intdivvalue;
       }
-      return new String(chars, 0, count);
+      if (value != 0) {
+        chars[count--] = ValueDigits[(int)value];
+      }
+      if (neg) {
+        chars[count] = '-';
+      } else {
+        ++count;
+      }
+      return new String(chars, count, 12 - count);
     }
-
     public static string LongToString(long longValue) {
       if (longValue == Int64.MinValue) {
         return "-9223372036854775808";

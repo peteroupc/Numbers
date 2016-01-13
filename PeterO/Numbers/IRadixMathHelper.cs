@@ -21,9 +21,16 @@ namespace PeterO.Numbers {
 
     EInteger GetExponent(T value);
 
+    FastInteger2 GetMantissaFastInt(T value);
+
+    FastInteger2 GetExponentFastInt(T value);
+
     T ValueOf(int val);
 
     T CreateNewWithFlags(EInteger mantissa, EInteger exponent, int flags);
+
+    T CreateNewWithFlagsFastInt(FastInteger2 mantissa, FastInteger2
+      exponent, int flags);
 
     IShiftAccumulator CreateShiftAccumulatorWithDigits(
 EInteger value,

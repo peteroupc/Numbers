@@ -464,17 +464,17 @@ namespace PeterO.Numbers {
         case (0 << 2) | 1:
           return -val.mnum.CompareToInt(this.smallValue);
         case (0 << 2) | 2:
-          return this.AsBigInteger().CompareTo(val.largeValue);
+          return this.AsEInteger().CompareTo(val.largeValue);
         case (1 << 2) | 0:
           return this.mnum.CompareToInt(val.smallValue);
         case (1 << 2) | 1:
           return this.mnum.CompareTo(val.mnum);
         case (1 << 2) | 2:
-          return this.AsBigInteger().CompareTo(val.largeValue);
+          return this.AsEInteger().CompareTo(val.largeValue);
         case (2 << 2) | 0:
         case (2 << 2) | 1:
         case (2 << 2) | 2:
-          return this.largeValue.CompareTo(val.AsBigInteger());
+          return this.largeValue.CompareTo(val.AsEInteger());
         default: throw new InvalidOperationException();
       }
     }
@@ -546,7 +546,7 @@ namespace PeterO.Numbers {
           EInteger bigrem;
           EInteger bigquo;
 {
-EInteger[] divrem = this.AsBigInteger().DivRem(divisor.AsBigInteger());
+EInteger[] divrem = this.AsEInteger().DivRem(divisor.AsEInteger());
 bigquo = divrem[0];
 bigrem = divrem[1]; }
           var smallquo = (int)bigquo;
@@ -558,7 +558,7 @@ bigrem = divrem[1]; }
         EInteger bigrem;
         EInteger bigquo;
 {
-EInteger[] divrem = this.AsBigInteger().DivRem(divisor.AsBigInteger());
+EInteger[] divrem = this.AsEInteger().DivRem(divisor.AsEInteger());
 bigquo = divrem[0];
 bigrem = divrem[1]; }
         var smallquo = (int)bigquo;
@@ -669,7 +669,7 @@ bigrem = divrem[1]; }
           } else {
             integerMode = 2;
             largeValue = (EInteger)smallValue;
-            valValue = val.AsBigInteger();
+            valValue = val.AsEInteger();
             largeValue -= (EInteger)valValue;
           }
           break;
@@ -683,12 +683,12 @@ bigrem = divrem[1]; }
           } else {
             integerMode = 2;
             largeValue = mnum.ToEInteger();
-            valValue = val.AsBigInteger();
+            valValue = val.AsEInteger();
             largeValue -= (EInteger)valValue;
           }
           break;
         case 2:
-          valValue = val.AsBigInteger();
+          valValue = val.AsEInteger();
           this.largeValue -= (EInteger)valValue;
           break;
         default: throw new InvalidOperationException();
@@ -788,7 +788,7 @@ bigrem = divrem[1]; }
           } else {
             integerMode = 2;
             largeValue = (EInteger)smallValue;
-            valValue = val.AsBigInteger();
+            valValue = val.AsEInteger();
             largeValue += (EInteger)valValue;
           }
           break;
@@ -798,12 +798,12 @@ bigrem = divrem[1]; }
           } else {
             integerMode = 2;
             largeValue = mnum.ToEInteger();
-            valValue = val.AsBigInteger();
+            valValue = val.AsEInteger();
             largeValue += (EInteger)valValue;
           }
           break;
         case 2:
-          valValue = val.AsBigInteger();
+          valValue = val.AsEInteger();
           this.largeValue += (EInteger)valValue;
           break;
         default: throw new InvalidOperationException();
@@ -979,17 +979,7 @@ bigrem = divrem[1]; }
 
     private static readonly string HexAlphabet = "0123456789ABCDEF";
 
-    private static void ReverseChars(char[] chars, int offset, int length) {
-      int half = length >> 1;
-      int right = offset + length - 1;
-      for (var i = 0; i < half; i++, right--) {
-        char value = chars[offset + i];
-        chars[offset + i] = chars[right];
-        chars[right] = value;
-      }
-    }
-
-    private static string IntToString(int value) {
+    internal static string IntToString(int value) {
       if (value == Int32.MinValue) {
         return "-2147483648";
       }
@@ -997,24 +987,32 @@ bigrem = divrem[1]; }
         return "0";
       }
       bool neg = value < 0;
-      var chars = new char[24];
-      var count = 0;
+      var chars = new char[12];
+      var count = 11;
       if (neg) {
-        chars[0] = '-';
-        ++count;
         value = -value;
       }
-      while (value != 0) {
-        char digit = HexAlphabet[(int)(value % 10)];
-        chars[count++] = digit;
-        value /= 10;
+      while (value > 43698) {
+        int intdivvalue = value / 10;
+        char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
+        chars[count--] = digit;
+        value = intdivvalue;
+      }
+      while (value > 9) {
+          int intdivvalue = (value * 26215) >> 18;
+          char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
+          chars[count--] = digit;
+          value = intdivvalue;
+      }
+      if (value != 0) {
+          chars[count--] = HexAlphabet[(int)value];
       }
       if (neg) {
-        ReverseChars(chars, 1, count - 1);
+        chars[count]='-';
       } else {
-        ReverseChars(chars, 0, count);
+        ++count;
       }
-      return new String(chars, 0, count);
+      return new String(chars, count, 12 - count);
     }
 
     /// <include file='../../docs.xml'
@@ -1078,10 +1076,10 @@ bigrem = divrem[1]; }
       }
     }
 
-    internal EInteger AsBigInteger() {
+    internal EInteger AsEInteger() {
       switch (this.integerMode) {
         case 0:
-          return EInteger.FromInt64(this.smallValue);
+          return EInteger.FromInt32(this.smallValue);
         case 1:
           return this.mnum.ToEInteger();
         case 2:

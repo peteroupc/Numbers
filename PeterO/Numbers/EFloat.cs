@@ -244,6 +244,14 @@ namespace PeterO.Numbers {
         return value.exponent;
       }
 
+      public FastInteger2 GetMantissaFastInt(EFloat value) {
+        return FastInteger2.FromBig(value.unsignedMantissa);
+      }
+
+      public FastInteger2 GetExponentFastInt(EFloat value) {
+        return FastInteger2.FromBig(value.exponent);
+      }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'/>
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
@@ -290,7 +298,7 @@ namespace PeterO.Numbers {
           } else {
             tmpbigint = DecimalUtility.ShiftLeft(
               tmpbigint,
-              power.AsBigInteger());
+              power.AsEInteger());
             tmpbigint = -tmpbigint;
           }
           return tmpbigint;
@@ -299,7 +307,7 @@ namespace PeterO.Numbers {
           tmpbigint,
           power.AsInt32()) : DecimalUtility.ShiftLeft(
           tmpbigint,
-          power.AsBigInteger());
+          power.AsEInteger());
       }
 
     /// <include file='../../docs.xml'
@@ -315,6 +323,14 @@ namespace PeterO.Numbers {
         EInteger exponent,
         int flags) {
         return EFloat.CreateWithFlags(mantissa, exponent, flags);
+      }
+
+      public EFloat CreateNewWithFlagsFastInt(
+        FastInteger2 fmantissa,
+        FastInteger2 fexponent,
+        int flags) {
+ return CreateWithFlags(fmantissa.AsEInteger(), fexponent.AsEInteger(),
+          flags);
       }
 
     /// <include file='../../docs.xml'

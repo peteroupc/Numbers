@@ -90,6 +90,7 @@
     <Compile Include="PeterO\Numbers\ERational.cs" />
     <Compile Include="PeterO\Numbers\Extras.cs" />
     <Compile Include="PeterO\Numbers\FastInteger.cs" />
+    <Compile Include="PeterO\Numbers\FastInteger2.cs" />
     <Compile Include="PeterO\Numbers\IRadixMath.cs" />
     <Compile Include="PeterO\Numbers\IRadixMathHelper.cs" />
     <Compile Include="PeterO\Numbers\IShiftAccumulator.cs" />

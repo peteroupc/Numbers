@@ -1240,6 +1240,9 @@ StartsWith(chunks[2], "o")) {
 
       foreach (var f in dirfiles) {
         Console.WriteLine(f);
+        if (errors.Count > 100) {
+          break;
+        }
         ++x;
         var lowerF = f.ToLowerInvariant();
         var isinput = lowerF.Contains(".input");
@@ -1249,6 +1252,9 @@ StartsWith(chunks[2], "o")) {
         }
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
+            if (errors.Count > 100) {
+              break;
+            }
             var ln = w.ReadLine();
             {
               try {

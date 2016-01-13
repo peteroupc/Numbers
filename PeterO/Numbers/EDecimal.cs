@@ -15,15 +15,17 @@ namespace PeterO.Numbers {
   IEquatable<EDecimal> {
     private const int MaxSafeInt = 214748363;
 
-    private readonly EInteger exponent;
-    private readonly EInteger unsignedMantissa;
+    private static readonly FastInteger2 FastIntZero = new FastInteger2(0);
+
+    private readonly FastInteger2 exponent;
+    private readonly FastInteger2 unsignedMantissa;
     private readonly int flags;
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Exponent"]/*'/>
     public EInteger Exponent {
       get {
-        return this.exponent;
+        return this.exponent.AsEInteger();
       }
     }
 
@@ -31,7 +33,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.UnsignedMantissa"]/*'/>
     public EInteger UnsignedMantissa {
       get {
-        return this.unsignedMantissa;
+        return this.unsignedMantissa.AsEInteger();
       }
     }
 
@@ -39,8 +41,9 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Mantissa"]/*'/>
     public EInteger Mantissa {
       get {
-        return this.IsNegative ? (-(EInteger)this.unsignedMantissa) :
-          this.unsignedMantissa;
+     return this.IsNegative ?
+          (-(EInteger)this.unsignedMantissa.AsEInteger()) :
+          this.unsignedMantissa.AsEInteger();
       }
     }
 
@@ -82,14 +85,15 @@ namespace PeterO.Numbers {
       if (mantissaSmall == Int32.MinValue) {
         return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
       } else if (mantissaSmall< 0) {
-        return new EDecimal((-(EInteger)mantissaSmall),
-          (EInteger)exponentSmall,
+        return new EDecimal(new FastInteger2(mantissaSmall).Negate(),
+          new FastInteger2(exponentSmall),
           BigNumberFlags.FlagNegative, -1);
       } else if (mantissaSmall == 0) {
-        return new EDecimal(EInteger.Zero, (EInteger)exponentSmall, 0, 0);
+        return new EDecimal(FastIntZero, new FastInteger2(exponentSmall), 0, 0);
       } else {
       return new
-          EDecimal((EInteger)mantissaSmall, (EInteger)exponentSmall, 0, 1);
+          EDecimal(new FastInteger2(mantissaSmall), new
+            FastInteger2(exponentSmall), 0, 1);
       }
     }
 
@@ -104,10 +108,11 @@ namespace PeterO.Numbers {
       if (exponent == null) {
         throw new ArgumentNullException("exponent");
       }
-      int sign = mantissa.Sign;
+      FastInteger2 fi = FastInteger2.FromBig(mantissa);
+      int sign = fi.Sign;
       return new EDecimal(
-        sign < 0 ? (-(EInteger)mantissa) : mantissa,
-        exponent,
+        sign < 0 ? fi.Negate() : fi,
+        FastInteger2.FromBig(exponent),
         (sign < 0) ? BigNumberFlags.FlagNegative : 0,
         sign);
     }
@@ -115,8 +120,8 @@ namespace PeterO.Numbers {
     private int sign;
 
     private EDecimal(
-      EInteger unsignedMantissa,
-      EInteger exponent,
+      FastInteger2 unsignedMantissa,
+      FastInteger2 exponent,
       int flags) {
 #if DEBUG
       if (unsignedMantissa == null) {
@@ -133,13 +138,13 @@ namespace PeterO.Numbers {
       this.exponent = exponent;
       this.flags = flags;
       this.sign = (((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
-                this.unsignedMantissa.IsZero) ? 0 : (((this.flags &
+                this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
                     BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
     }
 
     private EDecimal(
-      EInteger unsignedMantissa,
-      EInteger exponent,
+      FastInteger2 unsignedMantissa,
+      FastInteger2 exponent,
       int flags,
       int sign) {
 #if DEBUG
@@ -160,8 +165,8 @@ namespace PeterO.Numbers {
     }
 
     internal static EDecimal CreateWithFlags(
-      EInteger mantissa,
-      EInteger exponent,
+      FastInteger2 mantissa,
+      FastInteger2 exponent,
       int flags) {
       if (mantissa == null) {
         throw new ArgumentNullException("mantissa");
@@ -180,6 +185,31 @@ if (!(mantissa.Sign >= 0)) {
         exponent,
         flags,
         (((flags & BigNumberFlags.FlagSpecial) == 0) &&
+                mantissa.IsValueZero) ? 0 : (((flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1));
+    }
+
+    internal static EDecimal CreateWithFlags(
+      EInteger mantissa,
+      EInteger exponent,
+      int flags) {
+      if (mantissa == null) {
+        throw new ArgumentNullException("mantissa");
+      }
+      if (exponent == null) {
+        throw new ArgumentNullException("exponent");
+      }
+#if DEBUG
+      if (!(mantissa.Sign >= 0)) {
+        throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
+      }
+#endif
+
+      return new EDecimal(
+        FastInteger2.FromBig(mantissa),
+        FastInteger2.FromBig(exponent),
+        flags,
+        (((flags & BigNumberFlags.FlagSpecial) == 0) &&
                 mantissa.IsZero) ? 0 : (((flags &
                     BigNumberFlags.FlagNegative) != 0) ? -1 : 1));
     }
@@ -191,7 +221,7 @@ if (!(mantissa.Sign >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CreateNaN(PeterO.Numbers.FastInteger2,System.Boolean,System.Boolean,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal CreateNaN(
       EInteger diag,
       bool signaling,
@@ -215,10 +245,10 @@ if (!(mantissa.Sign >= 0)) {
       if (ctx != null && ctx.HasMaxPrecision) {
         flags |= BigNumberFlags.FlagQuietNaN;
         var ef = new EDecimal(
-          diag,
-          EInteger.Zero,
-          flags,
-          negative ? -1 : 1).RoundToPrecision(ctx);
+        FastInteger2.FromBig(diag),
+        FastIntZero,
+        flags,
+        negative ? -1 : 1).RoundToPrecision(ctx);
         int newFlags = ef.flags;
         newFlags &= ~BigNumberFlags.FlagQuietNaN;
         newFlags |= signaling ? BigNumberFlags.FlagSignalingNaN :
@@ -228,7 +258,10 @@ if (!(mantissa.Sign >= 0)) {
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      return new EDecimal(diag, EInteger.Zero, flags,
+      return new EDecimal(
+        FastInteger2.FromBig(diag),
+        FastIntZero,
+        flags,
         negative ? -1 : 1);
     }
 
@@ -341,8 +374,8 @@ if (!(mantissa.Sign >= 0)) {
             BigNumberFlags.FlagQuietNaN;
           if (i + 3 == endStr) {
             return (!negative) ? NaN : new EDecimal(
-              EInteger.Zero,
-              EInteger.Zero,
+              FastIntZero,
+              FastIntZero,
               flags2,
               -1);
           }
@@ -395,12 +428,12 @@ if (!(mantissa.Sign >= 0)) {
             mant.Multiply(mantBufferMult).AddInt(mantBuffer);
           }
           EInteger bigmant = (mant == null) ? ((EInteger)mantInt) :
-            mant.AsBigInteger();
+            mant.AsEInteger();
           flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagQuietNaN;
           return CreateWithFlags(
-            bigmant,
-            EInteger.Zero,
+            FastInteger2.FromBig(bigmant),
+            FastIntZero,
             flags2);
         }
       }
@@ -417,8 +450,8 @@ if (!(mantissa.Sign >= 0)) {
               BigNumberFlags.FlagSignalingNaN;
             return (!negative) ? SignalingNaN :
               new EDecimal(
-                EInteger.Zero,
-                EInteger.Zero,
+                FastIntZero,
+                FastIntZero,
                 flags2,
                 -1);
           }
@@ -473,7 +506,7 @@ if (!(mantissa.Sign >= 0)) {
           int flags3 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagSignalingNaN;
           EInteger bigmant = (mant == null) ? ((EInteger)mantInt) :
-            mant.AsBigInteger();
+            mant.AsEInteger();
           return CreateWithFlags(
             bigmant,
             EInteger.Zero,
@@ -604,10 +637,11 @@ if (!(mantissa.Sign >= 0)) {
         throw new FormatException();
       }
       EInteger bigNewScale = (newScale == null) ? ((EInteger)newScaleInt) :
-        newScale.AsBigInteger();
+        newScale.AsEInteger();
       var ret = new EDecimal(
-        (mant == null) ? ((EInteger)mantInt) : mant.AsBigInteger(),
-        bigNewScale,
+FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
+          mant.AsEInteger()),
+        FastInteger2.FromBig(bigNewScale),
         negative ? BigNumberFlags.FlagNegative : 0);
       if (ctx != null) {
         ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
@@ -631,17 +665,25 @@ if (!(mantissa.Sign >= 0)) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetMantissa(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetMantissa(EDecimal value) {
-        return value.unsignedMantissa;
+        return value.unsignedMantissa.AsEInteger();
       }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetExponent(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetExponent(EDecimal value) {
+        return value.exponent.AsEInteger();
+      }
+
+      public FastInteger2 GetMantissaFastInt(EDecimal value) {
+        return value.unsignedMantissa;
+      }
+
+      public FastInteger2 GetExponentFastInt(EDecimal value) {
         return value.exponent;
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.FastInteger2,System.Int32,System.Int32)"]/*'/>
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
         EInteger bigint,
         int lastDigit,
@@ -688,7 +730,7 @@ if (!(mantissa.Sign >= 0)) {
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
       public EInteger MultiplyByRadixPower(
         EInteger bigint,
         FastInteger power) {
@@ -707,13 +749,13 @@ if (!(mantissa.Sign >= 0)) {
             bigtmp = DecimalUtility.FindPowerOfTen(powerInt);
             tmpbigint *= (EInteger)bigtmp;
           } else {
-            bigtmp = DecimalUtility.FindPowerOfTenFromBig(power.AsBigInteger());
+            bigtmp = DecimalUtility.FindPowerOfTenFromBig(power.AsEInteger());
             tmpbigint *= (EInteger)bigtmp;
           }
           return tmpbigint;
         }
         return fitsInInt32 ? DecimalUtility.FindPowerOfTen(powerInt) :
-          DecimalUtility.FindPowerOfTenFromBig(power.AsBigInteger());
+          DecimalUtility.FindPowerOfTenFromBig(power.AsEInteger());
       }
 
     /// <include file='../../docs.xml'
@@ -723,12 +765,20 @@ if (!(mantissa.Sign >= 0)) {
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger2,System.Int32)"]/*'/>
       public EDecimal CreateNewWithFlags(
         EInteger mantissa,
         EInteger exponent,
         int flags) {
-        return CreateWithFlags(mantissa, exponent, flags);
+        return CreateWithFlags(FastInteger2.FromBig(mantissa),
+          FastInteger2.FromBig(exponent), flags);
+      }
+
+      public EDecimal CreateNewWithFlagsFastInt(
+        FastInteger2 fmantissa,
+        FastInteger2 fexponent,
+        int flags) {
+        return CreateWithFlags(fmantissa, fexponent, flags);
       }
 
     /// <include file='../../docs.xml'
@@ -765,12 +815,14 @@ if (!(mantissa.Sign >= 0)) {
           return negative ? "-Infinity" : "Infinity";
         }
         if ((this.flags & BigNumberFlags.FlagSignalingNaN) != 0) {
-          return this.unsignedMantissa.IsZero ? (negative ? "-sNaN" : "sNaN") :
+     return this.unsignedMantissa.IsValueZero ? (negative ? "-sNaN" : "sNaN"
+) :
             (negative ? "-sNaN" + this.unsignedMantissa :
              "sNaN" + this.unsignedMantissa);
         }
         if ((this.flags & BigNumberFlags.FlagQuietNaN) != 0) {
-          return this.unsignedMantissa.IsZero ? (negative ? "-NaN" : "NaN") :
+       return this.unsignedMantissa.IsValueZero ? (negative ? "-NaN" : "NaN"
+) :
             (negative ? "-NaN" + this.unsignedMantissa : "NaN" +
              this.unsignedMantissa);
         }
@@ -780,7 +832,7 @@ if (!(mantissa.Sign >= 0)) {
       if (scaleSign == 0) {
         return negative ? "-" + mantissaString : mantissaString;
       }
-      bool iszero = this.unsignedMantissa.IsZero;
+      bool iszero = this.unsignedMantissa.IsValueZero;
       if (mode == 2 && iszero && scaleSign < 0) {
         // special case for zero in plain
         return negative ? "-" + mantissaString : mantissaString;
@@ -788,7 +840,7 @@ if (!(mantissa.Sign >= 0)) {
       StringBuilder builder = null;
       if (mode == 0 && mantissaString.Length < 100 &&
         this.exponent.CanFitInInt32()) {
-        int intExp = this.exponent.AsInt32Unchecked();
+        int intExp = this.exponent.AsInt32();
         if (intExp > -100 && intExp < 100) {
           int adj = (intExp + mantissaString.Length) - 1;
           if (scaleSign >= 0 && adj >= -6) {
@@ -833,7 +885,7 @@ if (!(mantissa.Sign >= 0)) {
           }
         }
       }
-      FastInteger adjustedExponent = FastInteger.FromBig(this.exponent);
+      FastInteger adjustedExponent = FastInteger.FromBig(this.Exponent);
       var builderLength = new FastInteger(mantissaString.Length);
       FastInteger thisExponent = FastInteger.Copy(adjustedExponent);
       adjustedExponent.Add(builderLength).Decrement();
@@ -1214,8 +1266,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
     private EFloat ToExtendedFloatInternal(bool oddRounding) {
       if (this.IsNaN() || this.IsInfinity()) {
         return EFloat.CreateWithFlags(
-          this.unsignedMantissa,
-          this.exponent,
+          this.unsignedMantissa.AsEInteger(),
+          this.exponent.AsEInteger(),
           this.flags);
       }
       EInteger bigintExp = this.Exponent;
@@ -1245,7 +1297,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         }
         FastInteger negscale = FastInteger.Copy(scale).Negate();
         EInteger divisor =
-          DecimalUtility.FindPowerOfFiveFromBig(negscale.AsBigInteger());
+          DecimalUtility.FindPowerOfFiveFromBig(negscale.AsEInteger());
         while (true) {
           EInteger quotient;
           {
@@ -1302,7 +1354,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
         }
-        return EFloat.Create(bigmantissa, scale.AsBigInteger());
+        return EFloat.Create(bigmantissa, scale.AsEInteger());
       }
     }
 
@@ -1407,13 +1459,12 @@ if (!(decimalPoint.AsInt32() == 0)) {
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (valueFpMantissa & 0x400000) != 0;
         valueFpMantissa &= 0x1fffff;
-        var info = (EInteger)valueFpMantissa;
         value = (neg ? BigNumberFlags.FlagNegative : 0) |
        (quiet ? BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
-        return info.IsZero ? (quiet ? NaN : SignalingNaN) :
+        return valueFpMantissa == 0 ? (quiet ? NaN : SignalingNaN) :
           new EDecimal(
-            info,
-            EInteger.Zero,
+            new FastInteger2(valueFpMantissa),
+            FastIntZero,
             value,
             neg ? -1 : 1);
       }
@@ -1465,6 +1516,19 @@ if (!(decimalPoint.AsInt32() == 0)) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt64(System.Int64)"]/*'/>
     public static EDecimal FromInt64(long valueSmall) {
+      if (valueSmall == 0) {
+ return EDecimal.Zero;
+}
+      if (valueSmall>Int32.MinValue && valueSmall <= Int32.MaxValue) {
+        if (valueSmall < 0) {
+          return new EDecimal(new FastInteger2((int)valueSmall).Negate(),
+            FastIntZero,
+            BigNumberFlags.FlagNegative, -1);
+        } else {
+          return new
+              EDecimal(new FastInteger2((int)valueSmall), FastIntZero, 0, 1);
+        }
+      }
       var bigint = (EInteger)valueSmall;
       return EDecimal.Create(bigint, EInteger.Zero);
     }
@@ -1472,8 +1536,20 @@ if (!(decimalPoint.AsInt32() == 0)) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt32(System.Int32)"]/*'/>
     public static EDecimal FromInt32(int valueSmaller) {
-      var bigint = (EInteger)valueSmaller;
-      return EDecimal.Create(bigint, EInteger.Zero);
+      if (valueSmaller == 0) {
+ return EDecimal.Zero;
+}
+      if (valueSmaller == Int32.MinValue) {
+        return Create((EInteger)valueSmaller, EInteger.Zero);
+      }
+      if (valueSmaller < 0) {
+        return new EDecimal(new FastInteger2(valueSmaller).Negate(),
+          FastIntZero,
+          BigNumberFlags.FlagNegative, -1);
+      } else {
+        return new
+            EDecimal(new FastInteger2(valueSmaller), FastIntZero, 0, 1);
+      }
     }
 
     /// <include file='../../docs.xml'
@@ -1494,8 +1570,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
                 BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         return info.IsZero ? (quiet ? NaN : SignalingNaN) :
           new EDecimal(
-            info,
-            EInteger.Zero,
+            FastInteger2.FromBig(info),
+            FastIntZero,
             value[0],
             neg ? -1 : 1);
       }
@@ -1788,7 +1864,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
       ERounding rounding) {
       return this.DivideToExponent(
         divisor,
-        this.exponent,
+        this.exponent.AsEInteger(),
         EContext.ForRounding(rounding));
     }
 
@@ -1925,20 +2001,29 @@ if (!(decimalPoint.AsInt32() == 0)) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Multiply(PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal Multiply(EDecimal otherValue) {
       if (this.IsFinite && otherValue.IsFinite) {
-        EInteger exp = this.exponent.Add(otherValue.exponent);
         int newflags = otherValue.flags ^ this.flags;
         if (this.unsignedMantissa.CanFitInInt32() &&
           otherValue.unsignedMantissa.CanFitInInt32()) {
-            int integerA = this.unsignedMantissa.AsInt32Unchecked();
-            int integerB = otherValue.unsignedMantissa.AsInt32Unchecked();
+            int integerA = this.unsignedMantissa.AsInt32();
+            int integerB = otherValue.unsignedMantissa.AsInt32();
             long longA=((long)integerA)*((long)integerB);
-            int sign=(longA == 0) ? 0 : (newflags == 0 ? 1 : -1);
-            return new EDecimal((EInteger)longA, exp, newflags, sign);
+          int sign = (longA == 0) ? 0 : (newflags == 0 ? 1 : -1);
+          FastInteger2 exp = FastInteger2.Add(this.exponent,
+          otherValue.exponent);
+          if ((longA >> 31) == 0) {
+        return new EDecimal(new FastInteger2((int)longA), exp, newflags,
+              sign);
+          } else {
+            return new EDecimal(FastInteger2.FromBig((EInteger)longA), exp,
+              newflags, sign);
+          }
         } else {
-            EInteger eintA = this.unsignedMantissa.Multiply(
-             otherValue.unsignedMantissa);
+            EInteger eintA = this.unsignedMantissa.AsEInteger().Multiply(
+             otherValue.unsignedMantissa.AsEInteger());
             int sign=(eintA.IsZero) ? 0 : (newflags == 0 ? 1 : -1);
-            return new EDecimal(eintA, exp, newflags, sign);
+            return new EDecimal(FastInteger2.FromBig(eintA),
+              FastInteger2.Add(this.exponent,
+          otherValue.exponent), newflags, sign);
         }
       }
       return this.Multiply(otherValue, EContext.Unlimited);
@@ -2218,14 +2303,15 @@ if (!(decimalPoint.AsInt32() == 0)) {
       1000000000
     };
 
-    private EDecimal RoundToExponentFast(int exponentSmall, ERounding rounding) {
+  private EDecimal RoundToExponentFast(int exponentSmall, ERounding
+      rounding) {
         if (this.IsFinite && this.exponent.CanFitInInt32() &&
           this.unsignedMantissa.CanFitInInt32()) {
-          int thisExponentSmall = this.exponent.AsInt32Unchecked();
+          int thisExponentSmall = this.exponent.AsInt32();
           if (thisExponentSmall == exponentSmall) {
             return this;
           }
-          int thisMantissaSmall = this.unsignedMantissa.AsInt32Unchecked();
+          int thisMantissaSmall = this.unsignedMantissa.AsInt32();
           if (thisExponentSmall >= -100 && thisExponentSmall <= 100 &&
             exponentSmall >= -100 && exponentSmall <= 100) {
             if (rounding == ERounding.Down) {
@@ -2233,8 +2319,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
               if (diff >= 1 && diff <= 9) {
                 thisMantissaSmall /= ValueTenPowers[diff];
                 return new EDecimal(
-                  EInteger.FromInt32(thisMantissaSmall),
-                  EInteger.FromInt32(exponentSmall),
+                  new FastInteger2(thisMantissaSmall),
+                  new FastInteger2(exponentSmall),
                   this.flags,
                   thisMantissaSmall == 0 ? 0 : ((this.flags == 0) ? 1 : -1));
               }
@@ -2244,7 +2330,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
               if (diff >= 1 && diff <= 9) {
                 int pwr = ValueTenPowers[diff - 1];
                 int div = thisMantissaSmall / pwr;
-                int div2 = div / 10;
+                int div2 = (div > 43698) ? (div / 10) : ((div*26215) >> 18);
                 int rem = div - (div2 * 10);
                 if (rem > 5) {
                   ++div2;
@@ -2254,8 +2340,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
                   ++div2;
                 }
                 return new EDecimal(
-                  EInteger.FromInt32(div2),
-                  EInteger.FromInt32(exponentSmall),
+                  new FastInteger2(div2),
+                  new FastInteger2(exponentSmall),
                   this.flags,
                   div2 == 0 ? 0 : ((this.flags == 0) ? 1 : -1));
               }
@@ -2473,7 +2559,7 @@ EContext ctx) {
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
-        EInteger mant = this.unsignedMantissa;
+        EInteger mant = this.unsignedMantissa.AsEInteger();
         EInteger bigPower = DecimalUtility.FindPowerOfTenFromBig(bigExp);
         mant *= bigPower;
         return CreateWithFlags(
@@ -2483,7 +2569,7 @@ this.flags).RoundToPrecision(ctx);
       }
       return CreateWithFlags(
         this.unsignedMantissa,
-        bigExp,
+        FastInteger2.FromBig(bigExp),
         this.flags).RoundToPrecision(ctx);
     }
 
@@ -2520,7 +2606,7 @@ EContext ctx) {
       bigExp += bigPlaces;
       return CreateWithFlags(
         this.unsignedMantissa,
-        bigExp,
+        FastInteger2.FromBig(bigExp),
         this.flags).RoundToPrecision(ctx);
     }
 
@@ -2533,7 +2619,7 @@ EContext ctx) {
       if (this.IsZero) {
         return EInteger.One;
       }
-      int digcount = this.unsignedMantissa.GetDigitCount();
+      int digcount = this.unsignedMantissa.AsEInteger().GetDigitCount();
       return (EInteger)digcount;
     }
 
@@ -2541,7 +2627,7 @@ EContext ctx) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Ulp"]/*'/>
     public EDecimal Ulp() {
       return (!this.IsFinite) ? EDecimal.One :
-        EDecimal.Create(EInteger.One, this.exponent);
+        EDecimal.Create(EInteger.One, this.Exponent);
     }
 
     /// <include file='../../docs.xml'

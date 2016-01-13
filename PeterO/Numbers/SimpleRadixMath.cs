@@ -131,7 +131,7 @@ namespace PeterO.Numbers {
             null);
           thisValue = this.GetHelper().CreateNewWithFlags(
             mant,
-            fastExp.AsBigInteger(),
+            fastExp.AsEInteger(),
             thisFlags);
         }
       } else if (afterDivision && exp.Sign < 0) {
@@ -141,7 +141,7 @@ namespace PeterO.Numbers {
           mant, fastExp, radix, null, null, new FastInteger(0));
         thisValue = this.GetHelper().CreateNewWithFlags(
           mant,
-          fastExp.AsBigInteger(),
+          fastExp.AsEInteger(),
           thisFlags);
       }
       return thisValue;
@@ -403,7 +403,7 @@ namespace PeterO.Numbers {
             FastInteger.FromBig(pc.EMax).Increment().Subtract(fastPrecision);
           return this.GetHelper().CreateNewWithFlags(
             overflowMant,
-            clamp.AsBigInteger(),
+            clamp.AsEInteger(),
             neg ? BigNumberFlags.FlagNegative : 0);
         }
       }

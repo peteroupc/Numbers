@@ -48,8 +48,8 @@ namespace PeterO.Numbers {
         this.ShiftToDigitsInt(bits.AsInt32());
       } else {
         this.knownBitLength = this.CalcKnownBitLength();
-        EInteger bigintDiff = this.knownBitLength.AsBigInteger();
-        EInteger bitsBig = bits.AsBigInteger();
+        EInteger bigintDiff = this.knownBitLength.AsEInteger();
+        EInteger bitsBig = bits.AsEInteger();
         bigintDiff -= (EInteger)bitsBig;
         if (bigintDiff.Sign > 0) {
           // current length is greater than the
@@ -130,7 +130,7 @@ int olderDiscarded) {
       if (fastint.CanFitInInt32()) {
         this.ShiftRightInt(fastint.AsInt32());
       } else {
-        EInteger bi = fastint.AsBigInteger();
+        EInteger bi = fastint.AsEInteger();
         while (bi.Sign > 0) {
           var count = 1000000;
           if (bi.CompareTo((EInteger)1000000) < 0) {

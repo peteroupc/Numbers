@@ -109,7 +109,7 @@ int olderDiscarded) {
         if (fastint.Sign <= 0) {
           return;
         }
-        EInteger bi = fastint.AsBigInteger();
+        EInteger bi = fastint.AsEInteger();
         while (bi.Sign > 0) {
           var count = 1000000;
           if (bi.CompareTo((EInteger)1000000) < 0) {
@@ -572,8 +572,8 @@ bigrem = divrem[1]; }
             ") is less than 0");
         }
         this.knownBitLength = this.CalcKnownDigitLength();
-        EInteger bigintDiff = this.knownBitLength.AsBigInteger();
-        EInteger bitsBig = bits.AsBigInteger();
+        EInteger bigintDiff = this.knownBitLength.AsEInteger();
+        EInteger bitsBig = bits.AsEInteger();
         bigintDiff -= (EInteger)bitsBig;
         if (bigintDiff.Sign > 0) {
           // current length is greater than the

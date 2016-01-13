@@ -564,7 +564,7 @@ namespace PeterO.Numbers {
             return new EInteger(wcount, sumreg, this.negative);
           }
         }
-        //        DebugUtility.Log("" + this + " + " + (bigintAugend));
+        //        DebugUtility.Log("" + this + " + " + bigintAugend);
         sumreg = new short[(
           int)Math.Max(
                     this.words.Length,
@@ -806,7 +806,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.canFitInInt"]/*'/>
     public bool CanFitInInt32() {
-      var c = (int)this.wordCount;
+      int c = this.wordCount;
       if (c > 2) {
         return false;
       }
@@ -5329,37 +5329,53 @@ count);
       int intvalue = unchecked((int)value);
       if ((long)intvalue == value) {
         chars = new char[12];
+        count = 11;
         if (neg) {
-          chars[0] = '-';
-          ++count;
           intvalue = -intvalue;
         }
-        while (intvalue != 0) {
-          int intdivvalue = intvalue / 10;
+      while (intvalue > 43698) {
+        int intdivvalue = intvalue / 10;
+        char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
+        chars[count--] = digit;
+        intvalue = intdivvalue;
+      }
+      while (intvalue > 9) {
+          int intdivvalue = (intvalue * 26215) >> 18;
           char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
-          chars[count++] = digit;
+          chars[count--] = digit;
           intvalue = intdivvalue;
+      }
+      if (intvalue != 0) {
+          chars[count--] = Digits[intvalue];
         }
+        if (neg) {
+          chars[count]='-';
+        } else {
+          ++count;
+        }
+        return new String(chars, count, 12 - count);
       } else {
         chars = new char[24];
+        count = 23;
         if (neg) {
-          chars[0] = '-';
-          ++count;
           value = -value;
         }
-        while (value != 0) {
+        while (value > 9) {
           long divvalue = value / 10;
           char digit = Digits[(int)(value - (divvalue * 10))];
-          chars[count++] = digit;
+          chars[count--] = digit;
           value = divvalue;
         }
+        if (value != 0) {
+          chars[count--] = Digits[(int)value];
+        }
+        if (neg) {
+          chars[count]='-';
+        } else {
+          ++count;
+        }
+        return new String(chars, count, 24 - count);
       }
-      if (neg) {
-        ReverseChars(chars, 1, count - 1);
-      } else {
-        ReverseChars(chars, 0, count);
-      }
-      return new String(chars, 0, count);
     }
 
     private EInteger[] SqrtRemInternal(bool useRem) {

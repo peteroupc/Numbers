@@ -373,28 +373,6 @@ The parameter <i>diag</i>
         bool negative,
         PeterO.Numbers.EContext ctx);
 
-Creates a not-a-number arbitrary-precision decimal number.
-
-<b>Parameters:</b>
-
- * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
-
- * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
-
- * <i>negative</i>: Whether the return value is negative.
-
- * <i>ctx</i>: A context object for arbitrary-precision arithmetic settings.
-
-<b>Returns:</b>
-
-An arbitrary-precision decimal number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>diag</i>
- is null or is less than 0.
-
 ### Divide
 
     public PeterO.Numbers.EDecimal Divide(
