@@ -180,7 +180,7 @@ bigrem = divrem[1]; }
       int startCount = Math.Min(4, digits - 1);
       if (startCount > 0) {
         EInteger bigrem;
-        EInteger radixPower = DecimalUtility.FindPowerOfTen(startCount);
+        EInteger radixPower = NumberUtility.FindPowerOfTen(startCount);
         EInteger bigquo;
 {
 EInteger[] divrem = this.shiftedBigInt.DivRem(radixPower);
@@ -319,7 +319,7 @@ bigrem = divrem[1]; }
       if (digitDiff.CompareToInt(9) <= 0) {
         EInteger bigrem;
         int diffInt = digitDiff.AsInt32();
-        EInteger radixPower = DecimalUtility.FindPowerOfTen(diffInt);
+        EInteger radixPower = NumberUtility.FindPowerOfTen(diffInt);
         EInteger bigquo;
 {
 EInteger[] divrem = this.shiftedBigInt.DivRem(radixPower);
@@ -345,7 +345,7 @@ bigrem = divrem[1]; }
       if (digitDiff.CompareToInt(Int32.MaxValue) <= 0) {
         EInteger bigrem;
         EInteger radixPower =
-        DecimalUtility.FindPowerOfTen(digitDiff.AsInt32() - 1);
+        NumberUtility.FindPowerOfTen(digitDiff.AsInt32() - 1);
         EInteger bigquo;
 {
 EInteger[] divrem = this.shiftedBigInt.DivRem(radixPower);

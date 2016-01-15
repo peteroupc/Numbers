@@ -41,8 +41,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Mantissa"]/*'/>
     public EInteger Mantissa {
       get {
-     return this.IsNegative ?
-          (-(EInteger)this.unsignedMantissa.AsEInteger()) :
+     return this.IsNegative ? (-(EInteger)this.unsignedMantissa.AsEInteger()) :
           this.unsignedMantissa.AsEInteger();
       }
     }
@@ -746,16 +745,16 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
         EInteger bigtmp = null;
         if (tmpbigint.CompareTo(EInteger.One) != 0) {
           if (fitsInInt32) {
-            bigtmp = DecimalUtility.FindPowerOfTen(powerInt);
+            bigtmp = NumberUtility.FindPowerOfTen(powerInt);
             tmpbigint *= (EInteger)bigtmp;
           } else {
-            bigtmp = DecimalUtility.FindPowerOfTenFromBig(power.AsEInteger());
+            bigtmp = NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
             tmpbigint *= (EInteger)bigtmp;
           }
           return tmpbigint;
         }
-        return fitsInInt32 ? DecimalUtility.FindPowerOfTen(powerInt) :
-          DecimalUtility.FindPowerOfTenFromBig(power.AsEInteger());
+        return fitsInInt32 ? NumberUtility.FindPowerOfTen(powerInt) :
+          NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
       }
 
     /// <include file='../../docs.xml'
@@ -1233,7 +1232,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
       if (sign > 0) {
         EInteger bigmantissa = this.Mantissa;
         EInteger bigexponent =
-          DecimalUtility.FindPowerOfTenFromBig(this.Exponent);
+          NumberUtility.FindPowerOfTenFromBig(this.Exponent);
         bigmantissa *= (EInteger)bigexponent;
         return bigmantissa;
       } else {
@@ -1283,7 +1282,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
       if (bigintExp.Sign > 0) {
         // Scaled integer
         EInteger bigmantissa = bigintMant;
-        bigintExp = DecimalUtility.FindPowerOfTenFromBig(bigintExp);
+        bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
         bigmantissa *= (EInteger)bigintExp;
         return EFloat.FromEInteger(bigmantissa);
       } else {
@@ -1297,7 +1296,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         }
         FastInteger negscale = FastInteger.Copy(scale).Negate();
         EInteger divisor =
-          DecimalUtility.FindPowerOfFiveFromBig(negscale.AsEInteger());
+          NumberUtility.FindPowerOfFiveFromBig(negscale.AsEInteger());
         while (true) {
           EInteger quotient;
           {
@@ -1314,11 +1313,11 @@ if (!(decimalPoint.AsInt32() == 0)) {
             if ((bits[0] | bits[1]) != 0) {
               // Quotient's integer part is nonzero.
               // Get the number of bits of the quotient
-              int bitPrecision = DecimalUtility.BitPrecisionInt(bits[1]);
+              int bitPrecision = NumberUtility.BitPrecisionInt(bits[1]);
               if (bitPrecision != 0) {
                 bitPrecision += 32;
               } else {
-                bitPrecision = DecimalUtility.BitPrecisionInt(bits[0]);
+                bitPrecision = NumberUtility.BitPrecisionInt(bits[0]);
               }
               shift = 63 - bitPrecision;
               scale.SubtractInt(shift);
@@ -1498,7 +1497,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
       } else {
         // Value has a fractional part
         var bigmantissa = (EInteger)valueFpMantissa;
-        EInteger bigexponent = DecimalUtility.FindPowerOfFive(-floatExponent);
+        EInteger bigexponent = NumberUtility.FindPowerOfFive(-floatExponent);
         bigmantissa *= (EInteger)bigexponent;
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
@@ -1584,7 +1583,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         value[1] |= 0x100000;
       }
       if ((value[1] | value[0]) != 0) {
-      floatExponent += DecimalUtility.ShiftAwayTrailingZerosTwoElements(value);
+      floatExponent += NumberUtility.ShiftAwayTrailingZerosTwoElements(value);
       } else {
         return neg ? EDecimal.NegativeZero : EDecimal.Zero;
       }
@@ -1607,7 +1606,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
       } else {
         // Value has a fractional part
         var bigmantissa = (EInteger)valueFpMantissaBig;
-        EInteger exp = DecimalUtility.FindPowerOfFive(-floatExponent);
+        EInteger exp = NumberUtility.FindPowerOfFive(-floatExponent);
         bigmantissa *= (EInteger)exp;
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
@@ -1666,7 +1665,7 @@ if (!(decimalPoint.AsInt32() == 0)) {
         // Fractional number
         EInteger bigmantissa = bigintMant;
         EInteger negbigintExp = -(EInteger)bigintExp;
-        negbigintExp = DecimalUtility.FindPowerOfFiveFromBig(negbigintExp);
+        negbigintExp = NumberUtility.FindPowerOfFiveFromBig(negbigintExp);
         bigmantissa *= (EInteger)negbigintExp;
         return EDecimal.Create(bigmantissa, bigintExp);
       }
@@ -1938,6 +1937,26 @@ if (!(decimalPoint.AsInt32() == 0)) {
       EInteger exponent,
       EContext ctx) {
       return GetMathValue(ctx).DivideToExponent(this, divisor, exponent, ctx);
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='divisor'>Not documented yet.</param>
+    /// <param name='exponent'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    public EDecimal DivideToExponent(
+      EDecimal divisor,
+      EInteger exponent) {
+      return DivideToExponent(divisor, exponent, ERounding.HalfEven);
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='divisor'>Not documented yet.</param>
+    /// <param name='exponentSmall'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    public EDecimal DivideToExponent(
+      EDecimal divisor,
+      long exponentSmall) {
+      return DivideToExponent(divisor, exponentSmall, ERounding.HalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -2289,6 +2308,23 @@ if (!(decimalPoint.AsInt32() == 0)) {
         .RoundToExponentSimple(this, exponent, ctx);
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <param name='exponent'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    public EDecimal RoundToExponent(
+      EInteger exponent) {
+    return RoundToExponent(exponent,
+        EContext.ForRounding(ERounding.HalfEven));
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='exponentSmall'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    public EDecimal RoundToExponent(
+      int exponentSmall) {
+      return RoundToExponent(exponentSmall, ERounding.HalfEven);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal RoundToExponentExact(
@@ -2368,18 +2404,15 @@ if (!(decimalPoint.AsInt32() == 0)) {
       return this.RoundToExponent((EInteger)exponentSmall, ctx);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <param name='exponent'>Not documented yet.</param>
+    /// <param name='rounding'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
     public EDecimal RoundToExponentExact(
-      int exponentSmall,
+      EInteger exponent,
       ERounding rounding) {
-        EDecimal ret = RoundToExponentFast(exponentSmall,
-          rounding);
-        if (ret != null) {
- return ret;
-}
       return this.RoundToExponentExact(
-exponentSmall,
+exponent,
 EContext.ForRounding(rounding));
     }
 
@@ -2560,7 +2593,7 @@ EContext ctx) {
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
         EInteger mant = this.unsignedMantissa.AsEInteger();
-        EInteger bigPower = DecimalUtility.FindPowerOfTenFromBig(bigExp);
+        EInteger bigPower = NumberUtility.FindPowerOfTenFromBig(bigExp);
         mant *= bigPower;
         return CreateWithFlags(
 mant,

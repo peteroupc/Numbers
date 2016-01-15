@@ -8,7 +8,7 @@ at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
 using System;
 
 namespace PeterO.Numbers {
-  internal static class DecimalUtility {
+  internal static class NumberUtility {
     private static readonly EInteger[] ValueBigIntPowersOfTen = {
       EInteger.One, (EInteger)10, (EInteger)100, (EInteger)1000,
       (EInteger)10000, (EInteger)100000, (EInteger)1000000,
@@ -301,10 +301,10 @@ namespace PeterO.Numbers {
     }
 
     private static readonly PowerCache ValuePowerOfFiveCache = new
-    DecimalUtility.PowerCache();
+    NumberUtility.PowerCache();
 
     private static readonly PowerCache ValuePowerOfTenCache = new
-      DecimalUtility.PowerCache();
+      NumberUtility.PowerCache();
 
     internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {
       int sign = diff.Sign;

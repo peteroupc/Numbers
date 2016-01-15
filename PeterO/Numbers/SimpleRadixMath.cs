@@ -122,7 +122,7 @@ namespace PeterO.Numbers {
         }
         if (afterDivision) {
           int radix = this.GetHelper().GetRadix();
-          mant = DecimalUtility.ReduceTrailingZeros(
+          mant = NumberUtility.ReduceTrailingZeros(
             mant,
             fastExp,
             radix,
@@ -137,7 +137,7 @@ namespace PeterO.Numbers {
       } else if (afterDivision && exp.Sign < 0) {
         FastInteger fastExp = FastInteger.FromBig(exp);
         int radix = this.GetHelper().GetRadix();
-        mant = DecimalUtility.ReduceTrailingZeros(
+        mant = NumberUtility.ReduceTrailingZeros(
           mant, fastExp, radix, null, null, new FastInteger(0));
         thisValue = this.GetHelper().CreateNewWithFlags(
           mant,

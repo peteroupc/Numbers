@@ -82,7 +82,7 @@
     <Compile Include="PeterO\Numbers\EIntegerExtra.cs" />
     <Compile Include="PeterO\Numbers\BigNumberFlags.cs" />
     <Compile Include="PeterO\Numbers\BitShiftAccumulator.cs" />
-    <Compile Include="PeterO\Numbers\DecimalUtility.cs" />
+    <Compile Include="PeterO\Numbers\NumberUtility.cs" />
     <Compile Include="PeterO\Numbers\DigitShiftAccumulator.cs" />
     <Compile Include="PeterO\Numbers\EDecimal.cs" />
     <Compile Include="PeterO\Numbers\EFloat.cs" />

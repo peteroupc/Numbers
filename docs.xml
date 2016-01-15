@@ -1,22 +1,4 @@
 <docs>
-<doc name="P:PeterO.Numbers.BitShiftAccumulator.DiscardedDigitCount">
-
-</doc>
-<doc name="P:PeterO.Numbers.BitShiftAccumulator.LastDiscardedDigit">
-
-</doc>
-<doc name="P:PeterO.Numbers.BitShiftAccumulator.OlderDiscardedDigits">
-
-</doc>
-<doc name="P:PeterO.Numbers.DigitShiftAccumulator.LastDiscardedDigit">
-
-</doc>
-<doc name="P:PeterO.Numbers.DigitShiftAccumulator.OlderDiscardedDigits">
-
-</doc>
-<doc name="P:PeterO.Numbers.DigitShiftAccumulator.ShiftedInt">
-
-</doc>
 <doc name="T:PeterO.Numbers.EContext">
 <summary>Contains parameters for controlling the precision,
             rounding, and exponent range of arbitrary-precision
@@ -1855,10 +1837,19 @@ of this class.</para>
             outside of the valid range of the precision context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.ERounding)">
-<summary>Not documented yet.</summary>
-            <param name='exponentSmall'>The parameter <paramref name='exponentSmall'/> is not documented yet.</param>
-            <param name='rounding'>The parameter <paramref name='rounding'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+<summary>Returns a decimal number with the same value as this
+            object but rounded to a new exponent if necessary.</summary>
+            <param name='exponentSmall'>The minimum exponent the result can
+            have. This is the maximum number of fractional digits in the
+            result, expressed as a negative number. Can also be positive, which
+            eliminates lower-order places from the number. For example, -3
+            means round to the thousandth (10^-3, 0.0001), and 3 means round to
+            the thousand (10^3, 1000). A value of 0 rounds the number to an
+            integer.</param>
+            <param name='rounding'>The desired mode to use to round the given number to the
+            given exponent.</param>
+            <returns>A decimal number rounded to the given negative number
+            of decimal places.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
@@ -1911,12 +1902,6 @@ of this class.</para>
             range, the new exponent must be changed to the given exponent when
             rounding, and the given exponent is outside of the valid range of
             the precision context.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)">
-<summary>Not documented yet.</summary>
-            <param name='exponentSmall'>The parameter <paramref name='exponentSmall'/> is not documented yet.</param>
-            <param name='rounding'>The parameter <paramref name='rounding'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegralExact(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
@@ -2156,44 +2141,42 @@ of this class.</para>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.EInteger">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param>
+            <param name='bigValue'>An arbitrary-precision decimal.</param>
             <returns>An EInteger object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param>
+            <param name='bigValue'>An arbitrary-precision decimal.</param>
             <returns>A Byte object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal">
-<summary>
-            
-            </summary>
+<summary>Converts an arbitrary-precision decimal's value to a .NET decimal, using the half-even rounding mode.</summary>
             <param name='bigValue'/>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param>
+            <param name='bigValue'>An arbitrary-precision decimal.</param>
             <returns>A 64-bit floating-point number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param>
+            <param name='bigValue'>An arbitrary-precision decimal.</param>
             <returns>A 16-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param>
+            <param name='bigValue'>An arbitrary-precision decimal.</param>
             <returns>A 32-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param>
+            <param name='bigValue'>An arbitrary-precision decimal.</param>
             <returns>A 64-bit signed integer.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param>
+            <param name='bigValue'>An arbitrary-precision decimal.</param>
             <returns>A 32-bit floating-point number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal">

@@ -3794,7 +3794,7 @@ ctx);
         } else {
           FastInteger digits = (precision == null) ? null :
             this.helper.CreateShiftAccumulator(bigmant).GetDigitLength();
-          bigmant = DecimalUtility.ReduceTrailingZeros(
+          bigmant = NumberUtility.ReduceTrailingZeros(
             bigmant,
             exp,
             radix,

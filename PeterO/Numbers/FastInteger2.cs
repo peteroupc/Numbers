@@ -37,7 +37,7 @@ namespace PeterO.Numbers {
     }
 
     public override int GetHashCode() {
-      int hash = unchecked(hash * 31 + this.integerMode);
+      int hash = unchecked(31 + this.integerMode);
       hash = unchecked(hash * 31 + this.smallValue);
       hash = unchecked(hash * 31 +
         (this.largeValue == null ? 0 : this.largeValue.GetHashCode()));
@@ -83,9 +83,8 @@ namespace PeterO.Numbers {
         if (b.smallValue == 0) {
  return a;
 }
-      if ((b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue)
-          ||
-         (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
+      if ((b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue)||
+          (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
                   a.smallValue)) {
         return new FastInteger2(a.smallValue - b.smallValue);
       }

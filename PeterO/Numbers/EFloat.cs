@@ -293,19 +293,19 @@ namespace PeterO.Numbers {
         if (tmpbigint.Sign < 0) {
           tmpbigint = -tmpbigint;
           if (power.CanFitInInt32()) {
-            tmpbigint = DecimalUtility.ShiftLeftInt(tmpbigint, power.AsInt32());
+            tmpbigint = NumberUtility.ShiftLeftInt(tmpbigint, power.AsInt32());
             tmpbigint = -tmpbigint;
           } else {
-            tmpbigint = DecimalUtility.ShiftLeft(
+            tmpbigint = NumberUtility.ShiftLeft(
               tmpbigint,
               power.AsEInteger());
             tmpbigint = -tmpbigint;
           }
           return tmpbigint;
         }
-        return power.CanFitInInt32() ? DecimalUtility.ShiftLeftInt(
+        return power.CanFitInInt32() ? NumberUtility.ShiftLeftInt(
           tmpbigint,
-          power.AsInt32()) : DecimalUtility.ShiftLeft(
+          power.AsInt32()) : NumberUtility.ShiftLeft(
           tmpbigint,
           power.AsEInteger());
       }
@@ -381,7 +381,7 @@ namespace PeterO.Numbers {
         if (neg) {
           bigmantissa = -bigmantissa;
         }
-        bigmantissa = DecimalUtility.ShiftLeft(bigmantissa, curexp);
+        bigmantissa = NumberUtility.ShiftLeft(bigmantissa, curexp);
         if (neg) {
           bigmantissa = -bigmantissa;
         }
@@ -565,8 +565,8 @@ namespace PeterO.Numbers {
         // This will be an infinite loop if both elements
         // of the bits array are 0, but the check for
         // 0 was already done above
-        while (!DecimalUtility.HasBitSet(mantissaBits, 52)) {
-          DecimalUtility.ShiftLeftOne(mantissaBits);
+        while (!NumberUtility.HasBitSet(mantissaBits, 52)) {
+          NumberUtility.ShiftLeftOne(mantissaBits);
           bigexponent.Decrement();
         }
       } else {
@@ -579,7 +579,7 @@ namespace PeterO.Numbers {
       }
       // Round half-even
       if (bitLeftmost > 0 && (bitsAfterLeftmost > 0 ||
-                    DecimalUtility.HasBitSet(mantissaBits, 0))) {
+                    NumberUtility.HasBitSet(mantissaBits, 0))) {
         // Add 1 to the bits
         mantissaBits[0] = unchecked((int)(mantissaBits[0] + 1));
         if (mantissaBits[0] == 0) {
@@ -613,7 +613,7 @@ namespace PeterO.Numbers {
         mantissaBits = FastInteger.GetLastWords(accum.ShiftedInt, 2);
         // Round half-even
         if (bitLeftmost > 0 && (bitsAfterLeftmost > 0 ||
-                    DecimalUtility.HasBitSet(mantissaBits, 0))) {
+                    NumberUtility.HasBitSet(mantissaBits, 0))) {
           // Add 1 to the bits
           mantissaBits[0] = unchecked((int)(mantissaBits[0] + 1));
           if (mantissaBits[0] == 0) {
@@ -743,7 +743,7 @@ namespace PeterO.Numbers {
         value[1] |= 0x100000;
       }
       if ((value[1] | value[0]) != 0) {
-      floatExponent += DecimalUtility.ShiftAwayTrailingZerosTwoElements(value);
+      floatExponent += NumberUtility.ShiftAwayTrailingZerosTwoElements(value);
       } else {
         return neg ? EFloat.NegativeZero : EFloat.Zero;
       }
@@ -1508,7 +1508,7 @@ EContext ctx) {
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
-        EInteger mant = DecimalUtility.ShiftLeft(
+        EInteger mant = NumberUtility.ShiftLeft(
           this.unsignedMantissa,
           bigExp);
         return CreateWithFlags(

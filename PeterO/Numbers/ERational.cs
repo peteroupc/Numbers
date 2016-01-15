@@ -248,9 +248,9 @@ bool negative) {
       EInteger den = EInteger.One;
       if (exp.Sign < 0) {
         exp = -(EInteger)exp;
-        den = DecimalUtility.ShiftLeft(den, exp);
+        den = NumberUtility.ShiftLeft(den, exp);
       } else {
-        num = DecimalUtility.ShiftLeft(num, exp);
+        num = NumberUtility.ShiftLeft(num, exp);
       }
       if (neg) {
         num = -(EInteger)num;
@@ -292,9 +292,9 @@ bool negative) {
       EInteger den = EInteger.One;
       if (exp.Sign < 0) {
         exp = -(EInteger)exp;
-        den = DecimalUtility.FindPowerOfTenFromBig(exp);
+        den = NumberUtility.FindPowerOfTenFromBig(exp);
       } else {
-        EInteger powerOfTen = DecimalUtility.FindPowerOfTenFromBig(exp);
+        EInteger powerOfTen = NumberUtility.FindPowerOfTenFromBig(exp);
         num *= (EInteger)powerOfTen;
       }
       if (neg) {
