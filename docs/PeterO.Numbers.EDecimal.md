@@ -445,6 +445,26 @@ A 2 element array consisting of the quotient and remainder in that order.
 
     public PeterO.Numbers.EDecimal DivideToExponent(
         PeterO.Numbers.EDecimal divisor,
+        int desiredExponentInt,
+        PeterO.Numbers.EContext ctx);
+
+### DivideToExponent
+
+    public PeterO.Numbers.EDecimal DivideToExponent(
+        PeterO.Numbers.EDecimal divisor,
+        int desiredExponentInt,
+        PeterO.Numbers.ERounding rounding);
+
+### DivideToExponent
+
+    public PeterO.Numbers.EDecimal DivideToExponent(
+        PeterO.Numbers.EDecimal divisor,
+        long desiredExponentSmall);
+
+### DivideToExponent
+
+    public PeterO.Numbers.EDecimal DivideToExponent(
+        PeterO.Numbers.EDecimal divisor,
         long desiredExponentSmall,
         PeterO.Numbers.EContext ctx);
 
@@ -503,6 +523,12 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 <b>Returns:</b>
 
 The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the rounding mode is ERounding.None and the result is not exact.
+
+### DivideToExponent
+
+    public PeterO.Numbers.EDecimal DivideToExponent(
+        PeterO.Numbers.EDecimal divisor,
+        PeterO.Numbers.EInteger exponent);
 
 ### DivideToExponent
 
@@ -1692,7 +1718,7 @@ An arbitrary-precision integer.
 ### Quantize
 
     public PeterO.Numbers.EDecimal Quantize(
-        int desiredExponentSmall,
+        int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
 Returns a decimal number with the same value but a new exponent.Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
@@ -1721,7 +1747,7 @@ A decimal number with the same value as this object but with the exponent change
 ### Quantize
 
     public PeterO.Numbers.EDecimal Quantize(
-        int desiredExponentSmall,
+        int desiredExponentInt,
         PeterO.Numbers.ERounding rounding);
 
 Returns a decimal number with the same value as this one but a new exponent.Remark: This method can be used to implement fixed-point decimal arithmetic, in which a fixed number of digits come after the decimal point. A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic".
@@ -1903,19 +1929,17 @@ A decimal number rounded to the closest value representable in the given precisi
         int exponentSmall,
         PeterO.Numbers.ERounding rounding);
 
-Not documented yet.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary.
 
 <b>Parameters:</b>
 
- * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
- is not documented yet.
+ * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: The desired mode to use to round the given number to the given exponent.
 
 <b>Returns:</b>
 
-An EDecimal object.
+A decimal number rounded to the given negative number of decimal places.
 
 ### RoundToExponent
 
@@ -1952,26 +1976,6 @@ Returns a decimal number with the same value as this object but rounded to an in
 <b>Returns:</b>
 
 A decimal number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the precision context.
-
-### RoundToExponentExact
-
-    public PeterO.Numbers.EDecimal RoundToExponentExact(
-        int exponentSmall,
-        PeterO.Numbers.ERounding rounding);
-
-Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
- is not documented yet.
-
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
-
-<b>Returns:</b>
-
-An EDecimal object.
 
 ### RoundToExponentExact
 

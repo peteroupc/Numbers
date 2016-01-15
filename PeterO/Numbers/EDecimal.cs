@@ -1910,6 +1910,20 @@ if (!(decimalPoint.AsInt32() == 0)) {
         ctx);
     }
 
+    /// <param name='divisor'>Not documented yet.</param>
+    /// <param name='desiredExponentInt'>Not documented yet.</param>
+    /// <param name='ctx'>Not documented yet. (3).</param>
+    /// <returns>An EDecimal object.</returns>
+    public EDecimal DivideToExponent(
+      EDecimal divisor,
+      int desiredExponentInt,
+      EContext ctx) {
+      return this.DivideToExponent(
+        divisor,
+        (EInteger)desiredExponentInt,
+        ctx);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Divide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal Divide(
@@ -1930,6 +1944,20 @@ if (!(decimalPoint.AsInt32() == 0)) {
         EContext.ForRounding(rounding));
     }
 
+    /// <param name='divisor'>Not documented yet.</param>
+    /// <param name='desiredExponentInt'>Not documented yet.</param>
+    /// <param name='rounding'>Not documented yet. (3).</param>
+    /// <returns>An EDecimal object.</returns>
+    public EDecimal DivideToExponent(
+      EDecimal divisor,
+      int desiredExponentInt,
+      ERounding rounding) {
+      return this.DivideToExponent(
+        divisor,
+        (EInteger)desiredExponentInt,
+        EContext.ForRounding(rounding));
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal DivideToExponent(
@@ -1939,7 +1967,6 @@ if (!(decimalPoint.AsInt32() == 0)) {
       return GetMathValue(ctx).DivideToExponent(this, divisor, exponent, ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
     /// <param name='divisor'>Not documented yet.</param>
     /// <param name='exponent'>Not documented yet.</param>
     /// <returns>An EDecimal object.</returns>
@@ -1949,14 +1976,24 @@ if (!(decimalPoint.AsInt32() == 0)) {
       return DivideToExponent(divisor, exponent, ERounding.HalfEven);
     }
 
-    /// <summary>Not documented yet.</summary>
     /// <param name='divisor'>Not documented yet.</param>
-    /// <param name='exponentSmall'>Not documented yet.</param>
+    /// <param name='desiredExponentSmall'>Not documented yet.</param>
     /// <returns>An EDecimal object.</returns>
     public EDecimal DivideToExponent(
       EDecimal divisor,
-      long exponentSmall) {
-      return DivideToExponent(divisor, exponentSmall, ERounding.HalfEven);
+      long desiredExponentSmall) {
+    return DivideToExponent(divisor, desiredExponentSmall,
+        ERounding.HalfEven);
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='divisor'>Not documented yet.</param>
+    /// <param name='desiredExponentInt'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    public EDecimal DivideToExponent(
+      EDecimal divisor,
+      int desiredExponentInt) {
+      return DivideToExponent(divisor, desiredExponentInt, ERounding.HalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -2238,34 +2275,34 @@ if (!(decimalPoint.AsInt32() == 0)) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Quantize(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
     public EDecimal Quantize(
-      int desiredExponentSmall,
+      int desiredExponentInt,
       ERounding rounding) {
-        EDecimal ret = RoundToExponentFast(desiredExponentSmall,
+        EDecimal ret = RoundToExponentFast(desiredExponentInt,
           rounding);
         if (ret != null) {
  return ret;
 }
       return this.Quantize(
-      EDecimal.Create(EInteger.One, (EInteger)desiredExponentSmall),
+      EDecimal.Create(EInteger.One, (EInteger)desiredExponentInt),
       EContext.ForRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Quantize(System.Int32,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal Quantize(
-      int desiredExponentSmall,
+      int desiredExponentInt,
       EContext ctx) {
       if (ctx == null ||
          (!ctx.HasExponentRange && !ctx.HasFlags && ctx.Traps == 0 &&
           !ctx.HasMaxPrecision && !ctx.IsSimplified)) {
-            EDecimal ret = RoundToExponentFast(desiredExponentSmall,
+            EDecimal ret = RoundToExponentFast(desiredExponentInt,
               ctx == null ? ERounding.HalfEven : ctx.Rounding);
         if (ret != null) {
  return ret;
 }
       }
       return this.Quantize(
-      EDecimal.Create(EInteger.One, (EInteger)desiredExponentSmall),
+      EDecimal.Create(EInteger.One, (EInteger)desiredExponentInt),
       ctx);
     }
 
