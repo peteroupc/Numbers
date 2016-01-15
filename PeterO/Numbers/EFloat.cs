@@ -760,6 +760,90 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
+    public int ToInt32Checked() {
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.unsignedMantissa.IsZero) {
+        return 0;
+      }
+      if (this.exponent.IsZero) {
+        if (this.unsignedMantissa.CanFitInInt32()) {
+          int ret = this.unsignedMantissa.ToInt32Unchecked();
+          if (this.IsNegative) {
+ ret = -ret;
+}
+          return ret;
+        }
+      }
+      return this.ToEIntegerExact().ToInt32Checked();
+    }
+
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
+    public int ToInt32Unchecked() {
+      if (!this.IsFinite) {
+        return 0;
+      }
+      if (this.unsignedMantissa.IsZero) {
+        return 0;
+      }
+      if (this.exponent.IsZero) {
+        if (this.unsignedMantissa.CanFitInInt32()) {
+          int ret = this.unsignedMantissa.ToInt32Unchecked();
+          if (this.IsNegative) {
+ ret = -ret;
+}
+          return ret;
+        }
+      }
+      return this.ToEIntegerExact().ToInt32Unchecked();
+    }
+
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
+    public long ToInt64Checked() {
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.unsignedMantissa.IsZero) {
+        return 0;
+      }
+      if (this.exponent.IsZero) {
+        if (this.unsignedMantissa.CanFitInInt32()) {
+          int ret = this.unsignedMantissa.ToInt32Unchecked();
+          if (this.IsNegative) {
+ ret = -ret;
+}
+          return ret;
+        }
+      }
+      return this.ToEIntegerExact().ToInt64Checked();
+    }
+
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
+    public long ToInt64Unchecked() {
+      if (!this.IsFinite) {
+        return 0;
+      }
+      if (this.unsignedMantissa.IsZero) {
+        return 0;
+      }
+      if (this.IsFinite && this.exponent.IsZero) {
+        if (this.unsignedMantissa.CanFitInInt32()) {
+          int ret = this.unsignedMantissa.ToInt32Unchecked();
+          if (this.IsNegative) {
+ ret = -ret;
+}
+          return ret;
+        }
+      }
+      return this.ToEIntegerExact().ToInt64Unchecked();
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToString"]/*'/>
     public override string ToString() {
       return EDecimal.FromExtendedFloat(this).ToString();
@@ -1097,8 +1181,8 @@ namespace PeterO.Numbers {
         int newflags = otherValue.flags ^ this.flags;
         if (this.unsignedMantissa.CanFitInInt32() &&
           otherValue.unsignedMantissa.CanFitInInt32()) {
-            int integerA = this.unsignedMantissa.AsInt32Unchecked();
-            int integerB = otherValue.unsignedMantissa.AsInt32Unchecked();
+            int integerA = this.unsignedMantissa.ToInt32Unchecked();
+            int integerB = otherValue.unsignedMantissa.ToInt32Unchecked();
             long longA=((long)integerA)*((long)integerB);
             int sign=(longA == 0) ? 0 : (newflags == 0 ? 1 : -1);
             return CreateWithFlags((EInteger)longA, exp, newflags);

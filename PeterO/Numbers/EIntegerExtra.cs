@@ -118,13 +118,13 @@ EInteger mod) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int64"]/*'/>
     public static explicit operator long(EInteger bigValue) {
-      return bigValue.AsInt64Checked();
+      return bigValue.ToInt64Checked();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32"]/*'/>
     public static explicit operator int(EInteger bigValue) {
-      return bigValue.AsInt32Checked();
+      return bigValue.ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'

@@ -751,6 +751,11 @@ of this class.</para>
             <returns>A 2 element array consisting of the quotient and remainder
             in that order.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,PeterO.Numbers.EInteger)">
+<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
+            <param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 <summary>Divides two arbitrary-precision decimal numbers, and gives
             a particular exponent to the result.</summary>
@@ -797,6 +802,29 @@ of this class.</para>
             nonzero. Returns not-a-number (NaN) if the divisor and the dividend
             are 0. Returns NaN if the rounding mode is ERounding.None and
             the result is not exact.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32)">
+<summary>Not documented yet.</summary>
+            <param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
+            <param name='desiredExponentInt'>The parameter <paramref name='desiredExponentInt'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.EContext)">
+<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
+            <param name='desiredExponentInt'>The parameter <paramref name='desiredExponentInt'/> is not documented yet.</param>
+            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.ERounding)">
+<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
+            <param name='desiredExponentInt'>The parameter <paramref name='desiredExponentInt'/> is not documented yet.</param>
+            <param name='rounding'>The parameter <paramref name='rounding'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int64)">
+<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
+            <param name='desiredExponentSmall'>The parameter <paramref name='desiredExponentSmall'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int64,PeterO.Numbers.EContext)">
 <summary>Divides two arbitrary-precision decimal numbers, and gives
@@ -1788,6 +1816,11 @@ of this class.</para>
             <paramref name='ctx'/> is null or the precision and exponent range
             are unlimited.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger)">
+<summary>Not documented yet.</summary>
+            <param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to a new exponent if necessary.</summary>
@@ -1811,6 +1844,17 @@ of this class.</para>
             context defines an exponent range, the new exponent must be changed
             to the given exponent when rounding, and the given exponent is
             outside of the valid range of the precision context.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)">
+<summary>Not documented yet.</summary>
+            <param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param>
+            <param name='rounding'>An ERounding object.</param>
+            <returns>An EDecimal object.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32)">
+<summary>Not documented yet.</summary>
+            <param name='exponentSmall'>The parameter <paramref name='exponentSmall'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
@@ -2085,6 +2129,18 @@ of this class.</para>
             precision to accurately convert it to a 32-bit or 64-bit floating
             point number (float or double).</summary>
             <returns>An arbitrary-precision binary float.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt32Checked">
+<returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked">
+<returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt64Checked">
+<returns>A 64-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
+<returns>A 64-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToPlainString">
 <summary>Converts this value to a string, but without using
@@ -3708,6 +3764,18 @@ of this class.</para>
 <summary>Not documented yet.</summary>
             <returns>An EDecimal object.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt32Checked">
+<returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt32Unchecked">
+<returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt64Checked">
+<returns>A 64-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt64Unchecked">
+<returns>A 64-bit signed integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.ToPlainString">
 <summary>Converts this value to a string, but without exponential
             notation.</summary>
@@ -4101,6 +4169,16 @@ of this class.</para>
             <exception cref='T:System.FormatException'>The string portion is
             empty or in an invalid format.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)">
+<summary>Returns the greatest common divisor of two integers. The
+            greatest common divisor (GCD) is also known as the greatest common
+            factor (GCF).</summary>
+            <param name='bigintSecond'>Another arbitrary-precision
+            integer.</param>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='bigintSecond'/> is null.</exception>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)">
 <summary>Not documented yet.</summary>
             <param name='index'>The parameter <paramref name='index'/> is not documented yet.</param>
@@ -4110,6 +4188,11 @@ of this class.</para>
 <doc name="M:PeterO.Numbers.EInteger.GetHashCode">
 <summary>Returns the hash code for this instance.</summary>
             <returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)">
+<summary>Not documented yet.</summary>
+            <param name='n'>A 32-bit signed integer.</param>
+            <returns>A Boolean object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GreatestCommonDivisor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Not documented yet.</summary>
@@ -4363,22 +4446,6 @@ of this class.</para>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='str'/> is null.</exception>
             <exception cref='T:System.FormatException'>The parameter <paramref name='str'/> is in an invalid format.</exception>
-</doc>
-<doc name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)">
-<summary>Returns the greatest common divisor of two integers. The
-            greatest common divisor (GCD) is also known as the greatest common
-            factor (GCF).</summary>
-            <param name='bigintSecond'>Another arbitrary-precision
-            integer.</param>
-            <returns>An arbitrary-precision integer.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='bigintSecond'/> is null.</exception>
-</doc>
-<doc name="M:PeterO.Numbers.EInteger.GetDigitCount">
-<summary>Finds the number of decimal digits this number
-            has.</summary>
-            <returns>The number of decimal digits. Returns 1 if this object' s
-            value is 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.getLowBit">
 <summary>Gets the lowest set bit in this number's absolute

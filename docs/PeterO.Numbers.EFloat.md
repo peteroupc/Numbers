@@ -2216,6 +2216,22 @@ Not documented yet.
 
 An EDecimal object.
 
+### ToInt32Checked
+
+    public int ToInt32Checked();
+
+### ToInt32Unchecked
+
+    public int ToInt32Unchecked();
+
+### ToInt64Checked
+
+    public long ToInt64Checked();
+
+### ToInt64Unchecked
+
+    public long ToInt64Unchecked();
+
 ### ToPlainString
 
     public string ToPlainString();

@@ -409,12 +409,12 @@ bigintD,
     public void TestAsInt32Checked() {
       Assert.AreEqual(
         Int32.MinValue,
-        BigValueOf(Int32.MinValue).AsInt32Checked());
+        BigValueOf(Int32.MinValue).ToInt32Checked());
       Assert.AreEqual(
         Int32.MaxValue,
-        BigValueOf(Int32.MaxValue).AsInt32Checked());
+        BigValueOf(Int32.MaxValue).ToInt32Checked());
       try {
-        BigValueOf(Int32.MinValue - 1L).AsInt32Checked();
+        BigValueOf(Int32.MinValue - 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -423,7 +423,7 @@ bigintD,
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        BigValueOf(Int32.MaxValue + 1L).AsInt32Checked();
+        BigValueOf(Int32.MaxValue + 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -432,7 +432,7 @@ bigintD,
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        BigFromString("999999999999999999999999999999999").AsInt32Checked();
+        BigFromString("999999999999999999999999999999999").ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -442,12 +442,12 @@ bigintD,
       }
       Assert.AreEqual(
         Int32.MinValue,
-        BigValueOf(Int32.MinValue).AsInt32Checked());
+        BigValueOf(Int32.MinValue).ToInt32Checked());
       Assert.AreEqual(
         Int32.MaxValue,
-        BigValueOf(Int32.MaxValue).AsInt32Checked());
+        BigValueOf(Int32.MaxValue).ToInt32Checked());
       try {
-        BigValueOf(Int32.MinValue - 1L).AsInt32Checked();
+        BigValueOf(Int32.MinValue - 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -456,7 +456,7 @@ bigintD,
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        BigValueOf(Int32.MaxValue + 1L).AsInt32Checked();
+        BigValueOf(Int32.MaxValue + 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -470,14 +470,14 @@ bigintD,
     public void TestAsInt64Checked() {
       Assert.AreEqual(
         Int64.MinValue,
-        BigValueOf(Int64.MinValue).AsInt64Checked());
+        BigValueOf(Int64.MinValue).ToInt64Checked());
       Assert.AreEqual(
         Int64.MaxValue,
-        BigValueOf(Int64.MaxValue).AsInt64Checked());
+        BigValueOf(Int64.MaxValue).ToInt64Checked());
       try {
         EInteger bigintTemp = BigValueOf(Int64.MinValue);
         bigintTemp -= EInteger.One;
-        bigintTemp.AsInt64Checked();
+        bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -488,7 +488,7 @@ bigintD,
       try {
         EInteger bigintTemp = BigValueOf(Int64.MaxValue);
         bigintTemp += EInteger.One;
-        bigintTemp.AsInt64Checked();
+        bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -498,38 +498,38 @@ bigintD,
       }
       Assert.AreEqual(
         unchecked((long)0xFFFFFFF200000000L),
-  BigValueOf(unchecked((long)0xFFFFFFF200000000L)).AsInt64Checked());
+  BigValueOf(unchecked((long)0xFFFFFFF200000000L)).ToInt64Checked());
       Assert.AreEqual(
         unchecked((long)0xFFFFFFF280000000L),
-  BigValueOf(unchecked((long)0xFFFFFFF280000000L)).AsInt64Checked());
+  BigValueOf(unchecked((long)0xFFFFFFF280000000L)).ToInt64Checked());
       Assert.AreEqual(
         unchecked((long)0xFFFFFFF280000001L),
-  BigValueOf(unchecked((long)0xFFFFFFF280000001L)).AsInt64Checked());
+  BigValueOf(unchecked((long)0xFFFFFFF280000001L)).ToInt64Checked());
       Assert.AreEqual(
         unchecked((long)0xFFFFFFF27FFFFFFFL),
-  BigValueOf(unchecked((long)0xFFFFFFF27FFFFFFFL)).AsInt64Checked());
+  BigValueOf(unchecked((long)0xFFFFFFF27FFFFFFFL)).ToInt64Checked());
       Assert.AreEqual(
         0x0000000380000001L,
-        BigValueOf(0x0000000380000001L).AsInt64Checked());
+        BigValueOf(0x0000000380000001L).ToInt64Checked());
       Assert.AreEqual(
         0x0000000382222222L,
-        BigValueOf(0x0000000382222222L).AsInt64Checked());
-      Assert.AreEqual(-8L, BigValueOf(-8L).AsInt64Checked());
-      Assert.AreEqual(-32768L, BigValueOf(-32768L).AsInt64Checked());
+        BigValueOf(0x0000000382222222L).ToInt64Checked());
+      Assert.AreEqual(-8L, BigValueOf(-8L).ToInt64Checked());
+      Assert.AreEqual(-32768L, BigValueOf(-32768L).ToInt64Checked());
       Assert.AreEqual(
         Int32.MinValue,
-        BigValueOf(Int32.MinValue).AsInt64Checked());
+        BigValueOf(Int32.MinValue).ToInt64Checked());
       Assert.AreEqual(
         Int32.MaxValue,
-        BigValueOf(Int32.MaxValue).AsInt64Checked());
+        BigValueOf(Int32.MaxValue).ToInt64Checked());
       Assert.AreEqual(
         0x80000000L,
-        BigValueOf(0x80000000L).AsInt64Checked());
+        BigValueOf(0x80000000L).ToInt64Checked());
       Assert.AreEqual(
         0x90000000L,
-        BigValueOf(0x90000000L).AsInt64Checked());
+        BigValueOf(0x90000000L).ToInt64Checked());
       try {
-        BigFromString("999999999999999999999999999999999").AsInt64Checked();
+        BigFromString("999999999999999999999999999999999").ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -539,14 +539,14 @@ bigintD,
       }
       Assert.AreEqual(
         Int64.MinValue,
-        BigValueOf(Int64.MinValue).AsInt64Checked());
+        BigValueOf(Int64.MinValue).ToInt64Checked());
       Assert.AreEqual(
         Int64.MaxValue,
-        BigValueOf(Int64.MaxValue).AsInt64Checked());
+        BigValueOf(Int64.MaxValue).ToInt64Checked());
       try {
         EInteger bigintTemp = BigValueOf(Int64.MinValue);
         bigintTemp -= EInteger.One;
-        bigintTemp.AsInt64Checked();
+        bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -557,7 +557,7 @@ bigintD,
       try {
         EInteger bigintTemp = BigValueOf(Int64.MaxValue);
         bigintTemp += EInteger.One;
-        bigintTemp.AsInt64Checked();
+        bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);
@@ -568,39 +568,39 @@ bigintD,
       long longV = unchecked((long)0xFFFFFFF200000000L);
       Assert.AreEqual(
 longV,
-BigValueOf(longV).AsInt64Checked());
+BigValueOf(longV).ToInt64Checked());
       longV = unchecked((long)0xFFFFFFF280000000L);
       Assert.AreEqual(
 longV,
-BigValueOf(longV).AsInt64Checked());
+BigValueOf(longV).ToInt64Checked());
       longV = unchecked((long)0xFFFFFFF280000001L);
       Assert.AreEqual(
 longV,
-BigValueOf(longV).AsInt64Checked());
+BigValueOf(longV).ToInt64Checked());
       longV = unchecked((long)0xFFFFFFF27FFFFFFFL);
       Assert.AreEqual(
 longV,
-BigValueOf(longV).AsInt64Checked());
+BigValueOf(longV).ToInt64Checked());
       Assert.AreEqual(
         0x0000000380000001L,
-        BigValueOf(0x0000000380000001L).AsInt64Checked());
+        BigValueOf(0x0000000380000001L).ToInt64Checked());
       Assert.AreEqual(
         0x0000000382222222L,
-        BigValueOf(0x0000000382222222L).AsInt64Checked());
-      Assert.AreEqual(-8L, BigValueOf(-8L).AsInt64Checked());
-      Assert.AreEqual(-32768L, BigValueOf(-32768L).AsInt64Checked());
+        BigValueOf(0x0000000382222222L).ToInt64Checked());
+      Assert.AreEqual(-8L, BigValueOf(-8L).ToInt64Checked());
+      Assert.AreEqual(-32768L, BigValueOf(-32768L).ToInt64Checked());
       Assert.AreEqual(
         Int32.MinValue,
-        BigValueOf(Int32.MinValue).AsInt64Checked());
+        BigValueOf(Int32.MinValue).ToInt64Checked());
       Assert.AreEqual(
         Int32.MaxValue,
-        BigValueOf(Int32.MaxValue).AsInt64Checked());
+        BigValueOf(Int32.MaxValue).ToInt64Checked());
       Assert.AreEqual(
         0x80000000L,
-        BigValueOf(0x80000000L).AsInt64Checked());
+        BigValueOf(0x80000000L).ToInt64Checked());
       Assert.AreEqual(
         0x90000000L,
-        BigValueOf(0x90000000L).AsInt64Checked());
+        BigValueOf(0x90000000L).ToInt64Checked());
     }
     [Test]
     public void TestBigIntegerModPow() {
@@ -1577,19 +1577,19 @@ BigValueOf(longV).AsInt64Checked());
 
     [Test]
     public void TestIntValueUnchecked() {
-      Assert.AreEqual(0L, EInteger.Zero.AsInt32Unchecked());
+      Assert.AreEqual(0L, EInteger.Zero.ToInt32Unchecked());
       Assert.AreEqual(
         Int32.MinValue,
-        BigValueOf(Int32.MinValue).AsInt32Unchecked());
+        BigValueOf(Int32.MinValue).ToInt32Unchecked());
       Assert.AreEqual(
         Int32.MaxValue,
-        BigValueOf(Int32.MaxValue).AsInt32Unchecked());
+        BigValueOf(Int32.MaxValue).ToInt32Unchecked());
       Assert.AreEqual(
         Int32.MaxValue,
-        BigValueOf(Int32.MinValue - 1L).AsInt32Unchecked());
+        BigValueOf(Int32.MinValue - 1L).ToInt32Unchecked());
       Assert.AreEqual(
         Int32.MinValue,
-        BigValueOf(Int32.MaxValue + 1L).AsInt32Unchecked());
+        BigValueOf(Int32.MaxValue + 1L).ToInt32Unchecked());
     }
 
     [Test]
@@ -1629,60 +1629,60 @@ BigValueOf(longV).AsInt64Checked());
     }
     [Test]
     public void TestLongValueUnchecked() {
-      Assert.AreEqual(0L, EInteger.Zero.AsInt64Unchecked());
+      Assert.AreEqual(0L, EInteger.Zero.ToInt64Unchecked());
       Assert.AreEqual(
         Int64.MinValue,
-        BigValueOf(Int64.MinValue).AsInt64Unchecked());
+        BigValueOf(Int64.MinValue).ToInt64Unchecked());
       Assert.AreEqual(
         Int64.MaxValue,
-        BigValueOf(Int64.MaxValue).AsInt64Unchecked());
+        BigValueOf(Int64.MaxValue).ToInt64Unchecked());
       {
         object objectTemp = Int64.MaxValue;
         object objectTemp2 = BigValueOf(Int64.MinValue)
-                .Subtract(EInteger.One).AsInt64Unchecked();
+                .Subtract(EInteger.One).ToInt64Unchecked();
         Assert.AreEqual(objectTemp, objectTemp2);
       }
       Assert.AreEqual(
         Int64.MinValue,
-        BigValueOf(Int64.MaxValue).Add(EInteger.One).AsInt64Unchecked());
+        BigValueOf(Int64.MaxValue).Add(EInteger.One).ToInt64Unchecked());
       long aa = unchecked((long)0xFFFFFFF200000000L);
       Assert.AreEqual(
               aa,
-              BigValueOf(aa).AsInt64Unchecked());
+              BigValueOf(aa).ToInt64Unchecked());
       aa = unchecked((long)0xFFFFFFF280000000L);
       Assert.AreEqual(
               aa,
-              BigValueOf(aa).AsInt64Unchecked());
+              BigValueOf(aa).ToInt64Unchecked());
       aa = unchecked((long)0xFFFFFFF200000001L);
       Assert.AreEqual(
               aa,
-              BigValueOf(aa).AsInt64Unchecked());
+              BigValueOf(aa).ToInt64Unchecked());
       aa = unchecked((long)0xFFFFFFF27FFFFFFFL);
       Assert.AreEqual(
               aa,
-              BigValueOf(aa).AsInt64Unchecked());
+              BigValueOf(aa).ToInt64Unchecked());
       Assert.AreEqual(
         0x0000000380000001L,
-        BigValueOf(0x0000000380000001L).AsInt64Unchecked());
+        BigValueOf(0x0000000380000001L).ToInt64Unchecked());
       Assert.AreEqual(
         0x0000000382222222L,
-        BigValueOf(0x0000000382222222L).AsInt64Unchecked());
-      Assert.AreEqual(-8L, BigValueOf(-8L).AsInt64Unchecked());
+        BigValueOf(0x0000000382222222L).ToInt64Unchecked());
+      Assert.AreEqual(-8L, BigValueOf(-8L).ToInt64Unchecked());
       Assert.AreEqual(
         -32768L,
-        BigValueOf(-32768L).AsInt64Unchecked());
+        BigValueOf(-32768L).ToInt64Unchecked());
       Assert.AreEqual(
         Int32.MinValue,
-        BigValueOf(Int32.MinValue).AsInt64Unchecked());
+        BigValueOf(Int32.MinValue).ToInt64Unchecked());
       Assert.AreEqual(
         Int32.MaxValue,
-        BigValueOf(Int32.MaxValue).AsInt64Unchecked());
+        BigValueOf(Int32.MaxValue).ToInt64Unchecked());
       Assert.AreEqual(
         0x80000000L,
-        BigValueOf(0x80000000L).AsInt64Unchecked());
+        BigValueOf(0x80000000L).ToInt64Unchecked());
       Assert.AreEqual(
         0x90000000L,
-        BigValueOf(0x90000000L).AsInt64Unchecked());
+        BigValueOf(0x90000000L).ToInt64Unchecked());
     }
 
     [Test]

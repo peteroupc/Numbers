@@ -427,7 +427,7 @@ namespace PeterO.Numbers {
 
     internal static FastInteger FromBig(EInteger bigintVal) {
       if (bigintVal.CanFitInInt32()) {
-        return new FastInteger(bigintVal.AsInt32Unchecked());
+        return new FastInteger(bigintVal.ToInt32Unchecked());
       }
       if (bigintVal.Sign > 0) {
         var fi = new FastInteger(0);

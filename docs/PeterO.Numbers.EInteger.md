@@ -136,56 +136,6 @@ The parameter <i>a</i>
  or  <i>b</i>
  is null.
 
-### AsInt32Checked
-
-    public int AsInt32Checked();
-
-Converts this object's value to a 32-bit signed integer, throwing an exception if it can't fit.
-
-<b>Returns:</b>
-
-A 32-bit signed integer.
-
-<b>Exceptions:</b>
-
- * System.OverflowException:
-This object's value is too big to fit a 32-bit signed integer.
-
-### AsInt32Unchecked
-
-    public int AsInt32Unchecked();
-
-Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
-
-<b>Returns:</b>
-
-A 32-bit signed integer.
-
-### AsInt64Checked
-
-    public long AsInt64Checked();
-
-Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.
-
-<b>Returns:</b>
-
-A 64-bit signed integer.
-
-<b>Exceptions:</b>
-
- * System.OverflowException:
-This object's value is too big to fit a 64-bit signed integer.
-
-### AsInt64Unchecked
-
-    public long AsInt64Unchecked();
-
-Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
-
-<b>Returns:</b>
-
-A 64-bit signed integer.
-
 ### CanFitInInt32
 
     public bool CanFitInInt32();
@@ -1203,6 +1153,56 @@ Returns a byte array of this integer's value. The byte array will take the form 
 <b>Returns:</b>
 
 A byte array. If this value is 0, returns a byte array with the single element 0.
+
+### ToInt32Checked
+
+    public int ToInt32Checked();
+
+Converts this object's value to a 32-bit signed integer, throwing an exception if it can't fit.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is too big to fit a 32-bit signed integer.
+
+### ToInt32Unchecked
+
+    public int ToInt32Unchecked();
+
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+### ToInt64Checked
+
+    public long ToInt64Checked();
+
+Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.
+
+<b>Returns:</b>
+
+A 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is too big to fit a 64-bit signed integer.
+
+### ToInt64Unchecked
+
+    public long ToInt64Unchecked();
+
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+
+<b>Returns:</b>
+
+A 64-bit signed integer.
 
 ### ToRadixString
 

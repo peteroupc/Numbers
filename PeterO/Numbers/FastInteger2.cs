@@ -46,7 +46,7 @@ namespace PeterO.Numbers {
 
     internal static FastInteger2 FromBig(EInteger bigintVal) {
       if (bigintVal.CanFitInInt32()) {
-        return new FastInteger2(bigintVal.AsInt32Unchecked());
+        return new FastInteger2(bigintVal.ToInt32Unchecked());
       }
       var fi = new FastInteger2(0);
       fi.integerMode = 2;
@@ -56,7 +56,7 @@ namespace PeterO.Numbers {
 
     internal int AsInt32() {
       return (this.integerMode == 0) ?
-        this.smallValue : this.largeValue.AsInt32Unchecked();
+        this.smallValue : this.largeValue.ToInt32Unchecked();
     }
 
     public static FastInteger2 Add(FastInteger2 a, FastInteger2 b) {
@@ -111,8 +111,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.Negate"]/*'/>
+    /// 
     internal FastInteger2 Negate() {
       switch (this.integerMode) {
         case 0:
@@ -127,8 +126,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsEvenNumber"]/*'/>
+    /// 
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {
@@ -146,8 +144,7 @@ namespace PeterO.Numbers {
       return this.integerMode == 0 || this.largeValue.CanFitInInt32();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.ToString"]/*'/>
+    /// 
     public override string ToString() {
       switch (this.integerMode) {
         case 0:
@@ -158,8 +155,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.Sign"]/*'/>
+    /// 
     internal int Sign {
       get {
         switch (this.integerMode) {
@@ -173,8 +169,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsValueZero"]/*'/>
+    /// 
     internal bool IsValueZero {
       get {
         switch (this.integerMode) {

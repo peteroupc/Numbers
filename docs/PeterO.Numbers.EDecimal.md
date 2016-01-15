@@ -445,8 +445,38 @@ A 2 element array consisting of the quotient and remainder in that order.
 
     public PeterO.Numbers.EDecimal DivideToExponent(
         PeterO.Numbers.EDecimal divisor,
+        int desiredExponentInt);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: Not documented yet.
+
+ * <i>desiredExponentInt</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
+
+### DivideToExponent
+
+    public PeterO.Numbers.EDecimal DivideToExponent(
+        PeterO.Numbers.EDecimal divisor,
         int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: Not documented yet.
+
+ * <i>desiredExponentInt</i>: Not documented yet.
+
+ * <i>ctx</i>: Not documented yet. (3).
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### DivideToExponent
 
@@ -455,11 +485,33 @@ A 2 element array consisting of the quotient and remainder in that order.
         int desiredExponentInt,
         PeterO.Numbers.ERounding rounding);
 
+<b>Parameters:</b>
+
+ * <i>divisor</i>: Not documented yet.
+
+ * <i>desiredExponentInt</i>: Not documented yet.
+
+ * <i>rounding</i>: Not documented yet. (3).
+
+<b>Returns:</b>
+
+An EDecimal object.
+
 ### DivideToExponent
 
     public PeterO.Numbers.EDecimal DivideToExponent(
         PeterO.Numbers.EDecimal divisor,
         long desiredExponentSmall);
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: Not documented yet.
+
+ * <i>desiredExponentSmall</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### DivideToExponent
 
@@ -529,6 +581,16 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
     public PeterO.Numbers.EDecimal DivideToExponent(
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EInteger exponent);
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: Not documented yet.
+
+ * <i>exponent</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### DivideToExponent
 
@@ -1908,6 +1970,21 @@ The distance of the closest multiple. Signals FlagInvalid and returns not-a-numb
 ### RoundToExponent
 
     public PeterO.Numbers.EDecimal RoundToExponent(
+        int exponentSmall);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>exponentSmall</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
+
+### RoundToExponent
+
+    public PeterO.Numbers.EDecimal RoundToExponent(
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
@@ -1944,6 +2021,21 @@ A decimal number rounded to the given negative number of decimal places.
 ### RoundToExponent
 
     public PeterO.Numbers.EDecimal RoundToExponent(
+        PeterO.Numbers.EInteger exponent);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>exponent</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
+
+### RoundToExponent
+
+    public PeterO.Numbers.EDecimal RoundToExponent(
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
@@ -1958,6 +2050,22 @@ Returns a decimal number with the same value as this object but rounded to a new
 <b>Returns:</b>
 
 A decimal number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the precision context.
+
+### RoundToExponent
+
+    public PeterO.Numbers.EDecimal RoundToExponent(
+        PeterO.Numbers.EInteger exponent,
+        PeterO.Numbers.ERounding rounding);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>exponent</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### RoundToExponentExact
 
@@ -2225,6 +2333,22 @@ Creates a binary floating-point number from this object's value. Note that if th
 <b>Returns:</b>
 
 An arbitrary-precision binary float.
+
+### ToInt32Checked
+
+    public int ToInt32Checked();
+
+### ToInt32Unchecked
+
+    public int ToInt32Unchecked();
+
+### ToInt64Checked
+
+    public long ToInt64Checked();
+
+### ToInt64Unchecked
+
+    public long ToInt64Unchecked();
 
 ### ToPlainString
 

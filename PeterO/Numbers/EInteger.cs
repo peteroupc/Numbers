@@ -23,12 +23,6 @@ namespace PeterO.Numbers {
 
     private const int ShortMask = 0xffff;
 
-    private static readonly EInteger ValueOne = new EInteger(
-      1, new short[] { 1, 0 }, false);
-
-    private static readonly EInteger ValueTen = new EInteger(
-      1, new short[] { 10, 0 }, false);
-
     private static readonly int[] ValueCharToDigit = { 36, 36, 36, 36, 36, 36,
       36,
       36,
@@ -50,6 +44,12 @@ namespace PeterO.Numbers {
       97612892, 93368853, 89478484, 85899344, 82595523, 79536430, 76695843,
       74051159, 71582787, 69273665, 67108863, 65075261, 63161282, 61356674,
       59652322 };
+
+    private static readonly EInteger ValueOne = new EInteger(
+      1, new short[] { 1, 0 }, false);
+
+    private static readonly EInteger ValueTen = new EInteger(
+      1, new short[] { 10, 0 }, false);
 
     private static readonly EInteger ValueZero = new EInteger(
       0, new short[] { 0, 0 }, false);
@@ -93,6 +93,18 @@ namespace PeterO.Numbers {
     public bool IsEven {
       get {
         return !this.GetUnsignedBit(0);
+      }
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsPowerOfTwo"]/*'/>
+    public bool IsPowerOfTwo {
+      get {
+        if (this.negative) {
+          return false;
+        }
+        return (this.wordCount == 0) ? false : (this.GetUnsignedBitLength()
+          - 1 == this.GetLowBit());
       }
     }
 
@@ -183,20 +195,20 @@ namespace PeterO.Numbers {
       short[] retreg;
       bool retnegative;
       int retwordcount;
-        retnegative = intValue < 0;
-        if ((intValue >> 15) == 0) {
-          retreg = new short[2];
-          if (retnegative) {
-            intValue = -intValue;
-          }
-          retreg[0] = (short)(intValue & 0xffff);
-          retwordcount = 1;
-        } else if (intValue == Int32.MinValue) {
-          retreg = new short[2];
-          retreg[0] = 0;
-          retreg[1] = unchecked((short)0x8000);
-          retwordcount = 2;
-        } else {
+      retnegative = intValue < 0;
+      if ((intValue >> 15) == 0) {
+        retreg = new short[2];
+        if (retnegative) {
+          intValue = -intValue;
+        }
+        retreg[0] = (short)(intValue & 0xffff);
+        retwordcount = 1;
+      } else if (intValue == Int32.MinValue) {
+        retreg = new short[2];
+        retreg[0] = 0;
+        retreg[1] = unchecked((short)0x8000);
+        retwordcount = 2;
+      } else {
         unchecked {
           retreg = new short[2];
           if (retnegative) {
@@ -734,73 +746,30 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Checked"]/*'/>
+    [Obsolete("Renamed to ToInt32Checked.")]
     public int AsInt32Checked() {
-      int count = this.wordCount;
-      if (count == 0) {
-        return 0;
-      }
-      if (count > 2) {
-        throw new OverflowException();
-      }
-      if (count == 2 && (this.words[1] & 0x8000) != 0) {
-        if (this.negative && this.words[1] == unchecked((short)0x8000) &&
-            this.words[0] == 0) {
-          return Int32.MinValue;
-        }
-        throw new OverflowException();
-      }
-      return this.AsInt32Unchecked();
+      return ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Unchecked"]/*'/>
+    [Obsolete("Renamed to ToInt32Unchecked.")]
     public int AsInt32Unchecked() {
-      var c = (int)this.wordCount;
-      if (c == 0) {
-        return 0;
-      }
-      int intRetValue = ((int)this.words[0]) & 0xffff;
-      if (c > 1) {
-        intRetValue |= (((int)this.words[1]) & 0xffff) << 16;
-      }
-      if (this.negative) {
-        intRetValue = unchecked(intRetValue - 1);
-        intRetValue = unchecked(~intRetValue);
-      }
-      return intRetValue;
+      return ToInt32Unchecked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.bitLength"]/*'/>
-    public int GetSignedBitLength() {
-      int wc = this.wordCount;
-      if (wc != 0) {
-        if (this.negative) {
-          return this.Abs().Subtract(EInteger.One).GetSignedBitLength();
-        }
-        int numberValue = ((int)this.words[wc - 1]) & 0xffff;
-        wc = (wc - 1) << 4;
-        if (numberValue == 0) {
-          return wc;
-        }
-        wc += 16;
-        unchecked {
-          if ((numberValue >> 8) == 0) {
-            numberValue <<= 8;
-            wc -= 8;
-          }
-          if ((numberValue >> 12) == 0) {
-            numberValue <<= 4;
-            wc -= 4;
-          }
-          if ((numberValue >> 14) == 0) {
-            numberValue <<= 2;
-            wc -= 2;
-          }
-          return ((numberValue >> 15) == 0) ? wc - 1 : wc;
-        }
-      }
-      return 0;
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Checked"]/*'/>
+    [Obsolete("Renamed to ToInt64Checked.")]
+    public long AsInt64Checked() {
+      return ToInt64Checked();
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Unchecked"]/*'/>
+    [Obsolete("Renamed to ToInt64Unchecked.")]
+    public long AsInt64Unchecked() {
+      return ToInt64Unchecked();
     }
 
     /// <include file='../../docs.xml'
@@ -858,18 +827,6 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsPowerOfTwo"]/*'/>
-    public bool IsPowerOfTwo {
-      get {
-        if (this.negative) {
-          return false;
-        }
-        return (this.wordCount == 0) ? false : (this.GetUnsignedBitLength()
-          - 1 == this.GetLowBit());
-      }
-    }
-
-    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
@@ -888,8 +845,8 @@ namespace PeterO.Numbers {
       }
       if (words1Size <= 2 && words2Size <= 2 && this.CanFitInInt32() &&
           bigintDivisor.CanFitInInt32()) {
-        int valueASmall = this.AsInt32Checked();
-        int valueBSmall = bigintDivisor.AsInt32Checked();
+        int valueASmall = this.ToInt32Checked();
+        int valueBSmall = bigintDivisor.ToInt32Checked();
         if (valueASmall != Int32.MinValue || valueBSmall != -1) {
           int result = valueASmall / valueBSmall;
           return EInteger.FromInt64(result);
@@ -1037,7 +994,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.gcd(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException("bigintSecond");
@@ -1089,14 +1046,13 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.getDigitCount"]/*'/>
+    /// 
     public int GetDigitCount() {
       if (this.IsZero) {
         return 1;
       }
       if (this.HasSmallValue()) {
-        long value = this.AsInt64Checked();
+        long value = this.ToInt64Checked();
         if (value == Int64.MinValue) {
           return 19;
         }
@@ -1302,6 +1258,80 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.testBit(System.Int32)"]/*'/>
+    public bool GetSignedBit(int index) {
+      if (index < 0) {
+        throw new ArgumentOutOfRangeException("index");
+      }
+      if (this.wordCount == 0) {
+        return false;
+      }
+      if (this.negative) {
+        var tcindex = 0;
+        int wordpos = index / 16;
+        if (wordpos >= this.words.Length) {
+          return true;
+        }
+        while (tcindex < wordpos && this.words[tcindex] == 0) {
+          ++tcindex;
+        }
+        short tc;
+        unchecked {
+          tc = this.words[wordpos];
+          if (tcindex == wordpos) {
+            --tc;
+          }
+          tc = (short)~tc;
+        }
+        return (bool)(((tc >> (int)(index & 15)) & 1) != 0);
+      }
+      return this.GetUnsignedBit(index);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.bitLength"]/*'/>
+    public int GetSignedBitLength() {
+      int wc = this.wordCount;
+      if (wc != 0) {
+        if (this.negative) {
+          return this.Abs().Subtract(EInteger.One).GetSignedBitLength();
+        }
+        int numberValue = ((int)this.words[wc - 1]) & 0xffff;
+        wc = (wc - 1) << 4;
+        if (numberValue == 0) {
+          return wc;
+        }
+        wc += 16;
+        unchecked {
+          if ((numberValue >> 8) == 0) {
+            numberValue <<= 8;
+            wc -= 8;
+          }
+          if ((numberValue >> 12) == 0) {
+            numberValue <<= 4;
+            wc -= 4;
+          }
+          if ((numberValue >> 14) == 0) {
+            numberValue <<= 2;
+            wc -= 2;
+          }
+          return ((numberValue >> 15) == 0) ? wc - 1 : wc;
+        }
+      }
+      return 0;
+    }
+
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
+    public bool GetUnsignedBit(int n) {
+      if (n < 0) {
+        throw new ArgumentException("n (" + n + ") is less than 0");
+      }
+      return ((n >> 4) < this.words.Length) && ((bool)(((this.words[(n >>
+                    4)] >> (int)(n & 15)) & 1) != 0));
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.getUnsignedBitLength"]/*'/>
     public int GetUnsignedBitLength() {
       int wc = this.wordCount;
@@ -1332,65 +1362,6 @@ namespace PeterO.Numbers {
         return wc;
       }
       return 0;
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Checked"]/*'/>
-    public long AsInt64Checked() {
-      int count = this.wordCount;
-      if (count == 0) {
-        return (long)0;
-      }
-      if (count > 4) {
-        throw new OverflowException();
-      }
-      if (count == 4 && (this.words[3] & 0x8000) != 0) {
-        if (this.negative && this.words[3] == unchecked((short)0x8000) &&
-            this.words[2] == 0 && this.words[1] == 0 &&
-            this.words[0] == 0) {
-          return Int64.MinValue;
-        }
-        throw new OverflowException();
-      }
-      return this.AsInt64Unchecked();
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Unchecked"]/*'/>
-    public long AsInt64Unchecked() {
-      var c = (int)this.wordCount;
-      if (c == 0) {
-        return (long)0;
-      }
-      long ivv = 0;
-      int intRetValue = ((int)this.words[0]) & 0xffff;
-      if (c > 1) {
-        intRetValue |= (((int)this.words[1]) & 0xffff) << 16;
-      }
-      if (c > 2) {
-        int intRetValue2 = ((int)this.words[2]) & 0xffff;
-        if (c > 3) {
-          intRetValue2 |= (((int)this.words[3]) & 0xffff) << 16;
-        }
-        if (this.negative) {
-          if (intRetValue == 0) {
-            intRetValue = unchecked(intRetValue - 1);
-            intRetValue2 = unchecked(intRetValue2 - 1);
-          } else {
-            intRetValue = unchecked(intRetValue - 1);
-          }
-          intRetValue = unchecked(~intRetValue);
-          intRetValue2 = unchecked(~intRetValue2);
-        }
-        ivv = ((long)intRetValue) & 0xFFFFFFFFL;
-        ivv |= ((long)intRetValue2) << 32;
-        return ivv;
-      }
-      ivv = ((long)intRetValue) & 0xFFFFFFFFL;
-      if (this.negative) {
-        ivv = -ivv;
-      }
-      return ivv;
     }
 
     /// <include file='../../docs.xml'
@@ -1465,8 +1436,8 @@ namespace PeterO.Numbers {
           int ba = ((int)this.words[0]) & 0xffff;
           int bb = ((int)bigintMult.words[0]) & 0xffff;
           ba = unchecked(ba * bb);
-          productreg[0 ] = unchecked((short)(ba & 0xffff));
-          productreg[1 ] = unchecked((short)((ba >> 16) & 0xffff));
+          productreg[0] = unchecked((short)(ba & 0xffff));
+          productreg[1] = unchecked((short)((ba >> 16) & 0xffff));
           short preg = productreg[1];
           wc = (preg == 0) ? 1 : 2;
           return new EInteger(
@@ -1812,37 +1783,6 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.testBit(System.Int32)"]/*'/>
-    public bool GetSignedBit(int index) {
-      if (index < 0) {
-        throw new ArgumentOutOfRangeException("index");
-      }
-      if (this.wordCount == 0) {
-        return false;
-      }
-      if (this.negative) {
-        var tcindex = 0;
-        int wordpos = index / 16;
-        if (wordpos >= this.words.Length) {
-          return true;
-        }
-        while (tcindex < wordpos && this.words[tcindex] == 0) {
-          ++tcindex;
-        }
-        short tc;
-        unchecked {
-          tc = this.words[wordpos];
-          if (tcindex == wordpos) {
-            --tc;
-          }
-          tc = (short)~tc;
-        }
-        return (bool)(((tc >> (int)(index & 15)) & 1) != 0);
-      }
-      return this.GetUnsignedBit(index);
-    }
-
-    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.toBytes(System.Boolean)"]/*'/>
     public byte[] ToBytes(bool littleEndian) {
       int sign = this.Sign;
@@ -1904,6 +1844,103 @@ this.negative ^ bigintMult.negative);
         }
         return bytes;
       }
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Checked"]/*'/>
+    public int ToInt32Checked() {
+      int count = this.wordCount;
+      if (count == 0) {
+        return 0;
+      }
+      if (count > 2) {
+        throw new OverflowException();
+      }
+      if (count == 2 && (this.words[1] & 0x8000) != 0) {
+        if (this.negative && this.words[1] == unchecked((short)0x8000) &&
+            this.words[0] == 0) {
+          return Int32.MinValue;
+        }
+        throw new OverflowException();
+      }
+      return this.ToInt32Unchecked();
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Unchecked"]/*'/>
+    public int ToInt32Unchecked() {
+      var c = (int)this.wordCount;
+      if (c == 0) {
+        return 0;
+      }
+      int intRetValue = ((int)this.words[0]) & 0xffff;
+      if (c > 1) {
+        intRetValue |= (((int)this.words[1]) & 0xffff) << 16;
+      }
+      if (this.negative) {
+        intRetValue = unchecked(intRetValue - 1);
+        intRetValue = unchecked(~intRetValue);
+      }
+      return intRetValue;
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Checked"]/*'/>
+    public long ToInt64Checked() {
+      int count = this.wordCount;
+      if (count == 0) {
+        return (long)0;
+      }
+      if (count > 4) {
+        throw new OverflowException();
+      }
+      if (count == 4 && (this.words[3] & 0x8000) != 0) {
+        if (this.negative && this.words[3] == unchecked((short)0x8000) &&
+            this.words[2] == 0 && this.words[1] == 0 &&
+            this.words[0] == 0) {
+          return Int64.MinValue;
+        }
+        throw new OverflowException();
+      }
+      return this.ToInt64Unchecked();
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Unchecked"]/*'/>
+    public long ToInt64Unchecked() {
+      var c = (int)this.wordCount;
+      if (c == 0) {
+        return (long)0;
+      }
+      long ivv = 0;
+      int intRetValue = ((int)this.words[0]) & 0xffff;
+      if (c > 1) {
+        intRetValue |= (((int)this.words[1]) & 0xffff) << 16;
+      }
+      if (c > 2) {
+        int intRetValue2 = ((int)this.words[2]) & 0xffff;
+        if (c > 3) {
+          intRetValue2 |= (((int)this.words[3]) & 0xffff) << 16;
+        }
+        if (this.negative) {
+          if (intRetValue == 0) {
+            intRetValue = unchecked(intRetValue - 1);
+            intRetValue2 = unchecked(intRetValue2 - 1);
+          } else {
+            intRetValue = unchecked(intRetValue - 1);
+          }
+          intRetValue = unchecked(~intRetValue);
+          intRetValue2 = unchecked(~intRetValue2);
+        }
+        ivv = ((long)intRetValue) & 0xFFFFFFFFL;
+        ivv |= ((long)intRetValue2) << 32;
+        return ivv;
+      }
+      ivv = ((long)intRetValue) & 0xFFFFFFFFL;
+      if (this.negative) {
+        ivv = -ivv;
+      }
+      return ivv;
     }
 
     /// <include file='../../docs.xml'
@@ -5280,17 +5317,6 @@ count);
       return (s == 0) ? wc : (((s >> 8) == 0) ? wc + 1 : wc + 2);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='n'>A 32-bit signed integer.</param>
-    /// <returns>A Boolean object.</returns>
-    public bool GetUnsignedBit(int n) {
-      if (n < 0) {
-        throw new ArgumentException("n (" + n + ") is less than 0");
-      }
-      return ((n >> 4) < this.words.Length) && ((bool)(((this.words[(n >>
-                    4)] >> (int)(n & 15)) & 1) != 0));
-    }
-
     private bool HasSmallValue() {
       var c = (int)this.wordCount;
       if (c > 4) {
@@ -5316,7 +5342,7 @@ count);
     }
 
     private string SmallValueToString() {
-      long value = this.AsInt64Unchecked();
+      long value = this.ToInt64Unchecked();
       if (value == Int64.MinValue) {
         return "-9223372036854775808";
       }
@@ -5333,23 +5359,23 @@ count);
         if (neg) {
           intvalue = -intvalue;
         }
-      while (intvalue > 43698) {
-        int intdivvalue = intvalue / 10;
-        char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
-        chars[count--] = digit;
-        intvalue = intdivvalue;
-      }
-      while (intvalue > 9) {
+        while (intvalue > 43698) {
+          int intdivvalue = intvalue / 10;
+          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
+          chars[count--] = digit;
+          intvalue = intdivvalue;
+        }
+        while (intvalue > 9) {
           int intdivvalue = (intvalue * 26215) >> 18;
           char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
           chars[count--] = digit;
           intvalue = intdivvalue;
-      }
-      if (intvalue != 0) {
+        }
+        if (intvalue != 0) {
           chars[count--] = Digits[intvalue];
         }
         if (neg) {
-          chars[count]='-';
+          chars[count] = '-';
         } else {
           ++count;
         }
@@ -5370,7 +5396,7 @@ count);
           chars[count--] = Digits[(int)value];
         }
         if (neg) {
-          chars[count]='-';
+          chars[count] = '-';
         } else {
           ++count;
         }
@@ -5390,7 +5416,7 @@ count);
       EInteger thisValue = this;
       int powerBits = (thisValue.GetUnsignedBitLength() + 1) / 2;
       if (thisValue.CanFitInInt32()) {
-        int smallValue = thisValue.AsInt32Checked();
+        int smallValue = thisValue.ToInt32Checked();
         // No need to check for ValueZero; already done above
         var smallintX = 0;
         int smallintY = 1 << powerBits;
