@@ -760,7 +760,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
     public int ToInt32Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -781,7 +781,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
     public int ToInt32Unchecked() {
       if (!this.IsFinite) {
         return 0;
@@ -802,7 +802,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
     public long ToInt64Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -823,7 +823,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
     public long ToInt64Unchecked() {
       if (!this.IsFinite) {
         return 0;

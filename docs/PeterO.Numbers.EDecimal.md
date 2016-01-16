@@ -373,6 +373,28 @@ The parameter <i>diag</i>
         bool negative,
         PeterO.Numbers.EContext ctx);
 
+Creates a not-a-number arbitrary-precision decimal number.
+
+<b>Parameters:</b>
+
+ * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
+
+ * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
+
+ * <i>negative</i>: Whether the return value is negative.
+
+ * <i>ctx</i>: A context object for arbitrary-precision arithmetic settings.
+
+<b>Returns:</b>
+
+An arbitrary-precision decimal number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>diag</i>
+ is null or is less than 0.
+
 ### Divide
 
     public PeterO.Numbers.EDecimal Divide(
@@ -447,17 +469,17 @@ A 2 element array consisting of the quotient and remainder in that order.
         PeterO.Numbers.EDecimal divisor,
         int desiredExponentInt);
 
-Not documented yet.
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: Not documented yet.
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>desiredExponentInt</i>: Not documented yet.
+ * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
 <b>Returns:</b>
 
-An EDecimal object.
+The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 ### DivideToExponent
 
@@ -466,17 +488,19 @@ An EDecimal object.
         int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
+
 <b>Parameters:</b>
 
- * <i>divisor</i>: Not documented yet.
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>desiredExponentInt</i>: Not documented yet.
+ * <i>desiredExponentInt</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
- * <i>ctx</i>: Not documented yet. (3).
+ * <i>ctx</i>: A precision context object to control the rounding mode to use if the result must be scaled down to have the same exponent as this value. If the precision given in the context is other than 0, calls the Quantize method with both arguments equal to the result of the operation (and can signal FlagInvalid and return NaN if the result doesn't fit the given precision). If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Returns:</b>
 
-An EDecimal object.
+The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the context defines an exponent range and the desired exponent is outside that range. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
 ### DivideToExponent
 
@@ -485,17 +509,19 @@ An EDecimal object.
         int desiredExponentInt,
         PeterO.Numbers.ERounding rounding);
 
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
+
 <b>Parameters:</b>
 
- * <i>divisor</i>: Not documented yet.
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>desiredExponentInt</i>: Not documented yet.
+ * <i>desiredExponentInt</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
- * <i>rounding</i>: Not documented yet. (3).
+ * <i>rounding</i>: The rounding mode to use if the result must be scaled down to have the same exponent as this value.
 
 <b>Returns:</b>
 
-An EDecimal object.
+The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
 ### DivideToExponent
 
@@ -503,15 +529,17 @@ An EDecimal object.
         PeterO.Numbers.EDecimal divisor,
         long desiredExponentSmall);
 
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 64-bit signed integer) to the result, using the half-even rounding mode.
+
 <b>Parameters:</b>
 
- * <i>divisor</i>: Not documented yet.
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>desiredExponentSmall</i>: Not documented yet.
+ * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
 <b>Returns:</b>
 
-An EDecimal object.
+The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 ### DivideToExponent
 
@@ -582,15 +610,17 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EInteger exponent);
 
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result, using the half-even rounding mode.
+
 <b>Parameters:</b>
 
- * <i>divisor</i>: Not documented yet.
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
 <b>Returns:</b>
 
-An EDecimal object.
+The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 ### DivideToExponent
 
@@ -1976,7 +2006,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>exponentSmall</i>: Not documented yet.
+ * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
+ is not documented yet.
 
 <b>Returns:</b>
 
@@ -2027,7 +2058,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: The parameter  <i>exponent</i>
+ is not documented yet.
 
 <b>Returns:</b>
 
@@ -2061,7 +2093,10 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: The parameter  <i>exponent</i>
+ is not documented yet.
+
+ * <i>rounding</i>: An ERounding object.
 
 <b>Returns:</b>
 
@@ -2338,9 +2373,24 @@ An arbitrary-precision binary float.
 
     public int ToInt32Checked();
 
+Converts this number to a 32-bit signed integer, if possible, without truncating or rounding it.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This number's value is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.
+
 ### ToInt32Unchecked
 
     public int ToInt32Unchecked();
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
 
 ### ToInt64Checked
 
@@ -2349,6 +2399,10 @@ An arbitrary-precision binary float.
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
+
+<b>Returns:</b>
+
+A 64-bit signed integer.
 
 ### ToPlainString
 

@@ -2220,17 +2220,33 @@ An EDecimal object.
 
     public int ToInt32Checked();
 
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
 ### ToInt32Unchecked
 
     public int ToInt32Unchecked();
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
 
 ### ToInt64Checked
 
     public long ToInt64Checked();
 
+<b>Returns:</b>
+
+A 64-bit signed integer.
+
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
+
+<b>Returns:</b>
+
+A 64-bit signed integer.
 
 ### ToPlainString
 

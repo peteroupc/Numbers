@@ -136,6 +136,64 @@ The parameter <i>a</i>
  or  <i>b</i>
  is null.
 
+### AsInt32Checked
+
+    public int AsInt32Checked();
+
+<b>Deprecated.</b> Renamed to ToInt32Checked.
+
+Converts this object's value to a 32-bit signed integer, throwing an exception if it can't fit.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is too big to fit a 32-bit signed integer.
+
+### AsInt32Unchecked
+
+    public int AsInt32Unchecked();
+
+<b>Deprecated.</b> Renamed to ToInt32Unchecked.
+
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+### AsInt64Checked
+
+    public long AsInt64Checked();
+
+<b>Deprecated.</b> Renamed to ToInt64Checked.
+
+Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.
+
+<b>Returns:</b>
+
+A 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is too big to fit a 64-bit signed integer.
+
+### AsInt64Unchecked
+
+    public long AsInt64Unchecked();
+
+<b>Deprecated.</b> Renamed to ToInt64Unchecked.
+
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+
+<b>Returns:</b>
+
+A 64-bit signed integer.
+
 ### CanFitInInt32
 
     public bool CanFitInInt32();
@@ -460,6 +518,22 @@ The string portion is empty or in an invalid format.
 
     public PeterO.Numbers.EInteger Gcd(
         PeterO.Numbers.EInteger bigintSecond);
+
+Returns the greatest common divisor of two integers. The greatest common divisor (GCD) is also known as the greatest common factor (GCF).
+
+<b>Parameters:</b>
+
+ * <i>bigintSecond</i>: Another arbitrary-precision integer.
+
+<b>Returns:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>bigintSecond</i>
+ is null.
 
 ### GetBits
 

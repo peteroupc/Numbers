@@ -2146,14 +2146,14 @@ ctxtmp);
       return 2;
     }
 
-    private static int CompareToSlow(
+    private static int CompareToSlow<TMath>(
   EInteger op1Exponent,
   EInteger op2Exponent,
   int expcmp,
   int signA,
   EInteger op1Mantissa,
   EInteger op2Mantissa,
-  IRadixMathHelper<T> helper,
+  IRadixMathHelper<TMath> helper,
   bool reportOOM) {
       FastInteger fastOp1Exp = FastInteger.FromBig(op1Exponent);
       FastInteger fastOp2Exp = FastInteger.FromBig(op2Exponent);
@@ -2297,11 +2297,11 @@ helper);
       }
     }
 
-    private static EInteger RescaleByExponentDiff(
+    private static EInteger RescaleByExponentDiff<TMath>(
   EInteger mantissa,
   EInteger e1,
   EInteger e2,
-  IRadixMathHelper<T> helper) {
+  IRadixMathHelper<TMath> helper) {
       if (mantissa.Sign == 0) {
         return EInteger.Zero;
       }
@@ -2812,8 +2812,11 @@ null) : this.ValueOf(-1, null));
       return default(T);
     }
 
-    private static int CompareToHandleSpecial(T thisValue, T other,
-      int thisFlags, int otherFlags) {
+    private static int CompareToHandleSpecial<TMath>(
+      TMath thisValue,
+      TMath other,
+      int thisFlags,
+      int otherFlags) {
       // Assumes either value is NaN and/or infinity
       {
         if ((thisFlags & BigNumberFlags.FlagNaN) != 0) {
@@ -2847,9 +2850,11 @@ null) : this.ValueOf(-1, null));
       return 2;
     }
 
-private static int CompareToInternal(T thisValue, T otherValue, bool
-      reportOOM,
-       IRadixMathHelper<T> helper) {
+private static int CompareToInternal<TMath>(
+  TMath thisValue,
+  TMath otherValue,
+  bool reportOOM,
+  IRadixMathHelper<TMath> helper) {
       int signA = helper.GetSign(thisValue);
       int signB = helper.GetSign(otherValue);
       if (signA != signB) {

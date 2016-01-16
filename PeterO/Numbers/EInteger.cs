@@ -1046,7 +1046,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// 
+    /// <returns>A 32-bit signed integer.</returns>
     public int GetDigitCount() {
       if (this.IsZero) {
         return 1;
@@ -1322,7 +1322,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
     public bool GetUnsignedBit(int n) {
       if (n < 0) {
         throw new ArgumentException("n (" + n + ") is less than 0");

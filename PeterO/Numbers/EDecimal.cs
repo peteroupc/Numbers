@@ -194,7 +194,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Mantissa"]/*'/>
     public EInteger Mantissa {
       get {
-     return this.IsNegative ? (-(EInteger)this.unsignedMantissa.AsEInteger()) :
+     return this.IsNegative ? (this.unsignedMantissa.AsEInteger().Negate()) :
              this.unsignedMantissa.AsEInteger();
       }
     }
@@ -1192,7 +1192,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal DivideToExponent(
       EDecimal divisor,
       int desiredExponentInt,
@@ -1216,7 +1216,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.ERounding)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.ERounding)"]/*'/>
     public EDecimal DivideToExponent(
       EDecimal divisor,
       int desiredExponentInt,
@@ -1237,7 +1237,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,PeterO.Numbers.EInteger)"]/*'/>
     public EDecimal DivideToExponent(
       EDecimal divisor,
       EInteger exponent) {
@@ -1245,7 +1245,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int64)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int64)"]/*'/>
     public EDecimal DivideToExponent(
       EDecimal divisor,
       long desiredExponentSmall) {
@@ -1254,7 +1254,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32)"]/*'/>
     public EDecimal DivideToExponent(
       EDecimal divisor,
       int desiredExponentInt) {
@@ -1719,7 +1719,7 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger)"]/*'/>
     public EDecimal RoundToExponent(
       EInteger exponent) {
       return RoundToExponent(exponent,
@@ -1727,7 +1727,7 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'/>
     public EDecimal RoundToExponent(
       EInteger exponent,
       ERounding rounding) {
@@ -1736,7 +1736,7 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32)"]/*'/>
     public EDecimal RoundToExponent(
       int exponentSmall) {
       return RoundToExponent(exponentSmall, ERounding.HalfEven);
@@ -1932,7 +1932,7 @@ EContext ctx) {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
     public int ToInt32Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1942,18 +1942,18 @@ EContext ctx) {
       }
       if (this.exponent.IsValueZero) {
         if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.AsInt32();
+          int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- ret = -ret;
+ retInt = -retInt;
 }
-          return ret;
+          return retInt;
         }
       }
       return this.ToEIntegerExact().ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked"]/*'/>
     public int ToInt32Unchecked() {
       if (!this.IsFinite) {
         return 0;
@@ -1963,18 +1963,18 @@ EContext ctx) {
       }
       if (this.exponent.IsValueZero) {
         if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.AsInt32();
+          int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- ret = -ret;
+ retInt = -retInt;
 }
-          return ret;
+          return retInt;
         }
       }
       return this.ToEIntegerExact().ToInt32Unchecked();
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
     public long ToInt64Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1984,18 +1984,18 @@ EContext ctx) {
       }
       if (this.exponent.IsValueZero) {
         if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.AsInt32();
+          int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- ret = -ret;
+ retInt = -retInt;
 }
-          return ret;
+          return retInt;
         }
       }
       return this.ToEIntegerExact().ToInt64Checked();
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
     public long ToInt64Unchecked() {
       if (!this.IsFinite) {
         return 0;
@@ -2005,11 +2005,11 @@ EContext ctx) {
       }
       if (this.IsFinite && this.exponent.IsValueZero) {
         if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.AsInt32();
+          int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- ret = -ret;
+ retInt = -retInt;
 }
-          return ret;
+          return retInt;
         }
       }
       return this.ToEIntegerExact().ToInt64Unchecked();

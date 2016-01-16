@@ -752,9 +752,19 @@ of this class.</para>
             in that order.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,PeterO.Numbers.EInteger)">
-<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
-            <param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+<summary>Divides two arbitrary-precision decimal numbers, and gives
+            a particular exponent to the result, using the half-even rounding mode.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
+            <param name='exponent'>The desired exponent. A negative number
+            places the cutoff point to the right of the usual decimal point (so a negative
+            number means the number of decimal places to round to). A
+            positive number places the cutoff point to the left of the usual
+            decimal point.</param>
+            <returns>The quotient of the two objects. Signals FlagDivideByZero
+            and returns infinity if the divisor is 0 and the dividend is
+            nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
+            divisor and the dividend are 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 <summary>Divides two arbitrary-precision decimal numbers, and gives
@@ -804,27 +814,82 @@ of this class.</para>
             the result is not exact.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32)">
-<summary>Not documented yet.</summary>
-            <param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
-            <param name='desiredExponentInt'>The parameter <paramref name='desiredExponentInt'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+<summary>Divides two arbitrary-precision decimal numbers, and gives
+            a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
+            <param name='exponent'>The desired exponent. A negative number
+            places the cutoff point to the right of the usual decimal point (so a negative
+            number means the number of decimal places to round to). A
+            positive number places the cutoff point to the left of the usual
+            decimal point.</param>
+            <returns>The quotient of the two objects. Signals FlagDivideByZero
+            and returns infinity if the divisor is 0 and the dividend is
+            nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
+            divisor and the dividend are 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.EContext)">
-<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
-            <param name='desiredExponentInt'>The parameter <paramref name='desiredExponentInt'/> is not documented yet.</param>
-            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+<summary>Divides two arbitrary-precision decimal numbers, and gives
+            a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
+            <param name='desiredExponentInt'>The desired exponent. A negative number
+            places the cutoff point to the right of the usual decimal point (so a negative
+            number means the number of decimal places to round to). A
+            positive number places the cutoff point to the left of the usual
+            decimal point.</param>
+            <param name='ctx'>A precision context object to control the
+            rounding mode to use if the result must be scaled down to have the
+            same exponent as this value. If the precision given in the context
+            is other than 0, calls the Quantize method with both arguments
+            equal to the result of the operation (and can signal FlagInvalid
+            and return NaN if the result doesn't fit the given precision). If
+            HasFlags of the context is true, will also store the flags
+            resulting from the operation (the flags are in addition to the
+            pre-existing flags). Can be null, in which case the default
+            rounding mode is HalfEven.</param>
+            <returns>The quotient of the two objects. Signals FlagDivideByZero
+            and returns infinity if the divisor is 0 and the dividend is
+            nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
+            divisor and the dividend are 0. Signals FlagInvalid and returns
+            not-a-number (NaN) if the context defines an exponent range and the
+            desired exponent is outside that range. Signals FlagInvalid and
+            returns not-a-number (NaN) if the rounding mode is
+            ERounding.None and the result is not exact.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int32,PeterO.Numbers.ERounding)">
-<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
-            <param name='desiredExponentInt'>The parameter <paramref name='desiredExponentInt'/> is not documented yet.</param>
-            <param name='rounding'>The parameter <paramref name='rounding'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+<summary>Divides two arbitrary-precision decimal numbers, and gives
+            a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
+            <param name='desiredExponentInt'>The desired exponent. A negative number
+            places the cutoff point to the right of the usual decimal point (so a negative
+            number means the number of decimal places to round to). A
+            positive number places the cutoff point to the left of the usual
+            decimal point.</param>
+            <param name='rounding'>The rounding mode to use if the result must
+            be scaled down to have the same exponent as this value.</param>
+            <returns>The quotient of the two objects. Signals FlagDivideByZero
+            and returns infinity if the divisor is 0 and the dividend is
+            nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
+            divisor and the dividend are 0. Signals FlagInvalid and returns
+            not-a-number (NaN) if the rounding mode is ERounding.None and
+            the result is not exact.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int64)">
-<param name='divisor'>The parameter <paramref name='divisor'/> is not documented yet.</param>
-            <param name='desiredExponentSmall'>The parameter <paramref name='desiredExponentSmall'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+<summary>Divides two arbitrary-precision decimal numbers, and gives
+            a particular exponent (expressed as a 64-bit signed integer) to the result, using the half-even rounding mode.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
+            <param name='exponent'>The desired exponent. A negative number
+            places the cutoff point to the right of the usual decimal point (so a negative
+            number means the number of decimal places to round to). A
+            positive number places the cutoff point to the left of the usual
+            decimal point.</param>
+            <returns>The quotient of the two objects. Signals FlagDivideByZero
+            and returns infinity if the divisor is 0 and the dividend is
+            nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
+            divisor and the dividend are 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideToExponent(PeterO.Numbers.EDecimal,System.Int64,PeterO.Numbers.EContext)">
 <summary>Divides two arbitrary-precision decimal numbers, and gives
@@ -2131,13 +2196,21 @@ of this class.</para>
             <returns>An arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Checked">
+<summary>Converts this number to a 32-bit signed integer, if possible,
+without truncating or rounding it.</summary>
 <returns>A 32-bit signed integer.</returns>
+<exception cref="T:System.OverflowException">This number's value
+is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked">
 <returns>A 32-bit signed integer.</returns>
 </doc>
-<doc name="M:PeterO.Numbers.EDecimal.ToInt64Checked">
+<doc name="M:PeterO.Numbers.E64Decimal.ToInt64Checked">
+<summary>Converts this number to a 32-bit signed integer, if possible,
+without truncating or rounding it.</summary>
 <returns>A 64-bit signed integer.</returns>
+<exception cref="T:System.OverflowException">This number's value
+is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
 <returns>A 64-bit signed integer.</returns>

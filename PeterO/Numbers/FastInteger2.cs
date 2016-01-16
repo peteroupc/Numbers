@@ -111,7 +111,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// 
+    /// <returns>A FastInteger2 object.</returns>
     internal FastInteger2 Negate() {
       switch (this.integerMode) {
         case 0:
@@ -126,7 +126,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// 
+    /// <value></value>
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {
@@ -144,7 +144,7 @@ namespace PeterO.Numbers {
       return this.integerMode == 0 || this.largeValue.CanFitInInt32();
     }
 
-    /// 
+    /// <returns>A string object.</returns>
     public override string ToString() {
       switch (this.integerMode) {
         case 0:
@@ -155,7 +155,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// 
+    /// <value></value>
     internal int Sign {
       get {
         switch (this.integerMode) {
@@ -169,7 +169,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// 
+    /// <value></value>
     internal bool IsValueZero {
       get {
         switch (this.integerMode) {
