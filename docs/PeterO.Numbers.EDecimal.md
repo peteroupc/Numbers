@@ -2138,10 +2138,42 @@ Returns a decimal number with the same value as this object but rounded to the g
 
 A decimal number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the precision context.
 
+### RoundToIntegerExact
+
+    public PeterO.Numbers.EDecimal RoundToIntegerExact(
+        PeterO.Numbers.EContext ctx);
+
+Returns a decimal number with the same value as this object but rounded to an integer, and signals an invalid operation if the result would be inexact.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: A precision context to control precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
+
+<b>Returns:</b>
+
+A decimal number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the precision context.
+
+### RoundToIntegerNoRoundedFlag
+
+    public PeterO.Numbers.EDecimal RoundToIntegerNoRoundedFlag(
+        PeterO.Numbers.EContext ctx);
+
+Returns a decimal number with the same value as this object but rounded to an integer, without adding the FlagInexact or FlagRounded flags.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: A precision context to control precision and rounding of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the FlagRounded and FlagInexact flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
+
+<b>Returns:</b>
+
+A decimal number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the precision context.
+
 ### RoundToIntegralExact
 
     public PeterO.Numbers.EDecimal RoundToIntegralExact(
         PeterO.Numbers.EContext ctx);
+
+<b>Deprecated.</b> Renamed to RoundToIntegerExact.
 
 Returns a decimal number with the same value as this object but rounded to an integer, and signals an invalid operation if the result would be inexact.
 
@@ -2157,6 +2189,8 @@ A decimal number rounded to the closest integer representable in the given preci
 
     public PeterO.Numbers.EDecimal RoundToIntegralNoRoundedFlag(
         PeterO.Numbers.EContext ctx);
+
+<b>Deprecated.</b> Renamed to RoundToIntegerNoRoundedFlag.
 
 Returns a decimal number with the same value as this object but rounded to an integer, without adding the FlagInexact or FlagRounded flags.
 
@@ -2250,6 +2284,22 @@ Returns a number similar to this number but with its scale adjusted.
 
 A number whose scale is increased by  <i>bigPlaces</i>
 .
+
+### Sqrt
+
+    public PeterO.Numbers.EDecimal Sqrt(
+        PeterO.Numbers.EContext ctx);
+
+Finds the square root of this object's value.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: A precision context to control precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the square root function's results are generally not exact for many inputs. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.)
+
+<b>Returns:</b>
+
+The square root. Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the square root would be a complex number, but the return value is still NaN). Signals FlagInvalid and returns not-a-number (NaN) if the parameter <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0).
 
 ### SquareRoot
 

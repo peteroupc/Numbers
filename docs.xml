@@ -489,8 +489,10 @@ of this class.</para>
             </summary>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Abs">
-<summary>Gets the absolute value of this object.</summary>
-            <returns>An arbitrary-precision decimal number.</returns>
+<summary>Finds the absolute value of this object (if it&#x27;s
+            negative, it becomes positive).</summary>
+            <returns>An arbitrary-precision decimal number.
+            Returns signaling NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Abs(PeterO.Numbers.EContext)">
 <summary>Finds the absolute value of this object (if it&#x27;s
@@ -500,7 +502,8 @@ of this class.</para>
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
-            <returns>The absolute value of this object.</returns>
+            <returns>The absolute value of this object.
+            Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal)">
 <summary>Adds this object and another decimal number and returns
@@ -1505,7 +1508,8 @@ of this class.</para>
 <doc name="M:PeterO.Numbers.EDecimal.Negate">
 <summary>Gets an object with the same value as this one, but with
             the sign reversed.</summary>
-            <returns>An arbitrary-precision decimal number.  If this value is positive zero, returns positive zero.</returns>
+            <returns>An arbitrary-precision decimal number.  If this value is positive zero, returns negative zero.
+            Returns signaling NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Negate(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
@@ -1515,7 +1519,9 @@ of this class.</para>
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
-            <returns>An arbitrary-precision decimal number.  If this value is positive zero, returns positive zero.</returns>
+            <returns>An arbitrary-precision decimal number.  If this value is positive zero, returns positive zero.
+            
+            Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.NegativeInfinity">
 <summary>Negative infinity, less than any other number.</summary>
@@ -2411,7 +2417,8 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Abs">
 <summary>Gets the absolute value of this object.</summary>
-            <returns>An arbitrary-precision binary float.</returns>
+            <returns>An arbitrary-precision binary float.
+            Returns signaling NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Abs(PeterO.Numbers.EContext)">
 <summary>Finds the absolute value of this object (if it&#x27;s
@@ -2421,7 +2428,8 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
-            <returns>The absolute value of this object.</returns>
+            <returns>The absolute value of this object.
+            Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)">
 <summary>Adds this object and another binary float and returns the
@@ -3292,7 +3300,8 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.EFloat.Negate">
 <summary>Gets an object with the same value as this one, but with
             the sign reversed.</summary>
-            <returns>An arbitrary-precision binary float.  If this value is positive zero, returns positive zero.</returns>
+            <returns>An arbitrary-precision binary float. If this value is positive zero, returns negative zero.
+            Returns signaling NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Negate(PeterO.Numbers.EContext)">
 <summary>Returns a binary float with the same value as this object
@@ -3302,7 +3311,9 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
-            <returns>An arbitrary-precision binary float.  If this value is positive zero, returns positive zero.</returns>
+            <returns>An arbitrary-precision binary float.  If this value is positive zero, returns positive zero.
+            
+            Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.NegativeInfinity">
 <summary>Negative infinity, less than any other number.</summary>
@@ -4443,6 +4454,37 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <returns>The difference of the two objects.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='subtrahend'/> is null.</exception>
+</doc>
+
+<doc name="M:PeterO.Numbers.EInteger.ToInt32Checked">
+<summary>Converts this object's value to a 32-bit signed integer,
+            throwing an exception if it can't fit.</summary>
+            <returns>A 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This object's value is
+            too big to fit a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToInt32Unchecked">
+<summary>Converts this object's value to a 32-bit signed integer.
+            If the value can't fit in a 32-bit integer, returns the lower 32
+            bits of this object's two's complement representation (in which
+            case the return value might have a different sign than this
+            object's value).</summary>
+            <returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToInt64Checked">
+<summary>Converts this object's value to a 64-bit signed integer,
+            throwing an exception if it can't fit.</summary>
+            <returns>A 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This object's value is
+            too big to fit a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToInt64Unchecked">
+<summary>Converts this object's value to a 64-bit signed integer.
+            If the value can't fit in a 64-bit integer, returns the lower 64
+            bits of this object's two's complement representation (in which
+            case the return value might have a different sign than this
+            object's value).</summary>
+            <returns>A 64-bit signed integer.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Ten">
 <summary>Gets the number 10 as an arbitrary-precision integer.</summary>

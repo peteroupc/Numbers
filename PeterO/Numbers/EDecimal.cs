@@ -992,7 +992,29 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Abs"]/*'/>
     public EDecimal Abs() {
-      return this.Abs(null);
+      if (this.IsNegative) {
+        var er = new EDecimal(this.unsignedMantissa, this.exponent,
+          this.flags & ~BigNumberFlags.FlagNegative,
+          Math.Abs(this.sign));
+        return er;
+      }
+      return this;
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='other'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='other'/> is null.</exception>
+    public EDecimal CopySign(EDecimal other) {
+      if (other == null) {
+        throw new ArgumentNullException("other");
+      }
+      if (this.IsNegative) {
+        return other.IsNegative ? this : this.Negate();
+      } else {
+        return other.IsNegative ? this.Negate() : this;
+      }
     }
 
     /// <include file='../../docs.xml'
@@ -1133,6 +1155,122 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
       EDecimal other,
       EContext ctx) {
       return GetMathValue(ctx).CompareToWithContext(this, other, true, ctx);
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='other'>Not documented yet.</param>
+    /// <returns>A 32-bit signed integer.</returns>
+    public int CompareToTotalMagnitude(EDecimal other) {
+      if (other == null) {
+ return -1;
+}
+      var iThis = 0;
+      var iOther = 0;
+      int cmp;
+      if (this.IsSignalingNaN()) {
+ iThis = 2;
+  } else if (this.IsNaN()) {
+ iThis = 3;
+  } else if (this.IsInfinity()) {
+ iThis = 1;
+}
+      if (other.IsSignalingNaN()) {
+ iOther = 2;
+  } else if (other.IsNaN()) {
+ iOther = 3;
+  } else if (other.IsInfinity()) {
+ iOther = 1;
+}
+      if (iThis > iOther) {
+        return 1;
+      } else if (iThis < iOther) {
+        return -1;
+      }
+      if (iThis >= 2) {
+        cmp = this.unsignedMantissa.CompareTo(
+         other.unsignedMantissa);
+        return cmp;
+      } else if (iThis == 1) {
+        return 0;
+      } else {
+        cmp = this.Abs().CompareTo(other.Abs());
+        if (cmp == 0) {
+          cmp = this.exponent.CompareTo(
+           other.exponent);
+          return cmp;
+        }
+        return cmp;
+      }
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='other'>Not documented yet.</param>
+    /// <param name='ctx'>Not documented yet.</param>
+    /// <returns>A 32-bit signed integer.</returns>
+    public int CompareToTotal(EDecimal other, EContext ctx) {
+      if (other == null) {
+ return -1;
+}
+      if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
+        return CompareToTotal(other);
+      }
+      if (ctx != null && ctx.IsSimplified) {
+        return this.RoundToPrecision(ctx)
+          .CompareToTotal(other.RoundToPrecision(ctx));
+      } else {
+        return CompareToTotal(other);
+      }
+    }
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='other'>Not documented yet.</param>
+    /// <returns>A 32-bit signed integer.</returns>
+    public int CompareToTotal(EDecimal other) {
+      if (other == null) {
+ return -1;
+}
+      bool neg1 = this.IsNegative;
+      bool neg2 = other.IsNegative;
+      if (neg1 != neg2) {
+        return neg1 ? -1 : 1;
+      }
+      var iThis = 0;
+      var iOther = 0;
+      int cmp;
+      if (this.IsSignalingNaN()) {
+ iThis = 2;
+  } else if (this.IsNaN()) {
+ iThis = 3;
+  } else if (this.IsInfinity()) {
+ iThis = 1;
+}
+      if (other.IsSignalingNaN()) {
+ iOther = 2;
+  } else if (other.IsNaN()) {
+ iOther = 3;
+  } else if (other.IsInfinity()) {
+ iOther = 1;
+}
+      if (iThis > iOther) {
+        return neg1 ? -1 : 1;
+      } else if (iThis < iOther) {
+        return neg1 ? 1 : -1;
+      }
+      if (iThis >= 2) {
+        cmp = this.unsignedMantissa.CompareTo(
+         other.unsignedMantissa);
+        return neg1 ? -cmp : cmp;
+      } else if (iThis == 1) {
+        return 0;
+      } else {
+        cmp = this.CompareTo(other);
+        if (cmp == 0) {
+          cmp = this.exponent.CompareTo(
+           other.exponent);
+          return neg1 ? -cmp : cmp;
+        }
+        return cmp;
+      }
     }
 
     /// <include file='../../docs.xml'
@@ -1549,7 +1687,9 @@ this.flags).RoundToPrecision(ctx);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Negate"]/*'/>
     public EDecimal Negate() {
-      return this.Negate(null);
+      return new EDecimal(this.unsignedMantissa, this.exponent,
+          this.flags ^ BigNumberFlags.FlagNegative,
+          -this.sign);
     }
 
     /// <include file='../../docs.xml'
@@ -1793,12 +1933,27 @@ EContext.ForRounding(rounding));
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToIntegralExact(PeterO.Numbers.EContext)"]/*'/>
+    public EDecimal RoundToIntegerExact(EContext ctx) {
+      return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)"]/*'/>
+    public EDecimal RoundToIntegerNoRoundedFlag(EContext ctx) {
+      return GetMathValue(ctx)
+        .RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToIntegralExact(PeterO.Numbers.EContext)"]/*'/>
+    [Obsolete("Renamed to RoundToIntegerExact.")]
     public EDecimal RoundToIntegralExact(EContext ctx) {
       return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)"]/*'/>
+    [Obsolete("Renamed to RoundToIntegerNoRoundedFlag.")]
     public EDecimal RoundToIntegralNoRoundedFlag(EContext ctx) {
       return GetMathValue(ctx)
         .RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
@@ -1845,6 +2000,12 @@ EContext ctx) {
         this.unsignedMantissa,
         FastInteger2.FromBig(bigExp),
         this.flags).RoundToPrecision(ctx);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.SquareRoot(PeterO.Numbers.EContext)"]/*'/>
+    public EDecimal Sqrt(EContext ctx) {
+      return GetMathValue(ctx).SquareRoot(this, ctx);
     }
 
     /// <include file='../../docs.xml'

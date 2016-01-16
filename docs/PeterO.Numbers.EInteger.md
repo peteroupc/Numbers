@@ -559,6 +559,10 @@ A 64-bit signed integer.
 
     public int GetDigitCount();
 
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
 ### GetHashCode
 
     public override int GetHashCode();

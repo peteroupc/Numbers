@@ -106,9 +106,9 @@ namespace Test {
     private static void TestAddCloseExponent(FastRandom fr, int exp) {
 for (var i = 0; i < 1000; ++i) {
   EInteger exp1 = EInteger.FromInt32(exp)
-    .Add(fr.NextValue(32)-16);
+    .Add(EInteger.FromInt32(fr.NextValue(32)-16));
   EInteger exp2 = exp1
-    .Add(fr.NextValue(18)-9);
+    .Add(EInteger.FromInt32(fr.NextValue(18)-9));
   EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
   EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
   EDecimal decA = EDecimal.Create(mant1, exp1);

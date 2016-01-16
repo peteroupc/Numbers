@@ -176,14 +176,24 @@ System.Globalization.CultureInfo.InvariantCulture);
           d3 = EDecimal.MaxMagnitude(d1, d2, ctx);
         } else if (op.Equals("compare")) {
           d3 = d1.CompareToWithContext(d2, ctx);
+        } else if (op.Equals("comparetotal")) {
+          d3 = d1.CompareToTotal(d2, ctx);
+        } else if (op.Equals("comparetotmag")) {
+          d3 = EDecimal.FromInt32(d1.CompareToTotalMagnitude(d2));
+        } else if (op.Equals("copyabs")) {
+          d3 = d1.Abs();
+        } else if (op.Equals("copynegate")) {
+          d3 = d1.Negate();
+        } else if (op.Equals("copysign")) {
+          d3 = d1.CopySign(d2);
         } else if (op.Equals("comparesig")) {
           d3 = d1.CompareToSignal(d2, ctx);
         } else if (op.Equals("subtract")) {
           d3 = d1.Subtract(d2, ctx);
         } else if (op.Equals("tointegral")) {
-          d3 = d1.RoundToIntegralNoRoundedFlag(ctx);
+          d3 = d1.RoundToIntegerNoRoundedFlag(ctx);
         } else if (op.Equals("tointegralx")) {
-          d3 = d1.RoundToIntegralExact(ctx);
+          d3 = d1.RoundToIntegerExact(ctx);
         } else if (op.Equals("divideint")) {
           d3 = d1.DivideToIntegerZeroScale(d2, ctx);
         } else if (op.Equals("divide")) {
