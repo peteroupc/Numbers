@@ -9,8 +9,8 @@ using System;
 using System.Text;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.EDecimal"]/*'/>
+  /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="T:PeterO.Numbers.EDecimal"]/*'/>
   public sealed partial class EDecimal : IComparable<EDecimal>,
   IEquatable<EDecimal> {
     //----------------------------------------------------------------
@@ -194,8 +194,8 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Mantissa"]/*'/>
     public EInteger Mantissa {
       get {
-     return this.IsNegative ? (this.unsignedMantissa.AsEInteger().Negate()) :
-             this.unsignedMantissa.AsEInteger();
+        return this.IsNegative ? (this.unsignedMantissa.AsEInteger().Negate()) :
+                this.unsignedMantissa.AsEInteger();
       }
     }
 
@@ -1001,11 +1001,8 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
       return this;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='other'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal CopySign(EDecimal other) {
       if (other == null) {
         throw new ArgumentNullException("other");
@@ -1028,7 +1025,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal Add(EDecimal otherValue) {
       if (this.IsFinite && otherValue != null && otherValue.IsFinite &&
-        ((this.flags | otherValue.flags) & BigNumberFlags.FlagNegative) == 0&&
+        ((this.flags | otherValue.flags) & BigNumberFlags.FlagNegative) == 0 &&
             this.exponent.CompareTo(otherValue.exponent) == 0) {
         FastInteger2 result = FastInteger2.Add(this.unsignedMantissa,
               otherValue.unsignedMantissa);
@@ -1157,30 +1154,29 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
       return GetMathValue(ctx).CompareToWithContext(this, other, true, ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal)"]/*'/>
     public int CompareToTotalMagnitude(EDecimal other) {
       if (other == null) {
- return -1;
-}
+        return -1;
+      }
       var iThis = 0;
       var iOther = 0;
       int cmp;
       if (this.IsSignalingNaN()) {
- iThis = 2;
-  } else if (this.IsNaN()) {
- iThis = 3;
-  } else if (this.IsInfinity()) {
- iThis = 1;
-}
+        iThis = 2;
+      } else if (this.IsNaN()) {
+        iThis = 3;
+      } else if (this.IsInfinity()) {
+        iThis = 1;
+      }
       if (other.IsSignalingNaN()) {
- iOther = 2;
-  } else if (other.IsNaN()) {
- iOther = 3;
-  } else if (other.IsInfinity()) {
- iOther = 1;
-}
+        iOther = 2;
+      } else if (other.IsNaN()) {
+        iOther = 3;
+      } else if (other.IsInfinity()) {
+        iOther = 1;
+      }
       if (iThis > iOther) {
         return 1;
       } else if (iThis < iOther) {
@@ -1203,14 +1199,12 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <param name='ctx'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public int CompareToTotal(EDecimal other, EContext ctx) {
       if (other == null) {
- return -1;
-}
+        return -1;
+      }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
         return CompareToTotal(other);
       }
@@ -1222,13 +1216,12 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal)"]/*'/>
     public int CompareToTotal(EDecimal other) {
       if (other == null) {
- return -1;
-}
+        return -1;
+      }
       bool neg1 = this.IsNegative;
       bool neg2 = other.IsNegative;
       if (neg1 != neg2) {
@@ -1238,19 +1231,19 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
       var iOther = 0;
       int cmp;
       if (this.IsSignalingNaN()) {
- iThis = 2;
-  } else if (this.IsNaN()) {
- iThis = 3;
-  } else if (this.IsInfinity()) {
- iThis = 1;
-}
+        iThis = 2;
+      } else if (this.IsNaN()) {
+        iThis = 3;
+      } else if (this.IsInfinity()) {
+        iThis = 1;
+      }
       if (other.IsSignalingNaN()) {
- iOther = 2;
-  } else if (other.IsNaN()) {
- iOther = 3;
-  } else if (other.IsInfinity()) {
- iOther = 1;
-}
+        iOther = 2;
+      } else if (other.IsNaN()) {
+        iOther = 3;
+      } else if (other.IsInfinity()) {
+        iOther = 1;
+      }
       if (iThis > iOther) {
         return neg1 ? -1 : 1;
       } else if (iThis < iOther) {
@@ -1299,14 +1292,31 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)"]/*'/>
+    [Obsolete("Renamed to DivRemNaturalScale.")]
     public EDecimal[] DivideAndRemainderNaturalScale(EDecimal
       divisor) {
-      return this.DivideAndRemainderNaturalScale(divisor, null);
+      return this.DivRemNaturalScale(divisor, null);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    [Obsolete("Renamed to DivRemNaturalScale.")]
     public EDecimal[] DivideAndRemainderNaturalScale(
+      EDecimal divisor,
+      EContext ctx) {
+      return this.DivRemNaturalScale(divisor, ctx);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)"]/*'/>
+    public EDecimal[] DivRemNaturalScale(EDecimal
+      divisor) {
+      return this.DivRemNaturalScale(divisor, null);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    public EDecimal[] DivRemNaturalScale(
       EDecimal divisor,
       EContext ctx) {
       var result = new EDecimal[2];
@@ -2105,8 +2115,8 @@ EContext ctx) {
         if (this.unsignedMantissa.CanFitInInt32()) {
           int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- retInt = -retInt;
-}
+            retInt = -retInt;
+          }
           return retInt;
         }
       }
@@ -2126,16 +2136,15 @@ EContext ctx) {
         if (this.unsignedMantissa.CanFitInInt32()) {
           int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- retInt = -retInt;
-}
+            retInt = -retInt;
+          }
           return retInt;
         }
       }
       return this.ToEIntegerExact().ToInt32Unchecked();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
+    /// 
     public long ToInt64Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -2147,8 +2156,8 @@ EContext ctx) {
         if (this.unsignedMantissa.CanFitInInt32()) {
           int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- retInt = -retInt;
-}
+            retInt = -retInt;
+          }
           return retInt;
         }
       }
@@ -2168,8 +2177,8 @@ EContext ctx) {
         if (this.unsignedMantissa.CanFitInInt32()) {
           int retInt = this.unsignedMantissa.AsInt32();
           if (this.IsNegative) {
- retInt = -retInt;
-}
+            retInt = -retInt;
+          }
           return retInt;
         }
       }
@@ -2236,9 +2245,9 @@ EContext ctx) {
         throw new ArgumentNullException("exponent");
       }
 #if DEBUG
-if (!(mantissa.Sign >= 0)) {
-  throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
-}
+      if (!(mantissa.Sign >= 0)) {
+        throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
+      }
 #endif
 
       return new EDecimal(
@@ -2518,10 +2527,10 @@ if (!(mantissa.Sign >= 0)) {
           return negative ? "-Infinity" : "Infinity";
         }
         if ((this.flags & BigNumberFlags.FlagSignalingNaN) != 0) {
-        return this.unsignedMantissa.IsValueZero ? (negative ? "-sNaN" :
-            "sNaN"
-) : (negative ? "-sNaN" + this.unsignedMantissa :
-                  "sNaN" + this.unsignedMantissa);
+          return this.unsignedMantissa.IsValueZero ? (negative ? "-sNaN" :
+              "sNaN"
+  ) : (negative ? "-sNaN" + this.unsignedMantissa :
+                    "sNaN" + this.unsignedMantissa);
         }
         if ((this.flags & BigNumberFlags.FlagQuietNaN) != 0) {
           return this.unsignedMantissa.IsValueZero ? (negative ? "-NaN" : "NaN"
@@ -2659,12 +2668,12 @@ if (!(mantissa.Sign >= 0)) {
             builder.Append(mantissaString);
           } else if (cmp == 0) {
 #if DEBUG
-if (!(decimalPoint.CanFitInInt32())) {
-  throw new ArgumentException("doesn't satisfy decimalPoint.CanFitInInt32()");
-}
-if (!(decimalPoint.AsInt32() == 0)) {
-  throw new ArgumentException("doesn't satisfy decimalPoint.AsInt32() == 0");
-}
+            if (!(decimalPoint.CanFitInInt32())) {
+              throw new ArgumentException("doesn't satisfy decimalPoint.CanFitInInt32()");
+            }
+            if (!(decimalPoint.AsInt32() == 0)) {
+              throw new ArgumentException("doesn't satisfy decimalPoint.AsInt32() == 0");
+            }
 #endif
 
             var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
@@ -2811,26 +2820,26 @@ if (!(decimalPoint.AsInt32() == 0)) {
       }
     }
     private sealed class DecimalMathHelper : IRadixMathHelper<EDecimal> {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetRadix"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetRadix"]/*'/>
       public int GetRadix() {
         return 10;
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetSign(PeterO.Numbers.EDecimal)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetSign(PeterO.Numbers.EDecimal)"]/*'/>
       public int GetSign(EDecimal value) {
         return value.Sign;
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetMantissa(PeterO.Numbers.EDecimal)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetMantissa(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetMantissa(EDecimal value) {
         return value.unsignedMantissa.AsEInteger();
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetExponent(PeterO.Numbers.EDecimal)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetExponent(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetExponent(EDecimal value) {
         return value.exponent.AsEInteger();
       }
@@ -2843,8 +2852,8 @@ if (!(decimalPoint.AsInt32() == 0)) {
         return value.exponent;
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'/>
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
         EInteger bigint,
         int lastDigit,
@@ -2852,14 +2861,14 @@ if (!(decimalPoint.AsInt32() == 0)) {
         return new DigitShiftAccumulator(bigint, lastDigit, olderDigits);
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)"]/*'/>
       public IShiftAccumulator CreateShiftAccumulator(EInteger bigint) {
         return new DigitShiftAccumulator(bigint, 0, 0);
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
       public bool HasTerminatingRadixExpansion(
         EInteger numerator,
         EInteger denominator) {
@@ -2917,14 +2926,14 @@ if (!(decimalPoint.AsInt32() == 0)) {
           NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetFlags(PeterO.Numbers.EDecimal)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetFlags(PeterO.Numbers.EDecimal)"]/*'/>
       public int GetFlags(EDecimal value) {
         return value.flags;
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
       public EDecimal CreateNewWithFlags(
         EInteger mantissa,
         EInteger exponent,
@@ -2940,14 +2949,14 @@ if (!(decimalPoint.AsInt32() == 0)) {
         return CreateWithFlags(fmantissa, fexponent, flags);
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetArithmeticSupport"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetArithmeticSupport"]/*'/>
       public int GetArithmeticSupport() {
         return BigNumberFlags.FiniteAndNonFinite;
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.ValueOf(System.Int32)"]/*'/>
+      /// <include file='../../docs.xml'
+      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.ValueOf(System.Int32)"]/*'/>
       public EDecimal ValueOf(int val) {
         return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
       }

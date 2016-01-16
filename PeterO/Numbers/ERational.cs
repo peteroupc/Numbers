@@ -501,11 +501,8 @@ rem = divrem[1]; }
       return er;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>An ERational object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='other'/> is null.</exception>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)"]/*'/>
     public ERational CopySign(ERational other) {
       if (other == null) {
         throw new ArgumentNullException("other");

@@ -111,7 +111,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <returns>A FastInteger2 object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.Negate"]/*'/>
     internal FastInteger2 Negate() {
       switch (this.integerMode) {
         case 0:
@@ -126,7 +127,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <value></value>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsEvenNumber"]/*'/>
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {
@@ -144,7 +146,8 @@ namespace PeterO.Numbers {
       return this.integerMode == 0 || this.largeValue.CanFitInInt32();
     }
 
-    /// <returns>A string object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.ToString"]/*'/>
     public override string ToString() {
       switch (this.integerMode) {
         case 0:
@@ -155,7 +158,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <value></value>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.Sign"]/*'/>
     internal int Sign {
       get {
         switch (this.integerMode) {
@@ -169,7 +173,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <value></value>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsValueZero"]/*'/>
     internal bool IsValueZero {
       get {
         switch (this.integerMode) {

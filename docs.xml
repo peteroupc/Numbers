@@ -1,4 +1,11 @@
 <docs>
+<doc name="M:PeterO.Numbers.E64Decimal.ToInt64Checked">
+<summary>Converts this number to a 32-bit signed integer, if possible,
+without truncating or rounding it.</summary>
+<returns>A 64-bit signed integer.</returns>
+<exception cref='T:System.OverflowException'>This number's value
+is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</exception>
+</doc>
 <doc name="T:PeterO.Numbers.EContext">
 <summary>Contains parameters for controlling the precision,
             rounding, and exponent range of arbitrary-precision
@@ -570,6 +577,22 @@ of this class.</para>
             if both objects have the same value, or -1 if this object is less
             than the other value, or 1 if this object is greater.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
+            <returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <returns>A 32-bit signed integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 <summary>Compares the mathematical values of this object and
             another object.
@@ -586,6 +609,12 @@ of this class.</para>
             <returns>Quiet NaN if this object or the other object is NaN, or 0
             if both objects have the same value, or -1 if this object is less
             than the other value, or 1 if this object is greater.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Creates a number with the value
@@ -2205,18 +2234,11 @@ of this class.</para>
 <summary>Converts this number to a 32-bit signed integer, if possible,
 without truncating or rounding it.</summary>
 <returns>A 32-bit signed integer.</returns>
-<exception cref="T:System.OverflowException">This number's value
+<exception cref='T:System.OverflowException'>This number's value
 is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked">
 <returns>A 32-bit signed integer.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.E64Decimal.ToInt64Checked">
-<summary>Converts this number to a 32-bit signed integer, if possible,
-without truncating or rounding it.</summary>
-<returns>A 64-bit signed integer.</returns>
-<exception cref="T:System.OverflowException">This number's value
-is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
 <returns>A 64-bit signed integer.</returns>
@@ -2549,6 +2571,22 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             if both objects have the same value, or -1 if this object is less
             than the other value, or 1 if this object is greater.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
+            <returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <returns>A 32-bit signed integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 <summary>Compares the mathematical values of this object and
             another object.
@@ -2565,6 +2603,12 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <returns>Quiet NaN if this object or the other object is NaN, or 0
             if both objects have the same value, or -1 if this object is less
             than the other value, or 1 if this object is greater.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <returns>An EFloat object.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Creates a number with the value
@@ -4269,6 +4313,9 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='numberBits'>The parameter <paramref name='numberBits'/> is not documented yet.</param>
             <returns>A 64-bit signed integer.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.GetDigitCount">
+<returns>A 32-bit signed integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.GetHashCode">
 <summary>Returns the hash code for this instance.</summary>
             <returns>A 32-bit signed integer.</returns>
@@ -4455,7 +4502,10 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='subtrahend'/> is null.</exception>
 </doc>
-
+<doc name="P:PeterO.Numbers.EInteger.Ten">
+<summary>Gets the number 10 as an arbitrary-precision integer.</summary>
+            <value>A value not documented yet.</value>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt32Checked">
 <summary>Converts this object's value to a 32-bit signed integer,
             throwing an exception if it can't fit.</summary>
@@ -4485,10 +4535,6 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             case the return value might have a different sign than this
             object's value).</summary>
             <returns>A 64-bit signed integer.</returns>
-</doc>
-<doc name="P:PeterO.Numbers.EInteger.Ten">
-<summary>Gets the number 10 as an arbitrary-precision integer.</summary>
-            <value>A value not documented yet.</value>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToString">
 <summary>Converts this object to a text string in base
@@ -4902,6 +4948,12 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <returns>Zero if the values are equal; a negative number if this
             instance is less, or a positive number if this instance is
             greater.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)">
+<summary>Not documented yet.</summary>
+            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
+            <returns>An ERational object.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Creates a rational number with the given numerator and
@@ -5403,6 +5455,21 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.FastInteger.ToString">
 <summary>Converts this object to a text string.</summary>
             <returns>A string representation of this object.</returns>
+</doc>
+<doc name="P:PeterO.Numbers.FastInteger2.IsEvenNumber">
+<value/>
+</doc>
+<doc name="P:PeterO.Numbers.FastInteger2.IsValueZero">
+<value/>
+</doc>
+<doc name="M:PeterO.Numbers.FastInteger2.Negate">
+<returns>A FastInteger2 object.</returns>
+</doc>
+<doc name="P:PeterO.Numbers.FastInteger2.Sign">
+<value/>
+</doc>
+<doc name="M:PeterO.Numbers.FastInteger2.ToString">
+<returns>A text string.</returns>
 </doc>
 <doc name="T:PeterO.Numbers.IShiftAccumulator">
 <summary>Common interface for classes that shift a number of digits

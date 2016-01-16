@@ -1046,7 +1046,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
     public int GetDigitCount() {
       if (this.IsZero) {
         return 1;

@@ -1025,11 +1025,8 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='other'/> is null.</exception>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)"]/*'/>
     public EFloat CopySign(EFloat other) {
       if (other == null) {
         throw new ArgumentNullException("other");
@@ -1176,9 +1173,8 @@ namespace PeterO.Numbers {
       return this.Subtract(otherValue, null);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat)"]/*'/>
     public int CompareToTotalMagnitude(EFloat other) {
       if (other == null) {
  return -1;
@@ -1222,10 +1218,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <param name='ctx'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public int CompareToTotal(EFloat other, EContext ctx) {
       if (other == null) {
  return -1;
@@ -1241,9 +1235,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='other'>Not documented yet.</param>
-    /// <returns>A 32-bit signed integer.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)"]/*'/>
     public int CompareToTotal(EFloat other) {
       if (other == null) {
  return -1;
@@ -1822,14 +1815,31 @@ EContext ctx) {
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)"]/*'/>
+    [Obsolete("Renamed to DivRemNaturalScale.")]
+    public EFloat[] DivideAndRemainderNaturalScale(EFloat
+      divisor) {
+      return this.DivRemNaturalScale(divisor, null);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    [Obsolete("Renamed to DivRemNaturalScale.")]
+    public EFloat[] DivideAndRemainderNaturalScale(
+      EFloat divisor,
+      EContext ctx) {
+      return this.DivRemNaturalScale(divisor, ctx);
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)"]/*'/>
- public EFloat[] DivideAndRemainderNaturalScale(EFloat divisor) {
+    public EFloat[] DivRemNaturalScale(EFloat divisor) {
       return this.DivideAndRemainderNaturalScale(divisor, null);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
-    public EFloat[] DivideAndRemainderNaturalScale(
+    public EFloat[] DivRemNaturalScale(
       EFloat divisor,
       EContext ctx) {
       var result = new EFloat[2];
