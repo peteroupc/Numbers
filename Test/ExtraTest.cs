@@ -78,16 +78,16 @@ namespace Test {
 
       Assert.AreEqual(
         ERational.PositiveInfinity,
-        ERational.FromExtendedDecimal(EDecimal.PositiveInfinity));
+        ERational.FromEDecimal(EDecimal.PositiveInfinity));
       Assert.AreEqual(
         ERational.NegativeInfinity,
-        ERational.FromExtendedDecimal(EDecimal.NegativeInfinity));
+        ERational.FromEDecimal(EDecimal.NegativeInfinity));
       Assert.AreEqual(
         ERational.PositiveInfinity,
-        ERational.FromExtendedFloat(EFloat.PositiveInfinity));
+        ERational.FromEFloat(EFloat.PositiveInfinity));
       Assert.AreEqual(
         ERational.NegativeInfinity,
-        ERational.FromExtendedFloat(EFloat.NegativeInfinity));
+        ERational.FromEFloat(EFloat.NegativeInfinity));
 
   Assert.IsTrue(Double.IsPositiveInfinity(ERational.PositiveInfinity.ToDouble()));
 
@@ -153,9 +153,29 @@ namespace Test {
     }
 
     [Test]
-    public void TestExtendedMiscellaneous() {
-      Assert.AreEqual(EDecimal.One, EDecimal.FromInt32(1));
+    public void TestEIntegerAnd() {
+      try {
+        EInteger.And(EInteger.Zero, null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EInteger.And(null, EInteger.Zero);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+    }
 
+    [Test]
+    public void TestExtendedMiscellaneous() {
       Assert.AreEqual(
         EFloat.Zero,
         EDecimal.Zero.ToExtendedFloat());

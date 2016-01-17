@@ -70,7 +70,18 @@ namespace Test {
     }
     [Test]
     public void TestCompareToDecimal() {
-      // not implemented yet
+      var fr = new FastRandom();
+      for (var i = 0; i < 100; ++i) {
+        ERational er = RandomObjects.RandomRational(fr);
+        int exp = -100000 + fr.NextValue(200000);
+        EDecimal ed = EDecimal.Create(
+          RandomObjects.RandomBigInteger(fr),
+          (EInteger)exp);
+        ERational er2 = ERational.FromEDecimal(ed);
+        int c2r = er.CompareTo(er2);
+        int c2d = er.CompareToDecimal(ed);
+        Assert.AreEqual(c2r, c2d);
+      }
     }
     [Test]
     public void TestCreate() {
@@ -302,7 +313,7 @@ namespace Test {
     public void TestToDouble() {
       // test for correct rounding
       double dbl;
-      dbl = ERational.FromExtendedDecimal(
+      dbl = ERational.FromEDecimal(
         EDecimal.FromString(
        "1.972579273363468721491642554610734805464744567871093749999999999999"))
         .ToDouble();

@@ -8,8 +8,12 @@ at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
+    /// <summary>An arbitrary-precision integer.
+    /// <para>Instances of this class are immutable, so they are inherently
+    /// safe for use by multiple threads. Multiple instances of this object
+    /// with the same value are interchangeable, but they should be
+    /// compared using the "Equals" method rather than the "=="
+    /// operator.</para></summary>
   public sealed partial class EInteger {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int64)~PeterO.Numbers.EInteger"]/*'/>

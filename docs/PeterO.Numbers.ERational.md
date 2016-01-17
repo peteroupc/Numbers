@@ -221,6 +221,28 @@ Compares an arbitrary-precision decimal number with this instance.
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
+### CopySign
+
+    public PeterO.Numbers.ERational CopySign(
+        PeterO.Numbers.ERational other);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>other</i>
+ is null.
+
 ### Create
 
     public static PeterO.Numbers.ERational Create(

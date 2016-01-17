@@ -159,7 +159,7 @@ Finds the absolute value of this object (if it's negative, it becomes positive).
 
 <b>Returns:</b>
 
-The absolute value of this object.
+The absolute value of this object. Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.
 
 ### Abs
 
@@ -169,7 +169,7 @@ Gets the absolute value of this object.
 
 <b>Returns:</b>
 
-An arbitrary-precision binary float.
+An arbitrary-precision binary float. Returns signaling NaN if this value is signaling NaN.
 
 ### Add
 
@@ -244,6 +244,58 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 
 Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
+### CompareToTotal
+
+    public int CompareToTotal(
+        PeterO.Numbers.EFloat other);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+### CompareToTotal
+
+    public int CompareToTotal(
+        PeterO.Numbers.EFloat other,
+        PeterO.Numbers.EContext ctx);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+### CompareToTotalMagnitude
+
+    public int CompareToTotalMagnitude(
+        PeterO.Numbers.EFloat other);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
 ### CompareToWithContext
 
     public PeterO.Numbers.EFloat CompareToWithContext(
@@ -263,6 +315,28 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 <b>Returns:</b>
 
 Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
+
+### CopySign
+
+    public PeterO.Numbers.EFloat CopySign(
+        PeterO.Numbers.EFloat other);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+An EFloat object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>other</i>
+ is null.
 
 ### Create
 
@@ -416,11 +490,13 @@ Either  <i>ctx</i>
     public PeterO.Numbers.EFloat[] DivideAndRemainderNaturalScale(
         PeterO.Numbers.EFloat divisor);
 
-Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale. This is meant to be similar to the divideAndRemainder method in Java's BigDecimal.
+<b>Deprecated.</b> Renamed to DivRemNaturalScale.
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The number to divide by.
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
 <b>Returns:</b>
 
@@ -432,13 +508,15 @@ A 2 element array consisting of the quotient and remainder in that order.
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.EContext ctx);
 
-Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale. This is meant to be similar to the divideAndRemainder method in Java's BigDecimal.
+<b>Deprecated.</b> Renamed to DivRemNaturalScale.
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The number to divide by.
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>ctx</i>: A precision context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's HasFlags is true and the integer part of the division result doesn't fit the precision and exponent range without rounding.
+ * <i>ctx</i>: A precision context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's HasFlags is true and the integer part of the division result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
 
 <b>Returns:</b>
 
@@ -626,6 +704,39 @@ The quotient of the two numbers. Signals FlagDivideByZero and returns infinity i
 
  * System.ArithmeticException:
 The rounding mode is ERounding.None and the result is not exact.
+
+### DivRemNaturalScale
+
+    public PeterO.Numbers.EFloat[] DivRemNaturalScale(
+        PeterO.Numbers.EFloat divisor);
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale. This is meant to be similar to the divideAndRemainder method in Java's BigDecimal.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
+
+<b>Returns:</b>
+
+A 2 element array consisting of the quotient and remainder in that order.
+
+### DivRemNaturalScale
+
+    public PeterO.Numbers.EFloat[] DivRemNaturalScale(
+        PeterO.Numbers.EFloat divisor,
+        PeterO.Numbers.EContext ctx);
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale. This is meant to be similar to the divideAndRemainder method in Java's BigDecimal.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
+
+ * <i>ctx</i>: A precision context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's HasFlags is true and the integer part of the division result doesn't fit the precision and exponent range without rounding.
+
+<b>Returns:</b>
+
+A 2 element array consisting of the quotient and remainder in that order.
 
 ### Equals
 
@@ -1414,7 +1525,7 @@ Returns a binary float with the same value as this object but with the sign reve
 
 <b>Returns:</b>
 
-An arbitrary-precision binary float. If this value is positive zero, returns positive zero.
+An arbitrary-precision binary float. If this value is positive zero, returns positive zero. Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.
 
 ### Negate
 
@@ -1424,7 +1535,7 @@ Gets an object with the same value as this one, but with the sign reversed.
 
 <b>Returns:</b>
 
-An arbitrary-precision binary float. If this value is positive zero, returns positive zero.
+An arbitrary-precision binary float. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
 
 ### NextMinus
 

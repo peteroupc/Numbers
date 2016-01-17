@@ -394,27 +394,27 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             number.
             <para><b>About decimal arithmetic</b></para>
             <para>
-Decimal (base-10) arithmetic, such as that provided by this class,
-is appropriate for calculations involving such real-world data
-as prices and other sums of money, tax rates, and measurements.  These calculations
-often involve multiplying or dividing one decimal with another
-decimal, or performing other operations on decimal numbers.
-Many of these calculations also rely on rounding behavior in which
-the result after rounding is a decimal number (for example, multiplying
-a price by a premium rate, then rounding, should result in a decimal
-amount of money).
-</para>
-<para>On the other hand, most implementations of
-<c>float</c> and <c>double</c>, including in C# and Java,
-store numbers in a binary (base-2) floating-point format and use 
-binary floating-point arithmetic.  Many decimal numbers
-can't be represented exactly in binary floating-point format (regardless
-of its length). Applying binary arithmetic to numbers intended 
-to be decimals can sometimes lead to unintuitive results, 
-as is shown in the description for the FromDouble() method 
-of this class.</para>
-           <para><b>About EDecimal instances</b></para>
-           <para>
+            Decimal (base-10) arithmetic, such as that provided by this class,
+            is appropriate for calculations involving such real-world data
+            as prices and other sums of money, tax rates, and measurements.  These calculations
+            often involve multiplying or dividing one decimal with another
+            decimal, or performing other operations on decimal numbers.
+            Many of these calculations also rely on rounding behavior in which
+            the result after rounding is a decimal number (for example, multiplying
+            a price by a premium rate, then rounding, should result in a decimal
+            amount of money).
+            </para>
+            <para>On the other hand, most implementations of
+            <c>float</c> and <c>double</c>, including in C# and Java,
+            store numbers in a binary (base-2) floating-point format and use 
+            binary floating-point arithmetic.  Many decimal numbers
+            can't be represented exactly in binary floating-point format (regardless
+            of its length). Applying binary arithmetic to numbers intended 
+            to be decimals can sometimes lead to unintuitive results, 
+            as is shown in the description for the FromDouble() method 
+            of this class.</para>
+            <para><b>About EDecimal instances</b></para>
+            <para>
             Each instance of this class consists of an integer mantissa and an integer exponent,
             both arbitrary-precision. The value of the number equals mantissa *
             10^exponent.</para>
@@ -444,8 +444,8 @@ of this class.</para>
             <para>This class implements the General Decimal Arithmetic
             Specification version 1.70 (except part of chapter 6):
             <c>http://speleotrove.com/decimal/decarith.html</c></para>
-           <para><b>Errors and Exceptions</b></para>
-           <para>Passing a signaling NaN to any arithmetic operation shown
+            <para><b>Errors and Exceptions</b></para>
+            <para>Passing a signaling NaN to any arithmetic operation shown
             here will signal the flag FlagInvalid and return a quiet NaN, even
             if another operand to that operation is a quiet NaN, unless noted
             otherwise.</para>
@@ -459,13 +459,13 @@ of this class.</para>
             FlagOverflow, or FlagDivideByZero, it will not throw an exception
             too, unless the flag's trap is enabled in the precision context
             (see EContext's Traps property).</para>
-                       <para>If an operation requires creating an intermediate value that might be too big to
+            <para>If an operation requires creating an intermediate value that might be too big to
             fit in memory (or might require more than 2 gigabytes of memory to
             store -- due to the current use of a 32-bit integer internally as a length), the
             operation may signal an invalid-operation flag and return not-a-number
             (NaN).  In certain rare cases, the CompareTo method may throw OutOfMemoryException
             (called OutOfMemoryError in Java) in the same circumstances.</para>
-           <para><b>Serialization</b></para>
+            <para><b>Serialization</b></para>
             <para>An arbitrary-precision decimal value can be serialized (converted
             to a stable format) in one of the following ways:</para>
             <list>
@@ -477,7 +477,7 @@ of this class.</para>
             IsSignalingNaN methods. The return values combined will uniquely
             identify a particular arbitrary-precision decimal
             value.</item></list>
-             <para><b>Thread safety</b></para>
+            <para><b>Thread safety</b></para>
             <para>Instances of this class are immutable, so they are inherently
             safe for use by multiple threads. Multiple instances of this object
             with the same properties are interchangeable, so they should not be
@@ -492,7 +492,6 @@ of this class.</para>
             considers two different NaN values as equal), while two instances
             with the same mathematical value, but different exponents, will be
             considered unequal under the Equals method.</para>
-            
             </summary>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Abs">
@@ -724,6 +723,34 @@ of this class.</para>
 <summary>This is an internal method.</summary>
             <param name='val'>A 32-bit signed integer.</param>
             <returns>An arbitrary-precision decimal number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.DivRemNaturalScale(PeterO.Numbers.EDecimal)">
+<summary>Calculates the quotient and remainder using the
+            DivideToIntegerNaturalScale and the formula in
+            RemainderNaturalScale.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
+            <returns>A 2 element array consisting of the quotient and remainder
+            in that order.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.DivRemNaturalScale(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
+<summary>Calculates the quotient and remainder using the
+            DivideToIntegerNaturalScale and the formula in
+            RemainderNaturalScale.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
+            <param name='ctx'>A precision context object to control the
+            precision, rounding, and exponent range of the result. This context
+            will be used only in the division portion of the remainder
+            calculation; as a result, it's possible for the remainder to have a
+            higher precision than given in this context. Flags will be set on
+            the given context only if the context's HasFlags is true and the
+            integer part of the division result doesn't fit the precision and
+            exponent range without rounding. Can be null, in which the precision is unlimited
+            and no additional rounding, other than the rounding down to
+            an integer after division, is needed.</param>
+            <returns>A 2 element array consisting of the quotient and remainder
+            in that order.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(PeterO.Numbers.EDecimal)">
 <summary>Divides this object by another decimal number and returns
@@ -976,9 +1003,9 @@ of this class.</para>
             returns the integer part of the result, rounded down, with the
             preferred exponent set to this value&#x27;s exponent minus the
             divisor&#x27;s exponent.</summary>
-                  <param name='divisor'>An arbitrary-precision decimal
+            <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
-      <returns>The integer part of the quotient of the two objects.
+            <returns>The integer part of the quotient of the two objects.
             Signals FlagDivideByZero and returns infinity if the divisor is 0
             and the dividend is nonzero. Signals FlagInvalid and returns
             not-a-number (NaN) if the divisor and the dividend are 0.</returns>
@@ -1088,6 +1115,14 @@ of this class.</para>
             <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
             <param name='dbl'>A 64-bit floating-point number.</param>
             <returns>A decimal number with the same value as <paramref name='dbl'/>.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromEFloat(PeterO.Numbers.EFloat)">
+<summary>Creates a decimal number from an arbitrary-precision
+            binary floating-point number.</summary>
+            <param name='bigfloat'>An arbitrary-precision binary floating-point number.</param>
+            <returns>An arbitrary-precision decimal number.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='bigfloat'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromEInteger(PeterO.Numbers.EInteger)">
 <summary>Converts an arbitrary-precision integer to an arbitrary precision
@@ -1549,7 +1584,6 @@ of this class.</para>
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
             <returns>An arbitrary-precision decimal number.  If this value is positive zero, returns positive zero.
-            
             Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.NegativeInfinity">
@@ -1727,8 +1761,8 @@ of this class.</para>
             // After performing arithmetic operations, adjust
             // the number to 5 digits after the decimal point
             number = number.Quantize(
-              EInteger.FromInt32(-5), // five digits after the decimal point
-              PrecisionContext.ForPrecision(25) // 25-digit precision
+            EInteger.FromInt32(-5), // five digits after the decimal point
+            PrecisionContext.ForPrecision(25) // 25-digit precision
             );
             </code><para>
             A fixed-point decimal arithmetic in which no digits come after
@@ -1771,8 +1805,8 @@ of this class.</para>
             // After performing arithmetic operations, adjust
             // the number to 5 digits after the decimal point
             number = number.Quantize(
-              -5, // five digits after the decimal point
-              PrecisionContext.ForPrecision(25) // 25-digit precision
+            -5, // five digits after the decimal point
+            PrecisionContext.ForPrecision(25) // 25-digit precision
             );
             </code><para>
             A fixed-point decimal arithmetic in which no digits come after
@@ -1827,7 +1861,7 @@ of this class.</para>
             rounding, and exponent range of the result. If HasFlags of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
-              Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
+            Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
             <returns>This value with trailing zeros removed. Note that if the
             result has a very high exponent and the context says to clamp high
             exponents, there may still be some trailing zeros in the
@@ -2047,6 +2081,43 @@ of this class.</para>
             rounding, and the given exponent is outside of the valid range of
             the precision context.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.RoundToIntegerExact(PeterO.Numbers.EContext)">
+<summary>Returns a decimal number with the same value as this
+            object but rounded to an integer, and signals an invalid operation
+            if the result would be inexact.</summary>
+            <param name='ctx'>A precision context to control precision,
+            rounding, and exponent range of the result. If HasFlags of the
+            context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            Can be null, in which case the default rounding mode is
+            HalfEven.</param>
+            <returns>A decimal number rounded to the closest integer
+            representable in the given precision. Signals FlagInvalid and
+            returns not-a-number (NaN) if the result can't fit the given
+            precision without rounding. Signals FlagInvalid and returns
+            not-a-number (NaN) if the precision context defines an exponent
+            range, the new exponent must be changed to 0 when rounding, and 0
+            is outside of the valid range of the precision context.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
+<summary>Returns a decimal number with the same value as this
+            object but rounded to an integer, without adding the FlagInexact or
+            FlagRounded flags.</summary>
+            <param name='ctx'>A precision context to control precision and
+            rounding of the result. If HasFlags of the context is true, will
+            also store the flags resulting from the operation (the flags are in
+            addition to the pre-existing flags), except that this function will
+            never add the FlagRounded and FlagInexact flags (the only
+            difference between this and RoundToExponentExact). Can be null, in
+            which case the default rounding mode is HalfEven.</param>
+            <returns>A decimal number rounded to the closest integer
+            representable in the given precision. If the result can't
+            fit the precision, additional digits are discarded to make it fit.
+            Signals FlagInvalid and returns not-a-number (NaN) if the precision
+            context defines an exponent range, the new exponent must be changed
+            to 0 when rounding, and 0 is outside of the valid range of the
+            precision context.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegralExact(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to an integer, and signals an invalid operation
@@ -2142,6 +2213,24 @@ of this class.</para>
             flag when it&#x27;s passed as an argument to any arithmetic
             operation in arbitrary-precision decimal.</summary>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.Sqrt(PeterO.Numbers.EContext)">
+<summary>Finds the square root of this object&#x27;s
+            value.</summary>
+            <param name='ctx'>A precision context to control precision,
+            rounding, and exponent range of the result. If HasFlags of the
+            context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            <i>This parameter cannot be null, as the square root function's
+            results are generally not exact for many inputs.</i> (Unlike in
+            the General Decimal Arithmetic Specification, any rounding
+            mode is allowed.)</param>
+            <returns>The square root. Signals the flag FlagInvalid and returns
+            NaN if this object is less than 0 (the square root would be a
+            complex number, but the return value is still NaN). Signals
+            FlagInvalid and returns not-a-number (NaN) if the parameter
+            <paramref name='ctx'/> is null or the precision is unlimited (the
+            context's Precision property is 0).</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.SquareRoot(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object&#x27;s
             value.</summary>
@@ -2232,13 +2321,16 @@ of this class.</para>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Checked">
 <summary>Converts this number to a 32-bit signed integer, if possible,
-without truncating or rounding it.</summary>
-<returns>A 32-bit signed integer.</returns>
-<exception cref='T:System.OverflowException'>This number's value
-is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</exception>
+            without truncating or rounding it.</summary>
+            <returns>A 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This number's value
+            is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked">
 <returns>A 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt64Checked">
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
 <returns>A 64-bit signed integer.</returns>
@@ -2343,7 +2435,6 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal">
 <summary>
-            
             </summary>
             <param name='dec'/>
 </doc>
@@ -2415,13 +2506,13 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             IsSignalingNaN methods. The return values combined will uniquely
             identify a particular arbitrary-precision binary float
             value.</item></list>
-                        <para>If an operation requires creating an intermediate value that might be too big to
+            <para>If an operation requires creating an intermediate value that might be too big to
             fit in memory (or might require more than 2 gigabytes of memory to
             store -- due to the current use of a 32-bit integer internally as a length), the
             operation may signal an invalid-operation flag and return not-a-number
             (NaN).  In certain rare cases, the CompareTo method may throw OutOfMemoryException
             (called OutOfMemoryError in Java) in the same circumstances.</para>
-             <para><b>Thread safety</b></para>
+            <para><b>Thread safety</b></para>
             <para>Instances of this class are immutable, so they are inherently
             safe for use by multiple threads. Multiple instances of this object
             with the same properties are interchangeable, so they should not be
@@ -2656,6 +2747,32 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             <exception cref='T:System.ArgumentException'>The parameter
             <paramref name='diag'/> is less than 0.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat)">
+<summary>Calculates the quotient and remainder using the
+            DivideToIntegerNaturalScale and the formula in
+            RemainderNaturalScale. This is meant to be similar to the
+            divideAndRemainder method in Java's BigDecimal.</summary>
+            <param name='divisor'>The number to divide by.</param>
+            <returns>A 2 element array consisting of the quotient and remainder
+            in that order.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
+<summary>Calculates the quotient and remainder using the
+            DivideToIntegerNaturalScale and the formula in
+            RemainderNaturalScale. This is meant to be similar to the
+            divideAndRemainder method in Java's BigDecimal.</summary>
+            <param name='divisor'>The number to divide by.</param>
+            <param name='ctx'>A precision context object to control the
+            precision, rounding, and exponent range of the result. This context
+            will be used only in the division portion of the remainder
+            calculation; as a result, it's possible for the remainder to have a
+            higher precision than given in this context. Flags will be set on
+            the given context only if the context's HasFlags is true and the
+            integer part of the division result doesn't fit the precision and
+            exponent range without rounding.</param>
+            <returns>A 2 element array consisting of the quotient and remainder
+            in that order.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat)">
 <summary>Divides this object by another binary float and returns
             the result. When possible, the result will be exact.</summary>
@@ -2691,18 +2808,18 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
 <doc name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)">
 <summary>Calculates the quotient and remainder using the
             DivideToIntegerNaturalScale and the formula in
-            RemainderNaturalScale. This is meant to be similar to the
-            divideAndRemainder method in Java's BigDecimal.</summary>
-            <param name='divisor'>The number to divide by.</param>
+            RemainderNaturalScale.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
             <returns>A 2 element array consisting of the quotient and remainder
             in that order.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 <summary>Calculates the quotient and remainder using the
             DivideToIntegerNaturalScale and the formula in
-            RemainderNaturalScale. This is meant to be similar to the
-            divideAndRemainder method in Java's BigDecimal.</summary>
-            <param name='divisor'>The number to divide by.</param>
+            RemainderNaturalScale.</summary>
+            <param name='divisor'>An arbitrary-precision decimal
+            number to divide by.</param>
             <param name='ctx'>A precision context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
@@ -2710,7 +2827,9 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             higher precision than given in this context. Flags will be set on
             the given context only if the context's HasFlags is true and the
             integer part of the division result doesn't fit the precision and
-            exponent range without rounding.</param>
+            exponent range without rounding. Can be null, in which the precision is unlimited
+            and no additional rounding, other than the rounding down to
+            an integer after division, is needed.</param>
             <returns>A 2 element array consisting of the quotient and remainder
             in that order.</returns>
 </doc>
@@ -2952,10 +3071,10 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             <returns>The parsed number, converted to arbitrary-precision binary
             float.</returns>
             <example>
-             The following example converts a number in the form of
+            The following example converts a number in the form of
             a string to a
             <c>double</c>
-             , or a 64-bit floating point number.
+            , or a 64-bit floating point number.
             <code>
             public static double StringToDouble(String str) {
             return arbitrary-precision binary float.FromString(str).ToDouble();
@@ -3356,7 +3475,6 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
             <returns>An arbitrary-precision binary float.  If this value is positive zero, returns positive zero.
-            
             Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.NegativeInfinity">
@@ -3700,6 +3818,42 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             the given exponent is outside of the valid range of the precision
             context.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.RoundToIntegerExact(PeterO.Numbers.EContext)">
+<summary>Returns a binary number with the same value as this object
+            but rounded to an integer, and signals an invalid operation if the
+            result would be inexact.</summary>
+            <param name='ctx'>A precision context to control precision and
+            rounding of the result. If HasFlags of the context is true, will
+            also store the flags resulting from the operation (the flags are in
+            addition to the pre-existing flags). Can be null, in which case the
+            default rounding mode is HalfEven.</param>
+            <returns>A binary number rounded to the closest integer
+            representable in the given precision. Signals FlagInvalid and
+            returns not-a-number (NaN) if the result can't fit the given
+            precision without rounding. Signals FlagInvalid and returns
+            not-a-number (NaN) if the precision context defines an exponent
+            range, the new exponent must be changed to 0 when rounding, and 0
+            is outside of the valid range of the precision context.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
+<summary>Returns a binary number with the same value as this object
+            but rounded to an integer, without adding the FlagInexact or
+            FlagRounded flags.</summary>
+            <param name='ctx'>A precision context to control precision and
+            rounding of the result. If HasFlags of the context is true, will
+            also store the flags resulting from the operation (the flags are in
+            addition to the pre-existing flags), except that this function will
+            never add the FlagRounded and FlagInexact flags (the only
+            difference between this and RoundToExponentExact). Can be null, in
+            which case the default rounding mode is HalfEven.</param>
+            <returns>A binary number rounded to the closest integer
+            representable in the given precision. If the result can't
+            fit the precision, additional digits are discarded to make it fit.
+            Signals FlagInvalid and returns not-a-number (NaN) if the precision
+            context defines an exponent range, the new exponent must be changed
+            to 0 when rounding, and 0 is outside of the valid range of the
+            precision context.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegralExact(PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this object
             but rounded to an integer, and signals an invalid operation if the
@@ -3791,6 +3945,21 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             flag when it&#x27;s passed as an argument to any arithmetic
             operation in arbitrary-precision binary float.</summary>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.Sqrt(PeterO.Numbers.EContext)">
+<summary>Finds the square root of this object's value.</summary>
+            <param name='ctx'>A precision context to control precision,
+            rounding, and exponent range of the result. If HasFlags of the
+            context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            <i>This parameter cannot be null, as the square root function's
+            results are generally not exact for many inputs.</i></param>
+            <returns>The square root. Signals the flag FlagInvalid and returns
+            NaN if this object is less than 0 (the square root would be a
+            complex number, but the return value is still NaN).</returns>
+            <exception cref='T:System.ArgumentException'>The parameter
+            <paramref name='ctx'/> is null or the precision is unlimited (the
+            context's Precision property is 0).</exception>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object's value.</summary>
             <param name='ctx'>A precision context to control precision,
@@ -3838,16 +4007,16 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             bit of the mantissa is cleared for a quiet NaN, and set for a
             signaling NaN. Then the other bits of the mantissa are set to the
             lowest bits of this object's unsigned mantissa.</para>
-             </summary>
+            </summary>
             <returns>The closest 64-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
             number.</returns>
             <example>
-             The following example converts a number in the form of
+            The following example converts a number in the form of
             a string to a
             <c>double</c>
-             , or a 64-bit floating point number.
+            , or a 64-bit floating point number.
             <code>
             public static double StringToDouble(String str) {
             return arbitrary-precision binary float.FromString(str).ToDouble();
@@ -3855,9 +4024,9 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             </code>
             </example>
             <example>
-             The following example converts an arbitrary-precision integer to a
+            The following example converts an arbitrary-precision integer to a
             <c>double</c>
-             , or a 64-bit floating point number.
+            , or a 64-bit floating point number.
             <code>
             public static double BigIntToDouble(BigInteger
             bigInteger) {
@@ -3865,6 +4034,10 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             }
             </code>
             </example>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToEDecimal">
+<summary>Not documented yet.</summary>
+            <returns>An EDecimal object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToEInteger">
 <summary>Converts this value to an arbitrary-precision integer. Any
@@ -4108,6 +4281,12 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             object's value).</summary>
             <returns>A 64-bit signed integer.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.CanFitInInt32">
+<summary>Returns whether this object's value can fit in a 32-bit
+            signed integer.</summary>
+            <returns>True if this object's value is MinValue or greater, and
+            MaxValue or less; otherwise, false.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)">
 <summary>Compares an arbitrary-precision integer with this
             instance.</summary>
@@ -4187,7 +4366,7 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             will be all ones. For example, the number -450 can be encoded as
             <c>0xFE, 0x70</c> and -52869 as <c>0xFF, 0x31, 0x7B</c>. (Note that the second example contains a cleared 
             high bit in <c>0x31, 0x7B</c>, so an additional 0xFF is added at the start to ensure it's interpreted as negative.)</item></list>
-<para>For little-endian, the byte order is reversed from the byte order just discussed.</para></param>
+            <para>For little-endian, the byte order is reversed from the byte order just discussed.</para></param>
             <param name='littleEndian'>If true, the byte order is little-endian,
             or least-significant-byte first.  If false, the byte order is big-endian,
             or most-significant-byte first.</param>
@@ -4230,7 +4409,7 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             <exception cref='T:System.FormatException'>The string is empty or
             in an invalid format.</exception>
             <example>
-             The following example (C#) converts a number in the
+            The following example (C#) converts a number in the
             form of a hex string to an arbitrary-precision integer.
             <code>
             public static arbitrary-precision integer HexToEInteger(string
@@ -4273,6 +4452,20 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             <paramref name='index'/>.</exception>
             <exception cref='T:System.FormatException'>The string portion is
             empty or in an invalid format.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.FromString(System.String)">
+<summary>Converts a string to an arbitrary-precision
+            integer.</summary>
+            <param name='str'>A text string. The string must contain only basic
+            digits 0 to 9 (U+0030 to U+0039), except that it may start with
+            a minus sign ("-", U+002D) to indicate a negative number. The
+            string is not allowed to contain white space characters, including
+            spaces.</param>
+            <returns>An arbitrary-precision integer with the same value as
+            given in the string.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='str'/> is null.</exception>
+            <exception cref='T:System.FormatException'>The parameter <paramref name='str'/> is in an invalid format.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)">
 <summary>Converts a portion of a string to an arbitrary-precision
@@ -4320,10 +4513,40 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
 <summary>Returns the hash code for this instance.</summary>
             <returns>A 32-bit signed integer.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.GetLowBit">
+<summary>Gets the lowest set bit in this number's absolute
+            value.  (This will also be the lowest set bit in the number's
+            two's-complement representation.)</summary>
+            <returns>The lowest bit set in the number, starting at 0. Returns -1
+            if this value is 0 or odd.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)">
+<summary>Returns whether a bit is set in the two's-complement
+            representation of this object's value.</summary>
+            <param name='index'>Zero based index of the bit to test. 0 means
+            the least significant bit.</param>
+            <returns>True if a bit is set in the two's-complement
+            representation of this object's value; otherwise, false.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetSignedBitLength">
+<summary>Finds the minimum number of bits needed to represent this
+            object&#x27;s value, except for its sign. If the value is negative,
+            finds the number of bits in a value equal to this object's absolute
+            value minus 1.</summary>
+            <returns>The number of bits in this object's value. Returns 0 if
+            this object's value is 0 or negative 1.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)">
 <summary>Not documented yet.</summary>
             <param name='n'>A 32-bit signed integer.</param>
             <returns>A Boolean object.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength">
+<summary>Finds the minimum number of bits needed to represent this
+            object&#x27;s absolute value.</summary>
+            <returns>The number of bits in this object's value. Returns 0 if
+            this object's value is 0, and returns 1 if the value is negative
+            1.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GreatestCommonDivisor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Not documented yet.</summary>
@@ -4349,6 +4572,20 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
 <doc name="P:PeterO.Numbers.EInteger.IsZero">
 <summary>Gets a value indicating whether this value is 0.</summary>
             <value>True if this value is 0; otherwise, false.</value>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)">
+<summary>Finds the modulus remainder that results when this
+            instance is divided by the value of an arbitrary-precision integer.
+            The modulus remainder is the same as the normal remainder if the
+            normal remainder is positive, and equals divisor plus normal
+            remainder if the normal remainder is negative.</summary>
+            <param name='divisor'>A divisor greater than 0 (the
+            modulus).</param>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='T:System.ArithmeticException'>The parameter
+            <paramref name='divisor'/> is negative.</exception>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='divisor'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Calculates the remainder when an arbitrary-precision
@@ -4431,6 +4668,14 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigValue'/> is null.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Pow(System.Int32)">
+<summary>Raises an arbitrary-precision integer to a power.</summary>
+            <param name='powerSmall'>The exponent to raise to.</param>
+            <returns>The result. Returns 1 if <paramref name='powerSmall'/> is
+            0.</returns>
+            <exception cref='T:System.ArgumentException'>The parameter
+            <paramref name='powerSmall'/> is less than 0.</exception>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)">
 <summary>Raises an arbitrary-precision integer to a power, which is given as another
             arbitrary-precision integer.</summary>
@@ -4506,6 +4751,20 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
 <summary>Gets the number 10 as an arbitrary-precision integer.</summary>
             <value>A value not documented yet.</value>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)">
+<summary>Returns a byte array of this integer&#x27;s value. The byte
+            array will take the form of the number's two's-complement
+            representation, using the fewest bytes necessary to store its
+            value unambiguously. If this value is negative, the bits that
+            appear beyond the most significant bit of the number will be all
+            ones.  The resulting byte array can be passed to the <c>FromBytes()</c>
+            method (with the same byte order) to reconstruct this integer's value.</summary>
+            <param name='littleEndian'>If true, the byte order is little-endian,
+            or least-significant-byte first.  If false, the byte order is big-endian,
+            or most-significant-byte first.</param>
+            <returns>A byte array. If this value is 0, returns a byte array
+            with the single element 0.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt32Checked">
 <summary>Converts this object's value to a 32-bit signed integer,
             throwing an exception if it can't fit.</summary>
@@ -4535,6 +4794,23 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             case the return value might have a different sign than this
             object's value).</summary>
             <returns>A 64-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)">
+<summary>Generates a string representing the value of this object,
+            in the given radix.</summary>
+            <param name='radix'>A radix from 2 through 36. For example, to
+            generate a hexadecimal (base-16) string, specify 16. To generate a
+            decimal (base-10) string, specify 10.</param>
+            <returns>A string representing the value of this object. If this
+            value is 0, returns "0". If negative, the string will begin with a
+            hyphen/minus ("-"). Depending on the radix, the string will use the
+            basic digits 0 to 9 (U+0030 to U+0039) and then the basic
+            letters A to Z (U+0041 to U+005A). For example, 0-9 in radix
+            10, and 0-9, then A-F in radix 16.</returns>
+            <exception cref='T:System.ArgumentException'>The parameter "index"
+            is less than 0, "endIndex" is less than 0, or either is greater
+            than the string's length, or "endIndex" is less than "index" ; or
+            radix is less than 2 or greater than 36.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToString">
 <summary>Converts this object to a text string in base
@@ -5030,6 +5306,21 @@ is infinity, not-a-number, or doesn't fit into a 32-bit signed integer.</excepti
             the number to a string.</summary>
             <param name='flt'>A 64-bit floating-point number.</param>
             <returns>A rational number with the same value as <paramref name='flt'/>.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)">
+<summary>Converts an arbitrary-precision decimal number to a
+            rational number.</summary>
+            <param name='ef'>An arbitrary-precision decimal number.</param>
+            <returns>An arbitrary-precision rational number.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='ef'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)">
+<summary>Not documented yet.</summary>
+            <param name='ef'>An arbitrary-precision binary float.</param>
+            <returns>An arbitrary-precision rational number.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='ef'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEInteger(PeterO.Numbers.EInteger)">
 <summary>Converts an arbitrary-precision integer to a rational number.</summary>

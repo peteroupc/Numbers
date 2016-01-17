@@ -3,38 +3,8 @@ using NUnit.Framework;
 using PeterO.Numbers;
 
 namespace Test {
-[TestFixture]
+  [TestFixture]
   public class EFloatTest {
-    [Test]
-    public void TestMovePointRight() {
-      EFloat ef;
-      EFloat ef2;
-      ef = EFloat.FromInt32(0x100).MovePointRight(4);
-      ef2 = EFloat.FromInt32(0x1000);
-      Assert.AreEqual(0, ef.CompareTo(ef2));
-    }
-    [Test]
-    public void TestMovePointLeft() {
-      EFloat ef;
-      EFloat ef2;
-      ef = EFloat.FromInt32(0x150).MovePointLeft(4);
-      ef2 = EFloat.FromInt32(0x15);
-      Assert.AreEqual(0, ef.CompareTo(ef2));
-    }
-
-    [Test]
-    public void TestFloatDecimalRoundTrip() {
-      var r = new FastRandom();
-      for (var i = 0; i < 5000; ++i) {
-        EFloat ef = RandomObjects.RandomExtendedFloat(r);
-        EDecimal ed = ef.ToExtendedDecimal();
-        EFloat ef2 = ed.ToExtendedFloat();
-        // Tests that values converted from float to decimal and
-        // back have the same numerical value
-        TestCommon.CompareTestEqual(ef, ef2);
-      }
-    }
-
     public static EFloat FromBinary(string str) {
       var smallExponent = 0;
       var index = 0;
@@ -94,24 +64,6 @@ namespace Test {
       // not implemented yet
     }
 
-    private static void TestAddCloseExponent(FastRandom fr, int exp) {
-for (var i = 0; i < 1000; ++i) {
-  EInteger exp1 = EInteger.FromInt32(exp)
-    .Add(EInteger.FromInt32(fr.NextValue(32)-16));
-  EInteger exp2 = exp1
-    .Add(EInteger.FromInt32(fr.NextValue(18)-30));
-  EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
-  EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
-  EFloat decA = EFloat.Create(mant1, exp1);
-  EFloat decB = EFloat.Create(mant2, exp2);
-  EFloat decC = decA.Add(decB);
-  EFloat decD = decC.Subtract(decA);
-  TestCommon.CompareTestEqual(decD, decB);
-  decD = decC.Subtract(decB);
-  TestCommon.CompareTestEqual(decD, decA);
-}
-}
-
     [Test]
     public void TestAdd() {
       try {
@@ -164,11 +116,11 @@ for (var i = 0; i < 1000; ++i) {
     [Test]
     public void TestDivide() {
       try {
- EDecimal.FromString("1").Divide(EDecimal.FromString("3"), null);
-} catch (Exception ex) {
-Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
-}
+        EDecimal.FromString("1").Divide(EDecimal.FromString("3"), null);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
     [Test]
     public void TestDivideToExponent() {
@@ -207,14 +159,6 @@ throw new InvalidOperationException(String.Empty, ex);
     public void TestExponent() {
       // not implemented yet
     }
-    [Test]
-    public void TestFromBigInteger() {
-      // not implemented yet
-    }
-    [Test]
-    public void TestFromDouble() {
-      // not implemented yet
-    }
 
     [Test]
     public void TestExtendedFloatDouble() {
@@ -236,16 +180,6 @@ throw new InvalidOperationException(String.Empty, ex);
         TestExtendedFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
       }
     }
-
-    private static void TestExtendedFloatDoubleCore(double d, string s) {
-      double oldd = d;
-      EFloat bf = EFloat.FromDouble(d);
-      if (s != null) {
-        Assert.AreEqual(s, bf.ToString());
-      }
-      d = bf.ToDouble();
-      Assert.AreEqual((double)oldd, d);
-    }
     [Test]
     public void TestExtendedFloatSingle() {
       var rand = new FastRandom();
@@ -259,14 +193,25 @@ throw new InvalidOperationException(String.Empty, ex);
       }
     }
 
-    private static void TestExtendedFloatSingleCore(float d, string s) {
-      float oldd = d;
-      EFloat bf = EFloat.FromSingle(d);
-      if (s != null) {
-        Assert.AreEqual(s, bf.ToString());
+    [Test]
+    public void TestFloatDecimalRoundTrip() {
+      var r = new FastRandom();
+      for (var i = 0; i < 5000; ++i) {
+        EFloat ef = RandomObjects.RandomExtendedFloat(r);
+        EDecimal ed = ef.ToExtendedDecimal();
+        EFloat ef2 = ed.ToExtendedFloat();
+        // Tests that values converted from float to decimal and
+        // back have the same numerical value
+        TestCommon.CompareTestEqual(ef, ef2);
       }
-      d = bf.ToSingle();
-      Assert.AreEqual((float)oldd, d);
+    }
+    [Test]
+    public void TestFromBigInteger() {
+      // not implemented yet
+    }
+    [Test]
+    public void TestFromDouble() {
+      // not implemented yet
     }
 
     [Test]
@@ -284,13 +229,265 @@ throw new InvalidOperationException(String.Empty, ex);
     [Test]
     public void TestFromString() {
       try {
- EFloat.FromString("2", 0, 1, null);
-} catch (Exception ex) {
-Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
-}
+        EFloat.FromString("0..1");
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("0.1x+222");
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("0.1g-222");
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("2", 0, 1, null);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       try {
         EFloat.FromString(String.Empty);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      Assert.AreEqual(EFloat.Zero, EFloat.FromString("0"));
+      Assert.AreEqual(EFloat.Zero, EFloat.FromString("0", null));
+      try {
+        EFloat.FromString(null, null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(String.Empty);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(null, 0, 1);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", -1, 1);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 2, 1);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 0, -1);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 0, 2);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 1, 1);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(null, 0, 1, null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", -1, 1, null);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 2, 1, null);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 0, -1, null);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 0, 2, null);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString("x", 1, 1, null);
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "Infinity",
+          EContext.Unlimited.WithSimplified(true));
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "-Infinity",
+          EContext.Unlimited.WithSimplified(true));
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "NaN",
+          EContext.Unlimited.WithSimplified(true));
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "sNaN",
+          EContext.Unlimited.WithSimplified(true));
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "Infinity",
+          EContext.Unlimited.WithSimplified(true));
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "-Infinity",
+          EContext.Unlimited.WithSimplified(true));
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "NaN",
+          EContext.Unlimited.WithSimplified(true));
+        Assert.Fail("Should have failed");
+      } catch (FormatException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.FromString(
+          "sNaN",
+          EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
         Console.Write(String.Empty);
@@ -387,20 +584,20 @@ throw new InvalidOperationException(String.Empty, ex);
         }
         int cmp = TestCommon.CompareTestReciprocal(bigintA, bigintB);
         if (cmp < 0) {
-     TestCommon.CompareTestEqual(
-bigintB,
-EFloat.Max(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintB,
+     EFloat.Max(bigintA, bigintB));
         } else if (cmp > 0) {
-     TestCommon.CompareTestEqual(
-bigintA,
-EFloat.Max(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintA,
+     EFloat.Max(bigintA, bigintB));
         } else {
-     TestCommon.CompareTestEqual(
-bigintA,
-EFloat.Max(bigintA, bigintB));
-     TestCommon.CompareTestEqual(
-bigintB,
-EFloat.Max(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintA,
+     EFloat.Max(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintB,
+     EFloat.Max(bigintA, bigintB));
         }
       }
     }
@@ -455,20 +652,20 @@ EFloat.Max(bigintA, bigintB));
         }
         int cmp = TestCommon.CompareTestReciprocal(bigintA, bigintB);
         if (cmp < 0) {
-     TestCommon.CompareTestEqual(
-bigintA,
-EFloat.Min(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintA,
+     EFloat.Min(bigintA, bigintB));
         } else if (cmp > 0) {
-     TestCommon.CompareTestEqual(
-bigintB,
-EFloat.Min(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintB,
+     EFloat.Min(bigintA, bigintB));
         } else {
-     TestCommon.CompareTestEqual(
-bigintA,
-EFloat.Min(bigintA, bigintB));
-     TestCommon.CompareTestEqual(
-bigintB,
-EFloat.Min(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintA,
+     EFloat.Min(bigintA, bigintB));
+          TestCommon.CompareTestEqual(
+     bigintB,
+     EFloat.Min(bigintA, bigintB));
         }
       }
     }
@@ -492,6 +689,22 @@ EFloat.Min(bigintA, bigintB));
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
+    }
+    [Test]
+    public void TestMovePointLeft() {
+      EFloat ef;
+      EFloat ef2;
+      ef = EFloat.FromInt32(0x150).MovePointLeft(4);
+      ef2 = EFloat.FromInt32(0x15);
+      Assert.AreEqual(0, ef.CompareTo(ef2));
+    }
+    [Test]
+    public void TestMovePointRight() {
+      EFloat ef;
+      EFloat ef2;
+      ef = EFloat.FromInt32(0x100).MovePointRight(4);
+      ef2 = EFloat.FromInt32(0x1000);
+      Assert.AreEqual(0, ef.CompareTo(ef2));
     }
     [Test]
     public void TestMultiply() {
@@ -598,6 +811,10 @@ EFloat.Min(bigintA, bigintB));
       }
     }
     [Test]
+    public void TestToDouble() {
+      // not implemented yet
+    }
+    [Test]
     public void TestToEInteger() {
       try {
         EFloat.PositiveInfinity.ToEInteger();
@@ -635,14 +852,26 @@ EFloat.Min(bigintA, bigintB));
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
+      EFloat flo = EFloat.Create(999, -1);
+      try {
+        flo.ToEInteger();
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
     [Test]
     public void TestToEIntegerExact() {
-      // not implemented yet
-    }
-    [Test]
-    public void TestToDouble() {
-      // not implemented yet
+      EFloat flo = EFloat.Create(999, -1);
+      try {
+        flo.ToEIntegerExact();
+        Assert.Fail("Should have failed");
+      } catch (ArithmeticException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
     [Test]
     public void TestToEngineeringString() {
@@ -667,6 +896,43 @@ EFloat.Min(bigintA, bigintB));
     [Test]
     public void TestUnsignedMantissa() {
       // not implemented yet
+    }
+
+    private static void TestAddCloseExponent(FastRandom fr, int exp) {
+      for (var i = 0; i < 1000; ++i) {
+        EInteger exp1 = EInteger.FromInt32(exp)
+          .Add(EInteger.FromInt32(fr.NextValue(32) - 16));
+        EInteger exp2 = exp1 .Add(EInteger.FromInt32(fr.NextValue(18) - 30));
+        EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
+        EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
+        EFloat decA = EFloat.Create(mant1, exp1);
+        EFloat decB = EFloat.Create(mant2, exp2);
+        EFloat decC = decA.Add(decB);
+        EFloat decD = decC.Subtract(decA);
+        TestCommon.CompareTestEqual(decD, decB);
+        decD = decC.Subtract(decB);
+        TestCommon.CompareTestEqual(decD, decA);
+      }
+    }
+
+    private static void TestExtendedFloatDoubleCore(double d, string s) {
+      double oldd = d;
+      EFloat bf = EFloat.FromDouble(d);
+      if (s != null) {
+        Assert.AreEqual(s, bf.ToString());
+      }
+      d = bf.ToDouble();
+      Assert.AreEqual((double)oldd, d);
+    }
+
+    private static void TestExtendedFloatSingleCore(float d, string s) {
+      float oldd = d;
+      EFloat bf = EFloat.FromSingle(d);
+      if (s != null) {
+        Assert.AreEqual(s, bf.ToString());
+      }
+      d = bf.ToSingle();
+      Assert.AreEqual((float)oldd, d);
     }
   }
 }

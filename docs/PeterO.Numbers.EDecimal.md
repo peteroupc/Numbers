@@ -181,17 +181,17 @@ Finds the absolute value of this object (if it's negative, it becomes positive).
 
 <b>Returns:</b>
 
-The absolute value of this object.
+The absolute value of this object. Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.
 
 ### Abs
 
     public PeterO.Numbers.EDecimal Abs();
 
-Gets the absolute value of this object.
+Finds the absolute value of this object (if it's negative, it becomes positive).
 
 <b>Returns:</b>
 
-An arbitrary-precision decimal number.
+An arbitrary-precision decimal number. Returns signaling NaN if this value is signaling NaN.
 
 ### Add
 
@@ -281,6 +281,58 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 
 Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
+### CompareToTotal
+
+    public int CompareToTotal(
+        PeterO.Numbers.EDecimal other);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+### CompareToTotal
+
+    public int CompareToTotal(
+        PeterO.Numbers.EDecimal other,
+        PeterO.Numbers.EContext ctx);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
+### CompareToTotalMagnitude
+
+    public int CompareToTotalMagnitude(
+        PeterO.Numbers.EDecimal other);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+A 32-bit signed integer.
+
 ### CompareToWithContext
 
     public PeterO.Numbers.EDecimal CompareToWithContext(
@@ -300,6 +352,28 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 <b>Returns:</b>
 
 Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
+
+### CopySign
+
+    public PeterO.Numbers.EDecimal CopySign(
+        PeterO.Numbers.EDecimal other);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>other</i>
+ is null.
 
 ### Create
 
@@ -435,6 +509,8 @@ is null or  <i>ctx</i>
     public PeterO.Numbers.EDecimal[] DivideAndRemainderNaturalScale(
         PeterO.Numbers.EDecimal divisor);
 
+<b>Deprecated.</b> Renamed to DivRemNaturalScale.
+
 Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
 <b>Parameters:</b>
@@ -450,6 +526,8 @@ A 2 element array consisting of the quotient and remainder in that order.
     public PeterO.Numbers.EDecimal[] DivideAndRemainderNaturalScale(
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EContext ctx);
+
+<b>Deprecated.</b> Renamed to DivRemNaturalScale.
 
 Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
@@ -711,6 +789,39 @@ Divides this object by another decimal number and returns a result with the same
 <b>Returns:</b>
 
 The quotient of the two numbers. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
+
+### DivRemNaturalScale
+
+    public PeterO.Numbers.EDecimal[] DivRemNaturalScale(
+        PeterO.Numbers.EDecimal divisor);
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
+
+<b>Returns:</b>
+
+A 2 element array consisting of the quotient and remainder in that order.
+
+### DivRemNaturalScale
+
+    public PeterO.Numbers.EDecimal[] DivRemNaturalScale(
+        PeterO.Numbers.EDecimal divisor,
+        PeterO.Numbers.EContext ctx);
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
+
+ * <i>ctx</i>: A precision context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's HasFlags is true and the integer part of the division result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
+
+<b>Returns:</b>
+
+A 2 element array consisting of the quotient and remainder in that order.
 
 ### Equals
 
@@ -1495,7 +1606,7 @@ Returns a decimal number with the same value as this object but with the sign re
 
 <b>Returns:</b>
 
-An arbitrary-precision decimal number. If this value is positive zero, returns positive zero.
+An arbitrary-precision decimal number. If this value is positive zero, returns positive zero. Signals FlagInvalid and returns quiet NaN if this value is signaling NaN.
 
 ### Negate
 
@@ -1505,7 +1616,7 @@ Gets an object with the same value as this one, but with the sign reversed.
 
 <b>Returns:</b>
 
-An arbitrary-precision decimal number. If this value is positive zero, returns positive zero.
+An arbitrary-precision decimal number. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
 
 ### NextMinus
 

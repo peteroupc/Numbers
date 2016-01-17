@@ -162,13 +162,13 @@ EInteger denominator) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromSingle(System.Single)"]/*'/>
     public static ERational FromSingle(float flt) {
-      return FromExtendedFloat(EFloat.FromSingle(flt));
+      return FromEFloat(EFloat.FromSingle(flt));
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromDouble(System.Double)"]/*'/>
     public static ERational FromDouble(double flt) {
-      return FromExtendedFloat(EFloat.FromDouble(flt));
+      return FromEFloat(EFloat.FromDouble(flt));
     }
 
     /// <include file='../../docs.xml'
@@ -215,8 +215,8 @@ bool negative) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromExtendedFloat(PeterO.Numbers.EFloat)"]/*'/>
-    public static ERational FromExtendedFloat(EFloat ef) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)"]/*'/>
+    public static ERational FromEFloat(EFloat ef) {
       if (ef == null) {
         throw new ArgumentNullException("ef");
       }
@@ -259,8 +259,8 @@ bool negative) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromExtendedDecimal(PeterO.Numbers.EDecimal)"]/*'/>
-    public static ERational FromExtendedDecimal(EDecimal ef) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)"]/*'/>
+    public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {
         throw new ArgumentNullException("ef");
       }
@@ -502,7 +502,7 @@ rem = divrem[1]; }
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)"]/*'/>
     public ERational CopySign(ERational other) {
       if (other == null) {
         throw new ArgumentNullException("other");
@@ -710,7 +710,7 @@ thisRem = divrem[1]; }
       // Console.WriteLine("no shortcircuit");
       // Console.WriteLine(this);
       // Console.WriteLine(other);
-    ERational otherRational = ERational.FromExtendedFloat(other);
+    ERational otherRational = ERational.FromEFloat(other);
       EInteger ad = this.Numerator * (EInteger)otherRational.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherRational.Numerator;
       return ad.CompareTo(bc);
@@ -826,7 +826,7 @@ thisRem = divrem[1]; }
       // Console.WriteLine("no shortcircuit");
       // Console.WriteLine(this);
       // Console.WriteLine(other);
-  ERational otherRational = ERational.FromExtendedDecimal(other);
+  ERational otherRational = ERational.FromEDecimal(other);
       EInteger ad = this.Numerator * (EInteger)otherRational.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherRational.Numerator;
       return ad.CompareTo(bc);
