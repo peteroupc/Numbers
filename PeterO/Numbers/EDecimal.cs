@@ -97,7 +97,8 @@ namespace PeterO.Numbers {
         new ExtendedOrSimpleRadixMath<EDecimal>(new
                     DecimalMathHelper()));
 
-    private static readonly EInteger ValueOneShift62 = EInteger.One << 62;
+    private static readonly EInteger ValueOneShift62 =
+      EInteger.One.ShiftLeft(62);
 
     private static readonly int[] ValueTenPowers = {
       1, 10, 100, 1000, 10000, 100000,
@@ -374,10 +375,10 @@ namespace PeterO.Numbers {
       return EDecimal.Create(bigint, EInteger.Zero);
     }
 
-    [Obsolete("Renamed to FromEFloat.")]
     /// <summary>Not documented yet.</summary>
     /// <param name='ef'>Not documented yet.</param>
     /// <returns>An EDecimal object.</returns>
+    [Obsolete("Renamed to FromEFloat.")]
     public static EDecimal FromExtendedFloat(EFloat ef) {
       return FromEFloat(ef);
     }
@@ -1110,7 +1111,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
       }
       if (other.Exponent.CompareTo((EInteger)1000) > 0) {
         // Very high exponents
-        EInteger bignum = EInteger.One << 999;
+        EInteger bignum = EInteger.One.ShiftLeft(999);
         if (this.Abs(null).CompareTo(EDecimal.FromEInteger(bignum)) <=
             0) {
           // this object's absolute value is less
@@ -1128,8 +1129,8 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
         }
         if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)1000) >= 0 &&
                 otherAdjExp.CompareTo((EInteger)1000) >= 0) {
-          thisAdjExp += EInteger.One;
-          otherAdjExp += EInteger.One;
+          thisAdjExp = thisAdjExp.Add(EInteger.One);
+          otherAdjExp = thisAdjExp.Add(EInteger.One);
           EInteger ratio = otherAdjExp / thisAdjExp;
           // Check the ratio of the binary exponent to the decimal exponent.
           // If the ratio is less than 3, the decimal's absolute value is
@@ -2116,6 +2117,7 @@ EContext ctx) {
     public EFloat ToEFloat() {
       return this.ToEFloatInternal(false);
     }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
     public int ToInt32Checked() {
@@ -2320,11 +2322,11 @@ EContext ctx) {
       if (ef.IsZero) {
         return EInteger.Zero;
       }
-      EInteger ret = ef.Exponent;
+      EInteger retEInt = ef.Exponent;
       int smallPrecision = ef.UnsignedMantissa.GetSignedBitLength();
       --smallPrecision;
-      ret += (EInteger)smallPrecision;
-      return ret;
+      retEInt = retEInt.Add(EInteger.FromInt32(smallPrecision));
+      return retEInt;
     }
 
     private static IRadixMath<EDecimal> GetMathValue(EContext ctx) {
@@ -2348,11 +2350,11 @@ EContext ctx) {
       if (this.IsZero) {
         return EInteger.Zero;
       }
-      EInteger ret = this.Exponent;
+      EInteger retEInt = this.Exponent;
       int smallPrecision = this.UnsignedMantissa.GetDigitCount();
       --smallPrecision;
-      ret += (EInteger)smallPrecision;
-      return ret;
+      retEInt = retEInt.Add(EInteger.FromInt32(smallPrecision));
+      return retEInt;
     }
 
     private EDecimal RoundToExponentFast(int exponentSmall, ERounding
@@ -2514,7 +2516,7 @@ EContext ctx) {
         if (oddRounding) {
           // Round to odd to avoid the double-rounding problem
           if (!remainder.IsZero && bigmantissa.IsEven) {
-            bigmantissa += EInteger.One;
+           bigmantissa = bigmantissa.Add(EInteger.One);
           }
         } else {
           // Round half-even
@@ -2525,7 +2527,7 @@ EContext ctx) {
           // of five are odd
           if (cmp > 0) {
             // Greater than half
-            bigmantissa += EInteger.One;
+           bigmantissa = bigmantissa.Add(EInteger.One);
           }
         }
         if (neg) {

@@ -93,8 +93,10 @@ namespace PeterO.Numbers {
       TrappableRadixMath<EFloat>(
         new ExtendedOrSimpleRadixMath<EFloat>(new BinaryMathHelper()));
 
-    private static readonly EInteger ValueOneShift23 = EInteger.One << 23;
-    private static readonly EInteger ValueOneShift52 = EInteger.One << 52;
+ private static readonly EInteger ValueOneShift23 =
+      EInteger.One.ShiftLeft(23);
+ private static readonly EInteger ValueOneShift52 =
+      EInteger.One.ShiftLeft(52);
     private readonly EInteger exponent;
     private readonly int flags;
     private readonly EInteger unsignedMantissa;
@@ -371,7 +373,7 @@ namespace PeterO.Numbers {
         str,
         offset,
         length,
-        ctx).ToExtendedFloat();
+        ctx).ToEFloat();
     }
 
     /// <include file='../../docs.xml'
@@ -685,7 +687,7 @@ namespace PeterO.Numbers {
       EContext ctx) {
       return this.DivideToExponent(
         divisor,
-        (EInteger)desiredExponentSmall,
+        EInteger.FromInt64(desiredExponentSmall),
         ctx);
     }
 
@@ -697,7 +699,7 @@ namespace PeterO.Numbers {
       ERounding rounding) {
       return this.DivideToExponent(
         divisor,
-        (EInteger)desiredExponentSmall,
+        EInteger.FromInt64(desiredExponentSmall),
         EContext.ForRounding(rounding));
     }
 
@@ -761,7 +763,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat)"]/*'/>
     public EFloat[] DivRemNaturalScale(EFloat divisor) {
-      return this.DivideAndRemainderNaturalScale(divisor, null);
+      return this.DivRemNaturalScale(divisor, null);
     }
 
     /// <include file='../../docs.xml'
@@ -1438,7 +1440,7 @@ EContext ctx) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToEngineeringString"]/*'/>
     public string ToEngineeringString() {
-      return this.ToExtendedDecimal().ToEngineeringString();
+      return this.ToEDecimal().ToEngineeringString();
     }
 
     /// <include file='../../docs.xml'
@@ -1535,7 +1537,7 @@ EContext ctx) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToPlainString"]/*'/>
     public string ToPlainString() {
-      return this.ToExtendedDecimal().ToPlainString();
+      return this.ToEDecimal().ToPlainString();
     }
 
     /// <include file='../../docs.xml'

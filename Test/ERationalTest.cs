@@ -268,7 +268,24 @@ namespace Test {
     }
     [Test]
     public void TestToEInteger() {
-      // not implemented yet
+      try {
+        ERational.PositiveInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NegativeInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
     [Test]
     public void TestToEIntegerExact() {
@@ -325,19 +342,19 @@ stringTemp);
 }
     }
     [Test]
-    public void TestToExtendedDecimal() {
+    public void TestToEDecimal() {
       // not implemented yet
     }
     [Test]
-    public void TestToExtendedDecimalExactIfPossible() {
+    public void TestToEDecimalExactIfPossible() {
       // not implemented yet
     }
     [Test]
-    public void TestToExtendedFloat() {
+    public void TestToEFloat() {
       // not implemented yet
     }
     [Test]
-    public void TestToExtendedFloatExactIfPossible() {
+    public void TestToEFloatExactIfPossible() {
       // not implemented yet
     }
     [Test]

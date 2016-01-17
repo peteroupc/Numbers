@@ -198,8 +198,8 @@ namespace Test {
       var r = new FastRandom();
       for (var i = 0; i < 5000; ++i) {
         EFloat ef = RandomObjects.RandomExtendedFloat(r);
-        EDecimal ed = ef.ToExtendedDecimal();
-        EFloat ef2 = ed.ToExtendedFloat();
+        EDecimal ed = ef.ToEDecimal();
+        EFloat ef2 = ed.ToEFloat();
         // Tests that values converted from float to decimal and
         // back have the same numerical value
         TestCommon.CompareTestEqual(ef, ef2);
@@ -859,6 +859,24 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
+      try {
+        EFloat.PositiveInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NegativeInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
     [Test]
     public void TestToEIntegerExact() {
@@ -878,7 +896,7 @@ namespace Test {
       // not implemented yet
     }
     [Test]
-    public void TestToExtendedDecimal() {
+    public void TestToEDecimal() {
       // not implemented yet
     }
     [Test]

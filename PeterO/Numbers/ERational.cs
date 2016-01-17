@@ -8,11 +8,10 @@ at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
 using System;
 
 namespace PeterO.Numbers {
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="T:PeterO.Numbers.ERational"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:PeterO.Numbers.ERational"]/*'/>
   public sealed class ERational : IComparable<ERational>,
     IEquatable<ERational> {
-
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NaN"]/*'/>
     public static readonly ERational NaN = CreateWithFlags(
@@ -59,8 +58,7 @@ BigNumberFlags.FlagSignalingNaN);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Zero"]/*'/>
-    public static readonly ERational Zero =
-          FromEInteger(EInteger.Zero);
+    public static readonly ERational Zero = FromEInteger(EInteger.Zero);
 
     private EInteger denominator;
 
@@ -515,7 +513,7 @@ bool negative) {
           return this.IsNegative ? -1 : 1;
         }
         // Round up
-        thisInt += EInteger.One;
+        thisInt = thisInt.Add(EInteger.One);
         thisIntDec = EFloat.FromEInteger(thisInt);
         if (thisIntDec.CompareTo(otherAbs) < 0) {
           // Absolute value rounded up is less than other's unrounded
@@ -631,7 +629,7 @@ bool negative) {
           return this.IsNegative ? -1 : 1;
         }
         // Round up
-        thisInt += EInteger.One;
+        thisInt = thisInt.Add(EInteger.One);
         thisIntDec = EDecimal.FromEInteger(thisInt);
         if (thisIntDec.CompareTo(otherAbs) < 0) {
           // Absolute value rounded up is less than other's unrounded
@@ -728,7 +726,7 @@ bool negative) {
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
       return new ERational(ad, bc).ChangeSign(resultNeg);
     }
-    
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Equals(System.Object)"]/*'/>
     public override bool Equals(object obj) {

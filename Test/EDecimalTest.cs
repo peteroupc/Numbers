@@ -2225,6 +2225,60 @@ throw new InvalidOperationException(String.Empty, ex);
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
+        EFloat.PositiveInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NegativeInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.PositiveInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NegativeInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.PositiveInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.NegativeInfinity.ToEInteger();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        Console.Write(String.Empty);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
         EDecimal.NaN.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
@@ -2981,32 +3035,44 @@ throw new InvalidOperationException(String.Empty, ex);
       }
     }
     [Test]
-    public void TestToExtendedFloat() {
+    public void TestToEFloat() {
+      Assert.AreEqual(
+  EFloat.Zero,
+  EDecimal.Zero.ToEFloat());
+      Assert.AreEqual(
+        EFloat.NegativeZero,
+        EDecimal.NegativeZero.ToEFloat());
+      if (0.0f != EFloat.Zero.ToSingle()) {
+        Assert.Fail("Failed " + EFloat.Zero.ToDouble());
+      }
+      if (0.0f != EFloat.Zero.ToDouble()) {
+        Assert.Fail("Failed " + EFloat.Zero.ToDouble());
+      }
       EDecimal df;
       df = EDecimal.FromInt64(20);
       {
-        string stringTemp = df.ToExtendedFloat().ToString();
+        string stringTemp = df.ToEFloat().ToString();
         Assert.AreEqual(
         "20",
         stringTemp);
       }
       df = EDecimal.FromInt64(-20);
       {
-        string stringTemp = df.ToExtendedFloat().ToString();
+        string stringTemp = df.ToEFloat().ToString();
         Assert.AreEqual(
         "-20",
         stringTemp);
       }
       df = EDecimal.Create((EInteger)15, (EInteger)(-1));
       {
-        string stringTemp = df.ToExtendedFloat().ToString();
+        string stringTemp = df.ToEFloat().ToString();
         Assert.AreEqual(
         "1.5",
         stringTemp);
       }
       df = EDecimal.Create((EInteger)(-15), (EInteger)(-1));
       {
-        string stringTemp = df.ToExtendedFloat().ToString();
+        string stringTemp = df.ToEFloat().ToString();
         Assert.AreEqual(
         "-1.5",
         stringTemp);

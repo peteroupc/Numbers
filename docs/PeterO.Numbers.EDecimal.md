@@ -885,24 +885,9 @@ Creates a decimal number from a 64-bit binary floating-point number. This method
 A decimal number with the same value as  <i>dbl</i>
 .
 
-### FromEInteger
+### FromEFloat
 
-    public static PeterO.Numbers.EDecimal FromEInteger(
-        PeterO.Numbers.EInteger bigint);
-
-Converts an arbitrary-precision integer to an arbitrary precision decimal.
-
-<b>Parameters:</b>
-
- * <i>bigint</i>: An arbitrary-precision integer.
-
-<b>Returns:</b>
-
-An arbitrary-precision decimal number with the exponent set to 0.
-
-### FromExtendedFloat
-
-    public static PeterO.Numbers.EDecimal FromExtendedFloat(
+    public static PeterO.Numbers.EDecimal FromEFloat(
         PeterO.Numbers.EFloat bigfloat);
 
 Creates a decimal number from an arbitrary-precision binary floating-point number.
@@ -920,6 +905,21 @@ An arbitrary-precision decimal number.
  * System.ArgumentNullException:
 The parameter <i>bigfloat</i>
  is null.
+
+### FromEInteger
+
+    public static PeterO.Numbers.EDecimal FromEInteger(
+        PeterO.Numbers.EInteger bigint);
+
+Converts an arbitrary-precision integer to an arbitrary precision decimal.
+
+<b>Parameters:</b>
+
+ * <i>bigint</i>: An arbitrary-precision integer.
+
+<b>Returns:</b>
+
+An arbitrary-precision decimal number with the exponent set to 0.
 
 ### FromInt32
 
@@ -1931,8 +1931,8 @@ Remark: This method can be used to implement fixed-point decimal arithmetic, in 
     // After performing arithmetic operations, adjust
     // the number to 5 digits after the decimal point
     number = number.Quantize(
-      -5, // five digits after the decimal point
-      PrecisionContext.ForPrecision(25) // 25-digit precision
+    -5, // five digits after the decimal point
+    PrecisionContext.ForPrecision(25) // 25-digit precision
     );
 
 A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic".
@@ -1998,8 +1998,8 @@ Remark: This method can be used to implement fixed-point decimal arithmetic, in 
     // After performing arithmetic operations, adjust
     // the number to 5 digits after the decimal point
     number = number.Quantize(
-      EInteger.FromInt32(-5), // five digits after the decimal point
-      PrecisionContext.ForPrecision(25) // 25-digit precision
+    EInteger.FromInt32(-5), // five digits after the decimal point
+    PrecisionContext.ForPrecision(25) // 25-digit precision
     );
 
 A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic".
@@ -2477,6 +2477,16 @@ Converts this value to a 64-bit floating-point number. The half-even rounding mo
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
 
+### ToEFloat
+
+    public PeterO.Numbers.EFloat ToEFloat();
+
+Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact. However, the resulting binary float will contain enough precision to accurately convert it to a 32-bit or 64-bit floating point number (float or double).
+
+<b>Returns:</b>
+
+An arbitrary-precision binary float.
+
 ### ToEInteger
 
     public PeterO.Numbers.EInteger ToEInteger();
@@ -2523,6 +2533,8 @@ A text string.
 ### ToExtendedFloat
 
     public PeterO.Numbers.EFloat ToExtendedFloat();
+
+<b>Deprecated.</b> Renamed to ToEFloat.
 
 Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact. However, the resulting binary float will contain enough precision to accurately convert it to a 32-bit or 64-bit floating point number (float or double).
 

@@ -377,7 +377,7 @@ An arbitrary-precision integer with the same value as the 64-bit number.
 
 Converts a string to an arbitrary-precision integer.
 
-The following example (C#) converts a number in the orm of a hex string to an arbitrary-precision integer.    public static arbitrary-precision integer HexToEInteger(string
+The following example (C#) converts a number in the form of a hex string to an arbitrary-precision integer.    public static arbitrary-precision integer HexToEInteger(string
     hexString) {
     // Parse the hexadecimal string as an arbitrary-precision integer. Will
     // throw a FormatException if the parsing fails

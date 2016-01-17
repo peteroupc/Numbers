@@ -614,7 +614,7 @@ EContext ctx) {
       }
 
       public BinaryNumber RoundToIntegralExact(EContext ctx) {
-        return Create(this.ef.RoundToIntegralExact(ctx));
+        return Create(this.ef.RoundToIntegerExact(ctx));
       }
 
       public BinaryNumber Log(EContext ctx) {

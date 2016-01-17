@@ -96,62 +96,8 @@ namespace Test {
   Assert.IsTrue(Single.IsPositiveInfinity(ERational.PositiveInfinity.ToSingle()));
 
   Assert.IsTrue(Single.IsNegativeInfinity(ERational.NegativeInfinity.ToSingle()));
-      try {
-        EDecimal.PositiveInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        EDecimal.NegativeInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        EFloat.PositiveInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        EFloat.NegativeInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        ERational.PositiveInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        ERational.NegativeInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
     }
-
+    /*
     [Test]
     public void TestEIntegerAnd() {
       try {
@@ -173,21 +119,6 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
-
-    [Test]
-    public void TestExtendedMiscellaneous() {
-      Assert.AreEqual(
-        EFloat.Zero,
-        EDecimal.Zero.ToExtendedFloat());
-      Assert.AreEqual(
-        EFloat.NegativeZero,
-        EDecimal.NegativeZero.ToExtendedFloat());
-      if (0.0f != EFloat.Zero.ToSingle()) {
-        Assert.Fail("Failed " + EFloat.Zero.ToDouble());
-      }
-      if (0.0f != EFloat.Zero.ToDouble()) {
-        Assert.Fail("Failed " + EFloat.Zero.ToDouble());
-      }
-    }
+    */
   }
 }

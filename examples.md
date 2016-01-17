@@ -7,7 +7,7 @@ Converting a hex string to a big integer:
 public static EInteger HexToEInteger(string hexString){
   // Parse the hexadecimal string as a big integer.  Will
   // throw a FormatException if the parsing fails
-  var bigInteger = EInteger.fromRadixString(hexString, 16);
+  var bigInteger = EInteger.FromRadixString(hexString, 16);
   // Optional: Check if the parsed integer is negative
   if(bigInteger.Sign < 0)
     throw new FormatException("negative hex string");

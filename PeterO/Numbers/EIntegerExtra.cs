@@ -173,6 +173,40 @@ EInteger otherValue) {
         (thisValue.CompareTo(otherValue) >= 0);
     }
 
+    /// <param name='thisValue'>Not documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    public static EInteger operator ~(
+    EInteger thisValue) {
+      return Not(thisValue);
+    }
+
+    /// <param name='thisValue'>Not documented yet.</param>
+    /// <param name='otherValue'>Not documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    public static EInteger operator &(
+    EInteger thisValue,
+    EInteger otherValue) {
+      return And(thisValue, otherValue);
+    }
+
+    /// <param name='thisValue'>Not documented yet.</param>
+    /// <param name='otherValue'>Not documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    public static EInteger operator |(
+    EInteger thisValue,
+    EInteger otherValue) {
+      return Or(thisValue, otherValue);
+    }
+
+    /// <param name='thisValue'>Not documented yet.</param>
+    /// <param name='otherValue'>Not documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    public static EInteger operator ^(
+    EInteger thisValue,
+    EInteger otherValue) {
+      return Xor(thisValue, otherValue);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)"]/*'/>
     public long GetBits(int index, int numberBits) {
@@ -188,6 +222,7 @@ EInteger otherValue) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)"]/*'/>
+    [Obsolete("Use the DivRem instance method instead.")]
     public static EInteger DivRem(
 EInteger dividend,
 EInteger divisor,
@@ -240,7 +275,7 @@ out EInteger remainder) {
         throw new ArgumentNullException("valueA");
       }
       if (valueA.wordCount == 0) {
-        return EInteger.One.Negate();
+        return EInteger.FromInt32(-1);
       }
       var valueXaNegative = false; int valueXaWordCount = 0;
       var valueXaReg = new short[valueA.wordCount];

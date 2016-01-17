@@ -877,7 +877,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.</summary>
             <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
-            <param name='exponent'>The desired exponent. A negative number
+            <param name='desiredExponentInt'>The desired exponent. A negative number
             places the cutoff point to the right of the usual decimal point (so a negative
             number means the number of decimal places to round to). A
             positive number places the cutoff point to the left of the usual
@@ -940,7 +940,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             a particular exponent (expressed as a 64-bit signed integer) to the result, using the half-even rounding mode.</summary>
             <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
-            <param name='exponent'>The desired exponent. A negative number
+            <param name='desiredExponentSmall'>The desired exponent. A negative number
             places the cutoff point to the right of the usual decimal point (so a negative
             number means the number of decimal places to round to). A
             positive number places the cutoff point to the left of the usual
@@ -1813,7 +1813,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             the decimal point (a desired exponent of 0) is considered
             an "integer arithmetic".
             </para></summary>
-            <param name='desiredExponentSmall'>The desired exponent for the
+            <param name='desiredExponentInt'>The desired exponent for the
             result. The exponent is the number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
@@ -1838,7 +1838,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             come after the decimal point.  A fixed-point decimal arithmetic in which no digits come after
             the decimal point (a desired exponent of 0) is considered
             an "integer arithmetic".</para></summary>
-            <param name='desiredExponentSmall'>The desired exponent for the
+            <param name='desiredExponentInt'>The desired exponent for the
             result. The exponent is the number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3

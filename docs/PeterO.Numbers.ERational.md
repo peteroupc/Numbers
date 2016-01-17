@@ -403,24 +403,9 @@ Converts a 64-bit floating-point number to a rational number. This method comput
 A rational number with the same value as  <i>flt</i>
 .
 
-### FromEInteger
+### FromEDecimal
 
-    public static PeterO.Numbers.ERational FromEInteger(
-        PeterO.Numbers.EInteger bigint);
-
-Converts an arbitrary-precision integer to a rational number.
-
-<b>Parameters:</b>
-
- * <i>bigint</i>: An arbitrary-precision integer.
-
-<b>Returns:</b>
-
-The exact value of the integer as a rational number.
-
-### FromExtendedDecimal
-
-    public static PeterO.Numbers.ERational FromExtendedDecimal(
+    public static PeterO.Numbers.ERational FromEDecimal(
         PeterO.Numbers.EDecimal ef);
 
 Converts an arbitrary-precision decimal number to a rational number.
@@ -439,9 +424,9 @@ An arbitrary-precision rational number.
 The parameter <i>ef</i>
  is null.
 
-### FromExtendedFloat
+### FromEFloat
 
-    public static PeterO.Numbers.ERational FromExtendedFloat(
+    public static PeterO.Numbers.ERational FromEFloat(
         PeterO.Numbers.EFloat ef);
 
 Not documented yet.
@@ -459,6 +444,21 @@ An arbitrary-precision rational number.
  * System.ArgumentNullException:
 The parameter <i>ef</i>
  is null.
+
+### FromEInteger
+
+    public static PeterO.Numbers.ERational FromEInteger(
+        PeterO.Numbers.EInteger bigint);
+
+Converts an arbitrary-precision integer to a rational number.
+
+<b>Parameters:</b>
+
+ * <i>bigint</i>: An arbitrary-precision integer.
+
+<b>Returns:</b>
+
+The exact value of the integer as a rational number.
 
 ### FromInt32
 
@@ -661,6 +661,86 @@ Converts this value to a 64-bit floating-point number. The half-even rounding mo
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
 
+### ToEDecimal
+
+    public PeterO.Numbers.EDecimal ToEDecimal(
+        PeterO.Numbers.EContext ctx);
+
+Converts this rational number to a decimal number and rounds the result to the given precision.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: A PrecisionContext object.
+
+<b>Returns:</b>
+
+An arbitrary-precision decimal.
+
+### ToEDecimal
+
+    public PeterO.Numbers.EDecimal ToEDecimal();
+
+Converts this rational number to a decimal number.
+
+<b>Returns:</b>
+
+The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating decimal expansion.
+
+### ToEDecimalExactIfPossible
+
+    public PeterO.Numbers.EDecimal ToEDecimalExactIfPossible(
+        PeterO.Numbers.EContext ctx);
+
+Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: A precision context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
+
+<b>Returns:</b>
+
+An arbitrary-precision decimal.
+
+### ToEFloat
+
+    public PeterO.Numbers.EFloat ToEFloat(
+        PeterO.Numbers.EContext ctx);
+
+Converts this rational number to a binary number and rounds the result to the given precision.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: A PrecisionContext object.
+
+<b>Returns:</b>
+
+An arbitrary-precision binary float.
+
+### ToEFloat
+
+    public PeterO.Numbers.EFloat ToEFloat();
+
+Converts this rational number to a binary number.
+
+<b>Returns:</b>
+
+The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating binary expansion.
+
+### ToEFloatExactIfPossible
+
+    public PeterO.Numbers.EFloat ToEFloatExactIfPossible(
+        PeterO.Numbers.EContext ctx);
+
+Converts this rational number to a binary number, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: A precision context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating binary expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
+
+<b>Returns:</b>
+
+An arbitrary-precision binary float.
+
 ### ToEInteger
 
     public PeterO.Numbers.EInteger ToEInteger();
@@ -699,6 +779,8 @@ This object's value is not an exact integer.
     public PeterO.Numbers.EDecimal ToExtendedDecimal(
         PeterO.Numbers.EContext ctx);
 
+<b>Deprecated.</b> Renamed to ToEDecimal.
+
 Converts this rational number to a decimal number and rounds the result to the given precision.
 
 <b>Parameters:</b>
@@ -713,6 +795,8 @@ An arbitrary-precision decimal.
 
     public PeterO.Numbers.EDecimal ToExtendedDecimal();
 
+<b>Deprecated.</b> Renamed to ToEDecimal.
+
 Converts this rational number to a decimal number.
 
 <b>Returns:</b>
@@ -723,6 +807,8 @@ The exact value of the rational number, or not-a-number (NaN) if the result can'
 
     public PeterO.Numbers.EDecimal ToExtendedDecimalExactIfPossible(
         PeterO.Numbers.EContext ctx);
+
+<b>Deprecated.</b> Renamed to ToEDecimalExactIfPossible.
 
 Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
 
@@ -739,6 +825,8 @@ An arbitrary-precision decimal.
     public PeterO.Numbers.EFloat ToExtendedFloat(
         PeterO.Numbers.EContext ctx);
 
+<b>Deprecated.</b> Renamed to ToEFloat.
+
 Converts this rational number to a binary number and rounds the result to the given precision.
 
 <b>Parameters:</b>
@@ -753,6 +841,8 @@ An arbitrary-precision binary float.
 
     public PeterO.Numbers.EFloat ToExtendedFloat();
 
+<b>Deprecated.</b> Renamed to ToEFloat.
+
 Converts this rational number to a binary number.
 
 <b>Returns:</b>
@@ -763,6 +853,8 @@ The exact value of the rational number, or not-a-number (NaN) if the result can'
 
     public PeterO.Numbers.EFloat ToExtendedFloatExactIfPossible(
         PeterO.Numbers.EContext ctx);
+
+<b>Deprecated.</b> Renamed to ToEFloatExactIfPossible.
 
 Converts this rational number to a binary number, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
 

@@ -888,7 +888,7 @@ A binary float with the same value as  <i>flt</i>
 
 Creates a binary float from a string that represents a number. See the four-parameter FromString method.
 
-The following example converts a number in the form of string to a `double` , or a 64-bit floating point number.    public static double StringToDouble(String str) {
+The following example converts a number in the form of a string to a `double` , or a 64-bit floating point number.    public static double StringToDouble(String str) {
     return arbitrary-precision binary float.FromString(str).ToDouble();
     }
 
@@ -2316,7 +2316,7 @@ The parameter <i>otherValue</i>
 
 Converts this value to a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
 
-The following example converts a number in the form of string to a `double` , or a 64-bit floating point number.    public static double StringToDouble(String str) {
+The following example converts a number in the form of a string to a `double` , or a 64-bit floating point number.    public static double StringToDouble(String str) {
     return arbitrary-precision binary float.FromString(str).ToDouble();
     }
 
@@ -2328,6 +2328,16 @@ The following example converts an arbitrary-precision integer to a `double` , or
 <b>Returns:</b>
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+
+### ToEDecimal
+
+    public PeterO.Numbers.EDecimal ToEDecimal();
+
+Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### ToEInteger
 
@@ -2375,6 +2385,8 @@ A text string.
 ### ToExtendedDecimal
 
     public PeterO.Numbers.EDecimal ToExtendedDecimal();
+
+<b>Deprecated.</b> Renamed to ToEDecimal.
 
 Not documented yet.
 
