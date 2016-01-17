@@ -27,7 +27,7 @@ namespace Test {
             ret = EInteger.One;
           } else {
             ret <<= 1;
-            ret += EInteger.One;
+            ret = ret.Add(EInteger.One);
           }
         } else if (str[index] == '0') {
           ++index;
@@ -45,7 +45,7 @@ namespace Test {
             ret = EInteger.One;
           } else {
             ret <<= 1;
-            ret += EInteger.One;
+            ret = ret.Add(EInteger.One);
           }
         } else if (str[index] == '0') {
           ++index;

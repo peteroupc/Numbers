@@ -794,6 +794,38 @@ The sum of the two objects.
 The parameter <i>bthis</i>
  is null.
 
+### Operator `&`
+
+    public static PeterO.Numbers.EInteger operator &(
+        PeterO.Numbers.EInteger thisValue,
+        PeterO.Numbers.EInteger otherValue);
+
+<b>Parameters:</b>
+
+ * <i>thisValue</i>: Not documented yet.
+
+ * <i>otherValue</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EInteger object.
+
+### Operator `|`
+
+    public static PeterO.Numbers.EInteger operator |(
+        PeterO.Numbers.EInteger thisValue,
+        PeterO.Numbers.EInteger otherValue);
+
+<b>Parameters:</b>
+
+ * <i>thisValue</i>: Not documented yet.
+
+ * <i>otherValue</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EInteger object.
+
 ### Operator `/`
 
     public static PeterO.Numbers.EInteger operator /(
@@ -819,6 +851,22 @@ The quotient of the two objects.
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
  is null.
+
+### Operator `^`
+
+    public static PeterO.Numbers.EInteger operator ^(
+        PeterO.Numbers.EInteger thisValue,
+        PeterO.Numbers.EInteger otherValue);
+
+<b>Parameters:</b>
+
+ * <i>thisValue</i>: Not documented yet.
+
+ * <i>otherValue</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EInteger object.
 
 ### Operator `>`
 
@@ -975,6 +1023,19 @@ The product of the two numbers.
  * System.ArgumentNullException:
 The parameter <i>operand1</i>
  is null.
+
+### Operator `~`
+
+    public static PeterO.Numbers.EInteger operator ~(
+        PeterO.Numbers.EInteger thisValue);
+
+<b>Parameters:</b>
+
+ * <i>thisValue</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EInteger object.
 
 ### Operator `>>`
 

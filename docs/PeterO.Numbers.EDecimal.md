@@ -553,7 +553,7 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
  * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
+ * <i>desiredExponentInt</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
 <b>Returns:</b>
 
@@ -613,7 +613,7 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
  * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
 
- * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
+ * <i>desiredExponentSmall</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
 <b>Returns:</b>
 
@@ -920,6 +920,23 @@ Converts an arbitrary-precision integer to an arbitrary precision decimal.
 <b>Returns:</b>
 
 An arbitrary-precision decimal number with the exponent set to 0.
+
+### FromExtendedFloat
+
+    public static PeterO.Numbers.EDecimal FromExtendedFloat(
+        PeterO.Numbers.EFloat ef);
+
+<b>Deprecated.</b> Renamed to FromEFloat.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>ef</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### FromInt32
 
@@ -1939,7 +1956,7 @@ A fixed-point decimal arithmetic in which no digits come after the decimal point
 
 <b>Parameters:</b>
 
- * <i>desiredExponentSmall</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
+ * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
  * <i>ctx</i>: A precision context to control precision and rounding of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
@@ -1957,7 +1974,7 @@ Returns a decimal number with the same value as this one but a new exponent.Rema
 
 <b>Parameters:</b>
 
- * <i>desiredExponentSmall</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
+ * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
  * <i>rounding</i>: A rounding mode to use in case the result needs to be rounded to fit the given exponent.
 

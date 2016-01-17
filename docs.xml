@@ -12,7 +12,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             numbers.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)">
-<summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class. HasFlags will be set to
+<summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class. <c>HasFlags</c> will be set to
             false.</summary>
             <param name='precision'>The parameter <paramref name='precision'/>
             is not documented yet.</param>
@@ -80,8 +80,8 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             HalfEven.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.Copy">
-<summary>Initializes a new PrecisionContext that is a copy of
-            another PrecisionContext.</summary>
+<summary>Initializes a new EContext that is a copy of
+            another EContext.</summary>
             <returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
 </doc>
@@ -175,14 +175,14 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="P:PeterO.Numbers.EContext.Flags">
 <summary>Gets or sets the flags that are set from converting
-            numbers according to this precision context. If HasFlags is false,
+            numbers according to this precision context. If <c>HasFlags</c> is false,
             this value will be 0. This value is a combination of bit fields. To
             retrieve a particular flag, use the AND operation on the return
             value of this method. For example: <c>(this.Flags &amp;
-            PrecisionContext.FlagInexact) != 0</c> returns TRUE if the Inexact
+            EContext.FlagInexact) != 0</c> returns TRUE if the Inexact
             flag is set.</summary>
             <value>The flags that are set from converting numbers according to
-            this precision context. If HasFlags is false, this value will be
+            this precision context. If <c>HasFlags</c> is false, this value will be
             0.</value>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ForPrecision(System.Int32)">
@@ -195,7 +195,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ForPrecisionAndRounding(System.Int32,PeterO.Numbers.ERounding)">
-<summary>Creates a new PrecisionContext object initialized with an
+<summary>Creates a new EContext object initialized with an
             unlimited exponent range, and the given rounding mode and maximum
             precision.</summary>
             <param name='precision'>Maximum number of digits
@@ -205,7 +205,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ForRounding(PeterO.Numbers.ERounding)">
-<summary>Creates a new PrecisionContext object initialized with an
+<summary>Creates a new EContext object initialized with an
             unlimited precision, an unlimited exponent range, and the given
             rounding mode.</summary>
             <param name='rounding'>The rounding mode for the new precision
@@ -274,7 +274,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="P:PeterO.Numbers.EContext.Traps">
 <summary>Gets the traps that are set for each flag in the context.
-            Whenever a flag is signaled, even if HasFlags is false, and the
+            Whenever a flag is signaled, even if <c>HasFlags</c> is false, and the
             flag's trap is enabled, the operation will throw a TrapException.
             <para>For example, if Traps equals FlagInexact and FlagSubnormal, a
             TrapException will be thrown if an operation's return value is not
@@ -288,7 +288,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             HalfUp.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)">
-<summary>Copies this PrecisionContext and sets the copy's
+<summary>Copies this EContext and sets the copy's
             "AdjustExponent" property to the given value.</summary>
             <param name='adjustExponent'>The parameter <paramref name='adjustExponent'/> is not documented yet.</param>
             <returns>A context object for arbitrary-precision arithmetic
@@ -307,7 +307,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <paramref name='exponentMax'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithBigPrecision(PeterO.Numbers.EInteger)">
-<summary>Copies this PrecisionContext and gives it a particular
+<summary>Copies this EContext and gives it a particular
             precision value.</summary>
             <param name='bigintPrecision'>The parameter <paramref name='bigintPrecision'/> is not documented yet.</param>
             <returns>A context object for arbitrary-precision arithmetic
@@ -316,7 +316,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <paramref name='bigintPrecision'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithBlankFlags">
-<summary>Copies this PrecisionContext with HasFlags set to true and
+<summary>Copies this EContext with <c>HasFlags</c> set to true and
             a Flags value of 0.</summary>
             <returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
@@ -340,13 +340,13 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithNoFlags">
-<summary>Copies this PrecisionContext with HasFlags set to false
+<summary>Copies this EContext with <c>HasFlags</c> set to false
             and a Flags value of 0.</summary>
             <returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithPrecision(System.Int32)">
-<summary>Copies this PrecisionContext and gives it a particular
+<summary>Copies this EContext and gives it a particular
             precision value.</summary>
             <param name='precision'>Desired precision. 0 means unlimited
             precision.</param>
@@ -354,14 +354,14 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithPrecisionInBits(System.Boolean)">
-<summary>Copies this PrecisionContext and sets the copy's
+<summary>Copies this EContext and sets the copy's
             "IsPrecisionInBits" property to the given value.</summary>
             <param name='isPrecisionBits'>The parameter <paramref name='isPrecisionBits'/> is not documented yet.</param>
             <returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithRounding(PeterO.Numbers.ERounding)">
-<summary>Copies this PrecisionContext with the specified rounding
+<summary>Copies this EContext with the specified rounding
             mode.</summary>
             <param name='rounding'>The parameter <paramref name='rounding'/> is
             not documented yet.</param>
@@ -369,14 +369,14 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithSimplified(System.Boolean)">
-<summary>Copies this PrecisionContext and sets the copy's
+<summary>Copies this EContext and sets the copy's
             "IsSimplified" property to the given value.</summary>
             <param name='simplified'>The parameter <paramref name='simplified'/> is not documented yet.</param>
             <returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithTraps(System.Int32)">
-<summary>Copies this PrecisionContext with Traps set to the given
+<summary>Copies this EContext with Traps set to the given
             value.</summary>
             <param name='traps'>Flags representing the traps to enable. See the
             property "Traps".</param>
@@ -384,7 +384,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithUnlimitedExponents">
-<summary>Copies this PrecisionContext with an unlimited exponent
+<summary>Copies this EContext with an unlimited exponent
             range.</summary>
             <returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
@@ -504,7 +504,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Finds the absolute value of this object (if it&#x27;s
             negative, it becomes positive).</summary>
             <param name='context'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
@@ -524,7 +524,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             two operands.</summary>
             <param name='otherValue'>The number to add to.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
@@ -569,7 +569,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             a FlagInvalid flag.</para></summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
             <param name='ctx'>A precision context. The precision, rounding, and
-            exponent range are ignored. If HasFlags of the context is true,
+            exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
             <returns>Quiet NaN if this object or the other object is NaN, or 0
@@ -602,7 +602,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             FlagInvalid flag if either is a signaling NaN.</para></summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
             <param name='ctx'>A precision context. The precision, rounding, and
-            exponent range are ignored. If HasFlags of the context is true,
+            exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
             <returns>Quiet NaN if this object or the other object is NaN, or 0
@@ -610,9 +610,10 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+<summary>Returns a number with the same value as this one, but copying the sign (positive
+or negative) of another number.</summary>
+            <param name='other'>A number whose sign will be copied.</param>
+            <returns>An arbitrary-precision decimal number.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
@@ -744,7 +745,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's HasFlags is true and the
+            the given context only if the context's <c>HasFlags</c> is true and the
             integer part of the division result doesn't fit the precision and
             exponent range without rounding. Can be null, in which the precision is unlimited
             and no additional rounding, other than the rounding down to
@@ -770,7 +771,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
@@ -802,7 +803,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's HasFlags is true and the
+            the given context only if the context's <c>HasFlags</c> is true and the
             integer part of the division result doesn't fit the precision and
             exponent range without rounding. Can be null, in which the precision is unlimited
             and no additional rounding, other than the rounding down to
@@ -841,7 +842,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
             and return NaN if the result doesn't fit the given precision). If
-            HasFlags of the context is true, will also store the flags
+            <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
             rounding mode is HalfEven.</param>
@@ -903,7 +904,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
             and return NaN if the result doesn't fit the given precision). If
-            HasFlags of the context is true, will also store the flags
+            <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
             rounding mode is HalfEven.</param>
@@ -966,7 +967,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
             and return NaN if the result doesn't fit the given precision). If
-            HasFlags of the context is true, will also store the flags
+            <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
             rounding mode is HalfEven.</param>
@@ -1018,7 +1019,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='ctx'>A precision context object to control the
             precision, rounding, and exponent range of the integer part of the
             result. Flags will be set on the given context only if the
-            context's HasFlags is true and the integer part of the result
+            context's <c>HasFlags</c> is true and the integer part of the result
             doesn't fit the precision and exponent range without
             rounding. Can be null, in which the precision is unlimited
             and no additional rounding, other than the rounding down to
@@ -1038,7 +1039,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='divisor'>The divisor.</param>
             <param name='ctx'>A precision context object to control the
             precision. The rounding and exponent range settings of this context
-            are ignored. If HasFlags of the context is true, will also store
+            are ignored. If <c>HasFlags</c> of the context is true, will also store
             the flags resulting from the operation (the flags are in addition
             to the pre-existing flags). Can be null, in which case the precision
             is unlimited.</param>
@@ -1081,7 +1082,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Finds e (the base of natural logarithms) raised to the
             power of this object&#x27;s value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the exponential function's
@@ -1187,7 +1188,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             information.</summary>
             <param name='str'>A string that represents a number.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1243,7 +1244,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='length'>The length of the number within the
             string.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1317,7 +1318,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             power (exponent) that e (the base of natural logarithms) must be
             raised to in order to equal this object&#x27;s value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the ln function's results are
@@ -1338,7 +1339,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             power (exponent) that the number 10 must be raised to in order to
             equal this object&#x27;s value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the ln function's results are
@@ -1369,7 +1370,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1390,7 +1391,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1409,7 +1410,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1430,7 +1431,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1447,7 +1448,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             decimal point moved to the left.</summary>
             <param name='bigPlaces'>The number of decimal places to move to the left.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1464,7 +1465,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             decimal point moved to the left.</summary>
             <param name='places'>The number of decimal places to move to the left.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1481,7 +1482,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             decimal point moved to the right.</summary>
             <param name='bigPlaces'>The number of decimal places to move to the right.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1498,7 +1499,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             decimal point moved to the right.</summary>
             <param name='places'>The number of decimal places to move to the right.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1518,7 +1519,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             and negative if they have different signs.</summary>
             <param name='op'>Another decimal number.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1538,7 +1539,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='op'>The value to multiply.</param>
             <param name='augend'>The value to add.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.
@@ -1553,7 +1554,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='op'>The value to multiply.</param>
             <param name='subtrahend'>The value to subtract.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.
@@ -1579,7 +1580,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Returns a decimal number with the same value as this
             object but with the sign reversed.</summary>
             <param name='context'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1597,7 +1598,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             value.</summary>
             <param name='ctx'>A precision context object to control the
             precision and exponent range of the result. The rounding mode from
-            this context is ignored. If HasFlags of the context is true, will
+            this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags).</param>
             <returns>Returns the largest value that's less than the given
@@ -1611,7 +1612,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             given value.</summary>
             <param name='ctx'>A precision context object to control the
             precision and exponent range of the result. The rounding mode from
-            this context is ignored. If HasFlags of the context is true, will
+            this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags).</param>
             <returns>Returns the smallest value that's greater than the given
@@ -1628,7 +1629,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             number that the return value will approach.</param>
             <param name='ctx'>A precision context object to control the
             precision and exponent range of the result. The rounding mode from
-            this context is ignored. If HasFlags of the context is true, will
+            this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags).</param>
             <returns>Returns the next value that is closer to the other object'
@@ -1643,7 +1644,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.EDecimal.PI(PeterO.Numbers.EContext)">
 <summary>Finds the constant &#x3c0;.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as &#x3c0; can never be represented
@@ -1674,7 +1675,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='exponent'>An arbitrary-precision decimal
             number expressing the exponent to raise this object's value to.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing
             flags).  Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1698,7 +1699,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             exponent.</summary>
             <param name='exponentSmall'>The exponent to raise this object's value to.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing
             flags).  Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1733,7 +1734,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             thousandth (10^-3, 0.0001), and 3 means round to the thousand
             (10^3, 1000). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
             default rounding mode is HalfEven.</param>
@@ -1762,7 +1763,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             // the number to 5 digits after the decimal point
             number = number.Quantize(
             EInteger.FromInt32(-5), // five digits after the decimal point
-            PrecisionContext.ForPrecision(25) // 25-digit precision
+            EContext.ForPrecision(25) // 25-digit precision
             );
             </code><para>
             A fixed-point decimal arithmetic in which no digits come after
@@ -1777,7 +1778,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
             default rounding mode is HalfEven.</param>
@@ -1806,7 +1807,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             // the number to 5 digits after the decimal point
             number = number.Quantize(
             -5, // five digits after the decimal point
-            PrecisionContext.ForPrecision(25) // 25-digit precision
+            EContext.ForPrecision(25) // 25-digit precision
             );
             </code><para>
             A fixed-point decimal arithmetic in which no digits come after
@@ -1821,7 +1822,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
             default rounding mode is HalfEven.</param>
@@ -1858,7 +1859,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
@@ -1875,7 +1876,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             precision, rounding, and exponent range of the result. This context
             will be used both in the division portion and in
             the remainder portion of the remainder
-            calculation.  If HasFlags of the
+            calculation.  If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no additional rounding
@@ -1899,7 +1900,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the return value to
             have a higher precision than given in this context. Flags will be
-            set on the given context only if the context's HasFlags is true and
+            set on the given context only if the context's <c>HasFlags</c> is true and
             the integer part of the division result doesn't fit the precision
             and exponent range without rounding. Can be null, in which the precision is unlimited
             and no additional rounding, other than the rounding down to
@@ -1930,7 +1931,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='ctx'>A precision context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored (the rounding mode is always treated as HalfEven). If
-            HasFlags of the context is true, will also store the flags
+            <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which the precision is unlimited.</param>
             <returns>The distance of the closest multiple. Signals FlagInvalid
@@ -1966,7 +1967,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -2001,7 +2002,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -2041,7 +2042,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -2067,7 +2068,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -2086,7 +2087,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             object but rounded to an integer, and signals an invalid operation
             if the result would be inexact.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -2104,7 +2105,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             object but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
             never add the FlagRounded and FlagInexact flags (the only
@@ -2123,7 +2124,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             object but rounded to an integer, and signals an invalid operation
             if the result would be inexact.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -2141,7 +2142,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             object but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
             never add the FlagRounded and FlagInexact flags (the only
@@ -2159,7 +2160,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Rounds this object&#x27;s value to a given precision,
             using the given rounding mode and range of exponent.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
@@ -2179,7 +2180,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             adjusted.</summary>
             <param name='bigPlaces'>The power of 10 to scale by.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
@@ -2196,7 +2197,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             adjusted.</summary>
             <param name='places'>The power of 10 to scale by.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
@@ -2217,7 +2218,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Finds the square root of this object&#x27;s
             value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the square root function's
@@ -2235,7 +2236,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Finds the square root of this object&#x27;s
             value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the square root function's
@@ -2262,7 +2263,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='otherValue'>The number to subtract from this
             instance's value.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no rounding is needed.</param>
@@ -2493,7 +2494,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <para>When an arithmetic operation signals the flag FlagInvalid,
             FlagOverflow, or FlagDivideByZero, it will not throw an exception
             too, unless the operation's trap is enabled in the precision
-            context (see PrecisionContext's Traps property).</para>
+            context (see EContext's Traps property).</para>
             <para>An arbitrary-precision binary float value can be serialized
             in one of the following ways:</para>
             <list>
@@ -2537,7 +2538,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Finds the absolute value of this object (if it&#x27;s
             negative, it becomes positive).</summary>
             <param name='context'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -2557,7 +2558,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             two operands.</summary>
             <param name='otherValue'>The number to add to.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -2655,7 +2656,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             a FlagInvalid flag.</para></summary>
             <param name='other'>An arbitrary-precision binary float.</param>
             <param name='ctx'>A precision context. The precision, rounding, and
-            exponent range are ignored. If HasFlags of the context is true,
+            exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
             <returns>Quiet NaN if this object or the other object is NaN, or 0
@@ -2688,7 +2689,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             FlagInvalid flag if either is a signaling NaN.</para></summary>
             <param name='other'>An arbitrary-precision binary float.</param>
             <param name='ctx'>A precision context. The precision, rounding, and
-            exponent range are ignored. If HasFlags of the context is true,
+            exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
             <returns>Quiet NaN if this object or the other object is NaN, or 0
@@ -2696,9 +2697,10 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <returns>An EFloat object.</returns>
+<summary>Returns a number with the same value as this one, but copying the sign (positive
+or negative) of another number.</summary>
+            <param name='other'>A number whose sign will be copied.</param>
+            <returns>An arbitrary-precision binary float.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
@@ -2740,7 +2742,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             (true) or quiet (false).</param>
             <param name='negative'>Whether the return value is
             negative.</param>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>An arbitrary-precision binary float.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='diag'/> is null.</exception>
@@ -2767,7 +2769,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's HasFlags is true and the
+            the given context only if the context's <c>HasFlags</c> is true and the
             integer part of the division result doesn't fit the precision and
             exponent range without rounding.</param>
             <returns>A 2 element array consisting of the quotient and remainder
@@ -2792,7 +2794,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             exponent.</summary>
             <param name='divisor'>The divisor.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -2825,7 +2827,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's HasFlags is true and the
+            the given context only if the context's <c>HasFlags</c> is true and the
             integer part of the division result doesn't fit the precision and
             exponent range without rounding. Can be null, in which the precision is unlimited
             and no additional rounding, other than the rounding down to
@@ -2847,7 +2849,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
             and return NaN if the result doesn't fit the given precision). If
-            HasFlags of the context is true, will also store the flags
+            <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
             rounding mode is HalfEven.</param>
@@ -2891,7 +2893,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
             and return NaN if the result doesn't fit the given precision). If
-            HasFlags of the context is true, will also store the flags
+            <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
             rounding mode is HalfEven.</param>
@@ -2940,7 +2942,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='ctx'>A precision context object to control the
             precision, rounding, and exponent range of the integer part of the
             result. Flags will be set on the given context only if the
-            context's HasFlags is true and the integer part of the result
+            context's <c>HasFlags</c> is true and the integer part of the result
             doesn't fit the precision and exponent range without
             rounding.</param>
             <returns>The integer part of the quotient of the two objects.
@@ -2961,7 +2963,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='divisor'>The divisor.</param>
             <param name='ctx'>A precision context object to control the
             precision. The rounding and exponent range settings of this context
-            are ignored. If HasFlags of the context is true, will also store
+            are ignored. If <c>HasFlags</c> of the context is true, will also store
             the flags resulting from the operation (the flags are in addition
             to the pre-existing flags). Can be null.</param>
             <returns>The integer part of the quotient of the two objects. The
@@ -3011,7 +3013,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Finds e (the base of natural logarithms) raised to the
             power of this object's value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the exponential function's
@@ -3085,7 +3087,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)">
 <summary>Not documented yet.</summary>
             <param name='str'>A text string.</param>
-            <param name='ctx'>A PrecisionContext object specifying the
+            <param name='ctx'>An EContext object specifying the
             precision, rounding, and exponent range to apply to the parsed
             number. Can be null.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
@@ -3136,7 +3138,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             portion of <paramref name='str'/> begins.</param>
             <param name='length'>The length, in code units, of the desired
             portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
-            <param name='ctx'>A PrecisionContext object specifying the
+            <param name='ctx'>An EContext object specifying the
             precision, rounding, and exponent range to apply to the parsed
             number. Can be null.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
@@ -3210,7 +3212,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             power (exponent) that e (the base of natural logarithms) must be
             raised to in order to equal this object's value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the ln function's results are
@@ -3229,7 +3231,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             power (exponent) that the number 10 must be raised to in order to
             equal this object&#x27;s value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the ln function's results are
@@ -3260,7 +3262,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='second'>Another arbitrary-precision binary
             float.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3285,7 +3287,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='second'>An arbitrary-precision binary float.
             (3).</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3304,7 +3306,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='second'>Another arbitrary-precision binary
             float.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3329,7 +3331,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='second'>An arbitrary-precision binary float.
             (3).</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3346,7 +3348,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             point moved to the left.</summary>
             <param name='bigPlaces'>An arbitrary-precision integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3363,7 +3365,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             point moved to the left.</summary>
             <param name='places'>A 32-bit signed integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3380,7 +3382,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             point moved to the right.</summary>
             <param name='bigPlaces'>An arbitrary-precision integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3397,7 +3399,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             point moved to the right.</summary>
             <param name='places'>A 32-bit signed integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3416,7 +3418,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             if they have different signs.</summary>
             <param name='op'>Another binary float.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3435,7 +3437,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='op'>The value to multiply.</param>
             <param name='augend'>The value to add.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3447,7 +3449,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='op'>The value to multiply.</param>
             <param name='subtrahend'>The value to subtract.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3470,7 +3472,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Returns a binary float with the same value as this object
             but with the sign reversed.</summary>
             <param name='context'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3488,7 +3490,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             value.</summary>
             <param name='ctx'>A precision context object to control the
             precision and exponent range of the result. The rounding mode from
-            this context is ignored. If HasFlags of the context is true, will
+            this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags).</param>
             <returns>Returns the largest value that's less than the given
@@ -3502,7 +3504,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             value.</summary>
             <param name='ctx'>A precision context object to control the
             precision and exponent range of the result. The rounding mode from
-            this context is ignored. If HasFlags of the context is true, will
+            this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags).</param>
             <returns>Returns the smallest value that's greater than the given
@@ -3517,7 +3519,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             float.</param>
             <param name='ctx'>A precision context object to control the
             precision and exponent range of the result. The rounding mode from
-            this context is ignored. If HasFlags of the context is true, will
+            this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags).</param>
             <returns>Returns the next value that is closer to the other object'
@@ -3531,7 +3533,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.EFloat.PI(PeterO.Numbers.EContext)">
 <summary>Finds the constant &#x3c0;.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as &#x3c0; can never be represented
@@ -3560,7 +3562,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Raises this object's value to the given
             exponent.</summary>
             <param name='exponent'>An arbitrary-precision binary float.</param>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>This^exponent. Signals the flag FlagInvalid and returns
             NaN if this object and exponent are both 0; or if this value is
             less than 0 and the exponent either has a fractional part or is
@@ -3582,7 +3584,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             exponent.</summary>
             <param name='exponentSmall'>A 32-bit signed integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing
             flags).</param>
@@ -3606,7 +3608,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             thousandth (10^-3, 0.0001), and 3 means round to the thousand
             (10^3, 1000). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
             default rounding mode is HalfEven.</param>
@@ -3623,7 +3625,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             exponent.</summary>
             <param name='desiredExponent'>An arbitrary-precision
             integer.</param>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>A binary float with the same value as this object but with
             the exponent changed. Signals FlagInvalid and returns not-a-number
             (NaN) if an overflow error occurred, or the rounded result can't
@@ -3634,7 +3636,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Returns a binary float with the same value but a new
             exponent.</summary>
             <param name='desiredExponentSmall'>A 32-bit signed integer.</param>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>A binary float with the same value as this object but with
             the exponent changed. Signals FlagInvalid and returns not-a-number
             (NaN) if an overflow error occurred, or the rounded result can't
@@ -3647,7 +3649,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3660,7 +3662,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <summary>Finds the remainder that results when dividing two
             arbitrary-precision binary floats.</summary>
             <param name='divisor'>An arbitrary-precision binary float.</param>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>The remainder of the two objects.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat)">
@@ -3679,7 +3681,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             precision, rounding, and exponent range of the integer part of the
             result. This context will be used only in the division portion of
             the remainder calculation. Flags will be set on the given context
-            only if the context's HasFlags is true and the integer part of the
+            only if the context's <c>HasFlags</c> is true and the integer part of the
             division result doesn't fit the precision and exponent range
             without rounding.</param>
             <returns>An arbitrary-precision binary float.</returns>
@@ -3708,7 +3710,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='ctx'>A precision context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored (the rounding mode is always treated as HalfEven). If
-            HasFlags of the context is true, will also store the flags
+            <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null.</param>
             <returns>The distance of the closest multiple. Signals FlagInvalid
@@ -3739,7 +3741,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number
             to an integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -3763,7 +3765,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the default rounding mode is
@@ -3787,7 +3789,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             means round to the sixteenth (10b^-3, 0.0001b), and 3 means round
             to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number
             to an integer.</param>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>A binary number rounded to the closest value representable
             in the given precision. Signals FlagInvalid and returns
             not-a-number (NaN) if the result can't fit the given precision
@@ -3808,7 +3810,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             to the sixteenth (10b^-3, 0.0001b), and 3 means round to the
             sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>A binary number rounded to the closest value representable
             in the given precision. Signals FlagInvalid and returns
             not-a-number (NaN) if the result can't fit the given precision
@@ -3823,7 +3825,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             but rounded to an integer, and signals an invalid operation if the
             result would be inexact.</summary>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
             default rounding mode is HalfEven.</param>
@@ -3840,7 +3842,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
             never add the FlagRounded and FlagInexact flags (the only
@@ -3859,7 +3861,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             but rounded to an integer, and signals an invalid operation if the
             result would be inexact.</summary>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
             default rounding mode is HalfEven.</param>
@@ -3876,7 +3878,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
             <param name='ctx'>A precision context to control precision and
-            rounding of the result. If HasFlags of the context is true, will
+            rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
             never add the FlagRounded and FlagInexact flags (the only
@@ -3911,7 +3913,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             adjusted.</summary>
             <param name='bigPlaces'>An arbitrary-precision integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3928,7 +3930,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             adjusted.</summary>
             <param name='places'>A 32-bit signed integer.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -3948,7 +3950,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.EFloat.Sqrt(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object's value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the square root function's
@@ -3963,7 +3965,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object's value.</summary>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the square root function's
@@ -3988,7 +3990,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='otherValue'>An arbitrary-precision binary
             float.</param>
             <param name='ctx'>A precision context to control precision,
-            rounding, and exponent range of the result. If HasFlags of the
+            rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
@@ -4376,14 +4378,16 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <paramref name='bytes'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)">
-<summary>Not documented yet.</summary>
-            <param name='intValue'>The parameter <paramref name='intValue'/> is not documented yet.</param>
-            <returns>An EInteger object.</returns>
+<summary>Converts a 32-bit signed integer to an arbitrary-precision
+            integer.</summary>
+            <param name='intValue'>A 32-bit signed integer.</param>
+            <returns>An arbitrary-precision integer with the same value as the
+            64-bit number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromInt64(System.Int64)">
-<summary>Converts a 64-bit signed integer to a big
+<summary>Converts a 64-bit signed integer to an arbitrary-precision
             integer.</summary>
-            <param name='longerValue'>The parameter <paramref name='longerValue'/> is not documented yet.</param>
+            <param name='longerValue'>A 64-bit signed integer.</param>
             <returns>An arbitrary-precision integer with the same value as the
             64-bit number.</returns>
 </doc>
@@ -4412,13 +4416,13 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             The following example (C#) converts a number in the
             form of a hex string to an arbitrary-precision integer.
             <code>
-            public static arbitrary-precision integer HexToEInteger(string
+            public static EInteger HexToEInteger(string
             hexString) {
             // Parse the hexadecimal string as an arbitrary-precision integer. Will
             // throw a FormatException if the parsing fails
             var bigInteger = EInteger.fromRadixString(hexString, 16);
             // Optional: Check if the parsed integer is negative
-            if (EInteger.Sign &lt; 0) {
+            if (bigInteger.Sign &lt; 0) {
             throw new FormatException("negative hex string");
             }
             return bigInteger;
@@ -4634,8 +4638,8 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <paramref name='valueA'/> is null.</exception>
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.One">
-<summary>Gets a value not documented yet.</summary>
-            <value>A value not documented yet.</value>
+<summary>Gets the number 1 as an arbitrary-precision integer.</summary>
+            <value>The number 1 as an arbitrary-precision integer.</value>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Does an OR operation between two arbitrary-precision
@@ -5226,9 +5230,10 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <returns>An ERational object.</returns>
+<summary>Returns a number with the same value as this one, but copying the sign (positive
+or negative) of another number.</summary>
+            <param name='other'>A number whose sign will be copied.</param>
+            <returns>An arbitrary-precision rational number.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
@@ -5522,7 +5527,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.ERational.ToExtendedDecimal(PeterO.Numbers.EContext)">
 <summary>Converts this rational number to a decimal number and
             rounds the result to the given precision.</summary>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>An arbitrary-precision decimal.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToExtendedDecimalExactIfPossible(PeterO.Numbers.EContext)">
@@ -5532,7 +5537,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='ctx'>A precision context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored. This context will be used only if the exact result
-            would have a nonterminating decimal expansion. If HasFlags of the
+            would have a nonterminating decimal expansion. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case this method is the same as
@@ -5549,7 +5554,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.ERational.ToExtendedFloat(PeterO.Numbers.EContext)">
 <summary>Converts this rational number to a binary number and
             rounds the result to the given precision.</summary>
-            <param name='ctx'>A PrecisionContext object.</param>
+            <param name='ctx'>An EContext object.</param>
             <returns>An arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToExtendedFloatExactIfPossible(PeterO.Numbers.EContext)">
@@ -5559,7 +5564,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <param name='ctx'>A precision context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored. This context will be used only if the exact result
-            would have a nonterminating binary expansion. If HasFlags of the
+            would have a nonterminating binary expansion. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case this method is the same as
@@ -5673,10 +5678,10 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Error">
 <summary>Gets the flag that specifies the kind of error
-            (PrecisionContext.FlagXXX). This will only be one flag, such as
+            (EContext.FlagXXX). This will only be one flag, such as
             FlagInexact or FlagSubnormal.</summary>
             <value>The flag that specifies the kind of error
-            (PrecisionContext.FlagXXX). This will only be one flag, such as
+            (EContext.FlagXXX). This will only be one flag, such as
             FlagInexact or FlagSubnormal.</value>
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Result">
