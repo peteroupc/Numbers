@@ -2083,7 +2083,7 @@ EContext ctx) {
         return this.IsNegative ? Double.NegativeInfinity :
           Double.PositiveInfinity;
       }
-      return this.ToExtendedFloatInternal(true).ToDouble();
+      return this.ToEFloatInternal(true).ToDouble();
     }
 
     /// <include file='../../docs.xml'
@@ -2106,10 +2106,16 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToExtendedFloat"]/*'/>
+    [Obsolete("Renamed to ToEFloat.")]
     public EFloat ToExtendedFloat() {
-      return this.ToExtendedFloatInternal(false);
+      return this.ToEFloatInternal(false);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToExtendedFloat"]/*'/>
+    public EFloat ToEFloat() {
+      return this.ToEFloatInternal(false);
+    }
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
     public int ToInt32Checked() {
@@ -2227,7 +2233,7 @@ EContext ctx) {
         return this.IsNegative ? Single.NegativeInfinity :
           Single.PositiveInfinity;
       }
-      return this.ToExtendedFloatInternal(true).ToSingle();
+      return this.ToEFloatInternal(true).ToSingle();
     }
 
     /// <include file='../../docs.xml'
@@ -2434,7 +2440,7 @@ EContext ctx) {
       }
     }
 
-    private EFloat ToExtendedFloatInternal(bool oddRounding) {
+    private EFloat ToEFloatInternal(bool oddRounding) {
       if (this.IsNaN() || this.IsInfinity()) {
         return EFloat.CreateWithFlags(
           this.unsignedMantissa.AsEInteger(),
