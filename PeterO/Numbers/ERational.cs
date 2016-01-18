@@ -214,6 +214,20 @@ bool negative) {
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromExtendedDecimal(PeterO.Numbers.EDecimal)"]/*'/>
+    [Obsolete("Renamed to FromEDecimal.")]
+    public static ERational FromExtendedDecimal(EDecimal ef) {
+      return FromEDecimal(ef);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromExtendedFloat(PeterO.Numbers.EFloat)"]/*'/>
+    [Obsolete("Renamed to FromEFloat.")]
+    public static ERational FromExtendedFloat(EFloat ef) {
+      return FromEFloat(ef);
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)"]/*'/>
     public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {

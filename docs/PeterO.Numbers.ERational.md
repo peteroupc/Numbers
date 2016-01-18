@@ -226,16 +226,15 @@ Zero if the values are equal; a negative number if this instance is less, or a p
     public PeterO.Numbers.ERational CopySign(
         PeterO.Numbers.ERational other);
 
-Not documented yet.
+Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: A number whose sign will be copied.
 
 <b>Returns:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
@@ -460,6 +459,52 @@ Converts an arbitrary-precision integer to a rational number.
 
 The exact value of the integer as a rational number.
 
+### FromExtendedDecimal
+
+    public static PeterO.Numbers.ERational FromExtendedDecimal(
+        PeterO.Numbers.EDecimal ef);
+
+<b>Deprecated.</b> Renamed to FromEDecimal.
+
+Converts an arbitrary-precision decimal number to a rational number.
+
+<b>Parameters:</b>
+
+ * <i>ef</i>: An arbitrary-precision decimal number.
+
+<b>Returns:</b>
+
+An arbitrary-precision rational number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>ef</i>
+ is null.
+
+### FromExtendedFloat
+
+    public static PeterO.Numbers.ERational FromExtendedFloat(
+        PeterO.Numbers.EFloat ef);
+
+<b>Deprecated.</b> Renamed to FromEFloat.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>ef</i>: An arbitrary-precision binary float.
+
+<b>Returns:</b>
+
+An arbitrary-precision rational number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>ef</i>
+ is null.
+
 ### FromInt32
 
     public static PeterO.Numbers.ERational FromInt32(
@@ -670,7 +715,7 @@ Converts this rational number to a decimal number and rounds the result to the g
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A PrecisionContext object.
+ * <i>ctx</i>: An EContext object.
 
 <b>Returns:</b>
 
@@ -695,7 +740,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A precision context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
+ * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
 
 <b>Returns:</b>
 
@@ -710,7 +755,7 @@ Converts this rational number to a binary number and rounds the result to the gi
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A PrecisionContext object.
+ * <i>ctx</i>: An EContext object.
 
 <b>Returns:</b>
 
@@ -735,7 +780,7 @@ Converts this rational number to a binary number, but if the result would have a
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A precision context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating binary expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
+ * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating binary expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
 
 <b>Returns:</b>
 
@@ -785,7 +830,7 @@ Converts this rational number to a decimal number and rounds the result to the g
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A PrecisionContext object.
+ * <i>ctx</i>: An EContext object.
 
 <b>Returns:</b>
 
@@ -814,7 +859,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A precision context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
+ * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
 
 <b>Returns:</b>
 
@@ -831,7 +876,7 @@ Converts this rational number to a binary number and rounds the result to the gi
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A PrecisionContext object.
+ * <i>ctx</i>: An EContext object.
 
 <b>Returns:</b>
 
@@ -860,7 +905,7 @@ Converts this rational number to a binary number, but if the result would have a
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A precision context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating binary expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
+ * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating binary expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
 
 <b>Returns:</b>
 

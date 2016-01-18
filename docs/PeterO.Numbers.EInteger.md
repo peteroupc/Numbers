@@ -42,11 +42,11 @@ True if this value is 0; otherwise, false.
 
     public static PeterO.Numbers.EInteger One { get; }
 
-Gets a value not documented yet.
+Gets the number 1 as an arbitrary-precision integer.
 
 <b>Returns:</b>
 
-A value not documented yet.
+The number 1 as an arbitrary-precision integer.
 
 ### Sign
 
@@ -342,28 +342,26 @@ The parameter <i>bytes</i>
     public static PeterO.Numbers.EInteger FromInt32(
         int intValue);
 
-Not documented yet.
+Converts a 32-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: A 32-bit signed integer.
 
 <b>Returns:</b>
 
-An EInteger object.
+An arbitrary-precision integer with the same value as the 64-bit number.
 
 ### FromInt64
 
     public static PeterO.Numbers.EInteger FromInt64(
         long longerValue);
 
-Converts a 64-bit signed integer to a big integer.
+Converts a 64-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>longerValue</i>: The parameter  <i>longerValue</i>
- is not documented yet.
+ * <i>longerValue</i>: A 64-bit signed integer.
 
 <b>Returns:</b>
 
@@ -377,13 +375,13 @@ An arbitrary-precision integer with the same value as the 64-bit number.
 
 Converts a string to an arbitrary-precision integer.
 
-The following example (C#) converts a number in the form of a hex string to an arbitrary-precision integer.    public static arbitrary-precision integer HexToEInteger(string
+The following example (C#) converts a number in the form of a hex string to an arbitrary-precision integer.    public static EInteger HexToEInteger(string
     hexString) {
     // Parse the hexadecimal string as an arbitrary-precision integer. Will
     // throw a FormatException if the parsing fails
     var bigInteger = EInteger.fromRadixString(hexString, 16);
     // Optional: Check if the parsed integer is negative
-    if (EInteger.Sign < 0) {
+    if (bigInteger.Sign < 0) {
     throw new FormatException("negative hex string");
     }
     return bigInteger;
