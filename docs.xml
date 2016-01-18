@@ -577,20 +577,66 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Compares the values of this object and
+            another object, imposing a total ordering on all possible values.
+            In this method:
+            <list>
+            <item>For objects with the same value, the one
+            with the higher exponent has a greater "absolute value".</item>
+            <item>Negative zero is less than positive zero.</item>
+            <item>Quiet NaN has a higher "absolute value" than signaling NaN.
+            If both objects are quiet NaN or both are signaling NaN, the one
+            with the higher diagnostic information has a greater "absolute value".</item>
+            <item>NaN has a higher "absolute value" than infinity.</item>
+            <item>Infinity has a higher "absolute value" than any finite number.</item>
+            <item>Negative numbers are less than positive numbers.</item></list></summary>
+            <param name='other'>An arbitrary-precision decimal number to compare with this one.</param>
+            <returns>The number 0
+            if both objects have the same value, or -1 if this object is less
+            than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Compares the values of this object and
+            another object, imposing a total ordering on all possible values.
+            In this method:
+            <list>
+            <item>For objects with the same value, the one
+            with the higher exponent has a greater "absolute value".</item>
+            <item>Negative zero is less than positive zero.</item>
+            <item>Quiet NaN has a higher "absolute value" than signaling NaN.
+            If both objects are quiet NaN or both are signaling NaN, the one
+            with the higher diagnostic information has a greater "absolute value".</item>
+            <item>NaN has a higher "absolute value" than infinity.</item>
+            <item>Infinity has a higher "absolute value" than any finite number.</item>
+            <item>Negative numbers are less than positive numbers.</item></list></summary>
+            <param name='other'>An arbitrary-precision decimal number to compare with this one.</param>
+            <param name='ctx'>An arithmetic context. Flags will be set in this context only if
+            <c>HasFlags</c> and <c>IsSimplified</c> of the context are true and only if 
+            an operand needed to be rounded
+            before carrying out the operation. Can be null.</param>
+            <returns>The number 0
+            if both objects have the same value, or -1 if this object is less
+            than the other value, or 1 if this object is greater.  Does not signal flags
+            if either value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Compares the absolute values of this object and
+            another object, imposing a total ordering on all possible values (ignoring their signs). 
+            In this method:
+            <list>
+            <item>For objects with the same value, the one
+            with the higher exponent has a greater "absolute value".</item>
+            <item>Negative zero and positive zero are
+            considered equal.</item>
+            <item>Quiet NaN has a higher "absolute value" than signaling NaN.
+            If both objects are quiet NaN or both are signaling NaN, the one
+            with the higher diagnostic information has a greater "absolute value".</item>
+            <item>NaN has a higher "absolute value" than infinity.</item>
+            <item>Infinity has a higher "absolute value" than any finite number.</item></list></summary>
+            <param name='other'>An arbitrary-precision decimal number to compare with this one.</param>
+            <returns>The number 0
+            if both objects have the same value, or -1 if this object is less
+            than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 <summary>Compares the mathematical values of this object and
@@ -2664,20 +2710,66 @@ or negative) of another number.</summary>
             than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Compares the values of this object and
+            another object, imposing a total ordering on all possible values.
+            In this method:
+            <list>
+            <item>For objects with the same value, the one
+            with the higher exponent has a greater "absolute value".</item>
+            <item>Negative zero is less than positive zero.</item>
+            <item>Quiet NaN has a higher "absolute value" than signaling NaN.
+            If both objects are quiet NaN or both are signaling NaN, the one
+            with the higher diagnostic information has a greater "absolute value".</item>
+            <item>NaN has a higher "absolute value" than infinity.</item>
+            <item>Infinity has a higher "absolute value" than any finite number.</item>
+            <item>Negative numbers are less than positive numbers.</item></list></summary>
+            <param name='other'>An arbitrary-precision binary float to compare with this one.</param>
+            <returns>The number 0
+            if both objects have the same value, or -1 if this object is less
+            than the other value, or 1 if this object is greater.  Does not signal flags
+            if either value is signaling NaN.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Compares the values of this object and
+            another object, imposing a total ordering on all possible values.
+            In this method:
+            <list>
+            <item>For objects with the same value, the one
+            with the higher exponent has a greater "absolute value".</item>
+            <item>Negative zero is less than positive zero.</item>
+            <item>Quiet NaN has a higher "absolute value" than signaling NaN.
+            If both objects are quiet NaN or both are signaling NaN, the one
+            with the higher diagnostic information has a greater "absolute value".</item>
+            <item>NaN has a higher "absolute value" than infinity.</item>
+            <item>Infinity has a higher "absolute value" than any finite number.</item>
+            <item>Negative numbers are less than positive numbers.</item></list></summary>
+            <param name='other'>An arbitrary-precision binary float to compare with this one.</param>
+            <param name='ctx'>An arithmetic context. Flags will be set in this context only if
+            <c>HasFlags</c> and <c>IsSimplified</c> of the context are true and only if 
+            an operand needed to be rounded
+            before carrying out the operation. Can be null.</param>
+            <returns>The number 0
+            if both objects have the same value, or -1 if this object is less
+            than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat)">
-<summary>Not documented yet.</summary>
-            <param name='other'>The parameter <paramref name='other'/> is not documented yet.</param>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Compares the absolute values of this object and
+            another object, imposing a total ordering on all possible values (ignoring their signs). 
+            In this method:
+            <list>
+            <item>For objects with the same value, the one
+            with the higher exponent has a greater "absolute value".</item>
+            <item>Negative zero and positive zero are
+            considered equal.</item>
+            <item>Quiet NaN has a higher "absolute value" than signaling NaN.
+            If both objects are quiet NaN or both are signaling NaN, the one
+            with the higher diagnostic information has a greater "absolute value".</item>
+            <item>NaN has a higher "absolute value" than infinity.</item>
+            <item>Infinity has a higher "absolute value" than any finite number.</item></list></summary>
+            <param name='other'>An arbitrary-precision binary float to compare with this one.</param>
+            <returns>The number 0
+            if both objects have the same value, or -1 if this object is less
+            than the other value, or 1 if this object is greater.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 <summary>Compares the mathematical values of this object and
