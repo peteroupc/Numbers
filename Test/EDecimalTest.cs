@@ -142,6 +142,18 @@ for (var i = 0; i < 1000; ++i) {
     }
 
     [Test]
+    public void TestAddThenCompare() {
+        EDecimal a = EDecimal.FromString(
+  "3432401181884624580219161996277760227145481682978308767347063168426989874100957186809774969532587926005597200790737572030389681269702414428117526594285731840" ).Add(
+        EDecimal.FromString("18895577316172922617856"));
+        EDecimal b = EDecimal.FromString(
+  "3432401181884624580219161996277760227145481682978308767347063168426989874100957186809774969532587926005597200790737572030389681269702433323694842767208349696");
+        Assert.AreEqual(a.ToString(), b.ToString());
+        TestCommon.CompareTestEqual(a,b,"");
+        Assert.AreEqual(a.Sign, b.Sign);
+      }
+
+    [Test]
     public void TestCompareTo() {
       var r = new FastRandom();
       for (var i = 0; i < 500; ++i) {
@@ -149,6 +161,19 @@ for (var i = 0; i < 1000; ++i) {
         EDecimal bigintB = RandomObjects.RandomExtendedDecimal(r);
         EDecimal bigintC = RandomObjects.RandomExtendedDecimal(r);
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
+      }
+      // Test equivalence of EInteger and EDecimal for integers
+      for (var i = 0; i < 3000; ++i) {
+        EInteger bigintA = RandomObjects.RandomBigInteger(r);
+        EInteger bigintB = RandomObjects.RandomBigInteger(r);
+        EInteger bigintC = bigintA.Add(bigintB);
+        EDecimal
+  ba1 = EDecimal.FromEInteger(bigintA).Add(EDecimal.FromEInteger(bigintB));
+        EDecimal ba2 = EDecimal.FromEInteger(bigintC);
+        Assert.AreEqual(ba1.Sign, ba2.Sign);
+        Assert.AreEqual(ba1.ToString(), ba2.ToString());
+        TestCommon.CompareTestEqual(ba1,ba2,bigintA.ToString() + ","
+          +bigintB.ToString());
       }
       TestCommon.CompareTestLess(EDecimal.Zero, EDecimal.NaN);
       TestCommon.CompareTestLess(
@@ -2217,42 +2242,6 @@ throw new InvalidOperationException(String.Empty, ex);
       }
       try {
         EDecimal.NegativeInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        EFloat.PositiveInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        EFloat.NegativeInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        ERational.PositiveInfinity.ToEInteger();
-        Assert.Fail("Should have failed");
-      } catch (OverflowException) {
-        Console.Write(String.Empty);
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        ERational.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
         Console.Write(String.Empty);

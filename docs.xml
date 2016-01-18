@@ -37,29 +37,29 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             Exponent property.</value>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Basic">
-<summary>Basic precision context, 9 digits precision, rounding mode
+<summary>A basic arithmetic context, 9 digits precision, rounding mode
             half-up, unlimited exponent range. The default rounding mode is
             HalfUp.</summary>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.BigDecimalJava">
-<summary>Precision context for Java's BigDecimal format. The
+<summary>An arithmetic context for Java's BigDecimal format. The
             default rounding mode is HalfUp.</summary>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Binary128">
-<summary>Precision context for the IEEE-754-2008 binary128 format,
+<summary>An arithmetic context for the IEEE-754-2008 binary128 format,
             113 bits precision. The default rounding mode is
             HalfEven.</summary>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Binary16">
-<summary>Precision context for the IEEE-754-2008 binary16 format,
+<summary>An arithmetic context for the IEEE-754-2008 binary16 format,
             11 bits precision. The default rounding mode is HalfEven.</summary>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Binary32">
-<summary>Precision context for the IEEE-754-2008 binary32 format,
+<summary>An arithmetic context for the IEEE-754-2008 binary32 format,
             24 bits precision. The default rounding mode is HalfEven.</summary>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Binary64">
-<summary>Precision context for the IEEE-754-2008 binary64 format,
+<summary>An arithmetic context for the IEEE-754-2008 binary64 format,
             53 bits precision. The default rounding mode is HalfEven.</summary>
 </doc>
 <doc name="P:PeterO.Numbers.EContext.ClampNormalExponents">
@@ -74,7 +74,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             not be higher than EMax + 1 - Precision.</value>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.CliDecimal">
-<summary>Precision context for the Common Language Infrastructure
+<summary>An arithmetic context for the Common Language Infrastructure
             (.NET Framework) decimal format, 96 bits precision, and a valid
             exponent range of -28 to 0. The default rounding mode is
             HalfEven.</summary>
@@ -86,15 +86,15 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Decimal128">
-<summary>Precision context for the IEEE-754-2008 decimal128 format.
+<summary>An arithmetic context for the IEEE-754-2008 decimal128 format.
             The default rounding mode is HalfEven.</summary>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Decimal32">
-<summary>Precision context for the IEEE-754-2008 decimal32 format.
+<summary>An arithmetic context for the IEEE-754-2008 decimal32 format.
             The default rounding mode is HalfEven.</summary>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Decimal64">
-<summary>Precision context for the IEEE-754-2008 decimal64 format.
+<summary>An arithmetic context for the IEEE-754-2008 decimal64 format.
             The default rounding mode is HalfEven.</summary>
 </doc>
 <doc name="P:PeterO.Numbers.EContext.EMax">
@@ -125,11 +125,11 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ExponentWithinRange(PeterO.Numbers.EInteger)">
 <summary>Determines whether a number can have the given Exponent
-            property under this precision context.</summary>
+            property under this arithmetic context.</summary>
             <param name='exponent'>An arbitrary-precision integer indicating
             the desired exponent.</param>
             <returns>True if a number can have the given Exponent property
-            under this precision context; otherwise, false. If this context
+            under this arithmetic context; otherwise, false. If this context
             allows unlimited precision, returns true for the exponent EMax and
             any exponent less than EMax.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
@@ -175,18 +175,18 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="P:PeterO.Numbers.EContext.Flags">
 <summary>Gets or sets the flags that are set from converting
-            numbers according to this precision context. If <c>HasFlags</c> is false,
+            numbers according to this arithmetic context. If <c>HasFlags</c> is false,
             this value will be 0. This value is a combination of bit fields. To
             retrieve a particular flag, use the AND operation on the return
             value of this method. For example: <c>(this.Flags &amp;
             EContext.FlagInexact) != 0</c> returns TRUE if the Inexact
             flag is set.</summary>
             <value>The flags that are set from converting numbers according to
-            this precision context. If <c>HasFlags</c> is false, this value will be
+            this arithmetic context. If <c>HasFlags</c> is false, this value will be
             0.</value>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ForPrecision(System.Int32)">
-<summary>Creates a new precision context using the given maximum
+<summary>Creates a new arithmetic context using the given maximum
             number of digits, an unlimited exponent range, and the HalfUp
             rounding mode.</summary>
             <param name='precision'>Maximum number of digits
@@ -295,7 +295,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithBigExponentRange(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-<summary>Copies this precision context and sets the copy's exponent
+<summary>Copies this arithmetic context and sets the copy's exponent
             range.</summary>
             <param name='exponentMin'>Desired minimum exponent (EMin).</param>
             <param name='exponentMax'>Desired maximum exponent (EMax).</param>
@@ -322,7 +322,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithExponentClamp(System.Boolean)">
-<summary>Copies this precision context and sets the copy&#x27;s
+<summary>Copies this arithmetic context and sets the copy&#x27;s
             &#x22;ClampNormalExponents&#x22; flag to the given value.</summary>
             <param name='clamp'>The parameter <paramref name='clamp'/> is not
             documented yet.</param>
@@ -330,7 +330,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             settings.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithExponentRange(System.Int32,System.Int32)">
-<summary>Copies this precision context and sets the copy&#x27;s
+<summary>Copies this arithmetic context and sets the copy&#x27;s
             exponent range.</summary>
             <param name='exponentMinSmall'>Desired minimum exponent
             (EMin).</param>
@@ -457,7 +457,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             decimal argument to any method here will throw an exception.</para>
             <para>When an arithmetic operation signals the flag FlagInvalid,
             FlagOverflow, or FlagDivideByZero, it will not throw an exception
-            too, unless the flag's trap is enabled in the precision context
+            too, unless the flag's trap is enabled in the arithmetic context
             (see EContext's Traps property).</para>
             <para>If an operation requires creating an intermediate value that might be too big to
             fit in memory (or might require more than 2 gigabytes of memory to
@@ -503,7 +503,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="M:PeterO.Numbers.EDecimal.Abs(PeterO.Numbers.EContext)">
 <summary>Finds the absolute value of this object (if it&#x27;s
             negative, it becomes positive).</summary>
-            <param name='context'>A precision context to control precision,
+            <param name='context'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -523,7 +523,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             result&#x27;s exponent is set to the lower of the exponents of the
             two operands.</summary>
             <param name='otherValue'>The number to add to.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -568,7 +568,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             signaling NaN, this method will return a quiet NaN and will signal
             a FlagInvalid flag.</para></summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
-            <param name='ctx'>A precision context. The precision, rounding, and
+            <param name='ctx'>An arithmetic context. The precision, rounding, and
             exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
@@ -601,7 +601,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             signaling NaN, this method returns a quiet NaN, and will signal a
             FlagInvalid flag if either is a signaling NaN.</para></summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
-            <param name='ctx'>A precision context. The precision, rounding, and
+            <param name='ctx'>An arithmetic context. The precision, rounding, and
             exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
@@ -740,7 +740,7 @@ or negative) of another number.</summary>
             RemainderNaturalScale.</summary>
             <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
@@ -770,7 +770,7 @@ or negative) of another number.</summary>
             exponent.</summary>
             <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -798,7 +798,7 @@ or negative) of another number.</summary>
             RemainderNaturalScale.</summary>
             <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
@@ -836,7 +836,7 @@ or negative) of another number.</summary>
             number means the number of decimal places to round to). A
             positive number places the cutoff point to the left of the usual
             decimal point.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             rounding mode to use if the result must be scaled down to have the
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
@@ -898,7 +898,7 @@ or negative) of another number.</summary>
             number means the number of decimal places to round to). A
             positive number places the cutoff point to the left of the usual
             decimal point.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             rounding mode to use if the result must be scaled down to have the
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
@@ -961,7 +961,7 @@ or negative) of another number.</summary>
             point (so a negative
             number means the number of decimal places to round to). A positive number places the cutoff point to the left of the
             usual decimal point.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             rounding mode to use if the result must be scaled down to have the
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
@@ -1016,7 +1016,7 @@ or negative) of another number.</summary>
             integer part of the result (which is initially rounded down), with the preferred exponent set to this
             value&#x27;s exponent minus the divisor&#x27;s exponent.</summary>
             <param name='divisor'>The divisor.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the integer part of the
             result. Flags will be set on the given context only if the
             context's <c>HasFlags</c> is true and the integer part of the result
@@ -1037,7 +1037,7 @@ or negative) of another number.</summary>
 <summary>Divides this object by another object, and returns the
             integer part of the result, with the exponent set to 0.</summary>
             <param name='divisor'>The divisor.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored. If <c>HasFlags</c> of the context is true, will also store
             the flags resulting from the operation (the flags are in addition
@@ -1081,7 +1081,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EDecimal.Exp(PeterO.Numbers.EContext)">
 <summary>Finds e (the base of natural logarithms) raised to the
             power of this object&#x27;s value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1187,7 +1187,7 @@ or negative) of another number.</summary>
             number. See <c>FromString(String, int, int, EContext)</c> for more
             information.</summary>
             <param name='str'>A string that represents a number.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1243,7 +1243,7 @@ or negative) of another number.</summary>
             of the number.</param>
             <param name='length'>The length of the number within the
             string.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1317,7 +1317,7 @@ or negative) of another number.</summary>
 <summary>Finds the natural logarithm of this object, that is, the
             power (exponent) that e (the base of natural logarithms) must be
             raised to in order to equal this object&#x27;s value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1338,7 +1338,7 @@ or negative) of another number.</summary>
 <summary>Finds the base-10 logarithm of this object, that is, the
             power (exponent) that the number 10 must be raised to in order to
             equal this object&#x27;s value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1369,7 +1369,7 @@ or negative) of another number.</summary>
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1390,7 +1390,7 @@ or negative) of another number.</summary>
             Max.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1409,7 +1409,7 @@ or negative) of another number.</summary>
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1430,7 +1430,7 @@ or negative) of another number.</summary>
             Min.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1447,7 +1447,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the
             decimal point moved to the left.</summary>
             <param name='bigPlaces'>The number of decimal places to move to the left.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1464,7 +1464,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the
             decimal point moved to the left.</summary>
             <param name='places'>The number of decimal places to move to the left.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1481,7 +1481,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the
             decimal point moved to the right.</summary>
             <param name='bigPlaces'>The number of decimal places to move to the right.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1498,7 +1498,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the
             decimal point moved to the right.</summary>
             <param name='places'>The number of decimal places to move to the right.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1518,7 +1518,7 @@ or negative) of another number.</summary>
             result&#x27;s sign is positive if both operands have the same sign,
             and negative if they have different signs.</summary>
             <param name='op'>Another decimal number.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1538,7 +1538,7 @@ or negative) of another number.</summary>
             value.</summary>
             <param name='op'>The value to multiply.</param>
             <param name='augend'>The value to add.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1553,7 +1553,7 @@ or negative) of another number.</summary>
             value.</summary>
             <param name='op'>The value to multiply.</param>
             <param name='subtrahend'>The value to subtract.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1579,7 +1579,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EDecimal.Negate(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but with the sign reversed.</summary>
-            <param name='context'>A precision context to control precision,
+            <param name='context'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1596,7 +1596,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EDecimal.NextMinus(PeterO.Numbers.EContext)">
 <summary>Finds the largest value that&#x27;s smaller than the given
             value.</summary>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
@@ -1610,7 +1610,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EDecimal.NextPlus(PeterO.Numbers.EContext)">
 <summary>Finds the smallest value that&#x27;s greater than the
             given value.</summary>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
@@ -1627,7 +1627,7 @@ or negative) of another number.</summary>
             are equal.</summary>
             <param name='otherValue'>An arbitrary-precision decimal
             number that the return value will approach.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
@@ -1643,7 +1643,7 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.PI(PeterO.Numbers.EContext)">
 <summary>Finds the constant &#x3c0;.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1674,7 +1674,7 @@ or negative) of another number.</summary>
             exponent.</summary>
             <param name='exponent'>An arbitrary-precision decimal
             number expressing the exponent to raise this object's value to.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing
@@ -1698,7 +1698,7 @@ or negative) of another number.</summary>
 <summary>Raises this object&#x27;s value to the given
             exponent.</summary>
             <param name='exponentSmall'>The exponent to raise this object's value to.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing
@@ -1733,7 +1733,7 @@ or negative) of another number.</summary>
             places from the number. For example, -3 means round to the
             thousandth (10^-3, 0.0001), and 3 means round to the thousand
             (10^3, 1000). A value of 0 rounds the number to an integer.</param>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
@@ -1741,7 +1741,7 @@ or negative) of another number.</summary>
             <returns>A decimal number with the same value as this object but
             with the exponent changed. Signals FlagInvalid and returns
             not-a-number (NaN) if the result can't fit the given precision
-            without rounding, or if the precision context defines an exponent
+            without rounding, or if the arithmetic context defines an exponent
             range and the given exponent is outside that range.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Quantize(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
@@ -1777,7 +1777,7 @@ or negative) of another number.</summary>
             means round to the thousandth (10^-3, 0.0001), and 3 means round to
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
@@ -1821,7 +1821,7 @@ or negative) of another number.</summary>
             means round to the thousandth (10^-3, 0.0001), and 3 means round to
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
@@ -1858,7 +1858,7 @@ or negative) of another number.</summary>
             For example, 1.00 becomes 1.
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1872,7 +1872,7 @@ or negative) of another number.</summary>
 <summary>Finds the remainder that results when dividing two
             arbitrary-precision decimal numbers.</summary>
             <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used both in the division portion and in
             the remainder portion of the remainder
@@ -1895,7 +1895,7 @@ or negative) of another number.</summary>
 <summary>Calculates the remainder of a number by the formula "this"
             - (("this" / "divisor") * "divisor").</summary>
             <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the return value to
@@ -1928,7 +1928,7 @@ or negative) of another number.</summary>
             value.</item></list> This function is also known as the "IEEE
             Remainder" function.</summary>
             <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored (the rounding mode is always treated as HalfEven). If
             <c>HasFlags</c> of the context is true, will also store the flags
@@ -1966,7 +1966,7 @@ or negative) of another number.</summary>
             means round to the thousandth (10^-3, 0.0001), and 3 means round to
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -1978,7 +1978,7 @@ or negative) of another number.</summary>
             Signals FlagInvalid and returns not-a-number (NaN) if the precision
             context defines an exponent range, the new exponent must be changed
             to the given exponent when rounding, and the given exponent is
-            outside of the valid range of the precision context.</returns>
+            outside of the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)">
 <summary>Not documented yet.</summary>
@@ -2001,7 +2001,7 @@ or negative) of another number.</summary>
             means round to the thousandth (10^-3, 0.0001), and 3 means round to
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2013,7 +2013,7 @@ or negative) of another number.</summary>
             Signals FlagInvalid and returns not-a-number (NaN) if the precision
             context defines an exponent range, the new exponent must be changed
             to the given exponent when rounding, and the given exponent is
-            outside of the valid range of the precision context.</returns>
+            outside of the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.ERounding)">
 <summary>Returns a decimal number with the same value as this
@@ -2041,7 +2041,7 @@ or negative) of another number.</summary>
             means round to the thousandth (10^-3, 0.0001), and 3 means round to
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2051,10 +2051,10 @@ or negative) of another number.</summary>
             representable in the given precision. Signals FlagInvalid and
             returns not-a-number (NaN) if the result can't fit the given
             precision without rounding. Signals FlagInvalid and returns
-            not-a-number (NaN) if the precision context defines an exponent
+            not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to the given exponent when
             rounding, and the given exponent is outside of the valid range of
-            the precision context.</returns>
+            the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
@@ -2067,7 +2067,7 @@ or negative) of another number.</summary>
             means round to the thousandth (10^-3, 0.0001), and 3 means round to
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2077,16 +2077,16 @@ or negative) of another number.</summary>
             representable in the given precision. Signals FlagInvalid and
             returns not-a-number (NaN) if the result can't fit the given
             precision without rounding. Signals FlagInvalid and returns
-            not-a-number (NaN) if the precision context defines an exponent
+            not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to the given exponent when
             rounding, and the given exponent is outside of the valid range of
-            the precision context.</returns>
+            the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegerExact(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to an integer, and signals an invalid operation
             if the result would be inexact.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2096,15 +2096,15 @@ or negative) of another number.</summary>
             representable in the given precision. Signals FlagInvalid and
             returns not-a-number (NaN) if the result can't fit the given
             precision without rounding. Signals FlagInvalid and returns
-            not-a-number (NaN) if the precision context defines an exponent
+            not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
-            is outside of the valid range of the precision context.</returns>
+            is outside of the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
@@ -2117,13 +2117,13 @@ or negative) of another number.</summary>
             Signals FlagInvalid and returns not-a-number (NaN) if the precision
             context defines an exponent range, the new exponent must be changed
             to 0 when rounding, and 0 is outside of the valid range of the
-            precision context.</returns>
+            arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegralExact(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to an integer, and signals an invalid operation
             if the result would be inexact.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2133,15 +2133,15 @@ or negative) of another number.</summary>
             representable in the given precision. Signals FlagInvalid and
             returns not-a-number (NaN) if the result can't fit the given
             precision without rounding. Signals FlagInvalid and returns
-            not-a-number (NaN) if the precision context defines an exponent
+            not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
-            is outside of the valid range of the precision context.</returns>
+            is outside of the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
@@ -2154,12 +2154,12 @@ or negative) of another number.</summary>
             Signals FlagInvalid and returns not-a-number (NaN) if the precision
             context defines an exponent range, the new exponent must be changed
             to 0 when rounding, and 0 is outside of the valid range of the
-            precision context.</returns>
+            arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToPrecision(PeterO.Numbers.EContext)">
 <summary>Rounds this object&#x27;s value to a given precision,
             using the given rounding mode and range of exponent.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2179,7 +2179,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with its scale
             adjusted.</summary>
             <param name='bigPlaces'>The power of 10 to scale by.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2196,7 +2196,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the scale
             adjusted.</summary>
             <param name='places'>The power of 10 to scale by.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2217,7 +2217,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EDecimal.Sqrt(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object&#x27;s
             value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2235,7 +2235,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EDecimal.SquareRoot(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object&#x27;s
             value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2262,7 +2262,7 @@ or negative) of another number.</summary>
             instance.</summary>
             <param name='otherValue'>The number to subtract from this
             instance's value.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2537,7 +2537,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EFloat.Abs(PeterO.Numbers.EContext)">
 <summary>Finds the absolute value of this object (if it&#x27;s
             negative, it becomes positive).</summary>
-            <param name='context'>A precision context to control precision,
+            <param name='context'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2557,7 +2557,7 @@ or negative) of another number.</summary>
             result&#x27;s exponent is set to the lower of the exponents of the
             two operands.</summary>
             <param name='otherValue'>The number to add to.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2655,7 +2655,7 @@ or negative) of another number.</summary>
             signaling NaN, this method will return a quiet NaN and will signal
             a FlagInvalid flag.</para></summary>
             <param name='other'>An arbitrary-precision binary float.</param>
-            <param name='ctx'>A precision context. The precision, rounding, and
+            <param name='ctx'>An arithmetic context. The precision, rounding, and
             exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
@@ -2688,7 +2688,7 @@ or negative) of another number.</summary>
             signaling NaN, this method returns a quiet NaN, and will signal a
             FlagInvalid flag if either is a signaling NaN.</para></summary>
             <param name='other'>An arbitrary-precision binary float.</param>
-            <param name='ctx'>A precision context. The precision, rounding, and
+            <param name='ctx'>An arithmetic context. The precision, rounding, and
             exponent range are ignored. If <c>HasFlags</c> of the context is true,
             will store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null.</param>
@@ -2764,7 +2764,7 @@ or negative) of another number.</summary>
             RemainderNaturalScale. This is meant to be similar to the
             divideAndRemainder method in Java's BigDecimal.</summary>
             <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
@@ -2793,7 +2793,7 @@ or negative) of another number.</summary>
             the result is this object's exponent minus the divisor's
             exponent.</summary>
             <param name='divisor'>The divisor.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -2822,7 +2822,7 @@ or negative) of another number.</summary>
             RemainderNaturalScale.</summary>
             <param name='divisor'>An arbitrary-precision decimal
             number to divide by.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
@@ -2843,7 +2843,7 @@ or negative) of another number.</summary>
             places the cutoff point to the right of the usual decimal point. A
             positive number places the cutoff point to the left of the usual
             decimal point.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             rounding mode to use if the result must be scaled down to have the
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
@@ -2887,7 +2887,7 @@ or negative) of another number.</summary>
             number places the cutoff point to the right of the usual decimal
             point. A positive number places the cutoff point to the left of the
             usual decimal point.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             rounding mode to use if the result must be scaled down to have the
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
@@ -2939,7 +2939,7 @@ or negative) of another number.</summary>
             integer part of the result, with the preferred exponent set to this
             value's exponent minus the divisor's exponent.</summary>
             <param name='divisor'>The divisor.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the integer part of the
             result. Flags will be set on the given context only if the
             context's <c>HasFlags</c> is true and the integer part of the result
@@ -2961,7 +2961,7 @@ or negative) of another number.</summary>
 <summary>Divides this object by another object, and returns the
             integer part of the result, with the exponent set to 0.</summary>
             <param name='divisor'>The divisor.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored. If <c>HasFlags</c> of the context is true, will also store
             the flags resulting from the operation (the flags are in addition
@@ -3012,7 +3012,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EFloat.Exp(PeterO.Numbers.EContext)">
 <summary>Finds e (the base of natural logarithms) raised to the
             power of this object's value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3211,7 +3211,7 @@ or negative) of another number.</summary>
 <summary>Finds the natural logarithm of this object, that is, the
             power (exponent) that e (the base of natural logarithms) must be
             raised to in order to equal this object's value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3230,7 +3230,7 @@ or negative) of another number.</summary>
 <summary>Finds the base-10 logarithm of this object, that is, the
             power (exponent) that the number 10 must be raised to in order to
             equal this object&#x27;s value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3261,7 +3261,7 @@ or negative) of another number.</summary>
             <param name='first'>An arbitrary-precision binary float.</param>
             <param name='second'>Another arbitrary-precision binary
             float.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3286,7 +3286,7 @@ or negative) of another number.</summary>
             float.</param>
             <param name='second'>An arbitrary-precision binary float.
             (3).</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3305,7 +3305,7 @@ or negative) of another number.</summary>
             <param name='first'>An arbitrary-precision binary float.</param>
             <param name='second'>Another arbitrary-precision binary
             float.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3330,7 +3330,7 @@ or negative) of another number.</summary>
             float.</param>
             <param name='second'>An arbitrary-precision binary float.
             (3).</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3347,7 +3347,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the radix
             point moved to the left.</summary>
             <param name='bigPlaces'>An arbitrary-precision integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3364,7 +3364,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the radix
             point moved to the left.</summary>
             <param name='places'>A 32-bit signed integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3381,7 +3381,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the radix
             point moved to the right.</summary>
             <param name='bigPlaces'>An arbitrary-precision integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3398,7 +3398,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the radix
             point moved to the right.</summary>
             <param name='places'>A 32-bit signed integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3417,7 +3417,7 @@ or negative) of another number.</summary>
             sign is positive if both operands have the same sign, and negative
             if they have different signs.</summary>
             <param name='op'>Another binary float.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3436,7 +3436,7 @@ or negative) of another number.</summary>
             value.</summary>
             <param name='op'>The value to multiply.</param>
             <param name='augend'>The value to add.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3448,7 +3448,7 @@ or negative) of another number.</summary>
             value.</summary>
             <param name='op'>The value to multiply.</param>
             <param name='subtrahend'>The value to subtract.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3471,7 +3471,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EFloat.Negate(PeterO.Numbers.EContext)">
 <summary>Returns a binary float with the same value as this object
             but with the sign reversed.</summary>
-            <param name='context'>A precision context to control precision,
+            <param name='context'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3488,7 +3488,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EFloat.NextMinus(PeterO.Numbers.EContext)">
 <summary>Finds the largest value that's smaller than the given
             value.</summary>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
@@ -3502,7 +3502,7 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EFloat.NextPlus(PeterO.Numbers.EContext)">
 <summary>Finds the smallest value that's greater than the given
             value.</summary>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
@@ -3517,7 +3517,7 @@ or negative) of another number.</summary>
             value than this object's value.</summary>
             <param name='otherValue'>An arbitrary-precision binary
             float.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
@@ -3532,7 +3532,7 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.PI(PeterO.Numbers.EContext)">
 <summary>Finds the constant &#x3c0;.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3583,7 +3583,7 @@ or negative) of another number.</summary>
 <summary>Raises this object&#x27;s value to the given
             exponent.</summary>
             <param name='exponentSmall'>A 32-bit signed integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing
@@ -3607,7 +3607,7 @@ or negative) of another number.</summary>
             places from the number. For example, -3 means round to the
             thousandth (10^-3, 0.0001), and 3 means round to the thousand
             (10^3, 1000). A value of 0 rounds the number to an integer.</param>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
@@ -3617,7 +3617,7 @@ or negative) of another number.</summary>
             (NaN) if an overflow error occurred, or the result can't fit the
             given precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the new exponent is outside of the valid
-            range of the precision context, if it defines an exponent
+            range of the arithmetic context, if it defines an exponent
             range.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Quantize(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
@@ -3648,7 +3648,7 @@ or negative) of another number.</summary>
             For example, 1.00 becomes 1.
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3677,7 +3677,7 @@ or negative) of another number.</summary>
             remainder operation in Java's BigDecimal.</summary>
             <param name='divisor'>Another arbitrary-precision binary
             float.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the integer part of the
             result. This context will be used only in the division portion of
             the remainder calculation. Flags will be set on the given context
@@ -3707,7 +3707,7 @@ or negative) of another number.</summary>
             value.</item></list> This function is also known as the "IEEE
             Remainder" function.</summary>
             <param name='divisor'>The divisor.</param>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored (the rounding mode is always treated as HalfEven). If
             <c>HasFlags</c> of the context is true, will also store the flags
@@ -3740,7 +3740,7 @@ or negative) of another number.</summary>
             means round to the sixteenth (10b^-3, 0.0001b), and 3 means round
             to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number
             to an integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3749,10 +3749,10 @@ or negative) of another number.</summary>
             <returns>A binary number rounded to the closest value representable
             in the given precision. If the result can't fit the
             precision, additional digits are discarded to make it fit. Signals
-            FlagInvalid and returns not-a-number (NaN) if the precision context
+            FlagInvalid and returns not-a-number (NaN) if the arithmetic context
             defines an exponent range, the new exponent must be changed to the
             given exponent when rounding, and the given exponent is outside of
-            the valid range of the precision context.</returns>
+            the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToExponent(System.Int32,PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this
@@ -3764,7 +3764,7 @@ or negative) of another number.</summary>
             to the sixteenth (10b^-3, 0.0001b), and 3 means round to the
             sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3773,10 +3773,10 @@ or negative) of another number.</summary>
             <returns>A binary number rounded to the closest value representable
             in the given precision. If the result can't fit the
             precision, additional digits are discarded to make it fit. Signals
-            FlagInvalid and returns not-a-number (NaN) if the precision context
+            FlagInvalid and returns not-a-number (NaN) if the arithmetic context
             defines an exponent range, the new exponent must be changed to the
             given exponent when rounding, and the given exponent is outside of
-            the valid range of the precision context.</returns>
+            the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this object
@@ -3794,7 +3794,7 @@ or negative) of another number.</summary>
             in the given precision. Signals FlagInvalid and returns
             not-a-number (NaN) if the result can't fit the given precision
             without rounding. Signals FlagInvalid and returns not-a-number
-            (NaN) if the precision context defines an exponent range, the new
+            (NaN) if the arithmetic context defines an exponent range, the new
             exponent must be changed to the given exponent when rounding, and
             the given exponent is outside of the valid range of the precision
             context.</returns>
@@ -3815,7 +3815,7 @@ or negative) of another number.</summary>
             in the given precision. Signals FlagInvalid and returns
             not-a-number (NaN) if the result can't fit the given precision
             without rounding. Signals FlagInvalid and returns not-a-number
-            (NaN) if the precision context defines an exponent range, the new
+            (NaN) if the arithmetic context defines an exponent range, the new
             exponent must be changed to the given exponent when rounding, and
             the given exponent is outside of the valid range of the precision
             context.</returns>
@@ -3824,7 +3824,7 @@ or negative) of another number.</summary>
 <summary>Returns a binary number with the same value as this object
             but rounded to an integer, and signals an invalid operation if the
             result would be inexact.</summary>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
@@ -3833,15 +3833,15 @@ or negative) of another number.</summary>
             representable in the given precision. Signals FlagInvalid and
             returns not-a-number (NaN) if the result can't fit the given
             precision without rounding. Signals FlagInvalid and returns
-            not-a-number (NaN) if the precision context defines an exponent
+            not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
-            is outside of the valid range of the precision context.</returns>
+            is outside of the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this object
             but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
@@ -3854,13 +3854,13 @@ or negative) of another number.</summary>
             Signals FlagInvalid and returns not-a-number (NaN) if the precision
             context defines an exponent range, the new exponent must be changed
             to 0 when rounding, and 0 is outside of the valid range of the
-            precision context.</returns>
+            arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegralExact(PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this object
             but rounded to an integer, and signals an invalid operation if the
             result would be inexact.</summary>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags). Can be null, in which case the
@@ -3869,15 +3869,15 @@ or negative) of another number.</summary>
             representable in the given precision. Signals FlagInvalid and
             returns not-a-number (NaN) if the result can't fit the given
             precision without rounding. Signals FlagInvalid and returns
-            not-a-number (NaN) if the precision context defines an exponent
+            not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
-            is outside of the valid range of the precision context.</returns>
+            is outside of the valid range of the arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this object
             but rounded to an integer, without adding the FlagInexact or
             FlagRounded flags.</summary>
-            <param name='ctx'>A precision context to control precision and
+            <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
@@ -3890,7 +3890,7 @@ or negative) of another number.</summary>
             Signals FlagInvalid and returns not-a-number (NaN) if the precision
             context defines an exponent range, the new exponent must be changed
             to 0 when rounding, and 0 is outside of the valid range of the
-            precision context.</returns>
+            arithmetic context.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToPrecision(PeterO.Numbers.EContext)">
 <summary>Rounds this object&#x27;s value to a given precision,
@@ -3912,7 +3912,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with its scale
             adjusted.</summary>
             <param name='bigPlaces'>An arbitrary-precision integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3929,7 +3929,7 @@ or negative) of another number.</summary>
 <summary>Returns a number similar to this number but with the scale
             adjusted.</summary>
             <param name='places'>A 32-bit signed integer.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3949,7 +3949,7 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Sqrt(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object's value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3964,7 +3964,7 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)">
 <summary>Finds the square root of this object's value.</summary>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -3989,7 +3989,7 @@ or negative) of another number.</summary>
             instance.</summary>
             <param name='otherValue'>An arbitrary-precision binary
             float.</param>
-            <param name='ctx'>A precision context to control precision,
+            <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
@@ -5534,7 +5534,7 @@ or negative) of another number.</summary>
 <summary>Converts this rational number to a decimal number, but if
             the result would have a nonterminating decimal expansion, rounds
             that result to the given precision.</summary>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored. This context will be used only if the exact result
             would have a nonterminating decimal expansion. If <c>HasFlags</c> of the
@@ -5561,7 +5561,7 @@ or negative) of another number.</summary>
 <summary>Converts this rational number to a binary number, but if
             the result would have a nonterminating binary expansion, rounds
             that result to the given precision.</summary>
-            <param name='ctx'>A precision context object to control the
+            <param name='ctx'>An arithmetic context object to control the
             precision. The rounding and exponent range settings of this context
             are ignored. This context will be used only if the exact result
             would have a nonterminating binary expansion. If <c>HasFlags</c> of the
@@ -5671,9 +5671,9 @@ or negative) of another number.</summary>
             <param name='result'>An arbitrary object.</param>
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Context">
-<summary>Gets the precision context used during the operation that
+<summary>Gets the arithmetic context used during the operation that
             triggered the trap. May be null.</summary>
-            <value>The precision context used during the operation that
+            <value>The arithmetic context used during the operation that
             triggered the trap. May be null.</value>
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Error">

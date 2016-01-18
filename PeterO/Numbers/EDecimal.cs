@@ -1038,7 +1038,7 @@ FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
             this.exponent.CompareTo(otherValue.exponent) == 0) {
         FastInteger2 result = FastInteger2.Add(this.unsignedMantissa,
               otherValue.unsignedMantissa);
-        int sign = (result.IsValueZero) ? 0 : -1;
+        int sign = (result.IsValueZero) ? 0 : 1;
         return new EDecimal(result, this.exponent, 0, sign);
       }
       return this.Add(otherValue, EContext.Unlimited);
