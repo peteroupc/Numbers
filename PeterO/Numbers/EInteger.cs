@@ -5,6 +5,10 @@ Parts of the code were adapted by Peter O. from
 the public-domain code from the library
 CryptoPP by Wei Dai.
 
+Parts of the GCD function adapted by Peter O.
+from public domain GCD code by Christian
+Stigen Larsen (http://csl.sublevel3.org).
+
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -786,6 +790,20 @@ namespace PeterO.Numbers {
       return true;
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <returns>A Boolean object.</returns>
+    public bool CanFitInInt64() {
+      int c = this.wordCount;
+      if (c > 4) {
+        return false;
+      }
+      if (c == 4 && (this.words[1] & 0x8000) != 0) {
+        return this.negative && this.words[1] == unchecked((short)0x8000) &&
+          this.words[0] == 0;
+      }
+      return true;
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)"]/*'/>
     public int CompareTo(EInteger other) {
@@ -1014,24 +1032,33 @@ namespace PeterO.Numbers {
       if (thisValue.Equals(EInteger.One)) {
         return thisValue;
       }
-      if (thisValue.wordCount <= 10 && bigintSecond.wordCount <= 10) {
-        int expOfTwo = Math.Min(
-          thisValue.GetLowBit(),
-          bigintSecond.GetLowBit());
-        while (true) {
-          EInteger bigintA = (thisValue - (EInteger)bigintSecond).Abs();
-          if (bigintA.IsZero) {
-            if (expOfTwo != 0) {
-              thisValue <<= expOfTwo;
-            }
-            return thisValue;
+      if (thisValue.CanFitInInt64() && bigintSecond.CanFitInInt64()) {
+        // Adapted from Christian Stigen Larsen's
+        // public domain GCD code
+        long u = thisValue.ToInt64Unchecked();
+        long v = bigintSecond.ToInt64Unchecked();
+        var shl = 0;
+        while (u != 0 && v != 0 && u != v) {
+          bool eu = (u & 1L) != 0;
+          bool ev = (v & 1L) != 0;
+          if (eu && ev) {
+            ++shl;
+            u >>= 1;
+            v >>= 1;
+          } else if (eu && !ev) {
+ u >>= 1;
+  } else if (!eu && ev) {
+ v >>= 1;
+  } else if (u >= v) {
+ u = (u - v) >> 1;
+} else {
+            long tmp = u;
+            u = (v - u) >> 1;
+            v = tmp;
           }
-          int setbit = bigintA.GetLowBit();
-          bigintA >>= setbit;
-          bigintSecond = (thisValue.CompareTo(bigintSecond) < 0) ? thisValue :
-            bigintSecond;
-          thisValue = bigintA;
         }
+        return u == 0 ?
+          EInteger.FromInt64(v << shl) : EInteger.FromInt64(u << shl);
       } else {
         EInteger temp;
         while (!thisValue.IsZero) {

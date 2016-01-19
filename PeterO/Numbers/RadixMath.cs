@@ -3153,6 +3153,7 @@ ctx,
         }
         // Rest of method assumes unlimited precision
         // and IntegerModeRegular
+        // TODO: Optimize this portion of the method
         int mantcmp = mantissaDividend.CompareTo(mantissaDivisor);
         if (mantcmp < 0) {
           // dividend mantissa is less than divisor mantissa

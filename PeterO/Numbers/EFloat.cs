@@ -1781,13 +1781,12 @@ EContext ctx) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
       public bool HasTerminatingRadixExpansion(EInteger num, EInteger den) {
         EInteger gcd = num.Gcd(den);
-        if (gcd.IsZero) {
+        den /= gcd;
+        if (den.IsZero) {
           return false;
         }
-        den /= gcd;
-        while (den.IsEven) {
-          den >>= 1;
-        }
+        int lowBit = den.GetLowBit();
+        den >>= lowBit;
         return den.Equals(EInteger.One);
       }
 

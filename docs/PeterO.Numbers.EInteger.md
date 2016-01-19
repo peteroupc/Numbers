@@ -204,6 +204,12 @@ Returns whether this object's value can fit in a 32-bit signed integer.
 
 True if this object's value is MinValue or greater, and MaxValue or less; otherwise, false.
 
+### CanFitInInt64
+
+    public bool CanFitInInt64();
+
+<b>Returns:</b>
+
 ### CompareTo
 
     public sealed int CompareTo(

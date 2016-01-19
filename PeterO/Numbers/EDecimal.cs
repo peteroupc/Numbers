@@ -2073,18 +2073,20 @@ EContext ctx) {
       if (this.IsZero) {
         return 0.0;
       }
-      EInteger adjExp = this.GetAdjustedExponent();
-      if (adjExp.CompareTo((EInteger)(-326)) < 0) {
-        // Very low exponent, treat as 0
+      if (this.IsFinite) {
+       EInteger adjExp = this.GetAdjustedExponent();
+        if (adjExp.CompareTo((EInteger)(-326)) < 0) {
+          // Very low exponent, treat as 0
         return this.IsNegative ? Extras.IntegersToDouble(new[] { 0,
             unchecked((int)(1 << 31)) }) : 0.0;
-      }
-      if (adjExp.CompareTo((EInteger)309) > 0) {
+       }
+       if (adjExp.CompareTo((EInteger)309) > 0) {
         // Very high exponent, treat as infinity
         return this.IsNegative ? Double.NegativeInfinity :
           Double.PositiveInfinity;
+       }
       }
-      return this.ToEFloatInternal(true).ToDouble();
+      return this.ToEFloatInternal(EContext.Binary64).ToDouble();
     }
 
     /// <include file='../../docs.xml'
@@ -2109,13 +2111,13 @@ EContext ctx) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToExtendedFloat"]/*'/>
     [Obsolete("Renamed to ToEFloat.")]
     public EFloat ToExtendedFloat() {
-      return this.ToEFloatInternal(false);
+      return this.ToEFloatInternal(EContext.Unlimited);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToExtendedFloat"]/*'/>
     public EFloat ToEFloat() {
-      return this.ToEFloatInternal(false);
+      return this.ToEFloatInternal(EContext.Unlimited);
     }
 
     /// <include file='../../docs.xml'
@@ -2235,7 +2237,7 @@ EContext ctx) {
         return this.IsNegative ? Single.NegativeInfinity :
           Single.PositiveInfinity;
       }
-      return this.ToEFloatInternal(true).ToSingle();
+      return this.ToEFloatInternal(EContext.Binary32).ToSingle();
     }
 
     /// <include file='../../docs.xml'
@@ -2442,98 +2444,148 @@ EContext ctx) {
       }
     }
 
-    private EFloat ToEFloatInternal(bool oddRounding) {
-      if (this.IsNaN() || this.IsInfinity()) {
-        return EFloat.CreateWithFlags(
-          this.unsignedMantissa.AsEInteger(),
-          this.exponent.AsEInteger(),
-          this.flags);
+private static bool HasTerminatingBinaryExpansion(EInteger num, EInteger
+      den) {
+      EInteger gcd = num.Gcd(den);
+      den /= gcd;
+      if (den.IsZero) {
+        return false;
       }
+      int lowBit = den.GetLowBit();
+      den >>= lowBit;
+      return den.Equals(EInteger.One);
+    }
+
+    private EFloat WithThisSign(EFloat ef) {
+      return this.IsNegative ? ef.Negate() : ef;
+    }
+
+    private EFloat ToEFloatInternal(EContext ec) {
       EInteger bigintExp = this.Exponent;
-      EInteger bigintMant = this.Mantissa;
+      EInteger bigintMant = this.UnsignedMantissa;
+      if (this.IsNaN()) {
+        return EFloat.CreateNaN(this.UnsignedMantissa,
+          this.IsSignalingNaN(),
+          this.IsNegative, ec);
+      }
+      if (this.IsPositiveInfinity()) {
+        return EFloat.PositiveInfinity;
+      }
+      if (this.IsNegativeInfinity()) {
+        return EFloat.NegativeInfinity;
+      }
       if (bigintMant.IsZero) {
-        return this.IsNegative ? EFloat.NegativeZero :
-          EFloat.Zero;
+        return this.IsNegative ? EFloat.NegativeZero.RoundToPrecision(ec) :
+          EFloat.Zero.RoundToPrecision(ec);
       }
       if (bigintExp.IsZero) {
         // Integer
-        return EFloat.FromEInteger(bigintMant);
+     return
+  WithThisSign(EFloat.FromEInteger(bigintMant)).RoundToPrecision(ec);
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
         EInteger bigmantissa = bigintMant;
-        bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
+        bigintExp = EInteger.FromInt32(10).PowBigIntVar(bigintExp);
         bigmantissa *= (EInteger)bigintExp;
-        return EFloat.FromEInteger(bigmantissa);
+    return
+  WithThisSign(EFloat.FromEInteger(bigmantissa)).RoundToPrecision(ec);
       } else {
         // Fractional number
-        FastInteger scale = FastInteger.FromBig(bigintExp);
+        EInteger scale = bigintExp;
         EInteger bigmantissa = bigintMant;
         bool neg = bigmantissa.Sign < 0;
-        EInteger remainder;
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
         }
-        FastInteger negscale = FastInteger.Copy(scale).Negate();
-        EInteger divisor =
-          NumberUtility.FindPowerOfFiveFromBig(negscale.AsEInteger());
-        while (true) {
-          EInteger quotient;
-          {
-            EInteger[] divrem = bigmantissa.DivRem(divisor);
-            quotient = divrem[0];
-            remainder = divrem[1];
-          }
-          // Ensure that the quotient has enough precision
-          // to be converted accurately to a single or double
-          if (!remainder.IsZero && quotient.CompareTo(ValueOneShift62) < 0) {
-            // At this point, the quotient has 62 or fewer bits
-            int[] bits = FastInteger.GetLastWords(quotient, 2);
-            var shift = 0;
-            if ((bits[0] | bits[1]) != 0) {
-              // Quotient's integer part is nonzero.
-              // Get the number of bits of the quotient
-              int bitPrecision = NumberUtility.BitPrecisionInt(bits[1]);
-              if (bitPrecision != 0) {
-                bitPrecision += 32;
-              } else {
-                bitPrecision = NumberUtility.BitPrecisionInt(bits[0]);
-              }
-              shift = 63 - bitPrecision;
-              scale.SubtractInt(shift);
-            } else {
-              // Integer part of quotient is 0
-              shift = 1;
-              scale.SubtractInt(shift);
-            }
-            // shift by that many bits, but not less than 1
-            bigmantissa <<= shift;
-          } else {
-            bigmantissa = quotient;
-            break;
-          }
+        EInteger negscale = -scale;
+        EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
+        EInteger desiredHigh, desiredLow;
+        var haveCopy = false;
+        ec = ec ?? EContext.Unlimited;
+        EContext originalEc = ec;
+        if (!ec.HasMaxPrecision &&
+          !HasTerminatingBinaryExpansion(bigmantissa, divisor)) {
+          ec = ec.WithPrecision(53).WithBlankFlags();
+          haveCopy = true;
         }
-        if (oddRounding) {
-          // Round to odd to avoid the double-rounding problem
-          if (!remainder.IsZero && bigmantissa.IsEven) {
-           bigmantissa = bigmantissa.Add(EInteger.One);
+  EInteger ecPrec = ec.HasMaxPrecision ? ec.Precision +
+          EInteger.FromInt32(2) :
+          EInteger.Zero;
+        if (!ecPrec.CanFitInInt32()) {
+          EInteger precm1 = ecPrec - EInteger.One;
+          desiredLow = EInteger.One;
+          while (precm1.Sign > 0) {
+           var shift = 1000000;
+           if (precm1.CompareTo((EInteger)1000000) < 0) {
+            shift = precm1.ToInt32Checked();
+           }
+           desiredLow <<= shift;
+           precm1 -= (EInteger)shift;
           }
+          desiredHigh = desiredLow << 1;
         } else {
-          // Round half-even
-          EInteger halfDivisor = divisor;
-          halfDivisor >>= 1;
-          int cmp = remainder.CompareTo(halfDivisor);
-          // No need to check for exactly half since all powers
-          // of five are odd
-          if (cmp > 0) {
-            // Greater than half
-           bigmantissa = bigmantissa.Add(EInteger.One);
-          }
+          int prec = ecPrec.ToInt32Checked();
+          desiredHigh = EInteger.One << prec;
+          desiredLow = EInteger.One << (prec - 1);
         }
-        if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+        EInteger[] quorem = (ec.HasMaxPrecision) ?
+          bigmantissa.DivRem(divisor) : null;
+        var adjust = new FastInteger(0);
+        if (!ec.HasMaxPrecision) {
+          int term = divisor.GetLowBit();
+          bigmantissa <<= term;
+          adjust.SubtractInt(term);
+          quorem = bigmantissa.DivRem(divisor);
+        } else if (quorem[0].CompareTo(desiredHigh) >= 0) {
+          do {
+            divisor <<= 1;
+            quorem = bigmantissa.DivRem(divisor);
+            adjust.Increment();
+          } while (quorem[0].CompareTo(desiredHigh) >= 0) ;
+        } else if (quorem[0].CompareTo(desiredLow) < 0) {
+          do {
+            if (bigmantissa.CompareTo(divisor) < 0) {
+              quorem[0] = EInteger.Zero;
+              quorem[1] = bigmantissa;
+              int bmBits = bigmantissa.GetUnsignedBitLength();
+              int divBits = divisor.GetUnsignedBitLength();
+              if (bmBits < divBits) {
+                bmBits = divBits - bmBits;
+                bigmantissa <<= bmBits;
+                adjust.SubtractInt(bmBits);
+              } else {
+                bigmantissa <<= 1;
+                adjust.Decrement();
+              }
+            } else {
+              bigmantissa <<= 1;
+              adjust.Decrement();
+            }
+            quorem = bigmantissa.DivRem(divisor);
+            if (quorem[1].IsZero) {
+              int bmBits = quorem[0].GetUnsignedBitLength();
+              int divBits = desiredLow.GetUnsignedBitLength();
+              if (bmBits < divBits) {
+                bmBits = divBits - bmBits;
+                quorem[0] <<= bmBits;
+                adjust.SubtractInt(bmBits);
+              }
+            }
+          } while (quorem[0].CompareTo(desiredLow) < 0) ;
         }
-        return EFloat.Create(bigmantissa, scale.AsEInteger());
+        // Round to odd to avoid rounding errors
+        if (!quorem[1].IsZero && quorem[0].IsEven) {
+          quorem[0] += EInteger.One;
+        }
+        EFloat efret = WithThisSign(EFloat.Create(quorem[0],
+          adjust.AsEInteger()));
+        //DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " + (//  efret.Exponent));
+        efret = efret.RoundToPrecision(ec);
+        if (haveCopy && originalEc.HasFlags) {
+          originalEc.Flags |= ec.Flags;
+        }
+        return efret;
       }
     }
 

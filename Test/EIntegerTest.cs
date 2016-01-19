@@ -1296,6 +1296,18 @@ BigValueOf(longV).ToInt64Checked());
     }
 
     [Test]
+    [Timeout(10000)]
+    public void TestGcdHang() {
+      {
+string stringTemp = BigFromString("781631509928000000").Gcd(
+          BigFromString("1000000")).ToString();
+Assert.AreEqual(
+"1000000",
+stringTemp);
+}
+    }
+
+    [Test]
     public void TestGcd() {
       try {
         EInteger.Zero.Gcd(null);

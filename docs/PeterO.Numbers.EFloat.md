@@ -249,16 +249,27 @@ Quiet NaN if this object or the other object is NaN, or 0 if both objects have t
     public int CompareToTotal(
         PeterO.Numbers.EFloat other);
 
-Not documented yet.
+Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
+
+ * For objects with the same value, the one with the higher exponent has a greater "absolute value".
+
+ * Negative zero is less than positive zero.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
+
+ * Negative numbers are less than positive numbers.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision binary float to compare with this one.
 
 <b>Returns:</b>
 
-A 32-bit signed integer.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. Does not signal flags if either value is signaling NaN.
 
 ### CompareToTotal
 
@@ -266,35 +277,54 @@ A 32-bit signed integer.
         PeterO.Numbers.EFloat other,
         PeterO.Numbers.EContext ctx);
 
-Not documented yet.
+Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
+
+ * For objects with the same value, the one with the higher exponent has a greater "absolute value".
+
+ * Negative zero is less than positive zero.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
+
+ * Negative numbers are less than positive numbers.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision binary float to compare with this one.
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context. Flags will be set in this context only if `HasFlags`  and  `IsSimplified`  of the context are true and only if an operand needed to be rounded before carrying out the operation. Can be null.
 
 <b>Returns:</b>
 
-A 32-bit signed integer.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
 ### CompareToTotalMagnitude
 
     public int CompareToTotalMagnitude(
         PeterO.Numbers.EFloat other);
 
-Not documented yet.
+Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs). In this method:
+
+ * For objects with the same value, the one with the higher exponent has a greater "absolute value".
+
+ * Negative zero and positive zero are considered equal.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision binary float to compare with this one.
 
 <b>Returns:</b>
 
-A 32-bit signed integer.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
 ### CompareToWithContext
 
@@ -947,7 +977,7 @@ Either  <i>offset</i>
         int length,
         PeterO.Numbers.EContext ctx);
 
-Creates a binary float from a string that represents a number. Note that if the string contains a negative exponent, the resulting value might not be exact. However, the resulting binary float will contain enough precision to accurately convert it to a 32-bit or 64-bit floating point number (float or double).The format of the string generally consists of:
+Creates a binary float from a string that represents a number. Note that if the string contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.The format of the string generally consists of:
 
  * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
 

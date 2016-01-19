@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using PeterO.Numbers;
+using System.Text;
 
 namespace Test {
   [TestFixture]
@@ -194,6 +195,7 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(60000)]
     public void TestFloatDecimalRoundTrip() {
       var r = new FastRandom();
       for (var i = 0; i < 5000; ++i) {
@@ -878,6 +880,113 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+    public EFloat RandomDoubleEFloat(FastRandom rnd) {
+      return RandomDoubleEFloat(rnd, false);
+    }
+
+    public EFloat RandomDoubleEFloat(FastRandom rnd, bool subnormal) {
+      var sb = new StringBuilder();
+      sb.Append(subnormal ? '0' : '1');
+      var subSize = 52;
+      int[] oneChances = { 99, 1, 50, 50, 50 };
+      int oneChance = oneChances[rnd.NextValue(oneChances.Length)];
+      if (subnormal) {
+        subSize = rnd.NextValue(51);
+      }
+      for (var i = 0; i < 52; ++i) {
+        sb.Append(((i < 52 - subSize) || (rnd.NextValue(100) >= oneChance))?
+          '0' : '1');
+      }
+      int expo = 0, exponent;
+      if (subnormal) {
+        exponent = -1074;
+      } else {
+        expo = rnd.NextValue(2046) - 1023;
+        exponent = expo - 52;
+      }
+      //Console.WriteLine("" + sb + " exp=" + (exponent));
+      var eiExponent = (EInteger)exponent;
+      return EFloat.Create(
+        EInteger.FromRadixString(sb.ToString(), 2),
+        eiExponent);
+    }
+
+    public static string OutputDouble(double dbl) {
+      EFloat ef = EFloat.FromDouble(dbl);
+      return dbl + " [" + ef.Mantissa.Abs().ToRadixString(2) +
+        "," + ef.Exponent + "]";
+    }
+    public static string OutputEF(EFloat ef) {
+      return ef.ToDouble() + " [" + ef.Mantissa.Abs().ToRadixString(2) +
+        "," + ef.Exponent + "]";
+    }
+
+    public static void TestDoubleRounding(EFloat expected, EFloat input,
+      EFloat src) {
+      if (!input.IsFinite || !expected.IsFinite) {
+        return;
+      }
+      double expectedDouble = expected.ToDouble();
+      if (Double.IsInfinity(expectedDouble)) {
+        return;
+      }
+      string str = input.ToString();
+      if (input.ToDouble() != expectedDouble) {
+  Assert.Fail("\nexpected {0},\ngot----- {1}\nsrc-----={2}\nexpected={3}\ninput---={4}"
+          ,
+          OutputDouble(expectedDouble),
+          OutputDouble(input.ToDouble()),
+          OutputEF(src),
+          OutputEF(expected),
+          OutputEF(input));
+      }
+      double inputDouble = EDecimal.FromString(str).ToDouble();
+      if (inputDouble != expectedDouble) {
+  Assert.Fail("\nexpected {0},\ngot----- {1}\nsrc-----={2}\nexpected={3}\ninput---={4}"
+          ,
+          OutputDouble(expectedDouble),
+          OutputDouble(inputDouble), OutputEF(src),
+          OutputEF(expected),
+          OutputEF(input));
+      }
+    }
+
+    private static void TestToDoubleRoundingOne(EFloat efa) {
+      bool isEven = efa.UnsignedMantissa.IsEven;
+      EFloat efprev = efa.NextMinus(EContext.Binary64);
+      EFloat efnext = efa.NextPlus(EContext.Binary64);
+      EFloat efnextgap = efnext.Subtract(efa);
+      EFloat efprevgap = efa.Subtract(efprev);
+   EFloat efprev1q = efprev.Add(efprevgap.Multiply(EFloat.FromString("0.25"
+)));
+   EFloat efprev2q = efprev.Add(efprevgap.Multiply(EFloat.FromString("0.50"
+)));
+   EFloat efprev3q = efprev.Add(efprevgap.Multiply(EFloat.FromString("0.75"
+)));
+      EFloat efnext1q = efa.Add(efnextgap.Multiply(EFloat.FromString("0.25")));
+      EFloat efnext2q = efa.Add(efnextgap.Multiply(EFloat.FromString("0.50")));
+      EFloat efnext3q = efa.Add(efnextgap.Multiply(EFloat.FromString("0.75")));
+      TestDoubleRounding(efprev, efprev, efa);
+      TestDoubleRounding(efprev, efprev1q, efa);
+      TestDoubleRounding(isEven ? efa : efprev, efprev2q, efa);
+      TestDoubleRounding(efa, efprev3q, efa);
+      TestDoubleRounding(efa, efa, efa);
+      TestDoubleRounding(efa, efnext1q, efa);
+      TestDoubleRounding(isEven ? efa : efnext, efnext2q, efa);
+      TestDoubleRounding(efnext, efnext3q, efa);
+      TestDoubleRounding(efnext, efnext, efa);
+    }
+
+    [Test]
+    public void TestToDoubleRounding() {
+      var fr = new FastRandom();
+      for (var i = 0; i < 500; ++i) {
+        EFloat efa = RandomDoubleEFloat(fr, i >= 250);
+        TestToDoubleRoundingOne(efa);
+      }
+      TestToDoubleRoundingOne(EFloat.Create(0, -1074));
+    }
+
     [Test]
     public void TestToEIntegerExact() {
       EFloat flo = EFloat.Create(999, -1);

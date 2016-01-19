@@ -2361,9 +2361,8 @@ or negative) of another number.</summary>
 <summary>Creates a binary floating-point number from this
             object&#x27;s value. Note that if the binary floating-point number
             contains a negative exponent, the resulting value might not be
-            exact. However, the resulting binary float will contain enough
-            precision to accurately convert it to a 32-bit or 64-bit floating
-            point number (float or double).</summary>
+            exact, in which case the resulting binary float will be an
+            approximation of this decimal number's value.</summary>
             <returns>An arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Checked">
@@ -3204,9 +3203,8 @@ or negative) of another number.</summary>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32,PeterO.Numbers.EContext)">
 <summary>Creates a binary float from a string that represents a
             number. Note that if the string contains a negative exponent, the
-            resulting value might not be exact. However, the resulting binary
-            float will contain enough precision to accurately convert it to a
-            32-bit or 64-bit floating point number (float or double).
+            resulting value might not be exact, in which case the resulting binary float will be an
+            approximation of this decimal number's value.
             <para>The format of the string generally consists of:</para>
             <list type=''>
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
