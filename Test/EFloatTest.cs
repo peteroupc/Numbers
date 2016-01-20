@@ -87,9 +87,9 @@ namespace Test {
     public void TestCompareTo() {
       var r = new FastRandom();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomExtendedFloat(r);
-        EFloat bigintB = RandomObjects.RandomExtendedFloat(r);
-        EFloat bigintC = RandomObjects.RandomExtendedFloat(r);
+        EFloat bigintA = RandomObjects.RandomEFloat(r);
+        EFloat bigintB = RandomObjects.RandomEFloat(r);
+        EFloat bigintC = RandomObjects.RandomEFloat(r);
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
       }
       TestCommon.CompareTestLess(EFloat.Zero, EFloat.NaN);
@@ -143,8 +143,8 @@ namespace Test {
     public void TestEquals() {
       var r = new FastRandom();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomExtendedFloat(r);
-        EFloat bigintB = RandomObjects.RandomExtendedFloat(r);
+        EFloat bigintA = RandomObjects.RandomEFloat(r);
+        EFloat bigintB = RandomObjects.RandomEFloat(r);
         TestCommon.AssertEqualsHashCode(bigintA, bigintB);
       }
     }
@@ -162,35 +162,35 @@ namespace Test {
     }
 
     [Test]
-    public void TestExtendedFloatDouble() {
-      TestExtendedFloatDoubleCore(3.5, "3.5");
-      TestExtendedFloatDoubleCore(7, "7");
-      TestExtendedFloatDoubleCore(1.75, "1.75");
-      TestExtendedFloatDoubleCore(3.5, "3.5");
-      TestExtendedFloatDoubleCore((double)Int32.MinValue, "-2147483648");
-      TestExtendedFloatDoubleCore(
+    public void TestEFloatDouble() {
+      TestEFloatDoubleCore(3.5, "3.5");
+      TestEFloatDoubleCore(7, "7");
+      TestEFloatDoubleCore(1.75, "1.75");
+      TestEFloatDoubleCore(3.5, "3.5");
+      TestEFloatDoubleCore((double)Int32.MinValue, "-2147483648");
+      TestEFloatDoubleCore(
         (double)Int64.MinValue,
         "-9223372036854775808");
       var rand = new FastRandom();
       for (var i = 0; i < 2047; ++i) {
         // Try a random double with a given
         // exponent
-        TestExtendedFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
-        TestExtendedFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
-        TestExtendedFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
-        TestExtendedFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
+        TestEFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
+        TestEFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
+        TestEFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
+        TestEFloatDoubleCore(RandomObjects.RandomDouble(rand, i), null);
       }
     }
     [Test]
-    public void TestExtendedFloatSingle() {
+    public void TestEFloatSingle() {
       var rand = new FastRandom();
       for (var i = 0; i < 255; ++i) {
         // Try a random float with a given
         // exponent
-        TestExtendedFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
-        TestExtendedFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
-        TestExtendedFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
-        TestExtendedFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
+        TestEFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
+        TestEFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
+        TestEFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
+        TestEFloatSingleCore(RandomObjects.RandomSingle(rand, i), null);
       }
     }
 
@@ -199,7 +199,7 @@ namespace Test {
     public void TestFloatDecimalRoundTrip() {
       var r = new FastRandom();
       for (var i = 0; i < 5000; ++i) {
-        EFloat ef = RandomObjects.RandomExtendedFloat(r);
+        EFloat ef = RandomObjects.RandomEFloat(r);
         EDecimal ed = ef.ToEDecimal();
         EFloat ef2 = ed.ToEFloat();
         // Tests that values converted from float to decimal and
@@ -579,8 +579,8 @@ namespace Test {
       }
       var r = new FastRandom();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomExtendedFloat(r);
-        EFloat bigintB = RandomObjects.RandomExtendedFloat(r);
+        EFloat bigintA = RandomObjects.RandomEFloat(r);
+        EFloat bigintB = RandomObjects.RandomEFloat(r);
         if (!bigintA.IsFinite || !bigintB.IsFinite) {
           continue;
         }
@@ -647,8 +647,8 @@ namespace Test {
 
       var r = new FastRandom();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomExtendedFloat(r);
-        EFloat bigintB = RandomObjects.RandomExtendedFloat(r);
+        EFloat bigintA = RandomObjects.RandomEFloat(r);
+        EFloat bigintB = RandomObjects.RandomEFloat(r);
         if (!bigintA.IsFinite || !bigintB.IsFinite) {
           continue;
         }
@@ -886,6 +886,9 @@ namespace Test {
 
     public EFloat RandomDoubleEFloat(FastRandom rnd, bool subnormal) {
       var sb = new StringBuilder();
+      if (rnd.NextValue(2) == 0) {
+        sb.Append('-');
+      }
       sb.Append(subnormal ? '0' : '1');
       var subSize = 52;
       int[] oneChances = { 99, 1, 50, 50, 50 };
@@ -951,21 +954,25 @@ namespace Test {
       }
     }
 
+    private static EFloat quarter = EFloat.FromString("0.25");
+    private static EFloat half = EFloat.FromString("0.5");
+    private static EFloat threequarter = EFloat.FromString("0.75");
+
     private static void TestToDoubleRoundingOne(EFloat efa) {
       bool isEven = efa.UnsignedMantissa.IsEven;
       EFloat efprev = efa.NextMinus(EContext.Binary64);
       EFloat efnext = efa.NextPlus(EContext.Binary64);
       EFloat efnextgap = efnext.Subtract(efa);
       EFloat efprevgap = efa.Subtract(efprev);
-   EFloat efprev1q = efprev.Add(efprevgap.Multiply(EFloat.FromString("0.25"
-)));
-   EFloat efprev2q = efprev.Add(efprevgap.Multiply(EFloat.FromString("0.50"
-)));
-   EFloat efprev3q = efprev.Add(efprevgap.Multiply(EFloat.FromString("0.75"
-)));
-      EFloat efnext1q = efa.Add(efnextgap.Multiply(EFloat.FromString("0.25")));
-      EFloat efnext2q = efa.Add(efnextgap.Multiply(EFloat.FromString("0.50")));
-      EFloat efnext3q = efa.Add(efnextgap.Multiply(EFloat.FromString("0.75")));
+   EFloat efprev1q = efprev.Add(
+     efprevgap.Multiply(quarter));
+   EFloat efprev2q = efprev.Add(
+     efprevgap.Multiply(half));
+   EFloat efprev3q = efprev.Add(
+     efprevgap.Multiply(threequarter));
+      EFloat efnext1q = efa.Add(efnextgap.Multiply(quarter));
+      EFloat efnext2q = efa.Add(efnextgap.Multiply(half));
+      EFloat efnext3q = efa.Add(efnextgap.Multiply(threequarter));
       TestDoubleRounding(efprev, efprev, efa);
       TestDoubleRounding(efprev, efprev1q, efa);
       TestDoubleRounding(isEven ? efa : efprev, efprev2q, efa);
@@ -1042,7 +1049,7 @@ namespace Test {
       }
     }
 
-    private static void TestExtendedFloatDoubleCore(double d, string s) {
+    private static void TestEFloatDoubleCore(double d, string s) {
       double oldd = d;
       EFloat bf = EFloat.FromDouble(d);
       if (s != null) {
@@ -1052,7 +1059,7 @@ namespace Test {
       Assert.AreEqual((double)oldd, d);
     }
 
-    private static void TestExtendedFloatSingleCore(float d, string s) {
+    private static void TestEFloatSingleCore(float d, string s) {
       float oldd = d;
       EFloat bf = EFloat.FromSingle(d);
       if (s != null) {

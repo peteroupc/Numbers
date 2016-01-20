@@ -107,7 +107,7 @@ namespace Test {
       return BitConverter.ToSingle(BitConverter.GetBytes((int)r), 0);
     }
 
-    public static EDecimal RandomExtendedDecimal(FastRandom r) {
+    public static EDecimal RandomEDecimal(FastRandom r) {
       if (r.NextValue(100) == 0) {
         int x = r.NextValue(3);
         if (x == 0) {
@@ -145,7 +145,7 @@ namespace Test {
       }
     }
 
-    public static EFloat RandomExtendedFloat(FastRandom r) {
+    public static EFloat RandomEFloat(FastRandom r) {
       if (r.NextValue(100) == 0) {
         int x = r.NextValue(3);
         if (x == 0) {

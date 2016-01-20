@@ -284,7 +284,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             <value>The traps that are set for each flag in the context.</value>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Unlimited">
-<summary>No specific limit on precision. Rounding mode
+<summary>No specific (theoretical) limit on precision. Rounding mode
             HalfUp.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)">

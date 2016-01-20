@@ -127,11 +127,11 @@ namespace Test {
       // not implemented yet
     }
     [Test]
-    public void TestFromExtendedDecimal() {
+    public void TestFromEDecimal() {
       // not implemented yet
     }
     [Test]
-    public void TestFromExtendedFloat() {
+    public void TestFromEFloat() {
       // not implemented yet
     }
     [Test]

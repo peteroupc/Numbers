@@ -3036,9 +3036,9 @@ ctx,
         if (integerMode == IntegerModeRegular) {
           EInteger rem = null;
           EInteger quo = null;
-          // DebugUtility.Log("div=" +
-          // (mantissaDividend.getUnsignedBitLength()) + " divs= " +
-          // (mantissaDivisor.getUnsignedBitLength()));
+         // DebugUtility.Log("div=" +
+         //  (mantissaDividend.GetUnsignedBitLength()) + " divs= " +
+         //  (mantissaDivisor.GetUnsignedBitLength()));
           {
             EInteger[] divrem = mantissaDividend.DivRem(mantissaDivisor);
             quo = divrem[0];
@@ -3046,6 +3046,7 @@ ctx,
           }
           if (rem.IsZero) {
             // Dividend is divisible by divisor
+            //DebugUtility.Log("divisible dividend");
             quo = quo.Abs();
             return this.RoundToPrecision(
               this.helper.CreateNewWithFlags(quo, naturalExponent.AsEInteger(), resultNeg ? BigNumberFlags.FlagNegative : 0),
@@ -3059,6 +3060,7 @@ ctx,
               throw new ArgumentNullException("ctx");
             }
 #endif
+            //DebugUtility.Log("has precision");
             EInteger divid = mantissaDividend;
             FastInteger shift = FastInteger.FromBig(ctx.Precision);
             dividendPrecision =
@@ -3153,123 +3155,35 @@ ctx,
         }
         // Rest of method assumes unlimited precision
         // and IntegerModeRegular
-        // TODO: Optimize this portion of the method
         int mantcmp = mantissaDividend.CompareTo(mantissaDivisor);
-        if (mantcmp < 0) {
-          // dividend mantissa is less than divisor mantissa
-          dividendPrecision =
-               this.helper.CreateShiftAccumulator(mantissaDividend)
-                    .GetDigitLength();
-          divisorPrecision =
-            this.helper.CreateShiftAccumulator(mantissaDivisor)
-            .GetDigitLength();
-          divisorPrecision.Subtract(dividendPrecision);
-          if (divisorPrecision.IsValueZero) {
-            divisorPrecision.Increment();
-          }
-          // multiply dividend mantissa so precisions are the same
-          // (except if they're already the same, in which case multiply
-          // by radix)
-          mantissaDividend = this.TryMultiplyByRadixPower(
-            mantissaDividend,
-            divisorPrecision);
-          if (mantissaDividend == null) {
-            return this.SignalInvalidWithMessage(
-              ctx,
-              "Result requires too much memory");
-          }
-          adjust.Add(divisorPrecision);
-          if (mantissaDividend.CompareTo(mantissaDivisor) < 0) {
-            // dividend mantissa is still less, multiply once more
-            if (radix == 2) {
-              mantissaDividend <<= 1;
-            } else {
-              mantissaDividend *= (EInteger)radix;
-            }
-            adjust.Increment();
-          }
-        } else if (mantcmp > 0) {
-          // dividend mantissa is greater than divisor mantissa
-          dividendPrecision =
-               this.helper.CreateShiftAccumulator(mantissaDividend)
-                    .GetDigitLength();
-          divisorPrecision =
-            this.helper.CreateShiftAccumulator(mantissaDivisor)
-            .GetDigitLength();
-          dividendPrecision.Subtract(divisorPrecision);
-          EInteger oldMantissaB = mantissaDivisor;
-          mantissaDivisor = this.TryMultiplyByRadixPower(
-            mantissaDivisor,
-            dividendPrecision);
-          if (mantissaDivisor == null) {
-            return this.SignalInvalidWithMessage(
-              ctx,
-              "Result requires too much memory");
-          }
-          adjust.Subtract(dividendPrecision);
-          if (mantissaDividend.CompareTo(mantissaDivisor) < 0) {
-            // dividend mantissa is now less, divide by radix power
-            if (dividendPrecision.CompareToInt(1) == 0) {
-              // no need to divide here, since that would just undo
-              // the multiplication
-              mantissaDivisor = oldMantissaB;
-            } else {
-              var bigpow = (EInteger)radix;
-              mantissaDivisor /= bigpow;
-            }
-            adjust.Increment();
-          }
-        }
         if (mantcmp == 0) {
           result = new FastInteger(1);
           mantissaDividend = EInteger.Zero;
         } else {
-          {
-            if (!this.helper.HasTerminatingRadixExpansion(
-              mantissaDividend,
-              mantissaDivisor)) {
+        EInteger gcd = mantissaDividend.Gcd(mantissaDivisor);
+        //DebugUtility.Log("mgcd/den1={0}/{1}/{2}", mantissaDividend, mantissaDivisor, gcd);
+        if (gcd.CompareTo(EInteger.One) != 0) {
+          mantissaDividend /= gcd;
+          mantissaDivisor /= gcd;
+        }
+          //DebugUtility.Log("mgcd/den2={0}/{1}/{2}", mantissaDividend, mantissaDivisor, gcd);
+          FastInteger divShift =this.helper.DivisionShift(
+              mantissaDividend,mantissaDivisor);
+            
+            if (divShift == null) {
               return this.SignalInvalidWithMessage(
 ctx,
 "Result would have a nonterminating expansion");
             }
-            FastInteger divs = FastInteger.FromBig(mantissaDivisor);
-            FastInteger divd = FastInteger.FromBig(mantissaDividend);
-            bool divisorFits = divs.CanFitInInt32();
-            int smallDivisor = divisorFits ? divs.AsInt32() : 0;
-            int halfRadix = radix / 2;
-            FastInteger divsHalfRadix = null;
-            if (radix != 2) {
-              divsHalfRadix =
-                FastInteger.FromBig(mantissaDivisor).Multiply(halfRadix);
-            }
-            while (true) {
-              var remainderZero = false;
-              var count = 0;
-              if (divd.CanFitInInt32()) {
-                if (divisorFits) {
-                  int smallDividend = divd.AsInt32();
-                  count = smallDividend / smallDivisor;
-                  divd.SetInt(smallDividend % smallDivisor);
-                } else {
-                  count = 0;
-                }
-              } else {
-                if (divsHalfRadix != null) {
-                  count += halfRadix * divd.RepeatedSubtract(divsHalfRadix);
-                }
-                count += divd.RepeatedSubtract(divs);
-              }
-              result.AddInt(count);
-              remainderZero = divd.IsValueZero;
-              if (remainderZero && adjust.Sign >= 0) {
-                mantissaDividend = divd.AsEInteger();
-                break;
-              }
-              adjust.Increment();
-              result.Multiply(radix);
-              divd.Multiply(radix);
-            }
-          }
+            mantissaDividend = this.helper.MultiplyByRadixPower(
+              mantissaDividend, divShift);
+          adjust = FastInteger.Copy(divShift);
+          //DebugUtility.Log("mant {0} {1}", mantissaDividend,
+            //mantissaDivisor);
+            EInteger[] quorem=mantissaDividend.DivRem(mantissaDivisor);
+            //DebugAssert.IsTrue(quorem[1].IsZero);
+            mantissaDividend=quorem[1];
+          result = FastInteger.FromBig(quorem[0]);
         }
         // mantissaDividend now has the remainder
         FastInteger exp = FastInteger.Copy(expdiff).Subtract(adjust);

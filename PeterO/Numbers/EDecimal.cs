@@ -2444,11 +2444,18 @@ EContext ctx) {
       }
     }
 
-private static bool HasTerminatingBinaryExpansion(EInteger num, EInteger
+    private static bool HasTerminatingBinaryExpansion(EInteger num, EInteger
       den) {
-      EInteger gcd = num.Gcd(den);
-      den /= gcd;
       if (den.IsZero) {
+        return false;
+      }
+      EInteger gcd = num.Gcd(den);
+      if (gcd.CompareTo(EInteger.One) != 0) {
+        num /= gcd;
+        den /= gcd;
+      }
+      gcd = den.Gcd(EInteger.FromInt32(10));
+      if (gcd.CompareTo(EInteger.One) == 0) {
         return false;
       }
       int lowBit = den.GetLowBit();
@@ -2938,36 +2945,45 @@ private static bool HasTerminatingBinaryExpansion(EInteger num, EInteger
         return new DigitShiftAccumulator(bigint, 0, 0);
       }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-      public bool HasTerminatingRadixExpansion(
-        EInteger numerator,
-        EInteger denominator) {
-        // Simplify denominator based on numerator
-        EInteger gcd = numerator.Gcd(denominator);
-        EInteger tmpden = denominator;
-        tmpden /= gcd;
-        if (tmpden.IsZero) {
-          return false;
+    public FastInteger DivisionShift(
+        EInteger num, EInteger den) {
+        if (den.IsZero) {
+          return null;
+        }
+        EInteger gcd = den.Gcd(EInteger.FromInt32(10));
+        if (gcd.CompareTo(EInteger.One)==0) {
+          return null;
+        }
+        if (den.IsZero) {
+          return null;
         }
         // Eliminate factors of 2
-        int lowBit = tmpden.GetLowBit();
-        tmpden >>= lowBit;
+        int lowBit = den.GetLowBit();
+        den >>= lowBit;
         // Eliminate factors of 5
+        FastInteger fiveShift = new FastInteger(0);
         while (true) {
           EInteger bigrem;
           EInteger bigquo;
           {
-            EInteger[] divrem = tmpden.DivRem((EInteger)5);
+            EInteger[] divrem = den.DivRem((EInteger)5);
             bigquo = divrem[0];
             bigrem = divrem[1];
           }
           if (!bigrem.IsZero) {
             break;
           }
-          tmpden = bigquo;
+          fiveShift.Increment();
+          den = bigquo;
         }
-        return tmpden.CompareTo(EInteger.One) == 0;
+        if (den.CompareTo(EInteger.One) != 0) {
+          return null;
+        }
+        if(fiveShift.CompareToInt(lowBit)>0){
+          return fiveShift;
+        } else {
+          return new FastInteger(lowBit);
+        }
       }
 
       public EInteger MultiplyByRadixPower(

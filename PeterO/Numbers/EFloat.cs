@@ -1779,15 +1779,17 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-      public bool HasTerminatingRadixExpansion(EInteger num, EInteger den) {
-        EInteger gcd = num.Gcd(den);
-        den /= gcd;
+      public FastInteger DivisionShift(EInteger num, EInteger den) {
         if (den.IsZero) {
-          return false;
+          return null;
+        }
+        EInteger gcd = den.Gcd(EInteger.FromInt32(2));
+        if (gcd.CompareTo(EInteger.One) == 0) {
+          return null;
         }
         int lowBit = den.GetLowBit();
         den >>= lowBit;
-        return den.Equals(EInteger.One);
+        return den.Equals(EInteger.One) ? new FastInteger(lowBit) : null;
       }
 
     /// <include file='../../docs.xml'

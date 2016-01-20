@@ -1039,8 +1039,8 @@ namespace PeterO.Numbers {
         long v = bigintSecond.ToInt64Unchecked();
         var shl = 0;
         while (u != 0 && v != 0 && u != v) {
-          bool eu = (u & 1L) != 0;
-          bool ev = (v & 1L) != 0;
+          bool eu = (u & 1L) == 0;
+          bool ev = (v & 1L) == 0;
           if (eu && ev) {
             ++shl;
             u >>= 1;
@@ -1258,6 +1258,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
     public int GetLowBit() {
+      // TODO: Consider GetLowBitLong method
       var retSetBit = 0;
       for (var i = 0; i < this.wordCount; ++i) {
         int c = ((int)this.words[i]) & 0xffff;
