@@ -117,10 +117,68 @@ namespace Test {
     [Test]
     public void TestDivide() {
       try {
-        EDecimal.FromString("1").Divide(EDecimal.FromString("3"), null);
+        EFloat.FromString("1").Divide(EFloat.FromString("3"), null);
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
+      }
+      {
+string stringTemp = EFloat.FromString(
+"1").Divide(EFloat.FromInt32(8)).ToString();
+Assert.AreEqual(
+"0.125",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"10").Divide(EFloat.FromInt32(80)).ToString();
+Assert.AreEqual(
+"0.125",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"10000").Divide(EFloat.FromInt32(80000)).ToString();
+Assert.AreEqual(
+"0.125",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"1000").Divide(EFloat.FromInt32(8)).ToString();
+Assert.AreEqual(
+"125",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"1").Divide(EFloat.FromInt32(256)).ToString();
+Assert.AreEqual(
+"0.00390625",
+stringTemp);
+}
+      var fr = new FastRandom();
+      for (var i = 0; i < 5000; ++i) {
+        EFloat ed1 = RandomObjects.RandomEFloat(fr);
+        EFloat ed2 = RandomObjects.RandomEFloat(fr);
+        if (!ed1.IsFinite || !ed2.IsFinite) {
+          continue;
+        }
+        EFloat ed3 = ed1.Multiply(ed2);
+        Assert.IsTrue(ed3.IsFinite);
+        EFloat ed4;
+        ed4 = ed3.Divide(ed1);
+        if (!ed1.IsZero) {
+          TestCommon.CompareTestEqual(ed4, ed2);
+        } else {
+          Assert.IsTrue(ed4.IsNaN());
+        }
+        ed4 = ed3.Divide(ed2);
+        if (!ed2.IsZero) {
+          TestCommon.CompareTestEqual(ed4, ed1);
+        } else {
+          Assert.IsTrue(ed4.IsNaN());
+        }
       }
     }
     [Test]
@@ -195,16 +253,25 @@ namespace Test {
     }
 
     [Test]
-    [Timeout(60000)]
+    public void TestFloatDecimalSpecific() {
+      string str =
+  "874952453585761710286297571153092638434027760916318352601207433388312948219720355694692773665688395541653.74728887385887787786487024277448654174804687500"
+        ;
+      EDecimal ed = EDecimal.FromString(str);
+      EFloat ef2 = ed.ToEFloat();
+      Assert.AreEqual(0, ed.CompareToBinary(ef2), ef2.ToString());
+    }
+
+    [Test]
     public void TestFloatDecimalRoundTrip() {
       var r = new FastRandom();
       for (var i = 0; i < 5000; ++i) {
         EFloat ef = RandomObjects.RandomEFloat(r);
         EDecimal ed = ef.ToEDecimal();
-        EFloat ef2 = ed.ToEFloat();
-        // Tests that values converted from float to decimal and
-        // back have the same numerical value
-        TestCommon.CompareTestEqual(ef, ef2);
+          EFloat ef2 = ed.ToEFloat();
+          // Tests that values converted from float to decimal and
+          // back have the same numerical value
+          TestCommon.CompareTestEqual(ef, ef2);
       }
     }
     [Test]
@@ -907,7 +974,7 @@ namespace Test {
         expo = rnd.NextValue(2046) - 1023;
         exponent = expo - 52;
       }
-      //Console.WriteLine("" + sb + " exp=" + (exponent));
+      //Console.WriteLine("" + sb + " exp=" + exponent);
       var eiExponent = (EInteger)exponent;
       return EFloat.Create(
         EInteger.FromRadixString(sb.ToString(), 2),

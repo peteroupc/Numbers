@@ -31,6 +31,9 @@ namespace PeterO {
         type,
         new object[] { str });
     }
+    public static void Log(object obj) {
+      Log("" + (obj));
+    }
 
     public static void Log(string format, params object[] args) {
       Log(String.Format(format, args));

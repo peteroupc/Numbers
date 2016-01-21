@@ -393,21 +393,46 @@ EDecimal.FromString("8451910"));
 
     [Test]
     public void TestDivide() {
-      Assert.AreEqual("0.125",
-        EDecimal.FromString("1").Divide(EDecimal.FromInt32(8)).ToString());
-      Assert.AreEqual("0.125",
-        EDecimal.FromString("10").Divide(EDecimal.FromInt32(80)).ToString());
-      Assert.AreEqual("0.125",
-        EDecimal.FromString("10000").Divide(EDecimal.FromInt32(80000)).ToString());
-      Assert.AreEqual("125",
-        EDecimal.FromString("1000").Divide(EDecimal.FromInt32(8)).ToString());
-      Assert.AreEqual("0.00390625",
-        EDecimal.FromString("1").Divide(EDecimal.FromInt32(256)).ToString());
-      FastRandom fr = new FastRandom();
-      for(var i = 0; i < 5000; i++) {
+      {
+string stringTemp = EDecimal.FromString("1"
+).Divide(EDecimal.FromInt32(8)).ToString();
+Assert.AreEqual(
+"0.125",
+stringTemp);
+}
+      {
+string stringTemp = EDecimal.FromString("10"
+).Divide(EDecimal.FromInt32(80)).ToString();
+Assert.AreEqual(
+"0.125",
+stringTemp);
+}
+      {
+string stringTemp = EDecimal.FromString("10000"
+).Divide(EDecimal.FromInt32(80000)).ToString();
+Assert.AreEqual(
+"0.125",
+stringTemp);
+}
+      {
+string stringTemp = EDecimal.FromString("1000"
+).Divide(EDecimal.FromInt32(8)).ToString();
+Assert.AreEqual(
+"125",
+stringTemp);
+}
+      {
+string stringTemp = EDecimal.FromString("1"
+).Divide(EDecimal.FromInt32(256)).ToString();
+Assert.AreEqual(
+"0.00390625",
+stringTemp);
+}
+      var fr = new FastRandom();
+      for (var i = 0; i < 5000; ++i) {
         EDecimal ed1 = RandomObjects.RandomEDecimal(fr);
         EDecimal ed2 = RandomObjects.RandomEDecimal(fr);
-        if(!ed1.IsFinite || !ed2.IsFinite) {
+        if (!ed1.IsFinite || !ed2.IsFinite) {
           continue;
         }
         EDecimal ed3 = ed1.Multiply(ed2);
@@ -425,6 +450,12 @@ EDecimal.FromString("8451910"));
         } else {
           Assert.IsTrue(ed4.IsNaN());
         }
+      }
+      try {
+        EDecimal.FromString("1").Divide(EDecimal.FromString("3"), null);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
       }
     }
     [Test]

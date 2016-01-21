@@ -208,7 +208,11 @@ True if this object's value is MinValue or greater, and MaxValue or less; otherw
 
     public bool CanFitInInt64();
 
+Not documented yet.
+
 <b>Returns:</b>
+
+A Boolean object.
 
 ### CompareTo
 

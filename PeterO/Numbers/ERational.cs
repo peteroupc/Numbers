@@ -947,8 +947,14 @@ other.denominator) && this.flags == other.flags);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToDouble"]/*'/>
     public double ToDouble() {
-      return
-  this.ToEFloat(EContext.Binary64.WithRounding(ERounding.Odd))
+      if (!this.IsFinite) {
+        return this.ToEFloat(EContext.Binary64).ToDouble();
+      }
+      if (this.IsNegative && this.IsZero) {
+        return EFloat.NegativeZero.ToDouble();
+      }
+      return EFloat.FromEInteger(this.Numerator)
+        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary64)
         .ToDouble();
     }
 

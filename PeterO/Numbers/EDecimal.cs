@@ -2444,18 +2444,12 @@ EContext ctx) {
       }
     }
 
-    private static bool HasTerminatingBinaryExpansion(EInteger num, EInteger
+    private static bool HasTerminatingBinaryExpansion(EInteger
       den) {
       if (den.IsZero) {
         return false;
       }
-      EInteger gcd = num.Gcd(den);
-      if (gcd.CompareTo(EInteger.One) != 0) {
-        num /= gcd;
-        den /= gcd;
-      }
-      gcd = den.Gcd(EInteger.FromInt32(10));
-      if (gcd.CompareTo(EInteger.One) == 0) {
+      if (den.GetUnsignedBit(0) && den.CompareTo(EInteger.One) != 0) {
         return false;
       }
       int lowBit = den.GetLowBit();
@@ -2487,18 +2481,21 @@ EContext ctx) {
       }
       if (bigintExp.IsZero) {
         // Integer
-     return
-  WithThisSign(EFloat.FromEInteger(bigintMant)).RoundToPrecision(ec);
+        //DebugUtility.Log("Integer");
+     return WithThisSign(EFloat.FromEInteger(bigintMant))
+  .RoundToPrecision(ec);
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
+        //DebugUtility.Log("Scaled integer");
         EInteger bigmantissa = bigintMant;
-        bigintExp = EInteger.FromInt32(10).PowBigIntVar(bigintExp);
+        bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
         bigmantissa *= (EInteger)bigintExp;
-    return
-  WithThisSign(EFloat.FromEInteger(bigmantissa)).RoundToPrecision(ec);
+    return WithThisSign(EFloat.FromEInteger(bigmantissa))
+  .RoundToPrecision(ec);
       } else {
         // Fractional number
+        //DebugUtility.Log("Fractional");
         EInteger scale = bigintExp;
         EInteger bigmantissa = bigintMant;
         bool neg = bigmantissa.Sign < 0;
@@ -2506,19 +2503,33 @@ EContext ctx) {
           bigmantissa = -(EInteger)bigmantissa;
         }
         EInteger negscale = -scale;
+        //DebugUtility.Log("" + (negscale));
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
         EInteger desiredHigh, desiredLow;
         var haveCopy = false;
         ec = ec ?? EContext.Unlimited;
         EContext originalEc = ec;
-        if (!ec.HasMaxPrecision &&
-          !HasTerminatingBinaryExpansion(bigmantissa, divisor)) {
-          ec = ec.WithPrecision(53).WithBlankFlags();
-          haveCopy = true;
+        if (!ec.HasMaxPrecision) {
+          EInteger num = bigmantissa;
+          EInteger den = divisor;
+          EInteger gcd = num.Gcd(den);
+          if (gcd.CompareTo(EInteger.One) != 0) {
+            den /= gcd;
+          }
+          //DebugUtility.Log("num=" + (num/gcd));
+          //DebugUtility.Log("den=" + (den));
+          if (!HasTerminatingBinaryExpansion(den)) {
+            //DebugUtility.Log("Approximate");
+            //DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
+            ec = ec.WithPrecision(53).WithBlankFlags();
+            haveCopy = true;
+          } else {
+            bigmantissa /= gcd;
+            divisor = den;
+          }
         }
-  EInteger ecPrec = ec.HasMaxPrecision ? ec.Precision +
-          EInteger.FromInt32(2) :
-          EInteger.Zero;
+        EInteger ecPrec = ec.HasMaxPrecision ? ec.Precision +
+          EInteger.FromInt32(2) : EInteger.Zero;
         if (!ecPrec.CanFitInInt32()) {
           EInteger precm1 = ecPrec - EInteger.One;
           desiredLow = EInteger.One;
@@ -2587,7 +2598,8 @@ EContext ctx) {
         }
         EFloat efret = WithThisSign(EFloat.Create(quorem[0],
           adjust.AsEInteger()));
-        //DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " + (//  efret.Exponent));
+        //DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " +
+        // (// efret.Exponent));
         efret = efret.RoundToPrecision(ec);
         if (haveCopy && originalEc.HasFlags) {
           originalEc.Flags |= ec.Flags;
@@ -2946,12 +2958,13 @@ EContext ctx) {
       }
 
     public FastInteger DivisionShift(
-        EInteger num, EInteger den) {
+        EInteger num,
+        EInteger den) {
         if (den.IsZero) {
           return null;
         }
         EInteger gcd = den.Gcd(EInteger.FromInt32(10));
-        if (gcd.CompareTo(EInteger.One)==0) {
+        if (gcd.CompareTo(EInteger.One) == 0) {
           return null;
         }
         if (den.IsZero) {
@@ -2961,7 +2974,7 @@ EContext ctx) {
         int lowBit = den.GetLowBit();
         den >>= lowBit;
         // Eliminate factors of 5
-        FastInteger fiveShift = new FastInteger(0);
+        var fiveShift = new FastInteger(0);
         while (true) {
           EInteger bigrem;
           EInteger bigquo;
@@ -2979,7 +2992,7 @@ EContext ctx) {
         if (den.CompareTo(EInteger.One) != 0) {
           return null;
         }
-        if(fiveShift.CompareToInt(lowBit)>0){
+        if (fiveShift.CompareToInt(lowBit)>0) {
           return fiveShift;
         } else {
           return new FastInteger(lowBit);

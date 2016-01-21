@@ -519,55 +519,6 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    internal int RepeatedSubtract(FastInteger divisor) {
-      if (this.integerMode == 1) {
-        var count = 0;
-        if (divisor.integerMode == 1) {
-          while (this.mnum.CompareTo(divisor.mnum) >= 0) {
-            this.mnum.Subtract(divisor.mnum);
-            ++count;
-          }
-          return count;
-        }
-        if (divisor.integerMode == 0 && divisor.smallValue >= 0) {
-          if (this.mnum.CanFitInInt32()) {
-            int small = this.mnum.ToInt32();
-            count = small / divisor.smallValue;
-            this.mnum.SetInt(small % divisor.smallValue);
-          } else {
-            var dmnum = new MutableNumber(divisor.smallValue);
-            while (this.mnum.CompareTo(dmnum) >= 0) {
-              this.mnum.Subtract(dmnum);
-              ++count;
-            }
-          }
-          return count;
-        } else {
-          EInteger bigrem;
-          EInteger bigquo;
-{
-EInteger[] divrem = this.AsEInteger().DivRem(divisor.AsEInteger());
-bigquo = divrem[0];
-bigrem = divrem[1]; }
-          var smallquo = (int)bigquo;
-          this.integerMode = 2;
-          this.largeValue = bigrem;
-          return smallquo;
-        }
-      } else {
-        EInteger bigrem;
-        EInteger bigquo;
-{
-EInteger[] divrem = this.AsEInteger().DivRem(divisor.AsEInteger());
-bigquo = divrem[0];
-bigrem = divrem[1]; }
-        var smallquo = (int)bigquo;
-        this.integerMode = 2;
-        this.largeValue = bigrem;
-        return smallquo;
-      }
-    }
-
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'/>
     internal FastInteger Multiply(int val) {

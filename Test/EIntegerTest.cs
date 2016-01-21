@@ -2081,7 +2081,16 @@ stringTemp);
     }
     [Test]
     public void TestSubtract() {
-      // not implemented yet
+EInteger ei1 =
+  EInteger.FromString("5903310052234442839693218602919688229567185544510721229016780853271484375"
+);
+      EInteger ei2 = EInteger.FromString("710542735760100185871124267578125");
+      {
+string stringTemp = ei1.Subtract(ei2).ToString() ;
+Assert.AreEqual(
+"5903310052234442839693218602919688229566475001774961128830909729003906250",
+stringTemp);
+}
     }
     [Test]
     public void TestToByteArray() {

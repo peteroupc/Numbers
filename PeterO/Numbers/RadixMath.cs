@@ -3161,28 +3161,34 @@ ctx,
           mantissaDividend = EInteger.Zero;
         } else {
         EInteger gcd = mantissaDividend.Gcd(mantissaDivisor);
-        //DebugUtility.Log("mgcd/den1={0}/{1}/{2}", mantissaDividend, mantissaDivisor, gcd);
+        //DebugUtility.Log("mgcd/den1=" + mantissaDividend + "/" + (// mantissaDivisor) + "/" + (gcd));
         if (gcd.CompareTo(EInteger.One) != 0) {
           mantissaDividend /= gcd;
           mantissaDivisor /= gcd;
         }
-          //DebugUtility.Log("mgcd/den2={0}/{1}/{2}", mantissaDividend, mantissaDivisor, gcd);
-          FastInteger divShift =this.helper.DivisionShift(
-              mantissaDividend,mantissaDivisor);
-            
+          //DebugUtility.Log("mgcd/den2=" + mantissaDividend + "/" + (// mantissaDivisor) + "/" + (gcd));
+          FastInteger divShift = this.helper.DivisionShift(
+              mantissaDividend,
+              mantissaDivisor);
+
             if (divShift == null) {
               return this.SignalInvalidWithMessage(
 ctx,
 "Result would have a nonterminating expansion");
             }
             mantissaDividend = this.helper.MultiplyByRadixPower(
-              mantissaDividend, divShift);
+              mantissaDividend,
+              divShift);
           adjust = FastInteger.Copy(divShift);
-          //DebugUtility.Log("mant {0} {1}", mantissaDividend,
-            //mantissaDivisor);
-            EInteger[] quorem=mantissaDividend.DivRem(mantissaDivisor);
-            //DebugAssert.IsTrue(quorem[1].IsZero);
-            mantissaDividend=quorem[1];
+          //DebugUtility.Log("mant " + mantissaDividend + " " + (//mantissaDivisor));
+            EInteger[] quorem = mantissaDividend.DivRem(mantissaDivisor);
+            #if DEBUG
+if (!(quorem[1].IsZero)) {
+  throw new ArgumentException("doesn't satisfy quorem[1].IsZero");
+}
+#endif
+
+            mantissaDividend = quorem[1];
           result = FastInteger.FromBig(quorem[0]);
         }
         // mantissaDividend now has the remainder
