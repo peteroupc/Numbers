@@ -2094,13 +2094,12 @@ stringTemp);
       eintarr = EInteger.One.SqrtRem();
       Assert.AreEqual(EInteger.One, eintarr[0]);
       Assert.AreEqual(EInteger.Zero, eintarr[1]);
-
     }
     [Test]
     public void TestSubtract() {
 EInteger ei1 =
-  EInteger.FromString("5903310052234442839693218602919688229567185544510721229016780853271484375"
-);
+  EInteger.FromString(
+"5903310052234442839693218602919688229567185544510721229016780853271484375");
       EInteger ei2 = EInteger.FromString("710542735760100185871124267578125");
       {
 string stringTemp = ei1.Subtract(ei2).ToString() ;

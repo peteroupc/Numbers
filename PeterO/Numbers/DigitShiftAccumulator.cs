@@ -142,13 +142,15 @@ int olderDiscarded) {
         this.ShiftRight(fastint);
       }
     }
-    
-    
-    private static int LongDigitLength(long value){
-      /*
-      DebugAssert.IsTrue(value>=0);
-      */
-      if (value >= 1000000000L) {
+
+    private static int LongDigitLength(long value) {
+      /* #if DEBUG
+if (!(value >= 0)) {
+  throw new ArgumentException("doesn't satisfy value>= 0");
+}
+#endif
+
+      */ if (value >= 1000000000L) {
           return (value >= 1000000000000000000L) ? 19 : ((value >=
                    100000000000000000L) ? 18 : ((value >= 10000000000000000L) ?
                     17 : ((value >= 1000000000000000L) ? 16 :
@@ -191,14 +193,14 @@ int olderDiscarded) {
          long rem = shiftedLong - (div * bigPower);
          long rem2 = rem / smallPower;
          this.bitLeftmost = (int)rem2;
-         this.bitsAfterLeftmost |= ((rem - (rem2 * smallPower))==0) ? 0 : 1;
+         this.bitsAfterLeftmost |= ((rem - (rem2 * smallPower)) == 0) ? 0 : 1;
          this.isSmall = (div <= Int32.MaxValue);
-         if(this.isSmall){
+         if (this.isSmall) {
            this.shiftedSmall=(int)div;
            this.knownBitLength = (div < 10) ? (new FastInteger(1)) :
              new FastInteger(LongDigitLength(div));
          } else {
-           this.shiftedBigInt=EInteger.FromInt64(div);
+           this.shiftedBigInt = EInteger.FromInt64(div);
            this.knownBitLength = (div < 10) ? (new FastInteger(1)) :
              this.CalcKnownDigitLength();
          }
@@ -213,8 +215,8 @@ int olderDiscarded) {
          long rem = shiftedLong;
          long rem2 = rem / smallPower;
          this.bitLeftmost = (int)rem2;
-         this.bitsAfterLeftmost |= ((rem - (rem2 * smallPower))==0) ? 0 : 1;
-         this.isSmall=true;
+         this.bitsAfterLeftmost |= ((rem - (rem2 * smallPower)) == 0) ? 0 : 1;
+         this.isSmall = true;
          this.shiftedSmall = 0;
          this.knownBitLength = new FastInteger(1);
          return;
@@ -225,7 +227,7 @@ int olderDiscarded) {
            this.discardedBitCount = new FastInteger(digits);
          }
          this.bitLeftmost = 0;
-         this.bitsAfterLeftmost |= (shiftedLong==0) ? 0 : 1;
+         this.bitsAfterLeftmost |= (shiftedLong == 0) ? 0 : 1;
          this.isSmall = true;
          this.shiftedSmall = 0;
          this.knownBitLength = new FastInteger(1);
@@ -256,20 +258,14 @@ int olderDiscarded) {
         }
       }
       this.isSmall = (shiftedLong <= Int32.MaxValue);
-         if(this.isSmall){
+         if (this.isSmall) {
            this.shiftedSmall=(int)shiftedLong;
          } else {
-           this.shiftedBigInt=EInteger.FromInt64(shiftedLong);
+           this.shiftedBigInt = EInteger.FromInt64(shiftedLong);
          }
       this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
     }
-    
-    /*
-    bool alreadyShifted=false;
-    private static int asCount=0;
-    private static int total=0;
-    private static int as64count=0;
-   */
+
     private void ShiftRightBig(int digits) {
       if (digits <= 0) {
         return;
@@ -348,10 +344,11 @@ bigrem = divrem[1]; }
       if (digits >= 2 && digits <= 8) {
         EInteger bigrem;
         EInteger bigquo;
-        EInteger[] divrem = this.shiftedBigInt.DivRem(NumberUtility.FindPowerOfTen(digits));
+        EInteger[] divrem =
+          this.shiftedBigInt.DivRem(NumberUtility.FindPowerOfTen(digits));
         bigquo = divrem[0];
         bigrem = divrem[1];
-        int intRem = (int)bigrem;
+        var intRem = (int)bigrem;
         int smallPower = ValueTenPowers[digits - 1];
         int leftBit = intRem / smallPower;
         int otherBits = intRem - (leftBit * smallPower);
@@ -363,7 +360,7 @@ bigrem = divrem[1]; }
         this.knownBitLength = (this.knownBitLength != null) ?
          this.knownBitLength.SubtractInt(digits) : this.GetDigitLength();
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
-        if(this.shiftedBigInt.CanFitInInt32()){
+        if (this.shiftedBigInt.CanFitInInt32()) {
           this.isSmall = true;
           this.shiftedSmall = this.shiftedBigInt.ToInt32Unchecked();
           this.shiftedBigInt = null;
@@ -391,7 +388,7 @@ bigrem = divrem[1]; }
         return;
       }
       if (this.shiftedBigInt.CanFitInInt64()) {
-        this.ShiftRightLong(this.shiftedBigInt.ToInt64Unchecked(),digits);
+        this.ShiftRightLong(this.shiftedBigInt.ToInt64Unchecked(), digits);
         return;
       }
       string str = this.shiftedBigInt.ToString();
@@ -482,7 +479,7 @@ bigrem = divrem[1];
           if (i == diffInt - 1) {
             this.bitLeftmost = rem % 10;
           } else {
-            int intQuot = (rem<43698) ? ((rem * 26215) >> 18) : (rem / 10);
+            int intQuot = (rem< 43698) ? ((rem * 26215) >> 18) : (rem / 10);
             this.bitsAfterLeftmost |= rem - (intQuot * 10);
             rem = intQuot;
           }
@@ -494,32 +491,20 @@ bigrem = divrem[1];
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
         return;
       }
-      /*
-      total++;
-      if(this.shiftedBigInt.GetUnsignedBitLength()<=63){
-        as64count++;
-      }
-      if(total%100==0){
-      DebugUtility.Log("{0}/{1}",as64count,total);        
-      }
-      if(alreadyShifted){
-        DebugUtility.Log("alreadyshifted="+asCount+","+this.shiftedBigInt.GetUnsignedBitLength());
-        asCount+=1;
-      }
-      alreadyShifted=true;
-      */
       if (digitDiff.CompareToInt(Int32.MaxValue) <= 0) {
-        /*
-        DebugAssert.IsTrue(digitDiff.CompareToInt(2)>0);
-        */
-        EInteger bigrem = null;
+  #if DEBUG
+if (!(digitDiff.CompareToInt(2)>0)) {
+  throw new ArgumentException("doesn't satisfy digitDiff.CompareToInt(2)>0");
+}
+#endif
+ EInteger bigrem = null;
         EInteger bigquo;
         EInteger[] divrem;
-        if(!(this.shiftedBigInt.IsEven)){
+        if (!(this.shiftedBigInt.IsEven)) {
          EInteger radixPower =
          NumberUtility.FindPowerOfTen(digitDiff.AsInt32() - 1);
           this.bitsAfterLeftmost|=1;
-          bigquo=this.shiftedBigInt.Divide(radixPower);
+          bigquo = this.shiftedBigInt.Divide(radixPower);
         } else {
         EInteger radixPower =
         NumberUtility.FindPowerOfTen(digitDiff.AsInt32() - 1);

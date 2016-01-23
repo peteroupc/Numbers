@@ -591,6 +591,16 @@ Gets the lowest set bit in this number's absolute value. (This will also be the 
 
 The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
 
+### GetLowBitLong
+
+    public long GetLowBitLong();
+
+Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.)
+
+<b>Returns:</b>
+
+The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
+
 ### GetSignedBit
 
     public bool GetSignedBit(

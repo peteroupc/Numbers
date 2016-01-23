@@ -580,7 +580,7 @@ namespace PeterO.Numbers {
             return new EInteger(wcount, sumreg, this.negative);
           }
         }
-        //        DebugUtility.Log("" + this + " + " + bigintAugend);
+        // DebugUtility.Log("" + this + " + " + bigintAugend);
         sumreg = new short[(
           int)Math.Max(
                     this.words.Length,
@@ -935,13 +935,35 @@ namespace PeterO.Numbers {
       if (words2Size == 1) {
         // divisor is small, use a fast path
         var quotient = new short[this.words.Length];
-        int smallRemainder = ((int)FastDivideAndRemainder(
-          quotient,
-          0,
-          this.words,
-          0,
-          words1Size,
-          divisor.words[0])) & 0xffff;
+        int smallRemainder;
+        switch(divisor.words[0]) {
+          case 2:
+            smallRemainder = ((int)FastDivideAndRemainderTwo(
+             quotient,
+             0,
+             this.words,
+             0,
+             words1Size));
+             break;
+          case 10:
+            smallRemainder = ((int)FastDivideAndRemainderTen(
+             quotient,
+             0,
+             this.words,
+             0,
+             words1Size));
+             break;
+          default:
+           //DebugUtility.Log("smalldiv=" + (divisor.words[0]));
+           smallRemainder = ((int)FastDivideAndRemainder(
+             quotient,
+             0,
+             this.words,
+             0,
+             words1Size,
+             divisor.words[0])) & 0xffff;
+             break;
+        }
         int count = this.wordCount;
         while (count != 0 &&
                quotient[count - 1] == 0) {
@@ -1399,14 +1421,17 @@ if (!(u >= 0 && v >= 0)) {
                     4) : ((((c << 10) & 0xffff) != 0) ? (retSetBitLong +
                     5) : ((((c << 9) & 0xffff) != 0) ? (retSetBitLong + 6) :
                     ((((c <<
-                8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff) !=
+            8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff)
+                  !=
                     0) ? (retSetBitLong + 8) : ((((c << 6) & 0xffff) !=
                     0) ? (retSetBitLong + 9) : ((((c <<
                     5) & 0xffff) != 0) ? (retSetBitLong + 10) : ((((c <<
                     4) & 0xffff) != 0) ? (retSetBitLong + 11) : ((((c << 3) &
-                    0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff) !=
+                0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff)
+                      !=
                     0) ? (retSetBitLong + 13) : ((((c << 1) & 0xffff) !=
-                    0) ? (retSetBitLong + 14) : (retSetBitLong + 15)))))))))))))));
+                0) ? (retSetBitLong + 14) : (retSetBitLong +
+                      15)))))))))))))));
         }
       }
       return -1;
@@ -2329,7 +2354,7 @@ this.negative ^ bigintMult.negative);
             int rest = ((int)tempReg[0]) & 0xffff;
             rest |= (((int)tempReg[1]) & 0xffff) << 16;
             while (rest != 0) {
-              int newrest = (rest<43698) ? ((rest * 26215) >> 18) : (rest / 10);
+              int newrest = (rest< 43698) ? ((rest * 26215) >> 18) : (rest / 10);
               s[i++] = Digits[rest - (newrest * 10)];
               rest = newrest;
             }
@@ -4105,39 +4130,6 @@ this.negative ^ bigintMult.negative);
       return 0;
     }
 
-    /*
-    private static int CompareUnevenSize(short[] words1,
-      int astart, int acount, short[] words2, int bstart,
-      int bcount) {
-      int n = acount;
-      if (acount > bcount) {
-        while (unchecked(acount--) != bcount) {
-          if (words1[astart + acount] != 0) {
-            return 1;
-          }
-        }
-        n = bcount;
-      } else if (bcount > acount) {
-        while (unchecked(bcount--) != acount) {
-          if (words1[astart + acount] != 0) {
-            return -1;
-          }
-        }
-        n = acount;
-      }
-      while (unchecked(n--) != 0) {
-        int an = ((int)words1[astart + n]) & 0xffff;
-        int bn = ((int)words2[bstart + n]) & 0xffff;
-        if (an > bn) {
-          return 1;
-        } else if (an < bn) {
-          return -1;
-        }
-      }
-      return 0;
-    }
-     */
-
     private static int CompareWithOneBiggerWords1(
       short[] words1,
       int astart,
@@ -4543,27 +4535,65 @@ this.negative ^ bigintMult.negative);
       short[] dividendReg,
       int count,
       short divisorSmall) {
-      int i = count;
-      short remainderShort = 0;
-      int idivisor = ((int)divisorSmall) & 0xffff;
-      int quo, rem;
-      while ((i--) > 0) {
-        int currentDividend = unchecked((int)((((int)dividendReg[i]) & 0xffff) |
-                    ((int)remainderShort << 16)));
-        if ((currentDividend >> 31) == 0) {
-          quo = currentDividend / idivisor;
-          quotientReg[i] = unchecked((short)quo);
-          if (i > 0) {
-            rem = currentDividend - (idivisor * quo);
-            remainderShort = unchecked((short)rem);
-          }
-        } else {
-          quotientReg[i] = DivideUnsigned(currentDividend, divisorSmall);
-          if (i > 0) {
-            remainderShort = RemainderUnsigned(currentDividend, divisorSmall);
-          }
-        }
+      switch(divisorSmall){
+        case 2:
+         FastDivideAndRemainderTwo(quotientReg,0,dividendReg,0,count);
+         break;
+        case 10:
+         FastDivideAndRemainderTen(quotientReg,0,dividendReg,0,count);
+         break;
+        default:
+         FastDivideAndRemainder(quotientReg,0,dividendReg,0,count,divisorSmall);
+         break;
       }
+    }
+
+    private static short FastDivideAndRemainderTwo(
+      short[] quotientReg,
+      int quotientStart,
+      short[] dividendReg,
+      int dividendStart,
+      int count) {
+      short remainderShort = 0;
+      int quo;
+      var rem = 0;
+      int currentDividend;
+      int ds = dividendStart + count - 1;
+      int qs = quotientStart + count - 1;
+      for(var i=0;i<count;i++){
+        currentDividend = (((int)dividendReg[ds]) & 0xffff);
+        currentDividend|=(rem << 16);
+        quo = (currentDividend >> 1);
+        quotientReg[qs] = unchecked((short)quo);
+        rem = (currentDividend & 1);
+        --ds;
+        --qs;
+      }
+      return unchecked((short)rem);
+    }
+
+    private static short FastDivideAndRemainderTen(
+      short[] quotientReg,
+      int quotientStart,
+      short[] dividendReg,
+      int dividendStart,
+      int count) {
+      short remainderShort = 0;
+      int quo;
+      var rem = 0;
+      int currentDividend;
+      int ds = dividendStart + count - 1;
+      int qs = quotientStart + count - 1;
+      for(var i=0;i<count;i++){
+        currentDividend = (((int)dividendReg[ds]) & 0xffff);
+        currentDividend|=(rem << 16);
+        quo = currentDividend / 10;          
+        quotientReg[qs] = unchecked((short)quo);
+        rem = currentDividend - (10 * quo);
+        --ds;
+        --qs;
+      }
+      return unchecked((short)rem);
     }
 
     private static short FastDivideAndRemainder(
@@ -4573,27 +4603,41 @@ this.negative ^ bigintMult.negative);
       int dividendStart,
       int count,
       short divisorSmall) {
-      int i = count;
-      short remainderShort = 0;
       int idivisor = ((int)divisorSmall) & 0xffff;
-      int quo, rem;
-      while ((i--) > 0) {
-        int currentDividend =
-          unchecked((int)((((int)dividendReg[dividendStart + i]) & 0xffff) |
-                    ((int)remainderShort << 16)));
-        if ((currentDividend >> 31) == 0) {
-          quo = currentDividend / idivisor;
-          quotientReg[quotientStart + i] = unchecked((short)quo);
-          rem = currentDividend - (idivisor * quo);
-          remainderShort = unchecked((short)rem);
-        } else {
-          quotientReg[quotientStart + i] = DivideUnsigned(
-            currentDividend,
-            divisorSmall);
-          remainderShort = RemainderUnsigned(currentDividend, divisorSmall);
+      int quo;
+      int rem = 0;
+      int ds = dividendStart + count - 1;
+      int qs = quotientStart + count - 1;
+      int currentDividend;
+      if (idivisor >= 0x8000) {
+      for(var i=0;i<count;i++){
+         currentDividend = (((int)dividendReg[ds]) & 0xffff);
+         currentDividend|=(rem << 16);
+         if ((currentDividend >> 31) == 0) {
+           quo = currentDividend / idivisor;
+           quotientReg[qs] = unchecked((short)quo);
+           rem = currentDividend - (idivisor * quo);
+         } else {
+           quo = ((int)DivideUnsigned(
+            currentDividend, divisorSmall)) & 0xFFFF;
+           quotientReg[qs] = unchecked((short)quo);
+           rem = unchecked(currentDividend - (idivisor * quo));
         }
+        --ds;
+        --qs;
+       }
+      } else {
+      for(var i=0;i<count;i++){
+         currentDividend = (((int)dividendReg[ds]) & 0xffff);
+         currentDividend|=(rem << 16);
+        quo = currentDividend / idivisor;
+        quotientReg[qs] = unchecked((short)quo);
+        rem = currentDividend - (idivisor * quo);
+        --ds;
+        --qs;
       }
-      return remainderShort;
+      }
+      return unchecked((short)rem);
     }
 
     private static short FastRemainder(

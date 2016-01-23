@@ -3161,12 +3161,14 @@ ctx,
           mantissaDividend = EInteger.Zero;
         } else {
         EInteger gcd = mantissaDividend.Gcd(mantissaDivisor);
-        //DebugUtility.Log("mgcd/den1=" + mantissaDividend + "/" + (// mantissaDivisor) + "/" + (gcd));
+        //DebugUtility.Log("mgcd/den1=" + mantissaDividend + "/" + (//
+        // mantissaDivisor) + "/" + gcd);
         if (gcd.CompareTo(EInteger.One) != 0) {
           mantissaDividend /= gcd;
           mantissaDivisor /= gcd;
         }
-          //DebugUtility.Log("mgcd/den2=" + mantissaDividend + "/" + (// mantissaDivisor) + "/" + (gcd));
+          //DebugUtility.Log("mgcd/den2=" + mantissaDividend + "/" + (//
+          // mantissaDivisor) + "/" + gcd);
           FastInteger divShift = this.helper.DivisionShift(
               mantissaDividend,
               mantissaDivisor);
@@ -3180,7 +3182,8 @@ ctx,
               mantissaDividend,
               divShift);
           adjust = FastInteger.Copy(divShift);
-          //DebugUtility.Log("mant " + mantissaDividend + " " + (//mantissaDivisor));
+          //DebugUtility.Log("mant " + mantissaDividend + " " +
+          // (// mantissaDivisor));
             EInteger[] quorem = mantissaDividend.DivRem(mantissaDivisor);
             #if DEBUG
 if (!(quorem[1].IsZero)) {
@@ -4299,10 +4302,9 @@ thisFlags);
             olderDiscarded);
           accum.ShiftRight(expdiff);
           FastInteger newmantissa = accum.ShiftedIntFast;
-          bool nonZeroDiscardedDigits=(accum.LastDiscardedDigit | 
+          bool nonZeroDiscardedDigits=(accum.LastDiscardedDigit |
             accum.OlderDiscardedDigits) != 0;
           if ((accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0) {
-
           }
           if (accum.DiscardedDigitCount.Sign != 0 || nonZeroDiscardedDigits) {
             if (nonZeroDiscardedDigits && rounding == ERounding.None) {

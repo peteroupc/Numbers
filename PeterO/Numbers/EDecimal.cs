@@ -913,23 +913,27 @@ namespace PeterO.Numbers {
       }
       FastInteger2 fastIntScale;
       FastInteger2 fastIntMant;
-      if(newScale == null) {
-        fastIntScale=new FastInteger2(newScaleInt);
+      if (newScale == null) {
+        fastIntScale = new FastInteger2(newScaleInt);
       } else {
-        fastIntScale=FastInteger2.FromBig(newScale.AsEInteger());
+        fastIntScale = FastInteger2.FromBig(newScale.AsEInteger());
       }
       int sign = negative ? -1 : 1;
-      if(mant == null) {
-        fastIntMant=new FastInteger2(mantInt);
-        if(mantInt==0)sign=0;
-      } else if(mant.CanFitInInt32()){
-        mantInt=mant.AsInt32();
-        fastIntMant=new FastInteger2(mantInt);
-        if(mantInt==0)sign=0;
+      if (mant == null) {
+        fastIntMant = new FastInteger2(mantInt);
+        if (mantInt == 0) {
+ sign = 0;
+}
+      } else if (mant.CanFitInInt32()) {
+        mantInt = mant.AsInt32();
+        fastIntMant = new FastInteger2(mantInt);
+        if (mantInt == 0) {
+ sign = 0;
+}
       } else {
-        fastIntMant=FastInteger2.FromBig(mant.AsEInteger());
+        fastIntMant = FastInteger2.FromBig(mant.AsEInteger());
       }
-      var ret = new EDecimal(fastIntMant,fastIntScale,
+      var ret = new EDecimal(fastIntMant, fastIntScale,
         negative ? BigNumberFlags.FlagNegative : 0, sign);
       if (ctx != null) {
         ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);

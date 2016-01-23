@@ -71,16 +71,16 @@ namespace PeterO.Numbers {
           return (EInteger)((int)this.data[0]);
         }
         if (this.wordCount == 2 && (this.data[1] >> 31) == 0) {
-          long longV=unchecked((long)this.data[0]);
+          long longV = unchecked((long)this.data[0]);
           longV&=0xFFFFFFFFL;
           longV|=unchecked(((long)this.data[1]) << 32);
           return EInteger.FromInt64(longV);
         }
         var bytes = new byte[(this.wordCount * 4) + 1];
-        int i=0;
-        int j=0;
+        int i = 0;
+        int j = 0;
         for (i = 0, j = 0; i < this.wordCount; ++i) {
-          int d=this.data[i];
+          int d = this.data[i];
           bytes[j++] = (byte)(d & 0xff);
           bytes[j++] = (byte)((d >> 8) & 0xff);
           bytes[j++] = (byte)((d >> 16) & 0xff);
@@ -104,6 +104,18 @@ namespace PeterO.Numbers {
       internal int ToInt32() {
         return this.wordCount == 0 ? 0 : this.data[0];
       }
+      
+    public static MutableNumber FromLong(long longVal){
+      if(longVal<0){
+        throw new ArgumentException();
+      }
+      if(longVal==0)return new MutableNumber(0);
+      var mbi=new MutableNumber(0);
+      mbi.data[0]=unchecked((int)longVal);
+      mbi.data[1]=unchecked((int)(longVal>>32));
+      mbi.wordCount=(mbi.data[1]==0) ? 1 : 2;
+      return mbi;
+    }
 
       internal MutableNumber Copy() {
         var mbi = new MutableNumber(0);
@@ -131,20 +143,20 @@ namespace PeterO.Numbers {
           }
           int result0, result1, result2, result3;
           if (multiplicand < 65536) {
-            if(this.wordCount==2 && (this.data[1]>>16) == 0) {
-              long longV=unchecked((long)this.data[0]);
+            if (this.wordCount == 2 && (this.data[1]>>16) == 0) {
+              long longV = unchecked((long)this.data[0]);
               longV&=0xFFFFFFFFL;
               longV|=unchecked(((long)this.data[1]) << 32);
-              longV=unchecked(longV * multiplicand);
+              longV = unchecked(longV * multiplicand);
               this.data[0]=unchecked((int)longV);
               this.data[1]=unchecked((int)(longV >> 32));
-              carry=0;
-            } else if(this.wordCount==1) {
-              long longV=unchecked((long)this.data[0]);
+              carry = 0;
+            } else if (this.wordCount == 1) {
+              long longV = unchecked((long)this.data[0]);
               longV&=0xFFFFFFFFL;
-              longV=unchecked(longV * multiplicand);
+              longV = unchecked(longV * multiplicand);
               this.data[0]=unchecked((int)longV);
-              carry=unchecked((int)(longV >> 32));
+              carry = unchecked((int)(longV >> 32));
             } else {
             for (var i = 0; i < this.wordCount; ++i) {
               int x0 = this.data[i];
@@ -177,12 +189,12 @@ namespace PeterO.Numbers {
             }
             }
           } else {
-            if(this.wordCount==1) {
-              long longV=unchecked((long)this.data[0]);
+            if (this.wordCount == 1) {
+              long longV = unchecked((long)this.data[0]);
               longV&=0xFFFFFFFFL;
-              longV=unchecked(longV * multiplicand);
+              longV = unchecked(longV * multiplicand);
               this.data[0]=unchecked((int)longV);
-              carry=unchecked((int)(longV >> 32));
+              carry = unchecked((int)(longV >> 32));
             } else {
             for (var i = 0; i < this.wordCount; ++i) {
               int x0 = this.data[i];
@@ -562,7 +574,7 @@ namespace PeterO.Numbers {
         switch (this.integerMode) {
           case 0: {
             long amult=((long)val)*((long)this.smallValue);
-            if(amult>Int32.MaxValue || amult<Int32.MinValue){
+            if (amult>Int32.MaxValue || amult<Int32.MinValue) {
               // would overflow, convert to large
              bool apos = this.smallValue > 0L;
              bool bpos = val > 0L;
@@ -570,16 +582,15 @@ namespace PeterO.Numbers {
                 // if both operands are nonnegative
                 // convert to mutable big integer
                 this.integerMode = 1;
-                this.mnum = new MutableNumber(this.smallValue);
-                this.mnum.Multiply(val);
+                this.mnum = MutableNumber.FromLong(amult);
               } else {
                 // if either operand is negative
                 // convert to big integer
                 this.integerMode = 2;
                 this.largeValue = EInteger.FromInt64(amult);
-              }              
+              }
             } else {
-              this.smallValue=unchecked((int)amult);
+              this.smallValue = unchecked((int)amult);
             }
             break;
           }
