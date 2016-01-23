@@ -151,7 +151,7 @@ string rem) {
         try {
           EInteger quo;
           {
-            EInteger[] divrem = (bigintA).DivRem(bigintB);
+            EInteger[] divrem = bigintA.DivRem(bigintB);
             quo = divrem[0];
             rembi = divrem[1];
           }
@@ -165,7 +165,7 @@ string rem) {
       } else {
         EInteger quo;
         {
-          EInteger[] divrem = (bigintA).DivRem(bigintB);
+          EInteger[] divrem = bigintA.DivRem(bigintB);
           quo = divrem[0];
           rembi = divrem[1];
         }
@@ -1611,6 +1611,13 @@ stringTemp);
         EInteger bigintA = RandomBigInteger(r);
         EInteger mod = bigintA.Remainder(BigValueOf(2));
         Assert.AreEqual(mod.IsZero, bigintA.IsEven);
+        if (bigintA.IsEven) {
+          bigintA = bigintA.Add(EInteger.One);
+          Assert.IsTrue(!bigintA.IsEven);
+        } else {
+          bigintA = bigintA.Add(EInteger.One);
+          Assert.IsTrue(bigintA.IsEven);
+        }
       }
     }
     [Test]
@@ -2077,7 +2084,17 @@ stringTemp);
     }
     [Test]
     public void TestSqrtWithRemainder() {
-      // not implemented yet
+      EInteger[] eintarr;
+      eintarr = EInteger.Zero.SqrtRem();
+      Assert.AreEqual(EInteger.Zero, eintarr[0]);
+      Assert.AreEqual(EInteger.Zero, eintarr[1]);
+      eintarr = EInteger.FromInt32(-1).SqrtRem();
+      Assert.AreEqual(EInteger.Zero, eintarr[0]);
+      Assert.AreEqual(EInteger.Zero, eintarr[1]);
+      eintarr = EInteger.One.SqrtRem();
+      Assert.AreEqual(EInteger.One, eintarr[0]);
+      Assert.AreEqual(EInteger.Zero, eintarr[1]);
+
     }
     [Test]
     public void TestSubtract() {

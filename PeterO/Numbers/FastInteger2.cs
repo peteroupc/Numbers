@@ -59,6 +59,14 @@ namespace PeterO.Numbers {
         this.smallValue : this.largeValue.ToInt32Unchecked();
     }
 
+    public static FastInteger2 FromFastInteger(FastInteger fi){
+      if(fi.CanFitInInt32()){
+        return new FastInteger2(fi.AsInt32());
+      } else {
+        return FastInteger2.FromBig(fi.AsEInteger());
+      }
+    }
+    
     public static FastInteger2 Add(FastInteger2 a, FastInteger2 b) {
       if (a.integerMode == 0 && b.integerMode == 0) {
         if (a.smallValue == 0) {

@@ -911,13 +911,26 @@ namespace PeterO.Numbers {
       if (i != endStr) {
         throw new FormatException();
       }
-      EInteger bigNewScale = (newScale == null) ? ((EInteger)newScaleInt) :
-        newScale.AsEInteger();
-      var ret = new EDecimal(
-FastInteger2.FromBig((mant == null) ? ((EInteger)mantInt) :
-          mant.AsEInteger()),
-        FastInteger2.FromBig(bigNewScale),
-        negative ? BigNumberFlags.FlagNegative : 0);
+      FastInteger2 fastIntScale;
+      FastInteger2 fastIntMant;
+      if(newScale == null) {
+        fastIntScale=new FastInteger2(newScaleInt);
+      } else {
+        fastIntScale=FastInteger2.FromBig(newScale.AsEInteger());
+      }
+      int sign = negative ? -1 : 1;
+      if(mant == null) {
+        fastIntMant=new FastInteger2(mantInt);
+        if(mantInt==0)sign=0;
+      } else if(mant.CanFitInInt32()){
+        mantInt=mant.AsInt32();
+        fastIntMant=new FastInteger2(mantInt);
+        if(mantInt==0)sign=0;
+      } else {
+        fastIntMant=FastInteger2.FromBig(mant.AsEInteger());
+      }
+      var ret = new EDecimal(fastIntMant,fastIntScale,
+        negative ? BigNumberFlags.FlagNegative : 0, sign);
       if (ctx != null) {
         ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
       }
@@ -2503,9 +2516,10 @@ EContext ctx) {
           bigmantissa = -(EInteger)bigmantissa;
         }
         EInteger negscale = -scale;
-        //DebugUtility.Log("" + (negscale));
+        //DebugUtility.Log("" + negscale);
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
-        EInteger desiredHigh, desiredLow;
+        EInteger desiredHigh;
+        EInteger desiredLow;
         var haveCopy = false;
         ec = ec ?? EContext.Unlimited;
         EContext originalEc = ec;
@@ -2517,7 +2531,7 @@ EContext ctx) {
             den /= gcd;
           }
           //DebugUtility.Log("num=" + (num/gcd));
-          //DebugUtility.Log("den=" + (den));
+          //DebugUtility.Log("den=" + den);
           if (!HasTerminatingBinaryExpansion(den)) {
             //DebugUtility.Log("Approximate");
             //DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
@@ -2545,7 +2559,8 @@ EContext ctx) {
         } else {
           int prec = ecPrec.ToInt32Checked();
           desiredHigh = EInteger.One << prec;
-          desiredLow = EInteger.One << (prec - 1);
+          int precm1 = prec - 1;
+          desiredLow = EInteger.One << precm1;
         }
         EInteger[] quorem = (ec.HasMaxPrecision) ?
           bigmantissa.DivRem(divisor) : null;
@@ -2586,7 +2601,7 @@ EContext ctx) {
               int divBits = desiredLow.GetUnsignedBitLength();
               if (bmBits < divBits) {
                 bmBits = divBits - bmBits;
-                quorem[0] <<= bmBits;
+                quorem[0] = quorem[0].ShiftLeft(bmBits);
                 adjust.SubtractInt(bmBits);
               }
             }
@@ -2594,7 +2609,7 @@ EContext ctx) {
         }
         // Round to odd to avoid rounding errors
         if (!quorem[1].IsZero && quorem[0].IsEven) {
-          quorem[0] += EInteger.One;
+          quorem[0]=quorem[0].Add(EInteger.One);
         }
         EFloat efret = WithThisSign(EFloat.Create(quorem[0],
           adjust.AsEInteger()));

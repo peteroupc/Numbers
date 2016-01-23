@@ -4299,21 +4299,22 @@ thisFlags);
             olderDiscarded);
           accum.ShiftRight(expdiff);
           FastInteger newmantissa = accum.ShiftedIntFast;
+          bool nonZeroDiscardedDigits=(accum.LastDiscardedDigit | 
+            accum.OlderDiscardedDigits) != 0;
           if ((accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0) {
-            if (rounding == ERounding.None) {
+
+          }
+          if (accum.DiscardedDigitCount.Sign != 0 || nonZeroDiscardedDigits) {
+            if (nonZeroDiscardedDigits && rounding == ERounding.None) {
               return this.SignalInvalidWithMessage(
                 ctx,
                 "Rounding was required");
             }
-          }
-          if (accum.DiscardedDigitCount.Sign != 0 ||
-              (accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0) {
             if (ctx.HasFlags) {
               if (!mantissaWasZero) {
                 flags |= EContext.FlagRounded;
               }
-              if ((accum.LastDiscardedDigit | accum.OlderDiscardedDigits) !=
-                  0) {
+              if (nonZeroDiscardedDigits) {
                 flags |= EContext.FlagInexact |
                   EContext.FlagRounded;
               }
@@ -4334,7 +4335,6 @@ thisFlags);
             }
             ctx.Flags |= flags;
           }
-          bigmantissa = newmantissa.AsEInteger();
           if (ctx.ClampNormalExponents) {
             // Clamp exponents to eMax + 1 - precision
             // if directed
@@ -4348,18 +4348,25 @@ thisFlags);
               clampExp.Increment().Subtract(fastPrecision);
             }
             if (fastETiny.CompareTo(clampExp) > 0) {
-              if (!bigmantissa.IsZero) {
+              if (!newmantissa.IsValueZero) {
                 expdiff = FastInteger.Copy(fastETiny).Subtract(clampExp);
                 // Change bigmantissa for use
                 // in the return value
                 bigmantissa = this.TryMultiplyByRadixPower(
-                bigmantissa,
+                newmantissa.AsEInteger(),
                 expdiff);
                 if (bigmantissa == null) {
                   return this.SignalInvalidWithMessage(
                 ctx,
                 "Result requires too much memory");
                 }
+                if (ctx.HasFlags) {
+                   ctx.Flags |= EContext.FlagClamped;
+                }
+                return this.helper.CreateNewWithFlagsFastInt(
+                  FastInteger2.FromBig(bigmantissa),
+                  FastInteger2.FromFastInteger(clampExp),
+                  neg ? BigNumberFlags.FlagNegative : 0);
               }
               if (ctx.HasFlags) {
                 ctx.Flags |= EContext.FlagClamped;
@@ -4367,9 +4374,9 @@ thisFlags);
               fastETiny = clampExp;
             }
           }
-          return this.helper.CreateNewWithFlags(
-bigmantissa,
-fastETiny.AsEInteger(),
+          return this.helper.CreateNewWithFlagsFastInt(
+FastInteger2.FromFastInteger(newmantissa),
+FastInteger2.FromFastInteger(fastETiny),
 neg ? BigNumberFlags.FlagNegative : 0);
         }
       }

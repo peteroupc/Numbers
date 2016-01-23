@@ -255,6 +255,7 @@ stringTemp);
     [Test]
     public void TestFloatDecimalSpecific() {
       string str =
+
   "874952453585761710286297571153092638434027760916318352601207433388312948219720355694692773665688395541653.74728887385887787786487024277448654174804687500"
         ;
       EDecimal ed = EDecimal.FromString(str);
@@ -1002,22 +1003,17 @@ stringTemp);
       }
       string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
-  Assert.Fail("\nexpected {0},\ngot----- {1}\nsrc-----={2}\nexpected={3}\ninput---={4}"
-          ,
-          OutputDouble(expectedDouble),
-          OutputDouble(input.ToDouble()),
-          OutputEF(src),
-          OutputEF(expected),
-          OutputEF(input));
+  Assert.Fail(
+  "\nexpected "+OutputDouble(expectedDouble)+",\ngot----- "+
+        OutputDouble(input.ToDouble())+"\nsrc-----="+OutputEF(src)+
+        "\nexpected="+OutputEF(expected)+"\ninput---="+OutputEF(input));
       }
       double inputDouble = EDecimal.FromString(str).ToDouble();
       if (inputDouble != expectedDouble) {
-  Assert.Fail("\nexpected {0},\ngot----- {1}\nsrc-----={2}\nexpected={3}\ninput---={4}"
-          ,
-          OutputDouble(expectedDouble),
-          OutputDouble(inputDouble), OutputEF(src),
-          OutputEF(expected),
-          OutputEF(input));
+  Assert.Fail(
+  "\nexpected "+OutputDouble(expectedDouble)+",\ngot----- "+
+        OutputDouble(inputDouble)+"\nsrc-----="+OutputEF(src)+
+        "\nexpected="+OutputEF(expected)+"\ninput---="+OutputEF(input));
       }
     }
 

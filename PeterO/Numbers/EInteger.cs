@@ -1128,27 +1128,21 @@ if (!(u >= 0 && v >= 0)) {
             buc = WordsShiftRightOne(bu, buc);
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
-            if (Math.Abs(buc-bvc)>1 && (bu[0]&0x0f) == 0) {
-              buc = WordsShiftRightFour(bu, buc);
-            } else {
-              buc = WordsShiftRightOne(bu, buc);
-            }
+            buc = (Math.Abs(buc-bvc)>1 && (bu[0]&0x0f) == 0) ?
+              (WordsShiftRightFour(bu, buc)) : (WordsShiftRightOne(bu,
+              buc));
           } else if (!eu && ev) {
             if ((bv[0]&0xff) == 0 && Math.Abs(buc-bvc)>1) {
               //DebugUtility.Log("bv8");
               bvc = WordsShiftRightEight(bv, bvc);
-            } else if ((bv[0]&0x0f) == 0 && Math.Abs(buc-bvc)>1) {
-              bvc = WordsShiftRightFour(bv, bvc);
             } else {
-              bvc = WordsShiftRightOne(bv, bvc);
-            }
+ bvc = ((bv[0]&0x0f) == 0 && Math.Abs(buc-bvc)>1) ? (WordsShiftRightFour(bv,
+   bvc)) : (WordsShiftRightOne(bv, bvc));
+}
           } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
             buc = WordsSubtract(bu, buc, bv, bvc);
-            if (Math.Abs(buc-bvc)>1 && (bu[0]&0x02) == 0) {
-             buc = WordsShiftRightTwo(bu, buc);
-            } else {
-             buc = WordsShiftRightOne(bu, buc);
-            }
+            buc = (Math.Abs(buc-bvc)>1 && (bu[0]&0x02) == 0) ?
+              (WordsShiftRightTwo(bu, buc)) : (WordsShiftRightOne(bu, buc));
           } else {
             short[] butmp = bv;
             short[] bvtmp = bu;
@@ -1219,6 +1213,8 @@ if (!(u >= 0 && v >= 0)) {
           // all numbers with this bit length
           return minDigits;
         }
+        return this.CompareTo(NumberUtility.FindPowerOfTen(minDigits)) >= 0 ?
+          maxDigits : minDigits;
       } else if (bitlen <= 6432162) {
         // Much more accurate approximation
         int minDigits = ApproxLogTenOfTwo(bitlen - 1);
@@ -1359,7 +1355,6 @@ if (!(u >= 0 && v >= 0)) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
     public int GetLowBit() {
-      // TODO: Consider GetLowBitLong method
       var retSetBit = 0;
       for (var i = 0; i < this.wordCount; ++i) {
         int c = ((int)this.words[i]) & 0xffff;
@@ -1382,6 +1377,36 @@ if (!(u >= 0 && v >= 0)) {
                     0xffff) != 0) ? (retSetBit + 12) : ((((c << 2) & 0xffff) !=
                     0) ? (retSetBit + 13) : ((((c << 1) & 0xffff) !=
                     0) ? (retSetBit + 14) : (retSetBit + 15)))))))))))))));
+        }
+      }
+      return -1;
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
+    public long GetLowBitLong() {
+      long retSetBitLong = 0;
+      for (var i = 0; i < this.wordCount; ++i) {
+        int c = ((int)this.words[i]) & 0xffff;
+        if (c == 0) {
+          retSetBitLong += 16;
+        } else {
+          return (((c << 15) & 0xffff) != 0) ? (retSetBitLong + 0) : ((((c <<
+                    14) & 0xffff) != 0) ? (retSetBitLong + 1) : ((((c <<
+                    13) & 0xffff) != 0) ? (retSetBitLong + 2) : ((((c <<
+                    12) & 0xffff) != 0) ? (retSetBitLong + 3) : ((((c << 11) &
+                    0xffff) != 0) ? (retSetBitLong +
+                    4) : ((((c << 10) & 0xffff) != 0) ? (retSetBitLong +
+                    5) : ((((c << 9) & 0xffff) != 0) ? (retSetBitLong + 6) :
+                    ((((c <<
+                8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff) !=
+                    0) ? (retSetBitLong + 8) : ((((c << 6) & 0xffff) !=
+                    0) ? (retSetBitLong + 9) : ((((c <<
+                    5) & 0xffff) != 0) ? (retSetBitLong + 10) : ((((c <<
+                    4) & 0xffff) != 0) ? (retSetBitLong + 11) : ((((c << 3) &
+                    0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff) !=
+                    0) ? (retSetBitLong + 13) : ((((c << 1) & 0xffff) !=
+                    0) ? (retSetBitLong + 14) : (retSetBitLong + 15)))))))))))))));
         }
       }
       return -1;
@@ -1526,14 +1551,14 @@ if (!(u >= 0 && v >= 0)) {
         throw new ArgumentException("mod (" + mod + ") is not greater than 0");
       }
       EInteger r = EInteger.One;
-      EInteger v = this;
+      EInteger eiv = this;
       while (!pow.IsZero) {
         if (!pow.IsEven) {
-          r = (r * (EInteger)v).Mod(mod);
+          r = (r * (EInteger)eiv).Mod(mod);
         }
         pow >>= 1;
         if (!pow.IsZero) {
-          v = (v * (EInteger)v).Mod(mod);
+          eiv = (eiv * (EInteger)eiv).Mod(mod);
         }
       }
       return r;
@@ -2304,7 +2329,7 @@ this.negative ^ bigintMult.negative);
             int rest = ((int)tempReg[0]) & 0xffff;
             rest |= (((int)tempReg[1]) & 0xffff) << 16;
             while (rest != 0) {
-              int newrest = rest / 10;
+              int newrest = (rest<43698) ? ((rest * 26215) >> 18) : (rest / 10);
               s[i++] = Digits[rest - (newrest * 10)];
               rest = newrest;
             }
@@ -2754,7 +2779,6 @@ this.negative ^ bigintMult.negative);
             words2Start,
             words1Count);
         }
-
         return;
       }
       if (words1Count > words2Count) {
