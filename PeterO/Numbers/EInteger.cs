@@ -1235,7 +1235,8 @@ if (!(u >= 0 && v >= 0)) {
           // all numbers with this bit length
           return minDigits;
         }
-        return this.CompareTo(NumberUtility.FindPowerOfTen(minDigits)) >= 0 ?
+    return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits)) >=
+          0 ?
           maxDigits : minDigits;
       } else if (bitlen <= 6432162) {
         // Much more accurate approximation
@@ -1421,17 +1422,15 @@ if (!(u >= 0 && v >= 0)) {
                     4) : ((((c << 10) & 0xffff) != 0) ? (retSetBitLong +
                     5) : ((((c << 9) & 0xffff) != 0) ? (retSetBitLong + 6) :
                     ((((c <<
-            8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff)
-                  !=
-                    0) ? (retSetBitLong + 8) : ((((c << 6) & 0xffff) !=
+            8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff)!=
+                0) ? (retSetBitLong + 8) : ((((c << 6) & 0xffff) !=
                     0) ? (retSetBitLong + 9) : ((((c <<
                     5) & 0xffff) != 0) ? (retSetBitLong + 10) : ((((c <<
                     4) & 0xffff) != 0) ? (retSetBitLong + 11) : ((((c << 3) &
-                0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff)
-                      !=
-                    0) ? (retSetBitLong + 13) : ((((c << 1) & 0xffff) !=
+                0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff)!=
+                0) ? (retSetBitLong + 13) : ((((c << 1) & 0xffff) !=
                 0) ? (retSetBitLong + 14) : (retSetBitLong +
-                      15)))))))))))))));
+                    15)))))))))))))));
         }
       }
       return -1;
@@ -2354,7 +2353,8 @@ this.negative ^ bigintMult.negative);
             int rest = ((int)tempReg[0]) & 0xffff;
             rest |= (((int)tempReg[1]) & 0xffff) << 16;
             while (rest != 0) {
-              int newrest = (rest< 43698) ? ((rest * 26215) >> 18) : (rest / 10);
+            int newrest = (rest< 43698) ? ((rest * 26215) >> 18) : (rest /
+                10);
               s[i++] = Digits[rest - (newrest * 10)];
               rest = newrest;
             }
@@ -4535,15 +4535,15 @@ this.negative ^ bigintMult.negative);
       short[] dividendReg,
       int count,
       short divisorSmall) {
-      switch(divisorSmall){
+      switch(divisorSmall) {
         case 2:
-         FastDivideAndRemainderTwo(quotientReg,0,dividendReg,0,count);
+         FastDivideAndRemainderTwo(quotientReg, 0, dividendReg, 0, count);
          break;
         case 10:
-         FastDivideAndRemainderTen(quotientReg,0,dividendReg,0,count);
+         FastDivideAndRemainderTen(quotientReg, 0, dividendReg, 0, count);
          break;
         default:
-         FastDivideAndRemainder(quotientReg,0,dividendReg,0,count,divisorSmall);
+         FastDivideAndRemainder(quotientReg, 0, dividendReg, 0, count, divisorSmall);
          break;
       }
     }
@@ -4554,13 +4554,12 @@ this.negative ^ bigintMult.negative);
       short[] dividendReg,
       int dividendStart,
       int count) {
-      short remainderShort = 0;
       int quo;
       var rem = 0;
       int currentDividend;
       int ds = dividendStart + count - 1;
       int qs = quotientStart + count - 1;
-      for(var i=0;i<count;i++){
+      for (var i = 0; i < count; ++i) {
         currentDividend = (((int)dividendReg[ds]) & 0xffff);
         currentDividend|=(rem << 16);
         quo = (currentDividend >> 1);
@@ -4578,16 +4577,16 @@ this.negative ^ bigintMult.negative);
       short[] dividendReg,
       int dividendStart,
       int count) {
-      short remainderShort = 0;
       int quo;
       var rem = 0;
       int currentDividend;
       int ds = dividendStart + count - 1;
       int qs = quotientStart + count - 1;
-      for(var i=0;i<count;i++){
+      for (var i = 0; i < count; ++i) {
         currentDividend = (((int)dividendReg[ds]) & 0xffff);
         currentDividend|=(rem << 16);
-        quo = currentDividend / 10;          
+        quo = (currentDividend < 43698) ? ((currentDividend * 26215) >> 18) :
+            (currentDividend / 10);
         quotientReg[qs] = unchecked((short)quo);
         rem = currentDividend - (10 * quo);
         --ds;
@@ -4605,12 +4604,12 @@ this.negative ^ bigintMult.negative);
       short divisorSmall) {
       int idivisor = ((int)divisorSmall) & 0xffff;
       int quo;
-      int rem = 0;
+      var rem = 0;
       int ds = dividendStart + count - 1;
       int qs = quotientStart + count - 1;
       int currentDividend;
       if (idivisor >= 0x8000) {
-      for(var i=0;i<count;i++){
+      for (var i = 0; i < count; ++i) {
          currentDividend = (((int)dividendReg[ds]) & 0xffff);
          currentDividend|=(rem << 16);
          if ((currentDividend >> 31) == 0) {
@@ -4619,7 +4618,8 @@ this.negative ^ bigintMult.negative);
            rem = currentDividend - (idivisor * quo);
          } else {
            quo = ((int)DivideUnsigned(
-            currentDividend, divisorSmall)) & 0xFFFF;
+            currentDividend,
+            divisorSmall)) & 0xffff;
            quotientReg[qs] = unchecked((short)quo);
            rem = unchecked(currentDividend - (idivisor * quo));
         }
@@ -4627,7 +4627,7 @@ this.negative ^ bigintMult.negative);
         --qs;
        }
       } else {
-      for(var i=0;i<count;i++){
+      for (var i = 0; i < count; ++i) {
          currentDividend = (((int)dividendReg[ds]) & 0xffff);
          currentDividend|=(rem << 16);
         quo = currentDividend / idivisor;

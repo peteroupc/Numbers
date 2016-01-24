@@ -77,8 +77,8 @@ namespace PeterO.Numbers {
           return EInteger.FromInt64(longV);
         }
         var bytes = new byte[(this.wordCount * 4) + 1];
-        int i = 0;
-        int j = 0;
+        var i = 0;
+        var j = 0;
         for (i = 0, j = 0; i < this.wordCount; ++i) {
           int d = this.data[i];
           bytes[j++] = (byte)(d & 0xff);
@@ -104,15 +104,17 @@ namespace PeterO.Numbers {
       internal int ToInt32() {
         return this.wordCount == 0 ? 0 : this.data[0];
       }
-      
-    public static MutableNumber FromLong(long longVal){
-      if(longVal<0){
+
+    public static MutableNumber FromLong(long longVal) {
+      if (longVal< 0) {
         throw new ArgumentException();
       }
-      if(longVal==0)return new MutableNumber(0);
-      var mbi=new MutableNumber(0);
+      if (longVal == 0) {
+ return new MutableNumber(0);
+}
+      var mbi = new MutableNumber(0);
       mbi.data[0]=unchecked((int)longVal);
-      mbi.data[1]=unchecked((int)(longVal>>32));
+      mbi.data[1]=unchecked((int)(longVal >> 32));
       mbi.wordCount=(mbi.data[1]==0) ? 1 : 2;
       return mbi;
     }
@@ -565,7 +567,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'
+    /// />
     internal FastInteger Multiply(int val) {
       if (val == 0) {
         this.smallValue = 0;
@@ -641,7 +644,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'
+    /// />
     internal FastInteger Subtract(FastInteger val) {
       EInteger valValue;
       switch (this.integerMode) {
@@ -688,7 +692,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'
+    /// />
     internal FastInteger SubtractInt(int val) {
       if (val == Int32.MinValue) {
         return this.AddBig(ValueNegativeInt32MinValue);
@@ -709,7 +714,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'
+    /// />
     internal FastInteger AddBig(EInteger bigintVal) {
       switch (this.integerMode) {
           case 0: {
@@ -731,7 +737,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'
+    /// />
     internal FastInteger SubtractBig(EInteger bigintVal) {
       if (this.integerMode == 2) {
         this.largeValue -= (EInteger)bigintVal;
@@ -803,7 +810,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Remainder(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Remainder(System.Int32)"]/*'
+    /// />
     internal FastInteger Remainder(int divisor) {
       // Mod operator will always result in a
       // number that fits an int for int divisors

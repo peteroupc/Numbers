@@ -1514,10 +1514,13 @@ stringTemp);
     [Test]
     public void TestGetDigitCount() {
       var r = new FastRandom();
+      Assert.AreEqual(39,
+      EInteger.FromString("101754295360222878437145684059582837272"
+).GetDigitCount());
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         String str = bigintA.Abs().ToString();
-        Assert.AreEqual(str.Length, bigintA.GetDigitCount());
+        Assert.AreEqual(str.Length, bigintA.GetDigitCount(), str);
       }
     }
     [Test]

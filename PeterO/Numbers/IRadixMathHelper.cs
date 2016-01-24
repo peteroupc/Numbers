@@ -21,19 +21,24 @@ namespace PeterO.Numbers {
 
     EInteger GetExponent(T value);
 
-    FastInteger2 GetMantissaFastInt(T value);
+    FastIntegerFixed GetMantissaFastInt(T value);
 
-    FastInteger2 GetExponentFastInt(T value);
+    FastIntegerFixed GetExponentFastInt(T value);
 
     T ValueOf(int val);
 
     T CreateNewWithFlags(EInteger mantissa, EInteger exponent, int flags);
 
-    T CreateNewWithFlagsFastInt(FastInteger2 mantissa, FastInteger2
+    T CreateNewWithFlagsFastInt(FastIntegerFixed mantissa, FastIntegerFixed
       exponent, int flags);
 
     IShiftAccumulator CreateShiftAccumulatorWithDigits(
 EInteger value,
+int lastDigit,
+int olderDigits);
+
+    IShiftAccumulator CreateShiftAccumulatorWithDigitsFastInt(
+FastIntegerFixed value,
 int lastDigit,
 int olderDigits);
 

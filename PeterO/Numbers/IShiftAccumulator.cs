@@ -29,6 +29,6 @@ namespace PeterO.Numbers {
 
     void ShiftRightInt(int bits);
 
-    void ShiftToDigits(FastInteger bits);
+    void ShiftToDigits(FastInteger bits, FastInteger preShift, bool truncate);
   }
 }
