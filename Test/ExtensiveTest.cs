@@ -1222,7 +1222,7 @@ StartsWith(chunks[2], "o")) {
     }
 
     public static string[] GetTestFiles() {
-      var list = new List<string>(Directory.GetFiles("."));
+      var list = new List<string>(Directory.GetFiles("..\\Debug"));
       return list.ToArray();
     }
 
@@ -1237,7 +1237,6 @@ StartsWith(chunks[2], "o")) {
       var standardOut = Console.Out;
       var x = 0;
       dirfiles.AddRange(GetTestFiles());
-
       foreach (var f in dirfiles) {
         Console.WriteLine(f);
         if (errors.Count > 100) {

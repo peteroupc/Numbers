@@ -29,8 +29,10 @@ namespace PeterO.Numbers {
 
     T CreateNewWithFlags(EInteger mantissa, EInteger exponent, int flags);
 
-    T CreateNewWithFlagsFastInt(FastIntegerFixed mantissa, FastIntegerFixed
-      exponent, int flags);
+    T CreateNewWithFlagsFastInt(
+FastIntegerFixed mantissa,
+FastIntegerFixed exponent,
+int flags);
 
     IShiftAccumulator CreateShiftAccumulatorWithDigits(
 EInteger value,

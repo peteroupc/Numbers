@@ -173,6 +173,7 @@ EInteger otherValue) {
         (thisValue.CompareTo(otherValue) >= 0);
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='thisValue'>Not documented yet.</param>
     /// <returns>An EInteger object.</returns>
     public static EInteger operator ~(
@@ -180,6 +181,7 @@ EInteger otherValue) {
       return Not(thisValue);
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='thisValue'>Not documented yet.</param>
     /// <param name='otherValue'>Not documented yet.</param>
     /// <returns>An EInteger object.</returns>
@@ -189,6 +191,7 @@ EInteger otherValue) {
       return And(thisValue, otherValue);
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='thisValue'>Not documented yet.</param>
     /// <param name='otherValue'>Not documented yet.</param>
     /// <returns>An EInteger object.</returns>
@@ -198,6 +201,7 @@ EInteger otherValue) {
       return Or(thisValue, otherValue);
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='thisValue'>Not documented yet.</param>
     /// <param name='otherValue'>Not documented yet.</param>
     /// <returns>An EInteger object.</returns>

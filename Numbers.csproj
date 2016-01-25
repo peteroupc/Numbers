@@ -82,6 +82,7 @@
     <Compile Include="PeterO\Numbers\EIntegerExtra.cs" />
     <Compile Include="PeterO\Numbers\BigNumberFlags.cs" />
     <Compile Include="PeterO\Numbers\BitShiftAccumulator.cs" />
+    <Compile Include="PeterO\Numbers\FastIntegerFixed.cs" />
     <Compile Include="PeterO\Numbers\NumberUtility.cs" />
     <Compile Include="PeterO\Numbers\DigitShiftAccumulator.cs" />
     <Compile Include="PeterO\Numbers\EDecimal.cs" />
@@ -90,7 +91,6 @@
     <Compile Include="PeterO\Numbers\ERational.cs" />
     <Compile Include="PeterO\Numbers\Extras.cs" />
     <Compile Include="PeterO\Numbers\FastInteger.cs" />
-    <Compile Include="PeterO\Numbers\FastInteger2.cs" />
     <Compile Include="PeterO\Numbers\IRadixMath.cs" />
     <Compile Include="PeterO\Numbers\IRadixMathHelper.cs" />
     <Compile Include="PeterO\Numbers\IShiftAccumulator.cs" />
@@ -106,7 +106,5 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <!--
   <Import Project="$(MSBuildExtensionsPath)\StyleCop\v4.7\StyleCop.targets" />
-  -->
 </Project>

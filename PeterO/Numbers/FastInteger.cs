@@ -72,8 +72,8 @@ namespace PeterO.Numbers {
         }
         if (this.wordCount == 2 && (this.data[1] >> 31) == 0) {
           long longV = unchecked((long)this.data[0]);
-          longV&=0xFFFFFFFFL;
-          longV|=unchecked(((long)this.data[1]) << 32);
+          longV &= 0xFFFFFFFFL;
+          longV |= unchecked(((long)this.data[1]) << 32);
           return EInteger.FromInt64(longV);
         }
         var bytes = new byte[(this.wordCount * 4) + 1];
@@ -106,16 +106,16 @@ namespace PeterO.Numbers {
       }
 
     public static MutableNumber FromLong(long longVal) {
-      if (longVal< 0) {
+      if (longVal < 0) {
         throw new ArgumentException();
       }
       if (longVal == 0) {
  return new MutableNumber(0);
 }
       var mbi = new MutableNumber(0);
-      mbi.data[0]=unchecked((int)longVal);
-      mbi.data[1]=unchecked((int)(longVal >> 32));
-      mbi.wordCount=(mbi.data[1]==0) ? 1 : 2;
+      mbi.data[0 ] = unchecked((int)longVal);
+      mbi.data[1 ] = unchecked((int)(longVal >> 32));
+      mbi.wordCount = (mbi.data[1] = = 0) ? 1 : 2;
       return mbi;
     }
 
@@ -145,19 +145,19 @@ namespace PeterO.Numbers {
           }
           int result0, result1, result2, result3;
           if (multiplicand < 65536) {
-            if (this.wordCount == 2 && (this.data[1]>>16) == 0) {
+            if (this.wordCount == 2 && (this.data[1 ]>>16) == 0) {
               long longV = unchecked((long)this.data[0]);
-              longV&=0xFFFFFFFFL;
-              longV|=unchecked(((long)this.data[1]) << 32);
+              longV &= 0xFFFFFFFFL;
+              longV |= unchecked(((long)this.data[1]) << 32);
               longV = unchecked(longV * multiplicand);
-              this.data[0]=unchecked((int)longV);
-              this.data[1]=unchecked((int)(longV >> 32));
+              this.data[0 ] = unchecked((int)longV);
+              this.data[1 ] = unchecked((int)(longV >> 32));
               carry = 0;
             } else if (this.wordCount == 1) {
               long longV = unchecked((long)this.data[0]);
-              longV&=0xFFFFFFFFL;
+              longV &= 0xFFFFFFFFL;
               longV = unchecked(longV * multiplicand);
-              this.data[0]=unchecked((int)longV);
+              this.data[0 ] = unchecked((int)longV);
               carry = unchecked((int)(longV >> 32));
             } else {
             for (var i = 0; i < this.wordCount; ++i) {
@@ -193,9 +193,9 @@ namespace PeterO.Numbers {
           } else {
             if (this.wordCount == 1) {
               long longV = unchecked((long)this.data[0]);
-              longV&=0xFFFFFFFFL;
+              longV &= 0xFFFFFFFFL;
               longV = unchecked(longV * multiplicand);
-              this.data[0]=unchecked((int)longV);
+              this.data[0 ] = unchecked((int)longV);
               carry = unchecked((int)(longV >> 32));
             } else {
             for (var i = 0; i < this.wordCount; ++i) {
@@ -450,6 +450,9 @@ namespace PeterO.Numbers {
     private MutableNumber mnum;  // if integerMode is 1
     private EInteger largeValue;  // if integerMode is 2
     private int integerMode;
+
+    private bool frozen;
+
     private static readonly EInteger ValueInt32MinValue =
       (EInteger)Int32.MinValue;
 
@@ -463,12 +466,22 @@ namespace PeterO.Numbers {
       this.smallValue = value;
     }
 
-    internal static FastInteger Copy(FastInteger value) {
+    internal FastInteger Copy() {
+      var fi = new FastInteger(this.smallValue);
+      fi.integerMode = this.integerMode;
+      fi.largeValue = this.largeValue;
+      fi.mnum = (this.mnum == null || this.integerMode != 1) ? null :
+      this.mnum.Copy();
+      return fi;
+    }
+
+    internal static FastInteger CopyFrozen(FastInteger value) {
       var fi = new FastInteger(value.smallValue);
       fi.integerMode = value.integerMode;
       fi.largeValue = value.largeValue;
       fi.mnum = (value.mnum == null || value.integerMode != 1) ? null :
       value.mnum.Copy();
+      fi.frozen = true;
       return fi;
     }
 
@@ -501,6 +514,14 @@ namespace PeterO.Numbers {
       }
     }
 
+    private void CheckFrozen() {
+#if DEBUG
+            if (frozen) {
+ throw new InvalidOperationException();
+}
+#endif
+    }
+
      public int CompareTo(FastInteger val) {
       switch ((this.integerMode << 2) | val.integerMode) {
           case (0 << 2) | 0: {
@@ -527,6 +548,9 @@ namespace PeterO.Numbers {
     }
 
     internal FastInteger Abs() {
+      if (this.frozen) {
+ throw new InvalidOperationException();
+}
       switch (this.integerMode) {
         case 0:
           if (this.smallValue == Int32.MinValue) {
@@ -561,23 +585,24 @@ namespace PeterO.Numbers {
     }
 
     internal FastInteger SetInt(int val) {
+      this.CheckFrozen();
       this.smallValue = val;
       this.integerMode = 0;
       return this;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'/>
     internal FastInteger Multiply(int val) {
+      this.CheckFrozen();
       if (val == 0) {
         this.smallValue = 0;
         this.integerMode = 0;
       } else {
         switch (this.integerMode) {
           case 0: {
-            long amult=((long)val)*((long)this.smallValue);
-            if (amult>Int32.MaxValue || amult<Int32.MinValue) {
+            long amult = ((long)val)*((long)this.smallValue);
+            if (amult > Int32.MaxValue || amult<Int32.MinValue) {
               // would overflow, convert to large
              bool apos = this.smallValue > 0L;
              bool bpos = val > 0L;
@@ -618,6 +643,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Negate"]/*'/>
     internal FastInteger Negate() {
+      this.CheckFrozen();
       switch (this.integerMode) {
         case 0:
           if (this.smallValue == Int32.MinValue) {
@@ -644,9 +670,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'/>
     internal FastInteger Subtract(FastInteger val) {
+      this.CheckFrozen();
       EInteger valValue;
       switch (this.integerMode) {
         case 0:
@@ -692,9 +718,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'/>
     internal FastInteger SubtractInt(int val) {
+      this.CheckFrozen();
       if (val == Int32.MinValue) {
         return this.AddBig(ValueNegativeInt32MinValue);
       }
@@ -714,9 +740,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'/>
     internal FastInteger AddBig(EInteger bigintVal) {
+      this.CheckFrozen();
       switch (this.integerMode) {
           case 0: {
             return bigintVal.CanFitInInt32() ? this.AddInt((int)bigintVal) :
@@ -737,9 +763,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'/>
     internal FastInteger SubtractBig(EInteger bigintVal) {
+      this.CheckFrozen();
       if (this.integerMode == 2) {
         this.largeValue -= (EInteger)bigintVal;
         return this;
@@ -762,6 +788,7 @@ namespace PeterO.Numbers {
     }
 
     internal FastInteger Add(FastInteger val) {
+      this.CheckFrozen();
       EInteger valValue;
       switch (this.integerMode) {
         case 0:
@@ -810,11 +837,11 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Remainder(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Remainder(System.Int32)"]/*'/>
     internal FastInteger Remainder(int divisor) {
       // Mod operator will always result in a
       // number that fits an int for int divisors
+      this.CheckFrozen();
       if (divisor != 0) {
         switch (this.integerMode) {
           case 0:
@@ -841,6 +868,7 @@ namespace PeterO.Numbers {
     }
 
     internal FastInteger Increment() {
+      this.CheckFrozen();
       if (this.integerMode == 0) {
         if (this.smallValue != Int32.MaxValue) {
           ++this.smallValue;
@@ -854,6 +882,7 @@ namespace PeterO.Numbers {
     }
 
     internal FastInteger Decrement() {
+      this.CheckFrozen();
       if (this.integerMode == 0) {
         if (this.smallValue != Int32.MinValue) {
           --this.smallValue;
@@ -868,6 +897,7 @@ namespace PeterO.Numbers {
     }
 
     internal FastInteger Divide(int divisor) {
+      this.CheckFrozen();
       if (divisor != 0) {
         switch (this.integerMode) {
           case 0:
@@ -923,7 +953,8 @@ namespace PeterO.Numbers {
     }
 
     internal FastInteger AddInt(int val) {
-      EInteger valValue;
+      this.CheckFrozen();
+     EInteger valValue;
       switch (this.integerMode) {
         case 0:
           if ((this.smallValue < 0 && (int)val < Int32.MinValue -
@@ -1007,7 +1038,7 @@ namespace PeterO.Numbers {
           chars[count--] = HexAlphabet[(int)value];
       }
       if (neg) {
-        chars[count]='-';
+        chars[count ] = '-';
       } else {
         ++count;
       }

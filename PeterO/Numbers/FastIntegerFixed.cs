@@ -34,17 +34,28 @@ namespace PeterO.Numbers {
       if (fi == null) {
  return false;
 }
-      return this.integerMode == fi.integerMode &&
-        this.smallValue == fi.smallValue &&
-        (this.largeValue == null ? fi.largeValue == null :
-          this.largeValue.Equals(fi.largeValue));
+      if (this.integerMode != fi.integerMode) {
+        return false;
+      }
+      if (this.integerMode == 0) {
+        if (this.smallValue != fi.smallValue) {
+ return false;
+}
+      } else if (this.integerMode == 1) {
+        if (!this.largeValue.Equals(fi.largeValue)) {
+ return false;
+}
+      }
+      return true;
     }
 
     public override int GetHashCode() {
       int hash = unchecked(31 + this.integerMode);
-      hash = unchecked(hash * 31 + this.smallValue);
-      hash = unchecked(hash * 31 +
-        (this.largeValue == null ? 0 : this.largeValue.GetHashCode()));
+      if (this.integerMode == 0) {
+       hash = unchecked(hash * 31 + this.smallValue);
+      } else if (this.integerMode == 1) {
+       hash = unchecked(hash * 31 + this.largeValue.GetHashCode());
+      }
       return hash;
     }
 
@@ -88,13 +99,13 @@ namespace PeterO.Numbers {
     }
 
     public int Mod(int value) {
-      if (value< 0) {
+      if (value < 0) {
         throw new NotSupportedException();
       }
       if (this.integerMode == 0 && this.smallValue >= 0) {
-        return this.smallValue%value;
+        return this.smallValue % value;
       } else {
-        EInteger retval = this.AsEInteger().Remainder(EInteger.FromInt32(value));
+      EInteger retval = this.AsEInteger().Remainder(EInteger.FromInt32(value));
         return retval.ToInt32Checked();
       }
     }
@@ -118,13 +129,14 @@ namespace PeterO.Numbers {
       return FastIntegerFixed.FromBig(bigA.Add(bigB));
     }
 
-    public static FastIntegerFixed Subtract(FastIntegerFixed a,
-      FastIntegerFixed b) {
+    public static FastIntegerFixed Subtract(
+FastIntegerFixed a,
+FastIntegerFixed b) {
       if (a.integerMode == 0 && b.integerMode == 0) {
         if (b.smallValue == 0) {
  return a;
 }
-      if ((b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue)||
+      if ((b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue) ||
           (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
                   a.smallValue)) {
         return new FastIntegerFixed(a.smallValue - b.smallValue);
@@ -154,6 +166,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.Negate"]/*'/>
+    /// <summary>Not documented yet.</summary>
     internal FastIntegerFixed Negate() {
       switch (this.integerMode) {
         case 0:
@@ -170,6 +183,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsEvenNumber"]/*'/>
+    /// <summary>Not documented yet.</summary>
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {
@@ -189,6 +203,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.ToString"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public override string ToString() {
       switch (this.integerMode) {
         case 0:
@@ -201,6 +216,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.Sign"]/*'/>
+    /// <summary>Not documented yet.</summary>
     internal int Sign {
       get {
         switch (this.integerMode) {
@@ -216,6 +232,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsValueZero"]/*'/>
+    /// <summary>Not documented yet.</summary>
     internal bool IsValueZero {
       get {
         switch (this.integerMode) {

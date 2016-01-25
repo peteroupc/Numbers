@@ -1051,21 +1051,21 @@ ctx);
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedDecimal"]/*'/>
     [Obsolete("Renamed to ToEDecimal.")]
     public EDecimal ToExtendedDecimal() {
-      return ToEDecimal();
+      return this.ToEDecimal();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedDecimal(PeterO.Numbers.EContext)"]/*'/>
     [Obsolete("Renamed to ToEDecimal.")]
     public EDecimal ToExtendedDecimal(EContext ctx) {
-      return ToEDecimal(ctx);
+      return this.ToEDecimal(ctx);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedDecimalExactIfPossible(PeterO.Numbers.EContext)"]/*'/>
     [Obsolete("Renamed to ToEDecimalExactIfPossible.")]
     public EDecimal ToExtendedDecimalExactIfPossible(EContext ctx) {
-      return ToEDecimalExactIfPossible(ctx);
+      return this.ToEDecimalExactIfPossible(ctx);
     }
 
     /// <include file='../../docs.xml'
@@ -1133,21 +1133,21 @@ ctx);
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedFloat"]/*'/>
     [Obsolete("Renamed to ToEFloat.")]
     public EFloat ToExtendedFloat() {
-      return ToEFloat();
+      return this.ToEFloat();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedFloat(PeterO.Numbers.EContext)"]/*'/>
     [Obsolete("Renamed to ToEFloat.")]
     public EFloat ToExtendedFloat(EContext ctx) {
-      return ToEFloat(ctx);
+      return this.ToEFloat(ctx);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedFloatExactIfPossible(PeterO.Numbers.EContext)"]/*'/>
     [Obsolete("Renamed to ToEFloatExactIfPossible.")]
     public EFloat ToExtendedFloatExactIfPossible(EContext ctx) {
-      return ToEFloatExactIfPossible(ctx);
+      return this.ToEFloatExactIfPossible(ctx);
     }
 
     /// <include file='../../docs.xml'

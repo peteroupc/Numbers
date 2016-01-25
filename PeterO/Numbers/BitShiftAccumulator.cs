@@ -36,7 +36,7 @@ namespace PeterO.Numbers {
 
     public FastInteger GetDigitLength() {
       this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
-      return FastInteger.Copy(this.knownBitLength);
+      return FastInteger.CopyFrozen(this.knownBitLength);
     }
 
         private void VerifyKnownLength() {
@@ -51,55 +51,56 @@ namespace PeterO.Numbers {
 #endif
     }
 
-    public void ShiftToDigits(FastInteger bits, FastInteger preShift, bool
-      truncate) {
+    public void ShiftToDigits(
+FastInteger bits,
+FastInteger preShift,
+bool truncate) {
       if (bits.Sign < 0) {
         throw new ArgumentException("bits's sign (" + bits.Sign +
           ") is less than 0");
       }
-      if (preShift != null && preShift.Sign>0) {
+      if (preShift != null && preShift.Sign > 0) {
         this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
-        // TODO: Setting this.knownBitLength rather than
-        // using a temporary variable might currently cause issues here
-        //DebugUtility.Log("bits=" + bits + " pre=" + preShift + " known=" + (//kbl) + " [" + this.shiftedBigInt + "]");
+        // DebugUtility.Log("bits=" + bits + " pre=" + preShift + " known=" +
+        // (//kbl) + " [" + this.shiftedBigInt + "]");
         if (this.knownBitLength.CompareTo(bits) <= 0) {
           // Known digit length is already small enough
           if (truncate) {
-            TruncateRight(preShift);
+            this.TruncateRight(preShift);
           } else {
-            ShiftRight(preShift);
+            this.ShiftRight(preShift);
           }
-          VerifyKnownLength();
+          this.VerifyKnownLength();
           return;
         } else {
-          FastInteger bitDiff = FastInteger.Copy(this.knownBitLength)
+          FastInteger bitDiff = this.knownBitLength.Copy()
             .Subtract(bits);
-          //DebugUtility.Log("bitDiff=" + (bitDiff));
+          // DebugUtility.Log("bitDiff=" + bitDiff);
           int cmp = bitDiff.CompareTo(preShift);
           if (cmp <= 0) {
             // Difference between desired digit length and current
             // length is smaller than the shift, make it the shift
            if (truncate) {
-             TruncateRight(preShift);
+             this.TruncateRight(preShift);
            } else {
-             ShiftRight(preShift);
+             this.ShiftRight(preShift);
            }
-          VerifyKnownLength();
+          this.VerifyKnownLength();
            return;
           } else {
            if (truncate) {
-             TruncateRight(bitDiff);
+             this.TruncateRight(bitDiff);
            } else {
-             ShiftRight(bitDiff);
+             this.ShiftRight(bitDiff);
            }
-          VerifyKnownLength();
+          this.VerifyKnownLength();
            return;
           }
         }
       }
       if (bits.CanFitInInt32()) {
         this.ShiftToDigitsInt(bits.AsInt32());
-          VerifyKnownLength();
+          this.VerifyKnownLength();
       } else {
         this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
         EInteger bigintDiff = this.knownBitLength.AsEInteger();
@@ -110,7 +111,7 @@ namespace PeterO.Numbers {
           // desired bit length
           this.ShiftRight(FastInteger.FromBig(bigintDiff));
         }
-          VerifyKnownLength();
+          this.VerifyKnownLength();
       }
     }
 
@@ -172,6 +173,7 @@ int olderDiscarded) {
             ") is less than 0");
         }
         this.isSmall = true;
+      this.discardedBitCount = new FastInteger(0);
       this.bitsAfterLeftmost = (olderDiscarded != 0) ? 1 : 0;
       this.bitLeftmost = (lastDiscarded != 0) ? 1 : 0;
     }
@@ -228,7 +230,7 @@ int olderDiscarded) {
         this.knownBitLength = new FastInteger(1);
         return;
       }
-      this.knownBitLength = this.knownBitLength ?? this.GetDigitLength();
+      this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
       this.discardedBitCount.AddInt(bits);
       int cmp = this.knownBitLength.CompareToInt(bits);
       if (cmp < 0) {
@@ -305,7 +307,7 @@ int olderDiscarded) {
           return;
         }
       }
-      this.knownBitLength = this.knownBitLength ?? this.GetDigitLength();
+      this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
       if (this.knownBitLength.CompareToInt(bits) <= 0) {
         return;
       }
@@ -317,7 +319,7 @@ int olderDiscarded) {
           bs -= bits;
         } else {
           FastInteger bitShift =
-          FastInteger.Copy(this.knownBitLength).SubtractInt(bits);
+          this.knownBitLength.Copy().SubtractInt(bits);
           if (!bitShift.CanFitInInt32()) {
             this.ShiftRight(bitShift);
             return;
@@ -425,7 +427,7 @@ int olderDiscarded) {
           return;
         }
       }
-      this.knownBitLength = this.knownBitLength ?? this.GetDigitLength();
+      this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
       if (this.knownBitLength.CompareToInt(bits) <= 0) {
         return;
       }

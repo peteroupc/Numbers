@@ -129,7 +129,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'
+    /// />
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
         throw new ArgumentNullException("bytes");
@@ -185,7 +186,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'
+    /// />
     public static EInteger FromInt32(int intValue) {
       if (intValue == 0) {
         return ValueZero;
@@ -228,7 +230,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt64(System.Int64)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt64(System.Int64)"]/*'
+    /// />
     public static EInteger FromInt64(long longerValue) {
       if (longerValue == 0) {
         return ValueZero;
@@ -285,7 +288,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)"]/*'
+    /// />
     public static EInteger FromRadixString(string str, int radix) {
       if (str == null) {
         throw new ArgumentNullException("str");
@@ -294,7 +298,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)"]/*'
+    /// />
     public static EInteger FromRadixSubstring(
       string str,
       int radix,
@@ -477,7 +482,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromString(System.String)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromString(System.String)"]/*'
+    /// />
     public static EInteger FromString(string str) {
       if (str == null) {
         throw new ArgumentNullException("str");
@@ -486,7 +492,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)"]/*'
+    /// />
     public static EInteger FromSubstring(
       string str,
       int index,
@@ -505,7 +512,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
         throw new ArgumentNullException("bigintAugend");
@@ -752,28 +760,28 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Checked"]/*'/>
     [Obsolete("Renamed to ToInt32Checked.")]
     public int AsInt32Checked() {
-      return ToInt32Checked();
+      return this.ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Unchecked"]/*'/>
     [Obsolete("Renamed to ToInt32Unchecked.")]
     public int AsInt32Unchecked() {
-      return ToInt32Unchecked();
+      return this.ToInt32Unchecked();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Checked"]/*'/>
     [Obsolete("Renamed to ToInt64Checked.")]
     public long AsInt64Checked() {
-      return ToInt64Checked();
+      return this.ToInt64Checked();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Unchecked"]/*'/>
     [Obsolete("Renamed to ToInt64Unchecked.")]
     public long AsInt64Unchecked() {
-      return ToInt64Unchecked();
+      return this.ToInt64Unchecked();
     }
 
     /// <include file='../../docs.xml'
@@ -805,7 +813,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public int CompareTo(EInteger other) {
       if (other == null) {
         return 1;
@@ -845,7 +854,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
         throw new ArgumentNullException("bigintDivisor");
@@ -867,7 +877,16 @@ namespace PeterO.Numbers {
         int valueBSmall = bigintDivisor.ToInt32Checked();
         if (valueASmall != Int32.MinValue || valueBSmall != -1) {
           int result = valueASmall / valueBSmall;
-          return EInteger.FromInt64(result);
+          return EInteger.FromInt32(result);
+        }
+      }
+      if (words1Size <= 4 && words2Size <= 4 && this.CanFitInInt64() &&
+          bigintDivisor.CanFitInInt64()) {
+        long valueALong = this.ToInt64Checked();
+        long valueBLong = bigintDivisor.ToInt64Checked();
+        if (valueALong != Int64.MinValue || valueBLong != -1) {
+          long resultLong = valueALong / valueBLong;
+          return EInteger.FromInt64(resultLong);
         }
       }
       short[] quotReg;
@@ -916,7 +935,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException("divisor");
@@ -936,7 +956,7 @@ namespace PeterO.Numbers {
         // divisor is small, use a fast path
         var quotient = new short[this.words.Length];
         int smallRemainder;
-        switch(divisor.words[0]) {
+         switch (divisor.words[0]) {
           case 2:
             smallRemainder = ((int)FastDivideAndRemainderTwo(
              quotient,
@@ -954,7 +974,7 @@ namespace PeterO.Numbers {
              words1Size));
              break;
           default:
-           //DebugUtility.Log("smalldiv=" + (divisor.words[0]));
+           // DebugUtility.Log("smalldiv=" + (divisor.words[0]));
            smallRemainder = ((int)FastDivideAndRemainder(
              quotient,
              0,
@@ -984,6 +1004,29 @@ namespace PeterO.Numbers {
       }
       words1Size += words1Size & 1;
       words2Size += words2Size & 1;
+      if (this.CanFitInInt32() && divisor.CanFitInInt32()) {
+        long dividendSmall = this.ToInt32Checked();
+        long divisorSmall = divisor.ToInt32Checked();
+        if (dividendSmall != Int32.MinValue || divisorSmall != -1) {
+          long quotientSmall = dividendSmall / divisorSmall;
+          long remainderSmall = dividendSmall - (quotientSmall*divisorSmall);
+          return new[] {
+            EInteger.FromInt64(quotientSmall),
+            EInteger.FromInt64(remainderSmall) };
+        }
+      } else if (this.CanFitInInt64() && divisor.CanFitInInt64()) {
+        long dividendLong = this.ToInt64Checked();
+        long divisorLong = divisor.ToInt64Checked();
+        if (dividendLong != Int64.MinValue || divisorLong != -1) {
+          long quotientLong = dividendLong / divisorLong;
+          long remainderLong = dividendLong - (quotientLong*divisorLong);
+          return new[] {
+            EInteger.FromInt64(quotientLong),
+            EInteger.FromInt64(remainderLong) };
+        }
+        // DebugUtility.Log("int64divrem {0}/{1}"
+        // , this.ToInt64Checked(), divisor.ToInt64Checked());
+      }
       var bigRemainderreg = new short[RoundupSize((int)words2Size)];
       var quotientreg = new short[RoundupSize((int)(words1Size - words2Size +
                     2))];
@@ -1013,7 +1056,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(System.Object)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(System.Object)"]/*'
+    /// />
     public override bool Equals(object obj) {
       var other = obj as EInteger;
       if (other == null) {
@@ -1083,7 +1127,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException("bigintSecond");
@@ -1121,50 +1166,51 @@ if (!(u >= 0 && v >= 0)) {
               WordsToLongUnchecked(bu, buc),
               WordsToLongUnchecked(bv, bvc));
           }
-          if ((bu[0]&0x0f) == 0 && (bv[0]&0x0f) == 0) {
+          if ((bu[0 ]&0x0f) == 0 && (bv[0]&0x0f) == 0) {
             if (bshl < 0) {
-              ebshl+=EInteger.FromInt32(4);
+              ebshl += EInteger.FromInt32(4);
             } else if (bshl == Int32.MaxValue - 3) {
               ebshl = EInteger.FromInt32(Int32.MaxValue - 3);
-              ebshl+=EInteger.FromInt32(4);
-              bshl=-1;
+              ebshl += EInteger.FromInt32(4);
+              bshl = -1;
             } else {
-              bshl+=4;
+              bshl += 4;
             }
             buc = WordsShiftRightFour(bu, buc);
             bvc = WordsShiftRightFour(bv, bvc);
             continue;
           }
-          bool eu = (bu[0]&0x01) == 0;
-          bool ev = (bv[0]&0x01) == 0;
+          bool eu = (bu[0 ]&0x01) == 0;
+          bool ev = (bv[0 ]&0x01) == 0;
           if (eu && ev) {
             if (bshl < 0) {
-              ebshl+=EInteger.One;
+              ebshl += EInteger.One;
             } else if (bshl == Int32.MaxValue) {
               ebshl = EInteger.FromInt32(Int32.MaxValue);
-              ebshl+=EInteger.One;
-              bshl=-1;
+              ebshl += EInteger.One;
+              bshl = -1;
             } else {
               ++bshl;
             }
             buc = WordsShiftRightOne(bu, buc);
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
-            buc = (Math.Abs(buc-bvc)>1 && (bu[0]&0x0f) == 0) ?
-              (WordsShiftRightFour(bu, buc)) : (WordsShiftRightOne(bu,
+            buc = (Math.Abs(buc - bvc)>1 && (bu[0]&0x0f) == 0) ?
+              WordsShiftRightFour(bu, buc) : (WordsShiftRightOne(bu,
               buc));
           } else if (!eu && ev) {
-            if ((bv[0]&0xff) == 0 && Math.Abs(buc-bvc)>1) {
-              //DebugUtility.Log("bv8");
+            if ((bv[0 ]&0xff) == 0 && Math.Abs(buc-bvc)>1) {
+              // DebugUtility.Log("bv8");
               bvc = WordsShiftRightEight(bv, bvc);
             } else {
- bvc = ((bv[0]&0x0f) == 0 && Math.Abs(buc-bvc)>1) ? (WordsShiftRightFour(bv,
-   bvc)) : (WordsShiftRightOne(bv, bvc));
+ bvc = (
+(bv[0]&0x0f) == 0 && Math.Abs(buc-bvc)>1) ? (WordsShiftRightFour(bv,
+   bvc)) : WordsShiftRightOne(bv, bvc);
 }
           } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
             buc = WordsSubtract(bu, buc, bv, bvc);
-            buc = (Math.Abs(buc-bvc)>1 && (bu[0]&0x02) == 0) ?
-              (WordsShiftRightTwo(bu, buc)) : (WordsShiftRightOne(bu, buc));
+            buc = (Math.Abs(buc - bvc)>1 && (bu[0]&0x02) == 0) ?
+              WordsShiftRightTwo(bu, buc) : (WordsShiftRightOne(bu, buc));
           } else {
             short[] butmp = bv;
             short[] bvtmp = bu;
@@ -1178,20 +1224,23 @@ if (!(u >= 0 && v >= 0)) {
             bvc = bvctmp;
           }
         }
-        var buVar = new EInteger(buc, bu, false);
-        var bvVar = new EInteger(bvc, bv, false);
+        var valueBuVar = new EInteger(buc, bu, false);
+        var valueBvVar = new EInteger(bvc, bv, false);
         if (bshl >= 0) {
-         buVar = buVar.IsZero ? (bvVar << bshl) : (buVar << bshl);
+  valueBuVar = valueBuVar.IsZero ? (valueBvVar << bshl) : (valueBuVar <<
+           bshl);
         } else {
-         buVar = buVar.IsZero ?
-          LeftShiftBigIntVar(bvVar, ebshl) : LeftShiftBigIntVar(buVar, ebshl);
+         valueBuVar = valueBuVar.IsZero ?
+ LeftShiftBigIntVar(valueBvVar, ebshl) : LeftShiftBigIntVar(valueBuVar,
+            ebshl);
         }
-        return buVar;
+        return valueBuVar;
       }
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
+  /// <summary>Not documented yet.</summary>
     public int GetDigitCount() {
       if (this.IsZero) {
         return 1;
@@ -1236,8 +1285,7 @@ if (!(u >= 0 && v >= 0)) {
           return minDigits;
         }
     return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits)) >=
-          0 ?
-          maxDigits : minDigits;
+          0 ? maxDigits : minDigits;
       } else if (bitlen <= 6432162) {
         // Much more accurate approximation
         int minDigits = ApproxLogTenOfTwo(bitlen - 1);
@@ -1422,12 +1470,12 @@ if (!(u >= 0 && v >= 0)) {
                     4) : ((((c << 10) & 0xffff) != 0) ? (retSetBitLong +
                     5) : ((((c << 9) & 0xffff) != 0) ? (retSetBitLong + 6) :
                     ((((c <<
-            8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff)!=
+            8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff) !=
                 0) ? (retSetBitLong + 8) : ((((c << 6) & 0xffff) !=
                     0) ? (retSetBitLong + 9) : ((((c <<
                     5) & 0xffff) != 0) ? (retSetBitLong + 10) : ((((c <<
                     4) & 0xffff) != 0) ? (retSetBitLong + 11) : ((((c << 3) &
-                0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff)!=
+                0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff) !=
                 0) ? (retSetBitLong + 13) : ((((c << 1) & 0xffff) !=
                 0) ? (retSetBitLong + 14) : (retSetBitLong +
                     15)))))))))))))));
@@ -1437,7 +1485,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'
+    /// />
     public bool GetSignedBit(int index) {
       if (index < 0) {
         throw new ArgumentOutOfRangeException("index");
@@ -1468,7 +1517,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'
+    /// />
     public int GetSignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
@@ -1501,7 +1551,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'
+    /// />
     public bool GetUnsignedBit(int n) {
       if (n < 0) {
         throw new ArgumentException("n (" + n + ") is less than 0");
@@ -1511,7 +1562,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'
+    /// />
     public int GetUnsignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
@@ -1544,7 +1596,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException("divisor");
@@ -1560,7 +1613,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
         throw new ArgumentNullException("pow");
@@ -1589,7 +1643,8 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
         throw new ArgumentNullException("bigintMult");
@@ -1754,7 +1809,8 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger PowBigIntVar(EInteger power) {
       if (power == null) {
         throw new ArgumentNullException("power");
@@ -1791,7 +1847,8 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException("divisor");
@@ -1845,7 +1902,8 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)"]/*'
+    /// />
     public EInteger ShiftLeft(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
         return this;
@@ -1954,7 +2012,7 @@ this.negative ^ bigintMult.negative);
          // NOTE: Assumes the number is nonnegative
         if (wordCount == wordCount2) {
           for (var i = 0; i < wordCount; ++i) {
-            if (words[i]!=words2[i]) {
+            if (words[i] != words2[i]) {
  return false;
 }
           }
@@ -1962,8 +2020,9 @@ this.negative ^ bigintMult.negative);
         }
         return false;
     }
+
     private static bool WordsIsEven(short[] words, int wordCount) {
-      return wordCount == 0 || (words[0]&0x01) == 0;
+      return wordCount == 0 || (words[0 ]&0x01) == 0;
     }
 
     private static int WordsShiftRightTwo(short[] words, int wordCount) {
@@ -1974,10 +2033,10 @@ this.negative ^ bigintMult.negative);
         for (int i = wordCount - 1; i >= 0; --i) {
           int w = words[i];
           u = ((w & 0xfffc) >> 2) | carry;
-          carry = ((w << 14) & 0xc000);
+          carry = (w << 14) & 0xc000;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount-1]==0) {
+        if (words[wordCount - 1]==0) {
           --wordCount;
         }
       }
@@ -1992,10 +2051,10 @@ this.negative ^ bigintMult.negative);
         for (int i = wordCount - 1; i >= 0; --i) {
           int w = words[i];
           u = ((w & 0xff00) >> 8) | carry;
-          carry = ((w << 8) & 0xff00);
+          carry = (w << 8) & 0xff00;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount-1]==0) {
+        if (words[wordCount - 1]==0) {
           --wordCount;
         }
       }
@@ -2010,10 +2069,10 @@ this.negative ^ bigintMult.negative);
         for (int i = wordCount - 1; i >= 0; --i) {
           int w = words[i];
           u = ((w & 0xfff0) >> 4) | carry;
-          carry = ((w << 12) & 0xf000);
+          carry = (w << 12) & 0xf000;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount-1]==0) {
+        if (words[wordCount - 1]==0) {
           --wordCount;
         }
       }
@@ -2028,18 +2087,21 @@ this.negative ^ bigintMult.negative);
         for (int i = wordCount - 1; i >= 0; --i) {
           int w = words[i];
           u = ((w & 0xfffe) >> 1) | carry;
-          carry = ((w << 15) & 0x8000);
+          carry = (w << 15) & 0x8000;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount-1]==0) {
+        if (words[wordCount - 1]==0) {
           --wordCount;
         }
       }
       return wordCount;
     }
 
-    private static int WordsSubtract(short[] words, int wordCount,
-       short[] subtrahendWords, int subtrahendCount) {
+    private static int WordsSubtract(
+short[] words,
+int wordCount,
+short[] subtrahendWords,
+int subtrahendCount) {
       // NOTE: Assumes this value is at least as high as the subtrahend
       // and both numbers are nonnegative
          short borrow;
@@ -2063,8 +2125,11 @@ this.negative ^ bigintMult.negative);
           subtrahendCount);
       }
       if (borrow != 0) {
-       Decrement(words, subtrahendCount,
-         (int)(wordCount - subtrahendCount), borrow);
+       Decrement(
+words,
+subtrahendCount,
+(int)(wordCount - subtrahendCount),
+borrow);
       }
       while (wordCount != 0 && words[wordCount - 1] == 0) {
         --wordCount;
@@ -2073,7 +2138,8 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)"]/*'
+    /// />
     public EInteger ShiftRight(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
         return this;
@@ -2140,7 +2206,8 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
         throw new ArgumentNullException("subtrahend");
@@ -2150,7 +2217,8 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)"]/*'
+    /// />
     public byte[] ToBytes(bool littleEndian) {
       int sign = this.Sign;
       if (sign == 0) {
@@ -2311,7 +2379,8 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'
+    /// />
     public string ToRadixString(int radix) {
       if (radix < 2) {
         throw new ArgumentException("radix (" + radix +
@@ -2353,7 +2422,7 @@ this.negative ^ bigintMult.negative);
             int rest = ((int)tempReg[0]) & 0xffff;
             rest |= (((int)tempReg[1]) & 0xffff) << 16;
             while (rest != 0) {
-            int newrest = (rest< 43698) ? ((rest * 26215) >> 18) : (rest /
+            int newrest = (rest < 43698) ? ((rest * 26215) >> 18) : (rest /
                 10);
               s[i++] = Digits[rest - (newrest * 10)];
               rest = newrest;
@@ -3165,14 +3234,13 @@ this.negative ^ bigintMult.negative);
             int tempInt;
             tempInt = a0b0high + (((int)valueA0B0) & 0xffff) + (((int)d) &
                     0xffff) + (((int)valueA1B1) & 0xffff);
-            c[csi + 1] = (short)(((int)tempInt) & 0xffff);
-
+            c[csi + 1] = (short)tempInt;
             tempInt = valueA1B1 + (((int)(tempInt >> 16)) & 0xffff) +
               a0b0high + (((int)(d >> 16)) & 0xffff) + (((int)(valueA1B1 >>
                     16)) & 0xffff) - (((int)s) & 0xffff);
-
-            c[csi + 2] = (short)(((int)tempInt) & 0xffff);
-            c[csi + 3] = (short)(((int)(tempInt >> 16)) & 0xffff);
+            c[csi + 2] = (short)tempInt;
+            tempInt >>= 16;
+            c[csi + 3] = (short)tempInt;
           }
         } else {
           for (int i = istart; i < iend; i += 4) {
@@ -3195,14 +3263,15 @@ this.negative ^ bigintMult.negative);
             int tempInt;
             tempInt = a0b0high + (((int)valueA0B0) & 0xffff) + (((int)d) &
                     0xffff) + (((int)valueA1B1) & 0xffff);
-            c[csi + 1] = (short)(((int)tempInt) & 0xffff);
+            c[csi + 1] = (short)tempInt;
 
             tempInt = valueA1B1 + (((int)(tempInt >> 16)) & 0xffff) +
               a0b0high + (((int)(d >> 16)) & 0xffff) + (((int)(valueA1B1 >>
                     16)) & 0xffff) - (((int)s) & 0xffff);
 
-            c[csi + 2] = (short)(((int)tempInt) & 0xffff);
-            c[csi + 3] = (short)(((int)(tempInt >> 16)) & 0xffff);
+            c[csi + 2] = (short)tempInt;
+            tempInt >>= 16;
+            c[csi + 3] = (short)tempInt;
           }
         }
       }
@@ -4209,11 +4278,11 @@ this.negative ^ bigintMult.negative);
       }
 #endif
       if (words2Count == 0) {
-        throw new DivideByZeroException("division by ValueZero");
+        throw new DivideByZeroException();
       }
       if (words2Count == 1) {
         if (words2[words2Start] == 0) {
-          throw new DivideByZeroException("division by ValueZero");
+          throw new DivideByZeroException();
         }
         int smallRemainder = ((int)FastDivideAndRemainder(
           quotientArr,
@@ -4222,7 +4291,9 @@ this.negative ^ bigintMult.negative);
           words1Start,
           words1Count,
           words2[words2Start])) & 0xffff;
-        remainderArr[remainderStart] = (short)smallRemainder;
+        if (remainderArr != null) {
+          remainderArr[remainderStart] = (short)smallRemainder;
+        }
         return;
       }
 #if DEBUG
@@ -4256,7 +4327,7 @@ this.negative ^ bigintMult.negative);
           words2,
           words2Start,
           tempArr,
-          (int)(valueTBstart + shiftWords),
+          valueTBstart + shiftWords,
           words2Count - shiftWords);
         var shiftBits = (short)((short)16 - BitPrecision(tempArr[valueTBstart +
                     words2Count - 1]));
@@ -4483,51 +4554,52 @@ this.negative ^ bigintMult.negative);
       short valueB1) {
       short valueQ;
       unchecked {
+        int valueB1int = ((int)valueB1) & 0xffff;
         valueQ = ((short)(valueB1 + 1) == 0) ? words1[words1Start + 2] :
           ((valueB1 != 0) ? DivideUnsigned(
-            MakeUint(
-              words1[words1Start + 1],
-              words1[words1Start + 2]),
-            (short)(((int)valueB1 + 1) & 0xffff)) : DivideUnsigned(
+            MakeUint(words1[words1Start + 1], words1[words1Start + 2]),
+            (short)(valueB1int + 1)) : DivideUnsigned(
              MakeUint(words1[words1Start], words1[words1Start + 1]),
              valueB0));
-
+        int w1s0 = ((int)words1[words1Start]) & 0xffff;
+        int w1s1 = ((int)words1[words1Start + 1]) & 0xffff;
+        int w1s2 = ((int)words1[words1Start + 2]) & 0xffff;
         int valueQint = ((int)valueQ) & 0xffff;
         int valueB0int = ((int)valueB0) & 0xffff;
-        int valueB1int = ((int)valueB1) & 0xffff;
         int p = valueB0int * valueQint;
-        int u = (((int)words1[words1Start]) & 0xffff) - (p & 0xffff);
-        words1[words1Start] = GetLowHalf(u);
-        u = (((int)words1[words1Start + 1]) & 0xffff) - ((p >> 16) & 0xffff) -
+        int u = w1s0 - (p & 0xffff);
+        w1s0 = GetLowHalf(u);
+        u = w1s1 - ((p >> 16) & 0xffff) -
           (((int)GetHighHalfAsBorrow(u)) & 0xffff) - (valueB1int * valueQint);
-        words1[words1Start + 1] = GetLowHalf(u);
-        words1[words1Start + 2] += GetHighHalf(u);
-        while (words1[words1Start + 2] != 0 ||
-               (((int)words1[words1Start + 1]) & 0xffff) > (((int)valueB1) &
-                    0xffff) || (words1[words1Start + 1] == valueB1 &&
-                    (((int)words1[words1Start]) & 0xffff) >=
-                    (((int)valueB0) & 0xffff))) {
-          u = (((int)words1[words1Start]) & 0xffff) - valueB0int;
-          words1[words1Start] = GetLowHalf(u);
-          u = (((int)words1[words1Start + 1]) & 0xffff) - valueB1int -
+        w1s1 = GetLowHalf(u);
+        w1s2 = (w1s2 + (u >> 16)) & 0xffff;
+        while (w1s2 != 0 || w1s1 > valueB1int || (w1s1 == valueB1int &&
+                    w1s0 >= valueB0int)) {
+          u = w1s0 - valueB0int;
+          w1s0 = GetLowHalf(u);
+          u = w1s1 - valueB1int -
             (((int)GetHighHalfAsBorrow(u)) & 0xffff);
-          words1[words1Start + 1] = GetLowHalf(u);
-          words1[words1Start + 2] += GetHighHalf(u);
+          w1s1 = GetLowHalf(u);
+          w1s2 = (w1s2 + (u >> 16)) & 0xffff;
           ++valueQ;
         }
+        words1[words1Start] = (short)w1s0;
+        words1[words1Start + 1] = (short)w1s1;
+        words1[words1Start + 2] = (short)w1s2;
       }
       return valueQ;
     }
 
     private static short DivideUnsigned(int x, short y) {
-      unchecked {
         if ((x >> 31) == 0) {
           // x is already nonnegative
           int iy = ((int)y) & 0xffff;
-          return (short)(((int)x / iy) & 0xffff);
+          return unchecked((short)((int)x / iy));
+        } else {
+          long longX = ((long)x) & 0xffffffffL;
+          int iy = ((int)y) & 0xffff;
+          return unchecked((short)(longX / iy));
         }
-        return Divide32By16(x, y, false);
-      }
     }
 
     private static void FastDivide(
@@ -4535,7 +4607,7 @@ this.negative ^ bigintMult.negative);
       short[] dividendReg,
       int count,
       short divisorSmall) {
-      switch(divisorSmall) {
+       switch (divisorSmall) {
         case 2:
          FastDivideAndRemainderTwo(quotientReg, 0, dividendReg, 0, count);
          break;
@@ -4543,7 +4615,13 @@ this.negative ^ bigintMult.negative);
          FastDivideAndRemainderTen(quotientReg, 0, dividendReg, 0, count);
          break;
         default:
-         FastDivideAndRemainder(quotientReg, 0, dividendReg, 0, count, divisorSmall);
+   FastDivideAndRemainder(
+quotientReg,
+0,
+dividendReg,
+0,
+count,
+divisorSmall);
          break;
       }
     }
@@ -4560,11 +4638,11 @@ this.negative ^ bigintMult.negative);
       int ds = dividendStart + count - 1;
       int qs = quotientStart + count - 1;
       for (var i = 0; i < count; ++i) {
-        currentDividend = (((int)dividendReg[ds]) & 0xffff);
-        currentDividend|=(rem << 16);
-        quo = (currentDividend >> 1);
+        currentDividend = ((int)dividendReg[ds]) & 0xffff;
+        currentDividend|=rem << 16;
+        quo = currentDividend >> 1;
         quotientReg[qs] = unchecked((short)quo);
-        rem = (currentDividend & 1);
+        rem = currentDividend & 1;
         --ds;
         --qs;
       }
@@ -4583,8 +4661,8 @@ this.negative ^ bigintMult.negative);
       int ds = dividendStart + count - 1;
       int qs = quotientStart + count - 1;
       for (var i = 0; i < count; ++i) {
-        currentDividend = (((int)dividendReg[ds]) & 0xffff);
-        currentDividend|=(rem << 16);
+        currentDividend = ((int)dividendReg[ds]) & 0xffff;
+        currentDividend|=rem << 16;
         quo = (currentDividend < 43698) ? ((currentDividend * 26215) >> 18) :
             (currentDividend / 10);
         quotientReg[qs] = unchecked((short)quo);
@@ -4610,8 +4688,8 @@ this.negative ^ bigintMult.negative);
       int currentDividend;
       if (idivisor >= 0x8000) {
       for (var i = 0; i < count; ++i) {
-         currentDividend = (((int)dividendReg[ds]) & 0xffff);
-         currentDividend|=(rem << 16);
+         currentDividend = ((int)dividendReg[ds]) & 0xffff;
+         currentDividend|=rem << 16;
          if ((currentDividend >> 31) == 0) {
            quo = currentDividend / idivisor;
            quotientReg[qs] = unchecked((short)quo);
@@ -4628,8 +4706,8 @@ this.negative ^ bigintMult.negative);
        }
       } else {
       for (var i = 0; i < count; ++i) {
-         currentDividend = (((int)dividendReg[ds]) & 0xffff);
-         currentDividend|=(rem << 16);
+         currentDividend = ((int)dividendReg[ds]) & 0xffff;
+         currentDividend|=rem << 16;
         quo = currentDividend / idivisor;
         quotientReg[qs] = unchecked((short)quo);
         rem = currentDividend - (idivisor * quo);
@@ -4654,16 +4732,12 @@ this.negative ^ bigintMult.negative);
       return remainder;
     }
 
-    private static short GetHighHalf(int val) {
-      return unchecked((short)((val >> 16) & 0xffff));
-    }
-
     private static short GetHighHalfAsBorrow(int val) {
       return unchecked((short)(0 - ((val >> 16) & 0xffff)));
     }
 
-    private static short GetLowHalf(int val) {
-      return unchecked((short)(val & 0xffff));
+    private static int GetLowHalf(int val) {
+      return val & 0xffff;
     }
 
     private static int getUnsignedBitLengthEx(int numberValue, int wordCount) {
@@ -5485,19 +5559,18 @@ count);
         throw new ArgumentException("doesn't satisfy shiftBits<16");
       }
 #endif
-
-      unchecked {
-        short u, carry = 0;
+        int u;
+        var carry = 0;
         if (shiftBits != 0) {
-          for (var i = 0; i < n; ++i) {
-            u = r[rstart + i];
-            r[rstart + i] = (short)((int)(u << (int)shiftBits) | (((int)carry) &
-                    0xffff));
-            carry = (short)((((int)u) & 0xffff) >> (int)(16 - shiftBits));
+          int sb16 = 16 - shiftBits;
+          int rs = rstart;
+          for (var i = 0; i < n; ++i, ++rs) {
+            u = r[rs];
+            r[rs] = unchecked((short)((u << shiftBits) | carry));
+            carry = (u & 0xffff) >> sb16;
           }
         }
-        return carry;
-      }
+        return unchecked((short)carry);
     }
 
     private static void ShiftWordsLeftByWords(

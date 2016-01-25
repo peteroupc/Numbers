@@ -95,8 +95,10 @@ namespace PeterO.Numbers {
 
  private static readonly EInteger ValueOneShift23 =
       EInteger.One.ShiftLeft(23);
+
  private static readonly EInteger ValueOneShift52 =
       EInteger.One.ShiftLeft(52);
+
     private readonly EInteger exponent;
     private readonly int flags;
     private readonly EInteger unsignedMantissa;
@@ -472,8 +474,10 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Abs"]/*'/>
     public EFloat Abs() {
       if (this.IsNegative) {
-        var er = new EFloat(this.unsignedMantissa, this.exponent,
-          this.flags & ~BigNumberFlags.FlagNegative);
+        var er = new EFloat(
+this.unsignedMantissa,
+this.exponent,
+this.flags & ~BigNumberFlags.FlagNegative);
         return er;
       }
       return this;
@@ -520,13 +524,13 @@ namespace PeterO.Numbers {
         return -1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
-        return CompareToTotal(other);
+        return this.CompareToTotal(other);
       }
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotal(other.RoundToPrecision(ctx));
       } else {
-        return CompareToTotal(other);
+        return this.CompareToTotal(other);
       }
     }
 
@@ -541,33 +545,33 @@ namespace PeterO.Numbers {
       if (neg1 != neg2) {
         return neg1 ? -1 : 1;
       }
-      var iThis = 0;
-      var iOther = 0;
+      var valueIThis = 0;
+      var valueIOther = 0;
       int cmp;
       if (this.IsSignalingNaN()) {
-        iThis = 2;
+        valueIThis = 2;
       } else if (this.IsNaN()) {
-        iThis = 3;
+        valueIThis = 3;
       } else if (this.IsInfinity()) {
-        iThis = 1;
+        valueIThis = 1;
       }
       if (other.IsSignalingNaN()) {
-        iOther = 2;
+        valueIOther = 2;
       } else if (other.IsNaN()) {
-        iOther = 3;
+        valueIOther = 3;
       } else if (other.IsInfinity()) {
-        iOther = 1;
+        valueIOther = 1;
       }
-      if (iThis > iOther) {
+      if (valueIThis > valueIOther) {
         return neg1 ? -1 : 1;
-      } else if (iThis < iOther) {
+      } else if (valueIThis < valueIOther) {
         return neg1 ? 1 : -1;
       }
-      if (iThis >= 2) {
+      if (valueIThis >= 2) {
         cmp = this.unsignedMantissa.CompareTo(
          other.unsignedMantissa);
         return neg1 ? -cmp : cmp;
-      } else if (iThis == 1) {
+      } else if (valueIThis == 1) {
         return 0;
       } else {
         cmp = this.CompareTo(other);
@@ -586,33 +590,33 @@ namespace PeterO.Numbers {
       if (other == null) {
         return -1;
       }
-      var iThis = 0;
-      var iOther = 0;
+      var valueIThis = 0;
+      var valueIOther = 0;
       int cmp;
       if (this.IsSignalingNaN()) {
-        iThis = 2;
+        valueIThis = 2;
       } else if (this.IsNaN()) {
-        iThis = 3;
+        valueIThis = 3;
       } else if (this.IsInfinity()) {
-        iThis = 1;
+        valueIThis = 1;
       }
       if (other.IsSignalingNaN()) {
-        iOther = 2;
+        valueIOther = 2;
       } else if (other.IsNaN()) {
-        iOther = 3;
+        valueIOther = 3;
       } else if (other.IsInfinity()) {
-        iOther = 1;
+        valueIOther = 1;
       }
-      if (iThis > iOther) {
+      if (valueIThis > valueIOther) {
         return 1;
-      } else if (iThis < iOther) {
+      } else if (valueIThis < valueIOther) {
         return -1;
       }
-      if (iThis >= 2) {
+      if (valueIThis >= 2) {
         cmp = this.unsignedMantissa.CompareTo(
          other.unsignedMantissa);
         return cmp;
-      } else if (iThis == 1) {
+      } else if (valueIThis == 1) {
         return 0;
       } else {
         cmp = this.Abs().CompareTo(other.Abs());
@@ -964,7 +968,7 @@ this.flags).RoundToPrecision(ctx);
         } else {
           EInteger eintA = this.unsignedMantissa.Multiply(
            otherValue.unsignedMantissa);
-          int sign = (eintA.IsZero) ? 0 : (newflags == 0 ? 1 : -1);
+          int sign = eintA.IsZero ? 0 : (newflags == 0 ? 1 : -1);
           return CreateWithFlags(eintA, exp, newflags);
         }
       }
@@ -1022,8 +1026,10 @@ this.flags).RoundToPrecision(ctx);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Negate"]/*'/>
     public EFloat Negate() {
-      return new EFloat(this.unsignedMantissa, this.exponent,
-          this.flags ^ BigNumberFlags.FlagNegative);
+      return new EFloat(
+this.unsignedMantissa,
+this.exponent,
+this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
@@ -1379,7 +1385,7 @@ EContext ctx) {
           FastInteger.WordsToEInteger(mantissaBits),
           0,
           0);
-        FastInteger fi = FastInteger.Copy(bigexponent).SubtractInt(-1074).Abs();
+        FastInteger fi = bigexponent.Copy().SubtractInt(-1074).Abs();
         accum.ShiftRight(fi);
         bitsAfterLeftmost = accum.OlderDiscardedDigits;
         bitLeftmost = accum.LastDiscardedDigit;
@@ -1452,6 +1458,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public int ToInt32Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1473,6 +1480,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public int ToInt32Unchecked() {
       if (!this.IsFinite) {
         return 0;
@@ -1494,6 +1502,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public long ToInt64Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1515,6 +1524,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public long ToInt64Unchecked() {
       if (!this.IsFinite) {
         return 0;
@@ -1615,7 +1625,7 @@ EContext ctx) {
         // Shift while number remains subnormal
         BitShiftAccumulator accum =
           BitShiftAccumulator.FromInt32(fastSmallMant.AsInt32());
-        FastInteger fi = FastInteger.Copy(bigexponent).SubtractInt(-149).Abs();
+        FastInteger fi = bigexponent.Copy().SubtractInt(-149).Abs();
         accum.ShiftRight(fi);
         bitsAfterLeftmost = accum.OlderDiscardedDigits;
         bitLeftmost = accum.LastDiscardedDigit;
@@ -1776,11 +1786,15 @@ EContext ctx) {
         int lastDigit,
         int olderDigits) {
         if (fastInt.CanFitInInt32()) {
-     return new BitShiftAccumulator(fastInt.AsInt32(), lastDigit,
-           olderDigits);
+     return new BitShiftAccumulator(
+fastInt.AsInt32(),
+lastDigit,
+olderDigits);
         } else {
-  return new BitShiftAccumulator(fastInt.AsEInteger(), lastDigit,
-           olderDigits);
+  return new BitShiftAccumulator(
+fastInt.AsEInteger(),
+lastDigit,
+olderDigits);
         }
       }
 
@@ -1852,8 +1866,10 @@ EContext ctx) {
         FastIntegerFixed fmantissa,
         FastIntegerFixed fexponent,
         int flags) {
-        return CreateWithFlags(fmantissa.AsEInteger(), fexponent.AsEInteger(),
-                 flags);
+        return CreateWithFlags(
+fmantissa.AsEInteger(),
+fexponent.AsEInteger(),
+flags);
       }
 
     /// <include file='../../docs.xml'
