@@ -879,6 +879,7 @@ if (!(value >= 0)) {
             this.discardedBitCount = new FastInteger(digits);
           }
           long quo = shiftedLong / bigPower;
+          this.bitsAfterLeftmost |= this.bitLeftmost;
           this.bitLeftmost = (shiftedLong & 1) == 1 ? 1 :
             (shiftedLong - (quo*bigPower) == 0 ? 0 : 1);
           shiftedLong = quo;

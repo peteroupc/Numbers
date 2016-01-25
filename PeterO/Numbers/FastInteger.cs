@@ -114,8 +114,9 @@ namespace PeterO.Numbers {
 }
       var mbi = new MutableNumber(0);
       mbi.data[0 ] = unchecked((int)longVal);
-      mbi.data[1 ] = unchecked((int)(longVal >> 32));
-      mbi.wordCount = (mbi.data[1] = = 0) ? 1 : 2;
+        int mbd = unchecked((int)(longVal >> 32));
+      mbi.data[1 ] = mbd;
+      mbi.wordCount = (mbd == 0) ? 1 : 2;
       return mbi;
     }
 
