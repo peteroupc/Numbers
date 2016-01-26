@@ -2607,6 +2607,8 @@ This number's value is infinity, not-a-number, or doesn't fit into a 32-bit sign
 
     public int ToInt32Unchecked();
 
+Not documented yet.
+
 <b>Returns:</b>
 
 A 32-bit signed integer.
@@ -2618,6 +2620,8 @@ A 32-bit signed integer.
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
+
+Not documented yet.
 
 <b>Returns:</b>
 

@@ -1701,7 +1701,7 @@ sign);
           int sign = eintA.IsZero ? 0 : (newflags == 0 ? 1 : -1);
           return new EDecimal(
 FastIntegerFixed.FromBig(eintA),
-FastIntegerFixed.Add( this.exponent, otherValue.exponent),
+FastIntegerFixed.Add(this.exponent, otherValue.exponent),
 newflags,
 sign);
         }

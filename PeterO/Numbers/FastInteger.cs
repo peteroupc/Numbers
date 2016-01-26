@@ -1008,6 +1008,34 @@ namespace PeterO.Numbers {
       }
     }
 
+    internal bool CanFitInInt64() {
+      switch (this.integerMode) {
+        case 0:
+          return true;
+        case 1:
+          return this.AsEInteger().CanFitInInt64();
+          case 2: {
+            return this.largeValue.CanFitInInt64();
+          }
+        default:
+          throw new InvalidOperationException();
+      }
+    }
+
+    internal long AsInt64() {
+      switch (this.integerMode) {
+        case 0:
+          return (long)this.smallValue;
+        case 1:
+          return this.AsEInteger().ToInt64Unchecked();
+          case 2: {
+            return this.largeValue.ToInt64Unchecked();
+          }
+        default:
+          throw new InvalidOperationException();
+      }
+    }
+
     private static readonly string HexAlphabet = "0123456789ABCDEF";
 
     internal static string IntToString(int value) {

@@ -49,8 +49,7 @@ namespace PeterO.Numbers {
        ", this.isSmall=" +this.isSmall+ ", this.knownDigitLength="
          +this.knownDigitLength+
        ", this.shiftedBigInt=" +this.shiftedBigInt+ ", this.shiftedSmall="
-         +this.shiftedSmall+
-       "]";
+         +this.shiftedSmall+ "]";
     }
 
     public DigitShiftAccumulator(
@@ -371,16 +370,30 @@ if (!(value >= 0)) {
       }
       if (truncate) {
         EInteger bigquo;
-        EInteger powten;
-        if(digits>50){
+        if (digits>50) {
           // To avoid having to calculate a very big power of 10,
           // check the digit count to see if doing so can be avoided
-          FastInteger knownDigits=this.GetDigitLength();
-          if(knownDigits.Copy().SubtractInt(digits).CompareToInt(-2)<0){
+          int bitLength = this.shiftedBigInt.GetUnsignedBitLength();
+          bool bigPower = false;
+          // 10^48 has 160 bits; 10^98 has 326; bit length is cheaper
+          // to calculate than base-10 digit length
+          if (bitLength<160 || (digits>100 && bitLength< 326)) {
+            bigPower = true;
+          } else {
+            FastInteger knownDigits = this.GetDigitLength();
+            bigPower = knownDigits.Copy().SubtractInt(digits)
+              .CompareToInt(-2)<0;
+            if (!bigPower) {
+              //DebugUtility.Log("digitlength {0} [todiscard: {1}]"
+              // , knownDigits, digits);
+            }
+          }
+          if (bigPower) {
             // Power of 10 to be divided would be much bigger
-            this.discardedBitCount = this.discardedBitCount ?? (new FastInteger(0));
+       this.discardedBitCount = this.discardedBitCount ?? (new
+              FastInteger(0));
             this.discardedBitCount.AddInt(digits);
-            this.bitsAfterLeftmost |= this.bitLeftmost;    
+            this.bitsAfterLeftmost |= this.bitLeftmost;
             this.bitsAfterLeftmost |= (this.shiftedBigInt.IsZero) ? 0 : 1;
             this.bitLeftmost = 0;
             this.knownDigitLength = new FastInteger(1);

@@ -2427,6 +2427,8 @@ An EDecimal object.
 
     public int ToInt32Checked();
 
+Not documented yet.
+
 <b>Returns:</b>
 
 A 32-bit signed integer.
@@ -2434,6 +2436,8 @@ A 32-bit signed integer.
 ### ToInt32Unchecked
 
     public int ToInt32Unchecked();
+
+Not documented yet.
 
 <b>Returns:</b>
 
@@ -2443,6 +2447,8 @@ A 32-bit signed integer.
 
     public long ToInt64Checked();
 
+Not documented yet.
+
 <b>Returns:</b>
 
 A 64-bit signed integer.
@@ -2450,6 +2456,8 @@ A 64-bit signed integer.
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
+
+Not documented yet.
 
 <b>Returns:</b>
 

@@ -1,5 +1,5 @@
 /*
-Written in 2013-2015 by Peter O.
+Written in 2013-2016 by Peter O.
 
 Parts of the code were adapted by Peter O. from
 the public-domain code from the library
@@ -129,8 +129,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'/>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
         throw new ArgumentNullException("bytes");
@@ -186,8 +185,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
     public static EInteger FromInt32(int intValue) {
       if (intValue == 0) {
         return ValueZero;
@@ -230,8 +228,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt64(System.Int64)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt64(System.Int64)"]/*'/>
     public static EInteger FromInt64(long longerValue) {
       if (longerValue == 0) {
         return ValueZero;
@@ -288,8 +285,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)"]/*'/>
     public static EInteger FromRadixString(string str, int radix) {
       if (str == null) {
         throw new ArgumentNullException("str");
@@ -298,8 +294,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)"]/*'/>
     public static EInteger FromRadixSubstring(
       string str,
       int radix,
@@ -482,8 +477,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromString(System.String)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromString(System.String)"]/*'/>
     public static EInteger FromString(string str) {
       if (str == null) {
         throw new ArgumentNullException("str");
@@ -492,8 +486,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)"]/*'/>
     public static EInteger FromSubstring(
       string str,
       int index,
@@ -512,8 +505,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
         throw new ArgumentNullException("bigintAugend");
@@ -813,8 +805,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)"]/*'/>
     public int CompareTo(EInteger other) {
       if (other == null) {
         return 1;
@@ -854,8 +845,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
         throw new ArgumentNullException("bigintDivisor");
@@ -935,8 +925,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException("divisor");
@@ -1056,8 +1045,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(System.Object)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(System.Object)"]/*'/>
     public override bool Equals(object obj) {
       var other = obj as EInteger;
       if (other == null) {
@@ -1127,8 +1115,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException("bigintSecond");
@@ -1240,7 +1227,7 @@ if (!(u >= 0 && v >= 0)) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
-  /// <summary>Not documented yet.</summary>
+    /// <summary>Not documented yet.</summary>
     public int GetDigitCount() {
       if (this.IsZero) {
         return 1;
@@ -1276,7 +1263,7 @@ if (!(u >= 0 && v >= 0)) {
         // to trunc(x*log10(2)) that is correct up
         // to x = 2135; the multiplication would require
         // up to 31 bits in all cases up to 2135
-        // (cases up to 64 are already handled above)
+        // (cases up to 63 are already handled above)
         int minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
         int maxDigits = 1 + ((bitlen * 631305) >> 21);
         if (minDigits == maxDigits) {
@@ -1485,8 +1472,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'/>
     public bool GetSignedBit(int index) {
       if (index < 0) {
         throw new ArgumentOutOfRangeException("index");
@@ -1517,8 +1503,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
     public int GetSignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
@@ -1551,8 +1536,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
     public bool GetUnsignedBit(int n) {
       if (n < 0) {
         throw new ArgumentException("n (" + n + ") is less than 0");
@@ -1562,8 +1546,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
     public int GetUnsignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
@@ -1596,8 +1579,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException("divisor");
@@ -1613,8 +1595,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
         throw new ArgumentNullException("pow");
@@ -1643,8 +1624,7 @@ if (!(u >= 0 && v >= 0)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
         throw new ArgumentNullException("bigintMult");
@@ -1809,8 +1789,7 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger PowBigIntVar(EInteger power) {
       if (power == null) {
         throw new ArgumentNullException("power");
@@ -1847,8 +1826,7 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException("divisor");
@@ -1902,8 +1880,7 @@ this.negative ^ bigintMult.negative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)"]/*'/>
     public EInteger ShiftLeft(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
         return this;
@@ -2138,8 +2115,7 @@ borrow);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)"]/*'/>
     public EInteger ShiftRight(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
         return this;
@@ -2206,8 +2182,7 @@ borrow);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(PeterO.Numbers.EInteger)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
         throw new ArgumentNullException("subtrahend");
@@ -2217,8 +2192,7 @@ borrow);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)"]/*'/>
     public byte[] ToBytes(bool littleEndian) {
       int sign = this.Sign;
       if (sign == 0) {
@@ -2379,8 +2353,7 @@ borrow);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
     public string ToRadixString(int radix) {
       if (radix < 2) {
         throw new ArgumentException("radix (" + radix +

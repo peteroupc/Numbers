@@ -567,6 +567,8 @@ A 64-bit signed integer.
 
     public int GetDigitCount();
 
+Not documented yet.
+
 <b>Returns:</b>
 
 A 32-bit signed integer.
@@ -818,6 +820,8 @@ The parameter <i>bthis</i>
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
 
+Not documented yet.
+
 <b>Parameters:</b>
 
  * <i>thisValue</i>: Not documented yet.
@@ -833,6 +837,8 @@ An EInteger object.
     public static PeterO.Numbers.EInteger operator |(
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
+
+Not documented yet.
 
 <b>Parameters:</b>
 
@@ -875,6 +881,8 @@ The parameter <i>dividend</i>
     public static PeterO.Numbers.EInteger operator ^(
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
+
+Not documented yet.
 
 <b>Parameters:</b>
 
@@ -1046,6 +1054,8 @@ The parameter <i>operand1</i>
 
     public static PeterO.Numbers.EInteger operator ~(
         PeterO.Numbers.EInteger thisValue);
+
+Not documented yet.
 
 <b>Parameters:</b>
 

@@ -59,6 +59,16 @@ namespace PeterO.Numbers {
       return hash;
     }
 
+    internal static FastIntegerFixed FromLong(long longVal) {
+      if (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) {
+        return new FastIntegerFixed((int)longVal);
+      }
+      var fi = new FastIntegerFixed(0);
+      fi.integerMode = 2;
+      fi.largeValue = EInteger.FromInt64(longVal);
+      return fi;
+    }
+
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
       if (bigintVal.CanFitInInt32()) {
         return new FastIntegerFixed(bigintVal.ToInt32Unchecked());
@@ -243,6 +253,30 @@ FastIntegerFixed b) {
           default:
             return false;
         }
+      }
+    }
+
+    internal bool CanFitInInt64() {
+      switch (this.integerMode) {
+        case 0:
+          return true;
+          case 2: {
+            return this.largeValue.CanFitInInt64();
+          }
+        default:
+          throw new InvalidOperationException();
+      }
+    }
+
+    internal long AsInt64() {
+      switch (this.integerMode) {
+        case 0:
+          return (long)this.smallValue;
+          case 2: {
+            return this.largeValue.ToInt64Unchecked();
+          }
+        default:
+          throw new InvalidOperationException();
       }
     }
 
