@@ -371,6 +371,24 @@ if (!(value >= 0)) {
       }
       if (truncate) {
         EInteger bigquo;
+        EInteger powten;
+        if(digits>50){
+          // To avoid having to calculate a very big power of 10,
+          // check the digit count to see if doing so can be avoided
+          FastInteger knownDigits=this.GetDigitLength();
+          if(knownDigits.Copy().SubtractInt(digits).CompareToInt(-2)<0){
+            // Power of 10 to be divided would be much bigger
+            this.discardedBitCount = this.discardedBitCount ?? (new FastInteger(0));
+            this.discardedBitCount.AddInt(digits);
+            this.bitsAfterLeftmost |= this.bitLeftmost;    
+            this.bitsAfterLeftmost |= (this.shiftedBigInt.IsZero) ? 0 : 1;
+            this.bitLeftmost = 0;
+            this.knownDigitLength = new FastInteger(1);
+            this.isSmall = true;
+            this.shiftedSmall = 0;
+            return;
+          }
+        }
         if (this.shiftedBigInt.IsEven && this.bitLeftmost == 0) {
           EInteger[] quorem = this.shiftedBigInt.DivRem(
           NumberUtility.FindPowerOfTen(digits));
