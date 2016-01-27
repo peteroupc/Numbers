@@ -152,12 +152,8 @@ private static EInteger ShiftedMask(FastInteger prec) {
 }
 
     private bool IsHigherThanBitLength(EInteger ei, FastInteger prec) {
-  bool flag = prec.CanFitInInt32();
-  if (flag) {
-    int unsignedBitLength = ei.GetUnsignedBitLength();
-    return prec.CompareToInt(unsignedBitLength) < 0;
-  }
-  throw new NotSupportedException();
+      return prec.CompareTo(FastInteger.FromBig(
+        ei.GetUnsignedBitLengthAsEInteger())) < 0;
 }
 
     private T AddEx32Bit(
@@ -1498,11 +1494,11 @@ negflag);
         if (approxDigitLength.CompareTo(precision) <= 0) {
           return thisValue;
         }
-        DebugUtility.Log("trying to round " + thisValue);
+        // DebugUtility.Log("trying to round " + thisValue);
         EContext ctxCopy = ctx.WithBlankFlags();
         T newValue = this.RoundToPrecision(thisValue, ctxCopy);
         if ((ctxCopy.Flags & EContext.FlagInexact) == 0) {
-          DebugUtility.Log("rounded to " + newValue);
+          // DebugUtility.Log("rounded to " + newValue);
           return newValue;
         }
       }
@@ -2879,12 +2875,12 @@ negResult ? BigNumberFlags.FlagNegative : 0);
       if (this.thisRadix == 2) {
         return new FastInteger(ei.GetUnsignedBitLength());
       } else if (this.thisRadix == 10) {
-        int bi = ei.GetUnsignedBitLength();
-        if (bi <= 2135) {
+        int bitLength = ei.GetUnsignedBitLength();
+        if (bitLength <= 2135) {
           // May overestimate by 1
-          return new FastInteger(1 + ((bi * 631305) >> 21));
+          return new FastInteger(1 + ((bitLength * 631305) >> 21));
         }
-        return new FastInteger(bi >> 2);
+        return new FastInteger(bitLength >> 2);
       } else {
         return this.helper.CreateShiftAccumulator(ei)
                 .GetDigitLength();
@@ -4282,9 +4278,8 @@ bool neg) {
           if (radix == 2) {
             incremented = true;
           } else {
-            EInteger bigdigit = FastIntegerFixed.FromFastInteger(
+            int lastDigit = FastIntegerFixed.FromFastInteger(
               accum.ShiftedIntFast).Mod(radix);
-            var lastDigit = (int)bigdigit;
             if (lastDigit == 0 || lastDigit == (radix / 2)) {
               incremented = true;
             }
@@ -4569,13 +4564,6 @@ ctx.Rounding,
 #endif
       FastInteger bitLength = fastPrecision;
       if (binaryPrec) {
-      if (!fastPrecision.CanFitInInt32()) {
-        // TODO: Currently must return invalid due to a 32-bit limitation
-        // in getUnsignedBItLength
-        return this.SignalInvalidWithMessage(
-ctx,
-"Binary precisions greater than 2^31 not supported");
-      }
       fastPrecision = this.MaxDigitLengthForBitLength(fastPrecision);
       }
       bool nonHalfRounding = rounding != ERounding.HalfEven &&

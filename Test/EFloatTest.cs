@@ -1008,16 +1008,16 @@ EFloat src) {
       string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
   Assert.Fail(
-  "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- "+
-        OutputDouble(input.ToDouble()) +"\nsrc-----=" + OutputEF(src)+
-        "\nexpected=" + OutputEF(expected) +"\ninput---="+OutputEF(input));
+  "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- " +
+        OutputDouble(input.ToDouble()) +"\nsrc-----=" + OutputEF(src) +
+        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input));
       }
       double inputDouble = EDecimal.FromString(str).ToDouble();
       if (inputDouble != expectedDouble) {
   Assert.Fail(
-  "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- "+
-        OutputDouble(inputDouble) +"\nsrc-----=" + OutputEF(src)+
-        "\nexpected=" + OutputEF(expected) +"\ninput---="+OutputEF(input));
+  "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- " +
+        OutputDouble(inputDouble) +"\nsrc-----=" + OutputEF(src) +
+        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input));
       }
     }
 

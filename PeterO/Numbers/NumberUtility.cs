@@ -214,17 +214,17 @@ namespace PeterO.Numbers {
 
       public EInteger[] FindCachedPowerIntOrSmaller(int precision) {
         EInteger[] ret = null;
-        var minValue = -1;
+        var integerMinValue = -1;
         lock (this.outputs) {
           for (var i = 0; i < this.size; ++i) {
             if (this.inputsInts[i] >= 0 &&
-                this.inputsInts[i] <= precision && (minValue == -1 ||
-            this.inputsInts[i] >= minValue)) {
+                this.inputsInts[i] <= precision && (integerMinValue == -1 ||
+            this.inputsInts[i] >= integerMinValue)) {
    // DebugUtility.Log("Have cached power (" + inputs[i] + "," + bi + ") ");
               ret = new EInteger[2];
               ret[0] = this.inputs[i];
               ret[1] = this.outputs[i];
-              minValue = this.inputsInts[i];
+              integerMinValue = this.inputsInts[i];
             }
           }
         }

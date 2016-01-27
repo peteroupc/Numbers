@@ -164,8 +164,8 @@ for (var i = 0; i < 1000; ++i) {
       }
       // Test equivalence of EInteger and EDecimal for integers
       for (var i = 0; i < 3000; ++i) {
-        EInteger bigintA = RandomObjects.RandomBigInteger(r);
-        EInteger bigintB = RandomObjects.RandomBigInteger(r);
+        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintB = RandomObjects.RandomEInteger(r);
         EInteger bigintC = bigintA.Add(bigintB);
         EDecimal
   ba1 = EDecimal.FromEInteger(bigintA).Add(EDecimal.FromEInteger(bigintB));
@@ -240,7 +240,7 @@ EDecimal.FromString("8451910"));
       }
       var r = new FastRandom();
       for (var i = 0; i < 3000; ++i) {
-        EInteger bigintA = RandomObjects.RandomBigInteger(r);
+        EInteger bigintA = RandomObjects.RandomEInteger(r);
         int cmp = EDecimal.FromEInteger(bigintA).CompareToBinary(
             EFloat.FromEInteger(bigintA));
         Assert.AreEqual(0, cmp);
@@ -785,8 +785,15 @@ null);
       }
     }
     [Test]
-    public void TestFromBigInteger() {
-      // not implemented yet
+    public void TestFromEInteger() {
+      var fr = new FastRandom();
+      for (var i = 0; i < 5000; ++i) {
+        EInteger ei = RandomObjects.RandomEInteger(fr);
+        EDecimal edec = EDecimal.FromEInteger(ei);
+        Assert.AreEqual(EInteger.Zero, edec.Exponent);
+        Assert.AreEqual(ei, edec.Mantissa);
+        Assert.AreEqual(ei, edec.ToEInteger());
+      }
     }
     [Test]
     public void TestFromDouble() {

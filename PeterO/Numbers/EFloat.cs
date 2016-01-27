@@ -185,13 +185,15 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)"]/*'
+    /// />
     public static EFloat Create(int mantissaSmall, int exponentSmall) {
       return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EFloat Create(
       EInteger mantissa,
       EInteger exponent) {
@@ -209,13 +211,15 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EFloat CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean,PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat CreateNaN(
       EInteger diag,
       bool signaling,
@@ -254,7 +258,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromDouble(System.Double)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromDouble(System.Double)"]/*'
+    /// />
     public static EFloat FromDouble(double dbl) {
       int[] value = Extras.DoubleToIntegers(dbl);
       var floatExponent = (int)((value[1] >> 20) & 0x7ff);
@@ -295,27 +300,31 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromEInteger(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromEInteger(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EFloat FromEInteger(EInteger bigint) {
       return EFloat.Create(bigint, EInteger.Zero);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'
+    /// />
     public static EFloat FromInt32(int valueSmaller) {
       var bigint = (EInteger)valueSmaller;
       return EFloat.Create(bigint, EInteger.Zero);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)"]/*'
+    /// />
     public static EFloat FromInt64(long valueSmall) {
       var bigint = (EInteger)valueSmall;
       return EFloat.Create(bigint, EInteger.Zero);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromSingle(System.Single)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromSingle(System.Single)"]/*'
+    /// />
     public static EFloat FromSingle(float flt) {
       int value = BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0);
       bool neg = (value >> 31) != 0;
@@ -362,7 +371,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat FromString(
       string str,
       int offset,
@@ -379,25 +389,29 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String)"]/*'
+    /// />
     public static EFloat FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32)"]/*'
+    /// />
     public static EFloat FromString(string str, int offset, int length) {
       return FromString(str, offset, length, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat Max(
       EFloat first,
       EFloat second,
@@ -406,7 +420,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
+    /// />
     public static EFloat Max(
       EFloat first,
       EFloat second) {
@@ -414,7 +429,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MaxMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MaxMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat MaxMagnitude(
       EFloat first,
       EFloat second,
@@ -423,7 +439,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MaxMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MaxMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
+    /// />
     public static EFloat MaxMagnitude(
       EFloat first,
       EFloat second) {
@@ -431,7 +448,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat Min(
       EFloat first,
       EFloat second,
@@ -440,7 +458,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
+    /// />
     public static EFloat Min(
       EFloat first,
       EFloat second) {
@@ -448,7 +467,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MinMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MinMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat MinMagnitude(
       EFloat first,
       EFloat second,
@@ -457,7 +477,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MinMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MinMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
+    /// />
     public static EFloat MinMagnitude(
       EFloat first,
       EFloat second) {
@@ -465,7 +486,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.PI(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.PI(PeterO.Numbers.EContext)"]/*'
+    /// />
     public static EFloat PI(EContext ctx) {
       return MathValue.Pi(ctx);
     }
@@ -484,19 +506,22 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Abs(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Abs(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Abs(EContext context) {
       return MathValue.Abs(this, context);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat Add(EFloat otherValue) {
       return this.Add(otherValue, EContext.Unlimited);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Add(
       EFloat otherValue,
       EContext ctx) {
@@ -504,13 +529,15 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareTo(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareTo(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public int CompareTo(EFloat other) {
       return MathValue.CompareTo(this, other);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat CompareToSignal(
       EFloat other,
       EContext ctx) {
@@ -518,7 +545,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public int CompareToTotal(EFloat other, EContext ctx) {
       if (other == null) {
         return -1;
@@ -535,7 +563,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public int CompareToTotal(EFloat other) {
       if (other == null) {
         return -1;
@@ -585,7 +614,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public int CompareToTotalMagnitude(EFloat other) {
       if (other == null) {
         return -1;
@@ -630,7 +660,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat CompareToWithContext(
       EFloat other,
       EContext ctx) {
@@ -638,7 +669,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat CopySign(EFloat other) {
       if (other == null) {
         throw new ArgumentNullException("other");
@@ -651,7 +683,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat Divide(EFloat divisor) {
       return this.Divide(
         divisor,
@@ -659,7 +692,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Divide(
       EFloat divisor,
       EContext ctx) {
@@ -667,7 +701,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)"]/*'
+    /// />
     [Obsolete("Renamed to DivRemNaturalScale.")]
     public EFloat[] DivideAndRemainderNaturalScale(EFloat
       divisor) {
@@ -675,7 +710,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     [Obsolete("Renamed to DivRemNaturalScale.")]
     public EFloat[] DivideAndRemainderNaturalScale(
       EFloat divisor,
@@ -684,7 +720,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,System.Int64,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,System.Int64,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat DivideToExponent(
       EFloat divisor,
       long desiredExponentSmall,
@@ -696,7 +733,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,System.Int64,PeterO.Numbers.ERounding)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,System.Int64,PeterO.Numbers.ERounding)"]/*'
+    /// />
     public EFloat DivideToExponent(
       EFloat divisor,
       long desiredExponentSmall,
@@ -708,7 +746,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat DivideToExponent(
       EFloat divisor,
       EInteger exponent,
@@ -717,7 +756,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'
+    /// />
     public EFloat DivideToExponent(
       EFloat divisor,
       EInteger desiredExponent,
@@ -729,7 +769,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToIntegerNaturalScale(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToIntegerNaturalScale(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat DivideToIntegerNaturalScale(
       EFloat divisor) {
       return this.DivideToIntegerNaturalScale(
@@ -738,7 +779,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToIntegerNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToIntegerNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat DivideToIntegerNaturalScale(
       EFloat divisor,
       EContext ctx) {
@@ -746,7 +788,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToIntegerZeroScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToIntegerZeroScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat DivideToIntegerZeroScale(
       EFloat divisor,
       EContext ctx) {
@@ -754,7 +797,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToSameExponent(PeterO.Numbers.EFloat,PeterO.Numbers.ERounding)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivideToSameExponent(PeterO.Numbers.EFloat,PeterO.Numbers.ERounding)"]/*'
+    /// />
     public EFloat DivideToSameExponent(
       EFloat divisor,
       ERounding rounding) {
@@ -765,13 +809,15 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat[] DivRemNaturalScale(EFloat divisor) {
       return this.DivRemNaturalScale(divisor, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat[] DivRemNaturalScale(
       EFloat divisor,
       EContext ctx) {
@@ -784,19 +830,22 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Equals(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Equals(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public bool Equals(EFloat other) {
       return this.EqualsInternal(other);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Equals(System.Object)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Equals(System.Object)"]/*'
+    /// />
     public override bool Equals(object obj) {
       return this.EqualsInternal(obj as EFloat);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.EqualsInternal(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.EqualsInternal(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public bool EqualsInternal(EFloat otherValue) {
       if (otherValue == null) {
         return false;
@@ -807,7 +856,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Exp(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Exp(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Exp(EContext ctx) {
       return MathValue.Exp(this, ctx);
     }
@@ -865,37 +915,43 @@ this.flags & ~BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Log(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Log(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Log(EContext ctx) {
       return MathValue.Ln(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Log10(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Log10(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Log10(EContext ctx) {
       return MathValue.Log10(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(System.Int32)"]/*'
+    /// />
     public EFloat MovePointLeft(int places) {
       return this.MovePointLeft((EInteger)places, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat MovePointLeft(int places, EContext ctx) {
       return this.MovePointLeft((EInteger)places, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EFloat MovePointLeft(EInteger bigPlaces) {
       return this.MovePointLeft(bigPlaces, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat MovePointLeft(
 EInteger bigPlaces,
 EContext ctx) {
@@ -907,25 +963,29 @@ EContext ctx) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(System.Int32)"]/*'
+    /// />
     public EFloat MovePointRight(int places) {
       return this.MovePointRight((EInteger)places, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat MovePointRight(int places, EContext ctx) {
       return this.MovePointRight((EInteger)places, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EFloat MovePointRight(EInteger bigPlaces) {
       return this.MovePointRight(bigPlaces, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat MovePointRight(
 EInteger bigPlaces,
 EContext ctx) {
@@ -953,7 +1013,8 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat Multiply(EFloat otherValue) {
       if (this.IsFinite && otherValue.IsFinite) {
         EInteger exp = this.exponent.Add(otherValue.exponent);
@@ -976,7 +1037,8 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Multiply(
       EFloat op,
       EContext ctx) {
@@ -984,7 +1046,8 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat MultiplyAndAdd(
       EFloat multiplicand,
       EFloat augend) {
@@ -992,7 +1055,8 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat MultiplyAndAdd(
       EFloat op,
       EFloat augend,
@@ -1001,7 +1065,8 @@ this.flags).RoundToPrecision(ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MultiplyAndSubtract(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MultiplyAndSubtract(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat MultiplyAndSubtract(
       EFloat op,
       EFloat subtrahend,
@@ -1033,25 +1098,29 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Negate(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Negate(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Negate(EContext context) {
       return MathValue.Negate(this, context);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.NextMinus(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.NextMinus(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat NextMinus(EContext ctx) {
       return MathValue.NextMinus(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.NextPlus(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.NextPlus(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat NextPlus(EContext ctx) {
       return MathValue.NextPlus(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.NextToward(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.NextToward(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat NextToward(
       EFloat otherValue,
       EContext ctx) {
@@ -1059,19 +1128,22 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Plus(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Plus(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Plus(EContext ctx) {
       return MathValue.Plus(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Pow(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Pow(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Pow(EFloat exponent, EContext ctx) {
       return MathValue.Power(this, exponent, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Pow(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Pow(System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Pow(int exponentSmall, EContext ctx) {
       return this.Pow(EFloat.FromInt64(exponentSmall), ctx);
     }
@@ -1096,7 +1168,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Quantize(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Quantize(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Quantize(
       EInteger desiredExponent,
       EContext ctx) {
@@ -1106,7 +1179,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Quantize(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Quantize(System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Quantize(
       int desiredExponentSmall,
       EContext ctx) {
@@ -1116,7 +1190,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Quantize(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Quantize(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Quantize(
       EFloat otherValue,
       EContext ctx) {
@@ -1124,13 +1199,15 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Reduce(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Reduce(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Reduce(EContext ctx) {
       return MathValue.Reduce(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Remainder(
       EFloat divisor,
       EContext ctx) {
@@ -1138,14 +1215,16 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat RemainderNaturalScale(
       EFloat divisor) {
       return this.RemainderNaturalScale(divisor, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RemainderNaturalScale(
       EFloat divisor,
       EContext ctx) {
@@ -1155,7 +1234,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RemainderNear(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RemainderNear(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RemainderNear(
       EFloat divisor,
       EContext ctx) {
@@ -1163,7 +1243,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RoundToExponent(
       EInteger exponent,
       EContext ctx) {
@@ -1171,7 +1252,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponent(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponent(System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RoundToExponent(
       int exponentSmall,
       EContext ctx) {
@@ -1179,7 +1261,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RoundToExponentExact(
       EInteger exponent,
       EContext ctx) {
@@ -1187,7 +1270,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RoundToExponentExact(
       int exponentSmall,
       EContext ctx) {
@@ -1195,57 +1279,66 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegerExact(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegerExact(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RoundToIntegerExact(EContext ctx) {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RoundToIntegerNoRoundedFlag(EContext ctx) {
       return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegralExact(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegralExact(PeterO.Numbers.EContext)"]/*'
+    /// />
     [Obsolete("Renamed to RoundToIntegerExact.")]
     public EFloat RoundToIntegralExact(EContext ctx) {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)"]/*'
+    /// />
     [Obsolete("Renamed to RoundToIntegerNoRoundedFlag.")]
     public EFloat RoundToIntegralNoRoundedFlag(EContext ctx) {
       return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToPrecision(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToPrecision(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat RoundToPrecision(EContext ctx) {
       return MathValue.RoundToPrecision(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(System.Int32)"]/*'
+    /// />
     public EFloat ScaleByPowerOfTwo(int places) {
       return this.ScaleByPowerOfTwo((EInteger)places, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(System.Int32,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(System.Int32,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat ScaleByPowerOfTwo(int places, EContext ctx) {
       return this.ScaleByPowerOfTwo((EInteger)places, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public EFloat ScaleByPowerOfTwo(EInteger bigPlaces) {
       return this.ScaleByPowerOfTwo(bigPlaces, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat ScaleByPowerOfTwo(
 EInteger bigPlaces,
 EContext ctx) {
@@ -1264,25 +1357,29 @@ EContext ctx) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Sqrt(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Sqrt(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Sqrt(EContext ctx) {
       return MathValue.SquareRoot(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat SquareRoot(EContext ctx) {
       return MathValue.SquareRoot(this, ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat)"]/*'
+    /// />
     public EFloat Subtract(EFloat otherValue) {
       return this.Subtract(otherValue, null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'
+    /// />
     public EFloat Subtract(
       EFloat otherValue,
       EContext ctx) {
@@ -1741,25 +1838,29 @@ EContext ctx) {
 
     private sealed class BinaryMathHelper : IRadixMathHelper<EFloat> {
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetRadix"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetRadix"]/*'
+    /// />
       public int GetRadix() {
         return 2;
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetSign(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetSign(PeterO.Numbers.EFloat)"]/*'
+    /// />
       public int GetSign(EFloat value) {
         return value.Sign;
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetMantissa(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetMantissa(PeterO.Numbers.EFloat)"]/*'
+    /// />
       public EInteger GetMantissa(EFloat value) {
         return value.unsignedMantissa;
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetExponent(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetExponent(PeterO.Numbers.EFloat)"]/*'
+    /// />
       public EInteger GetExponent(EFloat value) {
         return value.exponent;
       }
@@ -1773,7 +1874,8 @@ EContext ctx) {
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'
+    /// />
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
         EInteger bigint,
         int lastDigit,
@@ -1799,13 +1901,15 @@ olderDigits);
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)"]/*'
+    /// />
       public IShiftAccumulator CreateShiftAccumulator(EInteger bigint) {
         return new BitShiftAccumulator(bigint, 0, 0);
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.HasTerminatingRadixExpansion(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
       public FastInteger DivisionShift(EInteger num, EInteger den) {
         if (den.IsZero) {
           return null;
@@ -1819,7 +1923,8 @@ olderDigits);
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)"]/*'
+    /// />
       public EInteger MultiplyByRadixPower(
         EInteger bigint,
         FastInteger power) {
@@ -1848,13 +1953,15 @@ olderDigits);
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetFlags(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetFlags(PeterO.Numbers.EFloat)"]/*'
+    /// />
       public int GetFlags(EFloat value) {
         return value.flags;
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'
+    /// />
       public EFloat CreateNewWithFlags(
         EInteger mantissa,
         EInteger exponent,
@@ -1873,13 +1980,15 @@ flags);
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetArithmeticSupport"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetArithmeticSupport"]/*'
+    /// />
       public int GetArithmeticSupport() {
         return BigNumberFlags.FiniteAndNonFinite;
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.ValueOf(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.ValueOf(System.Int32)"]/*'
+    /// />
       public EFloat ValueOf(int val) {
         return FromInt64(val);
       }

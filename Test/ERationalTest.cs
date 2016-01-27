@@ -28,7 +28,7 @@ namespace Test {
       }
       TestCommon.CompareTestLess(ERational.Zero, ERational.NaN);
       for (var i = 0; i < 100; ++i) {
-        EInteger num = RandomObjects.RandomBigInteger(r);
+        EInteger num = RandomObjects.RandomEInteger(r);
         if (num.IsZero) {
           // Skip if number is 0; 0/1 and 0/2 are
           // equal in that case
@@ -44,8 +44,8 @@ namespace Test {
         new ERational(EInteger.One, (EInteger)2),
         new ERational((EInteger)4, EInteger.One));
       for (var i = 0; i < 100; ++i) {
-        EInteger num = RandomObjects.RandomBigInteger(r);
-        EInteger den = RandomObjects.RandomBigInteger(r);
+        EInteger num = RandomObjects.RandomEInteger(r);
+        EInteger den = RandomObjects.RandomEInteger(r);
         if (den.IsZero) {
           den = EInteger.One;
         }
@@ -53,7 +53,7 @@ namespace Test {
         for (int j = 0; j < 10; ++j) {
           EInteger num2 = num;
           EInteger den2 = den;
-          EInteger mult = RandomObjects.RandomBigInteger(r);
+          EInteger mult = RandomObjects.RandomEInteger(r);
           if (mult.IsZero || mult.Equals(EInteger.One)) {
             mult = (EInteger)2;
           }
@@ -75,7 +75,7 @@ namespace Test {
         ERational er = RandomObjects.RandomRational(fr);
         int exp = -100000 + fr.NextValue(200000);
         EDecimal ed = EDecimal.Create(
-          RandomObjects.RandomBigInteger(fr),
+          RandomObjects.RandomEInteger(fr),
           (EInteger)exp);
         ERational er2 = ERational.FromEDecimal(ed);
         int c2r = er.CompareTo(er2);
@@ -229,10 +229,10 @@ namespace Test {
         ERational er;
         ERational er2;
         er = new ERational(
-          RandomObjects.RandomBigInteger(fr),
+          RandomObjects.RandomEInteger(fr),
           EInteger.One);
         er2 = new ERational(
-          RandomObjects.RandomBigInteger(fr),
+          RandomObjects.RandomEInteger(fr),
           EInteger.One);
         if (er2.IsZero || !er2.IsFinite) {
           continue;

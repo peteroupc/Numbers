@@ -1453,33 +1453,30 @@ ebshl);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
-    public long GetLowBitLong() {
+    public EInteger GetLowBitAsEInteger() {
       long retSetBitLong = 0;
       for (var i = 0; i < this.wordCount; ++i) {
         int c = ((int)this.words[i]) & 0xffff;
         if (c == 0) {
           retSetBitLong += 16;
         } else {
-          return (((c << 15) & 0xffff) != 0) ? (retSetBitLong + 0) : ((((c <<
-                    14) & 0xffff) != 0) ? (retSetBitLong + 1) : ((((c <<
-                    13) & 0xffff) != 0) ? (retSetBitLong + 2) : ((((c <<
-                    12) & 0xffff) != 0) ? (retSetBitLong + 3) : ((((c << 11) &
-                    0xffff) != 0) ? (retSetBitLong +
-                    4) : ((((c << 10) & 0xffff) != 0) ? (retSetBitLong +
-                    5) : ((((c << 9) & 0xffff) != 0) ? (retSetBitLong + 6) :
-                    ((((c <<
-            8) & 0xffff) != 0) ? (retSetBitLong + 7) : ((((c << 7) & 0xffff) !=
-                0) ? (retSetBitLong + 8) : ((((c << 6) & 0xffff) !=
-                    0) ? (retSetBitLong + 9) : ((((c <<
-                    5) & 0xffff) != 0) ? (retSetBitLong + 10) : ((((c <<
-                    4) & 0xffff) != 0) ? (retSetBitLong + 11) : ((((c << 3) &
-                0xffff) != 0) ? (retSetBitLong + 12) : ((((c << 2) & 0xffff) !=
-                0) ? (retSetBitLong + 13) : ((((c << 1) & 0xffff) !=
-                0) ? (retSetBitLong + 14) : (retSetBitLong +
-                    15)))))))))))))));
+          int rsb = (((c << 15) & 0xffff) != 0) ? 0 : ((((c <<
+                    14) & 0xffff) != 0) ? 1 : ((((c <<
+                    13) & 0xffff) != 0) ? 2 : ((((c <<
+                    12) & 0xffff) != 0) ? 3 : ((((c << 11) &
+                    0xffff) != 0) ? 4 : ((((c << 10) & 0xffff) != 0) ? 5 :
+                ((((c << 9) & 0xffff) != 0) ? 6 : ((((c <<
+            8) & 0xffff) != 0) ? 7 : ((((c << 7) & 0xffff) !=
+                0) ? 8 : ((((c << 6) & 0xffff) != 0) ? 9 : ((((c <<
+                    5) & 0xffff) != 0) ? 10 : ((((c <<
+                    4) & 0xffff) != 0) ? 11 : ((((c << 3) &
+                0xffff) != 0) ? 12 : ((((c << 2) & 0xffff) !=
+                0) ? 13 : ((((c << 1) & 0xffff) != 0) ? 14 : 15))))))))))))));
+          return EInteger.FromInt64(retSetBitLong).Add(
+           EInteger.FromInt32(rsb));
         }
       }
-      return -1;
+      return EInteger.FromInt32(-1);
     }
 
     /// <include file='../../docs.xml'
@@ -1558,6 +1555,39 @@ ebshl);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
+    public EInteger GetUnsignedBitLengthAsEInteger() {
+      int wc = this.wordCount;
+      if (wc != 0) {
+        int numberValue = ((int)this.words[wc - 1]) & 0xffff;
+        EInteger ebase = EInteger.FromInt32(wc - 1).ShiftLeft(4);
+        if (numberValue == 0) {
+          return ebase;
+        }
+        wc = 16;
+        unchecked {
+          if ((numberValue >> 8) == 0) {
+            numberValue <<= 8;
+            wc -= 8;
+          }
+          if ((numberValue >> 12) == 0) {
+            numberValue <<= 4;
+            wc -= 4;
+          }
+          if ((numberValue >> 14) == 0) {
+            numberValue <<= 2;
+            wc -= 2;
+          }
+          if ((numberValue >> 15) == 0) {
+            --wc;
+          }
+        }
+        return ebase.Add(EInteger.FromInt32(wc));
+      }
+      return EInteger.Zero;
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
     public int GetUnsignedBitLength() {
       int wc = this.wordCount;
       if (wc != 0) {
@@ -1598,11 +1628,11 @@ ebshl);
       if (divisor.Sign < 0) {
         throw new ArithmeticException("Divisor is negative");
       }
-      EInteger rem = this.Remainder(divisor);
-      if (rem.Sign < 0) {
-        rem = divisor.Add(rem);
+      EInteger remainderEInt = this.Remainder(divisor);
+      if (remainderEInt.Sign < 0) {
+        remainderEInt = divisor.Add(remainderEInt);
       }
-      return rem;
+      return remainderEInt;
     }
 
     /// <include file='../../docs.xml'

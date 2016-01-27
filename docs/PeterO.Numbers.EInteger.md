@@ -593,9 +593,9 @@ Gets the lowest set bit in this number's absolute value. (This will also be the 
 
 The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
 
-### GetLowBitLong
+### GetLowBitAsEInteger
 
-    public long GetLowBitLong();
+    public PeterO.Numbers.EInteger GetLowBitAsEInteger();
 
 Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.)
 
@@ -646,6 +646,16 @@ A Boolean object.
 ### GetUnsignedBitLength
 
     public int GetUnsignedBitLength();
+
+Finds the minimum number of bits needed to represent this object's absolute value.
+
+<b>Returns:</b>
+
+The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
+
+### GetUnsignedBitLengthAsEInteger
+
+    public PeterO.Numbers.EInteger GetUnsignedBitLengthAsEInteger();
 
 Finds the minimum number of bits needed to represent this object's absolute value.
 

@@ -605,8 +605,8 @@ if (!(value >= 0)) {
           return;
         }
       }
-      var kb = LongDigitLength(shiftedLong);
-      this.knownDigitLength = new FastInteger(kb);
+      this.knownDigitLength = new FastInteger(
+        LongDigitLength(shiftedLong));
       if (this.discardedBitCount != null) {
         this.discardedBitCount.AddInt(digits);
       } else {

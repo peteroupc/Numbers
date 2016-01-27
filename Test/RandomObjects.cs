@@ -31,8 +31,8 @@ namespace Test {
     }
 
     public static ERational RandomRational(FastRandom rand) {
-      EInteger bigintA = RandomBigInteger(rand);
-      EInteger bigintB = RandomBigInteger(rand);
+      EInteger bigintA = RandomEInteger(rand);
+      EInteger bigintB = RandomEInteger(rand);
       if (bigintB.IsZero) {
         bigintB = EInteger.One;
       }
@@ -127,7 +127,7 @@ namespace Test {
       return EDecimal.FromString(str);
     }
 
-    public static EInteger RandomBigInteger(FastRandom r) {
+    public static EInteger RandomEInteger(FastRandom r) {
       int selection = r.NextValue(100);
       if (selection < 40) {
         StringAndBigInt sabi = StringAndBigInt.Generate(r, 16);
@@ -160,7 +160,7 @@ namespace Test {
         }
       }
       return EFloat.Create(
-RandomBigInteger(r),
+RandomEInteger(r),
 (EInteger)(r.NextValue(400) - 200));
     }
 

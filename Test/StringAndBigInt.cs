@@ -43,7 +43,7 @@ if (radix > 36) {
         builder.Append('-');
         negative = true;
       }
-      int radixpowint = radix * radix * radix*radix;
+      int radixpowint = radix * radix * radix * radix;
       EInteger radixpow4 = EInteger.FromInt32(radixpowint);
       EInteger radixpow1 = EInteger.FromInt32(radix);
       var count = 0;
@@ -79,7 +79,7 @@ if (radix > 36) {
         } else {
           builder.Append(ValueDigitsLower[digit4]);
         }
-        int digits = ((digit * radix + digit2)*radix + digit3)*radix + digit4;
+        int digits = ((digit * radix + digit2) * radix + digit3)*radix + digit4;
         bv *= radixpow4;
         var bigintTmp = (EInteger)digits;
         bv += bigintTmp;

@@ -760,8 +760,8 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One);
       var r = new FastRandom();
       for (var i = 0; i < 1000; ++i) {
-        EInteger bigintA = RandomObjects.RandomBigInteger(r);
-        EInteger bigintB = RandomObjects.RandomBigInteger(r);
+        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintB = RandomObjects.RandomEInteger(r);
         TestCommon.AssertEqualsHashCode(bigintA, bigintB);
       }
     }
