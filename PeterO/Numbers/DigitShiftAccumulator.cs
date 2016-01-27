@@ -43,13 +43,13 @@ namespace PeterO.Numbers {
     private int shiftedSmall;
 
     public override string ToString() {
-      return "[this.bitLeftmost="+this.bitLeftmost+
-       ", this.bitsAfterLeftmost="+this.bitsAfterLeftmost+
-       ", this.discardedBitCount="+this.discardedBitCount+
-       ", this.isSmall=" +this.isSmall+ ", this.knownDigitLength="
-         +this.knownDigitLength+
-       ", this.shiftedBigInt=" +this.shiftedBigInt+ ", this.shiftedSmall="
-         +this.shiftedSmall+ "]";
+      return "[this.bitLeftmost=" + this.bitLeftmost +
+       ", this.bitsAfterLeftmost=" + this.bitsAfterLeftmost +
+       ", this.discardedBitCount=" + this.discardedBitCount +
+       ", this.isSmall=" +this.isSmall + ", this.knownDigitLength="
+         +this.knownDigitLength +
+       ", this.shiftedBigInt=" +this.shiftedBigInt + ", this.shiftedSmall="
+         +this.shiftedSmall + "]";
     }
 
     public DigitShiftAccumulator(
@@ -191,7 +191,7 @@ bool truncate) {
         this.VerifyKnownLength();
           return;
         } else {
-          FastInteger bitDiff = kdl.Copy() .Subtract(bits);
+          FastInteger bitDiff = kdl.Copy().Subtract(bits);
           // DebugUtility.Log("bitDiff=" + bitDiff);
           int cmp = bitDiff.CompareTo(preShift);
           if (cmp <= 0) {
@@ -370,21 +370,21 @@ if (!(value >= 0)) {
       }
       if (truncate) {
         EInteger bigquo;
-        if (digits>50) {
+        if (digits > 50) {
           // To avoid having to calculate a very big power of 10,
           // check the digit count to see if doing so can be avoided
           int bitLength = this.shiftedBigInt.GetUnsignedBitLength();
-          bool bigPower = false;
+          var bigPower = false;
           // 10^48 has 160 bits; 10^98 has 326; bit length is cheaper
           // to calculate than base-10 digit length
-          if (bitLength<160 || (digits>100 && bitLength< 326)) {
+          if (bitLength < 160 || (digits > 100 && bitLength < 326)) {
             bigPower = true;
           } else {
             FastInteger knownDigits = this.GetDigitLength();
             bigPower = knownDigits.Copy().SubtractInt(digits)
-              .CompareToInt(-2)<0;
+              .CompareToInt(-2) <0;
             if (!bigPower) {
-              //DebugUtility.Log("digitlength {0} [todiscard: {1}]"
+              // DebugUtility.Log("digitlength {0} [todiscard: {1}]"
               // , knownDigits, digits);
             }
           }
@@ -394,7 +394,7 @@ if (!(value >= 0)) {
               FastInteger(0));
             this.discardedBitCount.AddInt(digits);
             this.bitsAfterLeftmost |= this.bitLeftmost;
-            this.bitsAfterLeftmost |= (this.shiftedBigInt.IsZero) ? 0 : 1;
+            this.bitsAfterLeftmost |= this.shiftedBigInt.IsZero ? 0 : 1;
             this.bitLeftmost = 0;
             this.knownDigitLength = new FastInteger(1);
             this.isSmall = true;
@@ -912,7 +912,7 @@ if (!(value >= 0)) {
           long quo = shiftedLong / bigPower;
           this.bitsAfterLeftmost |= this.bitLeftmost;
           this.bitLeftmost = (shiftedLong & 1) == 1 ? 1 :
-            (shiftedLong - (quo*bigPower) == 0 ? 0 : 1);
+            (shiftedLong - (quo * bigPower) == 0 ? 0 : 1);
           shiftedLong = quo;
           this.isSmall = shiftedLong <= Int32.MaxValue;
           if (this.isSmall) {
@@ -972,7 +972,7 @@ if (!(value >= 0)) {
             this.shiftedSmall /= bigPower;
           } else {
             int quo = this.shiftedSmall / bigPower;
-            int rem = this.shiftedSmall - (quo*bigPower);
+            int rem = this.shiftedSmall - (quo * bigPower);
             this.shiftedSmall = quo;
             this.bitLeftmost |= (rem == 0) ? 0 : 1;
           }

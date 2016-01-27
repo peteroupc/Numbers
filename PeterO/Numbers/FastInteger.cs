@@ -602,8 +602,8 @@ namespace PeterO.Numbers {
       } else {
         switch (this.integerMode) {
           case 0: {
-            long amult = ((long)val)*((long)this.smallValue);
-            if (amult > Int32.MaxValue || amult<Int32.MinValue) {
+            long amult = ((long)val) *((long)this.smallValue);
+            if (amult > Int32.MaxValue || amult < Int32.MinValue) {
               // would overflow, convert to large
              bool apos = this.smallValue > 0L;
              bool bpos = val > 0L;

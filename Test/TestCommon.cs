@@ -241,6 +241,7 @@ string msg) where T :
       }
       return new String(chars, count, 12 - count);
     }
+
     public static string LongToString(long longValue) {
       if (longValue == Int64.MinValue) {
         return "-9223372036854775808";
@@ -295,7 +296,7 @@ string msg) where T :
       object o1,
       object o2,
       String s) {
-      return (s + ":\n" + o1 + " and\n" + o2);
+      return s + ":\n" + o1 + " and\n" + o2;
     }
 
     public static string ObjectMessages(
@@ -303,7 +304,7 @@ string msg) where T :
       object o2,
       object o3,
       String s) {
-      return (s + ":\n" + o1 + " and\n" + o2 + " and\n" + o3);
+      return s + ":\n" + o1 + " and\n" + o2 + " and\n" + o3;
     }
 
     public static String Repeat(char c, int num) {

@@ -106,9 +106,9 @@ namespace Test {
     private static void TestAddCloseExponent(FastRandom fr, int exp) {
 for (var i = 0; i < 1000; ++i) {
   EInteger exp1 = EInteger.FromInt32(exp)
-    .Add(EInteger.FromInt32(fr.NextValue(32)-16));
+    .Add(EInteger.FromInt32(fr.NextValue(32) -16));
   EInteger exp2 = exp1
-    .Add(EInteger.FromInt32(fr.NextValue(18)-9));
+    .Add(EInteger.FromInt32(fr.NextValue(18) -9));
   EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
   EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
   EDecimal decA = EDecimal.Create(mant1, exp1);
@@ -149,7 +149,7 @@ for (var i = 0; i < 1000; ++i) {
         EDecimal b = EDecimal.FromString(
   "3432401181884624580219161996277760227145481682978308767347063168426989874100957186809774969532587926005597200790737572030389681269702433323694842767208349696");
         Assert.AreEqual(a.ToString(), b.ToString());
-        TestCommon.CompareTestEqual(a,b,"");
+        TestCommon.CompareTestEqual(a, b, String.Empty);
         Assert.AreEqual(a.Sign, b.Sign);
       }
 
@@ -172,8 +172,10 @@ for (var i = 0; i < 1000; ++i) {
         EDecimal ba2 = EDecimal.FromEInteger(bigintC);
         Assert.AreEqual(ba1.Sign, ba2.Sign);
         Assert.AreEqual(ba1.ToString(), ba2.ToString());
-        TestCommon.CompareTestEqual(ba1,ba2,bigintA.ToString() + ","
-          +bigintB.ToString());
+        TestCommon.CompareTestEqual(
+ba1,
+ba2,
+bigintA.ToString() + "/" +bigintB.ToString());
       }
       TestCommon.CompareTestLess(EDecimal.Zero, EDecimal.NaN);
       TestCommon.CompareTestLess(
@@ -394,36 +396,36 @@ EDecimal.FromString("8451910"));
     [Test]
     public void TestDivide() {
       {
-string stringTemp = EDecimal.FromString("1"
-).Divide(EDecimal.FromInt32(8)).ToString();
+string stringTemp = EDecimal.FromString(
+"1").Divide(EDecimal.FromInt32(8)).ToString();
 Assert.AreEqual(
 "0.125",
 stringTemp);
 }
       {
-string stringTemp = EDecimal.FromString("10"
-).Divide(EDecimal.FromInt32(80)).ToString();
+string stringTemp = EDecimal.FromString(
+"10").Divide(EDecimal.FromInt32(80)).ToString();
 Assert.AreEqual(
 "0.125",
 stringTemp);
 }
       {
-string stringTemp = EDecimal.FromString("10000"
-).Divide(EDecimal.FromInt32(80000)).ToString();
+string stringTemp = EDecimal.FromString(
+"10000").Divide(EDecimal.FromInt32(80000)).ToString();
 Assert.AreEqual(
 "0.125",
 stringTemp);
 }
       {
-string stringTemp = EDecimal.FromString("1000"
-).Divide(EDecimal.FromInt32(8)).ToString();
+string stringTemp = EDecimal.FromString(
+"1000").Divide(EDecimal.FromInt32(8)).ToString();
 Assert.AreEqual(
 "125",
 stringTemp);
 }
       {
-string stringTemp = EDecimal.FromString("1"
-).Divide(EDecimal.FromInt32(256)).ToString();
+string stringTemp = EDecimal.FromString(
+"1").Divide(EDecimal.FromInt32(256)).ToString();
 Assert.AreEqual(
 "0.00390625",
 stringTemp);
@@ -748,14 +750,18 @@ stringTemp);
       for (var i = 0; i < 2047; ++i) {
         // Try a random double with a given
         // exponent
-      TestEDecimalDoubleCore(RandomObjects.RandomDouble(rand, i),
-          null);
-      TestEDecimalDoubleCore(RandomObjects.RandomDouble(rand, i),
-          null);
-      TestEDecimalDoubleCore(RandomObjects.RandomDouble(rand, i),
-          null);
-      TestEDecimalDoubleCore(RandomObjects.RandomDouble(rand, i),
-          null);
+      TestEDecimalDoubleCore(
+RandomObjects.RandomDouble(rand, i),
+null);
+      TestEDecimalDoubleCore(
+RandomObjects.RandomDouble(rand, i),
+null);
+      TestEDecimalDoubleCore(
+RandomObjects.RandomDouble(rand, i),
+null);
+      TestEDecimalDoubleCore(
+RandomObjects.RandomDouble(rand, i),
+null);
       }
     }
     [Test]
@@ -764,14 +770,18 @@ stringTemp);
       for (var i = 0; i < 255; ++i) {
         // Try a random float with a given
         // exponent
-      TestEDecimalSingleCore(RandomObjects.RandomSingle(rand, i),
-          null);
-      TestEDecimalSingleCore(RandomObjects.RandomSingle(rand, i),
-          null);
-      TestEDecimalSingleCore(RandomObjects.RandomSingle(rand, i),
-          null);
-      TestEDecimalSingleCore(RandomObjects.RandomSingle(rand, i),
-          null);
+      TestEDecimalSingleCore(
+RandomObjects.RandomSingle(rand, i),
+null);
+      TestEDecimalSingleCore(
+RandomObjects.RandomSingle(rand, i),
+null);
+      TestEDecimalSingleCore(
+RandomObjects.RandomSingle(rand, i),
+null);
+      TestEDecimalSingleCore(
+RandomObjects.RandomSingle(rand, i),
+null);
       }
     }
     [Test]
@@ -1715,6 +1725,20 @@ throw new InvalidOperationException(String.Empty, ex);
 }
       }
     }
+
+    [Test]
+    public void TestFromStringDecimal() {
+      {
+string stringTemp =
+  EDecimal.FromString(
+"-89675213981993819.5183499484258059",
+EContext.CliDecimal).ToString();
+Assert.AreEqual(
+"-89675213981993819.51834994843",
+stringTemp);
+}
+    }
+
     [Test]
     public void TestIsFinite() {
       // not implemented yet

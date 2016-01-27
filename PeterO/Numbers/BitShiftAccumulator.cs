@@ -43,8 +43,8 @@ namespace PeterO.Numbers {
 #if DEBUG
       if (this.knownBitLength != null) {
         if (this.knownBitLength.CompareTo(this.CalcKnownBitLength()) != 0) {
-          throw new InvalidOperationException("*****"
-            +this+"\n*****expected " +this.CalcKnownBitLength()+"\n" +
+          throw new InvalidOperationException("*****"+
+            this + "\n*****expected "  + this.CalcKnownBitLength()+"\n" +
              "*****kdl="+this.knownBitLength);
         }
       }

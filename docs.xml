@@ -1916,7 +1916,10 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Remainder(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 <summary>Finds the remainder that results when dividing two
-            arbitrary-precision decimal numbers.</summary>
+            arbitrary-precision decimal numbers. The remainder is the
+            value that remains when the absolute value of this object is
+            divided by the absolute value of the other object; the remainder
+            has the same sign (positive or negative) as this object's value.</summary>
             <param name='divisor'>The number to divide by.</param>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
@@ -3750,7 +3753,10 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 <summary>Finds the remainder that results when dividing two
-            arbitrary-precision binary floats.</summary>
+            arbitrary-precision binary floats. The remainder is the
+            value that remains when the absolute value of this object is
+            divided by the absolute value of the other object; the remainder
+            has the same sign (positive or negative) as this object's value.</summary>
             <param name='divisor'>An arbitrary-precision binary float.</param>
             <param name='ctx'>An EContext object.</param>
             <returns>The remainder of the two objects.</returns>
@@ -5212,7 +5218,7 @@ or negative) of another number.</summary>
             divided by the value of an arbitrary-precision integer. The remainder is the
             value that remains when the absolute value of this object is
             divided by the absolute value of the other object; the remainder
-            has the same sign (positive or negative) as this object.</summary>
+            has the same sign (positive or negative) as this object's value.</summary>
             <param name='divisor'>Another arbitrary-precision integer.</param>
             <returns>The remainder of the two objects.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='divisor'/> is null.</exception>

@@ -998,7 +998,7 @@ namespace PeterO.Numbers {
         long divisorSmall = divisor.ToInt32Checked();
         if (dividendSmall != Int32.MinValue || divisorSmall != -1) {
           long quotientSmall = dividendSmall / divisorSmall;
-          long remainderSmall = dividendSmall - (quotientSmall*divisorSmall);
+          long remainderSmall = dividendSmall - (quotientSmall * divisorSmall);
           return new[] {
             EInteger.FromInt64(quotientSmall),
             EInteger.FromInt64(remainderSmall) };
@@ -1008,7 +1008,7 @@ namespace PeterO.Numbers {
         long divisorLong = divisor.ToInt64Checked();
         if (dividendLong != Int64.MinValue || divisorLong != -1) {
           long quotientLong = dividendLong / divisorLong;
-          long remainderLong = dividendLong - (quotientLong*divisorLong);
+          long remainderLong = dividendLong - (quotientLong * divisorLong);
           return new[] {
             EInteger.FromInt64(quotientLong),
             EInteger.FromInt64(remainderLong) };
@@ -1182,22 +1182,30 @@ if (!(u >= 0 && v >= 0)) {
             buc = WordsShiftRightOne(bu, buc);
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
-            buc = (Math.Abs(buc - bvc)>1 && (bu[0]&0x0f) == 0) ?
-              WordsShiftRightFour(bu, buc) : (WordsShiftRightOne(bu,
-              buc));
+            buc = (Math.Abs(buc - bvc) >1 && (bu[0 ]&0x0f) == 0) ?
+              WordsShiftRightFour(
+bu,
+buc) : (
+WordsShiftRightOne(
+bu,
+buc));
           } else if (!eu && ev) {
             if ((bv[0 ]&0xff) == 0 && Math.Abs(buc-bvc)>1) {
               // DebugUtility.Log("bv8");
               bvc = WordsShiftRightEight(bv, bvc);
             } else {
  bvc = (
-(bv[0]&0x0f) == 0 && Math.Abs(buc-bvc)>1) ? (WordsShiftRightFour(bv,
-   bvc)) : WordsShiftRightOne(bv, bvc);
+(
+bv[0 ]&0x0f) == 0 && Math.Abs(
+buc - bvc) >1) ? (
+WordsShiftRightFour(
+bv,
+bvc)) : WordsShiftRightOne(bv, bvc);
 }
           } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
             buc = WordsSubtract(bu, buc, bv, bvc);
-            buc = (Math.Abs(buc - bvc)>1 && (bu[0]&0x02) == 0) ?
-              WordsShiftRightTwo(bu, buc) : (WordsShiftRightOne(bu, buc));
+            buc = (Math.Abs(buc - bvc) >1 && (bu[0 ]&0x02) == 0) ?
+              WordsShiftRightTwo(bu, buc) : WordsShiftRightOne(bu, buc);
           } else {
             short[] butmp = bv;
             short[] bvtmp = bu;
@@ -1218,8 +1226,11 @@ if (!(u >= 0 && v >= 0)) {
            bshl);
         } else {
          valueBuVar = valueBuVar.IsZero ?
- LeftShiftBigIntVar(valueBvVar, ebshl) : LeftShiftBigIntVar(valueBuVar,
-            ebshl);
+ LeftShiftBigIntVar(
+valueBvVar,
+ebshl) : LeftShiftBigIntVar(
+valueBuVar,
+ebshl);
         }
         return valueBuVar;
       }
@@ -2013,7 +2024,7 @@ this.negative ^ bigintMult.negative);
           carry = (w << 14) & 0xc000;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount - 1]==0) {
+        if (words[wordCount - 1] == 0) {
           --wordCount;
         }
       }
@@ -2031,7 +2042,7 @@ this.negative ^ bigintMult.negative);
           carry = (w << 8) & 0xff00;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount - 1]==0) {
+        if (words[wordCount - 1] == 0) {
           --wordCount;
         }
       }
@@ -2049,7 +2060,7 @@ this.negative ^ bigintMult.negative);
           carry = (w << 12) & 0xf000;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount - 1]==0) {
+        if (words[wordCount - 1] == 0) {
           --wordCount;
         }
       }
@@ -2067,7 +2078,7 @@ this.negative ^ bigintMult.negative);
           carry = (w << 15) & 0x8000;
           words[i] = unchecked((short)u);
         }
-        if (words[wordCount - 1]==0) {
+        if (words[wordCount - 1] == 0) {
           --wordCount;
         }
       }
@@ -4612,7 +4623,7 @@ divisorSmall);
       int qs = quotientStart + count - 1;
       for (var i = 0; i < count; ++i) {
         currentDividend = ((int)dividendReg[ds]) & 0xffff;
-        currentDividend|=rem << 16;
+        currentDividend |= rem << 16;
         quo = currentDividend >> 1;
         quotientReg[qs] = unchecked((short)quo);
         rem = currentDividend & 1;
@@ -4635,7 +4646,7 @@ divisorSmall);
       int qs = quotientStart + count - 1;
       for (var i = 0; i < count; ++i) {
         currentDividend = ((int)dividendReg[ds]) & 0xffff;
-        currentDividend|=rem << 16;
+        currentDividend |= rem << 16;
         quo = (currentDividend < 43698) ? ((currentDividend * 26215) >> 18) :
             (currentDividend / 10);
         quotientReg[qs] = unchecked((short)quo);
@@ -4662,7 +4673,7 @@ divisorSmall);
       if (idivisor >= 0x8000) {
       for (var i = 0; i < count; ++i) {
          currentDividend = ((int)dividendReg[ds]) & 0xffff;
-         currentDividend|=rem << 16;
+         currentDividend |= rem << 16;
          if ((currentDividend >> 31) == 0) {
            quo = currentDividend / idivisor;
            quotientReg[qs] = unchecked((short)quo);
@@ -4680,7 +4691,7 @@ divisorSmall);
       } else {
       for (var i = 0; i < count; ++i) {
          currentDividend = ((int)dividendReg[ds]) & 0xffff;
-         currentDividend|=rem << 16;
+         currentDividend |= rem << 16;
         quo = currentDividend / idivisor;
         quotientReg[qs] = unchecked((short)quo);
         rem = currentDividend - (idivisor * quo);

@@ -88,9 +88,9 @@ System.Globalization.CultureInfo.InvariantCulture);
         if (!extended) {
           if (name.Equals("ln116") ||
               name.Equals("qua530") || // assumes that the input will underflow
-              // to 0
+                    // to 0
               name.Equals("qua531") || // assumes that the input will underflow
-              // to 0
+                    // to 0
               name.Equals("rpow068") || name.Equals("rpow159") ||
               name.Equals("rpow217") || name.Equals("rpow272") ||
               name.Equals("rpow324") || name.Equals("rpow327") ||
@@ -303,14 +303,14 @@ System.Globalization.CultureInfo.InvariantCulture);
             if (output != null && !d3.ToString().Equals(output)) {
               EDecimal d4 = EDecimal.FromString(output);
               {
-object objectTemp = output;
-object objectTemp2 = d3.ToString();
-string messageTemp = name + ": expected: [" + d4.UnsignedMantissa + " " +
-                  d4.Exponent +
-              "]\\n" + "but was: [" + d3.UnsignedMantissa + " " +
-                d3.Exponent + "]";
-Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
-}
+                object objectTemp = output;
+                object objectTemp2 = d3.ToString();
+      string messageTemp = name + ": expected: [" + d4.UnsignedMantissa +
+                " " + d4.Exponent +
+                    "]\\n" + "but was: [" + d3.UnsignedMantissa + " " +
+                    d3.Exponent + "]";
+                Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
+              }
             }
           }
         }
@@ -383,6 +383,63 @@ Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
       PrintTime(sw);
     }
 
+    private static decimal RandomDecimal(FastRandom rand) {
+      int a, b, c;
+      a = rand.NextValue(0x10000);
+      a = unchecked((a << 16) + rand.NextValue(0x10000));
+      b = rand.NextValue(0x10000);
+      b = unchecked((b << 16) + rand.NextValue(0x10000));
+      c = rand.NextValue(0x10000);
+      c = unchecked((c << 16) + rand.NextValue(0x10000));
+      int scale = rand.NextValue(29);
+      return new Decimal(a, b, c, rand.NextValue(2) == 0, (byte)scale);
+    }
+
+    [Test]
+    public void TestDecimalString() {
+      var fr = new FastRandom();
+      for (var i = 0; i < 1000; ++i) {
+        EDecimal ed = RandomObjects.RandomEDecimal(fr);
+        if (!ed.IsFinite) {
+          continue;
+        }
+        decimal d;
+        try {
+          d = Decimal.Parse(
+ed.ToString(),
+            System.Globalization.NumberStyles.AllowExponent |
+System.Globalization.NumberStyles.Number,
+            System.Globalization.CultureInfo.InvariantCulture);
+          EDecimal ed3 = EDecimal.FromString(
+  ed.ToString(),
+  EContext.CliDecimal);
+          TestCommon.CompareTestEqual(
+            (EDecimal)d,
+            ed3,
+    ed.ToString() + " (expanded: " + EDecimal.FromString(ed.ToString()) +
+              ")");
+        } catch (OverflowException ex) {
+          EDecimal ed2 = EDecimal.FromString(
+  ed.ToString(),
+  EContext.CliDecimal);
+          Assert.IsTrue(ed2.IsInfinity(), ed.ToString());
+        }
+      }
+    }
+
+    [Test]
+    public void TestDecimal() {
+      var fr = new FastRandom();
+      for (var i = 0; i < 1000; ++i) {
+        decimal d = RandomDecimal(fr);
+        EDecimal ed = d;
+        TestCommon.CompareTestEqual(d, (decimal)ed, ed.ToString());
+        EDecimal ed2 =
+
+  EDecimal.FromString(d.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        TestCommon.CompareTestEqual(ed, ed2);
+      }
+    }
     [Test]
     public void TestParser() {
       long failures = 0;

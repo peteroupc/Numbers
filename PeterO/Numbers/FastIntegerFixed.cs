@@ -191,9 +191,6 @@ FastIntegerFixed b) {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsEvenNumber"]/*'/>
-    /// <summary>Not documented yet.</summary>
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {
@@ -224,9 +221,6 @@ FastIntegerFixed b) {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.Sign"]/*'/>
-    /// <summary>Not documented yet.</summary>
     internal int Sign {
       get {
         switch (this.integerMode) {
@@ -240,9 +234,6 @@ FastIntegerFixed b) {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger2.IsValueZero"]/*'/>
-    /// <summary>Not documented yet.</summary>
     internal bool IsValueZero {
       get {
         switch (this.integerMode) {

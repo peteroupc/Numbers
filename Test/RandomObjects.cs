@@ -18,7 +18,7 @@ namespace Test {
       for (var i = 0; i < x; ++i) {
         bytes[i] = unchecked((byte)rand.NextValue(256));
       }
-      return (bytes);
+      return bytes;
     }
 
     public static byte[] RandomByteStringShort(FastRandom rand) {
@@ -27,7 +27,7 @@ namespace Test {
       for (var i = 0; i < x; ++i) {
         bytes[i] = unchecked((byte)rand.NextValue(256));
       }
-      return (bytes);
+      return bytes;
     }
 
     public static ERational RandomRational(FastRandom rand) {
@@ -63,8 +63,9 @@ namespace Test {
           sb.Append((char)x);
         }
       }
-      return (sb.ToString());
+      return sb.ToString();
     }
+
     public static long RandomInt64(FastRandom rand) {
       long r = rand.NextValue(0x10000);
       r |= ((long)rand.NextValue(0x10000)) << 16;
@@ -192,7 +193,7 @@ RandomBigInteger(r),
           sb.Append((char)('0' + r.NextValue(10)));
         }
       }
-      return (EInteger.FromString(sb.ToString()));
+      return EInteger.FromString(sb.ToString());
     }
 
     public static String RandomDecimalString(FastRandom r) {

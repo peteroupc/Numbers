@@ -217,7 +217,7 @@ namespace PeterO.Numbers {
         var minValue = -1;
         lock (this.outputs) {
           for (var i = 0; i < this.size; ++i) {
-            if (this.inputsInts[i]>= 0 &&
+            if (this.inputsInts[i] >= 0 &&
                 this.inputsInts[i] <= precision && (minValue == -1 ||
             this.inputsInts[i] >= minValue)) {
    // DebugUtility.Log("Have cached power (" + inputs[i] + "," + bi + ") ");
@@ -562,7 +562,7 @@ namespace PeterO.Numbers {
           EInteger otherPower0 = otherPower[0];
           EInteger otherPower1 = otherPower[1];
           if (precision != otherPower0.ToInt32Checked()) {
-            //DebugUtility.Log("bigcachedpower miss {0} -> {1}"
+            // DebugUtility.Log("bigcachedpower miss {0} -> {1}"
             // , precision, otherPower0);
           }
           precision -= (int)otherPower0;
@@ -589,7 +589,7 @@ namespace PeterO.Numbers {
           break;
         }
         if (precision <= 9999999) {
-          //DebugUtility.Log("calcing pow for "+precision);
+          // DebugUtility.Log("calcing pow for "+precision);
           bigpow = FindPowerOfFive(precision);
           bigpow <<= precision;
           if (precision != startPrecision) {

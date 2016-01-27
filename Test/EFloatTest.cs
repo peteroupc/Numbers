@@ -257,7 +257,7 @@ stringTemp);
       string str =
 
   "874952453585761710286297571153092638434027760916318352601207433388312948219720355694692773665688395541653.74728887385887787786487024277448654174804687500"
-        ;
+;
       EDecimal ed = EDecimal.FromString(str);
       EFloat ef2 = ed.ToEFloat();
       Assert.AreEqual(0, ed.CompareToBinary(ef2), ef2.ToString());
@@ -948,8 +948,9 @@ stringTemp);
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
     public EFloat RandomDoubleEFloat(FastRandom rnd) {
-      return RandomDoubleEFloat(rnd, false);
+      return this.RandomDoubleEFloat(rnd, false);
     }
 
     public EFloat RandomDoubleEFloat(FastRandom rnd, bool subnormal) {
@@ -965,7 +966,7 @@ stringTemp);
         subSize = rnd.NextValue(51);
       }
       for (var i = 0; i < 52; ++i) {
-        sb.Append(((i < 52 - subSize) || (rnd.NextValue(100) >= oneChance))?
+        sb.Append(((i < 52 - subSize) || (rnd.NextValue(100) >= oneChance)) ?
           '0' : '1');
       }
       int expo = 0, exponent;
@@ -975,11 +976,11 @@ stringTemp);
         expo = rnd.NextValue(2046) - 1023;
         exponent = expo - 52;
       }
-      //Console.WriteLine("" + sb + " exp=" + exponent);
-      var eiExponent = (EInteger)exponent;
+      // Console.WriteLine("" + sb + " exp=" + exponent);
+      var valueEiExponent = (EInteger)exponent;
       return EFloat.Create(
         EInteger.FromRadixString(sb.ToString(), 2),
-        eiExponent);
+        valueEiExponent);
     }
 
     public static string OutputDouble(double dbl) {
@@ -987,13 +988,16 @@ stringTemp);
       return dbl + " [" + ef.Mantissa.Abs().ToRadixString(2) +
         "," + ef.Exponent + "]";
     }
+
     public static string OutputEF(EFloat ef) {
       return ef.ToDouble() + " [" + ef.Mantissa.Abs().ToRadixString(2) +
         "," + ef.Exponent + "]";
     }
 
-    public static void TestDoubleRounding(EFloat expected, EFloat input,
-      EFloat src) {
+    public static void TestDoubleRounding(
+EFloat expected,
+EFloat input,
+EFloat src) {
       if (!input.IsFinite || !expected.IsFinite) {
         return;
       }
@@ -1004,16 +1008,16 @@ stringTemp);
       string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
   Assert.Fail(
-  "\nexpected "+OutputDouble(expectedDouble)+",\ngot----- "+
-        OutputDouble(input.ToDouble())+"\nsrc-----="+OutputEF(src)+
-        "\nexpected="+OutputEF(expected)+"\ninput---="+OutputEF(input));
+  "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- "+
+        OutputDouble(input.ToDouble()) +"\nsrc-----=" + OutputEF(src)+
+        "\nexpected=" + OutputEF(expected) +"\ninput---="+OutputEF(input));
       }
       double inputDouble = EDecimal.FromString(str).ToDouble();
       if (inputDouble != expectedDouble) {
   Assert.Fail(
-  "\nexpected "+OutputDouble(expectedDouble)+",\ngot----- "+
-        OutputDouble(inputDouble)+"\nsrc-----="+OutputEF(src)+
-        "\nexpected="+OutputEF(expected)+"\ninput---="+OutputEF(input));
+  "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- "+
+        OutputDouble(inputDouble) +"\nsrc-----=" + OutputEF(src)+
+        "\nexpected=" + OutputEF(expected) +"\ninput---="+OutputEF(input));
       }
     }
 
@@ -1051,7 +1055,7 @@ stringTemp);
     public void TestToDoubleRounding() {
       var fr = new FastRandom();
       for (var i = 0; i < 500; ++i) {
-        EFloat efa = RandomDoubleEFloat(fr, i >= 250);
+        EFloat efa = this.RandomDoubleEFloat(fr, i >= 250);
         TestToDoubleRoundingOne(efa);
       }
       TestToDoubleRoundingOne(EFloat.Create(0, -1074));

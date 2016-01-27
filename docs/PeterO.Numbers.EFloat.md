@@ -1966,7 +1966,7 @@ This value with trailing zeros removed. Note that if the result has a very high 
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.EContext ctx);
 
-Finds the remainder that results when dividing two arbitrary-precision binary floats.
+Finds the remainder that results when dividing two arbitrary-precision binary floats. The remainder is the value that remains when the absolute value of this object is divided by the absolute value of the other object; the remainder has the same sign (positive or negative) as this object's value.
 
 <b>Parameters:</b>
 

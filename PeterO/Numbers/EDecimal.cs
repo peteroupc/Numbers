@@ -1458,8 +1458,10 @@ ERounding.HalfEven);
     public EDecimal DivideToExponent(
       EDecimal divisor,
       int desiredExponentInt) {
- return this.DivideToExponent(divisor, desiredExponentInt,
-        ERounding.HalfEven);
+ return this.DivideToExponent(
+divisor,
+desiredExponentInt,
+ERounding.HalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -2665,8 +2667,9 @@ ec);
           quorem[0 ] = quorem[0].Add(EInteger.One);
         }
         EFloat efret = this.WithThisSign(
-EFloat.Create(quorem[0],
-          adjust.AsEInteger()));
+EFloat.Create(
+quorem[0],
+adjust.AsEInteger()));
         // DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " +
         // (// efret.Exponent));
         efret = efret.RoundToPrecision(ec);

@@ -43,21 +43,21 @@ if (radix > 36) {
         builder.Append('-');
         negative = true;
       }
-      int radixpowint = radix*radix*radix*radix;
+      int radixpowint = radix * radix * radix*radix;
       EInteger radixpow4 = EInteger.FromInt32(radixpowint);
       EInteger radixpow1 = EInteger.FromInt32(radix);
-      int count = 0;
+      var count = 0;
       for (int i = 0; i < numDigits - 4; i += 4) {
         int digitvalues = rand.NextValue(radixpowint);
-        int digit = digitvalues%radix;
-        digitvalues/=radix;
-        int digit2 = digitvalues%radix;
-        digitvalues/=radix;
-        int digit3 = digitvalues%radix;
-        digitvalues/=radix;
-        int digit4 = digitvalues%radix;
-        digitvalues/=radix;
-        count+=4;
+        int digit = digitvalues % radix;
+        digitvalues /= radix;
+        int digit2 = digitvalues % radix;
+        digitvalues /= radix;
+        int digit3 = digitvalues % radix;
+        digitvalues /= radix;
+        int digit4 = digitvalues % radix;
+        digitvalues /= radix;
+        count += 4;
         int bits = rand.NextValue(16);
         if ((bits & 0x01) == 0) {
           builder.Append(ValueDigits[digit]);
@@ -79,7 +79,7 @@ if (radix > 36) {
         } else {
           builder.Append(ValueDigitsLower[digit4]);
         }
-        int digits=((digit*radix + digit2)*radix + digit3)*radix + digit4;
+        int digits = ((digit * radix + digit2)*radix + digit3)*radix + digit4;
         bv *= radixpow4;
         var bigintTmp = (EInteger)digits;
         bv += bigintTmp;
