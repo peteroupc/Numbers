@@ -143,8 +143,11 @@ for (var i = 0; i < 1000; ++i) {
 
     [Test]
     public void TestAddThenCompare() {
-        EDecimal a = EDecimal.FromString(
-  "3432401181884624580219161996277760227145481682978308767347063168426989874100957186809774969532587926005597200790737572030389681269702414428117526594285731840" ).Add(
+      EDecimal a = EDecimal.FromString(
+"343240118188462458021916199627776022714548168297830876734706316842" +
+"698987410095718680977496953258792600559720079073757203038968126970" +
+"2414428117526594285731840");
+      a=a.Add(
         EDecimal.FromString("18895577316172922617856"));
         EDecimal b = EDecimal.FromString(
   "3432401181884624580219161996277760227145481682978308767347063168426989874100957186809774969532587926005597200790737572030389681269702433323694842767208349696");
@@ -1474,7 +1477,6 @@ null);
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-
       EFloat bf;
       bf = EFloat.FromInt64(20);
       {
@@ -2101,9 +2103,33 @@ stringTemp);
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
+    [Test]
+    public void TestCopySign() {
+      var r = new FastRandom();
+      for (var i = 0; i < 1000; i++) {
+        EDecimal ed = RandomObjects.RandomEDecimal(r);
+        ed = ed.CopySign(EDecimal.Zero);
+        Assert.IsFalse(ed.IsNegative);
+        ed = ed.CopySign(EDecimal.NegativeZero);
+        Assert.IsTrue(ed.IsNegative);
+      }
+      Assert.IsFalse(EDecimal.SignalingNaN.CopySign(EDecimal.Zero).IsNegative);
+      Assert.IsTrue(
+        EDecimal.SignalingNaN.CopySign(EDecimal.NegativeZero).IsNegative);
+    }
+
     [Test]
     public void TestNegate() {
-      // not implemented yet
+      var r = new FastRandom();
+      for(var i = 0; i < 1000; i++) {
+        EDecimal ed = RandomObjects.RandomEDecimal(r);
+        ed = ed.CopySign(EDecimal.Zero);
+        Assert.IsTrue(ed.Negate().IsNegative);
+        ed = ed.CopySign(EDecimal.NegativeZero);
+        Assert.IsTrue(ed.IsNegative);
+      }
+      Assert.IsTrue(EDecimal.SignalingNaN.Negate().IsNegative);
     }
     [Test]
     public void TestNextMinus() {
@@ -2186,7 +2212,10 @@ stringTemp);
     }
     [Test]
     public void TestPlus() {
-      // not implemented yet
+      Assert.AreEqual(EDecimal.Zero,
+        EDecimal.NegativeZero.Plus(EContext.Basic));
+      Assert.AreEqual(EDecimal.Zero,
+        EDecimal.NegativeZero.Plus(null));
     }
     [Test]
     public void TestPow() {
@@ -3894,6 +3923,16 @@ EDecimal.FromString(ValueTestStrings[i]).ToEngineeringString());
         Assert.AreEqual(
 ValueTestStrings[i + 3],
 EDecimal.FromString(ValueTestStrings[i]).ToPlainString());
+      }
+      var fr = new FastRandom();
+      for (var i = 0; i < 1000; ++i) {
+        // Generate arbitrary-precision integers for exponent
+        // and mantissa
+        EInteger mantBig = RandomObjects.RandomEInteger(fr);
+        EInteger expBig = RandomObjects.RandomEInteger(fr);
+        EDecimal dec = EDecimal.Create(mantBig, expBig);
+        string decstr = dec.ToString();
+        Assert.AreEqual(dec, EDecimal.FromString(decstr));
       }
     }
     [Test]

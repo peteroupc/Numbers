@@ -175,7 +175,7 @@ FastIntegerFixed b) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.Negate"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.Negate"]/*'/>
     /// <summary>Not documented yet.</summary>
     internal FastIntegerFixed Negate() {
       switch (this.integerMode) {
@@ -209,7 +209,7 @@ FastIntegerFixed b) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger2.ToString"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.ToString"]/*'/>
     /// <summary>Not documented yet.</summary>
     public override string ToString() {
       switch (this.integerMode) {

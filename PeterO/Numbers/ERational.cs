@@ -987,13 +987,13 @@ other.denominator) && this.flags == other.flags);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedDecimal"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEDecimal"]/*'/>
     public EDecimal ToEDecimal() {
       return this.ToEDecimal(null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedDecimal(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEDecimal(PeterO.Numbers.EContext)"]/*'/>
     public EDecimal ToEDecimal(EContext ctx) {
       if (this.IsNaN()) {
         return EDecimal.CreateNaN(
@@ -1014,7 +1014,7 @@ ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedDecimalExactIfPossible(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEDecimalExactIfPossible(PeterO.Numbers.EContext)"]/*'/>
     public EDecimal ToEDecimalExactIfPossible(EContext
           ctx) {
       if (ctx == null) {
@@ -1069,13 +1069,13 @@ ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedFloat"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEFloat"]/*'/>
     public EFloat ToEFloat() {
       return this.ToEFloat(null);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedFloat(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEFloat(PeterO.Numbers.EContext)"]/*'/>
     public EFloat ToEFloat(EContext ctx) {
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
@@ -1096,7 +1096,7 @@ ctx);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToExtendedFloatExactIfPossible(PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEFloatExactIfPossible(PeterO.Numbers.EContext)"]/*'/>
     public EFloat ToEFloatExactIfPossible(EContext ctx) {
       if (ctx == null) {
         return this.ToEFloat(null);

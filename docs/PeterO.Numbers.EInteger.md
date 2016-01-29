@@ -834,9 +834,11 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: Not documented yet.
+ * <i>thisValue</i>: The parameter  <i>thisValue</i>
+ is not documented yet.
 
- * <i>otherValue</i>: Not documented yet.
+ * <i>otherValue</i>: The parameter  <i>otherValue</i>
+ is not documented yet.
 
 <b>Returns:</b>
 
@@ -852,9 +854,11 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: Not documented yet.
+ * <i>thisValue</i>: The parameter  <i>thisValue</i>
+ is not documented yet.
 
- * <i>otherValue</i>: Not documented yet.
+ * <i>otherValue</i>: The parameter  <i>otherValue</i>
+ is not documented yet.
 
 <b>Returns:</b>
 
@@ -896,9 +900,11 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: Not documented yet.
+ * <i>thisValue</i>: The parameter  <i>thisValue</i>
+ is not documented yet.
 
- * <i>otherValue</i>: Not documented yet.
+ * <i>otherValue</i>: The parameter  <i>otherValue</i>
+ is not documented yet.
 
 <b>Returns:</b>
 
@@ -1069,7 +1075,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: Not documented yet.
+ * <i>thisValue</i>: The parameter  <i>thisValue</i>
+ is not documented yet.
 
 <b>Returns:</b>
 

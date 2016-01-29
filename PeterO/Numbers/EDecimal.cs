@@ -388,9 +388,8 @@ negative ? -1 : 1);
       return EDecimal.Create(bigint, EInteger.Zero);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='ef'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromExtendedFloat(PeterO.Numbers.EFloat)"]/*'/>
     [Obsolete("Renamed to FromEFloat.")]
     public static EDecimal FromExtendedFloat(EFloat ef) {
       return FromEFloat(ef);
@@ -2149,7 +2148,7 @@ EContext ctx) {
           Double.PositiveInfinity;
        }
       }
-      return this.ToEFloatInternal(EContext.Binary64).ToDouble();
+      return this.ToEFloat(EContext.Binary64).ToDouble();
     }
 
     /// <include file='../../docs.xml'
@@ -2174,13 +2173,13 @@ EContext ctx) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToExtendedFloat"]/*'/>
     [Obsolete("Renamed to ToEFloat.")]
     public EFloat ToExtendedFloat() {
-      return this.ToEFloatInternal(EContext.Unlimited);
+      return this.ToEFloat(EContext.Unlimited);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToExtendedFloat"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat"]/*'/>
     public EFloat ToEFloat() {
-      return this.ToEFloatInternal(EContext.Unlimited);
+      return this.ToEFloat(EContext.Unlimited);
     }
 
     /// <include file='../../docs.xml'
@@ -2302,7 +2301,7 @@ EContext ctx) {
         return this.IsNegative ? Single.NegativeInfinity :
           Single.PositiveInfinity;
       }
-      return this.ToEFloatInternal(EContext.Binary32).ToSingle();
+      return this.ToEFloat(EContext.Binary32).ToSingle();
     }
 
     /// <include file='../../docs.xml'
@@ -2527,7 +2526,10 @@ ERounding rounding) {
       return this.IsNegative ? ef.Negate() : ef;
     }
 
-    private EFloat ToEFloatInternal(EContext ec) {
+    /// <summary>Not documented yet.</summary>
+    /// <param name='ec'>Not documented yet.</param>
+    /// <returns>An EFloat object.</returns>
+    public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
       if (this.IsNaN()) {
@@ -2662,6 +2664,7 @@ ec);
             }
           } while (quorem[0].CompareTo(desiredLow) < 0);
         }
+        bool inexact = !quorem[1].IsZero;
         // Round to odd to avoid rounding errors
         if (!quorem[1].IsZero && quorem[0].IsEven) {
           quorem[0 ] = quorem[0].Add(EInteger.One);

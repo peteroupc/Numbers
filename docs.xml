@@ -657,7 +657,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)">
 <summary>Returns a number with the same value as this one, but copying the sign (positive
-or negative) of another number.</summary>
+            or negative) of another number.</summary>
             <param name='other'>A number whose sign will be copied.</param>
             <returns>An arbitrary-precision decimal number.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
@@ -1179,12 +1179,9 @@ or negative) of another number.</summary>
             set to 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromExtendedFloat(PeterO.Numbers.EFloat)">
-<summary>Creates a decimal number from an arbitrary-precision
-            binary floating-point number.</summary>
-            <param name='bigfloat'>An arbitrary-precision binary floating-point number.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='bigfloat'/> is null.</exception>
+<summary>Not documented yet.</summary>
+            <param name='ef'>The parameter <paramref name='ef'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromInt32(System.Int32)">
 <summary>Creates a decimal number from a 32-bit signed
@@ -2337,6 +2334,14 @@ or negative) of another number.</summary>
             this value exceeds the range of a 64-bit floating point
             number.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToEFloat">
+<summary>Creates a binary floating-point number from this
+            object&#x27;s value. Note that if the binary floating-point number
+            contains a negative exponent, the resulting value might not be
+            exact, in which case the resulting binary float will be an
+            approximation of this decimal number's value.</summary>
+            <returns>An arbitrary-precision binary float.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEInteger">
 <summary>Converts this value to an arbitrary-precision integer. Any
             fractional part in this value will be discarded when converting to
@@ -2379,7 +2384,6 @@ or negative) of another number.</summary>
 <returns>A 32-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Checked">
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
 <returns>A 64-bit signed integer.</returns>
@@ -2631,6 +2635,12 @@ or negative) of another number.</summary>
             <param name='olderDigits'>A 32-bit signed integer. (2).</param>
             <returns>An IShiftAccumulator object.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.DivisionShift(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<summary>This is an internal method.</summary>
+            <param name='num'>An arbitrary-precision integer.</param>
+            <param name='den'>Another arbitrary-precision integer.</param>
+            <returns>A Boolean object.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetArithmeticSupport">
 <summary>This is an internal method.</summary>
             <returns>A 32-bit signed integer.</returns>
@@ -2792,7 +2802,7 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)">
 <summary>Returns a number with the same value as this one, but copying the sign (positive
-or negative) of another number.</summary>
+            or negative) of another number.</summary>
             <param name='other'>A number whose sign will be copied.</param>
             <returns>An arbitrary-precision binary float.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
@@ -4385,6 +4395,10 @@ or negative) of another number.</summary>
             <returns>True if this object's value is MinValue or greater, and
             MaxValue or less; otherwise, false.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.CanFitInInt64">
+<summary>Not documented yet.</summary>
+            <returns>A Boolean object.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)">
 <summary>Compares an arbitrary-precision integer with this
             instance.</summary>
@@ -4620,6 +4634,13 @@ or negative) of another number.</summary>
             <returns>The lowest bit set in the number, starting at 0. Returns -1
             if this value is 0 or odd.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.GetLowBitAsEInteger">
+<summary>Gets the lowest set bit in this number's absolute
+            value.  (This will also be the lowest set bit in the number's
+            two's-complement representation.)</summary>
+            <returns>The lowest bit set in the number, starting at 0. Returns -1
+            if this value is 0 or odd.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)">
 <summary>Returns whether a bit is set in the two's-complement
             representation of this object's value.</summary>
@@ -4642,6 +4663,13 @@ or negative) of another number.</summary>
             <returns>A Boolean object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength">
+<summary>Finds the minimum number of bits needed to represent this
+            object&#x27;s absolute value.</summary>
+            <returns>The number of bits in this object's value. Returns 0 if
+            this object's value is 0, and returns 1 if the value is negative
+            1.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger">
 <summary>Finds the minimum number of bits needed to represent this
             object&#x27;s absolute value.</summary>
             <returns>The number of bits in this object's value. Returns 0 if
@@ -5053,6 +5081,18 @@ or negative) of another number.</summary>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bthis'/> is null.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.op_BitwiseAnd(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<summary>Not documented yet.</summary>
+            <param name='thisValue'>The parameter <paramref name='thisValue'/> is not documented yet.</param>
+            <param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param>
+            <returns>An EInteger object.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_BitwiseOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<summary>Not documented yet.</summary>
+            <param name='thisValue'>The parameter <paramref name='thisValue'/> is not documented yet.</param>
+            <param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param>
+            <returns>An EInteger object.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Division(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Divides an arbitrary-precision integer by the value of an
             arbitrary-precision integer object.</summary>
@@ -5063,6 +5103,12 @@ or negative) of another number.</summary>
             <returns>The quotient of the two objects.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='dividend'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_ExclusiveOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<summary>Not documented yet.</summary>
+            <param name='thisValue'>The parameter <paramref name='thisValue'/> is not documented yet.</param>
+            <param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param>
+            <returns>An EInteger object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte">
 <summary>Not documented yet.</summary>
@@ -5174,6 +5220,11 @@ or negative) of another number.</summary>
             <returns>The product of the two numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='operand1'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_OnesComplement(PeterO.Numbers.EInteger)">
+<summary>Not documented yet.</summary>
+            <param name='thisValue'>The parameter <paramref name='thisValue'/> is not documented yet.</param>
+            <returns>An EInteger object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_RightShift(PeterO.Numbers.EInteger,System.Int32)">
 <summary>Shifts the bits of an arbitrary-precision integer to the
@@ -5327,7 +5378,7 @@ or negative) of another number.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)">
 <summary>Returns a number with the same value as this one, but copying the sign (positive
-or negative) of another number.</summary>
+            or negative) of another number.</summary>
             <param name='other'>A number whose sign will be copied.</param>
             <returns>An arbitrary-precision rational number.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
@@ -5596,6 +5647,60 @@ or negative) of another number.</summary>
             this value exceeds the range of a 64-bit floating point
             number.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.ToEDecimal">
+<summary>Converts this rational number to a decimal
+            number.</summary>
+            <returns>The exact value of the rational number, or not-a-number
+            (NaN) if the result can't be exact because it has a nonterminating
+            decimal expansion.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToEDecimal(PeterO.Numbers.EContext)">
+<summary>Converts this rational number to a decimal number and
+            rounds the result to the given precision.</summary>
+            <param name='ctx'>An EContext object.</param>
+            <returns>An arbitrary-precision decimal.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToEDecimalExactIfPossible(PeterO.Numbers.EContext)">
+<summary>Converts this rational number to a decimal number, but if
+            the result would have a nonterminating decimal expansion, rounds
+            that result to the given precision.</summary>
+            <param name='ctx'>An arithmetic context object to control the
+            precision. The rounding and exponent range settings of this context
+            are ignored. This context will be used only if the exact result
+            would have a nonterminating decimal expansion. If <c>HasFlags</c> of the
+            context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            Can be null, in which case this method is the same as
+            ToExtendedDecimal.</param>
+            <returns>An arbitrary-precision decimal.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToEFloat">
+<summary>Converts this rational number to a binary
+            number.</summary>
+            <returns>The exact value of the rational number, or not-a-number
+            (NaN) if the result can't be exact because it has a nonterminating
+            binary expansion.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToEFloat(PeterO.Numbers.EContext)">
+<summary>Converts this rational number to a binary number and
+            rounds the result to the given precision.</summary>
+            <param name='ctx'>An EContext object.</param>
+            <returns>An arbitrary-precision binary float.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToEFloatExactIfPossible(PeterO.Numbers.EContext)">
+<summary>Converts this rational number to a binary number, but if
+            the result would have a nonterminating binary expansion, rounds
+            that result to the given precision.</summary>
+            <param name='ctx'>An arithmetic context object to control the
+            precision. The rounding and exponent range settings of this context
+            are ignored. This context will be used only if the exact result
+            would have a nonterminating binary expansion. If <c>HasFlags</c> of the
+            context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            Can be null, in which case this method is the same as
+            ToExtendedFloat.</param>
+            <returns>An arbitrary-precision binary float.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.ToEInteger">
 <summary>Converts this value to an arbitrary-precision integer. Any
             fractional part in this value will be discarded when converting to
@@ -5861,6 +5966,12 @@ or negative) of another number.</summary>
 <value/>
 </doc>
 <doc name="M:PeterO.Numbers.FastInteger2.ToString">
+<returns>A text string.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.FastIntegerFixed.Negate">
+<returns>A FastInteger2 object.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.FastIntegerFixed.ToString">
 <returns>A text string.</returns>
 </doc>
 <doc name="T:PeterO.Numbers.IShiftAccumulator">

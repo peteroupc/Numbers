@@ -17,8 +17,13 @@ at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
+    /// <xmlbegin id='2'/>
+    /// <summary>An arbitrary-precision integer.
+    /// <para>Instances of this class are immutable, so they are inherently
+    /// safe for use by multiple threads. Multiple instances of this object
+    /// with the same value are interchangeable, but they should be
+    /// compared using the "Equals" method rather than the "=="
+    /// operator.</para></summary>
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -790,8 +795,8 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>A Boolean object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CanFitInInt64"]/*'/>
     public bool CanFitInInt64() {
       int c = this.wordCount;
       if (c > 4) {
@@ -1452,7 +1457,7 @@ ebshl);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBitAsEInteger"]/*'/>
     public EInteger GetLowBitAsEInteger() {
       long retSetBitLong = 0;
       for (var i = 0; i < this.wordCount; ++i) {
@@ -1554,7 +1559,7 @@ ebshl);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger"]/*'/>
     public EInteger GetUnsignedBitLengthAsEInteger() {
       int wc = this.wordCount;
       if (wc != 0) {

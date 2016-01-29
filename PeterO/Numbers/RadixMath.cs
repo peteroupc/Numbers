@@ -4368,7 +4368,11 @@ EContext ctx) {
       if (unlimitedPrecisionExp &&
          (lastDiscarded | olderDiscarded) == 0 &&
          (shift == null || shift.IsValueZero)) {
-        return thisValue;
+        if(!(adjustNegativeZero && 
+          (thisFlags & BigNumberFlags.FlagNegative) != 0 &&
+          this.helper.GetMantissa(thisValue).IsZero)){
+          return thisValue;
+        }
       }
       if (unlimitedPrecisionExp &&
         (ctx == null || (!ctx.HasFlags && ctx.Traps == 0)) &&
