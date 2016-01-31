@@ -4368,9 +4368,9 @@ EContext ctx) {
       if (unlimitedPrecisionExp &&
          (lastDiscarded | olderDiscarded) == 0 &&
          (shift == null || shift.IsValueZero)) {
-        if(!(adjustNegativeZero && 
+        if (!(adjustNegativeZero &&
           (thisFlags & BigNumberFlags.FlagNegative) != 0 &&
-          this.helper.GetMantissa(thisValue).IsZero)){
+          this.helper.GetMantissa(thisValue).IsZero)) {
           return thisValue;
         }
       }

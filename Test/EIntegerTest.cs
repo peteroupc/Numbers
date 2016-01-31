@@ -179,7 +179,7 @@ string rem) {
       EInteger bigintA = BigFromString(m1);
       EInteger bigintB = BigFromString(m2);
       EInteger bigintC = bigintA.Multiply(bigintB);
-      if(result!= null) {
+      if (result != null) {
         AssertBigIntegersEqual(result, bigintC);
       }
       TestMultiplyDivideOne(bigintA, bigintB);
@@ -2306,14 +2306,17 @@ stringTemp);
       return builder.ToString();
     }
 
-    public static void TestMultiplyDivideOne(EInteger bigintA, EInteger bigintB) {
+ public static void TestMultiplyDivideOne(
+EInteger bigintA,
+EInteger bigintB) {
       // Test that A*B/A = B and A*B/B = A
       EInteger bigintC = bigintA.Multiply(bigintB);
       EInteger bigintRem;
       EInteger bigintE;
       EInteger bigintD;
       TestCommon.CompareTestEqualAndConsistent(
-        bigintC, bigintB.Multiply(bigintA));
+        bigintC,
+        bigintB.Multiply(bigintA));
       if (!bigintB.IsZero) {
         {
           EInteger[] divrem = bigintC.DivRem(bigintB);
@@ -2350,7 +2353,7 @@ stringTemp);
         TestCommon.CompareTestEqualAndConsistent(bigintA, bigintD);
       }
       // -----------------------------------
-      //  EDecimal
+      // EDecimal
       // -----------------------------------
       EDecimal edecA = EDecimal.FromEInteger(bigintA);
       EDecimal edecB = EDecimal.FromEInteger(bigintB);
@@ -2359,7 +2362,8 @@ stringTemp);
       EDecimal edecE;
       EDecimal edecD;
       TestCommon.CompareTestEqualAndConsistent(
-        edecC, edecB.Multiply(edecA));
+        edecC,
+        edecB.Multiply(edecA));
       if (!edecB.IsZero) {
         EDecimal[] divrem = edecC.DivRemNaturalScale(edecB);
         edecD = divrem[0].Plus(null);
@@ -2389,7 +2393,7 @@ stringTemp);
         TestCommon.CompareTestEqualAndConsistent(edecA, edecD);
       }
       // -----------------------------------
-      //  EFloat
+      // EFloat
       // -----------------------------------
       EFloat efloatA = EFloat.FromEInteger(bigintA);
       EFloat efloatB = EFloat.FromEInteger(bigintB);
@@ -2398,7 +2402,8 @@ stringTemp);
       EFloat efloatE;
       EFloat efloatD;
       TestCommon.CompareTestEqualAndConsistent(
-        efloatC, efloatB.Multiply(efloatA));
+        efloatC,
+        efloatB.Multiply(efloatA));
       if (!efloatB.IsZero) {
         EFloat[] divrem = efloatC.DivRemNaturalScale(efloatB);
         efloatD = divrem[0].Plus(null);

@@ -2526,6 +2526,21 @@ The closest 64-bit floating-point number to this value. The return value can be 
 
 ### ToEFloat
 
+    public PeterO.Numbers.EFloat ToEFloat(
+        PeterO.Numbers.EContext ec);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>ec</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EFloat object.
+
+### ToEFloat
+
     public PeterO.Numbers.EFloat ToEFloat();
 
 Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.

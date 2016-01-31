@@ -375,7 +375,7 @@ namespace PeterO.Numbers {
         str,
         offset,
         length,
-        ctx).ToEFloat();
+        null).ToEFloat(ctx);
     }
 
     /// <include file='../../docs.xml'
@@ -1548,6 +1548,58 @@ EContext ctx) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToPlainString"]/*'/>
     public string ToPlainString() {
       return this.ToEDecimal().ToPlainString();
+    }
+
+    /// <summary>Returns a string representation of this number's value
+    /// after rounding to the given precision. If the number after rounding
+    /// is neither infinity nor NaN, returns the shortest decimal form of
+    /// this number's value that results in the rounded number after the
+    /// decimal form is converted to binary floating-point
+    /// format.</summary>
+    /// <param name='ctx'>An arithmetic context to control precision,
+    /// rounding, and exponent range of the rounded number. If
+    /// <c>HasFlags</c> of the context is true, will also store the flags
+    /// resulting from the operation (the flags are in addition to the
+    /// pre-existing flags). Can be null. If this parameter is null or
+    /// defines no maximum precision, returns the same value as the
+    /// ToString() method.</param>
+    /// <returns>Shortest decimal form of this number's value for the given
+    /// arithmetic context. The text string will be in exponential notation
+    /// if the decimal number's exponent is greater than 0 or if the
+    /// number's first nonzero decimal digit is more than five digits after
+    /// the decimal point.</returns>
+    public string ToShortestString(EContext ctx) {
+      if (ctx == null || !ctx.HasMaxPrecision) {
+        return this.ToString();
+      }
+      if (!this.IsFinite) {
+        return this.ToEDecimal().ToEFloat(ctx).ToString();
+      }
+      EContext ctx2 = ctx.WithNoFlags();
+      EFloat valueEfRnd = this.RoundToPrecision(ctx);
+      if (valueEfRnd.IsInfinity()) {
+        return valueEfRnd.ToString();
+      }
+      EDecimal dec = this.ToEDecimal();
+      if (ctx.Precision.CompareTo(EInteger.FromInt32(10)) >= 0) {
+        EInteger roundedPrec = ctx.Precision.ShiftRight(1).Add(
+          EInteger.FromInt32(3));
+        dec = dec.RoundToPrecision(
+          ctx2.WithRounding(ERounding.Odd).WithBigPrecision(roundedPrec));
+      }
+      int precision = dec.UnsignedMantissa.GetDigitCount();
+      EInteger eprecision = EInteger.Zero;
+      while (true) {
+        EInteger nextPrecision = eprecision.Add(EInteger.One);
+        EContext nextCtx = ctx2.WithBigPrecision(nextPrecision);
+        EDecimal nextDec = dec.RoundToPrecision(nextCtx);
+        EFloat newFloat = nextDec.ToEFloat(ctx2);
+        if (newFloat.CompareTo(valueEfRnd) == 0) {
+          return nextDec.ToString();
+        }
+        eprecision = nextPrecision;
+      }
+      return dec.ToString();
     }
 
     /// <include file='../../docs.xml'

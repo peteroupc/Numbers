@@ -805,31 +805,48 @@ stringTemp);
       // not implemented yet
     }
 
-    private static string[] FPIntegers = { "1", "2", "4", "8", "281474976710656", "562949953421312", "1125899906842624", "2251799813685248", "4503599627370496", "9007199254740992", "18014398509481984", "36028797018963968", "72057594037927936", "144115188075855872", "288230376151711744", "11235582092889474423308157442431404585112356118389416079589380072358292237843810195794279832650471001320007117491962084853674360550901038905802964414967132773610493339054092829768888725077880882465817684505312860552384417646403930092119569408801702322709406917786643639996702871154982269052209770601514008576", "22471164185778948846616314884862809170224712236778832159178760144716584475687620391588559665300942002640014234983924169707348721101802077811605928829934265547220986678108185659537777450155761764931635369010625721104768835292807860184239138817603404645418813835573287279993405742309964538104419541203028017152", "44942328371557897693232629769725618340449424473557664318357520289433168951375240783177119330601884005280028469967848339414697442203604155623211857659868531094441973356216371319075554900311523529863270738021251442209537670585615720368478277635206809290837627671146574559986811484619929076208839082406056034304", "89884656743115795386465259539451236680898848947115328636715040578866337902750481566354238661203768010560056939935696678829394884407208311246423715319737062188883946712432742638151109800623047059726541476042502884419075341171231440736956555270413618581675255342293149119973622969239858152417678164812112068608" };
+    private static string[] valueFPIntegers = { "1", "2", "4", "8",
+      "281474976710656", "562949953421312", "1125899906842624",
+      "2251799813685248", "4503599627370496", "9007199254740992",
+      "18014398509481984", "36028797018963968", "72057594037927936",
+      "144115188075855872", "288230376151711744",
 
-    private static int[] FPIntegersExp = { 0, 1, 2, 3, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 1020, 1021, 1022, 1023 };
+  "11235582092889474423308157442431404585112356118389416079589380072358292237843810195794279832650471001320007117491962084853674360550901038905802964414967132773610493339054092829768888725077880882465817684505312860552384417646403930092119569408801702322709406917786643639996702871154982269052209770601514008576"
+,
+
+  "22471164185778948846616314884862809170224712236778832159178760144716584475687620391588559665300942002640014234983924169707348721101802077811605928829934265547220986678108185659537777450155761764931635369010625721104768835292807860184239138817603404645418813835573287279993405742309964538104419541203028017152"
+,
+
+  "44942328371557897693232629769725618340449424473557664318357520289433168951375240783177119330601884005280028469967848339414697442203604155623211857659868531094441973356216371319075554900311523529863270738021251442209537670585615720368478277635206809290837627671146574559986811484619929076208839082406056034304"
+,
+
+  "89884656743115795386465259539451236680898848947115328636715040578866337902750481566354238661203768010560056939935696678829394884407208311246423715319737062188883946712432742638151109800623047059726541476042502884419075341171231440736956555270413618581675255342293149119973622969239858152417678164812112068608"
+      };
+
+    private static int[] valueFPIntegersExp = { 0, 1, 2, 3, 48, 49, 50, 51, 52,
+      53, 54, 55, 56, 57, 58, 1020, 1021, 1022, 1023 };
 
     [Test]
-    public void TestFPIntegers() {
-      for(var i = 0; i < FPIntegersExp.Length; i++) {
+    public void TestFPDoubles() {
+      for (var i = 0; i < valueFPIntegersExp.Length; ++i) {
         // Positive
-        EFloat ef = EFloat.Create(1, FPIntegersExp[i]);
-        Assert.AreEqual(FPIntegers[i], ef.ToString());
+        EFloat ef = EFloat.Create(1, valueFPIntegersExp[i]);
+        Assert.AreEqual(valueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(ef.ToDouble());
-        Assert.AreEqual(FPIntegers[i], ef.ToString());
+        Assert.AreEqual(valueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(
-          EDecimal.FromString(FPIntegers[i]).ToDouble());
-        Assert.AreEqual(FPIntegers[i], ef.ToString());
+          EDecimal.FromString(valueFPIntegers[i]).ToDouble());
+        Assert.AreEqual(valueFPIntegers[i], ef.ToString());
         // Negative
-        ef = EFloat.Create(-1, FPIntegersExp[i]);
-        Assert.AreEqual("-" + FPIntegers[i], ef.ToString());
+        ef = EFloat.Create(-1, valueFPIntegersExp[i]);
+        Assert.AreEqual("-" + valueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(ef.ToDouble());
-        Assert.AreEqual("-" + FPIntegers[i], ef.ToString());
+        Assert.AreEqual("-" + valueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(
-          EDecimal.FromString("-" + FPIntegers[i]).ToDouble());
-        Assert.AreEqual("-" + FPIntegers[i], ef.ToString());
+          EDecimal.FromString("-" + valueFPIntegers[i]).ToDouble());
+        Assert.AreEqual("-" + valueFPIntegers[i], ef.ToString());
       }
-      for (var i = -1074; i < 1024; i++) {
+      for (var i = -1074; i < 1024; ++i) {
         string intstr = TestCommon.IntToString(i);
         // Positive
         EFloat ef = EFloat.Create(1, i);
@@ -865,10 +882,12 @@ stringTemp);
 
     [Test]
     public void TestPlus() {
-      Assert.AreEqual(EFloat.Zero,
-        EFloat.NegativeZero.Plus(EContext.Basic));
-      Assert.AreEqual(EFloat.Zero,
-        EFloat.NegativeZero.Plus(null));
+      Assert.AreEqual(
+EFloat.Zero,
+EFloat.NegativeZero.Plus(EContext.Basic));
+      Assert.AreEqual(
+EFloat.Zero,
+EFloat.NegativeZero.Plus(null));
     }
     [Test]
     public void TestPow() {
@@ -1038,7 +1057,7 @@ stringTemp);
       EFloat ef = EFloat.Create(
         EInteger.FromRadixString(sb.ToString(), 2),
         valueEiExponent);
-      //Console.WriteLine(sb + "\r\nef=" + ef);
+      // Console.WriteLine(sb + "\r\nef=" + ef);
       return ef;
     }
 
@@ -1108,6 +1127,21 @@ EFloat src) {
       TestDoubleRounding(isEven ? efa : efnext, efnext2q, efa);
       TestDoubleRounding(efnext, efnext3q, efa);
       TestDoubleRounding(efnext, efnext, efa);
+    }
+
+    [Test]
+    public void TestToShortestString() {
+      var fr = new FastRandom();
+      for (var i = 0; i < 1000; ++i) {
+        EFloat efa = this.RandomDoubleEFloat(fr);
+        string shortestStr = efa.ToShortestString(EContext.Binary64);
+        EFloat shortest = EFloat.FromString(
+          shortestStr,
+          EContext.Binary64);
+        TestCommon.CompareTestEqual(
+          efa,
+          shortest);
+      }
     }
 
     [Test]

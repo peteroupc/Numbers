@@ -93,7 +93,7 @@ string round) {
                 "NaN" : s);
     }
 
-    private interface IExtendedNumber {
+    private interface IExtendedNumber : IComparable<IExtendedNumber> {
       object Value { get; }
 
       IExtendedNumber Add(IExtendedNumber b, EContext ctx);
@@ -219,10 +219,24 @@ EContext ctx);
       public bool IsZeroValue() {
         return this.ed != null && ToValue(this).IsZero;
       }
+
+      public int CompareTo(IExtendedNumber other) {
+        var dn = other as DecimalNumber;
+        EDecimal dned = dn == null ? null : dn.ed;
+        return (this.ed == null) ? ((dned == null) ? 0 : -1) : (dned == null ?
+          1 : this.ed.CompareTo(dned));
+      }
     }
 
     private sealed class BinaryNumber : IExtendedNumber {
       private EFloat ef;
+
+      public int CompareTo(IExtendedNumber other) {
+        var dn = other as BinaryNumber;
+        EFloat dned = dn == null ? null : dn.ef;
+        return (this.ef == null) ? ((dned == null) ? 0 : -1) : (dned == null ?
+          1 : this.ef.CompareTo(dned));
+      }
 
       public static BinaryNumber Create(EFloat dec) {
         var dn = new ExtensiveTest.BinaryNumber();
@@ -1142,6 +1156,11 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
+      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+            0) {
+            d3 = op1.Add(op2, null);
+            Test.TestCommon.CompareTestEqual(result, d3, ln);
+          }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       } else if (subop) {
@@ -1155,6 +1174,11 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
+      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+            0) {
+            d3 = op1.Subtract(op2, null);
+            Test.TestCommon.CompareTestEqual(result, d3, ln);
+          }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       } else if (mul) {
@@ -1168,6 +1192,11 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
+      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+            0) {
+            d3 = op1.Multiply(op2, null);
+            Test.TestCommon.CompareTestEqual(result, d3, ln);
+          }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       } else if (div) {
@@ -1181,6 +1210,11 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
+      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+            0) {
+            d3 = op1.Divide(op2, null);
+            Test.TestCommon.CompareTestEqual(result, d3, ln);
+          }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       } else if (squroot) {
@@ -1202,6 +1236,11 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
+      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+            0) {
+            d3 = op1.MultiplyAndAdd(op2, op3, null);
+            Test.TestCommon.CompareTestEqual(result, d3, ln);
+          }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       } else if (fms) {
@@ -1215,6 +1254,11 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
+      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+            0) {
+            d3 = op1.MultiplyAndSubtract(op2, op3, null);
+            Test.TestCommon.CompareTestEqual(result, d3, ln);
+          }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       }

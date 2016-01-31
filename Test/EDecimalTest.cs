@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using PeterO.Numbers;
+using System.Collections.Generic;
 
 namespace Test {
   [TestFixture]
@@ -144,10 +145,8 @@ for (var i = 0; i < 1000; ++i) {
     [Test]
     public void TestAddThenCompare() {
       EDecimal a = EDecimal.FromString(
-"343240118188462458021916199627776022714548168297830876734706316842" +
-"698987410095718680977496953258792600559720079073757203038968126970" +
-"2414428117526594285731840");
-      a=a.Add(
+  "3432401181884624580219161996277760227145481682978308767347063168426989874100957186809774969532587926005597200790737572030389681269702414428117526594285731840");
+      a = a.Add(
         EDecimal.FromString("18895577316172922617856"));
         EDecimal b = EDecimal.FromString(
   "3432401181884624580219161996277760227145481682978308767347063168426989874100957186809774969532587926005597200790737572030389681269702433323694842767208349696");
@@ -787,6 +786,7 @@ RandomObjects.RandomSingle(rand, i),
 null);
       }
     }
+
     [Test]
     public void TestFromEInteger() {
       var fr = new FastRandom();
@@ -2107,7 +2107,7 @@ stringTemp);
     [Test]
     public void TestCopySign() {
       var r = new FastRandom();
-      for (var i = 0; i < 1000; i++) {
+      for (var i = 0; i < 1000; ++i) {
         EDecimal ed = RandomObjects.RandomEDecimal(r);
         ed = ed.CopySign(EDecimal.Zero);
         Assert.IsFalse(ed.IsNegative);
@@ -2122,7 +2122,7 @@ stringTemp);
     [Test]
     public void TestNegate() {
       var r = new FastRandom();
-      for(var i = 0; i < 1000; i++) {
+      for (var i = 0; i < 1000; ++i) {
         EDecimal ed = RandomObjects.RandomEDecimal(r);
         ed = ed.CopySign(EDecimal.Zero);
         Assert.IsTrue(ed.Negate().IsNegative);
@@ -2212,10 +2212,12 @@ stringTemp);
     }
     [Test]
     public void TestPlus() {
-      Assert.AreEqual(EDecimal.Zero,
-        EDecimal.NegativeZero.Plus(EContext.Basic));
-      Assert.AreEqual(EDecimal.Zero,
-        EDecimal.NegativeZero.Plus(null));
+      Assert.AreEqual(
+EDecimal.Zero,
+EDecimal.NegativeZero.Plus(EContext.Basic));
+      Assert.AreEqual(
+EDecimal.Zero,
+EDecimal.NegativeZero.Plus(null));
     }
     [Test]
     public void TestPow() {
