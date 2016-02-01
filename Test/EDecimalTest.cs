@@ -110,8 +110,8 @@ for (var i = 0; i < 1000; ++i) {
     .Add(EInteger.FromInt32(fr.NextValue(32) -16));
   EInteger exp2 = exp1
     .Add(EInteger.FromInt32(fr.NextValue(18) -9));
-  EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
-  EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
+  EInteger mant1 = RandomObjects.RandomEInteger(fr);
+  EInteger mant2 = RandomObjects.RandomEInteger(fr);
   EDecimal decA = EDecimal.Create(mant1, exp1);
   EDecimal decB = EDecimal.Create(mant2, exp2);
   EDecimal decC = decA.Add(decB);

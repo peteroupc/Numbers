@@ -453,7 +453,7 @@ Creates a not-a-number arbitrary-precision binary float.
 
  * <i>negative</i>: Whether the return value is negative.
 
- * <i>ctx</i>: An EContext object.
+ * <i>ctx</i>: An arithmetic context to control the precision (in bits) of the diagnostic information. The rounding and exponent range of this context will be ignored. Can be null. The only flag that can be signaled in this context is FlagInvalid, which happens if diagnostic information needs to be truncated and too much memory is required to do so.
 
 <b>Returns:</b>
 
@@ -918,7 +918,7 @@ A binary float with the same value as  <i>flt</i>
 Creates a binary float from a string that represents a number. See the four-parameter FromString method.
 
 The following example converts a number in the form of a string to a `double` , or a 64-bit floating point number.    public static double StringToDouble(String str) {
-    return arbitrary-precision binary float.FromString(str).ToDouble();
+    return EFloat.FromString(str).ToDouble();
     }
 
 <b>Parameters:</b>
@@ -1000,7 +1000,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
  (but not more than  <i>str</i>
  's length).
 
- * <i>ctx</i>: An EContext object specifying the precision, rounding, and exponent range to apply to the parsed number. Can be null.
+ * <i>ctx</i>: An EContext object specifying the precision, rounding, and exponent range (in bits) to apply to the parsed number. Can be null.
 
 <b>Returns:</b>
 
@@ -1438,7 +1438,7 @@ Returns a number similar to this number but with the radix point moved to the ri
 
 <b>Returns:</b>
 
-A number whose scale is increased by  <i>bigPlaces</i>
+A number whose exponent is increased by  <i>bigPlaces</i>
 , but not to more than 0.
 
 ### Multiply
@@ -2184,7 +2184,7 @@ Rounds this object's value to a given precision, using the given rounding mode a
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: A context for controlling the precision, rounding mode, and exponent range. Can be null.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null.
 
 <b>Returns:</b>
 
@@ -2237,7 +2237,8 @@ Returns a number similar to this number but with the scale adjusted.
 
 <b>Returns:</b>
 
-An arbitrary-precision binary float.
+A number whose exponent is increased by  <i>bigPlaces</i>
+.
 
 ### ScaleByPowerOfTwo
 
@@ -2255,7 +2256,7 @@ Returns a number similar to this number but with its scale adjusted.
 
 <b>Returns:</b>
 
-A number whose scale is increased by  <i>bigPlaces</i>
+A number whose exponent is increased by  <i>bigPlaces</i>
 .
 
 ### Sqrt
@@ -2343,7 +2344,7 @@ The parameter <i>otherValue</i>
 
     public double ToDouble();
 
-Converts this value to a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
+Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
 
 The following example converts a number in the form of a string to a `double` , or a 64-bit floating point number.    public static double StringToDouble(String str) {
     return arbitrary-precision binary float.FromString(str).ToDouble();
@@ -2473,11 +2474,26 @@ Converts this value to a string, but without exponential notation.
 
 A text string.
 
+### ToShortestString
+
+    public string ToShortestString(
+        PeterO.Numbers.EContext ctx);
+
+Returns a string representation of this number's value after rounding to the given precision. If the number after rounding is neither infinity nor NaN, returns the shortest decimal form (in terms of nonzero decimal digits) of this number's value that results in the rounded number after the decimal form is converted to binary floating-point format.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the rounded number. If `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null. If this parameter is null or defines no maximum precision, returns the same value as the ToString() method.
+
+<b>Returns:</b>
+
+Shortest decimal form of this number's value for the given arithmetic context. The text string will be in exponential notation if the number's first nonzero decimal digit is more than five digits after the decimal point, or if the number's exponent is greater than 0 and its value is 10,000,000 or greater.
+
 ### ToSingle
 
     public float ToSingle();
 
-Converts this value to a 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
+Converts this value to its closest equivalent as 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
 
 <b>Returns:</b>
 
@@ -2487,11 +2503,11 @@ The closest 32-bit floating-point number to this value. The return value can be 
 
     public override string ToString();
 
-Converts this value to a string.
+Converts this number's value to a text string.
 
 <b>Returns:</b>
 
-A string representation of this object. The value is converted to decimal and the decimal form of this number's value is returned.
+A string representation of this object. The value is converted to decimal and the decimal form of this number's value is returned. The text string will be in exponential notation if the converted number's scale is positive or if the number's first nonzero decimal digit is more than five digits after the decimal point.
 
 ### Ulp
 

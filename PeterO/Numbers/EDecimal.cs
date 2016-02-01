@@ -2599,8 +2599,11 @@ ec);
             divisor = den;
           }
         }
+        // NOTE: Precision added by 2 to accommodate rounding
+        // to odd
         EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision +
           EInteger.FromInt32(2) : EInteger.Zero;
+        var valueEcPrecInt = 0;
         if (!valueEcPrec.CanFitInInt32()) {
           EInteger precm1 = valueEcPrec - EInteger.One;
           desiredLow = EInteger.One;
@@ -2615,6 +2618,7 @@ ec);
           desiredHigh = desiredLow << 1;
         } else {
           int prec = valueEcPrec.ToInt32Checked();
+          valueEcPrecInt = prec;
           desiredHigh = EInteger.One << prec;
           int precm1 = prec - 1;
           desiredLow = EInteger.One << precm1;
@@ -2629,12 +2633,54 @@ ec);
           quorem = bigmantissa.DivRem(divisor);
         } else if (quorem[0].CompareTo(desiredHigh) >= 0) {
           do {
-            divisor <<= 1;
-            quorem = bigmantissa.DivRem(divisor);
-            adjust.Increment();
+            var optimized = false;
+            if (divisor.CompareTo(bigmantissa) < 0) {
+              quorem[0] = EInteger.Zero;
+              quorem[1] = divisor;
+              int valueBmBits = divisor.GetUnsignedBitLength();
+              int divBits = bigmantissa.GetUnsignedBitLength();
+              if (valueBmBits < divBits) {
+                valueBmBits = divBits - valueBmBits;
+                divisor <<= valueBmBits;
+                adjust.AddInt(valueBmBits);
+                optimized = true;
+              }
+            } else {
+              if (ec.ClampNormalExponents && valueEcPrecInt > 0) {
+                int valueBmBits = divisor.GetUnsignedBitLength();
+                int divBits = bigmantissa.GetUnsignedBitLength();
+             if (valueBmBits >= divBits && valueEcPrecInt <= Int32.MaxValue -
+                  divBits) {
+                  int vbb = divBits + valueEcPrecInt;
+                  if (valueBmBits < vbb) {
+                    valueBmBits = vbb - valueBmBits;
+                    divisor <<= valueBmBits;
+                    adjust.AddInt(valueBmBits);
+                    optimized = true;
+                  }
+                }
+              }
+            }
+            if (!optimized) {
+              divisor <<= 1;
+              adjust.Increment();
+            }
+            DebugUtility.Log("deshigh " + divisor.GetUnsignedBitLength() +
+              "/" + bigmantissa.GetUnsignedBitLength());
+            quorem = divisor.DivRem(bigmantissa);
+            if (quorem[1].IsZero) {
+              int valueBmBits = quorem[0].GetUnsignedBitLength();
+              int divBits = desiredLow.GetUnsignedBitLength();
+              if (valueBmBits < divBits) {
+                valueBmBits = divBits - valueBmBits;
+                quorem[0] = quorem[0].ShiftLeft(valueBmBits);
+                adjust.AddInt(valueBmBits);
+              }
+            }
           } while (quorem[0].CompareTo(desiredHigh) >= 0);
         } else if (quorem[0].CompareTo(desiredLow) < 0) {
           do {
+            var optimized = false;
             if (bigmantissa.CompareTo(divisor) < 0) {
               quorem[0] = EInteger.Zero;
               quorem[1] = bigmantissa;
@@ -2644,14 +2690,31 @@ ec);
                 valueBmBits = divBits - valueBmBits;
                 bigmantissa <<= valueBmBits;
                 adjust.SubtractInt(valueBmBits);
-              } else {
-                bigmantissa <<= 1;
-                adjust.Decrement();
+                optimized = true;
               }
             } else {
+              if (ec.ClampNormalExponents && valueEcPrecInt > 0) {
+                int valueBmBits = bigmantissa.GetUnsignedBitLength();
+                int divBits = divisor.GetUnsignedBitLength();
+             if (valueBmBits >= divBits && valueEcPrecInt <= Int32.MaxValue -
+                  divBits) {
+                  int vbb = divBits + valueEcPrecInt;
+                  if (valueBmBits < vbb) {
+                    valueBmBits = vbb - valueBmBits;
+                    bigmantissa <<= valueBmBits;
+                    adjust.SubtractInt(valueBmBits);
+                    optimized = true;
+                  }
+                }
+              }
+            }
+            if (!optimized) {
               bigmantissa <<= 1;
               adjust.Decrement();
             }
+            // DebugUtility.Log("deslow " + (//
+            // bigmantissa.GetUnsignedBitLength()) + "/" + (//
+            // divisor.GetUnsignedBitLength()));
             quorem = bigmantissa.DivRem(divisor);
             if (quorem[1].IsZero) {
               int valueBmBits = quorem[0].GetUnsignedBitLength();

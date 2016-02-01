@@ -197,6 +197,9 @@ namespace PeterO.Numbers {
       public EInteger[] FindCachedPowerOrSmaller(EInteger bi) {
         EInteger[] ret = null;
         EInteger minValue = null;
+        if (bi.CanFitInInt32()) {
+          return this.FindCachedPowerIntOrSmaller(bi.ToInt32Checked());
+        }
         lock (this.outputs) {
           for (var i = 0; i < this.size; ++i) {
             if (this.inputs[i].CompareTo(bi) <= 0 && (minValue == null ||

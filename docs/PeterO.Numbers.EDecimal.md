@@ -486,7 +486,7 @@ Creates a not-a-number arbitrary-precision decimal number.
 
  * <i>negative</i>: Whether the return value is negative.
 
- * <i>ctx</i>: A context object for arbitrary-precision arithmetic settings.
+ * <i>ctx</i>: An arithmetic context to control the precision (in decimal digits) of the diagnostic information. The rounding and exponent range of this context will be ignored. Can be null. The only flag that can be signaled in this context is FlagInvalid, which happens if diagnostic information needs to be truncated and too much memory is required to do so.
 
 <b>Returns:</b>
 
@@ -1535,7 +1535,7 @@ Returns a number similar to this number but with the decimal point moved to the 
 
 <b>Returns:</b>
 
-A number whose scale is increased by  <i>bigPlaces</i>
+A number whose exponent is increased by  <i>bigPlaces</i>
 , but not to more than 0.
 
 ### Multiply
@@ -2440,7 +2440,7 @@ Returns a number similar to this number but with its scale adjusted.
 
 <b>Returns:</b>
 
-A number whose scale is increased by  <i>bigPlaces</i>
+A number whose exponent is increased by  <i>bigPlaces</i>
 .
 
 ### Sqrt
@@ -2518,7 +2518,7 @@ The parameter <i>otherValue</i>
 
     public double ToDouble();
 
-Converts this value to a 64-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 64-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
+Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 64-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
 
 <b>Returns:</b>
 
@@ -2586,7 +2586,7 @@ This object's value is not an exact integer.
 
     public string ToEngineeringString();
 
-Same as toString(), except that when an exponent is used it will be a multiple of 3.
+Same as ToString(), except that when an exponent is used it will be a multiple of 3.
 
 <b>Returns:</b>
 
@@ -2633,6 +2633,17 @@ A 32-bit signed integer.
 
     public long ToInt64Checked();
 
+Converts this number to a 64-bit signed integer, if possible, without truncating or rounding it.
+
+<b>Returns:</b>
+
+A 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This number's value is infinity, not-a-number, or doesn't fit into a 64-bit signed integer.
+
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
@@ -2657,7 +2668,7 @@ A text string.
 
     public float ToSingle();
 
-Converts this value to a 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
+Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
 
 <b>Returns:</b>
 
@@ -2671,7 +2682,7 @@ Converts this value to a string. Returns a value compatible with this class's Fr
 
 <b>Returns:</b>
 
-A string representation of this object.
+A string representation of this object. The text string will be in exponential notation if the exponent is greater than 0 or if the number's first nonzero digit is more than five digits after the decimal point.
 
 ### Ulp
 

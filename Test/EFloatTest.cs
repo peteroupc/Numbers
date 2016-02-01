@@ -1046,18 +1046,18 @@ EFloat.NegativeZero.Plus(null));
         sb.Append(((i < 52 - subSize) || (rnd.NextValue(100) >= oneChance)) ?
           '0' : '1');
       }
+      string valueSbString = sb.ToString();
       int expo = 0, exponent;
       if (subnormal) {
         exponent = -1074;
       } else {
-        expo = rnd.NextValue(2046) - 1023;
+        expo = rnd.NextValue(2045) + 1 - 1023;
         exponent = expo - 52;
       }
       var valueEiExponent = (EInteger)exponent;
       EFloat ef = EFloat.Create(
-        EInteger.FromRadixString(sb.ToString(), 2),
+        EInteger.FromRadixString(valueSbString, 2),
         valueEiExponent);
-      // Console.WriteLine(sb + "\r\nef=" + ef);
       return ef;
     }
 
@@ -1129,10 +1129,69 @@ EFloat src) {
       TestDoubleRounding(efnext, efnext, efa);
     }
 
+    private static string EFToString(EFloat ef) {
+      return "[" + ef.Mantissa.ToRadixString(2)+","+
+        ef.Mantissa.GetUnsignedBitLength() +","+ef.Exponent+"]";
+    }
+
     [Test]
     public void TestToShortestString() {
+      {
+string stringTemp = EFloat.FromSingle(0.1f).ToShortestString(EContext.Binary32);
+Assert.AreEqual(
+"0.1",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromDouble(0.1).ToShortestString(EContext.Binary64);
+Assert.AreEqual(
+"0.1",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"100").ToShortestString(EContext.Binary64);
+Assert.AreEqual(
+"100",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"1000").ToShortestString(EContext.Binary64);
+Assert.AreEqual(
+"1000",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"1000000").ToShortestString(EContext.Binary64);
+Assert.AreEqual(
+"1000000",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"10000000").ToShortestString(EContext.Binary64);
+Assert.AreEqual(
+"1E+7",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.FromString(
+"10000000000").ToShortestString(EContext.Binary64);
+Assert.AreEqual(
+"1E+10",
+stringTemp);
+}
+      {
+string stringTemp =
+  EFloat.FromDouble(199999d).ToShortestString(EContext.Binary64);
+Assert.AreEqual(
+"199999",
+stringTemp);
+}
       var fr = new FastRandom();
-      for (var i = 0; i < 1000; ++i) {
+      for (var i = 0; i < 10000; ++i) {
         EFloat efa = this.RandomDoubleEFloat(fr);
         string shortestStr = efa.ToShortestString(EContext.Binary64);
         EFloat shortest = EFloat.FromString(
@@ -1140,7 +1199,8 @@ EFloat src) {
           EContext.Binary64);
         TestCommon.CompareTestEqual(
           efa,
-          shortest);
+          shortest,
+          "\n" + EFToString(efa)+"\n"+EFToString(shortest)+"\n"+shortestStr);
       }
     }
 

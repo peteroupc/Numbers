@@ -699,8 +699,11 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             (true) or quiet (false).</param>
             <param name='negative'>Whether the return value is
             negative.</param>
-            <param name='ctx'>A context object for arbitrary-precision
-            arithmetic settings.</param>
+            <param name='ctx'>An arithmetic context to control the precision (in decimal digits)
+            of the diagnostic information.  The rounding and exponent range of this
+            context will be ignored.  Can be null.  The only flag that can be signaled in this context
+            is FlagInvalid, which happens if diagnostic information needs to be truncated
+            and too much memory is required to do so.</param>
             <returns>An arbitrary-precision decimal number.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='diag'/> is null or is less than 0.</exception>
@@ -2852,7 +2855,11 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             (true) or quiet (false).</param>
             <param name='negative'>Whether the return value is
             negative.</param>
-            <param name='ctx'>An EContext object.</param>
+            <param name='ctx'>An arithmetic context to control the precision (in bits)
+            of the diagnostic information.  The rounding and exponent range of this
+            context will be ignored.  Can be null.  The only flag that can be signaled in this context
+            is FlagInvalid, which happens if diagnostic information needs to be truncated
+            and too much memory is required to do so.</param>
             <returns>An arbitrary-precision binary float.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='diag'/> is null.</exception>

@@ -1550,12 +1550,17 @@ EContext ctx) {
       return this.ToEDecimal().ToPlainString();
     }
 
+    private string ToDebugString() {
+      return "[" + this.Mantissa.ToRadixString(2) +","+
+        this.Mantissa.GetUnsignedBitLength() +"," + this.Exponent+"]";
+    }
+
     /// <summary>Returns a string representation of this number's value
     /// after rounding to the given precision. If the number after rounding
-    /// is neither infinity nor NaN, returns the shortest decimal form of
-    /// this number's value that results in the rounded number after the
-    /// decimal form is converted to binary floating-point
-    /// format.</summary>
+    /// is neither infinity nor NaN, returns the shortest decimal form (in
+    /// terms of nonzero decimal digits) of this number's value that
+    /// results in the rounded number after the decimal form is converted
+    /// to binary floating-point format.</summary>
     /// <param name='ctx'>An arithmetic context to control precision,
     /// rounding, and exponent range of the rounded number. If
     /// <c>HasFlags</c> of the context is true, will also store the flags
@@ -1565,9 +1570,9 @@ EContext ctx) {
     /// ToString() method.</param>
     /// <returns>Shortest decimal form of this number's value for the given
     /// arithmetic context. The text string will be in exponential notation
-    /// if the decimal number's exponent is greater than 0 or if the
-    /// number's first nonzero decimal digit is more than five digits after
-    /// the decimal point.</returns>
+    /// if the number's first nonzero decimal digit is more than five
+    /// digits after the decimal point, or if the number's exponent is
+    /// greater than 0 and its value is 10, 000, 000 or greater.</returns>
     public string ToShortestString(EContext ctx) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return this.ToString();
@@ -1580,8 +1585,13 @@ EContext ctx) {
       if (valueEfRnd.IsInfinity()) {
         return valueEfRnd.ToString();
       }
+      // NOTE: The original EFloat is converted to decimal,
+      // not the rounded version, to avoid double rounding issues
       EDecimal dec = this.ToEDecimal();
       if (ctx.Precision.CompareTo(EInteger.FromInt32(10)) >= 0) {
+        // Preround the decimal so the significand has closer to the
+        // number of decimal digits of the maximum possible
+        // decimal significand, to speed up further rounding
         EInteger roundedPrec = ctx.Precision.ShiftRight(1).Add(
           EInteger.FromInt32(3));
         dec = dec.RoundToPrecision(
@@ -1595,7 +1605,9 @@ EContext ctx) {
         EDecimal nextDec = dec.RoundToPrecision(nextCtx);
         EFloat newFloat = nextDec.ToEFloat(ctx2);
         if (newFloat.CompareTo(valueEfRnd) == 0) {
-          return nextDec.ToString();
+          return (nextDec.Exponent.Sign > 0 &&
+              nextDec.Abs().CompareTo(EDecimal.FromInt32(10000000)) < 0) ?
+                nextDec.ToPlainString() : nextDec.ToString();
         }
         eprecision = nextPrecision;
       }
