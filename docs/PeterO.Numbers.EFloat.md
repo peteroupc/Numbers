@@ -2363,11 +2363,11 @@ The closest 64-bit floating-point number to this value. The return value can be 
 
     public PeterO.Numbers.EDecimal ToEDecimal();
 
-Not documented yet.
+Converts this value to an arbitrary-precision decimal number.
 
 <b>Returns:</b>
 
-An EDecimal object.
+An arbitrary-precision decimal number.
 
 ### ToEInteger
 
@@ -2406,7 +2406,7 @@ This object's value is not an exact integer.
 
     public string ToEngineeringString();
 
-Converts this value to an extended decimal, then returns the value of that decimal's ToEngineeringString method.
+Converts this value to an arbitrary-precision decimal number, then returns the value of that decimal's ToEngineeringString method.
 
 <b>Returns:</b>
 
@@ -2418,11 +2418,11 @@ A text string.
 
 <b>Deprecated.</b> Renamed to ToEDecimal.
 
-Not documented yet.
+Converts this value to an arbitrary-precision decimal number.
 
 <b>Returns:</b>
 
-An EDecimal object.
+An arbitrary-precision decimal number.
 
 ### ToInt32Checked
 
@@ -2479,15 +2479,15 @@ A text string.
     public string ToShortestString(
         PeterO.Numbers.EContext ctx);
 
-Returns a string representation of this number's value after rounding to the given precision. If the number after rounding is neither infinity nor NaN, returns the shortest decimal form (in terms of nonzero decimal digits) of this number's value that results in the rounded number after the decimal form is converted to binary floating-point format.
+Returns a string representation of this number's value after rounding to the given precision. If the number after rounding is neither infinity nor not-a-number (NaN), returns the shortest decimal form (in terms of nonzero decimal digits) of this number's value that results in the rounded number after the decimal form is converted to binary floating-point format.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the rounded number. If `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null. If this parameter is null or defines no maximum precision, returns the same value as the ToString() method.
+ * <i>ctx</i>: An arithmetic context to control precision (in bits), rounding, and exponent range of the rounded number. If `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null. If this parameter is null or defines no maximum precision, returns the same value as the ToString() method.
 
 <b>Returns:</b>
 
-Shortest decimal form of this number's value for the given arithmetic context. The text string will be in exponential notation if the number's first nonzero decimal digit is more than five digits after the decimal point, or if the number's exponent is greater than 0 and its value is 10,000,000 or greater.
+Shortest decimal form of this number's value for the given arithmetic context. The text string will be in exponential notation if the number's first nonzero decimal digit is more than five digits after the decimal point, or if the number's exponent is greater than 0 and its value is 10, 000, 000 or greater.
 
 ### ToSingle
 

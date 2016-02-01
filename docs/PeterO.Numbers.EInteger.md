@@ -8,6 +8,10 @@ An arbitrary-precision integer.Instances of this class are immutable, so they ar
 
 An arbitrary-precision integer.Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
 
+An arbitrary-precision integer.Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
+
+An arbitrary-precision integer.Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
+
 ### IsEven
 
     public bool IsEven { get; }

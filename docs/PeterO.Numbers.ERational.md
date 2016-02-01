@@ -755,7 +755,7 @@ Converts this rational number to a binary number and rounds the result to the gi
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An EContext object.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating binary expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
 
 <b>Returns:</b>
 

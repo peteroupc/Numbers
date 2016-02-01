@@ -182,6 +182,18 @@ EInteger.One + (EInteger)Int32.MaxValue);
     public static readonly EContext Unlimited =
       EContext.ForPrecision(0);
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.UnlimitedHalfEven"]/*'/>
+#if CODE_ANALYSIS
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "This PrecisionContext is immutable")]
+#endif
+
+    public static readonly EContext UnlimitedHalfEven =
+      EContext.ForPrecision(0).WithRounding(ERounding.HalfEven);
+
     private bool adjustExponent;
 
     private EInteger bigintPrecision;

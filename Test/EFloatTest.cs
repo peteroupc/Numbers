@@ -1134,6 +1134,30 @@ EFloat src) {
         ef.Mantissa.GetUnsignedBitLength() +","+ef.Exponent+"]";
     }
 
+    private static void TestBinaryToDecimal(
+string input,
+int digits,
+string expected,
+string msg) {
+    EContext ec = EContext.ForPrecisionAndRounding(digits,
+        ERounding.HalfEven);
+      string str = EFloat.FromString(input, EContext.Binary64)
+          .ToEDecimal().RoundToPrecision(ec).ToString();
+      TestCommon.CompareTestEqual(
+       EDecimal.FromString(expected),
+       EDecimal.FromString(str),
+       msg);
+    }
+
+    [Test]
+    public void TestBinaryDecimalLine() {
+TestBinaryToDecimal(
+"9.5673250588722716156829968E22",
+12,
+"9.56732505887E22",
+String.Empty);
+    }
+
     [Test]
     public void TestToShortestString() {
       {

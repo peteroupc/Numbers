@@ -1065,7 +1065,7 @@ Math.Abs(this.sign));
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Abs(PeterO.Numbers.EContext)"]/*'/>
     public EDecimal Abs(EContext context) {
-      return ((context == null || context == EContext.Unlimited) ?
+      return ((context == null || context == EContext.UnlimitedHalfEven) ?
         ExtendedMathValue : MathValue).Abs(this, context);
     }
 
@@ -1081,7 +1081,7 @@ otherValue.unsignedMantissa);
         int sign = result.IsValueZero ? 0 : 1;
         return new EDecimal(result, this.exponent, 0, sign);
       }
-      return this.Add(otherValue, EContext.Unlimited);
+      return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -1707,7 +1707,7 @@ newflags,
 sign);
         }
       }
-      return this.Multiply(otherValue, EContext.Unlimited);
+      return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -1770,7 +1770,7 @@ this.flags ^ BigNumberFlags.FlagNegative,
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Negate(PeterO.Numbers.EContext)"]/*'/>
     public EDecimal Negate(EContext context) {
-      return ((context == null || context == EContext.Unlimited) ?
+      return ((context == null || context == EContext.UnlimitedHalfEven) ?
         ExtendedMathValue : MathValue).Negate(this, context);
     }
 
@@ -2098,7 +2098,7 @@ EContext ctx) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Subtract(PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal Subtract(EDecimal otherValue) {
-      return this.Subtract(otherValue, EContext.Unlimited);
+      return this.Subtract(otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -2173,13 +2173,13 @@ EContext ctx) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToExtendedFloat"]/*'/>
     [Obsolete("Renamed to ToEFloat.")]
     public EFloat ToExtendedFloat() {
-      return this.ToEFloat(EContext.Unlimited);
+      return this.ToEFloat(EContext.UnlimitedHalfEven);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat"]/*'/>
     public EFloat ToEFloat() {
-      return this.ToEFloat(EContext.Unlimited);
+      return this.ToEFloat(EContext.UnlimitedHalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -2396,7 +2396,7 @@ EContext ctx) {
     }
 
     private static IRadixMath<EDecimal> GetMathValue(EContext ctx) {
-      if (ctx == null || ctx == EContext.Unlimited) {
+      if (ctx == null || ctx == EContext.UnlimitedHalfEven) {
         return ExtendedMathValue;
       }
       return (!ctx.IsSimplified && ctx.Traps == 0) ? ExtendedMathValue :
@@ -2526,9 +2526,8 @@ ERounding rounding) {
       return this.IsNegative ? ef.Negate() : ef;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='ec'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat(PeterO.Numbers.EContext)"]/*'/>
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
@@ -2578,7 +2577,7 @@ ec);
         EInteger desiredHigh;
         EInteger desiredLow;
         var haveCopy = false;
-        ec = ec ?? EContext.Unlimited;
+        ec = ec ?? EContext.UnlimitedHalfEven;
         EContext originalEc = ec;
         if (!ec.HasMaxPrecision) {
           EInteger num = bigmantissa;
@@ -2623,8 +2622,10 @@ ec);
           int precm1 = prec - 1;
           desiredLow = EInteger.One << precm1;
         }
+        // DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
         EInteger[] quorem = ec.HasMaxPrecision ?
           bigmantissa.DivRem(divisor) : null;
+        // DebugUtility.Log("=>{0}\r\n->{1}", quorem[0], desiredHigh);
         var adjust = new FastInteger(0);
         if (!ec.HasMaxPrecision) {
           int term = divisor.GetLowBit();
@@ -2635,20 +2636,24 @@ ec);
           do {
             var optimized = false;
             if (divisor.CompareTo(bigmantissa) < 0) {
-              quorem[0] = EInteger.Zero;
-              quorem[1] = divisor;
-              int valueBmBits = divisor.GetUnsignedBitLength();
-              int divBits = bigmantissa.GetUnsignedBitLength();
-              if (valueBmBits < divBits) {
-                valueBmBits = divBits - valueBmBits;
-                divisor <<= valueBmBits;
-                adjust.AddInt(valueBmBits);
-                optimized = true;
+              if (ec.ClampNormalExponents && valueEcPrecInt > 0 &&
+                  valueEcPrecInt != Int32.MaxValue) {
+               int valueBmBits = bigmantissa.GetUnsignedBitLength();
+               int divBits = divisor.GetUnsignedBitLength();
+               if (divBits < valueBmBits) {
+                int bitdiff = valueBmBits - divBits;
+                if (bitdiff > valueEcPrecInt + 1) {
+                  bitdiff -= valueEcPrecInt + 1;
+                  divisor <<= bitdiff;
+                  adjust.AddInt(bitdiff);
+                  optimized = true;
+                }
+               }
               }
             } else {
               if (ec.ClampNormalExponents && valueEcPrecInt > 0) {
-                int valueBmBits = divisor.GetUnsignedBitLength();
-                int divBits = bigmantissa.GetUnsignedBitLength();
+                int valueBmBits = bigmantissa.GetUnsignedBitLength();
+                int divBits = divisor.GetUnsignedBitLength();
              if (valueBmBits >= divBits && valueEcPrecInt <= Int32.MaxValue -
                   divBits) {
                   int vbb = divBits + valueEcPrecInt;
@@ -2665,9 +2670,13 @@ ec);
               divisor <<= 1;
               adjust.Increment();
             }
-            DebugUtility.Log("deshigh " + divisor.GetUnsignedBitLength() +
-              "/" + bigmantissa.GetUnsignedBitLength());
-            quorem = divisor.DivRem(bigmantissa);
+// DebugUtility.Log("deshigh\n==>" + (//
+// bigmantissa) + "\n-->" + (//
+// divisor));
+// DebugUtility.Log("deshigh " + (//
+// bigmantissa.GetUnsignedBitLength()) + "/" + (//
+// divisor.GetUnsignedBitLength()));
+            quorem = bigmantissa.DivRem(divisor);
             if (quorem[1].IsZero) {
               int valueBmBits = quorem[0].GetUnsignedBitLength();
               int divBits = desiredLow.GetUnsignedBitLength();
@@ -2677,13 +2686,15 @@ ec);
                 adjust.AddInt(valueBmBits);
               }
             }
+  // DebugUtility.Log("quorem[0]="+quorem[0]);
+     // DebugUtility.Log("quorem[1]="+quorem[1]);
+        // DebugUtility.Log("desiredLow="+desiredLow);
+           // DebugUtility.Log("desiredHigh="+desiredHigh);
           } while (quorem[0].CompareTo(desiredHigh) >= 0);
         } else if (quorem[0].CompareTo(desiredLow) < 0) {
           do {
             var optimized = false;
             if (bigmantissa.CompareTo(divisor) < 0) {
-              quorem[0] = EInteger.Zero;
-              quorem[1] = bigmantissa;
               int valueBmBits = bigmantissa.GetUnsignedBitLength();
               int divBits = divisor.GetUnsignedBitLength();
               if (valueBmBits < divBits) {

@@ -1470,7 +1470,7 @@ negflag);
           this.helper.GetMantissa(thisValue) * (EInteger)mantissaOp2,
           newexp,
           thisFlags);
-      if (ctx != null && ctx != EContext.Unlimited) {
+      if (ctx != null && ctx != EContext.UnlimitedHalfEven) {
         ret = this.RoundToPrecision(ret, ctx);
       }
       return ret;
@@ -1516,7 +1516,7 @@ EContext ctx) {
       if (augend == null) {
         throw new ArgumentNullException("augend");
       }
-      EContext ctx2 = EContext.Unlimited.WithBlankFlags();
+      EContext ctx2 = EContext.UnlimitedHalfEven.WithBlankFlags();
       T ret = this.MultiplyAddHandleSpecial(
 thisValue,
 multiplicand,
@@ -2271,7 +2271,7 @@ EInteger.Zero);
                     EContext.FlagInvalid)) != 0) {
         return this.SignalInvalid(ctx);
       }
-      ctx2 = ctx == null ? EContext.Unlimited.WithBlankFlags() :
+      ctx2 = ctx == null ? EContext.UnlimitedHalfEven.WithBlankFlags() :
         ctx.WithBlankFlags();
       T ret2 = this.Add(
         thisValue,
@@ -2685,13 +2685,13 @@ helper);
     }
 
     private static bool IsNullOrSimpleContext(EContext ctx) {
-      return ctx == null || ctx == EContext.Unlimited ||
+      return ctx == null || ctx == EContext.UnlimitedHalfEven ||
        (!ctx.HasExponentRange && !ctx.HasMaxPrecision && ctx.Traps == 0 &&
         !ctx.HasFlags);
     }
 
     private static bool IsSimpleContext(EContext ctx) {
-      return ctx != null && (ctx == EContext.Unlimited ||
+      return ctx != null && (ctx == EContext.UnlimitedHalfEven ||
        (!ctx.HasExponentRange && !ctx.HasMaxPrecision && ctx.Traps == 0 &&
         !ctx.HasFlags));
     }
@@ -4418,7 +4418,7 @@ EContext ctx) {
           }
         }
       }
-      ctx = ctx ?? EContext.Unlimited.WithRounding(ERounding.HalfEven);
+      ctx = ctx ?? EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven);
       bool binaryPrec = ctx.IsPrecisionInBits;
       // get the precision
       FastInteger fastPrecision = ctx.Precision.CanFitInInt32() ? new

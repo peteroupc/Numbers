@@ -2533,7 +2533,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>ec</i>: Not documented yet.
+ * <i>ec</i>: The parameter  <i>ec</i>
+ is not documented yet.
 
 <b>Returns:</b>
 

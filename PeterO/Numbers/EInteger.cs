@@ -17,13 +17,8 @@ at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
 using System;
 
 namespace PeterO.Numbers {
-    /// <xmlbegin id='2'/>
-    /// <summary>An arbitrary-precision integer.
-    /// <para>Instances of this class are immutable, so they are inherently
-    /// safe for use by multiple threads. Multiple instances of this object
-    /// with the same value are interchangeable, but they should be
-    /// compared using the "Equals" method rather than the "=="
-    /// operator.</para></summary>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";

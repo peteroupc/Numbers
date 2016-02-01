@@ -492,7 +492,7 @@ this.flags & ~BigNumberFlags.FlagNegative);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)"]/*'/>
     public EFloat Add(EFloat otherValue) {
-      return this.Add(otherValue, EContext.Unlimited);
+      return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -972,7 +972,7 @@ this.flags).RoundToPrecision(ctx);
           return CreateWithFlags(eintA, exp, newflags);
         }
       }
-      return this.Multiply(otherValue, EContext.Unlimited);
+      return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -1551,28 +1551,12 @@ EContext ctx) {
     }
 
     private string ToDebugString() {
-      return "[" + this.Mantissa.ToRadixString(2) +","+
-        this.Mantissa.GetUnsignedBitLength() +"," + this.Exponent+"]";
+      return "[" + this.Mantissa.ToRadixString(2) +"," +
+        this.Mantissa.GetUnsignedBitLength() +"," + this.Exponent + "]";
     }
 
-    /// <summary>Returns a string representation of this number's value
-    /// after rounding to the given precision. If the number after rounding
-    /// is neither infinity nor NaN, returns the shortest decimal form (in
-    /// terms of nonzero decimal digits) of this number's value that
-    /// results in the rounded number after the decimal form is converted
-    /// to binary floating-point format.</summary>
-    /// <param name='ctx'>An arithmetic context to control precision,
-    /// rounding, and exponent range of the rounded number. If
-    /// <c>HasFlags</c> of the context is true, will also store the flags
-    /// resulting from the operation (the flags are in addition to the
-    /// pre-existing flags). Can be null. If this parameter is null or
-    /// defines no maximum precision, returns the same value as the
-    /// ToString() method.</param>
-    /// <returns>Shortest decimal form of this number's value for the given
-    /// arithmetic context. The text string will be in exponential notation
-    /// if the number's first nonzero decimal digit is more than five
-    /// digits after the decimal point, or if the number's exponent is
-    /// greater than 0 and its value is 10, 000, 000 or greater.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToShortestString(PeterO.Numbers.EContext)"]/*'/>
     public string ToShortestString(EContext ctx) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return this.ToString();
