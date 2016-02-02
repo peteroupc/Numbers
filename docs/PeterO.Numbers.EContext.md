@@ -152,6 +152,12 @@ Signals that the result's exponent, before rounding, is lower than the lowest ex
 
 No specific (theoretical) limit on precision. Rounding mode HalfUp.
 
+### UnlimitedHalfEven
+
+    public static readonly PeterO.Numbers.EContext UnlimitedHalfEven;
+
+No specific (theoretical) limit on precision. Rounding mode HalfEven.
+
 ### AdjustExponent
 
     public bool AdjustExponent { get; }

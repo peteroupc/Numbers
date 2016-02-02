@@ -235,6 +235,9 @@ namespace PeterO.Numbers {
       }
 
       public EInteger GetCachedPower(EInteger bi) {
+        if (bi.CanFitInInt32()) {
+          return this.GetCachedPowerInt(bi.ToInt32Checked());
+        }
         lock (this.outputs) {
           for (var i = 0; i < this.size; ++i) {
             if (bi.Equals(this.inputs[i])) {

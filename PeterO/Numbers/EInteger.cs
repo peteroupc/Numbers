@@ -588,7 +588,7 @@ namespace PeterO.Numbers {
         int carry;
         int desiredLength = Math.Max(addendCount, augendCount);
         if (addendCount == augendCount) {
-          carry = AddOneByOne(
+          carry = AddInternal(
             sumreg,
             0,
             this.words,
@@ -598,7 +598,7 @@ namespace PeterO.Numbers {
             addendCount);
         } else if (addendCount > augendCount) {
           // Addend is bigger
-          carry = AddOneByOne(
+          carry = AddInternal(
             sumreg,
             0,
             this.words,
@@ -621,7 +621,7 @@ namespace PeterO.Numbers {
           }
         } else {
           // Augend is bigger
-          carry = AddOneByOne(
+          carry = AddInternal(
             sumreg,
             0,
             this.words,
@@ -2616,33 +2616,23 @@ borrow);
       unchecked {
         int u;
         u = 0;
-        for (var i = 0; i < n; i += 2) {
-          u = (((int)words1[astart + i]) & 0xffff) + (((int)words2[bstart +
-                    i]) & 0xffff) + (short)(u >> 16);
+        bool evn = (n & 1) == 0;
+        int valueNEven = evn ? n : n - 1;
+        var i = 0;
+        while (i < valueNEven) {
+          u = (((int)words1[astart + i]) & 0xffff) +
+            (((int)words2[bstart + i]) & 0xffff) + (short)(u >> 16);
           c[cstart + i] = (short)u;
-          u = (((int)words1[astart + i + 1]) & 0xffff) +
-            (((int)words2[bstart + i + 1]) & 0xffff) + (short)(u >> 16);
-          c[cstart + i + 1] = (short)u;
+          ++i;
+          u = (((int)words1[astart + i]) & 0xffff) +
+            (((int)words2[bstart + i]) & 0xffff) + (short)(u >> 16);
+          c[cstart + i] = (short)u;
+          ++i;
         }
-        return ((int)u >> 16) & 0xffff;
-      }
-    }
-
-    private static int AddOneByOne(
-      short[] c,
-      int cstart,
-      short[] words1,
-      int astart,
-      short[] words2,
-      int bstart,
-      int n) {
-      unchecked {
-        int u;
-        u = 0;
-        for (var i = 0; i < n; i += 1) {
-          u = (((int)words1[astart + i]) & 0xffff) + (((int)words2[bstart +
-                    i]) & 0xffff) + (short)(u >> 16);
-          c[cstart + i] = (short)u;
+        if (!evn) {
+          u = (((int)words1[astart + valueNEven]) & 0xffff) +
+            (((int)words2[bstart + valueNEven]) & 0xffff) + (short)(u >> 16);
+          c[cstart + valueNEven] = (short)u;
         }
         return ((int)u >> 16) & 0xffff;
       }
@@ -4213,7 +4203,7 @@ borrow);
       return 0;
     }
 
-    private static int CompareWithOneBiggerWords1(
+    private static int CompareWithWords1IsOneBigger(
       short[] words1,
       int astart,
       short[] words2,
@@ -4915,7 +4905,7 @@ count);
           words1,
           words1Start + count2,
           count2);
-        int carry = AddOneByOne(
+        int carry = AddInternal(
           resultArr,
           resultStart + count2,
           resultArr,
@@ -4923,7 +4913,7 @@ count);
           tempArr,
           tempStart,
           count);
-        carry += AddOneByOne(
+        carry += AddInternal(
           resultArr,
           resultStart + count2,
           resultArr,
@@ -5166,9 +5156,14 @@ count);
           return;
         }
         // Split words1 and words2 in two parts each
+        // Words1 is split into HighA and LowA
+        // Words2 is split into HighB and LowB
         if ((count & 1) == 0) {
+          // Count is even, so each part will be equal size
           int count2 = count >> 1;
           if (countA <= count2 && countB <= count2) {
+            // Both words1 and words2 are smaller than half the
+            // count (their high parts are 0)
             // Console.WriteLine("Can be smaller: " + AN + "," + BN + "," +
             // (count2));
             Array.Clear((short[])resultArr, resultStart + count, count);
@@ -5198,15 +5193,17 @@ count);
           int resultHigh = resultMediumHigh + count2;
           int resultMediumLow = resultStart + count2;
           int tsn = tempStart + count;
+          // Find the part of words1 with the higher value
+          // so we can compute the absolute value
           offset2For1 = Compare(
             words1,
             words1Start,
             words1,
             words1Start + count2,
             count2) > 0 ? 0 : count2;
-          // Absolute value of low part minus high part of words1
           var tmpvar = (int)(words1Start + (count2 ^
                     offset2For1));
+          // Abs(LowA - HighA)
           SubtractOneByOne(
             resultArr,
             resultStart,
@@ -5215,13 +5212,15 @@ count);
             words1,
             tmpvar,
             count2);
+          // Find the part of words2 with the higher value
+          // so we can compute the absolute value
           offset2For2 = Compare(
             words2,
             words2Start,
             words2,
             words2Start + count2,
             count2) > 0 ? 0 : count2;
-          // Absolute value of low part minus high part of words2
+          // Abs(LowB - HighB)
           int tmp = words2Start + (count2 ^ offset2For2);
           SubtractOneByOne(
             resultArr,
@@ -5231,8 +5230,7 @@ count);
             words2,
             tmp,
             count2);
-          //---------
-          // HighA * HighB
+          // Medium-high/high result = HighA * HighB
           SameSizeMultiply(
             resultArr,
             resultMediumHigh,
@@ -5243,7 +5241,7 @@ count);
             words2,
             words2Start + count2,
             count2);
-          // Medium high result = Abs(LowA-HighA) * Abs(LowB-HighB)
+          // Temp = Abs(LowA-HighA) * Abs(LowB-HighB)
           SameSizeMultiply(
             tempArr,
             tempStart,
@@ -5254,7 +5252,7 @@ count);
             resultArr,
             resultMediumLow,
             count2);
-          // Low result = LowA * LowB
+          // Low/Medium-low result = LowA * LowB
           SameSizeMultiply(
             resultArr,
             resultStart,
@@ -5265,7 +5263,8 @@ count);
             words2,
             words2Start,
             count2);
-          int c2 = AddOneByOne(
+          // Medium high result = Low(HighA * HighB) + High(LowA * LowB)
+          int c2 = AddInternal(
             resultArr,
             resultMediumHigh,
             resultArr,
@@ -5274,7 +5273,9 @@ count);
             resultMediumLow,
             count2);
           int c3 = c2;
-          c2 += AddOneByOne(
+          // Medium low result = Low(HighA * HighB) + High(LowA * LowB) +
+          // Low(LowA * LowB)
+          c2 += AddInternal(
             resultArr,
             resultMediumLow,
             resultArr,
@@ -5282,7 +5283,9 @@ count);
             resultArr,
             resultStart,
             count2);
-          c3 += AddOneByOne(
+          // Medium high result = Low(HighA * HighB) + High(LowA * LowB) +
+          // High(HighA * HighB)
+          c3 += AddInternal(
             resultArr,
             resultMediumHigh,
             resultArr,
@@ -5291,6 +5294,12 @@ count);
             resultHigh,
             count2);
           if (offset2For1 == offset2For2) {
+            // If high parts of both words were greater
+            // than their low parts
+            // or if low parts of both words were greater
+            // than their high parts
+            // Medium low/Medium high result = Medium low/Medium high result
+            // - Low(Temp)
             c3 -= SubtractOneByOne(
               resultArr,
               resultMediumLow,
@@ -5300,7 +5309,9 @@ count);
               tempStart,
               count);
           } else {
-            c3 += AddOneByOne(
+            // Medium low/Medium high result = Medium low/Medium high result
+            // + Low(Temp)
+            c3 += AddInternal(
               resultArr,
               resultMediumLow,
               resultArr,
@@ -5309,24 +5320,24 @@ count);
               tempStart,
               count);
           }
+          // Add carry
           c3 += Increment(resultArr, resultMediumHigh, count2, (short)c2);
-          // DebugWords(resultArr,resultStart,count*2,"p6");
           if (c3 != 0) {
             Increment(resultArr, resultHigh, count2, (short)c3);
           }
-          // DebugWords(resultArr,resultStart,count*2,"p7");
         } else {
           // Count is odd, high part will be 1 shorter
           int countHigh = count >> 1;  // Shorter part
           int countLow = count - countHigh;  // Longer part
-          offset2For1 = CompareWithOneBiggerWords1(
+          offset2For1 = CompareWithWords1IsOneBigger(
             words1,
             words1Start,
             words1,
             words1Start + countLow,
             countLow) > 0 ? 0 : countLow;
+          // Abs(LowA - HighA)
           if (offset2For1 == 0) {
-            SubtractOneBiggerWords1(
+            SubtractWords1IsOneBigger(
               resultArr,
               resultStart,
               words1,
@@ -5335,7 +5346,7 @@ count);
               words1Start + countLow,
               countLow);
           } else {
-            SubtractOneBiggerWords2(
+            SubtractWords2IsOneBigger(
               resultArr,
               resultStart,
               words1,
@@ -5344,14 +5355,15 @@ count);
               words1Start,
               countLow);
           }
-          offset2For2 = CompareWithOneBiggerWords1(
+          offset2For2 = CompareWithWords1IsOneBigger(
             words2,
             words2Start,
             words2,
             words2Start + countLow,
             countLow) > 0 ? 0 : countLow;
+          // Abs(LowB, HighB)
           if (offset2For2 == 0) {
-            SubtractOneBiggerWords1(
+            SubtractWords1IsOneBigger(
               tempArr,
               tempStart,
               words2,
@@ -5360,7 +5372,7 @@ count);
               words2Start + countLow,
               countLow);
           } else {
-            SubtractOneBiggerWords2(
+            SubtractWords2IsOneBigger(
               tempArr,
               tempStart,
               words2,
@@ -5369,7 +5381,7 @@ count);
               words2Start,
               countLow);
           }
-          // Abs(LowA-HighA) * Abs(LowB-HighB)
+          // Temp = Abs(LowA-HighA) * Abs(LowB-HighB)
           int shorterOffset = countHigh << 1;
           int longerOffset = countLow << 1;
           SameSizeMultiply(
@@ -5382,11 +5394,11 @@ count);
             tempArr,
             tempStart,
             countLow);
-          // DebugWords(resultArr, resultStart + shorterOffset, countLow <<
-          // 1,"w1*w2");
+          // Save part of temp since temp will overlap in part
+          // in the Low/Medium low result multiply
           short resultTmp0 = tempArr[tempStart + shorterOffset];
           short resultTmp1 = tempArr[tempStart + shorterOffset + 1];
-          // HighA * HighB
+          // Medium high/high result = HighA * HighB
           SameSizeMultiply(
             resultArr,
             resultStart + longerOffset,
@@ -5397,7 +5409,7 @@ count);
             words2,
             words2Start + countLow,
             countHigh);
-          // LowA * LowB
+          // Low/Medium low result = LowA * LowB
           SameSizeMultiply(
             resultArr,
             resultStart,
@@ -5408,11 +5420,12 @@ count);
             words2,
             words2Start,
             countLow);
+          // Restore part of temp
           tempArr[tempStart + shorterOffset] = resultTmp0;
           tempArr[tempStart + shorterOffset + 1] = resultTmp1;
           int countMiddle = countLow << 1;
-          // DebugWords(resultArr,resultStart,count*2,"q1");
-          int c2 = AddOneByOne(
+          // Medium high result = Low(HighA * HighB) + High(LowA * LowB)
+          int c2 = AddInternal(
             resultArr,
             resultStart + countMiddle,
             resultArr,
@@ -5421,8 +5434,9 @@ count);
             resultStart + countLow,
             countLow);
           int c3 = c2;
-          // DebugWords(resultArr,resultStart,count*2,"q2");
-          c2 += AddOneByOne(
+          // Medium low result = Low(HighA * HighB) + High(LowA * LowB) +
+          // Low(LowA * LowB)
+          c2 += AddInternal(
             resultArr,
             resultStart + countLow,
             resultArr,
@@ -5430,7 +5444,8 @@ count);
             resultArr,
             resultStart,
             countLow);
-          // DebugWords(resultArr,resultStart,count*2,"q3");
+          // Medium high result = Low(HighA * HighB) + High(LowA * LowB) +
+          // High(HighA * HighB)
           c3 += AddUnevenSize(
             resultArr,
             resultStart + countMiddle,
@@ -5440,8 +5455,13 @@ count);
             resultArr,
             resultStart + countMiddle + countLow,
             countLow - 2);
-          // DebugWords(resultArr,resultStart,count*2,"q4");
           if (offset2For1 == offset2For2) {
+            // If high parts of both words were greater
+            // than their low parts
+            // or if low parts of both words were greater
+            // than their high parts
+            // Medium low/Medium high result = Medium low/Medium high result
+            // - Low(Temp)
             c3 -= SubtractOneByOne(
               resultArr,
               resultStart + countLow,
@@ -5451,7 +5471,9 @@ count);
               tempStart + shorterOffset,
               countLow << 1);
           } else {
-            c3 += AddOneByOne(
+            // Medium low/Medium high result = Medium low/Medium high result
+            // + Low(Temp)
+            c3 += AddInternal(
               resultArr,
               resultStart + countLow,
               resultArr,
@@ -5460,13 +5482,12 @@ count);
               tempStart + shorterOffset,
               countLow << 1);
           }
-          // DebugWords(resultArr,resultStart,count*2,"q5");
+          // Add carry
           c3 += Increment(
             resultArr,
             resultStart + countMiddle,
             countLow,
             (short)c2);
-          // DebugWords(resultArr,resultStart,count*2,"q6");
           if (c3 != 0) {
             Increment(
               resultArr,
@@ -5474,7 +5495,6 @@ count);
               countLow - 2,
               (short)c3);
           }
-          // DebugWords(resultArr,resultStart,count*2,"q7");
         }
       }
     }
@@ -5700,7 +5720,7 @@ count);
       }
     }
 
-    private static int SubtractOneBiggerWords1(
+    private static int SubtractWords1IsOneBigger(
       short[] c,
       int cstart,
       short[] words1,
@@ -5726,7 +5746,7 @@ count);
       }
     }
 
-    private static int SubtractOneBiggerWords2(
+    private static int SubtractWords2IsOneBigger(
       short[] c,
       int cstart,
       short[] words1,
