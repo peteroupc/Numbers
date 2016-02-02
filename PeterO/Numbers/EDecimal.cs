@@ -2539,10 +2539,10 @@ this.IsNegative,
 ec);
       }
       if (this.IsPositiveInfinity()) {
-        return EFloat.PositiveInfinity;
+        return EFloat.PositiveInfinity.RoundToPrecision(ec);
       }
       if (this.IsNegativeInfinity()) {
-        return EFloat.NegativeInfinity;
+        return EFloat.NegativeInfinity.RoundToPrecision(ec);
       }
       if (bigintMant.IsZero) {
         return this.IsNegative ? EFloat.NegativeZero.RoundToPrecision(ec) :

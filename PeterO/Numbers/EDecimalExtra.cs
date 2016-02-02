@@ -59,7 +59,8 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal"]/*'
+    /// />
     public static implicit operator EDecimal(decimal dec) {
       var bits = Decimal.GetBits(dec);
       int scale = (bits[3] >> 16) & 0xff;
@@ -86,31 +87,36 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal"]/*'
+    /// />
     public static explicit operator decimal(EDecimal bigValue) {
       return ExtendedDecimalToDecimal(bigValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal"]/*'
+    /// />
     public static implicit operator EDecimal(long bigValue) {
       return FromInt64(bigValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal"]/*'
+    /// />
     public static implicit operator EDecimal(int smallValue) {
       return FromInt32(smallValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal"]/*'
+    /// />
     public static implicit operator EDecimal(EInteger eint) {
       return FromEInteger(eint);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Addition(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Addition(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'
+    /// />
     public static EDecimal operator +(EDecimal bthis, EDecimal augend) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
@@ -119,7 +125,8 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Subtraction(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Subtraction(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'
+    /// />
     public static EDecimal operator -(
    EDecimal bthis,
    EDecimal subtrahend) {
@@ -130,7 +137,8 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'
+    /// />
     public static EDecimal operator *(
     EDecimal operand1,
     EDecimal operand2) {
@@ -141,7 +149,8 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'
+    /// />
     public static EDecimal operator /(
    EDecimal dividend,
    EDecimal divisor) {
@@ -152,7 +161,8 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'
+    /// />
     public static EDecimal operator %(
    EDecimal dividend,
    EDecimal divisor) {
@@ -163,7 +173,8 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)"]/*'
+    /// />
     public static EDecimal operator -(EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
@@ -172,7 +183,8 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64"]/*'
+    /// />
     public static explicit operator long (EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
@@ -181,37 +193,43 @@ newDecimal.Mantissa.Sign < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.EInteger"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.EInteger"]/*'
+    /// />
     public static explicit operator EInteger(EDecimal bigValue) {
       return bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double"]/*'
+    /// />
     public static explicit operator double (EDecimal bigValue) {
       return bigValue.ToDouble();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single"]/*'
+    /// />
     public static explicit operator float (EDecimal bigValue) {
       return bigValue.ToSingle();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32"]/*'
+    /// />
     public static explicit operator int (EDecimal bigValue) {
       return (int)bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16"]/*'
+    /// />
     public static explicit operator short (EDecimal bigValue) {
       return (short)(int)bigValue;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte"]/*'
+    /// />
     public static explicit operator byte (EDecimal bigValue) {
       return (byte)(int)bigValue;
     }

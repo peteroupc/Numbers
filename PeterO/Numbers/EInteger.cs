@@ -947,12 +947,12 @@ namespace PeterO.Numbers {
         int smallRemainder;
          switch (divisor.words[0]) {
           case 2:
-            smallRemainder = ((int)FastDivideAndRemainderTwo(
+            smallRemainder = (int)FastDivideAndRemainderTwo(
              quotient,
              0,
              this.words,
              0,
-             words1Size));
+             words1Size);
              break;
           case 10:
             smallRemainder = ((int)FastDivideAndRemainderTen(
@@ -1183,12 +1183,8 @@ if (!(u >= 0 && v >= 0)) {
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
             buc = (Math.Abs(buc - bvc) >1 && (bu[0 ]&0x0f) == 0) ?
-              WordsShiftRightFour(
-bu,
-buc) : (
-WordsShiftRightOne(
-bu,
-buc));
+              WordsShiftRightFour(bu, buc) :
+WordsShiftRightOne(bu, buc);
           } else if (!eu && ev) {
             if ((bv[0 ]&0xff) == 0 && Math.Abs(buc-bvc)>1) {
               // DebugUtility.Log("bv8");

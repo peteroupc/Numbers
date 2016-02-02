@@ -375,7 +375,8 @@ namespace PeterO.Numbers {
         str,
         offset,
         length,
-        null).ToEFloat(ctx);
+        EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
+        .ToEFloat(ctx);
     }
 
     /// <include file='../../docs.xml'
@@ -1595,7 +1596,6 @@ EContext ctx) {
         }
         eprecision = nextPrecision;
       }
-      return dec.ToString();
     }
 
     /// <include file='../../docs.xml'

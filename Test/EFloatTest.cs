@@ -1130,8 +1130,8 @@ EFloat src) {
     }
 
     private static string EFToString(EFloat ef) {
-      return "[" + ef.Mantissa.ToRadixString(2) +","+
-        ef.Mantissa.GetUnsignedBitLength() +"," + ef.Exponent+"]";
+      return "[" + ef.Mantissa.ToRadixString(2) +"," +
+        ef.Mantissa.GetUnsignedBitLength() +"," + ef.Exponent + "]";
     }
 
     private static void TestBinaryToDecimal(
@@ -1225,7 +1225,7 @@ stringTemp);
         TestCommon.CompareTestEqual(
           efa,
           shortest,
-          "\n" + EFToString(efa) +"\n"+EFToString(shortest)+"\n"+shortestStr);
+          "\n" + EFToString(efa) +"\n" + EFToString(shortest) +"\n"+shortestStr);
       }
     }
 
