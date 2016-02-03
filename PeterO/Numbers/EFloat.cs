@@ -1188,6 +1188,16 @@ this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'/>
+[Obsolete(
+  "This overload is unnecessary because this method works regardless of rounding mode.")]
+    public EFloat RoundToExponentExact(
+      EInteger exponent,
+      ERounding rounding) {
+      return MathValue.RoundToExponentExact(this, exponent, EContext.Unlimited);
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)"]/*'/>
     public EFloat RoundToExponentExact(
       int exponentSmall,
@@ -1272,6 +1282,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)"]/*'/>
+    [Obsolete("Renamed to Sqrt.")]
     public EFloat SquareRoot(EContext ctx) {
       return MathValue.SquareRoot(this, ctx);
     }

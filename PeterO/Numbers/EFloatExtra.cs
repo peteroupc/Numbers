@@ -10,43 +10,44 @@ using System;
 namespace PeterO.Numbers {
   public sealed partial class EFloat {
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static implicit operator EFloat(long bigValue) {
       return FromInt64(bigValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static implicit operator EFloat(float bigValue) {
       return FromSingle(bigValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static implicit operator EFloat(double bigValue) {
       return FromDouble(bigValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static implicit operator EFloat(int smallValue) {
       return FromInt32(smallValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static implicit operator EFloat(EInteger eint) {
       return FromEInteger(eint);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>Not documented yet.</returns>
     public static EFloat operator +(EFloat bthis, EFloat augend) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
@@ -55,8 +56,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>Not documented yet.</returns>
     public static EFloat operator -(
    EFloat bthis,
    EFloat subtrahend) {
@@ -67,8 +69,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>Not documented yet.</returns>
     public static EFloat operator *(
     EFloat operand1,
     EFloat operand2) {
@@ -79,8 +82,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>Not documented yet.</returns>
     public static EFloat operator /(
    EFloat dividend,
    EFloat divisor) {
@@ -91,8 +95,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>Not documented yet.</returns>
     public static EFloat operator %(
    EFloat dividend,
    EFloat divisor) {
@@ -103,8 +108,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>Not documented yet.</returns>
     public static EFloat operator -(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
@@ -113,8 +119,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static explicit operator long (EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
@@ -123,43 +129,40 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger"]/*'/>
     public static explicit operator EInteger(EFloat bigValue) {
       return bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static explicit operator double (EFloat bigValue) {
       return bigValue.ToDouble();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static explicit operator float (EFloat bigValue) {
       return bigValue.ToSingle();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static explicit operator int (EFloat bigValue) {
       return (int)bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16"]/*'/>
     public static explicit operator short (EFloat bigValue) {
       return (short)(int)bigValue;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte"]/*'
-    /// />
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte"]/*'/>
     public static explicit operator byte (EFloat bigValue) {
       return (byte)(int)bigValue;
     }

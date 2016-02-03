@@ -44,6 +44,25 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
+Version 0.2:
+
+- Performance improvements
+- Added several overloads for DivideToExponent method
+- GCD code in EInteger rewritten
+- Added CopySign, CompareToTotal, and CompareToTotalMagnitude
+ methods to EDecimal and EFloat.
+- Renamed several methods in EDecimal and EFloat
+- RoundToIntegral\* methods renamed to RoundToInteger\* methods
+- Renamed some EInteger integer conversion methods; added
+ CanFitInInt64, GetUnsignedBitLengthAsEInteger,
+ and GetLowBitAsEInteger methods
+- Several operators added to EDecimal in C# version
+- Rewrote code that converts from decimal to binary floating-point;
+ add ToEFloat method taking an EContext in EDecimal
+- Added ToShortestString method in EFloat
+- Add UnlimitedHalfEven EContext object
+- Bug fixes
+
 Version 0.1:
 
 - Initial release

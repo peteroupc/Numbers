@@ -1641,19 +1641,15 @@ The parameter <i>ctx</i>
         PeterO.Numbers.EFloat bthis,
         PeterO.Numbers.EFloat augend);
 
-Not documented yet.
+Adds this object and another binary float and returns the result.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
-
- * <i>augend</i>: The parameter  <i>augend</i>
- is not documented yet.
+ * <i>otherValue</i>: An arbitrary-precision binary float.
 
 <b>Returns:</b>
 
-An EFloat object.
+The sum of the two objects.
 
 <b>Exceptions:</b>
 
@@ -1667,21 +1663,20 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Not documented yet.
+Divides this object by another binary float and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
- * <i>dividend</i>: The parameter  <i>dividend</i>
- is not documented yet.
-
- * <i>divisor</i>: The parameter  <i>divisor</i>
- is not documented yet.
+ * <i>divisor</i>: The divisor.
 
 <b>Returns:</b>
 
-An EFloat object.
+The quotient of the two numbers. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 <b>Exceptions:</b>
+
+ * System.ArithmeticException:
+The result can't be exact because it would have a nonterminating binary expansion.
 
  * System.ArgumentNullException:
 The parameter  <i>dividend</i>
@@ -1693,45 +1688,21 @@ The parameter  <i>dividend</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>dividend</i>: The parameter  <i>dividend</i>
- is not documented yet.
-
- * <i>divisor</i>: The parameter  <i>divisor</i>
- is not documented yet.
-
-<b>Returns:</b>
-
-An EFloat object.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>dividend</i>
- is null.
-
 ### Operator `*`
 
     public static PeterO.Numbers.EFloat operator *(
         PeterO.Numbers.EFloat operand1,
         PeterO.Numbers.EFloat operand2);
 
-Not documented yet.
+Multiplies two binary floats. The resulting exponent will be the sum of the exponents of the two binary floats.
 
 <b>Parameters:</b>
 
- * <i>operand1</i>: The parameter  <i>operand1</i>
- is not documented yet.
-
- * <i>operand2</i>: The parameter  <i>operand2</i>
- is not documented yet.
+ * <i>otherValue</i>: Another binary float.
 
 <b>Returns:</b>
 
-An EFloat object.
+The product of the two binary floats.
 
 <b>Exceptions:</b>
 
@@ -1745,19 +1716,15 @@ The parameter  <i>operand1</i>
         PeterO.Numbers.EFloat bthis,
         PeterO.Numbers.EFloat subtrahend);
 
-Not documented yet.
+Subtracts an arbitrary-precision binary float from this instance and returns the result..
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
-
- * <i>subtrahend</i>: The parameter  <i>subtrahend</i>
- is not documented yet.
+ * <i>otherValue</i>: An arbitrary-precision binary float.
 
 <b>Returns:</b>
 
-An EFloat object.
+The difference of the two objects.
 
 <b>Exceptions:</b>
 
@@ -1770,16 +1737,11 @@ The parameter  <i>bthis</i>
     public static PeterO.Numbers.EFloat operator -(
         PeterO.Numbers.EFloat bigValue);
 
-Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>bigValue</i>: The parameter  <i>bigValue</i>
- is not documented yet.
+Gets an object with the same value as this one, but with the sign reversed.
 
 <b>Returns:</b>
 
-An EFloat object.
+An arbitrary-precision binary float. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
 
 <b>Exceptions:</b>
 
@@ -2111,6 +2073,14 @@ Returns a binary number with the same value as this object but rounded to the gi
 
 A binary number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the precision context.
 
+### RoundToExponentExact
+
+    public PeterO.Numbers.EFloat RoundToExponentExact(
+        PeterO.Numbers.EInteger exponent,
+        PeterO.Numbers.ERounding rounding);
+
+<b>Deprecated.</b> This overload is unnecessary because this method works regardless of rounding mode.
+
 ### RoundToIntegerExact
 
     public PeterO.Numbers.EFloat RoundToIntegerExact(
@@ -2285,6 +2255,8 @@ The parameter <i>ctx</i>
     public PeterO.Numbers.EFloat SquareRoot(
         PeterO.Numbers.EContext ctx);
 
+<b>Deprecated.</b> Renamed to Sqrt.
+
 Finds the square root of this object's value.
 
 <b>Parameters:</b>
@@ -2428,6 +2400,8 @@ An arbitrary-precision decimal number.
 
     public int ToInt32Checked();
 
+Converts this value to a 32-bit signed integer, throwing an exception if the value can't fit.
+
 Not documented yet.
 
 <b>Returns:</b>
@@ -2437,6 +2411,8 @@ A 32-bit signed integer.
 ### ToInt32Unchecked
 
     public int ToInt32Unchecked();
+
+Converts the lowest 32 bits of the truncated form of this number's value to a 32-bit signed integer.
 
 Not documented yet.
 
@@ -2448,6 +2424,8 @@ A 32-bit signed integer.
 
     public long ToInt64Checked();
 
+Converts this value to a 64-bit signed integer, throwing an exception if the value can't fit.
+
 Not documented yet.
 
 <b>Returns:</b>
@@ -2457,6 +2435,8 @@ A 64-bit signed integer.
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
+
+Converts the lowest 64 bits of the truncated form of this number's value to a 64-bit signed integer.
 
 Not documented yet.
 

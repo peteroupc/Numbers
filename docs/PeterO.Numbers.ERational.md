@@ -153,7 +153,7 @@ Not documented yet.
 
 <b>Returns:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 ### Add
 
@@ -519,7 +519,7 @@ Not documented yet.
 
 <b>Returns:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 ### FromInt64
 
@@ -535,7 +535,7 @@ Not documented yet.
 
 <b>Returns:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 ### FromSingle
 
@@ -648,11 +648,11 @@ The parameter <i>otherValue</i>
 
     public PeterO.Numbers.ERational Negate();
 
-Not documented yet.
+Returns a rational number with the sign reversed.
 
 <b>Returns:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 ### Remainder
 

@@ -2013,6 +2013,18 @@ EContext.ForRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
+[Obsolete(
+  "This overload is unnecessary because this method works regardless of rounding mode.")]
+    public EDecimal RoundToExponentExact(
+      int exponentSmall,
+      ERounding rounding) {
+ return this.RoundToExponentExact(
+(EInteger)exponentSmall,
+EContext.Unlimited);
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToIntegerExact(PeterO.Numbers.EContext)"]/*'/>
     public EDecimal RoundToIntegerExact(EContext ctx) {
       return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
@@ -2091,6 +2103,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.SquareRoot(PeterO.Numbers.EContext)"]/*'/>
+    [Obsolete("Renamed to Sqrt.")]
     public EDecimal SquareRoot(EContext ctx) {
       return GetMathValue(ctx).SquareRoot(this, ctx);
     }

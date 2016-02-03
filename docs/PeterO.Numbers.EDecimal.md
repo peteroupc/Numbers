@@ -2281,6 +2281,14 @@ A decimal number rounded to the closest value representable in the given precisi
 ### RoundToExponentExact
 
     public PeterO.Numbers.EDecimal RoundToExponentExact(
+        int exponentSmall,
+        PeterO.Numbers.ERounding rounding);
+
+<b>Deprecated.</b> This overload is unnecessary because this method works regardless of rounding mode.
+
+### RoundToExponentExact
+
+    public PeterO.Numbers.EDecimal RoundToExponentExact(
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
@@ -2463,6 +2471,8 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
 
     public PeterO.Numbers.EDecimal SquareRoot(
         PeterO.Numbers.EContext ctx);
+
+<b>Deprecated.</b> Renamed to Sqrt.
 
 Finds the square root of this object's value.
 

@@ -1028,11 +1028,9 @@ Finds the remainder that results when an arbitrary-precision integer is divided 
 
 <b>Parameters:</b>
 
- * <i>dividend</i>: The parameter  <i>dividend</i>
- is not documented yet.
+ * <i>dividend</i>: The first operand.
 
- * <i>divisor</i>: The parameter  <i>divisor</i>
- is not documented yet.
+ * <i>divisor</i>: The number to divide by.
 
 <b>Returns:</b>
 
@@ -1054,11 +1052,9 @@ Multiplies an arbitrary-precision integer by the value of an arbitrary-precision
 
 <b>Parameters:</b>
 
- * <i>operand1</i>: The parameter  <i>operand1</i>
- is not documented yet.
+ * <i>operand1</i>: The first operand.
 
- * <i>operand2</i>: The parameter  <i>operand2</i>
- is not documented yet.
+ * <i>operand2</i>: The second operand.
 
 <b>Returns:</b>
 
@@ -1074,17 +1070,6 @@ The parameter <i>operand1</i>
 
     public static PeterO.Numbers.EInteger operator ~(
         PeterO.Numbers.EInteger thisValue);
-
-Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>thisValue</i>: The parameter  <i>thisValue</i>
- is not documented yet.
-
-<b>Returns:</b>
-
-An EInteger object.
 
 ### Operator `>>`
 

@@ -14,7 +14,24 @@
     </description>
     <summary>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</summary>
     <releaseNotes>
-    First release
+Version 0.2:
+
+- Performance improvements
+- Added several overloads for DivideToExponent method
+- GCD code in EInteger rewritten
+- Added CopySign, CompareToTotal, and CompareToTotalMagnitude
+ methods to EDecimal and EFloat.
+- Renamed several methods in EDecimal and EFloat
+- RoundToIntegral\* methods renamed to RoundToInteger\* methods
+- Renamed some EInteger integer conversion methods; added
+ CanFitInInt64, GetUnsignedBitLengthAsEInteger,
+ and GetLowBitAsEInteger methods
+- Several operators added to EDecimal in C# version
+- Rewrote code that converts from decimal to binary floating-point;
+ add ToEFloat method taking an EContext in EDecimal
+- Added ToShortestString method in EFloat
+- Add UnlimitedHalfEven EContext object
+- Bug fixes
     </releaseNotes>
     <copyright>Written by Peter O. in 2016.  Any copyright is released to the Public Domain.</copyright>
     <tags>numbers arithmetic decimal math</tags>
