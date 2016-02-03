@@ -12,19 +12,22 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
   public sealed partial class EInteger {
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int64)~PeterO.Numbers.EInteger"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int64)~PeterO.Numbers.EInteger"]/*'
+    /// />
     public static implicit operator EInteger(long bigValue) {
       return FromInt64(bigValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int32)~PeterO.Numbers.EInteger"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int32)~PeterO.Numbers.EInteger"]/*'
+    /// />
     public static implicit operator EInteger(int smallValue) {
       return FromInt32(smallValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Addition(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Addition(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger operator +(EInteger bthis, EInteger augend) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
@@ -33,7 +36,8 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Subtraction(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Subtraction(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
  public static EInteger operator -(
 EInteger bthis,
 EInteger subtrahend) {
@@ -44,7 +48,8 @@ EInteger subtrahend) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Multiply(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Multiply(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
 public static EInteger operator *(
 EInteger operand1,
 EInteger operand2) {
@@ -55,7 +60,8 @@ EInteger operand2) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Division(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Division(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
  public static EInteger operator /(
 EInteger dividend,
 EInteger divisor) {
@@ -66,7 +72,8 @@ EInteger divisor) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Modulus(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Modulus(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
  public static EInteger operator %(
 EInteger dividend,
 EInteger divisor) {
@@ -77,7 +84,8 @@ EInteger divisor) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LeftShift(PeterO.Numbers.EInteger,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LeftShift(PeterO.Numbers.EInteger,System.Int32)"]/*'
+    /// />
     public static EInteger operator <<(EInteger bthis, int bitCount) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
@@ -86,7 +94,8 @@ EInteger divisor) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger ModPow(
 EInteger bigintValue,
 EInteger pow,
@@ -98,7 +107,8 @@ EInteger mod) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_RightShift(PeterO.Numbers.EInteger,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_RightShift(PeterO.Numbers.EInteger,System.Int32)"]/*'
+    /// />
     public static EInteger operator >>(EInteger bthis, int smallValue) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
@@ -107,7 +117,8 @@ EInteger mod) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_UnaryNegation(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_UnaryNegation(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger operator -(EInteger bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
@@ -116,38 +127,44 @@ EInteger mod) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int64"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int64"]/*'
+    /// />
     public static explicit operator long(EInteger bigValue) {
       return bigValue.ToInt64Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32"]/*'
+    /// />
     public static explicit operator int(EInteger bigValue) {
       return bigValue.ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16"]/*'
+    /// />
     public static explicit operator short(EInteger bigValue) {
       return (short)(int)bigValue;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'
+    /// />
     public static explicit operator byte(EInteger bigValue) {
       return (byte)(int)bigValue;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LessThan(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LessThan(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static bool operator <(EInteger thisValue, EInteger otherValue) {
       return (thisValue == null) ? (otherValue != null) :
         (thisValue.CompareTo(otherValue) < 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LessThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LessThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
   public static bool operator <=(
 EInteger thisValue,
 EInteger otherValue) {
@@ -155,13 +172,15 @@ EInteger otherValue) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_GreaterThan(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_GreaterThan(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static bool operator >(EInteger thisValue, EInteger otherValue) {
       return (thisValue != null) && (thisValue.CompareTo(otherValue) > 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_GreaterThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_GreaterThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
   public static bool operator >=(
 EInteger thisValue,
 EInteger otherValue) {
@@ -170,14 +189,16 @@ EInteger otherValue) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_OnesComplement(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_OnesComplement(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger operator ~(
     EInteger thisValue) {
       return Not(thisValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_BitwiseAnd(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_BitwiseAnd(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger operator &(
     EInteger thisValue,
     EInteger otherValue) {
@@ -185,7 +206,8 @@ EInteger otherValue) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_BitwiseOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_BitwiseOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger operator |(
     EInteger thisValue,
     EInteger otherValue) {
@@ -193,7 +215,8 @@ EInteger otherValue) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_ExclusiveOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_ExclusiveOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger operator ^(
     EInteger thisValue,
     EInteger otherValue) {
@@ -201,7 +224,8 @@ EInteger otherValue) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)"]/*'
+    /// />
     public long GetBits(int index, int numberBits) {
       if (numberBits < 0 || numberBits > 64) {
         throw new ArgumentOutOfRangeException("numberBits");
@@ -214,7 +238,8 @@ EInteger otherValue) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)"]/*'
+    /// />
     [Obsolete("Use the DivRem instance method instead.")]
     public static EInteger DivRem(
 EInteger dividend,
@@ -256,13 +281,15 @@ out EInteger remainder) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public bool Equals(EInteger other) {
       return (other != null) && (this.CompareTo(other) == 0);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Not(PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Not(PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger Not(EInteger valueA) {
       if (valueA == null) {
         throw new ArgumentNullException("valueA");
@@ -288,7 +315,8 @@ out EInteger remainder) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger And(EInteger a, EInteger b) {
       if (a == null) {
         throw new ArgumentNullException("a");
@@ -338,7 +366,8 @@ Math.Max(valueXaReg.Length, valueXbReg.Length));
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger Or(EInteger first, EInteger second) {
       if (first == null) {
         throw new ArgumentNullException("first");
@@ -385,7 +414,8 @@ Math.Max(valueXaReg.Length, valueXbReg.Length));
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'
+    /// />
     public static EInteger Xor(EInteger a, EInteger b) {
       if (a == null) {
         throw new ArgumentNullException("a");

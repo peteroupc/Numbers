@@ -1225,7 +1225,8 @@ stringTemp);
         TestCommon.CompareTestEqual(
           efa,
           shortest,
-          "\n" + EFToString(efa) +"\n" + EFToString(shortest) +"\n"+shortestStr);
+        "\n" + EFToString(efa) +"\n" + EFToString(shortest) +"\n"
+            +shortestStr);
       }
     }
 

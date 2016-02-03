@@ -2389,7 +2389,7 @@ EInteger bigintB) {
         edecC = divrem[0].Plus(null);
         edecRem = divrem[1];
         edecD = edecB.Multiply(edecC);
-        edecD += (EDecimal)edecRem;
+        edecD = edecD.Add(edecRem);
         TestCommon.CompareTestEqualAndConsistent(edecA, edecD);
       }
       // -----------------------------------
@@ -2429,7 +2429,7 @@ EInteger bigintB) {
         efloatC = divrem[0].Plus(null);
         efloatRem = divrem[1];
         efloatD = efloatB.Multiply(efloatC);
-        efloatD += (EFloat)efloatRem;
+        efloatD = efloatD.Add(efloatRem);
         TestCommon.CompareTestEqualAndConsistent(efloatA, efloatD);
       }
     }
