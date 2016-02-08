@@ -9,7 +9,9 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 <doc name="T:PeterO.Numbers.EContext">
 <summary>Contains parameters for controlling the precision,
             rounding, and exponent range of arbitrary-precision
-            numbers.</summary>
+            numbers. (The "E" stands for "extended",
+            and has this prefix to group it with the other classes common
+            to this library, particularly EDecimal, EFloat, and ERational.)</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)">
 <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class. <c>HasFlags</c> will be set to
@@ -395,7 +397,9 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="T:PeterO.Numbers.EDecimal">
 <summary>Represents an arbitrary-precision decimal floating-point
-            number.
+            number. (The "E" stands for "extended", meaning that
+            instances of this class can be values other than numbers proper,
+            such as infinity and not-a-number.)
             <para><b>About decimal arithmetic</b></para>
             <para>
             Decimal (base-10) arithmetic, such as that provided by this class,
@@ -2548,7 +2552,10 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
 </doc>
 <doc name="T:PeterO.Numbers.EFloat">
 <summary>Represents an arbitrary-precision binary floating-point
-            number. Consists of an integer mantissa and an integer exponent,
+            number.  (The "E" stands for "extended", meaning that
+            instances of this class can be values other than numbers proper,
+            such as infinity and not-a-number.)
+            Each number consists of an integer mantissa and an integer exponent,
             both arbitrary-precision. The value of the number equals mantissa *
             2^exponent. This class also supports values for negative zero,
             not-a-number (NaN) values, and infinity.
@@ -4362,19 +4369,15 @@ of the truncated form of this number's value to a 64-bit signed integer.</summar
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
 </doc>
 <doc name="T:PeterO.Numbers.EInteger">
-<summary>An arbitrary-precision integer.
+<summary>An arbitrary-precision integer. (The "E" stands for "extended",
+            and has this prefix to group it with the other classes common
+            to this library, particularly EDecimal, EFloat, and ERational.)
             <para>Instances of this class are immutable, so they are inherently
             safe for use by multiple threads. Multiple instances of this object
             with the same value are interchangeable, but they should be
             compared using the "Equals" method rather than the "=="
             operator.</para></summary>
-            
-            <summary>An arbitrary-precision integer.
-            <para>Instances of this class are immutable, so they are inherently
-            safe for use by multiple threads. Multiple instances of this object
-            with the same value are interchangeable, but they should be
-            compared using the "Equals" method rather than the "==" operator.</para></summary>
-</doc>
+         </doc>
 <doc name="M:PeterO.Numbers.EInteger.Abs">
 <summary>Returns the absolute value of this object's
             value.</summary>
@@ -5359,7 +5362,9 @@ of the truncated form of this number's value to a 64-bit signed integer.</summar
 </doc>
 <doc name="T:PeterO.Numbers.ERational">
 <summary>Arbitrary-precision rational number. This class cannot be
-            inherited.
+            inherited. (The "E" stands for "extended", meaning that
+            instances of this class can be values other than numbers proper,
+            such as infinity and not-a-number.)
             <para><b>Thread safety:</b>Instances of this class are immutable, so they are inherently
             safe for use by multiple threads. Multiple instances of this object
             with the same properties are interchangeable, so they should not be
@@ -5825,9 +5830,10 @@ of the truncated form of this number's value to a 64-bit signed integer.</summar
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToString">
 <summary>Converts this object to a text string.</summary>
-            <returns>A string representation of this object. The result can be
-            Infinity, NaN, or sNaN (with a minus sign before it for negative
-            values), or a number of the following form:
+            <returns>A string representation of this object. 
+            If this object's value is infinity or not-a-number, the result
+            is the analogous return value of the <c>EDecimal.ToString</c>
+            method.  Otherwise, the return value has the following form:
             [-]numerator/denominator.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.ERational.UnsignedNumerator">
@@ -5843,7 +5849,9 @@ of the truncated form of this number's value to a 64-bit signed integer.</summar
 <summary>Specifies the mode to use when &#x22;shortening&#x22;
             numbers that otherwise can&#x27;t fit a given number of digits, so
             that the shortened number has about the same value. This
-            &#x22;shortening&#x22; is known as rounding.</summary>
+            &#x22;shortening&#x22; is known as rounding. (The "E" stands for "extended",
+            and has this prefix to group it with the other classes common
+            to this library, particularly EDecimal, EFloat, and ERational.)</summary>
 </doc>
 <doc name="F:PeterO.Numbers.ERounding.Ceiling">
 <summary>If there is a fractional part, the number is rounded to
@@ -5903,7 +5911,9 @@ of the truncated form of this number's value to a 64-bit signed integer.</summar
             always discarded.</summary>
 </doc>
 <doc name="T:PeterO.Numbers.ETrapException">
-<summary>Exception thrown for arithmetic trap errors.</summary>
+<summary>Exception thrown for arithmetic trap errors. (The "E" stands for "extended",
+            and has this prefix to group it with the other classes common
+            to this library, particularly EDecimal, EFloat, and ERational.)</summary>
 </doc>
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)">
 <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.ETrapException'/> class.</summary>

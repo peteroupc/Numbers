@@ -684,7 +684,12 @@ BigValueOf(longV).ToInt64Checked());
 
     [Test]
     public void TestCanFitInInt() {
-      // not implemented yet
+      var r = new FastRandom();
+      for (var i = 0; i < 2000; ++i) {
+        EInteger bigintA = RandomBigInteger(r);
+  Assert.AreEqual(bigintA.CanFitInInt32(), bigintA.GetSignedBitLength() <= 31);
+  Assert.AreEqual(bigintA.CanFitInInt64(), bigintA.GetSignedBitLength() <= 63);
+      }
     }
     [Test]
     public void TestCompareTo() {

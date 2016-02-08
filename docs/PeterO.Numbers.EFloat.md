@@ -1643,6 +1643,8 @@ The parameter <i>ctx</i>
 
 Adds this object and another binary float and returns the result.
 
+Not documented yet.
+
 <b>Parameters:</b>
 
  * <i>otherValue</i>: An arbitrary-precision binary float.
@@ -1650,6 +1652,10 @@ Adds this object and another binary float and returns the result.
 <b>Returns:</b>
 
 The sum of the two objects.
+
+<b>Returns:</b>
+
+Not documented yet.
 
 <b>Exceptions:</b>
 
@@ -1665,6 +1671,8 @@ The parameter  <i>bthis</i>
 
 Divides this object by another binary float and returns the result. When possible, the result will be exact.
 
+Not documented yet.
+
 <b>Parameters:</b>
 
  * <i>divisor</i>: The divisor.
@@ -1672,6 +1680,10 @@ Divides this object by another binary float and returns the result. When possibl
 <b>Returns:</b>
 
 The quotient of the two numbers. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
+
+<b>Returns:</b>
+
+Not documented yet.
 
 <b>Exceptions:</b>
 
@@ -1688,6 +1700,12 @@ The parameter  <i>dividend</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
+Not documented yet.
+
+<b>Returns:</b>
+
+Not documented yet.
+
 ### Operator `*`
 
     public static PeterO.Numbers.EFloat operator *(
@@ -1696,6 +1714,8 @@ The parameter  <i>dividend</i>
 
 Multiplies two binary floats. The resulting exponent will be the sum of the exponents of the two binary floats.
 
+Not documented yet.
+
 <b>Parameters:</b>
 
  * <i>otherValue</i>: Another binary float.
@@ -1703,6 +1723,10 @@ Multiplies two binary floats. The resulting exponent will be the sum of the expo
 <b>Returns:</b>
 
 The product of the two binary floats.
+
+<b>Returns:</b>
+
+Not documented yet.
 
 <b>Exceptions:</b>
 
@@ -1718,6 +1742,8 @@ The parameter  <i>operand1</i>
 
 Subtracts an arbitrary-precision binary float from this instance and returns the result..
 
+Not documented yet.
+
 <b>Parameters:</b>
 
  * <i>otherValue</i>: An arbitrary-precision binary float.
@@ -1725,6 +1751,10 @@ Subtracts an arbitrary-precision binary float from this instance and returns the
 <b>Returns:</b>
 
 The difference of the two objects.
+
+<b>Returns:</b>
+
+Not documented yet.
 
 <b>Exceptions:</b>
 
@@ -1739,9 +1769,15 @@ The parameter  <i>bthis</i>
 
 Gets an object with the same value as this one, but with the sign reversed.
 
+Not documented yet.
+
 <b>Returns:</b>
 
 An arbitrary-precision binary float. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
+
+<b>Returns:</b>
+
+Not documented yet.
 
 <b>Exceptions:</b>
 
@@ -2078,8 +2114,6 @@ A binary number rounded to the closest value representable in the given precisio
     public PeterO.Numbers.EFloat RoundToExponentExact(
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.ERounding rounding);
-
-<b>Deprecated.</b> This overload is unnecessary because this method works regardless of rounding mode.
 
 ### RoundToIntegerExact
 

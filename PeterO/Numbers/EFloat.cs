@@ -1189,12 +1189,14 @@ this.flags ^ BigNumberFlags.FlagNegative);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'/>
-[Obsolete(
-  "This overload is unnecessary because this method works regardless of rounding mode.")]
     public EFloat RoundToExponentExact(
       EInteger exponent,
       ERounding rounding) {
-      return MathValue.RoundToExponentExact(this, exponent, EContext.Unlimited);
+        // TODO: Edit doc for RoundToExponentExact
+      return MathValue.RoundToExponentExact(
+this,
+exponent,
+EContext.Unlimited.WithRounding(rounding));
     }
 
     /// <include file='../../docs.xml'

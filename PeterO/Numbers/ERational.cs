@@ -339,6 +339,289 @@ bool negative) {
     public static ERational FromSingle(float flt) {
       return FromEFloat(EFloat.FromSingle(flt));
     }
+    
+    
+
+     ///
+    public static ERational FromString(string str) {
+      return FromString(str, 0, str == null ? 0 : str.Length);
+    }
+
+    ///
+    public static ERational FromString(string str, EContext ctx) {
+      return FromString(str, 0, str == null ? 0 : str.Length);
+    }
+
+    private const int MaxSafeInt = 214748363;
+
+    ///
+    public static ERational FromString(
+      string str,
+      int offset,
+      int length) {
+      int tmpoffset = offset;
+      if (str == null) {
+        throw new ArgumentNullException("str");
+      }
+      if (tmpoffset < 0) {
+        throw new FormatException("offset (" + tmpoffset + ") is less than " +
+                    "0");
+      }
+      if (tmpoffset > str.Length) {
+        throw new FormatException("offset (" + tmpoffset + ") is more than " +
+                    str.Length);
+      }
+      if (length < 0) {
+        throw new FormatException("length (" + length + ") is less than " +
+                    "0");
+      }
+      if (length > str.Length) {
+        throw new FormatException("length (" + length + ") is more than " +
+                    str.Length);
+      }
+      if (str.Length - tmpoffset < length) {
+        throw new FormatException("str's length minus " + tmpoffset + " (" +
+                    (str.Length - tmpoffset) + ") is less than " + length);
+      }
+      if (length == 0) {
+        throw new FormatException();
+      }
+      var negative = false;
+      int endStr = tmpoffset + length;
+      if (str[0] == '+' || str[0] == '-') {
+        negative = str[0] == '-';
+        ++tmpoffset;
+      }
+      var numerInt = 0;
+      FastInteger numer = null;
+      var numerBuffer = 0;
+      var numerBufferMult = 1;
+      var denomBuffer = 0;
+      var denomBufferMult = 1;
+      var haveDigits = false;
+      var haveDenominator = false;
+      var newScaleInt = 0;
+      FastInteger newScale = null;
+      int i = tmpoffset;
+      if (i + 8 == endStr) {
+        if ((str[i] == 'I' || str[i] == 'i') &&
+            (str[i + 1] == 'N' || str[i + 1] == 'n') &&
+            (str[i + 2] == 'F' || str[i + 2] == 'f') &&
+            (str[i + 3] == 'I' || str[i + 3] == 'i') && (str[i + 4] == 'N' ||
+                    str[i + 4] == 'n') && (str[i + 5] ==
+                    'I' || str[i + 5] == 'i') &&
+            (str[i + 6] == 'T' || str[i + 6] == 't') && (str[i + 7] == 'Y' ||
+                    str[i + 7] == 'y')) {
+          return negative ? NegativeInfinity : PositiveInfinity;
+        }
+      }
+      if (i + 3 == endStr) {
+        if ((str[i] == 'I' || str[i] == 'i') &&
+            (str[i + 1] == 'N' || str[i + 1] == 'n') && (str[i + 2] == 'F' ||
+                    str[i + 2] == 'f')) {
+          return negative ? NegativeInfinity : PositiveInfinity;
+        }
+      }
+      if (i + 3 <= endStr) {
+        // Quiet NaN
+        if ((str[i] == 'N' || str[i] == 'n') && (str[i + 1] == 'A' || str[i +
+                1] == 'a') && (str[i + 2] == 'N' || str[i + 2] == 'n')) {
+          int flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
+            BigNumberFlags.FlagQuietNaN;
+          if (i + 3 == endStr) {
+            return (!negative) ? NaN : NaN.Negate();
+          }
+          i += 3;
+          var digitCount = new FastInteger(0);
+          for (; i < endStr; ++i) {
+            if (str[i] >= '0' && str[i] <= '9') {
+              var thisdigit = (int)(str[i] - '0');
+              haveDigits = haveDigits || thisdigit != 0;
+              if (numerInt > MaxSafeInt) {
+                if (numer == null) {
+                  numer = new FastInteger(numerInt);
+                  numerBuffer = thisdigit;
+                  numerBufferMult = 10;
+                } else {
+                  if (numerBufferMult >= 1000000000) {
+                    numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+                    numerBuffer = thisdigit;
+                    numerBufferMult = 10;
+                  } else {
+                    numerBufferMult *= 10;
+                    numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
+                    numerBuffer += thisdigit;
+                  }
+                }
+              } else {
+                numerInt *= 10;
+                numerInt += thisdigit;
+              }
+            } else {
+              throw new FormatException();
+            }
+          }
+          if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
+            numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+          }
+          EInteger bignumer = (numer == null) ? ((EInteger)numerInt) :
+            numer.AsEInteger();
+          return CreateNaN(bignumer, false, negative);
+        }
+      }
+      if (i + 4 <= endStr) {
+        // Signaling NaN
+        if ((str[i] == 'S' || str[i] == 's') && (str[i + 1] == 'N' || str[i +
+                    1] == 'n') && (str[i + 2] == 'A' || str[i + 2] == 'a') &&
+                (str[i + 3] == 'N' || str[i + 3] == 'n')) {
+          if (i + 4 == endStr) {
+            int flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
+              BigNumberFlags.FlagSignalingNaN;
+            return (!negative) ? SignalingNaN : SignalingNaN.Negate();
+          }
+          i += 4;
+          var digitCount = new FastInteger(0);
+          for (; i < endStr; ++i) {
+            if (str[i] >= '0' && str[i] <= '9') {
+              var thisdigit = (int)(str[i] - '0');
+              haveDigits = haveDigits || thisdigit != 0;
+              if (numerInt > MaxSafeInt) {
+                if (numer == null) {
+                  numer = new FastInteger(numerInt);
+                  numerBuffer = thisdigit;
+                  numerBufferMult = 10;
+                } else {
+                  if (numerBufferMult >= 1000000000) {
+                    numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+                    numerBuffer = thisdigit;
+                    numerBufferMult = 10;
+                  } else {
+                    numerBufferMult *= 10;
+                    numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
+                    numerBuffer += thisdigit;
+                  }
+                }
+              } else {
+                numerInt *= 10;
+                numerInt += thisdigit;
+              }
+            } else {
+              throw new FormatException();
+            }
+          }
+          if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
+            numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+          }
+          int flags3 = (negative ? BigNumberFlags.FlagNegative : 0) |
+            BigNumberFlags.FlagSignalingNaN;
+          EInteger bignumer = (numer == null) ? ((EInteger)numerInt) :
+            numer.AsEInteger();
+          return CreateWithFlags(
+            bignumer,
+            EInteger.Zero,
+            flags3);
+        }
+      }
+      // Ordinary number
+      for (; i < endStr; ++i) {
+        if (str[i] >= '0' && str[i] <= '9') {
+          var thisdigit = (int)(str[i] - '0');
+          if (numerInt > MaxSafeInt) {
+            if (numer == null) {
+              numer = new FastInteger(numerInt);
+              numerBuffer = thisdigit;
+              numerBufferMult = 10;
+            } else {
+              if (numerBufferMult >= 1000000000) {
+                numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+                numerBuffer = thisdigit;
+                numerBufferMult = 10;
+              } else {
+                // multiply numerBufferMult and numerBuffer each by 10
+                numerBufferMult = (numerBufferMult << 3) + (numerBufferMult << 1);
+                numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
+                numerBuffer += thisdigit;
+              }
+            }
+          } else {
+            numerInt *= 10;
+            numerInt += thisdigit;
+          }
+          haveDigits = true;
+        } else if (str[i] == '/') {
+          haveDenominator = true;
+          ++i;
+          break;
+        } else {
+          throw new FormatException();
+        }
+      }
+      if (!haveDigits) {
+        throw new FormatException();
+      }
+      if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
+        numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+      }
+      if (haveDenominator) {
+        FastInteger denom = null;
+        var denomInt = 0;
+        tmpoffset = 1;
+        haveDigits = false;
+        if (i == endStr) {
+          throw new FormatException();
+        }
+        for (; i < endStr; ++i) {
+          if (str[i] >= '0' && str[i] <= '9') {
+            haveDigits = true;
+            var thisdigit = (int)(str[i] - '0');
+            if (denomInt > MaxSafeInt) {
+              if (denom == null) {
+                denom = new FastInteger(denomInt);
+                denomBuffer = thisdigit;
+                denomBufferMult = 10;
+              } else {
+                if (denomBufferMult >= 1000000000) {
+                  denom.Multiply(denomBufferMult).AddInt(denomBuffer);
+                  denomBuffer = thisdigit;
+                  denomBufferMult = 10;
+                } else {
+                  // multiply denomBufferMult and denomBuffer each by 10
+                  denomBufferMult = (denomBufferMult << 3) + (denomBufferMult << 1);
+                  denomBuffer = (denomBuffer << 3) + (denomBuffer << 1);
+                  denomBuffer += thisdigit;
+                }
+              }
+            } else {
+              denomInt *= 10;
+              denomInt += thisdigit;
+            }
+          } else {
+            throw new FormatException();
+          }
+        }
+        if (!haveDigits) {
+          throw new FormatException();
+        }
+        if (denom != null && (denomBufferMult != 1 || denomBuffer != 0)) {
+          denom.Multiply(denomBufferMult).AddInt(denomBuffer);
+        }
+        if (denom == null) {
+          newScaleInt = denomInt;
+        } else {
+          newScale = denom;
+        }
+      } else {
+        newScaleInt = 1;
+      }
+      if (i != endStr) {
+        throw new FormatException();
+      }
+      ERational erat=Create(
+        numer==null ? (EInteger)numerInt : numer.AsEInteger(),
+        newScale==null ? (EInteger)newScaleInt : newScale.AsEInteger()
+      );
+      return negative ? erat.Negate() : erat;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>

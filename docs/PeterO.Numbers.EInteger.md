@@ -1071,6 +1071,12 @@ The parameter <i>operand1</i>
     public static PeterO.Numbers.EInteger operator ~(
         PeterO.Numbers.EInteger thisValue);
 
+Not documented yet.
+
+<b>Returns:</b>
+
+Not documented yet.
+
 ### Operator `>>`
 
     public static PeterO.Numbers.EInteger operator >>(

@@ -2284,8 +2284,6 @@ A decimal number rounded to the closest value representable in the given precisi
         int exponentSmall,
         PeterO.Numbers.ERounding rounding);
 
-<b>Deprecated.</b> This overload is unnecessary because this method works regardless of rounding mode.
-
 ### RoundToExponentExact
 
     public PeterO.Numbers.EDecimal RoundToExponentExact(

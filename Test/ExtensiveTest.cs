@@ -187,7 +187,7 @@ EContext ctx);
       }
 
       public ExtensiveTest.IExtendedNumber SquareRoot(EContext ctx) {
-        return Create(this.ed.SquareRoot(ctx));
+        return Create(this.ed.Sqrt(ctx));
       }
 
       public ExtensiveTest.IExtendedNumber MultiplyAndAdd(
@@ -596,7 +596,7 @@ EContext ctx) {
       }
 
       public ExtensiveTest.IExtendedNumber SquareRoot(EContext ctx) {
-        return Create(this.ef.SquareRoot(ctx));
+        return Create(this.ef.Sqrt(ctx));
       }
 
       public ExtensiveTest.IExtendedNumber MultiplyAndAdd(

@@ -21,6 +21,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
+      // TODO: Investigate using 32-bit words instead of 16-bit
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private const int RecursionLimit = 10;
@@ -414,6 +415,48 @@ namespace PeterO.Numbers {
           }
           word |= digit << 12;
           index += 4;
+          bigint[currentDigit] = unchecked((short)word);
+          --currentDigit;
+        }
+      } else if (radix == 2) {
+        // Special case for binary radix
+        int leftover = effectiveLength & 15;
+        int wordCount = effectiveLength >> 4;
+        if (leftover != 0) {
+          ++wordCount;
+        }
+        bigint = new short[wordCount + (wordCount & 1)];
+        int currentDigit = wordCount - 1;
+        // Get most significant digits if effective
+        // length is not divisible by 4
+        if (leftover != 0) {
+          var extraWord = 0;
+          for (int i = 0; i < leftover; ++i) {
+            extraWord <<= 1;
+            char c = str[index + i];
+            int digit = (c == '0') ? 0 : ((c == '1') ? 1 : 2);
+            if (digit >= 2) {
+              throw new FormatException("Illegal character found");
+            }
+            extraWord |= digit;
+          }
+          bigint[currentDigit] = unchecked((short)extraWord);
+          --currentDigit;
+          index += leftover;
+        }
+        while (index < endIndex) {
+          var word = 0;
+          int idx = index + 15;
+          for (var i = 0; i < 16; ++i) {
+            char c = str[idx];
+            int digit = (c == '0') ? 0 : ((c == '1') ? 1 : 2);
+            if (digit >= 2) {
+              throw new FormatException("Illegal character found");
+            }
+            --idx;
+            word |= digit << i;
+          }
+          index += 16;
           bigint[currentDigit] = unchecked((short)word);
           --currentDigit;
         }

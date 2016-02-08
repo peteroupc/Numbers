@@ -209,7 +209,7 @@ System.Globalization.CultureInfo.InvariantCulture);
         } else if (op.Equals("power")) {
           d3 = d1.Pow(d2, ctx);
         } else if (op.Equals("squareroot")) {
-          d3 = d1.SquareRoot(ctx);
+          d3 = d1.Sqrt(ctx);
         } else if (op.Equals("remaindernear")) {
           d3 = d1.RemainderNear(d2, ctx);
         } else if (op.Equals("nexttoward")) {

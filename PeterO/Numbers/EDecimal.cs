@@ -2014,14 +2014,13 @@ EContext.ForRounding(rounding));
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
-[Obsolete(
-  "This overload is unnecessary because this method works regardless of rounding mode.")]
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {
+        // TODO: Edit doc for RoundToExponentExact
  return this.RoundToExponentExact(
 (EInteger)exponentSmall,
-EContext.Unlimited);
+EContext.Unlimited.WithRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
@@ -2542,6 +2541,7 @@ ERounding rounding) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat(PeterO.Numbers.EContext)"]/*'/>
     public EFloat ToEFloat(EContext ec) {
+      // TODO: Investigate speeding up Binary64 case
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
       if (this.IsNaN()) {
