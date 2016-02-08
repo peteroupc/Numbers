@@ -17,16 +17,17 @@ namespace PeterO.Numbers {
       return FromInt64(bigValue);
     }
 
-    ///
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt64)~PeterO.Numbers.EInteger"]/*'/>
     public static implicit operator EInteger(ulong ulongValue) {
-      if(ulongValue<=Int64.MaxValue){
-        return FromInt64((long)bigValue);
+      if (ulongValue <= Int64.MaxValue) {
+        return FromInt64((long)ulongValue);
       } else {
-        ulongValue&=(1UL<<63)-1;
-        return EInteger.One.LeftShift(63).Add(FromInt64((long)ulongValue));
+        ulongValue &= (1UL << 63) -1;
+        return EInteger.One.ShiftLeft(63).Add(FromInt64((long)ulongValue));
       }
     }
-    
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int32)~PeterO.Numbers.EInteger"]/*'/>
     public static implicit operator EInteger(int smallValue) {

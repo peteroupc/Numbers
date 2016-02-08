@@ -339,22 +339,18 @@ bool negative) {
     public static ERational FromSingle(float flt) {
       return FromEFloat(EFloat.FromSingle(flt));
     }
-    
-    
 
-     ///
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromString(System.String)"]/*'/>
     public static ERational FromString(string str) {
-      return FromString(str, 0, str == null ? 0 : str.Length);
-    }
-
-    ///
-    public static ERational FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length);
     }
 
     private const int MaxSafeInt = 214748363;
 
-    ///
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromString(System.String,System.Int32,System.Int32)"]/*'/>
+    /// <returns>Not documented yet.</returns>
     public static ERational FromString(
       string str,
       int offset,
@@ -538,7 +534,8 @@ bool negative) {
                 numerBufferMult = 10;
               } else {
                 // multiply numerBufferMult and numerBuffer each by 10
-                numerBufferMult = (numerBufferMult << 3) + (numerBufferMult << 1);
+             numerBufferMult = (numerBufferMult << 3) + (numerBufferMult <<
+                  1);
                 numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
                 numerBuffer += thisdigit;
               }
@@ -586,7 +583,8 @@ bool negative) {
                   denomBufferMult = 10;
                 } else {
                   // multiply denomBufferMult and denomBuffer each by 10
-                  denomBufferMult = (denomBufferMult << 3) + (denomBufferMult << 1);
+             denomBufferMult = (denomBufferMult << 3) + (denomBufferMult <<
+                    1);
                   denomBuffer = (denomBuffer << 3) + (denomBuffer << 1);
                   denomBuffer += thisdigit;
                 }
@@ -616,11 +614,105 @@ bool negative) {
       if (i != endStr) {
         throw new FormatException();
       }
-      ERational erat=Create(
-        numer==null ? (EInteger)numerInt : numer.AsEInteger(),
-        newScale==null ? (EInteger)newScaleInt : newScale.AsEInteger()
-      );
+      ERational erat = Create(
+        numer == null ? (EInteger)numerInt : numer.AsEInteger(),
+        newScale == null ? (EInteger)newScaleInt : newScale.AsEInteger());
       return negative ? erat.Negate() : erat;
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CompareToTotalMagnitude(PeterO.Numbers.ERational)"]/*'/>
+    public int CompareToTotalMagnitude(ERational other) {
+      if (other == null) {
+        return -1;
+      }
+      var valueIThis = 0;
+      var valueIOther = 0;
+      int cmp;
+      if (this.IsSignalingNaN()) {
+        valueIThis = 2;
+      } else if (this.IsNaN()) {
+        valueIThis = 3;
+      } else if (this.IsInfinity()) {
+        valueIThis = 1;
+      }
+      if (other.IsSignalingNaN()) {
+        valueIOther = 2;
+      } else if (other.IsNaN()) {
+        valueIOther = 3;
+      } else if (other.IsInfinity()) {
+        valueIOther = 1;
+      }
+      if (valueIThis > valueIOther) {
+        return 1;
+      } else if (valueIThis < valueIOther) {
+        return -1;
+      }
+      if (valueIThis >= 2) {
+        cmp = this.unsignedNumerator.CompareTo(
+         other.unsignedNumerator);
+        return cmp;
+      } else if (valueIThis == 1) {
+        return 0;
+      } else {
+        cmp = this.Abs().CompareTo(other.Abs());
+        if (cmp == 0) {
+          cmp = this.denominator.CompareTo(
+           other.denominator);
+          return cmp;
+        }
+        return cmp;
+      }
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CompareToTotal(PeterO.Numbers.ERational)"]/*'/>
+    public int CompareToTotal(ERational other) {
+      if (other == null) {
+        return -1;
+      }
+      bool neg1 = this.IsNegative;
+      bool neg2 = other.IsNegative;
+      if (neg1 != neg2) {
+        return neg1 ? -1 : 1;
+      }
+      var valueIThis = 0;
+      var valueIOther = 0;
+      int cmp;
+      if (this.IsSignalingNaN()) {
+        valueIThis = 2;
+      } else if (this.IsNaN()) {
+        valueIThis = 3;
+      } else if (this.IsInfinity()) {
+        valueIThis = 1;
+      }
+      if (other.IsSignalingNaN()) {
+        valueIOther = 2;
+      } else if (other.IsNaN()) {
+        valueIOther = 3;
+      } else if (other.IsInfinity()) {
+        valueIOther = 1;
+      }
+      if (valueIThis > valueIOther) {
+        return neg1 ? -1 : 1;
+      } else if (valueIThis < valueIOther) {
+        return neg1 ? 1 : -1;
+      }
+      if (valueIThis >= 2) {
+        cmp = this.unsignedNumerator.CompareTo(
+         other.unsignedNumerator);
+        return neg1 ? -cmp : cmp;
+      } else if (valueIThis == 1) {
+        return 0;
+      } else {
+        cmp = this.CompareTo(other);
+        if (cmp == 0) {
+          cmp = this.denominator.CompareTo(
+           other.denominator);
+          return neg1 ? -cmp : cmp;
+        }
+        return cmp;
+      }
     }
 
     /// <include file='../../docs.xml'

@@ -2012,8 +2012,10 @@ EContext.ForRounding(rounding));
       return this.RoundToExponentExact((EInteger)exponentSmall, ctx);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
+    /// <summary>Not documented yet.</summary>
+    /// <param name='exponentSmall'>Not documented yet.</param>
+    /// <param name='rounding'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {

@@ -38,16 +38,44 @@ namespace Test {
       er = ERational.FromString("2");
       Assert.AreEqual(EInteger.FromString("2"), er.Numerator);
       Assert.AreEqual(EInteger.FromInt32(1), er.Denominator);
-      Assert.Throws(typeof(FormatException),
-        () => ERational.FromString("-2x"));
-      Assert.Throws(typeof(FormatException),
-        () => ERational.FromString("-2/"));
-      Assert.Throws(typeof(FormatException),
-        () => ERational.FromString("-2/x"));
-      Assert.Throws(typeof(FormatException),
-        () => ERational.FromString("-2/2x"));
-      FastRandom fr = new FastRandom();
-      for(var i = 0; i < 1000; i++) {
+      try {
+ ERational.FromString("-2x");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.FromString("-2/");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.FromString("-2/x");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.FromString("-2/2x");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      var fr = new FastRandom();
+      for (var i = 0; i < 1000; ++i) {
         EInteger ei1 = RandomObjects.RandomEInteger(fr);
         EInteger ei2 = RandomObjects.RandomEInteger(fr).Abs();
         er = ERational.FromString(ei1 + "/" + ei2);
