@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Represents an arbitrary-precision decimal floating-point number.About decimal arithmetic
+Represents an arbitrary-precision decimal floating-point number. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)About decimal arithmetic
 
 Decimal (base-10) arithmetic, such as that provided by this class, is appropriate for calculations involving such real-world data as prices and other sums of money, tax rates, and measurements. These calculations often involve multiplying or dividing one decimal with another decimal, or performing other operations on decimal numbers. Many of these calculations also rely on rounding behavior in which the result after rounding is a decimal number (for example, multiplying a price by a premium rate, then rounding, should result in a decimal amount of money).
 
@@ -2283,6 +2283,20 @@ A decimal number rounded to the closest value representable in the given precisi
     public PeterO.Numbers.EDecimal RoundToExponentExact(
         int exponentSmall,
         PeterO.Numbers.ERounding rounding);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
+ is not documented yet.
+
+ * <i>rounding</i>: The parameter  <i>rounding</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### RoundToExponentExact
 

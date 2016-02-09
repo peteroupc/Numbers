@@ -1187,10 +1187,8 @@ this.flags ^ BigNumberFlags.FlagNegative);
       return MathValue.RoundToExponentExact(this, exponent, ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='exponent'>Not documented yet.</param>
-    /// <param name='rounding'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'/>
     public EFloat RoundToExponentExact(
       EInteger exponent,
       ERounding rounding) {

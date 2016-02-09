@@ -141,13 +141,13 @@ EInteger mod) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16"]/*'/>
     public static explicit operator short(EInteger bigValue) {
-      return (short)(int)bigValue;
+      return checked((short)(int)bigValue);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'/>
     public static explicit operator byte(EInteger bigValue) {
-      return (byte)(int)bigValue;
+      return checked((byte)(int)bigValue);
     }
 
     /// <include file='../../docs.xml'

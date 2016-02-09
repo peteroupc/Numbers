@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Arbitrary-precision rational number. This class cannot be inherited.Thread safety:Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
+Arbitrary-precision rational number. This class cannot be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)Thread safety:Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
 
 ### ERational Constructor
 
@@ -220,6 +220,58 @@ Compares an arbitrary-precision decimal number with this instance.
 <b>Returns:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
+
+### CompareToTotal
+
+    public int CompareToTotal(
+        PeterO.Numbers.ERational other);
+
+Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
+
+ * For objects with the same value, the one with the higher denominator has a greater "absolute value".
+
+ * Negative zero is less than positive zero.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
+
+ * Negative numbers are less than positive numbers.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: An arbitrary-precision rational number to compare with this one.
+
+<b>Returns:</b>
+
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
+
+### CompareToTotalMagnitude
+
+    public int CompareToTotalMagnitude(
+        PeterO.Numbers.ERational other);
+
+Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs). In this method:
+
+ * For objects with the same value, the one with the higher denominator has a greater "absolute value".
+
+ * Negative zero and positive zero are considered equal.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: An arbitrary-precision rational number to compare with this one.
+
+<b>Returns:</b>
+
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
 ### CopySign
 
@@ -552,6 +604,74 @@ Converts a 32-bit floating-point number to a rational number. This method comput
 
 A rational number with the same value as  <i>flt</i>
 .
+
+### FromString
+
+    public static PeterO.Numbers.ERational FromString(
+        string str);
+
+Creates a rational number from a string that represents a number. See  `FromString(String, int, int)`  for more information.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: A string that represents a number.
+
+<b>Returns:</b>
+
+An arbitrary-precision rational number with the same value as the given string.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>str</i>
+ is null.
+
+ * System.FormatException:
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
+
+### FromString
+
+    public static PeterO.Numbers.ERational FromString(
+        string str,
+        int offset,
+        int length);
+
+Creates a rational number from a string that represents a number.
+
+The format of the string generally consists of:
+
+ * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
+
+ * The numerator in the form of one or more digits.
+
+ * Optionally, "/" followed by the denominator in the form of one or more digits. If a denominator is not given, it's equal to 1.
+
+The string can also be "-INF", "-Infinity", "Infinity", "INF" , quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
+
+All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: A text string, a portion of which represents a number.
+
+ * <i>offset</i>: A zero-based index that identifies the start of the number.
+
+ * <i>length</i>: The length of the number within the string.
+
+<b>Returns:</b>
+
+Not documented yet.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>str</i>
+ is null.
+
+ * System.FormatException:
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
 
 ### GetHashCode
 
@@ -929,4 +1049,4 @@ Converts this object to a text string.
 
 <b>Returns:</b>
 
-A string representation of this object. The result can be Infinity, NaN, or sNaN (with a minus sign before it for negative values), or a number of the following form: [-]numerator/denominator.
+A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString` method. Otherwise, the return value has the following form: `[-]numerator/denominator` .

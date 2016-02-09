@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Represents an arbitrary-precision binary floating-point number. Consists of an integer mantissa and an integer exponent, both arbitrary-precision. The value of the number equals mantissa * 2^exponent. This class also supports values for negative zero, not-a-number (NaN) values, and infinity.Passing a signaling NaN to any arithmetic operation shown here will signal the flag FlagInvalid and return a quiet NaN, even if another operand to that operation is a quiet NaN, unless noted otherwise.
+Represents an arbitrary-precision binary floating-point number. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.) Each number consists of an integer mantissa and an integer exponent, both arbitrary-precision. The value of the number equals mantissa * 2^exponent. This class also supports values for negative zero, not-a-number (NaN) values, and infinity.Passing a signaling NaN to any arithmetic operation shown here will signal the flag FlagInvalid and return a quiet NaN, even if another operand to that operation is a quiet NaN, unless noted otherwise.
 
 Passing a quiet NaN to any arithmetic operation shown here will return a quiet NaN, unless noted otherwise.
 
@@ -1657,6 +1657,10 @@ The sum of the two objects.
 
 Not documented yet.
 
+<b>Returns:</b>
+
+Not documented yet.
+
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
@@ -1680,6 +1684,10 @@ Not documented yet.
 <b>Returns:</b>
 
 The quotient of the two numbers. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
+
+<b>Returns:</b>
+
+Not documented yet.
 
 <b>Returns:</b>
 
@@ -1728,6 +1736,10 @@ The product of the two binary floats.
 
 Not documented yet.
 
+<b>Returns:</b>
+
+Not documented yet.
+
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
@@ -1756,6 +1768,10 @@ The difference of the two objects.
 
 Not documented yet.
 
+<b>Returns:</b>
+
+Not documented yet.
+
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
@@ -1774,6 +1790,10 @@ Not documented yet.
 <b>Returns:</b>
 
 An arbitrary-precision binary float. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
+
+<b>Returns:</b>
+
+Not documented yet.
 
 <b>Returns:</b>
 
@@ -2115,6 +2135,20 @@ A binary number rounded to the closest value representable in the given precisio
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.ERounding rounding);
 
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>exponent</i>: The parameter  <i>exponent</i>
+ is not documented yet.
+
+ * <i>rounding</i>: The parameter  <i>rounding</i>
+ is not documented yet.
+
+<b>Returns:</b>
+
+An EFloat object.
+
 ### RoundToIntegerExact
 
     public PeterO.Numbers.EFloat RoundToIntegerExact(
@@ -2353,7 +2387,7 @@ The parameter <i>otherValue</i>
 Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's mantissa for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa are set to the lowest bits of this object's unsigned mantissa.
 
 The following example converts a number in the form of a string to a `double` , or a 64-bit floating point number.    public static double StringToDouble(String str) {
-    return arbitrary-precision binary float.FromString(str).ToDouble();
+    return EFloat.FromString(str).ToDouble();
     }
 
 The following example converts an arbitrary-precision integer to a `double` , or a 64-bit floating point number.    public static double BigIntToDouble(BigInteger
