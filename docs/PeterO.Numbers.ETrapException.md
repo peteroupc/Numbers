@@ -5,7 +5,7 @@
         System.Runtime.Serialization.ISerializable,
         System.Runtime.InteropServices._Exception
 
-Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)
+Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
 
 ### ETrapException Constructor
 

@@ -396,8 +396,8 @@ bool negative) {
       var denomBufferMult = 1;
       var haveDigits = false;
       var haveDenominator = false;
-      var newScaleInt = 0;
-      FastInteger newScale = null;
+      var ndenomInt = 0;
+      FastInteger ndenom = null;
       int i = tmpoffset;
       if (i + 8 == endStr) {
         if ((str[i] == 'I' || str[i] == 'i') &&
@@ -604,19 +604,22 @@ bool negative) {
           denom.Multiply(denomBufferMult).AddInt(denomBuffer);
         }
         if (denom == null) {
-          newScaleInt = denomInt;
+          ndenomInt = denomInt;
         } else {
-          newScale = denom;
+          ndenom = denom;
         }
       } else {
-        newScaleInt = 1;
+        ndenomInt = 1;
       }
       if (i != endStr) {
         throw new FormatException();
       }
+      if (ndenom == null ? (ndenomInt == 0) : ndenom.IsValueZero) {
+        throw new FormatException();
+      }
       ERational erat = Create(
         numer == null ? (EInteger)numerInt : numer.AsEInteger(),
-        newScale == null ? (EInteger)newScaleInt : newScale.AsEInteger());
+        ndenom == null ? (EInteger)ndenomInt : ndenom.AsEInteger());
       return negative ? erat.Negate() : erat;
     }
 

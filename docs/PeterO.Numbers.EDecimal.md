@@ -116,7 +116,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
-True if this object is finite (not infinity or NaN); otherwise, false.
+ `true`  if this object is finite (not infinity or NaN), otherwise,  `false` .
 
 ### IsNegative
 
@@ -126,7 +126,7 @@ Gets a value indicating whether this object is negative, including negative zero
 
 <b>Returns:</b>
 
-True if this object is negative, including negative zero; otherwise, false.
+ `true`  if this object is negative, including negative zero, otherwise,  `false` .
 
 ### IsZero
 
@@ -136,7 +136,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
-True if this object's value equals 0; otherwise, false.
+ `true`  if this object's value equals 0, otherwise,  `false` .
 
 ### Mantissa
 
@@ -775,7 +775,7 @@ Divides this object by another object, and returns the integer part of the resul
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The divisor.
+ * <i>divisor</i>: The number to divide by.
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the integer part of the result. Flags will be set on the given context only if the context's  `HasFlags`  is true and the integer part of the result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
 
@@ -793,7 +793,7 @@ Divides this object by another object, and returns the integer part of the resul
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The divisor.
+ * <i>divisor</i>: The number to divide by.
 
  * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited.
 
@@ -811,7 +811,7 @@ Divides this object by another decimal number and returns a result with the same
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The divisor.
+ * <i>divisor</i>: The number to divide by.
 
  * <i>rounding</i>: The rounding mode to use if the result must be scaled down to have the same exponent as this value.
 
@@ -865,7 +865,7 @@ Determines whether this object's mantissa and exponent are equal to those of ano
 
 <b>Returns:</b>
 
-True if the objects are equal; otherwise, false.
+ `true`  if the objects are equal, otherwise,  `false` .
 
 ### Equals
 
@@ -880,7 +880,7 @@ Determines whether this object's mantissa and exponent are equal to those of ano
 
 <b>Returns:</b>
 
-True if this object's mantissa and exponent are equal to those of another object; otherwise, false.
+ `true`  if this object's mantissa and exponent are equal to those of another object, otherwise,  `false` .
 
 ### Exp
 
@@ -891,12 +891,27 @@ Finds e (the base of natural logarithms) raised to the power of this object's va
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the exponential function's results are generally not exact. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.)
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the exponential function's results are generally not exact. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Returns:</b>
 
 Exponential of this object. If this object's value is 1, returns an approximation to " e" within the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter <i>ctx</i>
  is null or the precision is unlimited (the context's Precision property is 0).
+
+### FromDecimal
+
+    public static PeterO.Numbers.EDecimal FromDecimal(
+        System.Decimal dec);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>dec</i>: Not documented yet.
+
+<b>Returns:</b>
+
+An EDecimal object.
 
 ### FromDouble
 
@@ -1019,7 +1034,7 @@ A decimal number with the same value as  <i>flt</i>
     public static PeterO.Numbers.EDecimal FromString(
         string str);
 
-Creates a decimal number from a string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
+Creates a decimal number from a text string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
 
 <b>Parameters:</b>
 
@@ -1046,7 +1061,7 @@ The parameter  <i>str</i>
         int offset,
         int length);
 
-Creates a decimal number from a string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
+Creates a decimal number from a text string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
 
 <b>Parameters:</b>
 
@@ -1081,7 +1096,7 @@ The parameter  <i>str</i>
         int length,
         PeterO.Numbers.EContext ctx);
 
-Creates a decimal number from a string that represents a number.
+Creates a decimal number from a text string that represents a number.
 
 The format of the string generally consists of:
 
@@ -1125,7 +1140,7 @@ The parameter  <i>str</i>
         string str,
         PeterO.Numbers.EContext ctx);
 
-Creates a decimal number from a string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
+Creates a decimal number from a text string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
 
 <b>Parameters:</b>
 
@@ -1165,7 +1180,7 @@ Gets a value indicating whether this object is positive or negative infinity.
 
 <b>Returns:</b>
 
-True if this object is positive or negative infinity; otherwise, false.
+ `true`  if this object is positive or negative infinity, otherwise,  `false` .
 
 ### IsNaN
 
@@ -1175,7 +1190,7 @@ Gets a value indicating whether this object is not a number (NaN).
 
 <b>Returns:</b>
 
-True if this object is not a number (NaN); otherwise, false.
+ `true`  if this object is not a number (NaN), otherwise,  `false` .
 
 ### IsNegativeInfinity
 
@@ -1185,7 +1200,7 @@ Returns whether this object is negative infinity.
 
 <b>Returns:</b>
 
-True if this object is negative infinity; otherwise, false.
+ `true`  if this object is negative infinity, otherwise,  `false` .
 
 ### IsPositiveInfinity
 
@@ -1195,7 +1210,7 @@ Returns whether this object is positive infinity.
 
 <b>Returns:</b>
 
-True if this object is positive infinity; otherwise, false.
+ `true`  if this object is positive infinity, otherwise,  `false` .
 
 ### IsQuietNaN
 
@@ -1205,7 +1220,7 @@ Gets a value indicating whether this object is a quiet not-a-number value.
 
 <b>Returns:</b>
 
-True if this object is a quiet not-a-number value; otherwise, false.
+ `true`  if this object is a quiet not-a-number value, otherwise,  `false` .
 
 ### IsSignalingNaN
 
@@ -1215,7 +1230,7 @@ Gets a value indicating whether this object is a signaling not-a-number value.
 
 <b>Returns:</b>
 
-True if this object is a signaling not-a-number value; otherwise, false.
+ `true`  if this object is a signaling not-a-number value, otherwise,  `false` .
 
 ### Log
 
@@ -1226,7 +1241,7 @@ Finds the natural logarithm of this object, that is, the power (exponent) that e
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the ln function's results are generally not exact. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.)
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the ln function's results are generally not exact. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Returns:</b>
 
@@ -1242,7 +1257,7 @@ Finds the base-10 logarithm of this object, that is, the power (exponent) that t
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the ln function's results are generally not exact. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.)
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the ln function's results are generally not exact. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Returns:</b>
 
@@ -1755,11 +1770,9 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>dividend</i>: The parameter  <i>dividend</i>
- is not documented yet.
+ * <i>dividend</i>: The number that will be divided by the divisor.
 
- * <i>divisor</i>: The parameter  <i>divisor</i>
- is not documented yet.
+ * <i>divisor</i>: The number to divide by.
 
 <b>Returns:</b>
 
@@ -1781,11 +1794,9 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>dividend</i>: The parameter  <i>dividend</i>
- is not documented yet.
+ * <i>dividend</i>: The number that will be divided by the divisor.
 
- * <i>divisor</i>: The parameter  <i>divisor</i>
- is not documented yet.
+ * <i>divisor</i>: The number to divide by.
 
 <b>Returns:</b>
 
@@ -1807,11 +1818,9 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>operand1</i>: The parameter  <i>operand1</i>
- is not documented yet.
+ * <i>operand1</i>: The first operand.
 
- * <i>operand2</i>: The parameter  <i>operand2</i>
- is not documented yet.
+ * <i>operand2</i>: The second operand.
 
 <b>Returns:</b>
 
@@ -1854,22 +1863,17 @@ The parameter  <i>bthis</i>
     public static PeterO.Numbers.EDecimal operator -(
         PeterO.Numbers.EDecimal bigValue);
 
+Gets an object with the same value as this one, but with the sign reversed.
+
 Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>bigValue</i>: The parameter  <i>bigValue</i>
- is not documented yet.
 
 <b>Returns:</b>
 
-An EDecimal object.
+An arbitrary-precision decimal number. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
 
-<b>Exceptions:</b>
+<b>Returns:</b>
 
- * System.ArgumentNullException:
-The parameter  <i>bigValue</i>
- is null.
+Not documented yet.
 
 ### PI
 
@@ -1884,7 +1888,7 @@ Finds the constant π.
 
 <b>Returns:</b>
 
-π rounded to the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+The constant π rounded to the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
 is null or the precision is unlimited (the context's Precision property is 0).
 
 ### Plus
@@ -2160,16 +2164,15 @@ The distance of the closest multiple. Signals FlagInvalid and returns not-a-numb
     public PeterO.Numbers.EDecimal RoundToExponent(
         int exponentSmall);
 
-Not documented yet.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode.
 
 <b>Parameters:</b>
 
- * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
- is not documented yet.
+ * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
 <b>Returns:</b>
 
-An EDecimal object.
+A decimal number rounded to the closest value representable for the given exponent.
 
 ### RoundToExponent
 
@@ -2212,16 +2215,15 @@ A decimal number rounded to the given negative number of decimal places.
     public PeterO.Numbers.EDecimal RoundToExponent(
         PeterO.Numbers.EInteger exponent);
 
-Not documented yet.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: The parameter  <i>exponent</i>
- is not documented yet.
+ * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
 <b>Returns:</b>
 
-An EDecimal object.
+A decimal number rounded to the closest value representable for the given exponent.
 
 ### RoundToExponent
 
@@ -2247,18 +2249,17 @@ A decimal number rounded to the closest value representable in the given precisi
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.ERounding rounding);
 
-Not documented yet.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the given rounding mode.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: The parameter  <i>exponent</i>
- is not documented yet.
+ * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>rounding</i>: An ERounding object.
+ * <i>rounding</i>: Desired mode for rounding this number's value.
 
 <b>Returns:</b>
 
-An EDecimal object.
+A decimal number rounded to the closest value representable for the given exponent.
 
 ### RoundToExponentExact
 
@@ -2266,7 +2267,7 @@ An EDecimal object.
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to an integer, and signals an invalid operation if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 
 <b>Parameters:</b>
 
@@ -2284,19 +2285,17 @@ A decimal number rounded to the closest value representable in the given precisi
         int exponentSmall,
         PeterO.Numbers.ERounding rounding);
 
-Not documented yet.
+Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 
 <b>Parameters:</b>
 
- * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
- is not documented yet.
+ * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: Desired mode for rounding this object's value.
 
 <b>Returns:</b>
 
-An EDecimal object.
+A decimal number rounded to the closest value representable using the given exponent.
 
 ### RoundToExponentExact
 
@@ -2304,7 +2303,7 @@ An EDecimal object.
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to the given exponent, and signals an invalid operation if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
 
 <b>Parameters:</b>
 
@@ -2321,7 +2320,7 @@ A decimal number rounded to the closest value representable in the given precisi
     public PeterO.Numbers.EDecimal RoundToIntegerExact(
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to an integer, and signals an invalid operation if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 
 <b>Parameters:</b>
 
@@ -2353,7 +2352,7 @@ A decimal number rounded to the closest integer representable in the given preci
 
 <b>Deprecated.</b> Renamed to RoundToIntegerExact.
 
-Returns a decimal number with the same value as this object but rounded to an integer, and signals an invalid operation if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 
 <b>Parameters:</b>
 
@@ -2472,7 +2471,7 @@ Finds the square root of this object's value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the square root function's results are generally not exact for many inputs. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.)
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the square root function's results are generally not exact for many inputs. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Returns:</b>
 
@@ -2490,7 +2489,7 @@ Finds the square root of this object's value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the square root function's results are generally not exact for many inputs. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.)
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter cannot be null, as the square root function's results are generally not exact for many inputs. (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Returns:</b>
 

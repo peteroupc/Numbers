@@ -2344,14 +2344,14 @@ EContext ctx) {
         throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
       }
 #endif
-
+      int sign = (((flags & BigNumberFlags.FlagSpecial) == 0) &&
+                mantissa.IsValueZero) ? 0 : (((flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       return new EDecimal(
         mantissa,
         exponent,
         flags,
-        (((flags & BigNumberFlags.FlagSpecial) == 0) &&
-                mantissa.IsValueZero) ? 0 : (((flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1));
+        sign);
     }
 
     internal static EDecimal CreateWithFlags(
@@ -2369,14 +2369,14 @@ EContext ctx) {
         throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
       }
 #endif
-
+      int sign = (((flags & BigNumberFlags.FlagSpecial) == 0) &&
+                mantissa.IsZero) ? 0 : (((flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       return new EDecimal(
         FastIntegerFixed.FromBig(mantissa),
         FastIntegerFixed.FromBig(exponent),
         flags,
-        (((flags & BigNumberFlags.FlagSpecial) == 0) &&
-                mantissa.IsZero) ? 0 : (((flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1));
+        sign);
     }
 
     private static bool AppendString(

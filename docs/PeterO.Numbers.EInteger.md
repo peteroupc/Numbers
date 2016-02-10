@@ -16,7 +16,7 @@ Gets a value indicating whether this value is even.
 
 <b>Returns:</b>
 
-True if this value is even; otherwise, false.
+ `true`  if this value is even, otherwise,  `false` .
 
 ### IsPowerOfTwo
 
@@ -26,7 +26,7 @@ Gets a value indicating whether this object's value is a power of two.
 
 <b>Returns:</b>
 
-True if this object's value is a power of two; otherwise, false.
+ `true`  if this object's value is a power of two, otherwise,  `false` .
 
 ### IsZero
 
@@ -36,7 +36,7 @@ Gets a value indicating whether this value is 0.
 
 <b>Returns:</b>
 
-True if this value is 0; otherwise, false.
+ `true`  if this value is 0, otherwise,  `false` .
 
 ### One
 
@@ -202,17 +202,17 @@ Returns whether this object's value can fit in a 32-bit signed integer.
 
 <b>Returns:</b>
 
-True if this object's value is MinValue or greater, and MaxValue or less; otherwise, false.
+ `true`  if this object's value is  `Int32.MinValue`  or greater, and `Int32.MaxValue`  or less, otherwise,  `false` .
 
 ### CanFitInInt64
 
     public bool CanFitInInt64();
 
-Not documented yet.
+Returns whether this object's value can fit in a 64-bit signed integer.
 
 <b>Returns:</b>
 
-A Boolean object.
+ `true`  if this object's value is  `Int64.MinValue`  or greater, and `Int64.MaxValue`  or less, otherwise,  `false` .
 
 ### CompareTo
 
@@ -266,8 +266,7 @@ Divides this object by another arbitrary-precision integer and returns the quoti
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The parameter  <i>divisor</i>
- is not documented yet.
+ * <i>divisor</i>: The number to divide by.
 
 <b>Returns:</b>
 
@@ -297,7 +296,7 @@ Determines whether this object and another object are equal.
 
 <b>Returns:</b>
 
-True if this object and another object are equal; otherwise, false.
+ `true`  if this object and another object are equal, otherwise,  `false` .
 
 ### Equals
 
@@ -587,7 +586,7 @@ A 32-bit signed integer.
 
     public int GetLowBit();
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.)
+Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.).
 
 <b>Returns:</b>
 
@@ -597,7 +596,7 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
 
     public PeterO.Numbers.EInteger GetLowBitAsEInteger();
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.)
+Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.).
 
 <b>Returns:</b>
 
@@ -616,7 +615,7 @@ Returns whether a bit is set in the two's-complement representation of this obje
 
 <b>Returns:</b>
 
-True if a bit is set in the two's-complement representation of this object's value; otherwise, false.
+ `true`  if a bit is set in the two's-complement representation of this object's value, otherwise,  `false` .
 
 ### GetSignedBitLength
 
@@ -874,11 +873,9 @@ Divides an arbitrary-precision integer by the value of an arbitrary-precision in
 
 <b>Parameters:</b>
 
- * <i>dividend</i>: The parameter  <i>dividend</i>
- is not documented yet.
+ * <i>dividend</i>: The number that will be divided by the divisor.
 
- * <i>divisor</i>: The parameter  <i>divisor</i>
- is not documented yet.
+ * <i>divisor</i>: The number to divide by.
 
 <b>Returns:</b>
 
@@ -926,9 +923,9 @@ Determines whether an arbitrary-precision integer is greater than another arbitr
 
 <b>Returns:</b>
 
-True if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is greater than <i>otherValue</i>
- ; otherwise, false.
+ , otherwise,  `false` .
 
 ### Operator `>=`
 
@@ -946,9 +943,9 @@ Determines whether an arbitrary-precision integer value is greater than another 
 
 <b>Returns:</b>
 
-True if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is at least  <i>otherValue</i>
- ; otherwise, false.
+ , otherwise,  `false` .
 
 ### Operator `<<`
 
@@ -990,9 +987,9 @@ Determines whether an arbitrary-precision integer is less than another arbitrary
 
 <b>Returns:</b>
 
-True if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is less than <i>otherValue</i>
- ; otherwise, false.
+ , otherwise,  `false` .
 
 ### Operator `<=`
 
@@ -1010,9 +1007,9 @@ Determines whether an arbitrary-precision integer is less than or equal to anoth
 
 <b>Returns:</b>
 
-True if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is up to  <i>otherValue</i>
- ; otherwise, false.
+ , otherwise,  `false` .
 
 ### Operator `%`
 

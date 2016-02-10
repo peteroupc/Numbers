@@ -12,36 +12,36 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static implicit operator EFloat(long bigValue) {
-      return FromInt64(bigValue);
+    public static implicit operator EFloat(long valueSmall) {
+      return FromInt64(valueSmall);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static implicit operator EFloat(float bigValue) {
-      return FromSingle(bigValue);
+    public static implicit operator EFloat(float flt) {
+      return FromSingle(flt);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static implicit operator EFloat(double bigValue) {
-      return FromDouble(bigValue);
+    public static implicit operator EFloat(double dbl) {
+      return FromDouble(dbl);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static implicit operator EFloat(int smallValue) {
-      return FromInt32(smallValue);
+    public static implicit operator EFloat(int valueSmaller) {
+      return FromInt32(valueSmaller);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static implicit operator EFloat(EInteger eint) {
-      return FromEInteger(eint);
+    public static implicit operator EFloat(EInteger bigint) {
+      return FromEInteger(bigint);
     }
 
     /// <include file='../../docs.xml'

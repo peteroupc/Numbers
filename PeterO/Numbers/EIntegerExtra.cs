@@ -19,6 +19,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt64)~PeterO.Numbers.EInteger"]/*'/>
+    [CLSCompliant(false)]
     public static implicit operator EInteger(ulong ulongValue) {
       if (ulongValue <= Int64.MaxValue) {
         return FromInt64((long)ulongValue);

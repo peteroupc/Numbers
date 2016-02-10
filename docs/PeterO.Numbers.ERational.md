@@ -93,7 +93,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
-True if this object is finite (not infinity or NaN); otherwise, false.
+ `true`  if this object is finite (not infinity or NaN), otherwise,  `false` .
 
 ### IsNegative
 
@@ -103,7 +103,7 @@ Gets a value indicating whether this object's value is negative (including negat
 
 <b>Returns:</b>
 
-True if this object's value is negative; otherwise, false.
+ `true`  if this object's value is negative, otherwise,  `false` .
 
 ### IsZero
 
@@ -113,7 +113,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
-True if this object's value equals 0; otherwise, false.
+ `true`  if this object's value equals 0, otherwise,  `false` .
 
 ### Numerator
 
@@ -420,7 +420,7 @@ Determines whether this object and another object are equal.
 
 <b>Returns:</b>
 
-True if the objects are equal; otherwise, false.
+ `true`  if the objects are equal, otherwise,  `false` .
 
 ### Equals
 
@@ -610,7 +610,7 @@ A rational number with the same value as  <i>flt</i>
     public static PeterO.Numbers.ERational FromString(
         string str);
 
-Creates a rational number from a string that represents a number. See  `FromString(String, int, int)`  for more information.
+Creates a rational number from a text string that represents a number. See  `FromString(String, int, int)`  for more information.
 
 <b>Parameters:</b>
 
@@ -637,7 +637,7 @@ The parameter  <i>str</i>
         int offset,
         int length);
 
-Creates a rational number from a string that represents a number.
+Creates a rational number from a text string that represents a number.
 
 The format of the string generally consists of:
 
@@ -691,7 +691,7 @@ Gets a value indicating whether this object's value is infinity.
 
 <b>Returns:</b>
 
-True if this object's value is infinity; otherwise, false.
+ `true`  if this object's value is infinity, otherwise,  `false` .
 
 ### IsNaN
 
@@ -701,7 +701,7 @@ Returns whether this object is a not-a-number value.
 
 <b>Returns:</b>
 
-True if this object is a not-a-number value; otherwise, false.
+ `true`  if this object is a not-a-number value, otherwise,  `false` .
 
 ### IsNegativeInfinity
 
@@ -711,7 +711,7 @@ Returns whether this object is negative infinity.
 
 <b>Returns:</b>
 
-True if this object is negative infinity; otherwise, false.
+ `true`  if this object is negative infinity, otherwise,  `false` .
 
 ### IsPositiveInfinity
 
@@ -721,7 +721,7 @@ Returns whether this object is positive infinity.
 
 <b>Returns:</b>
 
-True if this object is positive infinity; otherwise, false.
+ `true`  if this object is positive infinity, otherwise,  `false` .
 
 ### IsQuietNaN
 
@@ -731,7 +731,7 @@ Returns whether this object is a quiet not-a-number value.
 
 <b>Returns:</b>
 
-True if this object is a quiet not-a-number value; otherwise, false.
+ `true`  if this object is a quiet not-a-number value, otherwise,  `false` .
 
 ### IsSignalingNaN
 
@@ -741,7 +741,7 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 
 <b>Returns:</b>
 
-True if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise, false.
+ `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class), otherwise,  `false` .
 
 ### Multiply
 

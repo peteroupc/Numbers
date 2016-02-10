@@ -4,14 +4,12 @@
             rounding, and exponent range of arbitrary-precision
             numbers. (The "E" stands for "extended",
             and has this prefix to group it with the other classes common
-            to this library, particularly EDecimal, EFloat, and ERational.)</summary>
+            to this library, particularly EDecimal, EFloat, and ERational.).</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)">
 
             <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class. <c>HasFlags</c> will be set to
-            false.</summary><param name='precision'>The parameter <paramref name='precision'/>
-            is not documented yet.</param><param name='rounding'>The parameter <paramref name='rounding'/> is
-            not documented yet.</param><param name='exponentMinSmall'>The parameter <paramref name='exponentMinSmall'/> is not documented yet.</param><param name='exponentMaxSmall'>The parameter <paramref name='exponentMaxSmall'/> is not documented yet.</param><param name='clampNormalExponents'>The parameter <paramref name='clampNormalExponents'/> is not documented yet.</param>
+            false.</summary><param name='precision'>The maximum number of digits a number can have, or 0 for an unlimited number of digits.</param><param name='rounding'>The rounding mode to use when a number can't fit the given precision.</param><param name='exponentMinSmall'>The minimum exponent.</param><param name='exponentMaxSmall'>The maximum exponent.</param><param name='clampNormalExponents'>Whether to clamp a number's significand to the given maximum precision (if it isn't zero) while remaining within the exponent range.</param>
         
 </doc>
 <doc name="P:PeterO.Numbers.EContext.AdjustExponent">
@@ -282,7 +280,7 @@
 <doc name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)">
 
             <summary>Copies this EContext and sets the copy's
-            "AdjustExponent" property to the given value.</summary><param name='adjustExponent'>The parameter <paramref name='adjustExponent'/> is not documented yet.</param><returns>A context object for arbitrary-precision arithmetic
+            "AdjustExponent" property to the given value.</summary><param name='adjustExponent'>The new value of the "AdjustExponent" property for the copy.</param><returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
         
 </doc>
@@ -347,17 +345,17 @@
 <doc name="M:PeterO.Numbers.EContext.WithPrecisionInBits(System.Boolean)">
 
             <summary>Copies this EContext and sets the copy's
-            "IsPrecisionInBits" property to the given value.</summary><param name='isPrecisionBits'>The parameter <paramref name='isPrecisionBits'/> is not documented yet.</param><returns>A context object for arbitrary-precision arithmetic
+            "IsPrecisionInBits" property to the given value.</summary><param name='isPrecisionBits'>The new value of the "IsPrecisionInBits" property for the copy.</param><returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
         
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithRounding(PeterO.Numbers.ERounding)">
 
             <summary>Copies this EContext with the specified rounding
-            mode.</summary><param name='rounding'>The parameter <paramref name='rounding'/> is
-            not documented yet.</param><returns>A context object for arbitrary-precision arithmetic
+            mode.</summary>
+            <param name='rounding'>Desired value of the Rounding property.</param>
+            <returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
-        
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithSimplified(System.Boolean)">
 
@@ -1129,7 +1127,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the exponential function's
             results are generally not exact.</i> (Unlike in the General
-            Decimal Arithmetic Specification, any rounding mode is allowed.)</param>
+            Decimal Arithmetic Specification, any rounding mode is allowed.).</param>
             <returns>Exponential of this object. If this object's value is 1,
             returns an approximation to " e" within the given precision.
             Signals FlagInvalid and returns not-a-number (NaN) if the parameter
@@ -1210,7 +1208,7 @@
             <returns>A decimal number with the same value as <paramref name='flt'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromString(System.String)">
-<summary>Creates a decimal number from a string that represents a
+<summary>Creates a decimal number from a text string that represents a
             number. See <c>FromString(String, int, int, EContext)</c> for more
             information.</summary>
             <param name='str'>A string that represents a number.</param>
@@ -1222,7 +1220,7 @@
             string.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromString(System.String,PeterO.Numbers.EContext)">
-<summary>Creates a decimal number from a string that represents a
+<summary>Creates a decimal number from a text string that represents a
             number. See <c>FromString(String, int, int, EContext)</c> for more
             information.</summary>
             <param name='str'>A string that represents a number.</param>
@@ -1239,7 +1237,7 @@
             string.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromString(System.String,System.Int32,System.Int32)">
-<summary>Creates a decimal number from a string that represents a
+<summary>Creates a decimal number from a text string that represents a
             number. See <c>FromString(String, int, int, EContext)</c> for more
             information.</summary>
             <param name='str'>A string that represents a number.</param>
@@ -1256,7 +1254,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromString(System.String,System.Int32,System.Int32,PeterO.Numbers.EContext)">
 <summary>
-            <para>Creates a decimal number from a string that represents a
+            <para>Creates a decimal number from a text string that represents a
             number.</para>
             <para>The format of the string generally consists of:</para>
             <list type=''>
@@ -1353,7 +1351,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the ln function's results are
             generally not exact.</i> (Unlike in the General Decimal Arithmetic
-            Specification, any rounding mode is allowed.)</param>
+            Specification, any rounding mode is allowed.).</param>
             <returns>Ln(this object). Signals the flag FlagInvalid and returns
             NaN if this object is less than 0 (the result would be a complex
             number with a real part equal to Ln of this object's absolute value
@@ -1374,7 +1372,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as the ln function's results are
             generally not exact.</i> (Unlike in the General Decimal Arithmetic
-            Specification, any rounding mode is allowed.)</param>
+            Specification, any rounding mode is allowed.).</param>
             <returns>Ln(this object)/Ln(10). Signals the flag FlagInvalid and
             returns not-a-number (NaN) if this object is less than 0. Signals
             FlagInvalid and returns not-a-number (NaN) if the parameter
@@ -1679,7 +1677,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as &#x3c0; can never be represented
             exactly.</i></param>
-            <returns>&#x3c0; rounded to the given precision. Signals FlagInvalid and
+            <returns>The constant &#x3c0; rounded to the given precision. Signals FlagInvalid and
             returns not-a-number (NaN) if the parameter <paramref name='ctx'/>
             is null or the precision is unlimited (the context's Precision
             property is 0).</returns>
@@ -2038,7 +2036,7 @@
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to a new exponent if necessary, using the HalfEven rounding mode.</summary>
-            <param name='exponent'>The minimum exponent the result can have.
+            <param name='exponentSmall'>The minimum exponent the result can have.
             This is the maximum number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
@@ -2296,7 +2294,7 @@
             <i>This parameter cannot be null, as the square root function's
             results are generally not exact for many inputs.</i> (Unlike in
             the General Decimal Arithmetic Specification, any rounding
-            mode is allowed.)</param>
+            mode is allowed.).</param>
             <returns>The square root. Signals the flag FlagInvalid and returns
             NaN if this object is less than 0 (the square root would be a
             complex number, but the return value is still NaN). Signals
@@ -2314,7 +2312,7 @@
             <i>This parameter cannot be null, as the square root function's
             results are generally not exact for many inputs.</i> (Unlike in
             the General Decimal Arithmetic Specification, any rounding
-            mode is allowed.)</param>
+            mode is allowed.).</param>
             <returns>The square root. Signals the flag FlagInvalid and returns
             NaN if this object is less than 0 (the square root would be a
             complex number, but the return value is still NaN). Signals
@@ -2514,24 +2512,28 @@ decimal, using the half-even rounding mode.</summary>
             <returns>A 32-bit floating-point number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal">
-
-            <summary>Not documented yet.</summary><param name='eint'>The parameter <paramref name='eint'/> is not documented yet.</param><returns>An EDecimal object.</returns>
-        
+<include file='docs.xml'
+ path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromEInteger(PeterO.Numbers.EInteger)"]/*'/>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal">
 <summary>
+Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitrary-precision decimal.
             </summary>
-            <param name='dec'/>
+            <param name='dec'>A Common Language Infrastructure decimal.</param>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromDecimal(System.Decimal)">
+<summary>
+Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitrary-precision decimal.
+            </summary>
+            <param name='dec'>A Common Language Infrastructure decimal.</param>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal">
-
-            <summary>Not documented yet.</summary><param name='smallValue'>The parameter <paramref name='smallValue'/> is not documented yet.</param><returns>An EDecimal object.</returns>
-        
+<include file='docs.xml'
+ path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt32(System.Int32)"]/*'/>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal">
-
-            <summary>Not documented yet.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>An EDecimal object.</returns>
-        
+<include file='docs.xml'
+ path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt64(System.Int64)"]/*'/>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 <summary>Not documented yet.</summary><param name='dividend'>The number that will be divided by the divisor.</param><param name='divisor'>The number to divide by.</param><returns>An EDecimal object.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
@@ -2545,9 +2547,8 @@ decimal, using the half-even rounding mode.</summary>
         
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)">
-
-            <summary>Not documented yet.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>An EDecimal object.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
-        
+<include file='docs.xml'
+ path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Negate"]/*'/>
 </doc>
 <doc name="T:PeterO.Numbers.EFloat">
 <summary>Represents an arbitrary-precision binary floating-point
@@ -3198,7 +3199,7 @@ decimal, using the half-even rounding mode.</summary>
             <returns>A binary float with the same value as <paramref name='flt'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
-<summary>Creates a binary float from a string that represents a
+<summary>Creates a binary float from a text string that represents a
             number. See the four-parameter FromString method.</summary>
             <param name='str'>The parameter <paramref name='str'/> is not
             documented yet.</param>
@@ -3217,7 +3218,8 @@ decimal, using the half-even rounding mode.</summary>
             </example>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)">
-<summary>Not documented yet.</summary>
+<summary>Creates a binary float from a text string that represents a
+            number.  For more information, see the FromString(String, int, int, EContext) method.</summary>
             <param name='str'>A text string.</param>
             <param name='ctx'>An EContext object specifying the
             precision, rounding, and exponent range to apply to the parsed
@@ -3228,7 +3230,8 @@ decimal, using the half-even rounding mode.</summary>
             <paramref name='str'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32)">
-<summary>Not documented yet.</summary>
+<summary>Creates a binary float from a text string that represents a
+            number.  For more information, see the FromString(String, int, int, EContext) method.</summary>
             <param name='str'>A text string.</param>
             <param name='offset'>A zero-based index showing where the desired
             portion of <paramref name='str'/> begins.</param>
@@ -3242,7 +3245,7 @@ decimal, using the half-even rounding mode.</summary>
             than <paramref name='length'/>.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32,PeterO.Numbers.EContext)">
-<summary>Creates a binary float from a string that represents a
+<summary>Creates a binary float from a text string that represents a
             number. Note that if the string contains a negative exponent, the
             resulting value might not be exact, in which case the resulting binary float will be an
             approximation of this decimal number's value.
@@ -3660,7 +3663,7 @@ decimal, using the half-even rounding mode.</summary>
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter cannot be null, as &#x3c0; can never be represented
             exactly.</i></param>
-            <returns>&#x3c0; rounded to the given precision.</returns>
+            <returns>The constant &#x3c0; rounded to the given precision.</returns>
             <exception cref='T:System.ArgumentException'>The parameter
             <paramref name='ctx'/> is null or the precision is unlimited (the
             context's Precision property is 0).</exception>
@@ -4314,7 +4317,6 @@ of the truncated form of this number's value to a 64-bit signed integer.</summar
             exact because it would have a nonterminating binary
             expansion.</exception><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
             
-            <returns>Not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger">
 
@@ -4368,14 +4370,12 @@ of the truncated form of this number's value to a 64-bit signed integer.</summar
 
             <summary>Converts this value to a 32-bit signed integer, throwing
 an exception if the value can't fit.</summary><returns>A 32-bit signed integer.</returns>
-            <summary>Not documented yet.</summary>
         
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64">
 
             <summary>Converts this value to a 64-bit signed integer, throwing
 an exception if the value can't fit.</summary><returns>A 64-bit signed integer.</returns>
-            <summary>Not documented yet.</summary>
         
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single">
@@ -4527,8 +4527,9 @@ an exception if the value can't fit.</summary><returns>A 64-bit signed integer.<
             divide by zero.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)">
-<summary>Not documented yet.</summary>
-            <param name='dividend'>arbitrary-precision integer to be divided.</param>
+<summary>Divides one arbitrary-precision integer by another, and returns the quotient and sets an output
+parameter to the remainder.</summary>
+            <param name='dividend'>The arbitrary-precision integer to be divided.</param>
             <param name='divisor'>An arbitrary-precision integer. (3).</param>
             <param name='remainder'>An arbitrary-precision integer.
             (4).</param>
@@ -4732,14 +4733,14 @@ an exception if the value can't fit.</summary><returns>A 64-bit signed integer.<
 <doc name="M:PeterO.Numbers.EInteger.GetLowBit">
 <summary>Gets the lowest set bit in this number's absolute
             value.  (This will also be the lowest set bit in the number's
-            two's-complement representation.)</summary>
+            two's-complement representation.).</summary>
             <returns>The lowest bit set in the number, starting at 0. Returns -1
             if this value is 0 or odd.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetLowBitAsEInteger">
 <summary>Gets the lowest set bit in this number's absolute
             value.  (This will also be the lowest set bit in the number's
-            two's-complement representation.)</summary>
+            two's-complement representation.).</summary>
             <returns>The lowest bit set in the number, starting at 0. Returns -1
             if this value is 0 or odd.</returns>
 </doc>
@@ -5115,7 +5116,7 @@ an exception if the value can't fit.</summary><returns>A 64-bit signed integer.<
 <doc name="M:PeterO.Numbers.EInteger.getLowBit">
 <summary>Gets the lowest set bit in this number's absolute
             value.  (This will also be the lowest set bit in the number's
-            two's-complement representation.)</summary>
+            two's-complement representation.).</summary>
             <returns>The lowest bit set in the number, starting at 0. Returns -1
             if this value is 0 or odd.</returns>
 </doc>
@@ -5644,7 +5645,7 @@ an exception if the value can't fit.</summary><returns>A 64-bit signed integer.<
             <returns>A rational number with the same value as <paramref name='flt'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromString(System.String)">
-<summary>Creates a rational number from a string that represents a
+<summary>Creates a rational number from a text string that represents a
             number. See <c>FromString(String, int, int)</c> for more
             information.</summary>
             <param name='str'>A string that represents a number.</param>
@@ -5657,7 +5658,7 @@ an exception if the value can't fit.</summary><returns>A 64-bit signed integer.<
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromString(System.String,System.Int32,System.Int32)">
 <summary>
-            <para>Creates a rational number from a string that represents a
+            <para>Creates a rational number from a text string that represents a
             number.</para>
             <para>The format of the string generally consists of:</para>
             <list type=''>
@@ -5975,7 +5976,7 @@ form of one or more digits.  If a denominator is not given, it's equal to 1.</it
             that the shortened number has about the same value. This
             &#x22;shortening&#x22; is known as rounding. (The "E" stands for "extended",
             and has this prefix to group it with the other classes common
-            to this library, particularly EDecimal, EFloat, and ERational.)</summary>
+            to this library, particularly EDecimal, EFloat, and ERational.).</summary>
 </doc>
 <doc name="F:PeterO.Numbers.ERounding.Ceiling">
 <summary>If there is a fractional part, the number is rounded to
@@ -6037,7 +6038,7 @@ form of one or more digits.  If a denominator is not given, it's equal to 1.</it
 <doc name="T:PeterO.Numbers.ETrapException">
 <summary>Exception thrown for arithmetic trap errors. (The "E" stands for "extended",
             and has this prefix to group it with the other classes common
-            to this library, particularly EDecimal, EFloat, and ERational.)</summary>
+            to this library, particularly EDecimal, EFloat, and ERational.).</summary>
 </doc>
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)">
 <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.ETrapException'/> class.</summary>

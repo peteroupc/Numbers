@@ -78,6 +78,9 @@ throw new InvalidOperationException(String.Empty, ex);
       for (var i = 0; i < 1000; ++i) {
         EInteger ei1 = RandomObjects.RandomEInteger(fr);
         EInteger ei2 = RandomObjects.RandomEInteger(fr).Abs();
+        if (ei2.IsZero) {
+          ei2 = EInteger.One;
+        }
         er = ERational.FromString(ei1 + "/" + ei2);
         Assert.AreEqual(ei1, er.Numerator);
         Assert.AreEqual(ei2, er.Denominator);

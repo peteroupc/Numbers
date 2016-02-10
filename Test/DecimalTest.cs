@@ -405,11 +405,13 @@ System.Globalization.CultureInfo.InvariantCulture);
         }
         decimal d;
         try {
+          System.Globalization.NumberStyles numstyles =
+            System.Globalization.NumberStyles.AllowExponent |
+System.Globalization.NumberStyles.Number;
           d = Decimal.Parse(
 ed.ToString(),
-            System.Globalization.NumberStyles.AllowExponent |
-System.Globalization.NumberStyles.Number,
-            System.Globalization.CultureInfo.InvariantCulture);
+numstyles,
+System.Globalization.CultureInfo.InvariantCulture);
           EDecimal ed3 = EDecimal.FromString(
   ed.ToString(),
   EContext.CliDecimal);
@@ -422,7 +424,10 @@ System.Globalization.NumberStyles.Number,
           EDecimal ed2 = EDecimal.FromString(
   ed.ToString(),
   EContext.CliDecimal);
-          Assert.IsTrue(ed2.IsInfinity(), ed.ToString());
+          Assert.IsTrue(
+ed2.IsInfinity(),
+ed.ToString(),
+ex.ToString());
         }
       }
     }

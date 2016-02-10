@@ -51,11 +51,6 @@ namespace PeterO.Numbers {
      2147483, 214748, 21474, 2147, 214, 21, 2
     };
 
-    // Conservative maximum base-10 radix power for
-    // TryMultiplyByRadix Power; derived from
-    // Int32.MaxValue*8/3 (8 is the number of bits in a byte;
-    // 3 is a conservative estimate of log(10)/log(2).)
-    private static EInteger valueMaxDigits = (EInteger)5726623058L;
     private static readonly EInteger ValueMinusOne = EInteger.Zero -
       EInteger.One;
 
@@ -89,6 +84,12 @@ namespace PeterO.Numbers {
     private readonly IRadixMathHelper<T> helper;
     private readonly int support;
     private readonly int thisRadix;
+
+    // Conservative maximum base-10 radix power for
+    // TryMultiplyByRadix Power; derived from
+    // Int32.MaxValue*8/3 (8 is the number of bits in a byte;
+    // 3 is a conservative estimate of log(10)/log(2).)
+    private static EInteger valueMaxDigits = (EInteger)5726623058L;
 
     public RadixMath(IRadixMathHelper<T> helper) {
       this.helper = helper;

@@ -21,7 +21,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
-      // TODO: Investigate using 32-bit words instead of 16-bit
+    // TODO: Investigate using 32-bit words instead of 16-bit
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private const int RecursionLimit = 10;
@@ -988,7 +988,7 @@ namespace PeterO.Numbers {
         // divisor is small, use a fast path
         var quotient = new short[this.words.Length];
         int smallRemainder;
-         switch (divisor.words[0]) {
+        switch (divisor.words[0]) {
           case 2:
             smallRemainder = (int)FastDivideAndRemainderTwo(
              quotient,
@@ -996,7 +996,7 @@ namespace PeterO.Numbers {
              this.words,
              0,
              words1Size);
-             break;
+            break;
           case 10:
             smallRemainder = ((int)FastDivideAndRemainderTen(
              quotient,
@@ -1004,17 +1004,17 @@ namespace PeterO.Numbers {
              this.words,
              0,
              words1Size));
-             break;
+            break;
           default:
-           // DebugUtility.Log("smalldiv=" + (divisor.words[0]));
-           smallRemainder = ((int)FastDivideAndRemainder(
-             quotient,
-             0,
-             this.words,
-             0,
-             words1Size,
-             divisor.words[0])) & 0xffff;
-             break;
+            // DebugUtility.Log("smalldiv=" + (divisor.words[0]));
+            smallRemainder = ((int)FastDivideAndRemainder(
+              quotient,
+              0,
+              this.words,
+              0,
+              words1Size,
+              divisor.words[0])) & 0xffff;
+            break;
         }
         int count = this.wordCount;
         while (count != 0 &&
@@ -1110,15 +1110,15 @@ namespace PeterO.Numbers {
 
     private static EInteger LeftShiftBigIntVar(EInteger ei, EInteger bigShift) {
       if (ei.IsZero) {
- return ei;
-}
+        return ei;
+      }
       while (bigShift.Sign > 0) {
-           var shift = 1000000;
-           if (bigShift.CompareTo((EInteger)1000000) < 0) {
-            shift = bigShift.ToInt32Checked();
-           }
-           ei <<= shift;
-           bigShift -= (EInteger)shift;
+        var shift = 1000000;
+        if (bigShift.CompareTo((EInteger)1000000) < 0) {
+          shift = bigShift.ToInt32Checked();
+        }
+        ei <<= shift;
+        bigShift -= (EInteger)shift;
       }
       return ei;
     }
@@ -1126,10 +1126,10 @@ namespace PeterO.Numbers {
     private static EInteger GcdLong(long u, long v) {
       // Adapted from Christian Stigen Larsen's
       // public domain GCD code
-      #if DEBUG
-if (!(u >= 0 && v >= 0)) {
-  throw new ArgumentException("doesn't satisfy u>= 0 && v>= 0");
-}
+#if DEBUG
+      if (!(u >= 0 && v >= 0)) {
+        throw new ArgumentException("doesn't satisfy u>= 0 && v>= 0");
+      }
 #endif
 
       var shl = 0;
@@ -1196,7 +1196,7 @@ if (!(u >= 0 && v >= 0)) {
               WordsToLongUnchecked(bu, buc),
               WordsToLongUnchecked(bv, bvc));
           }
-          if ((bu[0 ]&0x0f) == 0 && (bv[0]&0x0f) == 0) {
+          if ((bu[0] & 0x0f) == 0 && (bv[0] & 0x0f) == 0) {
             if (bshl < 0) {
               ebshl += EInteger.FromInt32(4);
             } else if (bshl == Int32.MaxValue - 3) {
@@ -1210,8 +1210,8 @@ if (!(u >= 0 && v >= 0)) {
             bvc = WordsShiftRightFour(bv, bvc);
             continue;
           }
-          bool eu = (bu[0 ]&0x01) == 0;
-          bool ev = (bv[0 ]&0x01) == 0;
+          bool eu = (bu[0] & 0x01) == 0;
+          bool ev = (bv[0] & 0x01) == 0;
           if (eu && ev) {
             if (bshl < 0) {
               ebshl += EInteger.One;
@@ -1225,25 +1225,22 @@ if (!(u >= 0 && v >= 0)) {
             buc = WordsShiftRightOne(bu, buc);
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
-            buc = (Math.Abs(buc - bvc) >1 && (bu[0 ]&0x0f) == 0) ?
+            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x0f) == 0) ?
               WordsShiftRightFour(bu, buc) :
 WordsShiftRightOne(bu, buc);
           } else if (!eu && ev) {
-            if ((bv[0 ]&0xff) == 0 && Math.Abs(buc-bvc)>1) {
+            if ((bv[0] & 0xff) == 0 && Math.Abs(buc - bvc) > 1) {
               // DebugUtility.Log("bv8");
               bvc = WordsShiftRightEight(bv, bvc);
             } else {
- bvc = (
-(
-bv[0 ]&0x0f) == 0 && Math.Abs(
-buc - bvc) >1) ? (
-WordsShiftRightFour(
-bv,
-bvc)) : WordsShiftRightOne(bv, bvc);
-}
+              bvc = (
+             (bv[0] & 0x0f) == 0 && Math.Abs(
+             buc - bvc) > 1) ?
+             WordsShiftRightFour(bv, bvc) : WordsShiftRightOne(bv, bvc);
+            }
           } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
             buc = WordsSubtract(bu, buc, bv, bvc);
-            buc = (Math.Abs(buc - bvc) >1 && (bu[0 ]&0x02) == 0) ?
+            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x02) == 0) ?
               WordsShiftRightTwo(bu, buc) : WordsShiftRightOne(bu, buc);
           } else {
             short[] butmp = bv;
@@ -1261,15 +1258,15 @@ bvc)) : WordsShiftRightOne(bv, bvc);
         var valueBuVar = new EInteger(buc, bu, false);
         var valueBvVar = new EInteger(bvc, bv, false);
         if (bshl >= 0) {
-  valueBuVar = valueBuVar.IsZero ? (valueBvVar << bshl) : (valueBuVar <<
-           bshl);
+          valueBuVar = valueBuVar.IsZero ? (valueBvVar << bshl) : (valueBuVar <<
+                   bshl);
         } else {
-         valueBuVar = valueBuVar.IsZero ?
- LeftShiftBigIntVar(
-valueBvVar,
-ebshl) : LeftShiftBigIntVar(
-valueBuVar,
-ebshl);
+          valueBuVar = valueBuVar.IsZero ?
+  LeftShiftBigIntVar(
+ valueBvVar,
+ ebshl) : LeftShiftBigIntVar(
+ valueBuVar,
+ ebshl);
         }
         return valueBuVar;
       }
@@ -1321,8 +1318,8 @@ ebshl);
           // all numbers with this bit length
           return minDigits;
         }
-    return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits)) >=
-          0 ? maxDigits : minDigits;
+        return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits)) >=
+              0 ? maxDigits : minDigits;
       } else if (bitlen <= 6432162) {
         // Much more accurate approximation
         int minDigits = ApproxLogTenOfTwo(bitlen - 1);
@@ -2010,7 +2007,7 @@ this.negative ^ bigintMult.negative);
        int wordCount,
        short[] words2,
        int wordCount2) {
-        // NOTE: Assumes the number is nonnegative
+      // NOTE: Assumes the number is nonnegative
       int size = wordCount;
       if (size == 0) {
         return (wordCount2 == 0) ? 0 : -1;
@@ -2038,7 +2035,7 @@ this.negative ^ bigintMult.negative);
     }
 
     private static long WordsToLongUnchecked(short[] words, int wordCount) {
-         // NOTE: Assumes the number is nonnegative
+      // NOTE: Assumes the number is nonnegative
       var c = (int)wordCount;
       if (c == 0) {
         return (long)0;
@@ -2066,20 +2063,20 @@ this.negative ^ bigintMult.negative);
        int wordCount,
        short[] words2,
        int wordCount2) {
-         // NOTE: Assumes the number is nonnegative
-        if (wordCount == wordCount2) {
-          for (var i = 0; i < wordCount; ++i) {
-            if (words[i] != words2[i]) {
- return false;
-}
+      // NOTE: Assumes the number is nonnegative
+      if (wordCount == wordCount2) {
+        for (var i = 0; i < wordCount; ++i) {
+          if (words[i] != words2[i]) {
+            return false;
           }
-          return true;
         }
-        return false;
+        return true;
+      }
+      return false;
     }
 
     private static bool WordsIsEven(short[] words, int wordCount) {
-      return wordCount == 0 || (words[0 ]&0x01) == 0;
+      return wordCount == 0 || (words[0] & 0x01) == 0;
     }
 
     private static int WordsShiftRightTwo(short[] words, int wordCount) {
@@ -2161,32 +2158,32 @@ short[] subtrahendWords,
 int subtrahendCount) {
       // NOTE: Assumes this value is at least as high as the subtrahend
       // and both numbers are nonnegative
-         short borrow;
+      short borrow;
       if ((subtrahendCount & 1) == 0) {
-       borrow = (short)SubtractTwoByTwo(
-          words,
-          0,
-          words,
-          0,
-          subtrahendWords,
-          0,
-          subtrahendCount);
+        borrow = (short)SubtractTwoByTwo(
+           words,
+           0,
+           words,
+           0,
+           subtrahendWords,
+           0,
+           subtrahendCount);
       } else {
-       borrow = (short)SubtractOneByOne(
-          words,
-          0,
-          words,
-          0,
-          subtrahendWords,
-          0,
-          subtrahendCount);
+        borrow = (short)SubtractOneByOne(
+           words,
+           0,
+           words,
+           0,
+           subtrahendWords,
+           0,
+           subtrahendCount);
       }
       if (borrow != 0) {
-       Decrement(
-words,
-subtrahendCount,
-(int)(wordCount - subtrahendCount),
-borrow);
+        Decrement(
+ words,
+ subtrahendCount,
+ (int)(wordCount - subtrahendCount),
+ borrow);
       }
       while (wordCount != 0 && words[wordCount - 1] == 0) {
         --wordCount;
@@ -2475,8 +2472,8 @@ borrow);
             int rest = ((int)tempReg[0]) & 0xffff;
             rest |= (((int)tempReg[1]) & 0xffff) << 16;
             while (rest != 0) {
-            int newrest = (rest < 43698) ? ((rest * 26215) >> 18) : (rest /
-                10);
+              int newrest = (rest < 43698) ? ((rest * 26215) >> 18) : (rest /
+                  10);
               s[i++] = Digits[rest - (newrest * 10)];
               rest = newrest;
             }
@@ -4634,15 +4631,15 @@ borrow);
     }
 
     private static short DivideUnsigned(int x, short y) {
-        if ((x >> 31) == 0) {
-          // x is already nonnegative
-          int iy = ((int)y) & 0xffff;
-          return unchecked((short)((int)x / iy));
-        } else {
-          long longX = ((long)x) & 0xffffffffL;
-          int iy = ((int)y) & 0xffff;
-          return unchecked((short)(longX / iy));
-        }
+      if ((x >> 31) == 0) {
+        // x is already nonnegative
+        int iy = ((int)y) & 0xffff;
+        return unchecked((short)((int)x / iy));
+      } else {
+        long longX = ((long)x) & 0xffffffffL;
+        int iy = ((int)y) & 0xffff;
+        return unchecked((short)(longX / iy));
+      }
     }
 
     private static void FastDivide(
@@ -4650,22 +4647,22 @@ borrow);
       short[] dividendReg,
       int count,
       short divisorSmall) {
-       switch (divisorSmall) {
+      switch (divisorSmall) {
         case 2:
-         FastDivideAndRemainderTwo(quotientReg, 0, dividendReg, 0, count);
-         break;
+          FastDivideAndRemainderTwo(quotientReg, 0, dividendReg, 0, count);
+          break;
         case 10:
-         FastDivideAndRemainderTen(quotientReg, 0, dividendReg, 0, count);
-         break;
+          FastDivideAndRemainderTen(quotientReg, 0, dividendReg, 0, count);
+          break;
         default:
-   FastDivideAndRemainder(
-quotientReg,
-0,
-dividendReg,
-0,
-count,
-divisorSmall);
-         break;
+          FastDivideAndRemainder(
+       quotientReg,
+       0,
+       dividendReg,
+       0,
+       count,
+       divisorSmall);
+          break;
       }
     }
 
@@ -4730,33 +4727,33 @@ divisorSmall);
       int qs = quotientStart + count - 1;
       int currentDividend;
       if (idivisor >= 0x8000) {
-      for (var i = 0; i < count; ++i) {
-         currentDividend = ((int)dividendReg[ds]) & 0xffff;
-         currentDividend |= rem << 16;
-         if ((currentDividend >> 31) == 0) {
-           quo = currentDividend / idivisor;
-           quotientReg[qs] = unchecked((short)quo);
-           rem = currentDividend - (idivisor * quo);
-         } else {
-           quo = ((int)DivideUnsigned(
-            currentDividend,
-            divisorSmall)) & 0xffff;
-           quotientReg[qs] = unchecked((short)quo);
-           rem = unchecked(currentDividend - (idivisor * quo));
+        for (var i = 0; i < count; ++i) {
+          currentDividend = ((int)dividendReg[ds]) & 0xffff;
+          currentDividend |= rem << 16;
+          if ((currentDividend >> 31) == 0) {
+            quo = currentDividend / idivisor;
+            quotientReg[qs] = unchecked((short)quo);
+            rem = currentDividend - (idivisor * quo);
+          } else {
+            quo = ((int)DivideUnsigned(
+             currentDividend,
+             divisorSmall)) & 0xffff;
+            quotientReg[qs] = unchecked((short)quo);
+            rem = unchecked(currentDividend - (idivisor * quo));
+          }
+          --ds;
+          --qs;
         }
-        --ds;
-        --qs;
-       }
       } else {
-      for (var i = 0; i < count; ++i) {
-         currentDividend = ((int)dividendReg[ds]) & 0xffff;
-         currentDividend |= rem << 16;
-        quo = currentDividend / idivisor;
-        quotientReg[qs] = unchecked((short)quo);
-        rem = currentDividend - (idivisor * quo);
-        --ds;
-        --qs;
-      }
+        for (var i = 0; i < count; ++i) {
+          currentDividend = ((int)dividendReg[ds]) & 0xffff;
+          currentDividend |= rem << 16;
+          quo = currentDividend / idivisor;
+          quotientReg[qs] = unchecked((short)quo);
+          rem = currentDividend - (idivisor * quo);
+          --ds;
+          --qs;
+        }
       }
       return unchecked((short)rem);
     }
@@ -5632,18 +5629,18 @@ count);
         throw new ArgumentException("doesn't satisfy shiftBits<16");
       }
 #endif
-        int u;
-        var carry = 0;
-        if (shiftBits != 0) {
-          int sb16 = 16 - shiftBits;
-          int rs = rstart;
-          for (var i = 0; i < n; ++i, ++rs) {
-            u = r[rs];
-            r[rs] = unchecked((short)((u << shiftBits) | carry));
-            carry = (u & 0xffff) >> sb16;
-          }
+      int u;
+      var carry = 0;
+      if (shiftBits != 0) {
+        int sb16 = 16 - shiftBits;
+        int rs = rstart;
+        for (var i = 0; i < n; ++i, ++rs) {
+          u = r[rs];
+          r[rs] = unchecked((short)((u << shiftBits) | carry));
+          carry = (u & 0xffff) >> sb16;
         }
-        return unchecked((short)carry);
+      }
+      return unchecked((short)carry);
     }
 
     private static void ShiftWordsLeftByWords(
@@ -5739,7 +5736,7 @@ count);
       short[] words2,
       int bstart,
       int n) {
-        // NOTE: Assumes that n is an even number
+      // NOTE: Assumes that n is an even number
       unchecked {
         int u;
         u = 0;

@@ -1085,17 +1085,18 @@ EFloat src) {
       }
       string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
-  Assert.Fail(
+  string msg =
   "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- " +
         OutputDouble(input.ToDouble()) +"\nsrc-----=" + OutputEF(src) +
-        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input));
+        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input);
+        Assert.Fail(msg);
       }
       double inputDouble = EDecimal.FromString(str).ToDouble();
       if (inputDouble != expectedDouble) {
-  Assert.Fail(
-  "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- " +
+  string msg = "\nexpected " + OutputDouble(expectedDouble) +",\ngot----- " +
         OutputDouble(inputDouble) +"\nsrc-----=" + OutputEF(src) +
-        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input));
+        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input);
+        Assert.Fail(msg);
       }
     }
 
@@ -1131,7 +1132,7 @@ EFloat src) {
 
     private static string EFToString(EFloat ef) {
       return "[" + ef.Mantissa.ToRadixString(2) +"," +
-        ef.Mantissa.GetUnsignedBitLength() +"," + ef.Exponent + "]";
+        ef.Mantissa.GetUnsignedBitLength() + "," + ef.Exponent + "]";
     }
 
     private static void TestBinaryToDecimal(
@@ -1222,11 +1223,12 @@ stringTemp);
         EFloat shortest = EFloat.FromString(
           shortestStr,
           EContext.Binary64);
+     string msg = "\n" + EFToString(efa) + "\n" + EFToString(shortest) +
+          "\n" + shortestStr;
         TestCommon.CompareTestEqual(
           efa,
           shortest,
-        "\n" + EFToString(efa) +"\n" + EFToString(shortest) +"\n"
-            +shortestStr);
+          msg);
       }
     }
 
@@ -1282,7 +1284,8 @@ stringTemp);
       for (var i = 0; i < 1000; ++i) {
         EInteger exp1 = EInteger.FromInt32(exp)
           .Add(EInteger.FromInt32(fr.NextValue(32) - 16));
-        EInteger exp2 = exp1 .Add(EInteger.FromInt32(fr.NextValue(18) - 30));
+        EInteger exp2 = exp1.Add(
+          EInteger.FromInt32(fr.NextValue(18) - 30));
         EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
         EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
         EFloat decA = EFloat.Create(mant1, exp1);
