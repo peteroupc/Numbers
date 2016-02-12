@@ -381,6 +381,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String)"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static EFloat FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
@@ -1310,6 +1311,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToDouble"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public double ToDouble() {
       if (this.IsPositiveInfinity()) {
         return Double.PositiveInfinity;
@@ -1466,7 +1468,6 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public int ToInt32Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1488,7 +1489,6 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public int ToInt32Unchecked() {
       if (!this.IsFinite) {
         return 0;
@@ -1510,7 +1510,6 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public long ToInt64Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1532,7 +1531,6 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public long ToInt64Unchecked() {
       if (!this.IsFinite) {
         return 0;

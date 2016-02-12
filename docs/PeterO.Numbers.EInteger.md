@@ -8,6 +8,8 @@ An arbitrary-precision integer. (The "E" stands for "extended", and has this pre
 
 An arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
 
+An arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
+
 ### IsEven
 
     public bool IsEven { get; }
@@ -16,7 +18,7 @@ Gets a value indicating whether this value is even.
 
 <b>Returns:</b>
 
- `true`  if this value is even, otherwise,  `false` .
+<c>true</c> if this value is even; otherwise, <c>false</c>.  `true`  if this value is even; otherwise,  `false` .
 
 ### IsPowerOfTwo
 
@@ -26,7 +28,7 @@ Gets a value indicating whether this object's value is a power of two.
 
 <b>Returns:</b>
 
- `true`  if this object's value is a power of two, otherwise,  `false` .
+<c>true</c> if this object&#x27;s value is a power of two; otherwise, <c>false</c>.  `true`  if this object's value is a power of two; otherwise,  `false` .
 
 ### IsZero
 
@@ -36,7 +38,7 @@ Gets a value indicating whether this value is 0.
 
 <b>Returns:</b>
 
- `true`  if this value is 0, otherwise,  `false` .
+<c>true</c> if this value is 0; otherwise, <c>false</c>.  `true`  if this value is 0; otherwise,  `false` .
 
 ### One
 
@@ -66,7 +68,7 @@ Gets the number 10 as an arbitrary-precision integer.
 
 <b>Returns:</b>
 
-A value not documented yet.
+The number 10 as an arbitrary-precision integer.
 
 ### Zero
 
@@ -202,7 +204,7 @@ Returns whether this object's value can fit in a 32-bit signed integer.
 
 <b>Returns:</b>
 
- `true`  if this object's value is  `Int32.MinValue`  or greater, and `Int32.MaxValue`  or less, otherwise,  `false` .
+ `true`  if this object's value is Int32.MinValue or greater, and Int32.MaxValue or less; otherwise, false .
 
 ### CanFitInInt64
 
@@ -212,7 +214,7 @@ Returns whether this object's value can fit in a 64-bit signed integer.
 
 <b>Returns:</b>
 
- `true`  if this object's value is  `Int64.MinValue`  or greater, and `Int64.MaxValue`  or less, otherwise,  `false` .
+ `true`  if this object's value is Int64.MinValue or greater, and Int64.MaxValue or less; otherwise, false .
 
 ### CompareTo
 
@@ -296,7 +298,7 @@ Determines whether this object and another object are equal.
 
 <b>Returns:</b>
 
- `true`  if this object and another object are equal, otherwise,  `false` .
+ `true`  if this object and another object are equal; otherwise, false .
 
 ### Equals
 
@@ -328,11 +330,14 @@ Initializes an arbitrary-precision integer from an array of bytes.
 
  * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
 
- * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as  `0x01, 0x2C`  and 200 as  `0x00, 0xC8` . (Note that the second example contains a set high bit in  `0xC8` , so an additional 0 is added at the start to ensure it's interpreted as positive.)
+ * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as  `0x01, 0x2C`  and 200 as  `0x00,
+             0xC8` . (Note that the second example contains a set high bit in `0xC8` , so an additional 0 is added at the start to ensure it's interpreted as positive.)
 
- * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as `0xFE, 0x70`  and -52869 as  `0xFF, 0x31, 0x7B` . (Note that the second example contains a cleared high bit in  `0x31, 0x7B` , so an additional 0xFF is added at the start to ensure it's interpreted as negative.)
+ * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as  `0xfe, 0x70`  and -52869 as `0xff, 0x31, 0x7B` . (Note that the second example contains a cleared high bit in  `0x31, 0x7B` , so an additional 0xFF is added at the start to ensure it's interpreted as negative.)
 
 For little-endian, the byte order is reversed from the byte order just discussed.
+
+.
 
  * <i>littleEndian</i>: If true, the byte order is little-endian, or least-significant-byte first. If false, the byte order is big-endian, or most-significant-byte first.
 
@@ -384,17 +389,12 @@ An arbitrary-precision integer with the same value as the 64-bit number.
 
 Converts a string to an arbitrary-precision integer.
 
-The following example (C#) converts a number in the form of a hex string to an arbitrary-precision integer.    public static EInteger HexToEInteger(string
-    hexString) {
-    // Parse the hexadecimal string as an arbitrary-precision integer. Will
-    // throw a FormatException if the parsing fails
-    var bigInteger = EInteger.fromRadixString(hexString, 16);
-    // Optional: Check if the parsed integer is negative
-    if (bigInteger.Sign < 0) {
-    throw new FormatException("negative hex string");
-    }
-    return bigInteger;
-    }
+The following example (C#) converts a number in the orm of a hex string to an arbitrary-precision integer.     public static EInteger HexToEInteger(string hexString) {  // Parse the
+    hexadecimal string as an arbitrary-precision integer. Will  // throw a
+    FormatException if the parsing fails var bigInteger =
+    EInteger.fromRadixString(hexString, 16);  // Optional: Check if the
+    parsed integer is negative if (bigInteger.Sign < 0) { throw new
+    FormatException("negative hex string"); } return bigInteger; }
 
 <b>Parameters:</b>
 
@@ -615,7 +615,7 @@ Returns whether a bit is set in the two's-complement representation of this obje
 
 <b>Returns:</b>
 
- `true`  if a bit is set in the two's-complement representation of this object's value, otherwise,  `false` .
+ `true`  if a bit is set in the two's-complement representation of this object's value; otherwise, false .
 
 ### GetSignedBitLength
 
@@ -834,7 +834,7 @@ Not documented yet.
 <b>Parameters:</b>
 
  * <i>thisValue</i>: The parameter  <i>thisValue</i>
- is not documented yet.
+is not documented yet.
 
  * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
@@ -854,7 +854,7 @@ Not documented yet.
 <b>Parameters:</b>
 
  * <i>thisValue</i>: The parameter  <i>thisValue</i>
- is not documented yet.
+is not documented yet.
 
  * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
@@ -898,7 +898,7 @@ Not documented yet.
 <b>Parameters:</b>
 
  * <i>thisValue</i>: The parameter  <i>thisValue</i>
- is not documented yet.
+is not documented yet.
 
  * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
@@ -925,7 +925,7 @@ Determines whether an arbitrary-precision integer is greater than another arbitr
 
  `true`  if  <i>thisValue</i>
  is greater than <i>otherValue</i>
- , otherwise,  `false` .
+ ; otherwise, false .
 
 ### Operator `>=`
 
@@ -945,7 +945,7 @@ Determines whether an arbitrary-precision integer value is greater than another 
 
  `true`  if  <i>thisValue</i>
  is at least  <i>otherValue</i>
- , otherwise,  `false` .
+ ; otherwise, false .
 
 ### Operator `<<`
 
@@ -989,7 +989,7 @@ Determines whether an arbitrary-precision integer is less than another arbitrary
 
  `true`  if  <i>thisValue</i>
  is less than <i>otherValue</i>
- , otherwise,  `false` .
+ ; otherwise, false .
 
 ### Operator `<=`
 
@@ -1009,7 +1009,7 @@ Determines whether an arbitrary-precision integer is less than or equal to anoth
 
  `true`  if  <i>thisValue</i>
  is up to  <i>otherValue</i>
- , otherwise,  `false` .
+ ; otherwise, false .
 
 ### Operator `%`
 
@@ -1027,7 +1027,7 @@ Finds the remainder that results when an arbitrary-precision integer is divided 
 
 <b>Returns:</b>
 
-The remainder of the two objects.
+The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
@@ -1066,9 +1066,13 @@ The parameter <i>operand1</i>
 
 Not documented yet.
 
+<b>Parameters:</b>
+
+ * <i>thisValue</i>: Not documented yet.
+
 <b>Returns:</b>
 
-Not documented yet.
+An EInteger object.
 
 ### Operator `>>`
 
@@ -1229,7 +1233,7 @@ Finds the remainder that results when this instance is divided by the value of a
 
 <b>Returns:</b>
 
-The remainder of the two objects.
+The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
@@ -1316,7 +1320,7 @@ The parameter <i>subtrahend</i>
     public byte[] ToBytes(
         bool littleEndian);
 
-Returns a byte array of this integer's value. The byte array will take the form of the number's two's-complement representation, using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()` method (with the same byte order) to reconstruct this integer's value.
+Returns a byte array of this integer's value. The byte array will take the form of the number's two's-complement representation, using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
 
 <b>Parameters:</b>
 

@@ -85,9 +85,8 @@ newDecimal.Mantissa.Sign < 0);
       return Create(mantissa, (EInteger)(-scale));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='dec'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromDecimal(System.Decimal)"]/*'/>
     public static EDecimal FromDecimal(decimal dec) {
       return (EDecimal)dec;
     }
@@ -100,21 +99,18 @@ newDecimal.Mantissa.Sign < 0);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public static implicit operator EDecimal(long bigValue) {
       return FromInt64(bigValue);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public static implicit operator EDecimal(int smallValue) {
       return FromInt32(smallValue);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public static implicit operator EDecimal(EInteger eint) {
       return FromEInteger(eint);
     }
@@ -174,8 +170,6 @@ newDecimal.Mantissa.Sign < 0);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    /// <returns>Not documented yet.</returns>
     public static EDecimal operator -(EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");

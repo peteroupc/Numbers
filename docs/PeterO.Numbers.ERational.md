@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Arbitrary-precision rational number. This class cannot be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)Thread safety:Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
+Arbitrary-precision rational number. This class cannot be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)Thread safety: Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
 
 ### ERational Constructor
 
@@ -93,7 +93,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true`  if this object is finite (not infinity or NaN), otherwise,  `false` .
+<c>true</c> if this object is finite (not infinity or NaN); otherwise, <c>false</c>.  `true` if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
 
 ### IsNegative
 
@@ -103,7 +103,7 @@ Gets a value indicating whether this object's value is negative (including negat
 
 <b>Returns:</b>
 
- `true`  if this object's value is negative, otherwise,  `false` .
+<c>true</c> if this object's value is negative (including negative zero); otherwise, <c>false</c>.  `true`  if this object's value is negative; otherwise,  `false` .
 
 ### IsZero
 
@@ -113,7 +113,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0, otherwise,  `false` .
+<c>true</c> if this object's value equals 0; otherwise, <c>false</c>.  `true`  if this object's value equals 0; otherwise,  `false` .
 
 ### Numerator
 
@@ -291,7 +291,7 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>other</i>
+The parameter <i>other</i>
  is null.
 
 ### Create
@@ -420,7 +420,7 @@ Determines whether this object and another object are equal.
 
 <b>Returns:</b>
 
- `true`  if the objects are equal, otherwise,  `false` .
+ `true`  if the objects are equal; otherwise, false .
 
 ### Equals
 
@@ -647,7 +647,7 @@ The format of the string generally consists of:
 
  * Optionally, "/" followed by the denominator in the form of one or more digits. If a denominator is not given, it's equal to 1.
 
-The string can also be "-INF", "-Infinity", "Infinity", "INF" , quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
+The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 
 All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 
@@ -661,7 +661,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
 
 <b>Returns:</b>
 
-Not documented yet.
+An ERational object.
 
 <b>Exceptions:</b>
 
@@ -691,7 +691,7 @@ Gets a value indicating whether this object's value is infinity.
 
 <b>Returns:</b>
 
- `true`  if this object's value is infinity, otherwise,  `false` .
+ `true`  if this object's value is infinity; otherwise, false .
 
 ### IsNaN
 
@@ -701,7 +701,7 @@ Returns whether this object is a not-a-number value.
 
 <b>Returns:</b>
 
- `true`  if this object is a not-a-number value, otherwise,  `false` .
+ `true`  if this object is a not-a-number value; otherwise, false .
 
 ### IsNegativeInfinity
 
@@ -711,7 +711,7 @@ Returns whether this object is negative infinity.
 
 <b>Returns:</b>
 
- `true`  if this object is negative infinity, otherwise,  `false` .
+ `true`  if this object is negative infinity; otherwise, false .
 
 ### IsPositiveInfinity
 
@@ -721,7 +721,7 @@ Returns whether this object is positive infinity.
 
 <b>Returns:</b>
 
- `true`  if this object is positive infinity, otherwise,  `false` .
+ `true`  if this object is positive infinity; otherwise, false .
 
 ### IsQuietNaN
 
@@ -731,7 +731,7 @@ Returns whether this object is a quiet not-a-number value.
 
 <b>Returns:</b>
 
- `true`  if this object is a quiet not-a-number value, otherwise,  `false` .
+ `true`  if this object is a quiet not-a-number value; otherwise, false .
 
 ### IsSignalingNaN
 
@@ -741,7 +741,7 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 
 <b>Returns:</b>
 
- `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class), otherwise,  `false` .
+ `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise, false .
 
 ### Multiply
 
@@ -787,7 +787,7 @@ Finds the remainder that results when this instance is divided by the value of a
 
 <b>Returns:</b>
 
-The remainder of the two objects.
+The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
@@ -919,7 +919,7 @@ An arbitrary-precision integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This object's value is infinity or NaN.
+This object's value is infinity or not-a-number (NaN).
 
 ### ToEIntegerExact
 
@@ -934,7 +934,7 @@ An arbitrary-precision integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This object's value is infinity or NaN.
+This object's value is infinity or not-a-number (NaN).
 
  * System.ArithmeticException:
 This object's value is not an exact integer.
@@ -979,7 +979,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
+ * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If  `HasFlags` of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
 
 <b>Returns:</b>
 
@@ -1049,4 +1049,4 @@ Converts this object to a text string.
 
 <b>Returns:</b>
 
-A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString` method. Otherwise, the return value has the following form: `[-]numerator/denominator` .
+A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the EDecimal.ToString method. Otherwise, the return value has the following form: [-]numerator/denominator .

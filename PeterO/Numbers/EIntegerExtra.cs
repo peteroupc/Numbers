@@ -183,8 +183,6 @@ EInteger otherValue) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_OnesComplement(PeterO.Numbers.EInteger)"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    /// <returns>Not documented yet.</returns>
     public static EInteger operator ~(
     EInteger thisValue) {
       return Not(thisValue);

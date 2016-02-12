@@ -18,7 +18,7 @@ Initializes a new instance of the  class.
 
 <b>Parameters:</b>
 
- * <i>flag</i>: A flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as FlagInexact or FlagSubnormal.
+ * <i>flag</i>: A flag that specifies the kind of error ( `EContext.FlagXXYY`  ). This will only be one flag, such as `FlagInexact`  or FlagSubnormal.
 
  * <i>ctx</i>: A context object for arbitrary-precision arithmetic settings.
 
@@ -38,11 +38,11 @@ The arithmetic context used during the operation that triggered the trap. May be
 
     public int Error { get; }
 
-Gets the flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as FlagInexact or FlagSubnormal.
+Gets the flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as `FlagInexact`  or FlagSubnormal.
 
 <b>Returns:</b>
 
-The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as FlagInexact or FlagSubnormal.
+The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as. `FlagInexact`  or FlagSubnormal.
 
 ### Result
 

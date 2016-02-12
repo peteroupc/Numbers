@@ -350,7 +350,6 @@ bool negative) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromString(System.String,System.Int32,System.Int32)"]/*'/>
-    /// <returns>Not documented yet.</returns>
     public static ERational FromString(
       string str,
       int offset,
@@ -1381,10 +1380,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EDecimal.PositiveInfinity;
+        return EDecimal.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EDecimal.NegativeInfinity;
+        return EDecimal.NegativeInfinity.RoundToPrecision(ctx);
       }
       EDecimal ef = (this.IsNegative && this.IsZero) ?
  EDecimal.NegativeZero : EDecimal.FromEInteger(this.Numerator);
@@ -1406,10 +1405,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EDecimal.PositiveInfinity;
+        return EDecimal.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EDecimal.NegativeInfinity;
+        return EDecimal.NegativeInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegative && this.IsZero) {
         return EDecimal.NegativeZero;
@@ -1463,10 +1462,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EFloat.PositiveInfinity;
+        return EFloat.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EFloat.NegativeInfinity;
+        return EFloat.NegativeInfinity.RoundToPrecision(ctx);
       }
       EFloat ef = (this.IsNegative && this.IsZero) ?
      EFloat.NegativeZero : EFloat.FromEInteger(this.Numerator);
@@ -1487,10 +1486,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EFloat.PositiveInfinity;
+        return EFloat.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EFloat.NegativeInfinity;
+        return EFloat.NegativeInfinity.RoundToPrecision(ctx);
       }
       if (this.IsZero) {
         return this.IsNegative ? EFloat.NegativeZero :
