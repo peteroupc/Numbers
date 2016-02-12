@@ -900,9 +900,6 @@ this.flags & ~BigNumberFlags.FlagNegative);
     public EFloat MovePointLeft(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
@@ -930,9 +927,6 @@ EContext ctx) {
     public EFloat MovePointRight(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       if (!this.IsFinite) {
         return this.RoundToPrecision(ctx);
       }

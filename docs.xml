@@ -262,7 +262,7 @@
 <summary>Gets the traps that are set for each flag in the context.
             Whenever a flag is signaled, even if <c>HasFlags</c> is false, and the
             flag's trap is enabled, the operation will throw a TrapException.
-            <para>For example, if Traps equals FlagInexact and FlagSubnormal, a
+            <para>For example, if Traps equals <c>FlagInexact</c> and FlagSubnormal, a
             TrapException will be thrown if an operation's return value is not
             the same as the exact result (FlagInexact) or if the return value's
             exponent is lower than the lowest allowed
@@ -1390,7 +1390,7 @@
             <param name='first'>An arbitrary-precision decimal number.</param>
             <param name='second'>Another arbitrary-precision decimal
             number.</param>
-            <returns>The larger value of the two objects.</returns>
+            <returns>The larger value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Max(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 <summary>Gets the greater value between two decimal
@@ -1402,7 +1402,7 @@
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
-            <returns>The larger value of the two objects.</returns>
+            <returns>The larger value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MaxMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 <summary>Gets the greater value between two values, ignoring their
@@ -1430,7 +1430,7 @@
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The smaller value of the two objects.</returns>
+            <returns>The smaller value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Min(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 <summary>Gets the lesser value between two decimal
@@ -1442,7 +1442,7 @@
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
-            <returns>The smaller value of the two objects.</returns>
+            <returns>The smaller value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MinMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 <summary>Gets the lesser value between two values, ignoring their
@@ -1466,49 +1466,61 @@
             <returns>An arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointLeft(PeterO.Numbers.EInteger)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the left.</summary>
-            <param name='bigPlaces'>The number of decimal places to move to the left.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the left.</summary>
+            <param name='bigPlaces'>The number of decimal places to move the
+            decimal point to the left.  If this number is negative, instead moves
+            the decimal point to the right by this number's absolute value.</param>
+            <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the left.</summary>
-            <param name='bigPlaces'>The number of decimal places to move to the left.</param>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the left.</summary>
+            <param name='bigPlaces'>The number of decimal places to move the
+            decimal point to the left.  If this number is negative, instead moves
+            the decimal point to the right by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+            <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointLeft(System.Int32)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the left.</summary>
-            <param name='places'>The number of decimal places to move to the left.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the left.</summary>
+            <param name='places'>The number of decimal places to move the
+            decimal point to the left.  If this number is negative, instead moves
+            the decimal point to the right by this number's absolute value.</param>
+            <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointLeft(System.Int32,PeterO.Numbers.EContext)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the left.</summary>
-            <param name='places'>The number of decimal places to move to the left.</param>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the left.</summary>
+            <param name='places'>The number of decimal places to move the
+            decimal point to the left.  If this number is negative, instead moves
+            the decimal point to the right by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+            <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointRight(PeterO.Numbers.EInteger)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the right.</summary>
-            <param name='bigPlaces'>The number of decimal places to move to the right.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the right.</summary>
+            <param name='bigPlaces'>The number of decimal places to move the
+            decimal point to the right.  If this number is negative, instead moves
+            the decimal point to the left by this number's absolute value.</param>
+            <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the right.</summary>
-            <param name='bigPlaces'>The number of decimal places to move to the right.</param>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the right.</summary>
+            <param name='bigPlaces'>The number of decimal places to move the
+            decimal point to the right.  If this number is negative, instead moves
+            the decimal point to the left by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
@@ -1517,21 +1529,25 @@
             <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointRight(System.Int32)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the right.</summary>
-            <param name='places'>The number of decimal places to move to the right.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the right.</summary>
+            <param name='places'>The number of decimal places to move the
+            decimal point to the right.  If this number is negative, instead moves
+            the decimal point to the left by this number's absolute value.</param>
+            <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointRight(System.Int32,PeterO.Numbers.EContext)">
-<summary>Returns a number similar to this number but with the
-            decimal point moved to the right.</summary>
-            <param name='places'>The number of decimal places to move to the right.</param>
+<summary>Returns a number similar to this number but with the decimal
+            point moved to the right.</summary>
+            <param name='places'>The number of decimal places to move the
+            decimal point to the right.  If this number is negative, instead moves
+            the decimal point to the left by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+            <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(PeterO.Numbers.EDecimal)">
 <summary>Multiplies two decimal numbers. The resulting exponent
@@ -1670,7 +1686,7 @@
 <summary>Represents the number 1.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.PI(PeterO.Numbers.EContext)">
-<summary>Finds the constant &#x3c0;.</summary>
+<summary>Finds the constant &#x3c0;, the circumference of a circle divided by its diameter.</summary>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
@@ -1912,7 +1928,7 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no additional rounding
             (other than the rounding from integer division) is needed.</param>
-            <returns>The remainder of the two objects. Signals
+            <returns>The remainder of the two numbers. Signals
             FlagInvalid and returns not-a-number (NaN) if the divisor is 0, or if the result doesn't fit the given
             precision.</returns>
 </doc>
@@ -2172,13 +2188,13 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
-            object but rounded to an integer, without adding the FlagInexact or
+            object but rounded to an integer, without adding the <c>FlagInexact</c> or
             FlagRounded flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
-            never add the FlagRounded and FlagInexact flags (the only
+            never add the FlagRounded and <c>FlagInexact</c> flags (the only
             difference between this and RoundToExponentExact). Can be null, in
             which case the default rounding mode is HalfEven.</param>
             <returns>A decimal number rounded to the closest integer
@@ -2209,13 +2225,13 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
-            object but rounded to an integer, without adding the FlagInexact or
+            object but rounded to an integer, without adding the <c>FlagInexact</c> or
             FlagRounded flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
-            never add the FlagRounded and FlagInexact flags (the only
+            never add the FlagRounded and <c>FlagInexact</c> flags (the only
             difference between this and RoundToExponentExact). Can be null, in
             which case the default rounding mode is HalfEven.</param>
             <returns>A decimal number rounded to the closest integer
@@ -3200,7 +3216,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
 <summary>Creates a binary float from a text string that represents a
-            number. See the four-parameter FromString method.</summary>
+            number. See the <c>FromString(String, int, int, EContext)</c> method.</summary>
             <param name='str'>The parameter <paramref name='str'/> is not
             documented yet.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
@@ -3231,7 +3247,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32)">
 <summary>Creates a binary float from a text string that represents a
-            number.  For more information, see the FromString(String, int, int, EContext) method.</summary>
+            number.  For more information, see the <c>FromString(String, int, int, EContext)</c> method.</summary>
             <param name='str'>A text string.</param>
             <param name='offset'>A zero-based index showing where the desired
             portion of <paramref name='str'/> begins.</param>
@@ -3378,7 +3394,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
             <param name='first'>An arbitrary-precision binary float.</param>
             <param name='second'>Another arbitrary-precision binary
             float.</param>
-            <returns>The larger value of the two objects.</returns>
+            <returns>The larger value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 <summary>Gets the greater value between two binary
@@ -3391,7 +3407,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
-            <returns>The larger value of the two objects.</returns>
+            <returns>The larger value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MaxMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 <summary>Gets the greater value between two values, ignoring their
@@ -3423,7 +3439,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
             <param name='first'>An arbitrary-precision binary float.</param>
             <param name='second'>Another arbitrary-precision binary
             float.</param>
-            <returns>The smaller value of the two objects.</returns>
+            <returns>The smaller value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 <summary>Gets the lesser value between two binary floats.</summary>
@@ -3435,7 +3451,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
-            <returns>The smaller value of the two objects.</returns>
+            <returns>The smaller value of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MinMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 <summary>Gets the lesser value between two values, ignoring their
@@ -3465,47 +3481,59 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 <doc name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the left.</summary>
-            <param name='bigPlaces'>An arbitrary-precision integer.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            <param name='bigPlaces'>The number of binary digit places to move the
+            radix point to the left.  If this number is negative, instead moves
+            the radix point to the right by this number's absolute value.</param>
+            <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the left.</summary>
-            <param name='bigPlaces'>An arbitrary-precision integer.</param>
+            <param name='bigPlaces'>The number of binary digit places to move the
+            radix point to the left.  If this number is negative, instead moves
+            the radix point to the right by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
-            Can be null.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
+            <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MovePointLeft(System.Int32)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the left.</summary>
-            <param name='places'>A 32-bit signed integer.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            <param name='places'>The number of binary digit places to move the
+            radix point to the left.  If this number is negative, instead moves
+            the radix point to the right by this number's absolute value.</param>
+            <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MovePointLeft(System.Int32,PeterO.Numbers.EContext)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the left.</summary>
-            <param name='places'>A 32-bit signed integer.</param>
+            <param name='places'>The number of binary digit places to move the
+            radix point to the left.  If this number is negative, instead moves
+            the radix point to the right by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
-            Can be null.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            Can be null, in which case the precision is unlimited and rounding isn't needed.</param>
+            <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the right.</summary>
-            <param name='bigPlaces'>An arbitrary-precision integer.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            <param name='bigPlaces'>The number of binary digit places to move the
+            radix point to the right.  If this number is negative, instead moves
+            the radix point to the left by this number's absolute value.</param>
+            <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the right.</summary>
-            <param name='bigPlaces'>An arbitrary-precision integer.</param>
+            <param name='bigPlaces'>The number of decimal places to move the
+            decimal point to the right.  If this number is negative, instead moves
+            the decimal point to the left by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
@@ -3516,24 +3544,28 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 <doc name="M:PeterO.Numbers.EFloat.MovePointRight(System.Int32)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the right.</summary>
-            <param name='places'>A 32-bit signed integer.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            <param name='places'>The number of binary digit places to move the
+            radix point to the right.  If this number is negative, instead moves
+            the radix point to the left by this number's absolute value.</param>
+            <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MovePointRight(System.Int32,PeterO.Numbers.EContext)">
 <summary>Returns a number similar to this number but with the radix
             point moved to the right.</summary>
-            <param name='places'>A 32-bit signed integer.</param>
+            <param name='places'>The number of binary digit places to move the
+            radix point to the right.  If this number is negative, instead moves
+            the radix point to the left by this number's absolute value.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat)">
 <summary>Multiplies two binary floats. The resulting exponent will
             be the sum of the exponents of the two binary floats.</summary>
-            <param name='otherValue'>Another binary float.</param>
+            <param name='otherValue'>A binary float to be multiplied with this one.</param>
             <returns>The product of the two binary floats.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -3541,7 +3573,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
             the sum of the scales of the two binary floats. The result&#x27;s
             sign is positive if both operands have the same sign, and negative
             if they have different signs.</summary>
-            <param name='op'>Another binary float.</param>
+            <param name='op'>A binary float to be multiplied with this one.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
@@ -3552,7 +3584,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 <doc name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 <summary>Multiplies by one binary float, and then adds another
             binary float.</summary>
-            <param name='multiplicand'>The value to multiply.</param>
+            <param name='multiplicand'>A binary float to be multiplied with this one.</param>
             <param name='augend'>The value to add.</param>
             <returns>The result this * multiplicand + augend.</returns>
 </doc>
@@ -3578,8 +3610,8 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
             context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null.</param>
-            <returns>The result thisValue * multiplicand -
-            subtrahend.</returns>
+            <returns>The result <c>thisValue * multiplicand -
+            subtrahend</c>.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='op'/> or <paramref name='subtrahend'/> is
             null.</exception>
@@ -3656,7 +3688,7 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 <summary>Represents the number 1.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.PI(PeterO.Numbers.EContext)">
-<summary>Finds the constant &#x3c0;.</summary>
+<summary>Finds the constant &#x3c0;, the circumference of a circle divided by its diameter.</summary>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of the
             context is true, will also store the flags resulting from the
@@ -3791,13 +3823,13 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
             has the same sign (positive or negative) as this object's value.</summary>
             <param name='divisor'>An arbitrary-precision binary float.</param>
             <param name='ctx'>An EContext object.</param>
-            <returns>The remainder of the two objects.</returns>
+            <returns>The remainder of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat)">
 <summary>Not documented yet.</summary>
             <param name='divisor'>Another arbitrary-precision binary
             float.</param>
-            <returns>An arbitrary-precision binary float.</returns>
+            <returns>The remainder of the two numbers</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 <summary>Calculates the remainder of a number by the formula this -
@@ -3990,13 +4022,13 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this object
-            but rounded to an integer, without adding the FlagInexact or
+            but rounded to an integer, without adding the <c>FlagInexact</c> or
             FlagRounded flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
-            never add the FlagRounded and FlagInexact flags (the only
+            never add the FlagRounded and <c>FlagInexact</c> flags (the only
             difference between this and RoundToExponentExact). Can be null, in
             which case the default rounding mode is HalfEven.</param>
             <returns>A binary number rounded to the closest integer
@@ -4026,13 +4058,13 @@ Converts a Common Language Infrastructure (.NET Framework) decimal to an arbitra
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a binary number with the same value as this object
-            but rounded to an integer, without adding the FlagInexact or
+            but rounded to an integer, without adding the <c>FlagInexact</c> or
             FlagRounded flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true, will
             also store the flags resulting from the operation (the flags are in
             addition to the pre-existing flags), except that this function will
-            never add the FlagRounded and FlagInexact flags (the only
+            never add the FlagRounded and <c>FlagInexact</c> flags (the only
             difference between this and RoundToExponentExact). Can be null, in
             which case the default rounding mode is HalfEven.</param>
             <returns>A binary number rounded to the closest integer
@@ -4922,7 +4954,7 @@ parameter to the remainder.</summary>
             remainder has the same sign (positive or negative) as this
             object.</summary>
             <param name='divisor'>Another arbitrary-precision integer.</param>
-            <returns>The remainder of the two objects.</returns>
+            <returns>The remainder of the two numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='divisor'/> is null.</exception>
             <exception cref='T:System.DivideByZeroException'>Attempted to
@@ -5301,7 +5333,7 @@ parameter to the remainder.</summary>
             arbitrary-precision integer.</summary>
             <param name='dividend'>The first operand.</param>
             <param name='divisor'>The number to divide by.</param>
-            <returns>The remainder of the two objects.</returns>
+            <returns>The remainder of the two numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='dividend'/> is null.</exception>
 </doc>
@@ -5362,7 +5394,7 @@ parameter to the remainder.</summary>
             divided by the absolute value of the other object; the remainder
             has the same sign (positive or negative) as this object's value.</summary>
             <param name='divisor'>Another arbitrary-precision integer.</param>
-            <returns>The remainder of the two objects.</returns>
+            <returns>The remainder of the two numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='divisor'/> is null.</exception>
             <exception cref='T:System.DivideByZeroException'>Attempted to divide
             by zero.</exception>
@@ -5780,7 +5812,7 @@ form of one or more digits.  If a denominator is not given, it's equal to 1.</it
             number.</summary>
             <param name='otherValue'>An arbitrary-precision rational
             number.</param>
-            <returns>The remainder of the two objects.</returns>
+            <returns>The remainder of the two numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='otherValue'/> is null.</exception>
 </doc>
@@ -6043,8 +6075,8 @@ form of one or more digits.  If a denominator is not given, it's equal to 1.</it
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)">
 <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.ETrapException'/> class.</summary>
             <param name='flag'>A flag that specifies the kind of error
-            (EContext.FlagXXX). This will only be one flag, such as
-            FlagInexact or FlagSubnormal.</param>
+            (<c>EContext.FlagXXYY</c>). This will only be one flag, such as
+            <c>FlagInexact</c> or FlagSubnormal.</param>
             <param name='ctx'>A context object for arbitrary-precision
             arithmetic settings.</param>
             <param name='result'>An arbitrary object.</param>
@@ -6058,98 +6090,16 @@ form of one or more digits.  If a denominator is not given, it's equal to 1.</it
 <doc name="P:PeterO.Numbers.ETrapException.Error">
 <summary>Gets the flag that specifies the kind of error
             (EContext.FlagXXX). This will only be one flag, such as
-            FlagInexact or FlagSubnormal.</summary>
+            <c>FlagInexact</c> or FlagSubnormal.</summary>
             <value>The flag that specifies the kind of error
             (EContext.FlagXXX). This will only be one flag, such as
-            FlagInexact or FlagSubnormal.</value>
+            <c>FlagInexact</c> or FlagSubnormal.</value>
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Result">
 <summary>Gets the defined result of the operation that caused the
             trap.</summary>
             <value>The defined result of the operation that caused the
             trap.</value>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)">
-<summary>Sets this object&#x27;s value to the current value plus
-            the given integer.</summary>
-            <param name='bigintVal'>The number to add.</param>
-            <returns>This instance.</returns>
-</doc>
-<doc name="P:PeterO.Numbers.FastInteger.IsEvenNumber">
-<summary>Gets a value indicating whether this object&#x27;s value
-            is even.</summary>
-            <value><c>true</c> if this object&apos;s value is even, otherwise, <c>false</c>.</value>
-</doc>
-<doc name="P:PeterO.Numbers.FastInteger.IsValueZero">
-<summary>Gets a value indicating whether this value is
-            zero.</summary>
-            <value><c>true</c> if this value is zero, otherwise, <c>false</c>.</value>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)">
-<summary>Sets this object&#x27;s value to the current value times
-            another integer.</summary>
-            <param name='val'>The integer to multiply by.</param>
-            <returns>This instance.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.Negate">
-<summary>Sets this object&#x27;s value to 0 minus its current value
-            (reverses its sign).</summary>
-            <returns>This instance.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.Remainder(System.Int32)">
-<summary>Sets this object's value to the remainder of the current
-            value divided by the given integer.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>This instance.</returns>
-            <exception cref='T:System.DivideByZeroException'>Attempted to
-            divide by zero.</exception>
-</doc>
-<doc name="P:PeterO.Numbers.FastInteger.Sign">
-<summary>Gets the sign of this object&#x27;s value.</summary>
-            <value>1 if positive, -1 if negative, 0 if zero.</value>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)">
-<summary>Sets this object&#x27;s value to the current value minus
-            the given FastInteger value.</summary>
-            <param name='val'>The subtrahend.</param>
-            <returns>This instance.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)">
-<summary>Sets this object&#x27;s value to the current value minus
-            the given integer.</summary>
-            <param name='bigintVal'>The subtrahend.</param>
-            <returns>This instance.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)">
-<summary>Sets this object&#x27;s value to the current value minus
-            the given integer.</summary>
-            <param name='val'>The subtrahend.</param>
-            <returns>This instance.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger.ToString">
-<summary>Converts this object to a text string.</summary>
-            <returns>A string representation of this object.</returns>
-</doc>
-<doc name="P:PeterO.Numbers.FastInteger2.IsEvenNumber">
-<value/>
-</doc>
-<doc name="P:PeterO.Numbers.FastInteger2.IsValueZero">
-<value/>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger2.Negate">
-<returns>A FastInteger2 object.</returns>
-</doc>
-<doc name="P:PeterO.Numbers.FastInteger2.Sign">
-<value/>
-</doc>
-<doc name="M:PeterO.Numbers.FastInteger2.ToString">
-<returns>A text string.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.FastIntegerFixed.Negate">
-<returns>A FastInteger2 object.</returns>
-</doc>
-<doc name="M:PeterO.Numbers.FastIntegerFixed.ToString">
-<returns>A text string.</returns>
 </doc>
 <doc name="T:PeterO.Numbers.IShiftAccumulator">
 <summary>Common interface for classes that shift a number of digits

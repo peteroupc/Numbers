@@ -1616,9 +1616,6 @@ ERounding.HalfEven);
     public EDecimal MovePointLeft(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
@@ -1646,9 +1643,6 @@ EContext ctx) {
     public EDecimal MovePointRight(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       if (!this.IsFinite) {
         return this.RoundToPrecision(ctx);
       }

@@ -1794,7 +1794,7 @@ The parameter  <i>bigValue</i>
     public static PeterO.Numbers.EFloat PI(
         PeterO.Numbers.EContext ctx);
 
-Finds the constant π.
+Finds the constant π, the circumference of a circle divided by its diameter.
 
 <b>Parameters:</b>
 
