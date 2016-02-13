@@ -8,8 +8,6 @@ An arbitrary-precision integer. (The "E" stands for "extended", and has this pre
 
 An arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
 
-An arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
-
 ### IsEven
 
     public bool IsEven { get; }
@@ -18,7 +16,7 @@ Gets a value indicating whether this value is even.
 
 <b>Returns:</b>
 
-<c>true</c> if this value is even; otherwise, <c>false</c>.  `true`  if this value is even; otherwise,  `false` .
+ `true`  if this value is even; otherwise,  `false` .
 
 ### IsPowerOfTwo
 
@@ -28,7 +26,7 @@ Gets a value indicating whether this object's value is a power of two.
 
 <b>Returns:</b>
 
-<c>true</c> if this object&#x27;s value is a power of two; otherwise, <c>false</c>.  `true`  if this object's value is a power of two; otherwise,  `false` .
+ `true`  if this object's value is a power of two; otherwise,  `false` .
 
 ### IsZero
 
@@ -38,7 +36,7 @@ Gets a value indicating whether this value is 0.
 
 <b>Returns:</b>
 
-<c>true</c> if this value is 0; otherwise, <c>false</c>.  `true`  if this value is 0; otherwise,  `false` .
+ `true`  if this value is 0; otherwise,  `false` .
 
 ### One
 
@@ -86,7 +84,7 @@ A value not documented yet.
 
 Returns the absolute value of this object's value.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 This object's value with the sign removed.
 
@@ -101,7 +99,7 @@ Adds this object and another object.
 
  * <i>bigintAugend</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The sum of the two objects.
 
@@ -127,7 +125,7 @@ Each arbitrary-precision integer is treated as a two's complement representation
 
  * <i>b</i>: The second arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -146,7 +144,7 @@ The parameter <i>a</i>
 
 Converts this object's value to a 32-bit signed integer, throwing an exception if it can't fit.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 32-bit signed integer.
 
@@ -163,7 +161,7 @@ This object's value is too big to fit a 32-bit signed integer.
 
 Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 32-bit signed integer.
 
@@ -175,7 +173,7 @@ A 32-bit signed integer.
 
 Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 64-bit signed integer.
 
@@ -192,7 +190,7 @@ This object's value is too big to fit a 64-bit signed integer.
 
 Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 64-bit signed integer.
 
@@ -202,7 +200,7 @@ A 64-bit signed integer.
 
 Returns whether this object's value can fit in a 32-bit signed integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if this object's value is Int32.MinValue or greater, and Int32.MaxValue or less; otherwise, false .
 
@@ -212,7 +210,7 @@ Returns whether this object's value can fit in a 32-bit signed integer.
 
 Returns whether this object's value can fit in a 64-bit signed integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if this object's value is Int64.MinValue or greater, and Int64.MaxValue or less; otherwise, false .
 
@@ -228,7 +226,7 @@ Compares an arbitrary-precision integer with this instance.
  * <i>other</i>: The parameter  <i>other</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
@@ -243,21 +241,19 @@ Divides this instance by the value of an arbitrary-precision integer. The result
 
  * <i>bigintDivisor</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The quotient of the two objects.
 
 <b>Exceptions:</b>
 
  * System.DivideByZeroException:
-The divisor is zero.
+The parameter <i>bigintDivisor</i>
+ is zero.
 
  * System.ArgumentNullException:
 The parameter <i>bigintDivisor</i>
  is null.
-
- * System.DivideByZeroException:
-Attempted to divide by zero.
 
 ### DivRem
 
@@ -270,7 +266,7 @@ Divides this object by another arbitrary-precision integer and returns the quoti
 
  * <i>divisor</i>: The number to divide by.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An array with two arbitrary-precision integers: the first is the quotient, and the second is the remainder.
 
@@ -296,7 +292,7 @@ Determines whether this object and another object are equal.
 
  * <i>obj</i>: An arbitrary object.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if this object and another object are equal; otherwise, false .
 
@@ -305,16 +301,15 @@ Determines whether this object and another object are equal.
     public sealed bool Equals(
         PeterO.Numbers.EInteger other);
 
-Not documented yet.
+Determines whether this object and another object are equal.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
-A Boolean object.
+ `true`  if this object and another object are equal; otherwise, false .
 
 ### FromBytes
 
@@ -331,7 +326,7 @@ Initializes an arbitrary-precision integer from an array of bytes.
  * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
 
  * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as  `0x01, 0x2C`  and 200 as  `0x00,
-             0xC8` . (Note that the second example contains a set high bit in `0xC8` , so an additional 0 is added at the start to ensure it's interpreted as positive.)
+            0xC8` . (Note that the second example contains a set high bit in `0xC8` , so an additional 0 is added at the start to ensure it's interpreted as positive.)
 
  * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as  `0xfe, 0x70`  and -52869 as `0xff, 0x31, 0x7B` . (Note that the second example contains a cleared high bit in  `0x31, 0x7B` , so an additional 0xFF is added at the start to ensure it's interpreted as negative.)
 
@@ -341,7 +336,7 @@ For little-endian, the byte order is reversed from the byte order just discussed
 
  * <i>littleEndian</i>: If true, the byte order is little-endian, or least-significant-byte first. If false, the byte order is big-endian, or most-significant-byte first.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
 
@@ -362,7 +357,7 @@ Converts a 32-bit signed integer to an arbitrary-precision integer.
 
  * <i>intValue</i>: A 32-bit signed integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer with the same value as the 64-bit number.
 
@@ -377,7 +372,7 @@ Converts a 64-bit signed integer to an arbitrary-precision integer.
 
  * <i>longerValue</i>: A 64-bit signed integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer with the same value as the 64-bit number.
 
@@ -389,11 +384,11 @@ An arbitrary-precision integer with the same value as the 64-bit number.
 
 Converts a string to an arbitrary-precision integer.
 
-The following example (C#) converts a number in the orm of a hex string to an arbitrary-precision integer.     public static EInteger HexToEInteger(string hexString) {  // Parse the
-    hexadecimal string as an arbitrary-precision integer. Will  // throw a
-    FormatException if the parsing fails var bigInteger =
-    EInteger.fromRadixString(hexString, 16);  // Optional: Check if the
-    parsed integer is negative if (bigInteger.Sign < 0) { throw new
+The following example (C#) converts a number in the orm of a hex string to an arbitrary-precision integer.     public static EInteger HexToEInteger(string hexString) { /*Parse the
+    hexadecimal string as an arbitrary-precision integer. Will   throw a
+    FormatException if the parsing fails*/ var bigInteger =
+    EInteger.fromRadixString(hexString, 16);  /*Optional: Check if the
+    parsed integer is negative*/ if (bigInteger.Sign < 0) { throw new
     FormatException("negative hex string"); } return bigInteger; }
 
 <b>Parameters:</b>
@@ -402,7 +397,7 @@ The following example (C#) converts a number in the orm of a hex string to an ar
 
  * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer with the same value as given in the string.
 
@@ -439,7 +434,7 @@ Converts a portion of a string to an arbitrary-precision integer in a given radi
 
  * <i>endIndex</i>: The index of the string that ends the string portion. The length will be index + endIndex - 1.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer with the same value as given in the string portion.
 
@@ -470,7 +465,7 @@ Converts a string to an arbitrary-precision integer.
 
  * <i>str</i>: A text string. The string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The string is not allowed to contain white space characters, including spaces.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer with the same value as given in the string.
 
@@ -501,7 +496,7 @@ Converts a portion of a string to an arbitrary-precision integer.
 
  * <i>endIndex</i>: The index of the string that ends the string portion. The length will be index + endIndex - 1.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer with the same value as given in the string portion.
 
@@ -532,7 +527,7 @@ Returns the greatest common divisor of two integers. The greatest common divisor
 
  * <i>bigintSecond</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -558,7 +553,7 @@ Not documented yet.
  * <i>numberBits</i>: The parameter  <i>numberBits</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 64-bit signed integer.
 
@@ -568,7 +563,7 @@ A 64-bit signed integer.
 
 Not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 32-bit signed integer.
 
@@ -578,7 +573,7 @@ A 32-bit signed integer.
 
 Returns the hash code for this instance.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 32-bit signed integer.
 
@@ -588,7 +583,7 @@ A 32-bit signed integer.
 
 Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
 
@@ -598,7 +593,7 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
 
 Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
 
@@ -613,7 +608,7 @@ Returns whether a bit is set in the two's-complement representation of this obje
 
  * <i>index</i>: Zero based index of the bit to test. 0 means the least significant bit.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if a bit is set in the two's-complement representation of this object's value; otherwise, false .
 
@@ -623,7 +618,7 @@ Returns whether a bit is set in the two's-complement representation of this obje
 
 Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in a value equal to this object's absolute value minus 1.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The number of bits in this object's value. Returns 0 if this object's value is 0 or negative 1.
 
@@ -638,7 +633,7 @@ Not documented yet.
 
  * <i>n</i>: A 32-bit signed integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A Boolean object.
 
@@ -648,7 +643,7 @@ A Boolean object.
 
 Finds the minimum number of bits needed to represent this object's absolute value.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
 
@@ -658,7 +653,7 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
 Finds the minimum number of bits needed to represent this object's absolute value.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
 
@@ -673,7 +668,7 @@ Finds the modulus remainder that results when this instance is divided by the va
 
  * <i>divisor</i>: A divisor greater than 0 (the modulus).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -701,7 +696,7 @@ Calculates the remainder when an arbitrary-precision integer raised to a certain
 
  * <i>mod</i>: An arbitrary-precision integer. (3).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -732,7 +727,7 @@ Calculates the remainder when an arbitrary-precision integer raised to a certain
  * <i>mod</i>: The parameter  <i>mod</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The value (  <i>bigintValue</i>
  ^  <i>pow</i>
@@ -756,7 +751,7 @@ Multiplies this instance by the value of an arbitrary-precision integer object.
 
  * <i>bigintMult</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The product of the two numbers.
 
@@ -772,7 +767,7 @@ The parameter <i>bigintMult</i>
 
 Gets the value of this object with the sign reversed.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 This object's value with the sign reversed.
 
@@ -787,7 +782,7 @@ Returns an arbitrary-precision integer with every bit flipped.
 
  * <i>valueA</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -813,7 +808,7 @@ Adds an arbitrary-precision integer and an arbitrary-precision integer object.
  * <i>augend</i>: The parameter  <i>augend</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The sum of the two objects.
 
@@ -839,7 +834,7 @@ is not documented yet.
  * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An EInteger object.
 
@@ -859,7 +854,7 @@ is not documented yet.
  * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An EInteger object.
 
@@ -877,7 +872,7 @@ Divides an arbitrary-precision integer by the value of an arbitrary-precision in
 
  * <i>divisor</i>: The number to divide by.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The quotient of the two objects.
 
@@ -903,7 +898,7 @@ is not documented yet.
  * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An EInteger object.
 
@@ -921,7 +916,7 @@ Determines whether an arbitrary-precision integer is greater than another arbitr
 
  * <i>otherValue</i>: The second arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if  <i>thisValue</i>
  is greater than <i>otherValue</i>
@@ -941,7 +936,7 @@ Determines whether an arbitrary-precision integer value is greater than another 
 
  * <i>otherValue</i>: The second arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if  <i>thisValue</i>
  is at least  <i>otherValue</i>
@@ -961,7 +956,7 @@ Not documented yet.
 
  * <i>bitCount</i>: A 32-bit signed integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -985,7 +980,7 @@ Determines whether an arbitrary-precision integer is less than another arbitrary
 
  * <i>otherValue</i>: The second arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if  <i>thisValue</i>
  is less than <i>otherValue</i>
@@ -1005,7 +1000,7 @@ Determines whether an arbitrary-precision integer is less than or equal to anoth
 
  * <i>otherValue</i>: The second arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if  <i>thisValue</i>
  is up to  <i>otherValue</i>
@@ -1025,7 +1020,7 @@ Finds the remainder that results when an arbitrary-precision integer is divided 
 
  * <i>divisor</i>: The number to divide by.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The remainder of the two numbers.
 
@@ -1049,7 +1044,7 @@ Multiplies an arbitrary-precision integer by the value of an arbitrary-precision
 
  * <i>operand2</i>: The second operand.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The product of the two numbers.
 
@@ -1068,9 +1063,10 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: Not documented yet.
+ * <i>thisValue</i>: The parameter  <i>thisValue</i>
+ is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An EInteger object.
 
@@ -1090,7 +1086,7 @@ For this operation, the arbitrary-precision integer is treated as a two's comple
 
  * <i>smallValue</i>: A 32-bit signed integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -1114,7 +1110,7 @@ Subtracts two arbitrary-precision integer values.
 
  * <i>subtrahend</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The difference of the two objects.
 
@@ -1135,7 +1131,7 @@ Negates an arbitrary-precision integer.
 
  * <i>bigValue</i>: An arbitrary-precision integer to negate.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -1161,7 +1157,7 @@ Each arbitrary-precision integer is treated as a two's complement representation
 
  * <i>second</i>: An arbitrary-precision integer. (3).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -1183,7 +1179,7 @@ Raises an arbitrary-precision integer to a power.
 
  * <i>powerSmall</i>: The exponent to raise to.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The result. Returns 1 if  <i>powerSmall</i>
  is 0.
@@ -1205,7 +1201,7 @@ Raises an arbitrary-precision integer to a power, which is given as another arbi
 
  * <i>power</i>: The exponent to raise to.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The result. Returns 1 if  <i>power</i>
  is 0.
@@ -1231,7 +1227,7 @@ Finds the remainder that results when this instance is divided by the value of a
 
  * <i>divisor</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The remainder of the two numbers.
 
@@ -1255,7 +1251,7 @@ Returns an arbitrary-precision integer with the bits shifted to the left by a nu
 
  * <i>numberBits</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftRight with the absolute value of numberBits.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -1270,7 +1266,7 @@ Returns an arbitrary-precision integer with the bits shifted to the right. For t
 
  * <i>numberBits</i>: Number of bits to shift right.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -1280,7 +1276,7 @@ An arbitrary-precision integer.
 
 Finds the square root of this instance's value, rounded down.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The square root of this object's value. Returns 0 if this value is 0 or less.
 
@@ -1290,7 +1286,7 @@ The square root of this object's value. Returns 0 if this value is 0 or less.
 
 Calculates the square root and the remainder.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An array of two arbitrary-precision integers: the first integer is the square root, and the second is the difference between this value and the square of the first integer. Returns two zeros if this value is 0 or less, or one and zero if this value equals 1.
 
@@ -1305,7 +1301,7 @@ Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
 
  * <i>subtrahend</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The difference of the two objects.
 
@@ -1326,7 +1322,7 @@ Returns a byte array of this integer's value. The byte array will take the form 
 
  * <i>littleEndian</i>: If true, the byte order is little-endian, or least-significant-byte first. If false, the byte order is big-endian, or most-significant-byte first.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A byte array. If this value is 0, returns a byte array with the single element 0.
 
@@ -1336,7 +1332,7 @@ A byte array. If this value is 0, returns a byte array with the single element 0
 
 Converts this object's value to a 32-bit signed integer, throwing an exception if it can't fit.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 32-bit signed integer.
 
@@ -1351,7 +1347,7 @@ This object's value is too big to fit a 32-bit signed integer.
 
 Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 32-bit signed integer.
 
@@ -1361,7 +1357,7 @@ A 32-bit signed integer.
 
 Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 64-bit signed integer.
 
@@ -1376,7 +1372,7 @@ This object's value is too big to fit a 64-bit signed integer.
 
 Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 64-bit signed integer.
 
@@ -1391,7 +1387,7 @@ Generates a string representing the value of this object, in the given radix.
 
  * <i>radix</i>: A radix from 2 through 36. For example, to generate a hexadecimal (base-16) string, specify 16. To generate a decimal (base-10) string, specify 10.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A string representing the value of this object. If this value is 0, returns "0". If negative, the string will begin with a hyphen/minus ("-"). Depending on the radix, the string will use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
@@ -1406,7 +1402,7 @@ The parameter "index" is less than 0, "endIndex" is less than 0, or either is gr
 
 Converts this object to a text string in base 10.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A string representation of this object. If negative, the string will begin with a minus sign ("-", U+002D). The string will use the basic digits 0 to 9 (U+0030 to U+0039).
 
@@ -1424,7 +1420,7 @@ Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitra
 
  * <i>b</i>: The second arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer in which each bit is set if it's set in one input integer but not the other.
 

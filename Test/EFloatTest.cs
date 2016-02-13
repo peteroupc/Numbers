@@ -1169,6 +1169,12 @@ Assert.AreEqual(
 stringTemp);
 }
       {
+string stringTemp = EFloat.NegativeZero.ToShortestString(EContext.Binary32);
+Assert.AreEqual(
+"-0",
+stringTemp);
+}
+      {
 string stringTemp = EFloat.FromDouble(0.1).ToShortestString(EContext.Binary64);
 Assert.AreEqual(
 "0.1",

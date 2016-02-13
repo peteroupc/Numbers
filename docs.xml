@@ -1464,8 +1464,8 @@
             context's Precision property is 0).</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.Mantissa">
-<summary>Gets this object&#x27;s un-scaled value.</summary>
-            <value>This object&#x27;s un-scaled value. Will be negative if this
+<summary>Gets this object&#x27;s unscaled value.</summary>
+            <value>This object&#x27;s unscaled value. Will be negative if this
             object&#x27;s value is negative (including a negative NaN).</value>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Max(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
@@ -2613,9 +2613,9 @@
             <returns>An arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.UnsignedMantissa">
-<summary>Gets the absolute value of this object&#x27;s un-scaled
+<summary>Gets the absolute value of this object&#x27;s unscaled
             value.</summary>
-            <value>The absolute value of this object&#x27;s un-scaled
+            <value>The absolute value of this object&#x27;s unscaled
             value.</value>
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.Zero">
@@ -3455,7 +3455,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
 
-            <param name='str'>The parameter <paramref name='str'/> is not documented yet.</param><returns>An EFloat object.</returns><summary>Not documented yet.</summary><summary>Not documented yet.</summary>
+            <param name='str'>The parameter <paramref name='str'/> is not documented yet.</param><returns>An EFloat object.</returns><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary>
             <summary>Not documented yet.</summary>
         
 </doc>
@@ -3626,8 +3626,8 @@
             context's Precision property is 0).</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EFloat.Mantissa">
-<summary>Gets this object&#x27;s un-scaled value.</summary>
-            <value>This object&#x27;s un-scaled value. Will be negative if this
+<summary>Gets this object&#x27;s unscaled value.</summary>
+            <value>This object&#x27;s unscaled value. Will be negative if this
             object&#x27;s value is negative (including a negative NaN).</value>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
@@ -4673,9 +4673,9 @@
             <returns>An arbitrary-precision binary float.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EFloat.UnsignedMantissa">
-<summary>Gets the absolute value of this object&#x27;s un-scaled
+<summary>Gets the absolute value of this object&#x27;s unscaled
             value.</summary>
-            <value>The absolute value of this object&#x27;s un-scaled
+            <value>The absolute value of this object&#x27;s unscaled
             value.</value>
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.Zero">

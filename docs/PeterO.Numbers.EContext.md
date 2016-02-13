@@ -161,7 +161,7 @@ Gets a value indicating whether the EMax and EMin properties refer to the number
 
 <b>Returns:</b>
 
-<c>true</c> if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property; otherwise, <c>false</c>.. The default value is true, meaning that EMax and EMin refer to the adjusted exponent. Setting this value to false (using WithAdjustExponent) is useful for modeling floating point representations with an integer mantissa (significand) and an integer exponent, such as Java's BigDecimal.  `true`  if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or false if they refer to just the number's Exponent property.
+ `true`  if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or false if they refer to just the number's Exponent property.
 
 ### ClampNormalExponents
 
@@ -198,7 +198,7 @@ The lowest exponent possible when a converted number is expressed in scientific 
     public int Flags { get; set;}
 
 Gets or sets the flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags &
-             EContext.FlagInexact) != 0`  returns  `true`  if the Inexact flag is set.
+            EContext.FlagInexact) != 0`  returns  `true`  if the Inexact flag is set.
 
 <b>Returns:</b>
 
@@ -212,7 +212,7 @@ Gets a value indicating whether this context defines a minimum and maximum expon
 
 <b>Returns:</b>
 
-<c>true</c> if this context defines a minimum and maximum exponent; otherwise, <c>false</c>.. If false, converted exponents can have any exponent and operations can't cause overflow or underflow.  `true`  if this context defines a minimum and maximum exponent; otherwise,  `false` .
+ `true`  if this context defines a minimum and maximum exponent; otherwise,  `false` .
 
 ### HasFlags
 
@@ -222,7 +222,7 @@ Gets a value indicating whether this context has a mutable Flags field.
 
 <b>Returns:</b>
 
-<c>true</c> if this context has a mutable Flags field; otherwise, <c>false</c>.  `true`  if this context has a mutable Flags field; otherwise,  `false` .
+ `true`  if this context has a mutable Flags field; otherwise,  `false` .
 
 ### HasMaxPrecision
 
@@ -232,7 +232,7 @@ Gets a value indicating whether this context defines a maximum precision.
 
 <b>Returns:</b>
 
-<c>true</c> if this context defines a maximum precision; otherwise, <c>false</c>.  `true`  if this context defines a maximum precision; otherwise,  `false` .
+ `true`  if this context defines a maximum precision; otherwise,  `false` .
 
 ### IsPrecisionInBits
 
@@ -242,7 +242,7 @@ Gets a value indicating whether this context's Precision property is in bits, ra
 
 <b>Returns:</b>
 
-<c>true</c> if this context's Precision property is in bits, rather than digits; otherwise, <c>false</c>.. The default is false.  `true`  if this context's Precision property is in bits, rather than digits; otherwise,  `false` . The default is false.
+ `true`  if this context's Precision property is in bits, rather than digits; otherwise,  `false` . The default is false.
 
 ### IsSimplified
 
@@ -252,7 +252,7 @@ Gets a value indicating whether to use a "simplified" arithmetic. In the simplif
 
 <b>Returns:</b>
 
-<c>true</c> if to use a "simplified" arithmetic; otherwise, <c>false</c>.. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href='http://speleotrove.com/decimal/dax3274.html'> http://speleotrove.com/decimal/dax3274.html </a>.  `true` if a "simplified" arithmetic will be used; otherwise, `false` .
+ `true` if a "simplified" arithmetic will be used; otherwise, `false` .
 
 ### Precision
 
@@ -290,7 +290,7 @@ The traps that are set for each flag in the context.
 
 Initializes a new EContext that is a copy of another EContext.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -305,7 +305,7 @@ Determines whether a number can have the given Exponent property under this arit
 
  * <i>exponent</i>: An arbitrary-precision integer indicating the desired exponent.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
  `true`  if a number can have the given Exponent property under this arithmetic context; otherwise, false . If this context allows unlimited precision, returns true for the exponent EMax and any exponent less than EMax.
 
@@ -326,7 +326,7 @@ Creates a new arithmetic context using the given maximum number of digits, an un
 
  * <i>precision</i>: Maximum number of digits (precision).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -344,7 +344,7 @@ Creates a new EContext object initialized with an unlimited exponent range, and 
 
  * <i>rounding</i>: An ERounding object.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -359,7 +359,7 @@ Creates a new EContext object initialized with an unlimited precision, an unlimi
 
  * <i>rounding</i>: The rounding mode for the new precision context.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -369,7 +369,7 @@ A context object for arbitrary-precision arithmetic settings.
 
 Gets a string representation of this object. Note that the format is not intended to be parsed and may change at any time.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A string representation of this object.
 
@@ -384,7 +384,7 @@ Copies this EContext and sets the copy's "AdjustExponent" property to the given 
 
  * <i>adjustExponent</i>: The new value of the "AdjustExponent" property for the copy.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -402,7 +402,7 @@ Copies this arithmetic context and sets the copy's exponent range.
 
  * <i>exponentMax</i>: Desired maximum exponent (EMax).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -428,7 +428,7 @@ Copies this EContext and gives it a particular precision value.
  * <i>bigintPrecision</i>: The parameter  <i>bigintPrecision</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -444,7 +444,7 @@ The parameter <i>bigintPrecision</i>
 
 Copies this EContext with  `HasFlags`  set to true and a Flags value of 0.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -460,7 +460,7 @@ Copies this arithmetic context and sets the copy's "ClampNormalExponents" flag t
  * <i>clamp</i>: The parameter  <i>clamp</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -478,7 +478,7 @@ Copies this arithmetic context and sets the copy's exponent range.
 
  * <i>exponentMaxSmall</i>: Desired maximum exponent (EMax).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -488,7 +488,7 @@ A context object for arbitrary-precision arithmetic settings.
 
 Copies this EContext with  `HasFlags`  set to false and a Flags value of 0.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -503,7 +503,7 @@ Copies this EContext and gives it a particular precision value.
 
  * <i>precision</i>: Desired precision. 0 means unlimited precision.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -518,7 +518,7 @@ Copies this EContext and sets the copy's "IsPrecisionInBits" property to the giv
 
  * <i>isPrecisionBits</i>: The new value of the "IsPrecisionInBits" property for the copy.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -533,7 +533,7 @@ Copies this EContext with the specified rounding mode.
 
  * <i>rounding</i>: Desired value of the Rounding property.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -549,7 +549,7 @@ Copies this EContext and sets the copy's "IsSimplified" property to the given va
  * <i>simplified</i>: The parameter  <i>simplified</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -564,7 +564,7 @@ Copies this EContext with Traps set to the given value.
 
  * <i>traps</i>: Flags representing the traps to enable. See the property "Traps".
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -574,6 +574,6 @@ A context object for arbitrary-precision arithmetic settings.
 
 Copies this EContext with an unlimited exponent range.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
