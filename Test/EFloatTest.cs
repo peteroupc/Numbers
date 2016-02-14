@@ -257,7 +257,7 @@ stringTemp);
       string str =
 
   "874952453585761710286297571153092638434027760916318352601207433388312948219720355694692773665688395541653.74728887385887787786487024277448654174804687500"
-    ;
+;
       EDecimal ed = EDecimal.FromString(str);
       EFloat ef2 = ed.ToEFloat();
       Assert.AreEqual(0, ed.CompareToBinary(ef2), ef2.ToString());

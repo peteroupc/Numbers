@@ -117,7 +117,7 @@ The parameter <i>bigintAugend</i>
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's complement representation for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -159,7 +159,7 @@ This object's value is too big to fit a 32-bit signed integer.
 
 <b>Deprecated.</b> Renamed to ToInt32Unchecked.
 
-Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
@@ -188,7 +188,7 @@ This object's value is too big to fit a 64-bit signed integer.
 
 <b>Deprecated.</b> Renamed to ToInt64Unchecked.
 
-Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
@@ -321,7 +321,7 @@ Initializes an arbitrary-precision integer from an array of bytes.
 
 <b>Parameters:</b>
 
- * <i>bytes</i>: A byte array consisting of the two's-complement integer representation of the arbitrary-precision integer to create. The byte array is encoded using the following rules:
+ * <i>bytes</i>: A byte array consisting of the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) of the arbitrary-precision integer to create. The byte array is encoded using the following rules:
 
  * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
 
@@ -543,19 +543,17 @@ The parameter <i>bigintSecond</i>
         int index,
         int numberBits);
 
-Not documented yet.
+Retrieves bits from this integer's two's-complement form.
 
 <b>Parameters:</b>
 
- * <i>index</i>: The parameter  <i>index</i>
- is not documented yet.
+ * <i>index</i>: Zero-based index of the first bit to retrieve, where 0 is the least-significant bit of the number.
 
- * <i>numberBits</i>: The parameter  <i>numberBits</i>
- is not documented yet.
+ * <i>numberBits</i>: The number of bits to retrieve, starting with the first. Must be from 0 through 64.
 
 <b>Return Value:</b>
 
-A 64-bit signed integer.
+A 64-bit signed integer containing the bits from this integer's two's-complement form. The least significant bit is the first bit, and any unused bits are set to 0.
 
 ### GetDigitCount
 
@@ -581,7 +579,7 @@ A 32-bit signed integer.
 
     public int GetLowBit();
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.).
+Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)).).
 
 <b>Return Value:</b>
 
@@ -591,7 +589,7 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
 
     public PeterO.Numbers.EInteger GetLowBitAsEInteger();
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement representation.).
+Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)).).
 
 <b>Return Value:</b>
 
@@ -602,7 +600,7 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
     public bool GetSignedBit(
         int index);
 
-Returns whether a bit is set in the two's-complement representation of this object's value.
+Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) of this object's value.
 
 <b>Parameters:</b>
 
@@ -610,13 +608,13 @@ Returns whether a bit is set in the two's-complement representation of this obje
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in the two's-complement representation of this object's value; otherwise, false .
+ `true`  if a bit is set in the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) of this object's value; otherwise, false .
 
 ### GetSignedBitLength
 
     public int GetSignedBitLength();
 
-Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in a value equal to this object's absolute value minus 1.
+Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
 
 <b>Return Value:</b>
 
@@ -627,21 +625,21 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
     public bool GetUnsignedBit(
         int n);
 
-Not documented yet.
+Returns whether a bit is set in this number's absolute value.
 
 <b>Parameters:</b>
 
- * <i>n</i>: A 32-bit signed integer.
+ * <i>index</i>: Zero based index of the bit to test. 0 means the least significant bit.
 
 <b>Return Value:</b>
 
-A Boolean object.
+ `true`  if a bit is set in this number's absolute value.
 
 ### GetUnsignedBitLength
 
     public int GetUnsignedBitLength();
 
-Finds the minimum number of bits needed to represent this object's absolute value.
+Finds the minimum number of bits needed to represent this number's absolute value.
 
 <b>Return Value:</b>
 
@@ -651,7 +649,7 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
     public PeterO.Numbers.EInteger GetUnsignedBitLengthAsEInteger();
 
-Finds the minimum number of bits needed to represent this object's absolute value.
+Finds the minimum number of bits needed to represent this number's absolute value.
 
 <b>Return Value:</b>
 
@@ -1078,7 +1076,7 @@ An EInteger object.
 
 Shifts the bits of an arbitrary-precision integer to the right.
 
-For this operation, the arbitrary-precision integer is treated as a two's complement representation. Thus, for negative values, the arbitrary-precision integer is sign-extended.
+For this operation, the arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)). Thus, for negative values, the arbitrary-precision integer is sign-extended.
 
 <b>Parameters:</b>
 
@@ -1149,7 +1147,7 @@ The parameter <i>bigValue</i>
 
 Does an OR operation between two arbitrary-precision integer instances.
 
-Each arbitrary-precision integer is treated as a two's complement representation for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1260,7 +1258,7 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EInteger ShiftRight(
         int numberBits);
 
-Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's complement representation. Thus, for negative values, the arbitrary-precision integer is sign-extended.
+Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)). Thus, for negative values, the arbitrary-precision integer is sign-extended.
 
 <b>Parameters:</b>
 
@@ -1316,7 +1314,7 @@ The parameter <i>subtrahend</i>
     public byte[] ToBytes(
         bool littleEndian);
 
-Returns a byte array of this integer's value. The byte array will take the form of the number's two's-complement representation, using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
+Returns a byte array of this integer's value. The byte array will take the form of the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)), using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
 
 <b>Parameters:</b>
 
@@ -1345,7 +1343,7 @@ This object's value is too big to fit a 32-bit signed integer.
 
     public int ToInt32Unchecked();
 
-Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
@@ -1370,7 +1368,7 @@ This object's value is too big to fit a 64-bit signed integer.
 
     public long ToInt64Unchecked();
 
-Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's complement representation (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
@@ -1412,7 +1410,7 @@ A string representation of this object. If negative, the string will begin with 
         PeterO.Numbers.EInteger a,
         PeterO.Numbers.EInteger b);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's complement representation for the purposes of this operator.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 

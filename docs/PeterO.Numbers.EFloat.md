@@ -20,11 +20,11 @@ An arbitrary-precision binary float value can be serialized in one of the follow
 
 If an operation requires creating an intermediate value that might be too big to fit in memory (or might require more than 2 gigabytes of memory to store -- due to the current use of a 32-bit integer internally as a length), the operation may signal an invalid-operation flag and return not-a-number (NaN). In certain rare cases, the CompareTo method may throw OutOfMemoryException (called OutOfMemoryError in Java) in the same circumstances.
 
-Thread safety
+<b>Thread safety</b>
 
 Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
 
-Comparison considerations
+<b>Comparison considerations</b>
 
 This class's natural ordering (under the CompareTo method) is not consistent with the Equals method. This means that two values that compare as equal under the CompareTo method might not be equal under the Equals method. The CompareTo method compares the mathematical values of the two instances passed to it (and considers two different NaN values as equal), while two instances with the same mathematical value, but different exponents, will be considered unequal under the Equals method.
 
@@ -768,7 +768,7 @@ Finds e (the base of natural logarithms) raised to the power of this object's va
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter can't be null, as the exponential function's results are generally not exact. (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the exponential function's results are generally not exact.</i> (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -856,6 +856,10 @@ A binary float with the same value as  <i>flt</i>
 
     public static PeterO.Numbers.EFloat FromString(
         string str);
+
+Not documented yet.
+
+Not documented yet.
 
 Not documented yet.
 
@@ -1071,7 +1075,7 @@ Finds the natural logarithm of this object, that is, the power (exponent) that e
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter can't be null, as the ln function's results are generally not exact. (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the ln function's results are generally not exact.</i> (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1087,7 +1091,7 @@ Finds the base-10 logarithm of this object, that is, the power (exponent) that t
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter can't be null, as the ln function's results are generally not exact. (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the ln function's results are generally not exact.</i> (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1726,7 +1730,7 @@ Finds the constant π, the circumference of a circle divided by its diameter.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter can't be null, as π can never be represented exactly..
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as π can never be represented exactly.</i>.
 
 <b>Return Value:</b>
 
@@ -1819,7 +1823,7 @@ An arbitrary-precision integer.
 
 Returns a binary float with the same value but a new exponent.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-Remark:This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
+<b>Remark:</b>This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the radix point number = number.Quantize(-5,  // five
@@ -1846,7 +1850,7 @@ A binary float with the same value as this object but with the exponent changed.
 
 Returns a binary float with the same value as this object but with the same exponent as another binary float.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-Remark: This method can be used to implement fixed-point binary arithmetic, in which a fixed number of digits come after the radix point. A fixed-point binary arithmetic in which no digits come after the radix point (a desired exponent of 0) is considered an "integer arithmetic".
+<b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which a fixed number of digits come after the radix point. A fixed-point binary arithmetic in which no digits come after the radix point (a desired exponent of 0) is considered an "integer arithmetic".
 
 <b>Parameters:</b>
 
@@ -1866,7 +1870,7 @@ A binary float with the same value as this object but with the exponent changed.
 
 Returns a binary float with the same value but a new exponent.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-Remark:This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
+<b>Remark:</b>This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the radix point number = number.Quantize(
@@ -2226,7 +2230,7 @@ Finds the square root of this object's value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter can't be null, as the square root function's results are generally not exact for many inputs. (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the square root function's results are generally not exact for many inputs.</i> (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -2244,7 +2248,7 @@ Finds the square root of this object's value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).This parameter can't be null, as the square root function's results are generally not exact for many inputs. (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the square root function's results are generally not exact for many inputs.</i> (Unlike in the General Binary Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -2379,11 +2383,11 @@ A 32-bit signed integer.
 
     public int ToInt32Unchecked();
 
-Converts the lowest 32 bits of the truncated form of this number's value to a 32-bit signed integer.
+Converts this number to a 32-bit signed integer. If this value is not exactly a 32-bit integer, truncates the value to an integer and returns the lowest 32 bits of its two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+A 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 ### ToInt64Checked
 
@@ -2399,11 +2403,11 @@ A 64-bit signed integer.
 
     public long ToInt64Unchecked();
 
-Converts the lowest 64 bits of the truncated form of this number's value to a 64-bit signed integer.
+Converts this number to a 64-bit signed integer. If this value is not exactly a 64-bit integer, truncates the value to an integer and returns the lowest 64 bits of its two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
-A 64-bit signed integer.
+A 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 ### ToPlainString
 

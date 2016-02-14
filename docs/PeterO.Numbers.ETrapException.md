@@ -14,7 +14,7 @@ Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and
         PeterO.Numbers.EContext ctx,
         object result);
 
-Initializes a new instance of the  class.
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
 <b>Parameters:</b>
 

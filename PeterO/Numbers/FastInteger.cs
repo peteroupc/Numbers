@@ -113,9 +113,9 @@ namespace PeterO.Numbers {
  return new MutableNumber(0);
 }
       var mbi = new MutableNumber(0);
-      mbi.data[0 ] = unchecked((int)longVal);
+      mbi.data[0] = unchecked((int)longVal);
         int mbd = unchecked((int)(longVal >> 32));
-      mbi.data[1 ] = mbd;
+      mbi.data[1] = mbd;
       mbi.wordCount = (mbd == 0) ? 1 : 2;
       return mbi;
     }
@@ -146,7 +146,7 @@ namespace PeterO.Numbers {
           }
           int result0, result1, result2, result3;
           if (multiplicand < 65536) {
-            if (this.wordCount == 2 && (this.data[1 ]>>16) == 0) {
+            if (this.wordCount == 2 && (this.data[1] >> 16) == 0) {
               long longV = unchecked((long)this.data[0]);
               longV &= 0xFFFFFFFFL;
               longV |= unchecked(((long)this.data[1]) << 32);
@@ -517,7 +517,7 @@ namespace PeterO.Numbers {
 
     private void CheckFrozen() {
 #if DEBUG
-            if (frozen) {
+            if (this.frozen) {
  throw new InvalidOperationException();
 }
 #endif
@@ -602,7 +602,7 @@ namespace PeterO.Numbers {
       } else {
         switch (this.integerMode) {
           case 0: {
-            long amult = ((long)val) *((long)this.smallValue);
+            long amult = ((long)val) * ((long)this.smallValue);
             if (amult > Int32.MaxValue || amult < Int32.MinValue) {
               // would overflow, convert to large
              bool apos = this.smallValue > 0L;

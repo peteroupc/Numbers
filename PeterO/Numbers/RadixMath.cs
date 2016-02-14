@@ -4349,8 +4349,8 @@ bool adjustNegativeZero,
 EContext ctx) {
       // If context has unlimited precision and exponent range,
       // and no discarded digits or shifting
-      bool unlimitedPrecisionExp = (ctx == null ||
-         (!ctx.HasMaxPrecision && !ctx.HasExponentRange));
+      bool unlimitedPrecisionExp = ctx == null ||
+         (!ctx.HasMaxPrecision && !ctx.HasExponentRange);
       int thisFlags = this.helper.GetFlags(thisValue);
       if ((thisFlags & BigNumberFlags.FlagSpecial) != 0) {
         if ((thisFlags & BigNumberFlags.FlagSignalingNaN) != 0) {
@@ -4562,7 +4562,7 @@ ctx.Rounding,
           lastDiscarded,
           olderDiscarded);
 #if DEBUG
-      if (!(accum.DiscardedDigitCount.IsValueZero)) {
+      if (!accum.DiscardedDigitCount.IsValueZero) {
         throw new ArgumentException(
       "doesn't satisfy accum.DiscardedDigitCount.IsValueZero");
       }
@@ -4806,8 +4806,8 @@ neg ? BigNumberFlags.FlagNegative : 0);
       // DebugUtility.Log("" + accum.ShiftedInt + ", exp=" + (//
       // adjExponent) + "/" + fastEMin);
       var recheckOverflow = false;
-      bool doRounding = (accum.DiscardedDigitCount.Sign != 0 ||
-        (accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0);
+      bool doRounding = accum.DiscardedDigitCount.Sign != 0 ||
+        (accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0;
       if (doRounding) {
         if (!bigmantissa.IsValueZero) {
           flags |= EContext.FlagRounded;

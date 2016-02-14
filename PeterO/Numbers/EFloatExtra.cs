@@ -146,8 +146,8 @@ namespace PeterO.Numbers {
       return (byte)(int)bigValue;
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt64)~PeterO.Numbers.EFloat"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='bigValue'>Not documented yet.</param>
@@ -156,8 +156,8 @@ namespace PeterO.Numbers {
       return FromEInteger((EInteger)bigValue);
     }
 
-    /// <param name='smallValue'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt32)~PeterO.Numbers.EFloat"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='smallValue'>Not documented yet.</param>
@@ -166,8 +166,8 @@ namespace PeterO.Numbers {
       return FromEInteger((EInteger)smallValue);
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit unsigned integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt64"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='bigValue'>Not documented yet.</param>
@@ -176,8 +176,8 @@ namespace PeterO.Numbers {
       return (ulong)bigValue.ToEInteger();
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit unsigned integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt32"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='bigValue'>Not documented yet.</param>

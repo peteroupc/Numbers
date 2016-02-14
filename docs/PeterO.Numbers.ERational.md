@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)Thread safety: Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
+Arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
 
 ### ERational Constructor
 
@@ -12,7 +12,7 @@ Arbitrary-precision rational number. This class can't be inherited. (The "E" sta
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
 
-Initializes a new instance of the  class.
+Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
 <b>Parameters:</b>
 
@@ -783,6 +783,147 @@ Returns a rational number with the sign reversed.
 <b>Return Value:</b>
 
 An arbitrary-precision rational number.
+
+### Operator `+`
+
+    public static PeterO.Numbers.ERational operator +(
+        PeterO.Numbers.ERational bthis,
+        PeterO.Numbers.ERational augend);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bthis</i>: An ERational object.
+
+ * <i>augend</i>: An ERational object. (3).
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
+
+### Operator `/`
+
+    public static PeterO.Numbers.ERational operator /(
+        PeterO.Numbers.ERational dividend,
+        PeterO.Numbers.ERational divisor);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>dividend</i>: An ERational object.
+
+ * <i>divisor</i>: An ERational object. (3).
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>dividend</i>
+ is null.
+
+### Operator `%`
+
+    public static PeterO.Numbers.ERational operator %(
+        PeterO.Numbers.ERational dividend,
+        PeterO.Numbers.ERational divisor);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>dividend</i>: An ERational object.
+
+ * <i>divisor</i>: An ERational object. (3).
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>dividend</i>
+ is null.
+
+### Operator `*`
+
+    public static PeterO.Numbers.ERational operator *(
+        PeterO.Numbers.ERational operand1,
+        PeterO.Numbers.ERational operand2);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>operand1</i>: An ERational object.
+
+ * <i>operand2</i>: An ERational object. (3).
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>operand1</i>
+ is null.
+
+### Operator `-`
+
+    public static PeterO.Numbers.ERational operator -(
+        PeterO.Numbers.ERational bthis,
+        PeterO.Numbers.ERational subtrahend);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bthis</i>: An ERational object.
+
+ * <i>subtrahend</i>: An ERational object. (3).
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
+
+### Operator `-`
+
+    public static PeterO.Numbers.ERational operator -(
+        PeterO.Numbers.ERational bigValue);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bigValue</i>: An ERational object.
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 ### Remainder
 

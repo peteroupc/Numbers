@@ -29,8 +29,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <param name='unsignedValue'>Not documented yet.</param>
-    /// <returns>An EInteger object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt32)~PeterO.Numbers.EInteger"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='unsignedValue'>Not documented yet.</param>
@@ -137,8 +137,8 @@ EInteger mod) {
       return bigValue.Negate();
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit unsigned integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt64"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='bigValue'>Not documented yet.</param>
@@ -154,8 +154,8 @@ EInteger mod) {
       return unchecked((ulong)ret);
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit unsigned integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt32"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='bigValue'>Not documented yet.</param>

@@ -204,8 +204,8 @@ newDecimal.Mantissa.Sign < 0);
       return bigValue.ToSingle();
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt64)~PeterO.Numbers.EDecimal"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='bigValue'>Not documented yet.</param>
@@ -214,8 +214,8 @@ newDecimal.Mantissa.Sign < 0);
       return FromEInteger((EInteger)bigValue);
     }
 
-    /// <param name='smallValue'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt32)~PeterO.Numbers.EDecimal"]/*'/>
     [CLSCompliant(false)]
     /// <summary>Not documented yet.</summary>
     /// <param name='smallValue'>Not documented yet.</param>
@@ -224,22 +224,16 @@ newDecimal.Mantissa.Sign < 0);
       return FromEInteger((EInteger)smallValue);
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit unsigned integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt64"]/*'/>
     [CLSCompliant(false)]
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 64-bit unsigned integer.</returns>
     public static explicit operator ulong(EDecimal bigValue) {
       return (ulong)bigValue.ToEInteger();
     }
 
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit unsigned integer.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt32"]/*'/>
     [CLSCompliant(false)]
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigValue'>Not documented yet.</param>
-    /// <returns>A 32-bit unsigned integer.</returns>
     public static explicit operator uint(EDecimal bigValue) {
       return (uint)bigValue.ToEInteger();
     }
