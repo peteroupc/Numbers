@@ -3624,7 +3624,7 @@ ctx,
           // (// mantissaDivisor));
           EInteger[] quorem = mantissaDividend.DivRem(mantissaDivisor);
 #if DEBUG
-          if (!(quorem[1].IsZero)) {
+          if (!quorem[1].IsZero) {
             throw new ArgumentException("doesn't satisfy quorem[1].IsZero");
           }
 #endif
