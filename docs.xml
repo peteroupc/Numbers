@@ -443,7 +443,7 @@ is infinity, not-a-number, or doesn't fit into a 64-bit unsigned integer.</excep
             generally used when a negative number is rounded to 0; it has the
             same mathematical value as positive zero. <b>Infinity</b> is
             generally used when a non-zero number is divided by zero, or when a
-            very high number can't be represented in a given exponent range.
+            very high or very low number can't be represented in a given exponent range.
             <b>Not-a-number</b> is generally used to signal errors.</para>
             <para>This class implements the General Decimal Arithmetic
             Specification version 1.70 (except part of chapter 6):

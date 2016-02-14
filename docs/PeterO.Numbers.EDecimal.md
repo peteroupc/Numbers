@@ -18,7 +18,7 @@ The mantissa is the value of the digits that make up a number, ignoring the deci
 
 The mantissa and exponent format preserves trailing zeros in the number's value. This may give rise to multiple ways to store the same value. For example, 1.00 and 1 would be stored differently, even though they have the same value. In the first case, 100 * 10^-2 (100 with decimal point moved left by 2), and in the second case, 1 * 10^0 (1 with decimal point moved 0).
 
-This class also supports values for negative zero, not-a-number (NaN) values, and infinity. Negative zero is generally used when a negative number is rounded to 0; it has the same mathematical value as positive zero. Infinity is generally used when a non-zero number is divided by zero, or when a very high number can't be represented in a given exponent range.Not-a-number is generally used to signal errors.
+This class also supports values for negative zero, not-a-number (NaN) values, and infinity. Negative zero is generally used when a negative number is rounded to 0; it has the same mathematical value as positive zero. Infinity is generally used when a non-zero number is divided by zero, or when a very high or very low number can't be represented in a given exponent range.Not-a-number is generally used to signal errors.
 
 This class implements the General Decimal Arithmetic Specification version 1.70 (except part of chapter 6): `http://speleotrove.com/decimal/decarith.html`
 
