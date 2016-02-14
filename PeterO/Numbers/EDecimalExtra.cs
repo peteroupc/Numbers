@@ -179,7 +179,7 @@ newDecimal.Mantissa.Sign < 0);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64"]/*'/>
-    public static explicit operator long (EDecimal bigValue) {
+    public static explicit operator long(EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
       }
@@ -194,31 +194,71 @@ newDecimal.Mantissa.Sign < 0);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double"]/*'/>
-    public static explicit operator double (EDecimal bigValue) {
+    public static explicit operator double(EDecimal bigValue) {
       return bigValue.ToDouble();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single"]/*'/>
-    public static explicit operator float (EDecimal bigValue) {
+    public static explicit operator float(EDecimal bigValue) {
       return bigValue.ToSingle();
+    }
+
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    [CLSCompliant(false)]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    public static implicit operator EDecimal(ulong bigValue) {
+      return FromEInteger((EInteger)bigValue);
+    }
+
+    /// <param name='smallValue'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    [CLSCompliant(false)]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='smallValue'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    public static implicit operator EDecimal(uint smallValue) {
+      return FromEInteger((EInteger)smallValue);
+    }
+
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 64-bit unsigned integer.</returns>
+    [CLSCompliant(false)]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 64-bit unsigned integer.</returns>
+    public static explicit operator ulong(EDecimal bigValue) {
+      return (ulong)bigValue.ToEInteger();
+    }
+
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 32-bit unsigned integer.</returns>
+    [CLSCompliant(false)]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 32-bit unsigned integer.</returns>
+    public static explicit operator uint(EDecimal bigValue) {
+      return (uint)bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32"]/*'/>
-    public static explicit operator int (EDecimal bigValue) {
+    public static explicit operator int(EDecimal bigValue) {
       return (int)bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16"]/*'/>
-    public static explicit operator short (EDecimal bigValue) {
+    public static explicit operator short(EDecimal bigValue) {
       return (short)(int)bigValue;
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte"]/*'/>
-    public static explicit operator byte (EDecimal bigValue) {
+    public static explicit operator byte(EDecimal bigValue) {
       return (byte)(int)bigValue;
     }
   }

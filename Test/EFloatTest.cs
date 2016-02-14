@@ -1,7 +1,7 @@
 using System;
+using System.Text;
 using NUnit.Framework;
 using PeterO.Numbers;
-using System.Text;
 
 namespace Test {
   [TestFixture]
@@ -257,7 +257,7 @@ stringTemp);
       string str =
 
   "874952453585761710286297571153092638434027760916318352601207433388312948219720355694692773665688395541653.74728887385887787786487024277448654174804687500"
-;
+    ;
       EDecimal ed = EDecimal.FromString(str);
       EFloat ef2 = ed.ToEFloat();
       Assert.AreEqual(0, ed.CompareToBinary(ef2), ef2.ToString());
@@ -1186,9 +1186,6 @@ EFloat src) {
         EContext.Binary32);
       EFloat efnextgap = efnext.Subtract(efa);
       EFloat efprevgap = efa.Subtract(efprev);
-      // Console.WriteLine("efa___=" + OutputEF(efa));
-      // Console.WriteLine("efprev=" + OutputEF(efprev));
-      // Console.WriteLine("efnext=" + OutputEF(efnext));
       EFloat efprev1q = efprev.Add(
      efprevgap.Multiply(quarter));
    EFloat efprev2q = efprev.Add(
@@ -1331,7 +1328,7 @@ stringTemp);
     [Test]
     public void TestToSingleRounding() {
       var fr = new FastRandom();
-      for (var i = 0; i < 500; ++i) {
+      for (var i = 0; i < 1500; ++i) {
         EFloat efa = this.RandomSingleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, false);
       }
@@ -1339,14 +1336,20 @@ stringTemp);
     [Test]
     public void TestToDoubleRounding() {
       var fr = new FastRandom();
-      for (var i = 0; i < 500; ++i) {
+      for (var i = 0; i < 1500; ++i) {
         EFloat efa = this.RandomDoubleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, true);
       }
       TestToFloatRoundingOne(EFloat.Create(0, -1074), true);
-      TestToFloatRoundingOne(EFloat.Create(
-  EInteger.FromRadixString("10000000000000000000000000000000000000000000000000000", 2),
-  EInteger.FromInt32(-1074)), true);
+      EInteger mant = EInteger.FromRadixString(
+        "10000000000000000000000000000000000000000000000000000",
+        2);
+      {
+EFloat objectTemp = EFloat.Create(
+mant,
+EInteger.FromInt32(-1074));
+TestToFloatRoundingOne(objectTemp, true);
+}
       {
 EFloat objectTemp = EFloat.Create(
   EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),

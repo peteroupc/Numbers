@@ -24,9 +24,19 @@ namespace PeterO.Numbers {
       if (ulongValue <= Int64.MaxValue) {
         return FromInt64((long)ulongValue);
       } else {
-        ulongValue &= (1UL << 63) -1;
+        ulongValue &= (1UL << 63) - 1;
         return EInteger.One.ShiftLeft(63).Add(FromInt64((long)ulongValue));
       }
+    }
+
+    /// <param name='unsignedValue'>Not documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    [CLSCompliant(false)]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='unsignedValue'>Not documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    public static implicit operator EInteger(uint unsignedValue) {
+      return (EInteger)(long)unsignedValue;
     }
 
     /// <include file='../../docs.xml'
@@ -125,6 +135,40 @@ EInteger mod) {
         throw new ArgumentNullException("bigValue");
       }
       return bigValue.Negate();
+    }
+
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 64-bit unsigned integer.</returns>
+    [CLSCompliant(false)]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 64-bit unsigned integer.</returns>
+    public static explicit operator ulong(EInteger bigValue) {
+      if (bigValue.negative || bigValue.wordCount > 4) {
+        throw new OverflowException("This object's value is out of range");
+      }
+      long ret = bigValue.ToInt64Checked();
+      if (bigValue.GetSignedBit(63)) {
+        ret |= 1L << 63;
+      }
+      return unchecked((ulong)ret);
+    }
+
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 32-bit unsigned integer.</returns>
+    [CLSCompliant(false)]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bigValue'>Not documented yet.</param>
+    /// <returns>A 32-bit unsigned integer.</returns>
+    public static explicit operator uint(EInteger bigValue) {
+      if (bigValue.negative || bigValue.wordCount > 2) {
+        throw new OverflowException("This object's value is out of range");
+      }
+      long ret = bigValue.ToInt32Checked();
+      if (bigValue.GetSignedBit(31)) {
+        ret |= 1 << 31;
+      }
+      return unchecked((uint)ret);
     }
 
     /// <include file='../../docs.xml'

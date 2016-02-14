@@ -2244,10 +2244,6 @@ EDecimal.NegativeZero.Plus(null));
       // not implemented yet
     }
     [Test]
-    public void TestRoundToBinaryPrecision() {
-      // not implemented yet
-    }
-    [Test]
     public void TestRoundToExponent() {
       this.TestRoundToExponentOne("-0", "-0", 0, ERounding.Down);
       this.TestRoundToExponentOne("-0", "-0", 0, ERounding.HalfEven);

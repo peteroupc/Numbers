@@ -10,7 +10,7 @@ using System;
 namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.ERational"]/*'/>
-  public sealed class ERational : IComparable<ERational>,
+  public sealed partial class ERational : IComparable<ERational>,
     IEquatable<ERational> {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NaN"]/*'/>
