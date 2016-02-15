@@ -67,7 +67,7 @@ An arithmetic context for the IEEE-754-2008 binary64 format, 53 bits precision. 
 
     public static readonly PeterO.Numbers.EContext CliDecimal;
 
-An arithmetic context for the Common Language Infrastructure (.NET Framework) decimal format (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven.
+An arithmetic context for the .NET Framework decimal format (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven. (The "Cli" stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.)
 
 ### Decimal128
 

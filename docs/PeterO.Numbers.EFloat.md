@@ -22,7 +22,7 @@ If an operation requires creating an intermediate value that might be too big to
 
 <b>Thread safety</b>
 
-Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
+Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
 
 <b>Comparison considerations</b>
 
@@ -856,6 +856,10 @@ A binary float with the same value as  <i>flt</i>
 
     public static PeterO.Numbers.EFloat FromString(
         string str);
+
+Not documented yet.
+
+Not documented yet.
 
 Not documented yet.
 
@@ -1818,7 +1822,7 @@ An arbitrary-precision integer.
 ### Quantize
 
     public PeterO.Numbers.EFloat Quantize(
-        int desiredExponentSmall,
+        int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
 Returns a binary float with the same value but a new exponent.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.

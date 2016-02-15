@@ -44,7 +44,7 @@ An arbitrary-precision decimal value can be serialized (converted to a stable fo
 
 <b>Thread safety</b>
 
-Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
+Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
 
 <b>Comparison considerations</b>
 
@@ -54,7 +54,7 @@ This class's natural ordering (under the CompareTo method) is not consistent wit
 
 There are several other types of numbers that are mentioned in this class and elsewhere in this documentation. For reference, they are specified here.
 
-<b>Unsigned integer</b>: A number that's always 0 or greater, with the following maximum values:
+<b>Unsigned integer</b>: An integer that's always 0 or greater, with the following maximum values:
 
  * 8-bit unsigned integer, or <i>byte</i>: 255.
 
@@ -64,7 +64,7 @@ There are several other types of numbers that are mentioned in this class and el
 
  * 64-bit unsigned integer: (2<sup>64</sup>-1).
 
-<b>Signed integer</b>: A number in <i>two's complement form</i>, with the following ranges:
+<b>Signed integer</b>: An integer in <i>two's complement form</i>, with the following ranges:
 
  * 8-bit signed integer: -128 to 127.
 
@@ -74,9 +74,9 @@ There are several other types of numbers that are mentioned in this class and el
 
  * 64-bit signed integer: -2<sup>63</sup> to (2<sup>63</sup> - 1).
 
-<b>Two's complement form</b>: In <b>two's-complement form</b>, positive numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one. To store a negative number, decrease its absolute value by 1 and swap the bits of the resulting number.
+<b>Two's complement form</b>: In <i>two's-complement form</i>, positive numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one. To store a negative number, decrease its absolute value by 1 and swap the bits of the resulting number.
 
-<b>64-bit floating-point number</b>: A 64-bit binary floating-point number, in the form<i>significand</i> * 2<sup><i>exponent</i></sup>. The significand is 53 bits long (Precision) and the exponent ranges from -1075 (EMin) to 971 (EMax). The number is stored in the following format (commonly called the IEEE 754 format):
+<b>64-bit floating-point number</b>: A 64-bit binary floating-point number, in the form<i>significand</i> * 2<sup><i>exponent</i></sup>. The significand is 53 bits long (Precision) and the exponent ranges from -1074 (EMin) to 971 (EMax). The number is stored in the following format (commonly called the IEEE 754 format):
 
     |C|BBB...BBB|AAAAAA...AAAAAA|
 
@@ -88,15 +88,17 @@ There are several other types of numbers that are mentioned in this class and el
 
  * If all bits are zeros, this is a subnormal number. The exponent is EMin and the highest bit of the significand is zero.
 
- * If any other number, the exponent is this value plus EMin, and the highest bit of the significand is one.
+ * If any other number, the exponent is this value reduced by 1, then raised by EMin, and the highest bit of the significand is one.
 
  * C. Highest bit: If one, this is a negative number.
+
+The elements described above are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
 
 <b>32-bit floating-point number</b>: A 32-bit binary number which is stored similarly to a <i>64-bit floating-point number</i>, except that:
 
  * Precision is 24 bits.
 
- * EMin is -150.
+ * EMin is -149.
 
  * EMax is 104.
 
@@ -106,9 +108,7 @@ There are several other types of numbers that are mentioned in this class and el
 
  * C. If the highest bit is one, this is a negative number.
 
-The elements described above are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
-
-<b>Common Language Infrastructure decimal</b>: A 128-bit decimal floating-point number, in the form <i>significand</i> * 10<sup>-<i>scale</i></sup>, where the scale ranges from 0 to 28. The number is stored in the following format:
+<b>.NET Framework decimal</b>: A 128-bit decimal floating-point number, in the form <i>significand</i> * 10<sup>-<i>scale</i></sup>, where the scale ranges from 0 to 28. The number is stored in the following format:
 
  * Low 96 bits are the significand, as a 96-bit unsigned integer (all 96-bit values are allowed, up to (2<sup>96</sup>-1)).
 
@@ -1163,7 +1163,7 @@ Creates a decimal number from a text string that represents a number.
 
 The format of the string generally consists of:
 
- * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
+ * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if the minus sign, the value is negative.)
 
  * One or more digits, with a single optional decimal point after the first digit and before the last digit.
 

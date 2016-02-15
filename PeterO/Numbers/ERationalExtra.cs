@@ -10,18 +10,6 @@ using System;
 namespace PeterO.Numbers {
   public sealed partial class ERational {
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int64)~PeterO.Numbers.ERational"]/*'/>
-    public static implicit operator ERational(long bigValue) {
-      return FromInt64(bigValue);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int32)~PeterO.Numbers.ERational"]/*'/>
-    public static implicit operator ERational(int smallValue) {
-      return FromInt32(smallValue);
-    }
-
-    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.ERational"]/*'/>
     public static implicit operator ERational(EInteger eint) {
       return FromEInteger(eint);
@@ -41,8 +29,14 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Decimal)~PeterO.Numbers.ERational"]/*'/>
+    public static ERational FromDecimal(decimal eint) {
+      return FromEDecimal(EDecimal.FromDecimal(eint));
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Decimal)~PeterO.Numbers.ERational"]/*'/>
     public static implicit operator ERational(decimal eint) {
-      return FromEDecimal((EDecimal)eint);
+      return FromDecimal(eint);
     }
 
     /// <include file='../../docs.xml'
@@ -55,13 +49,6 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Double)~PeterO.Numbers.ERational"]/*'/>
     public static implicit operator ERational(double eint) {
       return ERational.FromDouble(eint);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt64)~PeterO.Numbers.ERational"]/*'/>
-    [CLSCompliant(false)]
-    public static implicit operator ERational(ulong eint) {
-      return FromEInteger((EInteger)eint);
     }
 
     /// <include file='../../docs.xml'
@@ -128,8 +115,8 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Decimal"]/*'/>
-    public static explicit operator decimal(ERational
-  extendedNumber) {
+    public decimal ToDecimal() {
+      ERational extendedNumber = this;
       if (extendedNumber.IsInfinity() || extendedNumber.IsNaN()) {
         throw new OverflowException("This object's value is out of range");
       }
@@ -144,13 +131,12 @@ EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int64"]/*'/>
-    public static explicit operator long(ERational bigValue) {
-      if (bigValue == null) {
-        throw new ArgumentNullException("bigValue");
-      }
-      return (long)bigValue.ToEInteger();
+    /// <summary>Not documented yet.</summary>
+    /// <param name='extendedNumber'>Not documented yet.</param>
+    /// <returns>A Decimal object.</returns>
+    public static explicit operator decimal(ERational
+extendedNumber) {
+      return extendedNumber.ToDecimal();
     }
 
     /// <include file='../../docs.xml'
@@ -171,36 +157,226 @@ EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
       return bigValue.ToSingle();
     }
 
+    // Begin integer conversions
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32"]/*'/>
-    public static explicit operator int(ERational bigValue) {
-      return (int)bigValue.ToEInteger();
-    }
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Byte"]/*'/>
+public static explicit operator byte(ERational input) {
+ return input.ToByteChecked();
+}
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt64"]/*'/>
-    [CLSCompliant(false)]
-    public static explicit operator ulong(ERational bigValue) {
-      return (ulong)bigValue.ToEInteger();
-    }
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Byte)~PeterO.Numbers.ERational"]/*'/>
+public static implicit operator ERational(byte inputByte) {
+ return ERational.FromByte(inputByte);
+}
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt32"]/*'/>
-    [CLSCompliant(false)]
-    public static explicit operator uint(ERational bigValue) {
-      return (uint)bigValue.ToEInteger();
-    }
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteChecked"]/*'/>
+[CLSCompliant(false)]
+public sbyte ToSByteChecked() {
+ return this.ToEInteger().ToSByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteUnchecked"]/*'/>
+[CLSCompliant(false)]
+public sbyte ToSByteUnchecked() {
+ return this.ToEInteger().ToSByteUnchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteIfExact"]/*'/>
+[CLSCompliant(false)]
+public sbyte ToSByteIfExact() {
+ return this.ToEIntegerIfExact().ToSByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromSByte(System.SByte)"]/*'/>
+[CLSCompliant(false)]
+public static ERational FromSByte(sbyte inputSByte) {
+ var val = (int)inputSByte;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.SByte"]/*'/>
+[CLSCompliant(false)]
+public static explicit operator sbyte(ERational input) {
+ return input.ToSByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.SByte)~PeterO.Numbers.ERational"]/*'/>
+[CLSCompliant(false)]
+public static implicit operator ERational(sbyte inputSByte) {
+ return ERational.FromSByte(inputSByte);
+}
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16"]/*'/>
-    public static explicit operator short(ERational bigValue) {
-      return checked((short)(int)bigValue);
-    }
+public static explicit operator short(ERational input) {
+ return input.ToInt16Checked();
+}
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Byte"]/*'/>
-    public static explicit operator byte(ERational bigValue) {
-      return checked((byte)(int)bigValue);
-    }
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int16)~PeterO.Numbers.ERational"]/*'/>
+public static implicit operator ERational(short inputInt16) {
+ return ERational.FromInt16(inputInt16);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16Checked"]/*'/>
+[CLSCompliant(false)]
+public ushort ToUInt16Checked() {
+ return this.ToEInteger().ToUInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16Unchecked"]/*'/>
+[CLSCompliant(false)]
+public ushort ToUInt16Unchecked() {
+ return this.ToEInteger().ToUInt16Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16IfExact"]/*'/>
+[CLSCompliant(false)]
+public ushort ToUInt16IfExact() {
+ return this.ToEIntegerIfExact().ToUInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt16(System.UInt16)"]/*'/>
+[CLSCompliant(false)]
+public static ERational FromUInt16(ushort inputUInt16) {
+ int val = ((int)inputUInt16) & 0xffff;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt16"]/*'/>
+[CLSCompliant(false)]
+public static explicit operator ushort(ERational input) {
+ return input.ToUInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt16)~PeterO.Numbers.ERational"]/*'/>
+[CLSCompliant(false)]
+public static implicit operator ERational(ushort inputUInt16) {
+ return ERational.FromUInt16(inputUInt16);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32"]/*'/>
+public static explicit operator int(ERational input) {
+ return input.ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int32)~PeterO.Numbers.ERational"]/*'/>
+public static implicit operator ERational(int inputInt32) {
+ return ERational.FromInt32(inputInt32);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Checked"]/*'/>
+[CLSCompliant(false)]
+public uint ToUInt32Checked() {
+ return this.ToEInteger().ToUInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Unchecked"]/*'/>
+[CLSCompliant(false)]
+public uint ToUInt32Unchecked() {
+ return this.ToEInteger().ToUInt32Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32IfExact"]/*'/>
+[CLSCompliant(false)]
+public uint ToUInt32IfExact() {
+ return this.ToEIntegerIfExact().ToUInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt32(System.UInt32)"]/*'/>
+[CLSCompliant(false)]
+public static ERational FromUInt32(uint inputUInt32) {
+ long val = ((long)inputUInt32) & 0xFFFFFFFFL;
+ return FromInt64(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt32"]/*'/>
+[CLSCompliant(false)]
+public static explicit operator uint(ERational input) {
+ return input.ToUInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt32)~PeterO.Numbers.ERational"]/*'/>
+[CLSCompliant(false)]
+public static implicit operator ERational(uint inputUInt32) {
+ return ERational.FromUInt32(inputUInt32);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int64"]/*'/>
+public static explicit operator long(ERational input) {
+ return input.ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int64)~PeterO.Numbers.ERational"]/*'/>
+public static implicit operator ERational(long inputInt64) {
+ return ERational.FromInt64(inputInt64);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Checked"]/*'/>
+[CLSCompliant(false)]
+public ulong ToUInt64Checked() {
+ return this.ToEInteger().ToUInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Unchecked"]/*'/>
+[CLSCompliant(false)]
+public ulong ToUInt64Unchecked() {
+ return this.ToEInteger().ToUInt64Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64IfExact"]/*'/>
+[CLSCompliant(false)]
+public ulong ToUInt64IfExact() {
+ return this.ToEIntegerIfExact().ToUInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt64(System.UInt64)"]/*'/>
+[CLSCompliant(false)]
+public static ERational FromUInt64(ulong inputUInt64) {
+ return FromEInteger(EInteger.FromUInt64(inputUInt64));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt64"]/*'/>
+[CLSCompliant(false)]
+public static explicit operator ulong(ERational input) {
+ return input.ToUInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt64)~PeterO.Numbers.ERational"]/*'/>
+[CLSCompliant(false)]
+public static implicit operator ERational(ulong inputUInt64) {
+ return ERational.FromUInt64(inputUInt64);
+}
+
+// End integer conversions
   }
 }

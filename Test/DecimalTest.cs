@@ -415,11 +415,12 @@ System.Globalization.CultureInfo.InvariantCulture);
           EDecimal ed3 = EDecimal.FromString(
   ed.ToString(),
   EContext.CliDecimal);
+          string msg = ed.ToString() + " (expanded: " +
+            EDecimal.FromString(ed.ToString()) + ")";
           TestCommon.CompareTestEqual(
             (EDecimal)d,
             ed3,
-    ed.ToString() + " (expanded: " + EDecimal.FromString(ed.ToString()) +
-              ")");
+            msg);
         } catch (OverflowException ex) {
           EDecimal ed2 = EDecimal.FromString(
   ed.ToString(),

@@ -623,7 +623,7 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 ### GetUnsignedBit
 
     public bool GetUnsignedBit(
-        int n);
+        int index);
 
 Returns whether a bit is set in this number's absolute value.
 
@@ -1387,7 +1387,7 @@ Generates a string representing the value of this object, in the given radix.
 
 <b>Return Value:</b>
 
-A string representing the value of this object. If this value is 0, returns "0". If negative, the string will begin with a hyphen/minus ("-"). Depending on the radix, the string will use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
+A string representing the value of this object. If this value is 0, returns "0". If negative, the string will begin with a minus sign ("-", U+002D). Depending on the radix, the string will use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
 <b>Exceptions:</b>
 

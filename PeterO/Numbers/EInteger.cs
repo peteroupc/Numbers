@@ -1391,7 +1391,7 @@ WordsShiftRightOne(bu, buc);
               // Since we are dividing from left to right, the first
               // nonzero result is the first part of the
               // new quotient
-              bitlen = getUnsignedBitLengthEx(quo, wci + 1);
+              bitlen = GetUnsignedBitLengthEx(quo, wci + 1);
               if (bitlen <= 2135) {
                 // (x*631305) >> 21 is an approximation
                 // to trunc(x*log10(2)) that is correct up
@@ -1581,12 +1581,12 @@ WordsShiftRightOne(bu, buc);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
-    public bool GetUnsignedBit(int n) {
-      if (n < 0) {
-        throw new ArgumentException("n (" + n + ") is less than 0");
+    public bool GetUnsignedBit(int index) {
+      if (index < 0) {
+        throw new ArgumentException("index (" + index + ") is less than 0");
       }
-      return ((n >> 4) < this.words.Length) && ((bool)(((this.words[(n >>
-                    4)] >> (int)(n & 15)) & 1) != 0));
+    return ((index >> 4) < this.words.Length) && ((bool)(((this.words[(index >>
+        4)] >> (int)(index & 15)) & 1) != 0));
     }
 
     /// <include file='../../docs.xml'
@@ -4780,7 +4780,7 @@ int subtrahendCount) {
       return val & 0xffff;
     }
 
-    private static int getUnsignedBitLengthEx(int numberValue, int wordCount) {
+    private static int GetUnsignedBitLengthEx(int numberValue, int wordCount) {
       int wc = wordCount;
       if (wc != 0) {
         wc = (wc - 1) << 4;
@@ -5980,5 +5980,55 @@ count);
       return new[] {
         bigintX, bigintY };
     }
+        // Begin integer conversions
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteChecked"]/*'/>
+public byte ToByteChecked() {
+ int val = this.ToInt32Checked();
+ if (val < 0 || val > 255) {
+  throw new OverflowException("This object's value is out of range");
+ }
+ return unchecked((byte)(val & 0xff));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteUnchecked"]/*'/>
+public byte ToByteUnchecked() {
+ int val = this.ToInt32Unchecked();
+ return unchecked((byte)(val & 0xff));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromByte(System.Byte)"]/*'/>
+public static EInteger FromByte(byte inputByte) {
+ int val = ((int)inputByte) & 0xff;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Checked"]/*'/>
+public short ToInt16Checked() {
+ int val = this.ToInt32Checked();
+ if (val < -32768 || val > 32767) {
+  throw new OverflowException("This object's value is out of range");
+ }
+ return unchecked((short)(val & 0xffff));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Unchecked"]/*'/>
+public short ToInt16Unchecked() {
+ int val = this.ToInt32Unchecked();
+ return unchecked((short)(val & 0xffff));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)"]/*'/>
+public static EInteger FromInt16(short inputInt16) {
+ var val = (int)inputInt16;
+ return FromInt32(val);
+}
+
+// End integer conversions
   }
 }

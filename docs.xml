@@ -74,10 +74,12 @@
             not be higher than EMax + 1 - Precision.</value>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.CliDecimal">
-<summary>An arithmetic context for the Common Language
-            Infrastructure (.NET Framework) decimal format (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>), 96 bits precision,
+<summary>An arithmetic context for the .NET Framework decimal format (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>), 96 bits precision,
             and a valid exponent range of -28 to 0. The default rounding mode
-            is HalfEven.</summary>
+            is HalfEven. (The "Cli" stands for "Common Language Infrastructure",
+            which defined this format as the .NET Framework decimal format in version 1,
+            but leaves it unspecified in
+            later versions.)</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.Copy">
 <summary>Initializes a new EContext that is a copy of another
@@ -493,7 +495,7 @@
             <para>Instances of this class are immutable, so they are inherently
             safe for use by multiple threads. Multiple instances of this object
             with the same properties are interchangeable, so they should not be
-            compared using the "==" operator (which only checks if each side of
+            compared using the "==" operator (which might only check if each side of
             the operator is the same instance).</para>
             <para><b>Comparison considerations</b></para>
             <para>This class's natural ordering (under the CompareTo method) is
@@ -510,7 +512,7 @@
 that are mentioned in this class and 
 elsewhere in this documentation. For reference, they are specified here.</para>
 
-<para><b>Unsigned integer</b>: A number that&#39;s always 0 or greater, with
+<para><b>Unsigned integer</b>: An integer that&#39;s always 0 or greater, with
 the following maximum values:</para>
 
 <list>
@@ -520,7 +522,7 @@ the following maximum values:</para>
 <item>64-bit unsigned integer: (2<sup>64</sup>-1).</item>
 </list>
 
-<para><b>Signed integer</b>: A number in <i>two&#39;s complement form</i>, with
+<para><b>Signed integer</b>: An integer in <i>two&#39;s complement form</i>, with
 the following ranges:</para>
 
 <list>
@@ -530,7 +532,7 @@ the following ranges:</para>
 <item>64-bit signed integer: -2<sup>63</sup> to (2<sup>63</sup> - 1).</item>
 </list>
 
-<para><b>Two's complement form</b>: In <b>two's-complement form</b>, positive 
+<para><b>Two's complement form</b>: In <i>two's-complement form</i>, positive 
 numbers have the highest (most significant) bit set to zero, and negative 
 numbers have that bit (and all bits beyond) set to one. To store a 
 negative number, decrease its absolute value by 1 and swap the 
@@ -538,7 +540,7 @@ bits of the resulting number.</para>
 
 <para><b>64-bit floating-point number</b>: A 64-bit binary floating-point number, in the form
 <i>significand</i> * 2<sup><i>exponent</i></sup>.  The significand is 53 bits long
-(Precision) and the exponent ranges from -1075 (EMin) to 971 (EMax). The number
+(Precision) and the exponent ranges from -1074 (EMin) to 971 (EMax). The number
 is stored in the following format (commonly called the IEEE 754 format):</para>
 
 <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code>
@@ -552,28 +554,28 @@ is stored in the following format (commonly called the IEEE 754 format):</para>
 or not-a-number (NaN) otherwise.</item>
 <item>If all bits are zeros, this is a subnormal number. The exponent is EMin and
 the highest bit of the significand is zero.</item>
-<item>If any other number, the exponent is this value plus EMin, and
+<item>If any other number, the exponent is this value reduced by 1, then raised by EMin, and
 the highest bit of the significand is one.</item>
 </list></item>
 <item>C. Highest bit: If one, this is a negative number.</item>
 </list>
+
+<para>The elements described above are in the same order as the order of each bit
+of each element, that is, either most significant first or least significant first.</para>
 
 <para><b>32-bit floating-point number</b>: A 32-bit binary number which
 is stored similarly to a <i>64-bit floating-point number</i>, except that:</para>
 
 <list>
 <item>Precision is 24 bits.</item>
-<item>EMin is -150.</item>
+<item>EMin is -149.</item>
 <item>EMax is 104.</item>
 <item>A. The low 23 bits (Precision minus 1 bits) are the lowest bits of the significand.</item>
 <item>B. The next 8 bits are the exponent area.</item>
 <item>C. If the highest bit is one, this is a negative number.</item>
 </list>
 
-<para>The elements described above are in the same order as the order of each bit
-of each element, that is, either most significant first or least significant first.</para>
-
-<para><b>Common Language Infrastructure decimal</b>: A 128-bit decimal floating-point
+<para><b>.NET Framework decimal</b>: A 128-bit decimal floating-point
 number, in the form <i>significand</i> * 10<sup>-<i>scale</i></sup>, where the scale
 ranges from 0 to 28. The number is stored in the following format:</para>
 
@@ -1286,6 +1288,11 @@ of each element, that is, either most significant first or least significant fir
             <value>This object&#x27;s exponent. This object&#x27;s value will
             be an integer if the exponent is positive or zero.</value>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromByte(System.Byte)">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>This number's value as an arbitrary-precision decimal number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromDecimal(System.Decimal)">
 <summary>Not documented yet.</summary>
             <param name='dec'>The parameter <paramref name='dec'/> is not
@@ -1332,6 +1339,11 @@ of each element, that is, either most significant first or least significant fir
             documented yet.</param>
             <returns>An EDecimal object.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision decimal number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromInt32(System.Int32)">
 <summary>Creates a decimal number from a 32-bit signed
             integer.</summary>
@@ -1345,6 +1357,11 @@ of each element, that is, either most significant first or least significant fir
             <param name='valueSmall'>A 64-bit signed integer.</param>
             <returns>An arbitrary-precision decimal number with the exponent
             set to 0.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromSByte(System.SByte)">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromSingle(System.Single)">
 <summary>Creates a decimal number from a 32-bit binary
@@ -1417,7 +1434,7 @@ of each element, that is, either most significant first or least significant fir
             <para>The format of the string generally consists of:</para>
             <list type=''>
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
-            U+002D) (if '-' , the value is negative.)</item>
+            U+002D) (if the minus sign, the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
             after the first digit and before the last digit.</item>
             <item>Optionally, "E"/"e" followed by an optional (positive
@@ -1450,6 +1467,21 @@ of each element, that is, either most significant first or least significant fir
             <paramref name='str'/> is null.</exception>
             <exception cref='T:System.FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
             string.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromUInt16(System.UInt16)">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>This number's value as an arbitrary-precision decimal number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromUInt32(System.UInt32)">
+<summary>Converts a 32-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision decimal number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromUInt64(System.UInt64)">
+<summary>Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.</param>
+            <returns>This number's value as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.GetHashCode">
 <summary>Calculates this object&#x27;s hash code.</summary>
@@ -2403,12 +2435,12 @@ of each element, that is, either most significant first or least significant fir
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to an integer, without adding the
-            <c>FlagInexact</c> or FlagRounded flags.</summary>
+            <c>FlagInexact</c> or <c>FlagRounded</c> flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags), except that this
-            function will never add the FlagRounded and <c>FlagInexact</c>
+            function will never add the <c>FlagRounded</c> and <c>FlagInexact</c>
             flags (the only difference between this and RoundToExponentExact).
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
@@ -2441,12 +2473,12 @@ of each element, that is, either most significant first or least significant fir
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a decimal number with the same value as this
             object but rounded to an integer, without adding the
-            <c>FlagInexact</c> or FlagRounded flags.</summary>
+            <c>FlagInexact</c> or <c>FlagRounded</c> flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags), except that this
-            function will never add the FlagRounded and <c>FlagInexact</c>
+            function will never add the <c>FlagRounded</c> and <c>FlagInexact</c>
             flags (the only difference between this and RoundToExponentExact).
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
@@ -2580,6 +2612,26 @@ of each element, that is, either most significant first or least significant fir
 <doc name="F:PeterO.Numbers.EDecimal.Ten">
 <summary>Represents the number 10.</summary>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToByteChecked">
+<summary>Converts this number's value to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToByteIfExact">
+<summary>Converts this number's value to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.</summary>
+            <returns>This number's value as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a byte (from 0 to 255) without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToByteUnchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).</summary>
+            <returns>This number, converted to a byte (from 0 to 255).  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToDouble">
 <summary>Converts this value to its closest equivalent as a 64-bit
             floating-point number. The half-even rounding mode is used.
@@ -2640,44 +2692,90 @@ of each element, that is, either most significant first or least significant fir
             approximation of this decimal number's value.</summary>
             <returns>An arbitrary-precision binary float.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt16Checked">
+<summary>Converts this number's value to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt16IfExact">
+<summary>Converts this number's value to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 16-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.</summary>
+            <returns>This number, converted to a 16-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Checked">
-<summary>Converts this number to a 32-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 32-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 32-bit signed
-            integer.</exception>
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt32IfExact">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked">
-<summary>Converts this number to a 32-bit signed integer.
-If this value is not exactly a 32-bit integer, truncates the value
-to an integer and returns the lowest 32 bits of its two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in which
-            case the return value might have a different sign than this
-            object's value).</summary>
-            <returns>A 32-bit signed integer.  Returns 0 if this
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.</summary>
+            <returns>This number, converted to a 32-bit signed integer.  Returns 0 if this
             value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Checked">
-<summary>Converts this number to a 64-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 64-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 64-bit signed
-            integer.</exception>
+<summary>Converts this number's value to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToInt64IfExact">
+<summary>Converts this number's value to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 64-bit signed integer without rounding to a different numerical value.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
-<summary>Converts this number to a 64-bit signed integer.
-If this value is not exactly a 64-bit integer, truncates the value
-to an integer and returns the lowest 64 bits of its two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in which
-            case the return value might have a different sign than this
-            object's value).</summary>
-            <returns>A 64-bit signed integer.  Returns 0 if this
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.</summary>
+            <returns>This number, converted to a 64-bit signed integer.  Returns 0 if this
             value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToPlainString">
 <summary>Converts this value to a string, but without using
             exponential notation.</summary>
             <returns>A text string.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToSByteChecked">
+<summary>Converts this number's value to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToSByteIfExact">
+<summary>Converts this number's value to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in an 8-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToSByteUnchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.</summary>
+            <returns>This number, converted to an 8-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToSingle">
 <summary>Converts this value to its closest equivalent as a 32-bit
@@ -2702,6 +2800,66 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             or if the number's first nonzero digit is more than five digits
             after the decimal point.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt16Checked">
+<summary>Converts this number's value to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt16IfExact">
+<summary>Converts this number's value to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 16-bit unsigned integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt16Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.</summary>
+            <returns>This number, converted to a 16-bit unsigned integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt32Checked">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt32IfExact">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt32Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.</summary>
+            <returns>This number, converted to a 32-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt64Checked">
+<summary>Converts this number's value to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt64IfExact">
+<summary>Converts this number's value to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 64-bit unsigned integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToUInt64Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.</summary>
+            <returns>This number, converted to a 64-bit unsigned integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.Ulp">
 <summary>Returns the unit in the last place. The mantissa
             (significand) will be 1 and the exponent will be this number's
@@ -2719,23 +2877,29 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 <summary>Represents the number 0.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Addition(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
-<summary>Not documented yet.</summary>
-            <param name='bthis'>The parameter <paramref name='bthis'/> is not
+<summary>Adds this object and another decimal number and returns
+            the result.</summary>
+            <param name='otherValue'>An arbitrary-precision decimal
+            number.</param>
+            <returns>The sum of the two objects.</returns>
+<param name='bthis'>The parameter <paramref name='bthis'/> is not
             documented yet.</param>
             <param name='augend'>The parameter <paramref name='augend'/> is not
             documented yet.</param>
-            <returns>An EDecimal object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='bthis'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
-<summary>Not documented yet.</summary>
-            <param name='dividend'>The number that will be divided by the
+<summary>Divides this object by another decimal number and returns
+            the result. When possible, the result will be exact.</summary>
+            <param name='divisor'>An arbitrary-precision decimal number to
+            divide by.</param>
+            <returns>The quotient of the two numbers. Returns infinity if the
+            divisor is 0 and the dividend is nonzero. Returns not-a-number
+            (NaN) if the divisor and the dividend are 0. Returns NaN if the
+            result can't be exact because it would have a nonterminating
+            decimal expansion.</returns>
+<param name='dividend'>The number that will be divided by the
             divisor.</param>
             <param name='divisor'>The number to divide by.</param>
-            <returns>An EDecimal object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.EInteger">
 <summary>Converts this value to an arbitrary-precision integer. Any
@@ -2746,18 +2910,19 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             infinity or not-a-number (NaN).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte">
-<summary>Converts this number to a byte (from 0 to 255), if
-            possible, without truncating or rounding it.</summary>
-            <returns>A byte (from 0 to 255).</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a byte (from 0 to 255).</exception>
+<summary>Converts an arbitrary-precision decimal number to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal">
 <summary>Converts an arbitrary-precision decimal's value to a
-            Common Language Infrastructure (.NET Framework) decimal (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>), using the
+  .NET Framework decimal (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>), using the
             half-even rounding mode.</summary>
             <param name='bigValue'>An EDecimal object.</param>
-            <returns>A Decimal object.</returns>
+            <returns>A .NET Framework decimal.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double">
 <summary>Converts this value to its closest equivalent as a 64-bit
@@ -2775,28 +2940,36 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16">
-<summary>Converts this number to a 16-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 16-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 16-bit signed
-            integer.</exception>
+<summary>Converts an arbitrary-precision decimal number to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32">
-<summary>Converts this number to a 32-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 32-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 32-bit signed
-            integer.</exception>
+<summary>Converts an arbitrary-precision decimal number to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64">
-<summary>Converts this number to a 64-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 64-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 64-bit signed
-            integer.</exception>
+<summary>Converts an arbitrary-precision decimal number to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.SByte">
+<summary>Converts an arbitrary-precision decimal number to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single">
 <summary>Converts this value to its closest equivalent as a 32-bit
@@ -2813,15 +2986,29 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             this value exceeds the range of a 32-bit floating point
             number.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt16">
+<summary>Converts an arbitrary-precision decimal number to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt32">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 32-bit unsigned integer.</returns><summary>Not documented yet.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 32-bit unsigned integer.</returns>
-        
+<summary>Converts an arbitrary-precision decimal number to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt64">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 64-bit unsigned integer.</returns><summary>Not documented yet.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 64-bit unsigned integer.</returns>
-        
+<summary>Converts an arbitrary-precision decimal number to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal">
 <summary>Converts an arbitrary-precision integer to an arbitrary
@@ -2830,35 +3017,51 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <returns>An arbitrary-precision decimal number with the exponent
             set to 0.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Byte)~PeterO.Numbers.EDecimal">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>The value of <paramref name='inputByte'/> as an arbitrary-precision decimal number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal">
-<summary>Converts a Common Language Infrastructure (.NET Framework)
+<summary>Converts a .NET Framework
             decimal  (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) to an arbitrary-precision decimal.</summary>
-            <param name='dec'>A Common Language Infrastructure decimal.</param>
+            <param name='dec'>A .NET Framework decimal.</param>
             <returns>An EDecimal object.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int16)~PeterO.Numbers.EDecimal">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt16'/> as an arbitrary-precision decimal number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal">
-<summary>Creates a decimal number from a 32-bit signed
-            integer.</summary>
-            <param name='smallValue'>A 32-bit signed integer.</param>
-            <returns>An arbitrary-precision decimal number with the exponent
-            set to 0.</returns>
+<summary>Converts a 32-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt32'/> as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal">
-<summary>Creates a decimal number from a 64-bit signed
-            integer.</summary>
-            <param name='bigValue'>A 64-bit signed integer.</param>
-            <returns>An arbitrary-precision decimal number with the exponent
-            set to 0.</returns>
+<summary>Converts a 64-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputInt64'>The number to convert as a 64-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt64'/> as an arbitrary-precision decimal number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.SByte)~PeterO.Numbers.EDecimal">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>The value of <paramref name='inputSByte'/> as an arbitrary-precision decimal number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt16)~PeterO.Numbers.EDecimal">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt16'/> as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt32)~PeterO.Numbers.EDecimal">
-
-            <param name='smallValue'>The parameter <paramref name='smallValue'/> is not documented yet.</param><returns>An EDecimal object.</returns>
-        
+<summary>Converts a 32-bit signed integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputUInt32'/> as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt64)~PeterO.Numbers.EDecimal">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>An EDecimal object.</returns>
-        
+<summary>Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.</summary>
+            <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt64'/> as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 <summary>Not documented yet.</summary>
@@ -2870,19 +3073,24 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
-<summary>Not documented yet.</summary>
-            <param name='operand1'>The first operand.</param>
+<summary>Multiplies two decimal numbers. The resulting exponent
+            will be the sum of the exponents of the two decimal
+            numbers.</summary>
+            <param name='otherValue'>Another decimal number.</param>
+            <returns>The product of the two decimal numbers.</returns>
+<param name='operand1'>The first operand.</param>
             <param name='operand2'>The second operand.</param>
-            <returns>An EDecimal object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='operand1'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Subtraction(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
-
-            <summary>Not documented yet.</summary><param name='bthis'>The parameter <paramref name='bthis'/> is not
-            documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param><returns>An EDecimal object.</returns><exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='bthis'/> is null.</exception>
-        
+<summary>Subtracts an arbitrary-precision decimal number from this
+            instance and returns the result.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <returns>The difference of the two objects.</returns>
+<param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='bthis'>The parameter <paramref name='bthis'/> is not
+            documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)">
 
@@ -2937,7 +3145,7 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <para>Instances of this class are immutable, so they are inherently
             safe for use by multiple threads. Multiple instances of this object
             with the same properties are interchangeable, so they should not be
-            compared using the "==" operator (which only checks if each side of
+            compared using the "==" operator (which might only check if each side of
             the operator is the same instance).</para>
             <para><b>Comparison considerations</b></para>
             <para>This class's natural ordering (under the CompareTo method) is
@@ -3534,6 +3742,11 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <value>This object&#x27;s exponent. This object&#x27;s value will
             be an integer if the exponent is positive or zero.</value>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.FromByte(System.Byte)">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.FromDouble(System.Double)">
 <summary>Creates a binary float from a 64-bit floating-point
             number. This method computes the exact value of the floating point
@@ -3548,19 +3761,25 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <param name='bigint'>An arbitrary-precision integer.</param>
             <returns>An arbitrary-precision binary float.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.FromInt16(System.Int16)">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)">
-<summary>Creates a binary float from a 32-bit signed
-            integer.</summary>
-            <param name='valueSmaller'>A 32-bit signed integer.</param>
-            <returns>An arbitrary-precision binary float with the exponent set
-            to 0.</returns>
+<summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)">
-<summary>Converts a 64-bit integer to the same value as a binary
-            float.</summary>
-            <param name='valueSmall'>A 64-bit signed integer.</param>
-            <returns>An arbitrary-precision binary float with the exponent set
-            to 0.</returns>
+<summary>Converts a 64-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputInt64'>The number to convert as a 64-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.FromSByte(System.SByte)">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromSingle(System.Single)">
 <summary>Creates a binary float from a 32-bit floating-point
@@ -3572,7 +3791,7 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
 
-            <param name='str'>The parameter <paramref name='str'/> is not documented yet.</param><returns>An EFloat object.</returns><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary>
+            <param name='str'>The parameter <paramref name='str'/> is not documented yet.</param><returns>An EFloat object.</returns><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary>
             <summary>Not documented yet.</summary>
         
 </doc>
@@ -3644,6 +3863,21 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <exception cref='T:System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='str'/> 's length, or <paramref name='str'/> ' s length minus <paramref name='offset'/> is less
             than <paramref name='length'/>.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.FromUInt16(System.UInt16)">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary float.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.FromUInt32(System.UInt32)">
+<summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.FromUInt64(System.UInt64)">
+<summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary float.</summary>
+            <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.</param>
+            <returns>This number's value as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.GetHashCode">
 <summary>Calculates this object&#x27;s hash code.</summary>
@@ -4502,12 +4736,12 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a binary float with the same value as this
             object but rounded to an integer, without adding the
-            <c>FlagInexact</c> or FlagRounded flags.</summary>
+            <c>FlagInexact</c> or <c>FlagRounded</c> flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags), except that this
-            function will never add the FlagRounded and <c>FlagInexact</c>
+            function will never add the <c>FlagRounded</c> and <c>FlagInexact</c>
             flags (the only difference between this and RoundToExponentExact).
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
@@ -4540,12 +4774,12 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)">
 <summary>Returns a binary float with the same value as this
             object but rounded to an integer, without adding the
-            <c>FlagInexact</c> or FlagRounded flags.</summary>
+            <c>FlagInexact</c> or <c>FlagRounded</c> flags.</summary>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags), except that this
-            function will never add the FlagRounded and <c>FlagInexact</c>
+            function will never add the <c>FlagRounded</c> and <c>FlagInexact</c>
             flags (the only difference between this and RoundToExponentExact).
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
@@ -4677,6 +4911,26 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 <doc name="F:PeterO.Numbers.EFloat.Ten">
 <summary>Represents the number 10.</summary>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.ToByteChecked">
+<summary>Converts this number's value to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToByteIfExact">
+<summary>Converts this number's value to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.</summary>
+            <returns>This number's value as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a byte (from 0 to 255) without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToByteUnchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).</summary>
+            <returns>This number, converted to a byte (from 0 to 255).  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.ToDouble">
 <returns>A 64-bit floating-point number.</returns>
 </doc>
@@ -4713,38 +4967,90 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             number.</summary>
             <returns>An arbitrary-precision decimal number.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt16Checked">
+<summary>Converts this number's value to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt16IfExact">
+<summary>Converts this number's value to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 16-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt16Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.</summary>
+            <returns>This number, converted to a 16-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt32Checked">
-<summary>Converts this value to a 32-bit signed integer, throwing
-            an exception if the value can't fit.</summary>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt32IfExact">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt32Unchecked">
-<summary>Converts this number to a 32-bit signed integer.
-If this value is not exactly a 32-bit integer, truncates the value
-to an integer and returns the lowest 32 bits of its two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in which
-            case the return value might have a different sign than this
-            object's value).</summary>
-            <returns>A 32-bit signed integer.  Returns 0 if this
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.</summary>
+            <returns>This number, converted to a 32-bit signed integer.  Returns 0 if this
             value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt64Checked">
-<summary>Converts this value to a 64-bit signed integer, throwing
-            an exception if the value can't fit.</summary>
-            <returns>A 64-bit signed integer.</returns>
+<summary>Converts this number's value to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToInt64IfExact">
+<summary>Converts this number's value to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 64-bit signed integer without rounding to a different numerical value.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt64Unchecked">
-<summary>Converts this number to a 64-bit signed integer.
-If this value is not exactly a 64-bit integer, truncates the value
-to an integer and returns the lowest 64 bits of its two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in which
-            case the return value might have a different sign than this
-            object's value).</summary>
-            <returns>A 64-bit signed integer.  Returns 0 if this
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.</summary>
+            <returns>This number, converted to a 64-bit signed integer.  Returns 0 if this
             value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToPlainString">
 <summary>Converts this value to a string, but without exponential
             notation.</summary>
             <returns>A text string.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToSByteChecked">
+<summary>Converts this number's value to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToSByteIfExact">
+<summary>Converts this number's value to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in an 8-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToSByteUnchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.</summary>
+            <returns>This number, converted to an 8-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToShortestString(PeterO.Numbers.EContext)">
 <summary>Returns a string representation of this number's value
@@ -4790,6 +5096,66 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             nonzero decimal digit is more than five digits after the decimal
             point.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt16Checked">
+<summary>Converts this number's value to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt16IfExact">
+<summary>Converts this number's value to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 16-bit unsigned integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt16Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.</summary>
+            <returns>This number, converted to a 16-bit unsigned integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt32Checked">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt32IfExact">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt32Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.</summary>
+            <returns>This number, converted to a 32-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt64Checked">
+<summary>Converts this number's value to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt64IfExact">
+<summary>Converts this number's value to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 64-bit unsigned integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToUInt64Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.</summary>
+            <returns>This number, converted to a 64-bit unsigned integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.Ulp">
 <summary>Returns the unit in the last place. The mantissa
             (significand) will be 1 and the exponent will be this number's
@@ -4807,23 +5173,28 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 <summary>Represents the number 0.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
-<summary>Not documented yet.</summary>
-            <param name='bthis'>The parameter <paramref name='bthis'/> is not
+<summary>Adds this object and another binary float and returns
+            the result.</summary>
+            <param name='otherValue'>An arbitrary-precision binary float.</param>
+            <returns>The sum of the two objects.</returns>
+<param name='bthis'>The parameter <paramref name='bthis'/> is not
             documented yet.</param>
             <param name='augend'>The parameter <paramref name='augend'/> is not
             documented yet.</param>
-            <returns>An EFloat object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='bthis'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
-<summary>Not documented yet.</summary>
-            <param name='dividend'>The number that will be divided by the
+<summary>Divides this object by another binary float and returns
+            the result. When possible, the result will be exact.</summary>
+            <param name='divisor'>An arbitrary-precision binary float to
+            divide by.</param>
+            <returns>The quotient of the two numbers. Returns infinity if the
+            divisor is 0 and the dividend is nonzero. Returns not-a-number
+            (NaN) if the divisor and the dividend are 0. Returns NaN if the
+            result can't be exact because it would have a nonterminating
+            binary expansion.</returns>
+<param name='dividend'>The number that will be divided by the
             divisor.</param>
             <param name='divisor'>The number to divide by.</param>
-            <returns>An EFloat object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger">
 <summary>Converts this value to an arbitrary-precision integer. Any
@@ -4834,11 +5205,12 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             infinity or not-a-number (NaN).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte">
-<summary>Converts this number to a byte (from 0 to 255), if
-            possible, without truncating or rounding it.</summary>
-            <returns>A byte (from 0 to 255).</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a byte (from 0 to 255).</exception>
+<summary>Converts an arbitrary-precision binary float to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double">
 <summary>Converts this value to its closest equivalent as a 64-bit
@@ -4856,28 +5228,36 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16">
-<summary>Converts this number to a 16-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 16-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 16-bit signed
-            integer.</exception>
+<summary>Converts an arbitrary-precision binary float to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32">
-<summary>Converts this number to a 32-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 32-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 32-bit signed
-            integer.</exception>
+<summary>Converts an arbitrary-precision binary float to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64">
-<summary>Converts this number to a 64-bit signed integer, if
-            possible, without truncating or rounding it.</summary>
-            <returns>A 64-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This number's value is
-            infinity, not-a-number, or doesn't fit into a 64-bit signed
-            integer.</exception>
+<summary>Converts an arbitrary-precision binary float to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.SByte">
+<summary>Converts an arbitrary-precision binary float to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single">
 <summary>Converts this value to its closest equivalent as a 32-bit
@@ -4894,15 +5274,29 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             this value exceeds the range of a 32-bit floating point
             number.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt16">
+<summary>Converts an arbitrary-precision binary float to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt32">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 32-bit unsigned integer.</returns><summary>Not documented yet.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 32-bit unsigned integer.</returns>
-        
+<summary>Converts an arbitrary-precision binary float to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt64">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 64-bit unsigned integer.</returns><summary>Not documented yet.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 64-bit unsigned integer.</returns>
-        
+<summary>Converts an arbitrary-precision binary float to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat">
 <summary>Converts an arbitrary-precision integer to an arbitrary
@@ -4910,6 +5304,11 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <param name='eint'>An EInteger object.</param>
             <returns>An arbitrary-precision binary float with the exponent
             set to 0.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.Byte)~PeterO.Numbers.EFloat">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>The value of <paramref name='inputByte'/> as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat">
 <summary>Creates a binary float from a 64-bit floating-point
@@ -4919,19 +5318,25 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <param name='dbl'>A 64-bit floating-point number.</param>
             <returns>A binary float with the same value as <paramref name='dbl'/>.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int16)~PeterO.Numbers.EFloat">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt16'/> as an arbitrary-precision binary float.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat">
-<summary>Creates a binary float from a 32-bit signed
-            integer.</summary>
-            <param name='smallValue'>A 32-bit signed integer.</param>
-            <returns>An arbitrary-precision binary float with the exponent
-            set to 0.</returns>
+<summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt32'/> as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat">
-<summary>Creates a binary float from a 64-bit signed
-            integer.</summary>
-            <param name='bigValue'>A 64-bit signed integer.</param>
-            <returns>An arbitrary-precision binary float with the exponent
-            set to 0.</returns>
+<summary>Converts a 64-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputInt64'>The number to convert as a 64-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt64'/> as an arbitrary-precision binary float.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.SByte)~PeterO.Numbers.EFloat">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>The value of <paramref name='inputSByte'/> as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat">
 <summary>Creates a binary float from a 32-bit floating-point
@@ -4941,15 +5346,20 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <param name='flt'>A 32-bit floating-point number.</param>
             <returns>A binary float with the same value as <paramref name='flt'/>.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt16)~PeterO.Numbers.EFloat">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary float.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt16'/> as an arbitrary-precision binary float.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt32)~PeterO.Numbers.EFloat">
-
-            <param name='smallValue'>The parameter <paramref name='smallValue'/> is not documented yet.</param><returns>An EFloat object.</returns>
-        
+<summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputUInt32'/> as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt64)~PeterO.Numbers.EFloat">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>An EFloat object.</returns>
-        
+<summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary float.</summary>
+            <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt64'/> as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 <summary>Not documented yet.</summary>
@@ -4961,19 +5371,23 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
-<summary>Not documented yet.</summary>
-            <param name='operand1'>The first operand.</param>
+<summary>Multiplies two binary floats. The resulting exponent
+            will be the sum of the exponents of the two binary floats.</summary>
+            <param name='otherValue'>Another binary float.</param>
+            <returns>The product of the two binary floats.</returns>
+<param name='operand1'>The first operand.</param>
             <param name='operand2'>The second operand.</param>
-            <returns>An EFloat object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='operand1'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
-
-            <summary>Not documented yet.</summary><param name='bthis'>The parameter <paramref name='bthis'/> is not
-            documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param><returns>An EFloat object.</returns><exception cref='T:System.ArgumentNullException'>The parameter
-            <paramref name='bthis'/> is null.</exception>
-        
+<summary>Subtracts an arbitrary-precision binary float from this
+            instance and returns the result.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <returns>The difference of the two objects.</returns>
+<param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='bthis'>The parameter <paramref name='bthis'/> is not
+            documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)">
 
@@ -4984,7 +5398,7 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
         
 </doc>
 <doc name="T:PeterO.Numbers.EInteger">
-<summary>An arbitrary-precision integer. (The "E" stands for
+<summary>Represents an arbitrary-precision integer. (The "E" stands for
             "extended", and has this prefix to group it with the other classes
             common to this library, particularly EDecimal, EFloat, and
             ERational.)
@@ -5128,6 +5542,11 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <returns><c>true</c> if this object and another object are equal;
             otherwise, false .</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.FromByte(System.Byte)">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision integer.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>This number's value as an arbitrary-precision integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)">
 <summary>Initializes an arbitrary-precision integer from an array
             of bytes.</summary>
@@ -5160,6 +5579,11 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             array's length is 0.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bytes'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)">
 <summary>Converts a 32-bit signed integer to an arbitrary-precision
@@ -5237,6 +5661,11 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <exception cref='T:System.FormatException'>The string portion is
             empty or in an invalid format.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.FromSByte(System.SByte)">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.FromString(System.String)">
 <summary>Converts a string to an arbitrary-precision
             integer.</summary>
@@ -5274,6 +5703,16 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <exception cref='T:System.FormatException'>The string portion is
             empty or in an invalid format.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.FromUInt16(System.UInt16)">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision integer.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>This number's value as an arbitrary-precision integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.FromUInt32(System.UInt32)">
+<summary>Converts a 32-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)">
 <summary>Returns the greatest common divisor of two integers. The
             greatest common divisor (GCD) is also known as the greatest common
@@ -5285,15 +5724,13 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <paramref name='bigintSecond'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)">
-
-            <summary>Retrieves bits from this integer's two's-complement form.</summary><param name='index'>
+<summary>Retrieves bits from this integer's two's-complement form.</summary><param name='index'>
             Zero-based index of the first bit to retrieve, where 0 is the least-significant
             bit of the number.</param><param name='numberBits'>
             The number of bits to retrieve, starting with the first.  Must be from 0 through 64.</param>
             <returns>A 64-bit signed integer containing the bits from this
             integer's two's-complement form.  The least significant bit is the first bit, and any
             unused bits are set to 0.</returns>
-        
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetDigitCount">
 <returns>A 32-bit signed integer.</returns>
@@ -5589,9 +6026,19 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             integer.</summary>
             <value>The number 10 as an arbitrary-precision integer.</value>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.ToByteChecked">
+<summary>Converts this number's value to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255).</summary>
+            <returns>This number's value as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>This value is outside the range of a byte (from 0 to 255).</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToByteUnchecked">
+<summary>Converts this number to a byte (from 0 to 255), returning the least-significant bits of this number's two's-complement form.</summary>
+            <returns>This number, converted to a byte (from 0 to 255).</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)">
 <summary>Returns a byte array of this integer&#x27;s value. The
-            byte array will take the form of the number's two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>), using the fewest bytes necessary to store its value
+            byte array will take the number's two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>), using the fewest bytes necessary to store its value
             unambiguously. If this value is negative, the bits that appear
             beyond the most significant bit of the number will be all ones. The
             resulting byte array can be passed to the <c>FromBytes()</c> method
@@ -5602,6 +6049,16 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             order is big-endian, or most-significant-byte first.</param>
             <returns>A byte array. If this value is 0, returns a byte array
             with the single element 0.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToInt16Checked">
+<summary>Converts this number's value to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is outside the range of a 16-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToInt16Unchecked">
+<summary>Converts this number to a 16-bit signed integer, returning the least-significant bits of this number's two's-complement form.</summary>
+            <returns>This number, converted to a 16-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt32Checked">
 <summary>Converts this object's value to a 32-bit signed integer,
@@ -5641,7 +6098,8 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             decimal (base-10) string, specify 10.</param>
             <returns>A string representing the value of this object. If this
             value is 0, returns "0". If negative, the string will begin with a
-            hyphen/minus ("-"). Depending on the radix, the string will use the
+            minus sign ("-",
+            U+002D). Depending on the radix, the string will use the
             basic digits 0 to 9 (U+0030 to U+0039) and then the basic
             letters A to Z (U+0041 to U+005A). For example, 0-9 in radix
             10, and 0-9, then A-F in radix 16.</returns>
@@ -5650,12 +6108,52 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             than the string's length, or "endIndex" is less than "index" ; or
             radix is less than 2 or greater than 36.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.ToSByteChecked">
+<summary>Converts this number's value to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer.</summary>
+            <returns>This number's value as an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is outside the range of an 8-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToSByteUnchecked">
+<summary>Converts this number to an 8-bit signed integer, returning the least-significant bits of this number's two's-complement form.</summary>
+            <returns>This number, converted to an 8-bit signed integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.ToString">
 <summary>Converts this object to a text string in base
             10.</summary>
             <returns>A string representation of this object. If negative, the
             string will begin with a minus sign ("-", U+002D). The string will
             use the basic digits 0 to 9 (U+0030 to U+0039).</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToUInt16Checked">
+<summary>Converts this number's value to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer.</summary>
+            <returns>This number's value as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is outside the range of a 16-bit unsigned integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToUInt16Unchecked">
+<summary>Converts this number to a 16-bit unsigned integer, returning the least-significant bits of this number's two's-complement form.</summary>
+            <returns>This number, converted to a 16-bit unsigned integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToUInt32Checked">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer.</summary>
+            <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is outside the range of a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToUInt32Unchecked">
+<summary>Converts this number to a 32-bit signed integer, returning the least-significant bits of this number's two's-complement form.</summary>
+            <returns>This number, converted to a 32-bit signed integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToUInt64Checked">
+<summary>Converts this number's value to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer.</summary>
+            <returns>This number's value as a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.ToUInt64Unchecked">
+<summary>Converts this number to a 64-bit signed integer, returning the least-significant bits of this number's two's-complement form.</summary>
+            <returns>This number, converted to a 64-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Finds the exclusive "or" of two arbitrary-precision
@@ -5873,16 +6371,27 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <paramref name='bthis'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_BitwiseAnd(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-
-            <summary>Not documented yet.</summary><param name='thisValue'>The parameter <paramref name='thisValue'/>
-            is not documented yet.</param><param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param><returns>An EInteger object.</returns>
-        
+<summary>Does an AND operation between two arbitrary-precision
+            integer values.</summary>
+            <param name='a'>The first arbitrary-precision integer.</param>
+            <param name='b'>The second arbitrary-precision integer.</param>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='a'/> or <paramref name='b'/> is null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for the purposes of this
+            operator.</remarks>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_BitwiseOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-
-            <summary>Not documented yet.</summary><param name='thisValue'>The parameter <paramref name='thisValue'/>
-            is not documented yet.</param><param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param><returns>An EInteger object.</returns>
-        
+<summary>Does an OR operation between two arbitrary-precision
+            integer instances.</summary>
+            <param name='first'>Another arbitrary-precision integer.</param>
+            <param name='second'>An arbitrary-precision integer. (3).</param>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='first'/> or <paramref name='second'/> is
+            null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for the purposes of this
+            operator.</remarks>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Division(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Divides an arbitrary-precision integer by the value of an
@@ -5895,52 +6404,80 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_ExclusiveOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-
-            <summary>Not documented yet.</summary><param name='thisValue'>The parameter <paramref name='thisValue'/>
-            is not documented yet.</param><param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param><returns>An EInteger object.</returns>
-        
+<summary>Finds the exclusive "or" of two arbitrary-precision
+            integer objects.
+            <para>Each arbitrary-precision integer is treated as a two's-complement form (see <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for the purposes of this
+            operator.</para></summary>
+            <param name='a'>The first arbitrary-precision integer.</param>
+            <param name='b'>The second arbitrary-precision integer.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            it's set in one input integer but not the other.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='a'/> or <paramref name='b'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte">
-<summary>Converts this object's value to a byte (from 0 to 255),
-            throwing an exception if it can't fit.</summary>
-            <returns>A byte (from 0 to 255).</returns>
-            <exception cref='T:System.OverflowException'>This object's value is
-            too big to fit a byte (from 0 to 255).</exception>
+<summary>Converts an arbitrary-precision integer to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255).</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of a byte (from 0 to 255).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16">
-<summary>Converts this object's value to a 16-bit signed integer,
-            throwing an exception if it can't fit.</summary>
-            <returns>A 16-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This object's value is
-            too big to fit a 16-bit signed integer.</exception>
+<summary>Converts an arbitrary-precision integer to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of a 16-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32">
-<summary>Converts the value of an arbitrary-precision integer to a
-            32-bit signed integer.</summary>
-            <param name='bigValue'>An arbitrary-precision integer.</param>
-            <returns>A 32-bit signed integer with the same value as the
-            arbitrary-precision integer.</returns>
-            <exception cref='T:System.OverflowException'>This object's value is
-            too big to fit a 32-bit signed integer.</exception>
+<summary>Converts an arbitrary-precision integer to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int64">
-<summary>Converts the value of an arbitrary-precision integer to a
-            64-bit signed integer.</summary>
-            <param name='bigValue'>An arbitrary-precision integer.</param>
-            <returns>A 64-bit signed integer with the same value as the
-            arbitrary-precision integer.</returns>
-            <exception cref='T:System.OverflowException'>This object's value is
-            too big to fit a 64-bit signed integer.</exception>
+<summary>Converts an arbitrary-precision integer to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.SByte">
+<summary>Converts an arbitrary-precision integer to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of an 8-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt16">
+<summary>Converts an arbitrary-precision integer to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of a 16-bit unsigned integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt32">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 32-bit unsigned integer.</returns>
-        
+<summary>Converts an arbitrary-precision integer to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt64">
-
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>A 64-bit unsigned integer.</returns>
-        
+<summary>Converts an arbitrary-precision integer to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision integer.</param>
+            <returns>The value of <paramref name='input'/> as a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
+            is outside the range of a 64-bit unsigned integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_GreaterThan(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Determines whether an arbitrary-precision integer is
@@ -5961,29 +6498,45 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             integer.</param>
             <returns><c>true</c> if <paramref name='thisValue'/> is at least <paramref name='otherValue'/> ; otherwise, false .</returns>
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.Byte)~PeterO.Numbers.EInteger">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision integer.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>The value of <paramref name='inputByte'/> as an arbitrary-precision integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int16)~PeterO.Numbers.EInteger">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt16'/> as an arbitrary-precision integer.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int32)~PeterO.Numbers.EInteger">
-<summary>Converts the value of a 32-bit signed integer to
-            arbitrary-precision integer.</summary>
-            <param name='smallValue'>A 32-bit signed integer.</param>
-            <returns>An arbitrary-precision integer with the same value as the
-            Int32 object.</returns>
+<summary>Converts a 32-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt32'/> as an arbitrary-precision integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int64)~PeterO.Numbers.EInteger">
-<summary>Converts the value of a 64-bit signed integer to
-            arbitrary-precision integer.</summary>
-            <param name='bigValue'>A 64-bit signed integer.</param>
-            <returns>An arbitrary-precision integer with the same value as the
-            Int64 object.</returns>
+<summary>Converts a 64-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputInt64'>The number to convert as a 64-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt64'/> as an arbitrary-precision integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.SByte)~PeterO.Numbers.EInteger">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>The value of <paramref name='inputSByte'/> as an arbitrary-precision integer.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt16)~PeterO.Numbers.EInteger">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision integer.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt16'/> as an arbitrary-precision integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt32)~PeterO.Numbers.EInteger">
-
-            <param name='unsignedValue'>The parameter <paramref name='unsignedValue'/> is not documented yet.</param><returns>An EInteger object.</returns>
-        
+<summary>Converts a 32-bit signed integer to an arbitrary-precision integer.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputUInt32'/> as an arbitrary-precision integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt64)~PeterO.Numbers.EInteger">
-
-            <summary>Not documented yet.</summary><param name='ulongValue'>The parameter <paramref name='ulongValue'/> is not documented yet.</param><returns>An EInteger object.</returns>
-        
+<summary>Converts a 64-bit unsigned integer to an arbitrary-precision integer.</summary>
+            <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt64'/> as an arbitrary-precision integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_LeftShift(PeterO.Numbers.EInteger,System.Int32)">
 <summary>Not documented yet.</summary>
@@ -6177,7 +6730,7 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
     </summary>
 </doc>
 <doc name="T:PeterO.Numbers.ERational">
-<summary>Arbitrary-precision rational number. This class can't be
+<summary>Represents an arbitrary-precision rational number. This class can't be
             inherited. (The "E" stands for "extended", meaning that instances
             of this class can be values other than numbers proper, such as
             infinity and not-a-number.)
@@ -6185,7 +6738,7 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             so they are inherently safe for use by multiple threads. Multiple
             instances of this object with the same properties are
             interchangeable, so they should not be compared using the "=="
-            operator (which only checks if each side of the operator is the
+            operator (which might only check if each side of the operator is the
             same instance).</para></summary>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
@@ -6356,6 +6909,11 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <returns><c>true</c> if the objects are equal; otherwise, false
             .</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.FromByte(System.Byte)">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision rational number.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.FromDouble(System.Double)">
 <summary>Converts a 64-bit floating-point number to a rational
             number. This method computes the exact value of the floating point
@@ -6401,17 +6959,25 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='ef'/> is null.</exception>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.FromInt16(System.Int16)">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)">
-
-            <summary>Not documented yet.</summary><param name='smallint'>The parameter <paramref name='smallint'/> is
-            not documented yet.</param><returns>An arbitrary-precision rational number.</returns>
-        
+<summary>Converts a 32-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)">
-
-            <summary>Not documented yet.</summary><param name='longInt'>The parameter <paramref name='longInt'/> is
-            not documented yet.</param><returns>An arbitrary-precision rational number.</returns>
-        
+<summary>Converts a 64-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputInt64'>The number to convert as a 64-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromSByte(System.SByte)">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromSingle(System.Single)">
 <summary>Converts a 32-bit floating-point number to a rational
@@ -6465,6 +7031,21 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <paramref name='str'/> is null.</exception>
             <exception cref='T:System.FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
             string.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromUInt16(System.UInt16)">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision rational number.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromUInt32(System.UInt32)">
+<summary>Converts a 32-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromUInt64(System.UInt64)">
+<summary>Converts a 64-bit unsigned integer to an arbitrary-precision rational number.</summary>
+            <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.</param>
+            <returns>This number's value as an arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.GetHashCode">
 <summary>Returns the hash code for this instance.</summary>
@@ -6593,6 +7174,26 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 </doc>
 <doc name="F:PeterO.Numbers.ERational.Ten">
 <summary>The rational number ten.</summary>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToByteChecked">
+<summary>Converts this number's value to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToByteIfExact">
+<summary>Converts this number's value to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.</summary>
+            <returns>This number's value as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a byte (from 0 to 255) without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToByteUnchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).</summary>
+            <returns>This number, converted to a byte (from 0 to 255).  Returns 0 if this
+            value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToDouble">
 <summary>Converts this value to a 64-bit floating-point number. The
@@ -6753,6 +7354,86 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             (NaN) if the context is null and the result can't be exact because it has a nonterminating
             binary expansion.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt16Checked">
+<summary>Converts this number's value to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt16IfExact">
+<summary>Converts this number's value to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 16-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt16Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.</summary>
+            <returns>This number, converted to a 16-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt32Checked">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt32IfExact">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt32Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.</summary>
+            <returns>This number, converted to a 32-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt64Checked">
+<summary>Converts this number's value to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt64IfExact">
+<summary>Converts this number's value to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 64-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToInt64Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.</summary>
+            <returns>This number, converted to a 64-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToSByteChecked">
+<summary>Converts this number's value to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToSByteIfExact">
+<summary>Converts this number's value to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in an 8-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToSByteUnchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.</summary>
+            <returns>This number, converted to an 8-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.ToSingle">
 <summary>Converts this value to a 32-bit floating-point number. The
             half-even rounding mode is used.</summary>
@@ -6768,6 +7449,66 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             return value of the <c>EDecimal.ToString</c> method. Otherwise, the return
             value has the following form: <c>[-]numerator/denominator</c>.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt16Checked">
+<summary>Converts this number's value to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt16IfExact">
+<summary>Converts this number's value to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 16-bit unsigned integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt16Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.</summary>
+            <returns>This number, converted to a 16-bit unsigned integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt32Checked">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt32IfExact">
+<summary>Converts this number's value to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt32Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.</summary>
+            <returns>This number, converted to a 32-bit signed integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt64Checked">
+<summary>Converts this number's value to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
+            <returns>This number's value, truncated to a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt64IfExact">
+<summary>Converts this number's value to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.</summary>
+            <returns>This number's value as a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
+            or the number can't fit in a 64-bit unsigned integer without rounding to a different numerical value.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToUInt64Unchecked">
+<summary>Truncates this number's value to an integer
+            and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.</summary>
+            <returns>This number, converted to a 64-bit unsigned integer.  Returns 0 if this
+            value is infinity or not-a-number.</returns>
+</doc>
 <doc name="P:PeterO.Numbers.ERational.UnsignedNumerator">
 <summary>Gets this object's numerator with the sign
             removed.</summary>
@@ -6778,18 +7519,26 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
 <summary>A rational number for zero.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Addition(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Not documented yet.</summary>
-            <param name='bthis'>An ERational object.</param>
+<summary>Adds two rational numbers.</summary>
+            <param name='otherValue'>Another arbitrary-precision rational
+            number.</param>
+            <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+            either operand is NaN.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='otherValue'/> is null.</exception>
+<param name='bthis'>An ERational object.</param>
             <param name='augend'>An ERational object. (3).</param>
-            <returns>An ERational object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Division(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Not documented yet.</summary>
-            <param name='dividend'>An ERational object.</param>
+<summary>Divides this instance by the value of an
+            arbitrary-precision rational number object.</summary>
+            <param name='otherValue'>An arbitrary-precision rational
+            number.</param>
+            <returns>The quotient of the two objects.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='otherValue'/> is null.</exception>
+<param name='dividend'>An ERational object.</param>
             <param name='divisor'>An ERational object. (3).</param>
-            <returns>An ERational object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~PeterO.Numbers.EInteger">
 <summary>Converts this value to an arbitrary-precision integer. Any
@@ -6800,9 +7549,12 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             infinity or not-a-number (NaN).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Byte">
-<summary>Not documented yet.</summary>
-            <param name='bigValue'>An ERational object.</param>
-            <returns>A Byte object.</returns>
+<summary>Converts an arbitrary-precision rational number to a byte (from 0 to 255)
+            if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a byte (from 0 to 255).</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Decimal">
 <summary>Not documented yet.</summary>
@@ -6818,20 +7570,36 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16">
-<summary>Not documented yet.</summary>
-            <param name='bigValue'>An ERational object.</param>
-            <returns>A 16-bit signed integer.</returns>
+<summary>Converts an arbitrary-precision rational number to a 16-bit signed integer
+            if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 16-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32">
-<summary>Not documented yet.</summary>
-            <param name='bigValue'>An ERational object.</param>
-            <returns>A 32-bit signed integer.</returns>
+<summary>Converts an arbitrary-precision rational number to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int64">
-<summary>Not documented yet.</summary>
-            <param name='bigValue'>An ERational object.</param>
-            <returns>A 64-bit signed integer.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
+<summary>Converts an arbitrary-precision rational number to a 64-bit signed integer
+            if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 64-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.SByte">
+<summary>Converts an arbitrary-precision rational number to an 8-bit signed integer
+            if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to an 8-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Single">
 <summary>Converts this value to a 32-bit floating-point number. The
@@ -6841,15 +7609,29 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             this value exceeds the range of a 32-bit floating point
             number.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt16">
+<summary>Converts an arbitrary-precision rational number to a 16-bit unsigned integer
+            if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt32">
-<summary>Not documented yet.</summary>
-            <param name='bigValue'>An ERational object.</param>
-            <returns>A 32-bit unsigned integer.</returns>
+<summary>Converts an arbitrary-precision rational number to a 32-bit signed integer
+            if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt64">
-<summary>Not documented yet.</summary>
-            <param name='bigValue'>An ERational object.</param>
-            <returns>A 64-bit unsigned integer.</returns>
+<summary>Converts an arbitrary-precision rational number to a 64-bit unsigned integer
+            if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
+            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
@@ -6866,6 +7648,11 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <param name='eint'>An EInteger object.</param>
             <returns>An ERational object.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Byte)~PeterO.Numbers.ERational">
+<summary>Converts a byte (from 0 to 255) to an arbitrary-precision rational number.</summary>
+            <param name='inputByte'>The number to convert as a byte (from 0 to 255).</param>
+            <returns>The value of <paramref name='inputByte'/> as an arbitrary-precision rational number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Decimal)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>A Decimal object.</param>
@@ -6876,46 +7663,79 @@ to an integer and returns the lowest 64 bits of its two's-complement form (see <
             <param name='eint'>A 64-bit floating-point number.</param>
             <returns>An ERational object.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Int16)~PeterO.Numbers.ERational">
+<summary>Converts a 16-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputInt16'>The number to convert as a 16-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt16'/> as an arbitrary-precision rational number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Int32)~PeterO.Numbers.ERational">
-<summary>Not documented yet.</summary>
-            <param name='smallValue'>A 32-bit signed integer.</param>
-            <returns>An ERational object.</returns>
+<summary>Converts a 32-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt32'/> as an arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Int64)~PeterO.Numbers.ERational">
-<summary>Not documented yet.</summary>
-            <param name='bigValue'>A 64-bit signed integer.</param>
-            <returns>An ERational object.</returns>
+<summary>Converts a 64-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputInt64'>The number to convert as a 64-bit signed integer.</param>
+            <returns>The value of <paramref name='inputInt64'/> as an arbitrary-precision rational number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.op_Implicit(System.SByte)~PeterO.Numbers.ERational">
+<summary>Converts an 8-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputSByte'>The number to convert as an 8-bit signed integer.</param>
+            <returns>The value of <paramref name='inputSByte'/> as an arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Single)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>A 32-bit floating-point number.</param>
             <returns>An ERational object.</returns>
 </doc>
+<doc name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt16)~PeterO.Numbers.ERational">
+<summary>Converts a 16-bit unsigned integer to an arbitrary-precision rational number.</summary>
+            <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt16'/> as an arbitrary-precision rational number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt32)~PeterO.Numbers.ERational">
+<summary>Converts a 32-bit signed integer to an arbitrary-precision rational number.</summary>
+            <param name='inputUInt32'>The number to convert as a 32-bit signed integer.</param>
+            <returns>The value of <paramref name='inputUInt32'/> as an arbitrary-precision rational number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt64)~PeterO.Numbers.ERational">
-<summary>Not documented yet.</summary>
-            <param name='eint'>A 64-bit unsigned integer.</param>
-            <returns>An ERational object.</returns>
+<summary>Converts a 64-bit unsigned integer to an arbitrary-precision rational number.</summary>
+            <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.</param>
+            <returns>The value of <paramref name='inputUInt64'/> as an arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Modulus(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Not documented yet.</summary>
-            <param name='dividend'>An ERational object.</param>
+<summary>Finds the remainder that results when this instance is
+            divided by the value of an arbitrary-precision rational
+            number.</summary>
+            <param name='otherValue'>An arbitrary-precision rational
+            number.</param>
+            <returns>The remainder of the two numbers.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='otherValue'/> is null.</exception>
+<param name='dividend'>An ERational object.</param>
             <param name='divisor'>An ERational object. (3).</param>
-            <returns>An ERational object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Multiply(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Not documented yet.</summary>
-            <param name='operand1'>An ERational object.</param>
+<summary>Multiplies this instance by the value of an
+            arbitrary-precision rational number.</summary>
+            <param name='otherValue'>An arbitrary-precision rational
+            number.</param>
+            <returns>The product of the two numbers.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='otherValue'/> is null.</exception>
+<param name='operand1'>An ERational object.</param>
             <param name='operand2'>An ERational object. (3).</param>
-            <returns>An ERational object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='operand1'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Subtraction(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Not documented yet.</summary>
-            <param name='bthis'>An ERational object.</param>
+<summary>Subtracts an arbitrary-precision rational number from this
+            instance.</summary>
+            <param name='otherValue'>An arbitrary-precision rational
+            number.</param>
+            <returns>The difference of the two objects.</returns>
+            <exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='otherValue'/> is null.</exception>
+<param name='bthis'>An ERational object.</param>
             <param name='subtrahend'>An ERational object. (3).</param>
-            <returns>An ERational object.</returns>
-            <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_UnaryNegation(PeterO.Numbers.ERational)">
 <summary>Not documented yet.</summary>

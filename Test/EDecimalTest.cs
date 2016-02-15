@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using PeterO.Numbers;
-using System.Collections.Generic;
 
 namespace Test {
   [TestFixture]
@@ -107,9 +107,9 @@ namespace Test {
     private static void TestAddCloseExponent(FastRandom fr, int exp) {
 for (var i = 0; i < 1000; ++i) {
   EInteger exp1 = EInteger.FromInt32(exp)
-    .Add(EInteger.FromInt32(fr.NextValue(32) -16));
+    .Add(EInteger.FromInt32(fr.NextValue(32) - 16));
   EInteger exp2 = exp1
-    .Add(EInteger.FromInt32(fr.NextValue(18) -9));
+    .Add(EInteger.FromInt32(fr.NextValue(18) - 9));
   EInteger mant1 = RandomObjects.RandomEInteger(fr);
   EInteger mant2 = RandomObjects.RandomEInteger(fr);
   EDecimal decA = EDecimal.Create(mant1, exp1);
@@ -177,7 +177,7 @@ for (var i = 0; i < 1000; ++i) {
         TestCommon.CompareTestEqual(
 ba1,
 ba2,
-bigintA.ToString() + "/" +bigintB.ToString());
+bigintA.ToString() + "/" + bigintB.ToString());
       }
       TestCommon.CompareTestLess(EDecimal.Zero, EDecimal.NaN);
       TestCommon.CompareTestLess(

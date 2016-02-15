@@ -56,22 +56,18 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\Numbers.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet>..\CBOR\CBOR.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Numbers.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DocumentationFile>bin\Release\Numbers.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Numbers.ruleset</CodeAnalysisRuleSet>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet40|AnyCPU'">
     <DocumentationFile>bin\ReleaseNet40\Numbers.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Numbers.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE;NET40</DefineConstants>
   </PropertyGroup>
   <ItemGroup>

@@ -14,6 +14,10 @@ namespace PeterO.Numbers {
     IEquatable<ERational> {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NaN"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational NaN = CreateWithFlags(
 EInteger.Zero,
 EInteger.One,
@@ -21,6 +25,10 @@ BigNumberFlags.FlagQuietNaN);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeInfinity"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational NegativeInfinity =
       CreateWithFlags(
 EInteger.Zero,
@@ -29,15 +37,27 @@ BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeZero"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational NegativeZero =
       FromEInteger(EInteger.Zero).ChangeSign(false);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.One"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational One = FromEInteger(EInteger.One);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.PositiveInfinity"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational PositiveInfinity =
       CreateWithFlags(
 EInteger.Zero,
@@ -46,6 +66,10 @@ BigNumberFlags.FlagInfinity);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.SignalingNaN"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational SignalingNaN =
       CreateWithFlags(
 EInteger.Zero,
@@ -54,10 +78,18 @@ BigNumberFlags.FlagSignalingNaN);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Ten"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational Ten = FromEInteger((EInteger)10);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Zero"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational Zero = FromEInteger(EInteger.Zero);
 
     private EInteger denominator;
@@ -320,18 +352,6 @@ bool negative) {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEInteger(PeterO.Numbers.EInteger)"]/*'/>
     public static ERational FromEInteger(EInteger bigint) {
       return new ERational(bigint, EInteger.One);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
-    public static ERational FromInt32(int smallint) {
-      return new ERational((EInteger)smallint, EInteger.One);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
-    public static ERational FromInt64(long longInt) {
-      return new ERational((EInteger)longInt, EInteger.One);
     }
 
     /// <include file='../../docs.xml'
@@ -1346,7 +1366,14 @@ other.denominator) && this.flags == other.flags);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEIntegerExact"]/*'/>
+    [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
+      return this.ToEIntegerIfExact();
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEIntegerExact"]/*'/>
+    public EInteger ToEIntegerIfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -1577,5 +1604,106 @@ int flags) {
       }
       return this;
     }
+
+        // Begin integer conversions
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteChecked"]/*'/>
+public byte ToByteChecked() {
+ return this.ToEInteger().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteUnchecked"]/*'/>
+public byte ToByteUnchecked() {
+ return this.ToEInteger().ToByteUnchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteIfExact"]/*'/>
+public byte ToByteIfExact() {
+ return this.ToEIntegerIfExact().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromByte(System.Byte)"]/*'/>
+public static ERational FromByte(byte inputByte) {
+ int val = ((int)inputByte) & 0xff;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16Checked"]/*'/>
+public short ToInt16Checked() {
+ return this.ToEInteger().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16Unchecked"]/*'/>
+public short ToInt16Unchecked() {
+ return this.ToEInteger().ToInt16Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16IfExact"]/*'/>
+public short ToInt16IfExact() {
+ return this.ToEIntegerIfExact().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt16(System.Int16)"]/*'/>
+public static ERational FromInt16(short inputInt16) {
+ var val = (int)inputInt16;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32Checked"]/*'/>
+public int ToInt32Checked() {
+ return this.ToEInteger().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32Unchecked"]/*'/>
+public int ToInt32Unchecked() {
+ return this.ToEInteger().ToInt32Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32IfExact"]/*'/>
+public int ToInt32IfExact() {
+ return this.ToEIntegerIfExact().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
+public static ERational FromInt32(int inputInt32) {
+ return FromEInteger(EInteger.FromInt32(inputInt32));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64Checked"]/*'/>
+public long ToInt64Checked() {
+ return this.ToEInteger().ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64Unchecked"]/*'/>
+public long ToInt64Unchecked() {
+ return this.ToEInteger().ToInt64Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64IfExact"]/*'/>
+public long ToInt64IfExact() {
+ return this.ToEIntegerIfExact().ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
+public static ERational FromInt64(long inputInt64) {
+ return FromEInteger(EInteger.FromInt64(inputInt64));
+}
+
+// End integer conversions
   }
 }
