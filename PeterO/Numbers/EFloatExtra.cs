@@ -121,7 +121,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static explicit operator long (EFloat bigValue) {
+    public static explicit operator long(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
       }
@@ -137,33 +137,33 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static explicit operator double (EFloat bigValue) {
+    public static explicit operator double(EFloat bigValue) {
       return bigValue.ToDouble();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static explicit operator float (EFloat bigValue) {
+    public static explicit operator float(EFloat bigValue) {
       return bigValue.ToSingle();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32"]/*'/>
     /// <summary>Not documented yet.</summary>
-    public static explicit operator int (EFloat bigValue) {
+    public static explicit operator int(EFloat bigValue) {
       return (int)bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16"]/*'/>
-    public static explicit operator short (EFloat bigValue) {
+    public static explicit operator short(EFloat bigValue) {
       return (short)(int)bigValue;
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte"]/*'/>
-    public static explicit operator byte (EFloat bigValue) {
+    public static explicit operator byte(EFloat bigValue) {
       return (byte)(int)bigValue;
     }
   }

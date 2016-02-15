@@ -1126,18 +1126,19 @@ EFloat src) {
       }
       string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
-  Assert.Fail(
-  "\nexpectedDbl " + OutputDouble(expectedDouble) +
+  string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
   ",\ngot----- " +
         OutputDouble(input.ToDouble()) +"\nsrc-----=" + OutputEF(src) +
-        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input));
+        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input);
+        Assert.Fail(msg);
       }
       double inputDouble = EDecimal.FromString(str).ToDouble();
       if (inputDouble != expectedDouble) {
   string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
           ",\ngot----- " +
         OutputDouble(inputDouble) +"\nsrc-----=" + OutputEF(src) +
-        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input));
+        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input);
+        Assert.Fail(msg);
       }
     }
 
@@ -1335,9 +1336,9 @@ stringTemp);
         TestToFloatRoundingOne(efa, true);
       }
       TestToFloatRoundingOne(EFloat.Create(0, -1074), true);
-      TestToFloatRoundingOne(EFloat.Create(
-  EInteger.FromRadixString("10000000000000000000000000000000000000000000000000000", 2),
-  EInteger.FromInt32(-1074)), true);
+      TestToFloatRoundingOne(
+EFloat.Create( EInteger.FromRadixString("10000000000000000000000000000000000000000000000000000", 2), EInteger.FromInt32(-1074)),
+true);
       {
 EFloat objectTemp = EFloat.Create(
   EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),

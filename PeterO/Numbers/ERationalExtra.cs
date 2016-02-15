@@ -72,7 +72,7 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    public static explicit operator long (ERational bigValue) {
+    public static explicit operator long(ERational bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException("bigValue");
       }
@@ -83,23 +83,23 @@ namespace PeterO.Numbers {
       return bigValue.ToBigInteger();
     }
 
-    public static explicit operator double (ERational bigValue) {
+    public static explicit operator double(ERational bigValue) {
       return bigValue.ToDouble();
     }
 
-    public static explicit operator float (ERational bigValue) {
+    public static explicit operator float(ERational bigValue) {
       return bigValue.ToSingle();
     }
 
-    public static explicit operator int (ERational bigValue) {
+    public static explicit operator int(ERational bigValue) {
       return (int)bigValue.ToBigInteger();
     }
 
-    public static explicit operator short (ERational bigValue) {
+    public static explicit operator short(ERational bigValue) {
       return (short)(int)bigValue;
     }
 
-    public static explicit operator byte (ERational bigValue) {
+    public static explicit operator byte(ERational bigValue) {
       return (byte)(int)bigValue;
     }
   }

@@ -13,7 +13,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
         int exponentMaxSmall,
         bool clampNormalExponents);
 
-Initializes a new instance of the  class.  `HasFlags`  will be set to false.
+Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.  `HasFlags`  will be set to false.
 
 <b>Parameters:</b>
 
@@ -295,7 +295,7 @@ The traps that are set for each flag in the context.
 
 Initializes a new EContext that is a copy of another EContext.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -310,7 +310,7 @@ Determines whether a number can have the given Exponent property under this arit
 
  * <i>exponent</i>: An arbitrary-precision integer indicating the desired exponent.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if a number can have the given Exponent property under this arithmetic context; otherwise, false. If this context allows unlimited precision, returns true for the exponent EMax and any exponent less than EMax.
 
@@ -331,7 +331,7 @@ Creates a new arithmetic context using the given maximum number of digits, an un
 
  * <i>precision</i>: Maximum number of digits (precision).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -349,7 +349,7 @@ Creates a new EContext object initialized with an unlimited exponent range, and 
 
  * <i>rounding</i>: An ERounding object.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -364,7 +364,7 @@ Creates a new EContext object initialized with an unlimited precision, an unlimi
 
  * <i>rounding</i>: The rounding mode for the new precision context.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -374,7 +374,7 @@ A context object for arbitrary-precision arithmetic settings.
 
 Gets a string representation of this object. Note that the format is not intended to be parsed and may change at any time.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A string representation of this object.
 
@@ -390,7 +390,7 @@ Copies this EContext and sets the copy's "AdjustExponent" property to the given 
  * <i>adjustExponent</i>: The parameter  <i>adjustExponent</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -408,7 +408,7 @@ Copies this arithmetic context and sets the copy's exponent range.
 
  * <i>exponentMax</i>: Desired maximum exponent (EMax).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -434,7 +434,7 @@ Copies this EContext and gives it a particular precision value.
  * <i>bigintPrecision</i>: The parameter  <i>bigintPrecision</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -450,7 +450,7 @@ The parameter <i>bigintPrecision</i>
 
 Copies this EContext with  `HasFlags`  set to true and a Flags value of 0.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -466,7 +466,7 @@ Copies this arithmetic context and sets the copy's "ClampNormalExponents" flag t
  * <i>clamp</i>: The parameter  <i>clamp</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -484,7 +484,7 @@ Copies this arithmetic context and sets the copy's exponent range.
 
  * <i>exponentMaxSmall</i>: Desired maximum exponent (EMax).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -494,7 +494,7 @@ A context object for arbitrary-precision arithmetic settings.
 
 Copies this EContext with  `HasFlags`  set to false and a Flags value of 0.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -509,7 +509,7 @@ Copies this EContext and gives it a particular precision value.
 
  * <i>precision</i>: Desired precision. 0 means unlimited precision.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -525,7 +525,7 @@ Copies this EContext and sets the copy's "IsPrecisionInBits" property to the giv
  * <i>isPrecisionBits</i>: The parameter  <i>isPrecisionBits</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -541,7 +541,7 @@ Copies this EContext with the specified rounding mode.
  * <i>rounding</i>: The parameter  <i>rounding</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -557,7 +557,7 @@ Copies this EContext and sets the copy's "IsSimplified" property to the given va
  * <i>simplified</i>: The parameter  <i>simplified</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -572,7 +572,7 @@ Copies this EContext with Traps set to the given value.
 
  * <i>traps</i>: Flags representing the traps to enable. See the property "Traps".
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.
 
@@ -582,6 +582,6 @@ A context object for arbitrary-precision arithmetic settings.
 
 Copies this EContext with an unlimited exponent range.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A context object for arbitrary-precision arithmetic settings.

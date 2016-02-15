@@ -1,4 +1,6 @@
-* [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) - Contains parameters for controlling the precision,             rounding, and exponent range of arbitrary-precision             numbers.
+## API Documentation
+
+ * [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) - Contains parameters for controlling the precision,             rounding, and exponent range of arbitrary-precision             numbers.
  * [PeterO.Numbers.EDecimal](PeterO.Numbers.EDecimal.md) - Represents an arbitrary-precision decimal floating-point             number.
  * [PeterO.Numbers.EFloat](PeterO.Numbers.EFloat.md) - Represents an arbitrary-precision binary floating-point             number.
  * [PeterO.Numbers.EInteger](PeterO.Numbers.EInteger.md) - An arbitrary-precision integer.

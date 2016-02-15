@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Arbitrary-precision rational number. This class cannot be inherited.Thread safety:Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
+Arbitrary-precision rational number. This class cannot be inherited.<b>Thread safety:</b>Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which only checks if each side of the operator is the same instance).
 
 ### ERational Constructor
 
@@ -12,7 +12,7 @@ Arbitrary-precision rational number. This class cannot be inherited.Thread safet
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
 
-Initializes a new instance of the  class.
+Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
 <b>Parameters:</b>
 
@@ -151,7 +151,7 @@ This object's numerator. If this object is a not-a-number value, returns the dia
 
 Not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -166,7 +166,7 @@ Adds two rational numbers.
 
  * <i>otherValue</i>: Another arbitrary-precision rational number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 
@@ -187,7 +187,7 @@ Compares an arbitrary-precision rational number with this instance.
 
  * <i>other</i>: An arbitrary-precision rational number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
@@ -202,7 +202,7 @@ Compares an arbitrary-precision binary float with this instance.
 
  * <i>other</i>: An arbitrary-precision binary float.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
@@ -217,7 +217,7 @@ Compares an arbitrary-precision decimal number with this instance.
 
  * <i>other</i>: An arbitrary-precision decimal number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
@@ -232,7 +232,7 @@ Returns a number with the same value as this one, but copying the sign (positive
 
  * <i>other</i>: A number whose sign will be copied.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -256,7 +256,7 @@ Creates a rational number with the given numerator and denominator.
 
  * <i>denominatorSmall</i>: A 32-bit signed integer. (2).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -274,7 +274,7 @@ Creates a rational number with the given numerator and denominator.
 
  * <i>denominator</i>: Another arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -289,7 +289,7 @@ Creates a not-a-number arbitrary-precision rational number.
 
  * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -320,7 +320,7 @@ Creates a not-a-number arbitrary-precision rational number.
 
  * <i>negative</i>: Whether the return value is negative.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -345,7 +345,7 @@ Divides this instance by the value of an arbitrary-precision rational number obj
 
  * <i>otherValue</i>: An arbitrary-precision rational number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The quotient of the two objects.
 
@@ -366,7 +366,7 @@ Determines whether this object and another object are equal.
 
  * <i>obj</i>: An arbitrary object.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if the objects are equal; otherwise, false.
 
@@ -382,7 +382,7 @@ Not documented yet.
  * <i>other</i>: The parameter  <i>other</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A Boolean object.
 
@@ -397,7 +397,7 @@ Converts a 64-bit floating-point number to a rational number. This method comput
 
  * <i>flt</i>: A 64-bit floating-point number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A rational number with the same value as  <i>flt</i>
 .
@@ -413,7 +413,7 @@ Converts an arbitrary-precision decimal number to a rational number.
 
  * <i>ef</i>: An arbitrary-precision decimal number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -434,7 +434,7 @@ Not documented yet.
 
  * <i>ef</i>: An arbitrary-precision binary float.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -455,7 +455,7 @@ Converts an arbitrary-precision integer to a rational number.
 
  * <i>bigint</i>: An arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The exact value of the integer as a rational number.
 
@@ -472,7 +472,7 @@ Converts an arbitrary-precision decimal number to a rational number.
 
  * <i>ef</i>: An arbitrary-precision decimal number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -495,7 +495,7 @@ Not documented yet.
 
  * <i>ef</i>: An arbitrary-precision binary float.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -517,7 +517,7 @@ Not documented yet.
  * <i>smallint</i>: The parameter  <i>smallint</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -533,7 +533,7 @@ Not documented yet.
  * <i>longInt</i>: The parameter  <i>longInt</i>
  is not documented yet.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -548,7 +548,7 @@ Converts a 32-bit floating-point number to a rational number. This method comput
 
  * <i>flt</i>: A 32-bit floating-point number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A rational number with the same value as  <i>flt</i>
 .
@@ -559,7 +559,7 @@ A rational number with the same value as  <i>flt</i>
 
 Returns the hash code for this instance.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A 32-bit hash code.
 
@@ -569,7 +569,7 @@ A 32-bit hash code.
 
 Gets a value indicating whether this object's value is infinity.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if this object's value is infinity; otherwise, false.
 
@@ -579,7 +579,7 @@ True if this object's value is infinity; otherwise, false.
 
 Returns whether this object is a not-a-number value.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if this object is a not-a-number value; otherwise, false.
 
@@ -589,7 +589,7 @@ True if this object is a not-a-number value; otherwise, false.
 
 Returns whether this object is negative infinity.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if this object is negative infinity; otherwise, false.
 
@@ -599,7 +599,7 @@ True if this object is negative infinity; otherwise, false.
 
 Returns whether this object is positive infinity.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if this object is positive infinity; otherwise, false.
 
@@ -609,7 +609,7 @@ True if this object is positive infinity; otherwise, false.
 
 Returns whether this object is a quiet not-a-number value.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if this object is a quiet not-a-number value; otherwise, false.
 
@@ -619,7 +619,7 @@ True if this object is a quiet not-a-number value; otherwise, false.
 
 Returns whether this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class).
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 True if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise, false.
 
@@ -634,7 +634,7 @@ Multiplies this instance by the value of an arbitrary-precision rational number.
 
  * <i>otherValue</i>: An arbitrary-precision rational number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The product of the two numbers.
 
@@ -650,7 +650,7 @@ The parameter <i>otherValue</i>
 
 Returns a rational number with the sign reversed.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision rational number.
 
@@ -665,7 +665,7 @@ Finds the remainder that results when this instance is divided by the value of a
 
  * <i>otherValue</i>: An arbitrary-precision rational number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The remainder of the two objects.
 
@@ -686,7 +686,7 @@ Subtracts an arbitrary-precision rational number from this instance.
 
  * <i>otherValue</i>: An arbitrary-precision rational number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The difference of the two objects.
 
@@ -702,7 +702,7 @@ The parameter <i>otherValue</i>
 
 Converts this value to a 64-bit floating-point number. The half-even rounding mode is used.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
 
@@ -717,7 +717,7 @@ Converts this rational number to a decimal number and rounds the result to the g
 
  * <i>ctx</i>: An EContext object.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision decimal.
 
@@ -727,7 +727,7 @@ An arbitrary-precision decimal.
 
 Converts this rational number to a decimal number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating decimal expansion.
 
@@ -742,7 +742,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating decimal expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision decimal.
 
@@ -757,7 +757,7 @@ Converts this rational number to a binary number and rounds the result to the gi
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating binary expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision binary float.
 
@@ -767,7 +767,7 @@ An arbitrary-precision binary float.
 
 Converts this rational number to a binary number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating binary expansion.
 
@@ -782,7 +782,7 @@ Converts this rational number to a binary number, but if the result would have a
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating binary expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision binary float.
 
@@ -792,7 +792,7 @@ An arbitrary-precision binary float.
 
 Converts this value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -807,7 +807,7 @@ This object's value is infinity or NaN.
 
 Converts this value to an arbitrary-precision integer, checking whether the value is an exact integer.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -832,7 +832,7 @@ Converts this rational number to a decimal number and rounds the result to the g
 
  * <i>ctx</i>: An EContext object.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision decimal.
 
@@ -844,7 +844,7 @@ An arbitrary-precision decimal.
 
 Converts this rational number to a decimal number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating decimal expansion.
 
@@ -861,7 +861,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
  * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating decimal expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedDecimal.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision decimal.
 
@@ -878,7 +878,7 @@ Converts this rational number to a binary number and rounds the result to the gi
 
  * <i>ctx</i>: An EContext object.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision binary float.
 
@@ -890,7 +890,7 @@ An arbitrary-precision binary float.
 
 Converts this rational number to a binary number.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating binary expansion.
 
@@ -907,7 +907,7 @@ Converts this rational number to a binary number, but if the result would have a
 
  * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. This context will be used only if the exact result would have a nonterminating binary expansion. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case this method is the same as ToExtendedFloat.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 An arbitrary-precision binary float.
 
@@ -917,7 +917,7 @@ An arbitrary-precision binary float.
 
 Converts this value to a 32-bit floating-point number. The half-even rounding mode is used.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 The closest 32-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
@@ -927,6 +927,6 @@ The closest 32-bit floating-point number to this value. The return value can be 
 
 Converts this object to a text string.
 
-<b>Returns:</b>
+<b>Return Value:</b>
 
 A string representation of this object. The result can be Infinity, NaN, or sNaN (with a minus sign before it for negative values), or a number of the following form: [-]numerator/denominator.

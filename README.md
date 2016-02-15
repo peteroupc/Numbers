@@ -44,6 +44,10 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
+Version 0.2.1:
+
+- Fixed corner cases in EFloat's ToSingle and ToDouble methods
+
 Version 0.2:
 
 - Performance improvements

@@ -146,7 +146,7 @@ namespace PeterO.Numbers {
           }
           int result0, result1, result2, result3;
           if (multiplicand < 65536) {
-            if (this.wordCount == 2 && (this.data[1 ]>>16) == 0) {
+            if (this.wordCount == 2 && (this.data[1 ] >>16) == 0) {
               long longV = unchecked((long)this.data[0]);
               longV &= 0xFFFFFFFFL;
               longV |= unchecked(((long)this.data[1]) << 32);
