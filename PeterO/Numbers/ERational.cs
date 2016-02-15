@@ -10,10 +10,14 @@ using System;
 namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.ERational"]/*'/>
-  public sealed class ERational : IComparable<ERational>,
+  public sealed partial class ERational : IComparable<ERational>,
     IEquatable<ERational> {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NaN"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational NaN = CreateWithFlags(
 EInteger.Zero,
 EInteger.One,
@@ -21,6 +25,10 @@ BigNumberFlags.FlagQuietNaN);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeInfinity"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational NegativeInfinity =
       CreateWithFlags(
 EInteger.Zero,
@@ -29,15 +37,27 @@ BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeZero"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational NegativeZero =
       FromEInteger(EInteger.Zero).ChangeSign(false);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.One"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational One = FromEInteger(EInteger.One);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.PositiveInfinity"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational PositiveInfinity =
       CreateWithFlags(
 EInteger.Zero,
@@ -46,6 +66,10 @@ BigNumberFlags.FlagInfinity);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.SignalingNaN"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational SignalingNaN =
       CreateWithFlags(
 EInteger.Zero,
@@ -54,10 +78,18 @@ BigNumberFlags.FlagSignalingNaN);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Ten"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational Ten = FromEInteger((EInteger)10);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Zero"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "ERational is immutable")]
     public static readonly ERational Zero = FromEInteger(EInteger.Zero);
 
     private EInteger denominator;
@@ -323,21 +355,386 @@ bool negative) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
-    public static ERational FromInt32(int smallint) {
-      return new ERational((EInteger)smallint, EInteger.One);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
-    public static ERational FromInt64(long longInt) {
-      return new ERational((EInteger)longInt, EInteger.One);
-    }
-
-    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromSingle(System.Single)"]/*'/>
     public static ERational FromSingle(float flt) {
       return FromEFloat(EFloat.FromSingle(flt));
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromString(System.String)"]/*'/>
+    public static ERational FromString(string str) {
+      return FromString(str, 0, str == null ? 0 : str.Length);
+    }
+
+    private const int MaxSafeInt = 214748363;
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromString(System.String,System.Int32,System.Int32)"]/*'/>
+    public static ERational FromString(
+      string str,
+      int offset,
+      int length) {
+      int tmpoffset = offset;
+      if (str == null) {
+        throw new ArgumentNullException("str");
+      }
+      if (tmpoffset < 0) {
+        throw new FormatException("offset (" + tmpoffset + ") is less than " +
+                    "0");
+      }
+      if (tmpoffset > str.Length) {
+        throw new FormatException("offset (" + tmpoffset + ") is more than " +
+                    str.Length);
+      }
+      if (length < 0) {
+        throw new FormatException("length (" + length + ") is less than " +
+                    "0");
+      }
+      if (length > str.Length) {
+        throw new FormatException("length (" + length + ") is more than " +
+                    str.Length);
+      }
+      if (str.Length - tmpoffset < length) {
+        throw new FormatException("str's length minus " + tmpoffset + " (" +
+                    (str.Length - tmpoffset) + ") is less than " + length);
+      }
+      if (length == 0) {
+        throw new FormatException();
+      }
+      var negative = false;
+      int endStr = tmpoffset + length;
+      if (str[0] == '+' || str[0] == '-') {
+        negative = str[0] == '-';
+        ++tmpoffset;
+      }
+      var numerInt = 0;
+      FastInteger numer = null;
+      var numerBuffer = 0;
+      var numerBufferMult = 1;
+      var denomBuffer = 0;
+      var denomBufferMult = 1;
+      var haveDigits = false;
+      var haveDenominator = false;
+      var ndenomInt = 0;
+      FastInteger ndenom = null;
+      int i = tmpoffset;
+      if (i + 8 == endStr) {
+        if ((str[i] == 'I' || str[i] == 'i') &&
+            (str[i + 1] == 'N' || str[i + 1] == 'n') &&
+            (str[i + 2] == 'F' || str[i + 2] == 'f') &&
+            (str[i + 3] == 'I' || str[i + 3] == 'i') && (str[i + 4] == 'N' ||
+                    str[i + 4] == 'n') && (str[i + 5] ==
+                    'I' || str[i + 5] == 'i') &&
+            (str[i + 6] == 'T' || str[i + 6] == 't') && (str[i + 7] == 'Y' ||
+                    str[i + 7] == 'y')) {
+          return negative ? NegativeInfinity : PositiveInfinity;
+        }
+      }
+      if (i + 3 == endStr) {
+        if ((str[i] == 'I' || str[i] == 'i') &&
+            (str[i + 1] == 'N' || str[i + 1] == 'n') && (str[i + 2] == 'F' ||
+                    str[i + 2] == 'f')) {
+          return negative ? NegativeInfinity : PositiveInfinity;
+        }
+      }
+      if (i + 3 <= endStr) {
+        // Quiet NaN
+        if ((str[i] == 'N' || str[i] == 'n') && (str[i + 1] == 'A' || str[i +
+                1] == 'a') && (str[i + 2] == 'N' || str[i + 2] == 'n')) {
+          int flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
+            BigNumberFlags.FlagQuietNaN;
+          if (i + 3 == endStr) {
+            return (!negative) ? NaN : NaN.Negate();
+          }
+          i += 3;
+          var digitCount = new FastInteger(0);
+          for (; i < endStr; ++i) {
+            if (str[i] >= '0' && str[i] <= '9') {
+              var thisdigit = (int)(str[i] - '0');
+              haveDigits = haveDigits || thisdigit != 0;
+              if (numerInt > MaxSafeInt) {
+                if (numer == null) {
+                  numer = new FastInteger(numerInt);
+                  numerBuffer = thisdigit;
+                  numerBufferMult = 10;
+                } else {
+                  if (numerBufferMult >= 1000000000) {
+                    numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+                    numerBuffer = thisdigit;
+                    numerBufferMult = 10;
+                  } else {
+                    numerBufferMult *= 10;
+                    numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
+                    numerBuffer += thisdigit;
+                  }
+                }
+              } else {
+                numerInt *= 10;
+                numerInt += thisdigit;
+              }
+            } else {
+              throw new FormatException();
+            }
+          }
+          if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
+            numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+          }
+          EInteger bignumer = (numer == null) ? ((EInteger)numerInt) :
+            numer.AsEInteger();
+          return CreateNaN(bignumer, false, negative);
+        }
+      }
+      if (i + 4 <= endStr) {
+        // Signaling NaN
+        if ((str[i] == 'S' || str[i] == 's') && (str[i + 1] == 'N' || str[i +
+                    1] == 'n') && (str[i + 2] == 'A' || str[i + 2] == 'a') &&
+                (str[i + 3] == 'N' || str[i + 3] == 'n')) {
+          if (i + 4 == endStr) {
+            int flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
+              BigNumberFlags.FlagSignalingNaN;
+            return (!negative) ? SignalingNaN : SignalingNaN.Negate();
+          }
+          i += 4;
+          var digitCount = new FastInteger(0);
+          for (; i < endStr; ++i) {
+            if (str[i] >= '0' && str[i] <= '9') {
+              var thisdigit = (int)(str[i] - '0');
+              haveDigits = haveDigits || thisdigit != 0;
+              if (numerInt > MaxSafeInt) {
+                if (numer == null) {
+                  numer = new FastInteger(numerInt);
+                  numerBuffer = thisdigit;
+                  numerBufferMult = 10;
+                } else {
+                  if (numerBufferMult >= 1000000000) {
+                    numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+                    numerBuffer = thisdigit;
+                    numerBufferMult = 10;
+                  } else {
+                    numerBufferMult *= 10;
+                    numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
+                    numerBuffer += thisdigit;
+                  }
+                }
+              } else {
+                numerInt *= 10;
+                numerInt += thisdigit;
+              }
+            } else {
+              throw new FormatException();
+            }
+          }
+          if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
+            numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+          }
+          int flags3 = (negative ? BigNumberFlags.FlagNegative : 0) |
+            BigNumberFlags.FlagSignalingNaN;
+          EInteger bignumer = (numer == null) ? ((EInteger)numerInt) :
+            numer.AsEInteger();
+          return CreateWithFlags(
+            bignumer,
+            EInteger.Zero,
+            flags3);
+        }
+      }
+      // Ordinary number
+      for (; i < endStr; ++i) {
+        if (str[i] >= '0' && str[i] <= '9') {
+          var thisdigit = (int)(str[i] - '0');
+          if (numerInt > MaxSafeInt) {
+            if (numer == null) {
+              numer = new FastInteger(numerInt);
+              numerBuffer = thisdigit;
+              numerBufferMult = 10;
+            } else {
+              if (numerBufferMult >= 1000000000) {
+                numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+                numerBuffer = thisdigit;
+                numerBufferMult = 10;
+              } else {
+                // multiply numerBufferMult and numerBuffer each by 10
+             numerBufferMult = (numerBufferMult << 3) + (numerBufferMult <<
+                  1);
+                numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
+                numerBuffer += thisdigit;
+              }
+            }
+          } else {
+            numerInt *= 10;
+            numerInt += thisdigit;
+          }
+          haveDigits = true;
+        } else if (str[i] == '/') {
+          haveDenominator = true;
+          ++i;
+          break;
+        } else {
+          throw new FormatException();
+        }
+      }
+      if (!haveDigits) {
+        throw new FormatException();
+      }
+      if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
+        numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+      }
+      if (haveDenominator) {
+        FastInteger denom = null;
+        var denomInt = 0;
+        tmpoffset = 1;
+        haveDigits = false;
+        if (i == endStr) {
+          throw new FormatException();
+        }
+        for (; i < endStr; ++i) {
+          if (str[i] >= '0' && str[i] <= '9') {
+            haveDigits = true;
+            var thisdigit = (int)(str[i] - '0');
+            if (denomInt > MaxSafeInt) {
+              if (denom == null) {
+                denom = new FastInteger(denomInt);
+                denomBuffer = thisdigit;
+                denomBufferMult = 10;
+              } else {
+                if (denomBufferMult >= 1000000000) {
+                  denom.Multiply(denomBufferMult).AddInt(denomBuffer);
+                  denomBuffer = thisdigit;
+                  denomBufferMult = 10;
+                } else {
+                  // multiply denomBufferMult and denomBuffer each by 10
+             denomBufferMult = (denomBufferMult << 3) + (denomBufferMult <<
+                    1);
+                  denomBuffer = (denomBuffer << 3) + (denomBuffer << 1);
+                  denomBuffer += thisdigit;
+                }
+              }
+            } else {
+              denomInt *= 10;
+              denomInt += thisdigit;
+            }
+          } else {
+            throw new FormatException();
+          }
+        }
+        if (!haveDigits) {
+          throw new FormatException();
+        }
+        if (denom != null && (denomBufferMult != 1 || denomBuffer != 0)) {
+          denom.Multiply(denomBufferMult).AddInt(denomBuffer);
+        }
+        if (denom == null) {
+          ndenomInt = denomInt;
+        } else {
+          ndenom = denom;
+        }
+      } else {
+        ndenomInt = 1;
+      }
+      if (i != endStr) {
+        throw new FormatException();
+      }
+      if (ndenom == null ? (ndenomInt == 0) : ndenom.IsValueZero) {
+        throw new FormatException();
+      }
+      ERational erat = Create(
+        numer == null ? (EInteger)numerInt : numer.AsEInteger(),
+        ndenom == null ? (EInteger)ndenomInt : ndenom.AsEInteger());
+      return negative ? erat.Negate() : erat;
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CompareToTotalMagnitude(PeterO.Numbers.ERational)"]/*'/>
+    public int CompareToTotalMagnitude(ERational other) {
+      if (other == null) {
+        return -1;
+      }
+      var valueIThis = 0;
+      var valueIOther = 0;
+      int cmp;
+      if (this.IsSignalingNaN()) {
+        valueIThis = 2;
+      } else if (this.IsNaN()) {
+        valueIThis = 3;
+      } else if (this.IsInfinity()) {
+        valueIThis = 1;
+      }
+      if (other.IsSignalingNaN()) {
+        valueIOther = 2;
+      } else if (other.IsNaN()) {
+        valueIOther = 3;
+      } else if (other.IsInfinity()) {
+        valueIOther = 1;
+      }
+      if (valueIThis > valueIOther) {
+        return 1;
+      } else if (valueIThis < valueIOther) {
+        return -1;
+      }
+      if (valueIThis >= 2) {
+        cmp = this.unsignedNumerator.CompareTo(
+         other.unsignedNumerator);
+        return cmp;
+      } else if (valueIThis == 1) {
+        return 0;
+      } else {
+        cmp = this.Abs().CompareTo(other.Abs());
+        if (cmp == 0) {
+          cmp = this.denominator.CompareTo(
+           other.denominator);
+          return cmp;
+        }
+        return cmp;
+      }
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CompareToTotal(PeterO.Numbers.ERational)"]/*'/>
+    public int CompareToTotal(ERational other) {
+      if (other == null) {
+        return -1;
+      }
+      bool neg1 = this.IsNegative;
+      bool neg2 = other.IsNegative;
+      if (neg1 != neg2) {
+        return neg1 ? -1 : 1;
+      }
+      var valueIThis = 0;
+      var valueIOther = 0;
+      int cmp;
+      if (this.IsSignalingNaN()) {
+        valueIThis = 2;
+      } else if (this.IsNaN()) {
+        valueIThis = 3;
+      } else if (this.IsInfinity()) {
+        valueIThis = 1;
+      }
+      if (other.IsSignalingNaN()) {
+        valueIOther = 2;
+      } else if (other.IsNaN()) {
+        valueIOther = 3;
+      } else if (other.IsInfinity()) {
+        valueIOther = 1;
+      }
+      if (valueIThis > valueIOther) {
+        return neg1 ? -1 : 1;
+      } else if (valueIThis < valueIOther) {
+        return neg1 ? 1 : -1;
+      }
+      if (valueIThis >= 2) {
+        cmp = this.unsignedNumerator.CompareTo(
+         other.unsignedNumerator);
+        return neg1 ? -cmp : cmp;
+      } else if (valueIThis == 1) {
+        return 0;
+      } else {
+        cmp = this.CompareTo(other);
+        if (cmp == 0) {
+          cmp = this.denominator.CompareTo(
+           other.denominator);
+          return neg1 ? -cmp : cmp;
+        }
+        return cmp;
+      }
     }
 
     /// <include file='../../docs.xml'
@@ -969,7 +1366,14 @@ other.denominator) && this.flags == other.flags);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEIntegerExact"]/*'/>
+    [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
+      return this.ToEIntegerIfExact();
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToEIntegerExact"]/*'/>
+    public EInteger ToEIntegerIfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -1003,10 +1407,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EDecimal.PositiveInfinity;
+        return EDecimal.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EDecimal.NegativeInfinity;
+        return EDecimal.NegativeInfinity.RoundToPrecision(ctx);
       }
       EDecimal ef = (this.IsNegative && this.IsZero) ?
  EDecimal.NegativeZero : EDecimal.FromEInteger(this.Numerator);
@@ -1028,10 +1432,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EDecimal.PositiveInfinity;
+        return EDecimal.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EDecimal.NegativeInfinity;
+        return EDecimal.NegativeInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegative && this.IsZero) {
         return EDecimal.NegativeZero;
@@ -1085,10 +1489,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EFloat.PositiveInfinity;
+        return EFloat.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EFloat.NegativeInfinity;
+        return EFloat.NegativeInfinity.RoundToPrecision(ctx);
       }
       EFloat ef = (this.IsNegative && this.IsZero) ?
      EFloat.NegativeZero : EFloat.FromEInteger(this.Numerator);
@@ -1109,10 +1513,10 @@ this.IsNegative,
 ctx);
       }
       if (this.IsPositiveInfinity()) {
-        return EFloat.PositiveInfinity;
+        return EFloat.PositiveInfinity.RoundToPrecision(ctx);
       }
       if (this.IsNegativeInfinity()) {
-        return EFloat.NegativeInfinity;
+        return EFloat.NegativeInfinity.RoundToPrecision(ctx);
       }
       if (this.IsZero) {
         return this.IsNegative ? EFloat.NegativeZero :
@@ -1200,5 +1604,106 @@ int flags) {
       }
       return this;
     }
+
+        // Begin integer conversions
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteChecked"]/*'/>
+public byte ToByteChecked() {
+ return this.ToEInteger().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteUnchecked"]/*'/>
+public byte ToByteUnchecked() {
+ return this.ToEInteger().ToByteUnchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteIfExact"]/*'/>
+public byte ToByteIfExact() {
+ return this.ToEIntegerIfExact().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromByte(System.Byte)"]/*'/>
+public static ERational FromByte(byte inputByte) {
+ int val = ((int)inputByte) & 0xff;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16Checked"]/*'/>
+public short ToInt16Checked() {
+ return this.ToEInteger().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16Unchecked"]/*'/>
+public short ToInt16Unchecked() {
+ return this.ToEInteger().ToInt16Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16IfExact"]/*'/>
+public short ToInt16IfExact() {
+ return this.ToEIntegerIfExact().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt16(System.Int16)"]/*'/>
+public static ERational FromInt16(short inputInt16) {
+ var val = (int)inputInt16;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32Checked"]/*'/>
+public int ToInt32Checked() {
+ return this.ToEInteger().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32Unchecked"]/*'/>
+public int ToInt32Unchecked() {
+ return this.ToEInteger().ToInt32Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32IfExact"]/*'/>
+public int ToInt32IfExact() {
+ return this.ToEIntegerIfExact().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
+public static ERational FromInt32(int inputInt32) {
+ return FromEInteger(EInteger.FromInt32(inputInt32));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64Checked"]/*'/>
+public long ToInt64Checked() {
+ return this.ToEInteger().ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64Unchecked"]/*'/>
+public long ToInt64Unchecked() {
+ return this.ToEInteger().ToInt64Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64IfExact"]/*'/>
+public long ToInt64IfExact() {
+ return this.ToEIntegerIfExact().ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
+public static ERational FromInt64(long inputInt64) {
+ return FromEInteger(EInteger.FromInt64(inputInt64));
+}
+
+// End integer conversions
   }
 }

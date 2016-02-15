@@ -13,6 +13,79 @@ namespace Test {
     public void TestAbs() {
       // not implemented yet
     }
+
+    [Test]
+    public void TestFromString() {
+      ERational er;
+      er = ERational.FromString("-2/4");
+      Assert.AreEqual(EInteger.FromInt32(-2), er.Numerator);
+      Assert.AreEqual(EInteger.FromInt32(4), er.Denominator);
+      er = ERational.FromString("2/4");
+      Assert.AreEqual(EInteger.FromInt32(2), er.Numerator);
+      Assert.AreEqual(EInteger.FromInt32(4), er.Denominator);
+      er = ERational.FromString("293939393939/4");
+      Assert.AreEqual(EInteger.FromString("293939393939"), er.Numerator);
+      Assert.AreEqual(EInteger.FromInt32(4), er.Denominator);
+      er = ERational.FromString("-293939393939/4");
+      Assert.AreEqual(EInteger.FromString("-293939393939"), er.Numerator);
+      Assert.AreEqual(EInteger.FromInt32(4), er.Denominator);
+      er = ERational.FromString("-2/293939393939");
+      Assert.AreEqual(EInteger.FromInt32(-2), er.Numerator);
+      Assert.AreEqual(EInteger.FromString("293939393939"), er.Denominator);
+      er = ERational.FromString("-2");
+      Assert.AreEqual(EInteger.FromString("-2"), er.Numerator);
+      Assert.AreEqual(EInteger.FromInt32(1), er.Denominator);
+      er = ERational.FromString("2");
+      Assert.AreEqual(EInteger.FromString("2"), er.Numerator);
+      Assert.AreEqual(EInteger.FromInt32(1), er.Denominator);
+      try {
+ ERational.FromString("-2x");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.FromString("-2/");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.FromString("-2/x");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.FromString("-2/2x");
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      var fr = new FastRandom();
+      for (var i = 0; i < 1000; ++i) {
+        EInteger ei1 = RandomObjects.RandomEInteger(fr);
+        EInteger ei2 = RandomObjects.RandomEInteger(fr).Abs();
+        if (ei2.IsZero) {
+          ei2 = EInteger.One;
+        }
+        er = ERational.FromString(ei1 + "/" + ei2);
+        Assert.AreEqual(ei1, er.Numerator);
+        Assert.AreEqual(ei2, er.Denominator);
+      }
+    }
     [Test]
     public void TestAdd() {
       // not implemented yet

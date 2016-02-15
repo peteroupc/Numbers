@@ -2,7 +2,7 @@
 
     public sealed class EContext
 
-Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers.
+Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
 
 ### EContext Constructor
 
@@ -17,20 +17,15 @@ Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.ECont
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter  <i>precision</i>
-is not documented yet.
+ * <i>precision</i>: The maximum number of digits a number can have, or 0 for an unlimited number of digits.
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: The rounding mode to use when a number can't fit the given precision.
 
- * <i>exponentMinSmall</i>: The parameter  <i>exponentMinSmall</i>
- is not documented yet.
+ * <i>exponentMinSmall</i>: The minimum exponent.
 
- * <i>exponentMaxSmall</i>: The parameter  <i>exponentMaxSmall</i>
- is not documented yet.
+ * <i>exponentMaxSmall</i>: The maximum exponent.
 
- * <i>clampNormalExponents</i>: The parameter  <i>clampNormalExponents</i>
- is not documented yet.
+ * <i>clampNormalExponents</i>: Whether to clamp a number's significand to the given maximum precision (if it isn't zero) while remaining within the exponent range.
 
 ### Basic
 
@@ -72,7 +67,7 @@ An arithmetic context for the IEEE-754-2008 binary64 format, 53 bits precision. 
 
     public static readonly PeterO.Numbers.EContext CliDecimal;
 
-An arithmetic context for the Common Language Infrastructure (.NET Framework) decimal format, 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven.
+An arithmetic context for the .NET Framework decimal format (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven. (The "Cli" stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.)
 
 ### Decimal128
 
@@ -162,17 +157,17 @@ No specific (theoretical) limit on precision. Rounding mode HalfEven.
 
     public bool AdjustExponent { get; }
 
-Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property. The default value is true, meaning that EMax and EMin refer to the adjusted exponent. Setting this value to false (using WithAdjustExponent) is useful for modeling floating point representations with an integer mantissa and an integer exponent, such as Java's BigDecimal.
+Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property. The default value is true, meaning that EMax and EMin refer to the adjusted exponent. Setting this value to false (using WithAdjustExponent) is useful for modeling floating point representations with an integer mantissa (significand) and an integer exponent, such as Java's BigDecimal.
 
 <b>Returns:</b>
 
-True if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or false if they refer to just the number's Exponent property.
+ `true`  if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or false if they refer to just the number's Exponent property.
 
 ### ClampNormalExponents
 
     public bool ClampNormalExponents { get; }
 
-Gets a value indicating whether a converted number's Exponent property will not be higher than EMax + 1 - Precision. If a number's exponent is higher than that value, but not high enough to cause overflow, the exponent is clamped to that value and enough zeros are added to the number's mantissa to account for the adjustment. If HasExponentRange is false, this value is always false.
+Gets a value indicating whether a converted number's Exponent property will not be higher than EMax + 1 - Precision. If a number's exponent is higher than that value, but not high enough to cause overflow, the exponent is clamped to that value and enough zeros are added to the number's mantissa (significand) to account for the adjustment. If HasExponentRange is false, this value is always false.
 
 <b>Returns:</b>
 
@@ -182,7 +177,7 @@ If true, a converted number's Exponent property will not be higher than EMax + 1
 
     public PeterO.Numbers.EInteger EMax { get; }
 
-Gets the highest exponent possible when a converted number is expressed in scientific notation with one digit before the decimal point. For example, with a precision of 3 and an EMax of 100, the maximum value possible is 9.99E + 100. (This is not the same as the highest possible Exponent property.) If HasExponentRange is false, this value will be 0.
+Gets the highest exponent possible when a converted number is expressed in scientific notation with one digit before the radix point. For example, with a precision of 3 and an EMax of 100, the maximum value possible is 9.99E + 100. (This is not the same as the highest possible Exponent property.) If HasExponentRange is false, this value will be 0.
 
 <b>Returns:</b>
 
@@ -192,7 +187,7 @@ The highest exponent possible when a converted number is expressed in scientific
 
     public PeterO.Numbers.EInteger EMin { get; }
 
-Gets the lowest exponent possible when a converted number is expressed in scientific notation with one digit before the decimal point. For example, with a precision of 3 and an EMin of -100, the next value that comes after 0 is 0.001E-100. (If AdjustExponent is false, this property specifies the lowest possible Exponent property instead.) If HasExponentRange is false, this value will be 0.
+Gets the lowest exponent possible when a converted number is expressed in scientific notation with one digit before the radix point. For example, with a precision of 3 and an EMin of -100, the next value that comes after 0 is 0.001E-100. (If AdjustExponent is false, this property specifies the lowest possible Exponent property instead.) If HasExponentRange is false, this value will be 0.
 
 <b>Returns:</b>
 
@@ -203,11 +198,11 @@ The lowest exponent possible when a converted number is expressed in scientific 
     public int Flags { get; set;}
 
 Gets or sets the flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags &
-            EContext.FlagInexact) != 0`  returns TRUE if the Inexact flag is set.
+            EContext.FlagInexact) != 0`  returns  `true`  if the Inexact flag is set.
 
 <b>Returns:</b>
 
-The flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0.
+The flags that are set from converting numbers according to this arithmetic context. If.  `HasFlags`  is false, this value will be 0.
 
 ### HasExponentRange
 
@@ -217,7 +212,7 @@ Gets a value indicating whether this context defines a minimum and maximum expon
 
 <b>Returns:</b>
 
-True if this context defines a minimum and maximum exponent; otherwise, false.
+ `true`  if this context defines a minimum and maximum exponent; otherwise,  `false` .
 
 ### HasFlags
 
@@ -227,7 +222,7 @@ Gets a value indicating whether this context has a mutable Flags field.
 
 <b>Returns:</b>
 
-True if this context has a mutable Flags field; otherwise, false.
+ `true`  if this context has a mutable Flags field; otherwise,  `false` .
 
 ### HasMaxPrecision
 
@@ -237,7 +232,7 @@ Gets a value indicating whether this context defines a maximum precision.
 
 <b>Returns:</b>
 
-True if this context defines a maximum precision; otherwise, false.
+ `true`  if this context defines a maximum precision; otherwise,  `false` .
 
 ### IsPrecisionInBits
 
@@ -247,27 +242,27 @@ Gets a value indicating whether this context's Precision property is in bits, ra
 
 <b>Returns:</b>
 
-True if this context's Precision property is in bits, rather than digits; otherwise, false. The default is false.
+ `true`  if this context's Precision property is in bits, rather than digits; otherwise,  `false` . The default is false.
 
 ### IsSimplified
 
     public bool IsSimplified { get; }
 
-Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see `http://speleotrove.com/decimal/dax3274.html`
+Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see<a href="http://speleotrove.com/decimal/dax3274.html">http://speleotrove.com/decimal/dax3274.html</a>
 
 <b>Returns:</b>
 
-True if a "simplified" arithmetic will be used; otherwise, false.
+ `true` if a "simplified" arithmetic will be used; otherwise, `false` .
 
 ### Precision
 
     public PeterO.Numbers.EInteger Precision { get; }
 
-Gets the maximum length of a converted number in digits, ignoring the decimal point and exponent. For example, if precision is 3, a converted number's mantissa can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision.
+Gets the maximum length of a converted number in digits, ignoring the radix point and exponent. For example, if precision is 3, a converted number's mantissa (significand) can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision.
 
 <b>Returns:</b>
 
-The maximum length of a converted number in digits, ignoring the decimal point and exponent.
+The maximum length of a converted number in digits, ignoring the radix point and exponent.
 
 ### Rounding
 
@@ -283,7 +278,7 @@ The desired rounding mode when converting numbers that can't be represented in t
 
     public int Traps { get; }
 
-Gets the traps that are set for each flag in the context. Whenever a flag is signaled, even if  `HasFlags`  is false, and the flag's trap is enabled, the operation will throw a TrapException.For example, if Traps equals FlagInexact and FlagSubnormal, a TrapException will be thrown if an operation's return value is not the same as the exact result (FlagInexact) or if the return value's exponent is lower than the lowest allowed (FlagSubnormal).
+Gets the traps that are set for each flag in the context. Whenever a flag is signaled, even if  `HasFlags`  is false, and the flag's trap is enabled, the operation will throw a TrapException.For example, if Traps equals  `FlagInexact`  and FlagSubnormal, a TrapException will be thrown if an operation's return value is not the same as the exact result (FlagInexact) or if the return value's exponent is lower than the lowest allowed (FlagSubnormal).
 
 <b>Returns:</b>
 
@@ -312,7 +307,7 @@ Determines whether a number can have the given Exponent property under this arit
 
 <b>Return Value:</b>
 
-True if a number can have the given Exponent property under this arithmetic context; otherwise, false. If this context allows unlimited precision, returns true for the exponent EMax and any exponent less than EMax.
+ `true`  if a number can have the given Exponent property under this arithmetic context; otherwise, false . If this context allows unlimited precision, returns true for the exponent EMax and any exponent less than EMax.
 
 <b>Exceptions:</b>
 
@@ -387,8 +382,7 @@ Copies this EContext and sets the copy's "AdjustExponent" property to the given 
 
 <b>Parameters:</b>
 
- * <i>adjustExponent</i>: The parameter  <i>adjustExponent</i>
- is not documented yet.
+ * <i>adjustExponent</i>: The new value of the "AdjustExponent" property for the copy.
 
 <b>Return Value:</b>
 
@@ -522,8 +516,7 @@ Copies this EContext and sets the copy's "IsPrecisionInBits" property to the giv
 
 <b>Parameters:</b>
 
- * <i>isPrecisionBits</i>: The parameter  <i>isPrecisionBits</i>
- is not documented yet.
+ * <i>isPrecisionBits</i>: The new value of the "IsPrecisionInBits" property for the copy.
 
 <b>Return Value:</b>
 
@@ -538,8 +531,7 @@ Copies this EContext with the specified rounding mode.
 
 <b>Parameters:</b>
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: Desired value of the Rounding property.
 
 <b>Return Value:</b>
 

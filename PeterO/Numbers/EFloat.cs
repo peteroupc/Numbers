@@ -16,6 +16,10 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.NaN"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "EFloat is immutable")]
     public static readonly EFloat NaN = CreateWithFlags(
       EInteger.Zero,
       EInteger.Zero,
@@ -23,6 +27,10 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.NegativeInfinity"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "EFloat is immutable")]
     public static readonly EFloat NegativeInfinity = CreateWithFlags(
       EInteger.Zero,
       EInteger.Zero,
@@ -30,12 +38,10 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.NegativeZero"]/*'/>
-#if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-      Justification = "ExtendedFloat is immutable")]
-#endif
+      Justification = "EFloat is immutable")]
     public static readonly EFloat NegativeZero = CreateWithFlags(
       EInteger.Zero,
       EInteger.Zero,
@@ -43,17 +49,19 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.One"]/*'/>
-#if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-      Justification = "ExtendedFloat is immutable")]
-#endif
+      Justification = "EFloat is immutable")]
     public static readonly EFloat One =
       EFloat.Create(EInteger.One, EInteger.Zero);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.PositiveInfinity"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "EFloat is immutable")]
     public static readonly EFloat PositiveInfinity = CreateWithFlags(
       EInteger.Zero,
       EInteger.Zero,
@@ -61,6 +69,10 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.SignalingNaN"]/*'/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Security",
+      "CA2104",
+      Justification = "EFloat is immutable")]
     public static readonly EFloat SignalingNaN = CreateWithFlags(
       EInteger.Zero,
       EInteger.Zero,
@@ -68,24 +80,19 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.Ten"]/*'/>
-#if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-      Justification = "ExtendedFloat is immutable")]
-#endif
-
+      Justification = "EFloat is immutable")]
     public static readonly EFloat Ten =
       EFloat.Create((EInteger)10, EInteger.Zero);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.Zero"]/*'/>
-#if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-      Justification = "ExtendedFloat is immutable")]
-#endif
+      Justification = "EFloat is immutable")]
     public static readonly EFloat Zero =
       EFloat.Create(EInteger.Zero, EInteger.Zero);
     //----------------------------------------------------------------
@@ -301,20 +308,6 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>
-    public static EFloat FromInt32(int valueSmaller) {
-      var bigint = (EInteger)valueSmaller;
-      return EFloat.Create(bigint, EInteger.Zero);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)"]/*'/>
-    public static EFloat FromInt64(long valueSmall) {
-      var bigint = (EInteger)valueSmall;
-      return EFloat.Create(bigint, EInteger.Zero);
-    }
-
-    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromSingle(System.Single)"]/*'/>
     public static EFloat FromSingle(float flt) {
       int value = BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0);
@@ -381,6 +374,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String)"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public static EFloat FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
@@ -900,9 +894,6 @@ this.flags & ~BigNumberFlags.FlagNegative);
     public EFloat MovePointLeft(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
@@ -930,9 +921,6 @@ EContext ctx) {
     public EFloat MovePointRight(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       if (!this.IsFinite) {
         return this.RoundToPrecision(ctx);
       }
@@ -1109,10 +1097,10 @@ this.flags ^ BigNumberFlags.FlagNegative);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Quantize(System.Int32,PeterO.Numbers.EContext)"]/*'/>
     public EFloat Quantize(
-      int desiredExponentSmall,
+      int desiredExponentInt,
       EContext ctx) {
       return this.Quantize(
-        EFloat.Create(EInteger.One, (EInteger)desiredExponentSmall),
+        EFloat.Create(EInteger.One, (EInteger)desiredExponentInt),
         ctx);
     }
 
@@ -1189,12 +1177,14 @@ this.flags ^ BigNumberFlags.FlagNegative);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)"]/*'/>
-[Obsolete(
-  "This overload is unnecessary because this method works regardless of rounding mode.")]
     public EFloat RoundToExponentExact(
       EInteger exponent,
       ERounding rounding) {
-      return MathValue.RoundToExponentExact(this, exponent, EContext.Unlimited);
+        // TODO: Edit doc for RoundToExponentExact
+      return MathValue.RoundToExponentExact(
+this,
+exponent,
+EContext.Unlimited.WithRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
@@ -1314,6 +1304,7 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToDouble"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public double ToDouble() {
       if (this.IsPositiveInfinity()) {
         return Double.PositiveInfinity;
@@ -1405,7 +1396,14 @@ if (!(bitLength <= 53)) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToEIntegerExact"]/*'/>
+    [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
+      return this.ToEIntegerInternal(true);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToEIntegerExact"]/*'/>
+    public EInteger ToEIntegerIfExact() {
       return this.ToEIntegerInternal(true);
     }
 
@@ -1420,94 +1418,6 @@ if (!(bitLength <= 53)) {
     [Obsolete("Renamed to ToEDecimal.")]
     public EDecimal ToExtendedDecimal() {
       return EDecimal.FromEFloat(this);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    public int ToInt32Checked() {
-      if (!this.IsFinite) {
-        throw new OverflowException("Value is infinity or NaN");
-      }
-      if (this.unsignedMantissa.IsZero) {
-        return 0;
-      }
-      if (this.exponent.IsZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.ToInt32Unchecked();
-          if (this.IsNegative) {
-            ret = -ret;
-          }
-          return ret;
-        }
-      }
-      return this.ToEIntegerExact().ToInt32Checked();
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    public int ToInt32Unchecked() {
-      if (!this.IsFinite) {
-        return 0;
-      }
-      if (this.unsignedMantissa.IsZero) {
-        return 0;
-      }
-      if (this.exponent.IsZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.ToInt32Unchecked();
-          if (this.IsNegative) {
-            ret = -ret;
-          }
-          return ret;
-        }
-      }
-      return this.ToEIntegerExact().ToInt32Unchecked();
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    public long ToInt64Checked() {
-      if (!this.IsFinite) {
-        throw new OverflowException("Value is infinity or NaN");
-      }
-      if (this.unsignedMantissa.IsZero) {
-        return 0;
-      }
-      if (this.exponent.IsZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.ToInt32Unchecked();
-          if (this.IsNegative) {
-            ret = -ret;
-          }
-          return ret;
-        }
-      }
-      return this.ToEIntegerExact().ToInt64Checked();
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    public long ToInt64Unchecked() {
-      if (!this.IsFinite) {
-        return 0;
-      }
-      if (this.unsignedMantissa.IsZero) {
-        return 0;
-      }
-      if (this.IsFinite && this.exponent.IsZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int ret = this.unsignedMantissa.ToInt32Unchecked();
-          if (this.IsNegative) {
-            ret = -ret;
-          }
-          return ret;
-        }
-      }
-      return this.ToEIntegerExact().ToInt64Unchecked();
     }
 
     /// <include file='../../docs.xml'
@@ -1858,5 +1768,105 @@ flags);
         return FromInt64(val);
       }
     }
+        // Begin integer conversions
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteChecked"]/*'/>
+public byte ToByteChecked() {
+ return this.ToEInteger().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteUnchecked"]/*'/>
+public byte ToByteUnchecked() {
+ return this.ToEInteger().ToByteUnchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteIfExact"]/*'/>
+public byte ToByteIfExact() {
+ return this.ToEIntegerIfExact().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromByte(System.Byte)"]/*'/>
+public static EFloat FromByte(byte inputByte) {
+ int val = ((int)inputByte) & 0xff;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Checked"]/*'/>
+public short ToInt16Checked() {
+ return this.ToEInteger().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Unchecked"]/*'/>
+public short ToInt16Unchecked() {
+ return this.ToEInteger().ToInt16Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16IfExact"]/*'/>
+public short ToInt16IfExact() {
+ return this.ToEIntegerIfExact().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt16(System.Int16)"]/*'/>
+public static EFloat FromInt16(short inputInt16) {
+ var val = (int)inputInt16;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
+public int ToInt32Checked() {
+ return this.ToEInteger().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
+public int ToInt32Unchecked() {
+ return this.ToEInteger().ToInt32Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32IfExact"]/*'/>
+public int ToInt32IfExact() {
+ return this.ToEIntegerIfExact().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>
+public static EFloat FromInt32(int inputInt32) {
+ return FromEInteger(EInteger.FromInt32(inputInt32));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
+public long ToInt64Checked() {
+ return this.ToEInteger().ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
+public long ToInt64Unchecked() {
+ return this.ToEInteger().ToInt64Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64IfExact"]/*'/>
+public long ToInt64IfExact() {
+ return this.ToEIntegerIfExact().ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)"]/*'/>
+public static EFloat FromInt64(long inputInt64) {
+ return FromEInteger(EInteger.FromInt64(inputInt64));
+}
+
+// End integer conversions
   }
 }

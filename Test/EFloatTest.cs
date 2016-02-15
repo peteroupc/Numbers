@@ -1,7 +1,7 @@
 using System;
+using System.Text;
 using NUnit.Framework;
 using PeterO.Numbers;
-using System.Text;
 
 namespace Test {
   [TestFixture]
@@ -255,9 +255,9 @@ stringTemp);
     [Test]
     public void TestFloatDecimalSpecific() {
       string str =
-
-  "874952453585761710286297571153092638434027760916318352601207433388312948219720355694692773665688395541653.74728887385887787786487024277448654174804687500"
-;
+  "874952453585761710286297571153092638434027760916318352";
+      str += "6012074333883129482197203556946927736656883955";
+      str += "41653.74728887385887787786487024277448654174804687500";
       EDecimal ed = EDecimal.FromString(str);
       EFloat ef2 = ed.ToEFloat();
       Assert.AreEqual(0, ed.CompareToBinary(ef2), ef2.ToString());
@@ -805,7 +805,7 @@ stringTemp);
       // not implemented yet
     }
 
-    private static string[] valueFPIntegers = { "1", "2", "4", "8",
+    private static readonly string[] ValueFPIntegers = { "1", "2", "4", "8",
       "281474976710656", "562949953421312", "1125899906842624",
       "2251799813685248", "4503599627370496", "9007199254740992",
       "18014398509481984", "36028797018963968", "72057594037927936",
@@ -823,28 +823,29 @@ stringTemp);
   "89884656743115795386465259539451236680898848947115328636715040578866337902750481566354238661203768010560056939935696678829394884407208311246423715319737062188883946712432742638151109800623047059726541476042502884419075341171231440736956555270413618581675255342293149119973622969239858152417678164812112068608"
       };
 
-    private static int[] valueFPIntegersExp = { 0, 1, 2, 3, 48, 49, 50, 51, 52,
+    private static readonly int[] ValueFPIntegersExp = { 0, 1, 2, 3, 48, 49,
+      50, 51, 52,
       53, 54, 55, 56, 57, 58, 1020, 1021, 1022, 1023 };
 
     [Test]
     public void TestFPDoubles() {
-      for (var i = 0; i < valueFPIntegersExp.Length; ++i) {
+      for (var i = 0; i < ValueFPIntegersExp.Length; ++i) {
         // Positive
-        EFloat ef = EFloat.Create(1, valueFPIntegersExp[i]);
-        Assert.AreEqual(valueFPIntegers[i], ef.ToString());
+        EFloat ef = EFloat.Create(1, ValueFPIntegersExp[i]);
+        Assert.AreEqual(ValueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(ef.ToDouble());
-        Assert.AreEqual(valueFPIntegers[i], ef.ToString());
+        Assert.AreEqual(ValueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(
-          EDecimal.FromString(valueFPIntegers[i]).ToDouble());
-        Assert.AreEqual(valueFPIntegers[i], ef.ToString());
+          EDecimal.FromString(ValueFPIntegers[i]).ToDouble());
+        Assert.AreEqual(ValueFPIntegers[i], ef.ToString());
         // Negative
-        ef = EFloat.Create(-1, valueFPIntegersExp[i]);
-        Assert.AreEqual("-" + valueFPIntegers[i], ef.ToString());
+        ef = EFloat.Create(-1, ValueFPIntegersExp[i]);
+        Assert.AreEqual("-" + ValueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(ef.ToDouble());
-        Assert.AreEqual("-" + valueFPIntegers[i], ef.ToString());
+        Assert.AreEqual("-" + ValueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDouble(
-          EDecimal.FromString("-" + valueFPIntegers[i]).ToDouble());
-        Assert.AreEqual("-" + valueFPIntegers[i], ef.ToString());
+          EDecimal.FromString("-" + ValueFPIntegers[i]).ToDouble());
+        Assert.AreEqual("-" + ValueFPIntegers[i], ef.ToString());
       }
       for (var i = -1074; i < 1024; ++i) {
         string intstr = TestCommon.IntToString(i);
@@ -1126,10 +1127,11 @@ EFloat src) {
       }
       string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
-  string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
-  ",\ngot----- " +
-        OutputDouble(input.ToDouble()) +"\nsrc-----=" + OutputEF(src) +
-        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input);
+  string msg =
+  "\nexpectedDbl " + OutputDouble(expectedDouble) +
+  ",\ngot----- " + OutputDouble(input.ToDouble()) +
+        "\nsrc-----=" + OutputEF(src) + "\nexpected=" + OutputEF(expected) +
+        "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
       double inputDouble = EDecimal.FromString(str).ToDouble();
@@ -1185,9 +1187,6 @@ EFloat src) {
         EContext.Binary32);
       EFloat efnextgap = efnext.Subtract(efa);
       EFloat efprevgap = efa.Subtract(efprev);
-      // Console.WriteLine("efa___=" + OutputEF(efa));
-      // Console.WriteLine("efprev=" + OutputEF(efprev));
-      // Console.WriteLine("efnext=" + OutputEF(efnext));
       EFloat efprev1q = efprev.Add(
      efprevgap.Multiply(quarter));
    EFloat efprev2q = efprev.Add(
@@ -1222,7 +1221,7 @@ EFloat src) {
 
     private static string EFToString(EFloat ef) {
       return "[" + ef.Mantissa.ToRadixString(2) +"," +
-        ef.Mantissa.GetUnsignedBitLength() +"," + ef.Exponent + "]";
+        ef.Mantissa.GetUnsignedBitLength() + "," + ef.Exponent + "]";
     }
 
     private static void TestBinaryToDecimal(
@@ -1256,6 +1255,12 @@ String.Empty);
 string stringTemp = EFloat.FromSingle(0.1f).ToShortestString(EContext.Binary32);
 Assert.AreEqual(
 "0.1",
+stringTemp);
+}
+      {
+string stringTemp = EFloat.NegativeZero.ToShortestString(EContext.Binary32);
+Assert.AreEqual(
+"-0",
 stringTemp);
 }
       {
@@ -1313,17 +1318,18 @@ stringTemp);
         EFloat shortest = EFloat.FromString(
           shortestStr,
           EContext.Binary64);
+     string msg = "\n" + EFToString(efa) + "\n" + EFToString(shortest) +
+          "\n" + shortestStr;
         TestCommon.CompareTestEqual(
           efa,
           shortest,
-        "\n" + EFToString(efa) +"\n" + EFToString(shortest) +"\n"
-            +shortestStr);
+          msg);
       }
     }
     [Test]
     public void TestToSingleRounding() {
       var fr = new FastRandom();
-      for (var i = 0; i < 500; ++i) {
+      for (var i = 0; i < 1500; ++i) {
         EFloat efa = this.RandomSingleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, false);
       }
@@ -1331,14 +1337,20 @@ stringTemp);
     [Test]
     public void TestToDoubleRounding() {
       var fr = new FastRandom();
-      for (var i = 0; i < 500; ++i) {
+      for (var i = 0; i < 1500; ++i) {
         EFloat efa = this.RandomDoubleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, true);
       }
       TestToFloatRoundingOne(EFloat.Create(0, -1074), true);
-      TestToFloatRoundingOne(
-EFloat.Create( EInteger.FromRadixString("10000000000000000000000000000000000000000000000000000", 2), EInteger.FromInt32(-1074)),
-true);
+      EInteger mant = EInteger.FromRadixString(
+        "10000000000000000000000000000000000000000000000000000",
+        2);
+      {
+EFloat objectTemp = EFloat.Create(
+mant,
+EInteger.FromInt32(-1074));
+TestToFloatRoundingOne(objectTemp, true);
+}
       {
 EFloat objectTemp = EFloat.Create(
   EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
@@ -1389,7 +1401,8 @@ TestToFloatRoundingOne(objectTemp, true);
       for (var i = 0; i < 1000; ++i) {
         EInteger exp1 = EInteger.FromInt32(exp)
           .Add(EInteger.FromInt32(fr.NextValue(32) - 16));
-        EInteger exp2 = exp1 .Add(EInteger.FromInt32(fr.NextValue(18) - 30));
+        EInteger exp2 = exp1.Add(
+          EInteger.FromInt32(fr.NextValue(18) - 30));
         EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
         EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
         EFloat decA = EFloat.Create(mant1, exp1);

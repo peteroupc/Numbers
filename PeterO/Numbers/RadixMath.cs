@@ -51,11 +51,6 @@ namespace PeterO.Numbers {
      2147483, 214748, 21474, 2147, 214, 21, 2
     };
 
-    // Conservative maximum base-10 radix power for
-    // TryMultiplyByRadix Power; derived from
-    // Int32.MaxValue*8/3 (8 is the number of bits in a byte;
-    // 3 is a conservative estimate of log(10)/log(2).)
-    private static EInteger valueMaxDigits = (EInteger)5726623058L;
     private static readonly EInteger ValueMinusOne = EInteger.Zero -
       EInteger.One;
 
@@ -89,6 +84,12 @@ namespace PeterO.Numbers {
     private readonly IRadixMathHelper<T> helper;
     private readonly int support;
     private readonly int thisRadix;
+
+    // Conservative maximum base-10 radix power for
+    // TryMultiplyByRadix Power; derived from
+    // Int32.MaxValue*8/3 (8 is the number of bits in a byte;
+    // 3 is a conservative estimate of log(10)/log(2).)
+    private static EInteger valueMaxDigits = (EInteger)5726623058L;
 
     public RadixMath(IRadixMathHelper<T> helper) {
       this.helper = helper;
@@ -4348,8 +4349,8 @@ bool adjustNegativeZero,
 EContext ctx) {
       // If context has unlimited precision and exponent range,
       // and no discarded digits or shifting
-      bool unlimitedPrecisionExp = (ctx == null ||
-         (!ctx.HasMaxPrecision && !ctx.HasExponentRange));
+      bool unlimitedPrecisionExp = ctx == null ||
+         (!ctx.HasMaxPrecision && !ctx.HasExponentRange);
       int thisFlags = this.helper.GetFlags(thisValue);
       if ((thisFlags & BigNumberFlags.FlagSpecial) != 0) {
         if ((thisFlags & BigNumberFlags.FlagSignalingNaN) != 0) {
@@ -4561,7 +4562,7 @@ ctx.Rounding,
           lastDiscarded,
           olderDiscarded);
 #if DEBUG
-      if (!(accum.DiscardedDigitCount.IsValueZero)) {
+      if (!accum.DiscardedDigitCount.IsValueZero) {
         throw new ArgumentException(
       "doesn't satisfy accum.DiscardedDigitCount.IsValueZero");
       }
@@ -4805,8 +4806,8 @@ neg ? BigNumberFlags.FlagNegative : 0);
       // DebugUtility.Log("" + accum.ShiftedInt + ", exp=" + (//
       // adjExponent) + "/" + fastEMin);
       var recheckOverflow = false;
-      bool doRounding = (accum.DiscardedDigitCount.Sign != 0 ||
-        (accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0);
+      bool doRounding = accum.DiscardedDigitCount.Sign != 0 ||
+        (accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0;
       if (doRounding) {
         if (!bigmantissa.IsValueZero) {
           flags |= EContext.FlagRounded;

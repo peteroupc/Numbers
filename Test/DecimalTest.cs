@@ -209,7 +209,7 @@ System.Globalization.CultureInfo.InvariantCulture);
         } else if (op.Equals("power")) {
           d3 = d1.Pow(d2, ctx);
         } else if (op.Equals("squareroot")) {
-          d3 = d1.SquareRoot(ctx);
+          d3 = d1.Sqrt(ctx);
         } else if (op.Equals("remaindernear")) {
           d3 = d1.RemainderNear(d2, ctx);
         } else if (op.Equals("nexttoward")) {
@@ -405,24 +405,30 @@ System.Globalization.CultureInfo.InvariantCulture);
         }
         decimal d;
         try {
+          System.Globalization.NumberStyles numstyles =
+            System.Globalization.NumberStyles.AllowExponent |
+System.Globalization.NumberStyles.Number;
           d = Decimal.Parse(
 ed.ToString(),
-            System.Globalization.NumberStyles.AllowExponent |
-System.Globalization.NumberStyles.Number,
-            System.Globalization.CultureInfo.InvariantCulture);
+numstyles,
+System.Globalization.CultureInfo.InvariantCulture);
           EDecimal ed3 = EDecimal.FromString(
   ed.ToString(),
   EContext.CliDecimal);
+          string msg = ed.ToString() + " (expanded: " +
+            EDecimal.FromString(ed.ToString()) + ")";
           TestCommon.CompareTestEqual(
             (EDecimal)d,
             ed3,
-    ed.ToString() + " (expanded: " + EDecimal.FromString(ed.ToString()) +
-              ")");
+            msg);
         } catch (OverflowException ex) {
           EDecimal ed2 = EDecimal.FromString(
   ed.ToString(),
   EContext.CliDecimal);
-          Assert.IsTrue(ed2.IsInfinity(), ed.ToString());
+          Assert.IsTrue(
+ed2.IsInfinity(),
+ed.ToString(),
+ex.ToString());
         }
       }
     }

@@ -17,6 +17,10 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.NaN"]/*'/>
+#if CODE_ANALYSIS
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+                "CA2104", Justification = "EDecimal is immutable")]
+#endif
     public static readonly EDecimal NaN = CreateWithFlags(
         EInteger.Zero,
         EInteger.Zero,
@@ -24,6 +28,10 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.NegativeInfinity"]/*'/>
+#if CODE_ANALYSIS
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+                "CA2104", Justification = "EDecimal is immutable")]
+#endif
     public static readonly EDecimal NegativeInfinity =
       CreateWithFlags(
         EInteger.Zero,
@@ -34,7 +42,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.NegativeZero"]/*'/>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "ExtendedDecimal is immutable")]
+                "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal NegativeZero =
       CreateWithFlags(
@@ -46,13 +54,17 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.One"]/*'/>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "ExtendedDecimal is immutable")]
+                "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal One =
       EDecimal.Create(EInteger.One, EInteger.Zero);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.PositiveInfinity"]/*'/>
+#if CODE_ANALYSIS
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+                "CA2104", Justification = "EDecimal is immutable")]
+#endif
     public static readonly EDecimal PositiveInfinity =
       CreateWithFlags(
         EInteger.Zero,
@@ -61,7 +73,11 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.SignalingNaN"]/*'/>
-    public static readonly EDecimal SignalingNaN =
+#if CODE_ANALYSIS
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+                "CA2104", Justification = "EDecimal is immutable")]
+#endif
+public static readonly EDecimal SignalingNaN =
       CreateWithFlags(
         EInteger.Zero,
         EInteger.Zero,
@@ -71,7 +87,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.Ten"]/*'/>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "ExtendedDecimal is immutable")]
+                "CA2104", Justification = "EDecimal is immutable")]
 #endif
 
     public static readonly EDecimal Ten =
@@ -81,7 +97,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.Zero"]/*'/>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "ExtendedDecimal is immutable")]
+                "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal Zero =
       EDecimal.Create(EInteger.Zero, EInteger.Zero);
@@ -1616,9 +1632,6 @@ ERounding.HalfEven);
     public EDecimal MovePointLeft(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
@@ -1646,9 +1659,6 @@ EContext ctx) {
     public EDecimal MovePointRight(
 EInteger bigPlaces,
 EContext ctx) {
-      if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
-      }
       if (!this.IsFinite) {
         return this.RoundToPrecision(ctx);
       }
@@ -2014,14 +2024,13 @@ EContext.ForRounding(rounding));
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
-[Obsolete(
-  "This overload is unnecessary because this method works regardless of rounding mode.")]
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {
+        // TODO: Edit doc for RoundToExponentExact
  return this.RoundToExponentExact(
 (EInteger)exponentSmall,
-EContext.Unlimited);
+EContext.Unlimited.WithRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
@@ -2172,7 +2181,14 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEIntegerExact"]/*'/>
+    [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
+      return this.ToEIntegerInternal(true);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEIntegerExact"]/*'/>
+    public EInteger ToEIntegerIfExact() {
       return this.ToEIntegerInternal(true);
     }
 
@@ -2193,92 +2209,6 @@ EContext ctx) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat"]/*'/>
     public EFloat ToEFloat() {
       return this.ToEFloat(EContext.UnlimitedHalfEven);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
-    public int ToInt32Checked() {
-      if (!this.IsFinite) {
-        throw new OverflowException("Value is infinity or NaN");
-      }
-      if (this.unsignedMantissa.IsValueZero) {
-        return 0;
-      }
-      if (this.exponent.IsValueZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int retInt = this.unsignedMantissa.AsInt32();
-          if (this.IsNegative) {
-            retInt = -retInt;
-          }
-          return retInt;
-        }
-      }
-      return this.ToEIntegerExact().ToInt32Checked();
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    public int ToInt32Unchecked() {
-      if (!this.IsFinite) {
-        return 0;
-      }
-      if (this.unsignedMantissa.IsValueZero) {
-        return 0;
-      }
-      if (this.exponent.IsValueZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int retInt = this.unsignedMantissa.AsInt32();
-          if (this.IsNegative) {
-            retInt = -retInt;
-          }
-          return retInt;
-        }
-      }
-      return this.ToEIntegerExact().ToInt32Unchecked();
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
-    public long ToInt64Checked() {
-      if (!this.IsFinite) {
-        throw new OverflowException("Value is infinity or NaN");
-      }
-      if (this.unsignedMantissa.IsValueZero) {
-        return 0;
-      }
-      if (this.exponent.IsValueZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int retInt = this.unsignedMantissa.AsInt32();
-          if (this.IsNegative) {
-            retInt = -retInt;
-          }
-          return retInt;
-        }
-      }
-      return this.ToEIntegerExact().ToInt64Checked();
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
-    /// <summary>Not documented yet.</summary>
-    public long ToInt64Unchecked() {
-      if (!this.IsFinite) {
-        return 0;
-      }
-      if (this.unsignedMantissa.IsValueZero) {
-        return 0;
-      }
-      if (this.IsFinite && this.exponent.IsValueZero) {
-        if (this.unsignedMantissa.CanFitInInt32()) {
-          int retInt = this.unsignedMantissa.AsInt32();
-          if (this.IsNegative) {
-            retInt = -retInt;
-          }
-          return retInt;
-        }
-      }
-      return this.ToEIntegerExact().ToInt64Unchecked();
     }
 
     /// <include file='../../docs.xml'
@@ -2345,14 +2275,14 @@ EContext ctx) {
         throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
       }
 #endif
-
+      int sign = (((flags & BigNumberFlags.FlagSpecial) == 0) &&
+                mantissa.IsValueZero) ? 0 : (((flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       return new EDecimal(
         mantissa,
         exponent,
         flags,
-        (((flags & BigNumberFlags.FlagSpecial) == 0) &&
-                mantissa.IsValueZero) ? 0 : (((flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1));
+        sign);
     }
 
     internal static EDecimal CreateWithFlags(
@@ -2370,14 +2300,14 @@ EContext ctx) {
         throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
       }
 #endif
-
+      int sign = (((flags & BigNumberFlags.FlagSpecial) == 0) &&
+                mantissa.IsZero) ? 0 : (((flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       return new EDecimal(
         FastIntegerFixed.FromBig(mantissa),
         FastIntegerFixed.FromBig(exponent),
         flags,
-        (((flags & BigNumberFlags.FlagSpecial) == 0) &&
-                mantissa.IsZero) ? 0 : (((flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1));
+        sign);
     }
 
     private static bool AppendString(
@@ -2542,6 +2472,7 @@ ERounding rounding) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat(PeterO.Numbers.EContext)"]/*'/>
     public EFloat ToEFloat(EContext ec) {
+      // TODO: Investigate speeding up Binary64 case
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
       if (this.IsNaN()) {
@@ -2916,11 +2847,11 @@ adjust.AsEInteger()));
             builder.Append(mantissaString);
           } else if (cmp == 0) {
 #if DEBUG
-            if (!(decimalPoint.CanFitInInt32())) {
+            if (!decimalPoint.CanFitInInt32()) {
    throw new
   ArgumentException("doesn't satisfy decimalPoint.CanFitInInt32()");
             }
-            if (!(decimalPoint.AsInt32() == 0)) {
+            if (decimalPoint.AsInt32() != 0) {
     throw new
   ArgumentException("doesn't satisfy decimalPoint.AsInt32() == 0");
             }
@@ -3239,5 +3170,94 @@ flags);
         return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
       }
     }
+
+    // Begin integer conversions
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteChecked"]/*'/>
+public byte ToByteChecked() {
+ return this.ToEInteger().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteUnchecked"]/*'/>
+public byte ToByteUnchecked() {
+ return this.ToEInteger().ToByteUnchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteIfExact"]/*'/>
+public byte ToByteIfExact() {
+ return this.ToEIntegerIfExact().ToByteChecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromByte(System.Byte)"]/*'/>
+public static EDecimal FromByte(byte inputByte) {
+ int val = ((int)inputByte) & 0xff;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Checked"]/*'/>
+public short ToInt16Checked() {
+ return this.ToEInteger().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked"]/*'/>
+public short ToInt16Unchecked() {
+ return this.ToEInteger().ToInt16Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16IfExact"]/*'/>
+public short ToInt16IfExact() {
+ return this.ToEIntegerIfExact().ToInt16Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)"]/*'/>
+public static EDecimal FromInt16(short inputInt16) {
+ var val = (int)inputInt16;
+ return FromInt32(val);
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
+public int ToInt32Checked() {
+ return this.ToEInteger().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked"]/*'/>
+public int ToInt32Unchecked() {
+ return this.ToEInteger().ToInt32Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32IfExact"]/*'/>
+public int ToInt32IfExact() {
+ return this.ToEIntegerIfExact().ToInt32Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
+public long ToInt64Checked() {
+ return this.ToEInteger().ToInt64Checked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
+public long ToInt64Unchecked() {
+ return this.ToEInteger().ToInt64Unchecked();
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64IfExact"]/*'/>
+public long ToInt64IfExact() {
+ return this.ToEIntegerIfExact().ToInt64Checked();
+}
+
+// End integer conversions
   }
 }

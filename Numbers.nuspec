@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>PeterO.Numbers</id>
-    <version>0.2.2</version>
+    <version>0.3.0</version>
     <title>Arbitrary-Precision Number Library</title>
     <authors>Peter Occil</authors>
     <owners>Peter Occil</owners>
@@ -14,14 +14,6 @@
     </description>
     <summary>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</summary>
     <releaseNotes>
-Version 0.2.2:
-
-- Previous assembly was released with wrong version number
-
-Version 0.2.1:
-
-- Fixed corner cases in EFloat's ToSingle and ToDouble methods
-
 Version 0.2:
 
 - Performance improvements
