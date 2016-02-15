@@ -43,6 +43,9 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+Version 0.2.2:
+
+- Previous assembly was released with wrong version number
 
 Version 0.2.1:
 
