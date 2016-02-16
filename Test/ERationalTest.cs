@@ -200,6 +200,144 @@ throw new InvalidOperationException(String.Empty, ex);
       // not implemented yet
     }
     [Test]
+    public void TestConversions() {
+      var fr = new FastRandom();
+      for (var i = 0; i < 2000; i++) {
+        bool isNum, isTruncated, isInteger;
+        string strNormal, strInteger;
+        EInteger eint;
+        ERational enumber = RandomObjects.RandomRational(fr);
+        if (!enumber.IsFinite) {
+          Assert.Throws(typeof(OverflowException), () => enumber.ToByteChecked());
+          Assert.AreEqual(EInteger.Zero, EInteger.FromByte(enumber.ToByteUnchecked()));
+          Assert.Throws(typeof(OverflowException), () => enumber.ToByteIfExact());
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt16Checked());
+          Assert.AreEqual(EInteger.Zero, EInteger.FromInt16(enumber.ToInt16Unchecked()));
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt16IfExact());
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt32Checked());
+          Assert.AreEqual(EInteger.Zero, EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt32IfExact());
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt64Checked());
+          Assert.AreEqual(EInteger.Zero, EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt64IfExact());
+          continue;
+        }
+        ERational enumberInteger = ERational.FromEInteger(enumber.ToEInteger());
+        isInteger = enumberInteger.CompareTo(enumber) == 0;
+        strNormal = enumber.ToString();
+        eint = enumber.ToEInteger();
+        strInteger = eint.ToString();
+        isNum = enumber.CompareTo(
+        ERational.FromString("0")) >= 0 && enumber.CompareTo(
+        ERational.FromString("255")) <= 0;
+        isTruncated = enumber.ToEInteger().CompareTo(
+        EInteger.FromString("0")) >= 0 && enumber.ToEInteger().CompareTo(
+        EInteger.FromString("255")) <= 0;
+        if (isNum) {
+          Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteChecked()));
+          Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteUnchecked()));
+          if (isInteger) {
+            Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteIfExact()));
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToByteIfExact());
+          }
+        } else if (isTruncated) {
+          Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteChecked()));
+          Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteUnchecked()));
+          Assert.Throws(typeof(ArithmeticException), () => enumber.ToByteIfExact());
+        } else {
+          Assert.Throws(typeof(OverflowException), () => enumber.ToByteChecked());
+          Assert.DoesNotThrow(() => enumber.ToByteUnchecked());
+          if (isInteger) {
+            Assert.Throws(typeof(OverflowException), () => enumber.ToByteIfExact());
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToByteIfExact());
+          }
+        }
+        isNum = enumber.CompareTo(
+        ERational.FromString("-32768")) >= 0 && enumber.CompareTo(
+        ERational.FromString("32767")) <= 0;
+        isTruncated = enumber.ToEInteger().CompareTo(
+        EInteger.FromString("-32768")) >= 0 && enumber.ToEInteger().CompareTo(
+        EInteger.FromString("32767")) <= 0;
+        if (isNum) {
+          Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16Checked()));
+          Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16Unchecked()));
+          if (isInteger) {
+            Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16IfExact()));
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt16IfExact());
+          }
+        } else if (isTruncated) {
+          Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16Checked()));
+          Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16Unchecked()));
+          Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt16IfExact());
+        } else {
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt16Checked());
+          Assert.DoesNotThrow(() => enumber.ToInt16Unchecked());
+          if (isInteger) {
+            Assert.Throws(typeof(OverflowException), () => enumber.ToInt16IfExact());
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt16IfExact());
+          }
+        }
+        isNum = enumber.CompareTo(
+        ERational.FromString("-2147483648")) >= 0 && enumber.CompareTo(
+        ERational.FromString("2147483647")) <= 0;
+        isTruncated = enumber.ToEInteger().CompareTo(
+        EInteger.FromString("-2147483648")) >= 0 && enumber.ToEInteger().CompareTo(
+        EInteger.FromString("2147483647")) <= 0;
+        if (isNum) {
+          Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32Checked()));
+          Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          if (isInteger) {
+            Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32IfExact()));
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt32IfExact());
+          }
+        } else if (isTruncated) {
+          Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32Checked()));
+          Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt32IfExact());
+        } else {
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt32Checked());
+          Assert.DoesNotThrow(() => enumber.ToInt32Unchecked());
+          if (isInteger) {
+            Assert.Throws(typeof(OverflowException), () => enumber.ToInt32IfExact());
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt32IfExact());
+          }
+        }
+        isNum = enumber.CompareTo(
+        ERational.FromString("-9223372036854775808")) >= 0 && enumber.CompareTo(
+        ERational.FromString("9223372036854775807")) <= 0;
+        isTruncated = enumber.ToEInteger().CompareTo(
+        EInteger.FromString("-9223372036854775808")) >= 0 && enumber.ToEInteger().CompareTo(
+        EInteger.FromString("9223372036854775807")) <= 0;
+        if (isNum) {
+          Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64Checked()));
+          Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          if (isInteger) {
+            Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64IfExact()));
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt64IfExact());
+          }
+        } else if (isTruncated) {
+          Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64Checked()));
+          Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt64IfExact());
+        } else {
+          Assert.Throws(typeof(OverflowException), () => enumber.ToInt64Checked());
+          Assert.DoesNotThrow(() => enumber.ToInt64Unchecked());
+          if (isInteger) {
+            Assert.Throws(typeof(OverflowException), () => enumber.ToInt64IfExact());
+          } else {
+            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt64IfExact());
+          }
+        }
+      }
+    }
+    [Test]
     public void TestFromEDecimal() {
       // not implemented yet
     }

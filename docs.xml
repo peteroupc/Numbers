@@ -2617,14 +2617,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
             <returns>This number's value, truncated to a byte (from 0 to 255).</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+            or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToByteIfExact">
 <summary>Converts this number's value to a byte (from 0 to 255)
             if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.</summary>
             <returns>This number's value as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a byte (from 0 to 255) without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToByteUnchecked">
 <summary>Truncates this number's value to an integer
@@ -2697,14 +2699,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 16-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+            or the truncated integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16IfExact">
 <summary>Converts this number's value to a 16-bit signed integer
             if it can fit in a 16-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 16-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked">
 <summary>Truncates this number's value to an integer
@@ -2717,14 +2721,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32IfExact">
 <summary>Converts this number's value to a 32-bit signed integer
             if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked">
 <summary>Truncates this number's value to an integer
@@ -2737,14 +2743,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 64-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+            or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64IfExact">
 <summary>Converts this number's value to a 64-bit signed integer
             if it can fit in a 64-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 64-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 64-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
 <summary>Truncates this number's value to an integer
@@ -2762,14 +2770,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to an 8-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+            or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToSByteIfExact">
 <summary>Converts this number's value to an 8-bit signed integer
             if it can fit in an 8-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as an 8-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in an 8-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToSByteUnchecked">
 <summary>Truncates this number's value to an integer
@@ -2805,14 +2815,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 16-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt16IfExact">
 <summary>Converts this number's value to a 16-bit unsigned integer
             if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 16-bit unsigned integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt16Unchecked">
 <summary>Truncates this number's value to an integer
@@ -2825,14 +2837,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt32IfExact">
 <summary>Converts this number's value to a 32-bit signed integer
             if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt32Unchecked">
 <summary>Truncates this number's value to an integer
@@ -2845,14 +2859,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 64-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt64IfExact">
 <summary>Converts this number's value to a 64-bit unsigned integer
             if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 64-bit unsigned integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt64Unchecked">
 <summary>Truncates this number's value to an integer
@@ -2915,7 +2931,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a byte (from 0 to 255).</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+            or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal">
 <summary>Converts an arbitrary-precision decimal's value to a
@@ -2945,7 +2961,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 16-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+            or the truncated integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32">
 <summary>Converts an arbitrary-precision decimal number to a 32-bit signed integer
@@ -2953,7 +2969,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64">
 <summary>Converts an arbitrary-precision decimal number to a 64-bit signed integer
@@ -2961,7 +2977,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 64-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+            or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.SByte">
 <summary>Converts an arbitrary-precision decimal number to an 8-bit signed integer
@@ -2969,7 +2985,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to an 8-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+            or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single">
 <summary>Converts this value to its closest equivalent as a 32-bit
@@ -2992,7 +3008,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 16-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt32">
 <summary>Converts an arbitrary-precision decimal number to a 32-bit signed integer
@@ -3000,7 +3016,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt64">
 <summary>Converts an arbitrary-precision decimal number to a 64-bit unsigned integer
@@ -3008,7 +3024,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 64-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal">
 <summary>Converts an arbitrary-precision integer to an arbitrary
@@ -3088,6 +3104,8 @@ of each element, that is, either most significant first or least significant fir
             instance's value.</param>
             <returns>The difference of the two objects.</returns>
 <param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
             instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
             instance's value.</param><returns>The difference of the two objects.</returns><param name='bthis'>The parameter <paramref name='bthis'/> is not
             documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param>
@@ -3791,7 +3809,7 @@ of each element, that is, either most significant first or least significant fir
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
 
-            <param name='str'>The parameter <paramref name='str'/> is not documented yet.</param><returns>An EFloat object.</returns><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary>
+            <param name='str'>The parameter <paramref name='str'/> is not documented yet.</param><returns>An EFloat object.</returns><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary><summary>Not documented yet.</summary>
             <summary>Not documented yet.</summary>
         
 </doc>
@@ -4916,14 +4934,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
             <returns>This number's value, truncated to a byte (from 0 to 255).</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+            or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToByteIfExact">
 <summary>Converts this number's value to a byte (from 0 to 255)
             if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.</summary>
             <returns>This number's value as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a byte (from 0 to 255) without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToByteUnchecked">
 <summary>Truncates this number's value to an integer
@@ -4972,14 +4992,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 16-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+            or the truncated integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16IfExact">
 <summary>Converts this number's value to a 16-bit signed integer
             if it can fit in a 16-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 16-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Unchecked">
 <summary>Truncates this number's value to an integer
@@ -4992,14 +5014,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt32IfExact">
 <summary>Converts this number's value to a 32-bit signed integer
             if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt32Unchecked">
 <summary>Truncates this number's value to an integer
@@ -5012,14 +5036,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 64-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+            or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt64IfExact">
 <summary>Converts this number's value to a 64-bit signed integer
             if it can fit in a 64-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 64-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 64-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt64Unchecked">
 <summary>Truncates this number's value to an integer
@@ -5037,14 +5063,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to an 8-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+            or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSByteIfExact">
 <summary>Converts this number's value to an 8-bit signed integer
             if it can fit in an 8-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as an 8-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in an 8-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSByteUnchecked">
 <summary>Truncates this number's value to an integer
@@ -5101,14 +5129,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 16-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt16IfExact">
 <summary>Converts this number's value to a 16-bit unsigned integer
             if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 16-bit unsigned integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt16Unchecked">
 <summary>Truncates this number's value to an integer
@@ -5121,14 +5151,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt32IfExact">
 <summary>Converts this number's value to a 32-bit signed integer
             if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt32Unchecked">
 <summary>Truncates this number's value to an integer
@@ -5141,14 +5173,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 64-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt64IfExact">
 <summary>Converts this number's value to a 64-bit unsigned integer
             if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 64-bit unsigned integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt64Unchecked">
 <summary>Truncates this number's value to an integer
@@ -5210,7 +5244,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to a byte (from 0 to 255).</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+            or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double">
 <summary>Converts this value to its closest equivalent as a 64-bit
@@ -5233,7 +5267,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 16-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+            or the truncated integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32">
 <summary>Converts an arbitrary-precision binary float to a 32-bit signed integer
@@ -5241,7 +5275,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64">
 <summary>Converts an arbitrary-precision binary float to a 64-bit signed integer
@@ -5249,7 +5283,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 64-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+            or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.SByte">
 <summary>Converts an arbitrary-precision binary float to an 8-bit signed integer
@@ -5257,7 +5291,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to an 8-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+            or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single">
 <summary>Converts this value to its closest equivalent as a 32-bit
@@ -5280,7 +5314,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 16-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt32">
 <summary>Converts an arbitrary-precision binary float to a 32-bit signed integer
@@ -5288,7 +5322,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt64">
 <summary>Converts an arbitrary-precision binary float to a 64-bit unsigned integer
@@ -5296,7 +5330,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision binary float.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 64-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat">
 <summary>Converts an arbitrary-precision integer to an arbitrary
@@ -5385,6 +5419,8 @@ of each element, that is, either most significant first or least significant fir
             instance's value.</param>
             <returns>The difference of the two objects.</returns>
 <param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
+            instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
             instance's value.</param><returns>The difference of the two objects.</returns><param name='otherValue'>The number to subtract from this
             instance's value.</param><returns>The difference of the two objects.</returns><param name='bthis'>The parameter <paramref name='bthis'/> is not
             documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param>
@@ -6030,7 +6066,7 @@ of each element, that is, either most significant first or least significant fir
 <summary>Converts this number's value to a byte (from 0 to 255)
             if it can fit in a byte (from 0 to 255).</summary>
             <returns>This number's value as a byte (from 0 to 255).</returns>
-            <exception cref='T:System.OverflowException'>This value is outside the range of a byte (from 0 to 255).</exception>
+            <exception cref='T:System.OverflowException'>This value is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToByteUnchecked">
 <summary>Converts this number to a byte (from 0 to 255), returning the least-significant bits of this number's two's-complement form.</summary>
@@ -6054,7 +6090,7 @@ of each element, that is, either most significant first or least significant fir
 <summary>Converts this number's value to a 16-bit signed integer
             if it can fit in a 16-bit signed integer.</summary>
             <returns>This number's value as a 16-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This value is outside the range of a 16-bit signed integer.</exception>
+            <exception cref='T:System.OverflowException'>This value is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt16Unchecked">
 <summary>Converts this number to a 16-bit signed integer, returning the least-significant bits of this number's two's-complement form.</summary>
@@ -6112,7 +6148,7 @@ of each element, that is, either most significant first or least significant fir
 <summary>Converts this number's value to an 8-bit signed integer
             if it can fit in an 8-bit signed integer.</summary>
             <returns>This number's value as an 8-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This value is outside the range of an 8-bit signed integer.</exception>
+            <exception cref='T:System.OverflowException'>This value is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToSByteUnchecked">
 <summary>Converts this number to an 8-bit signed integer, returning the least-significant bits of this number's two's-complement form.</summary>
@@ -6129,7 +6165,7 @@ of each element, that is, either most significant first or least significant fir
 <summary>Converts this number's value to a 16-bit unsigned integer
             if it can fit in a 16-bit unsigned integer.</summary>
             <returns>This number's value as a 16-bit unsigned integer.</returns>
-            <exception cref='T:System.OverflowException'>This value is outside the range of a 16-bit unsigned integer.</exception>
+            <exception cref='T:System.OverflowException'>This value is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToUInt16Unchecked">
 <summary>Converts this number to a 16-bit unsigned integer, returning the least-significant bits of this number's two's-complement form.</summary>
@@ -6139,7 +6175,7 @@ of each element, that is, either most significant first or least significant fir
 <summary>Converts this number's value to a 32-bit signed integer
             if it can fit in a 32-bit signed integer.</summary>
             <returns>This number's value as a 32-bit signed integer.</returns>
-            <exception cref='T:System.OverflowException'>This value is outside the range of a 32-bit signed integer.</exception>
+            <exception cref='T:System.OverflowException'>This value is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToUInt32Unchecked">
 <summary>Converts this number to a 32-bit signed integer, returning the least-significant bits of this number's two's-complement form.</summary>
@@ -6421,7 +6457,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as a byte (from 0 to 255).</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of a byte (from 0 to 255).</exception>
+            is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16">
 <summary>Converts an arbitrary-precision integer to a 16-bit signed integer
@@ -6429,7 +6465,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as a 16-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of a 16-bit signed integer.</exception>
+            is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32">
 <summary>Converts an arbitrary-precision integer to a 32-bit signed integer
@@ -6437,7 +6473,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of a 32-bit signed integer.</exception>
+            is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int64">
 <summary>Converts an arbitrary-precision integer to a 64-bit signed integer
@@ -6445,7 +6481,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as a 64-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of a 64-bit signed integer.</exception>
+            is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.SByte">
 <summary>Converts an arbitrary-precision integer to an 8-bit signed integer
@@ -6453,7 +6489,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as an 8-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of an 8-bit signed integer.</exception>
+            is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt16">
 <summary>Converts an arbitrary-precision integer to a 16-bit unsigned integer
@@ -6461,7 +6497,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as a 16-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of a 16-bit unsigned integer.</exception>
+            is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt32">
 <summary>Converts an arbitrary-precision integer to a 32-bit signed integer
@@ -6469,7 +6505,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of a 32-bit signed integer.</exception>
+            is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt64">
 <summary>Converts an arbitrary-precision integer to a 64-bit unsigned integer
@@ -6477,7 +6513,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision integer.</param>
             <returns>The value of <paramref name='input'/> as a 64-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/>
-            is outside the range of a 64-bit unsigned integer.</exception>
+            is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_GreaterThan(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 <summary>Determines whether an arbitrary-precision integer is
@@ -7180,14 +7216,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a byte (from 0 to 255) after truncating to an integer.</summary>
             <returns>This number's value, truncated to a byte (from 0 to 255).</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+            or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToByteIfExact">
 <summary>Converts this number's value to a byte (from 0 to 255)
             if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.</summary>
             <returns>This number's value as a byte (from 0 to 255).</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a byte (from 0 to 255) without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToByteUnchecked">
 <summary>Truncates this number's value to an integer
@@ -7359,14 +7397,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 16-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 16-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+            or the truncated integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16IfExact">
 <summary>Converts this number's value to a 16-bit signed integer
             if it can fit in a 16-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 16-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Unchecked">
 <summary>Truncates this number's value to an integer
@@ -7379,14 +7419,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt32IfExact">
 <summary>Converts this number's value to a 32-bit signed integer
             if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt32Unchecked">
 <summary>Truncates this number's value to an integer
@@ -7399,14 +7441,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 64-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 64-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+            or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt64IfExact">
 <summary>Converts this number's value to a 64-bit signed integer
             if it can fit in a 64-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 64-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 64-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt64Unchecked">
 <summary>Truncates this number's value to an integer
@@ -7419,14 +7463,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in an 8-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to an 8-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+            or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSByteIfExact">
 <summary>Converts this number's value to an 8-bit signed integer
             if it can fit in an 8-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as an 8-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in an 8-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSByteUnchecked">
 <summary>Truncates this number's value to an integer
@@ -7454,14 +7500,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 16-bit unsigned integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 16-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt16IfExact">
 <summary>Converts this number's value to a 16-bit unsigned integer
             if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 16-bit unsigned integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 16-bit unsigned integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt16Unchecked">
 <summary>Truncates this number's value to an integer
@@ -7474,14 +7522,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 32-bit signed integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt32IfExact">
 <summary>Converts this number's value to a 32-bit signed integer
             if it can fit in a 32-bit signed integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 32-bit signed integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 32-bit signed integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt32Unchecked">
 <summary>Truncates this number's value to an integer
@@ -7494,14 +7544,16 @@ of each element, that is, either most significant first or least significant fir
             if it can fit in a 64-bit unsigned integer after truncating to an integer.</summary>
             <returns>This number's value, truncated to a 64-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt64IfExact">
 <summary>Converts this number's value to a 64-bit unsigned integer
             if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.</summary>
             <returns>This number's value as a 64-bit unsigned integer.</returns>
+            <exception cref='T:System.ArithmeticException'>This value is a finite number,
+            but is not an exact integer.</exception>
             <exception cref='T:System.OverflowException'>This value is infinity or not-a-number,
-            or the number can't fit in a 64-bit unsigned integer without rounding to a different numerical value.</exception>
+            or the integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt64Unchecked">
 <summary>Truncates this number's value to an integer
@@ -7554,12 +7606,12 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a byte (from 0 to 255).</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a byte (from 0 to 255).</exception>
+            or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Decimal">
-<summary>Not documented yet.</summary>
-            <param name='extendedNumber'>An ERational object.</param>
-            <returns>A Decimal object.</returns>
+
+            <summary>Not documented yet.</summary><param name='extendedNumber'>The parameter <paramref name='extendedNumber'/> is not documented yet.</param><returns>A Decimal object.</returns>
+        
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Double">
 <summary>Converts this value to a 64-bit floating-point number. The
@@ -7575,7 +7627,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 16-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit signed integer.</exception>
+            or the truncated integer is less than -32768 or greater than 32767.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32">
 <summary>Converts an arbitrary-precision rational number to a 32-bit signed integer
@@ -7583,7 +7635,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than -2147483648 or greater than 2147483647.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int64">
 <summary>Converts an arbitrary-precision rational number to a 64-bit signed integer
@@ -7591,7 +7643,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 64-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit signed integer.</exception>
+            or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.SByte">
 <summary>Converts an arbitrary-precision rational number to an 8-bit signed integer
@@ -7599,7 +7651,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to an 8-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of an 8-bit signed integer.</exception>
+            or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Single">
 <summary>Converts this value to a 32-bit floating-point number. The
@@ -7615,7 +7667,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 16-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 16-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 65535.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt32">
 <summary>Converts an arbitrary-precision rational number to a 32-bit signed integer
@@ -7623,7 +7675,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 32-bit signed integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 32-bit signed integer.</exception>
+            or the truncated integer is less than 0 or greater than 4294967295.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt64">
 <summary>Converts an arbitrary-precision rational number to a 64-bit unsigned integer
@@ -7631,7 +7683,7 @@ of each element, that is, either most significant first or least significant fir
             <param name='input'>The number to convert as an arbitrary-precision rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a 64-bit unsigned integer.</returns>
             <exception cref='T:System.OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number,
-            or the truncated integer is outside the range of a 64-bit unsigned integer.</exception>
+            or the truncated integer is less than 0 or greater than 18446744073709551615.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
