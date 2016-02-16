@@ -2187,7 +2187,7 @@ EContext ctx) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEIntegerExact"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEIntegerIfExact"]/*'/>
     public EInteger ToEIntegerIfExact() {
       return this.ToEIntegerInternal(true);
     }
@@ -2685,7 +2685,7 @@ ec);
         bool inexact = !quorem[1].IsZero;
         // Round to odd to avoid rounding errors
         if (!quorem[1].IsZero && quorem[0].IsEven) {
-          quorem[0 ] = quorem[0].Add(EInteger.One);
+          quorem[0] = quorem[0].Add(EInteger.One);
         }
         EFloat efret = this.WithThisSign(
 EFloat.Create(
@@ -2714,9 +2714,9 @@ adjust.AsEInteger()));
                     "sNaN" + this.unsignedMantissa);
         }
         if ((this.flags & BigNumberFlags.FlagQuietNaN) != 0) {
-          return this.unsignedMantissa.IsValueZero ? (negative ? 
-            "-NaN" : "NaN") : (negative ? "-NaN" + this.unsignedMantissa : "NaN" +
-                this.unsignedMantissa);
+          return this.unsignedMantissa.IsValueZero ? (negative ?
+         "-NaN" : "NaN") : (negative ? "-NaN" + this.unsignedMantissa :
+              "NaN" + this.unsignedMantissa);
         }
       }
       int scaleSign = -this.exponent.Sign;
@@ -3172,75 +3172,89 @@ flags);
     }
 
     // Begin integer conversions
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteChecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteChecked"]/*'/>
 public byte ToByteChecked() {
  return this.ToEInteger().ToByteChecked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteUnchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteUnchecked"]/*'/>
 public byte ToByteUnchecked() {
  return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteIfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteIfExact"]/*'/>
 public byte ToByteIfExact() {
  return this.ToEIntegerIfExact().ToByteChecked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromByte(System.Byte)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromByte(System.Byte)"]/*'/>
 public static EDecimal FromByte(byte inputByte) {
- int val = ((int)inputByte) & 0xFF;
+ int val = ((int)inputByte) & 0xff;
  return FromInt32(val);
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Checked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Checked"]/*'/>
 public short ToInt16Checked() {
  return this.ToEInteger().ToInt16Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked"]/*'/>
 public short ToInt16Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16IfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16IfExact"]/*'/>
 public short ToInt16IfExact() {
  return this.ToEIntegerIfExact().ToInt16Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)"]/*'/>
 public static EDecimal FromInt16(short inputInt16) {
- int val = (int)inputInt16;
+ var val = (int)inputInt16;
  return FromInt32(val);
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
 public int ToInt32Checked() {
  return this.ToEInteger().ToInt32Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked"]/*'/>
 public int ToInt32Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32IfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32IfExact"]/*'/>
 public int ToInt32IfExact() {
  return this.ToEIntegerIfExact().ToInt32Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
 public long ToInt64Checked() {
  return this.ToEInteger().ToInt64Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
 public long ToInt64Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : (long)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64IfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64IfExact"]/*'/>
 public long ToInt64IfExact() {
  return this.ToEIntegerIfExact().ToInt64Checked();
 }

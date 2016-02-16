@@ -1137,9 +1137,9 @@ EFloat src) {
       double inputDouble = EDecimal.FromString(str).ToDouble();
       if (inputDouble != expectedDouble) {
   string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
-          ",\ngot----- " +
-        OutputDouble(inputDouble) +"\nsrc-----=" + OutputEF(src) +
-        "\nexpected=" + OutputEF(expected) +"\ninput---=" + OutputEF(input);
+          ",\ngot----- " + OutputDouble(inputDouble) +
+        "\nsrc-----=" + OutputEF(src) + "\nexpected=" + OutputEF(expected) +
+        "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
     }
@@ -1338,24 +1338,96 @@ stringTemp);
     [Test]
     public void TestConversions() {
       var fr = new FastRandom();
-      for (var i = 0; i < 2000; i++) {
+      for (var i = 0; i < 2000; ++i) {
         bool isNum, isTruncated, isInteger;
         string strNormal, strInteger;
         EInteger eint;
         EFloat enumber = RandomObjects.RandomEFloat(fr);
         if (!enumber.IsFinite) {
-          Assert.Throws(typeof(OverflowException), () => enumber.ToByteChecked());
-          Assert.AreEqual(EInteger.Zero, EInteger.FromByte(enumber.ToByteUnchecked()));
-          Assert.Throws(typeof(OverflowException), () => enumber.ToByteIfExact());
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt16Checked());
-          Assert.AreEqual(EInteger.Zero, EInteger.FromInt16(enumber.ToInt16Unchecked()));
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt16IfExact());
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt32Checked());
-          Assert.AreEqual(EInteger.Zero, EInteger.FromInt32(enumber.ToInt32Unchecked()));
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt32IfExact());
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt64Checked());
-          Assert.AreEqual(EInteger.Zero, EInteger.FromInt64(enumber.ToInt64Unchecked()));
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt64IfExact());
+          try {
+ enumber.ToByteChecked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+  Assert.AreEqual(
+EInteger.Zero,
+EInteger.FromByte(enumber.ToByteUnchecked()));
+          try {
+ enumber.ToByteIfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+          try {
+ enumber.ToInt16Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+Assert.AreEqual(
+EInteger.Zero,
+EInteger.FromInt16(enumber.ToInt16Unchecked()));
+          try {
+ enumber.ToInt16IfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+          try {
+ enumber.ToInt32Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+Assert.AreEqual(
+EInteger.Zero,
+EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          try {
+ enumber.ToInt32IfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+          try {
+ enumber.ToInt64Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+Assert.AreEqual(
+EInteger.Zero,
+EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          try {
+ enumber.ToInt64IfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           continue;
         }
         EFloat enumberInteger = EFloat.FromEInteger(enumber.ToEInteger());
@@ -1375,19 +1447,64 @@ stringTemp);
           if (isInteger) {
             Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteIfExact()));
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToByteIfExact());
+            try {
+ enumber.ToByteIfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         } else if (isTruncated) {
           Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteChecked()));
           Assert.AreEqual(eint, EInteger.FromByte(enumber.ToByteUnchecked()));
-          Assert.Throws(typeof(ArithmeticException), () => enumber.ToByteIfExact());
+          try {
+ enumber.ToByteIfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
         } else {
-          Assert.Throws(typeof(OverflowException), () => enumber.ToByteChecked());
-          Assert.DoesNotThrow(() => enumber.ToByteUnchecked());
+          try {
+ enumber.ToByteChecked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+          try {
+ enumber.ToByteUnchecked();
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           if (isInteger) {
-            Assert.Throws(typeof(OverflowException), () => enumber.ToByteIfExact());
+            try {
+ enumber.ToByteIfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToByteIfExact());
+            try {
+ enumber.ToByteIfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         }
         isNum = enumber.CompareTo(
@@ -1402,26 +1519,72 @@ stringTemp);
           if (isInteger) {
             Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16IfExact()));
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt16IfExact());
+            try {
+ enumber.ToInt16IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         } else if (isTruncated) {
           Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16Checked()));
           Assert.AreEqual(eint, EInteger.FromInt16(enumber.ToInt16Unchecked()));
-          Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt16IfExact());
+          try {
+ enumber.ToInt16IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
         } else {
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt16Checked());
-          Assert.DoesNotThrow(() => enumber.ToInt16Unchecked());
+          try {
+ enumber.ToInt16Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+          try {
+ enumber.ToInt16Unchecked();
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           if (isInteger) {
-            Assert.Throws(typeof(OverflowException), () => enumber.ToInt16IfExact());
+            try {
+ enumber.ToInt16IfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt16IfExact());
+            try {
+ enumber.ToInt16IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         }
         isNum = enumber.CompareTo(
         EFloat.FromString("-2147483648")) >= 0 && enumber.CompareTo(
         EFloat.FromString("2147483647")) <= 0;
         isTruncated = enumber.ToEInteger().CompareTo(
-        EInteger.FromString("-2147483648")) >= 0 && enumber.ToEInteger().CompareTo(
+    EInteger.FromString("-2147483648")) >= 0 &&
+          enumber.ToEInteger().CompareTo(
         EInteger.FromString("2147483647")) <= 0;
         if (isNum) {
           Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32Checked()));
@@ -1429,26 +1592,72 @@ stringTemp);
           if (isInteger) {
             Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32IfExact()));
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt32IfExact());
+            try {
+ enumber.ToInt32IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         } else if (isTruncated) {
           Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32Checked()));
           Assert.AreEqual(eint, EInteger.FromInt32(enumber.ToInt32Unchecked()));
-          Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt32IfExact());
+          try {
+ enumber.ToInt32IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
         } else {
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt32Checked());
-          Assert.DoesNotThrow(() => enumber.ToInt32Unchecked());
+          try {
+ enumber.ToInt32Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+          try {
+ enumber.ToInt32Unchecked();
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           if (isInteger) {
-            Assert.Throws(typeof(OverflowException), () => enumber.ToInt32IfExact());
+            try {
+ enumber.ToInt32IfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt32IfExact());
+            try {
+ enumber.ToInt32IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         }
         isNum = enumber.CompareTo(
         EFloat.FromString("-9223372036854775808")) >= 0 && enumber.CompareTo(
         EFloat.FromString("9223372036854775807")) <= 0;
         isTruncated = enumber.ToEInteger().CompareTo(
-        EInteger.FromString("-9223372036854775808")) >= 0 && enumber.ToEInteger().CompareTo(
+        EInteger.FromString("-9223372036854775808")) >= 0 &&
+          enumber.ToEInteger().CompareTo(
         EInteger.FromString("9223372036854775807")) <= 0;
         if (isNum) {
           Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64Checked()));
@@ -1456,19 +1665,64 @@ stringTemp);
           if (isInteger) {
             Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64IfExact()));
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt64IfExact());
+            try {
+ enumber.ToInt64IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         } else if (isTruncated) {
           Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64Checked()));
           Assert.AreEqual(eint, EInteger.FromInt64(enumber.ToInt64Unchecked()));
-          Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt64IfExact());
+          try {
+ enumber.ToInt64IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
         } else {
-          Assert.Throws(typeof(OverflowException), () => enumber.ToInt64Checked());
-          Assert.DoesNotThrow(() => enumber.ToInt64Unchecked());
+          try {
+ enumber.ToInt64Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+          try {
+ enumber.ToInt64Unchecked();
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           if (isInteger) {
-            Assert.Throws(typeof(OverflowException), () => enumber.ToInt64IfExact());
+            try {
+ enumber.ToInt64IfExact();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           } else {
-            Assert.Throws(typeof(ArithmeticException), () => enumber.ToInt64IfExact());
+            try {
+ enumber.ToInt64IfExact();
+Assert.Fail("Should have failed");
+} catch (ArithmeticException) {
+Console.Write(String.Empty);
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
           }
         }
       }
@@ -1500,10 +1754,10 @@ TestToFloatRoundingOne(objectTemp, true);
     }
 
     [Test]
-    public void TestToEIntegerExact() {
+    public void TestToEIntegerIfExact() {
       EFloat flo = EFloat.Create(999, -1);
       try {
-        flo.ToEIntegerExact();
+        flo.ToEIntegerIfExact();
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
         Console.Write(String.Empty);

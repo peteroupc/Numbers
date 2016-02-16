@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
+Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
 
 ### ERational Constructor
 
@@ -448,6 +448,36 @@ Not documented yet.
 
 A Boolean object.
 
+### FromByte
+
+    public static PeterO.Numbers.ERational FromByte(
+        byte inputByte);
+
+Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision rational number.
+
+### FromDecimal
+
+    public static PeterO.Numbers.ERational FromDecimal(
+        System.Decimal eint);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>eint</i>: A Decimal object.
+
+<b>Return Value:</b>
+
+An ERational object.
+
 ### FromDouble
 
     public static PeterO.Numbers.ERational FromDouble(
@@ -567,37 +597,65 @@ An arbitrary-precision rational number.
 The parameter <i>ef</i>
  is null.
 
-### FromInt32
+### FromInt16
 
-    public static PeterO.Numbers.ERational FromInt32(
-        int smallint);
+    public static PeterO.Numbers.ERational FromInt16(
+        short inputInt16);
 
-Not documented yet.
+Converts a 16-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>smallint</i>: The parameter  <i>smallint</i>
- is not documented yet.
+ * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+This number's value as an arbitrary-precision rational number.
+
+### FromInt32
+
+    public static PeterO.Numbers.ERational FromInt32(
+        int inputInt32);
+
+Converts a 32-bit signed integer to an arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>inputInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision rational number.
 
 ### FromInt64
 
     public static PeterO.Numbers.ERational FromInt64(
-        long longInt);
+        long inputInt64);
 
-Not documented yet.
+Converts a 64-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>longInt</i>: The parameter  <i>longInt</i>
- is not documented yet.
+ * <i>inputInt64</i>: The number to convert as a 64-bit signed integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+This number's value as an arbitrary-precision rational number.
+
+### FromSByte
+
+    public static PeterO.Numbers.ERational FromSByte(
+        sbyte inputSByte);
+
+Converts an 8-bit signed integer to an arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>inputSByte</i>: The number to convert as an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision rational number.
 
 ### FromSingle
 
@@ -682,6 +740,51 @@ The parameter <i>str</i>
  * System.FormatException:
 The parameter  <i>str</i>
  is not a correctly formatted number string.
+
+### FromUInt16
+
+    public static PeterO.Numbers.ERational FromUInt16(
+        ushort inputUInt16);
+
+Converts a 16-bit unsigned integer to an arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt16</i>: The number to convert as a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision rational number.
+
+### FromUInt32
+
+    public static PeterO.Numbers.ERational FromUInt32(
+        uint inputUInt32);
+
+Converts a 32-bit signed integer to an arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision rational number.
+
+### FromUInt64
+
+    public static PeterO.Numbers.ERational FromUInt64(
+        ulong inputUInt64);
+
+Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt64</i>: The number to convert as a 64-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision rational number.
 
 ### GetHashCode
 
@@ -790,9 +893,11 @@ An arbitrary-precision rational number.
         PeterO.Numbers.ERational bthis,
         PeterO.Numbers.ERational augend);
 
-Not documented yet.
+Adds two rational numbers.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: Another arbitrary-precision rational number.
 
  * <i>bthis</i>: An ERational object.
 
@@ -800,12 +905,12 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bthis</i>
+The parameter <i>otherValue</i>
  is null.
 
 ### Operator `/`
@@ -814,9 +919,11 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.ERational dividend,
         PeterO.Numbers.ERational divisor);
 
-Not documented yet.
+Divides this instance by the value of an arbitrary-precision rational number object.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
  * <i>dividend</i>: An ERational object.
 
@@ -824,12 +931,12 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+The quotient of the two objects.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>dividend</i>
+The parameter <i>otherValue</i>
  is null.
 
 ### Operator `%`
@@ -838,9 +945,11 @@ The parameter  <i>dividend</i>
         PeterO.Numbers.ERational dividend,
         PeterO.Numbers.ERational divisor);
 
-Not documented yet.
+Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
  * <i>dividend</i>: An ERational object.
 
@@ -848,12 +957,12 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>dividend</i>
+The parameter <i>otherValue</i>
  is null.
 
 ### Operator `*`
@@ -862,9 +971,11 @@ The parameter  <i>dividend</i>
         PeterO.Numbers.ERational operand1,
         PeterO.Numbers.ERational operand2);
 
-Not documented yet.
+Multiplies this instance by the value of an arbitrary-precision rational number.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
  * <i>operand1</i>: An ERational object.
 
@@ -872,12 +983,12 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+The product of the two numbers.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>operand1</i>
+The parameter <i>otherValue</i>
  is null.
 
 ### Operator `-`
@@ -886,9 +997,11 @@ The parameter  <i>operand1</i>
         PeterO.Numbers.ERational bthis,
         PeterO.Numbers.ERational subtrahend);
 
-Not documented yet.
+Subtracts an arbitrary-precision rational number from this instance.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
  * <i>bthis</i>: An ERational object.
 
@@ -896,12 +1009,12 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+The difference of the two objects.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bthis</i>
+The parameter <i>otherValue</i>
  is null.
 
 ### Operator `-`
@@ -966,6 +1079,64 @@ The difference of the two objects.
  * System.ArgumentNullException:
 The parameter <i>otherValue</i>
  is null.
+
+### ToByteChecked
+
+    public byte ToByteChecked();
+
+Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
+
+### ToByteIfExact
+
+    public byte ToByteIfExact();
+
+Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 255.
+
+### ToByteUnchecked
+
+    public byte ToByteUnchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+This number, converted to a byte (from 0 to 255). Returns 0 if this value is infinity or not-a-number.
+
+### ToDecimal
+
+    public System.Decimal ToDecimal();
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>extendedNumber</i>: The parameter  <i>extendedNumber</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+A Decimal object.
 
 ### ToDouble
 
@@ -1076,6 +1247,26 @@ This object's value is infinity or not-a-number (NaN).
 
     public PeterO.Numbers.EInteger ToEIntegerExact();
 
+<b>Deprecated.</b> Renamed to ToEIntegerIfExact.
+
+Converts this value to an arbitrary-precision integer, checking whether the value is an exact integer.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
+
+ * System.ArithmeticException:
+This object's value is not an exact integer.
+
+### ToEIntegerIfExact
+
+    public PeterO.Numbers.EInteger ToEIntegerIfExact();
+
 Converts this value to an arbitrary-precision integer, checking whether the value is an exact integer.
 
 <b>Return Value:</b>
@@ -1182,6 +1373,178 @@ Converts this rational number to a binary float, but if the result would have a 
 
 The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
 
+### ToInt16Checked
+
+    public short ToInt16Checked();
+
+Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
+
+### ToInt16IfExact
+
+    public short ToInt16IfExact();
+
+Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -32768 or greater than 32767.
+
+### ToInt16Unchecked
+
+    public short ToInt16Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 16-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+
+### ToInt32Checked
+
+    public int ToInt32Checked();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+
+### ToInt32IfExact
+
+    public int ToInt32IfExact();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -2147483648 or greater than 2147483647.
+
+### ToInt32Unchecked
+
+    public int ToInt32Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+
+### ToInt64Checked
+
+    public long ToInt64Checked();
+
+Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
+### ToInt64IfExact
+
+    public long ToInt64IfExact();
+
+Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
+### ToInt64Unchecked
+
+    public long ToInt64Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+
+### ToSByteChecked
+
+    public sbyte ToSByteChecked();
+
+Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+
+### ToSByteIfExact
+
+    public sbyte ToSByteIfExact();
+
+Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -128 or greater than 127.
+
+### ToSByteUnchecked
+
+    public sbyte ToSByteUnchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to an 8-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+
 ### ToSingle
 
     public float ToSingle();
@@ -1201,3 +1564,132 @@ Converts this object to a text string.
 <b>Return Value:</b>
 
 A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString`  method. Otherwise, the return value has the following form:  `[-]numerator/denominator` .
+
+### ToUInt16Checked
+
+    public ushort ToUInt16Checked();
+
+Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
+### ToUInt16IfExact
+
+    public ushort ToUInt16IfExact();
+
+Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 65535.
+
+### ToUInt16Unchecked
+
+    public ushort ToUInt16Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 16-bit unsigned integer. Returns 0 if this value is infinity or not-a-number.
+
+### ToUInt32Checked
+
+    public uint ToUInt32Checked();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+
+### ToUInt32IfExact
+
+    public uint ToUInt32IfExact();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 4294967295.
+
+### ToUInt32Unchecked
+
+    public uint ToUInt32Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+
+### ToUInt64Checked
+
+    public ulong ToUInt64Checked();
+
+Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 64-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+
+### ToUInt64IfExact
+
+    public ulong ToUInt64IfExact();
+
+Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 64-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 18446744073709551615.
+
+### ToUInt64Unchecked
+
+    public ulong ToUInt64Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 64-bit unsigned integer. Returns 0 if this value is infinity or not-a-number.

@@ -151,14 +151,14 @@ namespace PeterO.Numbers {
               longV &= 0xFFFFFFFFL;
               longV |= unchecked(((long)this.data[1]) << 32);
               longV = unchecked(longV * multiplicand);
-              this.data[0 ] = unchecked((int)longV);
-              this.data[1 ] = unchecked((int)(longV >> 32));
+              this.data[0] = unchecked((int)longV);
+              this.data[1] = unchecked((int)(longV >> 32));
               carry = 0;
             } else if (this.wordCount == 1) {
               long longV = unchecked((long)this.data[0]);
               longV &= 0xFFFFFFFFL;
               longV = unchecked(longV * multiplicand);
-              this.data[0 ] = unchecked((int)longV);
+              this.data[0] = unchecked((int)longV);
               carry = unchecked((int)(longV >> 32));
             } else {
             for (var i = 0; i < this.wordCount; ++i) {
@@ -196,7 +196,7 @@ namespace PeterO.Numbers {
               long longV = unchecked((long)this.data[0]);
               longV &= 0xFFFFFFFFL;
               longV = unchecked(longV * multiplicand);
-              this.data[0 ] = unchecked((int)longV);
+              this.data[0] = unchecked((int)longV);
               carry = unchecked((int)(longV >> 32));
             } else {
             for (var i = 0; i < this.wordCount; ++i) {

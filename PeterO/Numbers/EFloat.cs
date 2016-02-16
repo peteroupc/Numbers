@@ -374,7 +374,6 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String)"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public static EFloat FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
@@ -1304,7 +1303,6 @@ EContext ctx) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToDouble"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public double ToDouble() {
       if (this.IsPositiveInfinity()) {
         return Double.PositiveInfinity;
@@ -1402,7 +1400,7 @@ if (!(bitLength <= 53)) {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToEIntegerExact"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToEIntegerIfExact"]/*'/>
     public EInteger ToEIntegerIfExact() {
       return this.ToEIntegerInternal(true);
     }
@@ -1769,85 +1767,101 @@ flags);
       }
     }
         // Begin integer conversions
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteChecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteChecked"]/*'/>
 public byte ToByteChecked() {
  return this.ToEInteger().ToByteChecked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteUnchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteUnchecked"]/*'/>
 public byte ToByteUnchecked() {
  return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteIfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteIfExact"]/*'/>
 public byte ToByteIfExact() {
  return this.ToEIntegerIfExact().ToByteChecked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromByte(System.Byte)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromByte(System.Byte)"]/*'/>
 public static EFloat FromByte(byte inputByte) {
- int val = ((int)inputByte) & 0xFF;
+ int val = ((int)inputByte) & 0xff;
  return FromInt32(val);
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Checked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Checked"]/*'/>
 public short ToInt16Checked() {
  return this.ToEInteger().ToInt16Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Unchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Unchecked"]/*'/>
 public short ToInt16Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16IfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16IfExact"]/*'/>
 public short ToInt16IfExact() {
  return this.ToEIntegerIfExact().ToInt16Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt16(System.Int16)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt16(System.Int16)"]/*'/>
 public static EFloat FromInt16(short inputInt16) {
- int val = (int)inputInt16;
+ var val = (int)inputInt16;
  return FromInt32(val);
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
 public int ToInt32Checked() {
  return this.ToEInteger().ToInt32Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
 public int ToInt32Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32IfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32IfExact"]/*'/>
 public int ToInt32IfExact() {
  return this.ToEIntegerIfExact().ToInt32Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>
 public static EFloat FromInt32(int inputInt32) {
  return FromEInteger(EInteger.FromInt32(inputInt32));
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
 public long ToInt64Checked() {
  return this.ToEInteger().ToInt64Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
 public long ToInt64Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : (long)0;
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64IfExact"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64IfExact"]/*'/>
 public long ToInt64IfExact() {
  return this.ToEIntegerIfExact().ToInt64Checked();
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)"]/*'/>
 public static EFloat FromInt64(long inputInt64) {
  return FromEInteger(EInteger.FromInt64(inputInt64));
 }

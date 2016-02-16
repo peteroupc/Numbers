@@ -128,7 +128,7 @@ private FastInteger MaxDigitLengthForBitLength(FastInteger prec) {
     result = prec;
   } else {
     if (this.thisRadix == 10 && prec.CompareToInt(2135) <= 0) {
-      int value = checked(1 + ((prec.AsInt32() - 1) * 631305 >> 21));
+      int value = checked(1 + (((prec.AsInt32() - 1) * 631305) >> 21));
       result = new FastInteger(value);
     } else {
       EInteger valueEInteger = ShiftedMask(prec);

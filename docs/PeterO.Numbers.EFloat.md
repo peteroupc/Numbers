@@ -775,6 +775,21 @@ Finds e (the base of natural logarithms) raised to the power of this object's va
 Exponential of this object. If this object's value is 1, returns an approximation to " e" within the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter <i>ctx</i>
  is null or the precision is unlimited (the context's Precision property is 0).
 
+### FromByte
+
+    public static PeterO.Numbers.EFloat FromByte(
+        byte inputByte);
+
+Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
+
+<b>Parameters:</b>
+
+ * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision binary float.
+
 ### FromDouble
 
     public static PeterO.Numbers.EFloat FromDouble(
@@ -806,35 +821,65 @@ Converts an arbitrary-precision integer to the same value as a binary float.
 
 An arbitrary-precision binary float.
 
-### FromInt32
+### FromInt16
 
-    public static PeterO.Numbers.EFloat FromInt32(
-        int valueSmaller);
+    public static PeterO.Numbers.EFloat FromInt16(
+        short inputInt16);
 
-Creates a binary float from a 32-bit signed integer.
+Converts a 16-bit signed integer to an arbitrary-precision binary float.
 
 <b>Parameters:</b>
 
- * <i>valueSmaller</i>: A 32-bit signed integer.
+ * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary float with the exponent set to 0.
+This number's value as an arbitrary-precision binary float.
+
+### FromInt32
+
+    public static PeterO.Numbers.EFloat FromInt32(
+        int inputInt32);
+
+Converts a 32-bit signed integer to an arbitrary-precision binary float.
+
+<b>Parameters:</b>
+
+ * <i>inputInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision binary float.
 
 ### FromInt64
 
     public static PeterO.Numbers.EFloat FromInt64(
-        long valueSmall);
+        long inputInt64);
 
-Converts a 64-bit integer to the same value as a binary float.
+Converts a 64-bit signed integer to an arbitrary-precision binary float.
 
 <b>Parameters:</b>
 
- * <i>valueSmall</i>: A 64-bit signed integer.
+ * <i>inputInt64</i>: The number to convert as a 64-bit signed integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary float with the exponent set to 0.
+This number's value as an arbitrary-precision binary float.
+
+### FromSByte
+
+    public static PeterO.Numbers.EFloat FromSByte(
+        sbyte inputSByte);
+
+Converts an 8-bit signed integer to an arbitrary-precision binary float.
+
+<b>Parameters:</b>
+
+ * <i>inputSByte</i>: The number to convert as an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision binary float.
 
 ### FromSingle
 
@@ -856,22 +901,6 @@ A binary float with the same value as  <i>flt</i>
 
     public static PeterO.Numbers.EFloat FromString(
         string str);
-
-Not documented yet.
-
-Not documented yet.
-
-Not documented yet.
-
-Not documented yet.
-
-Not documented yet.
-
-Not documented yet.
-
-Not documented yet.
-
-Not documented yet.
 
 Not documented yet.
 
@@ -999,6 +1028,51 @@ The parsed number, converted to arbitrary-precision binary float.
  * System.ArgumentNullException:
 The parameter <i>str</i>
  is null.
+
+### FromUInt16
+
+    public static PeterO.Numbers.EFloat FromUInt16(
+        ushort inputUInt16);
+
+Converts a 16-bit unsigned integer to an arbitrary-precision binary float.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt16</i>: The number to convert as a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision binary float.
+
+### FromUInt32
+
+    public static PeterO.Numbers.EFloat FromUInt32(
+        uint inputUInt32);
+
+Converts a 32-bit signed integer to an arbitrary-precision binary float.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision binary float.
+
+### FromUInt64
+
+    public static PeterO.Numbers.EFloat FromUInt64(
+        ulong inputUInt64);
+
+Converts a 64-bit unsigned integer to an arbitrary-precision binary float.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt64</i>: The number to convert as a 64-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision binary float.
 
 ### GetHashCode
 
@@ -1585,9 +1659,11 @@ Returns the next value that is closer to the other object' s value than this obj
         PeterO.Numbers.EFloat bthis,
         PeterO.Numbers.EFloat augend);
 
-Not documented yet.
+Adds this object and another binary float and returns the result.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: An arbitrary-precision binary float.
 
  * <i>bthis</i>: The parameter  <i>bthis</i>
  is not documented yet.
@@ -1597,13 +1673,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An EFloat object.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>bthis</i>
- is null.
+The sum of the two objects.
 
 ### Operator `/`
 
@@ -1611,9 +1681,11 @@ The parameter <i>bthis</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Not documented yet.
+Divides this object by another binary float and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
+
+ * <i>divisor</i>: An arbitrary-precision binary float to divide by.
 
  * <i>dividend</i>: The number that will be divided by the divisor.
 
@@ -1621,13 +1693,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An EFloat object.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>dividend</i>
- is null.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion.
 
 ### Operator `%`
 
@@ -1659,9 +1725,11 @@ The parameter <i>dividend</i>
         PeterO.Numbers.EFloat operand1,
         PeterO.Numbers.EFloat operand2);
 
-Not documented yet.
+Multiplies two binary floats. The resulting exponent will be the sum of the exponents of the two binary floats.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: Another binary float.
 
  * <i>operand1</i>: The first operand.
 
@@ -1669,13 +1737,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An EFloat object.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>operand1</i>
- is null.
+The product of the two binary floats.
 
 ### Operator `-`
 
@@ -1683,9 +1745,27 @@ The parameter <i>operand1</i>
         PeterO.Numbers.EFloat bthis,
         PeterO.Numbers.EFloat subtrahend);
 
-Not documented yet.
+Subtracts an arbitrary-precision binary float from this instance and returns the result.
 
 <b>Parameters:</b>
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
 
  * <i>bthis</i>: The parameter  <i>bthis</i>
  is not documented yet.
@@ -1695,13 +1775,39 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An EFloat object.
+The difference of the two objects.
 
-<b>Exceptions:</b>
+<b>Return Value:</b>
 
- * System.ArgumentNullException:
-The parameter <i>bthis</i>
- is null.
+The difference of the two objects.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
 
 ### Operator `-`
 
@@ -1827,7 +1933,7 @@ An arbitrary-precision integer.
 
 Returns a binary float with the same value but a new exponent.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b>This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
+<b>Remark:</b>This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the radix point number = number.Quantize(-5,  // five
@@ -1840,7 +1946,7 @@ A fixed-point binary arithmetic in which no digits come after the radix point (a
 
  * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, ill also store the flags resulting from the operation (the flags re in addition to the pre-existing flags). Can be null, in which ase the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -1874,7 +1980,7 @@ A binary float with the same value as this object but with the exponent changed.
 
 Returns a binary float with the same value but a new exponent.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b>This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
+<b>Remark:</b>This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the radix point number = number.Quantize(
@@ -1887,7 +1993,7 @@ A fixed-point binary arithmetic in which no digits come after the radix point (a
 
  * <i>desiredExponent</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, ill also store the flags resulting from the operation (the flags re in addition to the pre-existing flags). Can be null, in which ase the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2097,11 +2203,11 @@ A binary float rounded to the closest integer representable in the given precisi
     public PeterO.Numbers.EFloat RoundToIntegerNoRoundedFlag(
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to an integer, without adding the `FlagInexact`  or FlagRounded flags.
+Returns a binary float with the same value as this object but rounded to an integer, without adding the `FlagInexact`  or  `FlagRounded`  flags.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the FlagRounded and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2131,11 +2237,11 @@ A binary float rounded to the closest integer representable in the given precisi
 
 <b>Deprecated.</b> Renamed to RoundToIntegerNoRoundedFlag.
 
-Returns a binary float with the same value as this object but rounded to an integer, without adding the `FlagInexact`  or FlagRounded flags.
+Returns a binary float with the same value as this object but rounded to an integer, without adding the `FlagInexact`  or  `FlagRounded`  flags.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the FlagRounded and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2298,6 +2404,49 @@ The difference of the two objects.
 The parameter <i>otherValue</i>
  is null.
 
+### ToByteChecked
+
+    public byte ToByteChecked();
+
+Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
+
+### ToByteIfExact
+
+    public byte ToByteIfExact();
+
+Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 255.
+
+### ToByteUnchecked
+
+    public byte ToByteUnchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+This number, converted to a byte (from 0 to 255). Returns 0 if this value is infinity or not-a-number.
+
 ### ToDouble
 
     public double ToDouble();
@@ -2337,6 +2486,26 @@ This object's value is infinity or not-a-number (NaN).
 
     public PeterO.Numbers.EInteger ToEIntegerExact();
 
+<b>Deprecated.</b> Renamed to ToEIntegerIfExact.
+
+Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
+
+ * System.ArithmeticException:
+This object's value is not an exact integer.
+
+### ToEIntegerIfExact
+
+    public PeterO.Numbers.EInteger ToEIntegerIfExact();
+
 Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part.
 
 <b>Return Value:</b>
@@ -2373,45 +2542,134 @@ Converts this value to an arbitrary-precision decimal number.
 
 An arbitrary-precision decimal number.
 
+### ToInt16Checked
+
+    public short ToInt16Checked();
+
+Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
+
+### ToInt16IfExact
+
+    public short ToInt16IfExact();
+
+Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -32768 or greater than 32767.
+
+### ToInt16Unchecked
+
+    public short ToInt16Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 16-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+
 ### ToInt32Checked
 
     public int ToInt32Checked();
 
-Converts this value to a 32-bit signed integer, throwing an exception if the value can't fit.
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+This number's value, truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+
+### ToInt32IfExact
+
+    public int ToInt32IfExact();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -2147483648 or greater than 2147483647.
 
 ### ToInt32Unchecked
 
     public int ToInt32Unchecked();
 
-Converts this number to a 32-bit signed integer. If this value is not exactly a 32-bit integer, truncates the value to an integer and returns the lowest 32 bits of its two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
 <b>Return Value:</b>
 
-A 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 ### ToInt64Checked
 
     public long ToInt64Checked();
 
-Converts this value to a 64-bit signed integer, throwing an exception if the value can't fit.
+Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
 
 <b>Return Value:</b>
 
-A 64-bit signed integer.
+This number's value, truncated to a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
+### ToInt64IfExact
+
+    public long ToInt64IfExact();
+
+Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -9223372036854775808 or greater than 9223372036854775807.
 
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
 
-Converts this number to a 64-bit signed integer. If this value is not exactly a 64-bit integer, truncates the value to an integer and returns the lowest 64 bits of its two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this object's value).
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
 
 <b>Return Value:</b>
 
-A 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+This number, converted to a 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 ### ToPlainString
 
@@ -2422,6 +2680,49 @@ Converts this value to a string, but without exponential notation.
 <b>Return Value:</b>
 
 A text string.
+
+### ToSByteChecked
+
+    public sbyte ToSByteChecked();
+
+Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+
+### ToSByteIfExact
+
+    public sbyte ToSByteIfExact();
+
+Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than -128 or greater than 127.
+
+### ToSByteUnchecked
+
+    public sbyte ToSByteUnchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to an 8-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 ### ToShortestString
 
@@ -2457,6 +2758,135 @@ Converts this number's value to a text string.
 <b>Return Value:</b>
 
 A string representation of this object. The value is converted to decimal and the decimal form of this number's value is returned. The text string will be in exponential notation if the converted number's scale is positive or if the number's first nonzero decimal digit is more than five digits after the decimal point.
+
+### ToUInt16Checked
+
+    public ushort ToUInt16Checked();
+
+Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
+### ToUInt16IfExact
+
+    public ushort ToUInt16IfExact();
+
+Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 65535.
+
+### ToUInt16Unchecked
+
+    public ushort ToUInt16Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 16-bit unsigned integer. Returns 0 if this value is infinity or not-a-number.
+
+### ToUInt32Checked
+
+    public uint ToUInt32Checked();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+
+### ToUInt32IfExact
+
+    public uint ToUInt32IfExact();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 4294967295.
+
+### ToUInt32Unchecked
+
+    public uint ToUInt32Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+
+### ToUInt64Checked
+
+    public ulong ToUInt64Checked();
+
+Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
+
+<b>Return Value:</b>
+
+This number's value, truncated to a 64-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+
+### ToUInt64IfExact
+
+    public ulong ToUInt64IfExact();
+
+Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
+
+<b>Return Value:</b>
+
+This number's value as a 64-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is a finite number, but is not an exact integer.
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the integer is less than 0 or greater than 18446744073709551615.
+
+### ToUInt64Unchecked
+
+    public ulong ToUInt64Unchecked();
+
+Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number, converted to a 64-bit unsigned integer. Returns 0 if this value is infinity or not-a-number.
 
 ### Ulp
 

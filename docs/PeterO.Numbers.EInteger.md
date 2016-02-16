@@ -4,9 +4,11 @@
         System.IComparable,
         System.IEquatable
 
-An arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
+Represents an arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
 
-An arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
+Represents an arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
+
+Represents an arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
 
 ### IsEven
 
@@ -311,6 +313,21 @@ Determines whether this object and another object are equal.
 
  `true`  if this object and another object are equal; otherwise, false .
 
+### FromByte
+
+    public static PeterO.Numbers.EInteger FromByte(
+        byte inputByte);
+
+Converts a byte (from 0 to 255) to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision integer.
+
 ### FromBytes
 
     public static PeterO.Numbers.EInteger FromBytes(
@@ -345,6 +362,21 @@ An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
  * System.ArgumentNullException:
 The parameter <i>bytes</i>
  is null.
+
+### FromInt16
+
+    public static PeterO.Numbers.EInteger FromInt16(
+        short inputInt16);
+
+Converts a 16-bit signed integer to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision integer.
 
 ### FromInt32
 
@@ -384,7 +416,7 @@ An arbitrary-precision integer with the same value as the 64-bit number.
 
 Converts a string to an arbitrary-precision integer.
 
-The following example (C#) converts a number in the orm of a hex string to an arbitrary-precision integer.     public static EInteger HexToEInteger(string hexString) { /*Parse the
+The following example (C#) converts a number in the form of a hex string to an arbitrary-precision integer.    public static EInteger HexToEInteger(string hexString) { /*Parse the
     hexadecimal string as an arbitrary-precision integer. Will   throw a
     FormatException if the parsing fails*/ var bigInteger =
     EInteger.fromRadixString(hexString, 16);  /*Optional: Check if the
@@ -454,6 +486,21 @@ The parameter <i>index</i>
  * System.FormatException:
 The string portion is empty or in an invalid format.
 
+### FromSByte
+
+    public static PeterO.Numbers.EInteger FromSByte(
+        sbyte inputSByte);
+
+Converts an 8-bit signed integer to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>inputSByte</i>: The number to convert as an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision integer.
+
 ### FromString
 
     public static PeterO.Numbers.EInteger FromString(
@@ -515,6 +562,52 @@ The parameter <i>index</i>
 
  * System.FormatException:
 The string portion is empty or in an invalid format.
+
+### FromUInt16
+
+    public static PeterO.Numbers.EInteger FromUInt16(
+        ushort inputUInt16);
+
+Converts a 16-bit unsigned integer to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt16</i>: The number to convert as a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision integer.
+
+### FromUInt32
+
+    public static PeterO.Numbers.EInteger FromUInt32(
+        uint inputUInt32);
+
+Converts a 32-bit signed integer to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an arbitrary-precision integer.
+
+### FromUInt64
+
+    public static PeterO.Numbers.EInteger FromUInt64(
+        ulong ulongValue);
+
+Converts a 64-bit unsigned integer to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>inputUInt64</i>: The number to convert as a 64-bit unsigned integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputUInt64</i>
+ as an arbitrary-precision integer.
 
 ### Gcd
 
@@ -822,19 +915,26 @@ The parameter <i>bthis</i>
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
 
-Not documented yet.
+Does an AND operation between two arbitrary-precision integer values.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: The parameter  <i>thisValue</i>
-is not documented yet.
+ * <i>a</i>: The first arbitrary-precision integer.
 
- * <i>otherValue</i>: The parameter  <i>otherValue</i>
- is not documented yet.
+ * <i>b</i>: The second arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-An EInteger object.
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>a</i>
+ or  <i>b</i>
+ is null.
 
 ### Operator `|`
 
@@ -842,19 +942,26 @@ An EInteger object.
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
 
-Not documented yet.
+Does an OR operation between two arbitrary-precision integer instances.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: The parameter  <i>thisValue</i>
-is not documented yet.
+ * <i>first</i>: Another arbitrary-precision integer.
 
- * <i>otherValue</i>: The parameter  <i>otherValue</i>
- is not documented yet.
+ * <i>second</i>: An arbitrary-precision integer. (3).
 
 <b>Return Value:</b>
 
-An EInteger object.
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>first</i>
+ or  <i>second</i>
+ is null.
 
 ### Operator `/`
 
@@ -883,22 +990,27 @@ The parameter <i>dividend</i>
 ### Operator `^`
 
     public static PeterO.Numbers.EInteger operator ^(
-        PeterO.Numbers.EInteger thisValue,
-        PeterO.Numbers.EInteger otherValue);
+        PeterO.Numbers.EInteger a,
+        PeterO.Numbers.EInteger b);
 
-Not documented yet.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: The parameter  <i>thisValue</i>
-is not documented yet.
+ * <i>a</i>: The first arbitrary-precision integer.
 
- * <i>otherValue</i>: The parameter  <i>otherValue</i>
- is not documented yet.
+ * <i>b</i>: The second arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-An EInteger object.
+An arbitrary-precision integer in which each bit is set if it's set in one input integer but not the other.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>a</i>
+ or  <i>b</i>
+ is null.
 
 ### Operator `>`
 
@@ -1309,12 +1421,27 @@ The difference of the two objects.
 The parameter <i>subtrahend</i>
  is null.
 
+### ToByteChecked
+
+    public byte ToByteChecked();
+
+Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+This number's value as a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is less than 0 or greater than 255.
+
 ### ToBytes
 
     public byte[] ToBytes(
         bool littleEndian);
 
-Returns a byte array of this integer's value. The byte array will take the form of the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)), using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
+Returns a byte array of this integer's value. The byte array will take the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)), using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
 
 <b>Parameters:</b>
 
@@ -1323,6 +1450,41 @@ Returns a byte array of this integer's value. The byte array will take the form 
 <b>Return Value:</b>
 
 A byte array. If this value is 0, returns a byte array with the single element 0.
+
+### ToByteUnchecked
+
+    public byte ToByteUnchecked();
+
+Converts this number to a byte (from 0 to 255), returning the least-significant bits of this number's two's-complement form.
+
+<b>Return Value:</b>
+
+This number, converted to a byte (from 0 to 255).
+
+### ToInt16Checked
+
+    public short ToInt16Checked();
+
+Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is less than -32768 or greater than 32767.
+
+### ToInt16Unchecked
+
+    public short ToInt16Unchecked();
+
+Converts this number to a 16-bit signed integer, returning the least-significant bits of this number's two's-complement form.
+
+<b>Return Value:</b>
+
+This number, converted to a 16-bit signed integer.
 
 ### ToInt32Checked
 
@@ -1394,6 +1556,31 @@ A string representing the value of this object. If this value is 0, returns "0".
  * System.ArgumentException:
 The parameter "index" is less than 0, "endIndex" is less than 0, or either is greater than the string's length, or "endIndex" is less than "index" ; or radix is less than 2 or greater than 36.
 
+### ToSByteChecked
+
+    public sbyte ToSByteChecked();
+
+Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is less than -128 or greater than 127.
+
+### ToSByteUnchecked
+
+    public sbyte ToSByteUnchecked();
+
+Converts this number to an 8-bit signed integer, returning the least-significant bits of this number's two's-complement form.
+
+<b>Return Value:</b>
+
+This number, converted to an 8-bit signed integer.
+
 ### ToString
 
     public override string ToString();
@@ -1403,6 +1590,81 @@ Converts this object to a text string in base 10.
 <b>Return Value:</b>
 
 A string representation of this object. If negative, the string will begin with a minus sign ("-", U+002D). The string will use the basic digits 0 to 9 (U+0030 to U+0039).
+
+### ToUInt16Checked
+
+    public ushort ToUInt16Checked();
+
+Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+This number's value as a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is less than 0 or greater than 65535.
+
+### ToUInt16Unchecked
+
+    public ushort ToUInt16Unchecked();
+
+Converts this number to a 16-bit unsigned integer, returning the least-significant bits of this number's two's-complement form.
+
+<b>Return Value:</b>
+
+This number, converted to a 16-bit unsigned integer.
+
+### ToUInt32Checked
+
+    public uint ToUInt32Checked();
+
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is less than 0 or greater than 4294967295.
+
+### ToUInt32Unchecked
+
+    public uint ToUInt32Unchecked();
+
+Converts this number to a 32-bit signed integer, returning the least-significant bits of this number's two's-complement form.
+
+<b>Return Value:</b>
+
+This number, converted to a 32-bit signed integer.
+
+### ToUInt64Checked
+
+    public ulong ToUInt64Checked();
+
+Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer.
+
+<b>Return Value:</b>
+
+This number's value as a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is outside the range of a 64-bit signed integer.
+
+### ToUInt64Unchecked
+
+    public ulong ToUInt64Unchecked();
+
+Converts this number to a 64-bit signed integer, returning the least-significant bits of this number's two's-complement form.
+
+<b>Return Value:</b>
+
+This number, converted to a 64-bit signed integer.
 
 ### Xor
 

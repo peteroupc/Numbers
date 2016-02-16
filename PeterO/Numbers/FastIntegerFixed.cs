@@ -52,9 +52,9 @@ namespace PeterO.Numbers {
     public override int GetHashCode() {
       int hash = unchecked(31 + this.integerMode);
       if (this.integerMode == 0) {
-       hash = unchecked(hash * 31 + this.smallValue);
+       hash = unchecked((hash * 31) + this.smallValue);
       } else if (this.integerMode == 1) {
-       hash = unchecked(hash * 31 + this.largeValue.GetHashCode());
+       hash = unchecked((hash * 31) + this.largeValue.GetHashCode());
       }
       return hash;
     }

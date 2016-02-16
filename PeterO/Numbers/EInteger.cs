@@ -998,12 +998,12 @@ namespace PeterO.Numbers {
              words1Size);
             break;
           case 10:
-            smallRemainder = ((int)FastDivideAndRemainderTen(
+            smallRemainder = (int)FastDivideAndRemainderTen(
              quotient,
              0,
              this.words,
              0,
-             words1Size));
+             words1Size);
             break;
           default:
             // DebugUtility.Log("smalldiv=" + (divisor.words[0]));
@@ -1274,7 +1274,6 @@ WordsShiftRightOne(bu, buc);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
-    /// <summary>Not documented yet.</summary>
     public int GetDigitCount() {
       if (this.IsZero) {
         return 1;
@@ -5981,46 +5980,52 @@ count);
         bigintX, bigintY };
     }
         // Begin integer conversions
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteChecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteChecked"]/*'/>
 public byte ToByteChecked() {
  int val = this.ToInt32Checked();
- if(val < 0 || val > 255) {
+ if (val < 0 || val > 255) {
   throw new OverflowException("This object's value is out of range");
  }
- return unchecked((byte)(val & 0xFF));
+ return unchecked((byte)(val & 0xff));
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteUnchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteUnchecked"]/*'/>
 public byte ToByteUnchecked() {
  int val = this.ToInt32Unchecked();
- return unchecked((byte)(val & 0xFF));
+ return unchecked((byte)(val & 0xff));
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromByte(System.Byte)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromByte(System.Byte)"]/*'/>
 public static EInteger FromByte(byte inputByte) {
- int val = ((int)inputByte) & 0xFF;
+ int val = ((int)inputByte) & 0xff;
  return FromInt32(val);
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Checked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Checked"]/*'/>
 public short ToInt16Checked() {
  int val = this.ToInt32Checked();
- if(val < -32768 || val > 32767) {
+ if (val < -32768 || val > 32767) {
   throw new OverflowException("This object's value is out of range");
  }
- return unchecked((short)(val & 0xFFFF));
+ return unchecked((short)(val & 0xffff));
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Unchecked"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Unchecked"]/*'/>
 public short ToInt16Unchecked() {
  int val = this.ToInt32Unchecked();
- return unchecked((short)(val & 0xFFFF));
+ return unchecked((short)(val & 0xffff));
 }
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)"]/*'/>
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)"]/*'/>
 public static EInteger FromInt16(short inputInt16) {
- int val = (int)inputInt16;
+ var val = (int)inputInt16;
  return FromInt32(val);
 }
 
