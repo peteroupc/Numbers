@@ -253,6 +253,16 @@ stringTemp);
     }
 
     [Test]
+public void TestPrecisionOneHalfEven() {
+  EFloat enumber = EFloat.Create(0x03, -1);
+  EContext ectx = EContext.ForPrecisionAndRounding(1, ERounding.HalfEven);
+  enumber = enumber.RoundToPrecision(ectx);
+  TestCommon.CompareTestEqual(
+    EFloat.Create(0x04, -1),
+    enumber);
+}
+
+    [Test]
     public void TestFloatDecimalSpecific() {
       string str =
   "874952453585761710286297571153092638434027760916318352";

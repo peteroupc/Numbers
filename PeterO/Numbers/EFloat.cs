@@ -1315,18 +1315,23 @@ EContext ctx) {
         if (this.IsNegative) {
           nan[1] |= unchecked((int)(1 << 31));
         }
-        // 0x40000 is not really the signaling bit, but done to keep
-        // the mantissa from being zero
         if (this.IsQuietNaN()) {
           nan[1] |= 0x80000;
-        } else {
+        } else if (this.UnsignedMantissa.IsZero) {
+          // Set the 0x40000 bit to keep the mantissa from
+          // being zero if this is a signaling NaN
           nan[1] |= 0x40000;
         }
         if (!this.UnsignedMantissa.IsZero) {
           // Copy diagnostic information
           int[] words = FastInteger.GetLastWords(this.UnsignedMantissa, 2);
           nan[0] = words[0];
-          nan[1] = words[1] & 0x3ffff;
+          nan[1] = words[1] & 0x7ffff;
+          if ((words[1] | (words[1] & 0x7ffff)) == 0 && !this.IsQuietNaN()) {
+            // Set the 0x40000 bit to keep the mantissa from
+            // being zero if this is a signaling NaN
+            nan[1] |= 0x40000;
+          }
         }
         return Extras.IntegersToDouble(nan);
       }
@@ -1425,8 +1430,8 @@ if (!(bitLength <= 53)) {
     }
 
     private string ToDebugString() {
-      return "[" + this.Mantissa.ToRadixString(2) +"," +
-        this.Mantissa.GetUnsignedBitLength() +"," + this.Exponent + "]";
+      return "[" + this.Mantissa.ToRadixString(2) +
+        "," + this.Mantissa.GetUnsignedBitLength() +"," + this.Exponent + "]";
     }
 
     /// <include file='../../docs.xml'
@@ -1486,13 +1491,21 @@ if (!(bitLength <= 53)) {
           nan |= unchecked((int)(1 << 31));
         }
         // IsQuietNaN(): the quiet bit for X86 at least
-        // Not IsQuietNaN(): not really the signaling bit, but done to keep
-        // the mantissa from being zero
-        nan |= this.IsQuietNaN() ? 0x400000 : 0x200000;
+        // If signaling NaN and mantissa is 0: set 0x200000
+        // bit to keep the mantissa from being zero
+        if (this.IsQuietNaN()) {
+          nan |= 0x400000;
+        } else if (this.UnsignedMantissa.IsZero) {
+          nan |= 0x200000;
+        }
         if (!this.UnsignedMantissa.IsZero) {
           // Transfer diagnostic information
-          EInteger bigdata = this.UnsignedMantissa % (EInteger)0x200000;
-          nan |= (int)bigdata;
+          EInteger bigdata = this.UnsignedMantissa % (EInteger)0x400000;
+          var intData = (int)bigdata;
+          nan |= intData;
+          if (intData == 0 && !this.IsQuietNaN()) {
+            nan |= 0x200000;
+          }
         }
         return BitConverter.ToSingle(BitConverter.GetBytes(nan), 0);
       }

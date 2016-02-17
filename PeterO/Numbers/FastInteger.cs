@@ -837,8 +837,6 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Remainder(System.Int32)"]/*'/>
     internal FastInteger Remainder(int divisor) {
       // Mod operator will always result in a
       // number that fits an int for int divisors
@@ -936,8 +934,6 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger.IsEvenNumber"]/*'/>
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {
@@ -1067,7 +1063,7 @@ namespace PeterO.Numbers {
           chars[count--] = HexAlphabet[(int)value];
       }
       if (neg) {
-        chars[count ] = '-';
+        chars[count] = '-';
       } else {
         ++count;
       }
@@ -1105,8 +1101,6 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger.IsValueZero"]/*'/>
     internal bool IsValueZero {
       get {
         switch (this.integerMode) {

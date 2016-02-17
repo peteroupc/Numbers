@@ -122,6 +122,16 @@ for (var i = 0; i < 1000; ++i) {
 }
 }
 
+[Test]
+public void TestPrecisionOneHalfEven() {
+  EDecimal edec = EDecimal.FromString("9.5e-1");
+  EContext ectx = EContext.ForPrecisionAndRounding(1, ERounding.HalfEven);
+  edec = edec.RoundToPrecision(ectx);
+  TestCommon.CompareTestEqual(
+    EDecimal.FromString("10.0e-1"),
+    edec);
+}
+
     [Test]
     public void TestAdd() {
       try {

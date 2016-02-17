@@ -4,7 +4,22 @@
             rounding, and exponent range of arbitrary-precision numbers. (The
             "E" stands for "extended", and has this prefix to group it with the
             other classes common to this library, particularly EDecimal,
-            EFloat, and ERational.).</summary>
+            EFloat, and ERational.).
+            
+            <para><b>Thread safety:</b> With one exception,
+instances of this class are immutable and are safe to use
+among multiple threads.  The one exception involves
+the <c>Flags</c> property.  If the context's <c>HasFlags</c>
+property (a read-only property)
+is <c>true</c>, the <c>Flags</c> property is mutable,
+thus making the context mutable.  This class doesn't synchronize
+access to such mutable contexts, so applications should provide
+their own synchronization if a context with the <c>HasFlags</c>
+property set to <c>true</c> will be shared among multiple threads
+and those threads need to read or write the <c>Flags</c> property
+(which can happen, for example, by passing the context to most
+methods of <c>EDecimal</c> such as <c>Add</c>).</para>
+            </summary>
 </doc>
 <doc name="M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)">
 <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class. <c>HasFlags</c> will
@@ -2696,12 +2711,12 @@
 <summary>Converts this value to its closest equivalent as a 64-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 64-bit
-            floating point number's mantissa (significand) for a quiet NaN, and
-            clears it for a signaling NaN. Then the next highest bit of the
-            mantissa (significand) is cleared for a quiet NaN, and set for a
-            signaling NaN. Then the other bits of the mantissa (significand)
-            are set to the lowest bits of this object's unsigned mantissa
-            (significand).</para></summary>
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the 
+            significand area are set to the lowest bits of this object's unsigned 
+            mantissa (significand), and the next-highest bit of the 
+            significand area is set if those bits are all
+            zeros and this is a signaling NaN.</para></summary>
             <returns>The closest 64-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
@@ -2884,12 +2899,12 @@
 <summary>Converts this value to its closest equivalent as a 32-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
-            floating point number's mantissa (significand) for a quiet NaN, and
-            clears it for a signaling NaN. Then the next highest bit of the
-            mantissa (significand) is cleared for a quiet NaN, and set for a
-            signaling NaN. Then the other bits of the mantissa (significand)
-            are set to the lowest bits of this object's unsigned mantissa
-            (significand).</para></summary>
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the 
+            significand area are set to the lowest bits of this object's unsigned 
+            mantissa (significand), and the next-highest bit of the 
+            significand area is set if those bits are all
+            zeros and this is a signaling NaN.</para></summary>
             <returns>The closest 32-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
@@ -3052,12 +3067,12 @@
             <summary>Converts this value to its closest equivalent as a 64-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 64-bit
-            floating point number's mantissa (significand) for a quiet NaN, and
-            clears it for a signaling NaN. Then the next highest bit of the
-            mantissa (significand) is cleared for a quiet NaN, and set for a
-            signaling NaN. Then the other bits of the mantissa (significand)
-            are set to the lowest bits of this object's unsigned mantissa
-            (significand).</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 64-bit floating-point number to this value.
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the 
+            significand area are set to the lowest bits of this object's unsigned 
+            mantissa (significand), and the next-highest bit of the 
+            significand area is set if those bits are all
+            zeros and this is a signaling NaN.</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 64-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
             number.</returns>
@@ -3120,12 +3135,12 @@
             <summary>Converts this value to its closest equivalent as a 32-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
-            floating point number's mantissa (significand) for a quiet NaN, and
-            clears it for a signaling NaN. Then the next highest bit of the
-            mantissa (significand) is cleared for a quiet NaN, and set for a
-            signaling NaN. Then the other bits of the mantissa (significand)
-            are set to the lowest bits of this object's unsigned mantissa
-            (significand).</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 32-bit floating-point number to this value.
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the 
+            significand area are set to the lowest bits of this object's unsigned 
+            mantissa (significand), and the next-highest bit of the 
+            significand area is set if those bits are all
+            zeros and this is a signaling NaN.</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 32-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
@@ -5328,12 +5343,12 @@
 <summary>Converts this value to its closest equivalent as 32-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
-            floating point number's mantissa (significand) for a quiet NaN, and
-            clears it for a signaling NaN. Then the next highest bit of the
-            mantissa (significand) is cleared for a quiet NaN, and set for a
-            signaling NaN. Then the other bits of the mantissa (significand)
-            are set to the lowest bits of this object's unsigned mantissa
-            (significand).</para></summary>
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the 
+            significand area are set to the lowest bits of this object's unsigned 
+            mantissa (significand), and the next-highest bit of the 
+            significand area is set if those bits are all
+            zeros and this is a signaling NaN.</para></summary>
             <returns>The closest 32-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
@@ -5489,12 +5504,12 @@
             <summary>Converts this value to its closest equivalent as a 64-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 64-bit
-            floating point number's mantissa (significand) for a quiet NaN, and
-            clears it for a signaling NaN. Then the next highest bit of the
-            mantissa (significand) is cleared for a quiet NaN, and set for a
-            signaling NaN. Then the other bits of the mantissa (significand)
-            are set to the lowest bits of this object's unsigned mantissa
-            (significand).</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 64-bit floating-point number to this value.
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the 
+            significand area are set to the lowest bits of this object's unsigned 
+            mantissa (significand), and the next-highest bit of the 
+            significand area is set if those bits are all
+            zeros and this is a signaling NaN.</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 64-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
             number.</returns>
@@ -5557,12 +5572,12 @@
             <summary>Converts this value to its closest equivalent as a 32-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
-            floating point number's mantissa (significand) for a quiet NaN, and
-            clears it for a signaling NaN. Then the next highest bit of the
-            mantissa (significand) is cleared for a quiet NaN, and set for a
-            signaling NaN. Then the other bits of the mantissa (significand)
-            are set to the lowest bits of this object's unsigned mantissa
-            (significand).</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 32-bit floating-point number to this value.
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the 
+            significand area are set to the lowest bits of this object's unsigned 
+            mantissa (significand), and the next-highest bit of the 
+            significand area is set if those bits are all
+            zeros and this is a signaling NaN.</para></summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>The closest 32-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
@@ -5799,14 +5814,14 @@
 <doc name="M:PeterO.Numbers.EInteger.CanFitInInt32">
 <summary>Returns whether this object's value can fit in a 32-bit
             signed integer.</summary>
-            <returns><c>true</c> if this object's value is Int32.MinValue or
-            greater, and Int32.MaxValue or less; otherwise, <c>false</c>.</returns>
+            <returns><c>true</c> if this object's value is from -2147483648 through
+            2147483647; otherwise, <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.CanFitInInt64">
 <summary>Returns whether this object's value can fit in a 64-bit
             signed integer.</summary>
-            <returns><c>true</c> if this object's value is Int64.MinValue or
-            greater, and Int64.MaxValue or less; otherwise, <c>false</c>.</returns>
+            <returns><c>true</c> if this object's value is from -9223372036854775808 
+through 9223372036854775807; otherwise, <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)">
 <summary>Compares an arbitrary-precision integer with this
@@ -6758,7 +6773,7 @@
 <summary>Does an OR operation between two arbitrary-precision
             integer instances.</summary>
             <param name='thisValue'>An arbitrary-precision integer.</param>
-            <param name='otherValue'>An arbitrary-precision integer.</param>
+            <param name='otherValue'>Another arbitrary-precision integer.</param>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             "first" or "second" is null.</exception>
@@ -7352,7 +7367,7 @@
 <doc name="M:PeterO.Numbers.ERational.FromDecimal(System.Decimal)">
 <summary>Not documented yet.</summary>
             <param name='eint'>A Decimal object.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromDouble(System.Double)">
 <summary>Converts a 64-bit floating-point number to a rational
@@ -7478,7 +7493,7 @@
             of the number.</param>
             <param name='length'>The length of the number within the
             string.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='str'/> is null.</exception>
             <exception cref='T:System.FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
@@ -8072,8 +8087,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Addition(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
 <summary>Adds two rational numbers.</summary>
-            <param name='bthis'>An ERational object.</param>
-            <param name='augend'>An ERational object. (3).</param>
+            <param name='bthis'>An arbitrary-precision rational number.</param>
+            <param name='augend'>An arbitrary-precision rational number. (3).</param>
             <returns>The sum of the two numbers. Returns not-a-number (NaN) if
             either operand is NaN.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
@@ -8082,8 +8097,8 @@
 <doc name="M:PeterO.Numbers.ERational.op_Division(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
 <summary>Divides this instance by the value of an
             arbitrary-precision rational number object.</summary>
-            <param name='dividend'>An ERational object.</param>
-            <param name='divisor'>An ERational object. (3).</param>
+            <param name='dividend'>An arbitrary-precision rational number.</param>
+            <param name='divisor'>An arbitrary-precision rational number. (3).</param>
             <returns>The quotient of the two objects.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             "otherValue" is null.</exception>
@@ -8224,17 +8239,17 @@
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>An EDecimal object.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EFloat)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>An EFloat object.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>An arbitrary-precision integer.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Byte)~PeterO.Numbers.ERational">
 <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
@@ -8247,12 +8262,12 @@
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Decimal)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>A Decimal object.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Double)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>A 64-bit floating-point number.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Int16)~PeterO.Numbers.ERational">
 <summary>Converts a 16-bit signed integer to an arbitrary-precision
@@ -8289,7 +8304,7 @@
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Single)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
             <param name='eint'>A 32-bit floating-point number.</param>
-            <returns>An ERational object.</returns>
+            <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt16)~PeterO.Numbers.ERational">
 <summary>Converts a 16-bit unsigned integer to an
@@ -8319,8 +8334,8 @@
 <summary>Finds the remainder that results when this instance is
             divided by the value of an arbitrary-precision rational
             number.</summary>
-            <param name='dividend'>An ERational object.</param>
-            <param name='divisor'>An ERational object. (3).</param>
+            <param name='dividend'>An arbitrary-precision rational number.</param>
+            <param name='divisor'>An arbitrary-precision rational number. (3).</param>
             <returns>The remainder of the two numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             "otherValue" is null.</exception>
@@ -8328,8 +8343,8 @@
 <doc name="M:PeterO.Numbers.ERational.op_Multiply(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
 <summary>Multiplies this instance by the value of an
             arbitrary-precision rational number.</summary>
-            <param name='operand1'>An ERational object.</param>
-            <param name='operand2'>An ERational object. (3).</param>
+            <param name='operand1'>An arbitrary-precision rational number.</param>
+            <param name='operand2'>An arbitrary-precision rational number. (3).</param>
             <returns>The product of the two numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             "otherValue" is null.</exception>
@@ -8337,16 +8352,16 @@
 <doc name="M:PeterO.Numbers.ERational.op_Subtraction(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
 <summary>Subtracts an arbitrary-precision rational number from this
             instance.</summary>
-            <param name='bthis'>An ERational object.</param>
-            <param name='subtrahend'>An ERational object. (3).</param>
+            <param name='bthis'>An arbitrary-precision rational number.</param>
+            <param name='subtrahend'>An arbitrary-precision rational number. (3).</param>
             <returns>The difference of the two objects.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             "otherValue" is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_UnaryNegation(PeterO.Numbers.ERational)">
 <summary>Not documented yet.</summary>
-            <param name='bigValue'>An ERational object.</param>
-            <returns>An ERational object.</returns>
+            <param name='bigValue'>An arbitrary-precision rational number to negate.</param>
+            <returns>An arbitrary-precision rational number.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigValue'/> is null.</exception>
 </doc>

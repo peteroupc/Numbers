@@ -126,9 +126,9 @@ private static readonly FastIntegerFixed FastIntZero = new
 
     private readonly FastIntegerFixed exponent;
     private readonly int flags;
+    private readonly FastIntegerFixed unsignedMantissa;
 
     private int sign;
-    private readonly FastIntegerFixed unsignedMantissa;
 
     private EDecimal(
       FastIntegerFixed unsignedMantissa,
@@ -2708,9 +2708,9 @@ adjust.AsEInteger()));
           return negative ? "-Infinity" : "Infinity";
         }
         if ((this.flags & BigNumberFlags.FlagSignalingNaN) != 0) {
-          return this.unsignedMantissa.IsValueZero ? (negative ? "-sNaN" :
-              "sNaN"
-) : (negative ? "-sNaN" + this.unsignedMantissa :
+          return this.unsignedMantissa.IsValueZero ?
+            (negative ? "-sNaN" : "sNaN") :
+            (negative ? "-sNaN" + this.unsignedMantissa :
                     "sNaN" + this.unsignedMantissa);
         }
         if ((this.flags & BigNumberFlags.FlagQuietNaN) != 0) {
@@ -3099,7 +3099,7 @@ olderDigits);
         if (den.CompareTo(EInteger.One) != 0) {
           return null;
         }
-        if (fiveShift.CompareToInt(lowBit) >0) {
+        if (fiveShift.CompareToInt(lowBit) > 0) {
           return fiveShift;
         } else {
           return new FastInteger(lowBit);

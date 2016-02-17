@@ -12,6 +12,8 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="T:PeterO.Numbers.ERational"]/*'/>
   public sealed partial class ERational : IComparable<ERational>,
     IEquatable<ERational> {
+    private const int MaxSafeInt = 214748363;
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NaN"]/*'/>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -365,8 +367,6 @@ bool negative) {
     public static ERational FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length);
     }
-
-    private const int MaxSafeInt = 214748363;
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromString(System.String,System.Int32,System.Int32)"]/*'/>

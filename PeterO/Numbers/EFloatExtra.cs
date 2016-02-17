@@ -27,17 +27,13 @@ namespace PeterO.Numbers {
       return FromEInteger(eint);
     }
 
-    /// <missing-param name='otherValue'/>
-    /// <missing-param name='otherValue'/>
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
-    /// <param name='augend'>The parameter <paramref name='augend'/> is not
-    /// documented yet.</param>
-    public static EFloat operator +(EFloat bthis, EFloat augend) {
+    public static EFloat operator +(EFloat bthis, EFloat otherValue) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
       }
-      return bthis.Add(augend);
+      return bthis.Add(otherValue);
     }
 
     /// <include file='../../docs.xml'
