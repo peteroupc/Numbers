@@ -115,7 +115,7 @@ namespace PeterO.Numbers {
       if (this.integerMode == 0 && this.smallValue >= 0) {
         return this.smallValue % value;
       } else {
-      EInteger retval = this.AsEInteger().Remainder(EInteger.FromInt32(value));
+      EInteger retval = this.ToEInteger().Remainder(EInteger.FromInt32(value));
         return retval.ToInt32Checked();
       }
     }
@@ -134,8 +134,8 @@ namespace PeterO.Numbers {
         return new FastIntegerFixed(a.smallValue + b.smallValue);
       }
     }
-      EInteger bigA = a.AsEInteger();
-      EInteger bigB = b.AsEInteger();
+      EInteger bigA = a.ToEInteger();
+      EInteger bigB = b.ToEInteger();
       return FastIntegerFixed.FromBig(bigA.Add(bigB));
     }
 
@@ -152,8 +152,8 @@ FastIntegerFixed b) {
         return new FastIntegerFixed(a.smallValue - b.smallValue);
       }
     }
-      EInteger bigA = a.AsEInteger();
-      EInteger bigB = b.AsEInteger();
+      EInteger bigA = a.ToEInteger();
+      EInteger bigB = b.ToEInteger();
       return FastIntegerFixed.FromBig(bigA.Subtract(bigB));
     }
 
@@ -166,10 +166,10 @@ FastIntegerFixed b) {
                   1);
           }
         case (0 << 2) | 2:
-          return this.AsEInteger().CompareTo(val.largeValue);
+          return this.ToEInteger().CompareTo(val.largeValue);
         case (2 << 2) | 0:
         case (2 << 2) | 2:
-          return this.largeValue.CompareTo(val.AsEInteger());
+          return this.largeValue.CompareTo(val.ToEInteger());
         default: throw new InvalidOperationException();
       }
     }
@@ -280,7 +280,7 @@ FastIntegerFixed b) {
       }
     }
 
-    internal EInteger AsEInteger() {
+    internal EInteger ToEInteger() {
       switch (this.integerMode) {
         case 0:
           return EInteger.FromInt32(this.smallValue);

@@ -133,8 +133,8 @@ EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Decimal"]/*'/>
-    public static explicit operator decimal(ERational
-extendedNumber) {
+    public static explicit operator decimal(
+      ERational extendedNumber) {
       return extendedNumber.ToDecimal();
     }
 
@@ -174,7 +174,10 @@ public static implicit operator ERational(byte inputByte) {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteChecked"]/*'/>
 [CLSCompliant(false)]
 public sbyte ToSByteChecked() {
- return this.ToEInteger().ToSByteChecked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((sbyte)0) : this.ToEInteger().ToSByteChecked();
 }
 
     /// <include file='../../docs.xml'
@@ -188,7 +191,11 @@ public sbyte ToSByteUnchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteIfExact"]/*'/>
 [CLSCompliant(false)]
 public sbyte ToSByteIfExact() {
- return this.ToEIntegerIfExact().ToSByteChecked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((sbyte)0) :
+   this.ToEIntegerIfExact().ToSByteChecked();
 }
 
     /// <include file='../../docs.xml'
@@ -229,7 +236,10 @@ public static implicit operator ERational(short inputInt16) {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16Checked"]/*'/>
 [CLSCompliant(false)]
 public ushort ToUInt16Checked() {
- return this.ToEInteger().ToUInt16Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((ushort)0) : this.ToEInteger().ToUInt16Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -243,7 +253,11 @@ public ushort ToUInt16Unchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16IfExact"]/*'/>
 [CLSCompliant(false)]
 public ushort ToUInt16IfExact() {
- return this.ToEIntegerIfExact().ToUInt16Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((ushort)0) :
+   this.ToEIntegerIfExact().ToUInt16Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -284,7 +298,10 @@ public static implicit operator ERational(int inputInt32) {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Checked"]/*'/>
 [CLSCompliant(false)]
 public uint ToUInt32Checked() {
- return this.ToEInteger().ToUInt32Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((uint)0) : this.ToEInteger().ToUInt32Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -298,7 +315,11 @@ public uint ToUInt32Unchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32IfExact"]/*'/>
 [CLSCompliant(false)]
 public uint ToUInt32IfExact() {
- return this.ToEIntegerIfExact().ToUInt32Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((uint)0) :
+   this.ToEIntegerIfExact().ToUInt32Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -339,7 +360,10 @@ public static implicit operator ERational(long inputInt64) {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Checked"]/*'/>
 [CLSCompliant(false)]
 public ulong ToUInt64Checked() {
- return this.ToEInteger().ToUInt64Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((ulong)0) : this.ToEInteger().ToUInt64Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -353,7 +377,11 @@ public ulong ToUInt64Unchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64IfExact"]/*'/>
 [CLSCompliant(false)]
 public ulong ToUInt64IfExact() {
- return this.ToEIntegerIfExact().ToUInt64Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((ulong)0) :
+   this.ToEIntegerIfExact().ToUInt64Checked();
 }
 
     /// <include file='../../docs.xml'

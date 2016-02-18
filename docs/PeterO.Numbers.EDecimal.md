@@ -8,7 +8,7 @@ Represents an arbitrary-precision decimal floating-point number. (The "E" stands
 
 Decimal (base-10) arithmetic, such as that provided by this class, is appropriate for calculations involving such real-world data as prices and other sums of money, tax rates, and measurements. These calculations often involve multiplying or dividing one decimal with another decimal, or performing other operations on decimal numbers. Many of these calculations also rely on rounding behavior in which the result after rounding is a decimal number (for example, multiplying a price by a premium rate, then rounding, should result in a decimal amount of money).
 
-On the other hand, most implementations of  `float`  and `double` , including in C# and Java, store numbers in a binary (base-2) floating-point format and use binary floating-point arithmetic. Many decimal numbers can't be represented exactly in binary floating-point format (regardless of its length). Applying binary arithmetic to numbers intended to be decimals can sometimes lead to unintuitive results, as is shown in the description for the FromDouble() method of this class.
+On the other hand, most implementations of  `float` and `double` , including in C# and Java, store numbers in a binary base-2) floating-point format and use binary floating-point rithmetic. Many decimal numbers can't be represented exactly in inary floating-point format (regardless of its length). Applying inary arithmetic to numbers intended to be decimals can sometimes ead to unintuitive results, as is shown in the description for the romDouble() method of this class.
 
 <b>About EDecimal instances</b>
 
@@ -18,7 +18,7 @@ The mantissa (significand) is the value of the digits that make up a number, ign
 
 The mantissa (significand) and exponent format preserves trailing zeros in the number's value. This may give rise to multiple ways to store the same value. For example, 1.00 and 1 would be stored differently, even though they have the same value. In the first case, 100 * 10^-2 (100 with decimal point moved left by 2), and in the second case, 1 * 10^0 (1 with decimal point moved 0).
 
-This class also supports values for negative zero, not-a-number (NaN) values, and infinity. <b>Negative zero</b> is generally used when a negative number is rounded to 0; it has the same mathematical value as positive zero. <b>Infinity</b> is generally used when a non-zero number is divided by zero, or when a very high or very low number can't be represented in a given exponent range.<b>Not-a-number</b> is generally used to signal errors.
+This class also supports values for negative zero, not-a-number (NaN) values, and infinity. <b>Negative zero</b>is enerally used when a negative number is rounded to 0; it has the ame mathematical value as positive zero. <b>Infinity</b>is enerally used when a non-zero number is divided by zero, or when a ery high or very low number can't be represented in a given xponent range. <b>Not-a-number</b>is generally used to signal rrors.
 
 This class implements the General Decimal Arithmetic Specification version 1.70 (except part of chapter 6): `http://speleotrove.com/decimal/decarith.html`
 
@@ -28,7 +28,7 @@ Passing a signaling NaN to any arithmetic operation shown here will signal the f
 
 Passing a quiet NaN to any arithmetic operation shown here will return a quiet NaN, unless noted otherwise. Invalid operations will also return a quiet NaN, as stated in the individual methods.
 
-Unless noted otherwise, passing a null arbitrary-precision decimal argument to any method here will throw an exception.
+Unless noted otherwise,passing a null arbitrary-precision decimal argument to any method here will throw an exception.
 
 When an arithmetic operation signals the flag FlagInvalid, FlagOverflow, or FlagDivideByZero, it will not throw an exception too, unless the flag's trap is enabled in the arithmetic context (see EContext's Traps property).
 
@@ -54,15 +54,15 @@ This class's natural ordering (under the CompareTo method) is not consistent wit
 
 There are several other types of numbers that are mentioned in this class and elsewhere in this documentation. For reference, they are specified here.
 
-<b>Unsigned integer</b>: An integer that's always 0 or greater, with the following maximum values:
+<b>Unsigned integer</b>: An integer that's always 0 or reater, with the following maximum values:
 
  * 8-bit unsigned integer, or <i>byte</i>: 255.
 
  * 16-bit unsigned integer: 65535.
 
- * 32-bit unsigned integer: (2<sup>32</sup>-1).
+ * 32-bit unsigned integer: (2 <sup>32</sup>-1).
 
- * 64-bit unsigned integer: (2<sup>64</sup>-1).
+ * 64-bit unsigned integer: (2 <sup>64</sup>-1).
 
 <b>Signed integer</b>: An integer in <i>two's complement form</i>, with the following ranges:
 
@@ -70,13 +70,13 @@ There are several other types of numbers that are mentioned in this class and el
 
  * 16-bit signed integer: -32768 to 32767.
 
- * 32-bit signed integer: -2<sup>31</sup> to (2<sup>31</sup> - 1).
+ * 32-bit signed integer: -2 <sup>31</sup>to (2 <sup>31</sup>- 1).
 
- * 64-bit signed integer: -2<sup>63</sup> to (2<sup>63</sup> - 1).
+ * 64-bit signed integer: -2 <sup>63</sup>to (2 <sup>63</sup>- ).
 
-<b>Two's complement form</b>: In <i>two's-complement form</i>, positive numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one. To store a negative number, decrease its absolute value by 1 and swap the bits of the resulting number.
+<b>Two's complement form</b>: In <i>two' s-complement form</i>, positive numbers have the highest (most significant) bit et to zero, and negative numbers have that bit (and all bits eyond) set to one. To store a negative number, decrease its bsolute value by 1 and swap the bits of the resulting umber.
 
-<b>64-bit floating-point number</b>: A 64-bit binary floating-point number, in the form<i>significand</i> * 2<sup><i>exponent</i></sup>. The significand is 53 bits long (Precision) and the exponent ranges from -1074 (EMin) to 971 (EMax). The number is stored in the following format (commonly called the IEEE 754 format):
+<b>64-bit floating-point number</b>: A 64-bit binary loating-point number, in the form <i>significand</i>* 2<sup><i>exponent</i></sup>. The significand is 53 bits long Precision) and the exponent ranges from -1074 (EMin) to 971 EMax). The number is stored in the following format (commonly alled the IEEE 754 format):
 
     |C|BBB...BBB|AAAAAA...AAAAAA|
 
@@ -94,7 +94,7 @@ There are several other types of numbers that are mentioned in this class and el
 
 The elements described above are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
 
-<b>32-bit floating-point number</b>: A 32-bit binary number which is stored similarly to a <i>64-bit floating-point number</i>, except that:
+<b>32-bit floating-point number</b>: A 32-bit binary number hich is stored similarly to a <i>64-bit floating-point number</i>, except that:
 
  * Precision is 24 bits.
 
@@ -108,9 +108,9 @@ The elements described above are in the same order as the order of each bit of e
 
  * C. If the highest bit is one, this is a negative number.
 
-<b>.NET Framework decimal</b>: A 128-bit decimal floating-point number, in the form <i>significand</i> * 10<sup>-<i>scale</i></sup>, where the scale ranges from 0 to 28. The number is stored in the following format:
+<b>.NET Framework decimal</b>: A 128-bit decimal loating-point number, in the form <i>significand</i>* 10 <sup>-<i>scale</i></sup>, where the scale ranges from 0 to 28. The umber is stored in the following format:
 
- * Low 96 bits are the significand, as a 96-bit unsigned integer (all 96-bit values are allowed, up to (2<sup>96</sup>-1)).
+ * Low 96 bits are the significand, as a 96-bit unsigned integer (all 96-bit values are allowed, up to (2 <sup>96</sup>-1)).
 
  * Next 16 bits are unused.
 
@@ -188,7 +188,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true` if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
+ `true`  if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
 
 ### IsNegative
 
@@ -208,7 +208,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .
+ `true`  if this object's value equals 0; otherwise, .  `false` .
 
 ### Mantissa
 
@@ -482,7 +482,15 @@ The parameter <i>other</i>
         int mantissaSmall,
         int exponentSmall);
 
-Creates a number with the value  `exponent*10^mantissa` .
+Creates a number with the value `exponent*10^mantissa`
+
+<b>Parameters:</b>
+
+ * <i>mantissaSmall</i>: The parameter  <i>mantissaSmall</i>
+ is not documented yet.
+
+ * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -494,7 +502,15 @@ An arbitrary-precision decimal number.
         PeterO.Numbers.EInteger mantissa,
         PeterO.Numbers.EInteger exponent);
 
-Creates a number with the value  `exponent*10^mantissa` .
+Creates a number with the value `exponent*10^mantissa`
+
+<b>Parameters:</b>
+
+ * <i>mantissa</i>: The parameter  <i>mantissa</i>
+ is not documented yet.
+
+ * <i>exponent</i>: The parameter  <i>exponent</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -925,7 +941,7 @@ Determines whether this object's mantissa (significand) and exponent are equal t
 
 <b>Return Value:</b>
 
- `true`  if the objects are equal; otherwise, false .
+ `true`  if the objects are equal; otherwise,  `false` .
 
 ### Equals
 
@@ -940,7 +956,7 @@ Determines whether this object's mantissa (significand) and exponent are equal t
 
 <b>Return Value:</b>
 
- `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise, false .
+ `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise,  `false` .
 
 ### Exp
 
@@ -978,7 +994,7 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromDecimal(
         System.Decimal dec);
 
-Converts a .NET Framework decimal (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)) to an arbitrary-precision decimal.
+Converts a .NET Framework decimal (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) to an arbitrary-precision decimal.
 
 <b>Parameters:</b>
 
@@ -1333,7 +1349,7 @@ Gets a value indicating whether this object is positive or negative infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is positive or negative infinity; otherwise, false .
+ `true`  if this object is positive or negative infinity; otherwise,  `false` .
 
 ### IsNaN
 
@@ -1343,7 +1359,7 @@ Gets a value indicating whether this object is not a number (NaN).
 
 <b>Return Value:</b>
 
- `true`  if this object is not a number (NaN); otherwise, false .
+ `true`  if this object is not a number (NaN); otherwise,  `false` .
 
 ### IsNegativeInfinity
 
@@ -1353,7 +1369,7 @@ Returns whether this object is negative infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is negative infinity; otherwise, false .
+ `true`  if this object is negative infinity; otherwise,  `false` .
 
 ### IsPositiveInfinity
 
@@ -1363,7 +1379,7 @@ Returns whether this object is positive infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is positive infinity; otherwise, false .
+ `true`  if this object is positive infinity; otherwise,  `false` .
 
 ### IsQuietNaN
 
@@ -1373,7 +1389,7 @@ Gets a value indicating whether this object is a quiet not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a quiet not-a-number value; otherwise, false .
+ `true`  if this object is a quiet not-a-number value; otherwise,  `false` .
 
 ### IsSignalingNaN
 
@@ -1383,7 +1399,7 @@ Gets a value indicating whether this object is a signaling not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a signaling not-a-number value; otherwise, false .
+ `true`  if this object is a signaling not-a-number value; otherwise,  `false` .
 
 ### Log
 
@@ -1904,17 +1920,21 @@ Adds this object and another decimal number and returns the result.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision decimal number.
-
  * <i>bthis</i>: The parameter  <i>bthis</i>
  is not documented yet.
 
- * <i>augend</i>: The parameter  <i>augend</i>
+ * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
 
 <b>Return Value:</b>
 
 The sum of the two objects.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 ### Operator `/`
 
@@ -1926,8 +1946,6 @@ Divides this object by another decimal number and returns the result. When possi
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: An arbitrary-precision decimal number to divide by.
-
  * <i>dividend</i>: The number that will be divided by the divisor.
 
  * <i>divisor</i>: The number to divide by.
@@ -1935,6 +1953,12 @@ Divides this object by another decimal number and returns the result. When possi
 <b>Return Value:</b>
 
 The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>dividend</i>
+ is null.
 
 ### Operator `%`
 
@@ -1970,8 +1994,6 @@ Multiplies two decimal numbers. The resulting exponent will be the sum of the ex
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: Another decimal number.
-
  * <i>operand1</i>: The first operand.
 
  * <i>operand2</i>: The second operand.
@@ -1979,6 +2001,12 @@ Multiplies two decimal numbers. The resulting exponent will be the sum of the ex
 <b>Return Value:</b>
 
 The product of the two decimal numbers.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>operand1</i>
+ is null.
 
 ### Operator `-`
 
@@ -1990,24 +2018,6 @@ Subtracts an arbitrary-precision decimal number from this instance and returns t
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
  * <i>bthis</i>: The parameter  <i>bthis</i>
  is not documented yet.
 
@@ -2018,37 +2028,11 @@ Subtracts an arbitrary-precision decimal number from this instance and returns t
 
 The difference of the two objects.
 
-<b>Return Value:</b>
+<b>Exceptions:</b>
 
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 ### Operator `-`
 
@@ -2069,7 +2053,7 @@ An arbitrary-precision decimal number. If this value is positive zero, returns n
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bigValue</i>
+The parameter <i>bigValue</i>
  is null.
 
 ### PI
@@ -2174,7 +2158,7 @@ An arbitrary-precision integer.
 
 Returns a decimal number with the same value but a new exponent.Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b>This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
+<b>Remark:</b>This method can be used to implement ixed-point decimal arithmetic, in which each decimal number has a ixed number of digits after the decimal point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the decimal point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the decimal point number = number.Quantize(-5,  // five
@@ -2187,7 +2171,7 @@ A fixed-point decimal arithmetic in which no digits come after the decimal point
 
  * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, ill also store the flags resulting from the operation (the flags re in addition to the pre-existing flags). Can be null, in which ase the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2239,7 +2223,7 @@ A decimal number with the same value as this object but with the exponent change
 
 Returns a decimal number with the same value but a new exponent.Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b>This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
+<b>Remark:</b>This method can be used to implement ixed-point decimal arithmetic, in which each decimal number has a ixed number of digits after the decimal point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the decimal point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the decimal point number = number.Quantize(
@@ -2252,7 +2236,7 @@ A fixed-point decimal arithmetic in which no digits come after the decimal point
 
  * <i>desiredExponent</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, ill also store the flags resulting from the operation (the flags re in addition to the pre-existing flags). Can be null, in which ase the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2532,7 +2516,7 @@ Returns a decimal number with the same value as this object but rounded to an in
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and `FlagInexact`  flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2566,7 +2550,7 @@ Returns a decimal number with the same value as this object but rounded to an in
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and `FlagInexact`  flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2756,10 +2740,7 @@ This number's value as a byte (from 0 to 255).
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 255.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 255.
 
 ### ToByteUnchecked
 
@@ -2775,7 +2756,7 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public double ToDouble();
 
-Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 64-bit floating point number's mantissa (significand) for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa (significand) is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa (significand) are set to the lowest bits of this object's unsigned mantissa (significand).
+Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Return Value:</b>
 
@@ -2910,10 +2891,7 @@ This number's value as a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -32768 or greater than 32767.
+This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater than 32767.
 
 ### ToInt16Unchecked
 
@@ -2953,10 +2931,7 @@ This number's value as a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -2147483648 or greater than 2147483647.
+This value is infinity or not-a-number, is not an exact integer, or is less than -2147483648 or greater than 2147483647.
 
 ### ToInt32Unchecked
 
@@ -2996,10 +2971,7 @@ This number's value as a 64-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -9223372036854775808 or greater than 9223372036854775807.
+This value is infinity or not-a-number, is not an exact integer, or is less than -9223372036854775808 or greater than 9223372036854775807.
 
 ### ToInt64Unchecked
 
@@ -3049,10 +3021,7 @@ This number's value as an 8-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -128 or greater than 127.
+This value is infinity or not-a-number, is not an exact integer, or is less than -128 or greater than 127.
 
 ### ToSByteUnchecked
 
@@ -3068,7 +3037,7 @@ This number, converted to an 8-bit signed integer. Returns 0 if this value is in
 
     public float ToSingle();
 
-Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's mantissa (significand) for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa (significand) is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa (significand) are set to the lowest bits of this object's unsigned mantissa (significand).
+Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Return Value:</b>
 
@@ -3112,10 +3081,7 @@ This number's value as a 16-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 65535.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 65535.
 
 ### ToUInt16Unchecked
 
@@ -3155,10 +3121,7 @@ This number's value as a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 4294967295.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 4294967295.
 
 ### ToUInt32Unchecked
 
@@ -3198,10 +3161,7 @@ This number's value as a 64-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 18446744073709551615.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 18446744073709551615.
 
 ### ToUInt64Unchecked
 

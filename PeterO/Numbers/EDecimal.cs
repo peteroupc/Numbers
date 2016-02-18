@@ -179,7 +179,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Exponent"]/*'/>
     public EInteger Exponent {
       get {
-        return this.exponent.AsEInteger();
+        return this.exponent.ToEInteger();
       }
     }
 
@@ -213,8 +213,8 @@ private static readonly FastIntegerFixed FastIntZero = new
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Mantissa"]/*'/>
     public EInteger Mantissa {
       get {
-        return this.IsNegative ? this.unsignedMantissa.AsEInteger().Negate() :
-                this.unsignedMantissa.AsEInteger();
+        return this.IsNegative ? this.unsignedMantissa.ToEInteger().Negate() :
+                this.unsignedMantissa.ToEInteger();
       }
     }
 
@@ -230,7 +230,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.UnsignedMantissa"]/*'/>
     public EInteger UnsignedMantissa {
       get {
-        return this.unsignedMantissa.AsEInteger();
+        return this.unsignedMantissa.ToEInteger();
       }
     }
 
@@ -346,7 +346,7 @@ negative ? -1 : 1);
         }
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (value[1] & 0x80000) != 0;
-        value[1] &= 0x3ffff;
+        value[1] &= 0x7ffff;
         EInteger info = FastInteger.WordsToEInteger(value);
         value[0] = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
                 BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
@@ -526,7 +526,7 @@ FastIntZero,
         }
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (valueFpMantissa & 0x400000) != 0;
-        valueFpMantissa &= 0x1fffff;
+        valueFpMantissa &= 0x3fffff;
         value = (neg ? BigNumberFlags.FlagNegative : 0) |
        (quiet ? BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         return valueFpMantissa == 0 ? (quiet ? NaN : SignalingNaN) :
@@ -1523,7 +1523,7 @@ ERounding.HalfEven);
       ERounding rounding) {
       return this.DivideToExponent(
         divisor,
-        this.exponent.AsEInteger(),
+        this.exponent.ToEInteger(),
         EContext.ForRounding(rounding));
     }
 
@@ -1665,7 +1665,7 @@ EContext ctx) {
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
-        EInteger mant = this.unsignedMantissa.AsEInteger();
+        EInteger mant = this.unsignedMantissa.ToEInteger();
         EInteger bigPower = NumberUtility.FindPowerOfTenFromBig(bigExp);
         mant *= bigPower;
         return CreateWithFlags(
@@ -1707,8 +1707,8 @@ newflags,
 sign);
           }
         } else {
-          EInteger eintA = this.unsignedMantissa.AsEInteger().Multiply(
-           otherValue.unsignedMantissa.AsEInteger());
+          EInteger eintA = this.unsignedMantissa.ToEInteger().Multiply(
+           otherValue.unsignedMantissa.ToEInteger());
           int sign = eintA.IsZero ? 0 : (newflags == 0 ? 1 : -1);
           return new EDecimal(
 FastIntegerFixed.FromBig(eintA),
@@ -1839,7 +1839,7 @@ this.flags ^ BigNumberFlags.FlagNegative,
       if (this.IsZero) {
         return EInteger.One;
       }
-      int digcount = this.unsignedMantissa.AsEInteger().GetDigitCount();
+      int digcount = this.unsignedMantissa.ToEInteger().GetDigitCount();
       return (EInteger)digcount;
     }
 
@@ -2415,6 +2415,25 @@ ERounding rounding) {
       return null;
     }
 
+    private bool IsIntegerPartZero() {
+      if (!this.IsFinite) {
+        return false;
+      }
+      if (this.unsignedMantissa.IsValueZero) {
+        return true;
+      }
+      int sign = this.Exponent.Sign;
+      if (sign >= 0) {
+        return false;
+      } else {
+        FastInteger bigexponent = this.exponent.ToFastInteger().Negate();
+        EInteger bigmantissa = this.unsignedMantissa.ToEInteger();
+        var acc = new DigitShiftAccumulator(bigmantissa, 0, 0);
+  return (acc.GetDigitLength().CompareTo(bigexponent) <= 0) ? true :
+          false;
+      }
+    }
+
     private EInteger ToEIntegerInternal(bool exact) {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -2434,11 +2453,15 @@ ERounding rounding) {
         bigmantissa *= (EInteger)bigexponent;
         return bigmantissa;
       } else {
-        EInteger bigmantissa = this.Mantissa;
-        FastInteger bigexponent = FastInteger.FromBig(this.Exponent).Negate();
-        bigmantissa = bigmantissa.Abs();
+        if (exact && !this.unsignedMantissa.IsEvenNumber) {
+          // Mantissa is odd and will have to shift a nonzero
+          // number of digits, so can't be an exact integer
+          throw new ArithmeticException("Not an exact integer");
+        }
+        FastInteger bigexponent = this.exponent.ToFastInteger().Negate();
+        EInteger bigmantissa = this.unsignedMantissa.ToEInteger();
         var acc = new DigitShiftAccumulator(bigmantissa, 0, 0);
-        acc.ShiftRight(bigexponent);
+        acc.TruncateRight(bigexponent);
         if (exact && (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits !=
                     0)) {
           // Some digits were discarded
@@ -3017,13 +3040,13 @@ adjust.AsEInteger()));
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetMantissa(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetMantissa(EDecimal value) {
-        return value.unsignedMantissa.AsEInteger();
+        return value.unsignedMantissa.ToEInteger();
       }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetExponent(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetExponent(EDecimal value) {
-        return value.exponent.AsEInteger();
+        return value.exponent.ToEInteger();
       }
 
       public FastIntegerFixed GetMantissaFastInt(EDecimal value) {
@@ -3052,7 +3075,7 @@ lastDigit,
 olderDigits);
         } else {
 return new DigitShiftAccumulator(
-fastInt.AsEInteger(),
+fastInt.ToEInteger(),
 lastDigit,
 olderDigits);
         }
@@ -3176,6 +3199,18 @@ flags);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteChecked"]/*'/>
 public byte ToByteChecked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (byte)0;
+}
+if (this.IsNegative) {
+ throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(3) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToByteChecked();
 }
 
@@ -3188,6 +3223,18 @@ public byte ToByteUnchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteIfExact"]/*'/>
 public byte ToByteIfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (byte)0;
+}
+ if (this.IsNegative) {
+throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(3) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToByteChecked();
 }
 
@@ -3201,6 +3248,15 @@ public static EDecimal FromByte(byte inputByte) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Checked"]/*'/>
 public short ToInt16Checked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (short)0;
+}
+if (this.exponent.CompareToInt(5) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToInt16Checked();
 }
 
@@ -3213,6 +3269,15 @@ public short ToInt16Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16IfExact"]/*'/>
 public short ToInt16IfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (short)0;
+}
+if (this.exponent.CompareToInt(5) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToInt16Checked();
 }
 
@@ -3226,6 +3291,15 @@ public static EDecimal FromInt16(short inputInt16) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
 public int ToInt32Checked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (int)0;
+}
+if (this.exponent.CompareToInt(10) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToInt32Checked();
 }
 
@@ -3238,12 +3312,30 @@ public int ToInt32Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32IfExact"]/*'/>
 public int ToInt32IfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (int)0;
+}
+if (this.exponent.CompareToInt(10) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToInt32Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
 public long ToInt64Checked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (long)0;
+}
+if (this.exponent.CompareToInt(19) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToInt64Checked();
 }
 
@@ -3256,6 +3348,15 @@ public long ToInt64Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64IfExact"]/*'/>
 public long ToInt64IfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (long)0;
+}
+if (this.exponent.CompareToInt(19) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToInt64Checked();
 }
 

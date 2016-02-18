@@ -272,7 +272,7 @@ namespace PeterO.Numbers {
         }
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (value[1] & 0x80000) != 0;
-        value[1] &= 0x3ffff;
+        value[1] &= 0x7ffff;
         EInteger info = FastInteger.WordsToEInteger(value);
         if (info.IsZero) {
           return quiet ? NaN : SignalingNaN;
@@ -321,7 +321,7 @@ namespace PeterO.Numbers {
         }
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (valueFpMantissa & 0x400000) != 0;
-        valueFpMantissa &= 0x1fffff;
+        valueFpMantissa &= 0x3fffff;
         bigmant = (EInteger)valueFpMantissa;
         value = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
                 BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
@@ -1326,8 +1326,8 @@ EContext ctx) {
           // Copy diagnostic information
           int[] words = FastInteger.GetLastWords(this.UnsignedMantissa, 2);
           nan[0] = words[0];
-          nan[1] = words[1] & 0x7ffff;
-          if ((words[1] | (words[1] & 0x7ffff)) == 0 && !this.IsQuietNaN()) {
+          nan[1] |= words[1] & 0x7ffff;
+          if ((words[0] | (words[1] & 0x7ffff)) == 0 && !this.IsQuietNaN()) {
             // Set the 0x40000 bit to keep the mantissa from
             // being zero if this is a signaling NaN
             nan[1] |= 0x40000;
@@ -1616,9 +1616,13 @@ if (!(bitLength <= 24)) {
         }
         return bigmantissa;
       } else {
-        EInteger bigmantissa = this.Mantissa;
+        if (exact && !this.unsignedMantissa.IsEven) {
+          // Mantissa is odd and will have to shift a nonzero
+          // number of bits, so can't be an exact integer
+          throw new ArithmeticException("Not an exact integer");
+        }
         FastInteger bigexponent = FastInteger.FromBig(this.Exponent).Negate();
-        bigmantissa = bigmantissa.Abs();
+        EInteger bigmantissa = this.unsignedMantissa;
         var acc = new BitShiftAccumulator(bigmantissa, 0, 0);
         acc.ShiftRight(bigexponent);
         if (exact && (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits !=
@@ -1687,7 +1691,7 @@ lastDigit,
 olderDigits);
         } else {
   return new BitShiftAccumulator(
-fastInt.AsEInteger(),
+fastInt.ToEInteger(),
 lastDigit,
 olderDigits);
         }
@@ -1762,8 +1766,8 @@ olderDigits);
         FastIntegerFixed fexponent,
         int flags) {
         return CreateWithFlags(
-fmantissa.AsEInteger(),
-fexponent.AsEInteger(),
+fmantissa.ToEInteger(),
+fexponent.ToEInteger(),
 flags);
       }
 
@@ -1784,7 +1788,10 @@ flags);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteChecked"]/*'/>
 public byte ToByteChecked() {
- return this.ToEInteger().ToByteChecked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((byte)0) : this.ToEInteger().ToByteChecked();
 }
 
     /// <include file='../../docs.xml'
@@ -1796,7 +1803,10 @@ public byte ToByteUnchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteIfExact"]/*'/>
 public byte ToByteIfExact() {
- return this.ToEIntegerIfExact().ToByteChecked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((byte)0) : this.ToEIntegerIfExact().ToByteChecked();
 }
 
     /// <include file='../../docs.xml'
@@ -1809,7 +1819,10 @@ public static EFloat FromByte(byte inputByte) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Checked"]/*'/>
 public short ToInt16Checked() {
- return this.ToEInteger().ToInt16Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((short)0) : this.ToEInteger().ToInt16Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1821,7 +1834,11 @@ public short ToInt16Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16IfExact"]/*'/>
 public short ToInt16IfExact() {
- return this.ToEIntegerIfExact().ToInt16Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((short)0) :
+   this.ToEIntegerIfExact().ToInt16Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1834,7 +1851,10 @@ public static EFloat FromInt16(short inputInt16) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
 public int ToInt32Checked() {
- return this.ToEInteger().ToInt32Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1846,7 +1866,10 @@ public int ToInt32Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32IfExact"]/*'/>
 public int ToInt32IfExact() {
- return this.ToEIntegerIfExact().ToInt32Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1858,7 +1881,10 @@ public static EFloat FromInt32(int inputInt32) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
 public long ToInt64Checked() {
- return this.ToEInteger().ToInt64Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((long)0) : this.ToEInteger().ToInt64Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1870,7 +1896,10 @@ public long ToInt64Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64IfExact"]/*'/>
 public long ToInt64IfExact() {
- return this.ToEIntegerIfExact().ToInt64Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((long)0) : this.ToEIntegerIfExact().ToInt64Checked();
 }
 
     /// <include file='../../docs.xml'

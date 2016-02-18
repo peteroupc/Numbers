@@ -20,6 +20,12 @@ namespace Test {
       }
     }
 
+    public static void AssertEquals(Object o, Object o2) {
+      if (!o.Equals(o2)) {
+         Assert.AreEqual(o, o2);
+      }
+    }
+
     public static void AssertEqualsHashCode(Object o, Object o2) {
       if (o.Equals(o2)) {
         if (!o2.Equals(o)) {

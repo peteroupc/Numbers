@@ -93,7 +93,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true` if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
+ `true`  if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
 
 ### IsNegative
 
@@ -113,7 +113,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .
+ `true`  if this object's value equals 0; otherwise, .  `false` .
 
 ### Numerator
 
@@ -430,7 +430,7 @@ Determines whether this object and another object are equal.
 
 <b>Return Value:</b>
 
- `true`  if the objects are equal; otherwise, false .
+ `true`  if the objects are equal; otherwise,  `false` .
 
 ### Equals
 
@@ -476,7 +476,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 ### FromDouble
 
@@ -729,7 +729,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
 
 <b>Return Value:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
@@ -804,7 +804,7 @@ Gets a value indicating whether this object's value is infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object's value is infinity; otherwise, false .
+ `true`  if this object's value is infinity; otherwise,  `false` .
 
 ### IsNaN
 
@@ -814,7 +814,7 @@ Returns whether this object is a not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a not-a-number value; otherwise, false .
+ `true`  if this object is a not-a-number value; otherwise,  `false` .
 
 ### IsNegativeInfinity
 
@@ -824,7 +824,7 @@ Returns whether this object is negative infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is negative infinity; otherwise, false .
+ `true`  if this object is negative infinity; otherwise,  `false` .
 
 ### IsPositiveInfinity
 
@@ -834,7 +834,7 @@ Returns whether this object is positive infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is positive infinity; otherwise, false .
+ `true`  if this object is positive infinity; otherwise,  `false` .
 
 ### IsQuietNaN
 
@@ -844,7 +844,7 @@ Returns whether this object is a quiet not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a quiet not-a-number value; otherwise, false .
+ `true`  if this object is a quiet not-a-number value; otherwise,  `false` .
 
 ### IsSignalingNaN
 
@@ -854,7 +854,7 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 
 <b>Return Value:</b>
 
- `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise, false .
+ `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise,  `false` .
 
 ### Multiply
 
@@ -897,11 +897,9 @@ Adds two rational numbers.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: Another arbitrary-precision rational number.
+ * <i>bthis</i>: An arbitrary-precision rational number.
 
- * <i>bthis</i>: An ERational object.
-
- * <i>augend</i>: An ERational object. (3).
+ * <i>augend</i>: An arbitrary-precision rational number. (3).
 
 <b>Return Value:</b>
 
@@ -910,8 +908,7 @@ The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Operator `/`
 
@@ -923,11 +920,9 @@ Divides this instance by the value of an arbitrary-precision rational number obj
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>dividend</i>: An arbitrary-precision rational number.
 
- * <i>dividend</i>: An ERational object.
-
- * <i>divisor</i>: An ERational object. (3).
+ * <i>divisor</i>: An arbitrary-precision rational number. (3).
 
 <b>Return Value:</b>
 
@@ -936,8 +931,7 @@ The quotient of the two objects.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Operator `%`
 
@@ -949,11 +943,9 @@ Finds the remainder that results when this instance is divided by the value of a
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>dividend</i>: An arbitrary-precision rational number.
 
- * <i>dividend</i>: An ERational object.
-
- * <i>divisor</i>: An ERational object. (3).
+ * <i>divisor</i>: An arbitrary-precision rational number. (3).
 
 <b>Return Value:</b>
 
@@ -962,8 +954,7 @@ The remainder of the two numbers.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Operator `*`
 
@@ -975,11 +966,9 @@ Multiplies this instance by the value of an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>operand1</i>: An arbitrary-precision rational number.
 
- * <i>operand1</i>: An ERational object.
-
- * <i>operand2</i>: An ERational object. (3).
+ * <i>operand2</i>: An arbitrary-precision rational number. (3).
 
 <b>Return Value:</b>
 
@@ -988,8 +977,7 @@ The product of the two numbers.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Operator `-`
 
@@ -1001,11 +989,9 @@ Subtracts an arbitrary-precision rational number from this instance.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>bthis</i>: An arbitrary-precision rational number.
 
- * <i>bthis</i>: An ERational object.
-
- * <i>subtrahend</i>: An ERational object. (3).
+ * <i>subtrahend</i>: An arbitrary-precision rational number. (3).
 
 <b>Return Value:</b>
 
@@ -1014,8 +1000,7 @@ The difference of the two objects.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Operator `-`
 
@@ -1026,16 +1011,16 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>bigValue</i>: An ERational object.
+ * <i>bigValue</i>: An arbitrary-precision rational number to negate.
 
 <b>Return Value:</b>
 
-An ERational object.
+An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bigValue</i>
+The parameter <i>bigValue</i>
  is null.
 
 ### Remainder
@@ -1108,10 +1093,7 @@ This number's value as a byte (from 0 to 255).
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 255.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 255.
 
 ### ToByteUnchecked
 
@@ -1128,11 +1110,6 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
     public System.Decimal ToDecimal();
 
 Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>extendedNumber</i>: The parameter  <i>extendedNumber</i>
- is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1186,7 +1163,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
+The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
 
 ### ToEFloat
 
@@ -1226,7 +1203,7 @@ Converts this rational number to a binary float, but if the result would have a 
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
+The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
 
 ### ToEInteger
 
@@ -1325,7 +1302,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
+The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
 
 ### ToExtendedFloat
 
@@ -1371,7 +1348,7 @@ Converts this rational number to a binary float, but if the result would have a 
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
+The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
 
 ### ToInt16Checked
 
@@ -1401,10 +1378,7 @@ This number's value as a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -32768 or greater than 32767.
+This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater than 32767.
 
 ### ToInt16Unchecked
 
@@ -1444,10 +1418,7 @@ This number's value as a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -2147483648 or greater than 2147483647.
+This value is infinity or not-a-number, is not an exact integer, or is less than -2147483648 or greater than 2147483647.
 
 ### ToInt32Unchecked
 
@@ -1487,10 +1458,7 @@ This number's value as a 64-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -9223372036854775808 or greater than 9223372036854775807.
+This value is infinity or not-a-number, is not an exact integer, or is less than -9223372036854775808 or greater than 9223372036854775807.
 
 ### ToInt64Unchecked
 
@@ -1530,10 +1498,7 @@ This number's value as an 8-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -128 or greater than 127.
+This value is infinity or not-a-number, is not an exact integer, or is less than -128 or greater than 127.
 
 ### ToSByteUnchecked
 
@@ -1563,7 +1528,7 @@ Converts this object to a text string.
 
 <b>Return Value:</b>
 
-A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString`  method. Otherwise, the return value has the following form:  `[-]numerator/denominator` .
+A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString`  method. Otherwise, the return value has the following form: `[-]numerator/denominator` .
 
 ### ToUInt16Checked
 
@@ -1593,10 +1558,7 @@ This number's value as a 16-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 65535.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 65535.
 
 ### ToUInt16Unchecked
 
@@ -1636,10 +1598,7 @@ This number's value as a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 4294967295.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 4294967295.
 
 ### ToUInt32Unchecked
 
@@ -1679,10 +1638,7 @@ This number's value as a 64-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 18446744073709551615.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 18446744073709551615.
 
 ### ToUInt64Unchecked
 

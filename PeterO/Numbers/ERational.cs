@@ -236,7 +236,7 @@ bool negative) {
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      var er = new ERational(diag, EInteger.Zero);
+      var er = new ERational(diag, EInteger.One);
       er.flags = flags;
       return er;
     }
@@ -533,7 +533,7 @@ bool negative) {
             numer.AsEInteger();
           return CreateWithFlags(
             bignumer,
-            EInteger.Zero,
+            EInteger.One,
             flags3);
         }
       }
@@ -1610,7 +1610,10 @@ int flags) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteChecked"]/*'/>
 public byte ToByteChecked() {
- return this.ToEInteger().ToByteChecked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((byte)0) : this.ToEInteger().ToByteChecked();
 }
 
     /// <include file='../../docs.xml'
@@ -1622,7 +1625,10 @@ public byte ToByteUnchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteIfExact"]/*'/>
 public byte ToByteIfExact() {
- return this.ToEIntegerIfExact().ToByteChecked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((byte)0) : this.ToEIntegerIfExact().ToByteChecked();
 }
 
     /// <include file='../../docs.xml'
@@ -1635,7 +1641,10 @@ public static ERational FromByte(byte inputByte) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16Checked"]/*'/>
 public short ToInt16Checked() {
- return this.ToEInteger().ToInt16Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((short)0) : this.ToEInteger().ToInt16Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1647,7 +1656,11 @@ public short ToInt16Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16IfExact"]/*'/>
 public short ToInt16IfExact() {
- return this.ToEIntegerIfExact().ToInt16Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((short)0) :
+   this.ToEIntegerIfExact().ToInt16Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1660,7 +1673,10 @@ public static ERational FromInt16(short inputInt16) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32Checked"]/*'/>
 public int ToInt32Checked() {
- return this.ToEInteger().ToInt32Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1672,7 +1688,10 @@ public int ToInt32Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32IfExact"]/*'/>
 public int ToInt32IfExact() {
- return this.ToEIntegerIfExact().ToInt32Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1684,7 +1703,10 @@ public static ERational FromInt32(int inputInt32) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64Checked"]/*'/>
 public long ToInt64Checked() {
- return this.ToEInteger().ToInt64Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+return this.IsZero ? ((long)0) : this.ToEInteger().ToInt64Checked();
 }
 
     /// <include file='../../docs.xml'
@@ -1696,7 +1718,10 @@ public long ToInt64Unchecked() {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64IfExact"]/*'/>
 public long ToInt64IfExact() {
- return this.ToEIntegerIfExact().ToInt64Checked();
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ return this.IsZero ? ((long)0) : this.ToEIntegerIfExact().ToInt64Checked();
 }
 
     /// <include file='../../docs.xml'

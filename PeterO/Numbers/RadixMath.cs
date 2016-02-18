@@ -3340,12 +3340,12 @@ helper.GetRadix());
         }
       }
       return CompareToSlow(
-        op1Exponent.AsEInteger(),
-        op2Exponent.AsEInteger(),
+        op1Exponent.ToEInteger(),
+        op2Exponent.ToEInteger(),
         expcmp,
         signA,
-        op1Mantissa.AsEInteger(),
-        op2Mantissa.AsEInteger(),
+        op1Mantissa.ToEInteger(),
+        op2Mantissa.ToEInteger(),
         helper,
         reportOOM);
     }
@@ -4510,7 +4510,7 @@ ctx.Rounding,
                 "Result requires too much memory");
                 }
             stillWithinPrecision =
-                  mantabs.AsEInteger().CompareTo(radixPower) <
+                  mantabs.ToEInteger().CompareTo(radixPower) <
                     0;
               }
               if (stillWithinPrecision) {
@@ -5256,7 +5256,7 @@ EInteger.Zero,
         }
       }
       return FastIntegerFixed.FromBig(this.helper.MultiplyByRadixPower(
-        bi.AsEInteger(),
+        bi.ToEInteger(),
         radixPower));
     }
 

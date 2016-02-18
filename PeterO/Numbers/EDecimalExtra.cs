@@ -201,6 +201,15 @@ public static implicit operator EDecimal(byte inputByte) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteChecked"]/*'/>
 [CLSCompliant(false)]
 public sbyte ToSByteChecked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (sbyte)0;
+}
+if (this.exponent.CompareToInt(3) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToSByteChecked();
 }
 
@@ -215,6 +224,15 @@ public sbyte ToSByteUnchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteIfExact"]/*'/>
 [CLSCompliant(false)]
 public sbyte ToSByteIfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (sbyte)0;
+}
+if (this.exponent.CompareToInt(3) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToSByteChecked();
 }
 
@@ -256,6 +274,18 @@ public static implicit operator EDecimal(short inputInt16) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16Checked"]/*'/>
 [CLSCompliant(false)]
 public ushort ToUInt16Checked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (ushort)0;
+}
+if (this.IsNegative) {
+ throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(5) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToUInt16Checked();
 }
 
@@ -270,6 +300,18 @@ public ushort ToUInt16Unchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16IfExact"]/*'/>
 [CLSCompliant(false)]
 public ushort ToUInt16IfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (ushort)0;
+}
+ if (this.IsNegative) {
+throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(5) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToUInt16Checked();
 }
 
@@ -311,6 +353,18 @@ public static implicit operator EDecimal(int inputInt32) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32Checked"]/*'/>
 [CLSCompliant(false)]
 public uint ToUInt32Checked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (uint)0;
+}
+if (this.IsNegative) {
+ throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(10) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToUInt32Checked();
 }
 
@@ -325,6 +379,18 @@ public uint ToUInt32Unchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32IfExact"]/*'/>
 [CLSCompliant(false)]
 public uint ToUInt32IfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (uint)0;
+}
+ if (this.IsNegative) {
+throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(10) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToUInt32Checked();
 }
 
@@ -366,6 +432,18 @@ public static implicit operator EDecimal(long inputInt64) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64Checked"]/*'/>
 [CLSCompliant(false)]
 public ulong ToUInt64Checked() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+if (this.IsIntegerPartZero()) {
+ return (ulong)0;
+}
+if (this.IsNegative) {
+ throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(20) >= 0) {
+throw new OverflowException("Value out of range: ");
+}
  return this.ToEInteger().ToUInt64Checked();
 }
 
@@ -380,6 +458,18 @@ public ulong ToUInt64Unchecked() {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64IfExact"]/*'/>
 [CLSCompliant(false)]
 public ulong ToUInt64IfExact() {
+ if (!this.IsFinite) {
+ throw new OverflowException("Value is infinity or NaN");
+}
+ if (this.IsZero) {
+ return (ulong)0;
+}
+ if (this.IsNegative) {
+throw new OverflowException("Value out of range");
+}
+if (this.exponent.CompareToInt(20) >= 0) {
+throw new OverflowException("Value out of range");
+}
  return this.ToEIntegerIfExact().ToUInt64Checked();
 }
 

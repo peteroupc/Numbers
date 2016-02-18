@@ -8,7 +8,7 @@ Represents an arbitrary-precision binary floating-point number. (The "E" stands 
 
 Passing a quiet NaN to any arithmetic operation shown here will return a quiet NaN, unless noted otherwise.
 
-Unless noted otherwise, passing a null arbitrary-precision binary float argument to any method here will throw an exception.
+Unless noted otherwise,passing a null arbitrary-precision binary float argument to any method here will throw an exception.
 
 When an arithmetic operation signals the flag FlagInvalid, FlagOverflow, or FlagDivideByZero, it will not throw an exception too, unless the operation's trap is enabled in the precision context (see EContext's Traps property).
 
@@ -94,7 +94,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true` if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
+ `true`  if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
 
 ### IsNegative
 
@@ -114,7 +114,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .
+ `true`  if this object's value equals 0; otherwise, .  `false` .
 
 ### Mantissa
 
@@ -375,6 +375,14 @@ The parameter <i>other</i>
 
 Creates a number with the value exponent*2^mantissa (significand).
 
+<b>Parameters:</b>
+
+ * <i>mantissaSmall</i>: The parameter  <i>mantissaSmall</i>
+ is not documented yet.
+
+ * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
+ is not documented yet.
+
 <b>Return Value:</b>
 
 An arbitrary-precision binary float.
@@ -386,6 +394,14 @@ An arbitrary-precision binary float.
         PeterO.Numbers.EInteger exponent);
 
 Creates a number with the value exponent*2^mantissa (significand).
+
+<b>Parameters:</b>
+
+ * <i>mantissa</i>: The parameter  <i>mantissa</i>
+ is not documented yet.
+
+ * <i>exponent</i>: The parameter  <i>exponent</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -727,7 +743,7 @@ Determines whether this object's mantissa (significand) and exponent are equal t
 
 <b>Return Value:</b>
 
- `true`  if the objects are equal; otherwise, false .
+ `true`  if the objects are equal; otherwise,  `false` .
 
 ### Equals
 
@@ -742,7 +758,7 @@ Determines whether this object's mantissa (significand) and exponent are equal t
 
 <b>Return Value:</b>
 
- `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise, false .
+ `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise,  `false` .
 
 ### EqualsInternal
 
@@ -757,7 +773,7 @@ Determines whether this object's mantissa (significand) and exponent are equal t
 
 <b>Return Value:</b>
 
- `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise, false .
+ `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise,  `false` .
 
 ### Exp
 
@@ -1092,7 +1108,7 @@ Gets a value indicating whether this object is positive or negative infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is positive or negative infinity; otherwise, false .
+ `true`  if this object is positive or negative infinity; otherwise,  `false` .
 
 ### IsNaN
 
@@ -1102,7 +1118,7 @@ Gets a value indicating whether this object is not a number (NaN).
 
 <b>Return Value:</b>
 
- `true`  if this object is not a number (NaN); otherwise, false .
+ `true`  if this object is not a number (NaN); otherwise,  `false` .
 
 ### IsNegativeInfinity
 
@@ -1112,7 +1128,7 @@ Returns whether this object is negative infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is negative infinity; otherwise, false .
+ `true`  if this object is negative infinity; otherwise,  `false` .
 
 ### IsPositiveInfinity
 
@@ -1122,7 +1138,7 @@ Returns whether this object is positive infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is positive infinity; otherwise, false .
+ `true`  if this object is positive infinity; otherwise,  `false` .
 
 ### IsQuietNaN
 
@@ -1132,7 +1148,7 @@ Gets a value indicating whether this object is a quiet not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a quiet not-a-number value; otherwise, false .
+ `true`  if this object is a quiet not-a-number value; otherwise,  `false` .
 
 ### IsSignalingNaN
 
@@ -1142,7 +1158,7 @@ Gets a value indicating whether this object is a signaling not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a signaling not-a-number value; otherwise, false .
+ `true`  if this object is a signaling not-a-number value; otherwise,  `false` .
 
 ### Log
 
@@ -1657,23 +1673,27 @@ Returns the next value that is closer to the other object' s value than this obj
 
     public static PeterO.Numbers.EFloat operator +(
         PeterO.Numbers.EFloat bthis,
-        PeterO.Numbers.EFloat augend);
+        PeterO.Numbers.EFloat otherValue);
 
 Adds this object and another binary float and returns the result.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision binary float.
-
  * <i>bthis</i>: The parameter  <i>bthis</i>
  is not documented yet.
 
- * <i>augend</i>: The parameter  <i>augend</i>
+ * <i>otherValue</i>: The parameter  <i>otherValue</i>
  is not documented yet.
 
 <b>Return Value:</b>
 
 The sum of the two objects.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 ### Operator `/`
 
@@ -1685,8 +1705,6 @@ Divides this object by another binary float and returns the result. When possibl
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: An arbitrary-precision binary float to divide by.
-
  * <i>dividend</i>: The number that will be divided by the divisor.
 
  * <i>divisor</i>: The number to divide by.
@@ -1694,6 +1712,12 @@ Divides this object by another binary float and returns the result. When possibl
 <b>Return Value:</b>
 
 The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>dividend</i>
+ is null.
 
 ### Operator `%`
 
@@ -1729,8 +1753,6 @@ Multiplies two binary floats. The resulting exponent will be the sum of the expo
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: Another binary float.
-
  * <i>operand1</i>: The first operand.
 
  * <i>operand2</i>: The second operand.
@@ -1738,6 +1760,12 @@ Multiplies two binary floats. The resulting exponent will be the sum of the expo
 <b>Return Value:</b>
 
 The product of the two binary floats.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>operand1</i>
+ is null.
 
 ### Operator `-`
 
@@ -1749,24 +1777,6 @@ Subtracts an arbitrary-precision binary float from this instance and returns the
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
  * <i>bthis</i>: The parameter  <i>bthis</i>
  is not documented yet.
 
@@ -1777,37 +1787,11 @@ Subtracts an arbitrary-precision binary float from this instance and returns the
 
 The difference of the two objects.
 
-<b>Return Value:</b>
+<b>Exceptions:</b>
 
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
-
-<b>Return Value:</b>
-
-The difference of the two objects.
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 ### Operator `-`
 
@@ -1828,7 +1812,7 @@ An arbitrary-precision binary float. If this value is positive zero, returns neg
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bigValue</i>
+The parameter <i>bigValue</i>
  is null.
 
 ### PI
@@ -1933,7 +1917,7 @@ An arbitrary-precision integer.
 
 Returns a binary float with the same value but a new exponent.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b>This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
+<b>Remark:</b>This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the radix point number = number.Quantize(-5,  // five
@@ -1946,7 +1930,7 @@ A fixed-point binary arithmetic in which no digits come after the radix point (a
 
  * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, ill also store the flags resulting from the operation (the flags re in addition to the pre-existing flags). Can be null, in which ase the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -1980,7 +1964,7 @@ A binary float with the same value as this object but with the exponent changed.
 
 Returns a binary float with the same value but a new exponent.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b>This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
+<b>Remark:</b>This method can be used to implement ixed-point binary arithmetic, in which each binary float has a ixed number of digits after the radix point. The following code xample returns a fixed-point number with up to 20 digits before nd exactly 5 digits after the radix point:
 
     // After performing arithmetic operations, adjust  // the number to 5
     digits after the radix point number = number.Quantize(
@@ -1993,7 +1977,7 @@ A fixed-point binary arithmetic in which no digits come after the radix point (a
 
  * <i>desiredExponent</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags` of the context is true, ill also store the flags resulting from the operation (the flags re in addition to the pre-existing flags). Can be null, in which ase the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2175,7 +2159,7 @@ Returns a binary number with the same value as this object but rounded to the gi
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: An EInteger object.
+ * <i>exponent</i>: An arbitrary-precision integer.
 
  * <i>rounding</i>: An ERounding object.
 
@@ -2207,7 +2191,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and `FlagInexact`  flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2241,7 +2225,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and `FlagInexact`  flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2432,10 +2416,7 @@ This number's value as a byte (from 0 to 255).
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 255.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 255.
 
 ### ToByteUnchecked
 
@@ -2570,10 +2551,7 @@ This number's value as a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -32768 or greater than 32767.
+This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater than 32767.
 
 ### ToInt16Unchecked
 
@@ -2613,10 +2591,7 @@ This number's value as a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -2147483648 or greater than 2147483647.
+This value is infinity or not-a-number, is not an exact integer, or is less than -2147483648 or greater than 2147483647.
 
 ### ToInt32Unchecked
 
@@ -2656,10 +2631,7 @@ This number's value as a 64-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -9223372036854775808 or greater than 9223372036854775807.
+This value is infinity or not-a-number, is not an exact integer, or is less than -9223372036854775808 or greater than 9223372036854775807.
 
 ### ToInt64Unchecked
 
@@ -2709,10 +2681,7 @@ This number's value as an 8-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than -128 or greater than 127.
+This value is infinity or not-a-number, is not an exact integer, or is less than -128 or greater than 127.
 
 ### ToSByteUnchecked
 
@@ -2743,7 +2712,7 @@ Shortest decimal form of this number's value for the given arithmetic context. T
 
     public float ToSingle();
 
-Converts this value to its closest equivalent as 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's mantissa (significand) for a quiet NaN, and clears it for a signaling NaN. Then the next highest bit of the mantissa (significand) is cleared for a quiet NaN, and set for a signaling NaN. Then the other bits of the mantissa (significand) are set to the lowest bits of this object's unsigned mantissa (significand).
+Converts this value to its closest equivalent as 32-bit floating-point number. The half-even rounding mode is used.If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Return Value:</b>
 
@@ -2787,10 +2756,7 @@ This number's value as a 16-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 65535.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 65535.
 
 ### ToUInt16Unchecked
 
@@ -2830,10 +2796,7 @@ This number's value as a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 4294967295.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 4294967295.
 
 ### ToUInt32Unchecked
 
@@ -2873,10 +2836,7 @@ This number's value as a 64-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is a finite number, but is not an exact integer.
-
- * System.OverflowException:
-This value is infinity or not-a-number, or the integer is less than 0 or greater than 18446744073709551615.
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 18446744073709551615.
 
 ### ToUInt64Unchecked
 
