@@ -112,7 +112,37 @@ namespace Test {
     }
     [Test]
     public void TestCreateNaN() {
-      // not implemented yet
+      try {
+ EFloat.CreateNaN(null);
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+new Object();
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.CreateNaN(EInteger.FromString("-1"));
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+new Object();
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.CreateNaN(null, false, false, null);
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+new Object();
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      EFloat ef = EFloat.CreateNaN(EInteger.Zero, false, true, null);
+      Assert.IsTrue(ef.IsNegative);
+      ef = EFloat.CreateNaN(EInteger.Zero, false, false, null);
+      Assert.IsTrue(!ef.IsNegative);
     }
     [Test]
     public void TestDivide() {

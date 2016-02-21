@@ -146,6 +146,21 @@ string msg) where T :
       }
     }
 
+    public static void CompareTestGreaterEqual<T>(T o1, T o2) where T :
+          IComparable<T> {
+      CompareTestLessEqual(o2, o1);
+    }
+
+    public static void CompareTestLessEqual<T>(T o1, T o2) where T :
+      IComparable<T> {
+      if (CompareTestReciprocal(o1, o2) > 0) {
+        Assert.Fail(ObjectMessages(
+          o1,
+          o2,
+          "Not less: " + CompareTestReciprocal(o1, o2)));
+      }
+    }
+
     public static int CompareTestReciprocal<T>(T o1, T o2) where T :
       IComparable<T> {
       if (o1 == null) {

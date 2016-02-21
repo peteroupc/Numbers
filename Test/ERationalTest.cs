@@ -162,7 +162,37 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestCreateNaN() {
-      // not implemented yet
+      try {
+ ERational.CreateNaN(null);
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+new Object();
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.CreateNaN(EInteger.FromString("-1"));
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+new Object();
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ ERational.CreateNaN(null, false, false);
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+new Object();
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      ERational ef = ERational.CreateNaN(EInteger.Zero, false, true);
+      Assert.IsTrue(ef.IsNegative);
+      ef = ERational.CreateNaN(EInteger.Zero, false, false);
+      Assert.IsTrue(!ef.IsNegative);
     }
     [Test]
     public void TestDenominator() {

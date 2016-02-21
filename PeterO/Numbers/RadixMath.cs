@@ -2654,8 +2654,9 @@ ctxtmp);
         }
       }
       if (expcmp > 0) {
-        EInteger newmant =
-          RescaleByExponentDiff(
+        // DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
+        // + (// op1Exponent) + " " + op2Exponent + "]");
+        EInteger newmant = RescaleByExponentDiff(
 op1Mantissa,
 op1Exponent,
 op2Exponent,
@@ -2669,6 +2670,8 @@ helper);
         int mantcmp = newmant.CompareTo(op2Mantissa);
         return (signA < 0) ? -mantcmp : mantcmp;
       } else {
+        // DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
+        // + (// op1Exponent) + " " + op2Exponent + "]");
         EInteger newmant = RescaleByExponentDiff(
             op2Mantissa,
             op1Exponent,
