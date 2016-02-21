@@ -1440,8 +1440,15 @@ if (!(bitLength <= 53)) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return this.ToString();
       }
-      if (!this.IsFinite) {
-        return this.ToEDecimal().ToEFloat(ctx).ToString();
+      if (this.IsNaN()) {
+        return CreateNaN(
+this.UnsignedMantissa,
+this.IsSignalingNaN(),
+this.IsNegative,
+ctx).ToString();
+      }
+      if (this.IsInfinity()) {
+        return this.RoundToPrecision(ctx).ToString();
       }
       EContext ctx2 = ctx.WithNoFlags();
       EFloat valueEfRnd = this.RoundToPrecision(ctx);

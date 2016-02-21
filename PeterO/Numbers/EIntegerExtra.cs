@@ -562,7 +562,7 @@ public uint ToUInt32Checked() {
  if (val < 0 || val > 4294967295L) {
   throw new OverflowException("This object's value is out of range");
  }
- return unchecked((uint)(val & 0xFFFFFFFFL));
+ return unchecked((uint)(val & 0xffffffffL));
 }
 
     /// <include file='../../docs.xml'
@@ -570,14 +570,14 @@ public uint ToUInt32Checked() {
 [CLSCompliant(false)]
 public uint ToUInt32Unchecked() {
  long val = this.ToInt64Unchecked();
- return unchecked((uint)(val & 0xFFFFFFFFL));
+ return unchecked((uint)(val & 0xffffffffL));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromUInt32(System.UInt32)"]/*'/>
 [CLSCompliant(false)]
 public static EInteger FromUInt32(uint inputUInt32) {
- long val = ((long)inputUInt32) & 0xFFFFFFFFL;
+ long val = ((long)inputUInt32) & 0xffffffffL;
  return FromInt64(val);
 }
 

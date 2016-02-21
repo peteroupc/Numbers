@@ -174,7 +174,7 @@ throw new InvalidOperationException(String.Empty, ex);
       try {
  ERational.CreateNaN(EInteger.FromString("-1"));
 Assert.Fail("Should have failed");
-} catch (ArgumentNullException) {
+} catch (ArgumentException) {
 new Object();
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());

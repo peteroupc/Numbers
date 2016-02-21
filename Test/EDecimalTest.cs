@@ -178,8 +178,8 @@ namespace Test {
         EInteger bigintA = RandomObjects.RandomEInteger(r);
         EInteger bigintB = RandomObjects.RandomEInteger(r);
         EInteger bigintC = bigintA.Add(bigintB);
-        EDecimal
-  ba1 = EDecimal.FromEInteger(bigintA).Add(EDecimal.FromEInteger(bigintB));
+        EDecimal ba1 = EDecimal.FromEInteger(bigintA)
+          .Add(EDecimal.FromEInteger(bigintB));
         EDecimal ba2 = EDecimal.FromEInteger(bigintC);
         Assert.AreEqual(ba1.Sign, ba2.Sign);
         Assert.AreEqual(ba1.ToString(), ba2.ToString());
@@ -188,6 +188,9 @@ ba1,
 ba2,
 bigintA.ToString() + "/" + bigintB.ToString());
       }
+      TestCommon.CompareTestEqual(
+EDecimal.FromString("-1.603074425947290000E+2147483671"),
+EDecimal.FromString("-1.60307442594729E+2147483671"));
       TestCommon.CompareTestLess(EDecimal.Zero, EDecimal.NaN);
       TestCommon.CompareTestLess(
 EDecimal.FromString("-4328117878201602191937590091183.9810549"),
@@ -2980,7 +2983,7 @@ EDecimal.NegativeZero.Plus(null));
       long value = BitConverter.ToInt64(
 BitConverter.GetBytes((double)dbl),
 0);
-      var exponent = (int)((value >> 52) & 0x7FFL);
+      var exponent = (int)((value >> 52) & 0x7ffL);
       if (exponent == 0) {
         return UlpTable[exponent];
       } else if (exponent == 2047) {
@@ -4544,7 +4547,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative);
             TestCommon.CompareTestGreater(edec, SingleUnderflowToZero);
             TestCommon.CompareTestLess(edec, SingleOverflowToInfinity);
             EDecimal halfUlp = GetHalfUlp(sng);
-            EDecimal difference = EDecimal.FromDouble(sng).Abs()
+            EDecimal difference = EDecimal.FromSingle(sng).Abs()
               .Subtract(edec).Abs();
             TestCommon.CompareTestLessEqual(difference, halfUlp);
           }

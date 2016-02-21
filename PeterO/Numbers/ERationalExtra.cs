@@ -326,7 +326,7 @@ public uint ToUInt32IfExact() {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt32(System.UInt32)"]/*'/>
 [CLSCompliant(false)]
 public static ERational FromUInt32(uint inputUInt32) {
- long val = ((long)inputUInt32) & 0xFFFFFFFFL;
+ long val = ((long)inputUInt32) & 0xffffffffL;
  return FromInt64(val);
 }
 
