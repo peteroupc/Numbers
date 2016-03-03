@@ -2236,9 +2236,7 @@ stringTemp);
       var r = new FastRandom();
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
-        String s = bigintA.ToString();
-        EInteger big2 = BigFromString(s);
-        Assert.AreEqual(big2.ToString(), s);
+        ExtraTest.TestStringEqualRoundTrip(bigintA);
       }
     }
     [Test]

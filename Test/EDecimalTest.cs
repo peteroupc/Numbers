@@ -4592,8 +4592,11 @@ EDecimal.FromString(ValueTestStrings[i]).ToPlainString());
         EInteger mantBig = RandomObjects.RandomEInteger(fr);
         EInteger expBig = RandomObjects.RandomEInteger(fr);
         EDecimal dec = EDecimal.Create(mantBig, expBig);
-        string decstr = dec.ToString();
-        Assert.AreEqual(dec, EDecimal.FromString(decstr));
+        ExtraTest.TestStringEqualRoundTrip(dec);
+      }
+      for (var i = 0; i < 1000; ++i) {
+        EDecimal dec = RandomObjects.RandomEDecimal(fr);
+        ExtraTest.TestStringEqualRoundTrip(dec);
       }
     }
     [Test]

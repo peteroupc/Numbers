@@ -16,7 +16,7 @@ thus making the context mutable.  This class doesn't synchronize
 access to such mutable contexts, so applications should provide
 their own synchronization if a context with the <c>HasFlags</c>
 property set to <c>true</c> will be shared among multiple threads
-and those threads need to read or write the <c>Flags</c> property
+and at least one of those threads needs to write the <c>Flags</c> property
 (which can happen, for example, by passing the context to most
 methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             </summary>
@@ -1304,17 +1304,18 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Equals(PeterO.Numbers.EDecimal)">
 <summary>Determines whether this object&#x27;s mantissa
-            (significand) and exponent are equal to those of another
-            object.</summary>
+            (significand), exponent, and properties are equal to those of another
+            object. Not-a-number values are considered equal if the rest of their
+            properties are equal.</summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
             <returns><c>true</c> if this object's mantissa (significand) and
             exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Equals(System.Object)">
 <summary>Determines whether this object&#x27;s mantissa
-            (significand) and exponent are equal to those of another object and
-            that other object is an arbitrary-precision decimal
-            number.</summary>
+            (significand), exponent, and properties are equal to those of another
+            object and that other object is an arbitrary-precision decimal number. Not-a-number values are considered equal if the rest of their
+            properties are equal.</summary>
             <param name='obj'>An arbitrary object.</param>
             <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>
 </doc>
@@ -3738,16 +3739,19 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Equals(PeterO.Numbers.EFloat)">
 <summary>Determines whether this object&#x27;s mantissa
-            (significand) and exponent are equal to those of another
-            object.</summary>
+            (significand), exponent, and properties are equal to those of another
+            object. Not-a-number values are considered equal if the rest of their
+            properties are equal.</summary>
             <param name='other'>An arbitrary-precision binary float.</param>
             <returns><c>true</c> if this object's mantissa (significand) and
             exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Equals(System.Object)">
 <summary>Determines whether this object&#x27;s mantissa
-            (significand) and exponent are equal to those of another object and
-            that other object is an arbitrary-precision binary float.</summary>
+            (significand), exponent, and properties are equal to those of another
+            object and that other object is an arbitrary-precision binary float. 
+            Not-a-number values are considered equal if the rest of their
+            properties are equal.</summary>
             <param name='obj'>An arbitrary object.</param>
             <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>
 </doc>
@@ -5565,7 +5569,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Equals(System.Object)">
 <summary>Determines whether this object and another object are
-            equal.</summary>
+            equal and have the same type.</summary>
             <param name='obj'>An arbitrary object.</param>
             <returns><c>true</c> if this object and another object are equal; otherwise, <c>false</c>.</returns>
 </doc>
@@ -6937,14 +6941,20 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             <paramref name='otherValue'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)">
-<summary>Not documented yet.</summary>
+<summary>Determines whether this object&#x27;s numerator,
+            denominator, and properties are equal to those of another
+            object. Not-a-number values are considered equal if the rest of their
+            properties are equal.</summary>
             <param name='other'>The parameter <paramref name='other'/> is not
             documented yet.</param>
             <returns>A Boolean object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Equals(System.Object)">
-<summary>Determines whether this object and another object are
-            equal.</summary>
+<summary>Determines whether this object&#x27;s numerator,
+            denominator, and properties are equal to those of another
+            object and that other object is an arbitrary-precision
+            rational number. Not-a-number values are considered equal if the rest of their
+            properties are equal.</summary>
             <param name='obj'>An arbitrary object.</param>
             <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>
 </doc>

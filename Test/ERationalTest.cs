@@ -895,8 +895,11 @@ stringTemp);
     }
     [Test]
     public void TestToString() {
-      // not implemented yet
-    }
+       for (var i = 0; i < 1000; ++i) {
+        ERational dec = RandomObjects.RandomERational(fr);
+        ExtraTest.TestStringEqualRoundTrip(dec);
+      }
+   }
     [Test]
     public void TestUnsignedNumerator() {
       // not implemented yet

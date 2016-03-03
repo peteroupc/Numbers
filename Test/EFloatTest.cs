@@ -1861,7 +1861,10 @@ TestToFloatRoundingOne(objectTemp, true);
     }
     [Test]
     public void TestToString() {
-      // not implemented yet
+      for (var i = 0; i < 1000; ++i) {
+        EFloat dec = RandomObjects.RandomEFloat(fr);
+        ExtraTest.TestStringEqualRoundTrip(dec);
+      }
     }
     [Test]
     public void TestUnsignedMantissa() {
