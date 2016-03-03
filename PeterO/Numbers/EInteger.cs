@@ -612,8 +612,8 @@ namespace PeterO.Numbers {
           a |= (((int)this.words[1]) & 0xffff) << 16;
           int b = ((int)bigintAugend.words[0]) & 0xffff;
           b |= (((int)bigintAugend.words[1]) & 0xffff) << 16;
-          long longResult = ((long)a) & 0xFFFFFFFFL;
-          longResult += ((long)b) & 0xFFFFFFFFL;
+          long longResult = ((long)a) & 0xffffffffL;
+          longResult += ((long)b) & 0xffffffffL;
           if ((longResult >> 32) == 0) {
             a = unchecked((int)longResult);
             sumreg = new short[2];
@@ -1446,7 +1446,7 @@ WordsShiftRightOne(bu, buc);
     public override int GetHashCode() {
       var hashCodeValue = 0;
       unchecked {
-        hashCodeValue += 1000000007 * this.Sign.GetHashCode();
+        hashCodeValue += 1000000007 * this.Sign;
         if (this.words != null) {
           for (var i = 0; i < this.wordCount; ++i) {
             hashCodeValue += 1000000013 * this.words[i];
@@ -2049,11 +2049,11 @@ this.negative ^ bigintMult.negative);
         if (c > 3) {
           intRetValue2 |= (((int)words[3]) & 0xffff) << 16;
         }
-        ivv = ((long)intRetValue) & 0xFFFFFFFFL;
+        ivv = ((long)intRetValue) & 0xffffffffL;
         ivv |= ((long)intRetValue2) << 32;
         return ivv;
       }
-      ivv = ((long)intRetValue) & 0xFFFFFFFFL;
+      ivv = ((long)intRetValue) & 0xffffffffL;
       return ivv;
     }
 
@@ -2417,11 +2417,11 @@ int subtrahendCount) {
           intRetValue = unchecked(~intRetValue);
           intRetValue2 = unchecked(~intRetValue2);
         }
-        ivv = ((long)intRetValue) & 0xFFFFFFFFL;
+        ivv = ((long)intRetValue) & 0xffffffffL;
         ivv |= ((long)intRetValue2) << 32;
         return ivv;
       }
-      ivv = ((long)intRetValue) & 0xFFFFFFFFL;
+      ivv = ((long)intRetValue) & 0xffffffffL;
       if (this.negative) {
         ivv = -ivv;
       }

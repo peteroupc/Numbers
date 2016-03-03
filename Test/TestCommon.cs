@@ -157,7 +157,7 @@ string msg) where T :
         Assert.Fail(ObjectMessages(
           o1,
           o2,
-          "Not less: " + CompareTestReciprocal(o1, o2)));
+          "Not less or equal: " + CompareTestReciprocal(o1, o2)));
       }
     }
 
@@ -279,38 +279,59 @@ string msg) where T :
       int intlongValue = unchecked((int)longValue);
       if ((long)intlongValue == longValue) {
         chars = new char[12];
+        count = 11;
         if (neg) {
-          chars[0] = '-';
-          ++count;
           intlongValue = -intlongValue;
         }
-        while (intlongValue != 0) {
-          int intdivlongValue = intlongValue / 10;
-          char digit = ValueDigits[(int)(intlongValue - (intdivlongValue *
-              10))];
-          chars[count++] = digit;
-          intlongValue = intdivlongValue;
-        }
-      } else {
-        chars = new char[24];
-        if (neg) {
-          chars[0] = '-';
-          ++count;
-          longValue = -longValue;
-        }
-        while (longValue != 0) {
-          long divlongValue = longValue / 10;
-          char digit = ValueDigits[(int)(longValue - (divlongValue * 10))];
-          chars[count++] = digit;
-          longValue = divlongValue;
-        }
+        while (intlongValue > 43698) {
+          int intdivValue = intlongValue / 10;
+        char digit = ValueDigits[(int)(intlongValue - (intdivValue * 10))];
+        chars[count--] = digit;
+        intlongValue = intdivValue;
+      }
+      while (intlongValue > 9) {
+        int intdivValue = (intlongValue * 26215) >> 18;
+        char digit = ValueDigits[(int)(intlongValue - (intdivValue * 10))];
+        chars[count--] = digit;
+        intlongValue = intdivValue;
+      }
+      if (intlongValue != 0) {
+        chars[count--] = ValueDigits[(int)intlongValue];
       }
       if (neg) {
-        ReverseChars(chars, 1, count - 1);
+        chars[count] = '-';
       } else {
-        ReverseChars(chars, 0, count);
+        ++count;
       }
-      return new String(chars, 0, count);
+      return new String(chars, count, 12 - count);
+      } else {
+        chars = new char[24];
+        count = 23;
+        if (neg) {
+          longValue = -longValue;
+        }
+        while (longValue > 43698) {
+          long divValue = longValue / 10;
+        char digit = ValueDigits[(int)(longValue - (divValue * 10))];
+        chars[count--] = digit;
+        longValue = divValue;
+      }
+      while (longValue > 9) {
+        long divValue = (longValue * 26215) >> 18;
+        char digit = ValueDigits[(int)(longValue - (divValue * 10))];
+        chars[count--] = digit;
+        longValue = divValue;
+      }
+      if (longValue != 0) {
+        chars[count--] = ValueDigits[(int)longValue];
+      }
+      if (neg) {
+        chars[count] = '-';
+      } else {
+        ++count;
+      }
+      return new String(chars, count, 24 - count);
+      }
     }
 
     public static string ObjectMessages(
@@ -382,16 +403,6 @@ string msg) where T :
         }
       }
       return true;
-    }
-
-    private static void ReverseChars(char[] chars, int offset, int length) {
-      int half = length >> 1;
-      int right = offset + length - 1;
-      for (var i = 0; i < half; i++, right--) {
-        char value = chars[offset + i];
-        chars[offset + i] = chars[right];
-        chars[right] = value;
-      }
     }
   }
 }

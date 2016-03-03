@@ -129,7 +129,7 @@ string result) {
           bigintA.DivRem(bigintB);
           Assert.Fail("Should have failed");
         } catch (ArithmeticException) {
-          Console.Write(String.Empty);
+          new Object();
         } catch (Exception ex) {
           Assert.Fail(ex.ToString());
           throw new InvalidOperationException(String.Empty, ex);
@@ -207,7 +207,7 @@ string result) {
           bigintA.DivRem(bigintB);
           Assert.Fail("Should have failed");
         } catch (ArithmeticException) {
-          Console.Write(String.Empty);
+          new Object();
         } catch (Exception ex) {
           Assert.Fail(ex.ToString());
           throw new InvalidOperationException(String.Empty, ex);
@@ -421,7 +421,7 @@ bigintD,
         BigValueOf(Int32.MinValue - 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -430,7 +430,7 @@ bigintD,
         BigValueOf(Int32.MaxValue + 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -439,7 +439,7 @@ bigintD,
         BigFromString("999999999999999999999999999999999").ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -454,7 +454,7 @@ bigintD,
         BigValueOf(Int32.MinValue - 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -463,7 +463,7 @@ bigintD,
         BigValueOf(Int32.MaxValue + 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -484,7 +484,7 @@ bigintD,
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -495,23 +495,23 @@ bigintD,
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
       Assert.AreEqual(
-        unchecked((long)0xFFFFFFF200000000L),
-  BigValueOf(unchecked((long)0xFFFFFFF200000000L)).ToInt64Checked());
+        unchecked((long)0xfffffff200000000L),
+  BigValueOf(unchecked((long)0xfffffff200000000L)).ToInt64Checked());
       Assert.AreEqual(
-        unchecked((long)0xFFFFFFF280000000L),
-  BigValueOf(unchecked((long)0xFFFFFFF280000000L)).ToInt64Checked());
+        unchecked((long)0xfffffff280000000L),
+  BigValueOf(unchecked((long)0xfffffff280000000L)).ToInt64Checked());
       Assert.AreEqual(
-        unchecked((long)0xFFFFFFF280000001L),
-  BigValueOf(unchecked((long)0xFFFFFFF280000001L)).ToInt64Checked());
+        unchecked((long)0xfffffff280000001L),
+  BigValueOf(unchecked((long)0xfffffff280000001L)).ToInt64Checked());
       Assert.AreEqual(
-        unchecked((long)0xFFFFFFF27FFFFFFFL),
-  BigValueOf(unchecked((long)0xFFFFFFF27FFFFFFFL)).ToInt64Checked());
+        unchecked((long)0xfffffff27fffffffL),
+  BigValueOf(unchecked((long)0xfffffff27fffffffL)).ToInt64Checked());
       Assert.AreEqual(
         0x0000000380000001L,
         BigValueOf(0x0000000380000001L).ToInt64Checked());
@@ -536,7 +536,7 @@ bigintD,
         BigFromString("999999999999999999999999999999999").ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -553,7 +553,7 @@ bigintD,
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -564,24 +564,24 @@ bigintD,
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      long longV = unchecked((long)0xFFFFFFF200000000L);
+      long longV = unchecked((long)0xfffffff200000000L);
       Assert.AreEqual(
 longV,
 BigValueOf(longV).ToInt64Checked());
-      longV = unchecked((long)0xFFFFFFF280000000L);
+      longV = unchecked((long)0xfffffff280000000L);
       Assert.AreEqual(
 longV,
 BigValueOf(longV).ToInt64Checked());
-      longV = unchecked((long)0xFFFFFFF280000001L);
+      longV = unchecked((long)0xfffffff280000001L);
       Assert.AreEqual(
 longV,
 BigValueOf(longV).ToInt64Checked());
-      longV = unchecked((long)0xFFFFFFF27FFFFFFFL);
+      longV = unchecked((long)0xfffffff27fffffffL);
       Assert.AreEqual(
 longV,
 BigValueOf(longV).ToInt64Checked());
@@ -612,7 +612,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(null, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -621,7 +621,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(null, EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -630,7 +630,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(EInteger.Zero, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -639,7 +639,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(BigFromString("-1"), BigFromString("1"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -648,7 +648,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(BigFromString("0"), BigFromString("0"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -657,7 +657,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(BigFromString("0"), BigFromString("-1"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -666,7 +666,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(BigFromString("1"), BigFromString("0"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -675,7 +675,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.ModPow(BigFromString("1"), BigFromString("-1"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -736,7 +736,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.DivRem(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -745,7 +745,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.DivRem(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -780,7 +780,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -790,7 +790,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.Zero.GetSignedBit(-1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -799,7 +799,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString("x11");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -808,7 +808,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString(".");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -817,7 +817,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString("..");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -826,7 +826,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString("e200");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -836,7 +836,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Mod((EInteger)(-1));
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -845,7 +845,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Add(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -854,7 +854,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Subtract(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -863,7 +863,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Divide(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -872,7 +872,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Divide(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -881,7 +881,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Remainder(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -890,7 +890,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Mod(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -899,7 +899,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.One.Remainder(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -916,7 +916,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromBytes(null, false);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -928,7 +928,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixString(null, 10);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -937,7 +937,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixString("0", 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -946,7 +946,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixString("0", 0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -955,7 +955,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixString("0", -37);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -964,7 +964,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixString("0", Int32.MinValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -973,7 +973,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixString("0", Int32.MaxValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -994,7 +994,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring(null, 10, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1003,7 +1003,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0", 1, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1012,7 +1012,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0", 0, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1021,7 +1021,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0", -37, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1030,7 +1030,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0", Int32.MinValue, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1039,7 +1039,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0", Int32.MaxValue, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1048,7 +1048,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("123", 10, -1, 2);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1057,7 +1057,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("123", 10, 4, 5);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1066,7 +1066,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("123", 10, 0, -8);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1075,7 +1075,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("123", 10, 0, 6);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1084,7 +1084,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("123", 10, 2, 0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1093,7 +1093,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("123", 10, 0, 0);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1102,7 +1102,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("123", 10, 1, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1111,7 +1111,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("-", 10, 0, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1120,7 +1120,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("g", 16, 0, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1129,7 +1129,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0123gggg", 16, 0, 8);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1138,7 +1138,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0123gggg", 10, 0, 8);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1147,7 +1147,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromRadixSubstring("0123aaaa", 10, 0, 8);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1176,7 +1176,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString("xyz");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1185,7 +1185,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString(String.Empty);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1194,7 +1194,7 @@ BigValueOf(longV).ToInt64Checked());
         BigFromString(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1206,7 +1206,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromSubstring(null, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1216,7 +1216,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromSubstring("123", -1, 2);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1225,7 +1225,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromSubstring("123", 4, 2);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1234,7 +1234,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromSubstring("123", 1, -1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1243,7 +1243,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromSubstring("123", 1, 4);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1252,7 +1252,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromSubstring("123", 1, 0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1261,7 +1261,7 @@ BigValueOf(longV).ToInt64Checked());
         EInteger.FromSubstring("123", 2, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1322,7 +1322,7 @@ stringTemp);
         EInteger.Zero.Gcd(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1679,19 +1679,19 @@ Assert.AreEqual(objectTemp, objectTemp2);
       Assert.AreEqual(
         Int64.MinValue,
         BigValueOf(Int64.MaxValue).Add(EInteger.One).ToInt64Unchecked());
-      long aa = unchecked((long)0xFFFFFFF200000000L);
+      long aa = unchecked((long)0xfffffff200000000L);
       Assert.AreEqual(
               aa,
               BigValueOf(aa).ToInt64Unchecked());
-      aa = unchecked((long)0xFFFFFFF280000000L);
+      aa = unchecked((long)0xfffffff280000000L);
       Assert.AreEqual(
               aa,
               BigValueOf(aa).ToInt64Unchecked());
-      aa = unchecked((long)0xFFFFFFF200000001L);
+      aa = unchecked((long)0xfffffff200000001L);
       Assert.AreEqual(
               aa,
               BigValueOf(aa).ToInt64Unchecked());
-      aa = unchecked((long)0xFFFFFFF27FFFFFFFL);
+      aa = unchecked((long)0xfffffff27fffffffL);
       Assert.AreEqual(
               aa,
               BigValueOf(aa).ToInt64Unchecked());
@@ -1729,7 +1729,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         Console.WriteLine((int)minValueTimes2);
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1739,7 +1739,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         Console.WriteLine((int)verybig);
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1748,7 +1748,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         Console.WriteLine((long)verybig);
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1757,7 +1757,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         EInteger.One.PowBigIntVar(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1766,7 +1766,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         EInteger.One.Pow(-1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1775,7 +1775,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         (EInteger.Zero - EInteger.One).PowBigIntVar(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1794,7 +1794,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         EInteger.One.Mod(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1803,7 +1803,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         ((EInteger)13).Mod(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1812,7 +1812,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         ((EInteger)13).Mod((EInteger)(-4));
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1821,7 +1821,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         ((EInteger)(-13)).Mod((EInteger)(-4));
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1833,7 +1833,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         EInteger.One.Multiply(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2135,7 +2135,7 @@ stringTemp);
         EInteger.One.ToRadixString(-1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2144,7 +2144,7 @@ stringTemp);
         EInteger.One.ToRadixString(0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2153,7 +2153,7 @@ stringTemp);
         EInteger.One.ToRadixString(1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2162,7 +2162,7 @@ stringTemp);
         EInteger.One.ToRadixString(37);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2171,7 +2171,7 @@ stringTemp);
         EInteger.One.ToRadixString(Int32.MinValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2180,7 +2180,7 @@ stringTemp);
         EInteger.One.ToRadixString(Int32.MaxValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        Console.Write(String.Empty);
+        new Object();
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);

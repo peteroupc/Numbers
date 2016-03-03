@@ -1536,7 +1536,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <returns>This number's value as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.GetHashCode">
-<summary>Calculates this object&#x27;s hash code.</summary>
+<summary>Calculates this object&#x27;s hash code.  No application or process IDs are used in the hash code calculation.</summary>
             <returns>This object's hash code.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.IsFinite">
@@ -3920,7 +3920,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <returns>This number's value as an arbitrary-precision binary float.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.GetHashCode">
-<summary>Calculates this object&#x27;s hash code.</summary>
+<summary>Calculates this object&#x27;s hash code.  No application or process IDs are used in the hash code calculation.</summary>
             <returns>This object's hash code.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EFloat.IsFinite">
@@ -5746,7 +5746,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             <returns>A 32-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetHashCode">
-<summary>Returns the hash code for this instance.</summary>
+<summary>Returns the hash code for this instance.  No application or process IDs are used in the hash code calculation.</summary>
             <returns>A 32-bit signed integer.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetLowBit">
@@ -7092,7 +7092,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             <returns>This number's value as an arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.GetHashCode">
-<summary>Returns the hash code for this instance.</summary>
+<summary>Returns the hash code for this instance.  No application or process IDs are used in the hash code calculation.</summary>
             <returns>A 32-bit hash code.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.ERational.IsFinite">

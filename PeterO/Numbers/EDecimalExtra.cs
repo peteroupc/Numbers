@@ -398,7 +398,7 @@ throw new OverflowException("Value out of range");
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromUInt32(System.UInt32)"]/*'/>
 [CLSCompliant(false)]
 public static EDecimal FromUInt32(uint inputUInt32) {
- long val = ((long)inputUInt32) & 0xFFFFFFFFL;
+ long val = ((long)inputUInt32) & 0xffffffffL;
  return FromInt64(val);
 }
 

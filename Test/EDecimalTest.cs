@@ -3021,6 +3021,14 @@ BitConverter.GetBytes((float)sng),
           stringTemp);
       }
       var fr = new FastRandom();
+      dbl = DoubleOverflowToInfinity.ToDouble();
+      Assert.IsTrue(Double.IsPositiveInfinity(dbl));
+      dbl = DoubleOverflowToInfinity.Negate().ToDouble();
+      Assert.IsTrue(Double.IsNegativeInfinity(dbl));
+      dbl = DoubleUnderflowToZero.ToDouble();
+      Assert.IsTrue(dbl == 0.0);
+      dbl = DoubleUnderflowToZero.Negate().ToDouble();
+      Assert.IsTrue(dbl == 0.0);
       for (var i = 0; i < 10000; ++i) {
         EDecimal edec;
         if (fr.NextValue(100) < 10) {
@@ -4517,6 +4525,15 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
     [Test]
     public void TestToSingle() {
       var fr = new FastRandom();
+      float sng;
+      sng = SingleOverflowToInfinity.ToSingle();
+      Assert.IsTrue(Single.IsPositiveInfinity(sng));
+      sng = SingleOverflowToInfinity.Negate().ToSingle();
+      Assert.IsTrue(Single.IsNegativeInfinity(sng));
+      sng = SingleUnderflowToZero.ToSingle();
+      Assert.IsTrue(sng == 0.0);
+      sng = SingleUnderflowToZero.Negate().ToSingle();
+      Assert.IsTrue(sng == 0.0);
       for (var i = 0; i < 10000; ++i) {
         EDecimal edec;
         if (fr.NextValue(100) < 10) {
@@ -4531,14 +4548,14 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
           edec = RandomObjects.RandomEDecimal(fr);
         }
         if (edec.IsFinite) {
-          float sng = edec.ToSingle();
+          sng = edec.ToSingle();
           if (Single.IsNegativeInfinity(sng)) {
             Assert.IsTrue(edec.IsNegative);
   TestCommon.CompareTestGreaterEqual(edec.Abs(), SingleOverflowToInfinity);
           } else if (Single.IsPositiveInfinity(sng)) {
             Assert.IsTrue(!edec.IsNegative);
   TestCommon.CompareTestGreaterEqual(edec.Abs(), SingleOverflowToInfinity);
-          } else if (sng == 0.0) {
+          } else if (sng == 0.0f) {
             TestCommon.CompareTestLessEqual(edec.Abs(), SingleUnderflowToZero);
 Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative);
           } else {
