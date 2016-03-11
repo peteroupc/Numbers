@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using NUnit.Framework;
+using PeterO;
 using PeterO.Numbers;
 
 namespace Test {
@@ -76,7 +77,7 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       TestAddCloseExponent(fr, 0);
       TestAddCloseExponent(fr, 100);
       TestAddCloseExponent(fr, -100);
@@ -85,7 +86,7 @@ namespace Test {
     }
     [Test]
     public void TestCompareTo() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EFloat bigintA = RandomObjects.RandomEFloat(r);
         EFloat bigintB = RandomObjects.RandomEFloat(r);
@@ -187,7 +188,7 @@ Assert.AreEqual(
 "0.00390625",
 stringTemp);
 }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
         EFloat ed1 = RandomObjects.RandomEFloat(fr);
         EFloat ed2 = RandomObjects.RandomEFloat(fr);
@@ -229,7 +230,7 @@ stringTemp);
     }
     [Test]
     public void TestEquals() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EFloat bigintA = RandomObjects.RandomEFloat(r);
         EFloat bigintB = RandomObjects.RandomEFloat(r);
@@ -259,7 +260,7 @@ stringTemp);
       TestEFloatDoubleCore(
         (double)Int64.MinValue,
         "-9223372036854775808");
-      var rand = new FastRandom();
+      var rand = new RandomGenerator();
       for (var i = 0; i < 2047; ++i) {
         // Try a random double with a given
         // exponent
@@ -271,7 +272,7 @@ stringTemp);
     }
     [Test]
     public void TestEFloatSingle() {
-      var rand = new FastRandom();
+      var rand = new RandomGenerator();
       for (var i = 0; i < 255; ++i) {
         // Try a random float with a given
         // exponent
@@ -305,7 +306,7 @@ public void TestPrecisionOneHalfEven() {
 
     [Test]
     public void TestFloatDecimalRoundTrip() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
         EFloat ef = RandomObjects.RandomEFloat(r);
         EDecimal ed = ef.ToEDecimal();
@@ -685,7 +686,7 @@ public void TestPrecisionOneHalfEven() {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EFloat bigintA = RandomObjects.RandomEFloat(r);
         EFloat bigintB = RandomObjects.RandomEFloat(r);
@@ -753,7 +754,7 @@ public void TestPrecisionOneHalfEven() {
         throw new InvalidOperationException(String.Empty, ex);
       }
 
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EFloat bigintA = RandomObjects.RandomEFloat(r);
         EFloat bigintB = RandomObjects.RandomEFloat(r);
@@ -1067,24 +1068,24 @@ EFloat.NegativeZero.Plus(null));
       }
     }
 
-    public EFloat RandomDoubleEFloat(FastRandom rnd) {
+    public EFloat RandomDoubleEFloat(RandomGenerator rnd) {
       return this.RandomDoubleEFloat(rnd, false);
     }
 
-    public EFloat RandomDoubleEFloat(FastRandom rnd, bool subnormal) {
+    public EFloat RandomDoubleEFloat(RandomGenerator rnd, bool subnormal) {
       var sb = new StringBuilder();
-      if (rnd.NextValue(2) == 0) {
+      if (rnd.UniformInt(2) == 0) {
         sb.Append('-');
       }
       sb.Append(subnormal ? '0' : '1');
       var subSize = 52;
       int[] oneChances = { 98, 2, 50, 50, 50 };
-      int oneChance = oneChances[rnd.NextValue(oneChances.Length)];
+      int oneChance = oneChances[rnd.UniformInt(oneChances.Length)];
       if (subnormal) {
-        subSize = rnd.NextValue(51);
+        subSize = rnd.UniformInt(51);
       }
       for (var i = 0; i < 52; ++i) {
-        sb.Append(((i < 52 - subSize) || (rnd.NextValue(100) >= oneChance)) ?
+        sb.Append(((i < 52 - subSize) || (rnd.UniformInt(100) >= oneChance)) ?
           '0' : '1');
       }
       string valueSbString = sb.ToString();
@@ -1092,7 +1093,7 @@ EFloat.NegativeZero.Plus(null));
       if (subnormal) {
         exponent = -1074;
       } else {
-        expo = rnd.NextValue(2045) + 1 - 1023;
+        expo = rnd.UniformInt(2045) + 1 - 1023;
         exponent = expo - 52;
       }
       var valueEiExponent = (EInteger)exponent;
@@ -1102,24 +1103,24 @@ EFloat.NegativeZero.Plus(null));
       return ef;
     }
 
-    public EFloat RandomSingleEFloat(FastRandom rnd) {
+    public EFloat RandomSingleEFloat(RandomGenerator rnd) {
       return this.RandomSingleEFloat(rnd, false);
     }
 
-    public EFloat RandomSingleEFloat(FastRandom rnd, bool subnormal) {
+    public EFloat RandomSingleEFloat(RandomGenerator rnd, bool subnormal) {
       var sb = new StringBuilder();
-      if (rnd.NextValue(2) == 0) {
+      if (rnd.UniformInt(2) == 0) {
         sb.Append('-');
       }
       sb.Append(subnormal ? '0' : '1');
       var subSize = 23;
       int[] oneChances = { 98, 2, 50, 50, 50 };
-      int oneChance = oneChances[rnd.NextValue(oneChances.Length)];
+      int oneChance = oneChances[rnd.UniformInt(oneChances.Length)];
       if (subnormal) {
-        subSize = rnd.NextValue(22);
+        subSize = rnd.UniformInt(22);
       }
       for (var i = 0; i < 23; ++i) {
-        sb.Append(((i < 23 - subSize) || (rnd.NextValue(100) >= oneChance)) ?
+        sb.Append(((i < 23 - subSize) || (rnd.UniformInt(100) >= oneChance)) ?
           '0' : '1');
       }
       string valueSbString = sb.ToString();
@@ -1127,7 +1128,7 @@ EFloat.NegativeZero.Plus(null));
       if (subnormal) {
         exponent = -149;
       } else {
-        expo = rnd.NextValue(252) + 1 - 127;
+        expo = rnd.UniformInt(252) + 1 - 127;
         exponent = expo - 23;
       }
       var valueEiExponent = (EInteger)exponent;
@@ -1351,7 +1352,7 @@ Assert.AreEqual(
 "199999",
 stringTemp);
 }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
         EFloat efa = this.RandomDoubleEFloat(fr);
         string shortestStr = efa.ToShortestString(EContext.Binary64);
@@ -1368,7 +1369,7 @@ stringTemp);
     }
     [Test]
     public void TestToSingleRounding() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {
         EFloat efa = this.RandomSingleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, false);
@@ -1377,7 +1378,7 @@ stringTemp);
 
     [Test]
     public void TestConversions() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {
         bool isNum, isTruncated, isInteger;
         EInteger eint;
@@ -1807,7 +1808,7 @@ throw new InvalidOperationException(String.Empty, ex);
 
     [Test]
     public void TestToDoubleRounding() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {
         EFloat efa = this.RandomDoubleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, true);
@@ -1861,6 +1862,7 @@ TestToFloatRoundingOne(objectTemp, true);
     }
     [Test]
     public void TestToString() {
+      var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EFloat dec = RandomObjects.RandomEFloat(fr);
         ExtraTest.TestStringEqualRoundTrip(dec);
@@ -1871,14 +1873,14 @@ TestToFloatRoundingOne(objectTemp, true);
       // not implemented yet
     }
 
-    private static void TestAddCloseExponent(FastRandom fr, int exp) {
+    private static void TestAddCloseExponent(RandomGenerator fr, int exp) {
       for (var i = 0; i < 1000; ++i) {
         EInteger exp1 = EInteger.FromInt32(exp)
-          .Add(EInteger.FromInt32(fr.NextValue(32) - 16));
+          .Add(EInteger.FromInt32(fr.UniformInt(32) - 16));
         EInteger exp2 = exp1.Add(
-          EInteger.FromInt32(fr.NextValue(18) - 30));
-        EInteger mant1 = EInteger.FromInt32(fr.NextValue(0x10000000));
-        EInteger mant2 = EInteger.FromInt32(fr.NextValue(0x10000000));
+          EInteger.FromInt32(fr.UniformInt(18) - 30));
+        EInteger mant1 = EInteger.FromInt32(fr.UniformInt(0x10000000));
+        EInteger mant2 = EInteger.FromInt32(fr.UniformInt(0x10000000));
         EFloat decA = EFloat.Create(mant1, exp1);
         EFloat decB = EFloat.Create(mant2, exp2);
         EFloat decC = decA.Add(decB);

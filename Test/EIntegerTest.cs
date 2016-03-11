@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using NUnit.Framework;
+using PeterO;
 using PeterO.Numbers;
 
 namespace Test {
@@ -343,18 +344,18 @@ string result) {
       return r;
     }
 
-    public static EInteger RandomBigInteger(FastRandom r) {
-      int selection = r.NextValue(100);
-      int count = r.NextValue(60) + 1;
+    public static EInteger RandomBigInteger(RandomGenerator r) {
+      int selection = r.UniformInt(100);
+      int count = r.UniformInt(60) + 1;
       if (selection < 40) {
-        count = r.NextValue(7) + 1;
+        count = r.UniformInt(7) + 1;
       }
       if (selection < 50) {
-        count = r.NextValue(15) + 1;
+        count = r.UniformInt(15) + 1;
       }
       var bytes = new byte[count];
       for (var i = 0; i < count; ++i) {
-        bytes[i] = (byte)((int)r.NextValue(256));
+        bytes[i] = (byte)((int)r.UniformInt(256));
       }
       return BigFromBytes(bytes);
     }
@@ -379,7 +380,7 @@ string result) {
 
     [Test]
     public void TestAddSubtract() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         EInteger bigintB = RandomBigInteger(r);
@@ -684,7 +685,7 @@ BigValueOf(longV).ToInt64Checked());
 
     [Test]
     public void TestCanFitInInt() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 2000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
   Assert.AreEqual(bigintA.CanFitInInt32(), bigintA.GetSignedBitLength() <= 31);
@@ -693,7 +694,7 @@ BigValueOf(longV).ToInt64Checked());
     }
     [Test]
     public void TestCompareTo() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         EInteger bigintB = RandomBigInteger(r);
@@ -705,10 +706,10 @@ BigValueOf(longV).ToInt64Checked());
     [Test]
     public void TestDivide() {
       int intA, intB;
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
-        intA = fr.NextValue(0x1000000);
-        intB = fr.NextValue(0x1000000);
+        intA = fr.UniformInt(0x1000000);
+        intB = fr.UniformInt(0x1000000);
         if (intB == 0) {
           continue;
         }
@@ -766,7 +767,7 @@ BigValueOf(longV).ToInt64Checked());
       TestCommon.AssertEqualsHashCode(
         EInteger.Zero,
         EInteger.One);
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomObjects.RandomEInteger(r);
         EInteger bigintB = RandomObjects.RandomEInteger(r);
@@ -978,7 +979,7 @@ BigValueOf(longV).ToInt64Checked());
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (int i = 2; i <= 36; ++i) {
         for (int j = 0; j < 100; ++j) {
           StringAndBigInt sabi = StringAndBigInt.Generate(fr, i);
@@ -1152,7 +1153,7 @@ BigValueOf(longV).ToInt64Checked());
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (int i = 2; i <= 36; ++i) {
         var padding = new StringBuilder();
         for (int j = 0; j < 100; ++j) {
@@ -1410,10 +1411,10 @@ stringTemp);
         stringTemp);
       }
       var prime = 0;
-      var rand = new FastRandom();
+      var rand = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         while (true) {
-          prime = rand.NextValue(0x7fffffff);
+          prime = rand.UniformInt(0x7fffffff);
           prime |= 1;
           if (IsPrime(prime)) {
             break;
@@ -1500,12 +1501,12 @@ stringTemp);
       TestGcdPair((EInteger)1576, (EInteger)(-4209), EInteger.One);
       TestGcdPair((EInteger)(-277), (EInteger)(-4415), EInteger.One);
       for (var i = 0; i < 1000; ++i) {
-        prime = rand.NextValue(0x7fffffff);
-        if (rand.NextValue(2) == 0) {
+        prime = rand.UniformInt(0x7fffffff);
+        if (rand.UniformInt(2) == 0) {
           prime = -prime;
         }
-        int intB = rand.NextValue(0x7fffffff);
-        if (rand.NextValue(2) == 0) {
+        int intB = rand.UniformInt(0x7fffffff);
+        if (rand.UniformInt(2) == 0) {
           intB = -intB;
         }
         var biga = (EInteger)prime;
@@ -1522,7 +1523,7 @@ stringTemp);
     }
     [Test]
     public void TestGetDigitCount() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       {
 object objectTemp = 39;
 object objectTemp2 = EInteger.FromString(
@@ -1621,7 +1622,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
 
     [Test]
     public void TestIsEven() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         EInteger mod = bigintA.Remainder(BigValueOf(2));
@@ -1838,7 +1839,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         EInteger bigintB = bigintA + EInteger.One;
@@ -1878,7 +1879,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
 
     [Test]
     public void TestMultiplyDivide() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
         TestMultiplyDivideOne(
           RandomObjects.RandomEInteger(r),
@@ -1962,9 +1963,9 @@ Assert.AreEqual(objectTemp, objectTemp2);
 
     [Test]
     public void TestPow() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 200; ++i) {
-        int power = 1 + r.NextValue(8);
+        int power = 1 + r.UniformInt(8);
         EInteger bigintA = RandomBigInteger(r);
         EInteger bigintB = bigintA;
         for (int j = 1; j < power; ++j) {
@@ -1988,7 +1989,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
       bigint <<= 100;
       TestCommon.CompareTestEqualAndConsistent(bigint << 12, bigint >> -12);
       TestCommon.CompareTestEqualAndConsistent(bigint << -12, bigint >> 12);
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         EInteger bigintB = bigintA;
@@ -2010,11 +2011,11 @@ Assert.AreEqual(objectTemp, objectTemp2);
       bigint <<= 80;
       TestCommon.CompareTestEqualAndConsistent(bigint << 12, bigint >> -12);
       TestCommon.CompareTestEqualAndConsistent(bigint << -12, bigint >> 12);
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       EInteger minusone = EInteger.Zero;
       minusone -= EInteger.One;
       for (var i = 0; i < 1000; ++i) {
-        int smallint = r.NextValue(0x7fffffff);
+        int smallint = r.UniformInt(0x7fffffff);
         var bigintA = (EInteger)smallint;
         string str = bigintA.ToString();
         for (int j = 32; j < 80; ++j) {
@@ -2074,7 +2075,7 @@ Assert.AreEqual(objectTemp, objectTemp2);
 
     [Test]
     public void TestSqrt() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         if (bigintA.Sign < 0) {
@@ -2130,7 +2131,7 @@ stringTemp);
 
     [Test]
     public void TestToRadixString() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       try {
         EInteger.One.ToRadixString(-1);
         Assert.Fail("Should have failed");
@@ -2212,7 +2213,7 @@ stringTemp);
             sabi.BigIntValue.ToRadixString(i));
         }
       }
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var radix = 2; radix < 36; ++radix) {
         for (var i = 0; i < 80; ++i) {
           EInteger bigintA = RandomBigInteger(r);
@@ -2233,7 +2234,7 @@ stringTemp);
       AssertBigIntegersEqual("-898989", other);
       other = (EInteger)898989;
       AssertBigIntegersEqual("898989", other);
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         ExtraTest.TestStringEqualRoundTrip(bigintA);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using PeterO;
 using PeterO.Numbers;
 
 namespace Test {
@@ -104,11 +105,11 @@ namespace Test {
       // not implemented yet
     }
 
-    private static void TestAddCloseExponent(FastRandom fr, int exp) {
+    private static void TestAddCloseExponent(RandomGenerator fr, int exp) {
       for (var i = 0; i < 1000; ++i) {
         EInteger exp1 = EInteger.FromInt32(exp)
-          .Add(EInteger.FromInt32(fr.NextValue(32) - 16));
-        EInteger exp2 = exp1 .Add(EInteger.FromInt32(fr.NextValue(18) - 9));
+          .Add(EInteger.FromInt32(fr.UniformInt(32) - 16));
+        EInteger exp2 = exp1 .Add(EInteger.FromInt32(fr.UniformInt(18) - 9));
         EInteger mant1 = RandomObjects.RandomEInteger(fr);
         EInteger mant2 = RandomObjects.RandomEInteger(fr);
         EDecimal decA = EDecimal.Create(mant1, exp1);
@@ -142,7 +143,7 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       TestAddCloseExponent(fr, 0);
       TestAddCloseExponent(fr, 100);
       TestAddCloseExponent(fr, -100);
@@ -166,7 +167,7 @@ namespace Test {
 
     [Test]
     public void TestCompareTo() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EDecimal bigintA = RandomObjects.RandomEDecimal(r);
         EDecimal bigintB = RandomObjects.RandomEDecimal(r);
@@ -252,7 +253,7 @@ EDecimal.FromString("8451910"));
           EDecimal.SignalingNaN.CompareToBinary(EFloat.Zero);
         Assert.AreEqual(1, numberTemp);
       }
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 3000; ++i) {
         EInteger bigintA = RandomObjects.RandomEInteger(r);
         int cmp = EDecimal.FromEInteger(bigintA).CompareToBinary(
@@ -267,7 +268,7 @@ EDecimal.FromString("8451910"));
 
     [Test]
     public void TestConversions() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {
         bool isNum, isTruncated, isInteger;
         EInteger eint;
@@ -905,7 +906,7 @@ throw new InvalidOperationException(String.Empty, ex);
         "0.00390625",
         stringTemp);
       }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
         EDecimal ed1 = RandomObjects.RandomEDecimal(fr);
         EDecimal ed2 = RandomObjects.RandomEDecimal(fr);
@@ -953,7 +954,7 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestEquals() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EDecimal bigintA = RandomObjects.RandomEDecimal(r);
         EDecimal bigintB = RandomObjects.RandomEDecimal(r);
@@ -1221,7 +1222,7 @@ throw new InvalidOperationException(String.Empty, ex);
       TestEDecimalDoubleCore(
         (double)Int64.MinValue,
         "-9223372036854775808");
-      var rand = new FastRandom();
+      var rand = new RandomGenerator();
       for (var i = 0; i < 2047; ++i) {
         // Try a random double with a given
         // exponent
@@ -1241,7 +1242,7 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestEDecimalSingle() {
-      var rand = new FastRandom();
+      var rand = new RandomGenerator();
       for (var i = 0; i < 255; ++i) {
         // Try a random float with a given
         // exponent
@@ -1262,7 +1263,7 @@ throw new InvalidOperationException(String.Empty, ex);
 
     [Test]
     public void TestFromEInteger() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
         EInteger ei = RandomObjects.RandomEInteger(fr);
         EDecimal edec = EDecimal.FromEInteger(ei);
@@ -2192,7 +2193,7 @@ throw new InvalidOperationException(String.Empty, ex);
         throw new InvalidOperationException(String.Empty, ex);
       }
 
-      var rand = new FastRandom();
+      var rand = new RandomGenerator();
       for (var i = 0; i < 3000; ++i) {
         string r = RandomObjects.RandomDecimalString(rand);
         try {
@@ -2294,7 +2295,7 @@ throw new InvalidOperationException(String.Empty, ex);
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EDecimal bigintA = RandomObjects.RandomEDecimal(r);
         EDecimal bigintB = RandomObjects.RandomEDecimal(r);
@@ -2361,7 +2362,7 @@ throw new InvalidOperationException(String.Empty, ex);
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EDecimal bigintA = RandomObjects.RandomEDecimal(r);
         EDecimal bigintB = RandomObjects.RandomEDecimal(r);
@@ -2574,7 +2575,7 @@ throw new InvalidOperationException(String.Empty, ex);
 
     [Test]
     public void TestCopySign() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EDecimal ed = RandomObjects.RandomEDecimal(r);
         ed = ed.CopySign(EDecimal.Zero);
@@ -2589,7 +2590,7 @@ throw new InvalidOperationException(String.Empty, ex);
 
     [Test]
     public void TestNegate() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EDecimal ed = RandomObjects.RandomEDecimal(r);
         ed = ed.CopySign(EDecimal.Zero);
@@ -3020,7 +3021,7 @@ BitConverter.GetBytes((float)sng),
           "1.9725792733634686104693400920950807631015777587890625",
           stringTemp);
       }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       dbl = DoubleOverflowToInfinity.ToDouble();
       Assert.IsTrue(Double.IsPositiveInfinity(dbl));
       dbl = DoubleOverflowToInfinity.Negate().ToDouble();
@@ -3031,7 +3032,7 @@ BitConverter.GetBytes((float)sng),
       Assert.IsTrue(dbl == 0.0);
       for (var i = 0; i < 10000; ++i) {
         EDecimal edec;
-        if (fr.NextValue(100) < 10) {
+        if (fr.UniformInt(100) < 10) {
           string decimals = RandomObjects.RandomBigIntString(fr);
           if (decimals[0] == '-') {
             decimals = decimals.Substring(1);
@@ -4524,7 +4525,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
     }
     [Test]
     public void TestToSingle() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       float sng;
       sng = SingleOverflowToInfinity.ToSingle();
       Assert.IsTrue(Single.IsPositiveInfinity(sng));
@@ -4536,7 +4537,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       Assert.IsTrue(sng == 0.0);
       for (var i = 0; i < 10000; ++i) {
         EDecimal edec;
-        if (fr.NextValue(100) < 10) {
+        if (fr.UniformInt(100) < 10) {
           string decimals = RandomObjects.RandomBigIntString(fr);
           if (decimals[0] == '-') {
             decimals = decimals.Substring(1);
@@ -4585,7 +4586,7 @@ EDecimal.FromString(ValueTestStrings[i]).ToEngineeringString());
 ValueTestStrings[i + 3],
 EDecimal.FromString(ValueTestStrings[i]).ToPlainString());
       }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         // Generate arbitrary-precision integers for exponent
         // and mantissa

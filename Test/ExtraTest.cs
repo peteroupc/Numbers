@@ -12,28 +12,31 @@ using PeterO.Numbers;
 namespace Test {
   [TestFixture]
   public class ExtraTest {
-    public void TestStringEqualRoundTrip(EDecimal obj) {
+    public static void TestStringEqualRoundTrip(EDecimal obj) {
       string str = obj.ToString();
       EDecimal newobj = EDecimal.FromString(str);
       string str2 = newobj.ToString();
       TestCommon.AssertEqualsHashCode(obj, newobj);
       TestCommon.AssertEqualsHashCode(str, str2);
     }
-    public void TestStringEqualRoundTrip(EInteger obj) {
+
+    public static void TestStringEqualRoundTrip(EInteger obj) {
       string str = obj.ToString();
       EInteger newobj = EInteger.FromString(str);
       string str2 = newobj.ToString();
       TestCommon.AssertEqualsHashCode(obj, newobj);
       TestCommon.AssertEqualsHashCode(str, str2);
     }
-    public void TestStringEqualRoundTrip(EFloat obj) {
+
+    public static void TestStringEqualRoundTrip(EFloat obj) {
       string str = obj.ToString();
       EFloat newobj = EFloat.FromString(str);
       string str2 = newobj.ToString();
       TestCommon.AssertEqualsHashCode(obj, newobj);
       TestCommon.AssertEqualsHashCode(str, str2);
     }
-    public void TestStringEqualRoundTrip(ERational obj) {
+
+    public static void TestStringEqualRoundTrip(ERational obj) {
       string str = obj.ToString();
       ERational newobj = ERational.FromString(str);
       string str2 = newobj.ToString();

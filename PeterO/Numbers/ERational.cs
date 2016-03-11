@@ -1584,7 +1584,8 @@ ctx);
           return this.IsNegative ? "-Infinity" : "Infinity";
         }
       }
-      return this.Numerator + "/" + this.Denominator;
+      return (this.Numerator.IsZero && this.IsNegative) ? ("-0/" +
+        this.Denominator) : (this.Numerator + "/" + this.Denominator);
     }
 
     private static ERational CreateWithFlags(

@@ -102,14 +102,16 @@
     <Compile Include="EFloatTest.cs" />
     <Compile Include="ERationalTest.cs" />
     <Compile Include="ExtensiveTest.cs" />
-    <Compile Include="FastRandom.cs" />
     <Compile Include="EContextTest.cs" />
+    <Compile Include="IRandomGen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomGenerator.cs" />
     <Compile Include="RandomObjects.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="StringAndBigInt.cs" />
     <Compile Include="TestCommon.cs" />
     <Compile Include="ETrapExceptionTest.cs" />
+    <Compile Include="XorShift128Plus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

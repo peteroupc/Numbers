@@ -11,6 +11,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using PeterO.Numbers;
+using PeterO;
 
 namespace Test {
   [TestFixture]
@@ -383,21 +384,21 @@ System.Globalization.CultureInfo.InvariantCulture);
       PrintTime(sw);
     }
 
-    private static decimal RandomDecimal(FastRandom rand) {
+    private static decimal RandomDecimal(RandomGenerator rand) {
       int a, b, c;
-      a = rand.NextValue(0x10000);
-      a = unchecked((a << 16) + rand.NextValue(0x10000));
-      b = rand.NextValue(0x10000);
-      b = unchecked((b << 16) + rand.NextValue(0x10000));
-      c = rand.NextValue(0x10000);
-      c = unchecked((c << 16) + rand.NextValue(0x10000));
-      int scale = rand.NextValue(29);
-      return new Decimal(a, b, c, rand.NextValue(2) == 0, (byte)scale);
+      a = rand.UniformInt(0x10000);
+      a = unchecked((a << 16) + rand.UniformInt(0x10000));
+      b = rand.UniformInt(0x10000);
+      b = unchecked((b << 16) + rand.UniformInt(0x10000));
+      c = rand.UniformInt(0x10000);
+      c = unchecked((c << 16) + rand.UniformInt(0x10000));
+      int scale = rand.UniformInt(29);
+      return new Decimal(a, b, c, rand.UniformInt(2) == 0, (byte)scale);
     }
 
     [Test]
     public void TestDecimalString() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EDecimal ed = RandomObjects.RandomEDecimal(fr);
         if (!ed.IsFinite) {
@@ -435,7 +436,7 @@ ex.ToString());
 
     [Test]
     public void TestDecimal() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         decimal d = RandomDecimal(fr);
         EDecimal ed = d;

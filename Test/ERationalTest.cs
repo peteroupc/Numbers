@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using PeterO;
 using PeterO.Numbers;
 
 namespace Test {
@@ -74,7 +75,7 @@ new Object();
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
 }
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EInteger ei1 = RandomObjects.RandomEInteger(fr);
         EInteger ei2 = RandomObjects.RandomEInteger(fr).Abs();
@@ -92,11 +93,11 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestCompareTo() {
-      var r = new FastRandom();
+      var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        ERational bigintA = RandomObjects.RandomRational(r);
-        ERational bigintB = RandomObjects.RandomRational(r);
-        ERational bigintC = RandomObjects.RandomRational(r);
+        ERational bigintA = RandomObjects.RandomERational(r);
+        ERational bigintB = RandomObjects.RandomERational(r);
+        ERational bigintC = RandomObjects.RandomERational(r);
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
       }
       TestCommon.CompareTestLess(ERational.Zero, ERational.NaN);
@@ -143,10 +144,10 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestCompareToDecimal() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 100; ++i) {
-        ERational er = RandomObjects.RandomRational(fr);
-        int exp = -100000 + fr.NextValue(200000);
+        ERational er = RandomObjects.RandomERational(fr);
+        int exp = -100000 + fr.UniformInt(200000);
         EDecimal ed = EDecimal.Create(
           RandomObjects.RandomEInteger(fr),
           (EInteger)exp);
@@ -200,10 +201,10 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestDivide() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        ERational er = RandomObjects.RandomRational(fr);
-        ERational er2 = RandomObjects.RandomRational(fr);
+        ERational er = RandomObjects.RandomERational(fr);
+        ERational er2 = RandomObjects.RandomERational(fr);
         if (er2.IsZero || !er2.IsFinite) {
           continue;
         }
@@ -219,7 +220,11 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestEquals() {
-      // not implemented yet
+      ERational era = ERational.FromString("0/3920");
+      ERational erb = ERational.FromString("0/3920");
+      TestCommon.CompareTestEqualAndConsistent(
+        era,
+        erb);
     }
     [Test]
     public void TestFromBigInteger() {
@@ -231,11 +236,11 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestConversions() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {
         bool isNum, isTruncated, isInteger;
         EInteger eint;
-        ERational enumber = RandomObjects.RandomRational(fr);
+        ERational enumber = RandomObjects.RandomERational(fr);
         if (!enumber.IsFinite) {
           try {
  enumber.ToByteChecked();
@@ -756,7 +761,7 @@ throw new InvalidOperationException(String.Empty, ex);
     }
     [Test]
     public void TestRemainder() {
-      var fr = new FastRandom();
+      var fr = new RandomGenerator();
       for (var i = 0; i < 100; ++i) {
         ERational er;
         ERational er2;
@@ -895,11 +900,15 @@ stringTemp);
     }
     [Test]
     public void TestToString() {
+      var fr = new RandomGenerator();
+      ERational dec;
        for (var i = 0; i < 1000; ++i) {
-        ERational dec = RandomObjects.RandomERational(fr);
+        dec = RandomObjects.RandomERational(fr);
         ExtraTest.TestStringEqualRoundTrip(dec);
       }
-   }
+      dec = ERational.FromString("-0/500");
+      ExtraTest.TestStringEqualRoundTrip(dec);
+    }
     [Test]
     public void TestUnsignedNumerator() {
       // not implemented yet
