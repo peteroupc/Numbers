@@ -2239,6 +2239,13 @@ stringTemp);
         EInteger bigintA = RandomBigInteger(r);
         ExtraTest.TestStringEqualRoundTrip(bigintA);
       }
+      // Test serialization of relatively big numbers
+      for (var i = 0; i < 20; ++i) {
+        EInteger bigintA = RandomBigInteger(r);
+        bigintA = bigintA.ShiftLeft(r.UniformInt(2000) + (16 * 500));
+        bigintA = bigintA.Subtract(RandomBigInteger(r));
+        ExtraTest.TestStringEqualRoundTrip(bigintA);
+      }
     }
     [Test]
     public void TestValueOf() {
@@ -2436,6 +2443,19 @@ EInteger bigintB) {
         efloatD = efloatD.Add(efloatRem);
         TestCommon.CompareTestEqualAndConsistent(efloatA, efloatD);
       }
+    }
+    
+    
+    [Test]
+    public void TT(){
+      Console.WriteLine("Starting to print");
+      EInteger bi=EInteger.FromString("1").ShiftLeft(74207281).Subtract(EInteger.One);
+      bi = EInteger.FromString("1").ShiftLeft(742072).Subtract(EInteger.One);
+      Console.WriteLine("Printing bigint");
+      var sw = new System.Diagnostics.Stopwatch();sw.Start();
+      Console.WriteLine(bi.ToString().Length);
+      sw.Stop();Console.WriteLine("{0} s", sw.ElapsedMilliseconds / 1000.0);
+      // TODO: Test negative ToString
     }
   }
 }

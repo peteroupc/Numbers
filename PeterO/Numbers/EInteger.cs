@@ -15,6 +15,7 @@ If you like this, you should donate to Peter O.
 at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
  */
 using System;
+using System.Text;
 
 namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
@@ -2428,22 +2429,23 @@ int subtrahendCount) {
       return ivv;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
-    public string ToRadixString(int radix) {
-      if (radix < 2) {
-        throw new ArgumentException("radix (" + radix +
-                    ") is less than 2");
-      }
-      if (radix > 36) {
-        throw new ArgumentException("radix (" + radix +
-                    ") is more than 36");
-      }
-      if (this.wordCount == 0) {
-        return "0";
-      }
-      if (radix == 10) {
-        // Decimal
+    private string ToRadixStringDecimal(StringBuilder outputSB){
+      // DebugAssert.IsTrue(!this.negative);
+        if (this.wordCount >= 100) {
+          StringBuilder tmpBuilder=outputSB;
+          if(tmpBuilder==null){
+            tmpBuilder=new StringBuilder();
+          }
+          //DebugUtility.Log("---poweroften {0}",this.wordCount);
+          EInteger pow = NumberUtility.FindPowerOfTen(this.wordCount * 3);
+          //DebugUtility.Log("---divrem {0}",this.wordCount);
+          EInteger[] divrem = this.DivRem(pow);
+          //DebugUtility.Log("{0},{1}",divrem[0].GetUnsignedBitLength(),
+          //  divrem[1].GetUnsignedBitLength());
+          divrem[0].ToRadixStringDecimal(tmpBuilder);
+          divrem[1].ToRadixStringDecimal(tmpBuilder);
+          return outputSB==null ? tmpBuilder.ToString() : null;
+        }
         if (this.HasSmallValue()) {
           return this.SmallValueToString();
         }
@@ -2510,15 +2512,40 @@ int subtrahendCount) {
           }
         }
         ReverseChars(s, 0, i);
+        if(outputSB==null){
+            return new String(s, 0, i);
+        } else {
+            outputSB.Append(s, 0, i);
+            return null;
+        }
+    }
+    
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
+    public string ToRadixString(int radix) {
+      if (radix < 2) {
+        throw new ArgumentException("radix (" + radix +
+                    ") is less than 2");
+      }
+      if (radix > 36) {
+        throw new ArgumentException("radix (" + radix +
+                    ") is more than 36");
+      }
+      if (this.wordCount == 0) {
+        return "0";
+      }
+      if (radix == 10) {
+        // Decimal
+        if (this.HasSmallValue()) {
+          return this.SmallValueToString();
+        }
         if (this.negative) {
-          var sb = new System.Text.StringBuilder(i + 1);
+          var sb=new StringBuilder();
           sb.Append('-');
-          for (var j = 0; j < i; ++j) {
-            sb.Append(s[j]);
-          }
+          this.Abs().ToRadixStringDecimal(sb);
           return sb.ToString();
         }
-        return new String(s, 0, i);
+        return ToRadixStringDecimal(null);
       }
       if (radix == 16) {
         // Hex
@@ -5736,23 +5763,19 @@ count);
       int bstart,
       int n) {
       // NOTE: Assumes that n is an even number
-      unchecked {
         int u;
         u = 0;
         for (var i = 0; i < n; i += 2) {
-          u = (((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) &
-                    0xffff) - (int)((u >> 31) & 1);
-          c[cstart++] = (short)u;
+          u = unchecked((((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) & 0xffff) - (int)((u >> 31) & 1));
+          c[cstart++] = unchecked((short)u);
           ++astart;
           ++bstart;
-          u = (((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) &
-                    0xffff) - (int)((u >> 31) & 1);
-          c[cstart++] = (short)u;
+          u = unchecked((((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) & 0xffff) - (int)((u >> 31) & 1));
+          c[cstart++] = unchecked((short)u);
           ++astart;
           ++bstart;
         }
         return (int)((u >> 31) & 1);
-      }
     }
 
     private static int SubtractWords1IsOneBigger(
