@@ -272,7 +272,7 @@ out EInteger remainder) {
         return EInteger.FromInt32(-1);
       }
       var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[valueA.wordCount];
+      var valueXaReg = new short[valueA.wordCount+(valueA.wordCount&1)];
       Array.Copy(valueA.words, valueXaReg, valueXaReg.Length);
       valueXaWordCount = valueA.wordCount;
       if (valueA.negative) {
@@ -301,10 +301,10 @@ out EInteger remainder) {
         return Zero;
       }
       var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[a.wordCount];
+      var valueXaReg = new short[a.wordCount+(a.wordCount&1)];
       Array.Copy(a.words, valueXaReg, valueXaReg.Length);
       var valueXbNegative = false; int valueXbWordCount = 0;
-      var valueXbReg = new short[b.wordCount];
+      var valueXbReg = new short[b.wordCount+(b.wordCount&1)];
       Array.Copy(b.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = a.negative;
       valueXaWordCount = a.wordCount;
@@ -354,10 +354,10 @@ Math.Max(valueXaReg.Length, valueXbReg.Length));
         return first;
       }
       var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[first.wordCount];
+      var valueXaReg = new short[first.wordCount+(first.wordCount&1)];
       Array.Copy(first.words, valueXaReg, valueXaReg.Length);
       var valueXbNegative = false; int valueXbWordCount = 0;
-      var valueXbReg = new short[second.wordCount];
+      var valueXbReg = new short[second.wordCount+(second.wordCount&1)];
       Array.Copy(second.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = first.negative;
       valueXaWordCount = first.wordCount;
@@ -404,10 +404,10 @@ Math.Max(valueXaReg.Length, valueXbReg.Length));
         return a;
       }
       var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[a.wordCount];
+      var valueXaReg = new short[a.wordCount+(a.wordCount&1)];
       Array.Copy(a.words, valueXaReg, valueXaReg.Length);
       var valueXbNegative = false; int valueXbWordCount = 0;
-      var valueXbReg = new short[b.wordCount];
+      var valueXbReg = new short[b.wordCount+(b.wordCount&1)];
       Array.Copy(b.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = a.negative;
       valueXaWordCount = a.wordCount;
