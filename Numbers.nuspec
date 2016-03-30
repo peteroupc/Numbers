@@ -37,9 +37,9 @@ Version 0.2:
     <tags>numbers arithmetic decimal math</tags>
   </metadata>
   <files>
-    <file src="bin/Release/Numbers.dll" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
-    <file src="bin/Release/Numbers.xml" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
-    <file src="bin/ReleaseNet40/Numbers.dll" target="lib/portable-net40+sl50+win+wpa81+wp80" />
-    <file src="bin/ReleaseNet40/Numbers.xml" target="lib/portable-net40+sl50+win+wpa81+wp80" />
+    <file src="bin/Release/Numbers.dll" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp8" />
+    <file src="bin/Release/Numbers.xml" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp8" />
+    <file src="bin/ReleaseNet40/Numbers.dll" target="lib/portable-net40+sl5+win+wpa81+wp8" />
+    <file src="bin/ReleaseNet40/Numbers.xml" target="lib/portable-net40+sl5+win+wpa81+wp8" />
   </files>
 </package>

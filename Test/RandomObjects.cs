@@ -168,7 +168,7 @@ RandomEInteger(r),
     }
 
     public static String RandomBigIntString(RandomGenerator r) {
-      int count = r.UniformInt(50) + 1;
+      int count = r.UniformInt(400) + 1;
       var sb = new StringBuilder();
       if (r.UniformInt(2) == 0) {
         sb.Append('-');

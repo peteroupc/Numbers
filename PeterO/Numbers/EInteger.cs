@@ -2,8 +2,7 @@
 Written in 2013-2016 by Peter O.
 
 Parts of the code were adapted by Peter O. from
-the public-domain code from the library
-CryptoPP by Wei Dai.
+public-domain code by Wei Dai.
 
 Parts of the GCD function adapted by Peter O.
 from public domain GCD code by Christian
@@ -65,6 +64,16 @@ namespace PeterO.Numbers {
     private readonly short[] words;
 
     private EInteger(int wordCount, short[] reg, bool negative) {
+#if DEBUG
+      if (wordCount>0) {
+        if (reg == null) {
+ throw new InvalidOperationException();
+}
+        if (wordCount>reg.Length) {
+ throw new InvalidOperationException();
+}
+      }
+#endif
       this.wordCount = wordCount;
       this.words = reg;
       this.negative = negative;
@@ -141,7 +150,7 @@ namespace PeterO.Numbers {
       }
       int len = bytes.Length;
       int wordLength = ((int)len + 1) >> 1;
-      wordLength = RoundupSize(wordLength);
+      wordLength = (wordLength);
       var newreg = new short[wordLength];
       int valueJIndex = littleEndian ? len - 1 : 0;
       bool numIsNegative = (bytes[valueJIndex] & 0x80) != 0;
@@ -363,7 +372,7 @@ namespace PeterO.Numbers {
         if (leftover != 0) {
           ++wordCount;
         }
-        bigint = new short[wordCount + (wordCount & 1)];
+        bigint = new short[wordCount];
         int currentDigit = wordCount - 1;
         // Get most significant digits if effective
         // length is not divisible by 4
@@ -426,7 +435,7 @@ namespace PeterO.Numbers {
         if (leftover != 0) {
           ++wordCount;
         }
-        bigint = new short[wordCount + (wordCount & 1)];
+        bigint = new short[wordCount];
         int currentDigit = wordCount - 1;
         // Get most significant digits if effective
         // length is not divisible by 4
@@ -598,9 +607,13 @@ namespace PeterO.Numbers {
            (this.wordCount < 2 || (this.words[1] >> 15) == 0) &&
            (bigintAugend.wordCount < 2 || (bigintAugend.words[1] >> 15) == 0)) {
           int a = ((int)this.words[0]) & 0xffff;
-          a |= (((int)this.words[1]) & 0xffff) << 16;
+          if (this.wordCount == 2) {
+ a |= (((int)this.words[1]) & 0xffff) << 16;
+}
           int b = ((int)bigintAugend.words[0]) & 0xffff;
-          b |= (((int)bigintAugend.words[1]) & 0xffff) << 16;
+          if (bigintAugend.wordCount == 2) {
+ b |= (((int)bigintAugend.words[1]) & 0xffff) << 16;
+}
           a = unchecked((int)(a + b));
           sumreg = new short[2];
           sumreg[0] = unchecked((short)(a & 0xffff));
@@ -610,9 +623,13 @@ namespace PeterO.Numbers {
         }
         if (augendCount <= 2 && addendCount <= 2) {
           int a = ((int)this.words[0]) & 0xffff;
-          a |= (((int)this.words[1]) & 0xffff) << 16;
+          if (this.wordCount == 2) {
+ a |= (((int)this.words[1]) & 0xffff) << 16;
+}
           int b = ((int)bigintAugend.words[0]) & 0xffff;
-          b |= (((int)bigintAugend.words[1]) & 0xffff) << 16;
+          if (bigintAugend.wordCount == 2) {
+ b |= (((int)bigintAugend.words[1]) & 0xffff) << 16;
+}
           long longResult = ((long)a) & 0xffffffffL;
           longResult += ((long)b) & 0xffffffffL;
           if ((longResult >> 32) == 0) {
@@ -690,7 +707,7 @@ namespace PeterO.Numbers {
         var needShorten = true;
         if (carry != 0) {
           int nextIndex = desiredLength;
-          int len = RoundupSize(nextIndex + 1);
+          int len = (nextIndex + 1);
           sumreg = CleanGrow(sumreg, len);
           sumreg[nextIndex] = (short)carry;
           needShorten = false;
@@ -713,10 +730,16 @@ namespace PeterO.Numbers {
       }
       // Do a subtraction
       int words1Size = minuend.wordCount;
-      words1Size += words1Size & 1;
       int words2Size = subtrahend.wordCount;
-      words2Size += words2Size & 1;
       var diffNeg = false;
+#if DEBUG
+      if (words1Size>minuend.words.Length) {
+ throw new InvalidOperationException();
+}
+      if (words2Size>subtrahend.words.Length) {
+ throw new InvalidOperationException();
+}
+#endif
       short borrow;
       var diffReg = new short[(
         int)Math.Max(
@@ -726,7 +749,7 @@ namespace PeterO.Numbers {
         if (Compare(minuend.words, 0, subtrahend.words, 0, (int)words1Size) >=
             0) {
           // words1 is at least as high as words2
-          SubtractTwoByTwo(
+          SubtractInternal(
             diffReg,
             0,
             minuend.words,
@@ -736,7 +759,7 @@ namespace PeterO.Numbers {
             words1Size);
         } else {
           // words1 is less than words2
-          SubtractTwoByTwo(
+          SubtractInternal(
             diffReg,
             0,
             subtrahend.words,
@@ -749,7 +772,7 @@ namespace PeterO.Numbers {
       } else if (words1Size > words2Size) {
         // words1 is greater than words2
         borrow = (
-          short)SubtractTwoByTwo(
+          short)SubtractInternal(
           diffReg,
           0,
           minuend.words,
@@ -767,7 +790,7 @@ namespace PeterO.Numbers {
       } else {
         // words1 is less than words2
         borrow = (
-          short)SubtractTwoByTwo(
+          short)SubtractInternal(
           diffReg,
           0,
           subtrahend.words,
@@ -941,23 +964,9 @@ namespace PeterO.Numbers {
             this.negative ^ bigintDivisor.negative)) : EInteger.Zero;
       }
       // ---- General case
-      words1Size += words1Size & 1;
-      words2Size += words2Size & 1;
-      quotReg = new short[RoundupSize((int)(words1Size - words2Size + 2))];
-      var tempbuf = new short[words1Size + (3 * (words2Size + 2))];
-      Divide(
-        null,
-        0,
-        quotReg,
-        0,
-        tempbuf,
-        0,
-        this.words,
-        0,
-        words1Size,
-        bigintDivisor.words,
-        0,
-        words2Size);
+      quotReg = new short[((int)(words1Size - words2Size + 2))];
+      GeneralDivide(this.words, this.wordCount, bigintDivisor.words,
+         bigintDivisor.wordCount, quotReg, null);
       quotwordCount = CountWords(quotReg, quotReg.Length);
       quotReg = ShortenArray(quotReg, quotwordCount);
       return (
@@ -966,6 +975,242 @@ namespace PeterO.Numbers {
           quotwordCount,
           quotReg,
           this.negative ^ bigintDivisor.negative)) : EInteger.Zero;
+    }
+
+    private static void TwoPlaceMultiply(
+  short[] resultArr,
+  int resultStart,
+  int w1low,
+  int w1high,
+  short[] words2,
+  int words2Start,
+  int words2Count) {
+      var p = 0;
+      var cstart = 0;
+      if (words2Count <= 0) {
+ return;
+}
+      if (w1high == 0) {
+        short carry = 0;
+        for (var i = 0; i < words2Count; ++i) {
+          p = unchecked(((((int)words2[words2Start + i]) & 0xffff) * w1low));
+          p = unchecked(p + (((int)carry) & 0xffff));
+          resultArr[resultStart + i] = unchecked((short)p);
+          carry = (short)(p >> 16);
+        }
+        resultArr[resultStart + words2Count] = unchecked((short)carry);
+        resultArr[resultStart + words2Count + 1] = (short)0;
+        return;
+      }
+      if (words2Count == 1) {
+        short carry = 0;
+        int bint = ((int)words2[words2Start]) & 0xffff;
+        p = unchecked(w1low * bint);
+        p = unchecked(p + (((int)carry) & 0xffff));
+        resultArr[resultStart + 1] = (short)p;
+        carry = (short)(p >> 16);
+        p = unchecked(w1high * bint);
+        p = unchecked(p + (((int)carry) & 0xffff));
+        resultArr[resultStart + 1] = (short)p;
+        carry = (short)(p >> 16);
+        resultArr[resultStart + 2] = (short)carry;
+        return;
+      }
+      for (var i = 0; i < words2Count; ++i) {
+        cstart = resultStart + i;
+        unchecked {
+          short carry = 0;
+          int valueBint = ((int)words2[words2Start + i]) & 0xffff;
+          p = w1low * valueBint;
+          p += ((int)carry) & 0xffff;
+          if (i != 0) {
+            p += ((int)resultArr[cstart]) & 0xffff;
+          }
+          resultArr[cstart] = (short)p;
+          carry = (short)(p >> 16);
+          p = w1high * valueBint;
+          p += ((int)carry) & 0xffff;
+          if (i != 0) {
+            p += ((int)resultArr[cstart + 1]) & 0xffff;
+          }
+          resultArr[cstart + 1] = (short)p;
+          carry = (short)(p >> 16);
+          resultArr[cstart + 2] = carry;
+        }
+      }
+    }
+
+    /*
+    private static void T(short[] a, int x, int c, string t) {
+      var sb = new System.Text.StringBuilder();
+      sb.Append(t+"=0x");
+      for (var i=c-1;i>= 0;i--) sb.Append(String.Format("{0:X4}_",a[x+i]));
+      DebugUtility.Log(sb.ToString());
+    }*/
+
+    private static void GeneralDivide(
+     short[] a,
+     int aCount,
+     short[] b,
+     int bCount,
+     short[] quot,
+     short[] rem) {
+      #if DEBUG
+if (!(aCount >= bCount)) {
+  throw new ArgumentException("doesn't satisfy aCount>= bCount");
+}
+if (!(aCount>0 && bCount>0)) {
+  throw new ArgumentException("doesn't satisfy aCount>0 && bCount>0");
+}
+if (!(b[bCount-1] != 0)) {
+  throw new ArgumentException("doesn't satisfy b[bCount-1] != 0");
+}
+if (!(a[aCount-1] != 0)) {
+  throw new ArgumentException("doesn't satisfy a[aCount-1] != 0");
+}
+#endif
+
+      int quotSize = aCount - bCount + 1;
+      if (aCount < bCount) {
+        // A is less than B, so quotient is 0, remainder is "a"
+        if (quot != null) {
+ Array.Clear(quot, 0, quotSize);
+}
+        if (rem != null) {
+ Array.Copy(a, 0, rem, 0, aCount);
+}
+        return;
+      } else if (aCount == bCount) {
+        int cmp = Compare(a, 0, b, 0, aCount);
+        if (cmp == 0) {
+          // A equals B, so quotient is 1, remainder is 0
+          if (quot != null) {
+            quot[0] = 1;
+            Array.Clear(quot, 1, quotSize - 1);
+          }
+          if (rem != null) {
+ Array.Clear(rem, 0, aCount);
+}
+          return;
+        } else if (cmp< 0) {
+          // A is less than B, so quotient is 0, remainder is "a"
+          if (quot != null) {
+ Array.Clear(quot, 0, quotSize);
+}
+          if (rem != null) {
+ Array.Copy(a, 0, rem, 0, aCount);
+}
+          return;
+        }
+      }
+      if (bCount == 1) {
+        // Divisor is a single word
+        short shortRemainder = FastDivideAndRemainder(
+              quot,
+              0,
+              a,
+              0,
+              aCount,
+              b[0]);
+        if (rem != null) {
+ rem[0]=shortRemainder;
+}
+        return;
+      }
+      short[] workAB = null;
+      short[] workA = a;
+      short[] workB = b;
+      var tmp = new short[bCount + 2];
+      var workPosA = 0;
+      var workPosB = 0;
+      var sh = 0;
+      if ((b[bCount-1] & 0x8000) == 0) {
+        // Normalize a and b by shifting both until the high
+        // bit of b is the highest bit of the last word
+        int x = b[bCount-1];
+        while ((x & 0x8000) == 0) {
+         ++sh;
+         x <<= 1;
+        }
+        workAB = new short[aCount + 1 + bCount];
+        workPosB = aCount + 1;
+        workA = workAB;
+        workB = workAB;
+        Array.Copy(a, 0, workA, workPosA, aCount);
+        Array.Copy(b, 0, workB, workPosB, bCount);
+        ShiftWordsLeftByBits(workA, workPosA, aCount + 1, sh);
+        ShiftWordsLeftByBits(workB, workPosB, bCount, sh);
+      } else {
+        workA = new short[aCount + 1];
+        Array.Copy(a, 0, workA, workPosA, aCount);
+      }
+      int c = 0;
+      bool neg = false;
+      short pieceBHigh = workB[workPosB + bCount - 1];
+      int pieceBHighInt = ((int)pieceBHigh) & 0xffff;
+      #if DEBUG
+if (!((pieceBHighInt & 0x8000) != 0)) {
+  throw new ArgumentException("doesn't satisfy (pieceBHighInt & 0x8000)!=0");
+}
+#endif
+
+      short pieceBNextHigh = workB[workPosB + bCount - 2];
+      int pieceBNextHighInt = ((int)pieceBNextHigh) & 0xffff;
+      for (int offset = aCount - bCount; offset >= 0; --offset) {
+       int wpoffset = workPosA + offset;
+      int dividend = unchecked((((int)workA[wpoffset + bCount - 1]) &
+          0xffff) +
+          ((((int)workA[wpoffset + bCount]) & 0xffff) << 16));
+        int divnext = (((int)workA[wpoffset + bCount - 2]) & 0xffff);
+        int quorem0 = (dividend >> 31) == 0 ? (dividend/pieceBHighInt) :
+         unchecked((int)(((long)dividend & 0xffffffffL)/pieceBHighInt));
+        int quorem1 = unchecked(dividend - (quorem0 * pieceBHighInt));
+        //DebugUtility.Log("{0:X8}/{1:X4} = {2:X8},{3:X4}"
+        // , dividend, pieceBHigh, quorem0, quorem1);
+        long t = (((long)quorem1) << 16) | divnext;
+        if ((quorem0 >> 16) != 0 ||
+          (unchecked(quorem0*pieceBNextHighInt) & 0xffffffffL) > t) {
+          quorem1+=pieceBHighInt;
+          --quorem0;
+          if ((quorem1 >> 16) == 0) {
+            t = (((long)quorem1) << 16) | divnext;
+            if ((quorem0 >> 16) != 0 ||
+                (unchecked(quorem0*pieceBNextHighInt) & 0xffffffffL) > t) {
+              --quorem0;
+            }
+          }
+        }
+        int q1=(quorem0) & 0xffff;
+        int q2=(quorem0 >> 16) & 0xffff;
+        TwoPlaceMultiply(tmp, 0, q1, q2, workB, workPosB, bCount);
+        //if (neg) {
+ T(workA,workPosA,aCount+1,"workA  ");
+}
+        c = SubtractInternal(workA, wpoffset, workA, wpoffset, tmp, 0, bCount + 1);
+        /* if (c != 0) {
+         T(workB,workPosB,bCount,"workB");
+         DebugUtility.Log("quorem={0:X8}",quorem0);
+         T(tmp,0,bCount+2,"tmp");
+         T(workA,workPosA,aCount+1,"workA "+c);
+        }*/ if (c != 0) {
+          neg = true;
+          //T(workA,workPosA,aCount+1,"workA X");
+          c = AddInternal(workA, wpoffset,
+            workA, wpoffset, workB, workPosB, bCount);
+          c = Increment(workA, wpoffset + bCount, 1, (short)c);
+          //T(workA,workPosA,aCount+1,"workA "+c);
+          --quorem0;
+        }
+        if (quot != null) {
+          quot[offset] = unchecked((short)quorem0);
+        }
+      }
+      if (rem != null) {
+        if (sh != 0) {
+         ShiftWordsRightByBits(workA, workPosA, bCount + 1, sh);
+        }
+        Array.Copy(workA, workPosA, rem, 0, bCount);
+      }
     }
 
     /// <include file='../../docs.xml'
@@ -1035,8 +1280,6 @@ namespace PeterO.Numbers {
         }
         return new[] { bigquo, EInteger.FromInt64(smallRemainder) };
       }
-      words1Size += words1Size & 1;
-      words2Size += words2Size & 1;
       if (this.CanFitInInt32() && divisor.CanFitInInt32()) {
         long dividendSmall = this.ToInt32Checked();
         long divisorSmall = divisor.ToInt32Checked();
@@ -1060,23 +1303,12 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("int64divrem {0}/{1}"
         // , this.ToInt64Checked(), divisor.ToInt64Checked());
       }
-      var bigRemainderreg = new short[RoundupSize((int)words2Size)];
-      var quotientreg = new short[RoundupSize((int)(words1Size - words2Size +
+      // --- General case
+      var bigRemainderreg = new short[((int)words2Size)];
+      var quotientreg = new short[((int)(words1Size - words2Size +
                     2))];
-      var tempbuf = new short[words1Size + (3 * (words2Size + 2))];
-      Divide(
-        bigRemainderreg,
-        0,
-        quotientreg,
-        0,
-        tempbuf,
-        0,
-        this.words,
-        0,
-        words1Size,
-        divisor.words,
-        0,
-        words2Size);
+        GeneralDivide(this.words, this.wordCount, divisor.words,
+         divisor.wordCount, quotientreg, bigRemainderreg);
       int remCount = CountWords(bigRemainderreg, bigRemainderreg.Length);
       int quoCount = CountWords(quotientreg, quotientreg.Length);
       bigRemainderreg = ShortenArray(bigRemainderreg, remCount);
@@ -1737,7 +1969,7 @@ productreg,
 this.negative ^ bigintMult.negative);
         }
         wc = bigintMult.wordCount;
-        int regLength = RoundupSize(wc + 1);
+        int regLength = (wc + 1);
         productreg = new short[regLength];
         productreg[wc] = LinearMultiply(
           productreg,
@@ -1750,7 +1982,7 @@ this.negative ^ bigintMult.negative);
         needShorten = false;
       } else if (bigintMult.wordCount == 1) {
         int wc = this.wordCount;
-        int regLength = RoundupSize(wc + 1);
+        int regLength = (wc + 1);
         productreg = new short[regLength];
         productreg[wc] = LinearMultiply(
           productreg,
@@ -1762,7 +1994,7 @@ this.negative ^ bigintMult.negative);
         productwordCount = productreg.Length;
         needShorten = false;
       } else if (this.Equals(bigintMult)) {
-        int words1Size = RoundupSize(this.wordCount);
+        int words1Size = (this.wordCount);
         productreg = new short[words1Size + words1Size];
         productwordCount = productreg.Length;
         var workspace = new short[words1Size + words1Size];
@@ -1776,7 +2008,7 @@ this.negative ^ bigintMult.negative);
           words1Size);
       } else if (this.wordCount <= 10 && bigintMult.wordCount <= 10) {
         int wc = this.wordCount + bigintMult.wordCount;
-        wc = RoundupSize(wc);
+        wc = (wc);
         productreg = new short[wc];
         productwordCount = productreg.Length;
         SchoolbookMultiply(
@@ -1792,9 +2024,9 @@ this.negative ^ bigintMult.negative);
       } else {
         int words1Size = this.wordCount;
         int words2Size = bigintMult.wordCount;
-        words1Size = RoundupSize(words1Size);
-        words2Size = RoundupSize(words2Size);
-        productreg = new short[RoundupSize(words1Size + words2Size)];
+        words1Size = (words1Size);
+        words2Size = (words2Size);
+        productreg = new short[(words1Size + words2Size)];
         var workspace = new short[words1Size + words2Size];
         productwordCount = productreg.Length;
         AsymmetricMultiply(
@@ -1931,23 +2163,9 @@ this.negative ^ bigintMult.negative);
       if (this.PositiveCompare(divisor) < 0) {
         return this;
       }
-      words1Size += words1Size & 1;
-      words2Size += words2Size & 1;
-      var remainderReg = new short[RoundupSize((int)words2Size)];
-      var tempbuf = new short[words1Size + (3 * (words2Size + 2))];
-      Divide(
-        remainderReg,
-        0,
-        null,
-        0,
-        tempbuf,
-        0,
-        this.words,
-        0,
-        words1Size,
-        divisor.words,
-        0,
-        words2Size);
+      var remainderReg = new short[((int)words2Size)];
+        GeneralDivide(this.words, this.wordCount, divisor.words,
+         divisor.wordCount, null, remainderReg);
       int count = CountWords(remainderReg, remainderReg.Length);
       if (count == 0) {
         return EInteger.Zero;
@@ -1971,8 +2189,7 @@ this.negative ^ bigintMult.negative);
       var shiftWords = (int)(numberBits >> 4);
       var shiftBits = (int)(numberBits & 15);
       if (!this.negative) {
-        var ret = new short[RoundupSize(numWords +
-                    BitsToWords((int)numberBits))];
+        var ret = new short[(numWords + BitsToWords((int)numberBits))];
         Array.Copy(this.words, 0, ret, shiftWords, numWords);
         ShiftWordsLeftByBits(
           ret,
@@ -1981,7 +2198,7 @@ this.negative ^ bigintMult.negative);
           shiftBits);
         return new EInteger(CountWords(ret, ret.Length), ret, false);
       } else {
-        var ret = new short[RoundupSize(numWords +
+        var ret = new short[(numWords +
                     BitsToWords((int)numberBits))];
         Array.Copy(this.words, ret, numWords);
         TwosComplement(ret, 0, (int)ret.Length);
@@ -2158,9 +2375,7 @@ short[] subtrahendWords,
 int subtrahendCount) {
       // NOTE: Assumes this value is at least as high as the subtrahend
       // and both numbers are nonnegative
-      short borrow;
-      if ((subtrahendCount & 1) == 0) {
-        borrow = (short)SubtractTwoByTwo(
+      var borrow = (short)SubtractInternal(
            words,
            0,
            words,
@@ -2168,16 +2383,6 @@ int subtrahendCount) {
            subtrahendWords,
            0,
            subtrahendCount);
-      } else {
-        borrow = (short)SubtractOneByOne(
-           words,
-           0,
-           words,
-           0,
-           subtrahendWords,
-           0,
-           subtrahendCount);
-      }
       if (borrow != 0) {
         Decrement(
  words,
@@ -2429,25 +2634,32 @@ int subtrahendCount) {
       return ivv;
     }
 
-    private string ToRadixStringDecimal(StringBuilder outputSB){
-      // DebugAssert.IsTrue(!this.negative);
-        if (this.wordCount >= 100) {
-          StringBuilder tmpBuilder=outputSB;
-          if(tmpBuilder==null){
-            tmpBuilder=new StringBuilder();
-          }
-          //DebugUtility.Log("---poweroften {0}",this.wordCount);
-          EInteger pow = NumberUtility.FindPowerOfTen(this.wordCount * 3);
-          //DebugUtility.Log("---divrem {0}",this.wordCount);
+    private void ToRadixStringDecimal(StringBuilder outputSB) {
+      #if DEBUG
+if (!(!this.negative)) {
+  throw new ArgumentException("doesn't satisfy !this.negative");
+}
+#endif
+
+        var i = 0;
+      if (this.wordCount >= 100) {
+          StringBuilder rightBuilder = new StringBuilder();
+          int digits = this.wordCount * 3;
+          EInteger pow = NumberUtility.FindPowerOfTen(digits);
+          //DebugUtility.Log("---divrem " + (this.wordCount));
           EInteger[] divrem = this.DivRem(pow);
-          //DebugUtility.Log("{0},{1}",divrem[0].GetUnsignedBitLength(),
-          //  divrem[1].GetUnsignedBitLength());
-          divrem[0].ToRadixStringDecimal(tmpBuilder);
-          divrem[1].ToRadixStringDecimal(tmpBuilder);
-          return outputSB==null ? tmpBuilder.ToString() : null;
+          //DebugUtility.Log("" + (divrem[0].GetUnsignedBitLength()) + "," + (//  divrem[1].GetUnsignedBitLength()));
+          divrem[0].ToRadixStringDecimal(outputSB);
+          divrem[1].ToRadixStringDecimal(rightBuilder);
+          for (i = rightBuilder.Length; i < digits; ++i) {
+            outputSB.Append('0');
+          }
+          outputSB.Append(rightBuilder.ToString());
+          return;
         }
         if (this.HasSmallValue()) {
-          return this.SmallValueToString();
+          outputSB.Append(this.SmallValueToString());
+          return;
         }
         var tempReg = new short[this.wordCount];
         Array.Copy(this.words, tempReg, tempReg.Length);
@@ -2455,7 +2667,6 @@ int subtrahendCount) {
         while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
           --numWordCount;
         }
-        var i = 0;
         var s = new char[(numWordCount << 4) + 1];
         while (numWordCount != 0) {
           if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 0x7fff) {
@@ -2512,14 +2723,9 @@ int subtrahendCount) {
           }
         }
         ReverseChars(s, 0, i);
-        if(outputSB==null){
-            return new String(s, 0, i);
-        } else {
-            outputSB.Append(s, 0, i);
-            return null;
-        }
+        outputSB.Append(s, 0, i);
     }
-    
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
     public string ToRadixString(int radix) {
@@ -2539,13 +2745,12 @@ int subtrahendCount) {
         if (this.HasSmallValue()) {
           return this.SmallValueToString();
         }
+        var sb = new StringBuilder();
         if (this.negative) {
-          var sb=new StringBuilder();
-          sb.Append('-');
-          this.Abs().ToRadixStringDecimal(sb);
-          return sb.ToString();
-        }
-        return ToRadixStringDecimal(null);
+ sb.Append('-');
+}
+        this.Abs().ToRadixStringDecimal(sb);
+        return sb.ToString();
       }
       if (radix == 16) {
         // Hex
@@ -4319,250 +4524,7 @@ int subtrahendCount) {
       }
     }
 
-    private static void Divide(
-      short[] remainderArr,
-      int remainderStart,  // remainder
-      short[] quotientArr,
-      int quotientStart,  // quotient
-      short[] tempArr,
-      int tempStart,  // scratch space
-      short[] words1,
-      int words1Start,
-      int words1Count,  // dividend
-      short[] words2,
-      int words2Start,
-      int words2Count) {
-      // set up temporary work space
-#if DEBUG
-      if (words1Count <= 0) {
-        throw new ArgumentException("words1Count (" + words1Count +
-                    ") is not greater than 0");
-      }
-      if (words2Count <= 0) {
-        throw new ArgumentException("words2Count (" + words2Count +
-                    ") is not greater than 0");
-      }
-#endif
-      if (words2Count == 0) {
-        throw new DivideByZeroException();
-      }
-      if (words2Count == 1) {
-        if (words2[words2Start] == 0) {
-          throw new DivideByZeroException();
-        }
-        int smallRemainder = ((int)FastDivideAndRemainder(
-          quotientArr,
-          quotientStart,
-          words1,
-          words1Start,
-          words1Count,
-          words2[words2Start])) & 0xffff;
-        if (remainderArr != null) {
-          remainderArr[remainderStart] = (short)smallRemainder;
-        }
-        return;
-      }
-#if DEBUG
-      if (!(words1Count % 2 == 0 && words2Count % 2 == 0)) {
-        throw new
-          ArgumentException("doesn't satisfy valueNA%2==0 && valueNB%2==0");
-      }
-      if (!(words2[words2Start + words2Count - 1] != 0 ||
-            words2[words2Start + words2Count - 2] != 0)) {
-        throw new ArgumentException(
-          "doesn't satisfy words2[valueNB-1]!=0 || words2[valueNB-2]!=0");
-      }
-      if (words2Count > words1Count) {
-        throw new ArgumentException("doesn't satisfy valueNB<= valueNA");
-      }
-#endif
-      short[] quot = quotientArr;
-      if (quotientArr == null) {
-        quot = new short[2];
-      }
-      var valueTBstart = (int)(tempStart + (words1Count + 2));
-      var valueTPstart = (int)(tempStart + (words1Count + 2 + words2Count));
-      unchecked {
-        // copy words2 into TB and normalize it so that TB has highest bit
-        // set to 1
-        int shiftWords = (short)(words2[words2Start + words2Count - 1] == 0 ?
-                    1 : 0);
-        tempArr[valueTBstart] = (short)0;
-        tempArr[valueTBstart + words2Count - 1] = (short)0;
-        Array.Copy(
-          words2,
-          words2Start,
-          tempArr,
-          valueTBstart + shiftWords,
-          words2Count - shiftWords);
-        var shiftBits = (short)((short)16 - BitPrecision(tempArr[valueTBstart +
-                    words2Count - 1]));
-        ShiftWordsLeftByBits(
-          tempArr,
-          valueTBstart,
-          words2Count,
-          shiftBits);
-        // copy words1 into valueTA and normalize it
-        tempArr[0] = (short)0;
-        tempArr[words1Count] = (short)0;
-        tempArr[words1Count + 1] = (short)0;
-        Array.Copy(
-          words1,
-          words1Start,
-          tempArr,
-          (int)(tempStart + shiftWords),
-          words1Count);
-        ShiftWordsLeftByBits(
-          tempArr,
-          tempStart,
-          words1Count + 2,
-          shiftBits);
-
-        if (tempArr[tempStart + words1Count + 1] == 0 &&
-            (((int)tempArr[tempStart + words1Count]) & 0xffff) <= 1) {
-          if (quotientArr != null) {
-            quotientArr[quotientStart + words1Count - words2Count + 1] =
-              (short)0;
-            quotientArr[quotientStart + words1Count - words2Count] = (short)0;
-          }
-          while (
-            tempArr[words1Count] != 0 || Compare(
-              tempArr,
-              (int)(tempStart + words1Count - words2Count),
-              tempArr,
-              valueTBstart,
-              words2Count) >= 0) {
-            tempArr[words1Count] -= (
-              short)SubtractTwoByTwo(
-              tempArr,
-              tempStart + words1Count - words2Count,
-              tempArr,
-              tempStart + words1Count - words2Count,
-              tempArr,
-              valueTBstart,
-              words2Count);
-            if (quotientArr != null) {
-              quotientArr[quotientStart + words1Count - words2Count] +=
-                (short)1;
-            }
-          }
-        } else {
-          words1Count += 2;
-        }
-
-        var valueBT0 = (short)(tempArr[valueTBstart + words2Count - 2] +
-                    (short)1);
-        var valueBT1 = (short)(tempArr[valueTBstart + words2Count - 1] +
-                    (short)(valueBT0 == (short)0 ? 1 : 0));
-
-        // start reducing valueTA mod TB, 2 words at a time
-        var valueTAtomic = new short[4];
-        for (int i = words1Count - 2; i >= words2Count; i -= 2) {
-          int qs = (quotientArr == null) ? 0 : quotientStart + i - words2Count;
-          DivideFourWordsByTwo(
-            quot,
-            qs,
-            tempArr,
-            tempStart + i - 2,
-            valueBT0,
-            valueBT1,
-            valueTAtomic);
-          // now correct the underestimated quotient
-          int valueRstart2 = tempStart + i - words2Count;
-          int n = words2Count;
-          unchecked {
-            int quotient0 = quot[qs];
-            int quotient1 = quot[qs + 1];
-            if (quotient1 == 0) {
-              short carry = LinearMultiply(
-                tempArr,
-                valueTPstart,
-                tempArr,
-                valueTBstart,
-                (short)quotient0,
-                n);
-              tempArr[valueTPstart + n] = carry;
-              tempArr[valueTPstart + n + 1] = 0;
-            } else if (n == 2) {
-              BaselineMultiply2(
-                tempArr,
-                valueTPstart,
-                quot,
-                qs,
-                tempArr,
-                valueTBstart);
-            } else {
-              tempArr[valueTPstart + n] = (short)0;
-              tempArr[valueTPstart + n + 1] = (short)0;
-              quotient0 &= 0xffff;
-              quotient1 &= 0xffff;
-              AtomicMultiplyOpt(
-                tempArr,
-                valueTPstart,
-                quotient0,
-                quotient1,
-                tempArr,
-                valueTBstart,
-                0,
-                n);
-              AtomicMultiplyAddOpt(
-                tempArr,
-                valueTPstart,
-                quotient0,
-                quotient1,
-                tempArr,
-                valueTBstart,
-                2,
-                n);
-            }
-            SubtractTwoByTwo(
-              tempArr,
-              valueRstart2,
-              tempArr,
-              valueRstart2,
-              tempArr,
-              valueTPstart,
-              n + 2);
-            while (tempArr[valueRstart2 + n] != 0 || Compare(
-              tempArr,
-              valueRstart2,
-              tempArr,
-              valueTBstart,
-              n) >= 0) {
-              tempArr[valueRstart2 + n] -= (
-                short)SubtractTwoByTwo(
-                tempArr,
-                valueRstart2,
-                tempArr,
-                valueRstart2,
-                tempArr,
-                valueTBstart,
-                n);
-              if (quotientArr != null) {
-                ++quotientArr[qs];
-                quotientArr[qs + 1] += (short)((quotientArr[qs] == 0) ? 1 : 0);
-              }
-            }
-          }
-        }
-        if (remainderArr != null) {  // If the remainder is non-null
-          // copy valueTA into result, and denormalize it
-          Array.Copy(
-            tempArr,
-            (int)(tempStart + shiftWords),
-            remainderArr,
-            remainderStart,
-            words2Count);
-          ShiftWordsRightByBits(
-            remainderArr,
-            remainderStart,
-            words2Count,
-            shiftBits);
-        }
-      }
-    }
-
-    private static short Divide32By16(
+   private static short Divide32By16(
       int dividendLow,
       short divisorShort,
       bool returnRemainder) {
@@ -4587,73 +4549,6 @@ int subtrahendCount) {
       return returnRemainder ? unchecked((short)(((int)dividendHigh) &
                     0xffff)) : unchecked((short)(((int)dividendLow) &
                     0xffff));
-    }
-
-    private static void DivideFourWordsByTwo(
-      short[] quotient,
-      int quotientStart,
-      short[] words1,
-      int words1Start,
-      short word2A,
-      short word2B,
-      short[] temp) {
-      if (word2A == 0 && word2B == 0) {
-        // if divisor is 0, we assume divisor == 2**32
-        quotient[quotientStart] = words1[words1Start + 2];
-        quotient[quotientStart + 1] = words1[words1Start + 3];
-      } else {
-        temp[0] = words1[words1Start];
-        temp[1] = words1[words1Start + 1];
-        temp[2] = words1[words1Start + 2];
-        temp[3] = words1[words1Start + 3];
-        short valueQ1 = DivideThreeWordsByTwo(temp, 1, word2A, word2B);
-        short valueQ0 = DivideThreeWordsByTwo(temp, 0, word2A, word2B);
-        quotient[quotientStart] = valueQ0;
-        quotient[quotientStart + 1] = valueQ1;
-      }
-    }
-
-    private static short DivideThreeWordsByTwo(
-      short[] words1,
-      int words1Start,
-      short valueB0,
-      short valueB1) {
-      short valueQ;
-      unchecked {
-        int valueB1int = ((int)valueB1) & 0xffff;
-        valueQ = ((short)(valueB1 + 1) == 0) ? words1[words1Start + 2] :
-          ((valueB1 != 0) ? DivideUnsigned(
-            MakeUint(words1[words1Start + 1], words1[words1Start + 2]),
-            (short)(valueB1int + 1)) : DivideUnsigned(
-             MakeUint(words1[words1Start], words1[words1Start + 1]),
-             valueB0));
-        int w1s0 = ((int)words1[words1Start]) & 0xffff;
-        int w1s1 = ((int)words1[words1Start + 1]) & 0xffff;
-        int w1s2 = ((int)words1[words1Start + 2]) & 0xffff;
-        int valueQint = ((int)valueQ) & 0xffff;
-        int valueB0int = ((int)valueB0) & 0xffff;
-        int p = valueB0int * valueQint;
-        int u = w1s0 - (p & 0xffff);
-        w1s0 = GetLowHalf(u);
-        u = w1s1 - ((p >> 16) & 0xffff) -
-          (((int)GetHighHalfAsBorrow(u)) & 0xffff) - (valueB1int * valueQint);
-        w1s1 = GetLowHalf(u);
-        w1s2 = (w1s2 + (u >> 16)) & 0xffff;
-        while (w1s2 != 0 || w1s1 > valueB1int || (w1s1 == valueB1int &&
-                    w1s0 >= valueB0int)) {
-          u = w1s0 - valueB0int;
-          w1s0 = GetLowHalf(u);
-          u = w1s1 - valueB1int -
-            (((int)GetHighHalfAsBorrow(u)) & 0xffff);
-          w1s1 = GetLowHalf(u);
-          w1s2 = (w1s2 + (u >> 16)) & 0xffff;
-          ++valueQ;
-        }
-        words1[words1Start] = (short)w1s0;
-        words1[words1Start + 1] = (short)w1s1;
-        words1[words1Start + 2] = (short)w1s2;
-      }
-      return valueQ;
     }
 
     private static short DivideUnsigned(int x, short y) {
@@ -4838,7 +4733,7 @@ int subtrahendCount) {
 
     private static short[] GrowForCarry(short[] a, short carry) {
       int oldLength = a.Length;
-      short[] ret = CleanGrow(a, RoundupSize(oldLength + 1));
+      short[] ret = CleanGrow(a, (oldLength + 1));
       ret[oldLength] = carry;
       return ret;
     }
@@ -4892,19 +4787,17 @@ int subtrahendCount) {
       int astart,
       short words2,
       int n) {
-      unchecked {
         short carry = 0;
         int bint = ((int)words2) & 0xffff;
         for (var i = 0; i < n; ++i) {
           int p;
-          p = (((int)words1[astart + i]) & 0xffff) * bint;
-          p += ((int)carry) & 0xffff;
-          p += ((int)productArr[cstart + i]) & 0xffff;
-          productArr[cstart + i] = (short)p;
+          p = unchecked((((int)words1[astart + i]) & 0xffff) * bint);
+          p = unchecked(p + (((int)carry) & 0xffff));
+          p = unchecked(p + (((int)productArr[cstart + i]) & 0xffff));
+          productArr[cstart + i] = unchecked((short)p);
           carry = (short)(p >> 16);
         }
         return carry;
-      }
     }
 
     private static int MakeUint(short first, short second) {
@@ -5018,10 +4911,6 @@ count);
         chars[offset + i] = chars[right];
         chars[right] = value;
       }
-    }
-
-    private static int RoundupSize(int n) {
-      return n + (n & 1);
     }
 
     // NOTE: Renamed from RecursiveMultiply to better show that
@@ -5266,7 +5155,7 @@ count);
           var tmpvar = (int)(words1Start + (count2 ^
                     offset2For1));
           // Abs(LowA - HighA)
-          SubtractOneByOne(
+          SubtractInternal(
             resultArr,
             resultStart,
             words1,
@@ -5284,7 +5173,7 @@ count);
             count2) > 0 ? 0 : count2;
           // Abs(LowB - HighB)
           int tmp = words2Start + (count2 ^ offset2For2);
-          SubtractOneByOne(
+          SubtractInternal(
             resultArr,
             resultMediumLow,
             words2,
@@ -5362,7 +5251,7 @@ count);
             // than their high parts
             // Medium low/Medium high result = Medium low/Medium high result
             // - Low(Temp)
-            c3 -= SubtractOneByOne(
+            c3 -= SubtractInternal(
               resultArr,
               resultMediumLow,
               resultArr,
@@ -5524,7 +5413,7 @@ count);
             // than their high parts
             // Medium low/Medium high result = Medium low/Medium high result
             // - Low(Temp)
-            c3 -= SubtractOneByOne(
+            c3 -= SubtractInternal(
               resultArr,
               resultStart + countLow,
               resultArr,
@@ -5742,7 +5631,7 @@ count);
 
     private static short[] ShortenArray(short[] reg, int wordCount) {
       if (reg.Length > 32) {
-        int newLength = RoundupSize(wordCount);
+        int newLength = (wordCount);
         if (newLength < reg.Length && (reg.Length - newLength) >= 16) {
           // Reallocate the array if the rounded length
           // is much smaller than the current length
@@ -5752,30 +5641,6 @@ count);
         }
       }
       return reg;
-    }
-
-    private static int SubtractTwoByTwo(
-      short[] c,
-      int cstart,
-      short[] words1,
-      int astart,
-      short[] words2,
-      int bstart,
-      int n) {
-      // NOTE: Assumes that n is an even number
-        int u;
-        u = 0;
-        for (var i = 0; i < n; i += 2) {
-          u = unchecked((((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) & 0xffff) - (int)((u >> 31) & 1));
-          c[cstart++] = unchecked((short)u);
-          ++astart;
-          ++bstart;
-          u = unchecked((((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) & 0xffff) - (int)((u >> 31) & 1));
-          c[cstart++] = unchecked((short)u);
-          ++astart;
-          ++bstart;
-        }
-        return (int)((u >> 31) & 1);
     }
 
     private static int SubtractWords1IsOneBigger(
@@ -5813,24 +5678,24 @@ count);
       int bstart,
       int words2Count) {
       // Assumes that words1's count is 1 less
-      unchecked {
         int u;
         u = 0;
         int cm1 = words2Count - 1;
         for (var i = 0; i < cm1; i += 1) {
-          u = (((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) &
-                    0xffff) - (int)((u >> 31) & 1);
-          c[cstart++] = (short)u;
+      u = unchecked((((int)words1[astart]) & 0xffff) -
+            (((int)words2[bstart]) &
+                    0xffff) - (int)((u >> 31) & 1));
+          c[cstart++] = unchecked((short)u);
           ++astart;
           ++bstart;
         }
-        u = 0 - (((int)words2[bstart]) & 0xffff) - (int)((u >> 31) & 1);
-        c[cstart++] = (short)u;
+    u = 0 - unchecked((((int)words2[bstart]) & 0xffff) - (int)((u >> 31) &
+          1));
+        c[cstart++] = unchecked((short)u);
         return (int)((u >> 31) & 1);
-      }
     }
 
-    private static int SubtractOneByOne(
+    private static int SubtractInternal(
       short[] c,
       int cstart,
       short[] words1,
@@ -5838,18 +5703,35 @@ count);
       short[] words2,
       int bstart,
       int n) {
-      unchecked {
         int u;
         u = 0;
+        if ((n & 1) == 0) {
+          // even n
+          for (var i = 0; i < n; i += 2) {
+          int wb0 = words2[bstart];
+          int wb1 = words2[bstart + 1];
+          int wa0 = words1[astart];
+          int wa1 = words1[astart + 1];
+          u = unchecked((((int)wa0) & 0xffff) - (((int)wb0) & 0xffff) -
+            (int)((u >> 31) & 1));
+          c[cstart++] = unchecked((short)u);
+          u = unchecked((((int)wa1) & 0xffff) - (((int)wb1) & 0xffff) -
+            (int)((u >> 31) & 1));
+          c[cstart++] = unchecked((short)u);
+          astart+=2;
+          bstart+=2;
+        }
+        } else {
         for (var i = 0; i < n; i += 1) {
-          u = (((int)words1[astart]) & 0xffff) - (((int)words2[bstart]) &
-                    0xffff) - (int)((u >> 31) & 1);
-          c[cstart++] = (short)u;
+      u = unchecked((((int)words1[astart]) & 0xffff) -
+            (((int)words2[bstart]) &
+                    0xffff) - (int)((u >> 31) & 1));
+          c[cstart++] = unchecked((short)u);
           ++astart;
           ++bstart;
         }
+        }
         return (int)((u >> 31) & 1);
-      }
     }
 
     private static void TwosComplement(short[] words1, int words1Start, int n) {

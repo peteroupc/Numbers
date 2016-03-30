@@ -86,7 +86,7 @@ namespace PeterO {
     }
 
     private void Seed() {
-      long lb = DateTime.Now.Ticks & 0xFFFFFFFFFFL;
+      long lb = DateTime.Now.Ticks & 0xffffffffffL;
       this.s[0] =lb;
       lb = 0L;
       this.s[1] = lb;

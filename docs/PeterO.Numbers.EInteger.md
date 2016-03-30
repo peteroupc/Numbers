@@ -286,7 +286,7 @@ Attempted to divide by zero.
     public override bool Equals(
         object obj);
 
-Determines whether this object and another object are equal.
+Determines whether this object and another object are equal and have the same type.
 
 <b>Parameters:</b>
 
@@ -648,7 +648,7 @@ A 32-bit signed integer.
 
     public override int GetHashCode();
 
-Returns the hash code for this instance.
+Returns the hash code for this instance. No application or process IDs are used in the hash code calculation.
 
 <b>Return Value:</b>
 

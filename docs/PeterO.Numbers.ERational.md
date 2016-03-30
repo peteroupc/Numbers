@@ -422,7 +422,7 @@ The parameter <i>otherValue</i>
     public override bool Equals(
         object obj);
 
-Determines whether this object and another object are equal.
+Determines whether this object's numerator, denominator, and properties are equal to those of another object and that other object is an arbitrary-precision rational number. Not-a-number values are considered equal if the rest of their properties are equal.
 
 <b>Parameters:</b>
 
@@ -437,7 +437,7 @@ Determines whether this object and another object are equal.
     public sealed bool Equals(
         PeterO.Numbers.ERational other);
 
-Not documented yet.
+Determines whether this object's numerator, denominator, and properties are equal to those of another object. Not-a-number values are considered equal if the rest of their properties are equal.
 
 <b>Parameters:</b>
 
@@ -790,7 +790,7 @@ This number's value as an arbitrary-precision rational number.
 
     public override int GetHashCode();
 
-Returns the hash code for this instance.
+Returns the hash code for this instance. No application or process IDs are used in the hash code calculation.
 
 <b>Return Value:</b>
 

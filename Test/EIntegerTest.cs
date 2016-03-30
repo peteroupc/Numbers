@@ -706,6 +706,12 @@ BigValueOf(longV).ToInt64Checked());
     [Test]
     public void TestDivide() {
       int intA, intB;
+      DoTestDivide(
+    "9999999999999999999999",
+    "281474976710655",
+    "35527136");
+      DoTestDivide("2472320648", "2831812081", "0");
+      DoTestDivide("-2472320648", "2831812081", "0");
       var fr = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
         intA = fr.UniformInt(0x1000000);
@@ -719,12 +725,6 @@ BigValueOf(longV).ToInt64Checked());
         EInteger bigintC = bigintA / (EInteger)bigintB;
         Assert.AreEqual((int)bigintC, c);
       }
-      DoTestDivide("2472320648", "2831812081", "0");
-      DoTestDivide("-2472320648", "2831812081", "0");
-      DoTestDivide(
-    "9999999999999999999999",
-    "281474976710655",
-    "35527136");
     }
     [Test]
     public void TestDivRem() {
@@ -2444,18 +2444,42 @@ EInteger bigintB) {
         TestCommon.CompareTestEqualAndConsistent(efloatA, efloatD);
       }
     }
-    
-    
+
+    /*
+    private EInteger VBString(int len) {
+      int cc = len;
+      var sb = new System.Text.StringBuilder();
+      for (var i = 0; i < len; ++i) {
+        sb.Append('0' + Math.Abs(cc % 9));
+        cc = unchecked(cc * 31);
+      }
+      return EInteger.FromString(sb.ToString());
+    }
+    */
+
     [Test]
-    public void TT(){
-      Console.WriteLine("Starting to print");
-      EInteger bi=EInteger.FromString("1").ShiftLeft(74207281).Subtract(EInteger.One);
-      bi = EInteger.FromString("1").ShiftLeft(742072).Subtract(EInteger.One);
+    public void TT2() {
+      Console.WriteLine("making bigint");
+      EInteger bi, bi2, r;
+      //bi = VBString(740000);
+      //bi2 = VBString(333333);
+      bi = EInteger.FromString("1").ShiftLeft(740000).Subtract(EInteger.One);
+      bi2 = EInteger.FromString("1").ShiftLeft(333330).Subtract(EInteger.One);
       Console.WriteLine("Printing bigint");
-      var sw = new System.Diagnostics.Stopwatch();sw.Start();
+      r = bi.Divide(bi2);
+      Console.WriteLine(r.GetUnsignedBitLength());
+      EInteger r2 = bi.Divide(bi2);
+      Console.WriteLine(r.GetUnsignedBitLength());
+      Assert.AreEqual(r, r2);
+    }
+
+    [Test]
+    public void TT() {
+      Console.WriteLine("Starting to print");
+ EInteger bi=EInteger.FromString("1"
+).ShiftLeft(742072).Subtract(EInteger.One);
+      Console.WriteLine("Printing bigint");
       Console.WriteLine(bi.ToString().Length);
-      sw.Stop();Console.WriteLine("{0} s", sw.ElapsedMilliseconds / 1000.0);
-      // TODO: Test negative ToString
     }
   }
 }

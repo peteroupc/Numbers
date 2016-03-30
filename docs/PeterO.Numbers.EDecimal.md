@@ -933,7 +933,7 @@ A 2 element array consisting of the quotient and remainder in that order.
     public override bool Equals(
         object obj);
 
-Determines whether this object's mantissa (significand) and exponent are equal to those of another object and that other object is an arbitrary-precision decimal number.
+Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision decimal number. Not-a-number values are considered equal if the rest of their properties are equal.
 
 <b>Parameters:</b>
 
@@ -948,7 +948,7 @@ Determines whether this object's mantissa (significand) and exponent are equal t
     public sealed bool Equals(
         PeterO.Numbers.EDecimal other);
 
-Determines whether this object's mantissa (significand) and exponent are equal to those of another object.
+Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object. Not-a-number values are considered equal if the rest of their properties are equal.
 
 <b>Parameters:</b>
 
@@ -1335,7 +1335,7 @@ This number's value as an arbitrary-precision decimal number.
 
     public override int GetHashCode();
 
-Calculates this object's hash code.
+Calculates this object's hash code. No application or process IDs are used in the hash code calculation.
 
 <b>Return Value:</b>
 
