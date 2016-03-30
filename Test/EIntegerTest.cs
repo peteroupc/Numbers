@@ -2461,8 +2461,8 @@ EInteger bigintB) {
     public void TT2() {
       Console.WriteLine("making bigint");
       EInteger bi, bi2, r;
-      //bi = VBString(740000);
-      //bi2 = VBString(333333);
+      // bi = VBString(740000);
+      // bi2 = VBString(333333);
       bi = EInteger.FromString("1").ShiftLeft(740000).Subtract(EInteger.One);
       bi2 = EInteger.FromString("1").ShiftLeft(333330).Subtract(EInteger.One);
       Console.WriteLine("Printing bigint");
@@ -2476,8 +2476,8 @@ EInteger bigintB) {
     [Test]
     public void TT() {
       Console.WriteLine("Starting to print");
- EInteger bi=EInteger.FromString("1"
-).ShiftLeft(742072).Subtract(EInteger.One);
+ EInteger bi = EInteger.FromString(
+"1").ShiftLeft(742072).Subtract(EInteger.One);
       Console.WriteLine("Printing bigint");
       Console.WriteLine(bi.ToString().Length);
     }
