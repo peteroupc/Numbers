@@ -1879,11 +1879,19 @@ Assert.AreEqual(objectTemp, objectTemp2);
 
     [Test]
     public void TestMultiplyDivide() {
+      TestMultiplyDivideOne(
+  EInteger.FromRadixString(
+  "101000101010100000001000100000101000000000100000101000100010101000001010000000001010101000101010100010100",
+  16),
+
+  EInteger.FromRadixString(
+  "100000000000100010000000100000000010001000100010000010101010100000000000000000000",
+  16));
       var r = new RandomGenerator();
-      for (var i = 0; i < 10000; ++i) {
-        TestMultiplyDivideOne(
-          RandomObjects.RandomEInteger(r),
-          RandomObjects.RandomEInteger(r));
+      for (var i = 0; i < 50000; ++i) {
+        EInteger bigA = RandomObjects.RandomEInteger(r);
+        EInteger bigB = RandomObjects.RandomEInteger(r);
+        TestMultiplyDivideOne(bigA, bigB);
       }
       TestMultiplyDivideOne(EInteger.FromInt32(-985), EInteger.FromInt32(0));
     }

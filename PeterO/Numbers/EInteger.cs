@@ -966,8 +966,10 @@ namespace PeterO.Numbers {
       quotReg = new short[((int)(words1Size - words2Size + 2))];
       GeneralDivide(
 this.words,
+0,
 this.wordCount,
 bigintDivisor.words,
+0,
 bigintDivisor.wordCount,
 quotReg,
 null);
@@ -1043,79 +1045,553 @@ null);
         }
       }
     }
-
     /*
     private static void T(short[] a, int x, int c, string t) {
       var sb = new System.Text.StringBuilder();
       sb.Append(t+"=0x");
-      for (var i=c-1;i>= 0;i--) sb.Append(String.Format("{0:X4}_",a[x+i]));
+      //for (var i = 0; i <c; ++i) {
+      for (var i = c - 1; i >= 0; --i) {
+        sb.Append(String.Format("{0:X4}",a[x + i]));
+        if (i != 0) {
+ sb.Append('_');
+}
+      }
       DebugUtility.Log(sb.ToString());
-    }*/
+    }
+    */
+    private const int RecursiveDivisionLimit = 40;
 
-    private static void GeneralDivide(
+    private static void DivideThreeBlocksByTwo(
+      short[] valueALow,
+      int posALow,
+      short[] valueAMidHigh,
+      int posAMidHigh,
+      short[] b,
+      int posB,
+      int blockCount,
+      short[] quot,
+      short[] rem,
+      short[] tmp) {
+#if DEBUG
+if (quot.Length < blockCount * 2) {
+  throw new ArgumentException("quot.Length (" + quot.Length +
+    ") is less than " + (blockCount * 2));
+}
+if (rem.Length < blockCount * 2) {
+  throw new ArgumentException("rem.Length (" + rem.Length +
+    ") is less than " + (blockCount * 2));
+}
+if (tmp.Length < blockCount * 6) {
+  throw new ArgumentException("tmp.Length (" + tmp.Length +
+    ") is less than " + (blockCount * 6));
+}
+#endif
+      // Implements Algorithm 2 of Burnikel & Ziegler 1998
+      int remSize = blockCount * 2;
+      int c;
+      if (
+WordsCompare(
+valueAMidHigh,
+posAMidHigh + blockCount,
+blockCount,
+b,
+posB + blockCount,
+blockCount) < 0) {
+        Array.Clear(tmp, blockCount * 4, blockCount * 2);
+        RecursiveDivideInner(
+ valueAMidHigh,
+ posAMidHigh,
+ b,
+ posB + blockCount,
+ quot,
+ rem,
+ blockCount);
+        Array.Copy(rem, 0, tmp, blockCount * 4, blockCount);
+      } else {
+        for (var i = 0; i < blockCount; ++i) {
+          quot[i] = unchecked((short)0xffff);
+        }
+   Array.Copy(
+valueAMidHigh,
+posAMidHigh,
+tmp,
+blockCount * 4,
+blockCount * 2);
+        SubtractInternal(
+tmp,
+blockCount * 5,
+tmp,
+blockCount * 5,
+b,
+posB + blockCount,
+blockCount);
+        c = AddInternal(
+tmp,
+blockCount * 4,
+tmp,
+blockCount * 4,
+b,
+posB + blockCount,
+blockCount);
+        Increment(tmp, blockCount * 5, blockCount, (short)c);
+      }
+      AsymmetricMultiply(
+tmp,
+0,
+tmp,
+blockCount * 2,
+quot,
+0,
+blockCount,
+b,
+posB,
+blockCount);
+      // T(tmp,0,blockCount*2,"d ");
+      int bc3 = blockCount * 3;
+      Array.Copy(valueALow, posALow, tmp, bc3, blockCount);
+      // T(tmp,blockCount*3,blockCount*3,"rem2");
+      c = SubtractInternal(tmp, bc3, tmp, bc3, tmp, 0, blockCount * 2);
+      c = Decrement(tmp, blockCount * 5, blockCount, (short)c);
+      // T(tmp,blockCount*3,blockCount*3,"tmp ");
+      if (c != 0) {
+        while (true) {
+          c = AddInternal(tmp, bc3, tmp, bc3, b, posB, blockCount * 2);
+          c = Increment(tmp, blockCount * 5, blockCount, (short)c);
+          Decrement(quot, 0, blockCount * 2, (short)1);
+          if (c != 0) {
+            break;
+          }
+        }
+      }
+      Array.Copy(tmp, bc3, rem, 0, blockCount * 2);
+    }
+
+    private static void RecursiveDivideInner(
+      short[] a,
+      int posA,
+      short[] b,
+      int posB,
+      short[] quot,
+      short[] rem,
+      int blockSize) {
+#if DEBUG
+if (a == null) {
+  throw new ArgumentNullException("a");
+}
+if (posA < 0) {
+  throw new ArgumentException("posA (" + posA +
+    ") is less than " + 0);
+}
+if (posA > a.Length) {
+  throw new ArgumentException("posA (" + posA + ") is more than " +
+    a.Length);
+}
+if ((blockSize * 2) < 0) {
+  throw new ArgumentException("(blockSize*2) (" + (blockSize * 2) +
+    ") is less than " + 0);
+}
+if ((blockSize * 2) > a.Length) {
+  throw new ArgumentException("(blockSize*2) (" + (blockSize * 2) +
+    ") is more than " + a.Length);
+}
+if ((a.Length - posA) < (blockSize * 2)) {
+  throw new ArgumentException("a's length minus " + posA + " (" +
+    (a.Length - posA) + ") is less than " + (blockSize * 2));
+}
+if (b == null) {
+  throw new ArgumentNullException("b");
+}
+if (posB < 0) {
+  throw new ArgumentException("posB (" + posB +
+    ") is less than " + 0);
+}
+if (posB > b.Length) {
+  throw new ArgumentException("posB (" + posB + ") is more than " +
+    b.Length);
+}
+if (blockSize < 0) {
+  throw new ArgumentException("blockSize (" + blockSize +
+    ") is less than " + 0);
+}
+if (blockSize > b.Length) {
+  throw new ArgumentException("blockSize (" + blockSize +
+    ") is more than " + b.Length);
+}
+if (b.Length - posB < blockSize) {
+  throw new ArgumentException("b's length minus " + posB + " (" +
+    (b.Length - posB) + ") is less than " + blockSize);
+}
+#endif
+      // Implements Algorithm 1 of Burnikel & Ziegler 1998
+      #if DEBUG
+if (quot == null) {
+  throw new ArgumentNullException("quot");
+}
+if ((blockSize * 3) < 0) {
+  throw new ArgumentException("blockSize*3 (" + blockSize * 3 +
+    ") is less than " + 0);
+}
+if ((blockSize * 3) > quot.Length) {
+  throw new ArgumentException("blockSize*3 (" + blockSize * 3 +
+    ") is more than " + quot.Length);
+}
+if (quot.Length < blockSize * 3) {
+  throw new ArgumentException("quot's length (" + quot.Length +
+    ") is less than " + blockSize * 3);
+}
+if (rem == null) {
+  throw new ArgumentNullException("rem");
+}
+if ((blockSize * 2) < 0) {
+  throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
+    ") is less than " + 0);
+}
+if ((blockSize * 2) > rem.Length) {
+  throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
+    ") is more than " + rem.Length);
+}
+if (rem.Length < blockSize * 2) {
+  throw new ArgumentException("rem's length (" + rem.Length +
+    ") is less than " + blockSize * 2);
+}
+#endif
+
+      // DebugUtility.Log("size="+blockSize);
+      if (blockSize < RecursiveDivisionLimit || (blockSize & 1) == 1) {
+        // DebugUtility.Log("general");
+        GeneralDivide(a, posA, blockSize * 2, b, posB, blockSize, quot, rem);
+      } else {
+        // DebugUtility.Log("special");
+        int halfBlock = blockSize >> 1;
+        var tmp = new short[halfBlock * 6];
+        var tmpQuot = new short[halfBlock * 3];
+        var tmpRem = new short[halfBlock * 2];
+        DivideThreeBlocksByTwo(
+a,
+posA + halfBlock,
+a,
+posA + (halfBlock * 2),
+b,
+posB,
+halfBlock,
+tmpQuot,
+tmpRem,
+tmp);
+        DivideThreeBlocksByTwo(
+a,
+posA,
+tmpRem,
+0,
+b,
+posB,
+halfBlock,
+quot,
+rem,
+tmp);
+        Array.Copy(tmpQuot, 0, quot, halfBlock, halfBlock);
+      }
+    }
+
+    private static void RecursiveDivide(
      short[] a,
-     int valueACount,
+     int posA,
+     int countA,
      short[] b,
-     int valueBCount,
+     int posB,
+     int countB,
      short[] quot,
      short[] rem) {
 #if DEBUG
-      if (!(valueACount >= valueBCount)) {
-      throw new
-          ArgumentException("doesn't satisfy valueACount>= valueBCount");
-      }
-      if (!(valueACount > 0 && valueBCount > 0)) {
- throw new ArgumentException("doesn't satisfy valueACount>0 && valueBCount>0");
-      }
-      if (!(b[valueBCount - 1] != 0)) {
-        throw new ArgumentException("doesn't satisfy b[valueBCount-1] != 0");
-      }
-      if (!(a[valueACount - 1] != 0)) {
-        throw new ArgumentException("doesn't satisfy a[valueACount-1] != 0");
+if (countB <= RecursiveDivisionLimit) {
+  throw new ArgumentException("countB (" + countB +
+    ") is not greater than " +
+    RecursiveDivisionLimit);
+}
+if (a == null) {
+  throw new ArgumentNullException("a");
+}
+if (posA < 0) {
+  throw new ArgumentException("posA (" + posA +
+    ") is less than " + 0);
+}
+if (posA > a.Length) {
+  throw new ArgumentException("posA (" + posA + ") is more than " +
+    a.Length);
+}
+if (countA < 0) {
+  throw new ArgumentException("countA (" + countA +
+    ") is less than " + 0);
+}
+if (countA > a.Length) {
+  throw new ArgumentException("countA (" + countA +
+    ") is more than " + a.Length);
+}
+if (a.Length - posA < countA) {
+  throw new ArgumentException("a's length minus " + posA + " (" +
+    (a.Length - posA) + ") is less than " + countA);
+}
+if (b == null) {
+  throw new ArgumentNullException("b");
+}
+if (posB < 0) {
+  throw new ArgumentException("posB (" + posB +
+    ") is less than " + 0);
+}
+if (posB > b.Length) {
+  throw new ArgumentException("posB (" + posB + ") is more than " +
+    b.Length);
+}
+if (countB < 0) {
+  throw new ArgumentException("countB (" + countB +
+    ") is less than " + 0);
+}
+if (countB > b.Length) {
+  throw new ArgumentException("countB (" + countB +
+    ") is more than " + b.Length);
+}
+if (b.Length - posB < countB) {
+  throw new ArgumentException("b's length minus " + posB + " (" +
+    (b.Length - posB) + ") is less than " + countB);
+}
+      if (rem != null) {
+        if (countB < 0) {
+          throw new ArgumentException("countB (" + countB +
+            ") is less than " + 0);
+        }
+        if (countB > rem.Length) {
+          throw new ArgumentException("countB (" + countB +
+            ") is more than " + rem.Length);
+        }
+        if (rem.Length < countB) {
+          throw new ArgumentException("rem's length (" + rem.Length +
+            ") is less than " + countB);
+        }
       }
 #endif
 
-      int quotSize = valueACount - valueBCount + 1;
-      if (valueACount < valueBCount) {
+      short[] workA = a;
+      short[] workB = b;
+      var workPosA = posA;
+      var workPosB = posB;
+      int blocksB = RecursiveDivisionLimit;
+      var shiftB = 0;
+      var m = 1;
+      while (blocksB < countB) {
+        blocksB <<= 1;
+        m <<= 1;
+      }
+      workB = new short[blocksB];
+      workPosB = 0;
+      Array.Copy(b, posB, workB, blocksB - countB, countB);
+      var shiftA = 0;
+      var extraWord = 0;
+      int wordsA = countA + (blocksB - countB);
+      if ((b[countB - 1] & 0x8000) == 0) {
+        int x = b[countB - 1];
+        while ((x & 0x8000) == 0) {
+          ++shiftB;
+          x <<= 1;
+        }
+        x = a[countA - 1];
+        while ((x & 0x8000) == 0) {
+          ++shiftA;
+          x <<= 1;
+        }
+        if (shiftA < shiftB) {
+          // Shifting A would require an extra word
+          ++extraWord;
+        }
+        ShiftWordsLeftByBits(
+workB,
+workPosB + blocksB - countB,
+countB,
+shiftB);
+      }
+      int blocksA = (wordsA + extraWord +
+      (blocksB - 1)) / blocksB;
+      int totalWordsA = blocksA * blocksB;
+      workA = new short[totalWordsA];
+      workPosA = 0;
+      Array.Copy(
+a,
+posA,
+workA,
+workPosA + (blocksB - countB),
+countA);
+      ShiftWordsLeftByBits(
+workA,
+workPosA + (blocksB - countB),
+countA + extraWord,
+shiftB);
+      // Start division
+      // "tmprem" holds temporary space
+      // for the remainder in the first
+      // "blocksB" elements and holds the dividend
+      // in the remaining space
+      var tmprem = new short[blocksB * 3];
+      var quotient = new short[blocksB * 2];
+      var size = 0;
+      for (var i = blocksA - 1; i >= 0; --i) {
+        int workAIndex = workPosA + (i * blocksB);
+        Array.Copy(workA, workAIndex, tmprem, blocksB, blocksB);
+        Array.Clear(quotient, 0, quotient.Length);
+        RecursiveDivideInner(
+tmprem,
+blocksB,
+workB,
+workPosB,
+quotient,
+tmprem,
+blocksB);
+        if (quot != null) {
+          size = Math.Min(blocksB, quot.Length - (i * blocksB));
+          // DebugUtility.Log("quot len=" + quot.Length + ",bb=" + blocksB +
+          // ",size=" + size + " [" + countA + "," + countB + "]");
+          if (size > 0) {
+            Array.Copy(quotient, 0, quot, i * blocksB, size);
+          }
+        }
+        Array.Copy(tmprem, 0, tmprem, blocksB * 2, blocksB);
+      }
+      if (rem != null) {
+        Array.Copy(tmprem, blocksB - countB, rem, 0, countB);
+        ShiftWordsRightByBits(rem, 0, countB, shiftB);
+      }
+      // DebugUtility.Log("done");
+    }
+
+    private static void GeneralDivide(
+     short[] a,
+     int posA,
+     int countA,
+     short[] b,
+     int posB,
+     int countB,
+     short[] quot,
+     short[] rem) {
+#if DEBUG
+      if (!(countA > 0 && countB > 0)) {
+ throw new ArgumentException("doesn't satisfy countA>0 && countB>0");
+      }
+if (a == null) {
+  throw new ArgumentNullException("a");
+}
+if (posA < 0) {
+  throw new ArgumentException("posA (" + posA +
+    ") is less than " + 0);
+}
+if (posA > a.Length) {
+  throw new ArgumentException("posA (" + posA + ") is more than " +
+    a.Length);
+}
+if (countA < 0) {
+  throw new ArgumentException("countA (" + countA +
+    ") is less than " + 0);
+}
+if (countA > a.Length) {
+  throw new ArgumentException("countA (" + countA +
+    ") is more than " + a.Length);
+}
+if (a.Length - posA < countA) {
+  throw new ArgumentException("a's length minus " + posA + " (" +
+    (a.Length - posA) + ") is less than " + countA);
+}
+if (b == null) {
+  throw new ArgumentNullException("b");
+}
+if (posB < 0) {
+  throw new ArgumentException("posB (" + posB +
+    ") is less than " + 0);
+}
+if (posB > b.Length) {
+  throw new ArgumentException("posB (" + posB + ") is more than " +
+    b.Length);
+}
+if (countB < 0) {
+  throw new ArgumentException("countB (" + countB +
+    ") is less than " + 0);
+}
+if (countB > b.Length) {
+  throw new ArgumentException("countB (" + countB +
+    ") is more than " + b.Length);
+}
+if (b.Length - posB < countB) {
+  throw new ArgumentException("b's length minus " + posB + " (" +
+    (b.Length - posB) + ") is less than " + countB);
+}
+      if (rem != null) {
+        if (countB < 0) {
+          throw new ArgumentException("countB (" + countB +
+            ") is less than " + 0);
+        }
+        if (countB > rem.Length) {
+          throw new ArgumentException("countB (" + countB +
+            ") is more than " + rem.Length);
+        }
+        if (rem.Length < countB) {
+          throw new ArgumentException("rem's length (" + rem.Length +
+            ") is less than " + countB);
+        }
+      }
+#endif
+
+      int origQuotSize = countA - countB + 1;
+      int origCountA = countA;
+      while (countB > 0 && b[posB + countB - 1] == 0) {
+        --countB;
+      }
+      while (countA > 0 && a[posA + countA - 1] == 0) {
+        --countA;
+      }
+#if DEBUG
+      if (countA != 0 && !(a[posA + countA - 1] != 0)) {
+        throw new ArgumentException();
+      }
+      if (countB == 0 || !(b[posB + countB - 1] != 0)) {
+        throw new ArgumentException();
+      }
+#endif
+      int quotSize = countA - countB + 1;
+      if (countA < countB) {
         // A is less than B, so quotient is 0, remainder is "a"
         if (quot != null) {
-          Array.Clear(quot, 0, quotSize);
+          Array.Clear(quot, 0, Math.Max(0, origQuotSize));
         }
         if (rem != null) {
-          Array.Copy(a, 0, rem, 0, valueACount);
+          Array.Copy(a, posA, rem, 0, origCountA);
         }
         return;
-      } else if (valueACount == valueBCount) {
-        int cmp = Compare(a, 0, b, 0, valueACount);
+      } else if (countA == countB) {
+        int cmp = Compare(a, posA, b, posB, countA);
         if (cmp == 0) {
           // A equals B, so quotient is 1, remainder is 0
           if (quot != null) {
             quot[0] = 1;
-            Array.Clear(quot, 1, quotSize - 1);
+            Array.Clear(quot, 1, Math.Max(0, origQuotSize - 1));
           }
           if (rem != null) {
-            Array.Clear(rem, 0, valueACount);
+            Array.Clear(rem, 0, countA);
           }
           return;
         } else if (cmp < 0) {
           // A is less than B, so quotient is 0, remainder is "a"
           if (quot != null) {
-            Array.Clear(quot, 0, quotSize);
+            Array.Clear(quot, 0, Math.Max(0, origQuotSize));
           }
           if (rem != null) {
-            Array.Copy(a, 0, rem, 0, valueACount);
+            Array.Copy(a, posA, rem, 0, origCountA);
           }
           return;
         }
       }
-      if (valueBCount == 1) {
+      if (countB == 1) {
         // Divisor is a single word
         short shortRemainder = FastDivideAndRemainder(
               quot,
               0,
               a,
-              0,
-              valueACount,
+              posA,
+              countA,
               b[0]);
         if (rem != null) {
           rem[0] = shortRemainder;
@@ -1125,46 +1601,54 @@ null);
       short[] workAB = null;
       short[] workA = a;
       short[] workB = b;
-      var tmp = new short[valueBCount + 2];
-      var workPosA = 0;
-      var workPosB = 0;
+      var workPosA = posA;
+      var workPosB = posB;
+      if (countB > RecursiveDivisionLimit) {
+        RecursiveDivide(a, posA, countA, b, posB, countB, quot, rem);
+        return;
+      }
+      var tmp = new short[countB + 2];
       var sh = 0;
-      if ((b[valueBCount - 1] & 0x8000) == 0) {
+      if ((b[posB + countB - 1] & 0x8000) == 0) {
         // Normalize a and b by shifting both until the high
         // bit of b is the highest bit of the last word
-        int x = b[valueBCount - 1];
+        int x = b[posB + countB - 1];
+        if (x == 0) {
+ throw new InvalidOperationException();
+}
         while ((x & 0x8000) == 0) {
           ++sh;
           x <<= 1;
         }
-        workAB = new short[valueACount + 1 + valueBCount];
-        workPosB = valueACount + 1;
+        workAB = new short[countA + 1 + countB];
+        workPosA = 0;
+        workPosB = countA + 1;
         workA = workAB;
         workB = workAB;
-        Array.Copy(a, 0, workA, workPosA, valueACount);
-        Array.Copy(b, 0, workB, workPosB, valueBCount);
-        ShiftWordsLeftByBits(workA, workPosA, valueACount + 1, sh);
-        ShiftWordsLeftByBits(workB, workPosB, valueBCount, sh);
+        Array.Copy(a, 0, workA, workPosA, countA);
+        Array.Copy(b, 0, workB, workPosB, countB);
+        ShiftWordsLeftByBits(workA, workPosA, countA + 1, sh);
+        ShiftWordsLeftByBits(workB, workPosB, countB, sh);
       } else {
-        workA = new short[valueACount + 1];
-        Array.Copy(a, 0, workA, workPosA, valueACount);
+        workA = new short[countA + 1];
+        workPosA = 0;
+        Array.Copy(a, posA, workA, workPosA, countA);
       }
       var c = 0;
-      short pieceBHigh = workB[workPosB + valueBCount - 1];
+      short pieceBHigh = workB[workPosB + countB - 1];
       int pieceBHighInt = ((int)pieceBHigh) & 0xffff;
 #if DEBUG
       if (!((pieceBHighInt & 0x8000) != 0)) {
     throw new ArgumentException("doesn't satisfy (pieceBHighInt & 0x8000)!=0");
       }
 #endif
-
-      short pieceBNextHigh = workB[workPosB + valueBCount - 2];
+      short pieceBNextHigh = workB[workPosB + countB - 2];
       int pieceBNextHighInt = ((int)pieceBNextHigh) & 0xffff;
-      for (int offset = valueACount - valueBCount; offset >= 0; --offset) {
+      for (int offset = countA - countB; offset >= 0; --offset) {
         int wpoffset = workPosA + offset;
-        int dividend = unchecked((((int)workA[wpoffset + valueBCount - 1]) &
-            0xffff) + ((((int)workA[wpoffset + valueBCount]) & 0xffff) << 16));
-        int divnext = ((int)workA[wpoffset + valueBCount - 2]) & 0xffff;
+        int dividend = unchecked((((int)workA[wpoffset + countB - 1]) &
+            0xffff) + ((((int)workA[wpoffset + countB]) & 0xffff) << 16));
+        int divnext = ((int)workA[wpoffset + countB - 2]) & 0xffff;
         int quorem0 = (dividend >> 31) == 0 ? (dividend / pieceBHighInt) :
          unchecked((int)(((long)dividend & 0xffffffffL) / pieceBHighInt));
         int quorem1 = unchecked(dividend - (quorem0 * pieceBHighInt));
@@ -1185,25 +1669,17 @@ null);
         }
         int q1 = quorem0 & 0xffff;
         int q2 = (quorem0 >> 16) & 0xffff;
-        TwoPlaceMultiply(tmp, 0, q1, q2, workB, workPosB, valueBCount);
-        // if (neg) {
-        // T(workA,workPosA,valueACount+1,"workA ");
-        // }
-    c = SubtractInternal(
-workA,
-wpoffset,
-workA,
-wpoffset,
-tmp,
-0,
-valueBCount + 1);
-        /* if (c != 0) {
-         T(workB,workPosB,valueBCount,"workB");
-         DebugUtility.Log("quorem={0:X8}",quorem0);
-         T(tmp,0,valueBCount+2,"tmp");
-         T(workA,workPosA,valueACount+1,"workA "+c);
-        }*/ if (c != 0) {
-          // T(workA,workPosA,valueACount+1,"workA X");
+        TwoPlaceMultiply(tmp, 0, q1, q2, workB, workPosB, countB);
+        c = SubtractInternal(
+    workA,
+    wpoffset,
+    workA,
+    wpoffset,
+    tmp,
+    0,
+    countB + 1);
+        if (c != 0) {
+          // T(workA,workPosA,countA+1,"workA X");
           c = AddInternal(
 workA,
 wpoffset,
@@ -1211,9 +1687,9 @@ workA,
 wpoffset,
 workB,
 workPosB,
-valueBCount);
-          c = Increment(workA, wpoffset + valueBCount, 1, (short)c);
-          // T(workA,workPosA,valueACount+1,"workA "+c);
+countB);
+          c = Increment(workA, wpoffset + countB, 1, (short)c);
+          // T(workA,workPosA,countA+1,"workA "+c);
           --quorem0;
         }
         if (quot != null) {
@@ -1222,9 +1698,9 @@ valueBCount);
       }
       if (rem != null) {
         if (sh != 0) {
-          ShiftWordsRightByBits(workA, workPosA, valueBCount + 1, sh);
+          ShiftWordsRightByBits(workA, workPosA, countB + 1, sh);
         }
-        Array.Copy(workA, workPosA, rem, 0, valueBCount);
+        Array.Copy(workA, workPosA, rem, 0, countB);
       }
     }
 
@@ -1324,8 +1800,10 @@ valueBCount);
                     2))];
       GeneralDivide(
 this.words,
+0,
 this.wordCount,
 divisor.words,
+0,
 divisor.wordCount,
 quotientreg,
 bigRemainderreg);
@@ -2183,8 +2661,10 @@ this.negative ^ bigintMult.negative);
       var remainderReg = new short[((int)words2Size)];
       GeneralDivide(
 this.words,
+0,
 this.wordCount,
 divisor.words,
+0,
 divisor.wordCount,
 null,
 remainderReg);
@@ -2246,6 +2726,16 @@ remainderReg);
        int wordCount,
        short[] words2,
        int wordCount2) {
+      return WordsCompare(words, 0, wordCount, words2, 0, wordCount2);
+    }
+
+    private static int WordsCompare(
+       short[] words,
+       int pos1,
+       int wordCount,
+       short[] words2,
+       int pos2,
+       int wordCount2) {
       // NOTE: Assumes the number is nonnegative
       int size = wordCount;
       if (size == 0) {
@@ -2254,18 +2744,22 @@ remainderReg);
         return 1;
       }
       if (size == wordCount2) {
-        if (size == 1 && words[0] == words2[0]) {
+        if (size == 1 && words[pos1] == words2[pos2]) {
           return 0;
         } else {
+          int p1 = pos1 + size - 1;
+          int p2 = pos2 + size - 1;
           while (unchecked(size--) != 0) {
-            int an = ((int)words[size]) & 0xffff;
-            int bn = ((int)words2[size]) & 0xffff;
+            int an = ((int)words[p1]) & 0xffff;
+            int bn = ((int)words2[p2]) & 0xffff;
             if (an > bn) {
               return 1;
             }
             if (an < bn) {
               return -1;
             }
+            --p1;
+            --p2;
           }
           return 0;
         }
@@ -5482,8 +5976,27 @@ count);
       short[] words2,
       int words2Start,
       int words2Count) {
-      // Method assumes that resultArr was already zeroed,
-      // if resultArr is the same as words1 or words2
+#if DEBUG
+      // Avoid overlaps
+      if (resultArr == words1) {
+        int m1 = Math.Max(resultStart, words1Start);
+        int m2 = Math.Min(
+resultStart + words1Count + words2Count,
+words1Start + words1Count);
+        if (m1 < m2) {
+          throw new ArgumentException();
+        }
+      }
+      if (resultArr == words2) {
+        int m1 = Math.Max(resultStart, words2Start);
+        int m2 = Math.Min(
+resultStart + words1Count + words2Count,
+words2Start + words2Count);
+        if (m1 < m2) {
+          throw new ArgumentException();
+        }
+      }
+#endif
       int cstart;
       if (words1Count < words2Count) {
         // words1 is shorter than words2, so put words2 on top
@@ -5656,7 +6169,7 @@ count);
       if (reg.Length > 32) {
         int newLength = wordCount;
         if (newLength < reg.Length && (reg.Length - newLength) >= 16) {
-          // Reallocate the array if the rounded length
+          // Reallocate the array if the desired length
           // is much smaller than the current length
           var newreg = new short[newLength];
           Array.Copy(reg, newreg, Math.Min(newLength, reg.Length));

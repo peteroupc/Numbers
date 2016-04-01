@@ -1431,7 +1431,8 @@ if (!(bitLength <= 53)) {
 
     private string ToDebugString() {
       return "[" + this.Mantissa.ToRadixString(2) +
-        "," + this.Mantissa.GetUnsignedBitLength() +"," + this.Exponent + "]";
+        "," + this.Mantissa.GetUnsignedBitLength() +
+        "," + this.Exponent + "]";
     }
 
     /// <include file='../../docs.xml'
