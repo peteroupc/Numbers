@@ -1471,11 +1471,11 @@ if (rem.Length - posRem < countB) {
 }
 #endif
         }
-
+      int workPosA, workPosB, i;
       short[] workA = a;
       short[] workB = b;
-      var workPosA = posA;
-      var workPosB = posB;
+      workPosA = posA;
+      workPosB = posB;
       int blocksB = RecursiveDivisionLimit;
       var shiftB = 0;
       var m = 1;
@@ -1532,7 +1532,7 @@ if (rem.Length - posRem < countB) {
       // - blocksB * 2: Quotient
       var tmprem = new short[blocksB * 5];
       var size = 0;
-      for (var i = blocksA - 1; i >= 0; --i) {
+      for (i = blocksA - 1; i >= 0; --i) {
         int workAIndex = workPosA + (i * blocksB);
         // Set the low part of the sub-dividend with the working
         // block of the dividend
@@ -1628,12 +1628,7 @@ if (b.Length - posB < countB) {
   throw new ArgumentException("b's length minus " + posB + " (" +
     (b.Length - posB) + ") is less than " + countB);
 }
-#endif
-        if (quot != null) {
-      #if DEBUG
-if (quot == null) {
-  throw new ArgumentNullException("quot");
-}
+if (quot != null) {
 if (posQuot < 0) {
   throw new ArgumentException("posQuot (" + posQuot +
     ") is less than " + 0);
@@ -1655,13 +1650,8 @@ if ((quot.Length - posQuot) < (countA - countB + 1)) {
     (quot.Length - posQuot) + ") is less than " +
     (countA - countB + 1));
 }
-#endif
-        }
-        if (rem != null) {
-      #if DEBUG
-if (rem == null) {
-  throw new ArgumentNullException("rem");
 }
+if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
     ") is less than " + 0);
@@ -1682,8 +1672,8 @@ if (rem.Length - posRem < countB) {
   throw new ArgumentException("rem's length minus " + posRem + " (" +
     (rem.Length - posRem) + ") is less than " + countB);
 }
-#endif
         }
+#endif
       int origQuotSize = countA - countB + 1;
       int origCountA = countA;
       int origCountB = countB;
@@ -1762,11 +1752,12 @@ if (rem.Length - posRem < countB) {
         }
         return;
       }
+      int workPosA, workPosB;
       short[] workAB = null;
       short[] workA = a;
       short[] workB = b;
-      var workPosA = posA;
-      var workPosB = posB;
+      workPosA = posA;
+      workPosB = posB;
       if (countB > RecursiveDivisionLimit) {
         RecursiveDivide(
   a,
