@@ -21,9 +21,9 @@ namespace PeterO.Numbers {
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational NaN = CreateWithFlags(
-EInteger.Zero,
-EInteger.One,
-BigNumberFlags.FlagQuietNaN);
+  EInteger.Zero,
+  EInteger.One,
+  BigNumberFlags.FlagQuietNaN);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeInfinity"]/*'/>
@@ -33,9 +33,9 @@ BigNumberFlags.FlagQuietNaN);
       Justification = "ERational is immutable")]
     public static readonly ERational NegativeInfinity =
       CreateWithFlags(
-EInteger.Zero,
-EInteger.One,
-BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
+  EInteger.Zero,
+  EInteger.One,
+  BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeZero"]/*'/>
@@ -62,9 +62,9 @@ BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
       Justification = "ERational is immutable")]
     public static readonly ERational PositiveInfinity =
       CreateWithFlags(
-EInteger.Zero,
-EInteger.One,
-BigNumberFlags.FlagInfinity);
+  EInteger.Zero,
+  EInteger.One,
+  BigNumberFlags.FlagInfinity);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.SignalingNaN"]/*'/>
@@ -74,9 +74,9 @@ BigNumberFlags.FlagInfinity);
       Justification = "ERational is immutable")]
     public static readonly ERational SignalingNaN =
       CreateWithFlags(
-EInteger.Zero,
-EInteger.One,
-BigNumberFlags.FlagSignalingNaN);
+  EInteger.Zero,
+  EInteger.One,
+  BigNumberFlags.FlagSignalingNaN);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Ten"]/*'/>
@@ -194,16 +194,16 @@ BigNumberFlags.FlagSignalingNaN);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Create(System.Int32,System.Int32)"]/*'/>
     public static ERational Create(
-int numeratorSmall,
-int denominatorSmall) {
+  int numeratorSmall,
+  int denominatorSmall) {
       return Create((EInteger)numeratorSmall, (EInteger)denominatorSmall);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static ERational Create(
-EInteger numerator,
-EInteger denominator) {
+  EInteger numerator,
+  EInteger denominator) {
       return new ERational(numerator, denominator);
     }
 
@@ -216,9 +216,9 @@ EInteger denominator) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean)"]/*'/>
     public static ERational CreateNaN(
-EInteger diag,
-bool signaling,
-bool negative) {
+  EInteger diag,
+  bool signaling,
+  bool negative) {
       if (diag == null) {
         throw new ArgumentNullException("diag");
       }
@@ -1143,12 +1143,12 @@ bool negative) {
     public override bool Equals(object obj) {
       var other = obj as ERational;
       return (
-other != null) && (
-Object.Equals(
-this.unsignedNumerator,
-other.unsignedNumerator) && Object.Equals(
-this.denominator,
-other.denominator) && this.flags == other.flags);
+  other != null) && (
+  Object.Equals(
+  this.unsignedNumerator,
+  other.unsignedNumerator) && Object.Equals(
+  this.denominator,
+  other.denominator) && this.flags == other.flags);
     }
 
     /// <include file='../../docs.xml'
@@ -1401,10 +1401,10 @@ other.denominator) && this.flags == other.flags);
     public EDecimal ToEDecimal(EContext ctx) {
       if (this.IsNaN()) {
         return EDecimal.CreateNaN(
-this.unsignedNumerator,
-this.IsSignalingNaN(),
-this.IsNegative,
-ctx);
+  this.unsignedNumerator,
+  this.IsSignalingNaN(),
+  this.IsNegative,
+  ctx);
       }
       if (this.IsPositiveInfinity()) {
         return EDecimal.PositiveInfinity.RoundToPrecision(ctx);
@@ -1426,10 +1426,10 @@ ctx);
       }
       if (this.IsNaN()) {
         return EDecimal.CreateNaN(
-this.unsignedNumerator,
-this.IsSignalingNaN(),
-this.IsNegative,
-ctx);
+  this.unsignedNumerator,
+  this.IsSignalingNaN(),
+  this.IsNegative,
+  ctx);
       }
       if (this.IsPositiveInfinity()) {
         return EDecimal.PositiveInfinity.RoundToPrecision(ctx);
@@ -1483,10 +1483,10 @@ ctx);
     public EFloat ToEFloat(EContext ctx) {
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
-this.unsignedNumerator,
-this.IsSignalingNaN(),
-this.IsNegative,
-ctx);
+  this.unsignedNumerator,
+  this.IsSignalingNaN(),
+  this.IsNegative,
+  ctx);
       }
       if (this.IsPositiveInfinity()) {
         return EFloat.PositiveInfinity.RoundToPrecision(ctx);
@@ -1507,10 +1507,10 @@ ctx);
       }
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
-this.unsignedNumerator,
-this.IsSignalingNaN(),
-this.IsNegative,
-ctx);
+  this.unsignedNumerator,
+  this.IsSignalingNaN(),
+  this.IsNegative,
+  ctx);
       }
       if (this.IsPositiveInfinity()) {
         return EFloat.PositiveInfinity.RoundToPrecision(ctx);
@@ -1589,9 +1589,9 @@ ctx);
     }
 
     private static ERational CreateWithFlags(
-EInteger numerator,
-EInteger denominator,
-int flags) {
+  EInteger numerator,
+  EInteger denominator,
+  int flags) {
       var er = new ERational(numerator, denominator);
       er.flags = flags;
       return er;

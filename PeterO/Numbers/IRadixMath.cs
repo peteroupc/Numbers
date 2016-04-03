@@ -42,10 +42,10 @@ namespace PeterO.Numbers {
     T NextPlus(T thisValue, EContext ctx);
 
     T DivideToExponent(
-T thisValue,
-T divisor,
-EInteger desiredExponent,
-EContext ctx);
+  T thisValue,
+  T divisor,
+  EInteger desiredExponent,
+  EContext ctx);
 
     T Divide(T thisValue, T divisor, EContext ctx);
 
@@ -60,10 +60,10 @@ EContext ctx);
     T Multiply(T thisValue, T other, EContext ctx);
 
     T MultiplyAndAdd(
-T thisValue,
-T multiplicand,
-T augend,
-EContext ctx);
+  T thisValue,
+  T multiplicand,
+  T augend,
+  EContext ctx);
 
     T Plus(T thisValue, EContext ctx);
 
@@ -74,35 +74,35 @@ EContext ctx);
     T Quantize(T thisValue, T otherValue, EContext ctx);
 
     T RoundToExponentExact(
-T thisValue,
-EInteger expOther,
-EContext ctx);
+  T thisValue,
+  EInteger expOther,
+  EContext ctx);
 
     T RoundToExponentSimple(
-T thisValue,
-EInteger expOther,
-EContext ctx);
+  T thisValue,
+  EInteger expOther,
+  EContext ctx);
 
     T RoundToExponentNoRoundedFlag(
-T thisValue,
-EInteger exponent,
-EContext ctx);
+  T thisValue,
+  EInteger exponent,
+  EContext ctx);
 
     T Reduce(T thisValue, EContext ctx);
 
     T Add(T thisValue, T other, EContext ctx);
 
     T AddEx(
-T thisValue,
-T other,
-EContext ctx,
-bool roundToOperandPrecision);
+  T thisValue,
+  T other,
+  EContext ctx,
+  bool roundToOperandPrecision);
 
     T CompareToWithContext(
-T thisValue,
-T otherValue,
-bool treatQuietNansAsSignaling,
-EContext ctx);
+  T thisValue,
+  T otherValue,
+  bool treatQuietNansAsSignaling,
+  EContext ctx);
 
     int CompareTo(T thisValue, T otherValue);
   }

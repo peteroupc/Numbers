@@ -26,9 +26,9 @@ namespace PeterO.Numbers {
     }
 
     private T TriggerTraps(
-T result,
-EContext src,
-EContext dst) {
+  T result,
+  EContext src,
+  EContext dst) {
       if (src == null || src.Flags == 0) {
         return result;
       }
@@ -52,27 +52,27 @@ EContext dst) {
       }
       if ((traps & EContext.FlagSubnormal) != 0) {
         ThrowTrapException(
-traps & EContext.FlagSubnormal,
-dst,
-result);
+  traps & EContext.FlagSubnormal,
+  dst,
+  result);
       }
       if ((traps & EContext.FlagInexact) != 0) {
         ThrowTrapException(
-traps & EContext.FlagInexact,
-dst,
-result);
+  traps & EContext.FlagInexact,
+  dst,
+  result);
       }
       if ((traps & EContext.FlagRounded) != 0) {
         ThrowTrapException(
-traps & EContext.FlagRounded,
-dst,
-result);
+  traps & EContext.FlagRounded,
+  dst,
+  result);
       }
       if ((traps & EContext.FlagClamped) != 0) {
         ThrowTrapException(
-traps & EContext.FlagClamped,
-dst,
-result);
+  traps & EContext.FlagClamped,
+  dst,
+  result);
       }
       return result;
     }
@@ -89,21 +89,21 @@ result);
     }
 
     public T DivideToIntegerNaturalScale(
-T thisValue,
-T divisor,
-EContext ctx) {
+  T thisValue,
+  T divisor,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.DivideToIntegerNaturalScale(
-thisValue,
-divisor,
-tctx);
+  thisValue,
+  divisor,
+  tctx);
       return this.TriggerTraps(result, tctx, ctx);
     }
 
     public T DivideToIntegerZeroScale(
-T thisValue,
-T divisor,
-EContext ctx) {
+  T thisValue,
+  T divisor,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.DivideToIntegerZeroScale(thisValue, divisor, tctx);
       return this.TriggerTraps(result, tctx, ctx);
@@ -201,16 +201,16 @@ EContext ctx) {
     }
 
     public T DivideToExponent(
-T thisValue,
-T divisor,
-EInteger desiredExponent,
-EContext ctx) {
+  T thisValue,
+  T divisor,
+  EInteger desiredExponent,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.DivideToExponent(
-thisValue,
-divisor,
-desiredExponent,
-tctx);
+  thisValue,
+  divisor,
+  desiredExponent,
+  tctx);
       return this.TriggerTraps(result, tctx, ctx);
     }
 
@@ -265,16 +265,16 @@ tctx);
     }
 
     public T MultiplyAndAdd(
-T thisValue,
-T multiplicand,
-T augend,
-EContext ctx) {
+  T thisValue,
+  T multiplicand,
+  T augend,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.MultiplyAndAdd(
-thisValue,
-multiplicand,
-augend,
-tctx);
+  thisValue,
+  multiplicand,
+  augend,
+  tctx);
       return this.TriggerTraps(result, tctx, ctx);
     }
 
@@ -297,32 +297,32 @@ tctx);
     }
 
     public T RoundToExponentExact(
-T thisValue,
-EInteger expOther,
-EContext ctx) {
+  T thisValue,
+  EInteger expOther,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.RoundToExponentExact(thisValue, expOther, tctx);
       return this.TriggerTraps(result, tctx, ctx);
     }
 
     public T RoundToExponentSimple(
-T thisValue,
-EInteger expOther,
-EContext ctx) {
+  T thisValue,
+  EInteger expOther,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.RoundToExponentSimple(thisValue, expOther, ctx);
       return this.TriggerTraps(result, tctx, ctx);
     }
 
     public T RoundToExponentNoRoundedFlag(
-T thisValue,
-EInteger exponent,
-EContext ctx) {
+  T thisValue,
+  EInteger exponent,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.RoundToExponentNoRoundedFlag(
-thisValue,
-exponent,
-ctx);
+  thisValue,
+  exponent,
+  ctx);
       return this.TriggerTraps(result, tctx, ctx);
     }
 
@@ -347,10 +347,10 @@ ctx);
     // instance is less, or a positive number if this instance is
     // greater.</returns>
     public T CompareToWithContext(
-T thisValue,
-T otherValue,
-bool treatQuietNansAsSignaling,
-EContext ctx) {
+  T thisValue,
+  T otherValue,
+  bool treatQuietNansAsSignaling,
+  EContext ctx) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.CompareToWithContext(
         thisValue,
@@ -382,10 +382,10 @@ EContext ctx) {
     bool roundToOperandPrecision) {
       EContext tctx = GetTrappableContext(ctx);
       T result = this.math.AddEx(
-thisValue,
-other,
-ctx,
-roundToOperandPrecision);
+  thisValue,
+  other,
+  ctx,
+  roundToOperandPrecision);
       return this.TriggerTraps(result, tctx, ctx);
     }
   }

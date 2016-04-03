@@ -252,8 +252,8 @@ new Object();
 throw new InvalidOperationException(String.Empty, ex);
 }
   Assert.AreEqual(
-EInteger.Zero,
-EInteger.FromByte(enumber.ToByteUnchecked()));
+  EInteger.Zero,
+  EInteger.FromByte(enumber.ToByteUnchecked()));
           try {
  enumber.ToByteIfExact();
 Assert.Fail("Should have failed");
@@ -273,8 +273,8 @@ new Object();
 throw new InvalidOperationException(String.Empty, ex);
 }
 Assert.AreEqual(
-EInteger.Zero,
-EInteger.FromInt16(enumber.ToInt16Unchecked()));
+  EInteger.Zero,
+  EInteger.FromInt16(enumber.ToInt16Unchecked()));
           try {
  enumber.ToInt16IfExact();
 Assert.Fail("Should have failed");
@@ -294,8 +294,8 @@ new Object();
 throw new InvalidOperationException(String.Empty, ex);
 }
 Assert.AreEqual(
-EInteger.Zero,
-EInteger.FromInt32(enumber.ToInt32Unchecked()));
+  EInteger.Zero,
+  EInteger.FromInt32(enumber.ToInt32Unchecked()));
           try {
  enumber.ToInt32IfExact();
 Assert.Fail("Should have failed");
@@ -315,8 +315,8 @@ new Object();
 throw new InvalidOperationException(String.Empty, ex);
 }
 Assert.AreEqual(
-EInteger.Zero,
-EInteger.FromInt64(enumber.ToInt64Unchecked()));
+  EInteger.Zero,
+  EInteger.FromInt64(enumber.ToInt64Unchecked()));
           try {
  enumber.ToInt64IfExact();
 Assert.Fail("Should have failed");
@@ -339,15 +339,15 @@ throw new InvalidOperationException(String.Empty, ex);
         EInteger.FromString("255")) <= 0;
         if (isNum) {
      TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteChecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteChecked()));
    TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteUnchecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteUnchecked()));
           if (isInteger) {
      TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteIfExact()));
+  eint,
+  EInteger.FromByte(enumber.ToByteIfExact()));
           } else {
             try {
  enumber.ToByteIfExact();
@@ -361,11 +361,11 @@ throw new InvalidOperationException(String.Empty, ex);
           }
         } else if (isTruncated) {
      TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteChecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteChecked()));
    TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteUnchecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteUnchecked()));
           try {
  enumber.ToByteIfExact();
 Assert.Fail("Should have failed");
@@ -421,15 +421,15 @@ throw new InvalidOperationException(String.Empty, ex);
         EInteger.FromString("32767")) <= 0;
         if (isNum) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Checked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Unchecked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Unchecked()));
           if (isInteger) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16IfExact()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16IfExact()));
           } else {
             try {
  enumber.ToInt16IfExact();
@@ -443,11 +443,11 @@ throw new InvalidOperationException(String.Empty, ex);
           }
         } else if (isTruncated) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Checked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Unchecked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Unchecked()));
           try {
  enumber.ToInt16IfExact();
 Assert.Fail("Should have failed");
@@ -504,15 +504,15 @@ throw new InvalidOperationException(String.Empty, ex);
         EInteger.FromString("2147483647")) <= 0;
         if (isNum) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Checked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Unchecked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Unchecked()));
           if (isInteger) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32IfExact()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32IfExact()));
           } else {
             try {
  enumber.ToInt32IfExact();
@@ -526,11 +526,11 @@ throw new InvalidOperationException(String.Empty, ex);
           }
         } else if (isTruncated) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Checked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Unchecked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Unchecked()));
           try {
  enumber.ToInt32IfExact();
 Assert.Fail("Should have failed");
@@ -587,15 +587,15 @@ throw new InvalidOperationException(String.Empty, ex);
         EInteger.FromString("9223372036854775807")) <= 0;
         if (isNum) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Checked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Unchecked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Unchecked()));
           if (isInteger) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64IfExact()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64IfExact()));
           } else {
             try {
  enumber.ToInt64IfExact();
@@ -609,11 +609,11 @@ throw new InvalidOperationException(String.Empty, ex);
           }
         } else if (isTruncated) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Checked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Unchecked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Unchecked()));
           try {
  enumber.ToInt64IfExact();
 Assert.Fail("Should have failed");
@@ -874,8 +874,8 @@ throw new InvalidOperationException(String.Empty, ex);
       {
 string stringTemp = EFloat.FromDouble(dbl).ToPlainString();
 Assert.AreEqual(
-"1.9725792733634686104693400920950807631015777587890625",
-stringTemp);
+  "1.9725792733634686104693400920950807631015777587890625",
+  stringTemp);
 }
     }
     [Test]

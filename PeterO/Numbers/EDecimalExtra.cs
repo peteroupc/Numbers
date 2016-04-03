@@ -10,16 +10,16 @@ using System;
 namespace PeterO.Numbers {
   public sealed partial class EDecimal {
     private static decimal EncodeDecimal(
-EInteger bigmant,
-int scale,
-bool neg) {
+  EInteger bigmant,
+  int scale,
+  bool neg) {
       if (scale < 0) {
         throw new ArgumentException(
-"scale (" + scale + ") is less than 0");
+  "scale (" + scale + ") is less than 0");
       }
       if (scale > 28) {
         throw new ArgumentException(
-"scale (" + scale + ") is more than " + "28");
+  "scale (" + scale + ") is more than " + "28");
       }
       var data = bigmant.ToBytes(true);
       var a = 0;
@@ -50,9 +50,9 @@ bool neg) {
         var newDecimal = extendedNumber.RoundToPrecision(
           EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
         return EncodeDecimal(
-newDecimal.Mantissa.Abs(),
--((int)newDecimal.Exponent),
-newDecimal.Mantissa.Sign < 0);
+  newDecimal.Mantissa.Abs(),
+  -((int)newDecimal.Exponent),
+  newDecimal.Mantissa.Sign < 0);
       } catch (ETrapException ex) {
         throw new OverflowException("This object's value is out of range", ex);
       }

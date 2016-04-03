@@ -469,9 +469,9 @@ namespace PeterO.Numbers {
     public EFloat Abs() {
       if (this.IsNegative) {
         var er = new EFloat(
-this.unsignedMantissa,
-this.exponent,
-this.flags & ~BigNumberFlags.FlagNegative);
+  this.unsignedMantissa,
+  this.exponent,
+  this.flags & ~BigNumberFlags.FlagNegative);
         return er;
       }
       return this;
@@ -891,8 +891,8 @@ this.flags & ~BigNumberFlags.FlagNegative);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EFloat MovePointLeft(
-EInteger bigPlaces,
-EContext ctx) {
+  EInteger bigPlaces,
+  EContext ctx) {
       return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
@@ -918,8 +918,8 @@ EContext ctx) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EFloat MovePointRight(
-EInteger bigPlaces,
-EContext ctx) {
+  EInteger bigPlaces,
+  EContext ctx) {
       if (!this.IsFinite) {
         return this.RoundToPrecision(ctx);
       }
@@ -930,9 +930,9 @@ EContext ctx) {
           this.unsignedMantissa,
           bigExp);
         return CreateWithFlags(
-mant,
-EInteger.Zero,
-this.flags).RoundToPrecision(ctx);
+  mant,
+  EInteger.Zero,
+  this.flags).RoundToPrecision(ctx);
       }
       return CreateWithFlags(
         this.unsignedMantissa,
@@ -1015,9 +1015,9 @@ this.flags).RoundToPrecision(ctx);
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Negate"]/*'/>
     public EFloat Negate() {
       return new EFloat(
-this.unsignedMantissa,
-this.exponent,
-this.flags ^ BigNumberFlags.FlagNegative);
+  this.unsignedMantissa,
+  this.exponent,
+  this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
@@ -1181,9 +1181,9 @@ this.flags ^ BigNumberFlags.FlagNegative);
       ERounding rounding) {
         // TODO: Edit doc for RoundToExponentExact
       return MathValue.RoundToExponentExact(
-this,
-exponent,
-EContext.Unlimited.WithRounding(rounding));
+  this,
+  exponent,
+  EContext.Unlimited.WithRounding(rounding));
     }
 
     /// <include file='../../docs.xml'
@@ -1247,8 +1247,8 @@ EContext.Unlimited.WithRounding(rounding));
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EFloat ScaleByPowerOfTwo(
-EInteger bigPlaces,
-EContext ctx) {
+  EInteger bigPlaces,
+  EContext ctx) {
       if (bigPlaces.IsZero) {
         return this.RoundToPrecision(ctx);
       }
@@ -1443,10 +1443,10 @@ if (!(bitLength <= 53)) {
       }
       if (this.IsNaN()) {
         return CreateNaN(
-this.UnsignedMantissa,
-this.IsSignalingNaN(),
-this.IsNegative,
-ctx).ToString();
+  this.UnsignedMantissa,
+  this.IsSignalingNaN(),
+  this.IsNegative,
+  ctx).ToString();
       }
       if (this.IsInfinity()) {
         return this.RoundToPrecision(ctx).ToString();
@@ -1694,14 +1694,14 @@ if (!(bitLength <= 24)) {
         int olderDigits) {
         if (fastInt.CanFitInInt32()) {
      return new BitShiftAccumulator(
-fastInt.AsInt32(),
-lastDigit,
-olderDigits);
+  fastInt.AsInt32(),
+  lastDigit,
+  olderDigits);
         } else {
   return new BitShiftAccumulator(
-fastInt.ToEInteger(),
-lastDigit,
-olderDigits);
+  fastInt.ToEInteger(),
+  lastDigit,
+  olderDigits);
         }
       }
 
@@ -1774,9 +1774,9 @@ olderDigits);
         FastIntegerFixed fexponent,
         int flags) {
         return CreateWithFlags(
-fmantissa.ToEInteger(),
-fexponent.ToEInteger(),
-flags);
+  fmantissa.ToEInteger(),
+  fexponent.ToEInteger(),
+  flags);
       }
 
     /// <include file='../../docs.xml'

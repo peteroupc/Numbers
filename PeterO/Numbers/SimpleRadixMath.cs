@@ -658,10 +658,10 @@ namespace PeterO.Numbers {
         thisValue = this.RoundToPrecision(thisValue, ctx2);
       } else {
         thisValue = !zeroB ? this.wrapper.MultiplyAndAdd(
-thisValue,
-multiplicand,
-augend,
-ctx2) : this.wrapper.Multiply(thisValue, multiplicand, ctx2);
+  thisValue,
+  multiplicand,
+  augend,
+  ctx2) : this.wrapper.Multiply(thisValue, multiplicand, ctx2);
       }
       return this.PostProcess(thisValue, ctx, ctx2);
     }

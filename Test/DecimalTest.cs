@@ -29,14 +29,14 @@ namespace Test {
   RegexOptions.Compiled);
 
     private static TValue GetKeyOrDefault<TKey, TValue>(
-IDictionary<TKey, TValue> dict,
+  IDictionary<TKey, TValue> dict,
  TKey key,
  TValue defaultValue) {
       return (!dict.ContainsKey(key)) ? defaultValue : dict[key];
     }
 
     public static void ParseDecTest(
-string ln,
+  string ln,
  IDictionary<string, string> context) {
       Match match;
       if (ln.Contains("-- ")) {
@@ -64,14 +64,14 @@ string ln,
         bool extended = GetKeyOrDefault(context, "extended", "1").Equals("1");
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1");
         int precision = Convert.ToInt32(
-context["precision"],
-System.Globalization.CultureInfo.InvariantCulture);
+  context["precision"],
+  System.Globalization.CultureInfo.InvariantCulture);
         int minexponent = Convert.ToInt32(
-context["minexponent"],
-System.Globalization.CultureInfo.InvariantCulture);
+  context["minexponent"],
+  System.Globalization.CultureInfo.InvariantCulture);
         int maxexponent = Convert.ToInt32(
-context["maxexponent"],
-System.Globalization.CultureInfo.InvariantCulture);
+  context["maxexponent"],
+  System.Globalization.CultureInfo.InvariantCulture);
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
         if (input1.Contains("#") || input2.Contains("#") ||
@@ -410,9 +410,9 @@ System.Globalization.CultureInfo.InvariantCulture);
             System.Globalization.NumberStyles.AllowExponent |
 System.Globalization.NumberStyles.Number;
           d = Decimal.Parse(
-ed.ToString(),
-numstyles,
-System.Globalization.CultureInfo.InvariantCulture);
+  ed.ToString(),
+  numstyles,
+  System.Globalization.CultureInfo.InvariantCulture);
           EDecimal ed3 = EDecimal.FromString(
   ed.ToString(),
   EContext.CliDecimal);
@@ -427,9 +427,9 @@ System.Globalization.CultureInfo.InvariantCulture);
   ed.ToString(),
   EContext.CliDecimal);
           Assert.IsTrue(
-ed2.IsInfinity(),
-ed.ToString(),
-ex.ToString());
+  ed2.IsInfinity(),
+  ed.ToString(),
+  ex.ToString());
         }
       }
     }

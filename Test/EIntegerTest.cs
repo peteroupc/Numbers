@@ -14,17 +14,17 @@ private static long[] valueBitLengths = { -4294967297L, 33L, -4294967296L,
       -1073741825L, 31L, -1073741824L, 30L, -1073741823L, 30L, -536870913L, 30L,
       -536870912L, 29L, -536870911L, 29L, -268435457L, 29L, -268435456L, 28L,
       -268435455L, 28L, -134217729L, 28L, -134217728L, 27L, -134217727L, 27L,
--67108865L, 27L, -67108864L, 26L, -67108863L, 26L, -33554433L, 26L,
+  -67108865L, 27L, -67108864L, 26L, -67108863L, 26L, -33554433L, 26L,
         -33554432L,
       25L, -33554431L, 25L, -16777217L, 25L, -16777216L, 24L, -16777215L, 24L,
--8388609L, 24L, -8388608L, 23L, -8388607L, 23L, -4194305L, 23L, -4194304L,
+  -8388609L, 24L, -8388608L, 23L, -8388607L, 23L, -4194305L, 23L, -4194304L,
         22L,
--4194303L, 22L, -2097153L, 22L, -2097152L, 21L, -2097151L, 21L, -1048577L,
+  -4194303L, 22L, -2097153L, 22L, -2097152L, 21L, -2097151L, 21L, -1048577L,
         21L,
    -1048576L, 20L, -1048575L, 20L, -524289L, 20L, -524288L, 19L, -524287L,
         19L,
       -262145L, 19L, -262144L, 18L, -262143L, 18L, -131073L, 18L, -131072L, 17L,
--131071L, 17L, -65537L, 17L, -65536L, 16L, -65535L, 16L, -32769L, 16L,
+  -131071L, 17L, -65537L, 17L, -65536L, 16L, -65535L, 16L, -32769L, 16L,
         -32768L,
       15L, -32767L, 15L, -16385L, 15L, -16384L, 14L, -16383L, 14L, -8193L,
         14L, -8192L,
@@ -48,7 +48,7 @@ private static long[] valueBitLengths = { -4294967297L, 33L, -4294967296L,
         13L, 8192L, 14L,
    8193L, 14L, 16383L, 14L, 16384L, 15L, 16385L, 15L, 32767L, 15L, 32768L,
         16L,
-32769L, 16L, 65535L, 16L, 65536L, 17L, 65537L, 17L, 131071L, 17L, 131072L,
+  32769L, 16L, 65535L, 16L, 65536L, 17L, 65537L, 17L, 131071L, 17L, 131072L,
         18L,
  131073L, 18L, 262143L, 18L, 262144L, 19L, 262145L, 19L, 524287L, 19L,
         524288L,
@@ -57,7 +57,7 @@ private static long[] valueBitLengths = { -4294967297L, 33L, -4294967296L,
       2097152L, 22L, 2097153L, 22L, 4194303L, 22L, 4194304L, 23L, 4194305L, 23L,
    8388607L, 23L, 8388608L, 24L, 8388609L, 24L, 16777215L, 24L, 16777216L,
         25L,
-16777217L, 25L, 33554431L, 25L, 33554432L, 26L, 33554433L, 26L, 67108863L,
+  16777217L, 25L, 33554431L, 25L, 33554432L, 26L, 33554433L, 26L, 67108863L,
         26L,
   67108864L, 27L, 67108865L, 27L, 134217727L, 27L, 134217728L, 28L,
         134217729L,
@@ -74,7 +74,7 @@ private static long[] valueBitLengths = { -4294967297L, 33L, -4294967296L,
         0L, 511L, 0L, 512L,
       9L, 513L, 0L, 1023L, 0L, 1024L, 10L, 1025L, 0L, 2047L, 0L, 2048L, 11L,
         2049L, 0L,
-4095L, 0L, 4096L, 12L, 4097L, 0L, 8191L, 0L, 8192L, 13L, 8193L, 0L, 16383L,
+  4095L, 0L, 4096L, 12L, 4097L, 0L, 8191L, 0L, 8192L, 13L, 8193L, 0L, 16383L,
         0L,
       16384L, 14L, 16385L, 0L, 32767L, 0L, 32768L, 15L, 32769L, 0L, 65535L,
         0L, 65536L,
@@ -113,9 +113,9 @@ private static long[] valueBitLengths = { -4294967297L, 33L, -4294967296L,
     }
 
     public static void DoTestDivide(
-string dividend,
-string divisor,
-string result) {
+  string dividend,
+  string divisor,
+  string result) {
       EInteger bigintA = BigFromString(dividend);
       EInteger bigintB = BigFromString(divisor);
       EInteger bigintTemp;
@@ -142,10 +142,10 @@ string result) {
     }
 
     public static void DoTestDivRem(
-string dividend,
-string divisor,
-string result,
-string rem) {
+  string dividend,
+  string divisor,
+  string result,
+  string rem) {
       EInteger bigintA = BigFromString(dividend);
       EInteger bigintB = BigFromString(divisor);
       EInteger rembi;
@@ -193,9 +193,9 @@ string rem) {
     }
 
     public static void DoTestRemainder(
-string dividend,
-string divisor,
-string result) {
+  string dividend,
+  string divisor,
+  string result) {
       EInteger bigintA = BigFromString(dividend);
       EInteger bigintB = BigFromString(divisor);
       if (bigintB.IsZero) {
@@ -388,24 +388,24 @@ string result) {
         EInteger bigintD = bigintC - (EInteger)bigintB;
         if (!bigintD.Equals(bigintA)) {
           Assert.AreEqual(
-bigintA,
-bigintD,
-"TestAddSubtract " + bigintA + "; " + bigintB);
+  bigintA,
+  bigintD,
+  "TestAddSubtract " + bigintA + "; " + bigintB);
         }
         bigintD = bigintC - (EInteger)bigintA;
         if (!bigintD.Equals(bigintB)) {
           Assert.AreEqual(
-bigintB,
-bigintD,
-"TestAddSubtract " + bigintA + "; " + bigintB);
+  bigintB,
+  bigintD,
+  "TestAddSubtract " + bigintA + "; " + bigintB);
         }
         bigintC = bigintA - (EInteger)bigintB;
         bigintD = bigintC + (EInteger)bigintB;
         if (!bigintD.Equals(bigintA)) {
           Assert.AreEqual(
-bigintA,
-bigintD,
-"TestAddSubtract " + bigintA + "; " + bigintB);
+  bigintA,
+  bigintD,
+  "TestAddSubtract " + bigintA + "; " + bigintB);
         }
       }
     }
@@ -572,20 +572,20 @@ bigintD,
       }
       long longV = unchecked((long)0xfffffff200000000L);
       Assert.AreEqual(
-longV,
-BigValueOf(longV).ToInt64Checked());
+  longV,
+  BigValueOf(longV).ToInt64Checked());
       longV = unchecked((long)0xfffffff280000000L);
       Assert.AreEqual(
-longV,
-BigValueOf(longV).ToInt64Checked());
+  longV,
+  BigValueOf(longV).ToInt64Checked());
       longV = unchecked((long)0xfffffff280000001L);
       Assert.AreEqual(
-longV,
-BigValueOf(longV).ToInt64Checked());
+  longV,
+  BigValueOf(longV).ToInt64Checked());
       longV = unchecked((long)0xfffffff27fffffffL);
       Assert.AreEqual(
-longV,
-BigValueOf(longV).ToInt64Checked());
+  longV,
+  BigValueOf(longV).ToInt64Checked());
       Assert.AreEqual(
         0x0000000380000001L,
         BigValueOf(0x0000000380000001L).ToInt64Checked());
@@ -726,13 +726,9 @@ BigValueOf(longV).ToInt64Checked());
         Assert.AreEqual((int)bigintC, c);
       }
     }
-    [Test]
-    public void TestDivRem() {
-      // not implemented yet
-    }
 
     [Test]
-    public void TestDivRem2() {
+    public void TestDivRem() {
       try {
         EInteger.One.DivRem(EInteger.Zero);
         Assert.Fail("Should have failed");
@@ -1312,8 +1308,8 @@ BigValueOf(longV).ToInt64Checked());
 string stringTemp = BigFromString("781631509928000000").Gcd(
           BigFromString("1000000")).ToString();
 Assert.AreEqual(
-"1000000",
-stringTemp);
+  "1000000",
+  stringTemp);
 }
     }
 
@@ -1527,7 +1523,7 @@ stringTemp);
       {
 object objectTemp = 39;
 object objectTemp2 = EInteger.FromString(
-"101754295360222878437145684059582837272").GetDigitCount();
+  "101754295360222878437145684059582837272").GetDigitCount();
 Assert.AreEqual(objectTemp, objectTemp2);
 }
       for (var i = 0; i < 1000; ++i) {
@@ -1868,9 +1864,9 @@ Assert.AreEqual(objectTemp, objectTemp2);
         }
       }
       DoTestMultiply(
-"39258416159456516340113264558732499166970244380745050",
-"39258416159456516340113264558732499166970244380745051",
-"1541223239349076530208308657654362309553698742116222355477449713742236585667505604058123112521437480247550");
+  "39258416159456516340113264558732499166970244380745050",
+  "39258416159456516340113264558732499166970244380745051",
+  "1541223239349076530208308657654362309553698742116222355477449713742236585667505604058123112521437480247550");
       DoTestMultiply(
   "5786426269322750882632312999752639738983363095641642905722171221986067189342123124290107105663618428969517616421742429671402859775667602123564",
   "331378991485809774307751183645559883724387697397707434271522313077548174328632968616330900320595966360728317363190772921",
@@ -2123,13 +2119,13 @@ Assert.AreEqual(objectTemp, objectTemp2);
     public void TestSubtract() {
 EInteger ei1 =
   EInteger.FromString(
-"5903310052234442839693218602919688229567185544510721229016780853271484375");
+  "5903310052234442839693218602919688229567185544510721229016780853271484375");
       EInteger ei2 = EInteger.FromString("710542735760100185871124267578125");
       {
 string stringTemp = ei1.Subtract(ei2).ToString();
 Assert.AreEqual(
-"5903310052234442839693218602919688229566475001774961128830909729003906250",
-stringTemp);
+  "5903310052234442839693218602919688229566475001774961128830909729003906250",
+  stringTemp);
 }
     }
     [Test]
@@ -2326,8 +2322,8 @@ stringTemp);
     }
 
  public static void TestMultiplyDivideOne(
-EInteger bigintA,
-EInteger bigintB) {
+  EInteger bigintA,
+  EInteger bigintB) {
       // Test that A*B/A = B and A*B/B = A
       EInteger bigintC = bigintA.Multiply(bigintB);
       EInteger bigintRem;
@@ -2485,7 +2481,7 @@ EInteger bigintB) {
     public void TT() {
       Console.WriteLine("Starting to print");
  EInteger bi = EInteger.FromString(
-"1").ShiftLeft(742072).Subtract(EInteger.One);
+  "1").ShiftLeft(742072).Subtract(EInteger.One);
       Console.WriteLine("Printing bigint");
       Console.WriteLine(bi.ToString().Length);
     }

@@ -23,25 +23,25 @@ namespace CBOR {
         return;
       }
       Assert.AreEqual(
-(expected & EContext.FlagInexact) != 0,
-(actual & EContext.FlagInexact) != 0,
-"Inexact: " + str);
+  (expected & EContext.FlagInexact) != 0,
+  (actual & EContext.FlagInexact) != 0,
+  "Inexact: " + str);
       Assert.AreEqual(
-(expected & EContext.FlagOverflow) != 0,
-(actual & EContext.FlagOverflow) != 0,
-"Overflow: " + str);
+  (expected & EContext.FlagOverflow) != 0,
+  (actual & EContext.FlagOverflow) != 0,
+  "Overflow: " + str);
       Assert.AreEqual(
-(expected & EContext.FlagUnderflow) != 0,
-(actual & EContext.FlagUnderflow) != 0,
-"Underflow: " + str);
+  (expected & EContext.FlagUnderflow) != 0,
+  (actual & EContext.FlagUnderflow) != 0,
+  "Underflow: " + str);
       Assert.AreEqual(
-(expected & EContext.FlagInvalid) != 0,
-(actual & EContext.FlagInvalid) != 0,
-"Invalid: " + str);
+  (expected & EContext.FlagInvalid) != 0,
+  (actual & EContext.FlagInvalid) != 0,
+  "Invalid: " + str);
       Assert.AreEqual(
-(expected & EContext.FlagDivideByZero) != 0,
-(actual & EContext.FlagDivideByZero) != 0,
-"DivideByZero: " + str);
+  (expected & EContext.FlagDivideByZero) != 0,
+  (actual & EContext.FlagDivideByZero) != 0,
+  "DivideByZero: " + str);
     }
 
     private static bool Contains(string str, string sub) {
@@ -65,8 +65,8 @@ namespace CBOR {
     }
 
     private static EContext SetRounding(
-EContext ctx,
-string round) {
+  EContext ctx,
+  string round) {
       if (round.Equals(">")) {
         ctx = ctx.WithRounding(ERounding.Ceiling);
       }
@@ -107,14 +107,14 @@ string round) {
       IExtendedNumber SquareRoot(EContext ctx);
 
       IExtendedNumber MultiplyAndAdd(
-IExtendedNumber b,
-IExtendedNumber c,
-EContext ctx);
+  IExtendedNumber b,
+  IExtendedNumber c,
+  EContext ctx);
 
       IExtendedNumber MultiplyAndSubtract(
-IExtendedNumber b,
-IExtendedNumber c,
-EContext ctx);
+  IExtendedNumber b,
+  IExtendedNumber c,
+  EContext ctx);
 
       bool IsQuietNaN();
 
@@ -407,7 +407,7 @@ EContext ctx);
         }
         // Console.WriteLine("mant=" + mantissa + " exp=" + exponent);
         return Create(
-EFloat.Create(mantissa, exponent));
+  EFloat.Create(mantissa, exponent));
       }
 
       public static BinaryNumber FromFloatWords(int[] words) {
@@ -442,9 +442,9 @@ EFloat.Create(mantissa, exponent));
           }
           exponent -= 23;
           return Create(
-EFloat.Create(
-bigmantissa,
-(EInteger)exponent));
+  EFloat.Create(
+  bigmantissa,
+  (EInteger)exponent));
         }
         if (words.Length == 2) {
           var neg = (words[0] >> 31) != 0;
@@ -482,9 +482,9 @@ bigmantissa,
           }
           exponent -= 52;
           return Create(
-EFloat.Create(
-bigmantissa,
-(EInteger)exponent));
+  EFloat.Create(
+  bigmantissa,
+  (EInteger)exponent));
         }
         if (words.Length == 4) {
           var neg = (words[0] >> 31) != 0;
@@ -530,9 +530,9 @@ bigmantissa,
           }
           exponent -= 112;
           return Create(
-EFloat.Create(
-bigmantissa,
-(EInteger)exponent));
+  EFloat.Create(
+  bigmantissa,
+  (EInteger)exponent));
         }
         throw new ArgumentException("words has a bad length");
       }
@@ -590,8 +590,8 @@ bigmantissa,
       }
 
       public BinaryNumber Pow(
-ExtensiveTest.IExtendedNumber b,
-EContext ctx) {
+  ExtensiveTest.IExtendedNumber b,
+  EContext ctx) {
         return Create(this.ef.Pow(ToValue(b), ctx));
       }
 
@@ -755,18 +755,18 @@ EContext ctx) {
             return 0;
           }
           op1 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[4]),
-HexInt(chunks[5]), HexInt(chunks[6]),
+  HexInt(chunks[5]), HexInt(chunks[6]),
                     HexInt(chunks[7]) });
           op2 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[8]),
-HexInt(chunks[9]), HexInt(chunks[10]),
-HexInt(chunks[11]) });
+  HexInt(chunks[9]), HexInt(chunks[10]),
+  HexInt(chunks[11]) });
           if (chunks.Length == 12 || chunks[12].Length == 0) {
             result = op2;
             op2 = null;
           } else {
             result = BinaryNumber.FromFloatWords(new[] {
 HexInt(chunks[12]), HexInt(chunks[13]),
-HexInt(chunks[14]), HexInt(chunks[15]) });
+  HexInt(chunks[14]), HexInt(chunks[15]) });
           }
 
           break;

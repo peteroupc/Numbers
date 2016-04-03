@@ -22,13 +22,13 @@ namespace Test {
       "0.0000000000000000000000000000000", "0.0000e-1", "0.00000",
       "0.00000", "0.00000", "0.00000000000e-11", "0E-22", "0.0E-21",
       "0.0000000000000000000000", "0.00000000000e-17", "0E-28", "0.0E-27",
-"0.0000000000000000000000000000", "0.00000000000000e+9", "0.00000",
-"0.00000", "0.00000", "0.0000000000e-18", "0E-28", "0.0E-27",
+  "0.0000000000000000000000000000", "0.00000000000000e+9", "0.00000",
+  "0.00000", "0.00000", "0.0000000000e-18", "0E-28", "0.0E-27",
       "0.0000000000000000000000000000", "0.0e-13", "0E-14", "0.00E-12",
       "0.00000000000000", "0.000000000000000000e+10", "0E-8", "0.00E-6",
       "0.00000000", "0.0000e+19", "0E+15", "0E+15", "0", "0.00000e-8",
       "0E-13", "0.0E-12", "0.0000000000000", "0.00000000000e+14", "0E+3",
-"0E+3", "0", "0.000e-14", "0E-17", "0.00E-15",
+  "0E+3", "0", "0.000e-14", "0E-17", "0.00E-15",
       "0.00000000000000000", "0.000000e-19", "0E-25", "0.0E-24",
       "0.0000000000000000000000000", "0.000000000000e+19", "0E+7",
       "0.00E+9", "0", "0.0000000000000e+18", "0E+5", "0.0E+6", "0",
@@ -39,25 +39,25 @@ namespace Test {
       "0.00000000000000000e+0", "0E-17", "0.00E-15",
       "0.00000000000000000", "0.0000000000000e+0", "0E-13", "0.0E-12",
       "0.0000000000000", "0.0000000000000000000e-12", "0E-31", "0.0E-30",
-"0.0000000000000000000000000000000", "0.0000000000000000000e+10",
+  "0.0000000000000000000000000000000", "0.0000000000000000000e+10",
       "0E-9", "0E-9", "0.000000000", "0.00000e-2", "0E-7", "0.0E-6",
       "0.0000000", "0.000000e+15", "0E+9", "0E+9", "0",
       "0.000000000e-10", "0E-19", "0.0E-18", "0.0000000000000000000",
       "0.00000000000000e+6", "0E-8", "0.00E-6", "0.00000000",
       "0.00000e+17", "0E+12", "0E+12", "0", "0.000000000000000000e-0",
       "0E-18", "0E-18", "0.000000000000000000", "0.0000000000000000e+11",
-"0.00000", "0.00000", "0.00000", "0.000000000000e+15", "0E+3",
+  "0.00000", "0.00000", "0.00000", "0.000000000000e+15", "0E+3",
       "0E+3", "0", "0.00000000e-19", "0E-27", "0E-27",
       "0.000000000000000000000000000", "0.00000e-6", "0E-11", "0.00E-9",
       "0.00000000000", "0e-14", "0E-14", "0.00E-12", "0.00000000000000",
-"0.000000000e+9", "0", "0", "0", "0.00000e+13", "0E+8",
+  "0.000000000e+9", "0", "0", "0", "0.00000e+13", "0E+8",
       "0.0E+9", "0", "0.000e-0", "0.000", "0.000", "0.000",
       "0.000000000000000e+6", "0E-9", "0E-9", "0.000000000",
       "0.000000000e+17", "0E+8", "0.0E+9", "0", "0.00000000000e+6",
       "0.00000", "0.00000", "0.00000", "0.00000000000000e+3", "0E-11",
       "0.00E-9", "0.00000000000", "0e+0", "0", "0", "0", "0.000e+12",
       "0E+9", "0E+9", "0", "0.00000000000e+9", "0.00", "0.00", "0.00",
-"0.00000000000000e-9", "0E-23", "0.00E-21",
+  "0.00000000000000e-9", "0E-23", "0.00E-21",
       "0.00000000000000000000000", "0e-1", "0.0", "0.0", "0.0",
       "0.0000e-13", "0E-17", "0.00E-15", "0.00000000000000000",
       "0.00000000000e-7", "0E-18", "0E-18", "0.000000000000000000",
@@ -66,9 +66,9 @@ namespace Test {
       "0.00e-6", "0E-8", "0.00E-6", "0.00000000", "0.0e-1", "0.00",
       "0.00", "0.00", "0.0000000000000000e-10", "0E-26", "0.00E-24",
       "0.00000000000000000000000000", "0.00e+14", "0E+12", "0E+12", "0",
-"0.000000000000000000e+5", "0E-13", "0.0E-12", "0.0000000000000",
-"0.0e+7", "0E+6", "0E+6", "0", "0.00000000e+8", "0", "0", "0",
-"0.000000000e+0", "0E-9", "0E-9", "0.000000000", "0.000e+13",
+  "0.000000000000000000e+5", "0E-13", "0.0E-12", "0.0000000000000",
+  "0.0e+7", "0E+6", "0E+6", "0", "0.00000000e+8", "0", "0", "0",
+  "0.000000000e+0", "0E-9", "0E-9", "0.000000000", "0.000e+13",
       "0E+10", "0.00E+12", "0", "0.0000000000000000e+16", "0", "0",
       "0", "0.00000000e-1", "0E-9", "0E-9", "0.000000000",
       "0.00000000000e-15", "0E-26", "0.00E-24",
@@ -77,7 +77,7 @@ namespace Test {
       "0.0000000000000000000e-19", "0E-38", "0.00E-36",
       "0.00000000000000000000000000000000000000", "0.0000000000e-6",
       "0E-16", "0.0E-15", "0.0000000000000000", "0.00000000000000000e-15",
-"0E-32", "0.00E-30", "0.00000000000000000000000000000000",
+  "0E-32", "0.00E-30", "0.00000000000000000000000000000000",
       "0.000000000000000e+2", "0E-13", "0.0E-12", "0.0000000000000",
       "0.0e-18", "0E-19", "0.0E-18", "0.0000000000000000000",
       "0.00000000000000e-6", "0E-20", "0.00E-18",
@@ -85,7 +85,7 @@ namespace Test {
       "0.00000000000000000000", "0.00000000000000e-7", "0E-21", "0E-21",
       "0.000000000000000000000", "0.000000e-9", "0E-15", "0E-15",
       "0.000000000000000", "0e-11", "0E-11", "0.00E-9", "0.00000000000",
-"0.000000000e+11", "0E+2", "0.0E+3", "0",
+  "0.000000000e+11", "0E+2", "0.0E+3", "0",
       "0.0000000000000000e+15", "0.0", "0.0", "0.0",
       "0.0000000000000000e+10", "0.000000", "0.000000", "0.000000",
       "0.000000000e+4", "0.00000", "0.00000", "0.00000",
@@ -185,26 +185,26 @@ namespace Test {
         Assert.AreEqual(ba1.Sign, ba2.Sign);
         Assert.AreEqual(ba1.ToString(), ba2.ToString());
         TestCommon.CompareTestEqual(
-ba1,
-ba2,
-bigintA.ToString() + "/" + bigintB.ToString());
+  ba1,
+  ba2,
+  bigintA.ToString() + "/" + bigintB.ToString());
       }
       TestCommon.CompareTestEqual(
-EDecimal.FromString("-1.603074425947290000E+2147483671"),
-EDecimal.FromString("-1.60307442594729E+2147483671"));
+  EDecimal.FromString("-1.603074425947290000E+2147483671"),
+  EDecimal.FromString("-1.60307442594729E+2147483671"));
       TestCommon.CompareTestLess(EDecimal.Zero, EDecimal.NaN);
       TestCommon.CompareTestLess(
-EDecimal.FromString("-4328117878201602191937590091183.9810549"),
-EDecimal.FromString("-14"));
+  EDecimal.FromString("-4328117878201602191937590091183.9810549"),
+  EDecimal.FromString("-14"));
       TestCommon.CompareTestGreater(
-EDecimal.FromString("937125319376706291597172.99"),
-EDecimal.FromString("9755.2823"));
+  EDecimal.FromString("937125319376706291597172.99"),
+  EDecimal.FromString("9755.2823"));
       TestCommon.CompareTestLess(
-EDecimal.FromString("95"),
-EDecimal.FromString("1.41189247453434859259019E+26"));
+  EDecimal.FromString("95"),
+  EDecimal.FromString("1.41189247453434859259019E+26"));
       TestCommon.CompareTestGreater(
-EDecimal.FromString("379351600076111561037"),
-EDecimal.FromString("8451910"));
+  EDecimal.FromString("379351600076111561037"),
+  EDecimal.FromString("8451910"));
     }
     [Test]
     public void TestCompareToBinary() {
@@ -371,15 +371,15 @@ EDecimal.FromString("8451910"));
         EInteger.FromString("255")) <= 0;
         if (isNum) {
      TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteChecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteChecked()));
    TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteUnchecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteUnchecked()));
           if (isInteger) {
      TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteIfExact()));
+  eint,
+  EInteger.FromByte(enumber.ToByteIfExact()));
           } else {
             try {
               enumber.ToByteIfExact();
@@ -393,11 +393,11 @@ EInteger.FromByte(enumber.ToByteIfExact()));
           }
         } else if (isTruncated) {
      TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteChecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteChecked()));
    TestCommon.AssertEquals(
-eint,
-EInteger.FromByte(enumber.ToByteUnchecked()));
+  eint,
+  EInteger.FromByte(enumber.ToByteUnchecked()));
           try {
             enumber.ToByteIfExact();
             Assert.Fail("Should have failed");
@@ -453,15 +453,15 @@ EInteger.FromByte(enumber.ToByteUnchecked()));
         EInteger.FromString("32767")) <= 0;
         if (isNum) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Checked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Unchecked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Unchecked()));
           if (isInteger) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16IfExact()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16IfExact()));
           } else {
             try {
               enumber.ToInt16IfExact();
@@ -475,11 +475,11 @@ EInteger.FromInt16(enumber.ToInt16IfExact()));
           }
         } else if (isTruncated) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Checked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt16(enumber.ToInt16Unchecked()));
+  eint,
+  EInteger.FromInt16(enumber.ToInt16Unchecked()));
           try {
             enumber.ToInt16IfExact();
             Assert.Fail("Should have failed");
@@ -536,15 +536,15 @@ EInteger.FromInt16(enumber.ToInt16Unchecked()));
         EInteger.FromString("2147483647")) <= 0;
         if (isNum) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Checked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Unchecked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Unchecked()));
           if (isInteger) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32IfExact()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32IfExact()));
           } else {
             try {
               enumber.ToInt32IfExact();
@@ -558,11 +558,11 @@ EInteger.FromInt32(enumber.ToInt32IfExact()));
           }
         } else if (isTruncated) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Checked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt32(enumber.ToInt32Unchecked()));
+  eint,
+  EInteger.FromInt32(enumber.ToInt32Unchecked()));
           try {
             enumber.ToInt32IfExact();
             Assert.Fail("Should have failed");
@@ -619,15 +619,15 @@ EInteger.FromInt32(enumber.ToInt32Unchecked()));
         EDecimal.FromString("9223372036854775807")) <= 0;
         if (isNum) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Checked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Unchecked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Unchecked()));
           if (isInteger) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64IfExact()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64IfExact()));
           } else {
             try {
               enumber.ToInt64IfExact();
@@ -641,11 +641,11 @@ EInteger.FromInt64(enumber.ToInt64IfExact()));
           }
         } else if (isTruncated) {
    TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Checked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Checked()));
  TestCommon.AssertEquals(
-eint,
-EInteger.FromInt64(enumber.ToInt64Unchecked()));
+  eint,
+  EInteger.FromInt64(enumber.ToInt64Unchecked()));
           try {
             enumber.ToInt64IfExact();
             Assert.Fail("Should have failed");
@@ -2455,7 +2455,7 @@ throw new InvalidOperationException(String.Empty, ex);
       }
       {
         string stringTemp = EDecimal.FromString(
-"1").MovePointLeft(0).ToString();
+  "1").MovePointLeft(0).ToString();
         Assert.AreEqual(
         "1",
         stringTemp);
@@ -2682,11 +2682,11 @@ throw new InvalidOperationException(String.Empty, ex);
     [Test]
     public void TestPlus() {
       Assert.AreEqual(
-EDecimal.Zero,
-EDecimal.NegativeZero.Plus(EContext.Basic));
+  EDecimal.Zero,
+  EDecimal.NegativeZero.Plus(EContext.Basic));
       Assert.AreEqual(
-EDecimal.Zero,
-EDecimal.NegativeZero.Plus(null));
+  EDecimal.Zero,
+  EDecimal.NegativeZero.Plus(null));
     }
     [Test]
     public void TestPow() {
@@ -2982,8 +2982,8 @@ EDecimal.NegativeZero.Plus(null));
 
     private static EDecimal GetHalfUlp(double dbl) {
       long value = BitConverter.ToInt64(
-BitConverter.GetBytes((double)dbl),
-0);
+  BitConverter.GetBytes((double)dbl),
+  0);
       var exponent = (int)((value >> 52) & 0x7ffL);
       if (exponent == 0) {
         return UlpTable[exponent];
@@ -2996,8 +2996,8 @@ BitConverter.GetBytes((double)dbl),
 
     private static EDecimal GetHalfUlp(float sng) {
       int value = BitConverter.ToInt32(
-BitConverter.GetBytes((float)sng),
-0);
+  BitConverter.GetBytes((float)sng),
+  0);
       var exponent = (int)((value >> 23) & 0xff);
       if (exponent == 0) {
         return UlpTable[exponent + 925];
@@ -3197,7 +3197,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"293.0E0").ToEngineeringString();
+  "293.0E0").ToEngineeringString();
         Assert.AreEqual(
           "293.0",
           stringTemp);
@@ -3211,7 +3211,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"366.6E8").ToEngineeringString();
+  "366.6E8").ToEngineeringString();
         Assert.AreEqual(
           "36.66E+9",
           stringTemp);
@@ -3281,7 +3281,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"67.8E-9").ToEngineeringString();
+  "67.8E-9").ToEngineeringString();
         Assert.AreEqual(
           "67.8E-9",
           stringTemp);
@@ -3323,7 +3323,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"42.4E-8").ToEngineeringString();
+  "42.4E-8").ToEngineeringString();
         Assert.AreEqual(
           "424E-9",
           stringTemp);
@@ -3337,7 +3337,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"302.8E6").ToEngineeringString();
+  "302.8E6").ToEngineeringString();
         Assert.AreEqual(
           "302.8E+6",
           stringTemp);
@@ -3456,7 +3456,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"21.32E0").ToEngineeringString();
+  "21.32E0").ToEngineeringString();
         Assert.AreEqual(
           "21.32",
           stringTemp);
@@ -3470,14 +3470,14 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"72.8E-3").ToEngineeringString();
+  "72.8E-3").ToEngineeringString();
         Assert.AreEqual(
           "0.0728",
           stringTemp);
       }
       {
         string stringTemp = EDecimal.FromString(
-"164.6E7").ToEngineeringString();
+  "164.6E7").ToEngineeringString();
         Assert.AreEqual(
           "1.646E+9",
           stringTemp);
@@ -3498,7 +3498,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"233.7E5").ToEngineeringString();
+  "233.7E5").ToEngineeringString();
         Assert.AreEqual(
           "23.37E+6",
           stringTemp);
@@ -3540,7 +3540,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"207.5E3").ToEngineeringString();
+  "207.5E3").ToEngineeringString();
         Assert.AreEqual(
           "207.5E+3",
           stringTemp);
@@ -3582,21 +3582,21 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"13.26E7").ToEngineeringString();
+  "13.26E7").ToEngineeringString();
         Assert.AreEqual(
           "132.6E+6",
           stringTemp);
       }
       {
         string stringTemp = EDecimal.FromString(
-"251.5E5").ToEngineeringString();
+  "251.5E5").ToEngineeringString();
         Assert.AreEqual(
           "25.15E+6",
           stringTemp);
       }
       {
         string stringTemp = EDecimal.FromString(
-"87.32E0").ToEngineeringString();
+  "87.32E0").ToEngineeringString();
         Assert.AreEqual(
           "87.32",
           stringTemp);
@@ -3631,7 +3631,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"219.9E0").ToEngineeringString();
+  "219.9E0").ToEngineeringString();
         Assert.AreEqual(
           "219.9",
           stringTemp);
@@ -3645,14 +3645,14 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"48.28E7").ToEngineeringString();
+  "48.28E7").ToEngineeringString();
         Assert.AreEqual(
           "482.8E+6",
           stringTemp);
       }
       {
         string stringTemp = EDecimal.FromString(
-"267.8E0").ToEngineeringString();
+  "267.8E0").ToEngineeringString();
         Assert.AreEqual(
           "267.8",
           stringTemp);
@@ -3715,7 +3715,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"383.5E0").ToEngineeringString();
+  "383.5E0").ToEngineeringString();
         Assert.AreEqual(
           "383.5",
           stringTemp);
@@ -3750,7 +3750,7 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       }
       {
         string stringTemp = EDecimal.FromString(
-"66.13E4").ToEngineeringString();
+  "66.13E4").ToEngineeringString();
         Assert.AreEqual(
           "661.3E+3",
           stringTemp);
@@ -4577,14 +4577,14 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative);
     public void TestToString() {
       for (var i = 0; i < ValueTestStrings.Length; i += 4) {
         Assert.AreEqual(
-ValueTestStrings[i + 1],
-EDecimal.FromString(ValueTestStrings[i]).ToString());
+  ValueTestStrings[i + 1],
+  EDecimal.FromString(ValueTestStrings[i]).ToString());
         Assert.AreEqual(
-ValueTestStrings[i + 2],
-EDecimal.FromString(ValueTestStrings[i]).ToEngineeringString());
+  ValueTestStrings[i + 2],
+  EDecimal.FromString(ValueTestStrings[i]).ToEngineeringString());
         Assert.AreEqual(
-ValueTestStrings[i + 3],
-EDecimal.FromString(ValueTestStrings[i]).ToPlainString());
+  ValueTestStrings[i + 3],
+  EDecimal.FromString(ValueTestStrings[i]).ToPlainString());
       }
       var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
@@ -4658,8 +4658,8 @@ EDecimal.FromString(ValueTestStrings[i]).ToPlainString());
       ERounding rounding) {
       EDecimal inputED = EDecimal.FromString(input);
       inputED = inputED.RoundToExponent(
-exponent,
-EContext.ForRounding(rounding));
+  exponent,
+  EContext.ForRounding(rounding));
       Assert.AreEqual(expected, inputED.ToString());
     }
   }

@@ -123,8 +123,8 @@ namespace PeterO.Numbers {
       try {
         EDecimal newDecimal = EDecimal.FromEInteger(extendedNumber.Numerator)
           .Divide(
-EDecimal.FromEInteger(extendedNumber.Denominator),
-EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
+  EDecimal.FromEInteger(extendedNumber.Denominator),
+  EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
         return (decimal)newDecimal;
       } catch (ETrapException ex) {
         throw new OverflowException("This object's value is out of range", ex);

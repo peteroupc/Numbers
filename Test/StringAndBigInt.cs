@@ -37,7 +37,7 @@ if (radix > 36) {
 }
       EInteger bv = EInteger.Zero;
       var sabi = new StringAndBigInt();
-      int numDigits = 1 + rand.UniformInt(100);
+      int numDigits = 1 + rand.UniformInt(400);
       var negative = false;
       var builder = new StringBuilder();
       if (rand.UniformInt(2) == 0) {

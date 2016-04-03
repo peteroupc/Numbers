@@ -136,11 +136,11 @@ namespace Test {
       }
       if (selection < 50) {
       StringAndBigInt sabi = StringAndBigInt.Generate(
-r,
-2 + r.UniformInt(35));
+  r,
+  2 + r.UniformInt(35));
         return sabi.BigIntValue;
       } else {
-        int count = r.UniformInt(60) + 1;
+        int count = r.UniformInt(400) + 1;
         var bytes = new byte[count];
         for (var i = 0; i < count; ++i) {
           bytes[i] = (byte)((int)r.UniformInt(256));
@@ -163,8 +163,8 @@ r,
         }
       }
       return EFloat.Create(
-RandomEInteger(r),
-(EInteger)(r.UniformInt(400) - 200));
+  RandomEInteger(r),
+  (EInteger)(r.UniformInt(400) - 200));
     }
 
     public static String RandomBigIntString(RandomGenerator r) {

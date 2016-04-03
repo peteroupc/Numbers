@@ -34,9 +34,9 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Subtraction(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
- public static EInteger operator -(
-EInteger bthis,
-EInteger subtrahend) {
+    public static EInteger operator -(
+     EInteger bthis,
+     EInteger subtrahend) {
       if (bthis == null) {
         throw new ArgumentNullException("bthis");
       }
@@ -45,9 +45,9 @@ EInteger subtrahend) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Multiply(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-public static EInteger operator *(
-EInteger operand1,
-EInteger operand2) {
+    public static EInteger operator *(
+      EInteger operand1,
+      EInteger operand2) {
       if (operand1 == null) {
         throw new ArgumentNullException("operand1");
       }
@@ -56,9 +56,9 @@ EInteger operand2) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Division(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
- public static EInteger operator /(
-EInteger dividend,
-EInteger divisor) {
+    public static EInteger operator /(
+     EInteger dividend,
+     EInteger divisor) {
       if (dividend == null) {
         throw new ArgumentNullException("dividend");
       }
@@ -67,9 +67,9 @@ EInteger divisor) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Modulus(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
- public static EInteger operator %(
-EInteger dividend,
-EInteger divisor) {
+    public static EInteger operator %(
+     EInteger dividend,
+     EInteger divisor) {
       if (dividend == null) {
         throw new ArgumentNullException("dividend");
       }
@@ -88,9 +88,9 @@ EInteger divisor) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger ModPow(
-EInteger bigintValue,
-EInteger pow,
-EInteger mod) {
+  EInteger bigintValue,
+  EInteger pow,
+  EInteger mod) {
       if (bigintValue == null) {
         throw new ArgumentNullException("bigintValue");
       }
@@ -149,9 +149,9 @@ EInteger mod) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LessThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-  public static bool operator <=(
-EInteger thisValue,
-EInteger otherValue) {
+    public static bool operator <=(
+    EInteger thisValue,
+    EInteger otherValue) {
       return (thisValue == null) || (thisValue.CompareTo(otherValue) <= 0);
     }
 
@@ -163,9 +163,9 @@ EInteger otherValue) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_GreaterThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-  public static bool operator >=(
-EInteger thisValue,
-EInteger otherValue) {
+    public static bool operator >=(
+    EInteger thisValue,
+    EInteger otherValue) {
       return (thisValue == null) ? (otherValue == null) :
         (thisValue.CompareTo(otherValue) >= 0);
     }
@@ -218,15 +218,15 @@ EInteger otherValue) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)"]/*'/>
     [Obsolete("Use the DivRem instance method instead.")]
     public static EInteger DivRem(
-EInteger dividend,
-EInteger divisor,
-out EInteger remainder) {
+  EInteger dividend,
+  EInteger divisor,
+  out EInteger remainder) {
       if (dividend == null) {
         throw new ArgumentNullException("dividend");
       }
       if (divisor == null) {
-  throw new ArgumentNullException("divisor");
-}
+        throw new ArgumentNullException("divisor");
+      }
       EInteger[] result = dividend.DivRem(divisor);
       remainder = result[1];
       return result[0];
@@ -311,11 +311,11 @@ out EInteger remainder) {
       valueXbNegative = b.negative;
       valueXbWordCount = b.wordCount;
       valueXaReg = CleanGrow(
-valueXaReg,
-Math.Max(valueXaReg.Length, valueXbReg.Length));
+  valueXaReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
       valueXbReg = CleanGrow(
-valueXbReg,
-Math.Max(valueXaReg.Length, valueXbReg.Length));
+  valueXbReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
       if (valueXaNegative) {
         {
           TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
@@ -364,11 +364,11 @@ Math.Max(valueXaReg.Length, valueXbReg.Length));
       valueXbNegative = second.negative;
       valueXbWordCount = second.wordCount;
       valueXaReg = CleanGrow(
-valueXaReg,
-Math.Max(valueXaReg.Length, valueXbReg.Length));
+  valueXaReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
       valueXbReg = CleanGrow(
-valueXbReg,
-Math.Max(valueXaReg.Length, valueXbReg.Length));
+  valueXbReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
       if (valueXaNegative) {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
@@ -414,11 +414,11 @@ Math.Max(valueXaReg.Length, valueXbReg.Length));
       valueXbNegative = b.negative;
       valueXbWordCount = b.wordCount;
       valueXaReg = CleanGrow(
-valueXaReg,
-Math.Max(valueXaReg.Length, valueXbReg.Length));
+  valueXaReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
       valueXbReg = CleanGrow(
-valueXbReg,
-Math.Max(valueXaReg.Length, valueXbReg.Length));
+  valueXbReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
       if (valueXaNegative) {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
@@ -434,193 +434,193 @@ Math.Max(valueXaReg.Length, valueXbReg.Length));
       return (valueXaWordCount == 0) ? EInteger.Zero : (new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
-        // Begin integer conversions
+    // Begin integer conversions
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'/>
-public static explicit operator byte(EInteger input) {
- return input.ToByteChecked();
-}
+    public static explicit operator byte(EInteger input) {
+      return input.ToByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Byte)~PeterO.Numbers.EInteger"]/*'/>
-public static implicit operator EInteger(byte inputByte) {
- return EInteger.FromByte(inputByte);
-}
+    public static implicit operator EInteger(byte inputByte) {
+      return EInteger.FromByte(inputByte);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToSByteChecked"]/*'/>
-[CLSCompliant(false)]
-public sbyte ToSByteChecked() {
- int val = this.ToInt32Checked();
- if (val < -128 || val > 127) {
-  throw new OverflowException("This object's value is out of range");
- }
- return unchecked((sbyte)(val & 0xff));
-}
+    [CLSCompliant(false)]
+    public sbyte ToSByteChecked() {
+      int val = this.ToInt32Checked();
+      if (val < -128 || val > 127) {
+        throw new OverflowException("This object's value is out of range");
+      }
+      return unchecked((sbyte)(val & 0xff));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToSByteUnchecked"]/*'/>
-[CLSCompliant(false)]
-public sbyte ToSByteUnchecked() {
- int val = this.ToInt32Unchecked();
- return unchecked((sbyte)(val & 0xff));
-}
+    [CLSCompliant(false)]
+    public sbyte ToSByteUnchecked() {
+      int val = this.ToInt32Unchecked();
+      return unchecked((sbyte)(val & 0xff));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromSByte(System.SByte)"]/*'/>
-[CLSCompliant(false)]
-public static EInteger FromSByte(sbyte inputSByte) {
- var val = (int)inputSByte;
- return FromInt32(val);
-}
+    [CLSCompliant(false)]
+    public static EInteger FromSByte(sbyte inputSByte) {
+      var val = (int)inputSByte;
+      return FromInt32(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.SByte"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator sbyte(EInteger input) {
- return input.ToSByteChecked();
-}
+    [CLSCompliant(false)]
+    public static explicit operator sbyte(EInteger input) {
+      return input.ToSByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.SByte)~PeterO.Numbers.EInteger"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator EInteger(sbyte inputSByte) {
- return EInteger.FromSByte(inputSByte);
-}
+    [CLSCompliant(false)]
+    public static implicit operator EInteger(sbyte inputSByte) {
+      return EInteger.FromSByte(inputSByte);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16"]/*'/>
-public static explicit operator short(EInteger input) {
- return input.ToInt16Checked();
-}
+    public static explicit operator short(EInteger input) {
+      return input.ToInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int16)~PeterO.Numbers.EInteger"]/*'/>
-public static implicit operator EInteger(short inputInt16) {
- return EInteger.FromInt16(inputInt16);
-}
+    public static implicit operator EInteger(short inputInt16) {
+      return EInteger.FromInt16(inputInt16);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToUInt16Checked"]/*'/>
-[CLSCompliant(false)]
-public ushort ToUInt16Checked() {
- int val = this.ToInt32Checked();
- if (val < 0 || val > 65535) {
-  throw new OverflowException("This object's value is out of range");
- }
- return unchecked((ushort)(val & 0xffff));
-}
+    [CLSCompliant(false)]
+    public ushort ToUInt16Checked() {
+      int val = this.ToInt32Checked();
+      if (val < 0 || val > 65535) {
+        throw new OverflowException("This object's value is out of range");
+      }
+      return unchecked((ushort)(val & 0xffff));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToUInt16Unchecked"]/*'/>
-[CLSCompliant(false)]
-public ushort ToUInt16Unchecked() {
- int val = this.ToInt32Unchecked();
- return unchecked((ushort)(val & 0xffff));
-}
+    [CLSCompliant(false)]
+    public ushort ToUInt16Unchecked() {
+      int val = this.ToInt32Unchecked();
+      return unchecked((ushort)(val & 0xffff));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromUInt16(System.UInt16)"]/*'/>
-[CLSCompliant(false)]
-public static EInteger FromUInt16(ushort inputUInt16) {
- int val = ((int)inputUInt16) & 0xffff;
- return FromInt32(val);
-}
+    [CLSCompliant(false)]
+    public static EInteger FromUInt16(ushort inputUInt16) {
+      int val = ((int)inputUInt16) & 0xffff;
+      return FromInt32(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt16"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator ushort(EInteger input) {
- return input.ToUInt16Checked();
-}
+    [CLSCompliant(false)]
+    public static explicit operator ushort(EInteger input) {
+      return input.ToUInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt16)~PeterO.Numbers.EInteger"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator EInteger(ushort inputUInt16) {
- return EInteger.FromUInt16(inputUInt16);
-}
+    [CLSCompliant(false)]
+    public static implicit operator EInteger(ushort inputUInt16) {
+      return EInteger.FromUInt16(inputUInt16);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32"]/*'/>
-public static explicit operator int(EInteger input) {
- return input.ToInt32Checked();
-}
+    public static explicit operator int(EInteger input) {
+      return input.ToInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int32)~PeterO.Numbers.EInteger"]/*'/>
-public static implicit operator EInteger(int inputInt32) {
- return EInteger.FromInt32(inputInt32);
-}
+    public static implicit operator EInteger(int inputInt32) {
+      return EInteger.FromInt32(inputInt32);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToUInt32Checked"]/*'/>
-[CLSCompliant(false)]
-public uint ToUInt32Checked() {
- long val = this.ToInt64Checked();
- if (val < 0 || val > 4294967295L) {
-  throw new OverflowException("This object's value is out of range");
- }
- return unchecked((uint)(val & 0xffffffffL));
-}
+    [CLSCompliant(false)]
+    public uint ToUInt32Checked() {
+      long val = this.ToInt64Checked();
+      if (val < 0 || val > 4294967295L) {
+        throw new OverflowException("This object's value is out of range");
+      }
+      return unchecked((uint)(val & 0xffffffffL));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToUInt32Unchecked"]/*'/>
-[CLSCompliant(false)]
-public uint ToUInt32Unchecked() {
- long val = this.ToInt64Unchecked();
- return unchecked((uint)(val & 0xffffffffL));
-}
+    [CLSCompliant(false)]
+    public uint ToUInt32Unchecked() {
+      long val = this.ToInt64Unchecked();
+      return unchecked((uint)(val & 0xffffffffL));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromUInt32(System.UInt32)"]/*'/>
-[CLSCompliant(false)]
-public static EInteger FromUInt32(uint inputUInt32) {
- long val = ((long)inputUInt32) & 0xffffffffL;
- return FromInt64(val);
-}
+    [CLSCompliant(false)]
+    public static EInteger FromUInt32(uint inputUInt32) {
+      long val = ((long)inputUInt32) & 0xffffffffL;
+      return FromInt64(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt32"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator uint(EInteger input) {
- return input.ToUInt32Checked();
-}
+    [CLSCompliant(false)]
+    public static explicit operator uint(EInteger input) {
+      return input.ToUInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt32)~PeterO.Numbers.EInteger"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator EInteger(uint inputUInt32) {
- return EInteger.FromUInt32(inputUInt32);
-}
+    [CLSCompliant(false)]
+    public static implicit operator EInteger(uint inputUInt32) {
+      return EInteger.FromUInt32(inputUInt32);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int64"]/*'/>
-public static explicit operator long(EInteger input) {
- return input.ToInt64Checked();
-}
+    public static explicit operator long(EInteger input) {
+      return input.ToInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Int64)~PeterO.Numbers.EInteger"]/*'/>
-public static implicit operator EInteger(long inputInt64) {
- return EInteger.FromInt64(inputInt64);
-}
+    public static implicit operator EInteger(long inputInt64) {
+      return EInteger.FromInt64(inputInt64);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt64"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator ulong(EInteger input) {
- return input.ToUInt64Checked();
-}
+    [CLSCompliant(false)]
+    public static explicit operator ulong(EInteger input) {
+      return input.ToUInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.UInt64)~PeterO.Numbers.EInteger"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator EInteger(ulong inputUInt64) {
- return EInteger.FromUInt64(inputUInt64);
-}
+    [CLSCompliant(false)]
+    public static implicit operator EInteger(ulong inputUInt64) {
+      return EInteger.FromUInt64(inputUInt64);
+    }
 
-// End integer conversions
+    // End integer conversions
   }
 }

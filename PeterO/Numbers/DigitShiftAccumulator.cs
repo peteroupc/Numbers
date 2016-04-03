@@ -53,9 +53,9 @@ namespace PeterO.Numbers {
     }
 
     public DigitShiftAccumulator(
-EInteger bigint,
-int lastDiscarded,
-int olderDiscarded) {
+  EInteger bigint,
+  int lastDiscarded,
+  int olderDiscarded) {
       if (bigint.CanFitInInt32()) {
         this.shiftedSmall = (int)bigint;
         if (this.shiftedSmall < 0) {
@@ -72,9 +72,9 @@ int olderDiscarded) {
     }
 
     public DigitShiftAccumulator(
-int smallint,
-int lastDiscarded,
-int olderDiscarded) {
+  int smallint,
+  int lastDiscarded,
+  int olderDiscarded) {
         this.shiftedSmall = smallint;
         if (this.shiftedSmall < 0) {
           throw new ArgumentException("shiftedSmall (" + this.shiftedSmall +
@@ -167,9 +167,9 @@ int olderDiscarded) {
     }
 
     public void ShiftToDigits(
-FastInteger bits,
-FastInteger preShift,
-bool truncate) {
+  FastInteger bits,
+  FastInteger preShift,
+  bool truncate) {
 #if DEBUG
         if (bits.Sign < 0) {
           throw new ArgumentException("bits's sign (" + bits.Sign +
@@ -792,7 +792,7 @@ if (!(value >= 0)) {
 #if DEBUG
         if (!(digitDiff.CompareToInt(2) > 0)) {
     throw new ArgumentException(
-"doesn't satisfy digitDiff.CompareToInt(2)>0");
+  "doesn't satisfy digitDiff.CompareToInt(2)>0");
         }
 #endif
         EInteger bigrem = null;
