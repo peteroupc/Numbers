@@ -10,12 +10,19 @@ namespace PeterO {
     /// concurrent use by multiple threads, as long as the underlying
     /// random byte generator is as well.</para></summary>
   public sealed class RandomGenerator {
-    bool haveLastNormal;
-    IRandomGen irg;
-    double lastNormal;
-    object normalLock = new Object();
+    internal bool haveLastNormal;
+    internal IRandomGen irg;
+    internal double lastNormal;
+    internal object normalLock = new Object();
+
+    /// <summary>Initializes a new instance of the RandomGenerator
+    /// class.</summary>
     public RandomGenerator() : this(new XorShift128Plus()) {
     }
+
+    /// <summary>Initializes a new instance of the RandomGenerator
+    /// class.</summary>
+    /// <param name='irg'>An IRandomGen object.</param>
     public RandomGenerator(IRandomGen irg) {
       this.irg = irg;
     }
@@ -32,14 +39,14 @@ namespace PeterO {
       if (p > 1) {
         throw new ArgumentException("p (" + p + ") is more than " + 1);
       }
-      return Uniform() < p;
+      return this.Uniform() < p;
     }
 
     /// <summary>Returns either true or false at a 50% chance
     /// each.</summary>
     /// <returns>A Boolean object.</returns>
     public bool Bernoulli() {
-      return UniformInt(2) == 0;
+      return this.UniformInt(2) == 0;
     }
 
     /// <summary>Conceptually, generates either 1 or 0 the given number of
@@ -48,7 +55,7 @@ namespace PeterO {
     /// <param name='trials'>Another 32-bit signed integer.</param>
     /// <returns>A 32-bit signed integer.</returns>
     public int Binomial(int trials) {
-      return Binomial(trials, 0.5);
+      return this.Binomial(trials, 0.5);
     }
 
     /// <summary>Conceptually, generates either 1 or 0 the given number of
@@ -66,7 +73,7 @@ namespace PeterO {
       if (p > 1) {
         throw new ArgumentException("p (" + p + ") is more than " + 1);
       }
-      if ((trials) <= -1) {
+      if (trials <= -1) {
         throw new ArgumentException("trials (" + trials +
                ") is not greater than " + (-1));
       }
@@ -77,7 +84,7 @@ namespace PeterO {
       if (p == 0.5) {
         var bytes = new byte[1];
         for (int i = 0; i < trials && i >= 0;) {
-          irg.GetBytes(bytes, 0, 1);
+          this.irg.GetBytes(bytes, 0, 1);
           int b = bytes[0];
           while (i < trials && i >= 0) {
             if ((b & 1) == 1) {
@@ -89,7 +96,7 @@ namespace PeterO {
         }
       } else {
         for (int i = 0; i < trials && i >= 0; ++i) {
-          if (Uniform() < p) {
+          if (this.Uniform() < p) {
             ++count;
           }
         }
@@ -100,19 +107,20 @@ namespace PeterO {
     /// <summary>Generates a random number that is the sum of the squares
     /// of "df" normally-distributed random numbers with a mean of 0 and a
     /// standard deviation of 1.</summary>
-    /// <param name='df'>Not documented yet.</param>
+    /// <param name='df'>Degrees of freedom (the number of independently
+    /// chosen normally-distributed numbers).</param>
     /// <returns>A 64-bit floating-point number.</returns>
-    public double ChiSquared(double df) {
+    public double ChiSquared(int df) {
       if (df <= 0) {
         throw new ArgumentException("df (" + df + ") is not greater than " + 0);
       }
-      return Gamma(df / 2, 2);
+      return this.Gamma(df / 2, 2);
     }
 
     /// <summary>Not documented yet.</summary>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Exponential() {
-      return -Math.Log(NonZeroUniform());
+      return -Math.Log(this.NonZeroUniform());
     }
 
     /// <summary>Not documented yet.</summary>
@@ -123,14 +131,14 @@ namespace PeterO {
       if (b <= 0) {
         throw new ArgumentException("b (" + b + ") is not greater than " + 0);
       }
-      return Gamma(a) * b;
+      return this.Gamma(a) * b;
     }
 
     /// <summary>Not documented yet.</summary>
     /// <param name='a'>Another 64-bit floating-point number.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Gamma(double a) {
-      if ((a) <= -1) {
+      if (a <= -1) {
         throw new ArgumentException("a (" + a + ") is not greater than " +
             (-1));
       }
@@ -158,7 +166,7 @@ namespace PeterO {
     /// has an equal probability of being generated.</summary>
     /// <returns>The number of failures until a success happens.</returns>
     public int Geometric() {
-      return NegativeBinomial(1, 0.5);
+      return this.NegativeBinomial(1, 0.5);
     }
 
     /// <summary>Conceptually, generates either 1 or 0 until a 1 is
@@ -167,7 +175,7 @@ namespace PeterO {
     /// <param name='p'>A 64-bit floating-point number.</param>
     /// <returns>The number of failures until a success happens.</returns>
     public int Geometric(double p) {
-      return NegativeBinomial(1, p);
+      return this.NegativeBinomial(1, p);
     }
 
     /// <summary>Conceptually, given a set of tokens, some of which are
@@ -200,7 +208,7 @@ namespace PeterO {
       }
       var ret = 0;
       for (var i = 0; i < trials && ones > 0; ++i) {
-        if (UniformInt(count) < ones) {
+        if (this.UniformInt(count) < ones) {
           --ones;
           ++ret;
         }
@@ -215,7 +223,7 @@ namespace PeterO {
     /// <param name='sd'>Not documented yet.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double LogNormal(double mean, double sd) {
-      return Math.Exp((Normal() * sd) + mean);
+      return Math.Exp((this.Normal() * sd) + mean);
     }
 
     /// <summary>Conceptually, generates either 1 or 0 until the given
@@ -234,7 +242,7 @@ namespace PeterO {
       if (p > 1) {
         throw new ArgumentException("p (" + p + ") is more than " + 1);
       }
-      if ((trials) <= -1) {
+      if (trials <= -1) {
         throw new ArgumentException("trials (" + trials +
                ") is not greater than " + (-1));
       }
@@ -248,7 +256,7 @@ namespace PeterO {
       if (p == 0.5) {
         var bytes = new byte[1];
         while (true) {
-          irg.GetBytes(bytes, 0, 1);
+          this.irg.GetBytes(bytes, 0, 1);
           int b = bytes[0];
           for (int i = 0; i < 8; ++i) {
             if ((b & 1) == 1) {
@@ -265,7 +273,7 @@ namespace PeterO {
         }
       } else {
         while (true) {
-          if (Uniform() < p) {
+          if (this.Uniform() < p) {
             --trials;
             if (trials <= 0) {
               return count;
@@ -286,7 +294,7 @@ namespace PeterO {
     /// <returns>The number of 0's generated. Returns Int32.MaxValue if "p"
     /// is 0.</returns>
     public int NegativeBinomial(int trials) {
-      return NegativeBinomial(trials, 0.5);
+      return this.NegativeBinomial(trials, 0.5);
     }
     // The Normal, Exponential, Poisson, and
     // single-argument Gamma methods were adapted
@@ -297,19 +305,20 @@ namespace PeterO {
     /// standard deviation 1.</summary>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Normal() {
-      lock (normalLock) {
-        if (haveLastNormal) {
-          haveLastNormal = false;
-          return lastNormal;
+      lock (this.normalLock) {
+        if (this.haveLastNormal) {
+          this.haveLastNormal = false;
+          return this.lastNormal;
         }
       }
-      double x = NonZeroUniform();
-      double y = Uniform();
+      double x = this.NonZeroUniform();
+      double y = this.Uniform();
       double s = Math.Sqrt(-2 * Math.Log(x));
       double t = 2 * Math.PI * y;
       double otherNormal = s * Math.Sin(t);
-      lock (normalLock) {
-        lastNormal = otherNormal;
+      lock (this.normalLock) {
+        this.lastNormal = otherNormal;
+        this.haveLastNormal = true;
       }
       return s * Math.Cos(t);
     }
@@ -320,7 +329,7 @@ namespace PeterO {
     /// <param name='sd'>Not documented yet.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Normal(double mean, double sd) {
-      return (Normal() * sd) + mean;
+      return (this.Normal() * sd) + mean;
     }
 
     /// <summary>Generates a random integer such that the average of random
@@ -338,11 +347,12 @@ namespace PeterO {
       double p = 0;
       do {
         ++k;
-        p *= Uniform();
+        p *= this.Uniform();
       } while (p > l);
       return k - 1;
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='min'>Not documented yet.</param>
     /// <param name='max'>Not documented yet.</param>
     /// <returns>A 64-bit floating-point number.</returns>
@@ -351,18 +361,22 @@ namespace PeterO {
         throw new ArgumentException("min (" + min + ") is not less than " +
             max);
       }
-      return min + (max - min) * Uniform();
+      return min + (max - min) * this.Uniform();
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <param name='max'>Not documented yet.</param>
+    /// <returns>A 64-bit floating-point number.</returns>
     public double Uniform(double max) {
-      return Uniform(0.0, max);
+      return this.Uniform(0.0, max);
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Uniform() {
       var b = new byte[7];
-      irg.GetBytes(b, 0, 7);
-      long lb = ((long)b[0] & 0xffL);
+      this.irg.GetBytes(b, 0, 7);
+      var lb = (long)b[0] & 0xffL;
       lb |= ((long)b[1] & 0xffL) << 8;
       lb |= ((long)b[2] & 0xffL) << 16;
       lb |= ((long)b[3] & 0xffL) << 24;
@@ -373,10 +387,12 @@ namespace PeterO {
       return BitConverter.Int64BitsToDouble(lb) - 1.0;
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <returns>A 64-bit floating-point number.</returns>
     public double UniformSingle() {
       var b = new byte[3];
-      irg.GetBytes(b, 0, 3);
-      int lb = ((int)b[0] & 0xff);
+      this.irg.GetBytes(b, 0, 3);
+      var lb = (int)b[0] & 0xff;
       lb |= ((int)b[1] & 0xff) << 8;
       lb |= ((int)b[2] & 0x7f) << 16;
       lb |= 0x7f << 23;
@@ -385,6 +401,7 @@ namespace PeterO {
        0) - 1.0;
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='minInclusive'>Not documented yet.</param>
     /// <param name='maxExclusive'>Not documented yet.</param>
     /// <returns>A 32-bit signed integer.</returns>
@@ -393,18 +410,22 @@ namespace PeterO {
   throw new ArgumentException("minInclusive (" + minInclusive +
     ") is more than " + maxExclusive);
 }
+if (minInclusive == maxExclusive) {
+ return minInclusive;
+}
       if (minInclusive >= 0) {
-        return minInclusive + UniformInt(maxExclusive-minInclusive);
+        return minInclusive + this.UniformInt(maxExclusive-minInclusive);
       } else {
-        long diff = maxExclusive-minInclusive;
+        long diff = maxExclusive - minInclusive;
         if (diff <= Int32.MaxValue) {
-          return minInclusive + UniformInt((int)diff);
+          return minInclusive + this.UniformInt((int)diff);
         } else {
-          return (int)(minInclusive + UniformLong(diff));
+          return (int)(minInclusive + this.UniformLong(diff));
         }
       }
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='minInclusive'>Not documented yet.</param>
     /// <param name='maxExclusive'>Not documented yet.</param>
     /// <returns>A 64-bit signed integer.</returns>
@@ -413,14 +434,39 @@ namespace PeterO {
   throw new ArgumentException("minInclusive (" + minInclusive +
     ") is more than " + maxExclusive);
 }
+if (minInclusive == maxExclusive) {
+ return minInclusive;
+}
       if (minInclusive >= 0) {
-        return minInclusive + UniformLong(maxExclusive-minInclusive);
+        return minInclusive + this.UniformLong(maxExclusive-minInclusive);
       } else {
-        // TODO
-        throw new NotImplementedException();
+      if ((maxExclusive < 0 && Int64.MaxValue + maxExclusive < minInclusive) ||
+          (maxExclusive > 0 && Int64.MinValue + maxExclusive > minInclusive) ||
+                minInclusive - maxExclusive < 0) {
+           // Difference is greater than MaxValue
+         long lb = 0;
+         var b = new byte[8];
+         while (true) {
+           this.irg.GetBytes(b, 0, 8);
+           lb = b[0] & 0xffL;
+           lb |= (b[1] & 0xffL) << 8;
+           lb |= (b[2] & 0xffL) << 16;
+           lb |= (b[3] & 0xffL) << 24;
+           lb |= (b[4] & 0xffL) << 32;
+           lb |= (b[5] & 0xffL) << 40;
+           lb |= (b[6] & 0xffL) << 48;
+           lb |= (b[7] & 0x7fL) << 56;
+           if (lb >= minInclusive && lb < maxExclusive) {
+             return lb;
+           }
+          }
+        } else {
+         return minInclusive + this.UniformLong(maxExclusive-minInclusive);
+        }
       }
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='maxExclusive'>Not documented yet.</param>
     /// <returns>A 32-bit signed integer.</returns>
     public int UniformInt(int maxExclusive) {
@@ -434,26 +480,26 @@ namespace PeterO {
       var b = new byte[4];
       switch (maxExclusive) {
         case 2: {
-            irg.GetBytes(b, 0, 1);
-            return (b[0] & 1);
+            this.irg.GetBytes(b, 0, 1);
+            return b[0] & 1;
           }
         case 256: {
-            irg.GetBytes(b, 0, 1);
-            return ((int)b[0] & 1);
+            this.irg.GetBytes(b, 0, 1);
+            return (int)b[0] & 1;
           }
         default: {
             while (true) {
               var ib = 0;
               if (maxExclusive == 0x1000000) {
-                irg.GetBytes(b, 0, 3);
-                ib = (b[0] & 0xff);
+                this.irg.GetBytes(b, 0, 3);
+                ib = b[0] & 0xff;
                 ib |= (b[1] & 0xff) << 8;
                 ib |= (b[2] & 0xff) << 16;
                 return ib;
               }
               if (maxExclusive == 0x10000) {
-                irg.GetBytes(b, 0, 2);
-                ib = (b[0] & 0xff);
+                this.irg.GetBytes(b, 0, 2);
+                ib = b[0] & 0xff;
                 ib |= (b[1] & 0xff) << 8;
                 return ib;
               }
@@ -461,8 +507,8 @@ namespace PeterO {
               maxexc = (maxExclusive <= 100) ? 2147483600 :
                 ((Int32.MaxValue / maxExclusive) * maxExclusive);
               while (true) {
-                irg.GetBytes(b, 0, 4);
-                ib = (b[0] & 0xff);
+                this.irg.GetBytes(b, 0, 4);
+                ib = b[0] & 0xff;
                 ib |= (b[1] & 0xff) << 8;
                 ib |= (b[2] & 0xff) << 16;
                 ib |= (b[3] & 0x7f) << 24;
@@ -475,6 +521,7 @@ namespace PeterO {
       }
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='maxExclusive'>Not documented yet.</param>
     /// <returns>A 64-bit signed integer.</returns>
     public long UniformLong(long maxExclusive) {
@@ -483,15 +530,15 @@ namespace PeterO {
     ") is less than " + 0);
 }
       if (maxExclusive <= Int32.MaxValue) {
-        return UniformInt((int)maxExclusive);
+        return this.UniformInt((int)maxExclusive);
       }
       long lb = 0;
       long maxexc;
       var b = new byte[8];
       maxexc = (Int64.MaxValue / maxExclusive) * maxExclusive;
       while (true) {
-        irg.GetBytes(b, 0, 8);
-        lb = (b[0] & 0xffL);
+        this.irg.GetBytes(b, 0, 8);
+        lb = b[0] & 0xffL;
         lb |= (b[1] & 0xffL) << 8;
         lb |= (b[2] & 0xffL) << 16;
         lb |= (b[3] & 0xffL) << 24;
@@ -509,8 +556,8 @@ namespace PeterO {
       var b = new byte[7];
       long lb = 0;
       do {
-        irg.GetBytes(b, 0, 7);
-        lb = (b[0] & 0xffL);
+        this.irg.GetBytes(b, 0, 7);
+        lb = b[0] & 0xffL;
         lb |= (b[1] & 0xffL) << 8;
         lb |= (b[2] & 0xffL) << 16;
         lb |= (b[3] & 0xffL) << 24;

@@ -988,6 +988,35 @@ namespace PeterO.Numbers {
           this.negative ^ bigintDivisor.negative)) : EInteger.Zero;
     }
 
+    private static short LinearMultiplySubtractMinuend1Bigger(
+      short[] resultArr,
+      int resultStart,
+      short[] minuend,
+      int minuendStart,
+      int factor1,
+      short[] factor2,
+      int factor2Start,
+      int factor2Count) {
+      if (factor2Count <= 0 || (factor1 >> 16) != 0) {
+        throw new ArgumentException();
+      }
+      var a = 0;
+      var b = 0;
+      var cc = 0;
+        for (var i = 0; i < factor2Count; ++i) {
+          a = unchecked((((int)factor2[factor2Start + i]) & 0xffff) * factor1);
+          a = unchecked(a + (cc & 0xffff));
+          b = ((int)minuend[minuendStart + i] & 0xffff) - (a & 0xffff);
+          resultArr[resultStart + i] = unchecked((short)b);
+          cc = ((a >> 16) & 0xffff) +((b >> 31) & 1);
+        }
+      a = cc & 0xffff;
+      b = ((int)minuend[minuendStart + factor2Count] & 0xffff) - a;
+      resultArr[resultStart + factor2Count] = unchecked((short)b);
+      cc = (b >> 31) & 1;
+      return unchecked((short)cc);
+    }
+    /*
     private static void TwoPlaceMultiply(
   short[] resultArr,
   int resultStart,
@@ -999,7 +1028,7 @@ namespace PeterO.Numbers {
       var p = 0;
       var cstart = 0;
       if (words2Count <= 0) {
-        return;
+        throw new ArgumentException();
       }
       if (w1high == 0) {
         short carry = 0;
@@ -1050,7 +1079,7 @@ namespace PeterO.Numbers {
         }
       }
     }
-    /*
+
     private static void T(short[] a, int x, int c, string t) {
       var sb = new System.Text.StringBuilder();
       sb.Append(t+"=0x");
@@ -1079,11 +1108,8 @@ namespace PeterO.Numbers {
       short[] rem,
       int posRem,
       short[] tmp) {
-        if (quot != null) {
       #if DEBUG
-if (quot == null) {
-  throw new ArgumentNullException("quot");
-}
+        if (quot != null) {
 if (posQuot < 0) {
   throw new ArgumentException("posQuot (" + posQuot +
     ") is less than " + 0);
@@ -1104,13 +1130,8 @@ if (quot.Length - posQuot < blockCount * 2) {
   throw new ArgumentException("quot's length minus " + posQuot + " (" +
     (quot.Length - posQuot) + ") is less than " + (blockCount * 2));
 }
-#endif
         }
         if (rem != null) {
-      #if DEBUG
-if (rem == null) {
-  throw new ArgumentNullException("rem");
-}
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
     ") is less than " + 0);
@@ -1131,9 +1152,7 @@ if (rem.Length - posRem < blockCount * 2) {
   throw new ArgumentException("rem's length minus " + posRem + " (" +
     (rem.Length - posRem) + ") is less than " + (blockCount * 2));
 }
-#endif
         }
-#if DEBUG
 if (tmp.Length < blockCount * 6) {
   throw new ArgumentException("tmp.Length (" + tmp.Length +
     ") is less than " + (blockCount * 6));
@@ -1276,12 +1295,7 @@ if (b.Length - posB < blockSize) {
   throw new ArgumentException("b's length minus " + posB + " (" +
     (b.Length - posB) + ") is less than " + blockSize);
 }
-#endif
-        if (quot != null) {
-      #if DEBUG
-if (quot == null) {
-  throw new ArgumentNullException("quot");
-}
+if (quot != null) {
 if (posQuot < 0) {
   throw new ArgumentException("posQuot (" + posQuot +
     ") is less than " + 0);
@@ -1302,13 +1316,8 @@ if (quot.Length - posQuot < blockSize * 2) {
   throw new ArgumentException("quot's length minus " + posQuot + " (" +
     (quot.Length - posQuot) + ") is less than " + (blockSize * 2));
 }
-#endif
-        }
-        if (rem != null) {
-      #if DEBUG
-if (rem == null) {
-  throw new ArgumentNullException("rem");
 }
+        if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
     ") is less than " + 0);
@@ -1329,8 +1338,8 @@ if (rem.Length - posRem < (blockSize * 2)) {
   throw new ArgumentException("rem's length minus " + posRem + " (" +
     (rem.Length - posRem) + ") is less than " + (blockSize * 2));
 }
+}
 #endif
-        }
       // Implements Algorithm 1 of Burnikel & Ziegler 1998
       // DebugUtility.Log("size="+blockSize);
       if (blockSize < RecursiveDivisionLimit || (blockSize & 1) == 1) {
@@ -1443,12 +1452,7 @@ if (b.Length - posB < countB) {
   throw new ArgumentException("b's length minus " + posB + " (" +
     (b.Length - posB) + ") is less than " + countB);
 }
-#endif
         if (rem != null) {
-      #if DEBUG
-if (rem == null) {
-  throw new ArgumentNullException("rem");
-}
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
     ") is less than " + 0);
@@ -1469,8 +1473,8 @@ if (rem.Length - posRem < countB) {
   throw new ArgumentException("rem's length minus " + posRem + " (" +
     (rem.Length - posRem) + ") is less than " + countB);
 }
+}
 #endif
-        }
       int workPosA, workPosB, i;
       short[] workA = a;
       short[] workB = b;
@@ -1772,9 +1776,6 @@ if (rem.Length - posRem < countB) {
   posRem);
         return;
       }
-      int tempSize = countB + 2;
-      var workPosTemp = 0;
-      short[] workTemp = null;
       var sh = 0;
       var noShift = false;
       if ((b[posB + countB - 1] & 0x8000) == 0) {
@@ -1788,30 +1789,27 @@ if (rem.Length - posRem < countB) {
           ++sh;
           x <<= 1;
         }
-        workAB = new short[countA + 1 + countB + tempSize];
+        workAB = new short[countA + 1 + countB];
         workPosA = 0;
         workPosB = countA + 1;
         workA = workAB;
         workB = workAB;
-        workTemp = workAB;
-        workPosTemp = countA + 1 + countB;
         Array.Copy(a, posA, workA, workPosA, countA);
         Array.Copy(b, posB, workB, workPosB, countB);
         ShiftWordsLeftByBits(workA, workPosA, countA + 1, sh);
         ShiftWordsLeftByBits(workB, workPosB, countB, sh);
       } else {
         noShift = true;
-        workA = new short[countA + 1 + tempSize];
+        workA = new short[countA + 1];
         workPosA = 0;
         Array.Copy(a, posA, workA, workPosA, countA);
-        workTemp = workA;
-        workPosTemp = countA + 1;
       }
       var c = 0;
       short pieceBHigh = workB[workPosB + countB - 1];
       int pieceBHighInt = ((int)pieceBHigh) & 0xffff;
       int endIndex = workPosA + countA;
 #if DEBUG
+      // Assert that pieceBHighInt is normalized
       if (!((pieceBHighInt & 0x8000) != 0)) {
     throw new ArgumentException("doesn't satisfy (pieceBHighInt & 0x8000)!=0");
       }
@@ -1830,9 +1828,18 @@ if (rem.Length - posRem < countB) {
         int quorem0 = (dividend >> 31) == 0 ? (dividend / pieceBHighInt) :
          unchecked((int)(((long)dividend & 0xffffffffL) / pieceBHighInt));
         int quorem1 = unchecked(dividend - (quorem0 * pieceBHighInt));
-        // DebugUtility.Log("{0:X8}/{1:X4} = {2:X8},{3:X4}"
-        // , dividend, pieceBHigh, quorem0, quorem1);
+        // DebugUtility.Log("{0:X8}/{1:X4} = {2:X8},{3:X4}",
+        // dividend, pieceBHigh, quorem0, quorem1);
         long t = (((long)quorem1) << 16) | (divnext & 0xffffL);
+        // NOTE: quorem0 won't be higher than (1<< 16)+1 as long as
+        // pieceBHighInt is
+        // normalized (see Burnikel & Ziegler 1998). Since the following
+        // code block
+        // corrects all cases where quorem0 is too high by 2, and all
+        // remaining cases
+        // will reduce quorem0 by 1 if it's at least (1<< 16), quorem0 will
+        // be guaranteed to
+        // have a bit length of 16 or less by the end of the code block.
         if ((quorem0 >> 16) != 0 ||
           (unchecked(quorem0 * pieceBNextHighInt) & 0xffffffffL) > t) {
           quorem1 += pieceBHighInt;
@@ -1846,23 +1853,24 @@ if (rem.Length - posRem < countB) {
           }
         }
         int q1 = quorem0 & 0xffff;
+#if DEBUG
         int q2 = (quorem0 >> 16) & 0xffff;
-      TwoPlaceMultiply(
-  workTemp,
-  workPosTemp,
+        if (q2 != 0) {
+          // NOTE: The checks above should have ensured that quorem0 can't
+          // be longer than 16 bits.
+          throw new InvalidOperationException();
+        }
+#endif
+
+  c = LinearMultiplySubtractMinuend1Bigger(
+  workA,
+  wpoffset,
+  workA,
+  wpoffset,
   q1,
-  q2,
   workB,
   workPosB,
   countB);
-        c = SubtractInternal(
-    workA,
-    wpoffset,
-    workA,
-    wpoffset,
-    workTemp,
-    workPosTemp,
-    countB + 1);
         if (c != 0) {
           // T(workA,workPosA,countA+1,"workA X");
           c = AddInternal(
@@ -6184,47 +6192,72 @@ WordsShiftRightOne(bu, buc);
           throw new ArgumentException();
         }
       }
+if (words1Count <= 0) {
+  throw new ArgumentException("words1Count (" + words1Count +
+    ") is not greater than " + 0);
+}
+if (words2Count <= 0) {
+  throw new ArgumentException("words2Count (" + words2Count +
+    ") is not greater than " + 0);
+}
 #endif
-      int cstart;
+
+      int cstart, carry, valueBint;
       if (words1Count < words2Count) {
         // words1 is shorter than words2, so put words2 on top
-        for (var i = 0; i < words1Count; ++i) {
-          cstart = resultStart + i;
-          unchecked {
-            short carry = 0;
-            int valueBint = ((int)words1[words1Start + i]) & 0xffff;
-            for (int j = 0; j < words2Count; ++j) {
+         carry = 0;
+        valueBint = ((int)words1[words1Start]) & 0xffff;
+        for (int j = 0; j < words2Count; ++j) {
               int p;
-              p = (((int)words2[words2Start + j]) & 0xffff) * valueBint;
-              p += ((int)carry) & 0xffff;
-              if (i != 0) {
-                p += ((int)resultArr[cstart + j]) & 0xffff;
-              }
-              resultArr[cstart + j] = (short)p;
-              carry = (short)(p >> 16);
-            }
-            resultArr[cstart + words2Count] = carry;
+          p = unchecked((((int)words2[words2Start + j]) & 0xffff) *
+                valueBint);
+              p = unchecked(p + (((int)carry) & 0xffff));
+              resultArr[resultStart + j] = unchecked((short)p);
+              carry = (p >> 16) & 0xffff;
+        }
+        resultArr[resultStart + words2Count] = unchecked((short)carry);
+        for (var i = 1; i < words1Count; ++i) {
+          cstart = resultStart + i;
+           carry = 0;
+          valueBint = ((int)words1[words1Start + i]) & 0xffff;
+          for (int j = 0; j < words2Count; ++j) {
+              int p;
+          p = unchecked((((int)words2[words2Start + j]) & 0xffff) *
+                valueBint);
+              p = unchecked(p + (((int)carry) & 0xffff));
+              p = unchecked(p + (((int)resultArr[cstart + j]) & 0xffff));
+              resultArr[cstart + j] = unchecked((short)p);
+              carry = (p >> 16) & 0xffff;
           }
+          resultArr[cstart + words2Count] = unchecked((short)carry);
         }
       } else {
-        // words2 is shorter than words1
-        for (var i = 0; i < words2Count; ++i) {
-          cstart = resultStart + i;
-          unchecked {
-            short carry = 0;
-            int valueBint = ((int)words2[words2Start + i]) & 0xffff;
-            for (int j = 0; j < words1Count; ++j) {
+        // words2 is shorter or the same length as words1
+         carry = 0;
+        valueBint = ((int)words2[words2Start]) & 0xffff;
+        for (int j = 0; j < words1Count; ++j) {
               int p;
-              p = (((int)words1[words1Start + j]) & 0xffff) * valueBint;
-              p += ((int)carry) & 0xffff;
-              if (i != 0) {
-                p += ((int)resultArr[cstart + j]) & 0xffff;
-              }
-              resultArr[cstart + j] = (short)p;
-              carry = (short)(p >> 16);
-            }
-            resultArr[cstart + words1Count] = carry;
+          p = unchecked((((int)words1[words1Start + j]) & 0xffff) *
+                valueBint);
+              p = unchecked(p + (((int)carry) & 0xffff));
+              resultArr[resultStart + j] = unchecked((short)p);
+              carry = (p >> 16) & 0xffff;
+        }
+        resultArr[resultStart + words1Count] = unchecked((short)carry);
+        for (var i = 1; i < words2Count; ++i) {
+          cstart = resultStart + i;
+           carry = 0;
+          valueBint = ((int)words2[words2Start + i]) & 0xffff;
+          for (int j = 0; j < words1Count; ++j) {
+              int p;
+          p = unchecked((((int)words1[words1Start + j]) & 0xffff) *
+                valueBint);
+              p = unchecked(p + (((int)carry) & 0xffff));
+              p = unchecked(p + (((int)resultArr[cstart + j]) & 0xffff));
+              resultArr[cstart + j] = unchecked((short)p);
+              carry = (p >> 16) & 0xffff;
           }
+          resultArr[cstart + words1Count] = unchecked((short)carry);
         }
       }
     }
