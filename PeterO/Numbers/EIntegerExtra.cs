@@ -283,7 +283,7 @@ namespace PeterO.Numbers {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
       valueXaNegative = !valueA.negative;
-      valueXaWordCount = CountWords(valueXaReg, valueXaReg.Length);
+      valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : (new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
@@ -333,7 +333,7 @@ namespace PeterO.Numbers {
           TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
         }
       }
-      valueXaWordCount = CountWords(valueXaReg, valueXaReg.Length);
+      valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : (new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
@@ -380,7 +380,7 @@ namespace PeterO.Numbers {
       if (valueXaNegative) {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
-      valueXaWordCount = CountWords(valueXaReg, valueXaReg.Length);
+      valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : (new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
@@ -430,7 +430,7 @@ namespace PeterO.Numbers {
       if (valueXaNegative) {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
-      valueXaWordCount = CountWords(valueXaReg, valueXaReg.Length);
+      valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : (new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }

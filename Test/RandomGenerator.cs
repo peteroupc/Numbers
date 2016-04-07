@@ -10,10 +10,10 @@ namespace PeterO {
     /// concurrent use by multiple threads, as long as the underlying
     /// random byte generator is as well.</para></summary>
   public sealed class RandomGenerator {
-    internal bool haveLastNormal;
-    internal IRandomGen irg;
-    internal double lastNormal;
-    internal object normalLock = new Object();
+    private bool ValueHaveLastNormal;
+    private IRandomGen ValueIrg;
+    private double ValueLastNormal;
+    private object ValueNormalLock = new Object();
 
     /// <summary>Initializes a new instance of the RandomGenerator
     /// class.</summary>
@@ -22,9 +22,9 @@ namespace PeterO {
 
     /// <summary>Initializes a new instance of the RandomGenerator
     /// class.</summary>
-    /// <param name='irg'>An IRandomGen object.</param>
-    public RandomGenerator(IRandomGen irg) {
-      this.irg = irg;
+    /// <param name='ValueIrg'>An IRandomGen object.</param>
+    public RandomGenerator(IRandomGen ValueIrg) {
+      this.ValueIrg = ValueIrg;
     }
 
     /// <summary>Returns either true or false, depending on the given
@@ -84,7 +84,7 @@ namespace PeterO {
       if (p == 0.5) {
         var bytes = new byte[1];
         for (int i = 0; i < trials && i >= 0;) {
-          this.irg.GetBytes(bytes, 0, 1);
+          this.ValueIrg.GetBytes(bytes, 0, 1);
           int b = bytes[0];
           while (i < trials && i >= 0) {
             if ((b & 1) == 1) {
@@ -256,7 +256,7 @@ namespace PeterO {
       if (p == 0.5) {
         var bytes = new byte[1];
         while (true) {
-          this.irg.GetBytes(bytes, 0, 1);
+          this.ValueIrg.GetBytes(bytes, 0, 1);
           int b = bytes[0];
           for (int i = 0; i < 8; ++i) {
             if ((b & 1) == 1) {
@@ -305,10 +305,10 @@ namespace PeterO {
     /// standard deviation 1.</summary>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Normal() {
-      lock (this.normalLock) {
-        if (this.haveLastNormal) {
-          this.haveLastNormal = false;
-          return this.lastNormal;
+      lock (this.ValueNormalLock) {
+        if (this.ValueHaveLastNormal) {
+          this.ValueHaveLastNormal = false;
+          return this.ValueLastNormal;
         }
       }
       double x = this.NonZeroUniform();
@@ -316,9 +316,9 @@ namespace PeterO {
       double s = Math.Sqrt(-2 * Math.Log(x));
       double t = 2 * Math.PI * y;
       double otherNormal = s * Math.Sin(t);
-      lock (this.normalLock) {
-        this.lastNormal = otherNormal;
-        this.haveLastNormal = true;
+      lock (this.ValueNormalLock) {
+        this.ValueLastNormal = otherNormal;
+        this.ValueHaveLastNormal = true;
       }
       return s * Math.Cos(t);
     }
@@ -375,7 +375,7 @@ namespace PeterO {
     /// <returns>A 64-bit floating-point number.</returns>
     public double Uniform() {
       var b = new byte[7];
-      this.irg.GetBytes(b, 0, 7);
+      this.ValueIrg.GetBytes(b, 0, 7);
       var lb = (long)b[0] & 0xffL;
       lb |= ((long)b[1] & 0xffL) << 8;
       lb |= ((long)b[2] & 0xffL) << 16;
@@ -391,7 +391,7 @@ namespace PeterO {
     /// <returns>A 64-bit floating-point number.</returns>
     public double UniformSingle() {
       var b = new byte[3];
-      this.irg.GetBytes(b, 0, 3);
+      this.ValueIrg.GetBytes(b, 0, 3);
       var lb = (int)b[0] & 0xff;
       lb |= ((int)b[1] & 0xff) << 8;
       lb |= ((int)b[2] & 0x7f) << 16;
@@ -414,7 +414,7 @@ if (minInclusive == maxExclusive) {
  return minInclusive;
 }
       if (minInclusive >= 0) {
-        return minInclusive + this.UniformInt(maxExclusive-minInclusive);
+        return minInclusive + this.UniformInt(maxExclusive - minInclusive);
       } else {
         long diff = maxExclusive - minInclusive;
         if (diff <= Int32.MaxValue) {
@@ -438,7 +438,7 @@ if (minInclusive == maxExclusive) {
  return minInclusive;
 }
       if (minInclusive >= 0) {
-        return minInclusive + this.UniformLong(maxExclusive-minInclusive);
+        return minInclusive + this.UniformLong(maxExclusive - minInclusive);
       } else {
       if ((maxExclusive < 0 && Int64.MaxValue + maxExclusive < minInclusive) ||
           (maxExclusive > 0 && Int64.MinValue + maxExclusive > minInclusive) ||
@@ -447,7 +447,7 @@ if (minInclusive == maxExclusive) {
          long lb = 0;
          var b = new byte[8];
          while (true) {
-           this.irg.GetBytes(b, 0, 8);
+           this.ValueIrg.GetBytes(b, 0, 8);
            lb = b[0] & 0xffL;
            lb |= (b[1] & 0xffL) << 8;
            lb |= (b[2] & 0xffL) << 16;
@@ -461,7 +461,7 @@ if (minInclusive == maxExclusive) {
            }
           }
         } else {
-         return minInclusive + this.UniformLong(maxExclusive-minInclusive);
+         return minInclusive + this.UniformLong(maxExclusive - minInclusive);
         }
       }
     }
@@ -480,25 +480,25 @@ if (minInclusive == maxExclusive) {
       var b = new byte[4];
       switch (maxExclusive) {
         case 2: {
-            this.irg.GetBytes(b, 0, 1);
+            this.ValueIrg.GetBytes(b, 0, 1);
             return b[0] & 1;
           }
         case 256: {
-            this.irg.GetBytes(b, 0, 1);
+            this.ValueIrg.GetBytes(b, 0, 1);
             return (int)b[0] & 1;
           }
         default: {
             while (true) {
               var ib = 0;
               if (maxExclusive == 0x1000000) {
-                this.irg.GetBytes(b, 0, 3);
+                this.ValueIrg.GetBytes(b, 0, 3);
                 ib = b[0] & 0xff;
                 ib |= (b[1] & 0xff) << 8;
                 ib |= (b[2] & 0xff) << 16;
                 return ib;
               }
               if (maxExclusive == 0x10000) {
-                this.irg.GetBytes(b, 0, 2);
+                this.ValueIrg.GetBytes(b, 0, 2);
                 ib = b[0] & 0xff;
                 ib |= (b[1] & 0xff) << 8;
                 return ib;
@@ -507,7 +507,7 @@ if (minInclusive == maxExclusive) {
               maxexc = (maxExclusive <= 100) ? 2147483600 :
                 ((Int32.MaxValue / maxExclusive) * maxExclusive);
               while (true) {
-                this.irg.GetBytes(b, 0, 4);
+                this.ValueIrg.GetBytes(b, 0, 4);
                 ib = b[0] & 0xff;
                 ib |= (b[1] & 0xff) << 8;
                 ib |= (b[2] & 0xff) << 16;
@@ -537,7 +537,7 @@ if (minInclusive == maxExclusive) {
       var b = new byte[8];
       maxexc = (Int64.MaxValue / maxExclusive) * maxExclusive;
       while (true) {
-        this.irg.GetBytes(b, 0, 8);
+        this.ValueIrg.GetBytes(b, 0, 8);
         lb = b[0] & 0xffL;
         lb |= (b[1] & 0xffL) << 8;
         lb |= (b[2] & 0xffL) << 16;
@@ -556,7 +556,7 @@ if (minInclusive == maxExclusive) {
       var b = new byte[7];
       long lb = 0;
       do {
-        this.irg.GetBytes(b, 0, 7);
+        this.ValueIrg.GetBytes(b, 0, 7);
         lb = b[0] & 0xffL;
         lb |= (b[1] & 0xffL) << 8;
         lb |= (b[2] & 0xffL) << 16;

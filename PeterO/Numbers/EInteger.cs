@@ -524,7 +524,7 @@ namespace PeterO.Numbers {
           bigint[1] = unchecked((short)((smallInt >> 16) & 0xffff));
         }
       }
-      int count = CountWords(bigint, bigint.Length);
+      int count = CountWords(bigint);
       return (count == 0) ? EInteger.Zero : new EInteger(
         count,
         bigint,
@@ -714,7 +714,7 @@ namespace PeterO.Numbers {
           sumreg[nextIndex] = (short)carry;
           needShorten = false;
         }
-        int sumwordCount = CountWords(sumreg, sumreg.Length);
+        int sumwordCount = CountWords(sumreg);
         if (sumwordCount == 0) {
           return EInteger.Zero;
         }
@@ -809,7 +809,7 @@ namespace PeterO.Numbers {
         Decrement(diffReg, words1Size, (int)(words2Size - words1Size), borrow);
         diffNeg = true;
       }
-      int count = CountWords(diffReg, diffReg.Length);
+      int count = CountWords(diffReg);
       if (count == 0) {
         return EInteger.Zero;
       }
@@ -978,8 +978,8 @@ namespace PeterO.Numbers {
   0,
   null,
   0);
-      quotwordCount = CountWords(quotReg, quotReg.Length);
-      quotReg = ShortenArray(quotReg, quotwordCount);
+      quotwordCount = CountWords(quotReg);
+      quotReg = ShortenArray(quotReg,quotwordCount);
       return (
         quotwordCount != 0) ? (
         new EInteger(
@@ -991,8 +991,8 @@ namespace PeterO.Numbers {
     private static short LinearMultiplySubtractMinuend1Bigger(
       short[] resultArr,
       int resultStart,
-      short[] minuend,
-      int minuendStart,
+      short[] minuendArr,
+      int minuendArrStart,
       int factor1,
       short[] factor2,
       int factor2Start,
@@ -1006,12 +1006,12 @@ namespace PeterO.Numbers {
         for (var i = 0; i < factor2Count; ++i) {
           a = unchecked((((int)factor2[factor2Start + i]) & 0xffff) * factor1);
           a = unchecked(a + (cc & 0xffff));
-          b = ((int)minuend[minuendStart + i] & 0xffff) - (a & 0xffff);
+          b = ((int)minuendArr[minuendArrStart + i] & 0xffff) - (a & 0xffff);
           resultArr[resultStart + i] = unchecked((short)b);
           cc = ((a >> 16) & 0xffff) +((b >> 31) & 1);
         }
       a = cc & 0xffff;
-      b = ((int)minuend[minuendStart + factor2Count] & 0xffff) - a;
+      b = ((int)minuendArr[minuendArrStart + factor2Count] & 0xffff) - a;
       resultArr[resultStart + factor2Count] = unchecked((short)b);
       cc = (b >> 31) & 1;
       return unchecked((short)cc);
@@ -1568,7 +1568,6 @@ if (rem.Length - posRem < countB) {
         Array.Copy(tmprem, blocksB - countB, rem, posRem, countB);
         ShiftWordsRightByBits(rem, posRem, countB, shiftB);
       }
-      // DebugUtility.Log("done");
     }
 
     private static void GeneralDivide(
@@ -1849,6 +1848,14 @@ if (rem.Length - posRem < countB) {
             if ((quorem0 >> 16) != 0 ||
                 (unchecked(quorem0 * pieceBNextHighInt) & 0xffffffffL) > t) {
               --quorem0;
+              if(rem==null && offset==0){
+                // We can stop now and break; all cases where quorem0
+                // is 2 too big will have been caught by now
+                if(quot!=null) {
+                  quot[posQuot + offset] = unchecked((short)quorem0);
+                }
+                break;
+              }
             }
           }
         }
@@ -2001,8 +2008,8 @@ if (rem.Length - posRem < countB) {
   0,
   bigRemainderreg,
   0);
-      int remCount = CountWords(bigRemainderreg, bigRemainderreg.Length);
-      int quoCount = CountWords(quotientreg, quotientreg.Length);
+      int remCount = CountWords(bigRemainderreg);
+      int quoCount = CountWords(quotientreg);
       bigRemainderreg = ShortenArray(bigRemainderreg, remCount);
       quotientreg = ShortenArray(quotientreg, quoCount);
       EInteger bigrem = (remCount == 0) ? EInteger.Zero : new
@@ -2253,6 +2260,10 @@ WordsShiftRightOne(bu, buc);
           // all numbers with this bit length
           return 1 + minDigits;
         }
+        if (bitlen < 50000) {
+         return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits + 1)) >=
+               0 ? maxDigits + 1 : minDigits + 1;
+        }
       }
       short[] tempReg = null;
       int currentCount = this.wordCount;
@@ -2327,7 +2338,16 @@ WordsShiftRightOne(bu, buc);
                 if (minDigits == maxDigits) {
                   // Number of digits is the same for
                   // all numbers with this bit length
+                  // NOTE: The 4 is the number of digits just
+                  // taken out of the number, and "i" is the
+                  // number of previously known digits
                   return i + minDigits + 4;
+                }
+                if(minDigits>1){
+                 int maxDigitEstimate = i + maxDigits + 4;
+                 int minDigitEstimate = i + minDigits + 4;
+                 return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigitEstimate)) >=
+                    0 ? maxDigitEstimate : minDigitEstimate;
                 }
               } else if (bitlen <= 6432162) {
                 // Much more accurate approximation
@@ -2864,7 +2884,7 @@ WordsShiftRightOne(bu, buc);
   0,
   remainderReg,
   0);
-      int count = CountWords(remainderReg, remainderReg.Length);
+      int count = CountWords(remainderReg);
       if (count == 0) {
         return EInteger.Zero;
       }
@@ -2894,7 +2914,7 @@ WordsShiftRightOne(bu, buc);
           (int)shiftWords,
           numWords + BitsToWords(shiftBits),
           shiftBits);
-        return new EInteger(CountWords(ret, ret.Length), ret, false);
+        return new EInteger(CountWords(ret), ret, false);
       } else {
         var ret = new short[(numWords +
                     BitsToWords((int)numberBits))];
@@ -2907,7 +2927,7 @@ WordsShiftRightOne(bu, buc);
           numWords + BitsToWords(shiftBits),
           shiftBits);
         TwosComplement(ret, 0, (int)ret.Length);
-        return new EInteger(CountWords(ret, ret.Length), ret, true);
+        return new EInteger(CountWords(ret), ret, true);
       }
     }
 
@@ -3693,7 +3713,7 @@ WordsShiftRightOne(bu, buc);
       short[] words2,
       int words2Start,
       int words2Count) {
-      // Console.WriteLine("AsymmetricMultiply " + words1Count + " " +
+      // DebugUtility.Log("AsymmetricMultiply " + words1Count + " " +
       // words2Count + " [r=" + resultStart + " t=" + tempStart + " a=" +
       // words1Start + " b=" + words2Start + "]");
 #if DEBUG
@@ -3940,7 +3960,7 @@ WordsShiftRightOne(bu, buc);
         int wordsRem = words2Count % words1Count;
         int evenmult = (words2Count / words1Count) & 1;
         int i;
-        // Console.WriteLine("counts=" + words1Count + "," + words2Count +
+        // DebugUtility.Log("counts=" + words1Count + "," + words2Count +
         // " res=" + (resultStart + words1Count) + " temp=" + (tempStart +
         // (words1Count << 1)) + " rem=" + wordsRem + " evenwc=" + evenmult);
         if (wordsRem == 0) {
@@ -4028,7 +4048,7 @@ WordsShiftRightOne(bu, buc);
               (short)1);
           }
         } else if ((words1Count + words2Count) >= (words1Count << 2)) {
-          // Console.WriteLine("Chunked Linear Multiply long");
+          // DebugUtility.Log("Chunked Linear Multiply long");
           ChunkedLinearMultiply(
             resultArr,
             resultStart,
@@ -4070,7 +4090,7 @@ WordsShiftRightOne(bu, buc);
           resultArr[resultStart + words1Count + words1Count] = carry;
         } else {
           var t2 = new short[words1Count << 2];
-          // Console.WriteLine("Chunked Linear Multiply Short");
+          // DebugUtility.Log("Chunked Linear Multiply Short");
           ChunkedLinearMultiply(
             resultArr,
             resultStart,
@@ -5208,7 +5228,8 @@ WordsShiftRightOne(bu, buc);
       return 0;
     }
 
-    private static int CountWords(short[] array, int n) {
+    private static int CountWords(short[] array) {
+      int n = array.Length;
       while (n != 0 && array[n - 1] == 0) {
         --n;
       }
@@ -5639,7 +5660,7 @@ WordsShiftRightOne(bu, buc);
       short[] words2,
       int words2Start,  // size count
       int count) {
-      // Console.WriteLine("RecursiveMultiply " + count + " " + count +
+      // DebugUtility.Log("RecursiveMultiply " + count + " " + count +
       // " [r=" + resultStart + " t=" + tempStart + " a=" + words1Start +
       // " b=" + words2Start + "]");
 #if DEBUG
@@ -5828,7 +5849,7 @@ WordsShiftRightOne(bu, buc);
           if (countA <= count2 && countB <= count2) {
             // Both words1 and words2 are smaller than half the
             // count (their high parts are 0)
-            // Console.WriteLine("Can be smaller: " + AN + "," + BN + "," +
+            // DebugUtility.Log("Can be smaller: " + AN + "," + BN + "," +
             // (count2));
             Array.Clear((short[])resultArr, resultStart + count, count);
             if (count2 == 8) {
@@ -6621,10 +6642,71 @@ if (words2Count <= 0) {
         return new[] {
           (EInteger)smallintX, (EInteger)smallintY };
       }
+      if(this.wordCount>=4) {
+        int wordsPerPart = (this.wordCount+3)>>2;
+        int bitsPerPart=wordsPerPart*16;
+        int totalBits=bitsPerPart*4;
+        int bitLength=this.GetUnsignedBitLength();
+        bigintX = this;
+        int shift=0;
+        if(bitLength<totalBits-1){
+          int targetLength=(bitLength&1)==0 ? totalBits : (totalBits-1);
+          shift=targetLength-bitLength;
+          bigintX = bigintX.ShiftLeft(shift);
+        }
+        //DebugUtility.Log("this={0}",this.ToRadixString(16));
+        //DebugUtility.Log("bigx={0}",bigintX.ToRadixString(16));
+        short[] ww=bigintX.words;
+        short[] w1=new short[wordsPerPart];
+        short[] w2=new short[wordsPerPart];
+        short[] w3=new short[wordsPerPart*2];
+        Array.Copy(ww,0,w1,0,wordsPerPart);
+        Array.Copy(ww,wordsPerPart,w2,0,wordsPerPart);
+        Array.Copy(ww,wordsPerPart*2,w3,0,wordsPerPart*2);
+        // DebugAssert.IsTrue((ww[wordsPerPart*4-1]&0xC000)!=0);
+        EInteger e1=new EInteger(CountWords(w1),w1,false);
+        EInteger e2=new EInteger(CountWords(w2),w2,false);
+        EInteger e3=new EInteger(CountWords(w3),w3,false);
+        EInteger[] srem=e3.SqrtRemInternal(true);
+        //DebugUtility.Log("sqrt0({0})[depth={3}] = {1},{2}",e3,srem[0],srem[1],0);
+        //DebugUtility.Log("sqrt1({0})[depth={3}] = {1},{2}",e3,srem2[0],srem2[1],0);
+        //if(!srem[0].Equals(srem2[0]) || !srem[1].Equals(srem2[1]))
+        //  throw new InvalidOperationException(this.ToString());
+        EInteger[] qrem=srem[1].ShiftLeft(bitsPerPart).Add(e2).DivRem(
+           srem[0].ShiftLeft(1));
+        EInteger sqroot=srem[0].ShiftLeft(bitsPerPart).Add(qrem[0]);
+        EInteger sqrem=qrem[1].ShiftLeft(bitsPerPart).Add(e1).Subtract(
+           qrem[0].Multiply(qrem[0]));
+        //DebugUtility.Log("sqrem={0},sqroot={1}",sqrem,sqroot);
+        if(sqrem.Sign<0) {
+          if(useRem) {
+            sqrem=sqrem.Add(sqroot.ShiftLeft(1)).Subtract(EInteger.One);
+          }
+          sqroot=sqroot.Subtract(EInteger.One);
+          // DebugAssert.IsTrue(sqroot.Sign>=0);
+        }
+        //DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}",
+        //this,sqroot,sqrem,shift,this.wordCount,wordsPerPart,bigintX.wordCount);
+        //if(useRem){
+        // DebugUtility.Log("srshHalf={0}",sqrem.ShiftRight(shift>>1));
+        // DebugUtility.Log("srshFull={0}",sqrem.ShiftRight(shift));
+        //}
+        EInteger[] retarr=new EInteger[2];
+        retarr[0] = sqroot.ShiftRight(shift>>1);
+        if(useRem) {
+          if(shift == 0) {
+            retarr[1] = sqrem;
+          } else {
+            retarr[1] = this.Subtract(retarr[0].Multiply(retarr[0]));
+          }
+        }
+        return retarr;
+      }
       bigintX = EInteger.Zero;
       bigintY = EInteger.One << powerBits;
       do {
         bigintX = bigintY;
+        //DebugUtility.Log("{0} {1}",thisValue,bigintX);
         bigintY = thisValue / (EInteger)bigintX;
         bigintY += bigintX;
         bigintY >>= 1;

@@ -688,10 +688,12 @@ namespace Test {
       var r = new RandomGenerator();
       for (var i = 0; i < 2000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
-  Assert.AreEqual(bigintA.CanFitInInt32(), bigintA.GetSignedBitLength() <=
-          31);
-  Assert.AreEqual(bigintA.CanFitInInt64(), bigintA.GetSignedBitLength() <=
-          63);
+        Assert.AreEqual(
+              bigintA.CanFitInInt32(),
+              bigintA.GetSignedBitLength() <= 31);
+        Assert.AreEqual(
+              bigintA.CanFitInInt64(),
+              bigintA.GetSignedBitLength() <= 63);
       }
     }
     [Test]
@@ -1879,8 +1881,8 @@ namespace Test {
       int size = r.UniformInt(150) + 1;
       EInteger ei = EInteger.Zero;
       for (var i = 0; i < size; ++i) {
- ei = ei.ShiftLeft(16).Add(EInteger.FromInt32(r.UniformInt(0x10000) |
-          0x8000));
+        ei = ei.ShiftLeft(16).Add(EInteger.FromInt32(r.UniformInt(0x10000) |
+                 0x8000));
       }
       return ei;
     }
@@ -1890,7 +1892,7 @@ namespace Test {
       int bits = ei.GetUnsignedBitLength();
       for (var i = 0; i < fuzzes; ++i) {
         int bit = r.UniformInt(bits);
-        bytes[bit/8]^=(byte)(1<<(bit & 0x07));
+        bytes[bit / 8] ^= (byte)(1 << (bit & 0x07));
       }
       return EInteger.FromBytes(bytes, true);
     }
@@ -1905,7 +1907,7 @@ namespace Test {
     private static EInteger ZerosAndOnesInteger(int size) {
       EInteger ei = EInteger.FromInt32(0xffff);
       for (var i = 1; i < size; ++i) {
-        ei = (i%2 == 0) ? (ei.ShiftLeft(16).Add(EInteger.FromInt32(0xffff))) :
+        ei = (i % 2 == 0) ? (ei.ShiftLeft(16).Add(EInteger.FromInt32(0xffff))) :
           (ei.ShiftLeft(16));
       }
       return ei;
@@ -1942,14 +1944,14 @@ namespace Test {
         TestMultiplyDivideOne(bigA, bigB);
       }
       {
-object objectTemp = EInteger.FromRadixString(
+        EInteger ei1 = EInteger.FromRadixString(
   "101000101010100000001000100000101000000000100000101000100010101000001010000000001010101000101010100010100",
   16);
-object objectTemp2 = EInteger.FromRadixString(
-  "100000000000100010000000100000000010001000100010000010101010100000000000000000000",
-  16);
-TestMultiplyDivideOne(objectTemp, objectTemp2);
-}
+        EInteger ei2 = EInteger.FromRadixString(
+          "100000000000100010000000100000000010001000100010000010101010100000000000000000000",
+          16);
+        TestMultiplyDivideOne(ei1, ei2);
+      }
       for (var i = 0; i < 1000; ++i) {
         EInteger bigA, bigB;
         do {
@@ -2154,6 +2156,18 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
     [Test]
     public void TestSqrt() {
       var r = new RandomGenerator();
+      for (var i = 0; i < 20; ++i) {
+        EInteger bigintA = RandomBigInteger(r);
+        if (bigintA.Sign < 0) {
+          bigintA = -bigintA;
+        }
+        if (bigintA.Sign == 0) {
+          bigintA = EInteger.One;
+        }
+        EInteger sqr = bigintA.Multiply(bigintA);
+        EInteger sr = sqr.Sqrt();
+        TestCommon.CompareTestEqual(bigintA, sr);
+      }
       for (var i = 0; i < 10000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         if (bigintA.Sign < 0) {
