@@ -1288,6 +1288,7 @@ StartsWith(chunks[2], "o")) {
         }
         ++x;
         var lowerF = f.ToLowerInvariant();
+        if(!lowerF.Contains("d64"))continue;
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") && !lowerF.Contains(".txt") &&
             !lowerF.Contains(".dectest") && !lowerF.Contains(".fptest")) {

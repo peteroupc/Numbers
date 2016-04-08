@@ -2658,8 +2658,10 @@ ctx.Precision).WithBlankFlags();
         }
       }
       if (expcmp > 0) {
-        // DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
-        // + (// op1Exponent) + " " + op2Exponent + "]");
+        //if((op1Exponent-op2Exponent).Abs() > 10) {
+        //DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
+        // + op1Exponent + " " + op2Exponent + "]");
+        //}
         EInteger newmant = RescaleByExponentDiff(
   op1Mantissa,
   op1Exponent,
@@ -2674,8 +2676,10 @@ ctx.Precision).WithBlankFlags();
         int mantcmp = newmant.CompareTo(op2Mantissa);
         return (signA < 0) ? -mantcmp : mantcmp;
       } else {
-        // DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
-        // + (// op1Exponent) + " " + op2Exponent + "]");
+        //if((op1Exponent-op2Exponent).Abs() > 10) {
+        //DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
+        // + op1Exponent + " " + op2Exponent + "]");
+        //}
         EInteger newmant = RescaleByExponentDiff(
             op2Mantissa,
             op1Exponent,

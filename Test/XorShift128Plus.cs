@@ -21,7 +21,7 @@ namespace PeterO {
       }
       if (offset < 0) {
         throw new ArgumentException("offset (" + offset +
-          ") is less than " + 0);
+          ") is less than 0");
       }
       if (offset > bytes.Length) {
         throw new ArgumentException("offset (" + offset +
@@ -29,7 +29,7 @@ namespace PeterO {
       }
       if (length < 0) {
         throw new ArgumentException("length (" + length +
-          ") is less than " + 0);
+          ") is less than 0");
       }
       if (length > bytes.Length) {
         throw new ArgumentException("length (" + length +

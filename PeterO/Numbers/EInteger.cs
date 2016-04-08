@@ -979,7 +979,7 @@ namespace PeterO.Numbers {
   null,
   0);
       quotwordCount = CountWords(quotReg);
-      quotReg = ShortenArray(quotReg,quotwordCount);
+      quotReg = ShortenArray(quotReg, quotwordCount);
       return (
         quotwordCount != 0) ? (
         new EInteger(
@@ -1112,7 +1112,7 @@ namespace PeterO.Numbers {
         if (quot != null) {
 if (posQuot < 0) {
   throw new ArgumentException("posQuot (" + posQuot +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posQuot > quot.Length) {
   throw new ArgumentException("posQuot (" + posQuot +
@@ -1120,7 +1120,7 @@ if (posQuot > quot.Length) {
 }
 if ((blockCount * 2) < 0) {
   throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if ((blockCount * 2) > quot.Length) {
   throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
@@ -1134,7 +1134,7 @@ if (quot.Length - posQuot < blockCount * 2) {
         if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posRem > rem.Length) {
   throw new ArgumentException("posRem (" + posRem +
@@ -1142,7 +1142,7 @@ if (posRem > rem.Length) {
 }
 if ((blockCount * 2) < 0) {
   throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if ((blockCount * 2) > rem.Length) {
   throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
@@ -1254,7 +1254,7 @@ if (a == null) {
 }
 if (posA < 0) {
   throw new ArgumentException("posA (" + posA +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posA > a.Length) {
   throw new ArgumentException("posA (" + posA + ") is more than " +
@@ -1262,7 +1262,7 @@ if (posA > a.Length) {
 }
 if ((blockSize * 2) < 0) {
   throw new ArgumentException("(blockSize*2) (" + (blockSize * 2) +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if ((blockSize * 2) > a.Length) {
   throw new ArgumentException("(blockSize*2) (" + (blockSize * 2) +
@@ -1277,7 +1277,7 @@ if (b == null) {
 }
 if (posB < 0) {
   throw new ArgumentException("posB (" + posB +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posB > b.Length) {
   throw new ArgumentException("posB (" + posB + ") is more than " +
@@ -1285,7 +1285,7 @@ if (posB > b.Length) {
 }
 if (blockSize < 0) {
   throw new ArgumentException("blockSize (" + blockSize +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (blockSize > b.Length) {
   throw new ArgumentException("blockSize (" + blockSize +
@@ -1298,7 +1298,7 @@ if (b.Length - posB < blockSize) {
 if (quot != null) {
 if (posQuot < 0) {
   throw new ArgumentException("posQuot (" + posQuot +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posQuot > quot.Length) {
   throw new ArgumentException("posQuot (" + posQuot +
@@ -1306,7 +1306,7 @@ if (posQuot > quot.Length) {
 }
 if ((blockSize * 2) < 0) {
   throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if ((blockSize * 2) > quot.Length) {
   throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
@@ -1320,7 +1320,7 @@ if (quot.Length - posQuot < blockSize * 2) {
         if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posRem > rem.Length) {
   throw new ArgumentException("posRem (" + posRem +
@@ -1328,7 +1328,7 @@ if (posRem > rem.Length) {
 }
 if ((blockSize * 2) < 0) {
   throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if ((blockSize * 2) > rem.Length) {
   throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
@@ -1411,7 +1411,7 @@ if (a == null) {
 }
 if (posA < 0) {
   throw new ArgumentException("posA (" + posA +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posA > a.Length) {
   throw new ArgumentException("posA (" + posA + ") is more than " +
@@ -1419,7 +1419,7 @@ if (posA > a.Length) {
 }
 if (countA < 0) {
   throw new ArgumentException("countA (" + countA +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (countA > a.Length) {
   throw new ArgumentException("countA (" + countA +
@@ -1434,7 +1434,7 @@ if (b == null) {
 }
 if (posB < 0) {
   throw new ArgumentException("posB (" + posB +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posB > b.Length) {
   throw new ArgumentException("posB (" + posB + ") is more than " +
@@ -1442,7 +1442,7 @@ if (posB > b.Length) {
 }
 if (countB < 0) {
   throw new ArgumentException("countB (" + countB +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (countB > b.Length) {
   throw new ArgumentException("countB (" + countB +
@@ -1455,7 +1455,7 @@ if (b.Length - posB < countB) {
         if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posRem > rem.Length) {
   throw new ArgumentException("posRem (" + posRem +
@@ -1463,7 +1463,7 @@ if (posRem > rem.Length) {
 }
 if (countB < 0) {
   throw new ArgumentException("countB (" + countB +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (countB > rem.Length) {
   throw new ArgumentException("countB (" + countB +
@@ -1590,7 +1590,7 @@ if (a == null) {
 }
 if (posA < 0) {
   throw new ArgumentException("posA (" + posA +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posA > a.Length) {
   throw new ArgumentException("posA (" + posA + ") is more than " +
@@ -1598,7 +1598,7 @@ if (posA > a.Length) {
 }
 if (countA < 0) {
   throw new ArgumentException("countA (" + countA +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (countA > a.Length) {
   throw new ArgumentException("countA (" + countA +
@@ -1613,7 +1613,7 @@ if (b == null) {
 }
 if (posB < 0) {
   throw new ArgumentException("posB (" + posB +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posB > b.Length) {
   throw new ArgumentException("posB (" + posB + ") is more than " +
@@ -1621,7 +1621,7 @@ if (posB > b.Length) {
 }
 if (countB < 0) {
   throw new ArgumentException("countB (" + countB +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (countB > b.Length) {
   throw new ArgumentException("countB (" + countB +
@@ -1634,7 +1634,7 @@ if (b.Length - posB < countB) {
 if (quot != null) {
 if (posQuot < 0) {
   throw new ArgumentException("posQuot (" + posQuot +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posQuot > quot.Length) {
   throw new ArgumentException("posQuot (" + posQuot +
@@ -1642,7 +1642,7 @@ if (posQuot > quot.Length) {
 }
 if (countA - countB + 1 < 0) {
   throw new ArgumentException("(countA-countB+1) (" + (countA - countB + 1) +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (countA - countB + 1 > quot.Length) {
   throw new ArgumentException("(countA-countB+1) (" + (countA - countB + 1) +
@@ -1657,7 +1657,7 @@ if ((quot.Length - posQuot) < (countA - countB + 1)) {
 if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (posRem > rem.Length) {
   throw new ArgumentException("posRem (" + posRem +
@@ -1665,7 +1665,7 @@ if (posRem > rem.Length) {
 }
 if (countB < 0) {
   throw new ArgumentException("countB (" + countB +
-    ") is less than " + 0);
+    ") is less than 0");
 }
 if (countB > rem.Length) {
   throw new ArgumentException("countB (" + countB +
@@ -1848,10 +1848,10 @@ if (rem.Length - posRem < countB) {
             if ((quorem0 >> 16) != 0 ||
                 (unchecked(quorem0 * pieceBNextHighInt) & 0xffffffffL) > t) {
               --quorem0;
-              if(rem==null && offset==0){
+              if (rem == null && offset == 0) {
                 // We can stop now and break; all cases where quorem0
                 // is 2 too big will have been caught by now
-                if(quot!=null) {
+                if (quot != null) {
                   quot[posQuot + offset] = unchecked((short)quorem0);
                 }
                 break;
@@ -2261,8 +2261,8 @@ WordsShiftRightOne(bu, buc);
           return 1 + minDigits;
         }
         if (bitlen < 50000) {
-         return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits + 1)) >=
-               0 ? maxDigits + 1 : minDigits + 1;
+    return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits + 1))
+           >= 0 ? maxDigits + 1 : minDigits + 1;
         }
       }
       short[] tempReg = null;
@@ -2343,11 +2343,11 @@ WordsShiftRightOne(bu, buc);
                   // number of previously known digits
                   return i + minDigits + 4;
                 }
-                if(minDigits>1){
+                if (minDigits>1) {
                  int maxDigitEstimate = i + maxDigits + 4;
                  int minDigitEstimate = i + minDigits + 4;
-                 return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigitEstimate)) >=
-                    0 ? maxDigitEstimate : minDigitEstimate;
+ return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigitEstimate))
+                >= 0 ? maxDigitEstimate : minDigitEstimate;
                 }
               } else if (bitlen <= 6432162) {
                 // Much more accurate approximation
@@ -6215,11 +6215,11 @@ WordsShiftRightOne(bu, buc);
       }
 if (words1Count <= 0) {
   throw new ArgumentException("words1Count (" + words1Count +
-    ") is not greater than " + 0);
+    ") is not greater than 0");
 }
 if (words2Count <= 0) {
   throw new ArgumentException("words2Count (" + words2Count +
-    ") is not greater than " + 0);
+    ") is not greater than 0");
 }
 #endif
 
@@ -6642,59 +6642,75 @@ if (words2Count <= 0) {
         return new[] {
           (EInteger)smallintX, (EInteger)smallintY };
       }
-      if(this.wordCount>=4) {
-        int wordsPerPart = (this.wordCount+3)>>2;
-        int bitsPerPart=wordsPerPart*16;
-        int totalBits=bitsPerPart*4;
-        int bitLength=this.GetUnsignedBitLength();
+      if (this.wordCount >= 4) {
+        int wordsPerPart = (this.wordCount + 3) >> 2;
+        int bitsPerPart = wordsPerPart*16;
+        int totalBits = bitsPerPart*4;
+        int bitLength = this.GetUnsignedBitLength();
         bigintX = this;
-        int shift=0;
-        if(bitLength<totalBits-1){
-          int targetLength=(bitLength&1)==0 ? totalBits : (totalBits-1);
-          shift=targetLength-bitLength;
+        var shift = 0;
+        if (bitLength<totalBits-1) {
+          int targetLength=(bitLength & 1) == 0 ? totalBits : (totalBits-1);
+          shift = targetLength-bitLength;
           bigintX = bigintX.ShiftLeft(shift);
         }
-        //DebugUtility.Log("this={0}",this.ToRadixString(16));
-        //DebugUtility.Log("bigx={0}",bigintX.ToRadixString(16));
-        short[] ww=bigintX.words;
-        short[] w1=new short[wordsPerPart];
-        short[] w2=new short[wordsPerPart];
-        short[] w3=new short[wordsPerPart*2];
-        Array.Copy(ww,0,w1,0,wordsPerPart);
-        Array.Copy(ww,wordsPerPart,w2,0,wordsPerPart);
-        Array.Copy(ww,wordsPerPart*2,w3,0,wordsPerPart*2);
-        // DebugAssert.IsTrue((ww[wordsPerPart*4-1]&0xC000)!=0);
-        EInteger e1=new EInteger(CountWords(w1),w1,false);
-        EInteger e2=new EInteger(CountWords(w2),w2,false);
-        EInteger e3=new EInteger(CountWords(w3),w3,false);
-        EInteger[] srem=e3.SqrtRemInternal(true);
-        //DebugUtility.Log("sqrt0({0})[depth={3}] = {1},{2}",e3,srem[0],srem[1],0);
-        //DebugUtility.Log("sqrt1({0})[depth={3}] = {1},{2}",e3,srem2[0],srem2[1],0);
-        //if(!srem[0].Equals(srem2[0]) || !srem[1].Equals(srem2[1]))
-        //  throw new InvalidOperationException(this.ToString());
-        EInteger[] qrem=srem[1].ShiftLeft(bitsPerPart).Add(e2).DivRem(
+        //DebugUtility.Log("this=" + (this.ToRadixString(16)));
+        //DebugUtility.Log("bigx=" + (bigintX.ToRadixString(16)));
+        short[] ww = bigintX.words;
+        var w1 = new short[wordsPerPart];
+        var w2 = new short[wordsPerPart];
+        var w3 = new short[wordsPerPart*2];
+        Array.Copy(ww, 0, w1, 0, wordsPerPart);
+        Array.Copy(ww, wordsPerPart, w2, 0, wordsPerPart);
+        Array.Copy(ww, wordsPerPart*2, w3, 0, wordsPerPart*2);
+        #if DEBUG
+if (!((ww[wordsPerPart*4-1]&0xc000) != 0)) {
+  throw new
+    ArgumentException("doesn't satisfy (ww[wordsPerPart*4-1]&0xC000)!=0");
+}
+#endif
+
+        var e1 = new EInteger(CountWords(w1), w1, false);
+        var e2 = new EInteger(CountWords(w2), w2, false);
+        var e3 = new EInteger(CountWords(w3), w3, false);
+        EInteger[] srem = e3.SqrtRemInternal(true);
+        //DebugUtility.Log("sqrt0({0})[depth={3}] = {1},{2}"
+        // , e3, srem[0], srem[1], 0);
+        //DebugUtility.Log("sqrt1({0})[depth={3}] = {1},{2}"
+        // , e3, srem2[0], srem2[1], 0);
+        //if (!srem[0].Equals(srem2[0]) || !srem[1].Equals(srem2[1])) {
+  //  throw new InvalidOperationException(this.ToString());
+   //}
+        EInteger[] qrem = srem[1].ShiftLeft(bitsPerPart).Add(e2).DivRem(
            srem[0].ShiftLeft(1));
-        EInteger sqroot=srem[0].ShiftLeft(bitsPerPart).Add(qrem[0]);
-        EInteger sqrem=qrem[1].ShiftLeft(bitsPerPart).Add(e1).Subtract(
+        EInteger sqroot = srem[0].ShiftLeft(bitsPerPart).Add(qrem[0]);
+        EInteger sqrem = qrem[1].ShiftLeft(bitsPerPart).Add(e1).Subtract(
            qrem[0].Multiply(qrem[0]));
-        //DebugUtility.Log("sqrem={0},sqroot={1}",sqrem,sqroot);
-        if(sqrem.Sign<0) {
-          if(useRem) {
-            sqrem=sqrem.Add(sqroot.ShiftLeft(1)).Subtract(EInteger.One);
+        //DebugUtility.Log("sqrem=" + sqrem + ",sqroot=" + sqroot);
+        if (sqrem.Sign< 0) {
+          if (useRem) {
+            sqrem = sqrem.Add(sqroot.ShiftLeft(1)).Subtract(EInteger.One);
           }
-          sqroot=sqroot.Subtract(EInteger.One);
-          // DebugAssert.IsTrue(sqroot.Sign>=0);
+          sqroot = sqroot.Subtract(EInteger.One);
+          #if DEBUG
+if (!(sqroot.Sign >= 0)) {
+  throw new ArgumentException("doesn't satisfy sqroot.Sign>= 0");
+}
+#endif
         }
-        //DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}",
-        //this,sqroot,sqrem,shift,this.wordCount,wordsPerPart,bigintX.wordCount);
-        //if(useRem){
-        // DebugUtility.Log("srshHalf={0}",sqrem.ShiftRight(shift>>1));
-        // DebugUtility.Log("srshFull={0}",sqrem.ShiftRight(shift));
+  //
+  // //DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}"
+        // ,
+  //this, sqroot, sqrem, shift, this.wordCount, wordsPerPart,
+  // bigintX.wordCount);
+        //if (useRem) {
+        // DebugUtility.Log("srshHalf=" + (sqrem.ShiftRight(shift>>1)));
+        // DebugUtility.Log("srshFull=" + (sqrem.ShiftRight(shift)));
         //}
-        EInteger[] retarr=new EInteger[2];
-        retarr[0] = sqroot.ShiftRight(shift>>1);
-        if(useRem) {
-          if(shift == 0) {
+        var retarr = new EInteger[2];
+        retarr[0] = sqroot.ShiftRight(shift >> 1);
+        if (useRem) {
+          if (shift == 0) {
             retarr[1] = sqrem;
           } else {
             retarr[1] = this.Subtract(retarr[0].Multiply(retarr[0]));
@@ -6706,7 +6722,7 @@ if (words2Count <= 0) {
       bigintY = EInteger.One << powerBits;
       do {
         bigintX = bigintY;
-        //DebugUtility.Log("{0} {1}",thisValue,bigintX);
+        //DebugUtility.Log("" + thisValue + " " + bigintX);
         bigintY = thisValue / (EInteger)bigintX;
         bigintY += bigintX;
         bigintY >>= 1;

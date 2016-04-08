@@ -714,13 +714,15 @@ private static readonly FastIntegerFixed FastIntZero = new
                     mantBuffer = thisdigit;
                     mantBufferMult = 10;
                   } else {
-                    mantBufferMult *= 10;
+                    // multiply by 10
+   mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
                     mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
                     mantBuffer += thisdigit;
                   }
                 }
               } else {
-                mantInt *= 10;
+                // multiply by 10
+   mantInt = (mantInt << 3) + (mantInt << 1);
                 mantInt += thisdigit;
               }
               if (haveDigits && maxDigits != null) {
@@ -790,13 +792,15 @@ private static readonly FastIntegerFixed FastIntZero = new
                     mantBuffer = thisdigit;
                     mantBufferMult = 10;
                   } else {
-                    mantBufferMult *= 10;
+                    // multiply by 10
+   mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
                     mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
                     mantBuffer += thisdigit;
                   }
                 }
               } else {
-                mantInt *= 10;
+                // multiply by 10
+   mantInt = (mantInt << 3) + (mantInt << 1);
                 mantInt += thisdigit;
               }
               if (haveDigits && maxDigits != null) {
@@ -845,7 +849,8 @@ private static readonly FastIntegerFixed FastIntZero = new
               }
             }
           } else {
-            mantInt *= 10;
+            // multiply by 10
+   mantInt = (mantInt << 3) + (mantInt << 1);
             mantInt += thisdigit;
           }
           haveDigits = true;
@@ -3144,8 +3149,14 @@ return new DigitShiftAccumulator(
         EInteger bigtmp = null;
         if (tmpbigint.CompareTo(EInteger.One) != 0) {
           if (fitsInInt32) {
-            bigtmp = NumberUtility.FindPowerOfTen(powerInt);
-            tmpbigint *= (EInteger)bigtmp;
+            if (powerInt <= 10) {
+              bigtmp = NumberUtility.FindPowerOfTen(powerInt);
+              tmpbigint *= (EInteger)bigtmp;
+            } else {
+              bigtmp = NumberUtility.FindPowerOfFive(powerInt);
+              tmpbigint *= (EInteger)bigtmp;
+              tmpbigint <<= powerInt;
+            }
           } else {
             bigtmp = NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
             tmpbigint *= (EInteger)bigtmp;
