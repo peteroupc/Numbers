@@ -340,6 +340,7 @@ private static readonly FastIntegerFixed FastIntZero = new
       int[] value = Extras.DoubleToIntegers(dbl);
       var floatExponent = (int)((value[1] >> 20) & 0x7ff);
       bool neg = (value[1] >> 31) != 0;
+      long lvalue;
       if (floatExponent == 2047) {
         if ((value[1] & 0xfffff) == 0 && value[0] == 0) {
           return neg ? NegativeInfinity : PositiveInfinity;
@@ -347,14 +348,14 @@ private static readonly FastIntegerFixed FastIntZero = new
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (value[1] & 0x80000) != 0;
         value[1] &= 0x7ffff;
-        EInteger info = FastInteger.WordsToEInteger(value);
-        value[0] = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
+        lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
+        int flags = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
                 BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
-        return info.IsZero ? (quiet ? NaN : SignalingNaN) :
+        return lvalue == 0 ? (quiet ? NaN : SignalingNaN) :
           new EDecimal(
-            FastIntegerFixed.FromBig(info),
+            FastIntegerFixed.FromLong(lvalue),
             FastIntZero,
-            value[0],
+            flags,
             neg ? -1 : 1);
       }
       value[1] &= 0xfffff;
@@ -371,16 +372,16 @@ private static readonly FastIntegerFixed FastIntZero = new
         return neg ? EDecimal.NegativeZero : EDecimal.Zero;
       }
       floatExponent -= 1075;
-      EInteger valueFpMantissaBig = FastInteger.WordsToEInteger(value);
+      lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
       if (floatExponent == 0) {
         if (neg) {
-          valueFpMantissaBig = -valueFpMantissaBig;
+          lvalue = -lvalue;
         }
-        return EDecimal.FromEInteger(valueFpMantissaBig);
+        return EDecimal.FromInt64(lvalue);
       }
       if (floatExponent > 0) {
         // Value is an integer
-        var bigmantissa = (EInteger)valueFpMantissaBig;
+        var bigmantissa = (EInteger)lvalue;
         bigmantissa <<= floatExponent;
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
@@ -388,7 +389,7 @@ private static readonly FastIntegerFixed FastIntZero = new
         return EDecimal.FromEInteger(bigmantissa);
       } else {
         // Value has a fractional part
-        var bigmantissa = (EInteger)valueFpMantissaBig;
+        var bigmantissa = (EInteger)lvalue;
         EInteger exp = NumberUtility.FindPowerOfFive(-floatExponent);
         bigmantissa *= (EInteger)exp;
         if (neg) {
@@ -829,8 +830,9 @@ private static readonly FastIntegerFixed FastIntZero = new
       }
       // Ordinary number
       for (; i < endStr; ++i) {
-        if (str[i] >= '0' && str[i] <= '9') {
-          var thisdigit = (int)(str[i] - '0');
+        char ch = str[i];
+        if (ch >= '0' && ch <= '9') {
+          var thisdigit = (int)(ch - '0');
           if (mantInt > MaxSafeInt) {
             if (mant == null) {
               mant = new FastInteger(mantInt);
@@ -862,12 +864,12 @@ private static readonly FastIntegerFixed FastIntZero = new
               --newScaleInt;
             }
           }
-        } else if (str[i] == '.') {
+        } else if (ch == '.') {
           if (haveDecimalPoint) {
             throw new FormatException();
           }
           haveDecimalPoint = true;
-        } else if (str[i] == 'E' || str[i] == 'e') {
+        } else if (ch == 'E' || ch == 'e') {
           haveExponent = true;
           ++i;
           break;
@@ -896,9 +898,10 @@ private static readonly FastIntegerFixed FastIntZero = new
           ++i;
         }
         for (; i < endStr; ++i) {
-          if (str[i] >= '0' && str[i] <= '9') {
+          char ch = str[i];
+          if (ch >= '0' && ch <= '9') {
             haveDigits = true;
-            var thisdigit = (int)(str[i] - '0');
+            var thisdigit = (int)(ch - '0');
             if (expInt > MaxSafeInt) {
               if (exp == null) {
                 exp = new FastInteger(expInt);

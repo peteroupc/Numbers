@@ -7,6 +7,7 @@ at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -668,7 +669,7 @@ namespace CBOR {
       }
     }
 
-    private int ParseLineInput(string ln) {
+    private int ParseLineInput(string ln, Stopwatch sw) {
       var chunks = Contains(ln, " " + " ") ?
         Regex.Split(ln, " +") : ln.Split(' ');
       if (chunks.Length < 4) {
@@ -697,6 +698,7 @@ namespace CBOR {
       var round = chunks[1];
       var flags = chunks[3];
       var compareOp = chunks[2];
+      sw.Start();
       switch (round) {
         case "m":
           ctx = ctx.WithRounding(ERounding.Floor);
@@ -713,7 +715,6 @@ namespace CBOR {
         default:
           return 0;
       }
-
       BinaryNumber op1, op2, result;
       switch (size) {
         case 0:
@@ -1016,10 +1017,11 @@ HexInt(chunks[12]), HexInt(chunks[13]),
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       }
+      sw.Stop();
       return 0;
     }
 
-    private static int ParseLine(string ln) {
+    private static int ParseLine(string ln, Stopwatch sw) {
       var chunks = ln.Split(' ');
       if (chunks.Length < 4) {
         return 0;
@@ -1112,6 +1114,7 @@ StartsWith(chunks[2], "o")) {
         flags = chunks[7 + offset];
       }
       sresult = ConvertOp(sresult);
+      sw.Start();
       IExtendedNumber op1, op2, op3, result;
       if (binaryFP) {
         op1 = BinaryNumber.FromString(op1str);
@@ -1262,6 +1265,7 @@ StartsWith(chunks[2], "o")) {
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       }
+      sw.Stop();
       return 0;
     }
 
@@ -1277,6 +1281,7 @@ StartsWith(chunks[2], "o")) {
       var dirfiles = new List<string>();
       var sw = new System.Diagnostics.Stopwatch();
       sw.Start();
+      var swProcessing = new System.Diagnostics.Stopwatch();
       var nullWriter = TextWriter.Null;
       var standardOut = Console.Out;
       var x = 0;
@@ -1288,7 +1293,9 @@ StartsWith(chunks[2], "o")) {
         }
         ++x;
         var lowerF = f.ToLowerInvariant();
-        if(!lowerF.Contains("d64"))continue;
+        //if (!lowerF.Contains("d64")) {
+ //continue;
+//}
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") && !lowerF.Contains(".txt") &&
             !lowerF.Contains(".dectest") && !lowerF.Contains(".fptest")) {
@@ -1304,9 +1311,9 @@ StartsWith(chunks[2], "o")) {
               try {
                 // Console.SetOut(nullWriter);
                 if (isinput) {
-                  this.ParseLineInput(ln);
+                  this.ParseLineInput(ln, swProcessing);
                 } else {
-                  ParseLine(ln);
+                  ParseLine(ln, swProcessing);
                 }
               } catch (Exception ex) {
                 errors.Add(ex.ToString());
@@ -1314,9 +1321,9 @@ StartsWith(chunks[2], "o")) {
                 try {
                   Console.SetOut(standardOut);
                   if (isinput) {
-                    this.ParseLineInput(ln);
+                    this.ParseLineInput(ln, swProcessing);
                   } else {
-                    ParseLine(ln);
+                    ParseLine(ln, swProcessing);
                   }
                 } catch (Exception ex2) {
                   Console.WriteLine(ln);
@@ -1331,6 +1338,10 @@ StartsWith(chunks[2], "o")) {
       Console.SetOut(standardOut);
       sw.Stop();
       Console.WriteLine("Time: " + (sw.ElapsedMilliseconds / 1000.0) + " s");
+      Console.WriteLine("ProcTime: " + (swProcessing.ElapsedMilliseconds /
+        1000.0) + " s");
+      Console.WriteLine("Rate: " + (swProcessing.ElapsedMilliseconds *1.0 /
+        sw.ElapsedMilliseconds) + "%");
       if (failures > 0) {
         foreach (string err in errors) {
           Console.WriteLine(err);

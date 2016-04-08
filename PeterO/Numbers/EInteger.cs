@@ -142,6 +142,25 @@ namespace PeterO.Numbers {
       }
     }
 
+    internal static EInteger FromInts(int[] intWords, int count) {
+      var words = new short[count << 1];
+      var j = 0;
+      for (var i = 0; i < count; ++i, j+=2) {
+        int w = intWords[i];
+        words[j] = unchecked((short)(w));
+        words[j + 1] = unchecked((short)(w >> 16));
+      }
+      int newwordCount = words.Length;
+      while (newwordCount != 0 && words[newwordCount - 1] == 0) {
+        --newwordCount;
+      }
+      return (newwordCount == 0) ? EInteger.Zero : (new
+                    EInteger(
+                    newwordCount,
+                    words,
+                    false));
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'/>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
@@ -159,14 +178,30 @@ namespace PeterO.Numbers {
       bool newnegative = numIsNegative;
       var j = 0;
       if (!numIsNegative) {
+        if (littleEndian) {
+         bool odd=(len & 1) != 0;
+         if (odd) {
+           --len;
+         }
+         for (var i = 0; i < len; i += 2, j++) {
+          int index2 = i + 1;
+          int nrj = ((int)bytes[i]) & 0xff;
+          nrj |= ((int)bytes[index2]) << 8;
+          newreg[j] = unchecked((short)nrj);
+         }
+         if (odd) {
+           newreg[len >> 1]=unchecked((short)(((int)bytes[len]) & 0xff));
+         }
+        } else {
         for (var i = 0; i < len; i += 2, j++) {
-          int index = littleEndian ? i : len - 1 - i;
-          int index2 = littleEndian ? i + 1 : len - 2 - i;
+          int index = len - 1 - i;
+          int index2 = len - 2 - i;
           int nrj = ((int)bytes[index]) & 0xff;
           if (index2 >= 0 && index2 < len) {
             nrj |= ((int)bytes[index2]) << 8;
           }
           newreg[j] = unchecked((short)nrj);
+        }
         }
       } else {
         for (var i = 0; i < len; i += 2, j++) {
@@ -257,14 +292,23 @@ namespace PeterO.Numbers {
       int retwordcount;
       unchecked {
         retnegative = longerValue < 0;
-        if ((longerValue >> 15) == 0) {
-          retreg = new short[2];
-          long intValue = (int)longerValue;
+        if ((longerValue >> 16) == 0) {
+          retreg = new short[1];
+          var intValue = (int)longerValue;
           if (retnegative) {
             intValue = -intValue;
           }
           retreg[0] = (short)(intValue & 0xffff);
           retwordcount = 1;
+        } else if ((longerValue >> 31) == 0) {
+          retreg = new short[2];
+          var intValue = (int)longerValue;
+          if (retnegative) {
+            intValue = -intValue;
+          }
+          retreg[0] = (short)(intValue & 0xffff);
+          retreg[1] = (short)((intValue >> 16) & 0xffff);
+          retwordcount = 2;
         } else if (longerValue == Int64.MinValue) {
           retreg = new short[4];
           retreg[0] = 0;
@@ -6698,6 +6742,7 @@ if (!(sqroot.Sign >= 0)) {
 }
 #endif
         }
+  //
   //
   // //DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}"
         // ,

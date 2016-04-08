@@ -76,18 +76,19 @@ namespace PeterO.Numbers {
           longV |= unchecked(((long)this.data[1]) << 32);
           return EInteger.FromInt64(longV);
         }
-        var bytes = new byte[(this.wordCount * 4) + 1];
+        return EInteger.FromInts(this.data, this.wordCount);
+        /* var bytes = new byte[(this.wordCount >> 2) + 1];
         var i = 0;
         var j = 0;
         for (i = 0, j = 0; i < this.wordCount; ++i) {
           int d = this.data[i];
-          bytes[j++] = (byte)(d & 0xff);
-          bytes[j++] = (byte)((d >> 8) & 0xff);
-          bytes[j++] = (byte)((d >> 16) & 0xff);
-          bytes[j++] = (byte)((d >> 24) & 0xff);
+          bytes[j++] = unchecked((byte)(d));
+          bytes[j++] = unchecked((byte)(d >> 8));
+          bytes[j++] = unchecked((byte)(d >> 16));
+          bytes[j++] = unchecked((byte)(d >> 24));
         }
         bytes[bytes.Length - 1] = (byte)0;
-        return EInteger.FromBytes(bytes, true);
+        return EInteger.FromBytes(bytes, true);*/
       }
 
       internal int[] GetLastWordsInternal(int numWords32Bit) {
@@ -562,22 +563,6 @@ namespace PeterO.Numbers {
         default:
           return (this.Sign < 0) ? this.Negate() : this;
       }
-    }
-
-    internal static EInteger WordsToEInteger(int[] words) {
-      int wordCount = words.Length;
-      if (wordCount == 1 && (words[0] >> 31) == 0) {
-        return (EInteger)((int)words[0]);
-      }
-      var bytes = new byte[(wordCount * 4) + 1];
-      for (var i = 0; i < wordCount; ++i) {
-        bytes[(i * 4) + 0] = (byte)(words[i] & 0xff);
-        bytes[(i * 4) + 1] = (byte)((words[i] >> 8) & 0xff);
-        bytes[(i * 4) + 2] = (byte)((words[i] >> 16) & 0xff);
-        bytes[(i * 4) + 3] = (byte)((words[i] >> 24) & 0xff);
-      }
-      bytes[bytes.Length - 1] = (byte)0;
-      return EInteger.FromBytes(bytes, true);
     }
 
     internal static int[] GetLastWords(EInteger bigint, int numWords32Bit) {

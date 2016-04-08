@@ -2658,7 +2658,7 @@ ctx.Precision).WithBlankFlags();
         }
       }
       if (expcmp > 0) {
-        //if((op1Exponent-op2Exponent).Abs() > 10) {
+        //if ((op1Exponent-op2Exponent).Abs() > 10) {
         //DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
         // + op1Exponent + " " + op2Exponent + "]");
         //}
@@ -2676,7 +2676,7 @@ ctx.Precision).WithBlankFlags();
         int mantcmp = newmant.CompareTo(op2Mantissa);
         return (signA < 0) ? -mantcmp : mantcmp;
       } else {
-        //if((op1Exponent-op2Exponent).Abs() > 10) {
+        //if ((op1Exponent-op2Exponent).Abs() > 10) {
         //DebugUtility.Log("" + op1Mantissa + " " + op2Mantissa + " [exp="
         // + op1Exponent + " " + op2Exponent + "]");
         //}
