@@ -1281,7 +1281,7 @@ StartsWith(chunks[2], "o")) {
       var dirfiles = new List<string>();
       var sw = new System.Diagnostics.Stopwatch();
       sw.Start();
-      var swProcessing = new System.Diagnostics.Stopwatch();
+      var valueSwProcessing = new System.Diagnostics.Stopwatch();
       var nullWriter = TextWriter.Null;
       var standardOut = Console.Out;
       var x = 0;
@@ -1293,9 +1293,9 @@ StartsWith(chunks[2], "o")) {
         }
         ++x;
         var lowerF = f.ToLowerInvariant();
-        //if (!lowerF.Contains("d64")) {
- //continue;
-//}
+        // if (!lowerF.Contains("d64")) {
+ // continue;
+// }
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") && !lowerF.Contains(".txt") &&
             !lowerF.Contains(".dectest") && !lowerF.Contains(".fptest")) {
@@ -1311,9 +1311,9 @@ StartsWith(chunks[2], "o")) {
               try {
                 // Console.SetOut(nullWriter);
                 if (isinput) {
-                  this.ParseLineInput(ln, swProcessing);
+                  this.ParseLineInput(ln, valueSwProcessing);
                 } else {
-                  ParseLine(ln, swProcessing);
+                  ParseLine(ln, valueSwProcessing);
                 }
               } catch (Exception ex) {
                 errors.Add(ex.ToString());
@@ -1321,9 +1321,9 @@ StartsWith(chunks[2], "o")) {
                 try {
                   Console.SetOut(standardOut);
                   if (isinput) {
-                    this.ParseLineInput(ln, swProcessing);
+                    this.ParseLineInput(ln, valueSwProcessing);
                   } else {
-                    ParseLine(ln, swProcessing);
+                    ParseLine(ln, valueSwProcessing);
                   }
                 } catch (Exception ex2) {
                   Console.WriteLine(ln);
@@ -1338,9 +1338,9 @@ StartsWith(chunks[2], "o")) {
       Console.SetOut(standardOut);
       sw.Stop();
       Console.WriteLine("Time: " + (sw.ElapsedMilliseconds / 1000.0) + " s");
-      Console.WriteLine("ProcTime: " + (swProcessing.ElapsedMilliseconds /
+      Console.WriteLine("ProcTime: " + (valueSwProcessing.ElapsedMilliseconds /
         1000.0) + " s");
-      Console.WriteLine("Rate: " + (swProcessing.ElapsedMilliseconds *1.0 /
+      Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *1.0 /
         sw.ElapsedMilliseconds) + "%");
       if (failures > 0) {
         foreach (string err in errors) {

@@ -1291,7 +1291,7 @@ TestBinaryToDecimal(
     }
 
     [Test]
-    [Timeout(60000)]
+    [Timeout(120000)]
     public void TestToShortestString() {
       {
 string stringTemp = EFloat.FromSingle(0.1f).ToShortestString(EContext.Binary32);
@@ -1360,12 +1360,15 @@ Assert.AreEqual(
         EFloat shortest = EFloat.FromString(
           shortestStr,
           EContext.Binary64);
-     string msg = "\n" + EFToString(efa) + "\n" + EFToString(shortest) +
-          "\n" + shortestStr;
-        TestCommon.CompareTestEqual(
-          efa,
-          shortest,
-          msg);
+        if (!efa.Equals(shortest)) {
+          string msg = "\n" + EFToString(efa) + "\n" + EFToString(shortest) +
+     "\n" + shortestStr;
+          TestCommon.CompareTestEqual(
+            efa,
+            shortest,
+            msg);
+
+        }
       }
     }
     [Test]

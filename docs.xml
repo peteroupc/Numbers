@@ -1347,10 +1347,10 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <returns>This number's value as an arbitrary-precision decimal number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromDecimal(System.Decimal)">
-<summary>Converts a .NET Framework decimal (see
+<summary>Converts a <c>decimal</c> under the Common Language Infrastructure (see
             <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) to
             an arbitrary-precision decimal.</summary>
-            <param name='dec'>A .NET Framework decimal.</param>
+            <param name='dec'>A <c>decimal</c> under the Common Language Infrastructure (usually a .NET Framework decimal).</param>
             <returns>An EDecimal object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromDouble(System.Double)">
@@ -2957,12 +2957,11 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal">
-<summary>Converts an arbitrary-precision decimal's value to a .NET
-            Framework decimal (see
+<summary>Converts an arbitrary-precision decimal's value to a <c>decimal</c> under the Common Language Infrastructure (see
             <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
             using the half-even rounding mode.</summary>
             <param name='bigValue'>An EDecimal object.</param>
-            <returns>A .NET Framework decimal.</returns>
+            <returns>A <c>decimal</c> under the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double">
 
@@ -5098,11 +5097,13 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToShortestString(PeterO.Numbers.EContext)">
 <summary>Returns a string representation of this number's value
-            after rounding to the given precision. If the number after rounding
+            after rounding to the given precision (using the given arithmetic
+            context). If the number after rounding
             is neither infinity nor not-a-number (NaN), returns the shortest
             decimal form (in terms of nonzero decimal digits) of this number's
             value that results in the rounded number after the decimal form is
-            converted to binary floating-point format.</summary>
+            converted to binary floating-point format (using the given arithmetic
+            context).</summary>
             <param name='ctx'>An arithmetic context to control precision (in
             bits), rounding, and exponent range of the rounded number. If
             <c>HasFlags</c> of the context is true, will also store the flags
@@ -7242,8 +7243,11 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToDecimal">
-<summary>Not documented yet.</summary>
-            <returns>A Decimal object.</returns>
+<summary>Converts this value to a <c>decimal</c> under
+the Common Language Infrastructure (usually a .NET Framework decimal).  Currently,
+converts this value to the precision and range of a .NET Framework decimal.</summary>
+            <returns>A <c>decimal</c> under
+the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToDouble">
 <summary>Converts this value to a 64-bit floating-point number. The

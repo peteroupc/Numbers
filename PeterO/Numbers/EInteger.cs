@@ -1060,83 +1060,7 @@ namespace PeterO.Numbers {
       cc = (b >> 31) & 1;
       return unchecked((short)cc);
     }
-    /*
-    private static void TwoPlaceMultiply(
-  short[] resultArr,
-  int resultStart,
-  int w1low,
-  int w1high,
-  short[] words2,
-  int words2Start,
-  int words2Count) {
-      var p = 0;
-      var cstart = 0;
-      if (words2Count <= 0) {
-        throw new ArgumentException();
-      }
-      if (w1high == 0) {
-        short carry = 0;
-        for (var i = 0; i < words2Count; ++i) {
-          p = unchecked((((int)words2[words2Start + i]) & 0xffff) * w1low);
-          p = unchecked(p + (((int)carry) & 0xffff));
-          resultArr[resultStart + i] = unchecked((short)p);
-          carry = (short)(p >> 16);
-        }
-        resultArr[resultStart + words2Count] = unchecked((short)carry);
-        resultArr[resultStart + words2Count + 1] = (short)0;
-        return;
-      }
-      if (words2Count == 1) {
-        short carry = 0;
-        int bint = ((int)words2[words2Start]) & 0xffff;
-        p = unchecked(w1low * bint);
-        p = unchecked(p + (((int)carry) & 0xffff));
-        resultArr[resultStart + 1] = (short)p;
-        carry = (short)(p >> 16);
-        p = unchecked(w1high * bint);
-        p = unchecked(p + (((int)carry) & 0xffff));
-        resultArr[resultStart + 1] = (short)p;
-        carry = (short)(p >> 16);
-        resultArr[resultStart + 2] = (short)carry;
-        return;
-      }
-      for (var i = 0; i < words2Count; ++i) {
-        cstart = resultStart + i;
-        unchecked {
-          short carry = 0;
-          int valueBint = ((int)words2[words2Start + i]) & 0xffff;
-          p = w1low * valueBint;
-          p += ((int)carry) & 0xffff;
-          if (i != 0) {
-            p += ((int)resultArr[cstart]) & 0xffff;
-          }
-          resultArr[cstart] = (short)p;
-          carry = (short)(p >> 16);
-          p = w1high * valueBint;
-          p += ((int)carry) & 0xffff;
-          if (i != 0) {
-            p += ((int)resultArr[cstart + 1]) & 0xffff;
-          }
-          resultArr[cstart + 1] = (short)p;
-          carry = (short)(p >> 16);
-          resultArr[cstart + 2] = carry;
-        }
-      }
-    }
 
-    private static void T(short[] a, int x, int c, string t) {
-      var sb = new System.Text.StringBuilder();
-      sb.Append(t+"=0x");
-      //for (var i = 0; i <c; ++i) {
-      for (var i = c - 1; i >= 0; --i) {
-        sb.Append(String.Format("{0:X4}",a[x + i]));
-        if (i != 0) {
- sb.Append('_');
-}
-      }
-      DebugUtility.Log(sb.ToString());
-    }
-    */
     private const int RecursiveDivisionLimit = 40;
 
     private static void DivideThreeBlocksByTwo(
@@ -6742,6 +6666,8 @@ if (!(sqroot.Sign >= 0)) {
 }
 #endif
         }
+  //
+  //
   //
   //
   // //DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}"

@@ -9,80 +9,27 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EDecimal {
-    private static decimal EncodeDecimal(
-  EInteger bigmant,
-  int scale,
-  bool neg) {
-      if (scale < 0) {
-        throw new ArgumentException(
-  "scale (" + scale + ") is less than 0");
-      }
-      if (scale > 28) {
-        throw new ArgumentException(
-  "scale (" + scale + ") is more than " + "28");
-      }
-      var data = bigmant.ToBytes(true);
-      var a = 0;
-      var b = 0;
-      var c = 0;
-      for (var i = 0; i < Math.Min(4, data.Length); ++i) {
-        a |= (((int)data[i]) & 0xff) << (i * 8);
-      }
-      for (int i = 4; i < Math.Min(8, data.Length); ++i) {
-        b |= (((int)data[i]) & 0xff) << ((i - 4) * 8);
-      }
-      for (int i = 8; i < Math.Min(12, data.Length); ++i) {
-        c |= (((int)data[i]) & 0xff) << ((i - 8) * 8);
-      }
-      int d = scale << 16;
-      if (neg) {
-        d |= 1 << 31;
-      }
-      return new Decimal(new[] { a, b, c, d });
-    }
-
     private decimal ToDecimal() {
       EDecimal extendedNumber = this;
       if (extendedNumber.IsInfinity() || extendedNumber.IsNaN()) {
         throw new OverflowException("This object's value is out of range");
       }
-      try {
-        var newDecimal = extendedNumber.RoundToPrecision(
-          EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
-        return EncodeDecimal(
-  newDecimal.Mantissa.Abs(),
-  -((int)newDecimal.Exponent),
-  newDecimal.Mantissa.Sign < 0);
-      } catch (ETrapException ex) {
-        throw new OverflowException("This object's value is out of range", ex);
+      decimal ret;
+      if (Decimal.TryParse(this.ToString(),
+        System.Globalization.NumberStyles.Number,
+        System.Globalization.CultureInfo.InvariantCulture, out
+        ret)) {
+          return ret;
       }
+      throw new OverflowException("This object's value is out of range");
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromDecimal(System.Decimal)"]/*'/>
     public static EDecimal FromDecimal(decimal dec) {
-      var bits = Decimal.GetBits(dec);
-      int scale = (bits[3] >> 16) & 0xff;
-      var data = new byte[13];
-      data[0] = (byte)(bits[0] & 0xff);
-      data[1] = (byte)((bits[0] >> 8) & 0xff);
-      data[2] = (byte)((bits[0] >> 16) & 0xff);
-      data[3] = (byte)((bits[0] >> 24) & 0xff);
-      data[4] = (byte)(bits[1] & 0xff);
-      data[5] = (byte)((bits[1] >> 8) & 0xff);
-      data[6] = (byte)((bits[1] >> 16) & 0xff);
-      data[7] = (byte)((bits[1] >> 24) & 0xff);
-      data[8] = (byte)(bits[2] & 0xff);
-      data[9] = (byte)((bits[2] >> 8) & 0xff);
-      data[10] = (byte)((bits[2] >> 16) & 0xff);
-      data[11] = (byte)((bits[2] >> 24) & 0xff);
-      data[12] = 0;
-      var mantissa = EInteger.FromBytes(data, true);
-      bool negative = (bits[3] >> 31) != 0;
-      if (negative) {
-        mantissa = -mantissa;
-      }
-      return Create(mantissa, (EInteger)(-scale));
+      return
+
+  EDecimal.FromString(dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
     /// <include file='../../docs.xml'
