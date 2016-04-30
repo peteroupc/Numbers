@@ -1460,7 +1460,7 @@ if (!(bitLength <= 53)) {
       }
       // NOTE: The original EFloat is converted to decimal,
       // not the rounded version, to avoid double rounding issues
-      bool mantissaIsPowerOfTwo=this.unsignedMantissa.IsPowerOfTwo;
+      bool mantissaIsPowerOfTwo = this.unsignedMantissa.IsPowerOfTwo;
       EDecimal dec = this.ToEDecimal();
       if (ctx.Precision.CompareTo(EInteger.FromInt32(10)) >= 0) {
         // Preround the decimal so the significand has closer to the
@@ -1479,7 +1479,7 @@ if (!(bitLength <= 53)) {
         EDecimal nextDec = dec.RoundToPrecision(nextCtx);
         EFloat newFloat = nextDec.ToEFloat(ctx2);
         if (newFloat.CompareTo(valueEfRnd) == 0) {
-          if(mantissaIsPowerOfTwo) {
+          if (mantissaIsPowerOfTwo) {
             nextPrecision = eprecision;
             nextCtx = ctx2.WithBigPrecision(nextPrecision);
             EDecimal nextDec2 = dec.RoundToPrecision(nextCtx);

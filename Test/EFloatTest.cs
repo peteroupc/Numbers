@@ -1367,7 +1367,6 @@ Assert.AreEqual(
             efa,
             shortest,
             msg);
-
         }
       }
     }

@@ -6666,18 +6666,16 @@ if (!(sqroot.Sign >= 0)) {
 }
 #endif
         }
-  //
-  //
-  //
-  //
-  // //DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}"
-        // ,
-  //this, sqroot, sqrem, shift, this.wordCount, wordsPerPart,
-  // bigintX.wordCount);
-        //if (useRem) {
-        // DebugUtility.Log("srshHalf=" + (sqrem.ShiftRight(shift>>1)));
-        // DebugUtility.Log("srshFull=" + (sqrem.ShiftRight(shift)));
-        //}
+        /*
+        DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}"
+         ,
+  this, sqroot, sqrem, shift, this.wordCount, wordsPerPart,
+   bigintX.wordCount);
+        if (useRem) {
+         DebugUtility.Log("srshHalf=" + (sqrem.ShiftRight(shift>>1)));
+         DebugUtility.Log("srshFull=" + (sqrem.ShiftRight(shift)));
+        }
+        */
         var retarr = new EInteger[2];
         retarr[0] = sqroot.ShiftRight(shift >> 1);
         if (useRem) {
