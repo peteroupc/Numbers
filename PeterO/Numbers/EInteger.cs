@@ -6667,7 +6667,8 @@ if (!(sqroot.Sign >= 0)) {
 #endif
         }
         /*
-        DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}"
+
+  DebugUtility.Log("sqrt({0}) = {1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}"
          ,
   this, sqroot, sqrem, shift, this.wordCount, wordsPerPart,
    bigintX.wordCount);

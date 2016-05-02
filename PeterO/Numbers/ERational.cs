@@ -101,6 +101,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+  [Obsolete("Use the ERational.Create method instead. This constructor will be private or unavailable in version 1.0.")]
     public ERational(EInteger numerator, EInteger denominator) {
       if (numerator == null) {
         throw new ArgumentNullException("numerator");
