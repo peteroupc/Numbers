@@ -3748,8 +3748,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <doc name="M:PeterO.Numbers.EFloat.Equals(System.Object)">
 <summary>Determines whether this object&#x27;s mantissa
             (significand), exponent, and properties are equal to those of another
-            object and that other object is an arbitrary-precision binary float. 
-            Not-a-number values are considered equal if the rest of their
+            object and that other object is an arbitrary-precision binary float. Not-a-number values are considered equal if the rest of their
             properties are equal.</summary>
             <param name='obj'>An arbitrary object.</param>
             <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>

@@ -1,6 +1,6 @@
 using System;
 
-namespace PeterO {
+namespace PeterO.Rand {
     /// <summary>A class that adapts a random byte generator to generate
     /// random numbers in a variety of statistical distributions.
     /// <para>The method descriptions in this class assume the underlying

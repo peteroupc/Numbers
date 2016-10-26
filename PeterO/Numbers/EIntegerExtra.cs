@@ -3,7 +3,7 @@ Written in 2013 by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
-at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+at: http://peteroupc.github.io/
  */
 using System;
 
@@ -303,13 +303,12 @@ namespace PeterO.Numbers {
       var valueXaNegative = false; int valueXaWordCount = 0;
       var valueXaReg = new short[a.wordCount];
       Array.Copy(a.words, valueXaReg, valueXaReg.Length);
-      var valueXbNegative = false; int valueXbWordCount = 0;
+      var valueXbNegative = false;
       var valueXbReg = new short[b.wordCount];
       Array.Copy(b.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = a.negative;
       valueXaWordCount = a.wordCount;
       valueXbNegative = b.negative;
-      valueXbWordCount = b.wordCount;
       valueXaReg = CleanGrow(
   valueXaReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
@@ -356,13 +355,12 @@ namespace PeterO.Numbers {
       var valueXaNegative = false; int valueXaWordCount = 0;
       var valueXaReg = new short[first.wordCount];
       Array.Copy(first.words, valueXaReg, valueXaReg.Length);
-      var valueXbNegative = false; int valueXbWordCount = 0;
+      var valueXbNegative = false;
       var valueXbReg = new short[second.wordCount];
       Array.Copy(second.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = first.negative;
       valueXaWordCount = first.wordCount;
       valueXbNegative = second.negative;
-      valueXbWordCount = second.wordCount;
       valueXaReg = CleanGrow(
   valueXaReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
@@ -406,13 +404,12 @@ namespace PeterO.Numbers {
       var valueXaNegative = false; int valueXaWordCount = 0;
       var valueXaReg = new short[a.wordCount];
       Array.Copy(a.words, valueXaReg, valueXaReg.Length);
-      var valueXbNegative = false; int valueXbWordCount = 0;
+      var valueXbNegative = false;
       var valueXbReg = new short[b.wordCount];
       Array.Copy(b.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = a.negative;
       valueXaWordCount = a.wordCount;
       valueXbNegative = b.negative;
-      valueXbWordCount = b.wordCount;
       valueXaReg = CleanGrow(
   valueXaReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));

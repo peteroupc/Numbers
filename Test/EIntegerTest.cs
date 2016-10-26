@@ -122,7 +122,7 @@ namespace Test {
       if (bigintB.IsZero) {
         try {
           bigintTemp = bigintA / bigintB;
-          Assert.Fail("Expected divide by 0 error");
+                    Assert.Fail("Expected divide by 0 error, got "+bigintTemp);
         } catch (ArithmeticException ex) {
           Console.WriteLine(ex.Message);
         }
@@ -2569,7 +2569,7 @@ namespace Test {
     public void TT() {
       EInteger bi = EInteger.FromString(
        "1").ShiftLeft(742072).Subtract(EInteger.One);
-      string valueBiStr = bi.ToString();
+      bi.ToString();
     }
   }
 }

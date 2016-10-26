@@ -3,7 +3,7 @@ Written by Peter O. in 2013.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
-at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+at: http://peteroupc.github.io/
  */
 using System;
 using System.Collections.Generic;
@@ -1059,7 +1059,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         return 0;
       }
       var squroot = op.Equals("V");
-      var mod = op.Equals("%");
+      //var mod = op.Equals("%");
       var div = op.Equals("/");
       var fma = op.Equals("*+");
       var fms = op.Equals("*-");
@@ -1282,7 +1282,7 @@ StartsWith(chunks[2], "o")) {
       var sw = new System.Diagnostics.Stopwatch();
       sw.Start();
       var valueSwProcessing = new System.Diagnostics.Stopwatch();
-      var nullWriter = TextWriter.Null;
+      //var nullWriter = TextWriter.Null;
       var standardOut = Console.Out;
       var x = 0;
       dirfiles.AddRange(GetTestFiles());

@@ -11,7 +11,7 @@ Stigen Larsen (http://csl.sublevel3.org).
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
-at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+at: http://peteroupc.github.io/
  */
 using System;
 using System.Text;
@@ -1128,7 +1128,7 @@ if (tmp.Length < blockCount * 6) {
 #endif
 
       // Implements Algorithm 2 of Burnikel & Ziegler 1998
-      int remSize = blockCount * 2;
+      //int remSize = blockCount * 2;
       int c;
       if (
   WordsCompare(
@@ -1676,7 +1676,7 @@ if (rem.Length - posRem < countB) {
         throw new ArgumentException();
       }
 #endif
-      int quotSize = countA - countB + 1;
+      //int quotSize = countA - countB + 1;
       if (countA < countB) {
         // A is less than B, so quotient is 0, remainder is "a"
         if (quot != null) {
