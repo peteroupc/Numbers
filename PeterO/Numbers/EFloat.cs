@@ -3,7 +3,7 @@ Written in 2013 by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
-at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+at: http://peteroupc.github.io/
  */
 using System;
 
@@ -99,12 +99,6 @@ namespace PeterO.Numbers {
     private static readonly IRadixMath<EFloat> MathValue = new
       TrappableRadixMath<EFloat>(
         new ExtendedOrSimpleRadixMath<EFloat>(new BinaryMathHelper()));
-
- private static readonly EInteger ValueOneShift23 =
-      EInteger.One.ShiftLeft(23);
-
- private static readonly EInteger ValueOneShift52 =
-      EInteger.One.ShiftLeft(52);
 
     private readonly EInteger exponent;
     private readonly int flags;
@@ -953,12 +947,10 @@ namespace PeterO.Numbers {
           int integerA = this.unsignedMantissa.ToInt32Unchecked();
           int integerB = otherValue.unsignedMantissa.ToInt32Unchecked();
           long longA = ((long)integerA) * ((long)integerB);
-          int sign = (longA == 0) ? 0 : (newflags == 0 ? 1 : -1);
           return CreateWithFlags((EInteger)longA, exp, newflags);
         } else {
           EInteger eintA = this.unsignedMantissa.Multiply(
            otherValue.unsignedMantissa);
-          int sign = eintA.IsZero ? 0 : (newflags == 0 ? 1 : -1);
           return CreateWithFlags(eintA, exp, newflags);
         }
       }
@@ -1471,7 +1463,7 @@ if (!(bitLength <= 53)) {
         dec = dec.RoundToPrecision(
           ctx2.WithRounding(ERounding.Odd).WithBigPrecision(roundedPrec));
       }
-      int precision = dec.UnsignedMantissa.GetDigitCount();
+      // int precision = dec.UnsignedMantissa.GetDigitCount();
       EInteger eprecision = EInteger.Zero;
       while (true) {
         EInteger nextPrecision = eprecision.Add(EInteger.One);

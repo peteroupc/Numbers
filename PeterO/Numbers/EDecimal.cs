@@ -3,7 +3,7 @@ Written in 2013 by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
-at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+at: http://peteroupc.github.io/
  */
 using System;
 using System.Text;
@@ -114,9 +114,6 @@ private static readonly FastIntegerFixed FastIntZero = new
       TrappableRadixMath<EDecimal>(
         new ExtendedOrSimpleRadixMath<EDecimal>(new
                     DecimalMathHelper()));
-
-    private static readonly EInteger ValueOneShift62 =
-      EInteger.One.ShiftLeft(62);
 
     private static readonly int[] ValueTenPowers = {
       1, 10, 100, 1000, 10000, 100000,
@@ -2713,7 +2710,6 @@ private static readonly FastIntegerFixed FastIntZero = new
             }
           } while (quorem[0].CompareTo(desiredLow) < 0);
         }
-        bool inexact = !quorem[1].IsZero;
         // Round to odd to avoid rounding errors
         if (!quorem[1].IsZero && quorem[0].IsEven) {
           quorem[0] = quorem[0].Add(EInteger.One);

@@ -109,21 +109,21 @@ throw new InvalidOperationException(String.Empty, ex);
           continue;
         }
         num = num.Abs();
-        var rat = new ERational(num, EInteger.One);
-        var rat2 = new ERational(num, (EInteger)2);
+        var rat = ERational.Create(num, EInteger.One);
+        var rat2 = ERational.Create(num, (EInteger)2);
         TestCommon.CompareTestLess(rat2, rat);
         TestCommon.CompareTestGreater(rat, rat2);
       }
       TestCommon.CompareTestLess(
-        new ERational(EInteger.One, (EInteger)2),
-        new ERational((EInteger)4, EInteger.One));
+        ERational.Create(EInteger.One, (EInteger)2),
+        ERational.Create((EInteger)4, EInteger.One));
       for (var i = 0; i < 100; ++i) {
         EInteger num = RandomObjects.RandomEInteger(r);
         EInteger den = RandomObjects.RandomEInteger(r);
         if (den.IsZero) {
           den = EInteger.One;
         }
-        var rat = new ERational(num, den);
+        var rat = ERational.Create(num, den);
         for (int j = 0; j < 10; ++j) {
           EInteger num2 = num;
           EInteger den2 = den;
@@ -133,7 +133,7 @@ throw new InvalidOperationException(String.Empty, ex);
           }
           num2 *= (EInteger)mult;
           den2 *= (EInteger)mult;
-          var rat2 = new ERational(num2, den2);
+                    var rat2 = ERational.Create(num2, den2);
           TestCommon.CompareTestEqual(rat, rat2);
         }
       }
@@ -765,10 +765,10 @@ throw new InvalidOperationException(String.Empty, ex);
       for (var i = 0; i < 100; ++i) {
         ERational er;
         ERational er2;
-        er = new ERational(
+                er = ERational.Create(
           RandomObjects.RandomEInteger(fr),
           EInteger.One);
-        er2 = new ERational(
+                er2 = ERational.Create(
           RandomObjects.RandomEInteger(fr),
           EInteger.One);
         if (er2.IsZero || !er2.IsFinite) {

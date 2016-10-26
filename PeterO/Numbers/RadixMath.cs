@@ -3,7 +3,7 @@ Written in 2013 by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
-at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+at: http://peteroupc.github.io/
  */
 using System;
 
@@ -1305,7 +1305,7 @@ ctx.Precision).WithBlankFlags();
               expTmp.AsEInteger().Abs(),
               EInteger.Zero,
               expTmp.Sign < 0 ? BigNumberFlags.FlagNegative : 0);
-            thisValue = thisValue = this.RoundToPrecision(
+            thisValue = this.RoundToPrecision(
                 thisValue,
                 ctxCopy);
           } else {
@@ -2927,8 +2927,8 @@ ctx.Precision).WithBlankFlags();
         FastInteger fastPrecision = FastInteger.FromBig(ctx.Precision);
         bool moreDistantThanPrecision = expdiff.CompareTo(fastPrecision) > 0;
         // If exponent difference is greater than the precision
-        if (true || moreDistantThanPrecision) {
-        // if (expdiff.CompareTo(fastPrecision) > 0) {
+                //if (true || moreDistantThanPrecision) {
+        if (moreDistantThanPrecision) {
           int expcmp2 = fastOp1Exp.CompareTo(fastOp2Exp);
           if (expcmp2 < 0) {
             if (!op2MantAbs.IsZero) {
