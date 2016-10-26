@@ -1126,6 +1126,7 @@ if (tmp.Length < blockCount * 6) {
     ") is less than " + (blockCount * 6));
 }
 #endif
+#if DEBUG
       string wa = WordsToString2 (valueALow, posALow,
         blockCount, valueAMidHigh, posAMidHigh, blockCount*2);
       string wb = WordsToString (b, posB, blockCount*2);
@@ -1133,6 +1134,7 @@ if (tmp.Length < blockCount * 6) {
         DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb + ",'+("
           +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
       }
+#endif
       // Implements Algorithm 2 of Burnikel & Ziegler 1998
       //int remSize = blockCount * 2;
       int c;
@@ -1331,12 +1333,14 @@ if (rem.Length - posRem < (blockSize * 2)) {
   posRem);
       } else {
         // DebugUtility.Log("special");
+#if DEBUG
         string wa = WordsToString (a, posA, blockSize*2);
         string wb = WordsToString (b, posB, blockSize);
         if (!wa.Equals("\"0\"")) {
           DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb +
             ",'+(" +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
         }
+#endif
         int halfBlock = blockSize >> 1;
         var tmp = new short[halfBlock * 10];
         Array.Clear(quot, posQuot, blockSize*2);
@@ -1714,12 +1718,14 @@ if (rem.Length - posRem < countB) {
         throw new ArgumentException();
       }
 #endif
+#if DEBUG
       string wa = WordsToString (a, posA, countA);
       string wb = WordsToString (b, posB, countB);
       if (!wa.Equals("\"0\"")) {
         DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb + ",'+("
           +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
       }
+#endif
       if (countA < countB) {
         // A is less than B, so quotient is 0, remainder is "a"
         if (quot != null) {

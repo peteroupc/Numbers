@@ -30,50 +30,8 @@ namespace Test {
 
     public static void TestStringEqualRoundTrip(EFloat obj) {
       string str = obj.ToString();
-      EFloat newobj = EFloat.FromString(str);
-      string str2 = newobj.ToString();
-      TestCommon.AssertEqualsHashCode(obj, newobj);
-      TestCommon.AssertEqualsHashCode(str, str2);
-    }
-
-    public static void TestStringEqualRoundTrip(ERational obj) {
-      string str = obj.ToString();
-      ERational newobj = ERational.FromString(str);
-      string str2 = newobj.ToString();
-      TestCommon.AssertEqualsHashCode(obj, newobj);
-      TestCommon.AssertEqualsHashCode(str, str2);
-    }
-    [Test]
-    public void TestExtendedInfinity() {
-      Assert.IsTrue(EDecimal.PositiveInfinity.IsPositiveInfinity());
-      Assert.IsFalse(EDecimal.PositiveInfinity.IsNegativeInfinity());
-      Assert.IsFalse(EDecimal.PositiveInfinity.IsNegative);
-      Assert.IsFalse(EDecimal.NegativeInfinity.IsPositiveInfinity());
-      Assert.IsTrue(EDecimal.NegativeInfinity.IsNegativeInfinity());
-      Assert.IsTrue(EDecimal.NegativeInfinity.IsNegative);
-      Assert.IsTrue(EFloat.PositiveInfinity.IsInfinity());
-      Assert.IsTrue(EFloat.PositiveInfinity.IsPositiveInfinity());
-      Assert.IsFalse(EFloat.PositiveInfinity.IsNegativeInfinity());
-      Assert.IsFalse(EFloat.PositiveInfinity.IsNegative);
-      Assert.IsTrue(EFloat.NegativeInfinity.IsInfinity());
-      Assert.IsFalse(EFloat.NegativeInfinity.IsPositiveInfinity());
-      Assert.IsTrue(EFloat.NegativeInfinity.IsNegativeInfinity());
-      Assert.IsTrue(EFloat.NegativeInfinity.IsNegative);
-      Assert.IsTrue(ERational.PositiveInfinity.IsInfinity());
-      Assert.IsTrue(ERational.PositiveInfinity.IsPositiveInfinity());
-      Assert.IsFalse(ERational.PositiveInfinity.IsNegativeInfinity());
-      Assert.IsFalse(ERational.PositiveInfinity.IsNegative);
-      Assert.IsTrue(ERational.NegativeInfinity.IsInfinity());
-      Assert.IsFalse(ERational.NegativeInfinity.IsPositiveInfinity());
-      Assert.IsTrue(ERational.NegativeInfinity.IsNegativeInfinity());
-      Assert.IsTrue(ERational.NegativeInfinity.IsNegative);
-
-      Assert.AreEqual(
-        EDecimal.PositiveInfinity,
-        EDecimal.FromDouble(Double.PositiveInfinity));
-      Assert.AreEqual(
-        EDecimal.NegativeInfinity,
-        EDecimal.FromDouble(Double.NegativeInfinity));
+      EFloat newobj = E
+EDecimal.FromDouble(Double.NegativeInfinity));
       Assert.AreEqual(
         EDecimal.PositiveInfinity,
         EDecimal.FromSingle(Single.PositiveInfinity));
@@ -128,28 +86,5 @@ namespace Test {
 
   Assert.IsTrue(Single.IsNegativeInfinity(ERational.NegativeInfinity.ToSingle()));
     }
-    /*
-    [Test]
-    public void TestEIntegerAnd() {
-      try {
-        EInteger.And(EInteger.Zero, null);
-        Assert.Fail("Should have failed");
-      } catch (ArgumentNullException) {
-        new Object();
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-      try {
-        EInteger.And(null, EInteger.Zero);
-        Assert.Fail("Should have failed");
-      } catch (ArgumentNullException) {
-        new Object();
-      } catch (Exception ex) {
-        Assert.Fail(ex.ToString());
-        throw new InvalidOperationException(String.Empty, ex);
-      }
-    }
-    */
   }
 }
