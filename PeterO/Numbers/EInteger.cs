@@ -1061,7 +1061,7 @@ namespace PeterO.Numbers {
       return unchecked((short)cc);
     }
 
-    private const int RecursiveDivisionLimit = 40;
+    private const int RecursiveDivisionLimit = 3;
 
     private static void DivideThreeBlocksByTwo(
       short[] valueALow,
@@ -1126,7 +1126,13 @@ if (tmp.Length < blockCount * 6) {
     ") is less than " + (blockCount * 6));
 }
 #endif
-
+      string wa = WordsToString2 (valueALow, posALow,
+        blockCount, valueAMidHigh, posAMidHigh, blockCount*2);
+      string wb = WordsToString (b, posB, blockCount*2);
+      if (!wa.Equals("\"0\"")) {
+        DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb + ",'+("
+          +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
+      }
       // Implements Algorithm 2 of Burnikel & Ziegler 1998
       //int remSize = blockCount * 2;
       int c;
@@ -1325,20 +1331,28 @@ if (rem.Length - posRem < (blockSize * 2)) {
   posRem);
       } else {
         // DebugUtility.Log("special");
+        string wa = WordsToString (a, posA, blockSize*2);
+        string wb = WordsToString (b, posB, blockSize);
+        if (!wa.Equals("\"0\"")) {
+          DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb +
+            ",'+(" +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
+        }
         int halfBlock = blockSize >> 1;
         var tmp = new short[halfBlock * 10];
+        Array.Clear(quot, posQuot, blockSize*2);
+        Array.Clear(rem, posRem, blockSize);
         DivideThreeBlocksByTwo(
   a,
   posA + halfBlock,
   a,
-  posA + (halfBlock * 2),
+  posA + blockSize,
   b,
   posB,
   halfBlock,
   tmp,
- halfBlock * 6,
+  halfBlock * 6,
   tmp,
- halfBlock * 8,
+  halfBlock * 8,
   tmp);
         DivideThreeBlocksByTwo(
   a,
@@ -1538,6 +1552,30 @@ if (rem.Length - posRem < countB) {
       }
     }
 
+    private static string WordsToString (short [] a, int pos, int len) {
+      while (len != 0 && a [pos + len - 1] == 0) {
+                --len;
+            }
+      if (len == 0) {
+ return "\"0\"";
+}
+      short [] words = new short [len];
+      Array.Copy (a, pos, words, 0, len);
+      return "\""+ new EInteger (len, words, false).ToUnoptString()+"\"";
+    }
+    private static string WordsToString2 (short [] a, int pos, int len,
+      short [] b, int pos2, int len2) {
+      short [] words = new short [len + len2];
+      Array.Copy (a, pos, words, 0, len);
+      Array.Copy (b, pos2, words, len, len2);
+       len+=len2;
+      while (len != 0 && words[len - 1] == 0) {
+                --len;
+      }
+      return (len == 0) ? ("\"0\"") : ("\"" + new EInteger (len, words,
+        false).ToUnoptString()+"\"");
+    }
+
     private static void GeneralDivide(
      short[] a,
      int posA,
@@ -1676,7 +1714,12 @@ if (rem.Length - posRem < countB) {
         throw new ArgumentException();
       }
 #endif
-      //int quotSize = countA - countB + 1;
+      string wa = WordsToString (a, posA, countA);
+      string wb = WordsToString (b, posB, countB);
+      if (!wa.Equals("\"0\"")) {
+        DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb + ",'+("
+          +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
+      }
       if (countA < countB) {
         // A is less than B, so quotient is 0, remainder is "a"
         if (quot != null) {
@@ -1729,7 +1772,8 @@ if (rem.Length - posRem < countB) {
       short[] workB = b;
       workPosA = posA;
       workPosB = posB;
-      if (countB > RecursiveDivisionLimit) {
+      // TODO: Recursive division doesn't work in all cases
+      if (false && countB > RecursiveDivisionLimit) {
         RecursiveDivide(
   a,
   posA,
@@ -3334,7 +3378,8 @@ WordsShiftRightOne(bu, buc);
       return ivv;
     }
 
-    private void ToRadixStringDecimal(StringBuilder outputSB) {
+    private void ToRadixStringDecimal(StringBuilder outputSB,
+                    bool optimize) {
 #if DEBUG
       if (!(!this.negative)) {
         throw new ArgumentException("doesn't satisfy !this.negative");
@@ -3342,7 +3387,7 @@ WordsShiftRightOne(bu, buc);
 #endif
 
       var i = 0;
-      if (this.wordCount >= 100) {
+      if (this.wordCount >= 100 && optimize) {
         var rightBuilder = new StringBuilder();
         int digits = this.wordCount * 3;
         EInteger pow = NumberUtility.FindPowerOfTen(digits);
@@ -3350,8 +3395,8 @@ WordsShiftRightOne(bu, buc);
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("" + (divrem[0].GetUnsignedBitLength()) + "," +
         // (// divrem[1].GetUnsignedBitLength()));
-        divrem[0].ToRadixStringDecimal(outputSB);
-        divrem[1].ToRadixStringDecimal(rightBuilder);
+        divrem[0].ToRadixStringDecimal(outputSB, optimize);
+        divrem[1].ToRadixStringDecimal(rightBuilder, optimize);
         for (i = rightBuilder.Length; i < digits; ++i) {
           outputSB.Append('0');
         }
@@ -3427,6 +3472,18 @@ WordsShiftRightOne(bu, buc);
       outputSB.Append(s, 0, i);
     }
 
+    private string ToUnoptString () {
+        if (this.HasSmallValue()) {
+          return this.SmallValueToString();
+        }
+            var sb = new StringBuilder ();
+            if (this.negative) {
+                sb.Append ('-');
+            }
+            this.Abs ().ToRadixStringDecimal (sb, false);
+            return sb.ToString ();
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
     public string ToRadixString(int radix) {
@@ -3450,7 +3507,7 @@ WordsShiftRightOne(bu, buc);
         if (this.negative) {
           sb.Append('-');
         }
-        this.Abs().ToRadixStringDecimal(sb);
+        this.Abs().ToRadixStringDecimal(sb, true);
         return sb.ToString();
       }
       if (radix == 16) {
@@ -6647,7 +6704,7 @@ if (!((ww[wordsPerPart*4-1]&0xc000) != 0)) {
         //DebugUtility.Log("sqrt1({0})[depth={3}] = {1},{2}"
         // , e3, srem2[0], srem2[1], 0);
         //if (!srem[0].Equals(srem2[0]) || !srem[1].Equals(srem2[1])) {
-  //  throw new InvalidOperationException(this.ToString());
+  // throw new InvalidOperationException(this.ToString());
    //}
         EInteger[] qrem = srem[1].ShiftLeft(bitsPerPart).Add(e2).DivRem(
            srem[0].ShiftLeft(1));
