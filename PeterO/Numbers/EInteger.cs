@@ -1061,7 +1061,7 @@ namespace PeterO.Numbers {
       return unchecked((short)cc);
     }
 
-    private const int RecursiveDivisionLimit = 3;
+    private const int RecursiveDivisionLimit = 40;
 
     private static void DivideThreeBlocksByTwo(
       short[] valueALow,
@@ -1076,8 +1076,10 @@ namespace PeterO.Numbers {
       short[] rem,
       int posRem,
       short[] tmp) {
-      #if DEBUG
-        if (quot != null) {
+      // NOTE: size of 'quot' equals 'blockCount' * 2
+      // NOTE: size of 'rem' equals 'blockCount' * 2
+#if DEBUG
+      if (quot != null) {
 if (posQuot < 0) {
   throw new ArgumentException("posQuot (" + posQuot +
     ") is less than 0");
@@ -1126,18 +1128,27 @@ if (tmp.Length < blockCount * 6) {
     ") is less than " + (blockCount * 6));
 }
 #endif
-#if DEBUG
-      string wa = WordsToString2 (valueALow, posALow,
-        blockCount, valueAMidHigh, posAMidHigh, blockCount*2);
-      string wb = WordsToString (b, posB, blockCount*2);
-      if (!wa.Equals("\"0\"")) {
-        DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb + ",'+("
-          +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
+      /* var realquot = new short [blockCount * 2];
+      var realrem = new short [blockCount * 2];
+      var cw = CombineWords (valueALow, posALow,
+                    blockCount, valueAMidHigh, posAMidHigh, blockCount * 2);
+      int ca = CountWords (cw, 0, cw.Length);
+      int cb = CountWords (b, posB, blockCount * 2);
+      string extra="";
+      if (ca >= cb) {
+        //DebugUtility.Log ("ca=" + ca + " cb=" + (cb));
+        norecurse = true;
+        GeneralDivide (cw, 0, ca,
+                    b, posB, cb,
+                    realquot, 0,
+                    realrem, 0);
+        norecurse = false;
       }
-#endif
+      */
+
       // Implements Algorithm 2 of Burnikel & Ziegler 1998
-      //int remSize = blockCount * 2;
       int c;
+      // If AHigh is less than BHigh
       if (
   WordsCompare(
   valueAMidHigh,
@@ -1146,7 +1157,12 @@ if (tmp.Length < blockCount * 6) {
   b,
   posB + blockCount,
   blockCount) < 0) {
-        Array.Clear(tmp, blockCount * 4, blockCount * 2);
+         /*extra+="\namh="+WordsToStringHex (valueAMidHigh,
+  posAMidHigh, blockCount*2);
+        extra+="\nbh ="+WordsToStringHex (b,
+ posB + blockCount, blockCount);
+        extra+="\naHigh<bHigh size="+(blockCount*2);*/
+        // Divide AMidHigh by BHigh
         RecursiveDivideInner(
  valueAMidHigh,
  posAMidHigh,
@@ -1157,17 +1173,27 @@ if (tmp.Length < blockCount * 6) {
  rem,
  posRem,
  blockCount);
+        //extra+="\nq="+WordsToStringHex (quot,posQuot, blockCount*2);
+        //extra+="\nr="+WordsToStringHex (rem,posRem, blockCount);
+        // Copy remainder to temp at block position 4
         Array.Copy(rem, posRem, tmp, blockCount * 4, blockCount);
+        Array.Clear(tmp, blockCount * 5, blockCount);
       } else {
+        // BHigh is less than AHigh
+        // set quotient to all ones
+    //     extra+=" aHigh>= bHigh";
         for (var i = 0; i < blockCount; ++i) {
-          quot[i] = unchecked((short)0xffff);
+          quot[posQuot + i] = unchecked((short)0xffff);
         }
+        Array.Clear(quot, posQuot + blockCount, blockCount);
+        // copy AMidHigh to temp
         Array.Copy(
        valueAMidHigh,
        posAMidHigh,
        tmp,
        blockCount * 4,
        blockCount * 2);
+       // subtract BHigh from temp's high block
         SubtractInternal(
   tmp,
   blockCount * 5,
@@ -1176,6 +1202,7 @@ if (tmp.Length < blockCount * 6) {
   b,
   posB + blockCount,
   blockCount);
+        // add BHigh to temp
         c = AddInternal(
   tmp,
   blockCount * 4,
@@ -1184,6 +1211,7 @@ if (tmp.Length < blockCount * 6) {
   b,
   posB + blockCount,
   blockCount);
+//        extra+="\nq="+WordsToStringHex (quot,posQuot, blockCount*2);
         Increment(tmp, blockCount * 5, blockCount, (short)c);
       }
       AsymmetricMultiply(
@@ -1199,9 +1227,27 @@ if (tmp.Length < blockCount * 6) {
   blockCount);
       int bc3 = blockCount * 3;
       Array.Copy(valueALow, posALow, tmp, bc3, blockCount);
-      c = SubtractInternal(tmp, bc3, tmp, bc3, tmp, 0, blockCount * 2);
-      c = Decrement(tmp, blockCount * 5, blockCount, (short)c);
+      Array.Clear(tmp, blockCount*2, blockCount);
+/*
+        extra+="\nsub1="+WordsToStringHex (tmp, bc3, blockCount*3);
+        extra+="\nsub2="+WordsToStringHex (tmp, 0, blockCount*3);
+        extra+="\nb   ="+WordsToStringHex (b, posB, blockCount * 2);
+        extra+="\n--->"+WordsToStringHex (tmp, bc3, blockCount*3);
+        extra+=" borrow";
+        //AddInternal(tmp, bc3, tmp, bc3, tmp, 0, bc3);
+        int cnt = 0;
+        while (WordsCompare(tmp, bc3, bc3, tmp, 0, bc3)< 0) {
+          Decrement(quot, posQuot, blockCount * 2, (short)1);
+          c = AddInternal(tmp, bc3, tmp, bc3, b, posB, blockCount * 2);
+          Increment(tmp, blockCount * 5, blockCount, (short)c);
+          extra+="\nsub1x="+WordsToStringHex (tmp, bc3, blockCount*3);
+          extra+="\nsub2x="+WordsToStringHex (tmp, 0, blockCount*3);
+         }
+         SubtractInternal(tmp, bc3, tmp, bc3, tmp, 0, bc3);
+*/
+      c = SubtractInternal(tmp, bc3, tmp, bc3, tmp, 0, blockCount * 3);
       if (c != 0) {
+        //extra+=" borrow";
         while (true) {
           c = AddInternal(tmp, bc3, tmp, bc3, b, posB, blockCount * 2);
           c = Increment(tmp, blockCount * 5, blockCount, (short)c);
@@ -1212,7 +1258,26 @@ if (tmp.Length < blockCount * 6) {
         }
       }
       Array.Copy(tmp, bc3, rem, posRem, blockCount * 2);
+/*
+      if (ca >= cb && (Compare (quot, posQuot, realquot, 0, realquot.Length) != 0 ||
+           Compare (rem, posRem, realrem, 0, realrem.Length) != 0)) {
+        string exmessage = "\n" +
+          "ca=" + ca + ", cb=" + cb + ", extra="+extra+"\n" +
+          "a=" + WordsToStringHex (cw, 0, cw.Length) + "\n" +
+          "b=" + WordsToStringHex (b, posB, blockCount * 2) + "\n" +
+          "expQ=" + WordsToStringHex (realquot, 0, realquot.Length) + "\n" +
+          "expR=" + WordsToStringHex (realrem, 0, realrem.Length) + "\n" +
+          "gotQ=" + WordsToStringHex (quot, posQuot, blockCount * 2) + "\n" +
+          "gotR=" + WordsToStringHex (rem, posRem, blockCount * 2) + "\n";
+        //DebugUtility.Log (exmessage);
+        //Array.Copy (realquot, 0, quot, posQuot, realquot.Length);
+        //Array.Copy (realrem, 0, rem, posRem, realrem.Length);
+        //return;
+        throw new InvalidOperationException (exmessage);
+      }*/
     }
+
+    private static bool norecurse = false;
 
     private static void RecursiveDivideInner(
       short[] a,
@@ -1224,6 +1289,8 @@ if (tmp.Length < blockCount * 6) {
       short[] rem,
       int posRem,
       int blockSize) {
+// NOTE: size of 'a', 'quot', and 'rem' is 'blockSize'*2
+// NOTE: size of 'b' is 'blockSize'
 #if DEBUG
 if (a == null) {
   throw new ArgumentNullException("a");
@@ -1317,9 +1384,8 @@ if (rem.Length - posRem < (blockSize * 2)) {
 }
 #endif
       // Implements Algorithm 1 of Burnikel & Ziegler 1998
-      // DebugUtility.Log("size="+blockSize);
       if (blockSize < RecursiveDivisionLimit || (blockSize & 1) == 1) {
-        // DebugUtility.Log("general");
+        //DebugUtility.Log("general "+WordsToStringHex (a, posA, blockSize*2));
         GeneralDivide(
   a,
   posA,
@@ -1333,17 +1399,9 @@ if (rem.Length - posRem < (blockSize * 2)) {
   posRem);
       } else {
         // DebugUtility.Log("special");
-#if DEBUG
-        string wa = WordsToString (a, posA, blockSize*2);
-        string wb = WordsToString (b, posB, blockSize);
-        if (!wa.Equals("\"0\"")) {
-          DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb +
-            ",'+(" +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
-        }
-#endif
-        int halfBlock = blockSize >> 1;
+                int halfBlock = blockSize >> 1;
         var tmp = new short[halfBlock * 10];
-        Array.Clear(quot, posQuot, blockSize*2);
+        Array.Clear(quot, posQuot, blockSize * 2);
         Array.Clear(rem, posRem, blockSize);
         DivideThreeBlocksByTwo(
   a,
@@ -1567,7 +1625,19 @@ if (rem.Length - posRem < countB) {
       Array.Copy (a, pos, words, 0, len);
       return "\""+ new EInteger (len, words, false).ToUnoptString()+"\"";
     }
-    private static string WordsToString2 (short [] a, int pos, int len,
+        private static string WordsToStringHex (short [] a, int pos, int len) {
+            while (len != 0 && a [pos + len - 1] == 0) {
+                --len;
+            }
+            if (len == 0) {
+                return "\"0\"";
+            }
+            short [] words = new short [len];
+            Array.Copy (a, pos, words, 0, len);
+      return "\"" + new EInteger (len, words, false).ToRadixString (16) +
+              "\"" ;
+        }
+        private static string WordsToString2 (short [] a, int pos, int len,
       short [] b, int pos2, int len2) {
       short [] words = new short [len + len2];
       Array.Copy (a, pos, words, 0, len);
@@ -1578,6 +1648,14 @@ if (rem.Length - posRem < countB) {
       }
       return (len == 0) ? ("\"0\"") : ("\"" + new EInteger (len, words,
         false).ToUnoptString()+"\"");
+    }
+
+    private static short[] CombineWords (short [] a, int pos, int len,
+      short [] b, int pos2, int len2) {
+      short [] words = new short [len + len2];
+      Array.Copy (a, pos, words, 0, len);
+      Array.Copy (b, pos2, words, len, len2);
+      return words;
     }
 
     private static void GeneralDivide(
@@ -1718,14 +1796,6 @@ if (rem.Length - posRem < countB) {
         throw new ArgumentException();
       }
 #endif
-#if DEBUG
-      string wa = WordsToString (a, posA, countA);
-      string wb = WordsToString (b, posB, countB);
-      if (!wa.Equals("\"0\"")) {
-        DebugUtility.Log ("px.push 'DoTestDivide(" + wa + "," + wb + ",'+("
-          +wa+".to_i/" +wb+".to_i).to_s.inspect+');'");
-      }
-#endif
       if (countA < countB) {
         // A is less than B, so quotient is 0, remainder is "a"
         if (quot != null) {
@@ -1740,7 +1810,7 @@ if (rem.Length - posRem < countB) {
         if (cmp == 0) {
           // A equals B, so quotient is 1, remainder is 0
           if (quot != null) {
-            quot[0] = 1;
+            quot[posQuot] = 1;
             Array.Clear(quot, posQuot + 1, Math.Max(0, origQuotSize - 1));
           }
           if (rem != null) {
@@ -1766,7 +1836,7 @@ if (rem.Length - posRem < countB) {
               a,
               posA,
               countA,
-              b[0]);
+              b[posB]);
         if (rem != null) {
           rem[posRem] = shortRemainder;
         }
@@ -1779,7 +1849,7 @@ if (rem.Length - posRem < countB) {
       workPosA = posA;
       workPosB = posB;
       // TODO: Recursive division doesn't work in all cases
-      if (false && countB > RecursiveDivisionLimit) {
+      if (!norecurse && countB > RecursiveDivisionLimit) {
         RecursiveDivide(
   a,
   posA,
@@ -5262,6 +5332,13 @@ WordsShiftRightOne(bu, buc);
     private static int CountWords(short[] array) {
       int n = array.Length;
       while (n != 0 && array[n - 1] == 0) {
+        --n;
+      }
+      return (int)n;
+    }
+    private static int CountWords(short[] array, int pos, int len) {
+      int n = len;
+      while (n != 0 && array[pos + n - 1] == 0) {
         --n;
       }
       return (int)n;

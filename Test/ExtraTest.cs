@@ -19,8 +19,15 @@ namespace Test {
       TestCommon.AssertEqualsHashCode(obj, newobj);
       TestCommon.AssertEqualsHashCode(str, str2);
     }
+    public static void TestStringEqualRoundTrip (ERational obj) {
+            string str = obj.ToString ();
+            ERational newobj = ERational.FromString (str);
+            string str2 = newobj.ToString ();
+            TestCommon.AssertEqualsHashCode (obj, newobj);
+            TestCommon.AssertEqualsHashCode (str, str2);
+        }
 
-    public static void TestStringEqualRoundTrip(EInteger obj) {
+        public static void TestStringEqualRoundTrip(EInteger obj) {
       string str = obj.ToString();
       EInteger newobj = EInteger.FromString(str);
       string str2 = newobj.ToString();
@@ -29,9 +36,6 @@ namespace Test {
     }
 
     public static void TestStringEqualRoundTrip(EFloat obj) {
-      string str = obj.ToString();
-      EFloat newobj = E
-EDecimal.FromDouble(Double.NegativeInfinity));
       Assert.AreEqual(
         EDecimal.PositiveInfinity,
         EDecimal.FromSingle(Single.PositiveInfinity));
