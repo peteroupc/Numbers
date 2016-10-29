@@ -871,7 +871,6 @@ if (!(value >= 0)) {
       this.knownDigitLength = new FastInteger(kb);
       if (kb > digits) {
         var digitShift = (int)(kb - digits);
-        var newLength = (int)(kb - digitShift);
         this.UpdateKnownLengthInt(digitShift);
         this.discardedBitCount = this.discardedBitCount != null ?
           this.discardedBitCount.AddInt(digitShift) :
@@ -922,7 +921,6 @@ if (!(value >= 0)) {
           this.UpdateKnownLengthInt(digits);
           return;
         } else {
-          long smallPower = TenPowersLong[digits - 1];
           if (this.discardedBitCount != null) {
             this.discardedBitCount.AddInt(digits);
           } else {
@@ -978,7 +976,6 @@ if (!(value >= 0)) {
           this.UpdateKnownLengthInt(digits);
           return;
         } else {
-          int smallPower = ValueTenPowers[digits - 1];
           if (this.discardedBitCount != null) {
             this.discardedBitCount.AddInt(digits);
           } else {
