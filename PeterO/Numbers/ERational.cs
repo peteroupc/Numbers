@@ -99,37 +99,42 @@ namespace PeterO.Numbers {
     private int flags;
     private EInteger unsignedNumerator;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-  [Obsolete("Use the ERational.Create method instead. This constructor will be private or unavailable in version 1.0.")]
-    public ERational(EInteger numerator, EInteger denominator) {
-      if (numerator == null) {
-        throw new ArgumentNullException("numerator");
-      }
-      if (denominator == null) {
-        throw new ArgumentNullException("denominator");
-      }
-      if (denominator.IsZero) {
-        throw new ArgumentException("denominator is zero");
-      }
-      bool numNegative = numerator.Sign < 0;
-      bool denNegative = denominator.Sign < 0;
-      this.flags = (numNegative != denNegative) ? BigNumberFlags.FlagNegative :
-           0;
-      if (numNegative) {
-        numerator = -numerator;
-      }
-      if (denNegative) {
-        denominator = -denominator;
-      }
+    private ERational () { }
+
+    private void Initialize(EInteger numerator, EInteger denominator) {
+            if (numerator == null) {
+                throw new ArgumentNullException ("numerator");
+            }
+            if (denominator == null) {
+                throw new ArgumentNullException ("denominator");
+            }
+            if (denominator.IsZero) {
+                throw new ArgumentException ("denominator is zero");
+            }
+            bool numNegative = numerator.Sign < 0;
+            bool denNegative = denominator.Sign < 0;
+      this.flags = (numNegative != denNegative) ?
+              BigNumberFlags.FlagNegative : 0;
+            if (numNegative) {
+                numerator = -numerator;
+            }
+            if (denNegative) {
+                denominator = -denominator;
+            }
 #if DEBUG
       if (denominator.IsZero) {
         throw new ArgumentException("doesn't satisfy !denominator.IsZero");
       }
 #endif
+            this.unsignedNumerator = numerator;
+            this.denominator = denominator;
+    }
 
-      this.unsignedNumerator = numerator;
-      this.denominator = denominator;
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+  [Obsolete("Use the ERational.Create method instead. This constructor will be private or unavailable in version 1.0.")]
+    public ERational(EInteger numerator, EInteger denominator) {
+      Initialize (numerator, denominator);
     }
 
     /// <include file='../../docs.xml'
@@ -205,7 +210,9 @@ namespace PeterO.Numbers {
     public static ERational Create(
   EInteger numerator,
   EInteger denominator) {
-      return new ERational(numerator, denominator);
+            var er = new ERational();
+      er.Initialize (numerator, denominator);
+            return er;
     }
 
     /// <include file='../../docs.xml'
@@ -237,7 +244,7 @@ namespace PeterO.Numbers {
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      var er = new ERational(diag, EInteger.One);
+      ERational er = ERational.Create(diag, EInteger.One);
       er.flags = flags;
       return er;
     }
@@ -269,7 +276,7 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException("ef");
       }
       if (!ef.IsFinite) {
-        var er = new ERational(ef.Mantissa, EInteger.One);
+        ERational er = ERational.Create(ef.Mantissa, EInteger.One);
         var flags = 0;
         if (ef.IsNegative) {
           flags |= BigNumberFlags.FlagNegative;
@@ -304,7 +311,7 @@ namespace PeterO.Numbers {
       if (neg) {
         num = -(EInteger)num;
       }
-      return new ERational(num, den);
+      return ERational.Create(num, den);
     }
 
     /// <include file='../../docs.xml'
@@ -314,7 +321,7 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException("ef");
       }
       if (!ef.IsFinite) {
-        var er = new ERational(ef.Mantissa, EInteger.One);
+        ERational er = ERational.Create(ef.Mantissa, EInteger.One);
         var flags = 0;
         if (ef.IsNegative) {
           flags |= BigNumberFlags.FlagNegative;
@@ -348,13 +355,13 @@ namespace PeterO.Numbers {
       if (neg) {
         num = -(EInteger)num;
       }
-      return new ERational(num, den);
+      return ERational.Create(num, den);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEInteger(PeterO.Numbers.EInteger)"]/*'/>
     public static ERational FromEInteger(EInteger bigint) {
-      return new ERational(bigint, EInteger.One);
+      return ERational.Create(bigint, EInteger.One);
     }
 
     /// <include file='../../docs.xml'
@@ -442,13 +449,10 @@ namespace PeterO.Numbers {
         // Quiet NaN
         if ((str[i] == 'N' || str[i] == 'n') && (str[i + 1] == 'A' || str[i +
                 1] == 'a') && (str[i + 2] == 'N' || str[i + 2] == 'n')) {
-          int flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
-            BigNumberFlags.FlagQuietNaN;
           if (i + 3 == endStr) {
             return (!negative) ? NaN : NaN.Negate();
           }
           i += 3;
-          var digitCount = new FastInteger(0);
           for (; i < endStr; ++i) {
             if (str[i] >= '0' && str[i] <= '9') {
               var thisdigit = (int)(str[i] - '0');
@@ -739,7 +743,8 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>
     public ERational Abs() {
       if (this.IsNegative) {
-        var er = new ERational(this.unsignedNumerator, this.denominator);
+     ERational er = ERational.Create(this.unsignedNumerator,
+          this.denominator);
         er.flags = this.flags & ~BigNumberFlags.FlagNegative;
         return er;
       }
@@ -778,7 +783,7 @@ namespace PeterO.Numbers {
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       ad += (EInteger)bc;
-      return new ERational(ad, bd);
+      return ERational.Create(ad, bd);
     }
 
     /// <include file='../../docs.xml'
@@ -1133,7 +1138,7 @@ namespace PeterO.Numbers {
       }
       EInteger ad = this.Numerator * (EInteger)otherValue.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
-      return new ERational(ad, bc).ChangeSign(resultNeg);
+      return ERational.Create(ad, bc).ChangeSign(resultNeg);
     }
 
     /// <include file='../../docs.xml'
@@ -1242,14 +1247,14 @@ namespace PeterO.Numbers {
       }
       EInteger ac = this.Numerator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
-      return ac.IsZero ? (resultNeg ? NegativeZero : Zero) : new
-        ERational(ac, bd).ChangeSign(resultNeg);
+      return ac.IsZero ? (resultNeg ? NegativeZero : Zero) :
+               ERational.Create(ac, bd).ChangeSign(resultNeg);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Negate"]/*'/>
     public ERational Negate() {
-      var er = new ERational(this.unsignedNumerator, this.denominator);
+      ERational er = ERational.Create(this.unsignedNumerator, this.denominator);
       er.flags = this.flags ^ BigNumberFlags.FlagNegative;
       return er;
     }
@@ -1298,7 +1303,7 @@ namespace PeterO.Numbers {
       bc = thisDen * (EInteger)tnum;
       tden *= (EInteger)thisDen;
       ad -= (EInteger)bc;
-      return new ERational(ad, tden).ChangeSign(resultNeg);
+      return ERational.Create(ad, tden).ChangeSign(resultNeg);
     }
 
     /// <include file='../../docs.xml'
@@ -1336,7 +1341,7 @@ namespace PeterO.Numbers {
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       ad -= (EInteger)bc;
-      return new ERational(ad, bd);
+      return ERational.Create(ad, bd);
     }
 
     /// <include file='../../docs.xml'
@@ -1590,7 +1595,7 @@ namespace PeterO.Numbers {
   EInteger numerator,
   EInteger denominator,
   int flags) {
-      var er = new ERational(numerator, denominator);
+      ERational er = ERational.Create(numerator, denominator);
       er.flags = flags;
       return er;
     }

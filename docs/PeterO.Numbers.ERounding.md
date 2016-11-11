@@ -3,8 +3,8 @@
     public sealed struct ERounding :
         System.Enum,
         System.IComparable,
-        System.IFormattable,
-        System.IConvertible
+        System.IConvertible,
+        System.IFormattable
 
 Specifies the mode to use when "shortening" numbers that otherwise can't fit a given number of digits, so that the shortened number has about the same value. This "shortening" is known as rounding. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
 

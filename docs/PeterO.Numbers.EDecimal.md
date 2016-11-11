@@ -60,9 +60,9 @@ There are several other types of numbers that are mentioned in this class and el
 
  * 16-bit unsigned integer: 65535.
 
- * 32-bit unsigned integer: (2 <sup>32</sup>-1).
+ * 32-bit unsigned integer: (2 <sup>32</sup> -1).
 
- * 64-bit unsigned integer: (2 <sup>64</sup>-1).
+ * 64-bit unsigned integer: (2 <sup>64</sup> -1).
 
 <b>Signed integer</b>: An integer in <i>two's complement form</i>, with the following ranges:
 
@@ -72,7 +72,7 @@ There are several other types of numbers that are mentioned in this class and el
 
  * 32-bit signed integer: -2 <sup>31</sup>to (2 <sup>31</sup>- 1).
 
- * 64-bit signed integer: -2 <sup>63</sup>to (2 <sup>63</sup>- ).
+ * 64-bit signed integer: -2 <sup>63</sup>to (2 <sup>63</sup>- 1).
 
 <b>Two's complement form</b>: In <i>two' s-complement form</i>, positive numbers have the highest (most significant) bit et to zero, and negative numbers have that bit (and all bits eyond) set to one. To store a negative number, decrease its bsolute value by 1 and swap the bits of the resulting umber.
 
@@ -108,7 +108,7 @@ The elements described above are in the same order as the order of each bit of e
 
  * C. If the highest bit is one, this is a negative number.
 
-<b>.NET Framework decimal</b>: A 128-bit decimal loating-point number, in the form <i>significand</i>* 10 <sup>-<i>scale</i></sup>, where the scale ranges from 0 to 28. The umber is stored in the following format:
+<b>.NET Framework decimal</b> : A 128-bit decimal floating-point number, in the form <i>significand</i> * 10 <sup>-<i>scale</i></sup>, where the scale ranges from 0 to 28. The umber is stored in the following format:
 
  * Low 96 bits are the significand, as a 96-bit unsigned integer (all 96-bit values are allowed, up to (2 <sup>96</sup>-1)).
 
@@ -994,11 +994,11 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromDecimal(
         System.Decimal dec);
 
-Converts a .NET Framework decimal (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) to an arbitrary-precision decimal.
+Converts a  `decimal`  under the Common Language Infrastructure (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) to an arbitrary-precision decimal.
 
 <b>Parameters:</b>
 
- * <i>dec</i>: A .NET Framework decimal.
+ * <i>dec</i>: A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <b>Return Value:</b>
 

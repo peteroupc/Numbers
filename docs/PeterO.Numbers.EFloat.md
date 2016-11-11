@@ -2698,7 +2698,7 @@ This number, converted to an 8-bit signed integer. Returns 0 if this value is in
     public string ToShortestString(
         PeterO.Numbers.EContext ctx);
 
-Returns a string representation of this number's value after rounding to the given precision. If the number after rounding is neither infinity nor not-a-number (NaN), returns the shortest decimal form (in terms of nonzero decimal digits) of this number's value that results in the rounded number after the decimal form is converted to binary floating-point format.
+Returns a string representation of this number's value after rounding to the given precision (using the given arithmetic context). If the number after rounding is neither infinity nor not-a-number (NaN), returns the shortest decimal form (in terms of nonzero decimal digits) of this number's value that results in the rounded number after the decimal form is converted to binary floating-point format (using the given arithmetic context).
 
 <b>Parameters:</b>
 

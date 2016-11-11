@@ -1271,8 +1271,9 @@ StartsWith(chunks[2], "o")) {
 
     public static string[] GetTestFiles() {
       try {
-        var list = new List<string> (Directory.GetFiles ("..\\Debug"));
-        return list.ToArray ();
+        var list = new List<string> (
+          Directory.GetFiles (Path.Combine("..","Debug")));
+        return list.ToArray();
       } catch (IOException) {
         return new string [0];
       }
