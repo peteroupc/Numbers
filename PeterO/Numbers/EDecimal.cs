@@ -2032,7 +2032,6 @@ private static readonly FastIntegerFixed FastIntZero = new
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       ERounding rounding) {
-        // TODO: Edit doc for RoundToExponentExact
  return this.RoundToExponentExact(
   (EInteger)exponentSmall,
   EContext.Unlimited.WithRounding(rounding));

@@ -14,32 +14,26 @@
     </description>
     <summary>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</summary>
     <releaseNotes>
-Version 0.2:
-
-- Performance improvements
-- Added several overloads for DivideToExponent method
-- GCD code in EInteger rewritten
-- Added CopySign, CompareToTotal, and CompareToTotalMagnitude
- methods to EDecimal and EFloat.
-- Renamed several methods in EDecimal and EFloat
-- RoundToIntegral\* methods renamed to RoundToInteger\* methods
-- Renamed some EInteger integer conversion methods; added
- CanFitInInt64, GetUnsignedBitLengthAsEInteger,
- and GetLowBitAsEInteger methods
-- Several operators added to EDecimal in C# version
-- Rewrote code that converts from decimal to binary floating-point;
- add ToEFloat method taking an EContext in EDecimal
-- Added ToShortestString method in EFloat
-- Add UnlimitedHalfEven EContext object
+Version 0.3:
+- Deprecated ERational constructor
+- Added many type conversion operators and methods
+ to EDecimal, EFloat, ERational, and EInteger
+- Added FromString, CompareToTotal, and
+  CompareToTotalMagnitude methods to ERational
+- An overload of RoundToExponentExact in EDecimal is
+ no longer obsolete and uses the rounding mode specified
+- Used a new division implementation in EInteger
+- Used the new division implementation to optimize conversion
+  of huge EIntegers to decimal strings
 - Bug fixes
     </releaseNotes>
     <copyright>Written by Peter O. in 2016.  Any copyright is released to the Public Domain.</copyright>
     <tags>numbers arithmetic decimal math</tags>
   </metadata>
   <files>
-    <file src="bin/Release/Numbers.dll" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp8" />
-    <file src="bin/Release/Numbers.xml" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp8" />
-    <file src="bin/ReleaseNet40/Numbers.dll" target="lib/portable-net40+sl5+win+wpa81+wp8" />
-    <file src="bin/ReleaseNet40/Numbers.xml" target="lib/portable-net40+sl5+win+wpa81+wp8" />
+    <file src="bin/Release/Numbers.dll" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
+    <file src="bin/Release/Numbers.xml" target="lib/portable-net45+dnxcore50+netcore45+win+wpa81+wp80" />
+    <file src="bin/ReleaseNet40/Numbers.dll" target="lib/portable-net40+sl5+win+wpa81+wp80" />
+    <file src="bin/ReleaseNet40/Numbers.xml" target="lib/portable-net40+sl5+win+wpa81+wp80" />
   </files>
 </package>

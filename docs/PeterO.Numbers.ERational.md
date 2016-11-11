@@ -12,6 +12,8 @@ Represents an arbitrary-precision rational number. This class can't be inherited
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
 
+<b>Deprecated.</b> Use the ERational.Create method instead. This constructor will be private or unavailable in version 1.0.
+
 Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
 <b>Parameters:</b>
@@ -1109,11 +1111,11 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public System.Decimal ToDecimal();
 
-Not documented yet.
+Converts this value to a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal). Currently, converts this value to the precision and range of a .NET Framework decimal.
 
 <b>Return Value:</b>
 
-A Decimal object.
+A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 ### ToDouble
 

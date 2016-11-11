@@ -1128,24 +1128,6 @@ if (tmp.Length < blockCount * 6) {
     ") is less than " + (blockCount * 6));
 }
 #endif
-      /* var realquot = new short [blockCount * 2];
-      var realrem = new short [blockCount * 2];
-      var cw = CombineWords (valueALow, posALow,
-                    blockCount, valueAMidHigh, posAMidHigh, blockCount * 2);
-      int ca = CountWords (cw, 0, cw.Length);
-      int cb = CountWords (b, posB, blockCount * 2);
-      string extra="";
-      if (ca >= cb) {
-        //DebugUtility.Log ("ca=" + ca + " cb=" + (cb));
-        norecurse = true;
-        GeneralDivide (cw, 0, ca,
-                    b, posB, cb,
-                    realquot, 0,
-                    realrem, 0);
-        norecurse = false;
-      }
-      */
-
       // Implements Algorithm 2 of Burnikel & Ziegler 1998
       int c;
       // If AHigh is less than BHigh
@@ -1157,11 +1139,6 @@ if (tmp.Length < blockCount * 6) {
   b,
   posB + blockCount,
   blockCount) < 0) {
-         /*extra+="\namh="+WordsToStringHex (valueAMidHigh,
-  posAMidHigh, blockCount*2);
-        extra+="\nbh ="+WordsToStringHex (b,
- posB + blockCount, blockCount);
-        extra+="\naHigh<bHigh size="+(blockCount*2);*/
         // Divide AMidHigh by BHigh
         RecursiveDivideInner(
  valueAMidHigh,
@@ -1173,15 +1150,12 @@ if (tmp.Length < blockCount * 6) {
  rem,
  posRem,
  blockCount);
-        //extra+="\nq="+WordsToStringHex (quot,posQuot, blockCount*2);
-        //extra+="\nr="+WordsToStringHex (rem,posRem, blockCount);
         // Copy remainder to temp at block position 4
         Array.Copy(rem, posRem, tmp, blockCount * 4, blockCount);
         Array.Clear(tmp, blockCount * 5, blockCount);
       } else {
         // BHigh is less than AHigh
         // set quotient to all ones
-    //     extra+=" aHigh>= bHigh";
         for (var i = 0; i < blockCount; ++i) {
           quot[posQuot + i] = unchecked((short)0xffff);
         }
@@ -1211,7 +1185,6 @@ if (tmp.Length < blockCount * 6) {
   b,
   posB + blockCount,
   blockCount);
-//        extra+="\nq="+WordsToStringHex (quot,posQuot, blockCount*2);
         Increment(tmp, blockCount * 5, blockCount, (short)c);
       }
       AsymmetricMultiply(
@@ -1228,26 +1201,8 @@ if (tmp.Length < blockCount * 6) {
       int bc3 = blockCount * 3;
       Array.Copy(valueALow, posALow, tmp, bc3, blockCount);
       Array.Clear(tmp, blockCount*2, blockCount);
-/*
-        extra+="\nsub1="+WordsToStringHex (tmp, bc3, blockCount*3);
-        extra+="\nsub2="+WordsToStringHex (tmp, 0, blockCount*3);
-        extra+="\nb   ="+WordsToStringHex (b, posB, blockCount * 2);
-        extra+="\n--->"+WordsToStringHex (tmp, bc3, blockCount*3);
-        extra+=" borrow";
-        //AddInternal(tmp, bc3, tmp, bc3, tmp, 0, bc3);
-        int cnt = 0;
-        while (WordsCompare(tmp, bc3, bc3, tmp, 0, bc3)< 0) {
-          Decrement(quot, posQuot, blockCount * 2, (short)1);
-          c = AddInternal(tmp, bc3, tmp, bc3, b, posB, blockCount * 2);
-          Increment(tmp, blockCount * 5, blockCount, (short)c);
-          extra+="\nsub1x="+WordsToStringHex (tmp, bc3, blockCount*3);
-          extra+="\nsub2x="+WordsToStringHex (tmp, 0, blockCount*3);
-         }
-         SubtractInternal(tmp, bc3, tmp, bc3, tmp, 0, bc3);
-*/
       c = SubtractInternal(tmp, bc3, tmp, bc3, tmp, 0, blockCount * 3);
       if (c != 0) {
-        //extra+=" borrow";
         while (true) {
           c = AddInternal(tmp, bc3, tmp, bc3, b, posB, blockCount * 2);
           c = Increment(tmp, blockCount * 5, blockCount, (short)c);
@@ -1258,27 +1213,7 @@ if (tmp.Length < blockCount * 6) {
         }
       }
       Array.Copy(tmp, bc3, rem, posRem, blockCount * 2);
-/*
-      if (ca >= cb && (Compare (quot, posQuot, realquot, 0, realquot.Length) != 0 ||
-           Compare (rem, posRem, realrem, 0, realrem.Length) != 0)) {
-        string exmessage = "\n" +
-          "ca=" + ca + ", cb=" + cb + ", extra="+extra+"\n" +
-          "a=" + WordsToStringHex (cw, 0, cw.Length) + "\n" +
-          "b=" + WordsToStringHex (b, posB, blockCount * 2) + "\n" +
-          "expQ=" + WordsToStringHex (realquot, 0, realquot.Length) + "\n" +
-          "expR=" + WordsToStringHex (realrem, 0, realrem.Length) + "\n" +
-          "gotQ=" + WordsToStringHex (quot, posQuot, blockCount * 2) + "\n" +
-          "gotR=" + WordsToStringHex (rem, posRem, blockCount * 2) + "\n";
-        //DebugUtility.Log (exmessage);
-        //Array.Copy (realquot, 0, quot, posQuot, realquot.Length);
-        //Array.Copy (realrem, 0, rem, posRem, realrem.Length);
-        //return;
-        throw new InvalidOperationException (exmessage);
-      }*/
     }
-
-    private static bool norecurse = false;
-
     private static void RecursiveDivideInner(
       short[] a,
       int posA,
@@ -1385,7 +1320,6 @@ if (rem.Length - posRem < (blockSize * 2)) {
 #endif
       // Implements Algorithm 1 of Burnikel & Ziegler 1998
       if (blockSize < RecursiveDivisionLimit || (blockSize & 1) == 1) {
-        //DebugUtility.Log("general "+WordsToStringHex (a, posA, blockSize*2));
         GeneralDivide(
   a,
   posA,
@@ -1398,7 +1332,6 @@ if (rem.Length - posRem < (blockSize * 2)) {
   rem,
   posRem);
       } else {
-        // DebugUtility.Log("special");
                 int halfBlock = blockSize >> 1;
         var tmp = new short[halfBlock * 10];
         Array.Clear(quot, posQuot, blockSize * 2);
@@ -1848,8 +1781,7 @@ if (rem.Length - posRem < countB) {
       short[] workB = b;
       workPosA = posA;
       workPosB = posB;
-      // TODO: Recursive division doesn't work in all cases
-      if (!norecurse && countB > RecursiveDivisionLimit) {
+      if (countB > RecursiveDivisionLimit) {
         RecursiveDivide(
   a,
   posA,
@@ -3552,12 +3484,12 @@ WordsShiftRightOne(bu, buc);
         if (this.HasSmallValue()) {
           return this.SmallValueToString();
         }
-            var sb = new StringBuilder ();
+            var sb = new StringBuilder();
             if (this.negative) {
                 sb.Append ('-');
             }
             this.Abs ().ToRadixStringDecimal (sb, false);
-            return sb.ToString ();
+            return sb.ToString();
     }
 
     /// <include file='../../docs.xml'

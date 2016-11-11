@@ -43,6 +43,20 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+Version 0.3:
+
+- Deprecated ERational constructor
+- Added many type conversion operators and methods
+ to EDecimal, EFloat, ERational, and EInteger
+- Added FromString, CompareToTotal, and
+  CompareToTotalMagnitude methods to ERational
+- An overload of RoundToExponentExact in EDecimal is
+ no longer obsolete and uses the rounding mode specified
+- Used a new division implementation in EInteger
+- Used the new division implementation to optimize conversion
+  of huge EIntegers to decimal strings
+- Bug fixes
+
 Version 0.2.2:
 
 - Previous assembly was released with wrong version number

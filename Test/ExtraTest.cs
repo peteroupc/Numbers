@@ -10,7 +10,6 @@ using NUnit.Framework;
 using PeterO.Numbers;
 
 namespace Test {
-  [TestFixture]
   public class ExtraTest {
     public static void TestStringEqualRoundTrip(EDecimal obj) {
       string str = obj.ToString();
@@ -20,9 +19,9 @@ namespace Test {
       TestCommon.AssertEqualsHashCode(str, str2);
     }
     public static void TestStringEqualRoundTrip (ERational obj) {
-            string str = obj.ToString ();
+            string str = obj.ToString();
             ERational newobj = ERational.FromString (str);
-            string str2 = newobj.ToString ();
+            string str2 = newobj.ToString();
             TestCommon.AssertEqualsHashCode (obj, newobj);
             TestCommon.AssertEqualsHashCode (str, str2);
         }

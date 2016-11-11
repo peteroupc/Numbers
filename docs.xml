@@ -544,11 +544,9 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
              : 255.</item>
             <item>16-bit unsigned integer: 65535.</item>
              <item>32-bit unsigned
-            integer: (2 <sup>32</sup>
-             -1).</item>
+            integer: (2 <sup>32</sup> -1).</item>
              <item>64-bit unsigned
-            integer: (2 <sup>64</sup>
-             -1).</item>
+            integer: (2 <sup>64</sup> -1).</item>
              </list>
             <para><b>Signed integer</b>
              : An integer in <i>two&#39;s complement
@@ -563,8 +561,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
              - 1).</item>
             <item>64-bit signed integer: -2 <sup>63</sup>
              to (2 <sup>63</sup>
-             -
-            1).</item>
+             -  1).</item>
              </list>
             <para><b>Two's complement form</b>
              : In <i>two' s-complement
@@ -618,10 +615,8 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
              <item>C. If the highest
             bit is one, this is a negative number.</item>
              </list>
-            <para><b>.NET Framework decimal</b>
-             : A 128-bit decimal
-            floating-point number, in the form <i>significand</i>
-             * 10 <sup>-
+            <para><b>.NET Framework decimal</b> : A 128-bit decimal
+            floating-point number, in the form <i>significand</i> * 10 <sup>-
             <i>scale</i>
              </sup>
              , where the scale ranges from 0 to 28. The
