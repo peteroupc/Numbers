@@ -9,9 +9,6 @@ at: http://peteroupc.github.io/
 using System;
 using System.Reflection;
 #endregion
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
 [assembly: AssemblyTitle("Numbers")]
 [assembly: AssemblyDescription(
   "A C# implementation of arbitrary-precision numbers and arithmetic.")]
@@ -26,10 +23,4 @@ using System.Reflection;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]
-// The assembly version has following format :
-//
-// Major.Minor.Build.Revision
-//
-// You can specify all the values or you can use the default the Revision and
-// Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("0.2.2")]
+[assembly: AssemblyVersion("0.3.0")]
