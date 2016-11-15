@@ -15,6 +15,7 @@
     <summary>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</summary>
     <releaseNotes>
 Version 0.3:
+
 - Deprecated ERational constructor
 - Added many type conversion operators and methods
  to EDecimal, EFloat, ERational, and EInteger
