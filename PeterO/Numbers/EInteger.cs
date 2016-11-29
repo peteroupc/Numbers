@@ -145,7 +145,7 @@ namespace PeterO.Numbers {
     internal static EInteger FromInts(int[] intWords, int count) {
       var words = new short[count << 1];
       var j = 0;
-      for (var i = 0; i < count; ++i, j+=2) {
+      for (var i = 0; i < count; ++i, j += 2) {
         int w = intWords[i];
         words[j] = unchecked((short)(w));
         words[j + 1] = unchecked((short)(w >> 16));
@@ -179,7 +179,7 @@ namespace PeterO.Numbers {
       var j = 0;
       if (!numIsNegative) {
         if (littleEndian) {
-         bool odd=(len & 1) != 0;
+         bool odd = (len & 1) != 0;
          if (odd) {
            --len;
          }
@@ -190,7 +190,7 @@ namespace PeterO.Numbers {
           newreg[j] = unchecked((short)nrj);
          }
          if (odd) {
-           newreg[len >> 1]=unchecked((short)(((int)bytes[len]) & 0xff));
+           newreg[len >> 1] = unchecked((short)(((int)bytes[len]) & 0xff));
          }
         } else {
         for (var i = 0; i < len; i += 2, j++) {
@@ -1200,7 +1200,7 @@ if (tmp.Length < blockCount * 6) {
   blockCount);
       int bc3 = blockCount * 3;
       Array.Copy(valueALow, posALow, tmp, bc3, blockCount);
-      Array.Clear(tmp, blockCount*2, blockCount);
+      Array.Clear(tmp, blockCount * 2, blockCount);
       c = SubtractInternal(tmp, bc3, tmp, bc3, tmp, 0, blockCount * 3);
       if (c != 0) {
         while (true) {
@@ -1557,7 +1557,7 @@ if (rem.Length - posRem < countB) {
 }
       short [] words = new short [len];
       Array.Copy (a, pos, words, 0, len);
-      return "\""+ new EInteger (len, words, false).ToUnoptString()+"\"";
+      return "\"" + new EInteger (len, words, false).ToUnoptString()+"\"";
     }
 
         private static string WordsToStringHex (short [] a, int pos, int len) {
@@ -1570,7 +1570,7 @@ if (rem.Length - posRem < countB) {
             short [] words = new short [len];
             Array.Copy (a, pos, words, 0, len);
       return "\"" + new EInteger (len, words, false).ToRadixString (16) +
-              "\"" ;
+              "\"";
         }
 
         private static string WordsToString2 (
@@ -1583,7 +1583,7 @@ if (rem.Length - posRem < countB) {
       short [] words = new short [len + len2];
       Array.Copy (a, pos, words, 0, len);
       Array.Copy (b, pos2, words, len, len2);
-       len+=len2;
+       len += len2;
       while (len != 0 && words[len - 1] == 0) {
                 --len;
       }
@@ -1591,7 +1591,7 @@ if (rem.Length - posRem < countB) {
   len == 0) ? (
   "\"0\"") : ("\"" + new EInteger (len,
  words,
-        false).ToUnoptString()+"\"");
+        false).ToUnoptString() + "\"");
     }
 
     private static short[] CombineWords (
@@ -2379,7 +2379,7 @@ WordsShiftRightOne(bu, buc);
                   // number of previously known digits
                   return i + minDigits + 4;
                 }
-                if (minDigits>1) {
+                if (minDigits > 1) {
                  int maxDigitEstimate = i + maxDigits + 4;
                  int minDigitEstimate = i + minDigits + 4;
  return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigitEstimate))
@@ -6702,14 +6702,15 @@ if (words2Count <= 0) {
       }
       if (this.wordCount >= 4) {
         int wordsPerPart = (this.wordCount + 3) >> 2;
-        int bitsPerPart = wordsPerPart*16;
-        int totalBits = bitsPerPart*4;
+        int bitsPerPart = wordsPerPart * 16;
+        int totalBits = bitsPerPart * 4;
         int bitLength = this.GetUnsignedBitLength();
+        int bitLengthEven = (bitLength & 1) == 0;
         bigintX = this;
         var shift = 0;
-        if (bitLength<totalBits-1) {
-          int targetLength=(bitLength & 1) == 0 ? totalBits : (totalBits-1);
-          shift = targetLength-bitLength;
+        if (bitLength < totalBits-1) {
+          int targetLength = bitLengthEven ? totalBits : (totalBits-1);
+          shift = targetLength - bitLength;
           bigintX = bigintX.ShiftLeft(shift);
         }
         // DebugUtility.Log("this=" + (this.ToRadixString(16)));
@@ -6717,12 +6718,12 @@ if (words2Count <= 0) {
         short[] ww = bigintX.words;
         var w1 = new short[wordsPerPart];
         var w2 = new short[wordsPerPart];
-        var w3 = new short[wordsPerPart*2];
+        var w3 = new short[wordsPerPart * 2];
         Array.Copy(ww, 0, w1, 0, wordsPerPart);
         Array.Copy(ww, wordsPerPart, w2, 0, wordsPerPart);
-        Array.Copy(ww, wordsPerPart*2, w3, 0, wordsPerPart*2);
+        Array.Copy(ww, wordsPerPart * 2, w3, 0, wordsPerPart*2);
         #if DEBUG
-if (!((ww[(wordsPerPart*4) - 1]&0xc000) != 0)) {
+if (!((ww[(wordsPerPart * 4) - 1]&0xc000) != 0)) {
   throw new
     ArgumentException("doesn't satisfy (ww[wordsPerPart*4-1]&0xC000)!=0");
 }
@@ -6745,7 +6746,7 @@ if (!((ww[(wordsPerPart*4) - 1]&0xc000) != 0)) {
         EInteger sqrem = qrem[1].ShiftLeft(bitsPerPart).Add(e1).Subtract(
            qrem[0].Multiply(qrem[0]));
         // DebugUtility.Log("sqrem=" + sqrem + ",sqroot=" + sqroot);
-        if (sqrem.Sign< 0) {
+        if (sqrem.Sign < 0) {
           if (useRem) {
             sqrem = sqrem.Add(sqroot.ShiftLeft(1)).Subtract(EInteger.One);
           }
