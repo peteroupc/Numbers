@@ -18,6 +18,7 @@ namespace Test {
       TestCommon.AssertEqualsHashCode(obj, newobj);
       TestCommon.AssertEqualsHashCode(str, str2);
     }
+
     public static void TestStringEqualRoundTrip (ERational obj) {
             string str = obj.ToString();
             ERational newobj = ERational.FromString (str);

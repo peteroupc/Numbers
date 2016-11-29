@@ -52,7 +52,8 @@ namespace PeterO {
     /// <summary>Conceptually, generates either 1 or 0 the given number of
     /// times, where either number is equally likely, and counts the number
     /// of 1's generated.</summary>
-    /// <param name='trials'>Another 32-bit signed integer.</param>
+    /// <param name='trials'>The number of times to generate a random
+    /// number, conceptually.</param>
     /// <returns>A 32-bit signed integer.</returns>
     public int Binomial(int trials) {
       return this.Binomial(trials, 0.5);
@@ -61,7 +62,8 @@ namespace PeterO {
     /// <summary>Conceptually, generates either 1 or 0 the given number of
     /// times, where a 1 is generated at the given probability, and counts
     /// the number of 1's generated.</summary>
-    /// <param name='trials'>Another 32-bit signed integer.</param>
+    /// <param name='trials'>The number of times to generate a random
+    /// number, conceptually.</param>
     /// <param name='p'>The probability for each trial to succeed, from 0
     /// (never) to 1 (always).</param>
     /// <returns>The number of successes in a given number of
@@ -372,7 +374,8 @@ namespace PeterO {
       return this.Uniform(0.0, max);
     }
 
-    /// <summary>Not documented yet.</summary>
+    /// <summary>Returns a uniformly-distributed 64-bit floating-point
+    /// number from 0 and up, but less than 1.</summary>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Uniform() {
       var b = new byte[7];
@@ -388,7 +391,8 @@ namespace PeterO {
       return BitConverter.Int64BitsToDouble(lb) - 1.0;
     }
 
-    /// <summary>Not documented yet.</summary>
+    /// <summary>Returns a uniformly-distributed 32-bit floating-point
+    /// number from 0 and up, but less than 1.</summary>
     /// <returns>A 64-bit floating-point number.</returns>
     public double UniformSingle() {
       var b = new byte[3];
