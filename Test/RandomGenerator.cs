@@ -356,8 +356,10 @@ namespace PeterO {
     }
 
     /// <summary>Not documented yet.</summary>
-    /// <param name='min'>Not documented yet.</param>
-    /// <param name='max'>Not documented yet.</param>
+    /// <param name='min'>Smallest possible number that will be
+    /// generated.</param>
+    /// <param name='max'>Number that the randomly-generated number will be
+    /// less than.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Uniform(double min, double max) {
       if (min >= max) {
@@ -406,11 +408,14 @@ namespace PeterO {
        0) - 1.0;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='minInclusive'>Not documented yet.</param>
-    /// <param name='maxExclusive'>Not documented yet.</param>
+    /// <summary>Generates a random 32-bit signed integer within a given
+    /// range.</summary>
+    /// <param name='minInclusive'>Smallest possible value of the random
+    /// number.</param>
+    /// <param name='maxExclusive'>One plus the largest possible value of
+    /// the random number.</param>
     /// <returns>A 32-bit signed integer.</returns>
-    public int UniformInt(int minInclusive, int maxExclusive) {
+        public int UniformInt(int minInclusive, int maxExclusive) {
       if (minInclusive > maxExclusive) {
   throw new ArgumentException("minInclusive (" + minInclusive +
     ") is more than " + maxExclusive);
@@ -430,9 +435,12 @@ if (minInclusive == maxExclusive) {
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='minInclusive'>Not documented yet.</param>
-    /// <param name='maxExclusive'>Not documented yet.</param>
+    /// <summary>Generates a random 64-bit signed integer within a given
+    /// range.</summary>
+    /// <param name='minInclusive'>Smallest possible value of the random
+    /// number.</param>
+    /// <param name='maxExclusive'>One plus the largest possible value of
+    /// the random number.</param>
     /// <returns>A 64-bit signed integer.</returns>
     public long UniformLong(long minInclusive, long maxExclusive) {
       if (minInclusive > maxExclusive) {
@@ -471,8 +479,10 @@ if (minInclusive == maxExclusive) {
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='maxExclusive'>Not documented yet.</param>
+    /// <summary>Generates a random 32-bit signed integer 0 or greater and
+    /// less than the given number.</summary>
+    /// <param name='maxExclusive'>One plus the largest possible value of
+    /// the random number.</param>
     /// <returns>A 32-bit signed integer.</returns>
     public int UniformInt(int maxExclusive) {
       if (maxExclusive < 0) {
@@ -526,10 +536,12 @@ if (minInclusive == maxExclusive) {
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='maxExclusive'>Not documented yet.</param>
+    /// <summary>Generates a random 32-bit signed integer 0 or greater and
+    /// less than the given number.</summary>
+    /// <param name='maxExclusive'>One plus the largest possible value of
+    /// the random number.</param>
     /// <returns>A 64-bit signed integer.</returns>
-    public long UniformLong(long maxExclusive) {
+        public long UniformLong(long maxExclusive) {
       if (maxExclusive < 0) {
   throw new ArgumentException("maxExclusive (" + maxExclusive +
     ") is less than 0");
