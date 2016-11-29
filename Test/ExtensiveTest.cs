@@ -1059,7 +1059,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         return 0;
       }
       var squroot = op.Equals("V");
-      //var mod = op.Equals("%");
+      // var mod = op.Equals("%");
       var div = op.Equals("/");
       var fma = op.Equals("*+");
       var fms = op.Equals("*-");
@@ -1287,7 +1287,7 @@ StartsWith(chunks[2], "o")) {
       var sw = new System.Diagnostics.Stopwatch();
       sw.Start();
       var valueSwProcessing = new System.Diagnostics.Stopwatch();
-      //var nullWriter = TextWriter.Null;
+      // var nullWriter = TextWriter.Null;
       var standardOut = Console.Out;
       var x = 0;
       dirfiles.AddRange(GetTestFiles());

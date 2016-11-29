@@ -99,7 +99,8 @@ namespace PeterO.Numbers {
     private int flags;
     private EInteger unsignedNumerator;
 
-    private ERational () { }
+    private ERational () {
+}
 
     private void Initialize(EInteger numerator, EInteger denominator) {
             if (numerator == null) {
@@ -134,7 +135,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
   [Obsolete("Use the ERational.Create method instead. This constructor will be private or unavailable in version 1.0.")]
     public ERational(EInteger numerator, EInteger denominator) {
-      Initialize (numerator, denominator);
+      this.Initialize (numerator, denominator);
     }
 
     /// <include file='../../docs.xml'
@@ -743,8 +744,9 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>
     public ERational Abs() {
       if (this.IsNegative) {
-     ERational er = ERational.Create(this.unsignedNumerator,
-          this.denominator);
+     ERational er = ERational.Create(
+  this.unsignedNumerator,
+  this.denominator);
         er.flags = this.flags & ~BigNumberFlags.FlagNegative;
         return er;
       }
