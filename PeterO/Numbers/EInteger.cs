@@ -1548,62 +1548,62 @@ if (rem.Length - posRem < countB) {
       }
     }
 
-    private static string WordsToString (short [] a, int pos, int len) {
-      while (len != 0 && a [pos + len - 1] == 0) {
+    private static string WordsToString(short[] a, int pos, int len) {
+      while (len != 0 && a[pos + len - 1] == 0) {
                 --len;
             }
       if (len == 0) {
  return "\"0\"";
 }
-      short [] words = new short [len];
-      Array.Copy (a, pos, words, 0, len);
-      return "\"" + new EInteger (len, words, false).ToUnoptString()+"\"";
+      var words = new short[len];
+      Array.Copy(a, pos, words, 0, len);
+      return "\"" + new EInteger(len, words, false).ToUnoptString() + "\"";
     }
 
-        private static string WordsToStringHex (short [] a, int pos, int len) {
-            while (len != 0 && a [pos + len - 1] == 0) {
+        private static string WordsToStringHex(short[] a, int pos, int len) {
+            while (len != 0 && a[pos + len - 1] == 0) {
                 --len;
             }
             if (len == 0) {
                 return "\"0\"";
             }
-            short [] words = new short [len];
-            Array.Copy (a, pos, words, 0, len);
-      return "\"" + new EInteger (len, words, false).ToRadixString (16) +
+            var words = new short[len];
+            Array.Copy(a, pos, words, 0, len);
+      return "\"" + new EInteger(len, words, false).ToRadixString(16) +
               "\"";
         }
 
-        private static string WordsToString2 (
-  short [] a,
+        private static string WordsToString2(
+  short[] a,
   int pos,
   int len,
-  short [] b,
+  short[] b,
   int pos2,
   int len2) {
-      short [] words = new short [len + len2];
-      Array.Copy (a, pos, words, 0, len);
-      Array.Copy (b, pos2, words, len, len2);
+      var words = new short[len + len2];
+      Array.Copy(a, pos, words, 0, len);
+      Array.Copy(b, pos2, words, len, len2);
        len += len2;
       while (len != 0 && words[len - 1] == 0) {
                 --len;
       }
       return (
   len == 0) ? (
-  "\"0\"") : ("\"" + new EInteger (len,
+  "\"0\"") :("\"" + new EInteger(len,
  words,
         false).ToUnoptString() + "\"");
     }
 
-    private static short[] CombineWords (
-  short [] a,
+    private static short[] CombineWords(
+  short[] a,
   int pos,
   int len,
-  short [] b,
+  short[] b,
   int pos2,
   int len2) {
-      short [] words = new short [len + len2];
-      Array.Copy (a, pos, words, 0, len);
-      Array.Copy (b, pos2, words, len, len2);
+      var words = new short[len + len2];
+      Array.Copy(a, pos, words, 0, len);
+      Array.Copy(b, pos2, words, len, len2);
       return words;
     }
 
@@ -3497,15 +3497,15 @@ WordsShiftRightOne(bu, buc);
       outputSB.Append(s, 0, i);
     }
 
-    private string ToUnoptString () {
+    private string ToUnoptString() {
         if (this.HasSmallValue()) {
           return this.SmallValueToString();
         }
             var sb = new StringBuilder();
             if (this.negative) {
-                sb.Append ('-');
+                sb.Append('-');
             }
-            this.Abs ().ToRadixStringDecimal (sb, false);
+            this.Abs().ToRadixStringDecimal(sb, false);
             return sb.ToString();
     }
 
@@ -6705,11 +6705,11 @@ if (words2Count <= 0) {
         int bitsPerPart = wordsPerPart * 16;
         int totalBits = bitsPerPart * 4;
         int bitLength = this.GetUnsignedBitLength();
-        int bitLengthEven = (bitLength & 1) == 0;
+        bool bitLengthEven = (bitLength & 1) == 0;
         bigintX = this;
         var shift = 0;
-        if (bitLength < totalBits-1) {
-          int targetLength = bitLengthEven ? totalBits : (totalBits-1);
+        if (bitLength < totalBits - 1) {
+          int targetLength = bitLengthEven ? totalBits : (totalBits - 1);
           shift = targetLength - bitLength;
           bigintX = bigintX.ShiftLeft(shift);
         }
@@ -6721,7 +6721,7 @@ if (words2Count <= 0) {
         var w3 = new short[wordsPerPart * 2];
         Array.Copy(ww, 0, w1, 0, wordsPerPart);
         Array.Copy(ww, wordsPerPart, w2, 0, wordsPerPart);
-        Array.Copy(ww, wordsPerPart * 2, w3, 0, wordsPerPart*2);
+        Array.Copy(ww, wordsPerPart * 2, w3, 0, wordsPerPart * 2);
         #if DEBUG
 if (!((ww[(wordsPerPart * 4) - 1]&0xc000) != 0)) {
   throw new

@@ -99,18 +99,18 @@ namespace PeterO.Numbers {
     private int flags;
     private EInteger unsignedNumerator;
 
-    private ERational () {
+    private ERational() {
 }
 
     private void Initialize(EInteger numerator, EInteger denominator) {
             if (numerator == null) {
-                throw new ArgumentNullException ("numerator");
+                throw new ArgumentNullException("numerator");
             }
             if (denominator == null) {
-                throw new ArgumentNullException ("denominator");
+                throw new ArgumentNullException("denominator");
             }
             if (denominator.IsZero) {
-                throw new ArgumentException ("denominator is zero");
+                throw new ArgumentException("denominator is zero");
             }
             bool numNegative = numerator.Sign < 0;
             bool denNegative = denominator.Sign < 0;
@@ -135,7 +135,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
   [Obsolete("Use the ERational.Create method instead. This constructor will be private or unavailable in version 1.0.")]
     public ERational(EInteger numerator, EInteger denominator) {
-      this.Initialize (numerator, denominator);
+      this.Initialize(numerator, denominator);
     }
 
     /// <include file='../../docs.xml'
@@ -212,7 +212,7 @@ namespace PeterO.Numbers {
   EInteger numerator,
   EInteger denominator) {
             var er = new ERational();
-      er.Initialize (numerator, denominator);
+      er.Initialize(numerator, denominator);
             return er;
     }
 
