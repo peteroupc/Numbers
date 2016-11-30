@@ -122,7 +122,12 @@ namespace Test {
       if (bigintB.IsZero) {
         try {
           bigintTemp = bigintA / bigintB;
-                    Assert.Fail("Expected divide by 0 error, got "+bigintTemp);
+                  {
+object objectTemp = "Expected divide by 0 error;
+object objectTemp2 = got " +
+                    bigintTemp;
+Assert.Fail(objectTemp, objectTemp2);
+}
         } catch (ArithmeticException ex) {
           Console.WriteLine(ex.Message);
         }
@@ -709,7 +714,7 @@ namespace Test {
     }
 
     [Test]
-    public void TestDivideA () {
+    public void TestDivideA() {
       DoTestDivide
 
   (
@@ -727,11 +732,11 @@ namespace Test {
   "39401404978667143593022554770633078187236345017741021112301638514137074723630749875836463116600753265992771999563776",
   "6277005955876855982708123588802319701019026907066160578560",
   "6277101735386680763835789423207589043669308487479442014208");
-      DoTestDivide (
+      DoTestDivide(
   "340277174703306882242637262502835978240",
   "79226953606891185567396986880",
   "4294967296");
-      DoTestDivide (
+      DoTestDivide(
   "44461738044811866704570272160729755524383493147516085922742403681586307620758054502667856562873477505768158700319760453047044081412393321568753479912147358343844563186048273758088945022589574729044743021988362306225753942249201773678443992606696524197361479929661991788310321409367753462284203449631729626517511224343015354155975783754763572354740724506742793459644155837703671449155713000260325445046273385372701820583016334341594713806706345456633635125343104401883366671083569152",
   "6667912688606651657935168942074070387623462798286393292334546164025938697493268465740399785103348978411106010660409247384863031649363973174034406552719188394559243700794785023362300512913065060420313203793021880700852215978918600154969735168",
   "6668014432879854274079851790721257797144739185760979705624542990230371779898108261760364709743735387156366994446448705720136517621612785459920009307944044809722559761949909348022458684413967432579072465854783948147327367860791365121685323776");
@@ -754,50 +759,50 @@ namespace Test {
         EInteger bigintC = bigintA / (EInteger)bigintB;
         Assert.AreEqual((int)bigintC, c);
       }
-DoTestDivide ("4294901760", "281470681808895", "0");
-            DoTestDivide ("281470681808895", "281470681808895", "1");
-            DoTestDivide ("281195803901951", "281470681808895", "0");
-        DoTestDivide (
+DoTestDivide("4294901760", "281470681808895", "0");
+            DoTestDivide("281470681808895", "281470681808895", "1");
+            DoTestDivide("281195803901951", "281470681808895", "0");
+        DoTestDivide(
   "281470681808895",
   "79226953606891185567396986880",
   "0");
-   DoTestDivide (
+   DoTestDivide(
   "1208907373151751269056511",
   "281470681808895",
   "4294967295");
-            DoTestDivide (
+            DoTestDivide(
   "1208907373151751269056511",
   "79226953606891185567396986880",
   "0");
-            DoTestDivide (
+            DoTestDivide(
   "79226953606891185567396986880",
   "79226953606891185567396986880",
   "1");
-            DoTestDivide (
+            DoTestDivide(
   "79226953606891185567396986880",
   "79226953606891185567396986880",
   "1");
-            DoTestDivide (
+            DoTestDivide(
   "79149582354435849300215791616",
   "281470681808895",
   "281200094609408");
-            DoTestDivide (
+            DoTestDivide(
   "79149582354435849304510693376",
   "79226953606891185567396986880",
   "0");
-            DoTestDivide (
+            DoTestDivide(
   "340277174703229510990181926235654782976",
   "79226953606891185567396986880",
   "4294967295");
-            DoTestDivide (
+            DoTestDivide(
   "340277174703229510990181926235654782976",
   "79226953606891185567396986880",
   "4294967295");
-            DoTestDivide (
+            DoTestDivide(
   "79226953606891185567396986880",
   "6277005955876855982708123588802319701019026907066160578560",
   "0");
-            DoTestDivide (
+            DoTestDivide(
   "22278626849872979772991819660510225504468991",
   "79226953606891185567396986880",
   "281200094609408");
@@ -806,7 +811,7 @@ DoTestDivide ("4294901760", "281470681808895", "0");
   "6270875973713392427274690200693718464284551950581721071616",
   "79226953606891185567396986880",
   "79150790081217380608951451648");
-            DoTestDivide (
+            DoTestDivide(
   "6277005955876855982708123588802242329766571570798979383296",
   "6277005955876855982708123588802319701019026907066160578560",
   "0");
@@ -2022,8 +2027,8 @@ DoTestDivide ("4294901760", "281470681808895", "0");
 
     [Test]
     [Timeout(5000)]
-    public void TestMultiplyDivideSpecific () {
-TestMultiplyDivideOne (
+    public void TestMultiplyDivideSpecific() {
+TestMultiplyDivideOne(
   EInteger.FromRadixString
 
   (
@@ -2034,21 +2039,21 @@ TestMultiplyDivideOne (
   (
   "E29BE968D480A9FEE535E95FD35DD081868CDF4ED961B2148530A98AD961D4249920AE57AF49E6E1BB50940FD710E5C598249829FA8886C6A63D853BC52CE8D1D2E8B6EF927DC5AF9D14F3AFA2669EC4DAB7FD88F15BACB79149",
   16));
-TestMultiplyDivideOne (
-  EInteger.FromRadixString ("E6E8FFFFFFFF", 16),
-  EInteger.FromRadixString ("E6E8FFFFFFFF", 16));
-TestMultiplyDivideOne (
-  EInteger.FromRadixString ("AE0CFFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString ("AE0CFFFFFFFFFFFF", 16));
-TestMultiplyDivideOne (
-  EInteger.FromRadixString ("E6E8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString ("FFFFFFFFFFFFFFFFFFFFFFFF", 16));
-TestMultiplyDivideOne (
-  EInteger.FromRadixString ("83E7FFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString ("83E7FFFFFFFFFFFF", 16));
-      TestMultiplyDivideOne (
-  EInteger.FromRadixString ("C57DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString ("C57DFFFFFFFFFFFFFFFFFFFF", 16));
+TestMultiplyDivideOne(
+  EInteger.FromRadixString("E6E8FFFFFFFF", 16),
+  EInteger.FromRadixString("E6E8FFFFFFFF", 16));
+TestMultiplyDivideOne(
+  EInteger.FromRadixString("AE0CFFFFFFFFFFFFFFFF", 16),
+  EInteger.FromRadixString("AE0CFFFFFFFFFFFF", 16));
+TestMultiplyDivideOne(
+  EInteger.FromRadixString("E6E8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
+  EInteger.FromRadixString("FFFFFFFFFFFFFFFFFFFFFFFF", 16));
+TestMultiplyDivideOne(
+  EInteger.FromRadixString("83E7FFFFFFFFFFFFFFFF", 16),
+  EInteger.FromRadixString("83E7FFFFFFFFFFFF", 16));
+      TestMultiplyDivideOne(
+  EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
+  EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFF", 16));
 
       {
 EInteger objectTemp = EInteger.FromRadixString
@@ -2071,7 +2076,7 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
                 ei2 = EInteger.FromString
 
   ("6667912688606651657935168942074070387623462798286393292334546164025938697493268465740399785103348978411106010660409247384863031649363973174034406552719188394559243700794785023362300512913065060420313203793021880700852215978918600154969735168");
-                TestMultiplyDivideOne (ei1, ei2);
+                TestMultiplyDivideOne(ei1, ei2);
             }
         }
 
@@ -2570,131 +2575,131 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
         EInteger bigintRem;
         EInteger bigintE;
         EInteger bigintD;
-        EInteger bigintC = bigintA.Multiply (bigintB);
-        TestCommon.CompareTestEqualAndConsistent (
+        EInteger bigintC = bigintA.Multiply(bigintB);
+        TestCommon.CompareTestEqualAndConsistent(
           bigintC,
-          bigintB.Multiply (bigintA));
+          bigintB.Multiply(bigintA));
         if (!bigintB.IsZero) {
           {
-            EInteger [] divrem = bigintC.DivRem (bigintB);
-            bigintD = divrem [0];
-            bigintRem = divrem [1];
+            EInteger[] divrem = bigintC.DivRem(bigintB);
+            bigintD = divrem[0];
+            bigintRem = divrem[1];
           }
-          TestCommon.CompareTestEqualAndConsistent (bigintD, bigintA);
-          TestCommon.CompareTestEqual (EInteger.Zero, bigintRem);
-          bigintE = bigintC.Divide (bigintB);
+          TestCommon.CompareTestEqualAndConsistent(bigintD, bigintA);
+          TestCommon.CompareTestEqual(EInteger.Zero, bigintRem);
+          bigintE = bigintC.Divide(bigintB);
           // Testing that DivRem and division method return
           // the same value
-          TestCommon.CompareTestEqualAndConsistent (bigintD, bigintE);
-          bigintE = bigintC.Remainder (bigintB);
-          TestCommon.CompareTestEqualAndConsistent (bigintRem, bigintE);
-          if (bigintE.Sign > 0 && !bigintC.Mod (bigintB).Equals (bigintE)) {
-            TestCommon.CompareTestEqualAndConsistent (
+          TestCommon.CompareTestEqualAndConsistent(bigintD, bigintE);
+          bigintE = bigintC.Remainder(bigintB);
+          TestCommon.CompareTestEqualAndConsistent(bigintRem, bigintE);
+          if (bigintE.Sign > 0 && !bigintC.Mod(bigintB).Equals(bigintE)) {
+            TestCommon.CompareTestEqualAndConsistent(
               bigintE,
-              bigintC.Mod (bigintB));
+              bigintC.Mod(bigintB));
           }
         }
         if (!bigintA.IsZero) {
-          EInteger [] divrem = bigintC.DivRem (bigintA);
-          bigintD = divrem [0];
-          bigintRem = divrem [1];
-          TestCommon.CompareTestEqualAndConsistent (bigintD, bigintB);
-          TestCommon.CompareTestEqual (EInteger.Zero, bigintRem);
+          EInteger[] divrem = bigintC.DivRem(bigintA);
+          bigintD = divrem[0];
+          bigintRem = divrem[1];
+          TestCommon.CompareTestEqualAndConsistent(bigintD, bigintB);
+          TestCommon.CompareTestEqual(EInteger.Zero, bigintRem);
         }
         if (!bigintB.IsZero) {
-          EInteger [] divrem = bigintA.DivRem (bigintB);
-          bigintC = divrem [0];
-          bigintRem = divrem [1];
-          bigintD = bigintB.Multiply (bigintC);
+          EInteger[] divrem = bigintA.DivRem(bigintB);
+          bigintC = divrem[0];
+          bigintRem = divrem[1];
+          bigintD = bigintB.Multiply(bigintC);
           bigintD += (EInteger)bigintRem;
-          TestCommon.CompareTestEqualAndConsistent (bigintA, bigintD);
+          TestCommon.CompareTestEqualAndConsistent(bigintA, bigintD);
         }
         // -----------------------------------
         // EDecimal
         // -----------------------------------
-        EDecimal edecA = EDecimal.FromEInteger (bigintA);
-        EDecimal edecB = EDecimal.FromEInteger (bigintB);
-        EDecimal edecC = edecA.Multiply (edecB);
+        EDecimal edecA = EDecimal.FromEInteger(bigintA);
+        EDecimal edecB = EDecimal.FromEInteger(bigintB);
+        EDecimal edecC = edecA.Multiply(edecB);
         EDecimal edecRem;
         EDecimal edecE;
         EDecimal edecD;
-        TestCommon.CompareTestEqualAndConsistent (
+        TestCommon.CompareTestEqualAndConsistent(
           edecC,
-          edecB.Multiply (edecA));
+          edecB.Multiply(edecA));
         if (!edecB.IsZero) {
-          EDecimal [] divrem = edecC.DivRemNaturalScale (edecB);
-          edecD = divrem [0].Plus (null);
-          edecRem = divrem [1];
-          TestCommon.CompareTestEqualAndConsistent (edecD, edecA);
-          TestCommon.CompareTestEqual (EDecimal.Zero, edecRem);
-          edecE = edecC.DivideToExponent (edecB, 0, ERounding.Down);
+          EDecimal[] divrem = edecC.DivRemNaturalScale(edecB);
+          edecD = divrem[0].Plus(null);
+          edecRem = divrem[1];
+          TestCommon.CompareTestEqualAndConsistent(edecD, edecA);
+          TestCommon.CompareTestEqual(EDecimal.Zero, edecRem);
+          edecE = edecC.DivideToExponent(edecB, 0, ERounding.Down);
           // Testing that DivRemNaturalScale and division method return
           // the same value
-          TestCommon.CompareTestEqualAndConsistent (edecD, edecE);
-          edecE = edecC.RemainderNaturalScale (edecB, null);
-          TestCommon.CompareTestEqualAndConsistent (edecRem, edecE);
+          TestCommon.CompareTestEqualAndConsistent(edecD, edecE);
+          edecE = edecC.RemainderNaturalScale(edecB, null);
+          TestCommon.CompareTestEqualAndConsistent(edecRem, edecE);
         }
         if (!edecA.IsZero) {
-          EDecimal [] divrem = edecC.DivRemNaturalScale (edecA);
-          edecD = divrem [0].Plus (null);
-          edecRem = divrem [1];
-          TestCommon.CompareTestEqualAndConsistent (edecD, edecB);
-          TestCommon.CompareTestEqual (EDecimal.Zero, edecRem);
+          EDecimal[] divrem = edecC.DivRemNaturalScale(edecA);
+          edecD = divrem[0].Plus(null);
+          edecRem = divrem[1];
+          TestCommon.CompareTestEqualAndConsistent(edecD, edecB);
+          TestCommon.CompareTestEqual(EDecimal.Zero, edecRem);
         }
         if (!edecB.IsZero) {
-          EDecimal [] divrem = edecA.DivRemNaturalScale (edecB);
-          edecC = divrem [0].Plus (null);
-          edecRem = divrem [1];
-          edecD = edecB.Multiply (edecC);
-          edecD = edecD.Add (edecRem);
-          TestCommon.CompareTestEqualAndConsistent (edecA, edecD);
+          EDecimal[] divrem = edecA.DivRemNaturalScale(edecB);
+          edecC = divrem[0].Plus(null);
+          edecRem = divrem[1];
+          edecD = edecB.Multiply(edecC);
+          edecD = edecD.Add(edecRem);
+          TestCommon.CompareTestEqualAndConsistent(edecA, edecD);
         }
         // -----------------------------------
         // EFloat
         // -----------------------------------
-        EFloat efloatA = EFloat.FromEInteger (bigintA);
-        EFloat efloatB = EFloat.FromEInteger (bigintB);
-        EFloat efloatC = efloatA.Multiply (efloatB);
+        EFloat efloatA = EFloat.FromEInteger(bigintA);
+        EFloat efloatB = EFloat.FromEInteger(bigintB);
+        EFloat efloatC = efloatA.Multiply(efloatB);
         EFloat efloatRem;
         EFloat efloatE;
         EFloat efloatD;
-        TestCommon.CompareTestEqualAndConsistent (
+        TestCommon.CompareTestEqualAndConsistent(
           efloatC,
-          efloatB.Multiply (efloatA));
+          efloatB.Multiply(efloatA));
         if (!efloatB.IsZero) {
-          EFloat [] divrem = efloatC.DivRemNaturalScale (efloatB);
-          efloatD = divrem [0].Plus (null);
-          efloatRem = divrem [1];
-          TestCommon.CompareTestEqualAndConsistent (efloatD, efloatA);
-          TestCommon.CompareTestEqual (EFloat.Zero, efloatRem);
-          efloatE = efloatC.DivideToExponent (efloatB, 0, ERounding.Down);
+          EFloat[] divrem = efloatC.DivRemNaturalScale(efloatB);
+          efloatD = divrem[0].Plus(null);
+          efloatRem = divrem[1];
+          TestCommon.CompareTestEqualAndConsistent(efloatD, efloatA);
+          TestCommon.CompareTestEqual(EFloat.Zero, efloatRem);
+          efloatE = efloatC.DivideToExponent(efloatB, 0, ERounding.Down);
           // Testing that DivRemNaturalScale and division method return
           // the same value
-          TestCommon.CompareTestEqualAndConsistent (efloatD, efloatE);
-          efloatE = efloatC.RemainderNaturalScale (efloatB, null);
-          TestCommon.CompareTestEqualAndConsistent (efloatRem, efloatE);
+          TestCommon.CompareTestEqualAndConsistent(efloatD, efloatE);
+          efloatE = efloatC.RemainderNaturalScale(efloatB, null);
+          TestCommon.CompareTestEqualAndConsistent(efloatRem, efloatE);
         }
         if (!efloatA.IsZero) {
-          EFloat [] divrem = efloatC.DivRemNaturalScale (efloatA);
-          efloatD = divrem [0].Plus (null);
-          efloatRem = divrem [1];
-          TestCommon.CompareTestEqualAndConsistent (efloatD, efloatB);
-          TestCommon.CompareTestEqual (EFloat.Zero, efloatRem);
+          EFloat[] divrem = efloatC.DivRemNaturalScale(efloatA);
+          efloatD = divrem[0].Plus(null);
+          efloatRem = divrem[1];
+          TestCommon.CompareTestEqualAndConsistent(efloatD, efloatB);
+          TestCommon.CompareTestEqual(EFloat.Zero, efloatRem);
         }
         if (!efloatB.IsZero) {
-          EFloat [] divrem = efloatA.DivRemNaturalScale (efloatB);
-          efloatC = divrem [0].Plus (null);
-          efloatRem = divrem [1];
-          efloatD = efloatB.Multiply (efloatC);
-          efloatD = efloatD.Add (efloatRem);
-          TestCommon.CompareTestEqualAndConsistent (efloatA, efloatD);
+          EFloat[] divrem = efloatA.DivRemNaturalScale(efloatB);
+          efloatC = divrem[0].Plus(null);
+          efloatRem = divrem[1];
+          efloatD = efloatB.Multiply(efloatC);
+          efloatD = efloatD.Add(efloatRem);
+          TestCommon.CompareTestEqualAndConsistent(efloatA, efloatD);
         }
       } catch (Exception ex) {
     string testLine = "TestMultiplyDivideOne (\nEInteger.FromRadixString (\"" +
-          bigintA.ToRadixString (16) + "\",16),\nEInteger.FromRadixString (\"" +
-                bigintB.ToRadixString (16) + "\",16));";
+          bigintA.ToRadixString(16) + "\",16),\nEInteger.FromRadixString(\"" +
+                bigintB.ToRadixString(16) + "\",16));";
         Console.WriteLine(testLine);
-        throw new InvalidOperationException(ex.Message + "\n"+testLine,ex);
+        throw new InvalidOperationException(ex.Message + "\n" + testLine, ex);
       }
     }
 
