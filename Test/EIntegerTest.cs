@@ -122,12 +122,9 @@ namespace Test {
       if (bigintB.IsZero) {
         try {
           bigintTemp = bigintA / bigintB;
-                  {
-object objectTemp = "Expected divide by 0 error;
-object objectTemp2 = got " +
-                    bigintTemp;
-Assert.Fail(objectTemp, objectTemp2);
-}
+          string msg = "Expected divide by 0 error, but got " +
+           bigintTemp;
+          Assert.Fail(msg);
         } catch (ArithmeticException ex) {
           Console.WriteLine(ex.Message);
         }
