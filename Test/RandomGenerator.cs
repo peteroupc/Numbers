@@ -116,7 +116,7 @@ namespace PeterO {
       if (df <= 0) {
         throw new ArgumentException("df (" + df + ") is not greater than 0");
       }
-      return this.Gamma(df / 2, 2);
+      return this.Gamma(df / 2.0, 2);
     }
 
     /// <summary>Not documented yet.</summary>
@@ -145,17 +145,17 @@ namespace PeterO {
             (-1));
       }
       double v, x, u, x2, d, c;
-      d = (a < 1 ? 1 + a : a) - 1 / 3;
+      d = (a < 1 ? 1 + a : a) - (1.0 / 3.0);
       c = 1 / Math.Sqrt(9 * d);
       do {
         do {
           x = this.Normal();
-          v = Math.Pow(c * x + 1, 3);
+          v = Math.Pow((c * x) + 1, 3);
         } while (v <= 0);
         u = this.Uniform();
         x2 = Math.Pow(x, 2);
       } while (u >= 1 - (0.0331 * x2 * x2) &&
-               Math.Log(u) >= 0.5 * x2 + d * (1 - v + Math.Log(v)));
+               Math.Log(u) >= (0.5 * x2) + (d * (1 - v + Math.Log(v))));
       if (a < 1) {
         return d * v * Math.Exp(this.Exponential() / -a);
       } else {
@@ -301,8 +301,7 @@ namespace PeterO {
     }
     // The Normal, Exponential, Poisson, and
     // single-argument Gamma methods were adapted
-    // from "Seedable random number generator functions",
-    // a public-domain JavaScript file.
+    // from a third-party public-domain JavaScript file.
 
     /// <summary>Generates a normally-distributed number with mean 0 and
     /// standard deviation 1.</summary>
