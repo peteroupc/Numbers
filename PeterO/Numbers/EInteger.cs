@@ -1052,7 +1052,7 @@ namespace PeterO.Numbers {
           a = unchecked(a + (cc & 0xffff));
           b = ((int)minuendArr[minuendArrStart + i] & 0xffff) - (a & 0xffff);
           resultArr[resultStart + i] = unchecked((short)b);
-          cc = ((a >> 16) & 0xffff) +((b >> 31) & 1);
+          cc = ((a >> 16) & 0xffff) + ((b >> 31) & 1);
         }
       a = cc & 0xffff;
       b = ((int)minuendArr[minuendArrStart + factor2Count] & 0xffff) - a;
@@ -6723,7 +6723,7 @@ if (words2Count <= 0) {
         Array.Copy(ww, wordsPerPart, w2, 0, wordsPerPart);
         Array.Copy(ww, wordsPerPart * 2, w3, 0, wordsPerPart * 2);
         #if DEBUG
-if (!((ww[(wordsPerPart * 4) - 1]&0xc000) != 0)) {
+if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
   throw new
     ArgumentException("doesn't satisfy (ww[wordsPerPart*4-1]&0xC000)!=0");
 }

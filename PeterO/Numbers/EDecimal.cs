@@ -855,7 +855,7 @@ private static readonly FastIntegerFixed FastIntZero = new
           haveDigits = true;
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue) {
-              newScale = newScale ?? (new FastInteger(newScaleInt));
+newScale = newScale ?? (new FastInteger(newScaleInt));
               newScale.Decrement();
             } else {
               --newScaleInt;
@@ -930,18 +930,17 @@ private static readonly FastIntegerFixed FastIntZero = new
         if (exp != null && (expBufferMult != 1 || expBuffer != 0)) {
           exp.Multiply(expBufferMult).AddInt(expBuffer);
         }
-        if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp ==
-            null) {
+   if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp == null) {
           newScaleInt = expInt;
         } else if (exp == null) {
-          newScale = newScale ?? (new FastInteger(newScaleInt));
+newScale = newScale ?? (new FastInteger(newScaleInt));
           if (tmpoffset < 0) {
             newScale.SubtractInt(expInt);
           } else if (expInt != 0) {
             newScale.AddInt(expInt);
           }
         } else {
-          newScale = newScale ?? (new FastInteger(newScaleInt));
+newScale = newScale ?? (new FastInteger(newScaleInt));
           if (tmpoffset < 0) {
             newScale.Subtract(exp);
           } else {
@@ -2548,7 +2547,7 @@ private static readonly FastIntegerFixed FastIntZero = new
         EInteger desiredHigh;
         EInteger desiredLow;
         var haveCopy = false;
-        ec = ec ?? EContext.UnlimitedHalfEven;
+ec = ec ?? (EContext.UnlimitedHalfEven);
         EContext originalEc = ec;
         if (!ec.HasMaxPrecision) {
           EInteger num = bigmantissa;

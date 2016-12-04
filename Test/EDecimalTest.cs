@@ -2962,14 +2962,18 @@ throw new InvalidOperationException(String.Empty, ex);
       EFloat.Create(1, -1075).ToEDecimal();
 
     private static readonly EDecimal DoubleOverflowToInfinity =
-  EFloat.Create(EInteger.FromInt64((1L << 53) -1), EInteger.FromInt32(971)).Add(
+EFloat.Create(
+  EInteger.FromInt64((1L << 53) - 1),
+  EInteger.FromInt32(971)).Add(
          EFloat.Create(1, 970)).ToEDecimal();
 
     private static readonly EDecimal SingleUnderflowToZero =
       EFloat.Create(1, -150).ToEDecimal();
 
     private static readonly EDecimal SingleOverflowToInfinity =
-  EFloat.Create(EInteger.FromInt64((1L << 24) -1), EInteger.FromInt32(104)).Add(
+EFloat.Create(
+  EInteger.FromInt64((1L << 24) - 1),
+  EInteger.FromInt32(104)).Add(
          EFloat.Create(1, 103)).ToEDecimal();
 
     private static EDecimal[] MakeUlpTable() {

@@ -2043,11 +2043,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <param name='otherValue'>A decimal number containing the desired
             exponent of the result. The mantissa (significand) is ignored. The
             exponent is the number of fractional digits in the result,
-            expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
@@ -2076,8 +2072,10 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             example returns a fixed-point number with up to 20 digits before
             and exactly 5 digits after the decimal point:</para>
             <code>
-            // After performing arithmetic operations, adjust  // the number to 5
-            digits after the decimal point number = number.Quantize(
+            // After performing arithmetic operations, adjust
+            // the number to 5
+            // digits after the decimal point
+            number = number.Quantize(
             EInteger.FromInt32(-5),  // five digits after the decimal point
             EContext.ForPrecision(25)  // 25-digit precision);
             </code>
@@ -4422,11 +4420,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <param name='otherValue'>A binary float containing the desired
             exponent of the result. The mantissa (significand) is ignored. The
             exponent is the number of fractional digits in the result,
-            expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
@@ -4466,11 +4460,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             </summary>
             <param name='desiredExponent'>The desired exponent for the result.
             The exponent is the number of fractional digits in the result,
-            expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c>
              of the context is true,
@@ -4512,11 +4502,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             </summary>
             <param name='desiredExponentInt'>The desired exponent for the
             result. The exponent is the number of fractional digits in the
-            result, expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c>
              of the context is true,
@@ -4644,11 +4630,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             object but rounded to a new exponent if necessary.</summary>
             <param name='exponent'>The minimum exponent the result can have.
             This is the maximum number of fractional digits in the result,
-            expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
@@ -4668,11 +4650,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             object but rounded to a new exponent if necessary.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
             have. This is the maximum number of fractional digits in the
-            result, expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
@@ -4693,11 +4671,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             flag if the result would be inexact.</summary>
             <param name='exponent'>The minimum exponent the result can have.
             This is the maximum number of fractional digits in the result,
-            expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
@@ -4727,11 +4701,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             the result would be inexact.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
             have. This is the maximum number of fractional digits in the
-            result, expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
-            integer.</param>
+            result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the

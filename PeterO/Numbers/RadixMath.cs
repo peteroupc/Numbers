@@ -774,8 +774,7 @@ private static EInteger ShiftedMask(FastInteger prec) {
         FastInteger.FromBig(this.helper.GetExponent(thisValue))
         .SubtractBig(this.helper.GetExponent(divisor));
       EContext ctx2 =
-        EContext.ForRounding(ERounding.Down).WithBigPrecision(ctx ==
-                    null ?
+        EContext.ForRounding(ERounding.Down).WithBigPrecision(ctx == null ?
   EInteger.Zero :
 ctx.Precision).WithBlankFlags();
       T ret = this.DivideInternal(
@@ -4429,7 +4428,7 @@ ctx.Precision).WithBlankFlags();
           }
         }
       }
-      ctx = ctx ?? EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven);
+ctx = ctx ?? (EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven));
       bool binaryPrec = ctx.IsPrecisionInBits;
       // get the precision
       FastInteger fastPrecision = ctx.Precision.CanFitInInt32() ? new
@@ -4566,11 +4565,12 @@ ctx.Precision).WithBlankFlags();
                     olderDiscarded) == 0;
    FastInteger exp = this.helper.GetExponentFastInt(thisValue).ToFastInteger();
       var flags = 0;
-      accum = accum ??
-        this.helper.CreateShiftAccumulatorWithDigitsFastInt(
+      if (accum == null) {
+accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
           bigmantissa,
           lastDiscarded,
           olderDiscarded);
+}
 #if DEBUG
       if (!accum.DiscardedDigitCount.IsValueZero) {
         throw new ArgumentException(
