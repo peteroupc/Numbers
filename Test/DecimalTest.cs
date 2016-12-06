@@ -10,8 +10,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using PeterO.Numbers;
 using PeterO;
+using PeterO.Numbers;
 
 namespace Test {
   [TestFixture]

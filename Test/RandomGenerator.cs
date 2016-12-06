@@ -222,8 +222,8 @@ namespace PeterO {
 
     /// <summary>Generates a logarithmic normally-distributed number with
     /// the given mean and standard deviation.</summary>
-    /// <param name='mean'>Not documented yet.</param>
-    /// <param name='sd'>Not documented yet.</param>
+    /// <param name='mean'>The desired mean.</param>
+    /// <param name='sd'>Standard deviation.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double LogNormal(double mean, double sd) {
       return Math.Exp((this.Normal() * sd) + mean);
@@ -327,8 +327,8 @@ namespace PeterO {
 
     /// <summary>Generates a normally-distributed number with the given
     /// mean and standard deviation.</summary>
-    /// <param name='mean'>Not documented yet.</param>
-    /// <param name='sd'>Not documented yet.</param>
+    /// <param name='mean'>The desired mean.</param>
+    /// <param name='sd'>Standard deviation.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Normal(double mean, double sd) {
       return (this.Normal() * sd) + mean;
@@ -365,11 +365,13 @@ namespace PeterO {
         throw new ArgumentException("min (" + min + ") is not less than " +
             max);
       }
-      return min + (max - min) * this.Uniform();
+      return min + ((max - min) * this.Uniform());
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='max'>Not documented yet.</param>
+    /// <summary>Returns a uniformly-distributed 64-bit floating-point
+    /// number from 0 and up, but less than the given number.</summary>
+    /// <param name='max'>Number that the randomly-generated number will be
+    /// less than.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Uniform(double max) {
       return this.Uniform(0.0, max);
