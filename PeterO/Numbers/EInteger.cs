@@ -24,6 +24,8 @@ namespace PeterO.Numbers {
     // TODO: Investigate using 32-bit words instead of 16-bit
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    private const int RecursiveDivisionLimit = 40;
+
     private const int RecursionLimit = 10;
 
     private const int ShortMask = 0xffff;
@@ -147,7 +149,7 @@ namespace PeterO.Numbers {
       var j = 0;
       for (var i = 0; i < count; ++i, j += 2) {
         int w = intWords[i];
-        words[j] = unchecked((short)(w));
+        words[j] = unchecked((short)w);
         words[j + 1] = unchecked((short)(w >> 16));
       }
       int newwordCount = words.Length;
@@ -1061,8 +1063,6 @@ namespace PeterO.Numbers {
       return unchecked((short)cc);
     }
 
-    private const int RecursiveDivisionLimit = 40;
-
     private static void DivideThreeBlocksByTwo(
       short[] valueALow,
       int posALow,
@@ -1089,11 +1089,11 @@ if (posQuot > quot.Length) {
     ") is more than " + quot.Length);
 }
 if ((blockCount * 2) < 0) {
-  throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
+  throw new ArgumentException("blockCount*2 (" + (blockCount * 2) +
     ") is less than 0");
 }
 if ((blockCount * 2) > quot.Length) {
-  throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
+  throw new ArgumentException("blockCount*2 (" + (blockCount * 2) +
     ") is more than " + quot.Length);
 }
 if (quot.Length - posQuot < blockCount * 2) {
@@ -1111,11 +1111,11 @@ if (posRem > rem.Length) {
     ") is more than " + rem.Length);
 }
 if ((blockCount * 2) < 0) {
-  throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
+  throw new ArgumentException("blockCount*2 (" + (blockCount * 2) +
     ") is less than 0");
 }
 if ((blockCount * 2) > rem.Length) {
-  throw new ArgumentException("blockCount*2 (" + blockCount * 2 +
+  throw new ArgumentException("blockCount*2 (" + (blockCount * 2) +
     ") is more than " + rem.Length);
 }
 if (rem.Length - posRem < blockCount * 2) {
@@ -1284,11 +1284,11 @@ if (posQuot > quot.Length) {
     ") is more than " + quot.Length);
 }
 if ((blockSize * 2) < 0) {
-  throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
+  throw new ArgumentException("blockSize*2 (" + (blockSize * 2) +
     ") is less than 0");
 }
 if ((blockSize * 2) > quot.Length) {
-  throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
+  throw new ArgumentException("blockSize*2 (" + (blockSize * 2) +
     ") is more than " + quot.Length);
 }
 if (quot.Length - posQuot < blockSize * 2) {
@@ -1306,11 +1306,11 @@ if (posRem > rem.Length) {
     ") is more than " + rem.Length);
 }
 if ((blockSize * 2) < 0) {
-  throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
+  throw new ArgumentException("blockSize*2 (" + (blockSize * 2) +
     ") is less than 0");
 }
 if ((blockSize * 2) > rem.Length) {
-  throw new ArgumentException("blockSize*2 (" + blockSize * 2 +
+  throw new ArgumentException("blockSize*2 (" + (blockSize * 2) +
     ") is more than " + rem.Length);
 }
 if (rem.Length - posRem < (blockSize * 2)) {
@@ -1587,11 +1587,11 @@ if (rem.Length - posRem < countB) {
       while (len != 0 && words[len - 1] == 0) {
                 --len;
       }
-      return (
-  len == 0) ? (
-  "\"0\"") :("\"" + new EInteger(len,
- words,
-        false).ToUnoptString() + "\"");
+      return (len == 0) ?
+  "\"0\"" : ("\"" + new EInteger(
+      len,
+      words,
+      false).ToUnoptString() + "\"");
     }
 
     private static short[] CombineWords(

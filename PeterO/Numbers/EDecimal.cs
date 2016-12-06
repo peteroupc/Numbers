@@ -2547,7 +2547,7 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
         EInteger desiredHigh;
         EInteger desiredLow;
         var haveCopy = false;
-ec = ec ?? (EContext.UnlimitedHalfEven);
+ec = ec ?? EContext.UnlimitedHalfEven;
         EContext originalEc = ec;
         if (!ec.HasMaxPrecision) {
           EInteger num = bigmantissa;

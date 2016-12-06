@@ -1348,8 +1348,8 @@ StartsWith(chunks[2], "o")) {
       Console.WriteLine("ProcTime: " + (valueSwProcessing.ElapsedMilliseconds /
         1000.0) + " s");
       // Ratio of number processing time to total running time
-      Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *1.0 /
-        sw.ElapsedMilliseconds) + "%");
+    Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
+        1.0 / sw.ElapsedMilliseconds) + "%");
       if (failures > 0) {
         foreach (string err in errors) {
           Console.WriteLine(err);

@@ -449,8 +449,8 @@ namespace Test {
         EDecimal.FromString("-32768")) >= 0 && enumber.CompareTo(
         EDecimal.FromString("32767")) <= 0;
         isTruncated = enumber.ToEInteger().CompareTo(
-      EInteger.FromString("-32768")) >= 0 && enumber.ToEInteger
-().CompareTo(
+      EInteger.FromString("-32768")) >= 0 && enumber.ToEInteger(
+  ).CompareTo(
         EInteger.FromString("32767")) <= 0;
         if (isNum) {
           TestCommon.AssertEquals(
@@ -3785,10 +3785,10 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromDouble(dbl).IsNegative);
       Assert.AreEqual(
         EFloat.NegativeZero,
         EDecimal.NegativeZero.ToEFloat());
-      if (0.0f != EFloat.Zero.ToSingle()) {
+      if (EFloat.Zero.ToSingle() != 0.0f) {
         Assert.Fail("Failed " + EFloat.Zero.ToDouble());
       }
-      if (0.0f != EFloat.Zero.ToDouble()) {
+      if (EFloat.Zero.ToDouble() != 0.0f) {
         Assert.Fail("Failed " + EFloat.Zero.ToDouble());
       }
       EDecimal df;
@@ -4614,10 +4614,10 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative);
     [Test]
     public void TestZero() {
       Assert.AreEqual(EDecimal.Zero, EDecimal.FromInt32(0));
-      if (0.0 != EDecimal.Zero.ToSingle()) {
+      if (EDecimal.Zero.ToSingle() != 0.0) {
         Assert.Fail("Failed " + EDecimal.Zero.ToSingle());
       }
-      if (0.0 != EDecimal.Zero.ToDouble()) {
+      if (EDecimal.Zero.ToDouble() != 0.0) {
         Assert.Fail("Failed " + EDecimal.Zero.ToDouble());
       }
     }

@@ -4428,7 +4428,7 @@ ctx.Precision).WithBlankFlags();
           }
         }
       }
-ctx = ctx ?? (EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven));
+ctx = ctx ?? EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven);
       bool binaryPrec = ctx.IsPrecisionInBits;
       // get the precision
       FastInteger fastPrecision = ctx.Precision.CanFitInInt32() ? new
