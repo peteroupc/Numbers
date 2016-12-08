@@ -7,7 +7,7 @@ at: http://peteroupc.github.io/
  */
 using System;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Test {
   public static class TestCommon {
