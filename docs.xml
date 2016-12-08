@@ -337,7 +337,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             value.</summary><param name='bigintPrecision'>The parameter <paramref name='bigintPrecision'/> is not documented yet.</param><returns>A context object for arbitrary-precision arithmetic
             settings.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigintPrecision'/> is null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithBlankFlags">
 <summary>Copies this EContext with <c>HasFlags</c> set to true and
@@ -398,7 +398,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
              <summary>Copies this EContext and sets the copy's "IsSimplified"
             property to the given value.</summary><param name='simplified'>The parameter <paramref name='simplified'/> is not documented yet.</param><returns>A context object for arbitrary-precision arithmetic
             settings.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithTraps(System.Int32)">
 <summary>Copies this EContext with Traps set to the given
@@ -824,13 +824,13 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <c>exponent*10^mantissa</c></summary><param name='mantissa'>The parameter <paramref name='mantissa'/> is not documented yet.</param><param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param><returns>An arbitrary-precision decimal number.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='mantissa'/> or <paramref name='exponent'/> is
             null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)">
 
              <summary>Creates a number with the value
             <c>exponent*10^mantissa</c></summary><param name='mantissaSmall'>The parameter <paramref name='mantissaSmall'/> is not documented yet.</param><param name='exponentSmall'>The parameter <paramref name='exponentSmall'/> is not documented yet.</param><returns>An arbitrary-precision decimal number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CreateNaN(PeterO.Numbers.EInteger)">
 <summary>Creates a not-a-number arbitrary-precision decimal
@@ -865,7 +865,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <doc name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
              <summary>This is an internal method.</summary><param name='mantissa'>The parameter <paramref name='mantissa'/> is not documented yet.</param><param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param><param name='flags'>The parameter <paramref name='flags'/> is not documented yet.</param><returns>An arbitrary-precision decimal number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)">
 <summary>This is an internal method.</summary>
@@ -2923,7 +2923,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 
              <summary>Adds this object and another decimal number and returns
             the result.</summary><param name='bthis'>The parameter <paramref name='bthis'/> is not documented yet.</param><param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param><returns>The sum of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 <summary>Divides this object by another decimal number and returns
@@ -2939,7 +2939,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             fractional part in this value will be discarded when converting to
             an arbitrary-precision integer.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>An arbitrary-precision integer.</returns><exception cref='T:System.OverflowException'>This object's value is
             infinity or not-a-number (NaN).</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte">
 <summary>Converts an arbitrary-precision decimal number to a byte (from 0 to 255)
@@ -2970,7 +2970,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
             number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16">
 <summary>Converts an arbitrary-precision decimal number to a 16-bit signed integer
@@ -3018,7 +3018,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt16">
 <summary>Converts an arbitrary-precision decimal number to a 16-bit unsigned integer
@@ -3120,7 +3120,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
              <summary>Subtracts an arbitrary-precision decimal number from this
             instance and returns the result.</summary><param name='bthis'>The parameter <paramref name='bthis'/> is not
             documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param><returns>The difference of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)">
 
@@ -3130,7 +3130,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             positive zero, returns negative zero. Returns signaling NaN if this
             value is signaling NaN.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigValue'/> is null.</exception>
-            
+
 </doc>
 <doc name="T:PeterO.Numbers.EFloat">
 <summary>Represents an arbitrary-precision binary floating-point
@@ -3229,7 +3229,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
              <summary>This is an internal method.</summary><param name='mantissa'>The parameter <paramref name='mantissa'/> is not documented yet.</param><param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param><param name='flags'>The parameter <paramref name='flags'/> is not documented yet.</param><returns>An arbitrary-precision binary float.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)">
 <summary>This is an internal method.</summary>
@@ -3441,13 +3441,13 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             (significand).</summary><param name='mantissa'>The parameter <paramref name='mantissa'/> is not documented yet.</param><param name='exponent'>The parameter <paramref name='exponent'/> is not documented yet.</param><returns>An arbitrary-precision binary float.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             "mantissa (significand)" or <paramref name='exponent'/> is
             null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)">
 
              <summary>Creates a number with the value exponent*2^mantissa
             (significand).</summary><param name='mantissaSmall'>The parameter <paramref name='mantissaSmall'/> is not documented yet.</param><param name='exponentSmall'>The parameter <paramref name='exponentSmall'/> is not documented yet.</param><returns>An arbitrary-precision binary float.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger)">
 <summary>Creates a not-a-number arbitrary-precision binary
@@ -5208,7 +5208,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 
              <summary>Adds this object and another binary float and returns
             the result.</summary><param name='bthis'>The parameter <paramref name='bthis'/> is not documented yet.</param><param name='otherValue'>The parameter <paramref name='otherValue'/> is not documented yet.</param><returns>The sum of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 <summary>Divides this object by another binary float and returns
@@ -5224,7 +5224,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             fractional part in this value will be discarded when converting to
             an arbitrary-precision integer.</summary><param name='bigValue'>The parameter <paramref name='bigValue'/> is not documented yet.</param><returns>An arbitrary-precision integer.</returns><exception cref='T:System.OverflowException'>This object's value is
             infinity or not-a-number (NaN).</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte">
 <summary>Converts an arbitrary-precision binary float to a byte (from 0 to 255)
@@ -5248,7 +5248,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
             number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16">
 <summary>Converts an arbitrary-precision binary float to a 16-bit signed integer
@@ -5296,7 +5296,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt16">
 <summary>Converts an arbitrary-precision binary float to a 16-bit unsigned integer
@@ -5407,7 +5407,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
              <summary>Subtracts an arbitrary-precision binary float from this
             instance and returns the result.</summary><param name='bthis'>The parameter <paramref name='bthis'/> is not
             documented yet.</param><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param><returns>The difference of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)">
 
@@ -5417,7 +5417,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             positive zero, returns negative zero. Returns signaling NaN if this
             value is signaling NaN.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigValue'/> is null.</exception>
-            
+
 </doc>
 <doc name="T:PeterO.Numbers.EInteger">
 <summary>Represents an arbitrary-precision integer. (The "E" stands
@@ -5626,7 +5626,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
 <doc name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)">
 
              <summary>Not documented yet.</summary><param name='str'>The parameter <paramref name='str'/> is not documented yet.</param><param name='radix'>The parameter <paramref name='radix'/> is not documented yet.</param><returns>An arbitrary-precision integer.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)">
 <summary>Converts a portion of a string to an arbitrary-precision
@@ -5872,7 +5872,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             documented yet.</param><param name='mod'>The parameter <paramref name='mod'/> is not
             documented yet.</param><returns>The value ( <paramref name='bigintValue'/> ^ <paramref name='pow'/> )% <paramref name='mod'/>.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigintValue'/> is null.</exception>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)">
 <summary>Multiplies this instance by the value of an
@@ -6196,7 +6196,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
 <doc name="P:PeterO.Numbers.EInteger.Zero">
 
              <summary>Gets a value not documented yet.</summary><value>A value not documented yet.</value>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.add(PeterO.Numbers.EInteger)">
 <summary>
@@ -6619,7 +6619,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
 
              <summary>Not documented yet.</summary><param name='thisValue'>The parameter <paramref name='thisValue'/>
             is not documented yet.</param><returns>An arbitrary-precision integer.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_RightShift(PeterO.Numbers.EInteger,System.Int32)">
 <summary>Shifts the bits of an arbitrary-precision integer to the
@@ -7625,7 +7625,7 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
             number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16">
 <summary>Converts an arbitrary-precision rational number to a 16-bit signed integer
@@ -7666,7 +7666,7 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt16">
 <summary>Converts an arbitrary-precision rational number to a 16-bit unsigned integer
@@ -7902,7 +7902,7 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 
              <summary>Not documented yet.</summary><param name='bigintVal'>The parameter <paramref name='bigintVal'/>
             is not documented yet.</param><returns>A FastInteger object.</returns>
-            
+
 </doc>
 <doc name="P:PeterO.Numbers.FastInteger.IsEvenNumber">
 <summary>Gets a value not documented yet.</summary><value>A value not documented yet.</value>
@@ -7930,7 +7930,7 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 <doc name="P:PeterO.Numbers.FastInteger.Sign">
 
              <summary>Gets a value not documented yet.</summary><value>A value not documented yet.</value>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)">
 <summary>Not documented yet.</summary>
@@ -7942,7 +7942,7 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 
              <summary>Not documented yet.</summary><param name='bigintVal'>The parameter <paramref name='bigintVal'/>
             is not documented yet.</param><returns>A FastInteger object.</returns>
-            
+
 </doc>
 <doc name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)">
 <summary>Not documented yet.</summary>
