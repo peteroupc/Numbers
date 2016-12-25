@@ -1306,7 +1306,8 @@ StartsWith(chunks[2], "o")) {
             !lowerF.Contains(".dectest") && !lowerF.Contains(".fptest")) {
           continue;
         }
-        using (var w = new StreamReader(f)) {
+         using (var fileStream = File.Open(f, FileMode.Open))
+         using (var w = new StreamReader(fileStream)) {
           while (!w.EndOfStream) {
             if (errors.Count > 100) {
               break;

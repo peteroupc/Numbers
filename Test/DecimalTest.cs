@@ -460,7 +460,8 @@ System.Globalization.NumberStyles.Number;
           Console.WriteLine(f);
           IDictionary<string, string> context =
             new Dictionary<string, string>();
-          using (var w = new StreamReader(f)) {
+           using (var fileStream = File.Open(f, FileMode.Open))
+           using (var w = new StreamReader(fileStream)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
               {
