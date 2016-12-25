@@ -1,4 +1,4 @@
-/*
+﻿/*
 Written in 2013 by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
@@ -23,4 +23,4 @@ using System.Reflection;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyVersion("0.3.0")]
+[assembly: AssemblyVersion("0.4.0")]

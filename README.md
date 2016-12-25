@@ -43,6 +43,10 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+Version 0.4:
+
+- Add netstandard 1.0 support 
+
 Version 0.3:
 
 - Deprecated ERational constructor
