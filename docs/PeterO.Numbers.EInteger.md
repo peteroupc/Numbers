@@ -938,7 +938,7 @@ Each arbitrary-precision integer is treated as a two's-complement form (see[&#x2
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+The result of the operation.
 
 <b>Exceptions:</b>
 

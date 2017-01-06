@@ -4464,8 +4464,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             The exponent is the number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
+            means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c>
@@ -4510,8 +4509,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             result. The exponent is the number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
+            means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c>
@@ -4642,8 +4640,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             This is the maximum number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
+            means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4666,8 +4663,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             have. This is the maximum number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
+            means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4691,8 +4687,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             This is the maximum number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
+            means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4725,8 +4720,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             have. This is the maximum number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
-            means round to the thousandth (10^-3, 0.0001), and 3 means round to
-            the thousand (10^3, 1000). A value of 0 rounds the number to an
+            means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an
             integer.</param>
             <param name='ctx'>An arithmetic context to control precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of

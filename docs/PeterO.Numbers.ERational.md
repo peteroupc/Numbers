@@ -918,7 +918,7 @@ The parameter "otherValue" is null.
         PeterO.Numbers.ERational dividend,
         PeterO.Numbers.ERational divisor);
 
-Divides this instance by the value of an arbitrary-precision rational number object.
+Divides an arbitrary-precision rational number by the value of another arbitrary-precision rational number object.
 
 <b>Parameters:</b>
 

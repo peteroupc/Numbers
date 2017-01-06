@@ -1536,7 +1536,12 @@ if (rem.Length - posRem < countB) {
           // DebugUtility.Log("quot len=" + quot.Length + ",bb=" + blocksB +
           // ",size=" + size + " [" + countA + "," + countB + "]");
           if (size > 0) {
-            Array.Copy(tmprem, blocksB * 3, quot, posQuot + i * blocksB, size);
+          Array.Copy(
+  tmprem,
+ blocksB * 3,
+ quot,
+ posQuot + (i * blocksB),
+              size);
           }
         }
         // Set the high part of the sub-dividend with the remainder
