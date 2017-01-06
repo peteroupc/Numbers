@@ -449,8 +449,8 @@ namespace Test {
         EDecimal.FromString("-32768")) >= 0 && enumber.CompareTo(
         EDecimal.FromString("32767")) <= 0;
         isTruncated = enumber.ToEInteger().CompareTo(
-      EInteger.FromString("-32768")) >= 0 && enumber.ToEInteger(
-  ).CompareTo(
+      EInteger.FromString("-32768")) >= 0 && enumber.ToEInteger()
+  .CompareTo(
         EInteger.FromString("32767")) <= 0;
         if (isNum) {
           TestCommon.AssertEquals(

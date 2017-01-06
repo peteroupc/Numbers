@@ -1976,7 +1976,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+The result of the operation.
 
 <b>Exceptions:</b>
 
