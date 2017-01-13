@@ -7608,8 +7608,9 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
             or the truncated integer is less than 0 or greater than 255.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Decimal">
-<summary>Not documented yet.</summary>
-
+<summary>Converts an arbitrary-precision rational number to a <c>decimal</c> under the Common Language Infrastructure (see
+            <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).</summary>
+<param name='extendedNumber'>An arbitrary-precision rational number.</param>
             <returns>A Decimal object.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Double">
@@ -7692,13 +7693,13 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
             <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EFloat)~PeterO.Numbers.ERational">
-<summary>Not documented yet.</summary>
-            <param name='eint'>An EFloat object.</param>
+<summary>Converts an arbitrary-precision binary float to an arbitrary-precision rational number.</summary>
+            <param name='eint'>An arbitrary-precision binary float.</param>
             <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.ERational">
 <summary>Not documented yet.</summary>
-            <param name='eint'>An arbitrary-precision integer.</param>
+            <param name='bigValue'>An arbitrary-precision integer.</param>
             <returns>An arbitrary-precision rational number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Implicit(System.Byte)~PeterO.Numbers.ERational">
