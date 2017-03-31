@@ -88,9 +88,9 @@ namespace Test {
         // (all simplified arithmetic test cases)
         if (!extended) {
           if (name.Equals("ln116") ||
-              name.Equals("qua530") || // assumes that the input will underflow
+              name.Equals("qua530") ||  // assumes that the input will underflow
                     // to 0
-              name.Equals("qua531") || // assumes that the input will underflow
+              name.Equals("qua531") ||  // assumes that the input will underflow
                     // to 0
               name.Equals("rpow068") || name.Equals("rpow159") ||
               name.Equals("rpow217") || name.Equals("rpow272") ||
@@ -163,8 +163,8 @@ namespace Test {
         }
         if (op.Equals("multiply")) {
           d3 = d1.Multiply(d2, ctx);
-        } else if (op.Equals("toSci")) { // handled below
-        } else if (op.Equals("toEng")) { // handled below
+        } else if (op.Equals("toSci")) {  // handled below
+        } else if (op.Equals("toEng")) {  // handled below
         } else if (op.Equals("fma")) {
           d3 = d1.MultiplyAndAdd(d2, d2a, ctx);
         } else if (op.Equals("min")) {
