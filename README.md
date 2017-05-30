@@ -33,7 +33,7 @@ Examples
 About
 -----------
 
-Written in 2016 by Peter O.
+Written by Peter O. in 2016.
 
 Any copyright is dedicated to the Public Domain.
 [http://creativecommons.org/publicdomain/zero/1.0/](http://creativecommons.org/publicdomain/zero/1.0/)

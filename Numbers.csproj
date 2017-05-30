@@ -68,11 +68,15 @@
     <CodeAnalysisRuleSet>Numbers.ruleset</CodeAnalysisRuleSet>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet40|AnyCPU'">
     <DocumentationFile>bin\ReleaseNet40\Numbers.xml</DocumentationFile>
     <CodeAnalysisRuleSet>Numbers.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE;NET40</DefineConstants>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PeterO\DebugUtility.cs" />

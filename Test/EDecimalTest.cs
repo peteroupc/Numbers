@@ -370,14 +370,14 @@ namespace Test {
         EInteger.FromString("0")) >= 0 && enumber.ToEInteger().CompareTo(
         EInteger.FromString("255")) <= 0;
         if (isNum) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
        eint,
        EInteger.FromByte(enumber.ToByteChecked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromByte(enumber.ToByteUnchecked()));
           if (isInteger) {
-            TestCommon.AssertEquals(
+            TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromByte(enumber.ToByteIfExact()));
           } else {
@@ -392,10 +392,10 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
        eint,
        EInteger.FromByte(enumber.ToByteChecked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromByte(enumber.ToByteUnchecked()));
           try {
@@ -453,14 +453,14 @@ namespace Test {
   .CompareTo(
         EInteger.FromString("32767")) <= 0;
         if (isNum) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromInt16(enumber.ToInt16Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt16(enumber.ToInt16Unchecked()));
           if (isInteger) {
-            TestCommon.AssertEquals(
+            TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt16(enumber.ToInt16IfExact()));
           } else {
@@ -475,10 +475,10 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromInt16(enumber.ToInt16Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt16(enumber.ToInt16Unchecked()));
           try {
@@ -536,14 +536,14 @@ namespace Test {
           enumber.ToEInteger().CompareTo(
         EInteger.FromString("2147483647")) <= 0;
         if (isNum) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromInt32(enumber.ToInt32Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt32(enumber.ToInt32Unchecked()));
           if (isInteger) {
-            TestCommon.AssertEquals(
+            TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt32(enumber.ToInt32IfExact()));
           } else {
@@ -558,10 +558,10 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromInt32(enumber.ToInt32Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt32(enumber.ToInt32Unchecked()));
           try {
@@ -620,14 +620,14 @@ namespace Test {
           enumber.CompareTo(
         EDecimal.FromString("9223372036854775807")) <= 0;
         if (isNum) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromInt64(enumber.ToInt64Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt64(enumber.ToInt64Unchecked()));
           if (isInteger) {
-            TestCommon.AssertEquals(
+            TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt64(enumber.ToInt64IfExact()));
           } else {
@@ -642,10 +642,10 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromInt64(enumber.ToInt64Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt64(enumber.ToInt64Unchecked()));
           try {
