@@ -2811,7 +2811,7 @@ This object's value is infinity or not-a-number (NaN).
 
 <b>Deprecated.</b> Renamed to ToEIntegerIfExact.
 
-Converts this value to an arbitrary-precision integer, checking whether the fractional part of the integer would be lost.
+Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.
 
 <b>Return Value:</b>
 
@@ -2829,7 +2829,7 @@ This object's value is not an exact integer.
 
     public PeterO.Numbers.EInteger ToEIntegerIfExact();
 
-Converts this value to an arbitrary-precision integer, checking whether the fractional part of the integer would be lost.
+Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.
 
 <b>Return Value:</b>
 
