@@ -43,6 +43,10 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+Version 0.4:
+- Assembly signed with a strong name
+- Some improvements to documentation
+
 Version 0.3:
 
 - Deprecated ERational constructor

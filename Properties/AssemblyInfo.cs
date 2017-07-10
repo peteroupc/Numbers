@@ -23,4 +23,4 @@ using System.Reflection;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyVersion("0.3.0")]
+[assembly: AssemblyVersion("0.4.0")]
