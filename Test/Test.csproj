@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{8FE63143-541E-448D-8337-A98D1FA51541}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Test</RootNamespace>
     <AssemblyName>Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -115,13 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Numbers.csproj">
-      <Project>{23A1B70C-F064-47B6-8B7E-E2042CDAD8C7}</Project>
-      <Name>Numbers</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
@@ -129,5 +122,46 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <PackageReference Include="NUnit.Console">
+      <Version>3.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit.ConsoleRunner">
+      <Version>3.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit.Extension.NUnitProjectLoader">
+      <Version>3.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit.Extension.NUnitV2Driver">
+      <Version>3.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit.Extension.NUnitV2ResultWriter">
+      <Version>3.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit.Extension.TeamCityEventListener">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit.Extension.VSProjectLoader">
+      <Version>3.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit.Runners">
+      <Version>3.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="NUnitTestAdapter.WithFramework">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="OpenCover">
+      <Version>4.6.519</Version>
+    </PackageReference>
+    <PackageReference Include="ReportGenerator">
+      <Version>2.5.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Numbers\Numbers.csproj">
+      <Project>{0039d2e6-4a83-4774-99b3-6387ae6312e5}</Project>
+      <Name>Numbers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
