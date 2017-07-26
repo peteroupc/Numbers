@@ -15,10 +15,13 @@ namespace PeterO.Numbers {
         throw new OverflowException("This object's value is out of range");
       }
       decimal ret;
+System.Globalization.NumberStyles
+        ns = System.Globalization.NumberStyles.Number |
+          System.Globalization.NumberStyles.AllowExponent;
       if (
   Decimal.TryParse(
   this.ToString(),
-  System.Globalization.NumberStyles.Number,
+  ns,
   System.Globalization.CultureInfo.InvariantCulture,
   out ret)) {
           return ret;

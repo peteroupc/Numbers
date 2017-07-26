@@ -122,7 +122,7 @@ namespace PeterO.Numbers {
       if (this.negative || this.wordCount > 4) {
         throw new OverflowException("This object's value is out of range");
       }
-      long ret = this.ToInt64Checked();
+      long ret = this.ToInt64Unchecked();
       if (this.GetSignedBit(63)) {
         ret |= 1L << 63;
       }

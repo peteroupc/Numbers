@@ -924,7 +924,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
        Another arbitrary-precision integer.
     </param>
     <returns>
-       A Boolean object.
+       either <c>true</c> or <c>false</c>.
     </returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)">
@@ -3243,7 +3243,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <summary>This is an internal method.</summary>
             <param name='num'>An arbitrary-precision integer.</param>
             <param name='den'>Another arbitrary-precision integer.</param>
-            <returns>A Boolean object.</returns>
+            <returns>Either <c>true</c> or <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetArithmeticSupport">
 <summary>This is an internal method.</summary>
@@ -3284,7 +3284,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
        Another arbitrary-precision integer.
     </param>
     <returns>
-       A Boolean object.
+       either <c>true</c> or <c>false</c>.
     </returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)">
@@ -4708,8 +4708,15 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <doc name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)">
 <summary>Returns a binary number with the same value as this object
             but rounded to the given exponent.</summary>
-            <param name='exponent'>An arbitrary-precision integer.</param>
-            <param name='rounding'>The parameter <paramref name='rounding'/> is an ERounding object.</param>
+            <param name='exponent'>The minimum exponent the result can
+            have. This is the maximum number of fractional digits in the
+            result, expressed as a negative number. Can also be positive, which
+            eliminates lower-order places from the number. For example, -3
+            means round to the eighth (10^-1, 1/8), and 3 means round to
+            the eight (2^3, 8). A value of 0 rounds the number to an
+            integer.</param>
+            <param name='rounding'>Desired mode for rounding this object's
+            value.</param>
             <returns>A binary number rounded to the closest value representable
             in the given precision.</returns>
 </doc>
@@ -6934,7 +6941,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             properties are equal.</summary>
             <param name='other'>The parameter <paramref name='other'/> is not
             documented yet.</param>
-            <returns>A Boolean object.</returns>
+            <returns>Either <c>true</c> or <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Equals(System.Object)">
 <summary>Determines whether this object&#x27;s numerator,
@@ -7598,7 +7605,7 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~PeterO.Numbers.EInteger">
 <summary>Converts an arbitrary-precision rational number to an arbitrary-precision integer. Any
             fractional part in the value will be discarded when converting to
-            an arbitrary-precision integer.</summary><param name='bigValue'>An arbitrary-precision rational number</param><returns>An arbitrary-precision integer.</returns><exception cref='T:System.OverflowException'>This object's value is
+            an arbitrary-precision integer.</summary><param name='bigValue'>An arbitrary-precision rational number.</param><returns>An arbitrary-precision integer.</returns><exception cref='T:System.OverflowException'>This object's value is
             infinity or not-a-number (NaN).</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Byte">
