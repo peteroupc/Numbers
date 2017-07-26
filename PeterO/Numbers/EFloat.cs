@@ -1173,8 +1173,7 @@ namespace PeterO.Numbers {
     public EFloat RoundToExponentExact(
       EInteger exponent,
       ERounding rounding) {
-        // TODO: Edit doc for RoundToExponentExact
-      return MathValue.RoundToExponentExact(
+       return MathValue.RoundToExponentExact(
   this,
   exponent,
   EContext.Unlimited.WithRounding(rounding));
