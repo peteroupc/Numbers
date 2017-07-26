@@ -18,9 +18,9 @@ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERat
 
 <b>Parameters:</b>
 
- * <i>numerator</i>: An arbitrary-precision integer.
+ * <i>numerator</i>: The numerator.
 
- * <i>denominator</i>: Another arbitrary-precision integer.
+ * <i>denominator</i>: The denominator.
 
 <b>Exceptions:</b>
 
@@ -28,6 +28,9 @@ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERat
 The parameter <i>numerator</i>
  or  <i>denominator</i>
  is null.
+
+ * System.ArgumentException:
+The denominator is zero.
 
 ### NaN
 
@@ -428,7 +431,8 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Parameters:</b>
 
- * <i>obj</i>: An arbitrary object.
+ * <i>obj</i>: The parameter  <i>obj</i>
+ is an arbitrary object.
 
 <b>Return Value:</b>
 
@@ -448,7 +452,7 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Return Value:</b>
 
-A Boolean object.
+Either  `true`  or  `false` .
 
 ### FromByte
 
@@ -474,7 +478,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>eint</i>: A Decimal object.
+ * <i>eint</i>: The parameter  <i>eint</i>
+ is a Decimal object.
 
 <b>Return Value:</b>
 
@@ -489,7 +494,8 @@ Converts a 64-bit floating-point number to a rational number. This method comput
 
 <b>Parameters:</b>
 
- * <i>flt</i>: A 64-bit floating-point number.
+ * <i>flt</i>: The parameter  <i>flt</i>
+ is a 64-bit floating-point number.
 
 <b>Return Value:</b>
 
@@ -668,7 +674,8 @@ Converts a 32-bit floating-point number to a rational number. This method comput
 
 <b>Parameters:</b>
 
- * <i>flt</i>: A 32-bit floating-point number.
+ * <i>flt</i>: The parameter  <i>flt</i>
+ is a 32-bit floating-point number.
 
 <b>Return Value:</b>
 

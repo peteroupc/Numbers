@@ -36,14 +36,14 @@ namespace Test {
     }
 
     public static void TestUint64() {
-      EInteger ei=EInteger.FromString("9223372036854775808");
+      EInteger ei = EInteger.FromString("9223372036854775808");
       Assert.AreEqual((ulong)9223372036854775808, ei.ToUInt64Checked());
       Assert.AreEqual((ulong)9223372036854775808, ei.ToUInt64Unchecked());
     }
 
     public static void TestToDecimal() {
       try {
- EDecimal.FromString("8.8888888e-7").ToDecimal();
+        EDecimal.FromString("8.8888888e-7").ToDecimal();
 } catch (Exception ex) {
 Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);

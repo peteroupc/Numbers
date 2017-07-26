@@ -22,7 +22,8 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
 
  * <i>ctx</i>: A context object for arbitrary-precision arithmetic settings.
 
- * <i>result</i>: An arbitrary object.
+ * <i>result</i>: The parameter  <i>result</i>
+ is an arbitrary object.
 
 ### Context
 

@@ -290,7 +290,8 @@ Determines whether this object and another object are equal and have the same ty
 
 <b>Parameters:</b>
 
- * <i>obj</i>: An arbitrary object.
+ * <i>obj</i>: The parameter  <i>obj</i>
+ is an arbitrary object.
 
 <b>Return Value:</b>
 
@@ -385,7 +386,8 @@ Converts a 32-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: A 32-bit signed integer.
+ * <i>intValue</i>: The parameter  <i>intValue</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -400,7 +402,8 @@ Converts a 64-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>longerValue</i>: A 64-bit signed integer.
+ * <i>longerValue</i>: The parameter  <i>longerValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -412,19 +415,17 @@ An arbitrary-precision integer with the same value as the 64-bit number.
         string str,
         int radix);
 
-Not documented yet.
+Converts a string to an arbitrary-precision integer in a given radix.
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is not documented yet.
+ * <i>str</i>: A string described by the FromRadixSubstring method.
 
- * <i>radix</i>: The parameter  <i>radix</i>
- is not documented yet.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer with the same value as the given string.
 
 <b>Exceptions:</b>
 
@@ -1046,7 +1047,8 @@ Not documented yet.
 
  * <i>bthis</i>: Another arbitrary-precision integer.
 
- * <i>bitCount</i>: A 32-bit signed integer.
+ * <i>bitCount</i>: The parameter  <i>bitCount</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1176,7 +1178,8 @@ For this operation, the arbitrary-precision integer is treated as a two's-comple
 
  * <i>bthis</i>: Another arbitrary-precision integer.
 
- * <i>smallValue</i>: A 32-bit signed integer.
+ * <i>smallValue</i>: The parameter  <i>smallValue</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 

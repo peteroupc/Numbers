@@ -342,7 +342,8 @@ Creates a new EContext object initialized with an unlimited exponent range, and 
 
  * <i>precision</i>: Maximum number of digits (precision).
 
- * <i>rounding</i>: An ERounding object.
+ * <i>rounding</i>: The parameter  <i>rounding</i>
+ is an ERounding object.
 
 <b>Return Value:</b>
 
@@ -425,8 +426,7 @@ Copies this EContext and gives it a particular precision value.
 
 <b>Parameters:</b>
 
- * <i>bigintPrecision</i>: The parameter  <i>bigintPrecision</i>
- is not documented yet.
+ * <i>bigintPrecision</i>: Desired precision. 0 means unlimited precision.
 
 <b>Return Value:</b>
 
@@ -546,8 +546,7 @@ Copies this EContext and sets the copy's "IsSimplified" property to the given va
 
 <b>Parameters:</b>
 
- * <i>simplified</i>: The parameter  <i>simplified</i>
- is not documented yet.
+ * <i>simplified</i>: Desired value of the IsSimplified property.
 
 <b>Return Value:</b>
 
