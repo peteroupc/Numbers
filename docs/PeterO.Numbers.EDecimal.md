@@ -74,7 +74,7 @@ There are several other types of numbers that are mentioned in this class and el
 
  * 64-bit signed integer: -2 <sup>63</sup>to (2 <sup>63</sup>- 1).
 
-<b>Two's complement form</b>: In <i>two' s-complement form</i>, positive numbers have the highest (most significant) bit et to zero, and negative numbers have that bit (and all bits eyond) set to one. To store a negative number, decrease its bsolute value by 1 and swap the bits of the resulting umber.
+<b>Two's complement form</b>: In <i>two' s-complement form</i>, nonnegative numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one, and a negative number is stored in such form by decreasing its absolute value by 1 and swapping the bits of the resulting number.
 
 <b>64-bit floating-point number</b>: A 64-bit binary loating-point number, in the form <i>significand</i>* 2<sup><i>exponent</i></sup>. The significand is 53 bits long Precision) and the exponent ranges from -1074 (EMin) to 971 EMax). The number is stored in the following format (commonly alled the IEEE 754 format):
 
@@ -486,11 +486,9 @@ Creates a number with the value `exponent*10^mantissa`
 
 <b>Parameters:</b>
 
- * <i>mantissaSmall</i>: The parameter  <i>mantissaSmall</i>
- is not documented yet.
+ * <i>mantissaSmall</i>: Desired value for the mantissa.
 
- * <i>exponentSmall</i>: The parameter  <i>exponentSmall</i>
- is not documented yet.
+ * <i>exponentSmall</i>: Desired value for the exponent.
 
 <b>Return Value:</b>
 
@@ -506,11 +504,9 @@ Creates a number with the value `exponent*10^mantissa`
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: The parameter  <i>mantissa</i>
- is not documented yet.
+ * <i>mantissa</i>: Desired value for the mantissa.
 
- * <i>exponent</i>: The parameter  <i>exponent</i>
- is not documented yet.
+ * <i>exponent</i>: Desired value for the exponent.
 
 <b>Return Value:</b>
 
@@ -937,7 +933,8 @@ Determines whether this object's mantissa (significand), exponent, and propertie
 
 <b>Parameters:</b>
 
- * <i>obj</i>: An arbitrary object.
+ * <i>obj</i>: The parameter  <i>obj</i>
+ is an arbitrary object.
 
 <b>Return Value:</b>
 
@@ -1013,7 +1010,8 @@ Creates a decimal number from a 64-bit binary floating-point number. This method
 
 <b>Parameters:</b>
 
- * <i>dbl</i>: A 64-bit floating-point number.
+ * <i>dbl</i>: The parameter  <i>dbl</i>
+ is a 64-bit floating-point number.
 
 <b>Return Value:</b>
 
@@ -1098,7 +1096,8 @@ Creates a decimal number from a 32-bit signed integer.
 
 <b>Parameters:</b>
 
- * <i>valueSmaller</i>: A 32-bit signed integer.
+ * <i>valueSmaller</i>: The parameter  <i>valueSmaller</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1113,7 +1112,8 @@ Creates a decimal number from a 64-bit signed integer.
 
 <b>Parameters:</b>
 
- * <i>valueSmall</i>: A 64-bit signed integer.
+ * <i>valueSmall</i>: The parameter  <i>valueSmall</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1143,7 +1143,8 @@ Creates a decimal number from a 32-bit binary floating-point number. This method
 
 <b>Parameters:</b>
 
- * <i>flt</i>: A 32-bit floating-point number.
+ * <i>flt</i>: The parameter  <i>flt</i>
+ is a 32-bit floating-point number.
 
 <b>Return Value:</b>
 
@@ -1966,7 +1967,7 @@ The parameter  <i>dividend</i>
         PeterO.Numbers.EDecimal dividend,
         PeterO.Numbers.EDecimal divisor);
 
-Not documented yet.
+Finds the remainder when dividing one arbitrary-precision decimal number by another.
 
 <b>Parameters:</b>
 
@@ -2753,6 +2754,16 @@ Truncates this number's value to an integer and returns the least-significant bi
 <b>Return Value:</b>
 
 This number, converted to a byte (from 0 to 255). Returns 0 if this value is infinity or not-a-number.
+
+### ToDecimal
+
+    public System.Decimal ToDecimal();
+
+Not documented yet.
+
+<b>Return Value:</b>
+
+Not documented yet.
 
 ### ToDouble
 

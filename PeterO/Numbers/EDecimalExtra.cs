@@ -9,7 +9,9 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EDecimal {
-    private decimal ToDecimal() {
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToDecimal"]/*'/>
+    public decimal ToDecimal() {
       EDecimal extendedNumber = this;
       if (extendedNumber.IsInfinity() || extendedNumber.IsNaN()) {
         throw new OverflowException("This object's value is out of range");
