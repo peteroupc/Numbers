@@ -914,8 +914,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
     <param name='denominator'>
        Another arbitrary-precision integer.
     </param>
-    <returns>
-       either <c>true</c> or <c>false</c>.
+    <returns>Either <c>true</c> or <c>false</c>.
     </returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)">
@@ -2660,10 +2659,11 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             value is infinity or not-a-number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToDecimal">
-<summary>
+
+             <summary>
              Not documented yet.
-             </summary>
-             <returns>The return value is not documented yet.</returns>
+             </summary><returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToDouble">
 <summary>Converts this value to its closest equivalent as a 64-bit
@@ -3277,8 +3277,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
     <param name='den'>
        Another arbitrary-precision integer.
     </param>
-    <returns>
-       either <c>true</c> or <c>false</c>.
+    <returns>Either <c>true</c> or <c>false</c>.
     </returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)">
