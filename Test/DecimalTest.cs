@@ -435,6 +435,35 @@ System.Globalization.NumberStyles.Number;
     }
 
     [Test]
+    public static void TestUint64() {
+      EInteger ei = EInteger.FromString("9223372036854775808");
+      Assert.AreEqual((ulong)9223372036854775808, ei.ToUInt64Checked());
+      Assert.AreEqual((ulong)9223372036854775808, ei.ToUInt64Unchecked());
+    }
+
+    [Test]
+    public static void TestToDecimal() {
+      try {
+        EDecimal.FromString("8.8888888e-7").ToDecimal();
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EDecimal.FromString("8.8888888e-8").ToDecimal();
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EDecimal.FromString("8.8888888e-18").ToDecimal();
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+    }
+
+    [Test]
     public void TestDecimal() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
