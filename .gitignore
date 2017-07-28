@@ -6,6 +6,7 @@
 *.log
 *.map
 *.nupkg
+*.lock.json
 *.sdsettings
 *.shf*
 *.suo
