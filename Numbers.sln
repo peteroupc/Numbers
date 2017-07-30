@@ -3,56 +3,56 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{8FE63143-541E-448D-8337-A98D1FA51541}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0039D2E6-4A83-4774-99B3-6387AE6312E5} = {0039D2E6-4A83-4774-99B3-6387AE6312E5}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numbers", "Numbers\Numbers.csproj", "{0039D2E6-4A83-4774-99B3-6387AE6312E5}"
+  ProjectSection(ProjectDependencies) = postProject
+    {C6EF158C-6F4B-4280-A823-44C945469E39} = {C6EF158C-6F4B-4280-A823-44C945469E39}
+  EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3F4A3741-A572-4B47-BEDA-24F7ADD1FBB2}"
-	ProjectSection(SolutionItems) = preProject
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		docs.xml = docs.xml
-		examples.md = examples.md
-		LICENSE.md = LICENSE.md
-		Numbers.nuspec = Numbers.nuspec
-		Numbers.ruleset = Numbers.ruleset
-		README.md = README.md
-		Settings.SourceAnalysis = Settings.SourceAnalysis
-	EndProjectSection
+  ProjectSection(SolutionItems) = preProject
+    .gitattributes = .gitattributes
+    .gitignore = .gitignore
+    docs.xml = docs.xml
+    examples.md = examples.md
+    LICENSE.md = LICENSE.md
+    Numbers.nuspec = Numbers.nuspec
+    Numbers.ruleset = Numbers.ruleset
+    README.md = README.md
+    Settings.SourceAnalysis = Settings.SourceAnalysis
+  EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{53713F40-8C18-4478-8EA2-DD30E4C6BC38}"
-	ProjectSection(SolutionItems) = preProject
-		docs\APIDocs.md = docs\APIDocs.md
-		docs\PeterO.Numbers.EContext.md = docs\PeterO.Numbers.EContext.md
-		docs\PeterO.Numbers.EDecimal.md = docs\PeterO.Numbers.EDecimal.md
-		docs\PeterO.Numbers.EFloat.md = docs\PeterO.Numbers.EFloat.md
-		docs\PeterO.Numbers.EInteger.md = docs\PeterO.Numbers.EInteger.md
-		docs\PeterO.Numbers.ERational.md = docs\PeterO.Numbers.ERational.md
-		docs\PeterO.Numbers.ERounding.md = docs\PeterO.Numbers.ERounding.md
-		docs\PeterO.Numbers.ETrapException.md = docs\PeterO.Numbers.ETrapException.md
-	EndProjectSection
+  ProjectSection(SolutionItems) = preProject
+    docs\APIDocs.md = docs\APIDocs.md
+    docs\PeterO.Numbers.EContext.md = docs\PeterO.Numbers.EContext.md
+    docs\PeterO.Numbers.EDecimal.md = docs\PeterO.Numbers.EDecimal.md
+    docs\PeterO.Numbers.EFloat.md = docs\PeterO.Numbers.EFloat.md
+    docs\PeterO.Numbers.EInteger.md = docs\PeterO.Numbers.EInteger.md
+    docs\PeterO.Numbers.ERational.md = docs\PeterO.Numbers.ERational.md
+    docs\PeterO.Numbers.ERounding.md = docs\PeterO.Numbers.ERounding.md
+    docs\PeterO.Numbers.ETrapException.md = docs\PeterO.Numbers.ETrapException.md
+  EndProjectSection
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Numbers", "Numbers\Numbers.csproj", "{C6EF158C-6F4B-4280-A823-44C945469E39}"
 EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8FE63143-541E-448D-8337-A98D1FA51541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FE63143-541E-448D-8337-A98D1FA51541}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FE63143-541E-448D-8337-A98D1FA51541}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FE63143-541E-448D-8337-A98D1FA51541}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0039D2E6-4A83-4774-99B3-6387AE6312E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0039D2E6-4A83-4774-99B3-6387AE6312E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0039D2E6-4A83-4774-99B3-6387AE6312E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0039D2E6-4A83-4774-99B3-6387AE6312E5}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{53713F40-8C18-4478-8EA2-DD30E4C6BC38} = {3F4A3741-A572-4B47-BEDA-24F7ADD1FBB2}
-	EndGlobalSection
+  GlobalSection(SolutionConfigurationPlatforms) = preSolution
+    Debug|Any CPU = Debug|Any CPU
+    Release|Any CPU = Release|Any CPU
+  EndGlobalSection
+  GlobalSection(ProjectConfigurationPlatforms) = postSolution
+    {8FE63143-541E-448D-8337-A98D1FA51541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+    {8FE63143-541E-448D-8337-A98D1FA51541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+    {8FE63143-541E-448D-8337-A98D1FA51541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    {8FE63143-541E-448D-8337-A98D1FA51541}.Release|Any CPU.Build.0 = Release|Any CPU
+    {C6EF158C-6F4B-4280-A823-44C945469E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+    {C6EF158C-6F4B-4280-A823-44C945469E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+    {C6EF158C-6F4B-4280-A823-44C945469E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    {C6EF158C-6F4B-4280-A823-44C945469E39}.Release|Any CPU.Build.0 = Release|Any CPU
+  EndGlobalSection
+  GlobalSection(SolutionProperties) = preSolution
+    HideSolutionNode = FALSE
+  EndGlobalSection
+  GlobalSection(NestedProjects) = preSolution
+    {53713F40-8C18-4478-8EA2-DD30E4C6BC38} = {3F4A3741-A572-4B47-BEDA-24F7ADD1FBB2}
+  EndGlobalSection
 EndGlobal

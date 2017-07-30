@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
@@ -6,7 +6,7 @@
     <Version>0.5.0</Version>
     <Company>Peter Occil</Company>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
-    <Copyright>Written by Peter O. in 2016.  Any copyright is released to the Public Domain.</Copyright>
+    <Copyright>Written by Peter O. in 2017.  Any copyright is released to the Public Domain.</Copyright>
     <Authors>Peter Occil</Authors>
     <PackageId>PeterO.Numbers</PackageId>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
@@ -14,8 +14,9 @@
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>Version 0.5
 
-- Moved from .Net Portable to .Net Standard 1.0
-- Broke backwards compatablilty with .NEt Framework 4.0
+- Moved from .NET Portable to .NET Standard 1.0
+- Broke backwards compatibility with .NET Framework 4.0
+- Bug fixes
 
 Version 0.4:
 

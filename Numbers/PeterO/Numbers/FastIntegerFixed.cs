@@ -171,7 +171,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
+    /// <include file='../../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.Negate"]/*'/>
     internal FastIntegerFixed Negate() {
       switch (this.integerMode) {
@@ -204,7 +204,7 @@ namespace PeterO.Numbers {
       return this.integerMode == 0 || this.largeValue.CanFitInInt32();
     }
 
-    /// <include file='../../docs.xml'
+    /// <include file='../../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.ToString"]/*'/>
     public override string ToString() {
       switch (this.integerMode) {
