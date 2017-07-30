@@ -3,10 +3,10 @@
 *.bat
 *.class
 *.jar
+*.lock.json
 *.log
 *.map
 *.nupkg
-*.lock.json
 *.sdsettings
 *.shf*
 *.suo
