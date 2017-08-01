@@ -37,6 +37,8 @@ Version 0.3:
   of huge EIntegers to decimal strings
 - Bug fixes</PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
 </Project>
