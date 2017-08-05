@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>Version 0.5
 
-- Moved from .NET Portable to .NET Standard 1.0
+- Moved from .NET Portable to .NET Standard 1.0. Contributed by GitHub user NZSmartie
 - Broke backwards compatibility with .NET Framework 4.0
 - Bug fixes
 
