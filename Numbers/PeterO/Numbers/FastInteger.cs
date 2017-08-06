@@ -577,7 +577,7 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'/>
     internal FastInteger Multiply(int val) {
       this.CheckFrozen();
@@ -626,7 +626,7 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Negate"]/*'/>
     internal FastInteger Negate() {
       this.CheckFrozen();
@@ -655,7 +655,7 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'/>
     internal FastInteger Subtract(FastInteger val) {
       this.CheckFrozen();
@@ -703,7 +703,7 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'/>
     internal FastInteger SubtractInt(int val) {
       this.CheckFrozen();
@@ -725,7 +725,7 @@ namespace PeterO.Numbers {
       return this.AddInt(-val);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'/>
     internal FastInteger AddBig(EInteger bigintVal) {
       this.CheckFrozen();
@@ -748,7 +748,7 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'/>
     internal FastInteger SubtractBig(EInteger bigintVal) {
       this.CheckFrozen();
@@ -1055,7 +1055,7 @@ namespace PeterO.Numbers {
       return new String(chars, count, 12 - count);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.ToString"]/*'/>
     public override string ToString() {
       switch (this.integerMode) {
@@ -1069,7 +1069,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger.Sign"]/*'/>
     internal int Sign {
       get {

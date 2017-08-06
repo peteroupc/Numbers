@@ -17,7 +17,7 @@ using System;
 using System.Text;
 
 namespace PeterO.Numbers {
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
@@ -84,7 +84,7 @@ namespace PeterO.Numbers {
       this.negative = negative;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.One"]/*'/>
     public static EInteger One {
       get {
@@ -92,7 +92,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Ten"]/*'/>
     public static EInteger Ten {
       get {
@@ -100,7 +100,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Zero"]/*'/>
     public static EInteger Zero {
       get {
@@ -108,7 +108,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsEven"]/*'/>
     public bool IsEven {
       get {
@@ -116,7 +116,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsPowerOfTwo"]/*'/>
     public bool IsPowerOfTwo {
       get {
@@ -128,7 +128,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsZero"]/*'/>
     public bool IsZero {
       get {
@@ -136,7 +136,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Sign"]/*'/>
     public int Sign {
       get {
@@ -163,7 +163,7 @@ namespace PeterO.Numbers {
                     false));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'/>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
@@ -234,7 +234,7 @@ namespace PeterO.Numbers {
                     newnegative));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
     public static EInteger FromInt32(int intValue) {
       if (intValue == 0) {
@@ -277,7 +277,7 @@ namespace PeterO.Numbers {
       return new EInteger(retwordcount, retreg, retnegative);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt64(System.Int64)"]/*'/>
     public static EInteger FromInt64(long longerValue) {
       if (longerValue == 0) {
@@ -343,7 +343,7 @@ namespace PeterO.Numbers {
       return new EInteger(retwordcount, retreg, retnegative);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)"]/*'/>
     public static EInteger FromRadixString(string str, int radix) {
       if (str == null) {
@@ -352,7 +352,7 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, radix, 0, str.Length);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)"]/*'/>
     public static EInteger FromRadixSubstring(
       string str,
@@ -577,7 +577,7 @@ namespace PeterO.Numbers {
         negative);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromString(System.String)"]/*'/>
     public static EInteger FromString(string str) {
       if (str == null) {
@@ -586,7 +586,7 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, 10, 0, str.Length);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)"]/*'/>
     public static EInteger FromSubstring(
       string str,
@@ -598,14 +598,14 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, 10, index, endIndex);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Abs"]/*'/>
     public EInteger Abs() {
       return (this.wordCount == 0 || !this.negative) ? this : new
         EInteger(this.wordCount, this.words, false);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
@@ -863,35 +863,35 @@ namespace PeterO.Numbers {
       return new EInteger(count, diffReg, diffNeg);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Checked"]/*'/>
     [Obsolete("Renamed to ToInt32Checked.")]
     public int AsInt32Checked() {
       return this.ToInt32Checked();
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Unchecked"]/*'/>
     [Obsolete("Renamed to ToInt32Unchecked.")]
     public int AsInt32Unchecked() {
       return this.ToInt32Unchecked();
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Checked"]/*'/>
     [Obsolete("Renamed to ToInt64Checked.")]
     public long AsInt64Checked() {
       return this.ToInt64Checked();
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Unchecked"]/*'/>
     [Obsolete("Renamed to ToInt64Unchecked.")]
     public long AsInt64Unchecked() {
       return this.ToInt64Unchecked();
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CanFitInInt32"]/*'/>
     public bool CanFitInInt32() {
       int c = this.wordCount;
@@ -905,7 +905,7 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CanFitInInt64"]/*'/>
     public bool CanFitInInt64() {
       int c = this.wordCount;
@@ -919,7 +919,7 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)"]/*'/>
     public int CompareTo(EInteger other) {
       if (other == null) {
@@ -959,7 +959,7 @@ namespace PeterO.Numbers {
       return ((size > tempSize) ^ (sa <= 0)) ? 1 : -1;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
@@ -1945,7 +1945,7 @@ if (rem.Length - posRem < countB) {
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
@@ -2060,7 +2060,7 @@ if (rem.Length - posRem < countB) {
       return new[] { bigquo2, bigrem };
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(System.Object)"]/*'/>
     public override bool Equals(object obj) {
       var other = obj as EInteger;
@@ -2130,7 +2130,7 @@ if (rem.Length - posRem < countB) {
       return eret;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
@@ -2245,7 +2245,7 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
     public int GetDigitCount() {
       if (this.IsZero) {
@@ -2427,7 +2427,7 @@ WordsShiftRightOne(bu, buc);
       return i;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetHashCode"]/*'/>
     public override int GetHashCode() {
       var hashCodeValue = 0;
@@ -2442,7 +2442,7 @@ WordsShiftRightOne(bu, buc);
       return hashCodeValue;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
     public int GetLowBit() {
       var retSetBit = 0;
@@ -2472,7 +2472,7 @@ WordsShiftRightOne(bu, buc);
       return -1;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBitAsEInteger"]/*'/>
     public EInteger GetLowBitAsEInteger() {
       long retSetBitLong = 0;
@@ -2500,7 +2500,7 @@ WordsShiftRightOne(bu, buc);
       return EInteger.FromInt32(-1);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'/>
     public bool GetSignedBit(int index) {
       if (index < 0) {
@@ -2531,7 +2531,7 @@ WordsShiftRightOne(bu, buc);
       return this.GetUnsignedBit(index);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
     public int GetSignedBitLength() {
       int wc = this.wordCount;
@@ -2564,7 +2564,7 @@ WordsShiftRightOne(bu, buc);
       return 0;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
     public bool GetUnsignedBit(int index) {
       if (index < 0) {
@@ -2574,7 +2574,7 @@ WordsShiftRightOne(bu, buc);
         ((bool)(((this.words[(index >> 4)] >> (int)(index & 15)) & 1) != 0));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger"]/*'/>
     public EInteger GetUnsignedBitLengthAsEInteger() {
       int wc = this.wordCount;
@@ -2607,7 +2607,7 @@ WordsShiftRightOne(bu, buc);
       return EInteger.Zero;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
     public int GetUnsignedBitLength() {
       int wc = this.wordCount;
@@ -2640,7 +2640,7 @@ WordsShiftRightOne(bu, buc);
       return 0;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
@@ -2656,7 +2656,7 @@ WordsShiftRightOne(bu, buc);
       return remainderEInt;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
@@ -2685,7 +2685,7 @@ WordsShiftRightOne(bu, buc);
       return r;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
@@ -2804,7 +2804,7 @@ WordsShiftRightOne(bu, buc);
         this.negative ^ bigintMult.negative);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Negate"]/*'/>
     public EInteger Negate() {
       return this.wordCount == 0 ? this : new EInteger(
@@ -2813,7 +2813,7 @@ WordsShiftRightOne(bu, buc);
         !this.negative);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Pow(System.Int32)"]/*'/>
     public EInteger Pow(int powerSmall) {
       if (powerSmall < 0) {
@@ -2847,7 +2847,7 @@ WordsShiftRightOne(bu, buc);
       return r;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger PowBigIntVar(EInteger power) {
       if (power == null) {
@@ -2884,7 +2884,7 @@ WordsShiftRightOne(bu, buc);
       return r;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
@@ -2933,7 +2933,7 @@ WordsShiftRightOne(bu, buc);
       return new EInteger(count, remainderReg, this.negative);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)"]/*'/>
     public EInteger ShiftLeft(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
@@ -3169,7 +3169,7 @@ WordsShiftRightOne(bu, buc);
       return wordCount;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)"]/*'/>
     public EInteger ShiftRight(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
@@ -3223,20 +3223,20 @@ WordsShiftRightOne(bu, buc);
       return new EInteger(retWordCount, ret, this.negative);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Sqrt"]/*'/>
     public EInteger Sqrt() {
       EInteger[] srrem = this.SqrtRemInternal(false);
       return srrem[0];
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.SqrtRem"]/*'/>
     public EInteger[] SqrtRem() {
       return this.SqrtRemInternal(true);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
@@ -3246,7 +3246,7 @@ WordsShiftRightOne(bu, buc);
         ((subtrahend.wordCount == 0) ? this : this.Add(subtrahend.Negate()));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)"]/*'/>
     public byte[] ToBytes(bool littleEndian) {
       int sign = this.Sign;
@@ -3310,7 +3310,7 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt32Checked"]/*'/>
     public int ToInt32Checked() {
       int count = this.wordCount;
@@ -3330,7 +3330,7 @@ WordsShiftRightOne(bu, buc);
       return this.ToInt32Unchecked();
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt32Unchecked"]/*'/>
     public int ToInt32Unchecked() {
       var c = (int)this.wordCount;
@@ -3348,7 +3348,7 @@ WordsShiftRightOne(bu, buc);
       return intRetValue;
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt64Checked"]/*'/>
     public long ToInt64Checked() {
       int count = this.wordCount;
@@ -3369,7 +3369,7 @@ WordsShiftRightOne(bu, buc);
       return this.ToInt64Unchecked();
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt64Unchecked"]/*'/>
     public long ToInt64Unchecked() {
       var c = (int)this.wordCount;
@@ -3514,7 +3514,7 @@ WordsShiftRightOne(bu, buc);
             return sb.ToString();
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
     public string ToRadixString(int radix) {
       if (radix < 2) {
@@ -3650,7 +3650,7 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToString"]/*'/>
     public override string ToString() {
       if (this.IsZero) {
@@ -6803,7 +6803,7 @@ if (!(sqroot.Sign >= 0)) {
     }
     // Begin integer conversions
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteChecked"]/*'/>
     public byte ToByteChecked() {
       int val = this.ToInt32Checked();
@@ -6813,21 +6813,21 @@ if (!(sqroot.Sign >= 0)) {
       return unchecked((byte)(val & 0xff));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteUnchecked"]/*'/>
     public byte ToByteUnchecked() {
       int val = this.ToInt32Unchecked();
       return unchecked((byte)(val & 0xff));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromByte(System.Byte)"]/*'/>
     public static EInteger FromByte(byte inputByte) {
       int val = ((int)inputByte) & 0xff;
       return FromInt32(val);
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Checked"]/*'/>
     public short ToInt16Checked() {
       int val = this.ToInt32Checked();
@@ -6837,14 +6837,14 @@ if (!(sqroot.Sign >= 0)) {
       return unchecked((short)(val & 0xffff));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Unchecked"]/*'/>
     public short ToInt16Unchecked() {
       int val = this.ToInt32Unchecked();
       return unchecked((short)(val & 0xffff));
     }
 
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)"]/*'/>
     public static EInteger FromInt16(short inputInt16) {
       var val = (int)inputInt16;
