@@ -43,7 +43,14 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+Version 0.5
+
+- Moved from .NET Portable to .NET Standard 1.0. Contributed by GitHub user NZSmartie
+- Broke backwards compatibility with .NET Framework 4.0
+- Bug fixes
+
 Version 0.4:
+
 - Assembly signed with a strong name
 - Some improvements to documentation
 
