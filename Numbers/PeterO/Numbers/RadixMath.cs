@@ -8,7 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../../docs.xml'
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.RadixMath`1"]/*'/>
   internal class RadixMath<T> : IRadixMath<T> {
     private const int IntegerModeFixedScale = 1;
