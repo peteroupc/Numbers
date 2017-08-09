@@ -2763,7 +2763,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-Not documented yet.
+The return value is not documented yet.
 
 ### ToDouble
 

@@ -39,8 +39,16 @@ System.Globalization.NumberStyles
   EDecimal.FromString(dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
+    /// <missing-param name='bigValue'/>
+    /// <missing-param name='bigValue'/>
+    /// <missing-param name='bigValue'/>
+    /// <missing-param name='bigValue'/>
+    /// <missing-param name='bigValue'/>
+    /// <missing-param name='bigValue'/>
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <param name='dec'>The parameter <paramref name='dec'/> is not
+    /// documented yet.</param>
     public static implicit operator EDecimal(decimal dec) {
       return FromDecimal(dec);
     }
