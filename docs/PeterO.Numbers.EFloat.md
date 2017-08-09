@@ -1727,7 +1727,7 @@ The parameter  <i>dividend</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Not documented yet.
+Finds the remainder when dividing one arbitrary-precision binary float by another.
 
 <b>Parameters:</b>
 
