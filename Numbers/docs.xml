@@ -3062,7 +3062,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <summary>Converts an arbitrary-precision decimal number to a <c>decimal</c> under the Common Language Infrastructure (see
             <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
             using the half-even rounding mode.</summary>
-            <param name='bigValue'>The parameter <paramref name='bigValue'/> is an arbitrary-precision decimal floating-point number.</param>
+            <param name='dec'>The number to convert as an arbitrary-precision decimal floating-point number.</param>
             <returns>A <c>decimal</c> under the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int16)~PeterO.Numbers.EDecimal">
