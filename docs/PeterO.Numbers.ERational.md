@@ -154,7 +154,7 @@ This object's numerator. If this object is a not-a-number value, returns the dia
 
     public PeterO.Numbers.ERational Abs();
 
-Not documented yet.
+Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
 
 <b>Return Value:</b>
 
@@ -447,8 +447,7 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision rational number to compare to.
 
 <b>Return Value:</b>
 
@@ -474,12 +473,11 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromDecimal(
         System.Decimal eint);
 
-Not documented yet.
+Converts a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal) to a rational number.
 
 <b>Parameters:</b>
 
- * <i>eint</i>: The parameter  <i>eint</i>
- is a Decimal object.
+ * <i>eint</i>: The number to convert as a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <b>Return Value:</b>
 
@@ -511,7 +509,7 @@ Converts an arbitrary-precision decimal number to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: An arbitrary-precision decimal number.
+ * <i>ef</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -528,11 +526,11 @@ The parameter <i>ef</i>
     public static PeterO.Numbers.ERational FromEFloat(
         PeterO.Numbers.EFloat ef);
 
-Not documented yet.
+Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: An arbitrary-precision binary float.
+ * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
 
 <b>Return Value:</b>
 
@@ -553,7 +551,7 @@ Converts an arbitrary-precision integer to a rational number.
 
 <b>Parameters:</b>
 
- * <i>bigint</i>: An arbitrary-precision integer.
+ * <i>bigint</i>: The number to convert as an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -570,7 +568,7 @@ Converts an arbitrary-precision decimal number to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: An arbitrary-precision decimal number.
+ * <i>ef</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -589,11 +587,11 @@ The parameter <i>ef</i>
 
 <b>Deprecated.</b> Renamed to FromEFloat.
 
-Not documented yet.
+Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: An arbitrary-precision binary float.
+ * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
 
 <b>Return Value:</b>
 
@@ -670,12 +668,12 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromSingle(
         float flt);
 
-Converts a 32-bit floating-point number to a rational number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the number to a string.
+Converts a 32-bit binary floating-point number to a rational number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the number to a string.
 
 <b>Parameters:</b>
 
  * <i>flt</i>: The parameter  <i>flt</i>
- is a 32-bit floating-point number.
+ is a 32-bit binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -890,7 +888,7 @@ The parameter <i>otherValue</i>
 
     public PeterO.Numbers.ERational Negate();
 
-Returns a rational number with the sign reversed.
+Returns a rational number with the same value as this one but with the sign reversed.
 
 <b>Return Value:</b>
 
@@ -906,9 +904,9 @@ Adds two rational numbers.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: An arbitrary-precision rational number.
+ * <i>bthis</i>: The first operand.
 
- * <i>augend</i>: An arbitrary-precision rational number. (3).
+ * <i>augend</i>: The second operand.
 
 <b>Return Value:</b>
 
@@ -929,9 +927,9 @@ Divides an arbitrary-precision rational number by the value of another arbitrary
 
 <b>Parameters:</b>
 
- * <i>dividend</i>: An arbitrary-precision rational number.
+ * <i>dividend</i>: An arbitrary-precision rational number serving as the dividend.
 
- * <i>divisor</i>: An arbitrary-precision rational number. (3).
+ * <i>divisor</i>: An arbitrary-precision rational number serving as the divisor.
 
 <b>Return Value:</b>
 
@@ -952,9 +950,9 @@ Finds the remainder that results when this instance is divided by the value of a
 
 <b>Parameters:</b>
 
- * <i>dividend</i>: An arbitrary-precision rational number.
+ * <i>dividend</i>: The dividend.
 
- * <i>divisor</i>: An arbitrary-precision rational number. (3).
+ * <i>divisor</i>: The divisor.
 
 <b>Return Value:</b>
 
@@ -975,9 +973,9 @@ Multiplies this instance by the value of an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>operand1</i>: An arbitrary-precision rational number.
+ * <i>operand1</i>: The first operand.
 
- * <i>operand2</i>: An arbitrary-precision rational number. (3).
+ * <i>operand2</i>: The second operand.
 
 <b>Return Value:</b>
 
@@ -998,9 +996,9 @@ Subtracts an arbitrary-precision rational number from this instance.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: An arbitrary-precision rational number.
+ * <i>bthis</i>: The first operand.
 
- * <i>subtrahend</i>: An arbitrary-precision rational number. (3).
+ * <i>subtrahend</i>: The second operand.
 
 <b>Return Value:</b>
 
@@ -1016,7 +1014,7 @@ The parameter "otherValue" is null.
     public static PeterO.Numbers.ERational operator -(
         PeterO.Numbers.ERational bigValue);
 
-Not documented yet.
+Returns an arbitrary-precision rational number with the same value as the given one but with its sign reversed.
 
 <b>Parameters:</b>
 
@@ -1523,11 +1521,11 @@ This number, converted to an 8-bit signed integer. Returns 0 if this value is in
 
     public float ToSingle();
 
-Converts this value to a 32-bit floating-point number. The half-even rounding mode is used.
+Converts this value to a 32-bit binary floating-point number. The half-even rounding mode is used.
 
 <b>Return Value:</b>
 
-The closest 32-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
 ### ToString
 

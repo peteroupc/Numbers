@@ -72,11 +72,11 @@ The number 10 as an arbitrary-precision integer.
 
     public static PeterO.Numbers.EInteger Zero { get; }
 
-Gets a value not documented yet.
+Gets the number zero as an arbitrary-precision integer.
 
 <b>Returns:</b>
 
-A value not documented yet.
+The number zero as an arbitrary-precision integer.
 
 ### Abs
 
@@ -223,8 +223,7 @@ Compares an arbitrary-precision integer with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: The integer to compare to this value.
 
 <b>Return Value:</b>
 
@@ -601,7 +600,7 @@ The value of  <i>ulongValue</i>
     public PeterO.Numbers.EInteger Gcd(
         PeterO.Numbers.EInteger bigintSecond);
 
-Returns the greatest common divisor of two integers. The greatest common divisor (GCD) is also known as the greatest common factor (GCF).
+Returns the greatest common divisor of this integer and the given integer. The greatest common divisor (GCD) is also known as the greatest common factor (GCF).
 
 <b>Parameters:</b>
 
@@ -639,11 +638,11 @@ A 64-bit signed integer containing the bits from this integer's two' s-complemen
 
     public int GetDigitCount();
 
-Not documented yet.
+Returns the number of decimal digits used by this integer.
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+The number of digits in the decimal form of this integer. Returns 1 if this number is 0.
 
 ### GetHashCode
 
@@ -766,17 +765,19 @@ The parameter <i>divisor</i>
         PeterO.Numbers.EInteger pow,
         PeterO.Numbers.EInteger mod);
 
-Calculates the remainder when an arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
+Calculates the remainder when this arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>pow</i>: Another arbitrary-precision integer.
+ * <i>pow</i>: The power to raise this integer by.
 
- * <i>mod</i>: An arbitrary-precision integer. (3).
+ * <i>mod</i>: The integer to divide the raised number by.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+The value (  `this`  ^  <i>pow</i>
+ )%  <i>mod</i>
+.
 
 <b>Exceptions:</b>
 
@@ -796,14 +797,11 @@ Calculates the remainder when an arbitrary-precision integer raised to a certain
 
 <b>Parameters:</b>
 
- * <i>bigintValue</i>: The parameter  <i>bigintValue</i>
- is not documented yet.
+ * <i>bigintValue</i>: The starting operand.
 
- * <i>pow</i>: The parameter  <i>pow</i>
- is not documented yet.
+ * <i>pow</i>: The power to raise this integer by.
 
- * <i>mod</i>: The parameter  <i>mod</i>
- is not documented yet.
+ * <i>mod</i>: The integer to divide the raised number by.
 
 <b>Return Value:</b>
 
@@ -858,7 +856,7 @@ Returns an arbitrary-precision integer with every bit flipped.
 
 <b>Parameters:</b>
 
- * <i>valueA</i>: Another arbitrary-precision integer.
+ * <i>valueA</i>: The operand as an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -876,15 +874,13 @@ The parameter <i>valueA</i>
         PeterO.Numbers.EInteger bthis,
         PeterO.Numbers.EInteger augend);
 
-Adds an arbitrary-precision integer and an arbitrary-precision integer object.
+Adds two arbitrary-precision integer objects and returns the result.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: The first operand.
 
- * <i>augend</i>: The parameter  <i>augend</i>
- is not documented yet.
+ * <i>augend</i>: The second operand.
 
 <b>Return Value:</b>
 
@@ -908,9 +904,9 @@ Each arbitrary-precision integer is treated as a two's-complement form (see[&#x2
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: An arbitrary-precision integer.
+ * <i>thisValue</i>: The first operand.
 
- * <i>otherValue</i>: Another arbitrary-precision integer.
+ * <i>otherValue</i>: The second operand.
 
 <b>Return Value:</b>
 
@@ -1041,14 +1037,13 @@ Determines whether an arbitrary-precision integer value is greater than another 
         PeterO.Numbers.EInteger bthis,
         int bitCount);
 
-Not documented yet.
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: Another arbitrary-precision integer.
+ * <i>bthis</i>: The arbitrary-precision integer to shift left.
 
- * <i>bitCount</i>: The parameter  <i>bitCount</i>
- is a 32-bit signed integer.
+ * <i>bitCount</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftRight with the absolute value of this parameter.
 
 <b>Return Value:</b>
 
@@ -1153,16 +1148,21 @@ The parameter <i>operand1</i>
     public static PeterO.Numbers.EInteger operator ~(
         PeterO.Numbers.EInteger thisValue);
 
-Not documented yet.
+Returns an arbitrary-precision integer with every bit flipped.
 
 <b>Parameters:</b>
 
- * <i>thisValue</i>: The parameter  <i>thisValue</i>
-is not documented yet.
+ * <i>thisValue</i>: The operand as an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>thisValue</i>
+ is null.
 
 ### Operator `>>`
 
@@ -1248,9 +1248,9 @@ Each arbitrary-precision integer is treated as a two's-complement form (see[&#x2
 
 <b>Parameters:</b>
 
- * <i>first</i>: Another arbitrary-precision integer.
+ * <i>first</i>: The first operand.
 
- * <i>second</i>: An arbitrary-precision integer. (3).
+ * <i>second</i>: The second operand.
 
 <b>Return Value:</b>
 
@@ -1344,7 +1344,7 @@ Returns an arbitrary-precision integer with the bits shifted to the left by a nu
 
 <b>Parameters:</b>
 
- * <i>numberBits</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftRight with the absolute value of numberBits.
+ * <i>numberBits</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftRight with the absolute value of this parameter.
 
 <b>Return Value:</b>
 

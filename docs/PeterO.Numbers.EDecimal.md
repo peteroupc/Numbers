@@ -94,7 +94,7 @@ There are several other types of numbers that are mentioned in this class and el
 
 The elements described above are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
 
-<b>32-bit floating-point number</b>: A 32-bit binary number hich is stored similarly to a <i>64-bit floating-point number</i>, except that:
+<b>32-bit binary floating-point number</b>: A 32-bit binary number hich is stored similarly to a <i>64-bit floating-point number</i>, except that:
 
  * Precision is 24 bits.
 
@@ -999,7 +999,7 @@ Converts a  `decimal`  under the Common Language Infrastructure (see[&#x22;Forms
 
 <b>Return Value:</b>
 
-An EDecimal object.
+an arbitrary-precision decimal floating-point number.
 
 ### FromDouble
 
@@ -1054,6 +1054,12 @@ Converts an arbitrary-precision integer to an arbitrary precision decimal.
 
 An arbitrary-precision decimal number with the exponent set to 0.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>bigint</i>
+ is null.
+
 ### FromExtendedFloat
 
     public static PeterO.Numbers.EDecimal FromExtendedFloat(
@@ -1061,16 +1067,21 @@ An arbitrary-precision decimal number with the exponent set to 0.
 
 <b>Deprecated.</b> Renamed to FromEFloat.
 
-Not documented yet.
+Converts an arbitrary-precision binary floating-point number to an arbitrary precision decimal.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The parameter  <i>ef</i>
- is not documented yet.
+ * <i>ef</i>: An arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+An arbitrary-precision decimal number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>ef</i>
+ is null.
 
 ### FromInt16
 
@@ -1144,7 +1155,7 @@ Creates a decimal number from a 32-bit binary floating-point number. This method
 <b>Parameters:</b>
 
  * <i>flt</i>: The parameter  <i>flt</i>
- is a 32-bit floating-point number.
+ is a 32-bit binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1917,15 +1928,13 @@ Returns the next value that is closer to the other object' s value than this obj
         PeterO.Numbers.EDecimal bthis,
         PeterO.Numbers.EDecimal otherValue);
 
-Adds this object and another decimal number and returns the result.
+Adds two arbitrary-precision decimal floating-point numbers and returns the result.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: The first arbitrary-precision decimal floating-point number.
 
- * <i>otherValue</i>: The parameter  <i>otherValue</i>
- is not documented yet.
+ * <i>otherValue</i>: The second decimal binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1935,6 +1944,7 @@ The sum of the two objects.
 
  * System.ArgumentNullException:
 The parameter  <i>bthis</i>
+ or  <i>otherValue</i>
  is null.
 
 ### Operator `/`
@@ -2007,6 +2017,7 @@ The product of the two decimal numbers.
 
  * System.ArgumentNullException:
 The parameter  <i>operand1</i>
+ or  <i>operand2</i>
  is null.
 
 ### Operator `-`
@@ -2015,24 +2026,23 @@ The parameter  <i>operand1</i>
         PeterO.Numbers.EDecimal bthis,
         PeterO.Numbers.EDecimal subtrahend);
 
-Subtracts an arbitrary-precision decimal number from this instance and returns the result.
+Subtracts one arbitrary-precision decimal number from another and returns the result.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: The first operand.
 
- * <i>subtrahend</i>: The parameter  <i>subtrahend</i>
- is not documented yet.
+ * <i>subtrahend</i>: The second operand.
 
 <b>Return Value:</b>
 
-The difference of the two objects.
+The difference of the two decimal numbers.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter  <i>bthis</i>
+ or  <i>subtrahend</i>
  is null.
 
 ### Operator `-`
@@ -2040,12 +2050,11 @@ The parameter  <i>bthis</i>
     public static PeterO.Numbers.EDecimal operator -(
         PeterO.Numbers.EDecimal bigValue);
 
-Gets an object with the same value as this one, but with the sign reversed.
+Gets an arbitrary-precision decimal number with the same value as the given one, but with the sign reversed.
 
 <b>Parameters:</b>
 
- * <i>bigValue</i>: The parameter  <i>bigValue</i>
- is not documented yet.
+ * <i>bigValue</i>: An arbitrary-precision decimal number to negate.
 
 <b>Return Value:</b>
 
@@ -2759,11 +2768,11 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public System.Decimal ToDecimal();
 
-Not documented yet.
+Converts this value to a  `decimal`  under the Common Language Infrastructure (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ), using the half-even rounding mode.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 ### ToDouble
 
@@ -2780,16 +2789,15 @@ The closest 64-bit floating-point number to this value. The return value can be 
     public PeterO.Numbers.EFloat ToEFloat(
         PeterO.Numbers.EContext ec);
 
-Not documented yet.
+Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
 
 <b>Parameters:</b>
 
- * <i>ec</i>: The parameter  <i>ec</i>
- is not documented yet.
+ * <i>ec</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).
 
 <b>Return Value:</b>
 
-An EFloat object.
+an arbitrary-precision float floating-point number.
 
 ### ToEFloat
 
@@ -3054,7 +3062,7 @@ Converts this value to its closest equivalent as a 32-bit floating-point number.
 
 <b>Return Value:</b>
 
-The closest 32-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
 ### ToString
 
