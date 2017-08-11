@@ -905,7 +905,7 @@ Creates a binary float from a 32-bit floating-point number. This method computes
 <b>Parameters:</b>
 
  * <i>flt</i>: The parameter  <i>flt</i>
- is a 32-bit floating-point number.
+ is a 32-bit binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -917,16 +917,16 @@ A binary float with the same value as  <i>flt</i>
     public static PeterO.Numbers.EFloat FromString(
         string str);
 
-Not documented yet.
+Creates a binary float from a text string that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int,
+            int, EContext)`  method.
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is not documented yet.
+ * <i>str</i>: A text string to convert to a binary float.
 
 <b>Return Value:</b>
 
-An EFloat object.
+The parsed number, converted to arbitrary-precision binary float.
 
 ### FromString
 
@@ -1001,7 +1001,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
  (but not more than  <i>str</i>
  's length).
 
- * <i>ctx</i>: An EContext object specifying the precision, rounding, and exponent range (in bits) to apply to the parsed number. Can be null.
+ * <i>ctx</i>: A precision context specifying the precision, rounding, and exponent range (in bits) to apply to the parsed number. Can be null.
 
 <b>Return Value:</b>
 
@@ -1028,14 +1028,14 @@ Either  <i>offset</i>
         string str,
         PeterO.Numbers.EContext ctx);
 
-Creates a binary float from a text string that represents a number. For more information, see the FromString(String, int, int, EContext) method.
+Creates a binary float from a text string that represents a number. For more information, see the  `FromString(String, int,
+            int, EContext)`  method.
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is a text string.
+ * <i>str</i>: A text string to convert to a binary float.
 
- * <i>ctx</i>: An EContext object specifying the precision, rounding, and exponent range to apply to the parsed number. Can be null.
+ * <i>ctx</i>: A precision context specifying the precision, rounding, and exponent range to apply to the parsed number. Can be null.
 
 <b>Return Value:</b>
 
@@ -1677,15 +1677,13 @@ Returns the next value that is closer to the other object' s value than this obj
         PeterO.Numbers.EFloat bthis,
         PeterO.Numbers.EFloat otherValue);
 
-Adds this object and another binary float and returns the result.
+Adds two arbitrary-precision binary floating-point numbers and returns the result.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: The first arbitrary-precision binary floating-point number.
 
- * <i>otherValue</i>: The parameter  <i>otherValue</i>
- is not documented yet.
+ * <i>otherValue</i>: The second arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1695,6 +1693,7 @@ The sum of the two objects.
 
  * System.ArgumentNullException:
 The parameter  <i>bthis</i>
+ or  <i>otherValue</i>
  is null.
 
 ### Operator `/`
@@ -1703,7 +1702,7 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Divides this object by another binary float and returns the result. When possible, the result will be exact.
+Divides one binary float by another and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1775,15 +1774,13 @@ The parameter  <i>operand1</i>
         PeterO.Numbers.EFloat bthis,
         PeterO.Numbers.EFloat subtrahend);
 
-Subtracts an arbitrary-precision binary float from this instance and returns the result.
+Subtracts one arbitrary-precision binary float from another.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: The first operand.
 
- * <i>subtrahend</i>: The parameter  <i>subtrahend</i>
- is not documented yet.
+ * <i>subtrahend</i>: The second operand.
 
 <b>Return Value:</b>
 
@@ -1804,12 +1801,11 @@ Gets an object with the same value as this one, but with the sign reversed.
 
 <b>Parameters:</b>
 
- * <i>bigValue</i>: The parameter  <i>bigValue</i>
- is not documented yet.
+ * <i>bigValue</i>: An arbitrary-precision binary float.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary float. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
+The negated form of the given number. If the given number is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
 
 <b>Exceptions:</b>
 
@@ -2438,11 +2434,11 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public double ToDouble();
 
-Not documented yet.
+Converts this value to a 64-bit floating-point number.
 
 <b>Return Value:</b>
 
-A 64-bit floating-point number.
+This number, converted to a 64-bit floating-point number.
 
 ### ToEDecimal
 
@@ -2452,7 +2448,7 @@ Converts this value to an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+This number, converted to an arbitrary-precision decimal number.
 
 ### ToEInteger
 
@@ -2722,7 +2718,7 @@ Converts this value to its closest equivalent as 32-bit floating-point number. T
 
 <b>Return Value:</b>
 
-The closest 32-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
 ### ToString
 

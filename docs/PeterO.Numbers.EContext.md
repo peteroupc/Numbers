@@ -457,8 +457,7 @@ Copies this arithmetic context and sets the copy's "ClampNormalExponents" flag t
 
 <b>Parameters:</b>
 
- * <i>clamp</i>: The parameter  <i>clamp</i>
- is not documented yet.
+ * <i>clamp</i>: The desired value of the "ClampNormalExponents" flag.
 
 <b>Return Value:</b>
 
