@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.5.0</Version>
+    <Version>1.0.0</Version>
     <Company>Peter Occil</Company>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
     <Copyright>Written by Peter O. in 2017.  Any copyright is released to the Public Domain.</Copyright>
@@ -13,30 +13,19 @@
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>http://creativecommons.org/publicdomain/zero/1.0/</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
-    <PackageReleaseNotes>Version 0.5
+    <PackageReleaseNotes>
+
+Version 1.0
+
+- Filled out documentation so that there are no more undocumented parts
+
+Version 0.5
 
 - Moved from .NET Portable to .NET Standard 1.0. Contributed by GitHub user NZSmartie
 - Broke backwards compatibility with .NET Framework 4.0
 - Bug fixes
 
-Version 0.4:
-
-- Assembly signed with a strong name
-- Some improvements to documentation
-
-Version 0.3:
-
-- Deprecated ERational constructor
-- Added many type conversion operators and methods
- to EDecimal, EFloat, ERational, and EInteger
-- Added FromString, CompareToTotal, and
-  CompareToTotalMagnitude methods to ERational
-- An overload of RoundToExponentExact in EDecimal is
- no longer obsolete and uses the rounding mode specified
-- Used a new division implementation in EInteger
-- Used the new division implementation to optimize conversion
-  of huge EIntegers to decimal strings
-- Bug fixes</PackageReleaseNotes>
+</PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>

@@ -33,7 +33,7 @@ Examples
 About
 -----------
 
-Written by Peter O. in 2016.
+Written by Peter O. in 2017.
 
 Any copyright is dedicated to the Public Domain.
 [http://creativecommons.org/publicdomain/zero/1.0/](http://creativecommons.org/publicdomain/zero/1.0/)
@@ -43,6 +43,11 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+
+Version 1.0
+
+- Filled out documentation so that there are no more undocumented parts
+
 Version 0.5
 
 - Moved from .NET Portable to .NET Standard 1.0. Contributed by GitHub user NZSmartie
