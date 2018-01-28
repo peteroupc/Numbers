@@ -132,7 +132,7 @@ namespace Test {
           bigintA.DivRem(bigintB);
           Assert.Fail("Should have failed");
         } catch (ArithmeticException) {
-          new Object();
+          // NOTE: Intentionally empty
         } catch (Exception ex) {
           Assert.Fail(ex.ToString());
           throw new InvalidOperationException(String.Empty, ex);
@@ -210,7 +210,7 @@ namespace Test {
           bigintA.DivRem(bigintB);
           Assert.Fail("Should have failed");
         } catch (ArithmeticException) {
-          new Object();
+          // NOTE: Intentionally empty
         } catch (Exception ex) {
           Assert.Fail(ex.ToString());
           throw new InvalidOperationException(String.Empty, ex);
@@ -424,7 +424,7 @@ namespace Test {
         BigValueOf(Int32.MinValue - 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -433,7 +433,7 @@ namespace Test {
         BigValueOf(Int32.MaxValue + 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -442,7 +442,7 @@ namespace Test {
         BigFromString("999999999999999999999999999999999").ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -457,7 +457,7 @@ namespace Test {
         BigValueOf(Int32.MinValue - 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -466,7 +466,7 @@ namespace Test {
         BigValueOf(Int32.MaxValue + 1L).ToInt32Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -487,7 +487,7 @@ namespace Test {
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -498,7 +498,7 @@ namespace Test {
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -539,7 +539,7 @@ namespace Test {
         BigFromString("999999999999999999999999999999999").ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -556,7 +556,7 @@ namespace Test {
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -567,7 +567,7 @@ namespace Test {
         bigintTemp.ToInt64Checked();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -615,7 +615,7 @@ namespace Test {
         EInteger.One.ModPow(null, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -624,7 +624,7 @@ namespace Test {
         EInteger.One.ModPow(null, EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -633,7 +633,7 @@ namespace Test {
         EInteger.One.ModPow(EInteger.Zero, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -642,7 +642,7 @@ namespace Test {
         EInteger.One.ModPow(BigFromString("-1"), BigFromString("1"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -651,7 +651,7 @@ namespace Test {
         EInteger.One.ModPow(BigFromString("0"), BigFromString("0"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -660,7 +660,7 @@ namespace Test {
         EInteger.One.ModPow(BigFromString("0"), BigFromString("-1"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -669,7 +669,7 @@ namespace Test {
         EInteger.One.ModPow(BigFromString("1"), BigFromString("0"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -678,7 +678,7 @@ namespace Test {
         EInteger.One.ModPow(BigFromString("1"), BigFromString("-1"));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -831,7 +831,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.DivRem(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -840,7 +840,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.DivRem(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -875,7 +875,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -885,7 +885,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.Zero.GetSignedBit(-1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -894,7 +894,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString("x11");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -903,7 +903,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString(".");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -912,7 +912,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString("..");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -921,7 +921,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString("e200");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -931,7 +931,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Mod((EInteger)(-1));
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -940,7 +940,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Add(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -949,7 +949,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Subtract(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -958,7 +958,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Divide(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -967,7 +967,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Divide(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -976,7 +976,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Remainder(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -985,7 +985,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Mod(EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (DivideByZeroException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -994,7 +994,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Remainder(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1011,7 +1011,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromBytes(null, false);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1023,7 +1023,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixString(null, 10);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1032,7 +1032,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixString("0", 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1041,7 +1041,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixString("0", 0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1050,7 +1050,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixString("0", -37);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1059,7 +1059,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixString("0", Int32.MinValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1068,7 +1068,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixString("0", Int32.MaxValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1089,7 +1089,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring(null, 10, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1098,7 +1098,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0", 1, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1107,7 +1107,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0", 0, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1116,7 +1116,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0", -37, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1125,7 +1125,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0", Int32.MinValue, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1134,7 +1134,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0", Int32.MaxValue, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1143,7 +1143,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("123", 10, -1, 2);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1152,7 +1152,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("123", 10, 4, 5);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1161,7 +1161,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("123", 10, 0, -8);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1170,7 +1170,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("123", 10, 0, 6);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1179,7 +1179,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("123", 10, 2, 0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1188,7 +1188,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("123", 10, 0, 0);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1197,7 +1197,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("123", 10, 1, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1206,7 +1206,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("-", 10, 0, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1215,7 +1215,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("g", 16, 0, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1224,7 +1224,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0123gggg", 16, 0, 8);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1233,7 +1233,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0123gggg", 10, 0, 8);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1242,7 +1242,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromRadixSubstring("0123aaaa", 10, 0, 8);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1271,7 +1271,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString("xyz");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1280,7 +1280,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString(String.Empty);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1289,7 +1289,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         BigFromString(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1301,7 +1301,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromSubstring(null, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1311,7 +1311,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromSubstring("123", -1, 2);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1320,7 +1320,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromSubstring("123", 4, 2);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1329,7 +1329,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromSubstring("123", 1, -1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1338,7 +1338,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromSubstring("123", 1, 4);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1347,7 +1347,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromSubstring("123", 1, 0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1356,7 +1356,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.FromSubstring("123", 2, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1417,7 +1417,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.Zero.Gcd(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1824,7 +1824,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         Console.WriteLine((int)minValueTimes2);
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1834,7 +1834,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         Console.WriteLine((int)verybig);
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1843,7 +1843,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         Console.WriteLine((long)verybig);
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1852,7 +1852,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.PowBigIntVar(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1861,7 +1861,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Pow(-1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1870,7 +1870,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         (EInteger.Zero - EInteger.One).PowBigIntVar(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1889,7 +1889,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Mod(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1898,7 +1898,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         ((EInteger)13).Mod(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1907,7 +1907,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         ((EInteger)13).Mod((EInteger)(-4));
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1916,7 +1916,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         ((EInteger)(-13)).Mod((EInteger)(-4));
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1928,7 +1928,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
         EInteger.One.Multiply(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2382,7 +2382,7 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
         EInteger.One.ToRadixString(-1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2391,7 +2391,7 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
         EInteger.One.ToRadixString(0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2400,7 +2400,7 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
         EInteger.One.ToRadixString(1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2409,7 +2409,7 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
         EInteger.One.ToRadixString(37);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2418,7 +2418,7 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
         EInteger.One.ToRadixString(Int32.MinValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -2427,7 +2427,7 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
         EInteger.One.ToRadixString(Int32.MaxValue);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);

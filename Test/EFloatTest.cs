@@ -72,7 +72,7 @@ namespace Test {
         EFloat.Zero.Add(null, EContext.Unlimited);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -117,7 +117,7 @@ namespace Test {
  EFloat.CreateNaN(null);
 Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -126,7 +126,7 @@ throw new InvalidOperationException(String.Empty, ex);
  EFloat.CreateNaN(EInteger.FromString("-1"));
 Assert.Fail("Should have failed");
 } catch (ArgumentException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -135,7 +135,7 @@ throw new InvalidOperationException(String.Empty, ex);
  EFloat.CreateNaN(null, false, false, null);
 Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -343,7 +343,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("0..1");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -352,7 +352,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("0.1x+222");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -361,7 +361,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("0.1g-222");
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -376,7 +376,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString(String.Empty);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -385,7 +385,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -396,7 +396,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString(null, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -405,7 +405,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString(String.Empty);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -414,7 +414,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString(null, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -423,7 +423,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", -1, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -432,7 +432,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 2, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -441,7 +441,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 0, -1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -450,7 +450,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 0, 2);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -459,7 +459,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 1, 1);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -468,7 +468,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString(null, 0, 1, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -477,7 +477,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", -1, 1, null);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -486,7 +486,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 2, 1, null);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -495,7 +495,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 0, -1, null);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -504,7 +504,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 0, 2, null);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -513,7 +513,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.FromString("x", 1, 1, null);
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -524,7 +524,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -535,7 +535,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -546,7 +546,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -557,7 +557,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -568,7 +568,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -579,7 +579,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -590,7 +590,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -601,7 +601,7 @@ public void TestPrecisionOneHalfEven() {
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
       } catch (FormatException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -672,7 +672,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.Max(null, EFloat.One);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -681,7 +681,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.Max(EFloat.One, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -718,7 +718,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.MaxMagnitude(null, EFloat.One);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -727,7 +727,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.MaxMagnitude(EFloat.One, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -739,7 +739,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.Min(null, EFloat.One);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -748,7 +748,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.Min(EFloat.One, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -786,7 +786,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.MinMagnitude(null, EFloat.One);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -795,7 +795,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.MinMagnitude(EFloat.One, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -990,7 +990,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.Zero.Subtract(null, EContext.Unlimited);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1006,7 +1006,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.PositiveInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1015,7 +1015,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1024,7 +1024,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.NaN.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1033,7 +1033,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.SignalingNaN.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1049,7 +1049,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.PositiveInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1058,7 +1058,7 @@ public void TestPrecisionOneHalfEven() {
         EFloat.NegativeInfinity.ToEInteger();
         Assert.Fail("Should have failed");
       } catch (OverflowException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
@@ -1388,7 +1388,7 @@ Assert.AreEqual(
  enumber.ToByteChecked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1400,7 +1400,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToByteIfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1409,7 +1409,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt16Checked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1421,7 +1421,7 @@ Assert.AreEqual(
  enumber.ToInt16IfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1430,7 +1430,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt32Checked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1442,7 +1442,7 @@ Assert.AreEqual(
  enumber.ToInt32IfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1451,7 +1451,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt64Checked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1463,7 +1463,7 @@ Assert.AreEqual(
  enumber.ToInt64IfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1495,7 +1495,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToByteIfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1512,7 +1512,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToByteIfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1522,7 +1522,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToByteChecked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1538,7 +1538,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToByteIfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1548,7 +1548,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToByteIfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1577,7 +1577,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt16IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1594,7 +1594,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt16IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1604,7 +1604,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt16Checked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1620,7 +1620,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt16IfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1630,7 +1630,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt16IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1660,7 +1660,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt32IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1677,7 +1677,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt32IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1687,7 +1687,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt32Checked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1703,7 +1703,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt32IfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1713,7 +1713,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt32IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1743,7 +1743,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt64IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1760,7 +1760,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt64IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1770,7 +1770,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt64Checked();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1786,7 +1786,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt64IfExact();
 Assert.Fail("Should have failed");
 } catch (OverflowException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1796,7 +1796,7 @@ throw new InvalidOperationException(String.Empty, ex);
  enumber.ToInt64IfExact();
 Assert.Fail("Should have failed");
 } catch (ArithmeticException) {
-new Object();
+// NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
 throw new InvalidOperationException(String.Empty, ex);
@@ -1838,7 +1838,7 @@ TestToFloatRoundingOne(objectTemp, true);
         flo.ToEIntegerIfExact();
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
-        new Object();
+        // NOTE: Intentionally empty
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
