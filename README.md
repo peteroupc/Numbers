@@ -44,7 +44,7 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
-Version 1.0.1
+Version 1.0.2
 
 - Really strong-name sign the assembly, which (probably) was inadvertently delay-signed in version 1.0.
 
