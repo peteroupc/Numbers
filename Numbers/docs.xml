@@ -1331,7 +1331,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) to
             an arbitrary-precision decimal.</summary>
             <param name='dec'>A <c>decimal</c> under the Common Language Infrastructure (usually a .NET Framework decimal).</param>
-            <returns>an arbitrary-precision decimal floating-point number.</returns>
+            <returns>An arbitrary-precision decimal floating-point number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromDouble(System.Double)">
 <summary>Creates a decimal number from a 64-bit binary
@@ -2702,7 +2702,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).</param>
-            <returns>an arbitrary-precision float floating-point number.</returns>
+            <returns>An arbitrary-precision float floating-point number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEInteger">
 <summary>Converts this value to an arbitrary-precision integer. Any
@@ -2923,10 +2923,8 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <summary>Represents the number 0.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Addition(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
-
-             <summary>Adds two arbitrary-precision decimal floating-point numbers and returns
+<summary>Adds two arbitrary-precision decimal floating-point numbers and returns
             the result.</summary><param name='bthis'>The first arbitrary-precision decimal floating-point number.</param><param name='otherValue'>The second decimal binary floating-point number.</param><returns>The sum of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> or <paramref name='otherValue'/> is null.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 <summary>Divides this object by another decimal number and returns
@@ -2937,12 +2935,10 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             decimal expansion.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.EInteger">
-
-             <summary>Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision integer. Any
+<summary>Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision integer. Any
             fractional part in this value will be discarded when converting to
             an arbitrary-precision integer.</summary><param name='bigValue'>The number to convert as an arbitrary-precision decimal.</param><returns>An arbitrary-precision integer.</returns><exception cref='T:System.OverflowException'>This object's value is
             infinity or not-a-number (NaN).</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte">
 <summary>Converts an arbitrary-precision decimal number to a byte (from 0 to 255)
@@ -3007,8 +3003,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single">
-
-             <summary>Converts this value to its closest equivalent as a 32-bit
+<summary>Converts this value to its closest equivalent as a 32-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
             floating point number's significand area for a quiet NaN, and
@@ -3020,7 +3015,6 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt16">
 <summary>Converts an arbitrary-precision decimal number to a 16-bit unsigned integer
@@ -3119,21 +3113,17 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='operand1'/> or <paramref name='operand2'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Subtraction(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
-
-             <summary>Subtracts one arbitrary-precision decimal number from another and returns the result.</summary>            <param name='bthis'>The first operand.</param>
+<summary>Subtracts one arbitrary-precision decimal number from another and returns the result.</summary>            <param name='bthis'>The first operand.</param>
             <param name='subtrahend'>The second operand.</param>
             <returns>The difference of the two decimal numbers.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> or <paramref name='subtrahend'/> is null.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)">
-
-             <summary>Gets an arbitrary-precision decimal number with the same value as the given one, but with
+<summary>Gets an arbitrary-precision decimal number with the same value as the given one, but with
             the sign reversed.</summary><param name='bigValue'>An arbitrary-precision decimal number to negate.</param><returns>An arbitrary-precision decimal number. If this value is
             positive zero, returns negative zero. Returns signaling NaN if this
             value is signaling NaN.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigValue'/> is null.</exception>
-
 </doc>
 <doc name="T:PeterO.Numbers.EFloat">
 <summary>Represents an arbitrary-precision binary floating-point
@@ -3192,7 +3182,6 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             with the same mathematical value, but different exponents, will be
             considered unequal under the Equals method.</para></summary>
 </doc>
-
 <doc name="M:PeterO.Numbers.EFloat.Abs">
 <summary>Finds the absolute value of this object (if it&#x27;s
             negative, it becomes positive).</summary>
@@ -5212,10 +5201,8 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
 <summary>Represents the number 0.</summary>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
-
-             <summary>Adds two arbitrary-precision binary floating-point numbers and returns
+<summary>Adds two arbitrary-precision binary floating-point numbers and returns
             the result.</summary><param name='bthis'>The first arbitrary-precision binary floating-point number.</param><param name='otherValue'>The second arbitrary-precision binary floating-point number.</param><returns>The sum of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> or <paramref name='otherValue'/> is null.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 <summary>Divides one binary float by another and returns
@@ -5226,12 +5213,10 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             binary expansion.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger">
-
-             <summary>Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Any
+<summary>Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Any
             fractional part in this value will be discarded when converting to
             an arbitrary-precision integer.</summary><param name='bigValue'>The number to convert as an arbitrary-precision binary float.</param><returns>An arbitrary-precision integer.</returns><exception cref='T:System.OverflowException'>This object's value is
             infinity or not-a-number (NaN).</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte">
 <summary>Converts an arbitrary-precision binary float to a byte (from 0 to 255)
@@ -5289,8 +5274,7 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single">
-
-             <summary>Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit
+<summary>Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit
             floating-point number. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
             floating point number's significand area for a quiet NaN, and
@@ -5302,7 +5286,6 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt16">
 <summary>Converts an arbitrary-precision binary float to a 16-bit unsigned integer
@@ -5409,18 +5392,14 @@ methods of <c>EDecimal</c> such as <c>Add</c>).</para>
             <exception cref='T:System.ArgumentNullException'>The parameter <paramref name='operand1'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
-
-             <summary>Subtracts one arbitrary-precision binary float from another.</summary><param name='bthis'>The first operand.</param><param name='subtrahend'>The second operand.</param><returns>The difference of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
-
+<summary>Subtracts one arbitrary-precision binary float from another.</summary><param name='bthis'>The first operand.</param><param name='subtrahend'>The second operand.</param><returns>The difference of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)">
-
-             <summary>Gets an object with the same value as this one, but with
+<summary>Gets an object with the same value as this one, but with
             the sign reversed.</summary><param name='bigValue'>An arbitrary-precision binary float.</param><returns>The negated form of the given number.  If the given number is
             positive zero, returns negative zero. Returns signaling NaN if this
             value is signaling NaN.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigValue'/> is null.</exception>
-
 </doc>
 <doc name="T:PeterO.Numbers.EInteger">
 <summary>Represents an arbitrary-precision integer. (The "E" stands
@@ -5531,8 +5510,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             <param name='dividend'>The arbitrary-precision integer to be
             divided.</param>
             <param name='divisor'>The arbitrary-precision integer to divide by.</param>
-            <param name='remainder'>An arbitrary-precision integer.
-            (4).</param>
+            <param name='remainder'>An arbitrary-precision integer.</param>
             <returns>An array of two arbitrary-precision integers: the first is
             the quotient, and the second is the remainder.</returns>
             <exception cref='T:System.ArgumentNullException'>The parameter
@@ -5860,13 +5838,11 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-
-             <summary>Calculates the remainder when an arbitrary-precision
+<summary>Calculates the remainder when an arbitrary-precision
             integer raised to a certain power is divided by another
             arbitrary-precision integer.</summary><param name='bigintValue'>The starting operand.</param><param name='pow'>The power to raise this integer by.</param>
             <param name='mod'>The integer to divide the raised number by.</param><returns>The value ( <paramref name='bigintValue'/> ^ <paramref name='pow'/> )% <paramref name='mod'/>.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigintValue'/> is null.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)">
 <summary>Multiplies this instance by the value of an
@@ -6185,9 +6161,7 @@ through 9223372036854775807; otherwise, <c>false</c>.</returns>
             <paramref name='a'/> or <paramref name='b'/> is null.</exception>
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Zero">
-
-             <summary>Gets the number zero as an arbitrary-precision integer.</summary><value>The number zero as an arbitrary-precision integer.</value>
-
+<summary>Gets the number zero as an arbitrary-precision integer.</summary><value>The number zero as an arbitrary-precision integer.</value>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.add(PeterO.Numbers.EInteger)">
 <summary>
@@ -7618,13 +7592,11 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
             <returns>A <c>decimal</c> under the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Double">
-
-             <summary>Converts an arbitrary-precision rational number  to a 64-bit floating-point number. The
+<summary>Converts an arbitrary-precision rational number  to a 64-bit floating-point number. The
             half-even rounding mode is used.</summary><param name='bigValue'>The number to convert as an arbitrary-precision rational number.</param><returns>The closest 64-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
             number.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16">
 <summary>Converts an arbitrary-precision rational number to a 16-bit signed integer
@@ -7659,13 +7631,11 @@ the Common Language Infrastructure (usually a .NET Framework decimal).</returns>
             or the truncated integer is less than -128 or greater than 127.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Single">
-
-             <summary>Converts an arbitrary-precision rational number to a 32-bit binary floating-point number. The
+<summary>Converts an arbitrary-precision rational number to a 32-bit binary floating-point number. The
             half-even rounding mode is used.</summary><param name='bigValue'>The number to convert as an arbitrary-precision rational number.</param><returns>The closest 32-bit binary floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 32-bit floating point
             number.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt16">
 <summary>Converts an arbitrary-precision rational number to a 16-bit unsigned integer
@@ -7925,7 +7895,7 @@ as the given one but with its sign reversed.</summary>
             divide by zero.</exception>
 </doc>
 <doc name="P:PeterO.Numbers.FastInteger.Sign">
-<summary>Gets an internal value.</summary><value>an internal value.</value>
+<summary>Gets an internal value.</summary><value>An internal value.</value>
 </doc>
 <doc name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)">
 <summary>This is an internal API.</summary>
