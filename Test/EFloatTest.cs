@@ -94,8 +94,12 @@ namespace Test {
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
       }
       TestCommon.CompareTestLess(EFloat.Zero, EFloat.NaN);
+string str2561 =
+  "7.00468923842476447758037175245551511770928808756622205663208" +
+  "4784688080253355047487262563521426272927783429622650146484375";
+
       EDecimal a = EDecimal.FromString(
-        "7.00468923842476447758037175245551511770928808756622205663208" + "4784688080253355047487262563521426272927783429622650146484375");
+  str2561);
       EDecimal b = EDecimal.FromString("5");
       TestCommon.CompareTestLess(b, a);
     }
