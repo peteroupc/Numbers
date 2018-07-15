@@ -1,5 +1,5 @@
 /*
-Written in 2013-2016 by Peter O.
+Written in 2013-2018 by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -15,7 +15,7 @@ namespace Test {
 
     public static void AssertByteArraysEqual(byte[] arr1, byte[] arr2) {
       if (!ByteArraysEqual(arr1, arr2)) {
-        Assert.Fail("Expected " + ToByteArrayString(arr1) + ", got " +
+        Assert.Fail("Expected " + ToByteArrayString(arr1) + ",\ngot..... " +
           ToByteArrayString(arr2));
       }
     }
@@ -64,13 +64,13 @@ namespace Test {
     public static void CompareTestConsistency<T>(T o1, T o2, T o3) where T :
       IComparable<T> {
       if (o1 == null) {
-        throw new ArgumentNullException("o1");
+        throw new ArgumentNullException(nameof(o1));
       }
       if (o2 == null) {
-        throw new ArgumentNullException("o2");
+        throw new ArgumentNullException(nameof(o2));
       }
       if (o3 == null) {
-        throw new ArgumentNullException("o3");
+        throw new ArgumentNullException(nameof(o3));
       }
       int cmp = CompareTestReciprocal(o1, o2);
       int cmp2 = CompareTestReciprocal(o2, o3);
@@ -164,10 +164,10 @@ namespace Test {
     public static int CompareTestReciprocal<T>(T o1, T o2) where T :
       IComparable<T> {
       if (o1 == null) {
-        throw new ArgumentNullException("o1");
+        throw new ArgumentNullException(nameof(o1));
       }
       if (o2 == null) {
-        throw new ArgumentNullException("o2");
+        throw new ArgumentNullException(nameof(o2));
       }
       int cmp, cmp2;
       cmp = Math.Sign(o1.CompareTo(o2));
@@ -181,13 +181,13 @@ namespace Test {
     public static void CompareTestRelations<T>(T o1, T o2, T o3) where T :
       IComparable<T> {
       if (o1 == null) {
-        throw new ArgumentNullException("o1");
+        throw new ArgumentNullException(nameof(o1));
       }
       if (o2 == null) {
-        throw new ArgumentNullException("o2");
+        throw new ArgumentNullException(nameof(o2));
       }
       if (o3 == null) {
-        throw new ArgumentNullException("o3");
+        throw new ArgumentNullException(nameof(o3));
       }
       if (o1.CompareTo(o1) != 0) {
         Assert.Fail(o1.ToString());

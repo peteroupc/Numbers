@@ -110,10 +110,10 @@ namespace PeterO.Numbers {
       int flags) {
 #if DEBUG
       if (unsignedMantissa == null) {
-        throw new ArgumentNullException("unsignedMantissa");
+        throw new ArgumentNullException(nameof(unsignedMantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
       if (unsignedMantissa.Sign < 0) {
         throw new ArgumentException("unsignedMantissa is less than 0.");
@@ -197,10 +197,10 @@ namespace PeterO.Numbers {
       EInteger mantissa,
       EInteger exponent) {
       if (mantissa == null) {
-        throw new ArgumentNullException("mantissa");
+        throw new ArgumentNullException(nameof(mantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
       int sign = mantissa.Sign;
       return new EFloat(
@@ -223,7 +223,7 @@ namespace PeterO.Numbers {
       bool negative,
       EContext ctx) {
       if (diag == null) {
-        throw new ArgumentNullException("diag");
+        throw new ArgumentNullException(nameof(diag));
       }
       if (diag.Sign < 0) {
         throw new
@@ -358,7 +358,7 @@ namespace PeterO.Numbers {
       int length,
       EContext ctx) {
       if (str == null) {
-        throw new ArgumentNullException("str");
+        throw new ArgumentNullException(nameof(str));
       }
       return EDecimal.FromString(
         str,
@@ -631,7 +631,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)"]/*'/>
     public EFloat CopySign(EFloat other) {
       if (other == null) {
-        throw new ArgumentNullException("other");
+        throw new ArgumentNullException(nameof(other));
       }
       if (this.IsNegative) {
         return other.IsNegative ? this : this.Negate();
@@ -989,10 +989,10 @@ namespace PeterO.Numbers {
       EFloat subtrahend,
       EContext ctx) {
       if (op == null) {
-        throw new ArgumentNullException("op");
+        throw new ArgumentNullException(nameof(op));
       }
       if (subtrahend == null) {
-        throw new ArgumentNullException("subtrahend");
+        throw new ArgumentNullException(nameof(subtrahend));
       }
       EFloat negated = subtrahend;
       if ((subtrahend.flags & BigNumberFlags.FlagNaN) == 0) {
@@ -1281,7 +1281,7 @@ namespace PeterO.Numbers {
       EFloat otherValue,
       EContext ctx) {
       if (otherValue == null) {
-        throw new ArgumentNullException("otherValue");
+        throw new ArgumentNullException(nameof(otherValue));
       }
       EFloat negated = otherValue;
       if ((otherValue.flags & BigNumberFlags.FlagNaN) == 0) {
@@ -1587,10 +1587,10 @@ if (!(bitLength <= 24)) {
       EInteger exponent,
       int flags) {
       if (mantissa == null) {
-        throw new ArgumentNullException("mantissa");
+        throw new ArgumentNullException(nameof(mantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
       int sign = mantissa == null ? 0 : mantissa.Sign;
       return new EFloat(

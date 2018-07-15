@@ -27,7 +27,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Addition(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator +(EInteger bthis, EInteger augend) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Add(augend);
     }
@@ -38,7 +38,7 @@ namespace PeterO.Numbers {
      EInteger bthis,
      EInteger subtrahend) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Subtract(subtrahend);
     }
@@ -49,7 +49,7 @@ namespace PeterO.Numbers {
       EInteger operand1,
       EInteger operand2) {
       if (operand1 == null) {
-        throw new ArgumentNullException("operand1");
+        throw new ArgumentNullException(nameof(operand1));
       }
       return operand1.Multiply(operand2);
     }
@@ -60,7 +60,7 @@ namespace PeterO.Numbers {
      EInteger dividend,
      EInteger divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Divide(divisor);
     }
@@ -71,7 +71,7 @@ namespace PeterO.Numbers {
      EInteger dividend,
      EInteger divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Remainder(divisor);
     }
@@ -80,7 +80,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LeftShift(PeterO.Numbers.EInteger,System.Int32)"]/*'/>
     public static EInteger operator <<(EInteger bthis, int bitCount) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.ShiftLeft(bitCount);
     }
@@ -92,7 +92,7 @@ namespace PeterO.Numbers {
   EInteger pow,
   EInteger mod) {
       if (bigintValue == null) {
-        throw new ArgumentNullException("bigintValue");
+        throw new ArgumentNullException(nameof(bigintValue));
       }
       return bigintValue.ModPow(pow, mod);
     }
@@ -101,7 +101,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_RightShift(PeterO.Numbers.EInteger,System.Int32)"]/*'/>
     public static EInteger operator >>(EInteger bthis, int smallValue) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.ShiftRight(smallValue);
     }
@@ -110,7 +110,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_UnaryNegation(PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator -(EInteger bigValue) {
       if (bigValue == null) {
-        throw new ArgumentNullException("bigValue");
+        throw new ArgumentNullException(nameof(bigValue));
       }
       return bigValue.Negate();
     }
@@ -222,10 +222,10 @@ namespace PeterO.Numbers {
   EInteger divisor,
   out EInteger remainder) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       if (divisor == null) {
-        throw new ArgumentNullException("divisor");
+        throw new ArgumentNullException(nameof(divisor));
       }
       EInteger[] result = dividend.DivRem(divisor);
       remainder = result[1];
@@ -266,7 +266,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Not(PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger Not(EInteger valueA) {
       if (valueA == null) {
-        throw new ArgumentNullException("valueA");
+        throw new ArgumentNullException(nameof(valueA));
       }
       if (valueA.wordCount == 0) {
         return EInteger.FromInt32(-1);
@@ -292,10 +292,10 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger And(EInteger a, EInteger b) {
       if (a == null) {
-        throw new ArgumentNullException("a");
+        throw new ArgumentNullException(nameof(a));
       }
       if (b == null) {
-        throw new ArgumentNullException("b");
+        throw new ArgumentNullException(nameof(b));
       }
       if (b.IsZero || a.IsZero) {
         return Zero;
@@ -341,10 +341,10 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger Or(EInteger first, EInteger second) {
       if (first == null) {
-        throw new ArgumentNullException("first");
+        throw new ArgumentNullException(nameof(first));
       }
       if (second == null) {
-        throw new ArgumentNullException("second");
+        throw new ArgumentNullException(nameof(second));
       }
       if (first.wordCount == 0) {
         return second;
@@ -387,10 +387,10 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger Xor(EInteger a, EInteger b) {
       if (a == null) {
-        throw new ArgumentNullException("a");
+        throw new ArgumentNullException(nameof(a));
       }
       if (b == null) {
-        throw new ArgumentNullException("b");
+        throw new ArgumentNullException(nameof(b));
       }
       if (a == b) {
         return EInteger.Zero;

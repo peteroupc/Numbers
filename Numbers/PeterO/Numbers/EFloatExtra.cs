@@ -31,7 +31,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator +(EFloat bthis, EFloat otherValue) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Add(otherValue);
     }
@@ -42,7 +42,7 @@ namespace PeterO.Numbers {
    EFloat bthis,
    EFloat subtrahend) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Subtract(subtrahend);
     }
@@ -53,7 +53,7 @@ namespace PeterO.Numbers {
     EFloat operand1,
     EFloat operand2) {
       if (operand1 == null) {
-        throw new ArgumentNullException("operand1");
+        throw new ArgumentNullException(nameof(operand1));
       }
       return operand1.Multiply(operand2);
     }
@@ -64,7 +64,7 @@ namespace PeterO.Numbers {
    EFloat dividend,
    EFloat divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Divide(divisor);
     }
@@ -75,7 +75,7 @@ namespace PeterO.Numbers {
    EFloat dividend,
    EFloat divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Remainder(divisor, null);
     }
@@ -84,7 +84,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator -(EFloat bigValue) {
       if (bigValue == null) {
-        throw new ArgumentNullException("bigValue");
+        throw new ArgumentNullException(nameof(bigValue));
       }
       return bigValue.Negate();
     }

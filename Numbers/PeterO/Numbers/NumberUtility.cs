@@ -139,10 +139,10 @@ namespace PeterO.Numbers {
     internal static EInteger ShiftLeft(EInteger val, EInteger bigShift) {
       #if DEBUG
       if (val == null) {
-        throw new ArgumentNullException("val");
+        throw new ArgumentNullException(nameof(val));
       }
       if (bigShift == null) {
-        throw new ArgumentNullException("bigShift");
+        throw new ArgumentNullException(nameof(bigShift));
       }
       #endif
       if (val.IsZero) {
@@ -160,7 +160,7 @@ namespace PeterO.Numbers {
     internal static EInteger ShiftLeftInt(EInteger val, int shift) {
       #if DEBUG
       if (val == null) {
-        throw new ArgumentNullException("val");
+        throw new ArgumentNullException(nameof(val));
       }
       #endif
       if (val.IsZero) {

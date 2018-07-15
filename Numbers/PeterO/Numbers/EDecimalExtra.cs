@@ -61,7 +61,7 @@ System.Globalization.NumberStyles
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Addition(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator +(EDecimal bthis, EDecimal otherValue) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Add(otherValue);
     }
@@ -72,7 +72,7 @@ System.Globalization.NumberStyles
    EDecimal bthis,
    EDecimal subtrahend) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Subtract(subtrahend);
     }
@@ -83,7 +83,7 @@ System.Globalization.NumberStyles
     EDecimal operand1,
     EDecimal operand2) {
       if (operand1 == null) {
-        throw new ArgumentNullException("operand1");
+        throw new ArgumentNullException(nameof(operand1));
       }
       return operand1.Multiply(operand2);
     }
@@ -94,7 +94,7 @@ System.Globalization.NumberStyles
    EDecimal dividend,
    EDecimal divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Divide(divisor);
     }
@@ -105,7 +105,7 @@ System.Globalization.NumberStyles
    EDecimal dividend,
    EDecimal divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Remainder(divisor, null);
     }
@@ -114,7 +114,7 @@ System.Globalization.NumberStyles
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator -(EDecimal bigValue) {
       if (bigValue == null) {
-        throw new ArgumentNullException("bigValue");
+        throw new ArgumentNullException(nameof(bigValue));
       }
       return bigValue.Negate();
     }

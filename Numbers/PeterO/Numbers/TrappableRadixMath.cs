@@ -82,7 +82,7 @@ namespace PeterO.Numbers {
     public TrappableRadixMath(IRadixMath<T> math) {
 #if DEBUG
       if (math == null) {
-        throw new ArgumentNullException("math");
+        throw new ArgumentNullException(nameof(math));
       }
 #endif
       this.math = math;

@@ -437,7 +437,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.ExponentWithinRange(PeterO.Numbers.EInteger)"]/*'/>
     public bool ExponentWithinRange(EInteger exponent) {
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
       if (!this.HasExponentRange) {
         return true;
@@ -483,10 +483,10 @@ namespace PeterO.Numbers {
       EInteger exponentMin,
       EInteger exponentMax) {
       if (exponentMin == null) {
-        throw new ArgumentNullException("exponentMin");
+        throw new ArgumentNullException(nameof(exponentMin));
       }
       if (exponentMax == null) {
-        throw new ArgumentNullException("exponentMax");
+        throw new ArgumentNullException(nameof(exponentMax));
       }
       if (exponentMin.CompareTo(exponentMax) > 0) {
         throw new ArgumentException("exponentMin greater than exponentMax");
@@ -502,7 +502,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBigPrecision(PeterO.Numbers.EInteger)"]/*'/>
     public EContext WithBigPrecision(EInteger bigintPrecision) {
       if (bigintPrecision == null) {
-        throw new ArgumentNullException("bigintPrecision");
+        throw new ArgumentNullException(nameof(bigintPrecision));
       }
       if (bigintPrecision.Sign < 0) {
         throw new ArgumentException("bigintPrecision's sign (" +

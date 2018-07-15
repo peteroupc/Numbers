@@ -242,7 +242,7 @@ namespace CBOR {
       public static BinaryNumber Create(EFloat dec) {
         var dn = new ExtensiveTest.BinaryNumber();
         if (dec == null) {
-          throw new ArgumentNullException("dec");
+          throw new ArgumentNullException(nameof(dec));
         }
         dn.ef = dec;
         return dn;

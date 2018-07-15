@@ -167,7 +167,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'/>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
-        throw new ArgumentNullException("bytes");
+        throw new ArgumentNullException(nameof(bytes));
       }
       if (bytes.Length == 0) {
         return EInteger.Zero;
@@ -347,7 +347,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)"]/*'/>
     public static EInteger FromRadixString(string str, int radix) {
       if (str == null) {
-        throw new ArgumentNullException("str");
+        throw new ArgumentNullException(nameof(str));
       }
       return FromRadixSubstring(str, radix, 0, str.Length);
     }
@@ -360,7 +360,7 @@ namespace PeterO.Numbers {
       int index,
       int endIndex) {
       if (str == null) {
-        throw new ArgumentNullException("str");
+        throw new ArgumentNullException(nameof(str));
       }
       if (radix < 2) {
         throw new ArgumentException("radix (" + radix +
@@ -581,7 +581,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromString(System.String)"]/*'/>
     public static EInteger FromString(string str) {
       if (str == null) {
-        throw new ArgumentNullException("str");
+        throw new ArgumentNullException(nameof(str));
       }
       return FromRadixSubstring(str, 10, 0, str.Length);
     }
@@ -593,7 +593,7 @@ namespace PeterO.Numbers {
       int index,
       int endIndex) {
       if (str == null) {
-        throw new ArgumentNullException("str");
+        throw new ArgumentNullException(nameof(str));
       }
       return FromRadixSubstring(str, 10, index, endIndex);
     }
@@ -609,7 +609,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
-        throw new ArgumentNullException("bigintAugend");
+        throw new ArgumentNullException(nameof(bigintAugend));
       }
       if (this.wordCount == 0) {
         return bigintAugend;
@@ -963,7 +963,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
-        throw new ArgumentNullException("bigintDivisor");
+        throw new ArgumentNullException(nameof(bigintDivisor));
       }
       int words1Size = this.wordCount;
       int words2Size = bigintDivisor.wordCount;
@@ -1229,7 +1229,7 @@ if (tmp.Length < blockCount * 6) {
 // NOTE: size of 'b' is 'blockSize'
 #if DEBUG
 if (a == null) {
-  throw new ArgumentNullException("a");
+  throw new ArgumentNullException(nameof(a));
 }
 if (posA < 0) {
   throw new ArgumentException("posA (" + posA +
@@ -1252,7 +1252,7 @@ if ((a.Length - posA) < (blockSize * 2)) {
     (a.Length - posA) + ") is less than " + (blockSize * 2));
 }
 if (b == null) {
-  throw new ArgumentNullException("b");
+  throw new ArgumentNullException(nameof(b));
 }
 if (posB < 0) {
   throw new ArgumentException("posB (" + posB +
@@ -1385,7 +1385,7 @@ if (countB <= RecursiveDivisionLimit) {
     RecursiveDivisionLimit);
 }
 if (a == null) {
-  throw new ArgumentNullException("a");
+  throw new ArgumentNullException(nameof(a));
 }
 if (posA < 0) {
   throw new ArgumentException("posA (" + posA +
@@ -1408,7 +1408,7 @@ if (a.Length - posA < countA) {
     (a.Length - posA) + ") is less than " + countA);
 }
 if (b == null) {
-  throw new ArgumentNullException("b");
+  throw new ArgumentNullException(nameof(b));
 }
 if (posB < 0) {
   throw new ArgumentException("posB (" + posB +
@@ -1628,7 +1628,7 @@ if (rem.Length - posRem < countB) {
  throw new ArgumentException("doesn't satisfy countA>0 && countB>0");
       }
 if (a == null) {
-  throw new ArgumentNullException("a");
+  throw new ArgumentNullException(nameof(a));
 }
 if (posA < 0) {
   throw new ArgumentException("posA (" + posA +
@@ -1651,7 +1651,7 @@ if (a.Length - posA < countA) {
     (a.Length - posA) + ") is less than " + countA);
 }
 if (b == null) {
-  throw new ArgumentNullException("b");
+  throw new ArgumentNullException(nameof(b));
 }
 if (posB < 0) {
   throw new ArgumentException("posB (" + posB +
@@ -1949,7 +1949,7 @@ if (rem.Length - posRem < countB) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
-        throw new ArgumentNullException("divisor");
+        throw new ArgumentNullException(nameof(divisor));
       }
       int words1Size = this.wordCount;
       int words2Size = divisor.wordCount;
@@ -2134,7 +2134,7 @@ if (rem.Length - posRem < countB) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
-        throw new ArgumentNullException("bigintSecond");
+        throw new ArgumentNullException(nameof(bigintSecond));
       }
       if (this.IsZero) {
         return bigintSecond.Abs();
@@ -2644,7 +2644,7 @@ WordsShiftRightOne(bu, buc);
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
-        throw new ArgumentNullException("divisor");
+        throw new ArgumentNullException(nameof(divisor));
       }
       if (divisor.Sign < 0) {
         throw new ArithmeticException("Divisor is negative");
@@ -2660,10 +2660,10 @@ WordsShiftRightOne(bu, buc);
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
-        throw new ArgumentNullException("pow");
+        throw new ArgumentNullException(nameof(pow));
       }
       if (mod == null) {
-        throw new ArgumentNullException("mod");
+        throw new ArgumentNullException(nameof(mod));
       }
       if (pow.Sign < 0) {
         throw new ArgumentException("pow (" + pow + ") is less than 0");
@@ -2689,7 +2689,7 @@ WordsShiftRightOne(bu, buc);
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
-        throw new ArgumentNullException("bigintMult");
+        throw new ArgumentNullException(nameof(bigintMult));
       }
       if (this.wordCount == 0 || bigintMult.wordCount == 0) {
         return EInteger.Zero;
@@ -2851,7 +2851,7 @@ WordsShiftRightOne(bu, buc);
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger PowBigIntVar(EInteger power) {
       if (power == null) {
-        throw new ArgumentNullException("power");
+        throw new ArgumentNullException(nameof(power));
       }
       int sign = power.Sign;
       if (sign < 0) {
@@ -2888,7 +2888,7 @@ WordsShiftRightOne(bu, buc);
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
-        throw new ArgumentNullException("divisor");
+        throw new ArgumentNullException(nameof(divisor));
       }
       int words1Size = this.wordCount;
       int words2Size = divisor.wordCount;
@@ -3240,7 +3240,7 @@ WordsShiftRightOne(bu, buc);
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
-        throw new ArgumentNullException("subtrahend");
+        throw new ArgumentNullException(nameof(subtrahend));
       }
       return (this.wordCount == 0) ? subtrahend.Negate() :
         ((subtrahend.wordCount == 0) ? this : this.Add(subtrahend.Negate()));
@@ -3773,7 +3773,7 @@ WordsShiftRightOne(bu, buc);
       // words1Start + " b=" + words2Start + "]");
 #if DEBUG
       if (resultArr == null) {
-        throw new ArgumentNullException("resultArr");
+        throw new ArgumentNullException(nameof(resultArr));
       }
 
       if (resultStart < 0) {
@@ -3806,7 +3806,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (tempArr == null) {
-        throw new ArgumentNullException("tempArr");
+        throw new ArgumentNullException(nameof(tempArr));
       }
 
       if (tempStart < 0) {
@@ -3839,7 +3839,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (words1 == null) {
-        throw new ArgumentNullException("words1");
+        throw new ArgumentNullException(nameof(words1));
       }
 
       if (words1Start < 0) {
@@ -3869,7 +3869,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (words2 == null) {
-        throw new ArgumentNullException("words2");
+        throw new ArgumentNullException(nameof(words2));
       }
 
       if (words2Start < 0) {
@@ -5041,7 +5041,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (productArr == null) {
-        throw new ArgumentNullException("productArr");
+        throw new ArgumentNullException(nameof(productArr));
       }
 
       if (cstart < 0) {
@@ -5071,7 +5071,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (tempArr == null) {
-        throw new ArgumentNullException("tempArr");
+        throw new ArgumentNullException(nameof(tempArr));
       }
 
       if (tempStart < 0) {
@@ -5101,7 +5101,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (words1 == null) {
-        throw new ArgumentNullException("words1");
+        throw new ArgumentNullException(nameof(words1));
       }
 
       if (astart < 0) {
@@ -5131,7 +5131,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (words2 == null) {
-        throw new ArgumentNullException("words2");
+        throw new ArgumentNullException(nameof(words2));
       }
 
       if (bstart < 0) {
@@ -5728,7 +5728,7 @@ WordsShiftRightOne(bu, buc);
       // " b=" + words2Start + "]");
 #if DEBUG
       if (resultArr == null) {
-        throw new ArgumentNullException("resultArr");
+        throw new ArgumentNullException(nameof(resultArr));
       }
 
       if (resultStart < 0) {
@@ -5757,7 +5757,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (tempArr == null) {
-        throw new ArgumentNullException("tempArr");
+        throw new ArgumentNullException(nameof(tempArr));
       }
 
       if (tempStart < 0) {
@@ -5787,7 +5787,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (words1 == null) {
-        throw new ArgumentNullException("words1");
+        throw new ArgumentNullException(nameof(words1));
       }
 
       if (words1Start < 0) {
@@ -5817,7 +5817,7 @@ WordsShiftRightOne(bu, buc);
       }
 
       if (words2 == null) {
-        throw new ArgumentNullException("words2");
+        throw new ArgumentNullException(nameof(words2));
       }
 
       if (words2Start < 0) {
