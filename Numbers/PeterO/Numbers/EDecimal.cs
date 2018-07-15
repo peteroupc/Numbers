@@ -133,10 +133,10 @@ private static readonly FastIntegerFixed FastIntZero = new
       int flags) {
 #if DEBUG
       if (unsignedMantissa == null) {
-        throw new ArgumentNullException("unsignedMantissa");
+        throw new ArgumentNullException(nameof(unsignedMantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
       if (unsignedMantissa.Sign < 0) {
         throw new ArgumentException("unsignedMantissa is less than 0.");
@@ -157,10 +157,10 @@ private static readonly FastIntegerFixed FastIntZero = new
       int sign) {
 #if DEBUG
       if (unsignedMantissa == null) {
-        throw new ArgumentNullException("unsignedMantissa");
+        throw new ArgumentNullException(nameof(unsignedMantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
       if (unsignedMantissa.Sign < 0) {
         throw new ArgumentException("unsignedMantissa is less than 0.");
@@ -263,10 +263,10 @@ private static readonly FastIntegerFixed FastIntZero = new
       EInteger mantissa,
       EInteger exponent) {
       if (mantissa == null) {
-        throw new ArgumentNullException("mantissa");
+        throw new ArgumentNullException(nameof(mantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
       FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
       int sign = fi.Sign;
@@ -291,7 +291,7 @@ private static readonly FastIntegerFixed FastIntZero = new
       bool negative,
       EContext ctx) {
       if (diag == null) {
-        throw new ArgumentNullException("diag");
+        throw new ArgumentNullException(nameof(diag));
       }
       if (diag.Sign < 0) {
         throw new
@@ -413,7 +413,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromEFloat(PeterO.Numbers.EFloat)"]/*'/>
     public static EDecimal FromEFloat(EFloat bigfloat) {
       if (bigfloat == null) {
-        throw new ArgumentNullException("bigfloat");
+        throw new ArgumentNullException(nameof(bigfloat));
       }
       if (bigfloat.IsNaN() || bigfloat.IsInfinity()) {
         int flags = (bigfloat.IsNegative ? BigNumberFlags.FlagNegative : 0) |
@@ -603,7 +603,7 @@ private static readonly FastIntegerFixed FastIntZero = new
       EContext ctx) {
       int tmpoffset = offset;
       if (str == null) {
-        throw new ArgumentNullException("str");
+        throw new ArgumentNullException(nameof(str));
       }
       if (tmpoffset < 0) {
         throw new FormatException("offset (" + tmpoffset + ") is less than " +
@@ -1073,7 +1073,7 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal CopySign(EDecimal other) {
       if (other == null) {
-        throw new ArgumentNullException("other");
+        throw new ArgumentNullException(nameof(other));
       }
       if (this.IsNegative) {
         return other.IsNegative ? this : this.Negate();
@@ -1754,10 +1754,10 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
       EDecimal subtrahend,
       EContext ctx) {
       if (op == null) {
-        throw new ArgumentNullException("op");
+        throw new ArgumentNullException(nameof(op));
       }
       if (subtrahend == null) {
-        throw new ArgumentNullException("subtrahend");
+        throw new ArgumentNullException(nameof(subtrahend));
       }
       EDecimal negated = subtrahend;
       if ((subtrahend.flags & BigNumberFlags.FlagNaN) == 0) {
@@ -2132,7 +2132,7 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
       EDecimal otherValue,
       EContext ctx) {
       if (otherValue == null) {
-        throw new ArgumentNullException("otherValue");
+        throw new ArgumentNullException(nameof(otherValue));
       }
       EDecimal negated = otherValue;
       if ((otherValue.flags & BigNumberFlags.FlagNaN) == 0) {
@@ -2268,10 +2268,10 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
       FastIntegerFixed exponent,
       int flags) {
       if (mantissa == null) {
-        throw new ArgumentNullException("mantissa");
+        throw new ArgumentNullException(nameof(mantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
 #if DEBUG
       if (!(mantissa.Sign >= 0)) {
@@ -2293,10 +2293,10 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
       EInteger exponent,
       int flags) {
       if (mantissa == null) {
-        throw new ArgumentNullException("mantissa");
+        throw new ArgumentNullException(nameof(mantissa));
       }
       if (exponent == null) {
-        throw new ArgumentNullException("exponent");
+        throw new ArgumentNullException(nameof(exponent));
       }
 #if DEBUG
       if (!(mantissa.Sign >= 0)) {

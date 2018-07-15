@@ -55,7 +55,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Addition(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator +(ERational bthis, ERational augend) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Add(augend);
     }
@@ -66,7 +66,7 @@ namespace PeterO.Numbers {
    ERational bthis,
    ERational subtrahend) {
       if (bthis == null) {
-        throw new ArgumentNullException("bthis");
+        throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Subtract(subtrahend);
     }
@@ -77,7 +77,7 @@ namespace PeterO.Numbers {
     ERational operand1,
     ERational operand2) {
       if (operand1 == null) {
-        throw new ArgumentNullException("operand1");
+        throw new ArgumentNullException(nameof(operand1));
       }
       return operand1.Multiply(operand2);
     }
@@ -88,7 +88,7 @@ namespace PeterO.Numbers {
    ERational dividend,
    ERational divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Divide(divisor);
     }
@@ -99,7 +99,7 @@ namespace PeterO.Numbers {
    ERational dividend,
    ERational divisor) {
       if (dividend == null) {
-        throw new ArgumentNullException("dividend");
+        throw new ArgumentNullException(nameof(dividend));
       }
       return dividend.Remainder(divisor);
     }
@@ -108,7 +108,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_UnaryNegation(PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator -(ERational bigValue) {
       if (bigValue == null) {
-        throw new ArgumentNullException("bigValue");
+        throw new ArgumentNullException(nameof(bigValue));
       }
       return bigValue.Negate();
     }

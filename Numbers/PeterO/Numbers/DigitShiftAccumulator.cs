@@ -126,7 +126,7 @@ namespace PeterO.Numbers {
 
     public void ShiftRight(FastInteger fastint) {
       if (fastint == null) {
-        throw new ArgumentNullException("fastint");
+        throw new ArgumentNullException(nameof(fastint));
       }
       if (fastint.CanFitInInt32()) {
         int fi = fastint.AsInt32();
@@ -245,7 +245,7 @@ namespace PeterO.Numbers {
 
     public void TruncateRight(FastInteger fastint) {
       if (fastint == null) {
-        throw new ArgumentNullException("fastint");
+        throw new ArgumentNullException(nameof(fastint));
       }
       if (fastint.CanFitInInt32()) {
         int fi = fastint.AsInt32();

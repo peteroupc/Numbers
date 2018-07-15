@@ -112,10 +112,10 @@ namespace PeterO.Numbers {
 
     public T Add(T thisValue, T other, EContext ctx) {
       if ((object)thisValue == null) {
-        throw new ArgumentNullException("thisValue");
+        throw new ArgumentNullException(nameof(thisValue));
       }
       if ((object)other == null) {
-        throw new ArgumentNullException("other");
+        throw new ArgumentNullException(nameof(other));
       }
       return this.AddEx(thisValue, other, ctx, false);
     }
@@ -1331,10 +1331,10 @@ ctx.Precision).WithBlankFlags();
 
     public T Max(T a, T b, EContext ctx) {
       if (a == null) {
-        throw new ArgumentNullException("a");
+        throw new ArgumentNullException(nameof(a));
       }
       if (b == null) {
-        throw new ArgumentNullException("b");
+        throw new ArgumentNullException(nameof(b));
       }
       // Handle infinity and NaN
       T result = this.MinMaxHandleSpecial(a, b, ctx, false, false);
@@ -1359,10 +1359,10 @@ ctx.Precision).WithBlankFlags();
 
     public T MaxMagnitude(T a, T b, EContext ctx) {
       if (a == null) {
-        throw new ArgumentNullException("a");
+        throw new ArgumentNullException(nameof(a));
       }
       if (b == null) {
-        throw new ArgumentNullException("b");
+        throw new ArgumentNullException(nameof(b));
       }
       // Handle infinity and NaN
       T result = this.MinMaxHandleSpecial(a, b, ctx, false, true);
@@ -1380,10 +1380,10 @@ ctx.Precision).WithBlankFlags();
 
     public T Min(T a, T b, EContext ctx) {
       if (a == null) {
-        throw new ArgumentNullException("a");
+        throw new ArgumentNullException(nameof(a));
       }
       if (b == null) {
-        throw new ArgumentNullException("b");
+        throw new ArgumentNullException(nameof(b));
       }
       // Handle infinity and NaN
       T result = this.MinMaxHandleSpecial(a, b, ctx, true, false);
@@ -1408,10 +1408,10 @@ ctx.Precision).WithBlankFlags();
 
     public T MinMagnitude(T a, T b, EContext ctx) {
       if (a == null) {
-        throw new ArgumentNullException("a");
+        throw new ArgumentNullException(nameof(a));
       }
       if (b == null) {
-        throw new ArgumentNullException("b");
+        throw new ArgumentNullException(nameof(b));
       }
       // Handle infinity and NaN
       T result = this.MinMaxHandleSpecial(a, b, ctx, true, true);
@@ -1509,10 +1509,10 @@ ctx.Precision).WithBlankFlags();
   T augend,
   EContext ctx) {
       if (multiplicand == null) {
-        throw new ArgumentNullException("multiplicand");
+        throw new ArgumentNullException(nameof(multiplicand));
       }
       if (augend == null) {
-        throw new ArgumentNullException("augend");
+        throw new ArgumentNullException(nameof(augend));
       }
       EContext ctx2 = EContext.UnlimitedHalfEven.WithBlankFlags();
       T ret = this.MultiplyAddHandleSpecial(
@@ -2036,7 +2036,7 @@ ctx.Precision).WithBlankFlags();
       }
 #if DEBUG
       if (ctx == null) {
-        throw new ArgumentNullException("ctx");
+        throw new ArgumentNullException(nameof(ctx));
       }
 #endif
       // Special case for 0.5
@@ -3505,7 +3505,7 @@ ctx.Precision).WithBlankFlags();
           if (hasPrecision) {
 #if DEBUG
             if (ctx == null) {
-              throw new ArgumentNullException("ctx");
+              throw new ArgumentNullException(nameof(ctx));
             }
 #endif
             // DebugUtility.Log("has precision");
@@ -3944,7 +3944,7 @@ ctx.Precision).WithBlankFlags();
     private T LnTenConstant(EContext ctx) {
 #if DEBUG
       if (ctx == null) {
-        throw new ArgumentNullException("ctx");
+        throw new ArgumentNullException(nameof(ctx));
       }
 #endif
       T thisValue = this.helper.ValueOf(10);

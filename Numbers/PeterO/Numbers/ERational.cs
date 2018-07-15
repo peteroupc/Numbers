@@ -104,10 +104,10 @@ namespace PeterO.Numbers {
 
     private void Initialize(EInteger numerator, EInteger denominator) {
             if (numerator == null) {
-                throw new ArgumentNullException("numerator");
+                throw new ArgumentNullException(nameof(numerator));
             }
             if (denominator == null) {
-                throw new ArgumentNullException("denominator");
+                throw new ArgumentNullException(nameof(denominator));
             }
             if (denominator.IsZero) {
                 throw new ArgumentException("denominator is zero");
@@ -229,7 +229,7 @@ namespace PeterO.Numbers {
   bool signaling,
   bool negative) {
       if (diag == null) {
-        throw new ArgumentNullException("diag");
+        throw new ArgumentNullException(nameof(diag));
       }
       if (diag.Sign < 0) {
         throw new
@@ -274,7 +274,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)"]/*'/>
     public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {
-        throw new ArgumentNullException("ef");
+        throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
         ERational er = ERational.Create(ef.Mantissa, EInteger.One);
@@ -319,7 +319,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)"]/*'/>
     public static ERational FromEFloat(EFloat ef) {
       if (ef == null) {
-        throw new ArgumentNullException("ef");
+        throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
         ERational er = ERational.Create(ef.Mantissa, EInteger.One);
@@ -385,7 +385,7 @@ namespace PeterO.Numbers {
       int length) {
       int tmpoffset = offset;
       if (str == null) {
-        throw new ArgumentNullException("str");
+        throw new ArgumentNullException(nameof(str));
       }
       if (tmpoffset < 0) {
         throw new FormatException("offset (" + tmpoffset + ") is less than " +
@@ -757,7 +757,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Add(PeterO.Numbers.ERational)"]/*'/>
     public ERational Add(ERational otherValue) {
       if (otherValue == null) {
-        throw new ArgumentNullException("otherValue");
+        throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
         return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
@@ -1093,7 +1093,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)"]/*'/>
     public ERational CopySign(ERational other) {
       if (other == null) {
-        throw new ArgumentNullException("other");
+        throw new ArgumentNullException(nameof(other));
       }
       if (this.IsNegative) {
         return other.IsNegative ? this : this.Negate();
@@ -1106,7 +1106,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Divide(PeterO.Numbers.ERational)"]/*'/>
     public ERational Divide(ERational otherValue) {
       if (otherValue == null) {
-        throw new ArgumentNullException("otherValue");
+        throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
         return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
@@ -1221,7 +1221,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Multiply(PeterO.Numbers.ERational)"]/*'/>
     public ERational Multiply(ERational otherValue) {
       if (otherValue == null) {
-        throw new ArgumentNullException("otherValue");
+        throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
         return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
@@ -1265,7 +1265,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Remainder(PeterO.Numbers.ERational)"]/*'/>
     public ERational Remainder(ERational otherValue) {
       if (otherValue == null) {
-        throw new ArgumentNullException("otherValue");
+        throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
         return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
@@ -1312,7 +1312,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Subtract(PeterO.Numbers.ERational)"]/*'/>
     public ERational Subtract(ERational otherValue) {
       if (otherValue == null) {
-        throw new ArgumentNullException("otherValue");
+        throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
         return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
