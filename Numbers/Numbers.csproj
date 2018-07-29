@@ -31,7 +31,6 @@ Version 0.5
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
     <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
     <Title>Arbitrary-Precision Arithmetic Library</Title>
   </PropertyGroup>
