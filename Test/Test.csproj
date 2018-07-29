@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Test</RootNamespace>
     <AssemblyName>Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -102,45 +102,17 @@
     <EmbeddedResource Include="Resources.resx" />
   </ItemGroup>
   <ItemGroup>
-     <PackageReference Include="NUnit.Extension.NUnitV2Driver">
-       <Version>3.6.0</Version>
-     </PackageReference>
-     <PackageReference Include="NUnit.Extension.NUnitV2ResultWriter">
-       <Version>3.5.0</Version>
-     </PackageReference>
-    <PackageReference Include="NUnit.Extension.TeamCityEventListener">
-      <Version>1.0.2</Version>
-    </PackageReference>
-     <PackageReference Include="NUnit.Extension.VSProjectLoader">
-       <Version>3.5.0</Version>
-     </PackageReference>
     <PackageReference Include="NUnitTestAdapter.WithFramework">
       <Version>2.0.0</Version>
     </PackageReference>
-     <PackageReference Include="OpenCover">
-       <Version>4.6.519</Version>
-     </PackageReference>
-    <PackageReference Include="NUnit.Console">
-      <Version>3.7.0</Version>
+    <PackageReference Include="NUnit">
+      <Version>3.10.1</Version>
     </PackageReference>
-    <PackageReference Include="NUnit.ConsoleRunner">
-      <Version>3.7.0</Version>
-    </PackageReference>
-    <PackageReference Include="NUnit.Extension.NUnitProjectLoader">
-      <Version>3.6.0</Version>
-    </PackageReference>
-    <PackageReference Include="NUnit.Runners">
-      <Version>3.7.0</Version>
-    </PackageReference>
-     <PackageReference Include="ReportGenerator">
-      <Version>2.5.8</Version>
-      <Version>2.5.10</Version>
-     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Numbers\Numbers.csproj">
-      <Project>{C6EF158C-6F4B-4280-A823-44C945469E39}</Project>
-      <Name>Numbers</Name>
+    <ProjectReference Include="..\NumbersPortable\NumbersPortable.csproj">
+      <Project>{6A0445A3-B238-4271-8D80-85C67C2F41D8}</Project>
+      <Name>NumbersPortable</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
