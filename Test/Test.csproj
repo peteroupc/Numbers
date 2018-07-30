@@ -54,7 +54,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>..\..\CBOR\CBOR.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet>..\..\CBOR\CBOR.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
@@ -102,17 +101,14 @@
     <EmbeddedResource Include="Resources.resx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnitTestAdapter.WithFramework">
-      <Version>2.0.0</Version>
-    </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.10.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NumbersPortable\NumbersPortable.csproj">
-      <Project>{6A0445A3-B238-4271-8D80-85C67C2F41D8}</Project>
-      <Name>NumbersPortable</Name>
+    <ProjectReference Include="..\Numbers20\Numbers20.csproj">
+      <Project>{D7E09F55-3156-44B0-87D9-1BABCBB398D9}</Project>
+      <Name>Numbers20</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
