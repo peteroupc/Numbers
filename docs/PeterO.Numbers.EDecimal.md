@@ -999,7 +999,7 @@ Converts a  `decimal`  under the Common Language Infrastructure (see[&#x22;Forms
 
 <b>Return Value:</b>
 
-an arbitrary-precision decimal floating-point number.
+An arbitrary-precision decimal floating-point number.
 
 ### FromDouble
 
@@ -2797,7 +2797,7 @@ Creates a binary floating-point number from this object's value. Note that if th
 
 <b>Return Value:</b>
 
-an arbitrary-precision float floating-point number.
+An arbitrary-precision float floating-point number.
 
 ### ToEFloat
 
