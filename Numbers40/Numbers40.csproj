@@ -6,10 +6,10 @@
     <OutputType>Library</OutputType>
     <RootNamespace>NumbersPortable</RootNamespace>
     <AssemblyName>Numbers</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Numbers\PeterO.snk</AssemblyOriginatorKeyFile>
-    <ProjectGuid>{04A7B845-E447-4A46-ABB9-D195BDEDC735}</ProjectGuid>
+    <ProjectGuid>{D7E09F55-3156-44B0-87D9-1BABCBB398D9}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
