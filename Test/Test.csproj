@@ -106,9 +106,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Numbers20\Numbers20.csproj">
-      <Project>{D7E09F55-3156-44B0-87D9-1BABCBB398D9}</Project>
-      <Name>Numbers20</Name>
+    <ProjectReference Include="..\Numbers\Numbers.csproj">
+      <Project>{C6EF158C-6F4B-4280-A823-44C945469E39}</Project>
+      <Name>Numbers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

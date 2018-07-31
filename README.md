@@ -43,10 +43,17 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+Version 1.1.2
 
-Version 1.1.
+- Add .NET Framework 4.0 targeted assembly to avoid compiler warnings that can appear when this package is added to a project that targets .NET Framework 4.0 or later.
 
-- Add build targeting .NET Framework 2.0.
+Version 1.1.1
+
+- Numbers .NET 2.0 assembly had wrong version number.
+
+Version 1.1.0
+
+- Added build targeting .NET Framework 2.0.
 
 Version 1.0.2
 
