@@ -8,8 +8,6 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
   public sealed partial class EInteger {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromUInt64(System.UInt64)"]/*'/>

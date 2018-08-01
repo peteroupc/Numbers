@@ -2,8 +2,8 @@
 
     public sealed class ETrapException :
         System.ArithmeticException,
-        System.Runtime.Serialization.ISerializable,
-        System.Runtime.InteropServices._Exception
+        System.Runtime.InteropServices._Exception,
+        System.Runtime.Serialization.ISerializable
 
 Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
 
@@ -18,12 +18,12 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
 
 <b>Parameters:</b>
 
- * <i>flag</i>: A flag that specifies the kind of error ( `EContext.FlagXXYY`  ). This will only be one flag, such as `FlagInexact`  or FlagSubnormal.
+ * <i>flag</i>: A flag that specifies the kind of error ( `EContext.FlagXXYY` ). This will only be one flag, such as `FlagInexact` or FlagSubnormal.
 
  * <i>ctx</i>: A context object for arbitrary-precision arithmetic settings.
 
- * <i>result</i>: The parameter  <i>result</i>
- is an arbitrary object.
+ * <i>result</i>: The parameter <i>result</i>
+is an arbitrary object.
 
 ### Context
 
@@ -39,11 +39,11 @@ The arithmetic context used during the operation that triggered the trap. May be
 
     public int Error { get; }
 
-Gets the flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as `FlagInexact`  or FlagSubnormal.
+Gets the flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as `FlagInexact` or FlagSubnormal.
 
 <b>Returns:</b>
 
-The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as. `FlagInexact`  or FlagSubnormal.
+The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as. `FlagInexact` or FlagSubnormal.
 
 ### Result
 
