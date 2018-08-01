@@ -197,7 +197,6 @@ namespace PeterO.Numbers {
     // TODO: Improve API's immutability (make all
     // fields except flags and traps readonly/final)
     // and include a construtor setting all fields
-
     private bool adjustExponent;
 
     private EInteger bigintPrecision;

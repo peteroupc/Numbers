@@ -1,10 +1,10 @@
 ## PeterO.Numbers.ERational
 
     public sealed class ERational :
-        System.IEquatable,
-        System.IComparable
+        System.IComparable,
+        System.IEquatable
 
-Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
+Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b>Instances of this class are immutable, so they are inherently safe for se by multiple threads. Multiple instances of this object with the same roperties are interchangeable, so they should not be compared using the ==" operator (which might only check if each side of the operator is he same instance).
 
 ### ERational Constructor
 
@@ -18,16 +18,13 @@ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERat
 
 <b>Parameters:</b>
 
- * <i>numerator</i>: The numerator.
+ * <i>numerator</i>: The parameter  <i>numerator</i>
+ is not documented yet.
 
- * <i>denominator</i>: The denominator.
+ * <i>denominator</i>: The parameter  <i>denominator</i>
+ is not documented yet.
 
 <b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>numerator</i>
- or  <i>denominator</i>
- is null.
 
  * System.ArgumentException:
 The denominator is zero.
@@ -98,7 +95,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true`  if this object is finite (not infinity or not-a-number (NaN)); otherwise,  `false` .
+ `true`  if this object is finite (not infinity or NaN); otherwise,  `false` .
 
 ### IsNegative
 
@@ -108,7 +105,7 @@ Gets a value indicating whether this object's value is negative (including negat
 
 <b>Returns:</b>
 
- `true`  if this object's value is negative; otherwise,  `false` .
+ `true`  if this object's value is negative (including negative zero); otherwise,  `false` .  `true`  if this object's value is negative; otherwise,  `false` .
 
 ### IsZero
 
@@ -118,7 +115,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise, .  `false` .
+ `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object's value equals 0; otherwise, .  `false` .
 
 ### Numerator
 
@@ -138,7 +135,7 @@ Gets the sign of this rational number.
 
 <b>Returns:</b>
 
-Zero if this value is zero or negative zero; -1 if this value is less than 0; and 1 if this value is greater than 0.
+The sign of this rational number.
 
 ### UnsignedNumerator
 
@@ -158,7 +155,7 @@ Returns the absolute value of this rational number, that is, a number with the s
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+An arbitrary-precision binary rational number.
 
 ### Add
 
@@ -169,7 +166,8 @@ Adds two rational numbers.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: Another arbitrary-precision rational number.
+ * <i>otherValue</i>: The parameter <i>otherValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -178,8 +176,7 @@ The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### CompareTo
 
@@ -190,11 +187,17 @@ Compares an arbitrary-precision rational number with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision rational number.
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
 
 ### CompareToBinary
 
@@ -205,11 +208,17 @@ Compares an arbitrary-precision binary float with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision binary float.
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
 
 ### CompareToDecimal
 
@@ -220,11 +229,17 @@ Compares an arbitrary-precision decimal number with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision decimal number.
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
 
 ### CompareToTotal
 
@@ -247,7 +262,8 @@ Compares the values of this object and another object, imposing a total ordering
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision rational number to compare with this one.
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -272,7 +288,8 @@ Compares the absolute values of this object and another object, imposing a total
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision rational number to compare with this one.
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -287,7 +304,8 @@ Returns a number with the same value as this one, but copying the sign (positive
 
 <b>Parameters:</b>
 
- * <i>other</i>: A number whose sign will be copied.
+ * <i>other</i>: The parameter <i>other</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -296,8 +314,7 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>other</i>
- is null.
+The parameter "other" is null.
 
 ### Create
 
@@ -309,13 +326,15 @@ Creates a rational number with the given numerator and denominator.
 
 <b>Parameters:</b>
 
- * <i>numeratorSmall</i>: The numerator.
+ * <i>numeratorSmall</i>: The parameter  <i>numeratorSmall</i>
+ is not documented yet.
 
- * <i>denominatorSmall</i>: The denominator.
+ * <i>denominatorSmall</i>: The parameter  <i>denominatorSmall</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+An arbitrary-precision binary rational number.
 
 <b>Exceptions:</b>
 
@@ -332,13 +351,15 @@ Creates a rational number with the given numerator and denominator.
 
 <b>Parameters:</b>
 
- * <i>numerator</i>: The numerator.
+ * <i>numerator</i>: The parameter  <i>numerator</i>
+ is not documented yet.
 
- * <i>denominator</i>: The denominator.
+ * <i>denominator</i>: The parameter  <i>denominator</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+An arbitrary-precision binary rational number.
 
 <b>Exceptions:</b>
 
@@ -354,7 +375,8 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
+ * <i>diag</i>: The parameter <i>diag</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -362,13 +384,8 @@ An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
- * System.ArgumentNullException:
-The parameter <i>diag</i>
- is null.
-
  * System.ArgumentException:
-The parameter <i>diag</i>
- is less than 0.
+The parameter "diag" is less than 0.
 
 ### CreateNaN
 
@@ -381,11 +398,14 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
+ * <i>diag</i>: The parameter <i>diag</i>
+is not documented yet.
 
- * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
+ * <i>signaling</i>: The parameter <i>signaling</i>
+is not documented yet.
 
- * <i>negative</i>: Whether the return value is negative.
+ * <i>negative</i>: The parameter <i>negative</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -393,13 +413,11 @@ An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
- * System.ArgumentNullException:
-The parameter <i>diag</i>
- is null.
-
  * System.ArgumentException:
-The parameter <i>diag</i>
- is less than 0.
+The parameter "diag" is less than 0.
+
+ * System.ArgumentNullException:
+The parameter "diag" is null.
 
 ### Divide
 
@@ -410,7 +428,8 @@ Divides this instance by the value of an arbitrary-precision rational number obj
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>otherValue</i>: The parameter <i>otherValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -419,8 +438,7 @@ The quotient of the two objects.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Equals
 
@@ -432,7 +450,7 @@ Determines whether this object's numerator, denominator, and properties are equa
 <b>Parameters:</b>
 
  * <i>obj</i>: The parameter  <i>obj</i>
- is an arbitrary object.
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -447,7 +465,8 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision rational number to compare to.
+ * <i>other</i>: The parameter  <i>other</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -462,7 +481,8 @@ Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
+ * <i>inputByte</i>: The parameter  <i>inputByte</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -473,11 +493,11 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromDecimal(
         System.Decimal eint);
 
-Converts a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal) to a rational number.
+Converts a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal) to a rational number.
 
 <b>Parameters:</b>
 
- * <i>eint</i>: The number to convert as a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+ * <i>eint</i>: The number to convert as a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
 
 <b>Return Value:</b>
 
@@ -492,13 +512,12 @@ Converts a 64-bit floating-point number to a rational number. This method comput
 
 <b>Parameters:</b>
 
- * <i>flt</i>: The parameter  <i>flt</i>
- is a 64-bit floating-point number.
+ * <i>flt</i>: The parameter <i>flt</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
-A rational number with the same value as  <i>flt</i>
-.
+A rational number with the same value as "flt".
 
 ### FromEDecimal
 
@@ -509,7 +528,8 @@ Converts an arbitrary-precision decimal number to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The number to convert as an arbitrary-precision decimal number.
+ * <i>ef</i>: The parameter <i>ef</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -518,8 +538,7 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>ef</i>
- is null.
+The parameter "ef" is null.
 
 ### FromEFloat
 
@@ -530,7 +549,8 @@ Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
+ * <i>ef</i>: The parameter <i>ef</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -539,8 +559,7 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>ef</i>
- is null.
+The parameter "ef" is null.
 
 ### FromEInteger
 
@@ -551,7 +570,8 @@ Converts an arbitrary-precision integer to a rational number.
 
 <b>Parameters:</b>
 
- * <i>bigint</i>: The number to convert as an arbitrary-precision integer.
+ * <i>bigint</i>: The parameter  <i>bigint</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -568,17 +588,12 @@ Converts an arbitrary-precision decimal number to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The number to convert as an arbitrary-precision decimal number.
+ * <i>ef</i>: The parameter  <i>ef</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
 An arbitrary-precision rational number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>ef</i>
- is null.
 
 ### FromExtendedFloat
 
@@ -591,17 +606,12 @@ Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
+ * <i>ef</i>: The parameter  <i>ef</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
 An arbitrary-precision rational number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>ef</i>
- is null.
 
 ### FromInt16
 
@@ -612,7 +622,8 @@ Converts a 16-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
+ * <i>inputInt16</i>: The parameter  <i>inputInt16</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -627,7 +638,8 @@ Converts a 32-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputInt32</i>: The number to convert as a 32-bit signed integer.
+ * <i>inputInt32</i>: The parameter  <i>inputInt32</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -642,7 +654,8 @@ Converts a 64-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputInt64</i>: The number to convert as a 64-bit signed integer.
+ * <i>inputInt64</i>: The parameter  <i>inputInt64</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -672,24 +685,24 @@ Converts a 32-bit binary floating-point number to a rational number. This method
 
 <b>Parameters:</b>
 
- * <i>flt</i>: The parameter  <i>flt</i>
- is a 32-bit binary floating-point number.
+ * <i>flt</i>: The parameter <i>flt</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
-A rational number with the same value as  <i>flt</i>
-.
+A rational number with the same value as "flt".
 
 ### FromString
 
     public static PeterO.Numbers.ERational FromString(
         string str);
 
-Creates a rational number from a text string that represents a number. See  `FromString(String, int, int)`  for more information.
+Creates a rational number from a text string that represents a number. See `FromString(String, int, int)` for more information.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A string that represents a number.
+ * <i>str</i>: The parameter <i>str</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -697,13 +710,8 @@ An arbitrary-precision rational number with the same value as the given string.
 
 <b>Exceptions:</b>
 
- * System.ArgumentNullException:
-The parameter <i>str</i>
- is null.
-
  * System.FormatException:
-The parameter  <i>str</i>
- is not a correctly formatted number string.
+The parameter "str" is not a correctly formatted number string.
 
 ### FromString
 
@@ -728,11 +736,15 @@ All characters mentioned above are the corresponding characters in the Basic Lat
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string, a portion of which represents a number.
+ * <i>str</i>: The parameter <i>str</i>
+is not documented yet.
 
- * <i>offset</i>: A zero-based index that identifies the start of the number.
+ * <i>offset</i>: A zero-based index showing where the desired portion of <i>str</i>
+begins.
 
- * <i>length</i>: The length of the number within the string.
+ * <i>length</i>: The length, in code units, of the desired portion of <i>str</i>
+(but not more than <i>str</i>
+'s length).
 
 <b>Return Value:</b>
 
@@ -740,13 +752,11 @@ An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
- * System.ArgumentNullException:
-The parameter <i>str</i>
- is null.
-
  * System.FormatException:
-The parameter  <i>str</i>
- is not a correctly formatted number string.
+The parameter "str" is not a correctly formatted number string.
+
+ * System.ArgumentNullException:
+The parameter "str" is null.
 
 ### FromUInt16
 
@@ -801,7 +811,7 @@ Returns the hash code for this instance. No application or process IDs are used 
 
 <b>Return Value:</b>
 
-A 32-bit hash code.
+A 32-bit signed integer.
 
 ### IsInfinity
 
@@ -872,7 +882,8 @@ Multiplies this instance by the value of an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>otherValue</i>: The parameter <i>otherValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -881,8 +892,7 @@ The product of the two numbers.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Negate
 
@@ -892,7 +902,7 @@ Returns a rational number with the same value as this one but with the sign reve
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+An arbitrary-precision binary rational number.
 
 ### Operator `+`
 
@@ -1028,7 +1038,7 @@ An arbitrary-precision rational number.
 
  * System.ArgumentNullException:
 The parameter <i>bigValue</i>
- is null.
+is null.
 
 ### Remainder
 
@@ -1039,7 +1049,8 @@ Finds the remainder that results when this instance is divided by the value of a
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>otherValue</i>: The parameter <i>otherValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1048,8 +1059,7 @@ The remainder of the two numbers.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### Subtract
 
@@ -1060,7 +1070,8 @@ Subtracts an arbitrary-precision rational number from this instance.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision rational number.
+ * <i>otherValue</i>: The parameter <i>otherValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1069,8 +1080,7 @@ The difference of the two objects.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>otherValue</i>
- is null.
+The parameter "otherValue" is null.
 
 ### ToByteChecked
 
@@ -1080,7 +1090,7 @@ Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (
 
 <b>Return Value:</b>
 
-This number's value, truncated to a byte (from 0 to 255).
+A byte (from 0 to 255).
 
 <b>Exceptions:</b>
 
@@ -1095,7 +1105,7 @@ Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (
 
 <b>Return Value:</b>
 
-This number's value as a byte (from 0 to 255).
+A byte (from 0 to 255).
 
 <b>Exceptions:</b>
 
@@ -1110,17 +1120,17 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-This number, converted to a byte (from 0 to 255). Returns 0 if this value is infinity or not-a-number.
+A byte (from 0 to 255).
 
 ### ToDecimal
 
     public System.Decimal ToDecimal();
 
-Converts this value to a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal). Currently, converts this value to the precision and range of a .NET Framework decimal.
+Converts this value to a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal). Currently, converts this value to the precision and range of a NET Framework decimal.
 
 <b>Return Value:</b>
 
-A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+A `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
 
 ### ToDouble
 
@@ -1130,7 +1140,7 @@ Converts this value to a 64-bit floating-point number. The half-even rounding mo
 
 <b>Return Value:</b>
 
-The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+A 64-bit floating-point number.
 
 ### ToEDecimal
 
@@ -1141,7 +1151,8 @@ Converts this rational number to a decimal number and rounds the result to the g
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1155,7 +1166,7 @@ Converts this rational number to a decimal number.
 
 <b>Return Value:</b>
 
-The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating decimal expansion.
+An EDecimal object.
 
 ### ToEDecimalExactIfPossible
 
@@ -1166,11 +1177,12 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating decimal expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
+The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
 
 ### ToEFloat
 
@@ -1181,7 +1193,8 @@ Converts this rational number to a binary float and rounds that result to the gi
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1195,7 +1208,7 @@ Converts this rational number to a binary float.
 
 <b>Return Value:</b>
 
-The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating binary expansion.
+An arbitrary-precision binary floating-point number.
 
 ### ToEFloatExactIfPossible
 
@@ -1206,11 +1219,12 @@ Converts this rational number to a binary float, but if the result would have a 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating binary expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
+The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
 
 ### ToEInteger
 
@@ -1244,9 +1258,6 @@ An arbitrary-precision integer.
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
 
- * System.ArithmeticException:
-This object's value is not an exact integer.
-
 ### ToEIntegerIfExact
 
     public PeterO.Numbers.EInteger ToEIntegerIfExact();
@@ -1262,9 +1273,6 @@ An arbitrary-precision integer.
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
 
- * System.ArithmeticException:
-This object's value is not an exact integer.
-
 ### ToExtendedDecimal
 
     public PeterO.Numbers.EDecimal ToExtendedDecimal(
@@ -1276,7 +1284,8 @@ Converts this rational number to a decimal number and rounds the result to the g
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1292,7 +1301,7 @@ Converts this rational number to a decimal number.
 
 <b>Return Value:</b>
 
-The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating decimal expansion.
+An EDecimal object.
 
 ### ToExtendedDecimalExactIfPossible
 
@@ -1305,11 +1314,12 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating decimal expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
+The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating decimal expansion.
 
 ### ToExtendedFloat
 
@@ -1322,7 +1332,8 @@ Converts this rational number to a binary float and rounds that result to the gi
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1338,7 +1349,7 @@ Converts this rational number to a binary float.
 
 <b>Return Value:</b>
 
-The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating binary expansion.
+An arbitrary-precision binary floating-point number.
 
 ### ToExtendedFloatExactIfPossible
 
@@ -1351,11 +1362,12 @@ Converts this rational number to a binary float, but if the result would have a 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating binary expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-The exact value of the rational number if possible; otherwise,the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
+The exact value of the rational number if possible; otherwise, the rounded version of the result if a context is given. Returns not-a-number (NaN) if the context is null and the result can't be exact because it has a nonterminating binary expansion.
 
 ### ToInt16Checked
 
@@ -1365,7 +1377,7 @@ Converts this number's value to a 16-bit signed integer if it can fit in a 16-bi
 
 <b>Return Value:</b>
 
-This number's value, truncated to a 16-bit signed integer.
+A 16-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1380,7 +1392,7 @@ Converts this number's value to a 16-bit signed integer if it can fit in a 16-bi
 
 <b>Return Value:</b>
 
-This number's value as a 16-bit signed integer.
+A 16-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1395,7 +1407,7 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-This number, converted to a 16-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+A 16-bit signed integer.
 
 ### ToInt32Checked
 
@@ -1405,7 +1417,7 @@ Converts this number's value to a 32-bit signed integer if it can fit in a 32-bi
 
 <b>Return Value:</b>
 
-This number's value, truncated to a 32-bit signed integer.
+A 32-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1420,7 +1432,7 @@ Converts this number's value to a 32-bit signed integer if it can fit in a 32-bi
 
 <b>Return Value:</b>
 
-This number's value as a 32-bit signed integer.
+A 32-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1435,7 +1447,7 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+A 32-bit signed integer.
 
 ### ToInt64Checked
 
@@ -1445,7 +1457,7 @@ Converts this number's value to a 64-bit signed integer if it can fit in a 64-bi
 
 <b>Return Value:</b>
 
-This number's value, truncated to a 64-bit signed integer.
+A 64-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1460,7 +1472,7 @@ Converts this number's value to a 64-bit signed integer if it can fit in a 64-bi
 
 <b>Return Value:</b>
 
-This number's value as a 64-bit signed integer.
+A 64-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1475,7 +1487,7 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-This number, converted to a 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
+A 64-bit signed integer.
 
 ### ToSByteChecked
 
@@ -1525,7 +1537,7 @@ Converts this value to a 32-bit binary floating-point number. The half-even roun
 
 <b>Return Value:</b>
 
-The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+A 32-bit floating-point number.
 
 ### ToString
 
@@ -1535,7 +1547,7 @@ Converts this object to a text string.
 
 <b>Return Value:</b>
 
-A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString`  method. Otherwise, the return value has the following form: `[-]numerator/denominator` .
+A text string.
 
 ### ToUInt16Checked
 
