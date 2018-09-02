@@ -7052,7 +7052,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_LessThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-            <summary>Determines whether an arbitrary-precision integer is less than or equal to
+            <summary>Determines whether an arbitrary-precision integer is up to
       another arbitrary-precision integer.
     </summary><param name='thisValue'>The first arbitrary-precision integer.
     </param><param name='otherValue'>The second arbitrary-precision integer.
