@@ -5991,6 +5991,12 @@
             <paramref name='bigintAugend'/> is null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Add(System.Int32)">
+
+            <summary>Adds this object and another object.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is a 32-bit signed integer.</param><returns>The sum of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='bigintAugend'/> is null.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
             <summary>Does an AND operation between two arbitrary-precision integer values.
@@ -6068,6 +6074,14 @@
             greater.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.CompareTo(System.Int32)">
+
+            <summary>Compares an arbitrary-precision integer with this
+            instance.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is a 32-bit signed integer.</param><returns>Zero if the values are equal; a negative number if this
+            instance is less, or a positive number if this instance is
+            greater.</returns>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)">
 
             <summary>Divides this object by another arbitrary-precision integer
@@ -6102,6 +6116,18 @@
             be negative if this object is positive and the other is negative,
             or vice versa, and will be positive if both are positive or both
             are negative.</summary><param name='bigintDivisor'>The parameter <paramref name='bigintDivisor'/> is not documented yet.</param><returns>The quotient of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='bigintDivisor'/> is null.</exception><exception cref='T:System.DivideByZeroException'>Attempted to
+            divide by zero.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Divide(System.Int32)">
+
+            <summary>Divides this instance by the value of an
+            arbitrary-precision integer. The result is rounded down (the
+            fractional part is discarded). Except if the result is 0, it will
+            be negative if this object is positive and the other is negative,
+            or vice versa, and will be positive if both are positive or both
+            are negative.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is a 32-bit signed integer.</param><returns>The quotient of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='bigintDivisor'/> is null.</exception><exception cref='T:System.DivideByZeroException'>Attempted to
             divide by zero.</exception>
 
@@ -6394,6 +6420,13 @@
             <paramref name='bigintMult'/> is null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)">
+
+            <summary>Multiplies this instance by the value of an
+            arbitrary-precision integer object.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is a 32-bit signed integer.</param><returns>The product of the two numbers.</returns><exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='bigintMult'/> is null.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Negate">
 
             <summary>Gets the value of this object with the sign
@@ -6479,6 +6512,18 @@
             <paramref name='divisor'/> is null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Remainder(System.Int32)">
+
+            <summary>Finds the remainder that results when this instance is
+            divided by the value of an arbitrary-precision integer. The
+            remainder is the value that remains when the absolute value of this
+            object is divided by the absolute value of the other object; the
+            remainder has the same sign (positive or negative) as this
+            object.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is a 32-bit signed integer.</param><returns>The remainder of the two numbers.</returns><exception cref='T:System.DivideByZeroException'>Attempted to
+            divide by zero.</exception><exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='divisor'/> is null.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)">
 
             <summary>Returns an arbitrary-precision integer with the bits
@@ -6517,6 +6562,13 @@
 
             <summary>Subtracts an arbitrary-precision integer from this
             arbitrary-precision integer.</summary><param name='subtrahend'>The parameter <paramref name='subtrahend'/> is not documented yet.</param><returns>The difference of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter
+            <paramref name='subtrahend'/> is null.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)">
+
+            <summary>Subtracts an arbitrary-precision integer from this
+            arbitrary-precision integer.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is a 32-bit signed integer.</param><returns>The difference of the two objects.</returns><exception cref='T:System.ArgumentNullException'>The parameter
             <paramref name='subtrahend'/> is null.</exception>
 
 </doc>

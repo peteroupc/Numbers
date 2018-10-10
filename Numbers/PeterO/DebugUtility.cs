@@ -1,11 +1,11 @@
 /*
-Written by Peter O. in 2014.
+Written by Peter O. in 2014-2018.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
 at: http://peteroupc.github.io/
  */
-#if DEBUG
+ #if DEBUG
 using System;
 using System.Reflection;
 
@@ -15,25 +15,22 @@ namespace PeterO {
       Type t,
       string name,
       Type[] parameters) {
-#if NET40
+#if NET40 || NET20
       return t.GetMethod(name, parameters);
 #else
 {
-        return t.GetRuntimeMethod(name, parameters);
-      }
+        return t?.GetRuntimeMethod(name, parameters);
+}
 #endif
     }
 
     public static void Log(string str) {
       Type type = Type.GetType("System.Console");
       var types = new[] { typeof(string) };
-      GetTypeMethod(type, "WriteLine", types).Invoke(
+      var typeMethod = GetTypeMethod(type, "WriteLine", types);
+      if (typeMethod != null)typeMethod.Invoke(
         type,
         new object[] { str });
-    }
-
-    public static void Log(object obj) {
-      Log(String.Empty + obj);
     }
 
     public static void Log(string format, params object[] args) {

@@ -410,6 +410,33 @@ namespace Test {
   "TestAddSubtract " + bigintA + "; " + bigintB);
         }
       }
+      for (var i = 0; i < 10000; ++i) {
+        EInteger bigintA = RandomBigInteger(r);
+        int smallIntB = r.UniformInt(0x7fffffff);
+        EInteger bigintC = bigintA.Add(smallIntB);
+        EInteger bigintD = bigintC.Subtract(smallIntB);
+        if (!bigintD.Equals(bigintA)) {
+          Assert.AreEqual(
+  bigintA,
+  bigintD,
+  "TestAddSubtract " + bigintA + "; " + smallIntB);
+        }
+        bigintD = bigintC - (EInteger)bigintA;
+        if (!bigintD.Equals(EInteger.FromInt32(smallIntB))) {
+          Assert.AreEqual(
+  EInteger.FromInt32(smallIntB),
+  bigintD,
+  "TestAddSubtract " + bigintA + "; " + smallIntB);
+        }
+        bigintC = bigintA.Subtract(smallIntB);
+        bigintD = bigintC.Add(smallIntB);
+        if (!bigintD.Equals(bigintA)) {
+          Assert.AreEqual(
+  bigintA,
+  bigintD,
+  "TestAddSubtract " + bigintA + "; " + smallIntB);
+        }
+      }
     }
 
     [Test]
