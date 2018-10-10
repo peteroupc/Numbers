@@ -960,6 +960,42 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(System.Int32)"]/*'/>
+public EInteger Add(int intValue) {
+ return this.Add(EInteger.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
+public EInteger Subtract(int intValue) {
+ return this.Subtract(EInteger.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)"]/*'/>
+public EInteger Multiply(int intValue) {
+ return this.Multiply(EInteger.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(System.Int32)"]/*'/>
+public EInteger Divide(int intValue) {
+ return this.Divide(EInteger.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(System.Int32)"]/*'/>
+public EInteger Remainder(int intValue) {
+ return this.Remainder(EInteger.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(System.Int32)"]/*'/>
+public int CompareTo(int intValue) {
+ return this.CompareTo(EInteger.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
