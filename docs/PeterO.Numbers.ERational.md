@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b>Instances of this class are immutable, so they are inherently safe for se by multiple threads. Multiple instances of this object with the same roperties are interchangeable, so they should not be compared using the ==" operator (which might only check if each side of the operator is he same instance).
+Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
 
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
@@ -24,7 +24,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[Equals(PeterO.Numbers.ERational)](#Equals_PeterO_Numbers_ERational)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object and that other object is an arbitrary-precision rational number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
-* <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts adecimalunder the Common Language Infrastructure (usually a .
+* <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts a decimal under the Common Language Infrastructure (usually a .
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Converts a 64-bit floating-point number to a rational number.
 * <code>[FromEDecimal(PeterO.Numbers.EDecimal)](#FromEDecimal_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a rational number.
 * <code>[FromEFloat(PeterO.Numbers.EFloat)](#FromEFloat_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary float to a rational number.
@@ -67,7 +67,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
 * <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
-* <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to adecimalunder the Common Language Infrastructure (usually a .
+* <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to a decimal under the Common Language Infrastructure (usually a .
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to a 64-bit floating-point number.
 * <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this rational number to a decimal number.
 * <code>[ToEDecimalExactIfPossible(PeterO.Numbers.EContext)](#ToEDecimalExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
@@ -130,7 +130,7 @@ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERat
 <b>Parameters:</b>
 
  * <i>numerator</i>: The parameter  <i>numerator</i>
- is not documented yet.
+is not documented yet.
 
  * <i>denominator</i>: The parameter  <i>denominator</i>
  is not documented yet.
@@ -205,7 +205,7 @@ Gets this object's denominator.
 
 <b>Returns:</b>
 
-This object's denominator.
+This object' s denominator.
 
 <a id="IsFinite"></a>
 ### IsFinite
@@ -238,7 +238,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object's value equals 0; otherwise, .  `false` .
+ `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object' s value equals 0; otherwise, .  `false` .
 
 <a id="Numerator"></a>
 ### Numerator
@@ -249,7 +249,7 @@ Gets this object's numerator.
 
 <b>Returns:</b>
 
-This object's numerator. If this object is a not-a-number value, returns the diagnostic information (which will be negative if this object is negative).
+This object' s numerator. If this object is a not-a-number value, returns the diagnostic information (which will be negative if this object is negative).
 
 <a id="Sign"></a>
 ### Sign
@@ -488,7 +488,7 @@ Creates a rational number with the given numerator and denominator.
 <b>Parameters:</b>
 
  * <i>numerator</i>: The parameter  <i>numerator</i>
- is not documented yet.
+is not documented yet.
 
  * <i>denominator</i>: The parameter  <i>denominator</i>
  is not documented yet.
@@ -624,7 +624,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
 <b>Parameters:</b>
 
  * <i>inputByte</i>: The parameter  <i>inputByte</i>
- is not documented yet.
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -636,11 +636,11 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromDecimal(
         System.Decimal eint);
 
-Converts a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal) to a rational number.
+Converts a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal) to a rational number.
 
 <b>Parameters:</b>
 
- * <i>eint</i>: The number to convert as a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
+ * <i>eint</i>: The number to convert as a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <b>Return Value:</b>
 
@@ -1212,7 +1212,7 @@ An arbitrary-precision rational number.
 
  * System.ArgumentNullException:
 The parameter <i>bigValue</i>
-is null.
+ is null.
 
 <a id="Remainder_PeterO_Numbers_ERational"></a>
 ### Remainder
@@ -1306,11 +1306,11 @@ A byte (from 0 to 255).
 
     public System.Decimal ToDecimal();
 
-Converts this value to a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal). Currently, converts this value to the precision and range of a NET Framework decimal.
+Converts this value to a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal). Currently, converts this value to the precision and range of a .NET Framework decimal.
 
 <b>Return Value:</b>
 
-A `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
+A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <a id="ToDouble"></a>
 ### ToDouble

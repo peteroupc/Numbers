@@ -130,7 +130,7 @@ Gets a value indicating whether this object's value is a power of two.
 
 <b>Returns:</b>
 
- `true`  if this object's value is a power of two; otherwise,  `false` .  `true`  if this object's value is a power of two; otherwise,  `false` .
+ `true`  if this object's value is a power of two; otherwise,  `false` .  `true`  if this object' s value is a power of two; otherwise,  `false` .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -163,7 +163,7 @@ Gets the sign of this object's value.
 
 <b>Returns:</b>
 
-The sign of this object's value.
+The sign of this object' s value.
 
 <a id="Ten"></a>
 ### Ten
@@ -253,9 +253,7 @@ The parameter <i>bigintAugend</i>
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[
-        &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -271,8 +269,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
-or <i>b</i>
-is null.
+ or  <i>b</i>
+ is null.
 
 <a id="AsInt32Checked"></a>
 ### AsInt32Checked
@@ -289,8 +287,8 @@ A 32-bit signed integer.
 
 <b>Exceptions:</b>
 
- * System.OverflowException:
-This object's value is too big to fit a 32-bit signed integer.
+ *  T:System.OverflowException:
+This object' s value is too big to fit a 32-bit signed integer.
 
 <a id="AsInt32Unchecked"></a>
 ### AsInt32Unchecked
@@ -320,8 +318,8 @@ A 64-bit signed integer.
 
 <b>Exceptions:</b>
 
- * System.OverflowException:
-This object's value is too big to fit a 64-bit signed integer.
+ *  T:System.OverflowException:
+This object' s value is too big to fit a 64-bit signed integer.
 
 <a id="AsInt64Unchecked"></a>
 ### AsInt64Unchecked
@@ -500,7 +498,7 @@ Determines whether this object and another object are equal.
 
 <b>Return Value:</b>
 
- `true` if this object and another object are equal; otherwise,  `false` .
+ `true`  if this object and another object are equal; otherwise,  `false` .
 
 <a id="FromByte_byte"></a>
 ### FromByte
@@ -513,7 +511,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 <b>Parameters:</b>
 
  * <i>inputByte</i>: The parameter  <i>inputByte</i>
- is not documented yet.
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -792,8 +790,8 @@ Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-The value of <i>ulongValue</i>
-as an arbitrary-precision integer.
+The value of  <i>ulongValue</i>
+ as an arbitrary-precision integer.
 
 <a id="Gcd_PeterO_Numbers_EInteger"></a>
 ### Gcd
@@ -892,11 +890,11 @@ Returns whether a bit is set in the two's-complement form (see[&#x22;Forms of nu
 <b>Parameters:</b>
 
  * <i>index</i>: The parameter  <i>index</i>
- is not documented yet.
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in the two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value; otherwise,  `false` .
+ `true`  if a bit is set in the two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value; otherwise,  `false` .
 
 <a id="GetSignedBitLength"></a>
 ### GetSignedBitLength
@@ -1018,16 +1016,16 @@ Calculates the remainder when an arbitrary-precision integer raised to a certain
 
 <b>Return Value:</b>
 
-The value ( <i>bigintValue</i>
-^ <i>pow</i>
-)% <i>mod</i>
+The value (  <i>bigintValue</i>
+ ^  <i>pow</i>
+ )%  <i>mod</i>
 .
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>bigintValue</i>
-is null.
+ is null.
 
 <a id="Multiply_int"></a>
 ### Multiply
@@ -1106,7 +1104,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>valueA</i>
-is null.
+ is null.
 
 <a id="op_Addition"></a>
 ### Operator `+`
@@ -1131,7 +1129,7 @@ The sum of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
-is null.
+ is null.
 
 <a id="op_BitwiseAnd"></a>
 ### Operator `&`
@@ -1142,9 +1140,7 @@ is null.
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[
-        &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1170,9 +1166,7 @@ The parameter "a" or "b" is null.
 
 Does an OR operation between two arbitrary-precision integer instances.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[
-        &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1212,7 +1206,7 @@ The quotient of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
-is null.
+ is null.
 
 <a id="op_ExclusiveOr"></a>
 ### Operator `^`
@@ -1221,9 +1215,7 @@ is null.
         PeterO.Numbers.EInteger a,
         PeterO.Numbers.EInteger b);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
-          &#x22;Forms of numbers&#x22;
-        ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1239,8 +1231,8 @@ An arbitrary-precision integer in which each bit is set if it's set in one input
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
-or <i>b</i>
-is null.
+ or  <i>b</i>
+ is null.
 
 <a id="op_GreaterThan"></a>
 ### Operator `>`
@@ -1259,9 +1251,9 @@ Determines whether an arbitrary-precision integer is greater than another arbitr
 
 <b>Return Value:</b>
 
- `true` if <i>thisValue</i>
-is greater than <i>otherValue</i>
-; otherwise,  `false` .
+ `true`  if  <i>thisValue</i>
+ is greater than  <i>otherValue</i>
+ ; otherwise,  `false` .
 
 <a id="op_GreaterThanOrEqual"></a>
 ### Operator `>=`
@@ -1280,9 +1272,9 @@ Determines whether an arbitrary-precision integer value is greater than another 
 
 <b>Return Value:</b>
 
- `true` if <i>thisValue</i>
-is at least <i>otherValue</i>
-; otherwise,  `false` .
+ `true`  if  <i>thisValue</i>
+ is at least <i>otherValue</i>
+ ; otherwise,  `false` .
 
 <a id="op_LeftShift"></a>
 ### Operator `<<`
@@ -1307,7 +1299,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
-is null.
+ is null.
 
 <a id="op_LessThan"></a>
 ### Operator `<`
@@ -1326,9 +1318,9 @@ Determines whether an arbitrary-precision integer is less than another arbitrary
 
 <b>Return Value:</b>
 
- `true` if <i>thisValue</i>
-is less than <i>otherValue</i>
-; otherwise,  `false` .
+ `true`  if  <i>thisValue</i>
+ is less than <i>otherValue</i>
+ ; otherwise,  `false` .
 
 <a id="op_LessThanOrEqual"></a>
 ### Operator `<=`
@@ -1347,9 +1339,9 @@ Determines whether an arbitrary-precision integer is up to another arbitrary-pre
 
 <b>Return Value:</b>
 
- `true` if <i>thisValue</i>
-is up to <i>otherValue</i>
-; otherwise,  `false` .
+ `true`  if  <i>thisValue</i>
+ is up to <i>otherValue</i>
+ ; otherwise,  `false` .
 
 <a id="op_Modulus"></a>
 ### Operator `%`
@@ -1374,7 +1366,7 @@ The remainder of the two numbers.
 
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
-is null.
+ is null.
 
 <a id="op_Multiply"></a>
 ### Operator `*`
@@ -1399,7 +1391,7 @@ The product of the two numbers.
 
  * System.ArgumentNullException:
 The parameter <i>operand1</i>
-is null.
+ is null.
 
 <a id="op_OnesComplement"></a>
 ### Operator `~`
@@ -1421,7 +1413,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>thisValue</i>
-is null.
+ is null.
 
 <a id="op_RightShift"></a>
 ### Operator `>>`
@@ -1432,16 +1424,14 @@ is null.
 
 Shifts the bits of an arbitrary-precision integer to the right.
 
-For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[
-        &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)). Thus, for negative values, the arbitrary-precision integer is ign-extended.
+For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ). Thus, for negative values, the arbitrary-precision integer is sign-extended.
 
 <b>Parameters:</b>
 
  * <i>bthis</i>: Another arbitrary-precision integer.
 
- * <i>smallValue</i>: The parameter <i>smallValue</i>
-is a 32-bit signed integer.
+ * <i>smallValue</i>: The parameter  <i>smallValue</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1451,7 +1441,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
-is null.
+ is null.
 
 <a id="op_Subtraction"></a>
 ### Operator `-`
@@ -1476,7 +1466,7 @@ The difference of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
-is null.
+ is null.
 
 <a id="op_UnaryNegation"></a>
 ### Operator `-`
@@ -1498,7 +1488,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>bigValue</i>
-is null.
+ is null.
 
 <a id="Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Or
@@ -1509,9 +1499,7 @@ is null.
 
 Does an OR operation between two arbitrary-precision integer instances.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[
-        &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1527,8 +1515,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>first</i>
-or <i>second</i>
-is null.
+ or  <i>second</i>
+ is null.
 
 <a id="Pow_int"></a>
 ### Pow
@@ -1753,8 +1741,7 @@ Returns a byte array of this integer's value. The byte array will take the numbe
 
 <b>Parameters:</b>
 
- * <i>littleEndian</i>: The parameter  <i>littleEndian</i>
- is not documented yet.
+ * <i>littleEndian</i>: either  `true`  or  `false` .
 
 <b>Return Value:</b>
 
@@ -1811,8 +1798,8 @@ A 32-bit signed integer.
 
 <b>Exceptions:</b>
 
- * System.OverflowException:
-This object's value is too big to fit a 32-bit signed integer.
+ *  T:System.OverflowException:
+This object' s value is too big to fit a 32-bit signed integer.
 
 <a id="ToInt32Unchecked"></a>
 ### ToInt32Unchecked
@@ -1838,8 +1825,8 @@ A 64-bit signed integer.
 
 <b>Exceptions:</b>
 
- * System.OverflowException:
-This object's value is too big to fit a 64-bit signed integer.
+ *  T:System.OverflowException:
+This object' s value is too big to fit a 64-bit signed integer.
 
 <a id="ToInt64Unchecked"></a>
 ### ToInt64Unchecked
@@ -1995,9 +1982,7 @@ This number, converted to a 64-bit signed integer.
         PeterO.Numbers.EInteger a,
         PeterO.Numbers.EInteger b);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
-          &#x22;Forms of numbers&#x22;
-        ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -2013,5 +1998,5 @@ An arbitrary-precision integer in which each bit is set if it's set in one input
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
-or <i>b</i>
-is null.
+ or  <i>b</i>
+ is null.

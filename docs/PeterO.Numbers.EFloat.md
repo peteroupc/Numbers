@@ -267,7 +267,7 @@ Gets this object's exponent. This object's value will be an integer if the expon
 
 <b>Returns:</b>
 
-This object's exponent. This object's value will be an integer if the exponent is positive or zero.
+This object's exponent. This object' s value will be an integer if the exponent is positive or zero.
 
 <a id="IsFinite"></a>
 ### IsFinite
@@ -300,7 +300,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object's value equals 0; otherwise, .  `false` .
+ `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object' s value equals 0; otherwise, .  `false` .
 
 <a id="Mantissa"></a>
 ### Mantissa
@@ -311,7 +311,7 @@ Gets this object's unscaled value.
 
 <b>Returns:</b>
 
-This object's unscaled value. Will be negative if this object's value is negative (including a negative NaN).
+This object' s unscaled value. Will be negative if this object's value is negative (including a negative NaN).
 
 <a id="Sign"></a>
 ### Sign
@@ -885,10 +885,10 @@ Divides this object by another object, and returns the integer part of the resul
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The number to divide by.
+ * <i>divisor</i>: An arbitrary-precision binary floating-point number.
 
  * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ is an EContext object.
 
 <b>Return Value:</b>
 
@@ -1049,7 +1049,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
 <b>Parameters:</b>
 
  * <i>inputByte</i>: The parameter  <i>inputByte</i>
- is not documented yet.
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1198,20 +1198,19 @@ The parsed number, converted to arbitrary-precision binary float.
         int offset,
         int length);
 
-Creates a binary float from a text string that represents a number. For more information, see the  `FromString(String, int,
-            int, EContext)`  method.
+Creates a binary float from a text string that represents a number. For more information, see the `FromString(String, int, int, EContext)` method.
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is not documented yet.
+ * <i>str</i>: The parameter <i>str</i>
+is not documented yet.
 
- * <i>offset</i>: A zero-based index showing where the desired portion of  <i>str</i>
- begins.
+ * <i>offset</i>: A zero-based index showing where the desired portion of <i>str</i>
+begins.
 
- * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
- (but not more than  <i>str</i>
- 's length).
+ * <i>length</i>: The length, in code units, of the desired portion of <i>str</i>
+(but not more than <i>str</i>
+'s length).
 
 <b>Return Value:</b>
 
@@ -1219,18 +1218,21 @@ An arbitrary-precision binary float.
 
 <b>Exceptions:</b>
 
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>str</i>
- 's length, or  <i>str</i>
- ' s length minus  <i>offset</i>
- is less than  <i>length</i>
+ *  T:System.ArgumentException:
+Either <i> offset</i>
+or <i> length</i>
+is less than 0 or greater than <i>str</i>
+'s length, or <i>             str</i>
+' s length minus <i>offset</i>
+is less than <i>length</i>
 .
 
  * System.ArgumentNullException:
 The parameter <i>str</i>
- is null.
+is null.
+
+ * System.ArgumentException:
+Either "offset" or "length" is less than 0 or greater than "str"'s length, or "str"'s length minus "offset" is less than "length".
 
 <a id="FromString_string_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
@@ -1266,7 +1268,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
  's length).
 
  * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ is an EContext object.
 
 <b>Return Value:</b>
 
@@ -1282,8 +1284,8 @@ The parameter <i>str</i>
 Either  <i>offset</i>
  or  <i>length</i>
  is less than 0 or greater than  <i>str</i>
- 's length, or  <i>str</i>
- 's length minus  <i>offset</i>
+ 's length, or  <i>             str</i>
+ ' s length minus  <i>offset</i>
  is less than <i>length</i>
 .
 
@@ -1725,7 +1727,7 @@ Returns a number similar to this number but with the radix point moved to the le
 <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The parameter  <i>bigPlaces</i>
- is not documented yet.
+is not documented yet.
 
  * <i>ctx</i>: The parameter  <i>ctx</i>
  is not documented yet.
@@ -1801,7 +1803,7 @@ Returns a number similar to this number but with the radix point moved to the ri
 <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The parameter  <i>bigPlaces</i>
- is not documented yet.
+is not documented yet.
 
  * <i>ctx</i>: The parameter  <i>ctx</i>
  is not documented yet.
@@ -2032,8 +2034,8 @@ The sum of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
-or <i>otherValue</i>
-is null.
+ or  <i>otherValue</i>
+ is null.
 
 <a id="op_Division"></a>
 ### Operator `/`
@@ -2058,7 +2060,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
 
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
-is null.
+ is null.
 
 <a id="op_Modulus"></a>
 ### Operator `%`
@@ -2083,7 +2085,7 @@ The result of the operation.
 
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
-is null.
+ is null.
 
 <a id="op_Multiply"></a>
 ### Operator `*`
@@ -2108,7 +2110,7 @@ The product of the two binary floats.
 
  * System.ArgumentNullException:
 The parameter <i>operand1</i>
-is null.
+ is null.
 
 <a id="op_Subtraction"></a>
 ### Operator `-`
@@ -2133,7 +2135,7 @@ The difference of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
-is null.
+ is null.
 
 <a id="op_UnaryNegation"></a>
 ### Operator `-`
@@ -2155,7 +2157,7 @@ The negated form of the given number. If the given number is positive zero, retu
 
  * System.ArgumentNullException:
 The parameter <i>bigValue</i>
-is null.
+ is null.
 
 <a id="PI_PeterO_Numbers_EContext"></a>
 ### PI
@@ -2301,7 +2303,7 @@ An arbitrary-precision binary floating-point number.
 
 Returns a binary float with the same value as this object but with the same exponent as another binary float.Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which a fixed number of digits come after the radix point. A fixed-point binary arithmetic in which no digits come after the radix point (a desired exponent of 0) is considered an "integer arithmetic".
+<b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which a fixed number of digits come after the radix point. A fixed-point binary arithmetic in which no digits come after the radix point (a desired exponent of 0) is considered an "integer arithmetic" .
 
 <b>Parameters:</b>
 
@@ -2374,10 +2376,10 @@ Finds the remainder that results when dividing two arbitrary-precision binary fl
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The number to divide by.
+ * <i>divisor</i>: An arbitrary-precision binary floating-point number.
 
  * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ is an EContext object.
 
 <b>Return Value:</b>
 
@@ -2710,7 +2712,7 @@ Returns a number similar to this number but with its scale adjusted.
 <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The parameter  <i>bigPlaces</i>
- is not documented yet.
+is not documented yet.
 
  * <i>ctx</i>: The parameter  <i>ctx</i>
  is not documented yet.
