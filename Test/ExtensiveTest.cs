@@ -1272,7 +1272,8 @@ StartsWith(chunks[2], "o")) {
     public static string[] GetTestFiles() {
       try {
         var list = new List<string>(
-          Directory.GetFiles(Path.Combine("..", "Debug")));
+          Directory.GetFiles(Path.GetDirectoryName(
+            System.Reflection.Assembly.GetExecutingAssembly().Location)));
         return list.ToArray();
       } catch (IOException) {
         return new string[0];
@@ -1354,7 +1355,7 @@ StartsWith(chunks[2], "o")) {
         foreach (string err in errors) {
           Console.WriteLine(err);
         }
-        // Assert.Fail(failures + " failure(s)");
+        Assert.Fail(failures + " failure(s)");
       }
     }
   }

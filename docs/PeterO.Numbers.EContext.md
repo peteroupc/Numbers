@@ -2,7 +2,7 @@
 
     public sealed class EContext
 
-Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).<b>Thread safety:</b> With one exception, instances of this class are immutable and are safe to use among multiple threads. The one exception involves the  `Flags`  property. If the context's `HasFlags`  property (a read-only property) is  `true` , the  `Flags`  property is mutable, thus making the context mutable. This class doesn't synchronize access to such mutable contexts, so applications should provide their own synchronization if a context with the  `HasFlags`  property set to  `true` will be shared among multiple threads and at least one of those threads needs to write the  `Flags`  property (which can happen, for example, by passing the context to most methods of `EDecimal`  such as  `Add`  ).
+Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).<b>Thread safety:</b>With one exception, instances of this class are immutable and are safe o use among multiple threads. The one exception involves the `Flags` property. If the context's `HasFlags` property (a read-only property) is `true` , the `Flags` property is mutable, thus making the context mutable. This class oesn't synchronize access to such mutable contexts, so applications hould provide their own synchronization if a context with the `HasFlags` property set to `true` will be shared among multiple threads and at least one of those threads eeds to write the `Flags` property (which can happen, for example, by passing the context to most ethods of `EDecimal` such as `Add` ).
 
 ### Member Summary
 * <code>[AdjustExponent](#AdjustExponent)</code> - Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property.
@@ -48,10 +48,10 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[WithAdjustExponent(bool)](#WithAdjustExponent_bool)</code> - Copies this EContext and sets the copy's "AdjustExponent" property to the given value.
 * <code>[WithBigExponentRange(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#WithBigExponentRange_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Copies this arithmetic context and sets the copy's exponent range.
 * <code>[WithBigPrecision(PeterO.Numbers.EInteger)](#WithBigPrecision_PeterO_Numbers_EInteger)</code> - Copies this EContext and gives it a particular precision value.
-* <code>[WithBlankFlags()](#WithBlankFlags)</code> - Copies this EContext with HasFlags set to true and a Flags value of 0.
+* <code>[WithBlankFlags()](#WithBlankFlags)</code> - Copies this EContext withHasFlagsset to true and a Flags value of 0.
 * <code>[WithExponentClamp(bool)](#WithExponentClamp_bool)</code> - Copies this arithmetic context and sets the copy's "ClampNormalExponents" flag to the given value.
 * <code>[WithExponentRange(int, int)](#WithExponentRange_int_int)</code> - Copies this arithmetic context and sets the copy's exponent range.
-* <code>[WithNoFlags()](#WithNoFlags)</code> - Copies this EContext with HasFlags set to false and a Flags value of 0.
+* <code>[WithNoFlags()](#WithNoFlags)</code> - Copies this EContext withHasFlagsset to false and a Flags value of 0.
 * <code>[WithPrecisionInBits(bool)](#WithPrecisionInBits_bool)</code> - Copies this EContext and sets the copy's "IsPrecisionInBits" property to the given value.
 * <code>[WithPrecision(int)](#WithPrecision_int)</code> - Copies this EContext and gives it a particular precision value.
 * <code>[WithRounding(PeterO.Numbers.ERounding)](#WithRounding_PeterO_Numbers_ERounding)</code> - Copies this EContext with the specified rounding mode.
@@ -69,24 +69,19 @@ Contains parameters for controlling the precision, rounding, and exponent range 
         int exponentMaxSmall,
         bool clampNormalExponents);
 
-Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.  `HasFlags`  will be set to false.
+Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class. `HasFlags` will be set to false.
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter  <i>precision</i>
-is not documented yet.
+ * <i>precision</i>: The maximum number of digits a number can have, or 0 for an unlimited number of digits.
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: The rounding mode to use when a number can't fit the given precision.
 
- * <i>exponentMinSmall</i>: The parameter  <i>exponentMinSmall</i>
- is not documented yet.
+ * <i>exponentMinSmall</i>: The minimum exponent.
 
- * <i>exponentMaxSmall</i>: The parameter  <i>exponentMaxSmall</i>
- is not documented yet.
+ * <i>exponentMaxSmall</i>: The maximum exponent.
 
- * <i>clampNormalExponents</i>: The parameter  <i>clampNormalExponents</i>
- is not documented yet.
+ * <i>clampNormalExponents</i>: Whether to clamp a number's significand to the given maximum precision (if it isn't zero) while remaining within the exponent range.
 
 <a id="Basic"></a>
 ### Basic
@@ -135,7 +130,9 @@ An arithmetic context for the IEEE-754-2008 binary64 format, 53 bits precision. 
 
     public static readonly PeterO.Numbers.EContext CliDecimal;
 
-An arithmetic context for the .NET Framework decimal format (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven. (The  `"Cli"`  stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.).
+An arithmetic context for the .NET Framework decimal format (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)), 96 bits precision, and a valid exponent range of -28 to 0. The default ounding mode is HalfEven. (The `"Cli"` stands for "Common Language Infrastructure", which defined this format as he .NET Framework decimal format in version 1, but leaves it unspecified n later versions.).
 
 <a id="Decimal128"></a>
 ### Decimal128
@@ -244,7 +241,7 @@ Gets a value indicating whether the EMax and EMin properties refer to the number
 
 <b>Returns:</b>
 
- `true`  if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property; otherwise,  `false` .. The default value is true, meaning that EMax and EMin refer to the adjusted exponent. Setting this value to false (using WithAdjustExponent) is useful for modeling floating point representations with an integer mantissa (significand) and an integer exponent, such as Java's BigDecimal.  `true`  if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or false if they refer to just the number's Exponent property.
+ `true` if the EMax and EMin properties refer to the number's Exponent property djusted to the number's precision, or just the number's Exponent roperty; otherwise,  `false` .. The default value is true, meaning that EMax and EMin refer to the djusted exponent. Setting this value to false (using WithAdjustExponent) s useful for modeling floating point representations with an integer antissa (significand) and an integer exponent, such as Java's BigDecimal. `true` if the EMax and EMin properties refer to the number's Exponent property djusted to the number's precision, or false if they refer to just the umber's Exponent property.
 
 <a id="ClampNormalExponents"></a>
 ### ClampNormalExponents
@@ -284,13 +281,11 @@ The lowest exponent possible when a converted number is expressed in scientific 
 
     public int Flags { get; set; }
 
-Gets or sets the flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags &
-            EContext.FlagInexact) != 0`  returns  `true`  if the Inexact flag is set.
+Gets or sets the flags that are set from converting numbers according to this arithmetic context. If `HasFlags` is false, this value will be 0. This value is a combination of bit ields. To retrieve a particular flag, use the AND operation on the return alue of this method. For example: `(this.Flags & EContext.FlagInexact) != 0` returns `true` if the Inexact flag is set.
 
 <b>Returns:</b>
 
-The flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags & EContext.FlagInexact) !=
-            0`  returns  `true`  if the Inexact flag is set.
+The flags that are set from converting numbers according to this arithmetic context. If `HasFlags` is false, this value will be 0. This value is a combination of bit ields. To retrieve a particular flag, use the AND operation on the return alue of this method. For example: `(this.Flags & EContext.FlagInexact) != 0` returns `true` if the Inexact flag is set.
 
 <a id="HasExponentRange"></a>
 ### HasExponentRange
@@ -301,7 +296,7 @@ Gets a value indicating whether this context defines a minimum and maximum expon
 
 <b>Returns:</b>
 
- `true`  if this context defines a minimum and maximum exponent; otherwise,  `false` .. If false, converted exponents can have any exponent and operations can't cause overflow or underflow.  `true`  if this context defines a minimum and maximum exponent; otherwise,  `false` .
+ `true` if this context defines a minimum and maximum exponent; otherwise,  `false` .. If false, converted exponents can have any exponent and operations an't cause overflow or underflow. `true` if this context defines a minimum and maximum exponent; otherwise,  `false` .
 
 <a id="HasFlags"></a>
 ### HasFlags
@@ -312,7 +307,7 @@ Gets a value indicating whether this context has a mutable Flags field.
 
 <b>Returns:</b>
 
- `true`  if this context has a mutable Flags field; otherwise,  `false` .
+ `true` if this context has a mutable Flags field; otherwise,  `false` .
 
 <a id="HasMaxPrecision"></a>
 ### HasMaxPrecision
@@ -323,7 +318,7 @@ Gets a value indicating whether this context defines a maximum precision.
 
 <b>Returns:</b>
 
- `true`  if this context defines a maximum precision; otherwise,  `false` .
+ `true` if this context defines a maximum precision; otherwise,  `false` .
 
 <a id="IsPrecisionInBits"></a>
 ### IsPrecisionInBits
@@ -334,7 +329,7 @@ Gets a value indicating whether this context's Precision property is in bits, ra
 
 <b>Returns:</b>
 
- `true`  if this context's Precision property is in bits, rather than digits; otherwise,  `false` .. The default is false.  `true`  if this context's Precision property is in bits, rather than digits; otherwise,  `false` . The default is false.
+ `true` if this context's Precision property is in bits, rather than digits; otherwise,  `false` .. The default is false. `true` if this context's Precision property is in bits, rather than digits; otherwise,  `false` . The default is false.
 
 <a id="IsSimplified"></a>
 ### IsSimplified
@@ -345,7 +340,7 @@ Gets a value indicating whether to use a "simplified" arithmetic. In the simplif
 
 <b>Returns:</b>
 
- `true`  if to use a "simplified" arithmetic; otherwise,  `false` .. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see<a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html` </a>.  `true`  if a "simplified" arithmetic will be used; otherwise,  `false` .
+ `true` if to use a "simplified" arithmetic; otherwise,  `false` .. In the simplified arithmetic, infinity, not-a-number, and subnormal umbers are not allowed, and negative zero is treated the same as positive ero. For further details, see<a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html` </a>. `true` if a "simplified" arithmetic will be used; otherwise,  `false` .
 
 <a id="Precision"></a>
 ### Precision
@@ -374,11 +369,11 @@ The desired rounding mode when converting numbers that can't be represented in t
 
     public int Traps { get; }
 
-Gets the traps that are set for each flag in the context. Whenever a flag is signaled, even if  `HasFlags`  is false, and the flag's trap is enabled, the operation will throw a TrapException.For example, if Traps equals  `FlagInexact`  and FlagSubnormal, a TrapException will be thrown if an operation's return value is not the same as the exact result (FlagInexact) or if the return value's exponent is lower than the lowest allowed (FlagSubnormal).
+Gets the traps that are set for each flag in the context. Whenever a flag is signaled, even if `HasFlags` is false, and the flag's trap is enabled, the operation will throw a rapException.For example, if Traps equals `FlagInexact` and FlagSubnormal, a TrapException will be thrown if an operation's eturn value is not the same as the exact result (FlagInexact) or if the eturn value's exponent is lower than the lowest allowed FlagSubnormal).
 
 <b>Returns:</b>
 
-The traps that are set for each flag in the context. Whenever a flag is signaled, even if  `HasFlags`  is false, and the flag's trap is enabled, the operation will throw a TrapException.For example, if Traps equals  `FlagInexact`  and FlagSubnormal, a TrapException will be thrown if an operation's return value is not the same as the exact result (FlagInexact) or if the return value's exponent is lower than the lowest allowed (FlagSubnormal).
+The traps that are set for each flag in the context. Whenever a flag is signaled, even if `HasFlags` is false, and the flag's trap is enabled, the operation will throw a rapException.For example, if Traps equals `FlagInexact` and FlagSubnormal, a TrapException will be thrown if an operation's eturn value is not the same as the exact result (FlagInexact) or if the eturn value's exponent is lower than the lowest allowed FlagSubnormal).
 
 .
 
@@ -391,7 +386,7 @@ Initializes a new EContext that is a copy of another EContext.
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
 
 <a id="ExponentWithinRange_PeterO_Numbers_EInteger"></a>
 ### ExponentWithinRange
@@ -403,18 +398,17 @@ Determines whether a number can have the given Exponent property under this arit
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: The parameter  <i>exponent</i>
- is not documented yet.
+ * <i>exponent</i>: An arbitrary-precision integer indicating the desired exponent.
 
 <b>Return Value:</b>
 
- `true`  if a number can have the given Exponent property under this arithmetic context; otherwise,  `false` . If this context allows unlimited precision, returns true for the exponent EMax and any exponent less than EMax.
+ `true` if a number can have the given Exponent property under this arithmetic ontext; otherwise,  `false` . If this context allows unlimited precision, returns true for the xponent EMax and any exponent less than EMax.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>exponent</i>
- is null.
+is null.
 
 <a id="ForPrecision_int"></a>
 ### ForPrecision
@@ -426,8 +420,7 @@ Creates a new arithmetic context using the given maximum number of digits, an un
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter  <i>precision</i>
-is not documented yet.
+ * <i>precision</i>: Maximum number of digits (precision).
 
 <b>Return Value:</b>
 
@@ -444,15 +437,14 @@ Creates a new EContext object initialized with an unlimited exponent range, and 
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter  <i>precision</i>
-is not documented yet.
+ * <i>precision</i>: Maximum number of digits (precision).
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: The parameter <i>rounding</i>
+is an ERounding object.
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
 
 <a id="ForRounding_PeterO_Numbers_ERounding"></a>
 ### ForRounding
@@ -464,8 +456,7 @@ Creates a new EContext object initialized with an unlimited precision, an unlimi
 
 <b>Parameters:</b>
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: The rounding mode for the new precision context.
 
 <b>Return Value:</b>
 
@@ -480,7 +471,7 @@ Gets a string representation of this object. Note that the string's format is no
 
 <b>Return Value:</b>
 
-A text string.
+A string representation of this object.
 
 <a id="WithAdjustExponent_bool"></a>
 ### WithAdjustExponent
@@ -492,8 +483,7 @@ Copies this EContext and sets the copy's "AdjustExponent" property to the given 
 
 <b>Parameters:</b>
 
- * <i>adjustExponent</i>: The parameter  <i>adjustExponent</i>
- is not documented yet.
+ * <i>adjustExponent</i>: The new value of the "AdjustExponent" property for the copy.
 
 <b>Return Value:</b>
 
@@ -510,21 +500,19 @@ Copies this arithmetic context and sets the copy's exponent range.
 
 <b>Parameters:</b>
 
- * <i>exponentMin</i>: The parameter  <i>exponentMin</i>
- is not documented yet.
+ * <i>exponentMin</i>: Desired minimum exponent (EMin).
 
- * <i>exponentMax</i>: The parameter  <i>exponentMax</i>
- is not documented yet.
+ * <i>exponentMax</i>: Desired maximum exponent (EMax).
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>exponentMin</i>
- is null.
+is null.
 
  * System.ArgumentException:
 "ExponentMin greater than exponentMax".
@@ -539,8 +527,7 @@ Copies this EContext and gives it a particular precision value.
 
 <b>Parameters:</b>
 
- * <i>bigintPrecision</i>: The parameter  <i>bigintPrecision</i>
- is not documented yet.
+ * <i>bigintPrecision</i>: Desired precision. 0 means unlimited precision.
 
 <b>Return Value:</b>
 
@@ -550,18 +537,18 @@ A context object for arbitrary-precision arithmetic settings.
 
  * System.ArgumentNullException:
 The parameter <i>bigintPrecision</i>
- is null.
+is null.
 
 <a id="WithBlankFlags"></a>
 ### WithBlankFlags
 
     public PeterO.Numbers.EContext WithBlankFlags();
 
-Copies this EContext with  `HasFlags`  set to true and a Flags value of 0.
+Copies this EContext with `HasFlags` set to true and a Flags value of 0.
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
 
 <a id="WithExponentClamp_bool"></a>
 ### WithExponentClamp
@@ -573,8 +560,7 @@ Copies this arithmetic context and sets the copy's "ClampNormalExponents" flag t
 
 <b>Parameters:</b>
 
- * <i>clamp</i>: The parameter  <i>clamp</i>
- is not documented yet.
+ * <i>clamp</i>: The desired value of the "ClampNormalExponents" flag.
 
 <b>Return Value:</b>
 
@@ -591,26 +577,24 @@ Copies this arithmetic context and sets the copy's exponent range.
 
 <b>Parameters:</b>
 
- * <i>exponentMinSmall</i>: The parameter  <i>exponentMinSmall</i>
- is not documented yet.
+ * <i>exponentMinSmall</i>: Desired minimum exponent (EMin).
 
- * <i>exponentMaxSmall</i>: The parameter  <i>exponentMaxSmall</i>
- is not documented yet.
+ * <i>exponentMaxSmall</i>: Desired maximum exponent (EMax).
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
 
 <a id="WithNoFlags"></a>
 ### WithNoFlags
 
     public PeterO.Numbers.EContext WithNoFlags();
 
-Copies this EContext with  `HasFlags`  set to false and a Flags value of 0.
+Copies this EContext with `HasFlags` set to false and a Flags value of 0.
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
 
 <a id="WithPrecision_int"></a>
 ### WithPrecision
@@ -622,8 +606,7 @@ Copies this EContext and gives it a particular precision value.
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter  <i>precision</i>
-is not documented yet.
+ * <i>precision</i>: Desired precision. 0 means unlimited precision.
 
 <b>Return Value:</b>
 
@@ -639,8 +622,7 @@ Copies this EContext and sets the copy's "IsPrecisionInBits" property to the giv
 
 <b>Parameters:</b>
 
- * <i>isPrecisionBits</i>: The parameter  <i>isPrecisionBits</i>
- is not documented yet.
+ * <i>isPrecisionBits</i>: The new value of the "IsPrecisionInBits" property for the copy.
 
 <b>Return Value:</b>
 
@@ -656,8 +638,7 @@ Copies this EContext with the specified rounding mode.
 
 <b>Parameters:</b>
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is not documented yet.
+ * <i>rounding</i>: Desired value of the Rounding property.
 
 <b>Return Value:</b>
 
@@ -673,8 +654,7 @@ Copies this EContext and sets the copy's "IsSimplified" property to the given va
 
 <b>Parameters:</b>
 
- * <i>simplified</i>: The parameter  <i>simplified</i>
- is not documented yet.
+ * <i>simplified</i>: Desired value of the IsSimplified property.
 
 <b>Return Value:</b>
 
@@ -690,8 +670,7 @@ Copies this EContext with Traps set to the given value.
 
 <b>Parameters:</b>
 
- * <i>traps</i>: The parameter  <i>traps</i>
- is not documented yet.
+ * <i>traps</i>: Flags representing the traps to enable. See the property "Traps".
 
 <b>Return Value:</b>
 
@@ -706,4 +685,4 @@ Copies this EContext with an unlimited exponent range.
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
