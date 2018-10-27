@@ -6,6 +6,16 @@
 
 Represents an arbitrary-precision integer. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.)Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same value are interchangeable, but they should be compared using the "Equals" method rather than the "==" operator.
 
+<b>Security note</b>
+
+It is not recommended to implement security-sensitive algorithms using the methods in this class, for several reasons:
+
+ *  `EInteger` objects are immutable, so they can't be modified, and the memory they ccupy is not guaranteed to be cleared in a timely fashion due to arbage collection. This is relevant for applications that use any-bit-long numbers as secret parameters.
+
+ * The methods in this class (especially those that involve arithmetic) are not guaranteed to run in constant time for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
+
+Applications should instead use dedicated security libraries to handle big numbers in security-sensitive algorithms.
+
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this object's value.
 * <code>[Add(PeterO.Numbers.EInteger)](#Add_PeterO_Numbers_EInteger)</code> - Adds this object and another object.
@@ -119,7 +129,7 @@ Gets a value indicating whether this value is even.
 
 <b>Returns:</b>
 
- `true`  if this value is even; otherwise,  `false` .
+ `true` if this value is even; otherwise,  `false` .
 
 <a id="IsPowerOfTwo"></a>
 ### IsPowerOfTwo
@@ -130,7 +140,7 @@ Gets a value indicating whether this object's value is a power of two.
 
 <b>Returns:</b>
 
- `true`  if this object's value is a power of two; otherwise,  `false` .  `true`  if this object' s value is a power of two; otherwise,  `false` .
+ `true` if this object's value is a power of two; otherwise,  `false` . `true` if this object' s value is a power of two; otherwise,  `false` .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -141,7 +151,7 @@ Gets a value indicating whether this value is 0.
 
 <b>Returns:</b>
 
- `true`  if this value is 0; otherwise,  `false` .
+ `true` if this value is 0; otherwise,  `false` .
 
 <a id="One"></a>
 ### One
@@ -196,7 +206,7 @@ Returns the absolute value of this object's value.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+This object's value with the sign removed.
 
 <a id="Add_int"></a>
 ### Add
@@ -208,8 +218,8 @@ Adds this object and another object.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is a 32-bit signed integer.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -219,7 +229,7 @@ The sum of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bigintAugend</i>
- is null.
+is null.
 
 <a id="Add_PeterO_Numbers_EInteger"></a>
 ### Add
@@ -231,8 +241,7 @@ Adds this object and another object.
 
 <b>Parameters:</b>
 
- * <i>bigintAugend</i>: The parameter  <i>bigintAugend</i>
- is not documented yet.
+ * <i>bigintAugend</i>: Another arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -242,7 +251,7 @@ The sum of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bigintAugend</i>
- is null.
+is null.
 
 <a id="And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### And
@@ -253,7 +262,9 @@ The parameter <i>bigintAugend</i>
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -269,8 +280,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
- or  <i>b</i>
- is null.
+or <i>b</i>
+is null.
 
 <a id="AsInt32Checked"></a>
 ### AsInt32Checked
@@ -297,7 +308,9 @@ This object' s value is too big to fit a 32-bit signed integer.
 
 <b>Deprecated.</b> Renamed to ToInt32Unchecked.
 
-Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two' s-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this bject's value).
 
 <b>Return Value:</b>
 
@@ -328,7 +341,9 @@ This object' s value is too big to fit a 64-bit signed integer.
 
 <b>Deprecated.</b> Renamed to ToInt64Unchecked.
 
-Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two' s-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this bject's value).
 
 <b>Return Value:</b>
 
@@ -343,7 +358,7 @@ Returns whether this object's value can fit in a 32-bit signed integer.
 
 <b>Return Value:</b>
 
- `true`  if this object's value can fit in a 32-bit signed integer; otherwise,  `false` .
+ `true` if this object's value is from -2147483648 through 2147483647; otherwise,  `false` .
 
 <a id="CanFitInInt64"></a>
 ### CanFitInInt64
@@ -354,7 +369,7 @@ Returns whether this object's value can fit in a 64-bit signed integer.
 
 <b>Return Value:</b>
 
- `true`  if this object's value can fit in a 64-bit signed integer; otherwise,  `false` .
+ `true` if this object's value is from -9223372036854775808 through 223372036854775807; otherwise,  `false` .
 
 <a id="CompareTo_int"></a>
 ### CompareTo
@@ -366,8 +381,8 @@ Compares an arbitrary-precision integer with this instance.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is a 32-bit signed integer.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -383,8 +398,7 @@ Compares an arbitrary-precision integer with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: The integer to compare to this value.
 
 <b>Return Value:</b>
 
@@ -400,8 +414,8 @@ Divides this instance by the value of an arbitrary-precision integer. The result
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is a 32-bit signed integer.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -411,7 +425,7 @@ The quotient of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bigintDivisor</i>
- is null.
+is null.
 
  * System.DivideByZeroException:
 Attempted to divide by zero.
@@ -426,8 +440,7 @@ Divides this instance by the value of an arbitrary-precision integer. The result
 
 <b>Parameters:</b>
 
- * <i>bigintDivisor</i>: The parameter  <i>bigintDivisor</i>
- is not documented yet.
+ * <i>bigintDivisor</i>: Another arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -437,7 +450,7 @@ The quotient of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bigintDivisor</i>
- is null.
+is null.
 
  * System.DivideByZeroException:
 Attempted to divide by zero.
@@ -465,7 +478,7 @@ The parameter divisor is 0.
 
  * System.ArgumentNullException:
 The parameter <i>divisor</i>
- is null.
+is null.
 
 <a id="Equals_object"></a>
 ### Equals
@@ -477,12 +490,12 @@ Determines whether this object and another object are equal and have the same ty
 
 <b>Parameters:</b>
 
- * <i>obj</i>: The parameter  <i>obj</i>
- is not documented yet.
+ * <i>obj</i>: The parameter <i>obj</i>
+is an arbitrary object.
 
 <b>Return Value:</b>
 
- `true`  if this object and another object are equal; otherwise,  `false` .
+ `true` if this object and another object are equal; otherwise,  `false` .
 
 <a id="Equals_PeterO_Numbers_EInteger"></a>
 ### Equals
@@ -498,7 +511,7 @@ Determines whether this object and another object are equal.
 
 <b>Return Value:</b>
 
- `true`  if this object and another object are equal; otherwise,  `false` .
+ `true` if this object and another object are equal; otherwise,  `false` .
 
 <a id="FromByte_byte"></a>
 ### FromByte
@@ -510,8 +523,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>inputByte</i>: The parameter  <i>inputByte</i>
-is not documented yet.
+ * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
 
 <b>Return Value:</b>
 
@@ -528,21 +540,31 @@ Initializes an arbitrary-precision integer from an array of bytes.
 
 <b>Parameters:</b>
 
- * <i>bytes</i>: The parameter  <i>bytes</i>
- is not documented yet.
+ * <i>bytes</i>: A byte array consisting of the two's-complement form (see[
+        &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) of the arbitrary-precision integer to create. The byte array is encoded sing the following rules:
 
- * <i>littleEndian</i>: The parameter  <i>littleEndian</i>
- is not documented yet.
+ * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
+
+ * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as `0x01, 0x2C` and 200 as `0x00, 0xC8` . (Note that the second example contains a set high bit in `0xC8` , so an additional 0 is added at the start to ensure it's interpreted as positive.)
+
+ * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as `0xfe, 0x70` and -52869 as `0xff, 0x31, 0x7B` . (Note that the second example contains a cleared high bit in `0x31, 0x7B` , so an additional 0xff is added at the start to ensure it's interpreted as negative.)
+
+For little-endian, the byte order is reversed from the byte order just discussed.
+
+.
+
+ * <i>littleEndian</i>: If true, the byte order is little-endian, or least-significant-byte first. If false, the byte order is big-endian, or most-significant-byte first.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>bytes</i>
- is null.
+is null.
 
 <a id="FromInt16_short"></a>
 ### FromInt16
@@ -554,8 +576,7 @@ Converts a 16-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>inputInt16</i>: The parameter  <i>inputInt16</i>
- is not documented yet.
+ * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -571,8 +592,8 @@ Converts a 32-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -588,8 +609,8 @@ Converts a 64-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>longerValue</i>: The parameter  <i>longerValue</i>
- is not documented yet.
+ * <i>longerValue</i>: The parameter <i>longerValue</i>
+is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -606,21 +627,19 @@ Converts a string to an arbitrary-precision integer in a given radix.
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is not documented yet.
+ * <i>str</i>: A string described by the FromRadixSubstring method.
 
- * <i>radix</i>: The parameter  <i>radix</i>
- is not documented yet.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer with the same value as the given string.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>str</i>
- is null.
+is null.
 
 <a id="FromRadixSubstring_string_int_int_int"></a>
 ### FromRadixSubstring
@@ -635,27 +654,23 @@ Converts a portion of a string to an arbitrary-precision integer in a given radi
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is not documented yet.
+ * <i>str</i>: A text string. The desired portion of the string must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces.
 
- * <i>radix</i>: The parameter  <i>radix</i>
- is not documented yet.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
- * <i>index</i>: The parameter  <i>index</i>
- is not documented yet.
+ * <i>index</i>: The index of the string that starts the string portion.
 
- * <i>endIndex</i>: The parameter  <i>endIndex</i>
- is not documented yet.
+ * <i>endIndex</i>: The index of the string that ends the string portion. The length will be index + endIndex - 1.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer with the same value as given in the string portion.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>str</i>
- is null.
+is null.
 
  * System.FormatException:
 The string portion is empty or in an invalid format.
@@ -689,8 +704,7 @@ Converts a string to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is not documented yet.
+ * <i>str</i>: A text string. The string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The string is not allowed to contain white space characters, including spaces.
 
 <b>Return Value:</b>
 
@@ -699,12 +713,12 @@ An arbitrary-precision integer with the same value as given in the string.
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter  <i>str</i>
- is in an invalid format.
+The parameter <i>str</i>
+is in an invalid format.
 
  * System.ArgumentNullException:
 The parameter <i>str</i>
- is null.
+is null.
 
 <a id="FromSubstring_string_int_int"></a>
 ### FromSubstring
@@ -718,14 +732,11 @@ Converts a portion of a string to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter  <i>str</i>
- is not documented yet.
+ * <i>str</i>: A text string. The desired portion of the string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces.
 
- * <i>index</i>: The parameter  <i>index</i>
- is not documented yet.
+ * <i>index</i>: The index of the string that starts the string portion.
 
- * <i>endIndex</i>: The parameter  <i>endIndex</i>
- is not documented yet.
+ * <i>endIndex</i>: The index of the string that ends the string portion. The length will be index + endIndex - 1.
 
 <b>Return Value:</b>
 
@@ -735,14 +746,14 @@ An arbitrary-precision integer with the same value as given in the string portio
 
  * System.ArgumentException:
 The parameter <i>index</i>
- is less than 0,  <i>endIndex</i>
- is less than 0, or either is greater than the string's length, or  <i>endIndex</i>
- is less than <i>index</i>
+is less than 0, <i>endIndex</i>
+is less than 0, or either is greater than the string's length, or <i>endIndex</i>
+is less than <i>index</i>
 .
 
  * System.ArgumentNullException:
 The parameter <i>str</i>
- is null.
+is null.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -790,8 +801,8 @@ Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-The value of  <i>ulongValue</i>
- as an arbitrary-precision integer.
+The value of <i>ulongValue</i>
+as an arbitrary-precision integer.
 
 <a id="Gcd_PeterO_Numbers_EInteger"></a>
 ### Gcd
@@ -803,8 +814,7 @@ Returns the greatest common divisor of this integer and the given integer. The g
 
 <b>Parameters:</b>
 
- * <i>bigintSecond</i>: The parameter  <i>bigintSecond</i>
- is not documented yet.
+ * <i>bigintSecond</i>: Another arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -814,7 +824,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>bigintSecond</i>
- is null.
+is null.
 
 <a id="GetBits_int_int"></a>
 ### GetBits
@@ -844,7 +854,7 @@ Returns the number of decimal digits used by this integer.
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+The number of digits in the decimal form of this integer. Returns 1 if this number is 0.
 
 <a id="GetHashCode"></a>
 ### GetHashCode
@@ -862,22 +872,26 @@ A 32-bit signed integer.
 
     public int GetLowBit();
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)).).
+Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)).).
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
 
 <a id="GetLowBitAsEInteger"></a>
 ### GetLowBitAsEInteger
 
     public PeterO.Numbers.EInteger GetLowBitAsEInteger();
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)).).
+Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)).).
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
 
 <a id="GetSignedBit_int"></a>
 ### GetSignedBit
@@ -885,16 +899,20 @@ An arbitrary-precision integer.
     public bool GetSignedBit(
         int index);
 
-Returns whether a bit is set in the two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value.
+Returns whether a bit is set in the two's-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) of this object' s value.
 
 <b>Parameters:</b>
 
- * <i>index</i>: The parameter  <i>index</i>
- is a 32-bit signed integer.
+ * <i>index</i>: The parameter <i>index</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in the two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value; otherwise,  `false` .
+ `true` if a bit is set in the two' s-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise,  `false` .
 
 <a id="GetSignedBitLength"></a>
 ### GetSignedBitLength
@@ -905,7 +923,7 @@ Finds the minimum number of bits needed to represent this object's value, except
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+The number of bits in this object's value. Returns 0 if this object's value is 0 or negative 1.
 
 <a id="GetUnsignedBit_int"></a>
 ### GetUnsignedBit
@@ -917,12 +935,11 @@ Returns whether a bit is set in this number's absolute value.
 
 <b>Parameters:</b>
 
- * <i>index</i>: The parameter  <i>index</i>
- is not documented yet.
+ * <i>index</i>: Zero based index of the bit to test. 0 means the least significant bit.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in this number's absolute value.
+ `true` if a bit is set in this number's absolute value.
 
 <a id="GetUnsignedBitLength"></a>
 ### GetUnsignedBitLength
@@ -933,7 +950,7 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
 
 <a id="GetUnsignedBitLengthAsEInteger"></a>
 ### GetUnsignedBitLengthAsEInteger
@@ -944,7 +961,7 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
 
 <a id="Mod_PeterO_Numbers_EInteger"></a>
 ### Mod
@@ -966,7 +983,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>divisor</i>
- is null.
+is null.
 
 <a id="ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### ModPow
@@ -979,11 +996,9 @@ Calculates the remainder when this arbitrary-precision integer raised to a certa
 
 <b>Parameters:</b>
 
- * <i>pow</i>: The parameter  <i>pow</i>
- is not documented yet.
+ * <i>pow</i>: The power to raise this integer by.
 
- * <i>mod</i>: The parameter  <i>mod</i>
- is not documented yet.
+ * <i>mod</i>: The integer to divide the raised number by.
 
 <b>Return Value:</b>
 
@@ -993,8 +1008,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>pow</i>
- or  <i>mod</i>
- is null.
+or <i>mod</i>
+is null.
 
 <a id="ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### ModPow
@@ -1016,16 +1031,16 @@ Calculates the remainder when an arbitrary-precision integer raised to a certain
 
 <b>Return Value:</b>
 
-The value (  <i>bigintValue</i>
- ^  <i>pow</i>
- )%  <i>mod</i>
+The value ( <i>bigintValue</i>
+^ <i>pow</i>
+)% <i>mod</i>
 .
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>bigintValue</i>
- is null.
+is null.
 
 <a id="Multiply_int"></a>
 ### Multiply
@@ -1037,8 +1052,8 @@ Multiplies this instance by the value of an arbitrary-precision integer object.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is a 32-bit signed integer.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1048,7 +1063,7 @@ The product of the two numbers.
 
  * System.ArgumentNullException:
 The parameter <i>bigintMult</i>
- is null.
+is null.
 
 <a id="Multiply_PeterO_Numbers_EInteger"></a>
 ### Multiply
@@ -1060,8 +1075,7 @@ Multiplies this instance by the value of an arbitrary-precision integer object.
 
 <b>Parameters:</b>
 
- * <i>bigintMult</i>: The parameter  <i>bigintMult</i>
- is not documented yet.
+ * <i>bigintMult</i>: Another arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -1071,7 +1085,7 @@ The product of the two numbers.
 
  * System.ArgumentNullException:
 The parameter <i>bigintMult</i>
- is null.
+is null.
 
 <a id="Negate"></a>
 ### Negate
@@ -1082,7 +1096,7 @@ Gets the value of this object with the sign reversed.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+This object's value with the sign reversed.
 
 <a id="Not_PeterO_Numbers_EInteger"></a>
 ### Not
@@ -1104,7 +1118,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>valueA</i>
- is null.
+is null.
 
 <a id="op_Addition"></a>
 ### Operator `+`
@@ -1129,7 +1143,7 @@ The sum of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
- is null.
+is null.
 
 <a id="op_BitwiseAnd"></a>
 ### Operator `&`
@@ -1140,7 +1154,9 @@ The parameter <i>bthis</i>
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1166,7 +1182,9 @@ The parameter "a" or "b" is null.
 
 Does an OR operation between two arbitrary-precision integer instances.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1206,7 +1224,7 @@ The quotient of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
- is null.
+is null.
 
 <a id="op_ExclusiveOr"></a>
 ### Operator `^`
@@ -1215,7 +1233,9 @@ The parameter <i>dividend</i>
         PeterO.Numbers.EInteger a,
         PeterO.Numbers.EInteger b);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
+           &#x22;Forms of numbers&#x22;
+        ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1231,8 +1251,8 @@ An arbitrary-precision integer in which each bit is set if it's set in one input
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
- or  <i>b</i>
- is null.
+or <i>b</i>
+is null.
 
 <a id="op_GreaterThan"></a>
 ### Operator `>`
@@ -1251,9 +1271,9 @@ Determines whether an arbitrary-precision integer is greater than another arbitr
 
 <b>Return Value:</b>
 
- `true`  if  <i>thisValue</i>
- is greater than  <i>otherValue</i>
- ; otherwise,  `false` .
+ `true` if <i>thisValue</i>
+is greater than <i>otherValue</i>
+; otherwise,  `false` .
 
 <a id="op_GreaterThanOrEqual"></a>
 ### Operator `>=`
@@ -1272,9 +1292,9 @@ Determines whether an arbitrary-precision integer value is greater than another 
 
 <b>Return Value:</b>
 
- `true`  if  <i>thisValue</i>
- is at least <i>otherValue</i>
- ; otherwise,  `false` .
+ `true` if <i>thisValue</i>
+is at least <i>otherValue</i>
+; otherwise,  `false` .
 
 <a id="op_LeftShift"></a>
 ### Operator `<<`
@@ -1299,7 +1319,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
- is null.
+is null.
 
 <a id="op_LessThan"></a>
 ### Operator `<`
@@ -1318,9 +1338,9 @@ Determines whether an arbitrary-precision integer is less than another arbitrary
 
 <b>Return Value:</b>
 
- `true`  if  <i>thisValue</i>
- is less than <i>otherValue</i>
- ; otherwise,  `false` .
+ `true` if <i>thisValue</i>
+is less than <i>otherValue</i>
+; otherwise,  `false` .
 
 <a id="op_LessThanOrEqual"></a>
 ### Operator `<=`
@@ -1339,9 +1359,9 @@ Determines whether an arbitrary-precision integer is up to another arbitrary-pre
 
 <b>Return Value:</b>
 
- `true`  if  <i>thisValue</i>
- is up to <i>otherValue</i>
- ; otherwise,  `false` .
+ `true` if <i>thisValue</i>
+is up to <i>otherValue</i>
+; otherwise,  `false` .
 
 <a id="op_Modulus"></a>
 ### Operator `%`
@@ -1366,7 +1386,7 @@ The remainder of the two numbers.
 
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
- is null.
+is null.
 
 <a id="op_Multiply"></a>
 ### Operator `*`
@@ -1391,7 +1411,7 @@ The product of the two numbers.
 
  * System.ArgumentNullException:
 The parameter <i>operand1</i>
- is null.
+is null.
 
 <a id="op_OnesComplement"></a>
 ### Operator `~`
@@ -1413,7 +1433,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>thisValue</i>
- is null.
+is null.
 
 <a id="op_RightShift"></a>
 ### Operator `>>`
@@ -1424,14 +1444,16 @@ The parameter <i>thisValue</i>
 
 Shifts the bits of an arbitrary-precision integer to the right.
 
-For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ). Thus, for negative values, the arbitrary-precision integer is sign-extended.
+For this operation, the arbitrary-precision integer is treated as a wo's-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)). Thus, for negative values, the arbitrary-precision integer is ign-extended.
 
 <b>Parameters:</b>
 
  * <i>bthis</i>: Another arbitrary-precision integer.
 
- * <i>smallValue</i>: The parameter  <i>smallValue</i>
- is a 32-bit signed integer.
+ * <i>smallValue</i>: The parameter <i>smallValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1441,7 +1463,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
- is null.
+is null.
 
 <a id="op_Subtraction"></a>
 ### Operator `-`
@@ -1466,7 +1488,7 @@ The difference of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>bthis</i>
- is null.
+is null.
 
 <a id="op_UnaryNegation"></a>
 ### Operator `-`
@@ -1488,7 +1510,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>bigValue</i>
- is null.
+is null.
 
 <a id="Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Or
@@ -1499,7 +1521,9 @@ The parameter <i>bigValue</i>
 
 Does an OR operation between two arbitrary-precision integer instances.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1515,8 +1539,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>first</i>
- or  <i>second</i>
- is null.
+or <i>second</i>
+is null.
 
 <a id="Pow_int"></a>
 ### Pow
@@ -1528,8 +1552,7 @@ Raises an arbitrary-precision integer to a power.
 
 <b>Parameters:</b>
 
- * <i>powerSmall</i>: The parameter <i>powerSmall</i>
-is not documented yet.
+ * <i>powerSmall</i>: The exponent to raise to.
 
 <b>Return Value:</b>
 
@@ -1545,8 +1568,7 @@ Raises an arbitrary-precision integer to a power, which is given as another arbi
 
 <b>Parameters:</b>
 
- * <i>power</i>: The parameter <i>power</i>
-is not documented yet.
+ * <i>power</i>: The exponent to raise to.
 
 <b>Return Value:</b>
 
@@ -1572,8 +1594,8 @@ Finds the remainder that results when this instance is divided by the value of a
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is a 32-bit signed integer.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1586,7 +1608,7 @@ Attempted to divide by zero.
 
  * System.ArgumentNullException:
 The parameter <i>divisor</i>
- is null.
+is null.
 
 <a id="Remainder_PeterO_Numbers_EInteger"></a>
 ### Remainder
@@ -1611,7 +1633,7 @@ Attempted to divide by zero.
 
  * System.ArgumentNullException:
 The parameter <i>divisor</i>
- is null.
+is null.
 
 <a id="ShiftLeft_int"></a>
 ### ShiftLeft
@@ -1623,8 +1645,7 @@ Returns an arbitrary-precision integer with the bits shifted to the left by a nu
 
 <b>Parameters:</b>
 
- * <i>numberBits</i>: The parameter  <i>numberBits</i>
- is not documented yet.
+ * <i>numberBits</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftRight with the absolute value of this parameter.
 
 <b>Return Value:</b>
 
@@ -1636,12 +1657,13 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EInteger ShiftRight(
         int numberBits);
 
-Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ). Thus, for negative values, the arbitrary-precision integer is sign-extended.
+Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)). Thus, for negative values, the arbitrary-precision integer is ign-extended.
 
 <b>Parameters:</b>
 
- * <i>numberBits</i>: The parameter  <i>numberBits</i>
- is not documented yet.
+ * <i>numberBits</i>: Number of bits to shift right.
 
 <b>Return Value:</b>
 
@@ -1656,7 +1678,7 @@ Finds the square root of this instance's value, rounded down.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+The square root of this object's value. Returns 0 if this value is 0 or less.
 
 <a id="SqrtRem"></a>
 ### SqrtRem
@@ -1667,7 +1689,7 @@ Calculates the square root and the remainder.
 
 <b>Return Value:</b>
 
-An EInteger[] object.
+An array of two arbitrary-precision integers: the first integer is the square root, and the second is the difference between this value and the square of the first integer. Returns two zeros if this value is 0 or less, or one and zero if this value equals 1.
 
 <a id="Subtract_int"></a>
 ### Subtract
@@ -1679,8 +1701,8 @@ Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is a 32-bit signed integer.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1690,7 +1712,7 @@ The difference of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>subtrahend</i>
- is null.
+is null.
 
 <a id="Subtract_PeterO_Numbers_EInteger"></a>
 ### Subtract
@@ -1702,8 +1724,7 @@ Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>subtrahend</i>: The parameter  <i>subtrahend</i>
- is not documented yet.
+ * <i>subtrahend</i>: Another arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -1713,7 +1734,7 @@ The difference of the two objects.
 
  * System.ArgumentNullException:
 The parameter <i>subtrahend</i>
- is null.
+is null.
 
 <a id="ToByteChecked"></a>
 ### ToByteChecked
@@ -1724,7 +1745,7 @@ Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (
 
 <b>Return Value:</b>
 
-A byte (from 0 to 255).
+This number's value as a byte (from 0 to 255).
 
 <b>Exceptions:</b>
 
@@ -1741,7 +1762,7 @@ Returns a byte array of this integer's value. The byte array will take the numbe
 
 <b>Parameters:</b>
 
- * <i>littleEndian</i>: either  `true`  or  `false` .
+ * <i>littleEndian</i>: Either  `true`  or  `false` .
 
 <b>Return Value:</b>
 
@@ -1756,7 +1777,7 @@ Converts this number to a byte (from 0 to 255), returning the least-significant 
 
 <b>Return Value:</b>
 
-A byte (from 0 to 255).
+This number, converted to a byte (from 0 to 255).
 
 <a id="ToInt16Checked"></a>
 ### ToInt16Checked
@@ -1767,7 +1788,7 @@ Converts this number's value to a 16-bit signed integer if it can fit in a 16-bi
 
 <b>Return Value:</b>
 
-A 16-bit signed integer.
+This number's value as a 16-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1783,7 +1804,7 @@ Converts this number to a 16-bit signed integer, returning the least-significant
 
 <b>Return Value:</b>
 
-A 16-bit signed integer.
+This number, converted to a 16-bit signed integer.
 
 <a id="ToInt32Checked"></a>
 ### ToInt32Checked
@@ -1806,7 +1827,9 @@ This object' s value is too big to fit a 32-bit signed integer.
 
     public int ToInt32Unchecked();
 
-Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two' s-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this bject's value).
 
 <b>Return Value:</b>
 
@@ -1833,7 +1856,9 @@ This object' s value is too big to fit a 64-bit signed integer.
 
     public long ToInt64Unchecked();
 
-Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two' s-complement form (see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) (in which case the return value might have a different sign than this bject's value).
 
 <b>Return Value:</b>
 
@@ -1849,8 +1874,7 @@ Generates a string representing the value of this object, in the given radix.
 
 <b>Parameters:</b>
 
- * <i>radix</i>: The parameter  <i>radix</i>
- is not documented yet.
+ * <i>radix</i>: A radix from 2 through 36. For example, to generate a hexadecimal (base-16) string, specify 16. To generate a decimal (base-10) string, specify 10.
 
 <b>Return Value:</b>
 
@@ -1892,7 +1916,7 @@ Converts this object to a text string in base 10.
 
 <b>Return Value:</b>
 
-A text string.
+A string representation of this object. If negative, the string will begin with a minus sign ("-", U+002D). The string will use the basic digits 0 to 9 (U+0030 to U+0039).
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked
@@ -1982,7 +2006,9 @@ This number, converted to a 64-bit signed integer.
         PeterO.Numbers.EInteger a,
         PeterO.Numbers.EInteger b);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
+           &#x22;Forms of numbers&#x22;
+        ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1998,5 +2024,5 @@ An arbitrary-precision integer in which each bit is set if it's set in one input
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
- or  <i>b</i>
- is null.
+or <i>b</i>
+is null.

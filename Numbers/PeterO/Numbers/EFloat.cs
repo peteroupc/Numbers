@@ -1343,12 +1343,6 @@ namespace PeterO.Numbers {
       // thisValue.unsignedMantissa.ToRadixString(2)) + ", " + (//
       // thisValue.exponent));
       int bitLength = mant.GetUnsignedBitLength();
-      #if DEBUG
-if (!(bitLength <= 53)) {
-  throw new ArgumentException("doesn't satisfy bitLength<= 53");
-}
-#endif
-
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
       if (bitLength < 53) {
@@ -1536,12 +1530,6 @@ if (!(bitLength <= 53)) {
       // thisValue.unsignedMantissa.ToRadixString(2)) + ", " + (//
       // thisValue.exponent));
       int bitLength = mant.GetUnsignedBitLength();
-      #if DEBUG
-if (!(bitLength <= 24)) {
-  throw new ArgumentException("doesn't satisfy bitLength<= 24");
-}
-#endif
-
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
       if (bitLength < 24) {

@@ -3282,18 +3282,8 @@ WordsShiftRightOne(bu, buc);
         ((subtrahend.wordCount == 0) ? this : this.Add(subtrahend.Negate()));
     }
 
-    /// <summary>Returns a byte array of this integer's value. The byte
-    /// array will take the number's two' s-complement form (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
-    /// using the fewest bytes necessary to store its value unambiguously.
-    /// If this value is negative, the bits that appear beyond the most
-    /// significant bit of the number will be all ones. The resulting byte
-    /// array can be passed to the <c>FromBytes()</c> method (with the same
-    /// byte order) to reconstruct this integer's value.</summary>
-    /// <param name='littleEndian'>Either <c>true</c> or <c>false</c>
-    /// .</param>
-    /// <returns>A byte array. If this value is 0, returns a byte array
-    /// with the single element 0.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)"]/*'/>
     public byte[] ToBytes(bool littleEndian) {
       int sign = this.Sign;
       if (sign == 0) {

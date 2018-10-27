@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
+Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b>Instances of this class are immutable, so they are inherently safe for se by multiple threads. Multiple instances of this object with the same roperties are interchangeable, so they should not be compared using the ==" operator (which might only check if each side of the operator is he same instance).
 
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
@@ -24,7 +24,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[Equals(PeterO.Numbers.ERational)](#Equals_PeterO_Numbers_ERational)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object and that other object is an arbitrary-precision rational number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
-* <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts a decimal under the Common Language Infrastructure (usually a .
+* <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts adecimalunder the Common Language Infrastructure (usually a .
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Converts a 64-bit floating-point number to a rational number.
 * <code>[FromEDecimal(PeterO.Numbers.EDecimal)](#FromEDecimal_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a rational number.
 * <code>[FromEFloat(PeterO.Numbers.EFloat)](#FromEFloat_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary float to a rational number.
@@ -67,7 +67,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
 * <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
-* <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to a decimal under the Common Language Infrastructure (usually a .
+* <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to adecimalunder the Common Language Infrastructure (usually a .
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to a 64-bit floating-point number.
 * <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this rational number to a decimal number.
 * <code>[ToEDecimalExactIfPossible(PeterO.Numbers.EContext)](#ToEDecimalExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
@@ -129,11 +129,9 @@ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERat
 
 <b>Parameters:</b>
 
- * <i>numerator</i>: The parameter  <i>numerator</i>
-is not documented yet.
+ * <i>numerator</i>: The numerator.
 
- * <i>denominator</i>: The parameter  <i>denominator</i>
- is not documented yet.
+ * <i>denominator</i>: The denominator.
 
 <b>Exceptions:</b>
 
@@ -216,7 +214,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true`  if this object is finite (not infinity or NaN); otherwise,  `false` .
+ `true` if this object is finite (not infinity or NaN); otherwise,  `false` .
 
 <a id="IsNegative"></a>
 ### IsNegative
@@ -227,7 +225,7 @@ Gets a value indicating whether this object's value is negative (including negat
 
 <b>Returns:</b>
 
- `true`  if this object's value is negative (including negative zero); otherwise,  `false` .  `true`  if this object's value is negative; otherwise,  `false` .
+ `true` if this object's value is negative (including negative zero); otherwise,  `false` . `true` if this object's value is negative; otherwise,  `false` .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -238,7 +236,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object' s value equals 0; otherwise, .  `false` .
+ `true` if this object's value equals 0; otherwise,  `false` . `true` if this object' s value equals 0; otherwise, . `false` .
 
 <a id="Numerator"></a>
 ### Numerator
@@ -294,8 +292,7 @@ Adds two rational numbers.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: The parameter <i>otherValue</i>
-is not documented yet.
+ * <i>otherValue</i>: Another arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
@@ -316,8 +313,7 @@ Compares an arbitrary-precision rational number with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
@@ -338,8 +334,7 @@ Compares an arbitrary-precision binary float with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision binary float.
 
 <b>Return Value:</b>
 
@@ -360,8 +355,7 @@ Compares an arbitrary-precision decimal number with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -394,8 +388,7 @@ Compares the values of this object and another object, imposing a total ordering
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision rational number to compare with this one.
 
 <b>Return Value:</b>
 
@@ -421,8 +414,7 @@ Compares the absolute values of this object and another object, imposing a total
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision rational number to compare with this one.
 
 <b>Return Value:</b>
 
@@ -438,8 +430,7 @@ Returns a number with the same value as this one, but copying the sign (positive
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter <i>other</i>
-is not documented yet.
+ * <i>other</i>: A number whose sign will be copied.
 
 <b>Return Value:</b>
 
@@ -461,11 +452,9 @@ Creates a rational number with the given numerator and denominator.
 
 <b>Parameters:</b>
 
- * <i>numeratorSmall</i>: The parameter  <i>numeratorSmall</i>
- is not documented yet.
+ * <i>numeratorSmall</i>: The numerator.
 
- * <i>denominatorSmall</i>: The parameter  <i>denominatorSmall</i>
- is not documented yet.
+ * <i>denominatorSmall</i>: The denominator.
 
 <b>Return Value:</b>
 
@@ -487,11 +476,9 @@ Creates a rational number with the given numerator and denominator.
 
 <b>Parameters:</b>
 
- * <i>numerator</i>: The parameter  <i>numerator</i>
-is not documented yet.
+ * <i>numerator</i>: The numerator.
 
- * <i>denominator</i>: The parameter  <i>denominator</i>
- is not documented yet.
+ * <i>denominator</i>: The denominator.
 
 <b>Return Value:</b>
 
@@ -512,8 +499,7 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: The parameter <i>diag</i>
-is not documented yet.
+ * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
 
 <b>Return Value:</b>
 
@@ -536,14 +522,11 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: The parameter <i>diag</i>
-is not documented yet.
+ * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
 
- * <i>signaling</i>: The parameter <i>signaling</i>
-is not documented yet.
+ * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
 
- * <i>negative</i>: The parameter <i>negative</i>
-is not documented yet.
+ * <i>negative</i>: Whether the return value is negative.
 
 <b>Return Value:</b>
 
@@ -567,8 +550,7 @@ Divides this instance by the value of an arbitrary-precision rational number obj
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: The parameter <i>otherValue</i>
-is not documented yet.
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
@@ -589,12 +571,12 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Parameters:</b>
 
- * <i>obj</i>: The parameter  <i>obj</i>
- is not documented yet.
+ * <i>obj</i>: The parameter <i>obj</i>
+is an arbitrary object.
 
 <b>Return Value:</b>
 
- `true`  if the objects are equal; otherwise,  `false` .
+ `true` if the objects are equal; otherwise,  `false` .
 
 <a id="Equals_PeterO_Numbers_ERational"></a>
 ### Equals
@@ -606,12 +588,11 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Parameters:</b>
 
- * <i>other</i>: The parameter  <i>other</i>
- is not documented yet.
+ * <i>other</i>: An arbitrary-precision rational number to compare to.
 
 <b>Return Value:</b>
 
-Either  `true`  or  `false` .
+Either `true` or `false` .
 
 <a id="FromByte_byte"></a>
 ### FromByte
@@ -623,8 +604,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputByte</i>: The parameter  <i>inputByte</i>
-is not documented yet.
+ * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
 
 <b>Return Value:</b>
 
@@ -636,11 +616,11 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromDecimal(
         System.Decimal eint);
 
-Converts a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal) to a rational number.
+Converts a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal) to a rational number.
 
 <b>Parameters:</b>
 
- * <i>eint</i>: The number to convert as a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+ * <i>eint</i>: The number to convert as a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
 
 <b>Return Value:</b>
 
@@ -657,7 +637,7 @@ Converts a 64-bit floating-point number to a rational number. This method comput
 <b>Parameters:</b>
 
  * <i>flt</i>: The parameter <i>flt</i>
-is not documented yet.
+is a 64-bit floating-point number.
 
 <b>Return Value:</b>
 
@@ -673,8 +653,7 @@ Converts an arbitrary-precision decimal number to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The parameter <i>ef</i>
-is not documented yet.
+ * <i>ef</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -695,8 +674,7 @@ Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The parameter <i>ef</i>
-is not documented yet.
+ * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
 
 <b>Return Value:</b>
 
@@ -717,8 +695,7 @@ Converts an arbitrary-precision integer to a rational number.
 
 <b>Parameters:</b>
 
- * <i>bigint</i>: The parameter  <i>bigint</i>
- is not documented yet.
+ * <i>bigint</i>: The number to convert as an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -736,8 +713,7 @@ Converts an arbitrary-precision decimal number to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The parameter  <i>ef</i>
- is not documented yet.
+ * <i>ef</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -755,8 +731,7 @@ Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The parameter  <i>ef</i>
- is not documented yet.
+ * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
 
 <b>Return Value:</b>
 
@@ -772,8 +747,7 @@ Converts a 16-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputInt16</i>: The parameter  <i>inputInt16</i>
- is not documented yet.
+ * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -789,8 +763,7 @@ Converts a 32-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputInt32</i>: The parameter  <i>inputInt32</i>
- is not documented yet.
+ * <i>inputInt32</i>: The number to convert as a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -806,8 +779,7 @@ Converts a 64-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>inputInt64</i>: The parameter  <i>inputInt64</i>
- is not documented yet.
+ * <i>inputInt64</i>: The number to convert as a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -840,7 +812,7 @@ Converts a 32-bit binary floating-point number to a rational number. This method
 <b>Parameters:</b>
 
  * <i>flt</i>: The parameter <i>flt</i>
-is not documented yet.
+is a 32-bit binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -856,8 +828,7 @@ Creates a rational number from a text string that represents a number. See `From
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter <i>str</i>
-is not documented yet.
+ * <i>str</i>: A string that represents a number.
 
 <b>Return Value:</b>
 
@@ -892,8 +863,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
 
 <b>Parameters:</b>
 
- * <i>str</i>: The parameter <i>str</i>
-is not documented yet.
+ * <i>str</i>: A text string, a portion of which represents a number.
 
  * <i>offset</i>: A zero-based index showing where the desired portion of <i>str</i>
 begins.
@@ -982,7 +952,7 @@ Gets a value indicating whether this object's value is infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object's value is infinity; otherwise,  `false` .
+ `true` if this object's value is infinity; otherwise,  `false` .
 
 <a id="IsNaN"></a>
 ### IsNaN
@@ -993,7 +963,7 @@ Returns whether this object is a not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a not-a-number value; otherwise,  `false` .
+ `true` if this object is a not-a-number value; otherwise,  `false` .
 
 <a id="IsNegativeInfinity"></a>
 ### IsNegativeInfinity
@@ -1004,7 +974,7 @@ Returns whether this object is negative infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is negative infinity; otherwise,  `false` .
+ `true` if this object is negative infinity; otherwise,  `false` .
 
 <a id="IsPositiveInfinity"></a>
 ### IsPositiveInfinity
@@ -1015,7 +985,7 @@ Returns whether this object is positive infinity.
 
 <b>Return Value:</b>
 
- `true`  if this object is positive infinity; otherwise,  `false` .
+ `true` if this object is positive infinity; otherwise,  `false` .
 
 <a id="IsQuietNaN"></a>
 ### IsQuietNaN
@@ -1026,7 +996,7 @@ Returns whether this object is a quiet not-a-number value.
 
 <b>Return Value:</b>
 
- `true`  if this object is a quiet not-a-number value; otherwise,  `false` .
+ `true` if this object is a quiet not-a-number value; otherwise,  `false` .
 
 <a id="IsSignalingNaN"></a>
 ### IsSignalingNaN
@@ -1037,7 +1007,7 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 
 <b>Return Value:</b>
 
- `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise,  `false` .
+ `true` if this object is a signaling not-a-number value (which causes an error f the value is passed to any arithmetic operation in this class); otherwise,  `false` .
 
 <a id="Multiply_PeterO_Numbers_ERational"></a>
 ### Multiply
@@ -1049,8 +1019,7 @@ Multiplies this instance by the value of an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: The parameter <i>otherValue</i>
-is not documented yet.
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
@@ -1212,7 +1181,7 @@ An arbitrary-precision rational number.
 
  * System.ArgumentNullException:
 The parameter <i>bigValue</i>
- is null.
+is null.
 
 <a id="Remainder_PeterO_Numbers_ERational"></a>
 ### Remainder
@@ -1224,8 +1193,7 @@ Finds the remainder that results when this instance is divided by the value of a
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: The parameter <i>otherValue</i>
-is not documented yet.
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
@@ -1246,8 +1214,7 @@ Subtracts an arbitrary-precision rational number from this instance.
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: The parameter <i>otherValue</i>
-is not documented yet.
+ * <i>otherValue</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
@@ -1267,7 +1234,7 @@ Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (
 
 <b>Return Value:</b>
 
-A byte (from 0 to 255).
+This number's value, truncated to a byte (from 0 to 255).
 
 <b>Exceptions:</b>
 
@@ -1283,7 +1250,7 @@ Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (
 
 <b>Return Value:</b>
 
-A byte (from 0 to 255).
+This number's value as a byte (from 0 to 255).
 
 <b>Exceptions:</b>
 
@@ -1299,18 +1266,18 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-A byte (from 0 to 255).
+This number, converted to a byte (from 0 to 255). Returns 0 if this value is infinity or not-a-number.
 
 <a id="ToDecimal"></a>
 ### ToDecimal
 
     public System.Decimal ToDecimal();
 
-Converts this value to a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal). Currently, converts this value to the precision and range of a .NET Framework decimal.
+Converts this value to a `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal). Currently, converts this value to the precision and range of a NET Framework decimal.
 
 <b>Return Value:</b>
 
-A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+A `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
 
 <a id="ToDouble"></a>
 ### ToDouble
@@ -1321,7 +1288,7 @@ Converts this value to a 64-bit floating-point number. The half-even rounding mo
 
 <b>Return Value:</b>
 
-A 64-bit floating-point number.
+The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
 
 <a id="ToEDecimal_PeterO_Numbers_EContext"></a>
 ### ToEDecimal
@@ -1333,8 +1300,7 @@ Converts this rational number to a decimal number and rounds the result to the g
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1349,7 +1315,7 @@ Converts this rational number to a decimal number.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating decimal expansion.
 
 <a id="ToEDecimalExactIfPossible_PeterO_Numbers_EContext"></a>
 ### ToEDecimalExactIfPossible
@@ -1361,8 +1327,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating decimal expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1378,8 +1343,7 @@ Converts this rational number to a binary float and rounds that result to the gi
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1394,7 +1358,7 @@ Converts this rational number to a binary float.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating binary expansion.
 
 <a id="ToEFloatExactIfPossible_PeterO_Numbers_EContext"></a>
 ### ToEFloatExactIfPossible
@@ -1406,8 +1370,7 @@ Converts this rational number to a binary float, but if the result would have a 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating binary expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1475,8 +1438,7 @@ Converts this rational number to a decimal number and rounds the result to the g
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1493,7 +1455,7 @@ Converts this rational number to a decimal number.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating decimal expansion.
 
 <a id="ToExtendedDecimalExactIfPossible_PeterO_Numbers_EContext"></a>
 ### ToExtendedDecimalExactIfPossible
@@ -1507,8 +1469,7 @@ Converts this rational number to a decimal number, but if the result would have 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating decimal expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1526,8 +1487,7 @@ Converts this rational number to a binary float and rounds that result to the gi
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1544,7 +1504,7 @@ Converts this rational number to a binary float.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+The exact value of the rational number, or not-a-number (NaN) if the result can't be exact because it has a nonterminating binary expansion.
 
 <a id="ToExtendedFloatExactIfPossible_PeterO_Numbers_EContext"></a>
 ### ToExtendedFloatExactIfPossible
@@ -1558,8 +1518,7 @@ Converts this rational number to a binary float, but if the result would have a 
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is not documented yet.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only if the exact result would have a nonterminating binary expansion. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -1574,7 +1533,7 @@ Converts this number's value to a 16-bit signed integer if it can fit in a 16-bi
 
 <b>Return Value:</b>
 
-A 16-bit signed integer.
+This number's value, truncated to a 16-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1590,7 +1549,7 @@ Converts this number's value to a 16-bit signed integer if it can fit in a 16-bi
 
 <b>Return Value:</b>
 
-A 16-bit signed integer.
+This number's value as a 16-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1606,7 +1565,7 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-A 16-bit signed integer.
+This number, converted to a 16-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 <a id="ToInt32Checked"></a>
 ### ToInt32Checked
@@ -1617,7 +1576,7 @@ Converts this number's value to a 32-bit signed integer if it can fit in a 32-bi
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+This number's value, truncated to a 32-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1633,7 +1592,7 @@ Converts this number's value to a 32-bit signed integer if it can fit in a 32-bi
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+This number's value as a 32-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1649,7 +1608,7 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-A 32-bit signed integer.
+This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 <a id="ToInt64Checked"></a>
 ### ToInt64Checked
@@ -1660,7 +1619,7 @@ Converts this number's value to a 64-bit signed integer if it can fit in a 64-bi
 
 <b>Return Value:</b>
 
-A 64-bit signed integer.
+This number's value, truncated to a 64-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1676,7 +1635,7 @@ Converts this number's value to a 64-bit signed integer if it can fit in a 64-bi
 
 <b>Return Value:</b>
 
-A 64-bit signed integer.
+This number's value as a 64-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -1692,7 +1651,7 @@ Truncates this number's value to an integer and returns the least-significant bi
 
 <b>Return Value:</b>
 
-A 64-bit signed integer.
+This number, converted to a 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
 <a id="ToSByteChecked"></a>
 ### ToSByteChecked
@@ -1746,7 +1705,7 @@ Converts this value to a 32-bit binary floating-point number. The half-even roun
 
 <b>Return Value:</b>
 
-A 32-bit floating-point number.
+The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
 <a id="ToString"></a>
 ### ToString
@@ -1757,7 +1716,7 @@ Converts this object to a text string.
 
 <b>Return Value:</b>
 
-A text string.
+A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the `EDecimal.ToString` method. Otherwise, the return value has the following form: `[-]numerator/denominator` .
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked
