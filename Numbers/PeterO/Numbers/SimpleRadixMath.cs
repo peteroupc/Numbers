@@ -349,7 +349,11 @@ namespace PeterO.Numbers {
     // <param name='divisor'></param>
     // <param name='ctx'> (3).</param>
     // <returns>The remainder of the two objects.</returns>
-    public T Remainder(T thisValue, T divisor, EContext ctx) {
+    public T Remainder(
+  T thisValue,
+  T divisor,
+  EContext ctx,
+  bool roundAfterDivide) {
       T ret = this.CheckNotANumber2(thisValue, divisor, ctx);
       if ((object)ret != (object)default(T)) {
         return ret;
@@ -357,7 +361,11 @@ namespace PeterO.Numbers {
       EContext ctx2 = GetContextWithFlags(ctx);
       thisValue = this.RoundBeforeOp(thisValue, ctx2);
       divisor = this.RoundBeforeOp(divisor, ctx2);
-      thisValue = this.wrapper.Remainder(thisValue, divisor, ctx2);
+thisValue = this.wrapper.Remainder(
+  thisValue,
+  divisor,
+  ctx2,
+  roundAfterDivide);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
 

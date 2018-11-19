@@ -1117,7 +1117,15 @@ namespace PeterO.Numbers {
     public EFloat Remainder(
       EFloat divisor,
       EContext ctx) {
-      return MathValue.Remainder(this, divisor, ctx);
+      return MathValue.Remainder(this, divisor, ctx, true);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    public EFloat RemainderNoRoundAfterDivide(
+      EFloat divisor,
+      EContext ctx) {
+      return MathValue.Remainder(this, divisor, ctx, false);
     }
 
     /// <include file='../../docs.xml'

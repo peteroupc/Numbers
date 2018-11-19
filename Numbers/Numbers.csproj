@@ -60,6 +60,7 @@ Version 0.5
         </Command>
       </CustomCommands>
     </CustomCommands>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>

@@ -52,10 +52,14 @@ namespace PeterO.Numbers {
         this.simp.Negate(value, ctx);
     }
 
-    public T Remainder(T thisValue, T divisor, EContext ctx) {
+    public T Remainder(
+  T thisValue,
+  T divisor,
+  EContext ctx,
+  bool roundAfterDivide) {
       return (ctx == null || !ctx.IsSimplified) ?
-      this.ext.Remainder(thisValue, divisor, ctx) :
-        this.simp.Remainder(thisValue, divisor, ctx);
+      this.ext.Remainder(thisValue, divisor, ctx, roundAfterDivide) :
+        this.simp.Remainder(thisValue, divisor, ctx, roundAfterDivide);
     }
 
     public T RemainderNear(T thisValue, T divisor, EContext ctx) {

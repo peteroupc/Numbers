@@ -1913,7 +1913,15 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
     public EDecimal Remainder(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx).Remainder(this, divisor, ctx);
+      return GetMathValue(ctx).Remainder(this, divisor, ctx, true);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    public EDecimal RemainderNoRoundAfterDivide(
+      EDecimal divisor,
+      EContext ctx) {
+      return GetMathValue(ctx).Remainder(this, divisor, ctx, false);
     }
 
     /// <include file='../../docs.xml'

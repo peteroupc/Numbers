@@ -19,7 +19,7 @@ namespace PeterO.Numbers {
 
     T Negate(T value, EContext ctx);
 
-    T Remainder(T thisValue, T divisor, EContext ctx);
+    T Remainder(T thisValue, T divisor, EContext ctx, bool roundAfterDivide);
 
     T RemainderNear(T thisValue, T divisor, EContext ctx);
 

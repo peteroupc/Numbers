@@ -476,16 +476,21 @@ throw new InvalidOperationException(String.Empty, ex);
         TestCommon.CompareTestEqual(ed, ed2);
       }
     }
+
     [Test]
-    public void TestParser() {
+    [Timeout(60000)]
+    public void TestParserRemNear() {
       long failures = 0;
-      for (var i = 0; i < 1; ++i) {
+      {
         // Reads decimal test files described in:
         // <http://speleotrove.com/decimal/dectest.html>
         foreach (var f in CBOR.ExtensiveTest.GetTestFiles()) {
           if (!Path.GetFileName(f).Contains(".decTest")) {
             continue;
           }
+if (!f.Contains("remaindernear")) {
+ continue;
+}
           Console.WriteLine(f);
           IDictionary<string, string> context =
             new Dictionary<string, string>();
@@ -493,24 +498,39 @@ throw new InvalidOperationException(String.Empty, ex);
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
               {
-                try {
-                  TextWriter oldOut = Console.Out;
-                  try {
-                    Console.SetOut(TextWriter.Null);
                     ParseDecTest(ln, context);
-                  } catch (Exception) {
-                    Console.SetOut(oldOut);
+              }
+            }
+          }
+        }
+      }
+      if (failures > 0) {
+        Assert.Fail(failures + " failure(s)");
+      }
+    }
+
+    [Test]
+    public void TestParser() {
+      long failures = 0;
+      {
+        // Reads decimal test files described in:
+        // <http://speleotrove.com/decimal/dectest.html>
+        foreach (var f in CBOR.ExtensiveTest.GetTestFiles()) {
+          if (!Path.GetFileName(f).Contains(".decTest")) {
+            continue;
+          }
+if (f.Contains("remaindernear")) {
+ continue;
+}
+          Console.WriteLine(f);
+          IDictionary<string, string> context =
+            new Dictionary<string, string>();
+          using (var w = new StreamReader(f)) {
+            while (!w.EndOfStream) {
+              string ln = w.ReadLine();
+              Console.WriteLine(ln);
+              {
                     ParseDecTest(ln, context);
-                  } finally {
-                    Console.SetOut(oldOut);
-                  }
-                } catch (Exception ex) {
-                  Console.WriteLine(ln);
-                  Console.WriteLine(ex.Message);
-                  Console.WriteLine(ex.StackTrace);
-                  ++failures;
-                  // throw;
-                }
               }
             }
           }
