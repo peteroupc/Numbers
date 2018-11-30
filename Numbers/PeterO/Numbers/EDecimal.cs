@@ -1916,8 +1916,9 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
       return GetMathValue(ctx).Remainder(this, divisor, ctx, true);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// <param name='divisor'>Not documented yet.</param>
+    /// <param name='ctx'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
     public EDecimal RemainderNoRoundAfterDivide(
       EDecimal divisor,
       EContext ctx) {
