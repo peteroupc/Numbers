@@ -497,7 +497,8 @@ if (!f.Contains("remaindernear")) {
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-              {
+              Console.WriteLine(ln);
+          {
                     ParseDecTest(ln, context);
               }
             }
@@ -528,7 +529,7 @@ if (f.Contains("remaindernear")) {
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-              Console.WriteLine(ln);
+              // Console.WriteLine(ln);
               {
                     ParseDecTest(ln, context);
               }

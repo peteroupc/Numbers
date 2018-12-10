@@ -8057,6 +8057,9 @@
       <paramref name='bigintAugend'/>
        is null.
     </exception>
+<example>
+<code>EInteger result = EInteger.FromString("5").Add(200);</code>
+</example>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
@@ -8687,7 +8690,9 @@
       <paramref name='bigintMult'/>
        is null.
     </exception>
-
+<example>
+<code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
+</example>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Negate">
 

@@ -1732,6 +1732,31 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(System.Int32)"]/*'/>
+public EDecimal Add(int intValue) {
+ return this.Add(EDecimal.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
+public EDecimal Subtract(int intValue) {
+ return (intValue == Int32.MinValue) ?
+   (this.Subtract(EDecimal.FromInt32(intValue))) : (this.Add(-intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)"]/*'/>
+public EDecimal Multiply(int intValue) {
+ return this.Multiply(EDecimal.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(System.Int32)"]/*'/>
+public EDecimal Divide(int intValue) {
+ return this.Divide(EDecimal.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public EDecimal MultiplyAndAdd(
       EDecimal multiplicand,

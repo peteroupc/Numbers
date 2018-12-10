@@ -1299,9 +1299,9 @@ StartsWith(chunks[2], "o")) {
         }
         ++x;
         var lowerF = f.ToLowerInvariant();
-        // if (!lowerF.Contains("d64")) {
+        // if (lowerF.Contains("txt")) {
  // continue;
-// }
+ // }
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") && !lowerF.Contains(".txt") &&
             !lowerF.Contains(".dectest") && !lowerF.Contains(".fptest")) {
@@ -1323,7 +1323,6 @@ StartsWith(chunks[2], "o")) {
                 }
               } catch (Exception ex) {
                 errors.Add(ex.ToString());
-                ++failures;
                 try {
                   Console.SetOut(standardOut);
                   if (isinput) {
@@ -1333,6 +1332,7 @@ StartsWith(chunks[2], "o")) {
                   }
                 } catch (Exception ex2) {
                   Console.WriteLine(ln);
+                  Console.WriteLine(ex2.ToString());
                   errors.Add(ex2.ToString());
                   Console.SetOut(standardOut);
                 }

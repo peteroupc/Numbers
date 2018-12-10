@@ -480,6 +480,31 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(System.Int32)"]/*'/>
+public EFloat Add(int intValue) {
+ return this.Add(EFloat.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
+public EFloat Subtract(int intValue) {
+ return (intValue == Int32.MinValue) ?
+   (this.Subtract(EFloat.FromInt32(intValue))) : (this.Add(-intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)"]/*'/>
+public EFloat Multiply(int intValue) {
+ return this.Multiply(EFloat.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(System.Int32)"]/*'/>
+public EFloat Divide(int intValue) {
+ return this.Divide(EFloat.FromInt32(intValue));
+}
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)"]/*'/>
     public EFloat Add(EFloat otherValue) {
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
