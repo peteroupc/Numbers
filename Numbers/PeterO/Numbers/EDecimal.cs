@@ -1741,7 +1741,7 @@ public EDecimal Add(int intValue) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
 public EDecimal Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
-   (this.Subtract(EDecimal.FromInt32(intValue))) : (this.Add(-intValue));
+   this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
 }
 
     /// <include file='../../docs.xml'
@@ -1941,9 +1941,9 @@ public EDecimal Divide(int intValue) {
       return GetMathValue(ctx).Remainder(this, divisor, ctx, true);
     }
 
-    /// <param name='divisor'>Not documented yet.</param>
-    /// <param name='ctx'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Not documented yet.</summary>
     public EDecimal RemainderNoRoundAfterDivide(
       EDecimal divisor,
       EContext ctx) {

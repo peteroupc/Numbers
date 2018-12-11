@@ -489,7 +489,7 @@ public EFloat Add(int intValue) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
 public EFloat Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
-   (this.Subtract(EFloat.FromInt32(intValue))) : (this.Add(-intValue));
+   this.Subtract(EFloat.FromInt32(intValue)) : this.Add(-intValue);
 }
 
     /// <include file='../../docs.xml'

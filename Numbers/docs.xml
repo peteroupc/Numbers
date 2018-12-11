@@ -3743,6 +3743,11 @@
     </returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
+<param name='divisor'>The number to divide by.</param>
+            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
+            <returns>An EDecimal object.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger)">
 
             <summary>Returns a decimal number with the same value as this object but rounded
@@ -8053,12 +8058,7 @@
       <paramref name='intValue'/>
        is a 32-bit signed integer.
     </param><returns>The sum of the two objects.
-    </returns><exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='bigintAugend'/>
-       is null.
-    </exception>
-<example>
-<code>EInteger result = EInteger.FromString("5").Add(200);</code>
+    </returns><example><code>EInteger result = EInteger.FromString("5").Add(200);</code>
 </example>
 
 </doc>
@@ -8206,7 +8206,7 @@
       result is 0, it will be negative if this object is positive and the other
       is negative, or vice versa, and will be positive if both are positive or
       both are negative.
-    </summary><param name='bigintDivisor'>Another arbitrary-precision integer.
+    </summary><param name='bigintDivisor'>The divisor.
     </param><returns>The quotient of the two objects.
     </returns><exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bigintDivisor'/>
@@ -8222,14 +8222,9 @@
       result is 0, it will be negative if this object is positive and the other
       is negative, or vice versa, and will be positive if both are positive or
       both are negative.
-    </summary><param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is a 32-bit signed integer.
+    </summary><param name='intValue'>The divisor.
     </param><returns>The quotient of the two objects.
-    </returns><exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='bigintDivisor'/>
-       is null.
-    </exception><exception cref='T:System.DivideByZeroException'>Attempted to divide by zero.
+    </returns><exception cref='T:System.DivideByZeroException'>Attempted to divide by zero.
     </exception>
 
 </doc>
@@ -8686,13 +8681,9 @@
       <paramref name='intValue'/>
        is a 32-bit signed integer.
     </param><returns>The product of the two numbers.
-    </returns><exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='bigintMult'/>
-       is null.
-    </exception>
-<example>
-<code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
+    </returns><example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
 </example>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Negate">
 
@@ -8870,10 +8861,7 @@
       <paramref name='intValue'/>
        is a 32-bit signed integer.
     </param><returns>The difference of the two objects.
-    </returns><exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='subtrahend'/>
-       is null.
-    </exception>
+    </returns>
 
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Ten">

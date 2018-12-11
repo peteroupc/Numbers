@@ -965,9 +965,9 @@ public EInteger Add(int intValue) {
  if (intValue == 0) {
  return this;
 }
- if (this.wordCount == 1 && intValue<65535 && intValue>=-65535) {
+ if (this.wordCount == 1 && intValue < 65535 && intValue >= -65535) {
         short[] sumreg;
-        if (intValue< 0) {
+        if (intValue < 0) {
           int intSum = (((int)this.words[0]) & 0xffff) - intValue;
           sumreg = new short[2];
           sumreg[0] = unchecked((short)intSum);
@@ -998,8 +998,8 @@ public EInteger Add(int intValue) {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
 public EInteger Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
-   (this.Subtract(EInteger.FromInt32(intValue))) : ((intValue == 0) ? (this):
-   (this.Add(-intValue)));
+   this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ? this :
+     this.Add(-intValue));
 }
 
     /// <include file='../../docs.xml'

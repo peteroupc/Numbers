@@ -216,6 +216,8 @@ This object's value with the sign removed.
 
 Adds this object and another object.
 
+    EInteger result = EInteger.FromString("5").Add(200);
+
 <b>Parameters:</b>
 
  * <i>intValue</i>: The parameter <i>intValue</i>
@@ -224,12 +226,6 @@ is a 32-bit signed integer.
 <b>Return Value:</b>
 
 The sum of the two objects.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>bigintAugend</i>
-is null.
 
 <a id="Add_PeterO_Numbers_EInteger"></a>
 ### Add
@@ -414,18 +410,13 @@ Divides this instance by the value of an arbitrary-precision integer. The result
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter <i>intValue</i>
-is a 32-bit signed integer.
+ * <i>intValue</i>: The divisor.
 
 <b>Return Value:</b>
 
 The quotient of the two objects.
 
 <b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>bigintDivisor</i>
-is null.
 
  * System.DivideByZeroException:
 Attempted to divide by zero.
@@ -440,7 +431,7 @@ Divides this instance by the value of an arbitrary-precision integer. The result
 
 <b>Parameters:</b>
 
- * <i>bigintDivisor</i>: Another arbitrary-precision integer.
+ * <i>bigintDivisor</i>: The divisor.
 
 <b>Return Value:</b>
 
@@ -1050,6 +1041,8 @@ is null.
 
 Multiplies this instance by the value of an arbitrary-precision integer object.
 
+    EInteger result = EInteger.FromString("5").Multiply(200);
+
 <b>Parameters:</b>
 
  * <i>intValue</i>: The parameter <i>intValue</i>
@@ -1058,12 +1051,6 @@ is a 32-bit signed integer.
 <b>Return Value:</b>
 
 The product of the two numbers.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>bigintMult</i>
-is null.
 
 <a id="Multiply_PeterO_Numbers_EInteger"></a>
 ### Multiply
@@ -1707,12 +1694,6 @@ is a 32-bit signed integer.
 <b>Return Value:</b>
 
 The difference of the two objects.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>subtrahend</i>
-is null.
 
 <a id="Subtract_PeterO_Numbers_EInteger"></a>
 ### Subtract

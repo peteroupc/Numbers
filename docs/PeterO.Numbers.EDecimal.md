@@ -137,6 +137,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
+* <code>[Add(int)](#Add_int)</code> - Adds this object and another object.
 * <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary float with this instance.
 * <code>[CompareToSignal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EDecimal)](#CompareToTotalMagnitude_PeterO_Numbers_EDecimal)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
@@ -168,6 +169,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[DivideToSameExponent(PeterO.Numbers.EDecimal, PeterO.Numbers.ERounding)](#DivideToSameExponent_PeterO_Numbers_EDecimal_PeterO_Numbers_ERounding)</code> - Divides this object by another decimal number and returns a result with the same exponent as this object (the dividend).
 * <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this object by another decimal number and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number.
+* <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Equals(PeterO.Numbers.EDecimal)](#Equals_PeterO_Numbers_EDecimal)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision decimal number.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
@@ -224,6 +226,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[MultiplyAndSubtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#MultiplyAndSubtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies by one value, and then subtracts another value.
 * <code>[Multiply(PeterO.Numbers.EDecimal)](#Multiply_PeterO_Numbers_EDecimal)</code> - Multiplies two decimal numbers.
 * <code>[Multiply(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Multiply_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies two decimal numbers.
+* <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[public static readonly PeterO.Numbers.EDecimal NaN;](#NaN)</code> - A not-a-number value.
 * <code>[Negate()](#Negate)</code> - Gets an object with the same value as this one, but with the sign reversed.
 * <code>[Negate(PeterO.Numbers.EContext)](#Negate_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but with the sign reversed.
@@ -274,6 +277,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal number from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal number from this instance.
+* <code>[Subtract(int)](#Subtract_int)</code> - Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
 * <code>[public static readonly PeterO.Numbers.EDecimal Ten;](#Ten)</code> - Represents the number 10.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
@@ -480,6 +484,25 @@ Finds the absolute value of this object (if it's negative, it becomes positive).
 <b>Return Value:</b>
 
 An arbitrary-precision decimal number. Returns signaling NaN if this value is signaling NaN.
+
+<a id="Add_int"></a>
+### Add
+
+    public PeterO.Numbers.EDecimal Add(
+        int intValue);
+
+Adds this object and another object.
+
+    EInteger result = EInteger.FromString("5").Add(200);
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The sum of the two objects.
 
 <a id="Add_PeterO_Numbers_EDecimal"></a>
 ### Add
@@ -793,6 +816,27 @@ An arbitrary-precision decimal number.
 
  * System.ArgumentNullException:
 The parameter "diag" is null or is less than 0.
+
+<a id="Divide_int"></a>
+### Divide
+
+    public PeterO.Numbers.EDecimal Divide(
+        int intValue);
+
+Divides this instance by the value of an arbitrary-precision integer. The result is rounded down (the fractional part is discarded). Except if the result is 0, it will be negative if this object is positive and the other is negative, or vice versa, and will be positive if both are positive or both are negative.
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The divisor.
+
+<b>Return Value:</b>
+
+The quotient of the two objects.
+
+<b>Exceptions:</b>
+
+ * System.DivideByZeroException:
+Attempted to divide by zero.
 
 <a id="Divide_PeterO_Numbers_EDecimal"></a>
 ### Divide
@@ -1998,6 +2042,25 @@ Returns a number similar to this number but with the decimal point moved to the 
 A number whose exponent is increased by <i>bigPlaces</i>
 , but not to more than 0.
 
+<a id="Multiply_int"></a>
+### Multiply
+
+    public PeterO.Numbers.EDecimal Multiply(
+        int intValue);
+
+Multiplies this instance by the value of an arbitrary-precision integer object.
+
+    EInteger result = EInteger.FromString("5").Multiply(200);
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The product of the two numbers.
+
 <a id="Multiply_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Multiply
 
@@ -2633,6 +2696,16 @@ The distance of the closest multiple. Signals FlagInvalid and returns not-a-numb
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EContext ctx);
 
+<b>Parameters:</b>
+
+ * <i>divisor</i>: Not documented yet.
+
+ * <i>ctx</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+An EDecimal object.
+
 <a id="RoundToExponent_int"></a>
 ### RoundToExponent
 
@@ -2986,6 +3059,23 @@ Finds the square root of this object's value.
 <b>Return Value:</b>
 
 The square root. Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the square root would be a complex number, but the return value is still NaN). Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0).
+
+<a id="Subtract_int"></a>
+### Subtract
+
+    public PeterO.Numbers.EDecimal Subtract(
+        int intValue);
+
+Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The difference of the two objects.
 
 <a id="Subtract_PeterO_Numbers_EDecimal"></a>
 ### Subtract
