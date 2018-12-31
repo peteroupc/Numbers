@@ -11,7 +11,9 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.RadixMath`1"]/*'/>
   internal class RadixMath<T> : IRadixMath<T> {
+    // Use given exponent
     private const int IntegerModeFixedScale = 1;
+    // Use flexible exponent
     private const int IntegerModeRegular = 0;
 
     private static readonly int[] BitMasks = {
@@ -2264,7 +2266,7 @@ ctx.Precision).WithBlankFlags();
       ret = this.DivideInternal(
   thisValue,
   divisor,
-  null,
+  ctx2,
   IntegerModeFixedScale,
   EInteger.Zero);
       if ((ctx2.Flags & EContext.FlagInvalid) != 0) {

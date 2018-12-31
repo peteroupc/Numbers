@@ -3744,9 +3744,10 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
-<param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param>
-            <returns>An EDecimal object.</returns>
+
+            <param name='divisor'>The number to divide by.</param><param name='ctx'>The parameter <paramref name='ctx'/> is not documented yet.</param><returns>An EDecimal object.</returns>
+            <summary>Not documented yet.</summary>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger)">
 

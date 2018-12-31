@@ -478,39 +478,6 @@ throw new InvalidOperationException(String.Empty, ex);
     }
 
     [Test]
-    [Timeout(60000)]
-    public void TestParserRemNear() {
-      long failures = 0;
-      {
-        // Reads decimal test files described in:
-        // <http://speleotrove.com/decimal/dectest.html>
-        foreach (var f in CBOR.ExtensiveTest.GetTestFiles()) {
-          if (!Path.GetFileName(f).Contains(".decTest")) {
-            continue;
-          }
-if (!f.Contains("remaindernear")) {
- continue;
-}
-          Console.WriteLine(f);
-          IDictionary<string, string> context =
-            new Dictionary<string, string>();
-          using (var w = new StreamReader(f)) {
-            while (!w.EndOfStream) {
-              string ln = w.ReadLine();
-              Console.WriteLine(ln);
-          {
-                    ParseDecTest(ln, context);
-              }
-            }
-          }
-        }
-      }
-      if (failures > 0) {
-        Assert.Fail(failures + " failure(s)");
-      }
-    }
-
-    [Test]
     public void TestParser() {
       long failures = 0;
       {
@@ -520,18 +487,14 @@ if (!f.Contains("remaindernear")) {
           if (!Path.GetFileName(f).Contains(".decTest")) {
             continue;
           }
-if (f.Contains("remaindernear")) {
- continue;
-}
           Console.WriteLine(f);
           IDictionary<string, string> context =
             new Dictionary<string, string>();
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-              // Console.WriteLine(ln);
               {
-                    ParseDecTest(ln, context);
+                ParseDecTest(ln, context);
               }
             }
           }
