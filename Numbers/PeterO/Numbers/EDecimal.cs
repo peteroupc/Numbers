@@ -1933,17 +1933,38 @@ public EDecimal Divide(int intValue) {
       return GetMathValue(ctx).Reduce(this, ctx);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Remainder(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Finds the remainder that results when dividing two
+    /// arbitrary-precision decimal numbers. The remainder is the value
+    /// that remains when the absolute value of this object is divided by
+    /// the absolute value of the other object; the remainder has the same
+    /// sign (positive or negative) as this object's value.</summary>
+    /// <param name='divisor'>The number to divide by,.</param>
+    /// <param name='ctx'>An arithmetic context object to control the
+    /// precision, rounding, and exponent range of the result, and of the
+    /// intermediate integer division. If <c>HasFlags</c> of the context is
+    /// true, will also store the flags resulting from the operation (the
+    /// flags are in addition to the pre-existing flags). Can be null, in
+    /// which the precision is unlimited.</param>
+    /// <returns>The remainder of the two numbers. Signals FlagInvalid and
+    /// returns not-a-number (NaN) if the divisor is 0, or if the result
+    /// doesn't fit the given precision.</returns>
     public EDecimal Remainder(
       EDecimal divisor,
       EContext ctx) {
       return GetMathValue(ctx).Remainder(this, divisor, ctx, true);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     /// <summary>Not documented yet.</summary>
+    /// <param name='divisor'>The number to divide by,.</param>
+    /// <param name='ctx'>An arithmetic context object to control the
+    /// precision, rounding, and exponent range of the result, but not also
+    /// of the intermediate integer division. If <c>HasFlags</c> of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which the precision is unlimited.</param>
+    /// <returns>The remainder of the two numbers. Signals FlagInvalid and
+    /// returns not-a-number (NaN) if the divisor is 0, or if the result
+    /// doesn't fit the given precision.</returns>
     public EDecimal RemainderNoRoundAfterDivide(
       EDecimal divisor,
       EContext ctx) {

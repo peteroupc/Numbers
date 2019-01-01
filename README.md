@@ -43,6 +43,14 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 
 Release notes
 -------
+
+Version 1.2:
+
+- Add arithmetic methods to EInteger, EDecimal, and EFloat that
+ take 'int' operands.
+- Fix issues with EDecimal/EFloat Remainder method in corner cases
+- Add RemainderNoRoundAfterDivide in EDecimal and EFloat
+
 Version 1.1.2
 
 - Add .NET Framework 4.0 targeted assembly to avoid compiler warnings that can appear when this package is added to a project that targets .NET Framework 4.0 or later.

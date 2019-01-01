@@ -14,31 +14,12 @@
     <PackageLicenseUrl>http://creativecommons.org/publicdomain/zero/1.0/</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
-Version 1.1.2
+Version 1.2:
 
-- Add .NET Framework 4.0 targeted assembly to avoid compiler warnings that can appear when this package is added to a project that targets .NET Framework 4.0 or later.
-
-Version 1.1.1
-
-- Numbers .NET 2.0 assembly had wrong version number.
-
-Version 1.1.0
-
-- Added build targeting .NET Framework 2.0.
-
-Version 1.0.2
-
-- Really strong-name sign the assembly, which (probably) was inadvertently delay-signed in version 1.0.
-
-Version 1.0
-
-- Filled out documentation so that there are no more undocumented parts
-
-Version 0.5
-
-- Moved from .NET Portable to .NET Standard 1.0. Contributed by GitHub user NZSmartie
-- Broke backwards compatibility with .NET Framework 4.0
-- Bug fixes
+- Add arithmetic methods to EInteger, EDecimal, and EFloat that
+ take 'int' operands.
+- Fix issues with EDecimal/EFloat Remainder method in corner cases
+- Add RemainderNoRoundAfterDivide in EDecimal and EFloat
 
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
