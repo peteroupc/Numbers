@@ -44,6 +44,10 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
+Version 1.2.1:
+
+- Fixed bugs with new EInteger.Add and EInteger.Subtract overloads
+
 Version 1.2:
 
 - Add arithmetic methods to EInteger, EDecimal, and EFloat that

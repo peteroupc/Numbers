@@ -967,8 +967,17 @@ public EInteger Add(int intValue) {
 }
  if (this.wordCount == 1 && intValue < 65535 && intValue >= -65535) {
         short[] sumreg;
-        if (intValue < 0) {
-          int intSum = (((int)this.words[0]) & 0xffff) - intValue;
+        if (intValue > 0 && !this.negative) {
+          int intSum = (((int)this.words[0]) & 0xffff) + intValue;
+          sumreg = new short[2];
+          sumreg[0] = unchecked((short)intSum);
+          sumreg[1] = unchecked((short)(intSum >> 16));
+          return new EInteger(
+            ((intSum >> 16) == 0) ? 1 : 2,
+            sumreg,
+            this.negative);
+        } else if (intValue < 0 && this.negative) {
+          int intSum = (((int)this.words[0]) & 0xffff) - (intValue);
           sumreg = new short[2];
           sumreg[0] = unchecked((short)intSum);
           sumreg[1] = unchecked((short)(intSum >> 16));
@@ -978,7 +987,7 @@ public EInteger Add(int intValue) {
             this.negative);
         } else {
           int a = ((int)this.words[0]) & 0xffff;
-          int b = intValue;
+          int b = Math.Abs(intValue);
           if (a > b) {
             a -= b;
             sumreg = new short[2];

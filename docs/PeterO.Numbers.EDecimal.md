@@ -251,7 +251,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal)](#RemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - Calculates the remainder of a number by the formula"this" - (("this" / "divisor") * "divisor")
 * <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNear(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNear_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the distance to the closest multiple of the given divisor, based on the result of dividing this object's value by another object's value.
-* <code>[RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNoRoundAfterDivide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision decimal numbers, except the intermediate division is not adjusted to fit the precision of the given arithmetic context.
+* <code>[RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNoRoundAfterDivide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Not documented yet.
 * <code>[Remainder(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision decimal numbers.
 * <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
 * <code>[RoundToExponentExact(int, PeterO.Numbers.EContext)](#RoundToExponentExact_int_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
@@ -2615,9 +2615,9 @@ Finds the remainder that results when dividing two arbitrary-precision decimal n
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The number to divide by,
+ * <i>divisor</i>: The number to divide by,.
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, and of the intermediate integer division. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which the precision is unlimited.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, and of the intermediate integer division. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which the precision is unlimited.
 
 <b>Return Value:</b>
 
@@ -2694,15 +2694,13 @@ The distance of the closest multiple. Signals FlagInvalid and returns not-a-numb
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EContext ctx);
 
-Finds the remainder that results when dividing two arbitrary-precision decimal numbers, except the intermediate division is not adjusted to fit the precision of the given arithmetic context. The remainder is the value that remains when the absolute value of this object is divided by the absolute value of the other object; the remainder has the same sign (positive or negative) as this object's value.
-
 Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>divisor</i>: The number to divide by,
+ * <i>divisor</i>: The number to divide by,.
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, but not also of the intermediate integer division. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which the precision is unlimited.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, but not also of the intermediate integer division. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which the precision is unlimited.
 
 <b>Return Value:</b>
 

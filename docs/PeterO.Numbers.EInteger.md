@@ -1594,7 +1594,7 @@ The remainder of the two numbers.
 Attempted to divide by zero.
 
  * System.ArgumentNullException:
-The parameter <i>divisor</i>
+The parameter <i>intValue</i>
 is null.
 
 <a id="Remainder_PeterO_Numbers_EInteger"></a>
