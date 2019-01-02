@@ -527,6 +527,16 @@ Assert.AreEqual(
 Assert.AreEqual(
   EInteger.FromInt32(370),
   EInteger.FromInt32(-30).Subtract(EInteger.FromInt32(-400)));
+// Other tests
+        EInteger bigintC = EInteger.FromInt32(0).Add(60916);
+        EInteger bigintD = bigintC.Subtract(60916);
+Assert.AreEqual(EInteger.FromInt32(60916), bigintC);
+Assert.AreEqual(EInteger.FromInt32(0), bigintD);
+
+bigintC = EInteger.FromInt32(0).Add(EInteger.FromInt32(60916));
+bigintD = bigintC.Subtract(EInteger.FromInt32(60916));
+Assert.AreEqual(EInteger.FromInt32(60916), bigintC);
+Assert.AreEqual(EInteger.FromInt32(0), bigintD);
 }
 
     [Test]
