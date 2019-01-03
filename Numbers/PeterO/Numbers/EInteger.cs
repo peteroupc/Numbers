@@ -980,7 +980,7 @@ public EInteger Add(int intValue) {
             sumreg,
             this.negative);
         } else if (intValue < 0 && this.negative) {
-          int intSum = (((int)this.words[0]) & 0xffff) - (intValue);
+          int intSum = (((int)this.words[0]) & 0xffff) - intValue;
           sumreg = new short[2];
           sumreg[0] = unchecked((short)intSum);
           sumreg[1] = unchecked((short)(intSum >> 16));
@@ -1051,10 +1051,11 @@ public int CompareTo(int intValue) {
       int words2Size = bigintDivisor.wordCount;
       // ---- Special cases
       if (words2Size == 0) {
+        // Divisor is 0
         throw new DivideByZeroException();
       }
       if (words1Size < words2Size) {
-        // dividend is less than divisor (includes case
+        // Dividend is less than divisor (includes case
         // where dividend is 0)
         return EInteger.Zero;
       }
@@ -1681,19 +1682,6 @@ if (rem.Length - posRem < countB) {
       false).ToUnoptString() + "\"");
     }
 
-    private static short[] CombineWords(
-  short[] a,
-  int pos,
-  int len,
-  short[] b,
-  int pos2,
-  int len2) {
-      var words = new short[len + len2];
-      Array.Copy(a, pos, words, 0, len);
-      Array.Copy(b, pos2, words, len, len2);
-      return words;
-    }
-
     private static void GeneralDivide(
      short[] a,
      int posA,
@@ -2036,11 +2024,12 @@ if (rem.Length - posRem < countB) {
       int words1Size = this.wordCount;
       int words2Size = divisor.wordCount;
       if (words2Size == 0) {
+        // Divisor is 0
         throw new DivideByZeroException();
       }
 
       if (words1Size < words2Size) {
-        // dividend is less than divisor (includes case
+        // Dividend is less than divisor (includes case
         // where dividend is 0)
         return new[] { EInteger.Zero, this };
       }

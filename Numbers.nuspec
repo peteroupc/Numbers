@@ -1,5 +1,9 @@
 <package
-><metadata><version>1.2.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.2.1:
+><metadata><version>1.2.2</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.2.2:
+
+- Fixed referencing issues with minor version 1.2.1
+
+Version 1.2.1:
 
 - Fixed bugs with new EInteger.Add and EInteger.Subtract overloads
 
