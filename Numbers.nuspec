@@ -1,8 +1,12 @@
 <package
-><metadata><version>1.2</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.2:
+><metadata><version>1.2.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.2.1:
+
+- Fixed bugs with new EInteger.Add and EInteger.Subtract overloads
+
+Version 1.2:
 
 - Add arithmetic methods to EInteger, EDecimal, and EFloat that
  take &apos;int&apos; operands.
 - Fix issues with EDecimal/EFloat Remainder method in corner cases
-- Add RemainderNoRoundAfterDivide in EDecimal and EFloat</releaseNotes><summary></summary><licenseUrl>http://creativecommons.org/publicdomain/zero/1.0/</licenseUrl><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
+- Add RemainderNoRoundAfterDivide in EDecimal and EFloat</releaseNotes><summary></summary><license type='expression'>CC0-1.0</license><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
 >
