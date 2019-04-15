@@ -1,8 +1,8 @@
 ## PeterO.Numbers.EDecimal
 
     public sealed class EDecimal :
-        System.IComparable,
-        System.IEquatable
+        System.IEquatable,
+        System.IComparable
 
 Represents an arbitrary-precision decimal floating-point number. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>About decimal arithmetic</b>
 
