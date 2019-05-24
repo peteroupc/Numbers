@@ -1121,14 +1121,19 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)"]/*'/>
     public int CompareToBinary(EFloat other) {
-      if (other == null) {
+  return CompareEDecimalToEFloat(this,other);
+    }
+
+
+private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
+      if (ef == null) {
         return 1;
       }
-      if (this.IsNaN()) {
-        return other.IsNaN() ? 0 : 1;
+      if (ed.IsNaN()) {
+        return ef.IsNaN() ? 0 : 1;
       }
-      int signA = this.Sign;
-      int signB = other.Sign;
+      int signA = ed.Sign;
+      int signB = ef.Sign;
       if (signA != signB) {
         return (signA < signB) ? -1 : 1;
       }
@@ -1136,51 +1141,102 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
         // Special case: Either operand is zero
         return 0;
       }
-      if (this.IsInfinity()) {
-        if (other.IsInfinity()) {
+      if (ed.IsInfinity()) {
+        if (ef.IsInfinity()) {
           // if we get here, this only means that
           // both are positive infinity or both
           // are negative infinity
           return 0;
         }
-        return this.IsNegative ? -1 : 1;
+        return ed.IsNegative ? -1 : 1;
       }
-      if (other.IsInfinity()) {
-        return other.IsNegative ? 1 : -1;
+      if (ef.IsInfinity()) {
+        return ef.IsNegative ? 1 : -1;
       }
       // At this point, both numbers are finite and
       // have the same sign
 #if DEBUG
-      if (!this.IsFinite) {
+      if (!ed.IsFinite) {
         throw new ArgumentException("doesn't satisfy this.IsFinite");
       }
-      if (!other.IsFinite) {
+      if (!ef.IsFinite) {
         throw new ArgumentException("doesn't satisfy other.IsFinite");
       }
 #endif
-      if (other.Exponent.CompareTo((EInteger)(-1000)) < 0) {
+      if (ef.Exponent.CompareTo((EInteger)(-1000)) < 0) {
         // For very low exponents, the conversion to decimal can take
         // very long, so try this approach
-        if (other.Abs(null).CompareTo(EFloat.One) < 0) {
+        if (ef.Abs(null).CompareTo(EFloat.One) < 0) {
           // Abs less than 1
-          if (this.Abs(null).CompareTo(EDecimal.One) >= 0) {
+          if (ed.Abs(null).CompareTo(EDecimal.One) >= 0) {
             // Abs 1 or more
             return (signA > 0) ? 1 : -1;
           }
         }
+//DebugUtility.Log("edexp={0}, efexp={1}",ed.Exponent,ef.Exponent);
+   EInteger bitCount = ef.Mantissa.GetUnsignedBitLengthAsEInteger();
+   EInteger absexp = ef.Exponent.Abs();
+   if (absexp.CompareTo(bitCount) > 0) {
+     // Float's absolute value is less than 1, so do a trial comparison
+     // using exponent closer to 0
+     EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(-1000));
+     int trialcmp = CompareEDecimalToEFloat(ed,trial);
+     if (ef.Sign < 0 && trialcmp < 0) {
+       // if float and decimal are negative and
+       // decimal is less than trial float (which in turn is
+       // less than the actual float), then the decimal is
+       // less than the actual float
+       return -1;
+     }
+     if (ef.Sign > 0 && trialcmp > 0) {
+       // if float and decimal are positive and
+       // decimal is greater than trial float (which in turn is
+       // greater than the actual float), then the decimal is
+       // greater than the actual float
+       return 1;
+     }
+   }
+        EInteger thisAdjExp = GetAdjustedExponent(ed);
+        EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
+//DebugUtility.Log("taexp={0}, oaexp={1}",thisAdjExp,otherAdjExp);
+        if (thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) < 0 &&
+                otherAdjExp.CompareTo((EInteger)(-1000)) < 0) {
+          thisAdjExp = thisAdjExp.Add(EInteger.One).Abs();
+          otherAdjExp = otherAdjExp.Add(EInteger.One).Abs();
+          EInteger ratio = otherAdjExp.Multiply(1000).Divide(thisAdjExp);
+//DebugUtility.Log("taexp={0}, oaexp={1} ratio={2}",thisAdjExp,otherAdjExp,ratio);
+          // Check the ratio of the negative binary exponent to 
+          // negative the decimal exponent.
+          // If the ratio times 1000, rounded down, is less than 3321, the 
+          // binary's absolute value is
+          // greater. If it's 3322 or greater, the decimal's absolute value is
+          // greater.
+          // (If the two absolute values are equal, the ratio will approach
+          // ln(10)/ln(2), or about 3.32193, as the exponents get higher and
+          // higher.) This check assumes that both exponents are 1000 or
+          // greater, when the ratio between exponents of equal values is 
+          // close to ln(10)/ln(2).
+          if (ratio.CompareTo((EInteger)3321) < 0) {
+            // Binary abs. value is greater
+            return (signA > 0) ? -1 : 1;
+          }
+          if (ratio.CompareTo((EInteger)3322) >= 0) {
+            return (signA > 0) ? 1 : -1;
+          }
+        }
       }
-      if (other.Exponent.CompareTo((EInteger)1000) > 0) {
+      if (ef.Exponent.CompareTo((EInteger)1000) > 0) {
         // Very high exponents
         EInteger bignum = EInteger.One.ShiftLeft(999);
-        if (this.Abs(null).CompareTo(EDecimal.FromEInteger(bignum)) <=
+        if (ed.Abs(null).CompareTo(EDecimal.FromEInteger(bignum)) <=
             0) {
           // this object's absolute value is less
           return (signA > 0) ? -1 : 1;
         }
         // NOTE: The following check assumes that both
         // operands are nonzero
-        EInteger thisAdjExp = this.GetAdjustedExponent();
-        EInteger otherAdjExp = GetAdjustedExponentBinary(other);
+        EInteger thisAdjExp = GetAdjustedExponent(ed);
+        EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
         if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(otherAdjExp) >= 0) {
           // This object's adjusted exponent is greater and is positive;
           // so this object's absolute value is greater, since exponents
@@ -1190,30 +1246,30 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
         if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)1000) >= 0 &&
                 otherAdjExp.CompareTo((EInteger)1000) >= 0) {
           thisAdjExp = thisAdjExp.Add(EInteger.One);
-          otherAdjExp = thisAdjExp.Add(EInteger.One);
-          EInteger ratio = otherAdjExp / thisAdjExp;
+          otherAdjExp = otherAdjExp.Add(EInteger.One);
+          EInteger ratio = otherAdjExp.Multiply(1000).Divide(thisAdjExp);
           // Check the ratio of the binary exponent to the decimal exponent.
-          // If the ratio is less than 3, the decimal's absolute value is
-          // greater. If it's 4 or greater, the binary' s absolute value is
+          // If the ratio times 1000, rounded down, is less than 3321, the 
+          // decimal's absolute value is
+          // greater. If it's 3322 or greater, the binary's absolute value is
           // greater.
           // (If the two absolute values are equal, the ratio will approach
-          // ln(10)/ln(2), or about 3.322, as the exponents get higher and
+          // ln(10)/ln(2), or about 3.32193, as the exponents get higher and
           // higher.) This check assumes that both exponents are 1000 or
-          // greater,
-          // when the ratio between exponents of equal values is close to
-          // ln(10)/ln(2).
-          if (ratio.CompareTo((EInteger)3) < 0) {
+          // greater, when the ratio between exponents of equal values is 
+          // close to ln(10)/ln(2).
+          if (ratio.CompareTo((EInteger)3321) < 0) {
             // Decimal abs. value is greater
             return (signA > 0) ? 1 : -1;
           }
-          if (ratio.CompareTo((EInteger)4) >= 0) {
+          if (ratio.CompareTo((EInteger)3322) >= 0) {
             return (signA > 0) ? -1 : 1;
           }
         }
       }
-      EDecimal otherDec = EDecimal.FromEFloat(other);
-      return this.CompareTo(otherDec);
-    }
+      EDecimal otherDec = EDecimal.FromEFloat(ef);
+      return ed.CompareTo(otherDec);
+}
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToSignal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
@@ -1732,26 +1788,26 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Add(System.Int32)"]/*'/>
 public EDecimal Add(int intValue) {
  return this.Add(EDecimal.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Subtract(System.Int32)"]/*'/>
 public EDecimal Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
    this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
 }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Multiply(System.Int32)"]/*'/>
 public EDecimal Multiply(int intValue) {
  return this.Multiply(EDecimal.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Divide(System.Int32)"]/*'/>
 public EDecimal Divide(int intValue) {
  return this.Divide(EDecimal.FromInt32(intValue));
 }
@@ -2195,7 +2251,7 @@ public EDecimal Divide(int intValue) {
         return 0.0;
       }
       if (this.IsFinite) {
-       EInteger adjExp = this.GetAdjustedExponent();
+       EInteger adjExp = GetAdjustedExponent(this);
         if (adjExp.CompareTo((EInteger)(-326)) < 0) {
           // Very low exponent, treat as 0
         return this.IsNegative ? Extras.IntegersToDouble(new[] { 0,
@@ -2269,7 +2325,7 @@ public EDecimal Divide(int intValue) {
       if (this.IsZero) {
         return 0.0f;
       }
-      EInteger adjExp = this.GetAdjustedExponent();
+      EInteger adjExp = GetAdjustedExponent(this);
       if (adjExp.CompareTo((EInteger)(-47)) < 0) {
         // Very low exponent, treat as 0
         return this.IsNegative ?
@@ -2361,19 +2417,6 @@ public EDecimal Divide(int intValue) {
       return true;
     }
 
-    private static EInteger GetAdjustedExponentBinary(EFloat ef) {
-      if (!ef.IsFinite) {
-        return EInteger.Zero;
-      }
-      if (ef.IsZero) {
-        return EInteger.Zero;
-      }
-      EInteger retEInt = ef.Exponent;
-      int smallPrecision = ef.UnsignedMantissa.GetSignedBitLength();
-      --smallPrecision;
-      retEInt = retEInt.Add(EInteger.FromInt32(smallPrecision));
-      return retEInt;
-    }
 
     private static IRadixMath<EDecimal> GetMathValue(EContext ctx) {
       if (ctx == null || ctx == EContext.UnlimitedHalfEven) {
@@ -2389,17 +2432,33 @@ public EDecimal Divide(int intValue) {
                 this.exponent.Equals(otherValue.exponent));
     }
 
-    private EInteger GetAdjustedExponent() {
-      if (!this.IsFinite) {
+    private static EInteger GetAdjustedExponent(EDecimal ed) {
+      if (!ed.IsFinite) {
         return EInteger.Zero;
       }
-      if (this.IsZero) {
+      if (ed.IsZero) {
         return EInteger.Zero;
       }
-      EInteger retEInt = this.Exponent;
-      int smallPrecision = this.UnsignedMantissa.GetDigitCount();
-      --smallPrecision;
-      retEInt = retEInt.Add(EInteger.FromInt32(smallPrecision));
+      EInteger retEInt = ed.Exponent;
+      // TODO: Use EInteger version when available
+      EInteger eiPrecision = EInteger.FromInt32(
+          ed.UnsignedMantissa.GetDigitCount());
+      retEInt = retEInt.Add(eiPrecision.Subtract(1));
+      return retEInt;
+    }
+
+    private static EInteger GetAdjustedExponentBinary(EFloat ef) {
+      if (!ef.IsFinite) {
+        return EInteger.Zero;
+      }
+      if (ef.IsZero) {
+        return EInteger.Zero;
+      }
+      EInteger retEInt = ef.Exponent;
+      // TODO: Use GetSignedBitLengthAsEInteger when available
+      EInteger eiPrecision = EInteger.FromInt32(
+           ef.UnsignedMantissa.GetSignedBitLength());
+      retEInt = retEInt.Add(eiPrecision.Subtract(1));
       return retEInt;
     }
 
