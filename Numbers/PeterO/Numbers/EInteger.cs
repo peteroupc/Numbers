@@ -2605,6 +2605,7 @@ WordsShiftRightOne(bu, buc);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
     public int GetSignedBitLength() {
+      // TODO: AddAsEInteger version
       int wc = this.wordCount;
       if (wc != 0) {
         if (this.negative) {
