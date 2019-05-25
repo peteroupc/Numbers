@@ -1787,35 +1787,27 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
       return GetMathValue(ctx).Multiply(this, op, ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Add(System.Int32)"]/*'/>
 public EDecimal Add(int intValue) {
  return this.Add(EDecimal.FromInt32(intValue));
 }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Subtract(System.Int32)"]/*'/>
 public EDecimal Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
    this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
 }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Multiply(System.Int32)"]/*'/>
 public EDecimal Multiply(int intValue) {
  return this.Multiply(EDecimal.FromInt32(intValue));
 }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Divide(System.Int32)"]/*'/>
 public EDecimal Divide(int intValue) {
  return this.Divide(EDecimal.FromInt32(intValue));
 }

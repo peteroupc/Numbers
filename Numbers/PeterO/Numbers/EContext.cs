@@ -220,14 +220,17 @@ namespace PeterO.Numbers {
     private int traps;
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='EContext'/> class.</summary>
-    /// <param name='precision'>A 32-bit signed integer.</param>
-    /// <param name='rounding'>An ERounding object.</param>
-    /// <param name='exponentMinSmall'>Another 32-bit signed
-    /// integer.</param>
-    /// <param name='exponentMaxSmall'>A 32-bit signed integer.
-    /// (3).</param>
-    /// <param name='clampNormalExponents'>A Boolean object.</param>
+    /// <see cref='T:PeterO.Numbers.EContext'/> class.</summary>
+    /// <param name='precision'>The parameter <paramref name='precision'/>
+    /// is a 32-bit signed integer.</param>
+    /// <param name='rounding'>The parameter <paramref name='rounding'/> is
+    /// an ERounding object.</param>
+    /// <param name='exponentMinSmall'>The parameter <paramref
+    /// name='exponentMinSmall'/> is a 32-bit signed integer.</param>
+    /// <param name='exponentMaxSmall'>The parameter <paramref
+    /// name='exponentMaxSmall'/> is a 32-bit signed integer.</param>
+    /// <param name='clampNormalExponents'>Either <c>true</c> or
+    /// <c>false</c>.</param>
     public EContext(
   int precision,
   ERounding rounding,

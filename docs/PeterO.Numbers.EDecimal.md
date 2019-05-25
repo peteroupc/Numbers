@@ -8,7 +8,9 @@ Represents an arbitrary-precision decimal floating-point number. (The "E" stands
 
 Decimal (base-10) arithmetic, such as that provided by this class, is appropriate for calculations involving such real-world data as prices and other sums of money, tax rates, and measurements. These calculations often involve multiplying or dividing one decimal with another decimal, or performing other operations on decimal numbers. Many of these calculations also rely on rounding behavior in which the result after rounding is a decimal number (for example, multiplying a price by a premium rate, then rounding, should result in a decimal amount of money).
 
-On the other hand, most implementations of `float` and `double` , including in C# and Java, store numbers in a binary (base-2) loating-point format and use binary floating-point arithmetic. Many ecimal numbers can't be represented exactly in binary floating-point ormat (regardless of its length). Applying binary arithmetic to numbers ntended to be decimals can sometimes lead to unintuitive results, as is hown in the description for the FromDouble() method of this class.
+On the other hand, most implementations of `float
+        ` and `double
+        ` , including in C# and Java, store numbers in a binary (base-2) loating-point format and use binary floating-point arithmetic. Many ecimal numbers can't be represented exactly in binary floating-point ormat (regardless of its length). Applying binary arithmetic to numbers ntended to be decimals can sometimes lead to unintuitive results, as is hown in the description for the FromDouble() method of this class.
 
 <b>About EDecimal instances</b>
 
@@ -20,7 +22,8 @@ The mantissa (significand) and exponent format preserves trailing zeros in the n
 
 This class also supports values for negative zero, not-a-number (NaN) values, and infinity.<b>Negative zero</b>is generally used when a negative number is rounded to 0; it has the ame mathematical value as positive zero.<b>Infinity</b>is generally used when a non-zero number is divided by zero, or when a ery high or very low number can't be represented in a given exponent ange.<b>Not-a-number</b>is generally used to signal errors.
 
-This class implements the General Decimal Arithmetic Specification version 1.70 (except part of chapter 6): `http://speleotrove.com/decimal/decarith.html`
+This class implements the General Decimal Arithmetic Specification version 1.70 (except part of chapter 6): `http://speleotrove.com/decimal/decarith.html
+        `
 
 <b>Errors and Exceptions</b>
 
@@ -54,7 +57,8 @@ This class's natural ordering (under the CompareTo method) is not consistent wit
 
 It is not recommended to implement security-sensitive algorithms using the methods in this class, for several reasons:
 
- *  `EDecimal` objects are immutable, so they can't be modified, and the memory they ccupy is not guaranteed to be cleared in a timely fashion due to arbage collection. This is relevant for applications that use any-digit-long numbers as secret parameters.
+ *  `EDecimal
+          ` objects are immutable, so they can't be modified, and the memory they ccupy is not guaranteed to be cleared in a timely fashion due to arbage collection. This is relevant for applications that use any-digit-long numbers as secret parameters.
 
  * The methods in this class (especially those that involve arithmetic) are not guaranteed to run in constant time for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
@@ -137,7 +141,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
-* <code>[Add(int)](#Add_int)</code> -
+* <code>[Add(int)](#Add_int)</code> - Not documented yet.
 * <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary float with this instance.
 * <code>[CompareToSignal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EDecimal)](#CompareToTotalMagnitude_PeterO_Numbers_EDecimal)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
@@ -169,13 +173,13 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[DivideToSameExponent(PeterO.Numbers.EDecimal, PeterO.Numbers.ERounding)](#DivideToSameExponent_PeterO_Numbers_EDecimal_PeterO_Numbers_ERounding)</code> - Divides this object by another decimal number and returns a result with the same exponent as this object (the dividend).
 * <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this object by another decimal number and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number.
-* <code>[Divide(int)](#Divide_int)</code> -
+* <code>[Divide(int)](#Divide_int)</code> - Not documented yet.
 * <code>[Equals(PeterO.Numbers.EDecimal)](#Equals_PeterO_Numbers_EDecimal)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision decimal number.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
 * <code>[Exponent](#Exponent)</code> - Gets this object's exponent.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
-* <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts adecimalunder the Common Language Infrastructure (seePeterO.
+* <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts adecimal under the Common Language Infrastructure (seePeterO.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Creates a decimal number from a 64-bit binary floating-point number.
 * <code>[FromEFloat(PeterO.Numbers.EFloat)](#FromEFloat_PeterO_Numbers_EFloat)</code> - Creates a decimal number from an arbitrary-precision binary floating-point number.
 * <code>[FromEInteger(PeterO.Numbers.EInteger)](#FromEInteger_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to an arbitrary precision decimal.
@@ -226,7 +230,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[MultiplyAndSubtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#MultiplyAndSubtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies by one value, and then subtracts another value.
 * <code>[Multiply(PeterO.Numbers.EDecimal)](#Multiply_PeterO_Numbers_EDecimal)</code> - Multiplies two decimal numbers.
 * <code>[Multiply(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Multiply_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies two decimal numbers.
-* <code>[Multiply(int)](#Multiply_int)</code> -
+* <code>[Multiply(int)](#Multiply_int)</code> - Not documented yet.
 * <code>[public static readonly PeterO.Numbers.EDecimal NaN;](#NaN)</code> - A not-a-number value.
 * <code>[Negate()](#Negate)</code> - Gets an object with the same value as this one, but with the sign reversed.
 * <code>[Negate(PeterO.Numbers.EContext)](#Negate_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but with the sign reversed.
@@ -263,9 +267,9 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[RoundToExponent(int, PeterO.Numbers.EContext)](#RoundToExponent_int_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to a new exponent if necessary.
 * <code>[RoundToExponent(int, PeterO.Numbers.ERounding)](#RoundToExponent_int_PeterO_Numbers_ERounding)</code> - Returns a decimal number with the same value as this object but rounded to a new exponent if necessary.
 * <code>[RoundToIntegerExact(PeterO.Numbers.EContext)](#RoundToIntegerExact_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
-* <code>[RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, without adding theFlagInexactorFlagRoundedflags.
+* <code>[RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, without adding theFlagInexact orFlagRounded flags.
 * <code>[RoundToIntegralExact(PeterO.Numbers.EContext)](#RoundToIntegralExact_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
-* <code>[RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, without adding theFlagInexactorFlagRoundedflags.
+* <code>[RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, without adding theFlagInexact orFlagRounded flags.
 * <code>[RoundToPrecision(PeterO.Numbers.EContext)](#RoundToPrecision_PeterO_Numbers_EContext)</code> - Rounds this object's value to a given precision, using the given rounding mode and range of exponent.
 * <code>[ScaleByPowerOfTen(PeterO.Numbers.EInteger)](#ScaleByPowerOfTen_PeterO_Numbers_EInteger)</code> - Returns a number similar to this number but with the scale adjusted.
 * <code>[ScaleByPowerOfTen(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#ScaleByPowerOfTen_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a number similar to this number but with its scale adjusted.
@@ -277,12 +281,12 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal number from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal number from this instance.
-* <code>[Subtract(int)](#Subtract_int)</code> -
+* <code>[Subtract(int)](#Subtract_int)</code> - Not documented yet.
 * <code>[public static readonly PeterO.Numbers.EDecimal Ten;](#Ten)</code> - Represents the number 10.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
 * <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
-* <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to adecimalunder the Common Language Infrastructure (seePeterO.
+* <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to adecimal under the Common Language Infrastructure (seePeterO.
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number.
 * <code>[ToEFloat()](#ToEFloat)</code> - Creates a binary floating-point number from this object's value.
 * <code>[ToEFloat(PeterO.Numbers.EContext)](#ToEFloat_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from this object's value.
@@ -401,7 +405,9 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true` if this object is finite (not infinity or NaN); otherwise,  `false` .
+ `true
+      ` if this object is finite (not infinity or NaN); otherwise, `false
+      ` .
 
 <a id="IsNegative"></a>
 ### IsNegative
@@ -412,7 +418,9 @@ Gets a value indicating whether this object is negative, including negative zero
 
 <b>Returns:</b>
 
- `true` if this object is negative, including negative zero; otherwise,  `false` .
+ `true
+      ` if this object is negative, including negative zero; otherwise, `false
+      ` .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -423,7 +431,11 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true` if this object's value equals 0; otherwise,  `false` . `true` if this object' s value equals 0; otherwise, . `false` .
+ `true
+      ` if this object's value equals 0; otherwise, `false
+      ` . `true
+      ` if this object' s value equals 0; otherwise, . `false
+      ` .
 
 <a id="Mantissa"></a>
 ### Mantissa
@@ -468,7 +480,8 @@ Finds the absolute value of this object (if it's negative, it becomes positive).
 
 <b>Parameters:</b>
 
- * <i>context</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
+ * <i>context</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -490,6 +503,17 @@ An arbitrary-precision decimal number. Returns signaling NaN if this value is si
 
     public PeterO.Numbers.EDecimal Add(
         int intValue);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The parameter  <i>intValue</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An EDecimal object.
 
 <a id="Add_PeterO_Numbers_EDecimal"></a>
 ### Add
@@ -520,7 +544,8 @@ Finds the sum of this object and another object. The result's exponent is set to
 
  * <i>otherValue</i>: The number to add to.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -582,7 +607,8 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 
  * <i>other</i>: An arbitrary-precision decimal number.
 
- * <i>ctx</i>: An arithmetic context. The precision, rounding, and exponent range are ignored. If `HasFlags` of the context is true, will store the flags resulting from the operation the flags are in addition to the pre-existing flags). Can be null.
+ * <i>ctx</i>: An arithmetic context. The precision, rounding, and exponent range are ignored. If `HasFlags
+      ` of the context is true, will store the flags resulting from the operation the flags are in addition to the pre-existing flags). Can be null.
 
 <b>Return Value:</b>
 
@@ -641,7 +667,9 @@ Compares the values of this object and another object, imposing a total ordering
 
  * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
 
- * <i>ctx</i>: An arithmetic context. Flags will be set in this context only if `HasFlags` and `IsSimplified` of the context are true and only if an operand needed to be rounded efore carrying out the operation. Can be null.
+ * <i>ctx</i>: An arithmetic context. Flags will be set in this context only if `HasFlags
+      ` and `IsSimplified
+      ` of the context are true and only if an operand needed to be rounded efore carrying out the operation. Can be null.
 
 <b>Return Value:</b>
 
@@ -688,7 +716,8 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 
  * <i>other</i>: An arbitrary-precision decimal number.
 
- * <i>ctx</i>: An arithmetic context. The precision, rounding, and exponent range are ignored. If `HasFlags` of the context is true, will store the flags resulting from the operation the flags are in addition to the pre-existing flags). Can be null.
+ * <i>ctx</i>: An arithmetic context. The precision, rounding, and exponent range are ignored. If `HasFlags
+      ` of the context is true, will store the flags resulting from the operation the flags are in addition to the pre-existing flags). Can be null.
 
 <b>Return Value:</b>
 
@@ -722,7 +751,8 @@ The parameter "other" is null.
         int mantissaSmall,
         int exponentSmall);
 
-Creates a number with the value `exponent*10^mantissa`
+Creates a number with the value `exponent*10^mantissa
+      `
 
 <b>Parameters:</b>
 
@@ -741,7 +771,8 @@ An arbitrary-precision decimal number.
         PeterO.Numbers.EInteger mantissa,
         PeterO.Numbers.EInteger exponent);
 
-Creates a number with the value `exponent*10^mantissa`
+Creates a number with the value `exponent*10^mantissa
+      `
 
 <b>Parameters:</b>
 
@@ -810,6 +841,17 @@ The parameter "diag" is null or is less than 0.
     public PeterO.Numbers.EDecimal Divide(
         int intValue);
 
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The parameter  <i>intValue</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An EDecimal object.
+
 <a id="Divide_PeterO_Numbers_EDecimal"></a>
 ### Divide
 
@@ -839,7 +881,8 @@ Divides this arbitrary-precision decimal number by another arbitrary-precision d
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -880,7 +923,8 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's `HasFlags` is true and the integer part of the division result doesn't fit the recision and exponent range without rounding. Can be null, in which the recision is unlimited and no additional rounding, other than the rounding own to an integer after division, is needed.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's `HasFlags
+      ` is true and the integer part of the division result doesn't fit the recision and exponent range without rounding. Can be null, in which the recision is unlimited and no additional rounding, other than the rounding own to an integer after division, is needed.
 
 <b>Return Value:</b>
 
@@ -921,7 +965,8 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
  * <i>desiredExponentInt</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
- * <i>ctx</i>: An arithmetic context object to control the rounding mode to use if the result must be scaled down to have the same exponent as this value. If the precision given in the context is other than 0, calls the Quantize method with both arguments equal to the result of the operation (and can signal FlagInvalid and return NaN if the result doesn't fit the given precision). If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context object to control the rounding mode to use if the result must be scaled down to have the same exponent as this value. If the precision given in the context is other than 0, calls the Quantize method with both arguments equal to the result of the operation (and can signal FlagInvalid and return NaN if the result doesn't fit the given precision). If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -984,7 +1029,8 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
  * <i>desiredExponentSmall</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
- * <i>ctx</i>: An arithmetic context object to control the rounding mode to use if the result must be scaled down to have the same exponent as this value. If the precision given in the context is other than 0, calls the Quantize method with both arguments equal to the result of the operation (and can signal FlagInvalid and return NaN if the result doesn't fit the given precision). If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context object to control the rounding mode to use if the result must be scaled down to have the same exponent as this value. If the precision given in the context is other than 0, calls the Quantize method with both arguments equal to the result of the operation (and can signal FlagInvalid and return NaN if the result doesn't fit the given precision). If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -1069,7 +1115,8 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
  * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
- * <i>ctx</i>: An arithmetic context object to control the rounding mode to use if the result must be scaled down to have the same exponent as this value. If the precision given in the context is other than 0, calls the Quantize method with both arguments equal to the result of the operation (and can signal FlagInvalid and return NaN if the result doesn't fit the given precision). If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context object to control the rounding mode to use if the result must be scaled down to have the same exponent as this value. If the precision given in the context is other than 0, calls the Quantize method with both arguments equal to the result of the operation (and can signal FlagInvalid and return NaN if the result doesn't fit the given precision). If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -1125,7 +1172,8 @@ Divides this object by another object, and returns the integer part of the resul
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited.
+ * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited.
 
 <b>Return Value:</b>
 
@@ -1179,7 +1227,8 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's `HasFlags` is true and the integer part of the division result doesn't fit the recision and exponent range without rounding. Can be null, in which the recision is unlimited and no additional rounding, other than the rounding own to an integer after division, is needed.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's `HasFlags
+      ` is true and the integer part of the division result doesn't fit the recision and exponent range without rounding. Can be null, in which the recision is unlimited and no additional rounding, other than the rounding own to an integer after division, is needed.
 
 <b>Return Value:</b>
 
@@ -1200,7 +1249,9 @@ is an arbitrary object.
 
 <b>Return Value:</b>
 
- `true` if the objects are equal; otherwise,  `false` .
+ `true
+      ` if the objects are equal; otherwise, `false
+      ` .
 
 <a id="Equals_PeterO_Numbers_EDecimal"></a>
 ### Equals
@@ -1216,7 +1267,9 @@ Determines whether this object's mantissa (significand), exponent, and propertie
 
 <b>Return Value:</b>
 
- `true` if this object's mantissa (significand) and exponent are equal to those f another object; otherwise,  `false` .
+ `true
+      ` if this object's mantissa (significand) and exponent are equal to those f another object; otherwise, `false
+      ` .
 
 <a id="Exp_PeterO_Numbers_EContext"></a>
 ### Exp
@@ -1228,7 +1281,8 @@ Finds e (the base of natural logarithms) raised to the power of this object's va
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the exponential function's results are enerally not exact.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the exponential function's results are enerally not exact.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1256,13 +1310,15 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromDecimal(
         System.Decimal dec);
 
-Converts a `decimal` under the Common Language Infrastructure (see[
+Converts a `decimal
+      ` under the Common Language Infrastructure (see[
          &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)) to an arbitrary-precision decimal.
 
 <b>Parameters:</b>
 
- * <i>dec</i>: A `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
+ * <i>dec</i>: A `decimal
+      ` under the Common Language Infrastructure (usually a .NET Framework ecimal).
 
 <b>Return Value:</b>
 
@@ -1274,7 +1330,9 @@ An arbitrary-precision decimal floating-point number.
     public static PeterO.Numbers.EDecimal FromDouble(
         double dbl);
 
-Creates a decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling `ExtendedDecimal.FromDouble(0.1f)` ), since not all decimal numbers can be converted to exact binary numbers in the example given, the resulting arbitrary-precision decimal will be he value of the closest "double" to 0.1, not 0.1 exactly). To create an rbitrary-precision decimal number from a decimal number, use FromString nstead in most cases (for example: `ExtendedDecimal.FromString("0.1")` ).
+Creates a decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling `ExtendedDecimal.FromDouble(0.1f)
+      ` ), since not all decimal numbers can be converted to exact binary numbers in the example given, the resulting arbitrary-precision decimal will be he value of the closest "double" to 0.1, not 0.1 exactly). To create an rbitrary-precision decimal number from a decimal number, use FromString nstead in most cases (for example: `ExtendedDecimal.FromString("0.1")
+      ` ).
 
 <b>Parameters:</b>
 
@@ -1412,7 +1470,9 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromSingle(
         float flt);
 
-Creates a decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling `ExtendedDecimal.FromSingle(0.1f)` ), since not all decimal numbers can be converted to exact binary numbers in the example given, the resulting arbitrary-precision decimal will be he the value of the closest "float" to 0.1, not 0.1 exactly). To create n arbitrary-precision decimal number from a decimal number, use romString instead in most cases (for example: `ExtendedDecimal.FromString("0.1")` ).
+Creates a decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling `ExtendedDecimal.FromSingle(0.1f)
+      ` ), since not all decimal numbers can be converted to exact binary numbers in the example given, the resulting arbitrary-precision decimal will be he the value of the closest "float" to 0.1, not 0.1 exactly). To create n arbitrary-precision decimal number from a decimal number, use romString instead in most cases (for example: `ExtendedDecimal.FromString("0.1")
+      ` ).
 
 <b>Parameters:</b>
 
@@ -1429,7 +1489,8 @@ A decimal number with the same value as "flt".
     public static PeterO.Numbers.EDecimal FromString(
         string str);
 
-Creates a decimal number from a text string that represents a number. See `FromString(String, int, int, EContext)` for more information.
+Creates a decimal number from a text string that represents a number. See `FromString(String, int, int, EContext)
+      ` for more information.
 
 <b>Parameters:</b>
 
@@ -1452,7 +1513,8 @@ The parameter "str" is not a correctly formatted number string.
         int offset,
         int length);
 
-Creates a decimal number from a text string that represents a number. See `FromString(String, int, int, EContext)` for more information.
+Creates a decimal number from a text string that represents a number. See `FromString(String, int, int, EContext)
+      ` for more information.
 
 <b>Parameters:</b>
 
@@ -1511,7 +1573,8 @@ begins.
 (but not more than <i>str</i>
 's length).
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1532,13 +1595,15 @@ Either "offset" or "length" is less than 0 or greater than "str" 's length, or "
         string str,
         PeterO.Numbers.EContext ctx);
 
-Creates a decimal number from a text string that represents a number. See `FromString(String, int, int, EContext)` for more information.
+Creates a decimal number from a text string that represents a number. See `FromString(String, int, int, EContext)
+      ` for more information.
 
 <b>Parameters:</b>
 
  * <i>str</i>: A string that represents a number.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1617,7 +1682,9 @@ Gets a value indicating whether this object is positive or negative infinity.
 
 <b>Return Value:</b>
 
- `true` if this object is positive or negative infinity; otherwise,  `false` .
+ `true
+      ` if this object is positive or negative infinity; otherwise, `false
+      ` .
 
 <a id="IsNaN"></a>
 ### IsNaN
@@ -1628,7 +1695,9 @@ Gets a value indicating whether this object is not a number (NaN).
 
 <b>Return Value:</b>
 
- `true` if this object is not a number (NaN); otherwise,  `false` .
+ `true
+      ` if this object is not a number (NaN); otherwise, `false
+      ` .
 
 <a id="IsNegativeInfinity"></a>
 ### IsNegativeInfinity
@@ -1639,7 +1708,9 @@ Returns whether this object is negative infinity.
 
 <b>Return Value:</b>
 
- `true` if this object is negative infinity; otherwise,  `false` .
+ `true
+      ` if this object is negative infinity; otherwise, `false
+      ` .
 
 <a id="IsPositiveInfinity"></a>
 ### IsPositiveInfinity
@@ -1650,7 +1721,9 @@ Returns whether this object is positive infinity.
 
 <b>Return Value:</b>
 
- `true` if this object is positive infinity; otherwise,  `false` .
+ `true
+      ` if this object is positive infinity; otherwise, `false
+      ` .
 
 <a id="IsQuietNaN"></a>
 ### IsQuietNaN
@@ -1661,7 +1734,9 @@ Gets a value indicating whether this object is a quiet not-a-number value.
 
 <b>Return Value:</b>
 
- `true` if this object is a quiet not-a-number value; otherwise,  `false` .
+ `true
+      ` if this object is a quiet not-a-number value; otherwise, `false
+      ` .
 
 <a id="IsSignalingNaN"></a>
 ### IsSignalingNaN
@@ -1672,7 +1747,9 @@ Gets a value indicating whether this object is a signaling not-a-number value.
 
 <b>Return Value:</b>
 
- `true` if this object is a signaling not-a-number value; otherwise,  `false` .
+ `true
+      ` if this object is a signaling not-a-number value; otherwise, `false
+      ` .
 
 <a id="Log_PeterO_Numbers_EContext"></a>
 ### Log
@@ -1684,7 +1761,8 @@ Finds the natural logarithm of this object, that is, the power (exponent) that e
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the ln function's results are enerally not exact.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the ln function's results are enerally not exact.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1700,7 +1778,8 @@ Finds the base-10 logarithm of this object, that is, the power (exponent) that t
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the ln function's results are enerally not exact.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the ln function's results are enerally not exact.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1741,7 +1820,8 @@ Gets the greater value between two decimal numbers.
 
  * <i>second</i>: The second value to compare.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1782,7 +1862,8 @@ Gets the greater value between two values, ignoring their signs. If the absolute
 
  * <i>second</i>: The second value to compare.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1823,7 +1904,8 @@ Gets the lesser value between two decimal numbers.
 
  * <i>second</i>: The second value to compare.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1864,7 +1946,8 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 
  * <i>second</i>: The second value to compare.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1899,7 +1982,8 @@ Returns a number similar to this number but with the decimal point moved to the 
 
  * <i>places</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1935,7 +2019,8 @@ Returns a number similar to this number but with the decimal point moved to the 
 
  * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -1971,7 +2056,8 @@ Returns a number similar to this number but with the decimal point moved to the 
 
  * <i>places</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -2007,7 +2093,8 @@ Returns a number similar to this number but with the decimal point moved to the 
 
  * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -2019,6 +2106,17 @@ A number whose exponent is increased by <i>bigPlaces</i>
 
     public PeterO.Numbers.EDecimal Multiply(
         int intValue);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The parameter  <i>intValue</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An EDecimal object.
 
 <a id="Multiply_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Multiply
@@ -2033,7 +2131,8 @@ Multiplies two decimal numbers. The resulting scale will be the sum of the scale
 
  * <i>op</i>: Another decimal number.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -2090,7 +2189,8 @@ Multiplies by one value, and then adds another value.
 
  * <i>augend</i>: The value to add.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed. f the precision doesn't indicate a simplified arithmetic, rounding and recision/exponent adjustment is done only once, namely, after multiplying nd adding.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed. f the precision doesn't indicate a simplified arithmetic, rounding and recision/exponent adjustment is done only once, namely, after multiplying nd adding.
 
 <b>Return Value:</b>
 
@@ -2112,7 +2212,8 @@ Multiplies by one value, and then subtracts another value.
 
  * <i>subtrahend</i>: The value to subtract.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed. f the precision doesn't indicate a simplified arithmetic, rounding and recision/exponent adjustment is done only once, namely, after multiplying nd subtracting.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed. f the precision doesn't indicate a simplified arithmetic, rounding and recision/exponent adjustment is done only once, namely, after multiplying nd subtracting.
 
 <b>Return Value:</b>
 
@@ -2133,7 +2234,8 @@ Returns a decimal number with the same value as this object but with the sign re
 
 <b>Parameters:</b>
 
- * <i>context</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>context</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -2160,7 +2262,8 @@ Finds the largest value that's smaller than the given value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).
+ * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).
 
 <b>Return Value:</b>
 
@@ -2176,7 +2279,8 @@ Finds the smallest value that's greater than the given value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).
+ * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).
 
 <b>Return Value:</b>
 
@@ -2195,7 +2299,8 @@ Finds the next value that is closer to the other object's value than this object
 
  * <i>otherValue</i>: An arbitrary-precision decimal number that the return value will approach.
 
- * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).
+ * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).
 
 <b>Return Value:</b>
 
@@ -2363,7 +2468,8 @@ Finds the constant π, the circumference of a circle divided by its diameter.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as π can never be represented xactly.</i>.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as π can never be represented xactly.</i>.
 
 <b>Return Value:</b>
 
@@ -2414,7 +2520,8 @@ Raises this object's value to the given exponent.
 
  * <i>exponentSmall</i>: The exponent to raise this object's value to.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -2433,7 +2540,8 @@ Raises this object's value to the given exponent.
 
  * <i>exponent</i>: An arbitrary-precision decimal number expressing the exponent to raise this object's value to.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -2473,7 +2581,8 @@ A fixed-point decimal arithmetic in which no digits come after the decimal point
 
  * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2513,7 +2622,8 @@ Returns a decimal number with the same value as this object but with the same ex
 
  * <i>otherValue</i>: A decimal number containing the desired exponent of the result. The mantissa (significand) is ignored. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2541,7 +2651,8 @@ A fixed-point decimal arithmetic in which no digits come after the decimal point
 
  * <i>desiredExponent</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2557,7 +2668,8 @@ Removes trailing zeros from this object's mantissa (significand). For example, 1
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and rounding isn't needed.
 
 <b>Return Value:</b>
 
@@ -2576,7 +2688,8 @@ Finds the remainder that results when dividing two arbitrary-precision decimal n
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, and of the intermediate integer division. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which the precision is unlimited.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, and of the intermediate integer division. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which the precision is unlimited.
 
 <b>Return Value:</b>
 
@@ -2588,7 +2701,8 @@ The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (
     public PeterO.Numbers.EDecimal RemainderNaturalScale(
         PeterO.Numbers.EDecimal divisor);
 
-Calculates the remainder of a number by the formula `"this" - (("this" / "divisor") * "divisor")`
+Calculates the remainder of a number by the formula `"this" - (("this" / "divisor") * "divisor")
+      `
 
 <b>Parameters:</b>
 
@@ -2611,7 +2725,8 @@ Calculates the remainder of a number by the formula "this" - (("this" / "divisor
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the return value to have a higher precision than given in this context. Flags will be set on the given context only if the context's `HasFlags` is true and the integer part of the division result doesn't fit the recision and exponent range without rounding. Can be null, in which the recision is unlimited and no additional rounding, other than the rounding own to an integer after division, is needed.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the return value to have a higher precision than given in this context. Flags will be set on the given context only if the context's `HasFlags
+      ` is true and the integer part of the division result doesn't fit the recision and exponent range without rounding. Can be null, in which the recision is unlimited and no additional rounding, other than the rounding own to an integer after division, is needed.
 
 <b>Return Value:</b>
 
@@ -2640,7 +2755,8 @@ This function is also known as the "IEEE Remainder" function.
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored (the rounding mode is always treated as HalfEven). If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which the precision is unlimited.
+ * <i>ctx</i>: An arithmetic context object to control the precision. The rounding and exponent range settings of this context are ignored (the rounding mode is always treated as HalfEven). If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which the precision is unlimited.
 
 <b>Return Value:</b>
 
@@ -2659,7 +2775,8 @@ Finds the remainder that results when dividing two arbitrary-precision decimal n
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, but not also of the intermediate integer division. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which the precision is unlimited.
+ * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result, but not also of the intermediate integer division. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which the precision is unlimited.
 
 <b>Return Value:</b>
 
@@ -2694,7 +2811,8 @@ Returns a decimal number with the same value as this object but rounded to a new
 
  * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2748,7 +2866,8 @@ Returns a decimal number with the same value as this object but rounded to a new
 
  * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2786,7 +2905,8 @@ Returns a decimal number with the same value as this object but rounded to an in
 
  * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2824,7 +2944,8 @@ Returns a decimal number with the same value as this object but rounded to the g
 
  * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2840,7 +2961,8 @@ Returns a decimal number with the same value as this object but rounded to an in
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2852,11 +2974,16 @@ A decimal number rounded to the closest integer representable in the given preci
     public PeterO.Numbers.EDecimal RoundToIntegerNoRoundedFlag(
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to an integer, without adding the `FlagInexact` or `FlagRounded` flags.
+Returns a decimal number with the same value as this object but rounded to an integer, without adding the `FlagInexact
+      ` or `FlagRounded
+      ` flags.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags), except hat this function will never add the `FlagRounded` and `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags), except hat this function will never add the `FlagRounded
+      ` and `FlagInexact
+      ` flags (the only difference between this and RoundToExponentExact). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2874,7 +3001,8 @@ Returns a decimal number with the same value as this object but rounded to an in
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2888,11 +3016,16 @@ A decimal number rounded to the closest integer representable in the given preci
 
 <b>Deprecated.</b> Renamed to RoundToIntegerNoRoundedFlag.
 
-Returns a decimal number with the same value as this object but rounded to an integer, without adding the `FlagInexact` or `FlagRounded` flags.
+Returns a decimal number with the same value as this object but rounded to an integer, without adding the `FlagInexact
+      ` or `FlagRounded
+      ` flags.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags), except hat this function will never add the `FlagRounded` and `FlagInexact` flags (the only difference between this and RoundToExponentExact). Can be ull, in which case the default rounding mode is HalfEven.
+ * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags), except hat this function will never add the `FlagRounded
+      ` and `FlagInexact
+      ` flags (the only difference between this and RoundToExponentExact). Can be ull, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
@@ -2908,7 +3041,8 @@ Rounds this object's value to a given precision, using the given rounding mode a
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -2943,7 +3077,8 @@ Returns a number similar to this number but with the scale adjusted.
 
  * <i>places</i>: The power of 10 to scale by.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -2978,7 +3113,8 @@ Returns a number similar to this number but with its scale adjusted.
 
  * <i>bigPlaces</i>: The power of 10 to scale by.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -2995,7 +3131,8 @@ Finds the square root of this object's value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the square root function's results are enerally not exact for many inputs.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the square root function's results are enerally not exact for many inputs.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
 
 <b>Return Value:</b>
 
@@ -3013,7 +3150,8 @@ Finds the square root of this object's value.
 
 <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the square root function's results are enerally not exact for many inputs.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags).<i>This parameter can't be null, as the square root function's results are enerally not exact for many inputs.</i>(Unlike in the General Decimal Arithmetic Specification, any rounding ode is allowed.).
 
 <b>Return Value:</b>
 
@@ -3024,6 +3162,17 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
 
     public PeterO.Numbers.EDecimal Subtract(
         int intValue);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intValue</i>: The parameter  <i>intValue</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An EDecimal object.
 
 <a id="Subtract_PeterO_Numbers_EDecimal"></a>
 ### Subtract
@@ -3054,7 +3203,8 @@ Subtracts an arbitrary-precision decimal number from this instance.
 
  * <i>otherValue</i>: The number to subtract from this instance's value.
 
- * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
+ * <i>ctx</i>: An arithmetic context to control precision, rounding, and exponent range of the result. If `HasFlags
+      ` of the context is true, will also store the flags resulting from the peration (the flags are in addition to the pre-existing flags). Can be ull, in which case the precision is unlimited and no rounding is needed.
 
 <b>Return Value:</b>
 
@@ -3113,13 +3263,15 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public System.Decimal ToDecimal();
 
-Converts this value to a `decimal` under the Common Language Infrastructure (see[
+Converts this value to a `decimal
+      ` under the Common Language Infrastructure (see[
          &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)), using the half-even rounding mode.
 
 <b>Return Value:</b>
 
-A `decimal` under the Common Language Infrastructure (usually a .NET Framework ecimal).
+A `decimal
+      ` under the Common Language Infrastructure (usually a .NET Framework ecimal).
 
 <a id="ToDouble"></a>
 ### ToDouble

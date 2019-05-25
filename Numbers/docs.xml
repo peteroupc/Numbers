@@ -4,15 +4,11 @@
     </summary>
   </doc>
   <doc name='M:PeterO.ArrayWriter.#ctor'>
-    <summary>Initializes a new instance of the
-      <see cref='T:PeterO.ArrayWriter'/>
-       class with a default buffer size.
+    <summary>Initializes a new instance of the <see cref='T:PeterO.ArrayWriter'/> class with a default buffer size.
     </summary>
   </doc>
   <doc name='M:PeterO.ArrayWriter.#ctor(System.Int32)'>
-    <summary>Initializes a new instance of the
-      <see cref='T:PeterO.ArrayWriter'/>
-       class with the given initial buffer size.
+    <summary>Initializes a new instance of the <see cref='T:PeterO.ArrayWriter'/> class with the given initial buffer size.
     </summary>
     <param name='initialSize'>The parameter
       <paramref name='initialSize'/>
@@ -932,24 +928,31 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)'>
-    <summary>Initializes a new instance of the
-      <see cref='T:PeterO.Numbers.EContext'/>
-       class.
-      <c>HasFlags
-      </c>
-       will be set to false.
+    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class.
     </summary>
-    <param name='precision'>The maximum number of digits a number can have, or 0 for an unlimited
-      number of digits.
+    <param name='precision'>The parameter
+      <paramref name='precision'/>
+       is a 32-bit signed integer.
     </param>
-    <param name='rounding'>The rounding mode to use when a number can't fit the given precision.
+    <param name='rounding'>The parameter
+      <paramref name='rounding'/>
+       is an ERounding object.
     </param>
-    <param name='exponentMinSmall'>The minimum exponent.
+    <param name='exponentMinSmall'>The parameter
+      <paramref name='exponentMinSmall'/>
+       is a 32-bit signed integer.
     </param>
-    <param name='exponentMaxSmall'>The maximum exponent.
+    <param name='exponentMaxSmall'>The parameter
+      <paramref name='exponentMaxSmall'/>
+       is a 32-bit signed integer.
     </param>
-    <param name='clampNormalExponents'>Whether to clamp a number's significand to the given maximum precision (if
-      it isn't zero) while remaining within the exponent range.
+    <param name='clampNormalExponents'>either
+      <c>true
+      </c>
+       or
+      <c>false
+      </c>
+      .
     </param>
   </doc>
   <doc name='P:PeterO.Numbers.EContext.AdjustExponent'>
@@ -1888,6 +1891,16 @@
     <returns>The sum of thisValue and the other object.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EDecimal.Add(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)'>
     <summary>Compares the mathematical values of this object and another object,
       accepting NaN values.
@@ -2273,6 +2286,16 @@
        's precision is 0, and the result would have a nonterminating decimal
       expansion; or, the rounding mode is ERounding.None and the result is not
       exact.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimal.Divide(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)'>
@@ -3396,6 +3419,16 @@
     <returns>The product of the two decimal numbers.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EDecimal.Multiply(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
     <summary>Multiplies by one decimal number, and then adds another decimal number.
     </summary>
@@ -4382,6 +4415,16 @@
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter &#x22;otherValue&#x22; is null.
     </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimal.Subtract(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
   </doc>
   <doc name='F:PeterO.Numbers.EDecimal.Ten'>
     <summary>Represents the number 10.
@@ -9326,7 +9369,7 @@
     <summary>Returns a byte array of this integer's value. The byte array will take the
       number's two' s-complement form (see
       <see cref='T:PeterO.Numbers.EDecimal'>
-        "Forms of numbers"
+         "Forms of numbers"
       </see>
        ), using the fewest bytes necessary to store its value unambiguously. If
       this value is negative, the bits that appear beyond the most significant
@@ -10024,9 +10067,7 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
-    <summary>Initializes a new instance of the
-      <see cref='T:PeterO.Numbers.ERational'/>
-       class.
+    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.ERational'/> class.
     </summary>
     <param name='numerator'>The numerator.
     </param>
@@ -11645,19 +11686,15 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)'>
-    <summary>Initializes a new instance of the
-      <see cref='T:PeterO.Numbers.ETrapException'/>
-       class.
+    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.ETrapException'/> class.
     </summary>
-    <param name='flag'>A flag that specifies the kind of error (
-      <c>EContext.FlagXXYY
-      </c>
-       ). This will only be one flag, such as
-      <c>FlagInexact
-      </c>
-       or FlagSubnormal.
+    <param name='flag'>The parameter
+      <paramref name='flag'/>
+       is a 32-bit signed integer.
     </param>
-    <param name='ctx'>A context object for arbitrary-precision arithmetic settings.
+    <param name='ctx'>The parameter
+      <paramref name='ctx'/>
+       is an EContext object.
     </param>
     <param name='result'>The parameter
       <paramref name='result'/>

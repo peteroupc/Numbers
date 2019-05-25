@@ -51,11 +51,8 @@ namespace PeterO.Numbers {
         EContext.FlagUnderflow) ? "Underflow" : "Trap")))))));
     }
 
-    /// <summary>Initializes a new instance of the
-    /// <see cref='ETrapException'/> class.</summary>
-    /// <param name='flag'>A 32-bit signed integer.</param>
-    /// <param name='ctx'>An EContext object.</param>
-    /// <param name='result'>An arbitrary object.</param>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)"]/*'/>
     public ETrapException(int flag, EContext ctx, Object result) :
       base(FlagToMessage(flag)) {
       this.error = flag;
