@@ -1774,7 +1774,7 @@ This value is less than 0 or greater than 255.
         bool littleEndian);
 
 Returns a byte array of this integer's value. The byte array will take the number's two' s-complement form (see[
-        &#x22;Forms of numbers&#x22;
+         &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)), using the fewest bytes necessary to store its value unambiguously. If his value is negative, the bits that appear beyond the most significant it of the number will be all ones. The resulting byte array can be passed o the `FromBytes()
       ` method (with the same byte order) to reconstruct this integer's value.
 

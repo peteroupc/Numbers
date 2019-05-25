@@ -508,8 +508,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -845,8 +845,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -2111,8 +2111,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -3167,8 +3167,8 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 

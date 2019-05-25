@@ -123,7 +123,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
 
-Initializes a new instance of the[PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
+Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
 <b>Parameters:</b>
 

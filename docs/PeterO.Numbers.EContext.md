@@ -82,15 +82,19 @@ Initializes a new instance of the[PeterO.Numbers.EContext](PeterO.Numbers.EConte
 
 <b>Parameters:</b>
 
- * <i>precision</i>: A 32-bit signed integer.
+ * <i>precision</i>: The parameter  <i>precision</i>
+is a 32-bit signed integer.
 
- * <i>rounding</i>: An ERounding object.
+ * <i>rounding</i>: The parameter  <i>rounding</i>
+ is an ERounding object.
 
- * <i>exponentMinSmall</i>: Another 32-bit signed integer.
+ * <i>exponentMinSmall</i>: The parameter  <i>exponentMinSmall</i>
+ is a 32-bit signed integer.
 
- * <i>exponentMaxSmall</i>: A 32-bit signed integer. (3).
+ * <i>exponentMaxSmall</i>: The parameter  <i>exponentMaxSmall</i>
+ is a 32-bit signed integer.
 
- * <i>clampNormalExponents</i>: A Boolean object.
+ * <i>clampNormalExponents</i>: Either  `true`  or `false` .
 
 <a id="Basic"></a>
 ### Basic
