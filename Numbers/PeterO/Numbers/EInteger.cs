@@ -996,7 +996,7 @@ public EInteger Add(int intValue) {
             sumreg = new short[2];
             sumreg[0] = unchecked((short)a);
             return new EInteger(1, sumreg, this.negative);
-          }else if (a == b) {
+          } else if (a == b) {
             return EInteger.Zero;
           } else {
           b -= a;

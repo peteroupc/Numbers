@@ -131,9 +131,12 @@ namespace PeterO.Numbers {
             this.denominator = denominator;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-  [Obsolete("Use the ERational.Create method instead. This constructor will be private or unavailable in version 1.0.")]
+    /// <summary>Initializes a new instance of the
+    /// <see cref='ERational'/> class.</summary>
+    /// <param name='numerator'>The numerator.</param>
+    /// <param name='denominator'>The denominator.</param>
+    /// <exception cref='T:System.ArgumentException'>The denominator is
+    /// zero.</exception>
     public ERational(EInteger numerator, EInteger denominator) {
       this.Initialize(numerator, denominator);
     }

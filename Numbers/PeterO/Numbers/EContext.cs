@@ -219,8 +219,15 @@ namespace PeterO.Numbers {
 
     private int traps;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)"]/*'/>
+    /// <summary>Initializes a new instance of the
+    /// <see cref='EContext'/> class.</summary>
+    /// <param name='precision'>A 32-bit signed integer.</param>
+    /// <param name='rounding'>An ERounding object.</param>
+    /// <param name='exponentMinSmall'>Another 32-bit signed
+    /// integer.</param>
+    /// <param name='exponentMaxSmall'>A 32-bit signed integer.
+    /// (3).</param>
+    /// <param name='clampNormalExponents'>A Boolean object.</param>
     public EContext(
   int precision,
   ERounding rounding,

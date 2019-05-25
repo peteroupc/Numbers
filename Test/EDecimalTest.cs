@@ -263,26 +263,27 @@ namespace Test {
       }
     }
 
-
 [Test]
 [Timeout(1000)]
-public void TestSlowCompareTo(){
-EFloat ef=EFloat.Create(
-EInteger.FromString("-108854259699738613336073386912819333959164543792902007057925129910904321192623590227704182838777516070192327852552376209933022606"),
-EInteger.FromString("-94432713210"));
-EDecimal ed=EDecimal.FromString("-0.00007");
-Assert.AreEqual(-1,ed.CompareToBinary(ef));
+public void TestSlowCompareTo() {
+EInteger ei = EInteger.FromString(
+  "-108854259699738613336073386912819333959164543792902007057925129910904321192623590227704182838777516070192327852552376209933022606");
+EFloat ef = EFloat.Create(
+  ei,
+  EInteger.FromString("-94432713210"));
+EDecimal ed = EDecimal.FromString("-0.00007");
+Assert.AreEqual(-1, ed.CompareToBinary(ef));
 }
 
 [Test]
 [Timeout(1000)]
-public void TestSlowCompareTo2(){
-EFloat ef=EFloat.Create(
+public void TestSlowCompareTo2() {
+EFloat ef = EFloat.Create(
  EInteger.FromString("310698658007725142033104896"),
  EInteger.FromString("-910015527228"));
-EDecimal ed=EDecimal.FromString(
-"5.46812681195752988681792163205092489269012868995370381431608431437654836803981061017608940175753472E-373278497416");
-Assert.AreEqual(-1,ed.CompareToBinary(ef));
+EDecimal ed = EDecimal.FromString(
+  "5.46812681195752988681792163205092489269012868995370381431608431437654836803981061017608940175753472E-373278497416");
+Assert.AreEqual(-1, ed.CompareToBinary(ef));
 }
 
     [Test]
