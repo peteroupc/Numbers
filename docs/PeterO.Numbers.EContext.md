@@ -78,23 +78,25 @@ Contains parameters for controlling the precision, rounding, and exponent range 
         int exponentMaxSmall,
         bool clampNormalExponents);
 
-Initializes a new instance of the[PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.
+Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter  <i>precision</i>
+ * <i>precision</i>: The parameter <i>precision</i>
 is a 32-bit signed integer.
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is an ERounding object.
+ * <i>rounding</i>: The parameter <i>rounding</i>
+is an ERounding object.
 
- * <i>exponentMinSmall</i>: The parameter  <i>exponentMinSmall</i>
- is a 32-bit signed integer.
+ * <i>exponentMinSmall</i>: The parameter <i>exponentMinSmall</i>
+is a 32-bit signed integer.
 
- * <i>exponentMaxSmall</i>: The parameter  <i>exponentMaxSmall</i>
- is a 32-bit signed integer.
+ * <i>exponentMaxSmall</i>: The parameter <i>exponentMaxSmall</i>
+is a 32-bit signed integer.
 
- * <i>clampNormalExponents</i>: Either  `true`  or `false` .
+ * <i>clampNormalExponents</i>: Either `true
+      ` or `false
+      ` .
 
 <a id="Basic"></a>
 ### Basic
