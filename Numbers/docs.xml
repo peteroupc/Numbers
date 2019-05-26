@@ -1892,13 +1892,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Add(System.Int32)'>
-    <summary>Not documented yet.
+    <summary>Adds this object and an Int32 object and returns the result.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='otherValue'>An arbitrary-precision decimal number.
     </param>
-    <returns>An EDecimal object.
+    <returns>The sum of the two objects.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)'>
@@ -2289,13 +2287,15 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Divide(System.Int32)'>
-    <summary>Not documented yet.
+    <summary>Divides this object by an Int32 object and returns the result. When
+      possible, the result will be exact.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='divisor'>The number to divide by.
     </param>
-    <returns>An EDecimal object.
+    <returns>The quotient of the two numbers. Returns infinity if the divisor is 0 and
+      the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the
+      dividend are 0. Returns NaN if the result can't be exact because it would
+      have a nonterminating decimal expansion.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)'>
@@ -3420,13 +3420,12 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Multiply(System.Int32)'>
-    <summary>Not documented yet.
+    <summary>Multiplies this object by the given 32-bit signed integer. The resulting exponent will be the sum of
+      the exponents of the two  numbers.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='otherValue'>The nultiplicand in the form of a 32-bit signed integer.
     </param>
-    <returns>An EDecimal object.
+    <returns>The product of the two  numbers.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
@@ -4417,13 +4416,12 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Subtract(System.Int32)'>
-    <summary>Not documented yet.
+    <summary>Subtracts a 32-bit signed integer from this instance and
+      returns the result.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='otherValue'>The number to subtract from this instance's value.
     </param>
-    <returns>An EDecimal object.
+    <returns>The difference of the two objects.
     </returns>
   </doc>
   <doc name='F:PeterO.Numbers.EDecimal.Ten'>

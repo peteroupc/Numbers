@@ -1561,8 +1561,14 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSingle"]/*'/>
     public float ToSingle() {
-      return
-  this.ToEFloat(EContext.Binary32.WithRounding(ERounding.Odd))
+      if (!this.IsFinite) {
+        return this.ToEFloat(EContext.Binary32).ToSingle();
+      }
+      if (this.IsNegative && this.IsZero) {
+        return EFloat.NegativeZero.ToSingle();
+      }
+      return EFloat.FromEInteger(this.Numerator)
+        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary32)
         .ToSingle();
     }
 

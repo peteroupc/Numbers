@@ -1280,7 +1280,7 @@ StartsWith(chunks[2], "o")) {
       }
     }
 
-    [Test]
+    //[Test]
     public void TestParser() {
       long failures = 0;
       var errors = new List<string>();
