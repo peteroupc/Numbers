@@ -927,6 +927,37 @@
       </para>
     </summary>
   </doc>
+  <doc name='M:PeterO.Numbers.EContext.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Boolean)'>
+    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class.
+    </summary>
+    <param name='precision'>The parameter
+      <paramref name='precision'/>
+       is a 32-bit signed integer.
+    </param>
+    <param name='rounding'>The parameter
+      <paramref name='rounding'/>
+       is an ERounding object.
+    </param>
+    <param name='exponentMinSmall'>The parameter
+      <paramref name='exponentMinSmall'/>
+       is a 32-bit signed integer.
+    </param>
+    <param name='exponentMaxSmall'>The parameter
+      <paramref name='exponentMaxSmall'/>
+       is a 32-bit signed integer.
+    </param>
+    <param name='clampNormalExponents'>Either
+      <c>true
+      </c>
+       or
+      <c>false
+      </c>
+       .
+    </param>
+    <remarks>
+      TODO: Adjust this documentation for the new API.
+    </remarks>
+  </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)'>
     <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class.
     </summary>
@@ -1892,9 +1923,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Add(System.Int32)'>
-    <summary>Adds this object and an Int32 object and returns the result.
+    <summary>Adds this object and an 32-bit signed integer and returns the result.
     </summary>
-    <param name='otherValue'>An arbitrary-precision decimal number.
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
     </param>
     <returns>The sum of the two objects.
     </returns>
@@ -2287,10 +2320,12 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Divide(System.Int32)'>
-    <summary>Divides this object by an Int32 object and returns the result. When
-      possible, the result will be exact.
+    <summary>Divides this object by an 32-bit signed integer and returns the result.
+      When possible, the result will be exact.
     </summary>
-    <param name='divisor'>The number to divide by.
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
     </param>
     <returns>The quotient of the two numbers. Returns infinity if the divisor is 0 and
       the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the
@@ -3420,12 +3455,14 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Multiply(System.Int32)'>
-    <summary>Multiplies this object by the given 32-bit signed integer. The resulting exponent will be the sum of
-      the exponents of the two  numbers.
+    <summary>Multiplies this object by the given 32-bit signed integer. The resulting
+      exponent will be the sum of the exponents of the two numbers.
     </summary>
-    <param name='otherValue'>The nultiplicand in the form of a 32-bit signed integer.
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
     </param>
-    <returns>The product of the two  numbers.
+    <returns>The product of the two numbers.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
@@ -4416,10 +4453,12 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Subtract(System.Int32)'>
-    <summary>Subtracts a 32-bit signed integer from this instance and
-      returns the result.
+    <summary>Subtracts a 32-bit signed integer from this instance and returns the
+      result.
     </summary>
-    <param name='otherValue'>The number to subtract from this instance's value.
+    <param name='intValue'>The parameter
+      <paramref name='intValue'/>
+       is not documented yet.
     </param>
     <returns>The difference of the two objects.
     </returns>
@@ -8948,6 +8987,16 @@
       this number is 0.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger'>
+    <summary>Returns the number of decimal digits used by this integer.
+    </summary>
+    <returns>The number of digits in the decimal form of this integer. Returns 1 if
+      this number is 0.
+    </returns>
+    <remarks>
+      TODO: Adjust this documentation for this new API
+    </remarks>
+  </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetHashCode'>
     <summary>Returns the hash code for this instance. No application or process IDs are
       used in the hash code calculation.
@@ -9010,6 +9059,18 @@
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0 or negative 1.
     </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger'>
+    <summary>Finds the minimum number of bits needed to represent this object's value,
+      except for its sign. If the value is negative, finds the number of bits in
+      the value equal to this object's absolute value minus 1.
+    </summary>
+    <returns>The number of bits in this object's value. Returns 0 if this object's
+      value is 0 or negative 1.
+    </returns>
+    <remarks>
+      TODO: Adjust this documentation for the new API.
+    </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)'>
     <summary>Returns whether a bit is set in this number's absolute value.

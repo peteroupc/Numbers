@@ -194,28 +194,64 @@ namespace PeterO.Numbers {
     public static readonly EContext UnlimitedHalfEven =
       EContext.ForPrecision(0).WithRounding(ERounding.HalfEven);
 
-    // TODO: Improve API's immutability (make all
-    // fields except flags and traps readonly/final)
-    // and include a construtor setting all fields
-    private bool adjustExponent;
+    private EContext(
+     bool adjustExponent,
+     EInteger bigintPrecision,
+bool clampNormalExponents,
+EInteger exponentMax,
+EInteger exponentMin,
+int flags,
+bool hasExponentRange,
+bool hasFlags,
+bool precisionInBits,
+ERounding rounding,
+bool simplified,
+int traps
+){
+if(bigintPrecision==null)throw new ArgumentNullException("bigintPrecision");
+if(exponentMin==null)throw new ArgumentNullException("exponentMin");
+if(exponentMax==null)throw new ArgumentNullException("exponentMax");
+      if (bigintPrecision.Sign < 0) {
+        throw new ArgumentException("precision (" + bigintPrecision +
+          ") is less than 0");
+      }
+      if (exponentMin.CompareTo(exponentMax)>0) {
+        throw new ArgumentException("exponentMinSmall (" + exponentMin +
+          ") is more than " + exponentMax);
+      }
+this.adjustExponent=adjustExponent;
+this.bigintPrecision=bigintPrecision;
+this.clampNormalExponents=clampNormalExponents;
+this.exponentMax=exponentMax;
+this.exponentMin=exponentMin;
+this.flags=flags;
+this.hasExponentRange=hasExponentRange;
+this.hasFlags=hasFlags;
+this.precisionInBits=precisionInBits;
+this.rounding=rounding;
+this.simplified=simplified;
+this.traps=traps;
+}
 
-    private EInteger bigintPrecision;
+    private readonly bool adjustExponent;
 
-    private bool clampNormalExponents;
-    private EInteger exponentMax;
+    private readonly EInteger bigintPrecision;
 
-    private EInteger exponentMin;
+    private readonly bool clampNormalExponents;
+    private readonly EInteger exponentMax;
+
+    private readonly EInteger exponentMin;
 
     private int flags;
 
-    private bool hasExponentRange;
-    private bool hasFlags;
+    private readonly bool hasExponentRange;
+    private readonly bool hasFlags;
 
-    private bool precisionInBits;
+    private readonly bool precisionInBits;
 
-    private ERounding rounding;
+    private readonly ERounding rounding;
 
-    private bool simplified;
+    private readonly bool simplified;
 
     private int traps;
 
@@ -226,26 +262,40 @@ namespace PeterO.Numbers {
   ERounding rounding,
   int exponentMinSmall,
   int exponentMaxSmall,
-  bool clampNormalExponents) {
-      if (precision < 0) {
-        throw new ArgumentException("precision (" + precision +
-          ") is less than 0");
-      }
-      if (exponentMinSmall > exponentMaxSmall) {
-        throw new ArgumentException("exponentMinSmall (" + exponentMinSmall +
-          ") is more than " + exponentMaxSmall);
-      }
-      this.bigintPrecision = precision == 0 ? EInteger.Zero :
-        (EInteger)precision;
-      this.rounding = rounding;
-      this.clampNormalExponents = clampNormalExponents;
-      this.hasExponentRange = true;
-      this.adjustExponent = true;
-      this.exponentMax = exponentMaxSmall == 0 ? EInteger.Zero :
-        (EInteger)exponentMaxSmall;
-      this.exponentMin = exponentMinSmall == 0 ? EInteger.Zero :
-        (EInteger)exponentMinSmall;
-    }
+  bool clampNormalExponents) : this(
+      true,
+      EInteger.FromInt32(precision),
+      clampNormalExponents,
+      EInteger.FromInt32(exponentMaxSmall),
+      EInteger.FromInt32(exponentMinSmall),
+      0,
+      true,
+      false,
+      false,
+      rounding,
+      false,
+      0) {}
+
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EContext.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Boolean)"]/*'/>
+    public EContext(
+  EInteger precision,
+  ERounding rounding,
+  EInteger exponentMinSmall,
+  EInteger exponentMaxSmall,
+  bool clampNormalExponents) : this(
+      true,
+      precision,
+      clampNormalExponents,
+      exponentMaxSmall,
+      exponentMinSmall,
+      0,
+      true,
+      false,
+      false,
+      rounding,
+      false,
+      0) {}
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.EContext.AdjustExponent"]/*'/>
@@ -416,24 +466,19 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.Copy"]/*'/>
     public EContext Copy() {
-      var pcnew = new EContext(
-        0,
-        this.rounding,
-        0,
-        0,
-        this.clampNormalExponents);
-      pcnew.hasFlags = this.hasFlags;
-      pcnew.precisionInBits = this.precisionInBits;
-      pcnew.adjustExponent = this.adjustExponent;
-      pcnew.simplified = this.simplified;
-      pcnew.flags = this.flags;
-      pcnew.exponentMax = this.exponentMax;
-      pcnew.exponentMin = this.exponentMin;
-      pcnew.hasExponentRange = this.hasExponentRange;
-      pcnew.bigintPrecision = this.bigintPrecision;
-      pcnew.rounding = this.rounding;
-      pcnew.clampNormalExponents = this.clampNormalExponents;
-      return pcnew;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+this.hasFlags,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
     }
 
     /// <include file='../../docs.xml'
@@ -475,9 +520,20 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)"]/*'/>
     public EContext WithAdjustExponent(bool adjustExponent) {
-      EContext pc = this.Copy();
-      pc.adjustExponent = adjustExponent;
-      return pc;
+return new EContext(
+adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+this.hasFlags,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
+
     }
 
     /// <include file='../../docs.xml'
@@ -485,52 +541,75 @@ namespace PeterO.Numbers {
     public EContext WithBigExponentRange(
       EInteger exponentMin,
       EInteger exponentMax) {
-      if (exponentMin == null) {
-        throw new ArgumentNullException(nameof(exponentMin));
-      }
-      if (exponentMax == null) {
-        throw new ArgumentNullException(nameof(exponentMax));
-      }
-      if (exponentMin.CompareTo(exponentMax) > 0) {
-        throw new ArgumentException("exponentMin greater than exponentMax");
-      }
-      EContext pc = this.Copy();
-      pc.hasExponentRange = true;
-      pc.exponentMin = exponentMin;
-      pc.exponentMax = exponentMax;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+exponentMax,
+exponentMin,
+this.flags,
+true,
+this.hasFlags,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBigPrecision(PeterO.Numbers.EInteger)"]/*'/>
     public EContext WithBigPrecision(EInteger bigintPrecision) {
-      if (bigintPrecision == null) {
-        throw new ArgumentNullException(nameof(bigintPrecision));
-      }
-      if (bigintPrecision.Sign < 0) {
-        throw new ArgumentException("bigintPrecision's sign (" +
-          bigintPrecision.Sign + ") is less than 0");
-      }
-      EContext pc = this.Copy();
-      pc.bigintPrecision = bigintPrecision;
-      return pc;
+return new EContext(
+this.adjustExponent,
+bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+this.hasFlags,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBlankFlags"]/*'/>
     public EContext WithBlankFlags() {
-      EContext pc = this.Copy();
-      pc.hasFlags = true;
-      pc.flags = 0;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+0,
+this.hasExponentRange,
+true,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
+
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithExponentClamp(System.Boolean)"]/*'/>
     public EContext WithExponentClamp(bool clamp) {
-      EContext pc = this.Copy();
-      pc.clampNormalExponents = clamp;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+this.hasFlags,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
+
     }
 
     /// <include file='../../docs.xml'
@@ -538,77 +617,129 @@ namespace PeterO.Numbers {
     public EContext WithExponentRange(
       int exponentMinSmall,
       int exponentMaxSmall) {
-      if (exponentMinSmall > exponentMaxSmall) {
-        throw new ArgumentException("exponentMinSmall (" + exponentMinSmall +
-          ") is more than " + exponentMaxSmall);
-      }
-      EContext pc = this.Copy();
-      pc.hasExponentRange = true;
-      pc.exponentMin = (EInteger)exponentMinSmall;
-      pc.exponentMax = (EInteger)exponentMaxSmall;
-      return pc;
+return WithBigExponentRange(EInteger.FromInt32(exponentMinSmall),
+  EInteger.FromInt32(exponentMaxSmall));
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithNoFlags"]/*'/>
     public EContext WithNoFlags() {
-      EContext pc = this.Copy();
-      pc.hasFlags = false;
-      pc.flags = 0;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+0,
+this.hasExponentRange,
+false,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
+
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithPrecision(System.Int32)"]/*'/>
     public EContext WithPrecision(int precision) {
-      if (precision < 0) {
-        throw new ArgumentException("precision (" + precision +
-          ") is less than 0");
-      }
-      EContext pc = this.Copy();
-      pc.bigintPrecision = (EInteger)precision;
-      return pc;
+return WithBigPrecision(EInteger.FromInt32(precision));
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithPrecisionInBits(System.Boolean)"]/*'/>
     public EContext WithPrecisionInBits(bool isPrecisionBits) {
-      EContext pc = this.Copy();
-      pc.precisionInBits = isPrecisionBits;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+this.hasFlags,
+isPrecisionBits,
+this.rounding,
+this.simplified,
+this.traps);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithRounding(PeterO.Numbers.ERounding)"]/*'/>
     public EContext WithRounding(ERounding rounding) {
-      EContext pc = this.Copy();
-      pc.rounding = rounding;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+this.hasFlags,
+this.precisionInBits,
+rounding,
+this.simplified,
+this.traps);
+
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithSimplified(System.Boolean)"]/*'/>
     public EContext WithSimplified(bool simplified) {
-      EContext pc = this.Copy();
-      pc.simplified = simplified;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+this.hasFlags,
+this.precisionInBits,
+this.rounding,
+simplified,
+this.traps);
+
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithTraps(System.Int32)"]/*'/>
     public EContext WithTraps(int traps) {
-      EContext pc = this.Copy();
-      pc.hasFlags = true;
-      pc.traps = traps;
-      return pc;
+// TODO: Verify whether WithTraps is intended to set HasFlags=true
+// and whether WithNoFlags is intended to reset flags by setting
+// HasFlags to false
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+this.hasExponentRange,
+true,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+traps);
+
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithUnlimitedExponents"]/*'/>
     public EContext WithUnlimitedExponents() {
-      EContext pc = this.Copy();
-      pc.hasExponentRange = false;
-      return pc;
+return new EContext(
+this.adjustExponent,
+this.bigintPrecision,
+this.clampNormalExponents,
+this.exponentMax,
+this.exponentMin,
+this.flags,
+false,
+this.hasFlags,
+this.precisionInBits,
+this.rounding,
+this.simplified,
+this.traps);
     }
   }
 }

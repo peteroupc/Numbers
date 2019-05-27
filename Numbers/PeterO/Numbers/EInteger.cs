@@ -2317,6 +2317,14 @@ WordsShiftRightOne(bu, buc);
     }
 
     /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger"]/*'/>
+    public EInteger GetDigitCountAsEInteger() {
+       // NOTE: All digit counts can currently fit in Int32, so just
+       // use GetDigitCount for the time being
+       return EInteger.FromInt32(GetDigitCount());
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
     public int GetDigitCount() {
       if (this.IsZero) {
@@ -2603,37 +2611,58 @@ WordsShiftRightOne(bu, buc);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
-    public int GetSignedBitLength() {
-      // TODO: AddAsEInteger version
+  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger"]/*'/>
+    public EInteger GetSignedBitLengthAsEInteger() {
       int wc = this.wordCount;
       if (wc != 0) {
         if (this.negative) {
-          return this.Abs().Subtract(EInteger.One).GetSignedBitLength();
+// Two's complement operation
+EInteger eiabs=this.Abs();
+if(wc>1 && this.words[0]==0){
+ // No need to subtract by 1; the signed bit length will
+ // be the same in either case
+ return eiabs.GetSignedBitLengthAsEInteger();
+} else {
+ return eiabs.Subtract(EInteger.One)
+              .GetSignedBitLengthAsEInteger();
+}
         }
         int numberValue = ((int)this.words[wc - 1]) & 0xffff;
-        wc = (wc - 1) << 4;
-        if (numberValue == 0) {
-          return wc;
-        }
-        wc += 16;
-        unchecked {
+int wcextra=0;
+if(numberValue!=0){
+ wcextra=16;
+         unchecked {
           if ((numberValue >> 8) == 0) {
             numberValue <<= 8;
-            wc -= 8;
+            wcextra -= 8;
           }
           if ((numberValue >> 12) == 0) {
             numberValue <<= 4;
-            wc -= 4;
+            wcextra -= 4;
           }
           if ((numberValue >> 14) == 0) {
             numberValue <<= 2;
-            wc -= 2;
+            wcextra -= 2;
           }
-          return ((numberValue >> 15) == 0) ? wc - 1 : wc;
+          wcextra = ((numberValue >> 15) == 0) ?
+   wcextra - 1 : wcextra;
+}
+}
+        if(wc<0x3ffffff0){
+         wc = checked(((wc - 1) << 4) + wcextra);
+         return EInteger.FromInt32(wc);
+        } else {
+EInteger eiwc=EInteger.FromInt32(wc).Subtract(1)
+  .Multiply(16).Add(wcextra);
         }
       }
-      return 0;
+      return EInteger.Zero;
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
+    public int GetSignedBitLength() {
+      return GetSignedBitLengthAsEInteger().ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
@@ -2685,7 +2714,7 @@ WordsShiftRightOne(bu, buc);
       int wc = this.wordCount;
       if (wc != 0) {
         int numberValue = ((int)this.words[wc - 1]) & 0xffff;
-        wc = (wc - 1) << 4;
+        wc = checked((wc - 1) * 16);
         if (numberValue == 0) {
           return wc;
         }

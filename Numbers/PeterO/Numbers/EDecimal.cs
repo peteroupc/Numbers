@@ -1124,7 +1124,6 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
   return CompareEDecimalToEFloat(this, other);
     }
 
-
 private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
       if (ef == null) {
         return 1;
@@ -1198,10 +1197,11 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
    }
         EInteger thisAdjExp = GetAdjustedExponent(ed);
         EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
- //DebugUtility.Log("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
- //DebugUtility.Log("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
+ // DebugUtility.Log("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
+ // DebugUtility.Log("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
       if (thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) >= 0 &&
-          otherAdjExp.Sign < 0 && otherAdjExp.CompareTo((EInteger)(-4000)) < 0) {
+        otherAdjExp.Sign < 0 && otherAdjExp.CompareTo((EInteger)(-4000)) <
+            0) {
         // With these exponent combinations, the binary's absolute
         // value is less than the decimal's
         return (signA > 0) ? 1 : -1;
@@ -1795,56 +1795,27 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
       return GetMathValue(ctx).Multiply(this, op, ctx);
     }
 
-    /// <missing-param name='otherValue'/>
-    /// <missing-param name='otherValue'/>
-    /// <missing-param name='otherValue'/>
-    /// <summary>Adds this object and an Int32 object and returns the
-    /// result.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>The sum of the two objects.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Add(System.Int32)"]/*'/>
 public EDecimal Add(int intValue) {
  return this.Add(EDecimal.FromInt32(intValue));
 }
 
-    /// <missing-param name='otherValue'/>
-    /// <missing-param name='otherValue'/>
-    /// <missing-param name='otherValue'/>
-    /// <summary>Subtracts a 32-bit signed integer from this instance and
-    /// returns the result.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Subtract(System.Int32)"]/*'/>
 public EDecimal Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
    this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
 }
 
-    /// <missing-param name='otherValue'/>
-    /// <missing-param name='otherValue'/>
-    /// <missing-param name='otherValue'/>
-    /// <summary>Multiplies this object by the given 32-bit signed integer.
-    /// The resulting exponent will be the sum of the exponents of the two
-    /// numbers.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Multiply(System.Int32)"]/*'/>
 public EDecimal Multiply(int intValue) {
  return this.Multiply(EDecimal.FromInt32(intValue));
 }
 
-    /// <missing-param name='divisor'/>
-    /// <missing-param name='divisor'/>
-    /// <missing-param name='divisor'/>
-    /// <summary>Divides this object by an Int32 object and returns the
-    /// result. When possible, the result will be exact.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
-    /// <returns>The quotient of the two numbers. Returns infinity if the
-    /// divisor is 0 and the dividend is nonzero. Returns not-a-number
-    /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
-    /// result can't be exact because it would have a nonterminating
-    /// decimal expansion.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Divide(System.Int32)"]/*'/>
 public EDecimal Divide(int intValue) {
  return this.Divide(EDecimal.FromInt32(intValue));
 }
@@ -2476,9 +2447,8 @@ public EDecimal Divide(int intValue) {
         return EInteger.Zero;
       }
       EInteger retEInt = ed.Exponent;
-      // TODO: Use EInteger version when available
-      EInteger valueEiPrecision = EInteger.FromInt32(
-          ed.UnsignedMantissa.GetDigitCount());
+      EInteger valueEiPrecision =
+          ed.UnsignedMantissa.GetDigitCountAsEInteger();
       retEInt = retEInt.Add(valueEiPrecision.Subtract(1));
       return retEInt;
     }
@@ -2491,9 +2461,8 @@ public EDecimal Divide(int intValue) {
         return EInteger.Zero;
       }
       EInteger retEInt = ef.Exponent;
-      // TODO: Use GetSignedBitLengthAsEInteger when available
-      EInteger valueEiPrecision = EInteger.FromInt32(
-           ef.UnsignedMantissa.GetSignedBitLength());
+      EInteger valueEiPrecision =
+           ef.UnsignedMantissa.GetSignedBitLengthAsEInteger();
       retEInt = retEInt.Add(valueEiPrecision.Subtract(1));
       return retEInt;
     }
@@ -2697,7 +2666,7 @@ ec = ec ?? EContext.UnlimitedHalfEven;
             divisor = den;
           }
         }
-        // NOTE: Precision added by 2 to accommodate rounding
+        // NOTE: Precision raised by 2 to accommodate rounding
         // to odd
         EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision +
           EInteger.FromInt32(2) : EInteger.Zero;
