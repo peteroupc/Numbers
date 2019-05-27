@@ -1070,7 +1070,8 @@ HexInt(chunks[12]), HexInt(chunks[13]),
       ctx = SetRounding(ctx, round);
       var offset = 0;
       var traps = String.Empty;
-      if (Contains(chunks[2], "x") || chunks[2].Equals("i") ||
+      if (Contains(chunks[2], "x") ||
+chunks[2].Equals("i") ||
 StartsWith(chunks[2], "o")) {
         // traps
         ++offset;
@@ -1303,8 +1304,10 @@ StartsWith(chunks[2], "o")) {
  // continue;
  // }
         var isinput = lowerF.Contains(".input");
-        if (!lowerF.Contains(".input") && !lowerF.Contains(".txt") &&
-            !lowerF.Contains(".dectest") && !lowerF.Contains(".fptest")) {
+        if (!lowerF.Contains(".input") &&
+!lowerF.Contains(".txt") &&
+!lowerF.Contains(".dectest") &&
+!lowerF.Contains(".fptest")) {
           continue;
         }
         using (var w = new StreamReader(f)) {
