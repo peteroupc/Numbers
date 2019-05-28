@@ -98,6 +98,38 @@ is a 32-bit signed integer.
       ` or `false
       ` .
 
+<a id="Void_ctor_EInteger_ERounding_EInteger_EInteger_Boolean"></a>
+### EContext Constructor
+
+    public EContext(
+        PeterO.Numbers.EInteger precision,
+        PeterO.Numbers.ERounding rounding,
+        PeterO.Numbers.EInteger exponentMinSmall,
+        PeterO.Numbers.EInteger exponentMaxSmall,
+        bool clampNormalExponents);
+
+Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.
+
+TODO: Adjust this documentation for the new API.
+
+<b>Parameters:</b>
+
+ * <i>precision</i>: The parameter <i>precision</i>
+is a 32-bit signed integer.
+
+ * <i>rounding</i>: The parameter <i>rounding</i>
+is an ERounding object.
+
+ * <i>exponentMinSmall</i>: The parameter <i>exponentMinSmall</i>
+is a 32-bit signed integer.
+
+ * <i>exponentMaxSmall</i>: The parameter <i>exponentMaxSmall</i>
+is a 32-bit signed integer.
+
+ * <i>clampNormalExponents</i>: Either `true
+      ` or `false
+      ` .
+
 <a id="Basic"></a>
 ### Basic
 

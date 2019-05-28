@@ -141,7 +141,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
-* <code>[Add(int)](#Add_int)</code> - Adds this object and an Int32 object and returns the result.
+* <code>[Add(int)](#Add_int)</code> - Adds this object and an 32-bit signed integer and returns the result.
 * <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary float with this instance.
 * <code>[CompareToSignal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EDecimal)](#CompareToTotalMagnitude_PeterO_Numbers_EDecimal)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
@@ -173,7 +173,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[DivideToSameExponent(PeterO.Numbers.EDecimal, PeterO.Numbers.ERounding)](#DivideToSameExponent_PeterO_Numbers_EDecimal_PeterO_Numbers_ERounding)</code> - Divides this object by another decimal number and returns a result with the same exponent as this object (the dividend).
 * <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this object by another decimal number and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number.
-* <code>[Divide(int)](#Divide_int)</code> - Divides this object by an Int32 object and returns the result.
+* <code>[Divide(int)](#Divide_int)</code> - Divides this object by an 32-bit signed integer and returns the result.
 * <code>[Equals(PeterO.Numbers.EDecimal)](#Equals_PeterO_Numbers_EDecimal)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision decimal number.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
@@ -504,12 +504,12 @@ An arbitrary-precision decimal number. Returns signaling NaN if this value is si
     public PeterO.Numbers.EDecimal Add(
         int intValue);
 
-Adds this object and an Int32 object and returns the result.
+Adds this object and an 32-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -841,12 +841,12 @@ The parameter "diag" is null or is less than 0.
     public PeterO.Numbers.EDecimal Divide(
         int intValue);
 
-Divides this object by an Int32 object and returns the result. When possible, the result will be exact.
+Divides this object by an 32-bit signed integer and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -2111,8 +2111,8 @@ Multiplies this object by the given 32-bit signed integer. The resulting exponen
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 
@@ -3167,8 +3167,8 @@ Subtracts a 32-bit signed integer from this instance and returns the result.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
- is not documented yet.
+ * <i>intValue</i>: The parameter <i>intValue</i>
+is not documented yet.
 
 <b>Return Value:</b>
 

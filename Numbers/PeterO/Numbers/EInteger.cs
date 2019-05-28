@@ -2317,11 +2317,11 @@ WordsShiftRightOne(bu, buc);
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger"]/*'/>
     public EInteger GetDigitCountAsEInteger() {
        // NOTE: All digit counts can currently fit in Int32, so just
        // use GetDigitCount for the time being
-       return EInteger.FromInt32(GetDigitCount());
+       return EInteger.FromInt32(this.GetDigitCount());
     }
 
     /// <include file='../../docs.xml'
@@ -2611,26 +2611,25 @@ WordsShiftRightOne(bu, buc);
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger"]/*'/>
     public EInteger GetSignedBitLengthAsEInteger() {
       int wc = this.wordCount;
       if (wc != 0) {
         if (this.negative) {
 // Two's complement operation
-EInteger eiabs=this.Abs();
-if(wc>1 && this.words[0]==0){
+EInteger eiabs = this.Abs();
+if (wc > 1 && this.words[0] == 0) {
  // No need to subtract by 1; the signed bit length will
  // be the same in either case
  return eiabs.GetSignedBitLengthAsEInteger();
 } else {
- return eiabs.Subtract(EInteger.One)
-              .GetSignedBitLengthAsEInteger();
+ return eiabs.Subtract(EInteger.One).GetSignedBitLengthAsEInteger();
 }
         }
         int numberValue = ((int)this.words[wc - 1]) & 0xffff;
-int wcextra=0;
-if(numberValue!=0){
- wcextra=16;
+int wcextra = 0;
+if (numberValue != 0) {
+ wcextra = 16;
          unchecked {
           if ((numberValue >> 8) == 0) {
             numberValue <<= 8;
@@ -2648,11 +2647,11 @@ if(numberValue!=0){
    wcextra - 1 : wcextra;
 }
 }
-        if(wc<0x3ffffff0){
+        if (wc < 0x3ffffff0) {
          wc = checked(((wc - 1) << 4) + wcextra);
          return EInteger.FromInt32(wc);
         } else {
-EInteger eiwc=EInteger.FromInt32(wc).Subtract(1)
+EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
   .Multiply(16).Add(wcextra);
         }
       }
@@ -2662,7 +2661,7 @@ EInteger eiwc=EInteger.FromInt32(wc).Subtract(1)
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
     public int GetSignedBitLength() {
-      return GetSignedBitLengthAsEInteger().ToInt32Checked();
+      return this.GetSignedBitLengthAsEInteger().ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'

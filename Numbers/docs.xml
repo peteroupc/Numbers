@@ -1,71 +1,4 @@
 <docs>
-  <doc name='T:PeterO.ArrayWriter'>
-    <summary>An array of bytes that grows as needed.
-    </summary>
-  </doc>
-  <doc name='M:PeterO.ArrayWriter.#ctor'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.ArrayWriter'/> class with a default buffer size.
-    </summary>
-  </doc>
-  <doc name='M:PeterO.ArrayWriter.#ctor(System.Int32)'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.ArrayWriter'/> class with the given initial buffer size.
-    </summary>
-    <param name='initialSize'>The parameter
-      <paramref name='initialSize'/>
-       is a 32-bit signed integer.
-    </param>
-  </doc>
-  <doc name='M:PeterO.ArrayWriter.Clear'>
-    <summary>Offers a fast way to reset the length of the array writer's data to 0.
-    </summary>
-  </doc>
-  <doc name='M:PeterO.ArrayWriter.ToArray'>
-    <summary>Generates an array of all bytes written so far to it.
-    </summary>
-    <returns>A byte array.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.ArrayWriter.Write(System.Byte[],System.Int32,System.Int32)'>
-    <summary>Writes a series of bytes to the array.
-    </summary>
-    <param name='src'>Byte array containing the data to write.
-    </param>
-    <param name='offset'>A zero-based index showing where the desired portion of
-      <paramref name='src'/>
-       begins.
-    </param>
-    <param name='length'>The number of elements in the desired portion of
-      <paramref name='src'/>
-       (but not more than
-      <paramref name='src'/>
-       's length).
-    </param>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='src'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>Either
-      <paramref name='offset'/>
-       or
-      <paramref name='length'/>
-       is less than 0 or greater than
-      <paramref name='src'/>
-       's length, or
-      <paramref name='src'/>
-       ' s length minus
-      <paramref name='offset'/>
-       is less than
-      <paramref name='length'/>
-       .
-    </exception>
-  </doc>
-  <doc name='M:PeterO.ArrayWriter.WriteByte(System.Int32)'>
-    <summary>Writes an 8-bit byte to the array.
-    </summary>
-    <param name='byteValue'>An integer containing the byte to write. Only the lower 8 bits of this
-      value will be used.
-    </param>
-  </doc>
   <doc name='T:PeterO.Cbor.CBORDataUtilities'>
     <summary>Contains methods useful for reading and writing data, with a focus on
       CBOR.
@@ -928,62 +861,31 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Boolean)'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class.
+    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class, using arbitrary-precision integers to hold the precision and exponent range.
     </summary>
-    <param name='precision'>The parameter
-      <paramref name='precision'/>
-       is a 32-bit signed integer.
+    <param name='bigintPrecision'>Maximum precision, in decimal digits, of a number's significand.
     </param>
-    <param name='rounding'>The parameter
-      <paramref name='rounding'/>
-       is an ERounding object.
+    <param name='rounding'>The rounding mode for this context.
     </param>
-    <param name='exponentMinSmall'>The parameter
-      <paramref name='exponentMinSmall'/>
-       is a 32-bit signed integer.
+    <param name='exponentMin'>Smallest exponent of a number, as a power of 10.
     </param>
-    <param name='exponentMaxSmall'>The parameter
-      <paramref name='exponentMaxSmall'/>
-       is a 32-bit signed integer.
+    <param name='exponentMax'>Largest exponent of a number, as a power of 10.
     </param>
-    <param name='clampNormalExponents'>Either
-      <c>true
-      </c>
-       or
-      <c>false
-      </c>
-       .
+    <param name='clampNormalExponents'>The value of the "ClampNormalExponents" property for this context.
     </param>
-    <remarks>
-      TODO: Adjust this documentation for the new API.
-    </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)'>
     <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class.
     </summary>
-    <param name='precision'>The parameter
-      <paramref name='precision'/>
-       is a 32-bit signed integer.
+    <param name='precision'>Maximum precision, in decimal digits, of a number's significand.
     </param>
-    <param name='rounding'>The parameter
-      <paramref name='rounding'/>
-       is an ERounding object.
+    <param name='rounding'>The rounding mode for this context.
     </param>
-    <param name='exponentMinSmall'>The parameter
-      <paramref name='exponentMinSmall'/>
-       is a 32-bit signed integer.
+    <param name='exponentMinSmall'>Smallest exponent of a number, as a power of 10.
     </param>
-    <param name='exponentMaxSmall'>The parameter
-      <paramref name='exponentMaxSmall'/>
-       is a 32-bit signed integer.
+    <param name='exponentMaxSmall'>Largest exponent of a number, as a power of 10.
     </param>
-    <param name='clampNormalExponents'>Either
-      <c>true
-      </c>
-       or
-      <c>false
-      </c>
-       .
+    <param name='clampNormalExponents'>The value of the "ClampNormalExponents" property for this context.
     </param>
   </doc>
   <doc name='P:PeterO.Numbers.EContext.AdjustExponent'>
@@ -995,18 +897,7 @@
       representations with an integer mantissa (significand) and an integer
       exponent, such as Java's BigDecimal.
     </summary>
-    <value><c>true
-      </c>
-       if the EMax and EMin properties refer to the number's Exponent property
-      adjusted to the number's precision, or just the number's Exponent
-      property; otherwise,
-      <c>false
-      </c>
-       .. The default value is true, meaning that EMax and EMin refer to the
-      adjusted exponent. Setting this value to false (using WithAdjustExponent)
-      is useful for modeling floating point representations with an integer
-      mantissa (significand) and an integer exponent, such as Java's BigDecimal.
-
+    <value>
       <c>true
       </c>
        if the EMax and EMin properties refer to the number's Exponent property
@@ -1515,7 +1406,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.WithTraps(System.Int32)'>
-    <summary>Copies this EContext with Traps set to the given value.
+    <summary>Copies this EContext with Traps set to the given value.  (Also sets HasFlags on the copy to <c>True</c>, but this may change in version 2.0 of this library.)
     </summary>
     <param name='traps'>Flags representing the traps to enable. See the property "Traps".
     </param>
@@ -1793,7 +1684,7 @@
         </item>
         <item>B. Next 11 bits: Exponent area:
           <list>
-            <item>If all bits are ones, this value is infinity if all bits in area A
+            <item>If all bits are ones, this value is infinity (positive or negative depending on the C bit) if all bits in area A
               are zeros, or not-a-number (NaN) otherwise.
             </item>
             <item>If all bits are zeros, this is a subnormal number. The exponent is
@@ -1925,9 +1816,7 @@
   <doc name='M:PeterO.Numbers.EDecimal.Add(System.Int32)'>
     <summary>Adds this object and an 32-bit signed integer and returns the result.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='intValue'>A 32-bit signed integer to add to this object.
     </param>
     <returns>The sum of the two objects.
     </returns>
@@ -2323,9 +2212,7 @@
     <summary>Divides this object by an 32-bit signed integer and returns the result.
       When possible, the result will be exact.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='intValue'>A 32-bit signed integer, the divisor, to divide this object by.
     </param>
     <returns>The quotient of the two numbers. Returns infinity if the divisor is 0 and
       the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the
@@ -3458,9 +3345,7 @@
     <summary>Multiplies this object by the given 32-bit signed integer. The resulting
       exponent will be the sum of the exponents of the two numbers.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='intValue'>A 32-bit signed integer to multiply this object by.
     </param>
     <returns>The product of the two numbers.
     </returns>
@@ -4453,12 +4338,10 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Subtract(System.Int32)'>
-    <summary>Subtracts a 32-bit signed integer from this instance and returns the
+    <summary>Subtracts a 32-bit signed integer from this object and returns the
       result.
     </summary>
-    <param name='intValue'>The parameter
-      <paramref name='intValue'/>
-       is not documented yet.
+    <param name='intValue'>A 32-bit signed integer to subtract from this object.
     </param>
     <returns>The difference of the two objects.
     </returns>
@@ -8988,14 +8871,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger'>
-    <summary>Returns the number of decimal digits used by this integer.
+    <summary>Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
     </summary>
     <returns>The number of digits in the decimal form of this integer. Returns 1 if
       this number is 0.
     </returns>
-    <remarks>
-      TODO: Adjust this documentation for this new API
-    </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetHashCode'>
     <summary>Returns the hash code for this instance. No application or process IDs are
@@ -9062,15 +8942,12 @@
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger'>
     <summary>Finds the minimum number of bits needed to represent this object's value,
-      except for its sign. If the value is negative, finds the number of bits in
+      except for its sign, in the form of an arbitrary-precision integer. If the value is negative, finds the number of bits in
       the value equal to this object's absolute value minus 1.
     </summary>
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0 or negative 1.
     </returns>
-    <remarks>
-      TODO: Adjust this documentation for the new API.
-    </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)'>
     <summary>Returns whether a bit is set in this number's absolute value.

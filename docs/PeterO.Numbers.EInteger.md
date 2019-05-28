@@ -51,10 +51,12 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Gcd(PeterO.Numbers.EInteger)](#Gcd_PeterO_Numbers_EInteger)</code> - Returns the greatest common divisor of this integer and the given integer.
 * <code>[GetBits(int, int)](#GetBits_int_int)</code> - Retrieves bits from this integer's two' s-complement form.
 * <code>[GetDigitCount()](#GetDigitCount)</code> - Returns the number of decimal digits used by this integer.
+* <code>[GetDigitCountAsEInteger()](#GetDigitCountAsEInteger)</code> - Returns the number of decimal digits used by this integer.
 * <code>[GetHashCode()](#GetHashCode)</code> - Returns the hash code for this instance.
 * <code>[GetLowBit()](#GetLowBit)</code> - Gets the lowest set bit in this number's absolute value.
 * <code>[GetLowBitAsEInteger()](#GetLowBitAsEInteger)</code> - Gets the lowest set bit in this number's absolute value.
 * <code>[GetSignedBitLength()](#GetSignedBitLength)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign.
+* <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign.
 * <code>[GetSignedBit(int)](#GetSignedBit_int)</code> - Returns whether a bit is set in the two's-complement form (seePeterO.
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
@@ -870,6 +872,19 @@ Returns the number of decimal digits used by this integer.
 
 The number of digits in the decimal form of this integer. Returns 1 if this number is 0.
 
+<a id="GetDigitCountAsEInteger"></a>
+### GetDigitCountAsEInteger
+
+    public PeterO.Numbers.EInteger GetDigitCountAsEInteger();
+
+Returns the number of decimal digits used by this integer.
+
+TODO: Adjust this documentation for this new API
+
+<b>Return Value:</b>
+
+The number of digits in the decimal form of this integer. Returns 1 if this number is 0.
+
 <a id="GetHashCode"></a>
 ### GetHashCode
 
@@ -936,6 +951,19 @@ is a 32-bit signed integer.
     public int GetSignedBitLength();
 
 Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
+
+<b>Return Value:</b>
+
+The number of bits in this object's value. Returns 0 if this object's value is 0 or negative 1.
+
+<a id="GetSignedBitLengthAsEInteger"></a>
+### GetSignedBitLengthAsEInteger
+
+    public PeterO.Numbers.EInteger GetSignedBitLengthAsEInteger();
+
+Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
+
+TODO: Adjust this documentation for the new API.
 
 <b>Return Value:</b>
 
