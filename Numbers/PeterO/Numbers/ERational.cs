@@ -948,9 +948,8 @@ namespace PeterO.Numbers {
         if (other.Exponent.Sign > 0) {
           // NOTE: if unsigned numerator is 0, bitLength will return
           // 0 instead of 1, but the possibility of 0 was already excluded
-          int digitCount = this.UnsignedNumerator.GetSignedBitLength();
-          --digitCount;
-          var bigDigitCount = (EInteger)digitCount;
+          EInteger bigDigitCount = this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
+             .Subtract(1);
           if (bigDigitCount.CompareTo(other.Exponent) < 0) {
             // Numerator's digit count minus 1 is less than the other' s
             // exponent,
@@ -1065,9 +1064,8 @@ namespace PeterO.Numbers {
         }
         // Console.WriteLine("---" + this + " " + other);
         if (other.Exponent.Sign > 0) {
-          int digitCount = this.UnsignedNumerator.GetDigitCount();
-          --digitCount;
-          var bigDigitCount = (EInteger)digitCount;
+          EInteger bigDigitCount = this.UnsignedNumerator.GetDigitCountAsEInteger()
+             .Subtract(1);
           if (bigDigitCount.CompareTo(other.Exponent) < 0) {
             // Numerator's digit count minus 1 is less than the other' s
             // exponent,

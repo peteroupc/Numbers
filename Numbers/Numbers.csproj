@@ -19,7 +19,8 @@ Version 1.3:
 - Improve performance of EDecimal.CompareToBinary in certain cases
 - Fix ERational.ToSingle method
 - Add GetDigitCountAsEInteger and GetSignedBitLengthAsEInteger methods to EInteger class
-- Check for overflow in GetDigitCount, GetUnsignedBitLength, and GetSignedBitLength methods in EInteger class
+- Check for overflow in GetDigitCount, GetUnsignedBitLength, and GetSignedBitLength methods in EInteger class;
+  deprecate those methods
 
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>

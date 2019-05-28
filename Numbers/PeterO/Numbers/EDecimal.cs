@@ -1939,8 +1939,7 @@ public EDecimal Divide(int intValue) {
       if (this.IsZero) {
         return EInteger.One;
       }
-      int digcount = this.unsignedMantissa.ToEInteger().GetDigitCount();
-      return (EInteger)digcount;
+      int digcount = this.unsignedMantissa.ToEInteger().GetDigitCountAsEInteger();
     }
 
     /// <include file='../../docs.xml'

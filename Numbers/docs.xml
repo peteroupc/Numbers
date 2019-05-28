@@ -8869,6 +8869,8 @@
     <returns>The number of digits in the decimal form of this integer. Returns 1 if
       this number is 0.
     </returns>
+    <exception cref='T:System.OverflowException'>The return value would exceed the range of a 32-bit signed integer.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger'>
     <summary>Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.

@@ -2326,7 +2326,8 @@ WordsShiftRightOne(bu, buc);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
-    private long GetDigitCount() {
+    [Obsolete("This method may overflow.  Use GetDigitCountAsEInteger instead.")]
+    private int GetDigitCount() {
       long dc=GetDigitCountAsInt64();
       if(dc<Int32.MinValue || dc>Int32.MaxValue)throw new OverflowException();
       return checked((int)dc);
@@ -2363,7 +2364,7 @@ WordsShiftRightOne(bu, buc);
       // NOTE: Bitlength accurate for wordCount<1000000 here, only as
       // an approximation
       int bitlen = (this.wordCount < 1000000) ? this.GetUnsignedBitLength() :
-        Int32.MaxLength;
+        Int32.MaxValue;
       if (bitlen <= 2135) {
         // (x*631305) >> 21 is an approximation
         // to trunc(x*log10(2)) that is correct up
@@ -2672,6 +2673,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
+    [Obsolete("This method may overflow.  Use GetSignedBitLengthAsEInteger instead.")]
     public int GetSignedBitLength() {
       return this.GetSignedBitLengthAsEInteger().ToInt32Checked();
     }
@@ -2721,6 +2723,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
+    [Obsolete("This method may overflow.  Use GetUnsignedBitLengthAsEInteger instead.")]
     public int GetUnsignedBitLength() {
       return this.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
     }
@@ -5586,7 +5589,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
     private static int GetUnsignedBitLengthEx(int numberValue, int wordCount) {
       // NOTE: Currently called only if wordCount <= 1000000,
       // so that overflow issues with Int32s are not present
-      long wc = wordCount;
+      int wc = wordCount;
       if (wc != 0) {
         wc = (wc - 1) << 4;
         if (numberValue == 0) {
