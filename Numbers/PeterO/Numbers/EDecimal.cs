@@ -1285,7 +1285,6 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
       return ed.CompareTo(otherDec);
 }
 
-
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToSignal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal CompareToSignal(

@@ -2319,14 +2319,19 @@ WordsShiftRightOne(bu, buc);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger"]/*'/>
     public EInteger GetDigitCountAsEInteger() {
-       // NOTE: All digit counts can currently fit in Int32, so just
-       // use GetDigitCount for the time being
-       return EInteger.FromInt32(this.GetDigitCount());
+       // NOTE: All digit counts can currently fit in Int64, so just
+       // use GetDigitCountAsInt64 for the time being
+       return EInteger.FromInt64(this.GetDigitCountAsInt64());
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
-    public int GetDigitCount() {
+    private long GetDigitCount() {
+      long dc=GetDigitCountAsInt64();
+      if(dc<Int32.MinValue || dc>Int32.MaxValue)throw new OverflowException();
+      return checked((int)dc);
+    }
+    private long GetDigitCountAsInt64() {
       if (this.IsZero) {
         return 1;
       }
@@ -2355,7 +2360,10 @@ WordsShiftRightOne(bu, buc);
                     3 : ((v2 >= 10) ? 2 : 1)))))));
         }
       }
-      int bitlen = this.GetUnsignedBitLength();
+      // NOTE: Bitlength accurate for wordCount<1000000 here, only as
+      // an approximation
+      int bitlen = (this.wordCount < 1000000) ? this.GetUnsignedBitLength() :
+        Int32.MaxLength;
       if (bitlen <= 2135) {
         // (x*631305) >> 21 is an approximation
         // to trunc(x*log10(2)) that is correct up
@@ -2387,20 +2395,21 @@ WordsShiftRightOne(bu, buc);
       }
       short[] tempReg = null;
       int currentCount = this.wordCount;
-      var i = 0;
+      long retval;
+      retval = 0L;
       while (currentCount != 0) {
         if (currentCount == 1 || (currentCount == 2 && tempReg[1] == 0)) {
           int rest = ((int)tempReg[0]) & 0xffff;
           if (rest >= 10000) {
-            i += 5;
+            retval += 5;
           } else if (rest >= 1000) {
-            i += 4;
+            retval += 4;
           } else if (rest >= 100) {
-            i += 3;
+            retval += 3;
           } else if (rest >= 10) {
-            i += 2;
+            retval += 2;
           } else {
-            ++i;
+            ++retval;
           }
           break;
         }
@@ -2408,25 +2417,25 @@ WordsShiftRightOne(bu, buc);
           int rest = ((int)tempReg[0]) & 0xffff;
           rest |= (((int)tempReg[1]) & 0xffff) << 16;
           if (rest >= 1000000000) {
-            i += 10;
+            retval += 10;
           } else if (rest >= 100000000) {
-            i += 9;
+            retval += 9;
           } else if (rest >= 10000000) {
-            i += 8;
+            retval += 8;
           } else if (rest >= 1000000) {
-            i += 7;
+            retval += 7;
           } else if (rest >= 100000) {
-            i += 6;
+            retval += 6;
           } else if (rest >= 10000) {
-            i += 5;
+            retval += 5;
           } else if (rest >= 1000) {
-            i += 4;
+            retval += 4;
           } else if (rest >= 100) {
-            i += 3;
+            retval += 3;
           } else if (rest >= 10) {
-            i += 2;
+            retval += 2;
           } else {
-            ++i;
+            ++retval;
           }
           break;
         } else {
@@ -2446,7 +2455,10 @@ WordsShiftRightOne(bu, buc);
               // Since we are dividing from left to right, the first
               // nonzero result is the first part of the
               // new quotient
-              bitlen = GetUnsignedBitLengthEx(quo, wci + 1);
+              // NOTE: Bitlength accurate for wci<1000000 here, only as
+              // an approximation
+              bitlen = (wci < 1000000) ? GetUnsignedBitLengthEx(quo, wci + 1) :
+                  Int32.MaxValue;
               if (bitlen <= 2135) {
                 // (x*631305) >> 21 is an approximation
                 // to trunc(x*log10(2)) that is correct up
@@ -2461,13 +2473,13 @@ WordsShiftRightOne(bu, buc);
                   // NOTE: The 4 is the number of digits just
                   // taken out of the number, and "i" is the
                   // number of previously known digits
-                  return i + minDigits + 4;
+                  return retval + minDigits + 4;
                 }
                 if (minDigits > 1) {
-                 int maxDigitEstimate = i + maxDigits + 4;
-                 int minDigitEstimate = i + minDigits + 4;
+                 int maxDigitEstimate = maxDigits + 4;
+                 int minDigitEstimate = minDigits + 4;
  return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigitEstimate))
-                >= 0 ? maxDigitEstimate : minDigitEstimate;
+                >= 0 ? retval + maxDigitEstimate : retval + minDigitEstimate;
                 }
               } else if (bitlen <= 6432162) {
                 // Much more accurate approximation
@@ -2476,7 +2488,7 @@ WordsShiftRightOne(bu, buc);
                 if (minDigits == maxDigits) {
                   // Number of digits is the same for
                   // all numbers with this bit length
-                  return i + 1 + minDigits + 4;
+                  return retval + 1 + minDigits + 4;
                 }
               }
             }
@@ -2500,10 +2512,10 @@ WordsShiftRightOne(bu, buc);
           while (currentCount != 0 && tempReg[currentCount - 1] == 0) {
             --currentCount;
           }
-          i += 4;
+          retval += 4;
         }
       }
-      return i;
+      return retval;
     }
 
     /// <include file='../../docs.xml'
@@ -2647,7 +2659,7 @@ if (numberValue != 0) {
    wcextra - 1 : wcextra;
 }
 }
-        if (wc < 0x3ffffff0) {
+        if (wc < 0xffffff0) {
          wc = checked(((wc - 1) << 4) + wcextra);
          return EInteger.FromInt32(wc);
         } else {
@@ -2710,34 +2722,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
     public int GetUnsignedBitLength() {
-      int wc = this.wordCount;
-      if (wc != 0) {
-        int numberValue = ((int)this.words[wc - 1]) & 0xffff;
-        wc = checked((wc - 1) * 16);
-        if (numberValue == 0) {
-          return wc;
-        }
-        wc += 16;
-        unchecked {
-          if ((numberValue >> 8) == 0) {
-            numberValue <<= 8;
-            wc -= 8;
-          }
-          if ((numberValue >> 12) == 0) {
-            numberValue <<= 4;
-            wc -= 4;
-          }
-          if ((numberValue >> 14) == 0) {
-            numberValue <<= 2;
-            wc -= 2;
-          }
-          if ((numberValue >> 15) == 0) {
-            --wc;
-          }
-        }
-        return wc;
-      }
-      return 0;
+      return this.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
@@ -5599,7 +5584,9 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
     }
 
     private static int GetUnsignedBitLengthEx(int numberValue, int wordCount) {
-      int wc = wordCount;
+      // NOTE: Currently called only if wordCount <= 1000000,
+      // so that overflow issues with Int32s are not present
+      long wc = wordCount;
       if (wc != 0) {
         wc = (wc - 1) << 4;
         if (numberValue == 0) {

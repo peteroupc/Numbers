@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.2.2</Version>
+    <Version>1.3.0</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
-    <Copyright>Written by Peter O. in 2017.  Any copyright is released to the Public Domain.</Copyright>
+    <Copyright>Written by Peter O. in 2017-2019.  Any copyright is released to the Public Domain.</Copyright>
     <Authors>Peter Occil</Authors>
     <PackageId>PeterO.Numbers</PackageId>
     <Title>Arbitrary-Precision Number Library</Title>
@@ -14,20 +14,12 @@
     <PackageLicenseUrl>http://creativecommons.org/publicdomain/zero/1.0/</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
-Version 1.2.2:
+Version 1.3:
 
-- Fixed referencing issues with minor version 1.2.1
-
-Version 1.2.1:
-
-- Fixed bugs with new EInteger.Add and EInteger.Subtract overloads
-
-Version 1.2:
-
-- Add arithmetic methods to EInteger, EDecimal, and EFloat that
- take 'int' operands.
-- Fix issues with EDecimal/EFloat Remainder method in corner cases
-- Add RemainderNoRoundAfterDivide in EDecimal and EFloat
+- Improve performance of EDecimal.CompareToBinary in certain cases
+- Fix ERational.ToSingle method
+- Add GetDigitCountAsEInteger and GetSignedBitLengthAsEInteger methods to EInteger class
+- Check for overflow in GetDigitCount, GetUnsignedBitLength, and GetSignedBitLength methods in EInteger class
 
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>

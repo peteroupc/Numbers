@@ -8939,6 +8939,8 @@
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0 or negative 1.
     </returns>
+    <exception cref='T:System.OverflowException'>The return value would exceed the range of a 32-bit signed integer.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger'>
     <summary>Finds the minimum number of bits needed to represent this object's value,
@@ -8966,6 +8968,8 @@
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0, and returns 1 if the value is negative 1.
     </returns>
+    <exception cref='T:System.OverflowException'>The return value would exceed the range of a 32-bit signed integer.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger'>
     <summary>Finds the minimum number of bits needed to represent this number's
