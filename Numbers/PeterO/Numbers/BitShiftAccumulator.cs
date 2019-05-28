@@ -294,8 +294,8 @@ namespace PeterO.Numbers {
         // Console.WriteLine("{0:X8} kbl=" + kb);
         return new FastInteger(kb);
       }
-      return new FastInteger(this.shiftedBigInt.IsZero ? 1 :
-      this.shiftedBigInt.GetSignedBitLength());
+      if(this.shiftedBigInt.IsZero)return new FastInteger(1);
+      return FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
     }
 
     private void ShiftBigToBits(int bits) {

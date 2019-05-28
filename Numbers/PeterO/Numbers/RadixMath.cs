@@ -1488,8 +1488,8 @@ ctx.Precision).WithBlankFlags();
         }
         // Stores an underestimating approximation
         // of the digit length
-        var approxDigitLength = new FastInteger(
-          ei.GetUnsignedBitLength() >> 2);
+        var approxDigitLength = FastInteger.FromBig(
+          ei.GetUnsignedBitLengthAsEInteger().Divide(4));
         FastInteger precision = FastInteger.FromBig(ctx.Precision);
         if (approxDigitLength.CompareTo(precision) <= 0) {
           return thisValue;
@@ -2893,14 +2893,14 @@ ctx.Precision).WithBlankFlags();
 
     private FastInteger OverestimateDigitLength(EInteger ei) {
       if (this.thisRadix == 2) {
-        return new FastInteger(ei.GetUnsignedBitLength());
+        return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
       } else if (this.thisRadix == 10) {
-        int bitLength = ei.GetUnsignedBitLength();
-        if (bitLength <= 2135) {
+        EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
+        if (bigBitLength.CompareTo(2135) <= 0) {
           // May overestimate by 1
-          return new FastInteger(1 + ((bitLength * 631305) >> 21));
+          return new FastInteger(1 + ((bigBitLength.ToInt32Checked() * 631305) >> 21));
         }
-        return new FastInteger(bitLength >> 2);
+        return FastInteger.FromBig(bigBitLength.Divide(4));
       } else {
         return this.helper.CreateShiftAccumulator(ei)
                 .GetDigitLength();

@@ -2327,7 +2327,7 @@ WordsShiftRightOne(bu, buc);
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
     [Obsolete("This method may overflow.  Use GetDigitCountAsEInteger instead.")]
-    private int GetDigitCount() {
+    public int GetDigitCount() {
       long dc=GetDigitCountAsInt64();
       if(dc<Int32.MinValue || dc>Int32.MaxValue)throw new OverflowException();
       return checked((int)dc);
@@ -3512,7 +3512,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         // DebugUtility.Log("---divrem " + (this.wordCount));
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("" + (divrem[0].GetUnsignedBitLength()) + "," +
-        // (// divrem[1].GetUnsignedBitLength()));
+        // ( divrem[1].GetUnsignedBitLength()));
         divrem[0].ToRadixStringDecimal(outputSB, optimize);
         divrem[1].ToRadixStringDecimal(rightBuilder, optimize);
         for (i = rightBuilder.Length; i < digits; ++i) {

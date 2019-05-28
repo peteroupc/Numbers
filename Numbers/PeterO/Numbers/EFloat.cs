@@ -1099,8 +1099,7 @@ public EFloat Divide(int intValue) {
       if (this.IsZero) {
         return EInteger.One;
       }
-      int bitlen = this.unsignedMantissa.GetSignedBitLength();
-      return (EInteger)bitlen;
+      return this.unsignedMantissa.GetSignedBitLengthAsEInteger();
     }
 
     /// <include file='../../docs.xml'
@@ -1375,11 +1374,11 @@ public EFloat Divide(int intValue) {
       // DebugUtility.Log("-->" + (//
       // thisValue.unsignedMantissa.ToRadixString(2)) + ", " + (//
       // thisValue.exponent));
-      int bitLength = mant.GetUnsignedBitLength();
+      EInteger bitLength = mant.GetUnsignedBitLengthAsEInteger();
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
-      if (bitLength < 53) {
-        int diff = 53 - bitLength;
+      if (bitLength.CompareTo(53) < 0) {
+        int diff = 53 - bitLength.ToInt32Checked();
         expo -= diff;
         if (expo < -1074) {
           // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
@@ -1452,7 +1451,7 @@ public EFloat Divide(int intValue) {
 
     private string ToDebugString() {
       return "[" + this.Mantissa.ToRadixString(2) +
-        "," + this.Mantissa.GetUnsignedBitLength() +
+        "," + this.Mantissa.GetUnsignedBitLengthAsEInteger() +
         "," + this.Exponent + "]";
     }
 
@@ -1562,11 +1561,11 @@ public EFloat Divide(int intValue) {
       // DebugUtility.Log("-->" + (//
       // thisValue.unsignedMantissa.ToRadixString(2)) + ", " + (//
       // thisValue.exponent));
-      int bitLength = mant.GetUnsignedBitLength();
+      EInteger bitLength = mant.GetUnsignedBitLengthAsEInteger();
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
-      if (bitLength < 24) {
-        int diff = 24 - bitLength;
+      if (bitLength.CompareTo(24) < 0) {
+        int diff = 24 - bitLength.ToInt32Checked();
         expo -= diff;
         if (expo < -149) {
           // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
@@ -1576,7 +1575,6 @@ public EFloat Divide(int intValue) {
           subnormal = true;
         }
         mant <<= diff;
-        bitLength += diff;
       }
       // DebugUtility.Log("2->" + (mant.ToRadixString(2)) + ", " + expo);
       int smallmantissa = ((int)mant.ToInt32Checked()) & 0x7fffff;

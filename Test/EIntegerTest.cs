@@ -819,10 +819,10 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
         EInteger bigintA = RandomBigInteger(r);
         Assert.AreEqual(
               bigintA.CanFitInInt32(),
-              bigintA.GetSignedBitLength() <= 31);
+              bigintA.GetSignedBitLengthAsEInteger().CompareTo(31) <= 0);
         Assert.AreEqual(
               bigintA.CanFitInInt64(),
-              bigintA.GetSignedBitLength() <= 63);
+              bigintA.GetSignedBitLengthAsEInteger().CompareTo(31) <= 0);
       }
     }
     [Test]
@@ -1742,6 +1742,8 @@ DoTestDivide("4294901760", "281470681808895", "0");
     public void TestGetBits() {
       // not implemented yet
     }
+
+#pragma warning disable CS0618 // We're testing an obsolete method here
     [Test]
     public void TestGetDigitCount() {
       var r = new RandomGenerator();
@@ -1754,9 +1756,12 @@ DoTestDivide("4294901760", "281470681808895", "0");
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         String str = bigintA.Abs().ToString();
-        Assert.AreEqual(str.Length, bigintA.GetDigitCount(), str);
+        Assert.AreEqual(EInteger.FromInt32(str.Length), 
+            bigintA.GetDigitCountAsEInteger(), str);
       }
     }
+#pragma warning restore CS0618
+
     [Test]
     public void TestGetSignedBit() {
       Assert.IsFalse(EInteger.Zero.GetSignedBit(0));
@@ -1768,6 +1773,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
       }
     }
 
+#pragma warning disable CS0618 // We're testing an obsolete method here
     [Test]
     public void TestGetSignedBitLength() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
@@ -1776,6 +1782,68 @@ DoTestDivide("4294901760", "281470681808895", "0");
           BigValueOf(valueBitLengths[i]).GetSignedBitLength(),
           TestCommon.LongToString(valueBitLengths[i]));
       }
+      Assert.AreEqual(31, BigValueOf(-2147483647L).GetSignedBitLength());
+      Assert.AreEqual(31, BigValueOf(-2147483648L).GetSignedBitLength());
+      Assert.AreEqual(32, BigValueOf(-2147483649L).GetSignedBitLength());
+      Assert.AreEqual(32, BigValueOf(-2147483650L).GetSignedBitLength());
+      Assert.AreEqual(31, BigValueOf(2147483647L).GetSignedBitLength());
+      Assert.AreEqual(32, BigValueOf(2147483648L).GetSignedBitLength());
+      Assert.AreEqual(32, BigValueOf(2147483649L).GetSignedBitLength());
+      Assert.AreEqual(32, BigValueOf(2147483650L).GetSignedBitLength());
+      Assert.AreEqual(0, BigValueOf(0).GetSignedBitLength());
+      Assert.AreEqual(1, BigValueOf(1).GetSignedBitLength());
+      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLength());
+      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLength());
+      Assert.AreEqual(31, BigValueOf(Int32.MaxValue).GetSignedBitLength());
+      Assert.AreEqual(31, BigValueOf(Int32.MinValue).GetSignedBitLength());
+      Assert.AreEqual(16, BigValueOf(65535).GetSignedBitLength());
+      Assert.AreEqual(16, BigValueOf(-65535).GetSignedBitLength());
+      Assert.AreEqual(17, BigValueOf(65536).GetSignedBitLength());
+      Assert.AreEqual(16, BigValueOf(-65536).GetSignedBitLength());
+      Assert.AreEqual(
+        65,
+        BigFromString("19084941898444092059").GetSignedBitLength());
+      Assert.AreEqual(
+        65,
+        BigFromString("-19084941898444092059").GetSignedBitLength());
+      Assert.AreEqual(0, BigValueOf(-1).GetSignedBitLength());
+      Assert.AreEqual(1, BigValueOf(-2).GetSignedBitLength());
+    }
+#pragma warning restore CS0618
+
+    public void TestGetSignedBitLengthAsEInteger() {
+      for (var i = 0; i < valueBitLengths.Length; i += 2) {
+        Assert.AreEqual(
+          (int)valueBitLengths[i + 1],
+          BigValueOf(valueBitLengths[i]).GetSignedBitLengthAsEInteger().ToInt32Checked(),
+          TestCommon.LongToString(valueBitLengths[i]));
+      }
+      Assert.AreEqual(31, BigValueOf(-2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(31, BigValueOf(-2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(32, BigValueOf(-2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(32, BigValueOf(-2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(31, BigValueOf(2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(32, BigValueOf(2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(32, BigValueOf(2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(32, BigValueOf(2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(0, BigValueOf(0).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(1, BigValueOf(1).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(31, BigValueOf(Int32.MaxValue).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(31, BigValueOf(Int32.MinValue).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(16, BigValueOf(65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(16, BigValueOf(-65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(17, BigValueOf(65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(16, BigValueOf(-65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+        65,
+        BigFromString("19084941898444092059").GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+        65,
+        BigFromString("-19084941898444092059").GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(0, BigValueOf(-1).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(1, BigValueOf(-2).GetSignedBitLengthAsEInteger().ToInt32Checked());
     }
 
     [Test]
@@ -1795,6 +1863,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
       }
     }
 
+#pragma warning disable CS0618 // We're testing an obsolete method here
     [Test]
     public void TestGetUnsignedBitLength() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
@@ -1811,6 +1880,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
           TestCommon.LongToString(-valueBitLengths[i]));
       }
     }
+#pragma warning restore CS0618
 
     [Test]
     public void TestGetLowBit() {
@@ -1943,7 +2013,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
 
     [Test]
     public void TestMiscellaneous() {
-      Assert.AreEqual(1, EInteger.Zero.GetDigitCount());
+      Assert.AreEqual(EInteger.One, EInteger.Zero.GetDigitCountAsEInteger());
       var minValue = (EInteger)Int32.MinValue;
       EInteger minValueTimes2 = minValue + (EInteger)minValue;
       Assert.AreEqual(Int32.MinValue, (int)minValue);
@@ -2113,7 +2183,8 @@ DoTestDivide("4294901760", "281470681808895", "0");
   int fuzzes,
   RandomGenerator r) {
       byte[] bytes = ei.ToBytes(true);
-      int bits = ei.GetUnsignedBitLength();
+      EInteger ebits = ei.GetUnsignedBitLengthAsEInteger();
+      int bits=ebits.CanFitInInt32() ? ebits.ToInt32Checked() : Int32.MaxValue;
       for (var i = 0; i < fuzzes; ++i) {
         int bit = r.UniformInt(bits);
         bytes[bit / 8] ^= (byte)(1 << (bit & 0x07));
@@ -2403,35 +2474,6 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
     [Test]
     public void TestSign() {
       // not implemented yet
-    }
-    [Test]
-    public void TestSignedBitLength() {
-      Assert.AreEqual(31, BigValueOf(-2147483647L).GetSignedBitLength());
-      Assert.AreEqual(31, BigValueOf(-2147483648L).GetSignedBitLength());
-      Assert.AreEqual(32, BigValueOf(-2147483649L).GetSignedBitLength());
-      Assert.AreEqual(32, BigValueOf(-2147483650L).GetSignedBitLength());
-      Assert.AreEqual(31, BigValueOf(2147483647L).GetSignedBitLength());
-      Assert.AreEqual(32, BigValueOf(2147483648L).GetSignedBitLength());
-      Assert.AreEqual(32, BigValueOf(2147483649L).GetSignedBitLength());
-      Assert.AreEqual(32, BigValueOf(2147483650L).GetSignedBitLength());
-      Assert.AreEqual(0, BigValueOf(0).GetSignedBitLength());
-      Assert.AreEqual(1, BigValueOf(1).GetSignedBitLength());
-      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLength());
-      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLength());
-      Assert.AreEqual(31, BigValueOf(Int32.MaxValue).GetSignedBitLength());
-      Assert.AreEqual(31, BigValueOf(Int32.MinValue).GetSignedBitLength());
-      Assert.AreEqual(16, BigValueOf(65535).GetSignedBitLength());
-      Assert.AreEqual(16, BigValueOf(-65535).GetSignedBitLength());
-      Assert.AreEqual(17, BigValueOf(65536).GetSignedBitLength());
-      Assert.AreEqual(16, BigValueOf(-65536).GetSignedBitLength());
-      Assert.AreEqual(
-        65,
-        BigFromString("19084941898444092059").GetSignedBitLength());
-      Assert.AreEqual(
-        65,
-        BigFromString("-19084941898444092059").GetSignedBitLength());
-      Assert.AreEqual(0, BigValueOf(-1).GetSignedBitLength());
-      Assert.AreEqual(1, BigValueOf(-2).GetSignedBitLength());
     }
 
     [Test]

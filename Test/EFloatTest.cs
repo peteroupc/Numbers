@@ -1263,7 +1263,7 @@ public void TestPrecisionOneHalfEven() {
 
     private static string EFToString(EFloat ef) {
       return "[" + ef.Mantissa.ToRadixString(2) + "," +
-        ef.Mantissa.GetUnsignedBitLength() + "," + ef.Exponent + "]";
+        ef.Mantissa.GetUnsignedBitLengthAsEInteger() + "," + ef.Exponent + "]";
     }
 
     private static void TestBinaryToDecimal(
