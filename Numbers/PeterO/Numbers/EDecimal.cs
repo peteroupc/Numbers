@@ -2747,8 +2747,8 @@ ec = ec ?? EContext.UnlimitedHalfEven;
 // bigmantissa) + "\n-->" + (//
 // divisor));
 // DebugUtility.Log("deshigh " + (//
-// bigmantissa.GetUnsignedBitLength()) + "/" + (//
-// divisor.GetUnsignedBitLength()));
+// bigmantissa.GetUnsignedBitLengthAsEInteger()) + "/" + (//
+// divisor.GetUnsignedBitLengthAsEInteger()));
             quorem = bigmantissa.DivRem(divisor);
             if (quorem[1].IsZero) {
               int valueBmBits = quorem[0].GetUnsignedBitLength();
@@ -2796,9 +2796,9 @@ ec = ec ?? EContext.UnlimitedHalfEven;
               bigmantissa <<= 1;
               adjust.Decrement();
             }
-            // DebugUtility.Log("deslow " + (//
-            // bigmantissa.GetUnsignedBitLength()) + "/" + (//
-            // divisor.GetUnsignedBitLength()));
+            // DebugUtility.Log("deslow " + (
+            // bigmantissa.GetUnsignedBitLengthAsEInteger()) + "/" + (
+            // divisor.GetUnsignedBitLengthAsEInteger()));
             quorem = bigmantissa.DivRem(divisor);
             if (quorem[1].IsZero) {
               int valueBmBits = quorem[0].GetUnsignedBitLength();

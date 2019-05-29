@@ -1292,7 +1292,7 @@ TestBinaryToDecimal(
     }
 
     [Test]
-    [Timeout(120000)]
+    [Timeout(200000)]
     public void TestToShortestString() {
       {
         EFloat ef = EFloat.FromDouble(64.1);
@@ -1376,6 +1376,7 @@ Assert.AreEqual(
             msg);
         }
       }
+      Console.WriteLine("End TestToShortestString");
     }
     [Test]
     public void TestToSingleRounding() {
@@ -1817,6 +1818,7 @@ throw new InvalidOperationException(String.Empty, ex);
     }
 
     [Test]
+    [Timeout(100000)]
     public void TestToDoubleRounding() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {

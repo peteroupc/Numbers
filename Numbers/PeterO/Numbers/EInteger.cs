@@ -2631,7 +2631,7 @@ WordsShiftRightOne(bu, buc);
         if (this.negative) {
 // Two's complement operation
 EInteger eiabs = this.Abs();
-if (wc > 1 && this.words[0] == 0) {
+if (wc > 1 && eiabs.words[0] != 0) {
  // No need to subtract by 1; the signed bit length will
  // be the same in either case
  return eiabs.GetSignedBitLengthAsEInteger();
@@ -3511,8 +3511,8 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         EInteger pow = NumberUtility.FindPowerOfTen(digits);
         // DebugUtility.Log("---divrem " + (this.wordCount));
         EInteger[] divrem = this.DivRem(pow);
-        // DebugUtility.Log("" + (divrem[0].GetUnsignedBitLength()) + "," +
-        // ( divrem[1].GetUnsignedBitLength()));
+        // DebugUtility.Log("" + (divrem[0].GetUnsignedBitLengthAsEInteger()) + "," +
+        // ( divrem[1].GetUnsignedBitLengthAsEInteger()));
         divrem[0].ToRadixStringDecimal(outputSB, optimize);
         divrem[1].ToRadixStringDecimal(rightBuilder, optimize);
         for (i = rightBuilder.Length; i < digits; ++i) {

@@ -604,7 +604,7 @@ return new EContext(
 return new EContext(
   this.adjustExponent,
   this.bigintPrecision,
-  this.clampNormalExponents,
+  clamp,
   this.exponentMax,
   this.exponentMin,
   this.flags,
