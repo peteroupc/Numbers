@@ -98,7 +98,7 @@ There are several other types of numbers that are mentioned in this class and el
 
  * B. Next 11 bits: Exponent area:
 
- * If all bits are ones, this value is infinity if all bits in area A are zeros, or not-a-number (NaN) otherwise.
+ * If all bits are ones, this value is infinity (positive or negative depending on the C bit) if all bits in area A are zeros, or not-a-number (NaN) otherwise.
 
  * If all bits are zeros, this is a subnormal number. The exponent is EMin and the highest bit of the significand is zero.
 
@@ -281,7 +281,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal number from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal number from this instance.
-* <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this instance and returns the result.
+* <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this object and returns the result.
 * <code>[public static readonly PeterO.Numbers.EDecimal Ten;](#Ten)</code> - Represents the number 10.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
@@ -508,8 +508,7 @@ Adds this object and an 32-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter <i>intValue</i>
-is not documented yet.
+ * <i>intValue</i>: A 32-bit signed integer to add to this object.
 
 <b>Return Value:</b>
 
@@ -845,8 +844,7 @@ Divides this object by an 32-bit signed integer and returns the result. When pos
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter <i>intValue</i>
-is not documented yet.
+ * <i>intValue</i>: A 32-bit signed integer, the divisor, to divide this object by.
 
 <b>Return Value:</b>
 
@@ -2111,8 +2109,7 @@ Multiplies this object by the given 32-bit signed integer. The resulting exponen
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter <i>intValue</i>
-is not documented yet.
+ * <i>intValue</i>: A 32-bit signed integer to multiply this object by.
 
 <b>Return Value:</b>
 
@@ -3163,12 +3160,11 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
     public PeterO.Numbers.EDecimal Subtract(
         int intValue);
 
-Subtracts a 32-bit signed integer from this instance and returns the result.
+Subtracts a 32-bit signed integer from this object and returns the result.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter <i>intValue</i>
-is not documented yet.
+ * <i>intValue</i>: A 32-bit signed integer to subtract from this object.
 
 <b>Return Value:</b>
 

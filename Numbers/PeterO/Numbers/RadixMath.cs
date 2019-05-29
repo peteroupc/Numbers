@@ -1488,7 +1488,7 @@ ctx.Precision).WithBlankFlags();
         }
         // Stores an underestimating approximation
         // of the digit length
-        var approxDigitLength = FastInteger.FromBig(
+        FastInteger approxDigitLength = FastInteger.FromBig(
           ei.GetUnsignedBitLengthAsEInteger().Divide(4));
         FastInteger precision = FastInteger.FromBig(ctx.Precision);
         if (approxDigitLength.CompareTo(precision) <= 0) {

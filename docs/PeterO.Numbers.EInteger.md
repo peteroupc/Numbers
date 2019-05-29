@@ -51,18 +51,20 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Gcd(PeterO.Numbers.EInteger)](#Gcd_PeterO_Numbers_EInteger)</code> - Returns the greatest common divisor of this integer and the given integer.
 * <code>[GetBits(int, int)](#GetBits_int_int)</code> - Retrieves bits from this integer's two' s-complement form.
 * <code>[GetDigitCount()](#GetDigitCount)</code> - Returns the number of decimal digits used by this integer.
-* <code>[GetDigitCountAsEInteger()](#GetDigitCountAsEInteger)</code> - Returns the number of decimal digits used by this integer.
+* <code>[GetDigitCountAsEInteger()](#GetDigitCountAsEInteger)</code> - Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
 * <code>[GetHashCode()](#GetHashCode)</code> - Returns the hash code for this instance.
 * <code>[GetLowBit()](#GetLowBit)</code> - Gets the lowest set bit in this number's absolute value.
 * <code>[GetLowBitAsEInteger()](#GetLowBitAsEInteger)</code> - Gets the lowest set bit in this number's absolute value.
 * <code>[GetSignedBitLength()](#GetSignedBitLength)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign.
-* <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign.
+* <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer.
+* <code>[GetSignedBit(PeterO.Numbers.EInteger)](#GetSignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in the two's-complement form (seePeterO.
 * <code>[GetSignedBit(int)](#GetSignedBit_int)</code> - Returns whether a bit is set in the two's-complement form (seePeterO.
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
+* <code>[GetUnsignedBit(PeterO.Numbers.EInteger)](#GetUnsignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBit(int)](#GetUnsignedBit_int)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
-* <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two.
+* <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this value is 0.
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when this arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when an arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
@@ -77,7 +79,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[Remainder(int)](#Remainder_int)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
+* <code>[ShiftLeft(PeterO.Numbers.EInteger)](#ShiftLeft_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
 * <code>[ShiftLeft(int)](#ShiftLeft_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
+* <code>[ShiftRight(PeterO.Numbers.EInteger)](#ShiftRight_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the right.
 * <code>[ShiftRight(int)](#ShiftRight_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the right.
 * <code>[Sign](#Sign)</code> - Gets the sign of this object's value.
 * <code>[Sqrt()](#Sqrt)</code> - Finds the square root of this instance's value, rounded down.
@@ -141,14 +145,12 @@ Gets a value indicating whether this value is even.
 
     public bool IsPowerOfTwo { get; }
 
-Gets a value indicating whether this object's value is a power of two.
+Gets a value indicating whether this object's value is a power of two, and greater than 0.
 
 <b>Returns:</b>
 
  `true
-      ` if this object's value is a power of two; otherwise, `false
-      ` . `true
-      ` if this object' s value is a power of two; otherwise, `false
+      ` if this object' s value is a power of two, and greater than 0; otherwise, `false
       ` .
 
 <a id="IsZero"></a>
@@ -866,20 +868,25 @@ A 64-bit signed integer containing the bits from this integer's two' s-complemen
 
     public int GetDigitCount();
 
+<b>Deprecated.</b> This method may overflow. Use GetDigitCountAsEInteger instead.
+
 Returns the number of decimal digits used by this integer.
 
 <b>Return Value:</b>
 
 The number of digits in the decimal form of this integer. Returns 1 if this number is 0.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The return value would exceed the range of a 32-bit signed integer.
+
 <a id="GetDigitCountAsEInteger"></a>
 ### GetDigitCountAsEInteger
 
     public PeterO.Numbers.EInteger GetDigitCountAsEInteger();
 
-Returns the number of decimal digits used by this integer.
-
-TODO: Adjust this documentation for this new API
+Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -901,13 +908,15 @@ A 32-bit signed integer.
 
     public int GetLowBit();
 
+<b>Deprecated.</b> This method may overflow. Use GetLowBitAsEInteger instead.
+
 Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see[
          &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)).).
 
 <b>Return Value:</b>
 
-The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
+The lowest bit set in the number, starting at 0. Returns -1 if this value is 0.
 
 <a id="GetLowBitAsEInteger"></a>
 ### GetLowBitAsEInteger
@@ -945,10 +954,34 @@ is a 32-bit signed integer.
       ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise, `false
       ` .
 
+<a id="GetSignedBit_PeterO_Numbers_EInteger"></a>
+### GetSignedBit
+
+    public bool GetSignedBit(
+        PeterO.Numbers.EInteger bigIndex);
+
+Returns whether a bit is set in the two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value.
+
+<b>Parameters:</b>
+
+ * <i>bigIndex</i>: An EInteger object.
+
+<b>Return Value:</b>
+
+ `true`  if a bit is set in the two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value; otherwise,  `false` .
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigIndex</i>
+ is null.
+
 <a id="GetSignedBitLength"></a>
 ### GetSignedBitLength
 
     public int GetSignedBitLength();
+
+<b>Deprecated.</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
 
 Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
 
@@ -956,14 +989,17 @@ Finds the minimum number of bits needed to represent this object's value, except
 
 The number of bits in this object's value. Returns 0 if this object's value is 0 or negative 1.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The return value would exceed the range of a 32-bit signed integer.
+
 <a id="GetSignedBitLengthAsEInteger"></a>
 ### GetSignedBitLengthAsEInteger
 
     public PeterO.Numbers.EInteger GetSignedBitLengthAsEInteger();
 
-Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
-
-TODO: Adjust this documentation for the new API.
+Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
 
 <b>Return Value:</b>
 
@@ -986,16 +1022,45 @@ Returns whether a bit is set in this number's absolute value.
  `true
       ` if a bit is set in this number's absolute value.
 
+<a id="GetUnsignedBit_PeterO_Numbers_EInteger"></a>
+### GetUnsignedBit
+
+    public bool GetUnsignedBit(
+        PeterO.Numbers.EInteger bigIndex);
+
+Returns whether a bit is set in this number's absolute value.
+
+<b>Parameters:</b>
+
+ * <i>bigIndex</i>: An EInteger object.
+
+<b>Return Value:</b>
+
+ `true`  if a bit is set in this number's absolute value.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigIndex</i>
+ is null.
+
 <a id="GetUnsignedBitLength"></a>
 ### GetUnsignedBitLength
 
     public int GetUnsignedBitLength();
+
+<b>Deprecated.</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
 
 Finds the minimum number of bits needed to represent this number's absolute value.
 
 <b>Return Value:</b>
 
 The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The return value would exceed the range of a 32-bit signed integer.
 
 <a id="GetUnsignedBitLengthAsEInteger"></a>
 ### GetUnsignedBitLengthAsEInteger
@@ -1700,6 +1765,30 @@ Returns an arbitrary-precision integer with the bits shifted to the left by a nu
 
 An arbitrary-precision integer.
 
+<a id="ShiftLeft_PeterO_Numbers_EInteger"></a>
+### ShiftLeft
+
+    public PeterO.Numbers.EInteger ShiftLeft(
+        PeterO.Numbers.EInteger eshift);
+
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
+
+TODO: Edit this
+
+<b>Parameters:</b>
+
+ * <i>eshift</i>: An EInteger object.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>eshift</i>
+ is null.
+
 <a id="ShiftRight_int"></a>
 ### ShiftRight
 
@@ -1717,6 +1806,30 @@ Returns an arbitrary-precision integer with the bits shifted to the right. For t
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
+
+<a id="ShiftRight_PeterO_Numbers_EInteger"></a>
+### ShiftRight
+
+    public PeterO.Numbers.EInteger ShiftRight(
+        PeterO.Numbers.EInteger eshift);
+
+Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ). Thus, for negative values, the arbitrary-precision integer is sign-extended.
+
+TODO: Edit this
+
+<b>Parameters:</b>
+
+ * <i>eshift</i>: An EInteger object.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>eshift</i>
+ is null.
 
 <a id="Sqrt"></a>
 ### Sqrt

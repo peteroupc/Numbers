@@ -1,5 +1,5 @@
 /*
-Written in 2013-2016 by Peter O.
+Written in 2013-2018 by Peter O.
 
 Parts of the code were adapted by Peter O. from
 public-domain code by Wei Dai.
@@ -120,7 +120,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsPowerOfTwo"]/*'/>
     public bool IsPowerOfTwo {
       get {
-        return !this.negative && this.wordCount>0 &&
+        return !this.negative && this.wordCount > 0 &&
           this.GetUnsignedBitLengthAsEInteger().Subtract(1)
            .Equals(this.GetLowBitAsEInteger());
       }
@@ -2571,17 +2571,8 @@ WordsShiftRightOne(bu, buc);
       return EInteger.FromInt32(-1);
     }
 
-    /// <summary>Returns whether a bit is set in the two's-complement form
-    /// (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-    /// this object' s value.</summary>
-    /// <param name='bigIndex'>An EInteger object.</param>
-    /// <returns><c>true</c> if a bit is set in the two' s-complement form
-    /// (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-    /// this object' s value; otherwise, <c>false</c>.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigIndex'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(PeterO.Numbers.EInteger)"]/*'/>
     public bool GetSignedBit(EInteger bigIndex) {
        if (bigIndex == null) {
   throw new ArgumentNullException(nameof(bigIndex));
@@ -2589,8 +2580,34 @@ WordsShiftRightOne(bu, buc);
        if (bigIndex.Sign < 0) {
         throw new ArgumentOutOfRangeException("bigIndex");
        }
-       // TODO
-       throw new NotImplementedException();
+       if (this.negative) {
+         if (bigIndex.CanFitInInt32()) {
+ return bigIndex.GetSignedBit(bigIndex.ToInt32Checked());
+}
+        EInteger valueEWordPos = bigIndex.Divide(16);
+        if (valueEWordPos.CompareTo(this.words.Length) >= 0) {
+          return true;
+        }
+        long tcindex = 0;
+        while (valueEWordPos.CompareTo(EInteger.FromInt64(tcindex)) > 0 &&
+              this.words[(int)tcindex] == 0) {
+          ++tcindex;
+        }
+        short tc;
+        // NOTE: array indices are currently limited to Int32
+        int wordpos = valueEWordPos.ToInt32Checked();
+        unchecked {
+          tc = this.words[wordpos];
+          if (tcindex == wordpos) {
+            --tc;
+          }
+          tc = (short)~tc;
+        }
+        int mod15 = bigIndex.Remainder(16).ToInt32Checked();
+        return (bool)(((tc >> mod15) & 1) != 0);
+       } else {
+         return this.GetUnsignedBit(bigIndex);
+       }
     }
 
     /// <include file='../../docs.xml'
@@ -2679,13 +2696,8 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return this.GetSignedBitLengthAsEInteger().ToInt32Checked();
     }
 
-    /// <summary>Returns whether a bit is set in this number's absolute
-    /// value.</summary>
-    /// <param name='bigIndex'>An EInteger object.</param>
-    /// <returns><c>true</c> if a bit is set in this number's absolute
-    /// value.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigIndex'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(PeterO.Numbers.EInteger)"]/*'/>
     public bool GetUnsignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
   throw new ArgumentNullException(nameof(bigIndex));
@@ -3048,56 +3060,49 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return new EInteger(count, remainderReg, this.negative);
     }
 
-    /// <summary>Returns an arbitrary-precision integer with the bits
-    /// shifted to the right. For this operation, the arbitrary-precision
-    /// integer is treated as a two's-complement form (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
-    /// Thus, for negative values, the arbitrary-precision integer is
-    /// sign-extended.</summary>
-    /// <param name='eshift'>An EInteger object.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='eshift'/> is null.</exception>
-    /// <remarks>TODO: Edit this</remarks>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger ShiftRight(EInteger eshift) {
-      if ((eshift) == null) {
+      if (eshift == null) {
   throw new ArgumentNullException(nameof(eshift));
 }
-      EInteger s = eshift;
+      EInteger valueETempShift = eshift;
       EInteger ret = this;
-      if (s.Sign< 0) {
-        return ret.ShiftLeft(s.Negate());
+      if (valueETempShift.Sign < 0) {
+        return ret.ShiftLeft(valueETempShift.Negate());
       }
-      while (!s.CanFitInInt32()) {
-         s = s.Subtract(0x7ffffff0);
+      while (!valueETempShift.CanFitInInt32()) {
+         valueETempShift = valueETempShift.Subtract(0x7ffffff0);
          ret = ret.ShiftRight(0x7ffffff0);
       }
-      return ret.ShiftRight(s.ToInt32Checked());
+      return ret.ShiftRight(valueETempShift.ToInt32Checked());
     }
 
     /// <summary>Returns an arbitrary-precision integer with the bits
-    /// shifted to the left by a number of bits. A value of 1 doubles this
-    /// value, a value of 2 multiplies it by 4, a value of 3 by 8, a value
-    /// of 4 by 16, and so on.</summary>
-    /// <param name='eshift'>An EInteger object.</param>
+    /// shifted to the left by a number of bits given as an
+    /// arbitrary-precision integer. A value of 1 doubles this value, a
+    /// value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by
+    /// 16, and so on.</summary>
+    /// <param name='eshift'>The number of bits to shift. Can be negative,
+    /// in which case this is the same as shiftRight with the absolute
+    /// value of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='eshift'/> is null.</exception>
-    /// <remarks>TODO: Edit this</remarks>
     public EInteger ShiftLeft(EInteger eshift) {
-      if ((eshift) == null) {
+      if (eshift == null) {
   throw new ArgumentNullException(nameof(eshift));
 }
-      EInteger s = eshift;
+      EInteger valueETempShift = eshift;
       EInteger ret = this;
-      if (s.Sign< 0) {
-        return ret.ShiftRight(s.Negate());
+      if (valueETempShift.Sign < 0) {
+        return ret.ShiftRight(valueETempShift.Negate());
       }
-      while (!s.CanFitInInt32()) {
-         s = s.Subtract(0x7ffffff0);
+      while (!valueETempShift.CanFitInInt32()) {
+         valueETempShift = valueETempShift.Subtract(0x7ffffff0);
          ret = ret.ShiftLeft(0x7ffffff0);
       }
-      return ret.ShiftLeft(s.ToInt32Checked());
+      return ret.ShiftLeft(valueETempShift.ToInt32Checked());
     }
 
     /// <include file='../../docs.xml'
@@ -6877,22 +6882,22 @@ if (words2Count <= 0) {
         return new[] {
           (EInteger)smallintX, (EInteger)smallintY };
       }
-      EInteger ePowerBits =
+      EInteger valueEPowerBits =
         thisValue.GetUnsignedBitLengthAsEInteger().Add(1).Divide(2);
       if (this.wordCount >= 4) {
-     int wordsPerPart = (this.wordCount >> 2) + ((this.wordCount & 3)>0 ? 1 :
+     int wordsPerPart = (this.wordCount >> 2) + ((this.wordCount & 3) > 0 ? 1 :
           0);
         long bitsPerPart = wordsPerPart * 16;
-        EInteger eBitsPerPart = EInteger.FromInt64(bitsPerPart);
+        EInteger valueEBitsPerPart = EInteger.FromInt64(bitsPerPart);
         long totalBits = bitsPerPart * 4;
-        EInteger eBitLength = this.GetUnsignedBitLengthAsEInteger();
-        bool bitLengthEven = eBitLength.IsEven;
+        EInteger valueEBitLength = this.GetUnsignedBitLengthAsEInteger();
+        bool bitLengthEven = valueEBitLength.IsEven;
         bigintX = this;
         EInteger eshift = EInteger.Zero;
-     if (eBitLength.CompareTo(EInteger.FromInt64(totalBits).Subtract(1)) <
+     if (valueEBitLength.CompareTo(EInteger.FromInt64(totalBits).Subtract(1)) <
           0) {
           long targetLength = bitLengthEven ? totalBits : (totalBits - 1);
-          eshift = EInteger.FromInt64(targetLength).Subtract(eBitLength);
+          eshift = EInteger.FromInt64(targetLength).Subtract(valueEBitLength);
           bigintX = bigintX.ShiftLeft(eshift);
         }
         // DebugUtility.Log("this=" + (this.ToRadixString(16)));
@@ -6921,10 +6926,10 @@ if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
         // if (!srem[0].Equals(srem2[0]) || !srem[1].Equals(srem2[1])) {
   // throw new InvalidOperationException(this.ToString());
    // }
-        EInteger[] qrem = srem[1].ShiftLeft(eBitsPerPart).Add(e2).DivRem(
+        EInteger[] qrem = srem[1].ShiftLeft(valueEBitsPerPart).Add(e2).DivRem(
            srem[0].ShiftLeft(1));
-        EInteger sqroot = srem[0].ShiftLeft(eBitsPerPart).Add(qrem[0]);
-        EInteger sqrem = qrem[1].ShiftLeft(eBitsPerPart).Add(e1).Subtract(
+        EInteger sqroot = srem[0].ShiftLeft(valueEBitsPerPart).Add(qrem[0]);
+        EInteger sqrem = qrem[1].ShiftLeft(valueEBitsPerPart).Add(e1).Subtract(
            qrem[0].Multiply(qrem[0]));
         // DebugUtility.Log("sqrem=" + sqrem + ",sqroot=" + sqroot);
         if (sqrem.Sign < 0) {
@@ -6961,7 +6966,7 @@ if (!(sqroot.Sign >= 0)) {
         return retarr;
       }
       bigintX = EInteger.Zero;
-      bigintY = EInteger.One.ShiftLeft(ePowerBits);
+      bigintY = EInteger.One.ShiftLeft(valueEPowerBits);
       do {
         bigintX = bigintY;
         // DebugUtility.Log("" + thisValue + " " + bigintX);

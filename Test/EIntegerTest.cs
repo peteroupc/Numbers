@@ -1773,6 +1773,49 @@ DoTestDivide("4294901760", "281470681808895", "0");
       for (int i = 0; i < 32; ++i) {
         Assert.IsTrue(BigValueOf(-1).GetSignedBit(i));
       }
+      Assert.IsFalse(EInteger.Zero.GetSignedBit(EInteger.Zero));
+      Assert.IsFalse(EInteger.Zero.GetSignedBit(EInteger.One));
+      Assert.IsTrue(EInteger.One.GetSignedBit(EInteger.Zero));
+      Assert.IsFalse(EInteger.One.GetSignedBit(EInteger.One));
+      for (int i = 0; i < 32; ++i) {
+        Assert.IsTrue(BigValueOf(-1).GetSignedBit(EInteger.FromInt32(i)));
+      }
+      try {
+ EInteger.Zero.GetSignedBit(null);
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EInteger.One.GetSignedBit(null);
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EInteger.Zero.GetSignedBit(EInteger.FromInt32(-1));
+Assert.Fail("Should have failed");
+} catch (ArgumentException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EInteger.One.GetSignedBit(EInteger.FromInt32(-1));
+Assert.Fail("Should have failed");
+} catch (ArgumentException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
     }
 
 #pragma warning disable CS0618  // We're testing an obsolete method here
@@ -1916,11 +1959,42 @@ Assert.AreEqual(1, numberTemp);
         for (var j = 0; j < lowbit; ++j) {
           Assert.IsFalse(posint.GetUnsignedBit(j));
           Assert.IsFalse(negint.GetUnsignedBit(j));
+          Assert.IsFalse(posint.GetUnsignedBit(EInteger.FromInt32(j)));
+          Assert.IsFalse(negint.GetUnsignedBit(EInteger.FromInt32(j)));
         }
         if (lowbit >= 0) {
           Assert.IsTrue(posint.GetUnsignedBit(lowbit));
           Assert.IsTrue(negint.GetUnsignedBit(lowbit));
+          Assert.IsTrue(posint.GetUnsignedBit(EInteger.FromInt32(lowbit)));
+          Assert.IsTrue(negint.GetUnsignedBit(EInteger.FromInt32(lowbit)));
         }
+        try {
+ posint.GetUnsignedBit(EInteger.FromInt32(-1));
+Assert.Fail("Should have failed");
+} catch (ArgumentException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+        try {
+ negint.GetUnsignedBit((int)-1);
+Assert.Fail("Should have failed");
+} catch (ArgumentException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+        try {
+ posint.GetUnsignedBit(null);
+Assert.Fail("Should have failed");
+} catch (ArgumentNullException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
       }
     }
 

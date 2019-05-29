@@ -82,53 +82,39 @@ Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.ECont
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter <i>precision</i>
-is a 32-bit signed integer.
+ * <i>precision</i>: Maximum precision, in decimal digits, of a number's significand.
 
- * <i>rounding</i>: The parameter <i>rounding</i>
-is an ERounding object.
+ * <i>rounding</i>: The rounding mode for this context.
 
- * <i>exponentMinSmall</i>: The parameter <i>exponentMinSmall</i>
-is a 32-bit signed integer.
+ * <i>exponentMinSmall</i>: Smallest exponent of a number, as a power of 10.
 
- * <i>exponentMaxSmall</i>: The parameter <i>exponentMaxSmall</i>
-is a 32-bit signed integer.
+ * <i>exponentMaxSmall</i>: Largest exponent of a number, as a power of 10.
 
- * <i>clampNormalExponents</i>: Either `true
-      ` or `false
-      ` .
+ * <i>clampNormalExponents</i>: The value of the "ClampNormalExponents" property for this context.
 
 <a id="Void_ctor_EInteger_ERounding_EInteger_EInteger_Boolean"></a>
 ### EContext Constructor
 
     public EContext(
-        PeterO.Numbers.EInteger precision,
+        PeterO.Numbers.EInteger bigintPrecision,
         PeterO.Numbers.ERounding rounding,
-        PeterO.Numbers.EInteger exponentMinSmall,
-        PeterO.Numbers.EInteger exponentMaxSmall,
+        PeterO.Numbers.EInteger exponentMin,
+        PeterO.Numbers.EInteger exponentMax,
         bool clampNormalExponents);
 
-Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.
-
-TODO: Adjust this documentation for the new API.
+Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class, using arbitrary-precision integers to hold the precision and exponent range.
 
 <b>Parameters:</b>
 
- * <i>precision</i>: The parameter <i>precision</i>
-is a 32-bit signed integer.
+ * <i>bigintPrecision</i>: Maximum precision, in decimal digits, of a number's significand.
 
- * <i>rounding</i>: The parameter <i>rounding</i>
-is an ERounding object.
+ * <i>rounding</i>: The rounding mode for this context.
 
- * <i>exponentMinSmall</i>: The parameter <i>exponentMinSmall</i>
-is a 32-bit signed integer.
+ * <i>exponentMin</i>: Smallest exponent of a number, as a power of 10.
 
- * <i>exponentMaxSmall</i>: The parameter <i>exponentMaxSmall</i>
-is a 32-bit signed integer.
+ * <i>exponentMax</i>: Largest exponent of a number, as a power of 10.
 
- * <i>clampNormalExponents</i>: Either `true
-      ` or `false
-      ` .
+ * <i>clampNormalExponents</i>: The value of the "ClampNormalExponents" property for this context.
 
 <a id="Basic"></a>
 ### Basic
@@ -290,8 +276,6 @@ Gets a value indicating whether the EMax and EMin properties refer to the number
 <b>Returns:</b>
 
  `true
-      ` if the EMax and EMin properties refer to the number's Exponent property djusted to the number's precision, or just the number's Exponent roperty; otherwise, `false
-      ` .. The default value is true, meaning that EMax and EMin refer to the djusted exponent. Setting this value to false (using WithAdjustExponent) s useful for modeling floating point representations with an integer antissa (significand) and an integer exponent, such as Java's BigDecimal. `true
       ` if the EMax and EMin properties refer to the number's Exponent property djusted to the number's precision, or false if they refer to just the umber's Exponent property.
 
 <a id="ClampNormalExponents"></a>
@@ -749,7 +733,7 @@ A context object for arbitrary-precision arithmetic settings.
     public PeterO.Numbers.EContext WithTraps(
         int traps);
 
-Copies this EContext with Traps set to the given value.
+Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to  `True` , but this may change in version 2.0 of this library.).
 
 <b>Parameters:</b>
 

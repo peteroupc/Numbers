@@ -704,13 +704,8 @@ return new EContext(
   this.traps);
     }
 
-    /// <summary>Copies this EContext with Traps set to the given value.
-    /// (Also sets HasFlags on the copy to <c>True</c>, but this may
-    /// change in version 2.0 of this library.).</summary>
-    /// <param name='traps'>Flags representing the traps to enable. See the
-    /// property "Traps".</param>
-    /// <returns>A context object for arbitrary-precision arithmetic
-    /// settings.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithTraps(System.Int32)"]/*'/>
     public EContext WithTraps(int traps) {
  // TODO: In next major version, copy HasFlags rather than
  // setting it to true

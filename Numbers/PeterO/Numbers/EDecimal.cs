@@ -1936,7 +1936,7 @@ public EDecimal Divide(int intValue) {
       if (!this.IsFinite) {
         return EInteger.Zero;
       }
-      return this.IsZero ? (EInteger.One) :
+      return this.IsZero ? EInteger.One :
         this.unsignedMantissa.ToEInteger().GetDigitCountAsEInteger();
     }
 

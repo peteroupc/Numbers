@@ -861,7 +861,8 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Boolean)'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class, using arbitrary-precision integers to hold the precision and exponent range.
+    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class, using arbitrary-precision integers to hold the precision and
+      exponent range.
     </summary>
     <param name='bigintPrecision'>Maximum precision, in decimal digits, of a number's significand.
     </param>
@@ -897,8 +898,7 @@
       representations with an integer mantissa (significand) and an integer
       exponent, such as Java's BigDecimal.
     </summary>
-    <value>
-      <c>true
+    <value><c>true
       </c>
        if the EMax and EMin properties refer to the number's Exponent property
       adjusted to the number's precision, or false if they refer to just the
@@ -1406,7 +1406,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.WithTraps(System.Int32)'>
-    <summary>Copies this EContext with Traps set to the given value.  (Also sets HasFlags on the copy to <c>True</c>, but this may change in version 2.0 of this library.)
+    <summary>Copies this EContext with Traps set to the given value. (Also sets
+      HasFlags on the copy to
+      <c>True
+      </c>
+      , but this may change in version 2.0 of this library.).
     </summary>
     <param name='traps'>Flags representing the traps to enable. See the property "Traps".
     </param>
@@ -1684,8 +1688,9 @@
         </item>
         <item>B. Next 11 bits: Exponent area:
           <list>
-            <item>If all bits are ones, this value is infinity (positive or negative depending on the C bit) if all bits in area A
-              are zeros, or not-a-number (NaN) otherwise.
+            <item>If all bits are ones, this value is infinity (positive or negative
+              depending on the C bit) if all bits in area A are zeros, or
+              not-a-number (NaN) otherwise.
             </item>
             <item>If all bits are zeros, this is a subnormal number. The exponent is
               EMin and the highest bit of the significand is zero.
@@ -4338,8 +4343,8 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Subtract(System.Int32)'>
-    <summary>Subtracts a 32-bit signed integer from this object and returns the
-      result.
+    <summary>Subtracts a 32-bit signed integer from this object and returns the result.
+
     </summary>
     <param name='intValue'>A 32-bit signed integer to subtract from this object.
     </param>
@@ -8873,7 +8878,8 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger'>
-    <summary>Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
+    <summary>Returns the number of decimal digits used by this integer, in the form of
+      an arbitrary-precision integer.
     </summary>
     <returns>The number of digits in the decimal form of this integer. Returns 1 if
       this number is 0.
@@ -8899,7 +8905,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetLowBitAsEInteger'>
-    <summary>Gets the lowest set bit in this number's absolute value. (This will also
+    <summary>Gets the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer. (This will also
       be the lowest set bit in the number's two's-complement form (see
       <see cref='T:PeterO.Numbers.EDecimal'>
          "Forms of numbers"
@@ -8909,6 +8915,31 @@
     <returns>The lowest bit set in the number, starting at 0. Returns -1 if this value
       is 0 or odd.
     </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.GetSignedBit(PeterO.Numbers.EInteger)'>
+    <summary>Returns whether a bit is set in the two's-complement form (see
+      <see cref='T:PeterO.Numbers.EDecimal'>
+        "Forms of numbers"
+      </see>
+       ) of this object' s value.
+    </summary>
+    <param name='bigIndex'>An arbitrary-precision integer.
+    </param>
+    <returns><c>true
+      </c>
+       if a bit is set in the two' s-complement form (see
+      <see cref='T:PeterO.Numbers.EDecimal'>
+        "Forms of numbers"
+      </see>
+       ) of this object' s value; otherwise,
+      <c>false
+      </c>
+      .
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='bigIndex'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)'>
     <summary>Returns whether a bit is set in the two's-complement form (see
@@ -8946,12 +8977,27 @@
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger'>
     <summary>Finds the minimum number of bits needed to represent this object's value,
-      except for its sign, in the form of an arbitrary-precision integer. If the value is negative, finds the number of bits in
-      the value equal to this object's absolute value minus 1.
+      except for its sign, in the form of an arbitrary-precision integer. If the
+      value is negative, finds the number of bits in the value equal to this
+      object's absolute value minus 1.
     </summary>
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0 or negative 1.
     </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBit(PeterO.Numbers.EInteger)'>
+    <summary>Returns whether a bit is set in this number's absolute value.
+    </summary>
+    <param name='bigIndex'>An arbitrary-precision integer.
+    </param>
+    <returns><c>true
+      </c>
+       if a bit is set in this number's absolute value.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='bigIndex'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)'>
     <summary>Returns whether a bit is set in this number's absolute value.
@@ -8993,12 +9039,13 @@
     </value>
   </doc>
   <doc name='P:PeterO.Numbers.EInteger.IsPowerOfTwo'>
-    <summary>Gets a value indicating whether this object's value is a power of two, and greater than 0.
+    <summary>Gets a value indicating whether this object's value is a power of two, and
+      greater than 0.
     </summary>
-    <value>
-      <c>true
+    <value><c>true
       </c>
        if this object' s value is a power of two, and greater than 0; otherwise,
+
       <c>false
       </c>
        .
@@ -9208,6 +9255,17 @@
        is null.
     </exception>
   </doc>
+  <doc name='M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)'>
+    <summary>Returns an arbitrary-precision integer with the bits shifted to the left
+      by a number of bits given as an arbitrary-precision integer. A value of 1 doubles this value, a value of 2
+      multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
+    </summary>
+    <param name='eshift'>The number of bits to shift. Can be negative, in which case this is the
+      same as shiftRight with the absolute value of this parameter.
+    </param>
+    <returns>An arbitrary-precision integer.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)'>
     <summary>Returns an arbitrary-precision integer with the bits shifted to the left
       by a number of bits. A value of 1 doubles this value, a value of 2
@@ -9219,6 +9277,26 @@
     <returns>An arbitrary-precision integer.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EInteger.ShiftRight(PeterO.Numbers.EInteger)'>
+    <summary>Returns an arbitrary-precision integer with the bits shifted to the right.
+      For this operation, the arbitrary-precision integer is treated as a
+      two's-complement form (see
+      <see cref='T:PeterO.Numbers.EDecimal'>
+        "Forms of numbers"
+      </see>
+       ). Thus, for negative values, the arbitrary-precision integer is
+      sign-extended.
+    </summary>
+    <param name='eshift'>The number of bits to shift. Can be negative, in which case this is the
+      same as shiftLeft with the absolute value of this parameter.
+    </param>
+    <returns>An arbitrary-precision integer.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='eshift'/>
+       is null.
+    </exception>
+  </doc>
   <doc name='M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)'>
     <summary>Returns an arbitrary-precision integer with the bits shifted to the right.
       For this operation, the arbitrary-precision integer is treated as a
@@ -9229,7 +9307,8 @@
        ). Thus, for negative values, the arbitrary-precision integer is
       sign-extended.
     </summary>
-    <param name='numberBits'>Number of bits to shift right.
+    <param name='numberBits'>The number of bits to shift. Can be negative, in which case this is the
+      same as shiftLeft with the absolute value of this parameter.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
