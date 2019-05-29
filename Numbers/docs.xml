@@ -8895,7 +8895,7 @@
        ).).
     </summary>
     <returns>The lowest bit set in the number, starting at 0. Returns -1 if this value
-      is 0 or odd.
+      is 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetLowBitAsEInteger'>
@@ -8993,17 +8993,12 @@
     </value>
   </doc>
   <doc name='P:PeterO.Numbers.EInteger.IsPowerOfTwo'>
-    <summary>Gets a value indicating whether this object's value is a power of two.
+    <summary>Gets a value indicating whether this object's value is a power of two, and greater than 0.
     </summary>
-    <value><c>true
-      </c>
-       if this object's value is a power of two; otherwise,
-      <c>false
-      </c>
-       .
+    <value>
       <c>true
       </c>
-       if this object' s value is a power of two; otherwise,
+       if this object' s value is a power of two, and greater than 0; otherwise,
       <c>false
       </c>
        .

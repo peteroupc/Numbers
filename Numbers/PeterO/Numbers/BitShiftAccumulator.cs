@@ -254,12 +254,12 @@ namespace PeterO.Numbers {
         } else {
           this.bitsAfterLeftmost |= this.bitLeftmost;
           EInteger lowestSetBit = this.shiftedBigInt.GetLowBitAsEInteger();
-          if (lowestSetBit.CompareTo(bs-1) < 0) {
+          if (lowestSetBit.CompareTo(bs - 1) < 0) {
             // One of the discarded bits after
             // the last one is set
             this.bitsAfterLeftmost |= 1;
             this.bitLeftmost = this.shiftedBigInt.GetSignedBit(bs - 1) ? 1 : 0;
-          } else if (lowestSetBit.CompareTo(bs-1) > 0) {
+          } else if (lowestSetBit.CompareTo(bs - 1) > 0) {
             // Means all discarded bits are zero
             this.bitLeftmost = 0;
           } else {
@@ -337,12 +337,12 @@ namespace PeterO.Numbers {
         } else {
           this.bitsAfterLeftmost |= this.bitLeftmost;
           EInteger lowestSetBit = this.shiftedBigInt.GetLowBitAsEInteger();
-          if (lowestSetBit.CompareTo(bs-1) < 0) {
+          if (lowestSetBit.CompareTo(bs - 1) < 0) {
             // One of the discarded bits after
             // the last one is set
             this.bitsAfterLeftmost |= 1;
             this.bitLeftmost = this.shiftedBigInt.GetSignedBit(bs - 1) ? 1 : 0;
-          } else if (lowestSetBit.CompareTo(bs-1) > 0) {
+          } else if (lowestSetBit.CompareTo(bs - 1) > 0) {
             // Means all discarded bits are zero
             this.bitLeftmost = 0;
           } else {

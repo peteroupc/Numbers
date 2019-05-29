@@ -1936,10 +1936,8 @@ public EDecimal Divide(int intValue) {
       if (!this.IsFinite) {
         return EInteger.Zero;
       }
-      if (this.IsZero) {
-        return EInteger.One;
-      }
-      return this.unsignedMantissa.ToEInteger().GetDigitCountAsEInteger();
+      return this.IsZero ? (EInteger.One) :
+        this.unsignedMantissa.ToEInteger().GetDigitCountAsEInteger();
     }
 
     /// <include file='../../docs.xml'
@@ -2589,21 +2587,13 @@ public EDecimal Divide(int intValue) {
       if (den.GetUnsignedBit(0) && den.CompareTo(EInteger.One) != 0) {
         return false;
       }
-      int lowBit = den.GetLowBit();
-      den >>= lowBit;
-      return den.Equals(EInteger.One);
+      // NOTE: Equivalent to (den >> lowBit(den)) == 1
+      return den.GetUnsignedBitLengthAsEInteger()
+         .Equals(den.GetLowBitAsEInteger().Add(1));
     }
 
     private EFloat WithThisSign(EFloat ef) {
       return this.IsNegative ? ef.Negate() : ef;
-    }
-
-    private EInteger ShiftLeft(EInteger num, EInteger shift){
-      while(!shift.CanFitInInt32()){
-        num=num.ShiftLeft(Int32.MaxValue);
-        shift=shift.Subtract(Int32.MaxValue);
-      }
-      return num.ShiftLeft(shift.ToInt32Checked());
     }
 
     /// <include file='../../docs.xml'
@@ -2709,9 +2699,9 @@ ec = ec ?? EContext.UnlimitedHalfEven;
         // DebugUtility.Log("=>{0}\r\n->{1}", quorem[0], desiredHigh);
         var adjust = new FastInteger(0);
         if (!ec.HasMaxPrecision) {
-          int term = divisor.GetLowBit();
-          bigmantissa <<= term;
-          adjust.SubtractInt(term);
+          EInteger eterm = divisor.GetLowBitAsEInteger();
+          bigmantissa = bigmantissa.ShiftLeft(eterm);
+          adjust.SubtractBig(eterm);
           quorem = bigmantissa.DivRem(divisor);
         } else if (quorem[0].CompareTo(desiredHigh) >= 0) {
           do {
@@ -2719,13 +2709,14 @@ ec = ec ?? EContext.UnlimitedHalfEven;
             if (divisor.CompareTo(bigmantissa) < 0) {
               if (ec.ClampNormalExponents && valueEcPrecInt > 0 &&
                   valueEcPrecInt != Int32.MaxValue) {
-               EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+           EInteger valueBmBits =
+                 bigmantissa.GetUnsignedBitLengthAsEInteger();
                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
                if (divBits.CompareTo(valueBmBits) < 0) {
                 EInteger bitdiff = valueBmBits.Subtract(divBits);
-                if (bitdiff.CompareTo(valueEcPrecInt+1) > 0) {
-                  bitdiff=bitdiff.Subtract(valueEcPrecInt + 1);
-                  divisor = ShiftLeft(divisor,bitdiff);
+                if (bitdiff.CompareTo(valueEcPrecInt + 1) > 0) {
+                  bitdiff = bitdiff.Subtract(valueEcPrecInt + 1);
+                  divisor = divisor.ShiftLeft(bitdiff);
                   adjust.AddBig(bitdiff);
                   optimized = true;
                 }
@@ -2733,15 +2724,15 @@ ec = ec ?? EContext.UnlimitedHalfEven;
               }
             } else {
               if (ec.ClampNormalExponents && valueEcPrecInt > 0) {
-               EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-             if (valueBmBits.CompareTo(divBits) >= 0 && 
+             if (valueBmBits.CompareTo(divBits) >= 0 &&
                  EInteger.FromInt32(valueEcPrecInt).CompareTo(
                    EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
                   EInteger vbb = divBits.Add(valueEcPrecInt);
                   if (valueBmBits.CompareTo(vbb) < 0) {
                     valueBmBits = vbb.Subtract(valueBmBits);
-                    divisor = ShiftLeft(divisor, valueBmBits);
+                    divisor = divisor.ShiftLeft(valueBmBits);
                     adjust.AddBig(valueBmBits);
                     optimized = true;
                   }
@@ -2764,7 +2755,7 @@ ec = ec ?? EContext.UnlimitedHalfEven;
               EInteger divBits = desiredLow.GetUnsignedBitLengthAsEInteger();
               if (valueBmBits.CompareTo(divBits) < 0) {
                 valueBmBits = divBits.Subtract(valueBmBits);
-                quorem[0] = ShiftLeft(quorem[0],valueBmBits);
+                quorem[0] = quorem[0].ShiftLeft(valueBmBits);
                 adjust.AddBig(valueBmBits);
               }
             }
@@ -2777,25 +2768,25 @@ ec = ec ?? EContext.UnlimitedHalfEven;
           do {
             var optimized = false;
             if (bigmantissa.CompareTo(divisor) < 0) {
-              EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
               EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
               if (valueBmBits.CompareTo(divBits) < 0) {
                 valueBmBits = divBits.Subtract(valueBmBits);
-                bigmantissa=ShiftLeft(bigmantissa,valueBmBits);
+                bigmantissa = bigmantissa.ShiftLeft(valueBmBits);
                 adjust.SubtractBig(valueBmBits);
                 optimized = true;
               }
             } else {
               if (ec.ClampNormalExponents && valueEcPrecInt > 0) {
-                EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
                 EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-             if (valueBmBits.CompareTo(divBits) >= 0 && 
+             if (valueBmBits.CompareTo(divBits) >= 0 &&
                  EInteger.FromInt32(valueEcPrecInt).CompareTo(
                   EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
                   EInteger vbb = divBits.Add(valueEcPrecInt);
                   if (valueBmBits.CompareTo(vbb) < 0) {
                     valueBmBits = vbb.Subtract(valueBmBits);
-                    bigmantissa = ShiftLeft(bigmantissa,valueBmBits);
+                    bigmantissa = bigmantissa.ShiftLeft(valueBmBits);
                     adjust.SubtractBig(valueBmBits);
                     optimized = true;
                   }
@@ -2815,7 +2806,7 @@ ec = ec ?? EContext.UnlimitedHalfEven;
               EInteger divBits = desiredLow.GetUnsignedBitLengthAsEInteger();
               if (valueBmBits.CompareTo(divBits) < 0) {
                 valueBmBits = divBits.Subtract(valueBmBits);
-                quorem[0] = ShiftLeft(quorem[0],valueBmBits);
+                quorem[0] = quorem[0].ShiftLeft(valueBmBits);
                 adjust.SubtractBig(valueBmBits);
               }
             }
@@ -3216,8 +3207,8 @@ return new DigitShiftAccumulator(
           return null;
         }
         // Eliminate factors of 2
-        int lowBit = den.GetLowBit();
-        den >>= lowBit;
+        EInteger elowbit = den.GetLowBitAsEInteger();
+        den = den.ShiftRight(elowbit);
         // Eliminate factors of 5
         var fiveShift = new FastInteger(0);
         while (true) {
@@ -3237,10 +3228,11 @@ return new DigitShiftAccumulator(
         if (den.CompareTo(EInteger.One) != 0) {
           return null;
         }
-        if (fiveShift.CompareToInt(lowBit) > 0) {
+        FastInteger fastlowbit = FastInteger.FromBig(elowbit);
+        if (fiveShift.CompareTo(fastlowbit) > 0) {
           return fiveShift;
         } else {
-          return new FastInteger(lowBit);
+          return fastlowbit;
         }
       }
 

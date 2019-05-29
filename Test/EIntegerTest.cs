@@ -1943,6 +1943,7 @@ Assert.AreEqual(1, numberTemp);
     }
 #pragma warning restore CS0618
 
+#pragma warning disable CS0618  // We're testing an obsolete method here
     [Test]
     public void TestGetLowBit() {
       for (var i = 0; i < valueLowBits.Length; i += 2) {
@@ -1952,6 +1953,19 @@ Assert.AreEqual(1, numberTemp);
         Assert.AreEqual(
           (int)valueLowBits[i + 1],
           BigValueOf(-valueLowBits[i]).GetLowBit());
+      }
+    }
+#pragma warning restore CS0618
+
+    [Test]
+    public void TestGetLowBitAsEInteger() {
+      for (var i = 0; i < valueLowBits.Length; i += 2) {
+        Assert.AreEqual(
+          (int)valueLowBits[i + 1],
+          BigValueOf(valueLowBits[i]).GetLowBitAsEInteger().ToInt32Checked());
+        Assert.AreEqual(
+          (int)valueLowBits[i + 1],
+          BigValueOf(-valueLowBits[i]).GetLowBitAsEInteger().ToInt32Checked());
       }
     }
 

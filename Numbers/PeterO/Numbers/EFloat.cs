@@ -1742,9 +1742,9 @@ public EFloat Divide(int intValue) {
         if (den.GetUnsignedBit(0) && den.CompareTo(EInteger.One) != 0) {
           return null;
         }
-        int lowBit = den.GetLowBit();
-        den >>= lowBit;
-        return den.Equals(EInteger.One) ? new FastInteger(lowBit) : null;
+        EInteger eLowBit = den.GetLowBitAsEInteger();
+        return (den.GetUnsignedBitLengthAsEInteger().Equals(eLowBit.Add(1)))?
+          (FastInteger.FromBig(eLowBit)) : (null);
       }
 
     /// <include file='../../docs.xml'
