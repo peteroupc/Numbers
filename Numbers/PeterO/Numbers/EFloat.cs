@@ -1096,10 +1096,8 @@ public EFloat Divide(int intValue) {
       if (!this.IsFinite) {
         return EInteger.Zero;
       }
-      if (this.IsZero) {
-        return EInteger.One;
-      }
-      return this.unsignedMantissa.GetSignedBitLengthAsEInteger();
+      return this.IsZero ? EInteger.One :
+        this.unsignedMantissa.GetSignedBitLengthAsEInteger();
     }
 
     /// <include file='../../docs.xml'

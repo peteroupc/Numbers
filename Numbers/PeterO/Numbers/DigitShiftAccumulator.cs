@@ -373,10 +373,10 @@ if (!(value >= 0)) {
         if (digits > 50) {
           // To avoid having to calculate a very big power of 10,
           // check the digit count to see if doing so can be avoided
-          EInteger bigBitLength = this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
+   EInteger bigBitLength = this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
           // NOTE: Overflowing bigBitLength will be MaxValue, which is OK
           // for the use of this variable
-          int bitLength = (bigBitLength.CanFitInInt32()) ? 
+          int bitLength = bigBitLength.CanFitInInt32() ?
              bigBitLength.ToInt32Checked() : Int32.MaxValue;
           var bigPower = false;
           // 10^48 has 160 bits; 10^98 has 326; bit length is cheaper

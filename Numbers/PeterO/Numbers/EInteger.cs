@@ -123,8 +123,8 @@ namespace PeterO.Numbers {
         if (this.negative) {
           return false;
         }
-        return (this.wordCount == 0) ? false : (this.GetUnsignedBitLength()
-          - 1 == this.GetLowBit());
+        return (this.wordCount == 0) ? false : (this.GetUnsignedBitLengthAsEInteger()
+          .Subtract(1).Equals(this.GetLowBitAsEInteger()));
       }
     }
 
@@ -2326,12 +2326,15 @@ WordsShiftRightOne(bu, buc);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
-    [Obsolete("This method may overflow.  Use GetDigitCountAsEInteger instead.")]
+  [Obsolete("This method may overflow. Use GetDigitCountAsEInteger instead.")]
     public int GetDigitCount() {
-      long dc=GetDigitCountAsInt64();
-      if(dc<Int32.MinValue || dc>Int32.MaxValue)throw new OverflowException();
+      long dc = this.GetDigitCountAsInt64();
+      if (dc < Int32.MinValue || dc > Int32.MaxValue) {
+ throw new OverflowException();
+}
       return checked((int)dc);
     }
+
     private long GetDigitCountAsInt64() {
       if (this.IsZero) {
         return 1;
@@ -2363,7 +2366,8 @@ WordsShiftRightOne(bu, buc);
       }
       // NOTE: Bitlength accurate for wordCount<1000000 here, only as
       // an approximation
-      int bitlen = (this.wordCount < 1000000) ? this.GetUnsignedBitLength() :
+      int bitlen = (this.wordCount < 1000000) ? 
+        this.GetUnsignedBitLengthAsEInteger().ToInt32Checked() :
         Int32.MaxValue;
       if (bitlen <= 2135) {
         // (x*631305) >> 21 is an approximation
@@ -2536,32 +2540,9 @@ WordsShiftRightOne(bu, buc);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
+    [Obsolete("This method may overflow.  Use GetLowBitAsEInteger instead.")]
     public int GetLowBit() {
-      var retSetBit = 0;
-      for (var i = 0; i < this.wordCount; ++i) {
-        int c = ((int)this.words[i]) & 0xffff;
-        if (c == 0) {
-          retSetBit += 16;
-        } else {
-          return (((c << 15) & 0xffff) != 0) ? (retSetBit + 0) : ((((c <<
-                    14) & 0xffff) != 0) ? (retSetBit + 1) : ((((c <<
-                    13) & 0xffff) != 0) ? (retSetBit + 2) : ((((c <<
-                    12) & 0xffff) != 0) ? (retSetBit + 3) : ((((c << 11) &
-                    0xffff) != 0) ? (retSetBit +
-                    4) : ((((c << 10) & 0xffff) != 0) ? (retSetBit +
-                    5) : ((((c << 9) & 0xffff) != 0) ? (retSetBit + 6) :
-                    ((((c <<
-                8) & 0xffff) != 0) ? (retSetBit + 7) : ((((c << 7) & 0xffff) !=
-                    0) ? (retSetBit + 8) : ((((c << 6) & 0xffff) !=
-                    0) ? (retSetBit + 9) : ((((c <<
-                    5) & 0xffff) != 0) ? (retSetBit + 10) : ((((c <<
-                    4) & 0xffff) != 0) ? (retSetBit + 11) : ((((c << 3) &
-                    0xffff) != 0) ? (retSetBit + 12) : ((((c << 2) & 0xffff) !=
-                    0) ? (retSetBit + 13) : ((((c << 1) & 0xffff) !=
-                    0) ? (retSetBit + 14) : (retSetBit + 15)))))))))))))));
-        }
-      }
-      return -1;
+      return GetLowBitAsEInteger().ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
@@ -2590,6 +2571,17 @@ WordsShiftRightOne(bu, buc);
         }
       }
       return EInteger.FromInt32(-1);
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'/>
+    public bool GetSignedBit(EInteger bigIndex) {
+       // ArgumentAssert.NotNull(bigIndex);
+       if (bigIndex.Sign < 0) {
+        throw new ArgumentOutOfRangeException("bigIndex");
+       }
+       // TODO
+       throw new NotImplementedException();
     }
 
     /// <include file='../../docs.xml'
@@ -2673,9 +2665,23 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
-    [Obsolete("This method may overflow.  Use GetSignedBitLengthAsEInteger instead.")]
+  [Obsolete("This method may overflow. Use GetSignedBitLengthAsEInteger instead.")]
     public int GetSignedBitLength() {
       return this.GetSignedBitLengthAsEInteger().ToInt32Checked();
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
+    public bool GetUnsignedBit(EInteger bigIndex) {
+      // ArgumentAssert.NotNull(bigIndex);
+      if (bigIndex.Sign < 0) {
+        throw new ArgumentException("bigIndex (" + bigIndex + ") is less than 0");
+      }
+      if(bigIndex.CanFitInInt32())return GetUnsignedBit(bigIndex.ToInt32Checked());
+      if(bigIndex.Divide(16).CompareTo(this.words.Length)<0)return false;
+      int index=bigIndex.ShiftRight(4).ToInt32Checked();
+      int indexmod=bigindex.Remainder(16).ToInt32Checked();
+      return ((bool)(((this.words[index] >> (int)(indexmod)) & 1) != 0));
     }
 
     /// <include file='../../docs.xml'
@@ -2723,7 +2729,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
-    [Obsolete("This method may overflow.  Use GetUnsignedBitLengthAsEInteger instead.")]
+  [Obsolete("This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.")]
     public int GetUnsignedBitLength() {
       return this.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
     }
@@ -3511,8 +3517,9 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         EInteger pow = NumberUtility.FindPowerOfTen(digits);
         // DebugUtility.Log("---divrem " + (this.wordCount));
         EInteger[] divrem = this.DivRem(pow);
-        // DebugUtility.Log("" + (divrem[0].GetUnsignedBitLengthAsEInteger()) + "," +
-        // ( divrem[1].GetUnsignedBitLengthAsEInteger()));
+        // DebugUtility.Log("" +
+        // (divrem[0].GetUnsignedBitLengthAsEInteger()) + "," +
+        // (divrem[1].GetUnsignedBitLengthAsEInteger()));
         divrem[0].ToRadixStringDecimal(outputSB, optimize);
         divrem[1].ToRadixStringDecimal(rightBuilder, optimize);
         for (i = rightBuilder.Length; i < digits; ++i) {

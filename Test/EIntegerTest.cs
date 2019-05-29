@@ -1743,7 +1743,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
       // not implemented yet
     }
 
-#pragma warning disable CS0618 // We're testing an obsolete method here
+#pragma warning disable CS0618  // We're testing an obsolete method here
     [Test]
     public void TestGetDigitCount() {
       var r = new RandomGenerator();
@@ -1756,8 +1756,10 @@ DoTestDivide("4294901760", "281470681808895", "0");
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
         String str = bigintA.Abs().ToString();
-        Assert.AreEqual(EInteger.FromInt32(str.Length), 
-            bigintA.GetDigitCountAsEInteger(), str);
+        Assert.AreEqual(
+  EInteger.FromInt32(str.Length),
+  bigintA.GetDigitCountAsEInteger(),
+  str);
       }
     }
 #pragma warning restore CS0618
@@ -1773,7 +1775,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
       }
     }
 
-#pragma warning disable CS0618 // We're testing an obsolete method here
+#pragma warning disable CS0618  // We're testing an obsolete method here
     [Test]
     public void TestGetSignedBitLength() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
@@ -1814,37 +1816,95 @@ DoTestDivide("4294901760", "281470681808895", "0");
     [Test]
     public void TestGetSignedBitLengthAsEInteger() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
-        Assert.AreEqual(
-          (int)valueBitLengths[i + 1],
-          BigValueOf(valueBitLengths[i]).GetSignedBitLengthAsEInteger().ToInt32Checked(),
-          TestCommon.LongToString(valueBitLengths[i]));
+        {
+object objectTemp = (int)valueBitLengths[i + 1];
+object objectTemp2 =
+  BigValueOf(valueBitLengths[i]).GetSignedBitLengthAsEInteger()
+            .ToInt32Checked();
+string messageTemp = TestCommon.LongToString(valueBitLengths[i]);
+Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
+}
       }
-      Assert.AreEqual(31, BigValueOf(-2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(31, BigValueOf(-2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(32, BigValueOf(-2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(32, BigValueOf(-2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(31, BigValueOf(2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(32, BigValueOf(2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(32, BigValueOf(2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(32, BigValueOf(2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(0, BigValueOf(0).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(1, BigValueOf(1).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(2, BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(31, BigValueOf(Int32.MaxValue).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(31, BigValueOf(Int32.MinValue).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(16, BigValueOf(65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(16, BigValueOf(-65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(17, BigValueOf(65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(16, BigValueOf(-65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
       Assert.AreEqual(
-        65,
-        BigFromString("19084941898444092059").GetSignedBitLengthAsEInteger().ToInt32Checked());
+  31,
+  BigValueOf(-2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked());
       Assert.AreEqual(
-        65,
-        BigFromString("-19084941898444092059").GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(0, BigValueOf(-1).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(1, BigValueOf(-2).GetSignedBitLengthAsEInteger().ToInt32Checked());
+  31,
+  BigValueOf(-2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  32,
+  BigValueOf(-2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  32,
+  BigValueOf(-2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  31,
+  BigValueOf(2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  32,
+  BigValueOf(2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  32,
+  BigValueOf(2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  32,
+  BigValueOf(2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+long numberTemp = BigValueOf(0).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(0, numberTemp);
+}
+      {
+long numberTemp = BigValueOf(1).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(1, numberTemp);
+}
+      {
+long numberTemp = BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(2, numberTemp);
+}
+      {
+long numberTemp = BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(2, numberTemp);
+}
+      Assert.AreEqual(
+  31,
+  BigValueOf(Int32.MaxValue).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  31,
+  BigValueOf(Int32.MinValue).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  16,
+  BigValueOf(65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  16,
+  BigValueOf(-65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  17,
+  BigValueOf(65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      Assert.AreEqual(
+  16,
+  BigValueOf(-65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+object objectTemp = 65;
+object objectTemp2 = BigFromString("19084941898444092059")
+.GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(objectTemp, objectTemp2);
+}
+      {
+object objectTemp = 65;
+object objectTemp2 = BigFromString("-19084941898444092059")
+.GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(objectTemp, objectTemp2);
+}
+      {
+long numberTemp =
+  BigValueOf(-1).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(0, numberTemp);
+}
+      {
+long numberTemp =
+  BigValueOf(-2).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(1, numberTemp);
+}
     }
 
     [Test]
@@ -1864,7 +1924,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
       }
     }
 
-#pragma warning disable CS0618 // We're testing an obsolete method here
+#pragma warning disable CS0618  // We're testing an obsolete method here
     [Test]
     public void TestGetUnsignedBitLength() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
@@ -2185,7 +2245,8 @@ DoTestDivide("4294901760", "281470681808895", "0");
   RandomGenerator r) {
       byte[] bytes = ei.ToBytes(true);
       EInteger ebits = ei.GetUnsignedBitLengthAsEInteger();
-      int bits=ebits.CanFitInInt32() ? ebits.ToInt32Checked() : Int32.MaxValue;
+    int bits = ebits.CanFitInInt32() ? ebits.ToInt32Checked() :
+        Int32.MaxValue;
       for (var i = 0; i < fuzzes; ++i) {
         int bit = r.UniformInt(bits);
         bytes[bit / 8] ^= (byte)(1 << (bit & 0x07));
@@ -2248,9 +2309,14 @@ TestMultiplyDivideOne(
   EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
   EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFF", 16));
 
-TestMultiplyDivideOne (
-EInteger.FromRadixString ("C66BE66EC212C77883DAFEB9F73C914BF88E9DEB897CB817EBA7DBC7D0ABEB55A164EAFB9C9A856A8532D901FADC85E7EEC28A329670968AE45AEECDC050F12AA34CBF75B0DC81C588CEE8CDE6138704D73E958DF5FEED5E80C4D86BD0C2D60C8DFCFF72B43BBBF2A3B68760DF35E3F1B1588584971CE9EF983D8678D7C8BB84D196C37585FC8B4FC8F88CDCA65B843F8DBAA4F0F324D003B0AAD4EACA04961EBF63936FFF29F459B0A197D79B38B5B8E31C9E88FA67BD97C2F9DBE8B926D06FF80E8D7AB0D5E7D1C0B2E4DED8FA8EA4E96C9597ABB9F801B9CA8F98F4088990AFB58427A57BBDC983B1",16),
-EInteger.FromRadixString("EB7E892CD29F9B4182F58769C12BD885B7D7DE038074F48ACCAA9F6CFB63D6CCF1D4C603C5A08721F2F3F81FD380F847AE37EEC8FCF39C87A351F816E9D4EDF3B6C9AB0A958FC3FEF04BA3B38D4BF005A29A9D83F8B9F850BB36C9568C99CF3FFFDE9977BFD7D62AF597E4E8D483DE5FF323B0C49732EE23CC4EAA0EEF4AF47FE4BCB0D1C081F315CBE2D892DCA8F3E9A3AFA4CAE67082EBBDC9A59AB82D96009BC5CC8492699F89E21CD8A3F6DE8E86",16));
+TestMultiplyDivideOne(
+  EInteger.FromRadixString(
+  "C66BE66EC212C77883DAFEB9F73C914BF88E9DEB897CB817EBA7DBC7D0ABEB55A164EAFB9C9A856A8532D901FADC85E7EEC28A329670968AE45AEECDC050F12AA34CBF75B0DC81C588CEE8CDE6138704D73E958DF5FEED5E80C4D86BD0C2D60C8DFCFF72B43BBBF2A3B68760DF35E3F1B1588584971CE9EF983D8678D7C8BB84D196C37585FC8B4FC8F88CDCA65B843F8DBAA4F0F324D003B0AAD4EACA04961EBF63936FFF29F459B0A197D79B38B5B8E31C9E88FA67BD97C2F9DBE8B926D06FF80E8D7AB0D5E7D1C0B2E4DED8FA8EA4E96C9597ABB9F801B9CA8F98F4088990AFB58427A57BBDC983B1",
+  16),
+
+  EInteger.FromRadixString(
+  "EB7E892CD29F9B4182F58769C12BD885B7D7DE038074F48ACCAA9F6CFB63D6CCF1D4C603C5A08721F2F3F81FD380F847AE37EEC8FCF39C87A351F816E9D4EDF3B6C9AB0A958FC3FEF04BA3B38D4BF005A29A9D83F8B9F850BB36C9568C99CF3FFFDE9977BFD7D62AF597E4E8D483DE5FF323B0C49732EE23CC4EAA0EEF4AF47FE4BCB0D1C081F315CBE2D892DCA8F3E9A3AFA4CAE67082EBBDC9A59AB82D96009BC5CC8492699F89E21CD8A3F6DE8E86",
+  16));
 
       {
 string str1 =

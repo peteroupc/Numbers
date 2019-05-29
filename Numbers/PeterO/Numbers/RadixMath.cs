@@ -2898,7 +2898,8 @@ ctx.Precision).WithBlankFlags();
         EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
         if (bigBitLength.CompareTo(2135) <= 0) {
           // May overestimate by 1
-          return new FastInteger(1 + ((bigBitLength.ToInt32Checked() * 631305) >> 21));
+  return new FastInteger(1 + ((bigBitLength.ToInt32Checked() * 631305) >>
+            21));
         }
         return FastInteger.FromBig(bigBitLength.Divide(4));
       } else {
