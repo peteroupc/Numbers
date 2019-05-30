@@ -1818,8 +1818,10 @@ throw new InvalidOperationException(String.Empty, ex);
     }
 
     [Test]
-    [Timeout(100000)]
+    [Timeout(250000)]
     public void TestToDoubleRounding() {
+     // TODO: Reduce timeout to 100000 once EDecimal.ToEFloat's
+     // performance improves
       var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {
         EFloat efa = this.RandomDoubleEFloat(fr, i >= 250);

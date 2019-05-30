@@ -733,7 +733,8 @@ A context object for arbitrary-precision arithmetic settings.
     public PeterO.Numbers.EContext WithTraps(
         int traps);
 
-Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to  `True` , but this may change in version 2.0 of this library.).
+Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to `True
+      ` , but this may change in version 2.0 of this library.).
 
 <b>Parameters:</b>
 

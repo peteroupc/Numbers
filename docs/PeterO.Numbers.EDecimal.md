@@ -178,6 +178,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision decimal number.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
 * <code>[Exponent](#Exponent)</code> - Gets this object's exponent.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision decimal number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
 * <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts adecimal under the Common Language Infrastructure (seePeterO.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Creates a decimal number from a 64-bit binary floating-point number.
@@ -1285,6 +1286,18 @@ Finds e (the base of natural logarithms) raised to the power of this object's va
 <b>Return Value:</b>
 
 Exponential of this object. If this object's value is 1, returns an approximation to " e" within the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0).
+
+<a id="FromBoolean_bool"></a>
+### FromBoolean
+
+    public static PeterO.Numbers.EDecimal FromBoolean(
+        bool boolValue);
+
+Converts a boolean value (true or false) to an arbitrary-precision decimal number.
+
+<b>Return Value:</b>
+
+One if  `boolValue`  is  `true` ; otherwise, zero.
 
 <a id="FromByte_byte"></a>
 ### FromByte

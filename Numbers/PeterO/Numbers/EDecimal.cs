@@ -2678,10 +2678,13 @@ ec = ec ?? EContext.UnlimitedHalfEven;
         }
         // NOTE: Precision raised by 2 to accommodate rounding
         // to odd
-        EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision +
-          EInteger.FromInt32(2) : EInteger.Zero;
+        // TODO: Improve performance of this part of code in next version
+        EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision.Add(2) :
+          EInteger.Zero;
         var valueEcPrecInt = 0;
         if (!valueEcPrec.CanFitInInt32()) {
+// TODO: No need to jump through these hoops now that
+// ShiftLeft(EInteger) is available
           EInteger precm1 = valueEcPrec - EInteger.One;
           desiredLow = EInteger.One;
           while (precm1.Sign > 0) {
@@ -2716,7 +2719,7 @@ ec = ec ?? EContext.UnlimitedHalfEven;
             if (divisor.CompareTo(bigmantissa) < 0) {
               if (ec.ClampNormalExponents && valueEcPrecInt > 0 &&
                   valueEcPrecInt != Int32.MaxValue) {
-           EInteger valueBmBits =
+               EInteger valueBmBits =
                  bigmantissa.GetUnsignedBitLengthAsEInteger();
                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
                if (divBits.CompareTo(valueBmBits) < 0) {

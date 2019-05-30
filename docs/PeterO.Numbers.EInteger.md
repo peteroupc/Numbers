@@ -54,7 +54,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetDigitCountAsEInteger()](#GetDigitCountAsEInteger)</code> - Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
 * <code>[GetHashCode()](#GetHashCode)</code> - Returns the hash code for this instance.
 * <code>[GetLowBit()](#GetLowBit)</code> - Gets the lowest set bit in this number's absolute value.
-* <code>[GetLowBitAsEInteger()](#GetLowBitAsEInteger)</code> - Gets the lowest set bit in this number's absolute value.
+* <code>[GetLowBitAsEInteger()](#GetLowBitAsEInteger)</code> - Gets the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer.
 * <code>[GetSignedBitLength()](#GetSignedBitLength)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign.
 * <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer.
 * <code>[GetSignedBit(PeterO.Numbers.EInteger)](#GetSignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in the two's-complement form (seePeterO.
@@ -79,7 +79,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[Remainder(int)](#Remainder_int)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
-* <code>[ShiftLeft(PeterO.Numbers.EInteger)](#ShiftLeft_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
+* <code>[ShiftLeft(PeterO.Numbers.EInteger)](#ShiftLeft_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer.
 * <code>[ShiftLeft(int)](#ShiftLeft_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
 * <code>[ShiftRight(PeterO.Numbers.EInteger)](#ShiftRight_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the right.
 * <code>[ShiftRight(int)](#ShiftRight_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the right.
@@ -923,7 +923,7 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0.
 
     public PeterO.Numbers.EInteger GetLowBitAsEInteger();
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see[
+Gets the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer. (This will also be the lowest set bit in the number's two's-complement form (see[
          &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)).).
 
@@ -960,21 +960,27 @@ is a 32-bit signed integer.
     public bool GetSignedBit(
         PeterO.Numbers.EInteger bigIndex);
 
-Returns whether a bit is set in the two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value.
+Returns whether a bit is set in the two's-complement form (see[
+        &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) of this object' s value.
 
 <b>Parameters:</b>
 
- * <i>bigIndex</i>: An EInteger object.
+ * <i>bigIndex</i>: An arbitrary-precision integer.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in the two' s-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) of this object' s value; otherwise,  `false` .
+ `true
+      ` if a bit is set in the two' s-complement form (see[
+        &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise, `false
+      ` .
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bigIndex</i>
- is null.
+The parameter <i>bigIndex</i>
+is null.
 
 <a id="GetSignedBitLength"></a>
 ### GetSignedBitLength
@@ -1032,17 +1038,18 @@ Returns whether a bit is set in this number's absolute value.
 
 <b>Parameters:</b>
 
- * <i>bigIndex</i>: An EInteger object.
+ * <i>bigIndex</i>: An arbitrary-precision integer.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in this number's absolute value.
+ `true
+      ` if a bit is set in this number's absolute value.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bigIndex</i>
- is null.
+The parameter <i>bigIndex</i>
+is null.
 
 <a id="GetUnsignedBitLength"></a>
 ### GetUnsignedBitLength
@@ -1771,13 +1778,11 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EInteger ShiftLeft(
         PeterO.Numbers.EInteger eshift);
 
-Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
-
-TODO: Edit this
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
 
 <b>Parameters:</b>
 
- * <i>eshift</i>: An EInteger object.
+ * <i>eshift</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftRight with the absolute value of this parameter.
 
 <b>Return Value:</b>
 
@@ -1801,7 +1806,7 @@ Returns an arbitrary-precision integer with the bits shifted to the right. For t
 
 <b>Parameters:</b>
 
- * <i>numberBits</i>: Number of bits to shift right.
+ * <i>numberBits</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftLeft with the absolute value of this parameter.
 
 <b>Return Value:</b>
 
@@ -1813,13 +1818,13 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EInteger ShiftRight(
         PeterO.Numbers.EInteger eshift);
 
-Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ). Thus, for negative values, the arbitrary-precision integer is sign-extended.
-
-TODO: Edit this
+Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[
+        &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)). Thus, for negative values, the arbitrary-precision integer is ign-extended.
 
 <b>Parameters:</b>
 
- * <i>eshift</i>: An EInteger object.
+ * <i>eshift</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftLeft with the absolute value of this parameter.
 
 <b>Return Value:</b>
 
@@ -1828,8 +1833,8 @@ An arbitrary-precision integer.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>eshift</i>
- is null.
+The parameter <i>eshift</i>
+is null.
 
 <a id="Sqrt"></a>
 ### Sqrt
