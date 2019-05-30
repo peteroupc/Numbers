@@ -63,44 +63,53 @@ namespace Test {
         output = ValueQuotes.Replace(output, String.Empty);
         bool extended = GetKeyOrDefault(context, "extended", "1").Equals("1");
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1");
-        int precision = Convert.ToInt32(
-  context["precision"],
-  System.Globalization.CultureInfo.InvariantCulture);
-        int minexponent = Convert.ToInt32(
-  context["minexponent"],
-  System.Globalization.CultureInfo.InvariantCulture);
-        int maxexponent = Convert.ToInt32(
-  context["maxexponent"],
-  System.Globalization.CultureInfo.InvariantCulture);
+        int precision = TestCommon.StringToInt(
+  context["precision"]);
+        int minexponent = TestCommon.StringToInt(
+  context["minexponent"]);
+        int maxexponent = TestCommon.StringToInt(
+  context["maxexponent"]);
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
-        if (input1.Contains("#") || input2.Contains("#") ||
-            input3.Contains("#") || output.Contains("#")) {
+        if (input1.Contains("#") ||
+input2.Contains("#") ||
+input3.Contains("#") ||
+output.Contains("#")) {
           return;
         }
         // Skip some tests that assume a maximum
         // supported precision of 999999999
-        if (name.Equals("pow250") || name.Equals("pow251") ||
-            name.Equals("pow252")) {
+        if (name.Equals("pow250") ||
+name.Equals("pow251") ||
+name.Equals("pow252")) {
           return;
         }
         // Skip some test cases that are incorrect
         // (all simplified arithmetic test cases)
         if (!extended) {
           if (name.Equals("ln116") ||
-              name.Equals("qua530") ||  // assumes that the input will underflow
+name.Equals("qua530") ||
+// assumes that the input will underflow
                     // to 0
-              name.Equals("qua531") ||  // assumes that the input will underflow
+              name.Equals("qua531") ||
+// assumes that the input will underflow
                     // to 0
-              name.Equals("rpow068") || name.Equals("rpow159") ||
-              name.Equals("rpow217") || name.Equals("rpow272") ||
-              name.Equals("rpow324") || name.Equals("rpow327") ||
-              // following cases incorrectly remove trailing zeros
-              name.Equals("sqtx2207") || name.Equals("sqtx2231") ||
-              name.Equals("sqtx2271") || name.Equals("sqtx2327") ||
-              name.Equals("sqtx2399") || name.Equals("sqtx2487") ||
-              name.Equals("sqtx2591") || name.Equals("sqtx2711") ||
-              name.Equals("sqtx2847")) {
+              name.Equals("rpow068") ||
+name.Equals("rpow159") ||
+name.Equals("rpow217") ||
+name.Equals("rpow272") ||
+name.Equals("rpow324") ||
+name.Equals("rpow327") ||
+// following cases incorrectly remove trailing zeros
+              name.Equals("sqtx2207") ||
+name.Equals("sqtx2231") ||
+name.Equals("sqtx2271") ||
+name.Equals("sqtx2327") ||
+name.Equals("sqtx2399") ||
+name.Equals("sqtx2487") ||
+name.Equals("sqtx2591") ||
+name.Equals("sqtx2711") ||
+name.Equals("sqtx2847")) {
             return;
           }
         }
@@ -320,9 +329,11 @@ namespace Test {
         // extended arithmetic counterparts for at least
         // some of them have no flags in their
         // result.
-        if (!name.Equals("pow118") && !name.Equals("pow119") &&
-            !name.Equals("pow120") && !name.Equals("pow121") &&
-            !name.Equals("pow122")) {
+        if (!name.Equals("pow118") &&
+!name.Equals("pow119") &&
+!name.Equals("pow120") &&
+!name.Equals("pow121") &&
+!name.Equals("pow122")) {
           AssertFlags(expectedFlags, ctx.Flags, name);
         }
       }

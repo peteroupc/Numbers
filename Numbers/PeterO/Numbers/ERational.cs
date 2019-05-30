@@ -948,8 +948,7 @@ namespace PeterO.Numbers {
         if (other.Exponent.Sign > 0) {
           // NOTE: if unsigned numerator is 0, bitLength will return
           // 0 instead of 1, but the possibility of 0 was already excluded
- EInteger bigDigitCount =
-            this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
+ EInteger bigDigitCount = this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
              .Subtract(1);
           if (bigDigitCount.CompareTo(other.Exponent) < 0) {
             // Numerator's digit count minus 1 is less than the other' s
@@ -1705,10 +1704,10 @@ public int ToInt32IfExact() {
  return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
-
-/// <summary>Converts a boolean value (true or false) to an arbitrary-precision rational number.</summary>
+/// <summary>Converts a boolean value (true or false) to an
+/// arbitrary-precision rational number.</summary>
 /// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
-public static ERational FromBoolean(bool boolValue){
+public static ERational FromBoolean(bool boolValue) {
  return FromInt32(boolValue ? 1 : 0);
 }
 
