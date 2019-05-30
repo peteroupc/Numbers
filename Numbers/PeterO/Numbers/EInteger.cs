@@ -2582,7 +2582,7 @@ WordsShiftRightOne(bu, buc);
        }
        if (this.negative) {
          if (bigIndex.CanFitInInt32()) {
- return bigIndex.GetSignedBit(bigIndex.ToInt32Checked());
+ return this.GetSignedBit(bigIndex.ToInt32Checked());
 }
         EInteger valueEWordPos = bigIndex.Divide(16);
         if (valueEWordPos.CompareTo(this.words.Length) >= 0) {
@@ -2590,7 +2590,7 @@ WordsShiftRightOne(bu, buc);
         }
         long tcindex = 0;
         while (valueEWordPos.CompareTo(EInteger.FromInt64(tcindex)) > 0 &&
-              this.words[(int)tcindex] == 0) {
+              this.words[checked((int)tcindex)] == 0) {
           ++tcindex;
         }
         short tc;

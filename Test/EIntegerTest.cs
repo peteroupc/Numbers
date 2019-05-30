@@ -1765,6 +1765,7 @@ DoTestDivide("4294901760", "281470681808895", "0");
 #pragma warning restore CS0618
 
     [Test]
+    [Timeout(1000)]
     public void TestGetSignedBit() {
       Assert.IsFalse(EInteger.Zero.GetSignedBit(0));
       Assert.IsFalse(EInteger.Zero.GetSignedBit(1));

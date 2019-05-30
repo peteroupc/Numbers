@@ -1705,6 +1705,13 @@ public int ToInt32IfExact() {
  return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
+
+/// <summary>Converts a boolean value (true or false) to an arbitrary-precision rational number.</summary>
+/// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
+public static ERational FromBoolean(bool boolValue){
+ return FromInt32(boolValue ? 1 : 0);
+}
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
 public static ERational FromInt32(int inputInt32) {

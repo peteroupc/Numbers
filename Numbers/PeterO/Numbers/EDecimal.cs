@@ -465,6 +465,13 @@ private static readonly FastIntegerFixed FastIntZero = new
       }
     }
 
+
+/// <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal number.</summary>
+/// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
+public static EDecimal FromBoolean(bool boolValue){
+ return boolValue ? EDecimal.Zero : EDecimal.One;
+}
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt32(System.Int32)"]/*'/>
     public static EDecimal FromInt32(int valueSmaller) {

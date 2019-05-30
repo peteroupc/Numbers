@@ -1902,6 +1902,13 @@ public int ToInt32IfExact() {
  return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
+/// <summary>Converts a boolean value (true or false) to an arbitrary-precision binary number.</summary>
+/// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
+public static EFloat FromBoolean(bool boolValue){
+ return boolValue ? EFloat.Zero : EFloat.One;
+}
+
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>
 public static EFloat FromInt32(int inputInt32) {
