@@ -185,6 +185,10 @@ namespace PeterO.Numbers {
       }
     }
 
+    public EFloat Copy(){
+return new EFloat(this.unsignedMantissa,this.unsignedExponent,this.flags);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)"]/*'/>
     public static EFloat Create(int mantissaSmall, int exponentSmall) {

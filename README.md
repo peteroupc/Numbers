@@ -44,6 +44,16 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
+Version 1.3.0:
+
+- Improve performance of EDecimal.CompareToBinary in certain cases
+- Fix ERational.ToSingle method
+- Add EInteger overloads to EInteger.GetSignedBit, EInteger.GetUnsignedBit, EInteger.ShiftLeft, and EInteger.ShiftRight
+- Add GetDigitCountAsEInteger and GetSignedBitLengthAsEInteger methods to EInteger class
+- Check for overflow in GetLowBit, GetDigitCount, GetUnsignedBitLength, and
+  GetSignedBitLength methods in EInteger class; deprecate those methods
+- Add FromBoolean methods to EDecimal, EFloat, and ERational
+
 Version 1.2.2:
 
 - Fixed referencing issues with minor version 1.2.1

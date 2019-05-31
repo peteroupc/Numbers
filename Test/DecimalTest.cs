@@ -34,6 +34,11 @@ namespace Test {
  TValue defaultValue) {
       return (!dict.ContainsKey(key)) ? defaultValue : dict[key];
     }
+    private static int StringToIntAllowPlus(string str){
+      if(str[0]=='+')return TestCommon.StringToInt(str.Substring(1));
+      return TestCommon.StringToInt(str);
+    }
+
 
     public static void ParseDecTest(
   string ln,
@@ -63,11 +68,11 @@ namespace Test {
         output = ValueQuotes.Replace(output, String.Empty);
         bool extended = GetKeyOrDefault(context, "extended", "1").Equals("1");
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1");
-        int precision = TestCommon.StringToInt(
+       int precision = StringToIntAllowPlus(
   context["precision"]);
-        int minexponent = TestCommon.StringToInt(
+        int minexponent = StringToIntAllowPlus(
   context["minexponent"]);
-        int maxexponent = TestCommon.StringToInt(
+        int maxexponent = StringToIntAllowPlus(
   context["maxexponent"]);
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
@@ -192,10 +197,13 @@ name.Equals("sqtx2847")) {
           d3 = EDecimal.FromInt32(d1.CompareToTotalMagnitude(d2));
         } else if (op.Equals("copyabs")) {
           d3 = d1.Abs();
+          Assert.AreEqual(d3, EDecimalExtras.CopyAbs(d1, d2));
         } else if (op.Equals("copynegate")) {
           d3 = d1.Negate();
+          Assert.AreEqual(d3, EDecimalExtras.CopyNegate(d1, d2));
         } else if (op.Equals("copysign")) {
           d3 = d1.CopySign(d2);
+Assert.AreEqual(d3,EDecimalExtras.CopySign(d1,d2));
         } else if (op.Equals("comparesig")) {
           d3 = d1.CompareToSignal(d2, ctx);
         } else if (op.Equals("subtract")) {
@@ -230,6 +238,7 @@ name.Equals("sqtx2847")) {
           d3 = d1.NextMinus(ctx);
         } else if (op.Equals("copy")) {
           d3 = d1;
+Assert.AreEqual(d3,EDecimalExtras.Copy(d1));
         } else if (op.Equals("abs")) {
           d3 = d1.Abs(ctx);
         } else if (op.Equals("reduce")) {
@@ -245,7 +254,10 @@ name.Equals("sqtx2847")) {
         } else if (op.Equals("plus")) {
           d3 = d1.Plus(ctx);
         } else {
-          // Console.WriteLine("unknown op "+op);
+if(op.Equals("and"))d3=EDecimalExtras.And(d1,d2,ctx);
+else if(op.Equals("or"))d3=EDecimalExtras.Or(d1,d2,ctx);
+else if(op.Equals("xor"))d3=EDecimalExtras.Xor(d1,d2,ctx);
+else Console.WriteLine("unknown op "+op);
           return;
         }
         bool invalid = flags.Contains("Division_impossible") ||

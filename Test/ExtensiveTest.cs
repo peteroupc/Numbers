@@ -1281,8 +1281,14 @@ StartsWith(chunks[2], "o")) {
       }
     }
 
+    [System.Diagnostics.Conditional("DEBUG")]
+    public static void IgnoreIfDebug(){
+         Assert.Ignore();
+    }
+
     [Test]
     public void TestParser() {
+      IgnoreIfDebug();
       long failures = 0;
       var errors = new List<string>();
       var dirfiles = new List<string>();

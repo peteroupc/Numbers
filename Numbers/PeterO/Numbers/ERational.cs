@@ -137,6 +137,11 @@ namespace PeterO.Numbers {
       this.Initialize(numerator, denominator);
     }
 
+
+    public ERational Copy(){
+return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="P:PeterO.Numbers.ERational.Denominator"]/*'/>
     public EInteger Denominator {

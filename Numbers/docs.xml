@@ -1774,7 +1774,8 @@
       positive).
     </summary>
     <returns>An arbitrary-precision decimal number. Returns signaling NaN if this value
-      is signaling NaN.
+      is signaling NaN. (In this sense, this method is similar to the "copy-abs" operation
+      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Abs(PeterO.Numbers.EContext)'>
@@ -1999,7 +2000,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)'>
     <summary>Returns a number with the same value as this one, but copying the sign
-      (positive or negative) of another number.
+      (positive or negative) of another number.  (This method is similar to the "copy-sign" operation
+      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
     </summary>
     <param name='other'>A number whose sign will be copied.
     </param>
@@ -3419,7 +3421,8 @@
     </summary>
     <returns>An arbitrary-precision decimal number. If this value is positive zero,
       returns negative zero. Returns signaling NaN if this value is signaling
-      NaN.
+      NaN. (In this sense, this method is similar to the "copy-negate" operation
+      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Negate(PeterO.Numbers.EContext)'>
@@ -5256,7 +5259,8 @@
       positive).
     </summary>
     <returns>An arbitrary-precision binary float. Returns signaling NaN if this value
-      is signaling NaN.
+      is signaling NaN. (In this sense, this method is similar to the "copy-abs" operation
+      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Abs(PeterO.Numbers.EContext)'>
@@ -5576,7 +5580,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)'>
     <summary>Returns a number with the same value as this one, but copying the sign
-      (positive or negative) of another number.
+      (positive or negative) of another number.  (This method is similar to the "copy-sign" operation
+      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
     </summary>
     <param name='other'>A number whose sign will be copied.
     </param>
@@ -6766,7 +6771,8 @@
     </summary>
     <returns>An arbitrary-precision binary float. If this value is positive zero,
       returns negative zero. Returns signaling NaN if this value is signaling
-      NaN.
+      NaN.  (In this sense, this method is similar to the "copy-negate" operation
+      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Negate(PeterO.Numbers.EContext)'>

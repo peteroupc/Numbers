@@ -125,6 +125,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     private readonly int flags;
     private readonly FastIntegerFixed unsignedMantissa;
 
+    // TODO: Get rid of this variable
     private int sign;
 
     private EDecimal(
@@ -145,7 +146,7 @@ private static readonly FastIntegerFixed FastIntZero = new
       this.unsignedMantissa = unsignedMantissa;
       this.exponent = exponent;
       this.flags = flags;
-      this.sign = (((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
+      this.sign = (((this.flags & (BigNumberFlags.FlagSpecial)) == 0) &&
                 this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
                     BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
     }
@@ -170,6 +171,11 @@ private static readonly FastIntegerFixed FastIntZero = new
       this.exponent = exponent;
       this.flags = flags;
       this.sign = sign;
+    }
+
+    public EDecimal Copy(){
+      return new EDecimal(this.unsignedMantissa.Copy(),this.exponent.Copy(),
+          this.flags,this.sign);
     }
 
     /// <include file='../../docs.xml'
@@ -2269,6 +2275,31 @@ public EDecimal Divide(int intValue) {
         return 0.0;
       }
       if (this.IsFinite) {
+       if (exponent.CompareToInt(309) > 0) {
+        // Very high exponent, treat as infinity
+        return this.IsNegative ? Double.NegativeInfinity :
+          Double.PositiveInfinity;
+       }
+       if(this.exponent.CompareToInt(0) >= 0 &&
+          this.exponent.CompareToInt(44) <= 0 &&
+          this.unsignedMantissa.CanFitInInt64()){
+         // Fast-path optimization (explained on exploringbinary.com)
+         long ml=this.unsignedMantissa.AsInt64();
+         int exp=this.exponent.AsInt32();
+         while(ml < 900719925474099 && exp>22){
+           ml*=10;
+           exp--;
+         }
+         if(ml < 9007199254740992 && exp<=22){
+          double d=Math.Pow(10.0,Math.Abs(exp));
+          double dml=this.IsNegative ? (double)(-ml) : (double)ml;
+          if(exp<0){
+             return dml/d;
+          } else {
+             return dml*d;
+          }
+         }
+       }
        EInteger adjExp = GetAdjustedExponent(this);
         if (adjExp.CompareTo((EInteger)(-326)) < 0) {
           // Very low exponent, treat as 0
@@ -2343,21 +2374,44 @@ public EDecimal Divide(int intValue) {
       if (this.IsZero) {
         return 0.0f;
       }
-      EInteger adjExp = GetAdjustedExponent(this);
-      if (adjExp.CompareTo((EInteger)(-47)) < 0) {
+      if(this.IsFinite){
+       if(this.exponent.CompareToInt(0) >= 0 &&
+          this.exponent.CompareToInt(20) <= 0 &&
+          this.unsignedMantissa.CanFitInInt32()){
+         // Fast-path optimization (version for 'double's explained 
+         // on exploringbinary.com)
+         int iml=this.unsignedMantissa.AsInt32();
+         int exp=this.exponent.AsInt32();
+         while(iml < 1677721 && exp>10){
+           iml*=10;
+           exp--;
+         }
+         if(iml < 16777216 && exp<=10){
+          float fd=(float)Math.Pow(10.0,Math.Abs(exp));
+          float fml=this.IsNegative ? (float)(-iml) : (float)iml;
+          if(exp<0){
+             return fml/fd;
+          } else {
+             return fml*fd;
+          }
+         }
+       }
+       EInteger adjExp = GetAdjustedExponent(this);
+       if (adjExp.CompareTo(-47) < 0) {
         // Very low exponent, treat as 0
         return this.IsNegative ?
           BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0) :
           0.0f;
-      }
-      if (adjExp.CompareTo((EInteger)39) > 0) {
+       }
+       if (adjExp.CompareTo(39) > 0) {
         // Very high exponent, treat as infinity
         return this.IsNegative ? Single.NegativeInfinity :
           Single.PositiveInfinity;
+       }
       }
       return this.ToEFloat(EContext.Binary32).ToSingle();
     }
-
+    
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToString"]/*'/>
     public override string ToString() {
@@ -2606,7 +2660,7 @@ public EDecimal Divide(int intValue) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat(PeterO.Numbers.EContext)"]/*'/>
     public EFloat ToEFloat(EContext ec) {
-      // TODO: Investigate speeding up Binary64 case
+      // TODO: Investigate speeding up Binary64 and Binary32 cases
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
       if (this.IsNaN()) {
@@ -2634,6 +2688,19 @@ public EDecimal Divide(int intValue) {
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
+// --- Optimizations for Binary32 and Binary64
+if(ec==EContext.Binary32){
+  if(bigintExp.CompareTo(39)>0){
+        return this.IsNegative ? EFloat.NegativeInfinity :
+          EFloat.PositiveInfinity;
+  }
+} else if(ec==EContext.Binary64){
+  if(bigintExp.CompareTo(309)>0){
+        return this.IsNegative ? EFloat.NegativeInfinity :
+          EFloat.PositiveInfinity;
+  }
+}
+// --- End optimizations for Binary32 and Binary64
         // DebugUtility.Log("Scaled integer");
         EInteger bigmantissa = bigintMant;
         bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
@@ -2678,31 +2745,11 @@ ec = ec ?? EContext.UnlimitedHalfEven;
         }
         // NOTE: Precision raised by 2 to accommodate rounding
         // to odd
-        // TODO: Improve performance of this part of code in next version
+        // TODO: Improve performance of this part of code in 1.4 or later
         EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision.Add(2) :
-          EInteger.Zero;
-        var valueEcPrecInt = 0;
-        if (!valueEcPrec.CanFitInInt32()) {
-// TODO: No need to jump through these hoops now that
-// ShiftLeft(EInteger) is available
-          EInteger precm1 = valueEcPrec - EInteger.One;
-          desiredLow = EInteger.One;
-          while (precm1.Sign > 0) {
-           var shift = 1000000;
-           if (precm1.CompareTo((EInteger)1000000) < 0) {
-            shift = precm1.ToInt32Checked();
-           }
-           desiredLow <<= shift;
-           precm1 -= (EInteger)shift;
-          }
-          desiredHigh = desiredLow << 1;
-        } else {
-          int prec = valueEcPrec.ToInt32Checked();
-          valueEcPrecInt = prec;
-          desiredHigh = EInteger.One << prec;
-          int precm1 = prec - 1;
-          desiredLow = EInteger.One << precm1;
-        }
+           ec.Precision;
+        desiredHigh = EInteger.One.ShiftLeft(valueEcPrec);
+        desiredLow = EInteger.One.ShiftLeft(valueEcPrec.Subtract(1));
         // DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
         EInteger[] quorem = ec.HasMaxPrecision ?
           bigmantissa.DivRem(divisor) : null;
@@ -2717,15 +2764,14 @@ ec = ec ?? EContext.UnlimitedHalfEven;
           do {
             var optimized = false;
             if (divisor.CompareTo(bigmantissa) < 0) {
-              if (ec.ClampNormalExponents && valueEcPrecInt > 0 &&
-                  valueEcPrecInt != Int32.MaxValue) {
+              if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
                EInteger valueBmBits =
                  bigmantissa.GetUnsignedBitLengthAsEInteger();
                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
                if (divBits.CompareTo(valueBmBits) < 0) {
                 EInteger bitdiff = valueBmBits.Subtract(divBits);
-                if (bitdiff.CompareTo(valueEcPrecInt + 1) > 0) {
-                  bitdiff = bitdiff.Subtract(valueEcPrecInt + 1);
+                if (bitdiff.CompareTo(valueEcPrec.Add(1)) > 0) {
+                  bitdiff = bitdiff.Subtract(valueEcPrec).Subtract(1);
                   divisor = divisor.ShiftLeft(bitdiff);
                   adjust.AddBig(bitdiff);
                   optimized = true;
@@ -2733,13 +2779,13 @@ ec = ec ?? EContext.UnlimitedHalfEven;
                }
               }
             } else {
-              if (ec.ClampNormalExponents && valueEcPrecInt > 0) {
+              if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
            EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
              if (valueBmBits.CompareTo(divBits) >= 0 &&
-                 EInteger.FromInt32(valueEcPrecInt).CompareTo(
+                 valueEcPrec.CompareTo(
                    EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
-                  EInteger vbb = divBits.Add(valueEcPrecInt);
+                  EInteger vbb = divBits.Add(valueEcPrec);
                   if (valueBmBits.CompareTo(vbb) < 0) {
                     valueBmBits = vbb.Subtract(valueBmBits);
                     divisor = divisor.ShiftLeft(valueBmBits);
@@ -2787,13 +2833,13 @@ ec = ec ?? EContext.UnlimitedHalfEven;
                 optimized = true;
               }
             } else {
-              if (ec.ClampNormalExponents && valueEcPrecInt > 0) {
+              if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
            EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
                 EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
              if (valueBmBits.CompareTo(divBits) >= 0 &&
-                 EInteger.FromInt32(valueEcPrecInt).CompareTo(
+                 valueEcPrec.CompareTo(
                   EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
-                  EInteger vbb = divBits.Add(valueEcPrecInt);
+                  EInteger vbb = divBits.Add(valueEcPrec);
                   if (valueBmBits.CompareTo(vbb) < 0) {
                     valueBmBits = vbb.Subtract(valueBmBits);
                     bigmantissa = bigmantissa.ShiftLeft(valueBmBits);

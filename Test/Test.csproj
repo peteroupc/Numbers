@@ -91,6 +91,7 @@
     <Compile Include="TestCommon.cs" />
     <Compile Include="ETrapExceptionTest.cs" />
     <Compile Include="XorShift128Plus.cs" />
+    <Compile Include="EDecimalExtras.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
