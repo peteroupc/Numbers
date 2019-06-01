@@ -1410,7 +1410,7 @@
       HasFlags on the copy to
       <c>True
       </c>
-      , but this may change in version 2.0 of this library.).
+       , but this may change in version 2.0 of this library.).
     </summary>
     <param name='traps'>Flags representing the traps to enable. See the property "Traps".
     </param>
@@ -1774,8 +1774,9 @@
       positive).
     </summary>
     <returns>An arbitrary-precision decimal number. Returns signaling NaN if this value
-      is signaling NaN. (In this sense, this method is similar to the "copy-abs" operation
-      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
+      is signaling NaN. (In this sense, this method is similar to the "copy-abs"
+      operation in the General Decimal Arithmetic Specification, except this
+      method does not necessarily return a copy of this object.).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Abs(PeterO.Numbers.EContext)'>
@@ -1998,10 +1999,17 @@
       1 if this object is greater.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EDecimal.Copy'>
+    <summary>Not documented yet.
+    </summary>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)'>
     <summary>Returns a number with the same value as this one, but copying the sign
-      (positive or negative) of another number.  (This method is similar to the "copy-sign" operation
-      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
+      (positive or negative) of another number. (This method is similar to the
+      "copy-sign" operation in the General Decimal Arithmetic Specification,
+      except this method does not necessarily return a copy of this object.).
     </summary>
     <param name='other'>A number whose sign will be copied.
     </param>
@@ -2606,6 +2614,25 @@
     <value>This object's exponent. This object' s value will be an integer if the
       exponent is positive or zero.
     </value>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimal.FromBoolean(System.Boolean)'>
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal
+      number.
+    </summary>
+    <returns>One if
+      <c>boolValue
+      </c>
+       is
+      <c>true
+      </c>
+      ; otherwise, zero.
+    </returns>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
@@ -3422,7 +3449,8 @@
     <returns>An arbitrary-precision decimal number. If this value is positive zero,
       returns negative zero. Returns signaling NaN if this value is signaling
       NaN. (In this sense, this method is similar to the "copy-negate" operation
-      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
+      in the General Decimal Arithmetic Specification, except this method does
+      not necessarily return a copy of this object.).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Negate(PeterO.Numbers.EContext)'>
@@ -5259,8 +5287,9 @@
       positive).
     </summary>
     <returns>An arbitrary-precision binary float. Returns signaling NaN if this value
-      is signaling NaN. (In this sense, this method is similar to the "copy-abs" operation
-      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
+      is signaling NaN. (In this sense, this method is similar to the "copy-abs"
+      operation in the General Decimal Arithmetic Specification, except this
+      method does not necessarily return a copy of this object.).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Abs(PeterO.Numbers.EContext)'>
@@ -5578,10 +5607,17 @@
       1 if this object is greater.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EFloat.Copy'>
+    <summary>Not documented yet.
+    </summary>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EFloat.CopySign(PeterO.Numbers.EFloat)'>
     <summary>Returns a number with the same value as this one, but copying the sign
-      (positive or negative) of another number.  (This method is similar to the "copy-sign" operation
-      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
+      (positive or negative) of another number. (This method is similar to the
+      "copy-sign" operation in the General Decimal Arithmetic Specification,
+      except this method does not necessarily return a copy of this object.).
     </summary>
     <param name='other'>A number whose sign will be copied.
     </param>
@@ -6005,6 +6041,25 @@
     <value>This object's exponent. This object' s value will be an integer if the
       exponent is positive or zero.
     </value>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloat.FromBoolean(System.Boolean)'>
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision binary
+      number.
+    </summary>
+    <returns>One if
+      <c>boolValue
+      </c>
+       is
+      <c>true
+      </c>
+      ; otherwise, zero.
+    </returns>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
@@ -6771,8 +6826,9 @@
     </summary>
     <returns>An arbitrary-precision binary float. If this value is positive zero,
       returns negative zero. Returns signaling NaN if this value is signaling
-      NaN.  (In this sense, this method is similar to the "copy-negate" operation
-      in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.)
+      NaN. (In this sense, this method is similar to the "copy-negate" operation
+      in the General Decimal Arithmetic Specification, except this method does
+      not necessarily return a copy of this object.).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Negate(PeterO.Numbers.EContext)'>
@@ -8911,8 +8967,9 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetLowBitAsEInteger'>
-    <summary>Gets the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer. (This will also
-      be the lowest set bit in the number's two's-complement form (see
+    <summary>Gets the lowest set bit in this number's absolute value, in the form of an
+      arbitrary-precision integer. (This will also be the lowest set bit in the
+      number's two's-complement form (see
       <see cref='T:PeterO.Numbers.EDecimal'>
          "Forms of numbers"
       </see>
@@ -8925,7 +8982,7 @@
   <doc name='M:PeterO.Numbers.EInteger.GetSignedBit(PeterO.Numbers.EInteger)'>
     <summary>Returns whether a bit is set in the two's-complement form (see
       <see cref='T:PeterO.Numbers.EDecimal'>
-        "Forms of numbers"
+         "Forms of numbers"
       </see>
        ) of this object' s value.
     </summary>
@@ -8935,12 +8992,12 @@
       </c>
        if a bit is set in the two' s-complement form (see
       <see cref='T:PeterO.Numbers.EDecimal'>
-        "Forms of numbers"
+         "Forms of numbers"
       </see>
        ) of this object' s value; otherwise,
       <c>false
       </c>
-      .
+       .
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bigIndex'/>
@@ -9263,14 +9320,19 @@
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)'>
     <summary>Returns an arbitrary-precision integer with the bits shifted to the left
-      by a number of bits given as an arbitrary-precision integer. A value of 1 doubles this value, a value of 2
-      multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
+      by a number of bits given as an arbitrary-precision integer. A value of 1
+      doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a
+      value of 4 by 16, and so on.
     </summary>
     <param name='eshift'>The number of bits to shift. Can be negative, in which case this is the
       same as shiftRight with the absolute value of this parameter.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='eshift'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)'>
     <summary>Returns an arbitrary-precision integer with the bits shifted to the left
@@ -9288,7 +9350,7 @@
       For this operation, the arbitrary-precision integer is treated as a
       two's-complement form (see
       <see cref='T:PeterO.Numbers.EDecimal'>
-        "Forms of numbers"
+         "Forms of numbers"
       </see>
        ). Thus, for negative values, the arbitrary-precision integer is
       sign-extended.
@@ -10202,6 +10264,12 @@
       less than the other value, or 1 if this object is greater.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.ERational.Copy'>
+    <summary>Not documented yet.
+    </summary>
+    <returns>An arbitrary-precision binary rational number.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)'>
     <summary>Returns a number with the same value as this one, but copying the sign
       (positive or negative) of another number.
@@ -10314,6 +10382,25 @@
       <c>false
       </c>
        .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.ERational.FromBoolean(System.Boolean)'>
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision
+      rational number.
+    </summary>
+    <returns>One if
+      <c>boolValue
+      </c>
+       is
+      <c>true
+      </c>
+      ; otherwise, zero.
+    </returns>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary rational number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromByte(System.Byte)'>

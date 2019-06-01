@@ -1282,7 +1282,7 @@ StartsWith(chunks[2], "o")) {
     }
 
     [System.Diagnostics.Conditional("DEBUG")]
-    public static void IgnoreIfDebug(){
+    public static void IgnoreIfDebug() {
          Assert.Ignore();
     }
 

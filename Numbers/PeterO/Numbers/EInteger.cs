@@ -3078,17 +3078,8 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return ret.ShiftRight(valueETempShift.ToInt32Checked());
     }
 
-    /// <summary>Returns an arbitrary-precision integer with the bits
-    /// shifted to the left by a number of bits given as an
-    /// arbitrary-precision integer. A value of 1 doubles this value, a
-    /// value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by
-    /// 16, and so on.</summary>
-    /// <param name='eshift'>The number of bits to shift. Can be negative,
-    /// in which case this is the same as shiftRight with the absolute
-    /// value of this parameter.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='eshift'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger ShiftLeft(EInteger eshift) {
       if (eshift == null) {
   throw new ArgumentNullException(nameof(eshift));

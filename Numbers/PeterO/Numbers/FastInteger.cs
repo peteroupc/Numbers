@@ -919,6 +919,18 @@ namespace PeterO.Numbers {
       return this;
     }
 
+    internal EInteger ShiftEIntegerLeftByThis(EInteger ei) {
+        switch (this.integerMode) {
+          case 0:
+            return ei.ShiftLeft(this.smallValue);
+          case 1:
+            return ei.ShiftLeft(this.mnum.ToEInteger());
+          case 2:
+            return ei.ShiftLeft(this.largeValue);
+          default: throw new InvalidOperationException();
+        }
+    }
+
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {

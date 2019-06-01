@@ -34,11 +34,11 @@ namespace Test {
  TValue defaultValue) {
       return (!dict.ContainsKey(key)) ? defaultValue : dict[key];
     }
-    private static int StringToIntAllowPlus(string str){
-      if(str[0]=='+')return TestCommon.StringToInt(str.Substring(1));
-      return TestCommon.StringToInt(str);
-    }
 
+    private static int StringToIntAllowPlus(string str) {
+      return (str[0] == '+') ? TestCommon.StringToInt(str.Substring(1)) :
+        TestCommon.StringToInt(str);
+    }
 
     public static void ParseDecTest(
   string ln,
@@ -158,7 +158,11 @@ name.Equals("sqtx2847")) {
         }
         ctx = ctx.WithBlankFlags();
         EDecimal d1 = EDecimal.Zero, d2 = null, d2a = null;
-        if (!op.Equals("toSci") && !op.Equals("toEng")) {
+        if (!op.Equals("toSci") &&
+!op.Equals("toEng") &&
+!op.Equals("tosci") &&
+!op.Equals("toeng") &&
+!op.Equals("class")) {
           d1 = String.IsNullOrEmpty(input1) ? EDecimal.Zero :
             EDecimal.FromString(input1);
           d2 = String.IsNullOrEmpty(input2) ? null :
@@ -179,6 +183,9 @@ name.Equals("sqtx2847")) {
           d3 = d1.Multiply(d2, ctx);
         } else if (op.Equals("toSci")) {  // handled below
         } else if (op.Equals("toEng")) {  // handled below
+        } else if (op.Equals("tosci")) {  // handled below
+        } else if (op.Equals("toeng")) {  // handled below
+        } else if (op.Equals("class")) {  // handled below
         } else if (op.Equals("fma")) {
           d3 = d1.MultiplyAndAdd(d2, d2a, ctx);
         } else if (op.Equals("min")) {
@@ -192,18 +199,22 @@ name.Equals("sqtx2847")) {
         } else if (op.Equals("compare")) {
           d3 = d1.CompareToWithContext(d2, ctx);
         } else if (op.Equals("comparetotal")) {
-          d3 = d1.CompareToTotal(d2, ctx);
+          int id3 = d1.CompareToTotal(d2, ctx);
+          d3 = id3;
+          Assert.AreEqual(id3, EDecimalExtras.CompareTotal(d1, d2));
         } else if (op.Equals("comparetotmag")) {
-          d3 = EDecimal.FromInt32(d1.CompareToTotalMagnitude(d2));
+          int id3 = EDecimal.FromInt32(d1.CompareToTotalMagnitude(d2));
+          d3 = id3;
+          Assert.AreEqual(id3, EDecimalExtras.CompareTotalMagnitude(d1, d2));
         } else if (op.Equals("copyabs")) {
           d3 = d1.Abs();
-          Assert.AreEqual(d3, EDecimalExtras.CopyAbs(d1, d2));
+          Assert.AreEqual(d3, EDecimalExtras.CopyAbs(d1));
         } else if (op.Equals("copynegate")) {
           d3 = d1.Negate();
-          Assert.AreEqual(d3, EDecimalExtras.CopyNegate(d1, d2));
+          Assert.AreEqual(d3, EDecimalExtras.CopyNegate(d1));
         } else if (op.Equals("copysign")) {
           d3 = d1.CopySign(d2);
-Assert.AreEqual(d3,EDecimalExtras.CopySign(d1,d2));
+Assert.AreEqual(d3, EDecimalExtras.CopySign(d1, d2));
         } else if (op.Equals("comparesig")) {
           d3 = d1.CompareToSignal(d2, ctx);
         } else if (op.Equals("subtract")) {
@@ -238,7 +249,7 @@ Assert.AreEqual(d3,EDecimalExtras.CopySign(d1,d2));
           d3 = d1.NextMinus(ctx);
         } else if (op.Equals("copy")) {
           d3 = d1;
-Assert.AreEqual(d3,EDecimalExtras.Copy(d1));
+Assert.AreEqual(d3,EDecimalExtras.Copy(d1),"copy equiv");
         } else if (op.Equals("abs")) {
           d3 = d1.Abs(ctx);
         } else if (op.Equals("reduce")) {
@@ -254,10 +265,17 @@ Assert.AreEqual(d3,EDecimalExtras.Copy(d1));
         } else if (op.Equals("plus")) {
           d3 = d1.Plus(ctx);
         } else {
-if(op.Equals("and"))d3=EDecimalExtras.And(d1,d2,ctx);
-else if(op.Equals("or"))d3=EDecimalExtras.Or(d1,d2,ctx);
-else if(op.Equals("xor"))d3=EDecimalExtras.Xor(d1,d2,ctx);
-else Console.WriteLine("unknown op "+op);
+if (op.Equals("and")) {
+ d3 = EDecimalExtras.And(d1, d2, ctx);
+  } else if (op.Equals("or")) {
+ d3 = EDecimalExtras.Or(d1, d2, ctx);
+  } else if (op.Equals("xor")) {
+ d3 = EDecimalExtras.Xor(d1, d2, ctx);
+  } else if (op.Equals("samequantum")) {
+ d3 = EDecimal.FromBoolean(EDecimalExtras.SameQuantum(d1, d2));
+} else {
+ Console.WriteLine("unknown op " + op);
+}
           return;
         }
         bool invalid = flags.Contains("Division_impossible") ||
@@ -295,7 +313,12 @@ else Console.WriteLine("unknown op "+op);
         if (divzero) {
           expectedFlags |= EContext.FlagDivideByZero;
         }
-        if (op.Equals("toSci")) {
+        if (op.Equals("class")) {
+            d1 = EDecimal.FromString(input1);
+            string numclass = EDecimalExtras.NumberClassString(
+                    EDecimalExtras.NumberClass(d1, ctx));
+            Assert.AreEqual(output, numclass, input1);
+        } else if (op.Equals("toSci") || op.Equals("tosci")) {
           try {
             d1 = EDecimal.FromString(input1, ctx);
             Assert.IsTrue(!conversionError, "Expected no conversion error");
@@ -306,7 +329,7 @@ else Console.WriteLine("unknown op "+op);
           } catch (FormatException) {
             Assert.IsTrue(conversionError, "Expected conversion error");
           }
-        } else if (op.Equals("toEng")) {
+        } else if (op.Equals("toEng") || op.Equals("toeng")) {
           try {
             d1 = EDecimal.FromString(input1, ctx);
             Assert.IsTrue(!conversionError, "Expected no conversion error");

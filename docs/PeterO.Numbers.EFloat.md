@@ -51,6 +51,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CompareToTotal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToWithContext(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[CompareTo(PeterO.Numbers.EFloat)](#CompareTo_PeterO_Numbers_EFloat)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
+* <code>[Copy()](#Copy)</code> - Not documented yet.
 * <code>[CopySign(PeterO.Numbers.EFloat)](#CopySign_PeterO_Numbers_EFloat)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision binary float.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision binary float.
@@ -386,7 +387,7 @@ Finds the absolute value of this object (if it's negative, it becomes positive).
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary float. Returns signaling NaN if this value is signaling NaN.
+An arbitrary-precision binary float. Returns signaling NaN if this value is signaling NaN. (In this sense, this method is similar to the "copy-abs" operation in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.).
 
 <a id="Add_int"></a>
 ### Add
@@ -594,13 +595,24 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 
 Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
+<a id="Copy"></a>
+### Copy
+
+    public PeterO.Numbers.EFloat Copy();
+
+Not documented yet.
+
+<b>Return Value:</b>
+
+An EFloat object.
+
 <a id="CopySign_PeterO_Numbers_EFloat"></a>
 ### CopySign
 
     public PeterO.Numbers.EFloat CopySign(
         PeterO.Numbers.EFloat other);
 
-Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
+Returns a number with the same value as this one, but copying the sign (positive or negative) of another number. (This method is similar to the "copy-sign" operation in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.).
 
 <b>Parameters:</b>
 
@@ -614,7 +626,7 @@ An arbitrary-precision binary float.
 
  * System.ArgumentNullException:
 The parameter <i>other</i>
-is null.
+ is null.
 
 <a id="Create_int_int"></a>
 ### Create
@@ -1093,9 +1105,18 @@ Exponential of this object. If this object's value is 1, returns an approximatio
 
 Converts a boolean value (true or false) to an arbitrary-precision binary number.
 
+<b>Parameters:</b>
+
+ * <i>boolValue</i>: The parameter  <i>boolValue</i>
+is not documented yet.
+
 <b>Return Value:</b>
 
 One if  `boolValue`  is  `true` ; otherwise, zero.
+
+<b>Return Value:</b>
+
+An EFloat object.
 
 <a id="FromByte_byte"></a>
 ### FromByte
@@ -2010,7 +2031,7 @@ Gets an object with the same value as this one, but with the sign reversed.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary float. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN.
+An arbitrary-precision binary float. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN. (In this sense, this method is similar to the "copy-negate" operation in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.).
 
 <a id="NextMinus_PeterO_Numbers_EContext"></a>
 ### NextMinus

@@ -171,6 +171,16 @@ namespace PeterO.Numbers {
       }
     }
 
+    internal FastIntegerFixed Copy() {
+      switch (this.integerMode) {
+        case 0:
+          return new FastIntegerFixed(this.smallValue);
+        case 2:
+          return FastIntegerFixed.FromBig(this.largeValue);
+        default: throw new InvalidOperationException();
+      }
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.Negate"]/*'/>
     internal FastIntegerFixed Negate() {

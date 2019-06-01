@@ -20,7 +20,7 @@ namespace PeterO.Numbers {
       "Microsoft.Security",
       "CA2104",
       Justification = "ERational is immutable")]
-    public static readonly ERational NaN = CreateWithFlags(
+    public static readonly ERational NaN = new ERational(
   EInteger.Zero,
   EInteger.One,
   BigNumberFlags.FlagQuietNaN);
@@ -32,7 +32,7 @@ namespace PeterO.Numbers {
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational NegativeInfinity =
-      CreateWithFlags(
+      new ERational(
   EInteger.Zero,
   EInteger.One,
   BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
@@ -44,7 +44,7 @@ namespace PeterO.Numbers {
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational NegativeZero =
-      FromEInteger(EInteger.Zero).ChangeSign(false);
+      new ERational(EInteger.Zero, EInteger.One, BigNumberFlags.FlagNegative);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="F:PeterO.Numbers.ERational.One"]/*'/>
@@ -61,7 +61,7 @@ namespace PeterO.Numbers {
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational PositiveInfinity =
-      CreateWithFlags(
+      new ERational(
   EInteger.Zero,
   EInteger.One,
   BigNumberFlags.FlagInfinity);
@@ -73,7 +73,7 @@ namespace PeterO.Numbers {
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational SignalingNaN =
-      CreateWithFlags(
+      new ERational(
   EInteger.Zero,
   EInteger.One,
   BigNumberFlags.FlagSignalingNaN);
@@ -94,15 +94,36 @@ namespace PeterO.Numbers {
       Justification = "ERational is immutable")]
     public static readonly ERational Zero = FromEInteger(EInteger.Zero);
 
-    private EInteger denominator;
+    private readonly EInteger denominator;
 
-    private int flags;
-    private EInteger unsignedNumerator;
+    private readonly int flags;
+    private readonly EInteger unsignedNumerator;
 
-    private ERational() {
+    private ERational(EInteger numerator, EInteger denominator, int flags) {
+#if DEBUG
+if ((numerator) == null) {
+  throw new ArgumentNullException(nameof(numerator));
+}
+if ((denominator) == null) {
+  throw new ArgumentNullException(nameof(denominator));
+}
+#endif
+    // DebugAssert.IsFalse(denominator.IsZero);
+this.unsignedNumerator = numerator;
+this.denominator = denominator;
+this.flags = flags;
 }
 
-    private void Initialize(EInteger numerator, EInteger denominator) {
+    /// <summary>Initializes a new instance of the
+    /// <see cref='T:PeterO.Numbers.ERational'/> class.</summary>
+    /// <param name='numerator'>The numerator.</param>
+    /// <param name='denominator'>The denominator.</param>
+    /// <exception cref='T:System.ArgumentException'>The denominator is
+    /// zero.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='numerator'/> or <paramref name='denominator'/> is
+    /// null.</exception>
+    public ERational(EInteger numerator, EInteger denominator) {
             if (numerator == null) {
                 throw new ArgumentNullException(nameof(numerator));
             }
@@ -114,7 +135,7 @@ namespace PeterO.Numbers {
             }
             bool numNegative = numerator.Sign < 0;
             bool denNegative = denominator.Sign < 0;
-      this.flags = (numNegative != denNegative) ?
+            this.flags = (numNegative != denNegative) ?
               BigNumberFlags.FlagNegative : 0;
             if (numNegative) {
                 numerator = -numerator;
@@ -122,24 +143,14 @@ namespace PeterO.Numbers {
             if (denNegative) {
                 denominator = -denominator;
             }
-#if DEBUG
-      if (denominator.IsZero) {
-        throw new ArgumentException("doesn't satisfy !denominator.IsZero");
-      }
-#endif
             this.unsignedNumerator = numerator;
             this.denominator = denominator;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
-    public ERational(EInteger numerator, EInteger denominator) {
-      this.Initialize(numerator, denominator);
-    }
-
-
-    public ERational Copy(){
-return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags);
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Copy"]/*'/>
+    public ERational Copy() {
+return new ERational(this.unsignedNumerator, this.denominator, this.flags);
     }
 
     /// <include file='../../docs.xml'
@@ -215,9 +226,7 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
     public static ERational Create(
   EInteger numerator,
   EInteger denominator) {
-            var er = new ERational();
-      er.Initialize(numerator, denominator);
-            return er;
+      return new ERational(numerator, denominator);
     }
 
     /// <include file='../../docs.xml'
@@ -249,9 +258,7 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      ERational er = ERational.Create(diag, EInteger.One);
-      er.flags = flags;
-      return er;
+   return new ERational(diag, EInteger.One, flags);
     }
 
     /// <include file='../../docs.xml'
@@ -281,7 +288,6 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
         throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
-        ERational er = ERational.Create(ef.Mantissa, EInteger.One);
         var flags = 0;
         if (ef.IsNegative) {
           flags |= BigNumberFlags.FlagNegative;
@@ -295,8 +301,7 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
         if (ef.IsQuietNaN()) {
           flags |= BigNumberFlags.FlagQuietNaN;
         }
-        er.flags = flags;
-        return er;
+        return new ERational(ef.UnsignedMantissa, EInteger.One, flags);
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
@@ -326,7 +331,6 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
         throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
-        ERational er = ERational.Create(ef.Mantissa, EInteger.One);
         var flags = 0;
         if (ef.IsNegative) {
           flags |= BigNumberFlags.FlagNegative;
@@ -340,8 +344,7 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
         if (ef.IsQuietNaN()) {
           flags |= BigNumberFlags.FlagQuietNaN;
         }
-        er.flags = flags;
-        return er;
+        return new ERational(ef.UnsignedMantissa, EInteger.One, flags);
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
@@ -353,9 +356,9 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
       EInteger den = EInteger.One;
       if (exp.Sign < 0) {
         exp = -(EInteger)exp;
-        den = NumberUtility.ShiftLeft(den, exp);
+        den = den.ShiftLeft(exp);
       } else {
-        num = NumberUtility.ShiftLeft(num, exp);
+        num = num.ShiftLeft(exp);
       }
       if (neg) {
         num = -(EInteger)num;
@@ -538,7 +541,7 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
             BigNumberFlags.FlagSignalingNaN;
           EInteger bignumer = (numer == null) ? ((EInteger)numerInt) :
             numer.AsEInteger();
-          return CreateWithFlags(
+          return new ERational(
             bignumer,
             EInteger.One,
             flags3);
@@ -748,11 +751,10 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>
     public ERational Abs() {
       if (this.IsNegative) {
-     ERational er = ERational.Create(
+     return new ERational(
   this.unsignedNumerator,
-  this.denominator);
-        er.flags = this.flags & ~BigNumberFlags.FlagNegative;
-        return er;
+  this.denominator,
+  this.flags & ~BigNumberFlags.FlagNegative);
       }
       return this;
     }
@@ -1143,7 +1145,8 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
       }
       EInteger ad = this.Numerator * (EInteger)otherValue.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
-      return ERational.Create(ad, bc).ChangeSign(resultNeg);
+      return new ERational(ad.Abs(), bc.Abs(), resultNeg ?
+        BigNumberFlags.FlagNegative : 0);
     }
 
     /// <include file='../../docs.xml'
@@ -1253,15 +1256,15 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
       EInteger ac = this.Numerator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       return ac.IsZero ? (resultNeg ? NegativeZero : Zero) :
-               ERational.Create(ac, bd).ChangeSign(resultNeg);
+  new ERational(ac.Abs(), bd.Abs(), resultNeg ? BigNumberFlags.FlagNegative :
+                      0);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Negate"]/*'/>
     public ERational Negate() {
-      ERational er = ERational.Create(this.unsignedNumerator, this.denominator);
-      er.flags = this.flags ^ BigNumberFlags.FlagNegative;
-      return er;
+      return new ERational(this.unsignedNumerator, this.denominator,
+        this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
@@ -1308,7 +1311,8 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
       bc = thisDen * (EInteger)tnum;
       tden *= (EInteger)thisDen;
       ad -= (EInteger)bc;
-      return ERational.Create(ad, tden).ChangeSign(resultNeg);
+      return new ERational(ad.Abs(), tden.Abs(), resultNeg ?
+        BigNumberFlags.FlagNegative : 0);
     }
 
     /// <include file='../../docs.xml'
@@ -1602,24 +1606,6 @@ return new ERational(this.unsignedNumerator,this.unsignedDenominator,this.flags)
         this.Denominator) : (this.Numerator + "/" + this.Denominator);
     }
 
-    private static ERational CreateWithFlags(
-  EInteger numerator,
-  EInteger denominator,
-  int flags) {
-      ERational er = ERational.Create(numerator, denominator);
-      er.flags = flags;
-      return er;
-    }
-
-    private ERational ChangeSign(bool negative) {
-      if (negative) {
-        this.flags |= BigNumberFlags.FlagNegative;
-      } else {
-        this.flags &= ~BigNumberFlags.FlagNegative;
-      }
-      return this;
-    }
-
         // Begin integer conversions
 
     /// <include file='../../docs.xml'
@@ -1712,6 +1698,12 @@ public int ToInt32IfExact() {
 /// <summary>Converts a boolean value (true or false) to an
 /// arbitrary-precision rational number.</summary>
 /// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
+    /// <summary>Converts a boolean value (true or false) to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
+    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
+    /// zero.</returns>
 public static ERational FromBoolean(bool boolValue) {
  return FromInt32(boolValue ? 1 : 0);
 }

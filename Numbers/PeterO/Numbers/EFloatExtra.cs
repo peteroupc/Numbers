@@ -9,6 +9,11 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EFloat {
+
+    public static explicit operator EFloat(bool boolValue) {
+      return FromBoolean(boolValue);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(float flt) {

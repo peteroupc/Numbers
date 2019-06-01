@@ -125,9 +125,6 @@ private static readonly FastIntegerFixed FastIntZero = new
     private readonly int flags;
     private readonly FastIntegerFixed unsignedMantissa;
 
-    // TODO: Get rid of this variable
-    private int sign;
-
     private EDecimal(
       FastIntegerFixed unsignedMantissa,
       FastIntegerFixed exponent,
@@ -146,36 +143,15 @@ private static readonly FastIntegerFixed FastIntZero = new
       this.unsignedMantissa = unsignedMantissa;
       this.exponent = exponent;
       this.flags = flags;
-      this.sign = (((this.flags & (BigNumberFlags.FlagSpecial)) == 0) &&
-                this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
     }
 
-    private EDecimal(
-      FastIntegerFixed unsignedMantissa,
-      FastIntegerFixed exponent,
-      int flags,
-      int sign) {
-#if DEBUG
-      if (unsignedMantissa == null) {
-        throw new ArgumentNullException(nameof(unsignedMantissa));
-      }
-      if (exponent == null) {
-        throw new ArgumentNullException(nameof(exponent));
-      }
-      if (unsignedMantissa.Sign < 0) {
-        throw new ArgumentException("unsignedMantissa is less than 0.");
-      }
-#endif
-      this.unsignedMantissa = unsignedMantissa;
-      this.exponent = exponent;
-      this.flags = flags;
-      this.sign = sign;
-    }
-
-    public EDecimal Copy(){
-      return new EDecimal(this.unsignedMantissa.Copy(),this.exponent.Copy(),
-          this.flags,this.sign);
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Copy"]/*'/>
+    public EDecimal Copy() {
+      return new EDecimal(
+  this.unsignedMantissa.Copy(),
+  this.exponent.Copy(),
+  this.flags);
     }
 
     /// <include file='../../docs.xml'
@@ -208,7 +184,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     public bool IsZero {
       get {
         return ((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
-          this.sign == 0;
+          this.unsignedMantissa.IsValueZero;
       }
     }
 
@@ -225,7 +201,9 @@ private static readonly FastIntegerFixed FastIntZero = new
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Sign"]/*'/>
     public int Sign {
       get {
-        return this.sign;
+        return (((this.flags & (BigNumberFlags.FlagSpecial)) == 0) &&
+        this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
+                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       }
     }
 
@@ -246,20 +224,17 @@ private static readonly FastIntegerFixed FastIntZero = new
         return new EDecimal(
   new FastIntegerFixed(mantissaSmall).Negate(),
   new FastIntegerFixed(exponentSmall),
-  BigNumberFlags.FlagNegative,
-  -1);
+  BigNumberFlags.FlagNegative);
       } else if (mantissaSmall == 0) {
    return new EDecimal(
   FastIntZero,
   new FastIntegerFixed(exponentSmall),
-  0,
   0);
       } else {
         return new EDecimal(
   new FastIntegerFixed(mantissaSmall),
   new FastIntegerFixed(exponentSmall),
-  0,
-  1);
+  0);
       }
     }
 
@@ -279,8 +254,7 @@ private static readonly FastIntegerFixed FastIntZero = new
       return new EDecimal(
         sign < 0 ? fi.Negate() : fi,
         FastIntegerFixed.FromBig(exponent),
-        (sign < 0) ? BigNumberFlags.FlagNegative : 0,
-        sign);
+        (sign < 0) ? BigNumberFlags.FlagNegative : 0);
     }
 
     /// <include file='../../docs.xml'
@@ -316,8 +290,7 @@ private static readonly FastIntegerFixed FastIntZero = new
         var ef = new EDecimal(
         FastIntegerFixed.FromBig(diag),
         FastIntZero,
-        flags,
-        negative ? -1 : 1).RoundToPrecision(ctx);
+        flags).RoundToPrecision(ctx);
         int newFlags = ef.flags;
         newFlags &= ~BigNumberFlags.FlagQuietNaN;
         newFlags |= signaling ? BigNumberFlags.FlagSignalingNaN :
@@ -325,16 +298,14 @@ private static readonly FastIntegerFixed FastIntZero = new
         return new EDecimal(
   ef.unsignedMantissa,
   ef.exponent,
-  newFlags,
-  negative ? -1 : 1);
+  newFlags);
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
       return new EDecimal(
         FastIntegerFixed.FromBig(diag),
         FastIntZero,
-        flags,
-        negative ? -1 : 1);
+        flags);
     }
 
     /// <include file='../../docs.xml'
@@ -358,8 +329,7 @@ private static readonly FastIntegerFixed FastIntZero = new
           new EDecimal(
             FastIntegerFixed.FromLong(lvalue),
             FastIntZero,
-            flags,
-            neg ? -1 : 1);
+            flags);
       }
       value[1] &= 0xfffff;
 
@@ -474,6 +444,12 @@ private static readonly FastIntegerFixed FastIntZero = new
 /// <summary>Converts a boolean value (true or false) to an
 /// arbitrary-precision decimal number.</summary>
 /// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
+    /// <summary>Converts a boolean value (true or false) to an
+    /// arbitrary-precision decimal number.</summary>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
+    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
+    /// zero.</returns>
 public static EDecimal FromBoolean(bool boolValue) {
  return boolValue ? EDecimal.Zero : EDecimal.One;
 }
@@ -491,11 +467,9 @@ public static EDecimal FromBoolean(bool boolValue) {
         return new EDecimal(
   new FastIntegerFixed(valueSmaller).Negate(),
   FastIntZero,
-  BigNumberFlags.FlagNegative,
-  -1);
+  BigNumberFlags.FlagNegative);
       } else {
-        return new
-            EDecimal(new FastIntegerFixed(valueSmaller), FastIntZero, 0, 1);
+        return new EDecimal(new FastIntegerFixed(valueSmaller), FastIntZero, 0);
       }
     }
 
@@ -510,14 +484,12 @@ public static EDecimal FromBoolean(bool boolValue) {
           return new EDecimal(
   new FastIntegerFixed((int)valueSmall).Negate(),
   FastIntZero,
-  BigNumberFlags.FlagNegative,
-  -1);
+  BigNumberFlags.FlagNegative);
         } else {
           return new EDecimal(
   new FastIntegerFixed((int)valueSmall),
   FastIntZero,
-  0,
-  1);
+  0);
         }
       }
       var bigint = (EInteger)valueSmall;
@@ -544,8 +516,7 @@ public static EDecimal FromBoolean(bool boolValue) {
           new EDecimal(
             new FastIntegerFixed(valueFpMantissa),
             FastIntZero,
-            value,
-            neg ? -1 : 1);
+            value);
       }
       if (floatExponent == 0) {
         ++floatExponent;
@@ -697,8 +668,7 @@ public static EDecimal FromBoolean(bool boolValue) {
             return (!negative) ? NaN : new EDecimal(
               FastIntZero,
               FastIntZero,
-              flags2,
-              -1);
+              flags2);
           }
           i += 3;
           var digitCount = new FastInteger(0);
@@ -775,8 +745,7 @@ public static EDecimal FromBoolean(bool boolValue) {
               new EDecimal(
                 FastIntZero,
                 FastIntZero,
-                flags2,
-                -1);
+                flags2);
           }
           i += 4;
           var digitCount = new FastInteger(0);
@@ -986,8 +955,7 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
       var ret = new EDecimal(
   fastIntMant,
   fastIntScale,
-  negative ? BigNumberFlags.FlagNegative : 0,
-  sign);
+  negative ? BigNumberFlags.FlagNegative : 0);
       if (ctx != null) {
         ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
       }
@@ -1075,8 +1043,7 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
         var er = new EDecimal(
   this.unsignedMantissa,
   this.exponent,
-  this.flags & ~BigNumberFlags.FlagNegative,
-  Math.Abs(this.sign));
+  this.flags & ~BigNumberFlags.FlagNegative);
         return er;
       }
       return this;
@@ -1111,8 +1078,7 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
         FastIntegerFixed result = FastIntegerFixed.Add(
   this.unsignedMantissa,
   otherValue.unsignedMantissa);
-        int sign = result.IsValueZero ? 0 : 1;
-        return new EDecimal(result, this.exponent, 0, sign);
+        return new EDecimal(result, this.exponent, 0);
       }
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
@@ -1777,7 +1743,6 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
           int integerA = this.unsignedMantissa.AsInt32();
           int integerB = otherValue.unsignedMantissa.AsInt32();
           long longA = ((long)integerA) * ((long)integerB);
-          int sign = (longA == 0) ? 0 : (newflags == 0 ? 1 : -1);
           FastIntegerFixed exp = FastIntegerFixed.Add(
   this.exponent,
   otherValue.exponent);
@@ -1785,24 +1750,20 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
             return new EDecimal(
   new FastIntegerFixed((int)longA),
   exp,
-  newflags,
-  sign);
+  newflags);
           } else {
             return new EDecimal(
   FastIntegerFixed.FromBig((EInteger)longA),
   exp,
-  newflags,
-  sign);
+  newflags);
           }
         } else {
           EInteger eintA = this.unsignedMantissa.ToEInteger().Multiply(
            otherValue.unsignedMantissa.ToEInteger());
-          int sign = eintA.IsZero ? 0 : (newflags == 0 ? 1 : -1);
           return new EDecimal(
   FastIntegerFixed.FromBig(eintA),
   FastIntegerFixed.Add(this.exponent, otherValue.exponent),
-  newflags,
-  sign);
+  newflags);
         }
       }
       return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
@@ -1886,8 +1847,7 @@ public EDecimal Divide(int intValue) {
       return new EDecimal(
   this.unsignedMantissa,
   this.exponent,
-  this.flags ^ BigNumberFlags.FlagNegative,
-  -this.sign);
+  this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
@@ -2259,6 +2219,20 @@ public EDecimal Divide(int intValue) {
       return this.Add(negated, ctx);
     }
 
+    private static readonly double[] ExactDoublePowersOfTen= {
+1, 10, 100, 100, 10000,
+  10e5, 10e6, 10e7, 10e8, 10e9,
+  10e10, 10e11, 10e12, 10e13, 10e14,
+  10e15, 10e16, 10e17, 10e18, 10e19,
+  10e20, 10e21, 10e22
+    };
+
+    private static readonly float[] ExactSinglePowersOfTen= {
+1f, 10f, 100f, 100f, 10000f,
+  10e5f, 10e6f, 10e7f, 10e8f, 10e9f,
+  10e10f
+    };
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToDouble"]/*'/>
     public double ToDouble() {
@@ -2275,28 +2249,29 @@ public EDecimal Divide(int intValue) {
         return 0.0;
       }
       if (this.IsFinite) {
-       if (exponent.CompareToInt(309) > 0) {
+       if (this.exponent.CompareToInt(309) > 0) {
         // Very high exponent, treat as infinity
         return this.IsNegative ? Double.NegativeInfinity :
           Double.PositiveInfinity;
        }
-       if(this.exponent.CompareToInt(0) >= 0 &&
+       if (this.exponent.CompareToInt(44) >= 0 &&
           this.exponent.CompareToInt(44) <= 0 &&
-          this.unsignedMantissa.CanFitInInt64()){
+          this.unsignedMantissa.CanFitInInt64()) {
          // Fast-path optimization (explained on exploringbinary.com)
-         long ml=this.unsignedMantissa.AsInt64();
-         int exp=this.exponent.AsInt32();
-         while(ml < 900719925474099 && exp>22){
-           ml*=10;
-           exp--;
+         long ml = this.unsignedMantissa.AsInt64();
+         int exp = this.exponent.AsInt32();
+         int absexp = Math.Abs(exp);
+         while (ml <= 900719925474099 && absexp > 22) {
+           ml *= 10;
+           --absexp;
          }
-         if(ml < 9007199254740992 && exp<=22){
-          double d=Math.Pow(10.0,Math.Abs(exp));
-          double dml=this.IsNegative ? (double)(-ml) : (double)ml;
-          if(exp<0){
-             return dml/d;
+         if (ml < 9007199254740992 && absexp <= 22) {
+          double d = ExactDoublePowersOfTen[absexp];
+          double dml = this.IsNegative ? (double)(-ml) : (double)ml;
+          if (exp < 0) {
+             return dml / d;
           } else {
-             return dml*d;
+             return dml * d;
           }
          }
        }
@@ -2374,25 +2349,26 @@ public EDecimal Divide(int intValue) {
       if (this.IsZero) {
         return 0.0f;
       }
-      if(this.IsFinite){
-       if(this.exponent.CompareToInt(0) >= 0 &&
+      if (this.IsFinite) {
+       if (this.exponent.CompareToInt(-20) >= 0 &&
           this.exponent.CompareToInt(20) <= 0 &&
-          this.unsignedMantissa.CanFitInInt32()){
-         // Fast-path optimization (version for 'double's explained 
+          this.unsignedMantissa.CanFitInInt32()) {
+         // Fast-path optimization (version for 'double's explained
          // on exploringbinary.com)
-         int iml=this.unsignedMantissa.AsInt32();
-         int exp=this.exponent.AsInt32();
-         while(iml < 1677721 && exp>10){
-           iml*=10;
-           exp--;
+         int iml = this.unsignedMantissa.AsInt32();
+         int exp = this.exponent.AsInt32();
+         int absexp = Math.Abs(exp);
+         while (iml <= 1677721 && absexp > 10) {
+           iml *= 10;
+           --exp;
          }
-         if(iml < 16777216 && exp<=10){
-          float fd=(float)Math.Pow(10.0,Math.Abs(exp));
-          float fml=this.IsNegative ? (float)(-iml) : (float)iml;
-          if(exp<0){
-             return fml/fd;
+         if (iml < 16777216 && absexp <= 10) {
+          var fd = ExactSinglePowersOfTen[absexp];
+          float fml = this.IsNegative ? (float)(-iml) : (float)iml;
+          if (exp < 0) {
+             return fml / fd;
           } else {
-             return fml*fd;
+             return fml * fd;
           }
          }
        }
@@ -2411,7 +2387,7 @@ public EDecimal Divide(int intValue) {
       }
       return this.ToEFloat(EContext.Binary32).ToSingle();
     }
-    
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToString"]/*'/>
     public override string ToString() {
@@ -2440,14 +2416,10 @@ public EDecimal Divide(int intValue) {
         throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
       }
 #endif
-      int sign = (((flags & BigNumberFlags.FlagSpecial) == 0) &&
-                mantissa.IsValueZero) ? 0 : (((flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       return new EDecimal(
         mantissa,
         exponent,
-        flags,
-        sign);
+        flags);
     }
 
     internal static EDecimal CreateWithFlags(
@@ -2465,14 +2437,10 @@ public EDecimal Divide(int intValue) {
         throw new ArgumentException("doesn't satisfy mantissa.Sign >= 0");
       }
 #endif
-      int sign = (((flags & BigNumberFlags.FlagSpecial) == 0) &&
-                mantissa.IsZero) ? 0 : (((flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       return new EDecimal(
         FastIntegerFixed.FromBig(mantissa),
         FastIntegerFixed.FromBig(exponent),
-        flags,
-        sign);
+        flags);
     }
 
     private static bool AppendString(
@@ -2550,8 +2518,7 @@ public EDecimal Divide(int intValue) {
               return new EDecimal(
                 new FastIntegerFixed(thisMantissaSmall),
                 new FastIntegerFixed(exponentSmall),
-                this.flags,
-                thisMantissaSmall == 0 ? 0 : ((this.flags == 0) ? 1 : -1));
+                this.flags);
             }
           } else if (rounding == ERounding.HalfEven &&
               thisMantissaSmall != Int32.MaxValue) {
@@ -2571,8 +2538,7 @@ public EDecimal Divide(int intValue) {
               return new EDecimal(
                 new FastIntegerFixed(div2),
                 new FastIntegerFixed(exponentSmall),
-                this.flags,
-                div2 == 0 ? 0 : ((this.flags == 0) ? 1 : -1));
+                this.flags);
             }
           }
         }
@@ -2689,13 +2655,13 @@ public EDecimal Divide(int intValue) {
       if (bigintExp.Sign > 0) {
         // Scaled integer
 // --- Optimizations for Binary32 and Binary64
-if(ec==EContext.Binary32){
-  if(bigintExp.CompareTo(39)>0){
+if (ec == EContext.Binary32) {
+  if (bigintExp.CompareTo(39) > 0) {
         return this.IsNegative ? EFloat.NegativeInfinity :
           EFloat.PositiveInfinity;
   }
-} else if(ec==EContext.Binary64){
-  if(bigintExp.CompareTo(309)>0){
+} else if (ec == EContext.Binary64) {
+  if (bigintExp.CompareTo(309) > 0) {
         return this.IsNegative ? EFloat.NegativeInfinity :
           EFloat.PositiveInfinity;
   }

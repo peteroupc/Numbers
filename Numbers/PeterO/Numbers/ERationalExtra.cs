@@ -9,6 +9,11 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class ERational {
+
+    public static explicit operator ERational(bool boolValue) {
+      return FromBoolean(boolValue);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.ERational"]/*'/>
     public static implicit operator ERational(EInteger eint) {

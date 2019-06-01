@@ -133,48 +133,6 @@ namespace PeterO.Numbers {
       }
     }
 
-    private static readonly EInteger ValueBigShiftIteration =
-      (EInteger)1000000;
-
-    internal static EInteger ShiftLeft(EInteger val, EInteger bigShift) {
-      #if DEBUG
-      if (val == null) {
-        throw new ArgumentNullException(nameof(val));
-      }
-      if (bigShift == null) {
-        throw new ArgumentNullException(nameof(bigShift));
-      }
-      #endif
-      if (val.IsZero) {
-        return val;
-      }
-      while (bigShift.CompareTo(ValueBigShiftIteration) > 0) {
-        val <<= 1000000;
-        bigShift -= (EInteger)ValueBigShiftIteration;
-      }
-      var lastshift = (int)bigShift;
-      val <<= lastshift;
-      return val;
-    }
-
-    internal static EInteger ShiftLeftInt(EInteger val, int shift) {
-      #if DEBUG
-      if (val == null) {
-        throw new ArgumentNullException(nameof(val));
-      }
-      #endif
-      if (val.IsZero) {
-        return val;
-      }
-      while (shift > 1000000) {
-        val <<= 1000000;
-        shift -= 1000000;
-      }
-      var lastshift = (int)shift;
-      val <<= lastshift;
-      return val;
-    }
-
     internal static bool HasBitSet(int[] arr, int bit) {
       return (bit >> 5) < arr.Length && (arr[bit >> 5] & (1 << (bit & 31))) !=
       0;

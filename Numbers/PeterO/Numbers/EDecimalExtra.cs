@@ -39,6 +39,10 @@ System.Globalization.NumberStyles
   EDecimal.FromString(dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
+    public static explicit operator EDecimal(bool boolValue) {
+      return FromBoolean(boolValue);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(decimal dec) {

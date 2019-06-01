@@ -185,8 +185,10 @@ namespace PeterO.Numbers {
       }
     }
 
-    public EFloat Copy(){
-return new EFloat(this.unsignedMantissa,this.unsignedExponent,this.flags);
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Copy"]/*'/>
+    public EFloat Copy() {
+return new EFloat(this.unsignedMantissa, this.exponent, this.flags);
     }
 
     /// <include file='../../docs.xml'
@@ -952,9 +954,7 @@ public EFloat Divide(int intValue) {
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
-        EInteger mant = NumberUtility.ShiftLeft(
-          this.unsignedMantissa,
-          bigExp);
+        EInteger mant = this.unsignedMantissa.ShiftLeft(bigExp);
         return CreateWithFlags(
   mant,
   EInteger.Zero,
@@ -1644,7 +1644,7 @@ public EFloat Divide(int intValue) {
         if (neg) {
           bigmantissa = -bigmantissa;
         }
-        bigmantissa = NumberUtility.ShiftLeft(bigmantissa, curexp);
+        bigmantissa = bigmantissa.ShiftLeft(curexp);
         if (neg) {
           bigmantissa = -bigmantissa;
         }
@@ -1762,22 +1762,11 @@ public EFloat Divide(int intValue) {
         }
         if (tmpbigint.Sign < 0) {
           tmpbigint = -tmpbigint;
-          if (power.CanFitInInt32()) {
-            tmpbigint = NumberUtility.ShiftLeftInt(tmpbigint, power.AsInt32());
-            tmpbigint = -tmpbigint;
-          } else {
-            tmpbigint = NumberUtility.ShiftLeft(
-              tmpbigint,
-              power.AsEInteger());
-            tmpbigint = -tmpbigint;
-          }
+          tmpbigint = power.ShiftEIntegerLeftByThis(tmpbigint);
+          tmpbigint = -tmpbigint;
           return tmpbigint;
         }
-        return power.CanFitInInt32() ? NumberUtility.ShiftLeftInt(
-          tmpbigint,
-          power.AsInt32()) : NumberUtility.ShiftLeft(
-          tmpbigint,
-          power.AsEInteger());
+        return power.ShiftEIntegerLeftByThis(tmpbigint);
       }
 
     /// <include file='../../docs.xml'
@@ -1909,6 +1898,12 @@ public int ToInt32IfExact() {
 /// <summary>Converts a boolean value (true or false) to an
 /// arbitrary-precision binary number.</summary>
 /// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
+    /// <summary>Converts a boolean value (true or false) to an
+    /// arbitrary-precision binary number.</summary>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
+    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
+    /// zero.</returns>
 public static EFloat FromBoolean(bool boolValue) {
  return boolValue ? EFloat.Zero : EFloat.One;
 }
