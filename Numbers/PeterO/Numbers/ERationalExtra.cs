@@ -9,7 +9,6 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class ERational {
-
     public static explicit operator ERational(bool boolValue) {
       return FromBoolean(boolValue);
     }

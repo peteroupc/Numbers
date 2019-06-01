@@ -556,6 +556,23 @@ public EFloat Divide(int intValue) {
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    public int CompareToTotalMagnitude(EFloat other, EContext ctx) {
+      if (other == null) {
+        return -1;
+      }
+      if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
+        return CompareToTotalMagnitude(other);
+      }
+      if (ctx != null && ctx.IsSimplified) {
+        return this.RoundToPrecision(ctx)
+          .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
+      } else {
+        return CompareToTotalMagnitude(other);
+      }
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)"]/*'/>
     public int CompareToTotal(EFloat other) {
       if (other == null) {

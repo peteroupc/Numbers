@@ -140,12 +140,13 @@ if (nc > 9) {
       throw new NotImplementedException();
     }
 
-    public static int CompareTotal(EDecimal ed, EDecimal other) {
-      return ed.CompareToTotal(other);
+    public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
+      return ed.CompareToTotal(other, ec);
     }
 
-    public static int CompareTotalMagnitude(EDecimal ed, EDecimal other) {
-      return ed.Abs(null).CompareToTotal(other.Abs(null));
+    public static int CompareTotalMagnitude(EDecimal ed, EDecimal other,
+      EContext ec) {
+      return ed.CompareToTotalMagnitude(other, ec);
     }
 
     public static EDecimal Copy(EDecimal ed) {

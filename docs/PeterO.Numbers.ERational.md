@@ -125,7 +125,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
 
-Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
+Initializes a new instance of the[PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
 <b>Parameters:</b>
 
@@ -137,6 +137,11 @@ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERat
 
  * System.ArgumentException:
 The denominator is zero.
+
+ * System.ArgumentNullException:
+The parameter  <i>numerator</i>
+ or  <i>denominator</i>
+ is null.
 
 <a id="NaN"></a>
 ### NaN
@@ -439,7 +444,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+An arbitrary-precision binary rational number.
 
 <a id="CopySign_PeterO_Numbers_ERational"></a>
 ### CopySign
@@ -627,6 +632,8 @@ Either `true
 
 Converts a boolean value (true or false) to an arbitrary-precision rational number.
 
+Converts a boolean value (true or false) to an arbitrary-precision rational number.
+
 <b>Parameters:</b>
 
  * <i>boolValue</i>: The parameter  <i>boolValue</i>
@@ -638,7 +645,7 @@ One if  `boolValue`  is  `true` ; otherwise, zero.
 
 <b>Return Value:</b>
 
-An ERational object.
+One if  `boolValue`  is  `true`  ; otherwise, zero.
 
 <a id="FromByte_byte"></a>
 ### FromByte

@@ -9,7 +9,6 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EFloat {
-
     public static explicit operator EFloat(bool boolValue) {
       return FromBoolean(boolValue);
     }

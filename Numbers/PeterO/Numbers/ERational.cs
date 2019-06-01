@@ -108,21 +108,14 @@ if ((denominator) == null) {
   throw new ArgumentNullException(nameof(denominator));
 }
 #endif
-    // DebugAssert.IsFalse(denominator.IsZero);
+    DebugAssert.IsFalse(denominator.IsZero);
 this.unsignedNumerator = numerator;
 this.denominator = denominator;
 this.flags = flags;
 }
 
-    /// <summary>Initializes a new instance of the
-    /// <see cref='T:PeterO.Numbers.ERational'/> class.</summary>
-    /// <param name='numerator'>The numerator.</param>
-    /// <param name='denominator'>The denominator.</param>
-    /// <exception cref='T:System.ArgumentException'>The denominator is
-    /// zero.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='numerator'/> or <paramref name='denominator'/> is
-    /// null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public ERational(EInteger numerator, EInteger denominator) {
             if (numerator == null) {
                 throw new ArgumentNullException(nameof(numerator));
@@ -1257,7 +1250,7 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       return ac.IsZero ? (resultNeg ? NegativeZero : Zero) :
   new ERational(ac.Abs(), bd.Abs(), resultNeg ? BigNumberFlags.FlagNegative :
-                      0);
+                    0);
     }
 
     /// <include file='../../docs.xml'

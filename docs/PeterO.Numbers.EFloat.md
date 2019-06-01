@@ -47,6 +47,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Add(int)](#Add_int)</code> - Adds this object and another object.
 * <code>[CompareToSignal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
+* <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotal(PeterO.Numbers.EFloat)](#CompareToTotal_PeterO_Numbers_EFloat)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToWithContext(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
@@ -573,6 +574,41 @@ Compares the absolute values of this object and another object, imposing a total
 
 The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
+<a id="CompareToTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
+### CompareToTotalMagnitude
+
+    public int CompareToTotalMagnitude(
+        PeterO.Numbers.EFloat other,
+        PeterO.Numbers.EContext ctx);
+
+Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
+
+ * For objects with the same value, the one with the higher exponent has a greater "absolute value".
+
+ * Negative zero is less than positive zero.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
+
+ * Negative numbers are less than positive numbers.
+
+TODO: Edit this
+
+<b>Parameters:</b>
+
+ * <i>other</i>: An arbitrary-precision binary float to compare with this one.
+
+ * <i>ctx</i>: An arithmetic context. Flags will be set in this context only if `HasFlags
+      ` and `IsSimplified
+      ` of the context are true and only if an operand needed to be rounded efore carrying out the operation. Can be null.
+
+<b>Return Value:</b>
+
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. Does not signal flags if either value is signaling NaN.
+
 <a id="CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareToWithContext
 
@@ -604,7 +640,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-An EFloat object.
+An arbitrary-precision binary floating-point number.
 
 <a id="CopySign_PeterO_Numbers_EFloat"></a>
 ### CopySign
@@ -626,7 +662,7 @@ An arbitrary-precision binary float.
 
  * System.ArgumentNullException:
 The parameter <i>other</i>
- is null.
+is null.
 
 <a id="Create_int_int"></a>
 ### Create
@@ -1105,6 +1141,8 @@ Exponential of this object. If this object's value is 1, returns an approximatio
 
 Converts a boolean value (true or false) to an arbitrary-precision binary number.
 
+Converts a boolean value (true or false) to an arbitrary-precision binary number.
+
 <b>Parameters:</b>
 
  * <i>boolValue</i>: The parameter  <i>boolValue</i>
@@ -1116,7 +1154,7 @@ One if  `boolValue`  is  `true` ; otherwise, zero.
 
 <b>Return Value:</b>
 
-An EFloat object.
+One if  `boolValue`  is  `true`  ; otherwise, zero.
 
 <a id="FromByte_byte"></a>
 ### FromByte

@@ -1335,6 +1335,23 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
     }
 
     /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    public int CompareToTotalMagnitude(EDecimal other, EContext ctx) {
+      if (other == null) {
+        return -1;
+      }
+      if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
+        return this.CompareToTotalMagnitude(other);
+      }
+      if (ctx != null && ctx.IsSimplified) {
+        return this.RoundToPrecision(ctx)
+          .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
+      } else {
+        return this.CompareToTotalMagnitude(other);
+      }
+    }
+
+    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal)"]/*'/>
     public int CompareToTotal(EDecimal other) {
       if (other == null) {

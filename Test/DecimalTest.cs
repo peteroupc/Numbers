@@ -200,12 +200,13 @@ name.Equals("sqtx2847")) {
           d3 = d1.CompareToWithContext(d2, ctx);
         } else if (op.Equals("comparetotal")) {
           int id3 = d1.CompareToTotal(d2, ctx);
-          d3 = id3;
-          Assert.AreEqual(id3, EDecimalExtras.CompareTotal(d1, d2));
+          d3 = EDecimal.FromInt32(id3);
+          Assert.AreEqual(id3, EDecimalExtras.CompareTotal(d1, d2, ctx), ln);
         } else if (op.Equals("comparetotmag")) {
-          int id3 = EDecimal.FromInt32(d1.CompareToTotalMagnitude(d2));
-          d3 = id3;
-          Assert.AreEqual(id3, EDecimalExtras.CompareTotalMagnitude(d1, d2));
+          int id3 = d1.CompareToTotalMagnitude(d2, ctx);
+          d3 = EDecimal.FromInt32(id3);
+    Assert.AreEqual(id3, EDecimalExtras.CompareTotalMagnitude(d1, d2,
+            ctx), ln);
         } else if (op.Equals("copyabs")) {
           d3 = d1.Abs();
           Assert.AreEqual(d3, EDecimalExtras.CopyAbs(d1));
