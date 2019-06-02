@@ -272,12 +272,16 @@ if (op.Equals("and")) {
  d3 = EDecimalExtras.Or(d1, d2, ctx);
   } else if (op.Equals("xor")) {
  d3 = EDecimalExtras.Xor(d1, d2, ctx);
+  } else if (op.Equals("invert")) {
+ d3 = EDecimalExtras.Invert(d1, ctx);
+  } else if (op.Equals("rescale")) {
+ d3 = EDecimalExtras.Rescale(d1, d2, ctx);
   } else if (op.Equals("samequantum")) {
  d3 = EDecimal.FromBoolean(EDecimalExtras.SameQuantum(d1, d2));
 } else {
  Console.WriteLine("unknown op " + op);
-}
           return;
+}
         }
         bool invalid = flags.Contains("Division_impossible") ||
           flags.Contains("Division_undefined") ||

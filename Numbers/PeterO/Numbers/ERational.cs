@@ -107,8 +107,8 @@ if ((numerator) == null) {
 if ((denominator) == null) {
   throw new ArgumentNullException(nameof(denominator));
 }
+    // ArgumentAssert.IsFalse(denominator.IsZero);
 #endif
-    DebugAssert.IsFalse(denominator.IsZero);
 this.unsignedNumerator = numerator;
 this.denominator = denominator;
 this.flags = flags;
