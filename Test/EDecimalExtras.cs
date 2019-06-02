@@ -54,11 +54,11 @@ namespace Test {
     }
 
     private static readonly string[] NumberClasses = {
- "+Normal","-Normal",
- "+Subnormal","-Subnormal",
- "+Zero","-Zero",
- "+Infinity","-Infinity",
- "NaN","sNaN"
+ "+Normal", "-Normal",
+ "+Subnormal", "-Subnormal",
+ "+Zero", "-Zero",
+ "+Infinity", "-Infinity",
+ "NaN", "sNaN"
 };
 
     public static string NumberClassString(int nc) {
@@ -144,8 +144,10 @@ if (nc > 9) {
       return ed.CompareToTotal(other, ec);
     }
 
-    public static int CompareTotalMagnitude(EDecimal ed, EDecimal other,
-      EContext ec) {
+    public static int CompareTotalMagnitude(
+  EDecimal ed,
+  EDecimal other,
+  EContext ec) {
       return ed.CompareToTotalMagnitude(other, ec);
     }
 
@@ -181,13 +183,33 @@ if (nc > 9) {
       return ed;
     }
 
+    public static bool SameQuantum(EDecimal ed1, EDecimal ed2) {
+if (ed1 == null || ed2 == null) { {
+ return false;
+} }
+if (ed1.IsFinite && ed2.IsFinite) {
+  return ed1.Exponent.Equals(ed2.Exponent);
+} else {
+  return ed1.IsNaN() == ed2.IsNaN() || ed1.IsInfinity() == ed2.IsInfinity();
+}
+    }
 
+    public static EDecimal Rescale(EDecimal ed, EDecimal scale, EContext ec) {
+if (ed == null || scale == null) {
+ return InvalidOperation(EDecimal.NaN, ec);
+}
+return (!scale.IsFinite || !scale.Exponent.IsZero) ?
+  InvalidOperation(EDecimal.NaN, ec) :
+  ed.Quantize(EDecimal.Create(EInteger.One, scale.Mantissa), ec);
+    }
+
+    // Logical Operations
     public static EDecimal And(EDecimal ed1, EDecimal ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1,ec);
+      byte[] logi1 = FromLogical(ed1, ec);
       if (logi1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2,ec);
+      byte[] logi2 = FromLogical(ed2, ec);
       if (logi2 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
@@ -200,43 +222,38 @@ if (nc > 9) {
     }
 
     public static EDecimal Invert(EDecimal ed1, EContext ec) {
-       if(ec==null || !ec.HasMaxPrecision){
+       if (ec == null || !ec.HasMaxPrecision) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      if(ed1==null || ed1.Precision().CompareTo(ec.Precision) > 0){
+      if (ed1 == null || ed1.Precision().CompareTo(ec.Precision) > 0) {
  return InvalidOperation(EDecimal.NaN, ec);
       }
       // TODO: Make it work for bit precisions (e.g., .NET decimal)
-      EInteger ei=EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
-      byte[] smaller = FromLogical(ed1,ec);
+      EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
+      byte[] smaller = FromLogical(ed1, ec);
       if (smaller == null) {
         return InvalidOperation(EDecimal.NaN, ec);
       }
       byte[] bigger = ei.ToBytes(true);
-      // DebugAssert.LessOrEqual(smaller.Length,bigger.Length);
+      #if DEBUG
+if (smaller.Length > bigger.Length) {
+  throw new ArgumentException("smaller.Length (" + smaller.Length +
+    ") is not less or equal to " + bigger.Length);
+}
+#endif
+
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
       return ToLogical(bigger).RoundToPrecision(ec);
     }
 
-    public static bool SameQuantum(EDecimal ed1, EDecimal ed2) {
-if (ed1 == null || ed2 == null) { {
- return false;
-} }
-if (ed1.IsFinite && ed2.IsFinite) {
-  return ed1.Exponent.Equals(ed2.Exponent);
-} else {
-  return ed1.IsNaN() == ed2.IsNaN() || ed1.IsInfinity() == ed2.IsInfinity();
-}
-    }
-
     public static EDecimal Xor(EDecimal ed1, EDecimal ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1,ec);
+      byte[] logi1 = FromLogical(ed1, ec);
       if (logi1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2,ec);
+      byte[] logi2 = FromLogical(ed2, ec);
       if (logi2 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
@@ -249,11 +266,11 @@ if (ed1.IsFinite && ed2.IsFinite) {
     }
 
     public static EDecimal Or(EDecimal ed1, EDecimal ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1,ec);
+      byte[] logi1 = FromLogical(ed1, ec);
       if (logi1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2,ec);
+      byte[] logi2 = FromLogical(ed2, ec);
       if (logi2 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
@@ -265,27 +282,16 @@ if (ed1.IsFinite && ed2.IsFinite) {
       return ToLogical(bigger).RoundToPrecision(ec);
     }
 
-    public static EDecimal Rescale(EDecimal ed, EDecimal scale, EContext ec){
-if(ed==null || scale==null)
-   return InvalidOperation(EDecimal.NaN,ec);
-if(!scale.IsFinite || !scale.Exponent.IsZero)
-   return InvalidOperation(EDecimal.NaN,ec);
-return ed.Quantize(EDecimal.Create(EInteger.One,scale.Mantissa),ec);
-    }
-
     private static EDecimal ToLogical(byte[] bytes) {
 if (bytes == null) {
   throw new ArgumentNullException(nameof(bytes));
 }
       EInteger ret = EInteger.Zero;
-      for (var i = bytes.Length - 1; i >= 0; i--) {
-        int b=bytes[i];
+      for (var i = bytes.Length - 1; i >= 0; --i) {
+        int b = bytes[i];
         for (var j = 7; j >= 0; --j) {
-          if ((bytes[i] & (1 << j)) != 0) {
-            ret = ret.Multiply(10).Add(1);
-          } else {
-            ret = ret.Multiply(10);
-          }
+          ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(10).Add(1) :
+            ret.Multiply(10);
         }
       }
       return EDecimal.FromEInteger(ret);
@@ -300,27 +306,29 @@ if (bytes == null) {
       EInteger ret = EInteger.Zero;
       EInteger prec = um.GetDigitCountAsEInteger();
       // TODO: Make it work for bit precisions (e.g., .NET decimal)
-      EInteger maxprec = (ec!=null && ec.HasMaxPrecision) ? ec.Precision : null;
+   EInteger maxprec = (ec != null && ec.HasMaxPrecision) ? ec.Precision :
+        null;
       EInteger bytecount = prec.ShiftRight(3).Add(1);
-      if(bytecount.CompareTo(0x7FFFFFFF)>0)
-        return null; // Out of memory
-      int bitindex=0;
-      byte[] bytes=new byte[bytecount.ToInt32Checked()];
+      if (bytecount.CompareTo(0x7fffffff) > 0) {
+ return null;  // Out of memory
+}
+      var bitindex = 0;
+      var bytes = new byte[bytecount.ToInt32Checked()];
       while (um.Sign > 0) {
         EInteger[] divrem = um.DivRem(EInteger.FromInt32(10));
         int rem = divrem[1].ToInt32Checked();
         um = divrem[0];
         if (rem == 1) {
          // Don't collect bits beyond max precision
-         if(maxprec==null || maxprec.CompareTo(bitindex) > 0) {
-           int byteindex=(bitindex>>3);
-           int mask=1<<(bitindex&7);
-           bytes[byteindex]|=(byte)mask;
+         if (maxprec == null || maxprec.CompareTo(bitindex) > 0) {
+           int byteindex = bitindex >> 3;
+           int mask = 1 << (bitindex & 7);
+           bytes[byteindex] |= (byte)mask;
          }
         } else if (rem != 0) {
          return null;
         }
-        bitindex++;
+        ++bitindex;
       }
       return bytes;
     }

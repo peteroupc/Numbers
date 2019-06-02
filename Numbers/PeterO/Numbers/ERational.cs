@@ -107,7 +107,7 @@ if ((numerator) == null) {
 if ((denominator) == null) {
   throw new ArgumentNullException(nameof(denominator));
 }
-    // ArgumentAssert.IsFalse(denominator.IsZero);
+if(denominator.IsZero)throw new ArgumentException();
 #endif
 this.unsignedNumerator = numerator;
 this.denominator = denominator;

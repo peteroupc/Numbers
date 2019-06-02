@@ -9,6 +9,9 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EFloat {
+    /// <summary>Not documented yet.</summary>
+    /// <param name='boolValue'>Not documented yet.</param>
+    /// <returns>An EFloat object.</returns>
     public static explicit operator EFloat(bool boolValue) {
       return FromBoolean(boolValue);
     }
