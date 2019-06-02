@@ -363,9 +363,9 @@ namespace Test {
     }
 
 [Test]
-public void TestFromBoolean(){
-Assert.AreEqual(EInteger.One,EInteger.FromBoolean(true));
-Assert.AreEqual(EInteger.Zero,EInteger.FromBoolean(false));
+public void TestFromBoolean() {
+Assert.AreEqual(EInteger.One, EInteger.FromBoolean(true));
+Assert.AreEqual(EInteger.Zero, EInteger.FromBoolean(false));
 }
 
     [Test]

@@ -39,9 +39,8 @@ System.Globalization.NumberStyles
   EDecimal.FromString(dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>Not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal"]/*'/>
     public static explicit operator EDecimal(bool boolValue) {
       return FromBoolean(boolValue);
     }

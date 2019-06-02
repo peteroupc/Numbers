@@ -3,8 +3,11 @@ using PeterO.Numbers;
 
 namespace Test {
   public static class EDecimalExtras {
+
+    private const int DecimalRadix = 10;
+
     public static EDecimal Radix(EContext ec) {
-      return EDecimal.FromInt32(10).RoundToPrecision(ec);
+      return EDecimal.FromInt32(DecimalRadix).RoundToPrecision(ec);
     }
 
     public static EDecimal Int32ToDecimal(int i32, EContext ec) {
@@ -184,13 +187,13 @@ if (nc > 9) {
     }
 
     public static bool SameQuantum(EDecimal ed1, EDecimal ed2) {
-if (ed1 == null || ed2 == null) { {
+if (ed1 == null || ed2 == null) {
  return false;
-} }
+}
 if (ed1.IsFinite && ed2.IsFinite) {
   return ed1.Exponent.Equals(ed2.Exponent);
 } else {
-  return ed1.IsNaN() == ed2.IsNaN() || ed1.IsInfinity() == ed2.IsInfinity();
+  return (ed1.IsNaN() && ed2.IsNaN()) || (ed1.IsInfinity() && ed2.IsInfinity());
 }
     }
 
@@ -225,9 +228,6 @@ return (!scale.IsFinite || !scale.Exponent.IsZero) ?
        if (ec == null || !ec.HasMaxPrecision) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      if (ed1 == null || ed1.Precision().CompareTo(ec.Precision) > 0) {
- return InvalidOperation(EDecimal.NaN, ec);
-      }
       // TODO: Make it work for bit precisions (e.g., .NET decimal)
       EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
       byte[] smaller = FromLogical(ed1, ec);
@@ -290,8 +290,8 @@ if (bytes == null) {
       for (var i = bytes.Length - 1; i >= 0; --i) {
         int b = bytes[i];
         for (var j = 7; j >= 0; --j) {
-          ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(10).Add(1) :
-            ret.Multiply(10);
+          ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(DecimalRadix).Add(1) :
+            ret.Multiply(DecimalRadix);
         }
       }
       return EDecimal.FromEInteger(ret);
@@ -315,7 +315,7 @@ if (bytes == null) {
       var bitindex = 0;
       var bytes = new byte[bytecount.ToInt32Checked()];
       while (um.Sign > 0) {
-        EInteger[] divrem = um.DivRem(EInteger.FromInt32(10));
+        EInteger[] divrem = um.DivRem(EInteger.FromInt32(DecimalRadix));
         int rem = divrem[1].ToInt32Checked();
         um = divrem[0];
         if (rem == 1) {

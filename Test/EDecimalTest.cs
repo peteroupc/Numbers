@@ -123,9 +123,9 @@ namespace Test {
     }
 
 [Test]
-public void TestFromBoolean(){
-Assert.AreEqual(EDecimal.Zero,EDecimal.FromBoolean(false));
-Assert.AreEqual(EDecimal.One,EDecimal.FromBoolean(true));
+public void TestFromBoolean() {
+Assert.AreEqual(EDecimal.Zero, EDecimal.FromBoolean(false));
+Assert.AreEqual(EDecimal.One, EDecimal.FromBoolean(true));
 }
 
     [Test]

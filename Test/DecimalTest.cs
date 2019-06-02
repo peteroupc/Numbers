@@ -247,7 +247,7 @@ Assert.AreEqual(d3, EDecimalExtras.CopySign(d1, d2));
           d3 = d1.Pow(d2, ctx);
         } else if (op.Equals("squareroot")) {
           d3 = d1.Sqrt(ctx);
-        } else if (op.Equals("remaindernear")) {
+        } else if (op.Equals("remaindernear") || op.Equals("remainderNear")) {
           d3 = d1.RemainderNear(d2, ctx);
         } else if (op.Equals("nexttoward")) {
           d3 = d1.NextToward(d2, ctx);
@@ -257,7 +257,7 @@ Assert.AreEqual(d3, EDecimalExtras.CopySign(d1, d2));
           d3 = d1.NextMinus(ctx);
         } else if (op.Equals("copy")) {
           d3 = d1;
-Assert.AreEqual(d3, EDecimalExtras.Copy(d1),"copy equiv");
+Assert.AreEqual(d3, EDecimalExtras.Copy(d1), "copy equiv");
         } else if (op.Equals("abs")) {
           d3 = d1.Abs(ctx);
         } else if (op.Equals("reduce")) {
@@ -283,6 +283,8 @@ if (op.Equals("and")) {
  d3 = EDecimalExtras.Invert(d1, ctx);
   } else if (op.Equals("rescale")) {
  d3 = EDecimalExtras.Rescale(d1, d2, ctx);
+  } else if (op.Equals("logb")) {
+ d3 = EDecimalExtras.LogB(d1, ctx);
   } else if (op.Equals("samequantum")) {
  d3 = EDecimal.FromBoolean(EDecimalExtras.SameQuantum(d1, d2));
 } else {

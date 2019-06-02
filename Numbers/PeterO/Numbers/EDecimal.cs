@@ -202,7 +202,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     public int Sign {
       get {
         return (((this.flags & (BigNumberFlags.FlagSpecial)) == 0) &&
-        this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
+          this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
                     BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       }
     }
@@ -2236,7 +2236,7 @@ public EDecimal Divide(int intValue) {
       return this.Add(negated, ctx);
     }
 
-    private static readonly double[] ExactDoublePowersOfTen= {
+    private static readonly double[] ExactDoublePowersOfTen = {
 1, 10, 100, 100, 10000,
   10e5, 10e6, 10e7, 10e8, 10e9,
   10e10, 10e11, 10e12, 10e13, 10e14,
@@ -2244,7 +2244,7 @@ public EDecimal Divide(int intValue) {
   10e20, 10e21, 10e22
     };
 
-    private static readonly float[] ExactSinglePowersOfTen= {
+    private static readonly float[] ExactSinglePowersOfTen = {
 1f, 10f, 100f, 100f, 10000f,
   10e5f, 10e6f, 10e7f, 10e8f, 10e9f,
   10e10f
@@ -2278,11 +2278,11 @@ public EDecimal Divide(int intValue) {
          long ml = this.unsignedMantissa.AsInt64();
          int exp = this.exponent.AsInt32();
          int absexp = Math.Abs(exp);
-         while (ml <= 900719925474099 && absexp > 22) {
+         while (ml <= 900719925474099L && absexp > 22) {
            ml *= 10;
            --absexp;
          }
-         if (ml < 9007199254740992 && absexp <= 22) {
+         if (ml < 9007199254740992L && absexp <= 22) {
           double d = ExactDoublePowersOfTen[absexp];
           double dml = this.IsNegative ? (double)(-ml) : (double)ml;
           if (exp < 0) {

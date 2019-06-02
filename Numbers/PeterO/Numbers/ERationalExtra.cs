@@ -9,9 +9,8 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class ERational {
-    /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>Not documented yet.</param>
-    /// <returns>An ERational object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(System.Boolean)~PeterO.Numbers.ERational"]/*'/>
     public static explicit operator ERational(bool boolValue) {
       return FromBoolean(boolValue);
     }

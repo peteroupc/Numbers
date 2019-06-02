@@ -125,7 +125,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
 
-Initializes a new instance of the[PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
+Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
 <b>Parameters:</b>
 
@@ -139,9 +139,9 @@ Initializes a new instance of the[PeterO.Numbers.ERational](PeterO.Numbers.ERati
 The denominator is zero.
 
  * System.ArgumentNullException:
-The parameter  <i>numerator</i>
- or  <i>denominator</i>
- is null.
+The parameter <i>numerator</i>
+or <i>denominator</i>
+is null.
 
 <a id="NaN"></a>
 ### NaN

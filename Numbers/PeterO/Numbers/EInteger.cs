@@ -232,7 +232,9 @@ namespace PeterO.Numbers {
                     newnegative));
     }
 
-public static EInteger FromBoolean(bool boolValue){
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)"]/*'/>
+public static EInteger FromBoolean(bool boolValue) {
 return boolValue ? ValueOne : ValueZero;
 }
 

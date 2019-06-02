@@ -562,13 +562,13 @@ public EFloat Divide(int intValue) {
         return -1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
-        return CompareToTotalMagnitude(other);
+        return this.CompareToTotalMagnitude(other);
       }
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
       } else {
-        return CompareToTotalMagnitude(other);
+        return this.CompareToTotalMagnitude(other);
       }
     }
 

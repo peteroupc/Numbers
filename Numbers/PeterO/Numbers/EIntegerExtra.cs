@@ -439,7 +439,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Byte)~PeterO.Numbers.EInteger"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(System.Boolean)~PeterO.Numbers.EInteger"]/*'/>
     public static explicit operator EInteger(bool boolValue) {
       return EInteger.FromBoolean(boolValue);
     }

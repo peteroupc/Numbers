@@ -101,13 +101,15 @@ namespace PeterO.Numbers {
 
     private ERational(EInteger numerator, EInteger denominator, int flags) {
 #if DEBUG
-if ((numerator) == null) {
+if (numerator == null) {
   throw new ArgumentNullException(nameof(numerator));
 }
-if ((denominator) == null) {
+if (denominator == null) {
   throw new ArgumentNullException(nameof(denominator));
 }
-if(denominator.IsZero)throw new ArgumentException();
+if (denominator.IsZero) {
+ throw new ArgumentException();
+}
 #endif
 this.unsignedNumerator = numerator;
 this.denominator = denominator;
@@ -1138,8 +1140,10 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
       }
       EInteger ad = this.Numerator * (EInteger)otherValue.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
-      return new ERational(ad.Abs(), bc.Abs(), resultNeg ?
-        BigNumberFlags.FlagNegative : 0);
+      return new ERational(
+  ad.Abs(),
+  bc.Abs(),
+  resultNeg ? BigNumberFlags.FlagNegative : 0);
     }
 
     /// <include file='../../docs.xml'
@@ -1249,15 +1253,19 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
       EInteger ac = this.Numerator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       return ac.IsZero ? (resultNeg ? NegativeZero : Zero) :
-  new ERational(ac.Abs(), bd.Abs(), resultNeg ? BigNumberFlags.FlagNegative :
-                    0);
+  new ERational(
+  ac.Abs(),
+  bd.Abs(),
+  resultNeg ? BigNumberFlags.FlagNegative : 0);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Negate"]/*'/>
     public ERational Negate() {
-      return new ERational(this.unsignedNumerator, this.denominator,
-        this.flags ^ BigNumberFlags.FlagNegative);
+      return new ERational(
+  this.unsignedNumerator,
+  this.denominator,
+  this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
@@ -1304,8 +1312,10 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
       bc = thisDen * (EInteger)tnum;
       tden *= (EInteger)thisDen;
       ad -= (EInteger)bc;
-      return new ERational(ad.Abs(), tden.Abs(), resultNeg ?
-        BigNumberFlags.FlagNegative : 0);
+      return new ERational(
+  ad.Abs(),
+  tden.Abs(),
+  resultNeg ? BigNumberFlags.FlagNegative : 0);
     }
 
     /// <include file='../../docs.xml'

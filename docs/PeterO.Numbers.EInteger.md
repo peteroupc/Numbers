@@ -35,6 +35,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Equals(PeterO.Numbers.EInteger)](#Equals_PeterO_Numbers_EInteger)</code> - Determines whether this object and another object are equal.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Not documented yet.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[FromBytes(byte[], bool)](#FromBytes_byte_bool)</code> - Initializes an arbitrary-precision integer from an array of bytes.
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision integer.
@@ -524,6 +525,23 @@ Determines whether this object and another object are equal.
  `true
       ` if this object and another object are equal; otherwise, `false
       ` .
+
+<a id="FromBoolean_bool"></a>
+### FromBoolean
+
+    public static PeterO.Numbers.EInteger FromBoolean(
+        bool boolValue);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>boolValue</i>: The parameter <i>boolValue</i>
+is not documented yet.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
 
 <a id="FromByte_byte"></a>
 ### FromByte

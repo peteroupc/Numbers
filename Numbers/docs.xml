@@ -2013,7 +2013,7 @@
       flags if either value is signaling NaN.
     </returns>
     <remarks>
-      TODO: Edit this doc to account for magnitude
+       TODO: Edit this doc to account for magnitude
     </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -5059,6 +5059,16 @@
       greater than 18446744073709551615.
     </exception>
   </doc>
+  <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal'>
     <summary>Converts an arbitrary-precision integer to an arbitrary precision decimal.
 
@@ -5670,7 +5680,7 @@
       flags if either value is signaling NaN.
     </returns>
     <remarks>
-      TODO: Edit this
+       TODO: Edit this
     </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -8318,6 +8328,16 @@
       greater than 18446744073709551615.
     </exception>
   </doc>
+  <doc name='M:PeterO.Numbers.EFloat.op_Explicit(System.Boolean)~PeterO.Numbers.EFloat'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat'>
     <summary>Converts an arbitrary-precision integer to an arbitrary precision binary.
     </summary>
@@ -8770,6 +8790,16 @@
       <c>false
       </c>
        .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision integer.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.FromByte(System.Byte)'>
@@ -9962,6 +9992,22 @@
       <paramref name='input'/>
        is less than 0 or greater than 18446744073709551615.
     </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.op_Explicit(System.Boolean)~PeterO.Numbers.EInteger'>
+    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision integer.
+    </summary>
+    <param name='boolValue'>Either
+      <c>true
+      </c>
+       or
+      <c>false
+      </c>
+       .
+    </param>
+    <returns>The value of
+      <paramref name='inputByte'/>
+       as an arbitrary-precision integer.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_GreaterThan(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
     <summary>Determines whether an arbitrary-precision integer is greater than another
@@ -11624,6 +11670,16 @@
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 18446744073709551615.
     </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.ERational.op_Explicit(System.Boolean)~PeterO.Numbers.ERational'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary rational number.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.ERational'>
     <summary>Converts an arbitrary-precision decimal floating-point number to an
