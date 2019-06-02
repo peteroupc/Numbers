@@ -14,6 +14,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.ERational)](#CompareToTotalMagnitude_PeterO_Numbers_ERational)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
 * <code>[CompareToTotal(PeterO.Numbers.ERational)](#CompareToTotal_PeterO_Numbers_ERational)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareTo(PeterO.Numbers.ERational)](#CompareTo_PeterO_Numbers_ERational)</code> - Compares an arbitrary-precision rational number with this instance.
+* <code>[Copy()](#Copy)</code> - Not documented yet.
 * <code>[CopySign(PeterO.Numbers.ERational)](#CopySign_PeterO_Numbers_ERational)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision rational number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool)</code> - Creates a not-a-number arbitrary-precision rational number.
@@ -124,7 +125,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
 
-Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
+Initializes a new instance of the[PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
 <b>Parameters:</b>
 
@@ -136,6 +137,11 @@ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERat
 
  * System.ArgumentException:
 The denominator is zero.
+
+ * System.ArgumentNullException:
+The parameter  <i>numerator</i>
+ or  <i>denominator</i>
+ is null.
 
 <a id="NaN"></a>
 ### NaN
@@ -429,6 +435,17 @@ Compares the absolute values of this object and another object, imposing a total
 
 The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.
 
+<a id="Copy"></a>
+### Copy
+
+    public PeterO.Numbers.ERational Copy();
+
+Not documented yet.
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary rational number.
+
 <a id="CopySign_PeterO_Numbers_ERational"></a>
 ### CopySign
 
@@ -615,9 +632,20 @@ Either `true
 
 Converts a boolean value (true or false) to an arbitrary-precision rational number.
 
+Converts a boolean value (true or false) to an arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>boolValue</i>: The parameter  <i>boolValue</i>
+is not documented yet.
+
 <b>Return Value:</b>
 
 One if  `boolValue`  is  `true` ; otherwise, zero.
+
+<b>Return Value:</b>
+
+One if  `boolValue`  is  `true`  ; otherwise, zero.
 
 <a id="FromByte_byte"></a>
 ### FromByte

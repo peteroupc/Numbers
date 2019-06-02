@@ -1905,6 +1905,9 @@ public int ToInt32IfExact() {
 /// <summary>Converts a boolean value (true or false) to an
 /// arbitrary-precision binary number.</summary>
 /// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
+    /// <returns>An EFloat object.</returns>
 public static EFloat FromBoolean(bool boolValue) {
  return boolValue ? EFloat.One : EFloat.Zero;
 }

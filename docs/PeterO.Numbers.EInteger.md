@@ -961,7 +961,7 @@ is a 32-bit signed integer.
         PeterO.Numbers.EInteger bigIndex);
 
 Returns whether a bit is set in the two's-complement form (see[
-        &#x22;Forms of numbers&#x22;
+         &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)) of this object' s value.
 
 <b>Parameters:</b>
@@ -972,7 +972,7 @@ Returns whether a bit is set in the two's-complement form (see[
 
  `true
       ` if a bit is set in the two' s-complement form (see[
-        &#x22;Forms of numbers&#x22;
+         &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise, `false
       ` .
 
@@ -1791,8 +1791,8 @@ An arbitrary-precision integer.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>eshift</i>
- is null.
+The parameter <i>eshift</i>
+is null.
 
 <a id="ShiftRight_int"></a>
 ### ShiftRight
@@ -1819,7 +1819,7 @@ An arbitrary-precision integer.
         PeterO.Numbers.EInteger eshift);
 
 Returns an arbitrary-precision integer with the bits shifted to the right. For this operation, the arbitrary-precision integer is treated as a two's-complement form (see[
-        &#x22;Forms of numbers&#x22;
+         &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md)). Thus, for negative values, the arbitrary-precision integer is ign-extended.
 
 <b>Parameters:</b>
