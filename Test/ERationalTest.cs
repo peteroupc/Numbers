@@ -6,10 +6,13 @@ using PeterO.Numbers;
 namespace Test {
   [TestFixture]
   public class ERationalTest {
-    [Test]
-    public void TestConstructor() {
-      // not implemented yet
-    }
+
+[Test]
+public void TestFromBoolean(){
+Assert.AreEqual(ERational.Zero,ERational.FromBoolean(false));
+Assert.AreEqual(ERational.One,ERational.FromBoolean(true));
+}
+
     [Test]
     public void TestAbs() {
       // not implemented yet

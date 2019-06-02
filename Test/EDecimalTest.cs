@@ -122,6 +122,12 @@ namespace Test {
       }
     }
 
+[Test]
+public void TestFromBoolean(){
+Assert.AreEqual(EDecimal.Zero,EDecimal.FromBoolean(false));
+Assert.AreEqual(EDecimal.One,EDecimal.FromBoolean(true));
+}
+
     [Test]
     public void TestPrecisionOneHalfEven() {
       EDecimal edec = EDecimal.FromString("9.5e-1");

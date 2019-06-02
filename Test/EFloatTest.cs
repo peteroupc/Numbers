@@ -61,6 +61,13 @@ namespace Test {
       return EFloat.Create(ret, (EInteger)smallExponent);
     }
 
+
+[Test]
+public void TestFromBoolean(){
+Assert.AreEqual(EFloat.Zero,EFloat.FromBoolean(false));
+Assert.AreEqual(EFloat.One,EFloat.FromBoolean(true));
+}
+
     [Test]
     public void TestAbs() {
       // not implemented yet

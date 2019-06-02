@@ -232,6 +232,10 @@ namespace PeterO.Numbers {
                     newnegative));
     }
 
+public static EInteger FromBoolean(bool boolValue){
+return boolValue ? ValueOne : ValueZero;
+}
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
     public static EInteger FromInt32(int intValue) {

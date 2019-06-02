@@ -8,6 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
+// TODO: Move And/Or/Not/Xor from EIntegerExtra to EInteger
   public sealed partial class EInteger {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromUInt64(System.UInt64)"]/*'/>
@@ -435,6 +436,12 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Byte"]/*'/>
     public static explicit operator byte(EInteger input) {
       return input.ToByteChecked();
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Implicit(System.Byte)~PeterO.Numbers.EInteger"]/*'/>
+    public static explicit operator EInteger(bool boolValue) {
+      return EInteger.FromBoolean(boolValue);
     }
 
     /// <include file='../../docs.xml'

@@ -362,6 +362,12 @@ namespace Test {
       return BigFromBytes(bytes);
     }
 
+[Test]
+public void TestFromBoolean(){
+Assert.AreEqual(EInteger.One,EInteger.FromBoolean(true));
+Assert.AreEqual(EInteger.Zero,EInteger.FromBoolean(false));
+}
+
     [Test]
     public void TestAdd() {
       var posSmall = (EInteger)5;
