@@ -451,7 +451,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
     /// zero.</returns>
 public static EDecimal FromBoolean(bool boolValue) {
- return boolValue ? EDecimal.Zero : EDecimal.One;
+ return boolValue ? EDecimal.One : EDecimal.Zero;
 }
 
     /// <include file='../../docs.xml'

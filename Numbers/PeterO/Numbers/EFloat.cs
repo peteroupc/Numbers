@@ -1922,7 +1922,7 @@ public int ToInt32IfExact() {
     /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
     /// zero.</returns>
 public static EFloat FromBoolean(bool boolValue) {
- return boolValue ? EFloat.Zero : EFloat.One;
+ return boolValue ? EFloat.One : EFloat.Zero;
 }
 
     /// <include file='../../docs.xml'
