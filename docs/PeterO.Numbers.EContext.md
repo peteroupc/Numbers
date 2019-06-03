@@ -2,16 +2,7 @@
 
     public sealed class EContext
 
-Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).<b>Thread safety:</b>With one exception, instances of this class are immutable and are safe o use among multiple threads. The one exception involves the `Flags
-        ` property. If the context's `HasFlags
-        ` property (a read-only property) is `true
-        ` , the `Flags
-        ` property is mutable, thus making the context mutable. This class oesn't synchronize access to such mutable contexts, so applications hould provide their own synchronization if a context with the `HasFlags
-        ` property set to `true
-        ` will be shared among multiple threads and at least one of those threads eeds to write the `Flags
-        ` property (which can happen, for example, by passing the context to most ethods of `EDecimal
-        ` such as `Add
-        ` ).
+Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).<b>Thread safety:</b> With one exception, instances of this class are immutable and are safe to use among multiple threads. The one exception involves the `Flags`  property. If the context's `HasFlags`  property (a read-only property) is `true`  , the `Flags`  property is mutable, thus making the context mutable. This class doesn't synchronize access to such mutable contexts, so applications should provide their own synchronization if a context with the `HasFlags`  property set to `true`  will be shared among multiple threads and at least one of those threads needs to write the `Flags`  property (which can happen, for example, by passing the context to most methods of `EDecimal`  such as `Add`  ).
 
 ### Member Summary
 * <code>[AdjustExponent](#AdjustExponent)</code> - Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property.
@@ -165,8 +156,7 @@ An arithmetic context for the IEEE-754-2008 binary64 format, 53 bits precision. 
 
 An arithmetic context for the .NET Framework decimal format (see[
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)), 96 bits precision, and a valid exponent range of -28 to 0. The default ounding mode is HalfEven. (The `"Cli"
-      ` stands for "Common Language Infrastructure", which defined this format as he .NET Framework decimal format in version 1, but leaves it unspecified n later versions.).
+      ](PeterO.Numbers.EDecimal.md)), 96 bits precision, and a valid exponent range of -28 to 0. The default ounding mode is HalfEven. (The `"Cli"`  stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.).
 
 <a id="Decimal128"></a>
 ### Decimal128
@@ -275,8 +265,7 @@ Gets a value indicating whether the EMax and EMin properties refer to the number
 
 <b>Returns:</b>
 
- `true
-      ` if the EMax and EMin properties refer to the number's Exponent property djusted to the number's precision, or false if they refer to just the umber's Exponent property.
+ `true`  if the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or false if they refer to just the number's Exponent property.
 
 <a id="ClampNormalExponents"></a>
 ### ClampNormalExponents
@@ -316,17 +305,11 @@ The lowest exponent possible when a converted number is expressed in scientific 
 
     public int Flags { get; set; }
 
-Gets or sets the flags that are set from converting numbers according to this arithmetic context. If `HasFlags
-      ` is false, this value will be 0. This value is a combination of bit ields. To retrieve a particular flag, use the AND operation on the return alue of this method. For example: `(this.Flags & EContext.FlagInexact) != 0
-      ` returns `true
-      ` if the Inexact flag is set.
+Gets or sets the flags that are set from converting numbers according to this arithmetic context. If `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example: `(this.Flags & EContext.FlagInexact) != 0`  returns `true`  if the Inexact flag is set.
 
 <b>Returns:</b>
 
-The flags that are set from converting numbers according to this arithmetic context. If `HasFlags
-      ` is false, this value will be 0. This value is a combination of bit ields. To retrieve a particular flag, use the AND operation on the return alue of this method. For example: `(this.Flags & EContext.FlagInexact) != 0
-      ` returns `true
-      ` if the Inexact flag is set.
+The flags that are set from converting numbers according to this arithmetic context. If `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example: `(this.Flags & EContext.FlagInexact) != 0`  returns `true`  if the Inexact flag is set.
 
 <a id="HasExponentRange"></a>
 ### HasExponentRange
@@ -337,11 +320,7 @@ Gets a value indicating whether this context defines a minimum and maximum expon
 
 <b>Returns:</b>
 
- `true
-      ` if this context defines a minimum and maximum exponent; otherwise, `false
-      ` .. If false, converted exponents can have any exponent and operations an't cause overflow or underflow. `true
-      ` if this context defines a minimum and maximum exponent; otherwise, `false
-      ` .
+ `true`  if this context defines a minimum and maximum exponent; otherwise, `false`  .. If false, converted exponents can have any exponent and operations can't cause overflow or underflow. `true`  if this context defines a minimum and maximum exponent; otherwise, `false`  .
 
 <a id="HasFlags"></a>
 ### HasFlags
@@ -352,9 +331,7 @@ Gets a value indicating whether this context has a mutable Flags field.
 
 <b>Returns:</b>
 
- `true
-      ` if this context has a mutable Flags field; otherwise, `false
-      ` .
+ `true`  if this context has a mutable Flags field; otherwise, `false`  .
 
 <a id="HasMaxPrecision"></a>
 ### HasMaxPrecision
@@ -365,9 +342,7 @@ Gets a value indicating whether this context defines a maximum precision.
 
 <b>Returns:</b>
 
- `true
-      ` if this context defines a maximum precision; otherwise, `false
-      ` .
+ `true`  if this context defines a maximum precision; otherwise, `false`  .
 
 <a id="IsPrecisionInBits"></a>
 ### IsPrecisionInBits
@@ -378,28 +353,18 @@ Gets a value indicating whether this context's Precision property is in bits, ra
 
 <b>Returns:</b>
 
- `true
-      ` if this context's Precision property is in bits, rather than digits; therwise, `false
-      ` .. The default is false. `true
-      ` if this context's Precision property is in bits, rather than digits; therwise, `false
-      ` . The default is false.
+ `true`  if this context's Precision property is in bits, rather than digits; otherwise, `false`  .. The default is false. `true`  if this context's Precision property is in bits, rather than digits; otherwise, `false`  . The default is false.
 
 <a id="IsSimplified"></a>
 ### IsSimplified
 
     public bool IsSimplified { get; }
 
-Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see<a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html
-        ` </a>
+Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see<a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html` </a>
 
 <b>Returns:</b>
 
- `true
-      ` if to use a "simplified" arithmetic; otherwise, `false
-      ` .. In the simplified arithmetic, infinity, not-a-number, and subnormal umbers are not allowed, and negative zero is treated the same as positive ero. For further details, see<a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html
-        ` </a>. `true
-      ` if a "simplified" arithmetic will be used; otherwise, `false
-      ` .
+ `true`  if to use a "simplified" arithmetic; otherwise, `false`  .. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see<a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html` </a>. `true`  if a "simplified" arithmetic will be used; otherwise, `false`  .
 
 <a id="Precision"></a>
 ### Precision
@@ -428,15 +393,11 @@ The desired rounding mode when converting numbers that can't be represented in t
 
     public int Traps { get; }
 
-Gets the traps that are set for each flag in the context. Whenever a flag is signaled, even if `HasFlags
-      ` is false, and the flag's trap is enabled, the operation will throw a rapException.For example, if Traps equals `FlagInexact
-        ` and FlagSubnormal, a TrapException will be thrown if an operation's eturn value is not the same as the exact result (FlagInexact) or if the eturn value's exponent is lower than the lowest allowed FlagSubnormal).
+Gets the traps that are set for each flag in the context. Whenever a flag is signaled, even if `HasFlags`  is false, and the flag's trap is enabled, the operation will throw a TrapException.For example, if Traps equals `FlagInexact`  and FlagSubnormal, a TrapException will be thrown if an operation's return value is not the same as the exact result (FlagInexact) or if the return value's exponent is lower than the lowest allowed (FlagSubnormal).
 
 <b>Returns:</b>
 
-The traps that are set for each flag in the context. Whenever a flag is signaled, even if `HasFlags
-      ` is false, and the flag's trap is enabled, the operation will throw a rapException.For example, if Traps equals `FlagInexact
-        ` and FlagSubnormal, a TrapException will be thrown if an operation's eturn value is not the same as the exact result (FlagInexact) or if the eturn value's exponent is lower than the lowest allowed FlagSubnormal).
+The traps that are set for each flag in the context. Whenever a flag is signaled, even if `HasFlags`  is false, and the flag's trap is enabled, the operation will throw a TrapException.For example, if Traps equals `FlagInexact`  and FlagSubnormal, a TrapException will be thrown if an operation's return value is not the same as the exact result (FlagInexact) or if the return value's exponent is lower than the lowest allowed (FlagSubnormal).
 
 .
 
@@ -465,9 +426,7 @@ Determines whether a number can have the given Exponent property under this arit
 
 <b>Return Value:</b>
 
- `true
-      ` if a number can have the given Exponent property under this arithmetic ontext; otherwise, `false
-      ` . If this context allows unlimited precision, returns true for the xponent EMax and any exponent less than EMax.
+ `true`  if a number can have the given Exponent property under this arithmetic context; otherwise, `false`  . If this context allows unlimited precision, returns true for the exponent EMax and any exponent less than EMax.
 
 <b>Exceptions:</b>
 
@@ -609,8 +568,7 @@ is null.
 
     public PeterO.Numbers.EContext WithBlankFlags();
 
-Copies this EContext with `HasFlags
-      ` set to true and a Flags value of 0.
+Copies this EContext with `HasFlags`  set to true and a Flags value of 0.
 
 <b>Return Value:</b>
 
@@ -656,8 +614,7 @@ A context object for arbitrary-precision arithmetic settings.
 
     public PeterO.Numbers.EContext WithNoFlags();
 
-Copies this EContext with `HasFlags
-      ` set to false and a Flags value of 0.
+Copies this EContext with `HasFlags`  set to false and a Flags value of 0.
 
 <b>Return Value:</b>
 
@@ -733,8 +690,7 @@ A context object for arbitrary-precision arithmetic settings.
     public PeterO.Numbers.EContext WithTraps(
         int traps);
 
-Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to `True
-      ` , but this may change in version 2.0 of this library.).
+Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to `True`  , but this may change in version 2.0 of this library.).
 
 <b>Parameters:</b>
 

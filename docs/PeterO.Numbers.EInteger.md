@@ -10,8 +10,7 @@ Represents an arbitrary-precision integer. (The "E" stands for "extended", and h
 
 It is not recommended to implement security-sensitive algorithms using the methods in this class, for several reasons:
 
- *  `EInteger
-          ` objects are immutable, so they can't be modified, and the memory they ccupy is not guaranteed to be cleared in a timely fashion due to arbage collection. This is relevant for applications that use any-bit-long numbers as secret parameters.
+ *  `EInteger`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-bit-long numbers as secret parameters.
 
  * The methods in this class (especially those that involve arithmetic) are not guaranteed to run in constant time for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
@@ -137,9 +136,7 @@ Gets a value indicating whether this value is even.
 
 <b>Returns:</b>
 
- `true
-      ` if this value is even; otherwise, `false
-      ` .
+ `true`  if this value is even; otherwise, `false`  .
 
 <a id="IsPowerOfTwo"></a>
 ### IsPowerOfTwo
@@ -150,9 +147,7 @@ Gets a value indicating whether this object's value is a power of two, and great
 
 <b>Returns:</b>
 
- `true
-      ` if this object' s value is a power of two, and greater than 0; otherwise, `false
-      ` .
+ `true`  if this object' s value is a power of two, and greater than 0; otherwise, `false`  .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -163,9 +158,7 @@ Gets a value indicating whether this value is 0.
 
 <b>Returns:</b>
 
- `true
-      ` if this value is 0; otherwise, `false
-      ` .
+ `true`  if this value is 0; otherwise, `false`  .
 
 <a id="One"></a>
 ### One
@@ -368,9 +361,7 @@ Returns whether this object's value can fit in a 32-bit signed integer.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object's value is from -2147483648 through 2147483647; otherwise, `false
-      ` .
+ `true`  if this object's value is from -2147483648 through 2147483647; otherwise, `false`  .
 
 <a id="CanFitInInt64"></a>
 ### CanFitInInt64
@@ -381,9 +372,7 @@ Returns whether this object's value can fit in a 64-bit signed integer.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object's value is from -9223372036854775808 through 223372036854775807; otherwise, `false
-      ` .
+ `true`  if this object's value is from -9223372036854775808 through 9223372036854775807; otherwise, `false`  .
 
 <a id="CompareTo_int"></a>
 ### CompareTo
@@ -504,9 +493,7 @@ is an arbitrary object.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object and another object are equal; otherwise, `false
-      ` .
+ `true`  if this object and another object are equal; otherwise, `false`  .
 
 <a id="Equals_PeterO_Numbers_EInteger"></a>
 ### Equals
@@ -522,9 +509,7 @@ Determines whether this object and another object are equal.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object and another object are equal; otherwise, `false
-      ` .
+ `true`  if this object and another object are equal; otherwise, `false`  .
 
 <a id="FromBoolean_bool"></a>
 ### FromBoolean
@@ -576,15 +561,9 @@ Initializes an arbitrary-precision integer from an array of bytes.
 
  * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
 
- * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as `0x01, 0x2C
-          ` and 200 as `0x00, 0xC8
-          ` . (Note that the second example contains a set high bit in `0xC8
-          ` , so an additional 0 is added at the start to ensure it's interpreted s positive.)
+ * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as `0x01, 0x2C`  and 200 as `0x00, 0xC8`  . (Note that the second example contains a set high bit in `0xC8`  , so an additional 0 is added at the start to ensure it's interpreted as positive.)
 
- * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as `0xfe, 0x70
-          ` and -52869 as `0xff, 0x31, 0x7B
-          ` . (Note that the second example contains a cleared high bit in `0x31, 0x7B
-          ` , so an additional 0xff is added at the start to ensure it's nterpreted as negative.)
+ * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as `0xfe, 0x70`  and -52869 as `0xff, 0x31, 0x7B`  . (Note that the second example contains a cleared high bit in `0x31, 0x7B`  , so an additional 0xff is added at the start to ensure it's interpreted as negative.)
 
 For little-endian, the byte order is reversed from the byte order just discussed.
 
@@ -966,11 +945,9 @@ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
- `true
-      ` if a bit is set in the two' s-complement form (see[
+ `true`  if a bit is set in the two' s-complement form (see[
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise, `false
-      ` .
+      ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise, `false`  .
 
 <a id="GetSignedBit_PeterO_Numbers_EInteger"></a>
 ### GetSignedBit
@@ -988,11 +965,9 @@ Returns whether a bit is set in the two's-complement form (see[
 
 <b>Return Value:</b>
 
- `true
-      ` if a bit is set in the two' s-complement form (see[
+ `true`  if a bit is set in the two' s-complement form (see[
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise, `false
-      ` .
+      ](PeterO.Numbers.EDecimal.md)) of this object' s value; otherwise, `false`  .
 
 <b>Exceptions:</b>
 
@@ -1043,8 +1018,7 @@ Returns whether a bit is set in this number's absolute value.
 
 <b>Return Value:</b>
 
- `true
-      ` if a bit is set in this number's absolute value.
+ `true`  if a bit is set in this number's absolute value.
 
 <a id="GetUnsignedBit_PeterO_Numbers_EInteger"></a>
 ### GetUnsignedBit
@@ -1060,8 +1034,7 @@ Returns whether a bit is set in this number's absolute value.
 
 <b>Return Value:</b>
 
- `true
-      ` if a bit is set in this number's absolute value.
+ `true`  if a bit is set in this number's absolute value.
 
 <b>Exceptions:</b>
 
@@ -1402,11 +1375,9 @@ Determines whether an arbitrary-precision integer is greater than another arbitr
 
 <b>Return Value:</b>
 
- `true
-      ` if <i>thisValue</i>
+ `true`  if <i>thisValue</i>
 is greater than <i>otherValue</i>
-; otherwise, `false
-      ` .
+; otherwise, `false`  .
 
 <a id="op_GreaterThanOrEqual"></a>
 ### Operator `>=`
@@ -1425,11 +1396,9 @@ Determines whether an arbitrary-precision integer value is greater than another 
 
 <b>Return Value:</b>
 
- `true
-      ` if <i>thisValue</i>
+ `true`  if <i>thisValue</i>
 is at least <i>otherValue</i>
-; otherwise, `false
-      ` .
+; otherwise, `false`  .
 
 <a id="op_LeftShift"></a>
 ### Operator `<<`
@@ -1473,11 +1442,9 @@ Determines whether an arbitrary-precision integer is less than another arbitrary
 
 <b>Return Value:</b>
 
- `true
-      ` if <i>thisValue</i>
+ `true`  if <i>thisValue</i>
 is less than <i>otherValue</i>
-; otherwise, `false
-      ` .
+; otherwise, `false`  .
 
 <a id="op_LessThanOrEqual"></a>
 ### Operator `<=`
@@ -1496,11 +1463,9 @@ Determines whether an arbitrary-precision integer is up to another arbitrary-pre
 
 <b>Return Value:</b>
 
- `true
-      ` if <i>thisValue</i>
+ `true`  if <i>thisValue</i>
 is up to <i>otherValue</i>
-; otherwise, `false
-      ` .
+; otherwise, `false`  .
 
 <a id="op_Modulus"></a>
 ### Operator `%`
@@ -1939,14 +1904,11 @@ This value is less than 0 or greater than 255.
 
 Returns a byte array of this integer's value. The byte array will take the number's two' s-complement form (see[
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)), using the fewest bytes necessary to store its value unambiguously. If his value is negative, the bits that appear beyond the most significant it of the number will be all ones. The resulting byte array can be passed o the `FromBytes()
-      ` method (with the same byte order) to reconstruct this integer's value.
+      ](PeterO.Numbers.EDecimal.md)), using the fewest bytes necessary to store its value unambiguously. If his value is negative, the bits that appear beyond the most significant it of the number will be all ones. The resulting byte array can be passed o the `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
 
 <b>Parameters:</b>
 
- * <i>littleEndian</i>: Either `true
-      ` or `false
-      ` .
+ * <i>littleEndian</i>: Either `true`  or `false`  .
 
 <b>Return Value:</b>
 

@@ -1899,8 +1899,10 @@
   <doc name='M:PeterO.Numbers.EDecimal.CreateNaN(PeterO.Numbers.EInteger)'>
     <summary>Creates a not-a-number arbitrary-precision decimal number.
     </summary>
-    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with this object. If
-      none is needed, should be zero.  To get the diagnostic information from another EDecimal object, use that object's <c>UnsignedMantissa</c> property.
+    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
+      this object. If none is needed, should be zero. To get the diagnostic
+      information from another EDecimal object, use that object's
+      <c>UnsignedMantissa</c> property.
     </param>
     <returns>A quiet not-a-number.
     </returns>
@@ -1908,8 +1910,10 @@
   <doc name='M:PeterO.Numbers.EDecimal.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean,PeterO.Numbers.EContext)'>
     <summary>Creates a not-a-number arbitrary-precision decimal number.
     </summary>
-    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with this object. If
-      none is needed, should be zero.  To get the diagnostic information from another EDecimal object, use that object's <c>UnsignedMantissa</c> property.
+    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
+      this object. If none is needed, should be zero. To get the diagnostic
+      information from another EDecimal object, use that object's
+      <c>UnsignedMantissa</c> property.
     </param>
     <param name='signaling'>Whether the return value will be signaling (true) or quiet (false).
     </param>
@@ -5352,8 +5356,11 @@
   <doc name='M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger)'>
     <summary>Creates a not-a-number arbitrary-precision binary float.
     </summary>
-    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with this object. If
-      none is needed, should be zero.  To get the diagnostic information from another EFloat object, use that object's <c>UnsignedMantissa</c> property.
+    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
+      this object. If none is needed, should be zero. To get the diagnostic
+      information from another arbitrary-precision binary floating-point number,
+      use that object's
+      <c>UnsignedMantissa</c> property.
     </param>
     <returns>A quiet not-a-number.
     </returns>
@@ -5365,8 +5372,11 @@
   <doc name='M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean,PeterO.Numbers.EContext)'>
     <summary>Creates a not-a-number arbitrary-precision binary float.
     </summary>
-    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with this object. If
-      none is needed, should be zero.  To get the diagnostic information from another EFloat object, use that object's <c>UnsignedMantissa</c> property.
+    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
+      this object. If none is needed, should be zero. To get the diagnostic
+      information from another arbitrary-precision binary floating-point number,
+      use that object's
+      <c>UnsignedMantissa</c> property.
     </param>
     <param name='signaling'>Whether the return value will be signaling (true) or quiet (false).
     </param>
@@ -9797,8 +9807,11 @@
   <doc name='M:PeterO.Numbers.ERational.CreateNaN(PeterO.Numbers.EInteger)'>
     <summary>Creates a not-a-number arbitrary-precision rational number.
     </summary>
-    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with this object. If
-      none is needed, should be zero.  To get the diagnostic information from another ERational object, use that object's <c>UnsignedNumerator</c> property.
+    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
+      this object. If none is needed, should be zero. To get the diagnostic
+      information from another arbitrary-precision binary rational number, use
+      that object's
+      <c>UnsignedNumerator</c> property.
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
@@ -9808,8 +9821,11 @@
   <doc name='M:PeterO.Numbers.ERational.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean)'>
     <summary>Creates a not-a-number arbitrary-precision rational number.
     </summary>
-    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with this object. If
-      none is needed, should be zero. To get the diagnostic information from another ERational object, use that object's <c>UnsignedNumerator</c> property.
+    <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
+      this object. If none is needed, should be zero. To get the diagnostic
+      information from another arbitrary-precision binary rational number, use
+      that object's
+      <c>UnsignedNumerator</c> property.
     </param>
     <param name='signaling'>Whether the return value will be signaling (true) or quiet (false).
     </param>

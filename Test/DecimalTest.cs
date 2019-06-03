@@ -289,6 +289,10 @@ if (op.Equals("and")) {
  d3 = EDecimalExtras.Invert(d1, ctx);
   } else if (op.Equals("rescale")) {
  d3 = EDecimalExtras.Rescale(d1, d2, ctx);
+  } else if (op.Equals("shift")) {
+ d3 = EDecimalExtras.Shift(d1, d2, ctx);
+  } else if (op.Equals("rotate")) {
+ d3 = EDecimalExtras.Rotate(d1, d2, ctx);
   } else if (op.Equals("logb")) {
  d3 = EDecimalExtras.LogB(d1, ctx);
   } else if (op.Equals("scaleb")) {

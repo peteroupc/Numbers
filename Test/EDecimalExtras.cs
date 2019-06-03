@@ -9,14 +9,14 @@ namespace Test {
       return EDecimal.FromInt32(DecimalRadix).RoundToPrecision(ec);
     }
 
-    public static EDecimal Int32ToDecimal(int i32, EContext ec) {
+    public static EDecimal Int32ToEDecimal(int i32, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
       // miscellaneous operations here return integers
       return EDecimal.FromInt32(i32).RoundToPrecision(ec);
     }
 
-    public static EDecimal BoolToDecimal(bool b, EContext ec) {
+    public static EDecimal BoolToEDecimal(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
       // miscellaneous operations here return booleans
@@ -159,35 +159,102 @@ return ed.ScaleByPowerOfTen(scale, ec);
       if (ed.IsNaN() || ed2.IsNaN()) {
         return ed.Add(ed2, ec);
       }
-      if (ed.IsInfinity()) {
- return ed;
-}
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-throw new NotImplementedException();
+EInteger shift = ed2.Mantissa;
+if (ec != null) {
+  if (shift.Abs().CompareTo(ec.Precision)>0) {
+    return InvalidOperation(EDecimal.NaN, ec);
+  }
+}
+if (ed.IsInfinity()) {
+ // NOTE: Must check for validity of second
+ // parameter first, before checking if first
+ // parameter is infinity here
+ return ed;
+}
+EInteger mant = ed.UnsignedMantissa;
+if (mant.IsZero) {
+   return ed.RoundToPrecision(ec);
+}
+EInteger mantprec = ed.Precision();
+EInteger radix = EInteger.FromInt32(DecimalRadix);
+if (shift.Sign< 0) {
+  if (shift.Abs().CompareTo(mantprec)< 0) {
+   // TODO: Add Pow(EInteger)
+   EInteger divisor = radix.Pow(shift.Abs().ToInt32Checked());
+   mant = mant.Divide(divisor);
+  } else {
+   mant = EInteger.Zero;
+  }
+  EDecimal ret = EDecimal.Create(mant, ed.Exponent);
+  return ed.IsNegative ? ret.Negate() : ret;
+} else {
+  // TODO: Add Pow(EInteger)
+  EInteger mult = radix.Pow(shift.ToInt32Checked());
+  mant = mant.Multiply(mult);
+  if (ec != null && ec.HasMaxPrecision) {
+    EInteger mod = radix.Pow(ec.Precision.ToInt32Checked());
+    mant = mant.Remainder(mod);
+  }
+  EDecimal ret = EDecimal.Create(mant, ed.Exponent);
+  return ed.IsNegative ? ret.Negate() : ret;
+}
     }
 
     public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
-if (ec != null || !ec.HasMaxPrecision) {
+if (ec == null || !ec.HasMaxPrecision) {
  return Shift(ed, ed2, ec);
-}
-      if (ed == null) {
-  throw new ArgumentNullException(nameof(ed));
-}
-      if (ed2 == null) {
-  throw new ArgumentNullException(nameof(ed2));
 }
       if (ed.IsNaN() || ed2.IsNaN()) {
         return ed.Add(ed2, ec);
       }
-      if (ed.IsInfinity()) {
- return ed;
-}
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      throw new NotImplementedException();
+EInteger shift = ed2.Mantissa;
+if (shift.Abs().CompareTo(ec.Precision)>0) {
+  return InvalidOperation(EDecimal.NaN, ec);
+}
+if (ed.IsInfinity()) {
+ // NOTE: Must check for validity of second
+ // parameter first, before checking if first
+ // parameter is infinity here
+ return ed;
+}
+EInteger mant = ed.UnsignedMantissa;
+if (mant.IsZero) {
+   return ed.RoundToPrecision(ec);
+}
+EInteger mantprec = ed.Precision();
+EInteger rightShift = shift.Sign<0 ? shift.Abs() : ec.Precision.Subtract(shift);
+EInteger leftShift = ec.Precision.Subtract(rightShift);
+EInteger mantRight = EInteger.Zero;
+EInteger mantLeft = EInteger.Zero;
+EInteger radix = EInteger.FromInt32(DecimalRadix);
+// Right shift
+// TODO: Add Pow(EInteger)
+if (rightShift.CompareTo(mantprec)< 0) {
+   EInteger divisor = radix.Pow(rightShift.ToInt32Checked());
+   mantRight = mant.Divide(divisor);
+} else {
+   mantRight = EInteger.Zero;
+}
+// Left shift
+// TODO: Add Pow(EInteger)
+if (leftShift.IsZero) {
+   mantLeft = mant;
+} else if (leftShift.CompareTo(ec.Precision) == 0) {
+   mantLeft = EInteger.Zero;
+} else {
+   EInteger mult = radix.Pow(leftShift.ToInt32Checked());
+   mantLeft = mant.Multiply(mult);
+   EInteger mod = radix.Pow(ec.Precision.ToInt32Checked());
+   mantLeft = mantLeft.Remainder(mod);
+}
+EDecimal ret = EDecimal.Create(mantRight.Add(mantLeft), ed.Exponent);
+return ed.IsNegative ? ret.Negate() : ret;
     }
 
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
@@ -249,9 +316,6 @@ EDecimal ed = ed1;
 if (ed1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-//if (ec != null && ec.IsSimplified) {
- ed = ed.RoundToPrecision(ec);
-}
 if (ed.IsSignalingNaN()) {
  return EDecimal.CreateNaN(ed.UnsignedMantissa,
     true, ed.IsNegative, ec);
@@ -268,7 +332,7 @@ if (ed.IsFinite) {
    EInteger exp = ed.Exponent;
    EInteger mant = ed.UnsignedMantissa;
    bool neg = ed.IsNegative;
-   bool trimmed = false;
+   var trimmed = false;
    EInteger radixint = EInteger.FromInt32(DecimalRadix);
    while (exp.Sign<0 && mant.Sign>0) {
     EInteger[] divrem = mant.DivRem(radixint);
@@ -405,8 +469,7 @@ if (bytes == null) {
       for (var i = bytes.Length - 1; i >= 0; --i) {
         int b = bytes[i];
         for (var j = 7; j >= 0; --j) {
-       ret = ((bytes[i] & (1 << j)) != 0) ?
-            ret.Multiply(DecimalRadix).Add(1) :
+       ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(DecimalRadix).Add(1) :
             ret.Multiply(DecimalRadix);
         }
       }

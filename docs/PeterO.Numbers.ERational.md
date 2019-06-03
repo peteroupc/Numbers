@@ -4,7 +4,7 @@
         System.IEquatable,
         System.IComparable
 
-Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b>Instances of this class are immutable, so they are inherently safe for se by multiple threads. Multiple instances of this object with the same roperties are interchangeable, so they should not be compared using the ==" operator (which might only check if each side of the operator is he same instance).
+Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.)<b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
 
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
@@ -219,9 +219,7 @@ Gets a value indicating whether this object is finite (not infinity or NaN).
 
 <b>Returns:</b>
 
- `true
-      ` if this object is finite (not infinity or NaN); otherwise, `false
-      ` .
+ `true`  if this object is finite (not infinity or NaN); otherwise, `false`  .
 
 <a id="IsNegative"></a>
 ### IsNegative
@@ -232,11 +230,7 @@ Gets a value indicating whether this object's value is negative (including negat
 
 <b>Returns:</b>
 
- `true
-      ` if this object's value is negative (including negative zero); otherwise, `false
-      ` . `true
-      ` if this object's value is negative; otherwise, `false
-      ` .
+ `true`  if this object's value is negative (including negative zero); otherwise, `false`  . `true`  if this object's value is negative; otherwise, `false`  .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -247,11 +241,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true
-      ` if this object's value equals 0; otherwise, `false
-      ` . `true
-      ` if this object' s value equals 0; otherwise, . `false
-      ` .
+ `true`  if this object's value equals 0; otherwise, `false`  . `true`  if this object' s value equals 0; otherwise, . `false`  .
 
 <a id="Numerator"></a>
 ### Numerator
@@ -525,7 +515,7 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another ERational object, use that object's  `UnsignedNumerator`  property.
 
 <b>Return Value:</b>
 
@@ -548,7 +538,7 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: A number to use as diagnostic information associated with this object. If none is needed, should be zero.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another ERational object, use that object's  `UnsignedNumerator`  property.
 
  * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
 
@@ -602,9 +592,7 @@ is an arbitrary object.
 
 <b>Return Value:</b>
 
- `true
-      ` if the objects are equal; otherwise, `false
-      ` .
+ `true`  if the objects are equal; otherwise, `false`  .
 
 <a id="Equals_PeterO_Numbers_ERational"></a>
 ### Equals
@@ -620,9 +608,7 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Return Value:</b>
 
-Either `true
-      ` or `false
-      ` .
+Either `true`  or `false`  .
 
 <a id="FromBoolean_bool"></a>
 ### FromBoolean
@@ -669,13 +655,11 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromDecimal(
         System.Decimal eint);
 
-Converts a `decimal
-      ` under the Common Language Infrastructure (usually a .NET Framework ecimal) to a rational number.
+Converts a `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal) to a rational number.
 
 <b>Parameters:</b>
 
- * <i>eint</i>: The number to convert as a `decimal
-      ` under the Common Language Infrastructure (usually a .NET Framework ecimal).
+ * <i>eint</i>: The number to convert as a `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <b>Return Value:</b>
 
@@ -879,8 +863,7 @@ A rational number with the same value as "flt".
     public static PeterO.Numbers.ERational FromString(
         string str);
 
-Creates a rational number from a text string that represents a number. See `FromString(String, int, int)
-      ` for more information.
+Creates a rational number from a text string that represents a number. See `FromString(String, int, int)`  for more information.
 
 <b>Parameters:</b>
 
@@ -1008,9 +991,7 @@ Gets a value indicating whether this object's value is infinity.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object's value is infinity; otherwise, `false
-      ` .
+ `true`  if this object's value is infinity; otherwise, `false`  .
 
 <a id="IsNaN"></a>
 ### IsNaN
@@ -1021,9 +1002,7 @@ Returns whether this object is a not-a-number value.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object is a not-a-number value; otherwise, `false
-      ` .
+ `true`  if this object is a not-a-number value; otherwise, `false`  .
 
 <a id="IsNegativeInfinity"></a>
 ### IsNegativeInfinity
@@ -1034,9 +1013,7 @@ Returns whether this object is negative infinity.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object is negative infinity; otherwise, `false
-      ` .
+ `true`  if this object is negative infinity; otherwise, `false`  .
 
 <a id="IsPositiveInfinity"></a>
 ### IsPositiveInfinity
@@ -1047,9 +1024,7 @@ Returns whether this object is positive infinity.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object is positive infinity; otherwise, `false
-      ` .
+ `true`  if this object is positive infinity; otherwise, `false`  .
 
 <a id="IsQuietNaN"></a>
 ### IsQuietNaN
@@ -1060,9 +1035,7 @@ Returns whether this object is a quiet not-a-number value.
 
 <b>Return Value:</b>
 
- `true
-      ` if this object is a quiet not-a-number value; otherwise, `false
-      ` .
+ `true`  if this object is a quiet not-a-number value; otherwise, `false`  .
 
 <a id="IsSignalingNaN"></a>
 ### IsSignalingNaN
@@ -1073,9 +1046,7 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 
 <b>Return Value:</b>
 
- `true
-      ` if this object is a signaling not-a-number value (which causes an error f the value is passed to any arithmetic operation in this class); therwise, `false
-      ` .
+ `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise, `false`  .
 
 <a id="Multiply_PeterO_Numbers_ERational"></a>
 ### Multiply
@@ -1341,13 +1312,11 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public System.Decimal ToDecimal();
 
-Converts this value to a `decimal
-      ` under the Common Language Infrastructure (usually a .NET Framework ecimal). Currently, converts this value to the precision and range of a NET Framework decimal.
+Converts this value to a `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal). Currently, converts this value to the precision and range of a .NET Framework decimal.
 
 <b>Return Value:</b>
 
-A `decimal
-      ` under the Common Language Infrastructure (usually a .NET Framework ecimal).
+A `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <a id="ToDouble"></a>
 ### ToDouble
@@ -1786,9 +1755,7 @@ Converts this object to a text string.
 
 <b>Return Value:</b>
 
-A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the `EDecimal.ToString
-      ` method. Otherwise, the return value has the following form: `[-]numerator/denominator
-      ` .
+A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the `EDecimal.ToString`  method. Otherwise, the return value has the following form: `[-]numerator/denominator`  .
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked
