@@ -3840,7 +3840,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Reduce(PeterO.Numbers.EContext)'>
-    <summary>Removes trailing zeros from this object's mantissa (significand). For
+    <summary>Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand). For
       example, 1.00 becomes 1.
       <para>If this object's value is 0, changes the exponent to 0.
       </para>
@@ -3977,7 +3977,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      a new exponent if necessary, using the HalfEven rounding mode.
+      a new exponent if necessary, using the HalfEven rounding mode.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponent'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -3992,7 +3992,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      a new exponent if necessary.
+      a new exponent if necessary.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponent'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4019,7 +4019,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      a new exponent if necessary, using the given rounding mode.
+      a new exponent if necessary, using the given rounding mode.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponent'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4036,7 +4036,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      a new exponent if necessary, using the HalfEven rounding mode.
+      a new exponent if necessary, using the HalfEven rounding mode.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponentSmall'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4051,7 +4051,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.EContext)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      a new exponent if necessary.
+      a new exponent if necessary.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponentSmall'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4078,7 +4078,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.ERounding)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      a new exponent if necessary.
+      a new exponent if necessary.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponentSmall'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4094,8 +4094,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      the given exponent, and signals an inexact flag if the result would be
-      inexact.
+      the given exponent represented as an arbitrary-precision integer, and signals an inexact flag if the result would be
+      inexact.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponent'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4122,8 +4122,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)'>
-    <summary>Returns a decimal number with the same value as this object but rounded to
-      an integer, and signals an inexact flag if the result would be inexact.
+    <summary>Returns a decimal number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponentSmall'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4151,7 +4150,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      an integer, and signals an inexact flag if the result would be inexact.
+      the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponentSmall'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -4168,7 +4167,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToIntegerExact(PeterO.Numbers.EContext)'>
     <summary>Returns a decimal number with the same value as this object but rounded to
-      an integer, and signals an inexact flag if the result would be inexact.
+      an integer, and signals an inexact flag if the result would be inexact.    The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
     </summary>
     <param name='ctx'>An arithmetic context to control precision, rounding, and exponent range
       of the result. If
@@ -4194,7 +4193,7 @@
        or
       <c>FlagRounded
       </c>
-       flags.
+       flags.  The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
     </summary>
     <param name='ctx'>An arithmetic context to control precision and rounding of the result. If
       <c>HasFlags
@@ -7249,7 +7248,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Reduce(PeterO.Numbers.EContext)'>
-    <summary>Removes trailing zeros from this object's mantissa (significand). For
+    <summary>Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand). For
       example, 1.00 becomes 1.
       <para>If this object's value is 0, changes the exponent to 0.
       </para>
@@ -7358,7 +7357,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
     <summary>Returns a binary float with the same value as this object but rounded to a
-      new exponent if necessary.
+      new exponent if necessary.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponent'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -7385,7 +7384,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToExponent(System.Int32,PeterO.Numbers.EContext)'>
     <summary>Returns a binary float with the same value as this object but rounded to a
-      new exponent if necessary.
+      new exponent if necessary.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponentSmall'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -7413,7 +7412,7 @@
   <doc name='M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
     <summary>Returns a binary float with the same value as this object but rounded to
       the given exponent, and signals an inexact flag if the result would be
-      inexact.
+      inexact.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponent'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -7441,7 +7440,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)'>
     <summary>Returns a binary number with the same value as this object but rounded to
-      the given exponent.
+      the given exponent.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponent'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -7457,7 +7456,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)'>
     <summary>Returns a binary float with the same value as this object but rounded to
-      an integer, and signals an inexact flag if the result would be inexact.
+      the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.  The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
     </summary>
     <param name='exponentSmall'>The minimum exponent the result can have. This is the maximum number of
       fractional digits in the result, expressed as a negative number. Can also
@@ -7485,7 +7484,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToIntegerExact(PeterO.Numbers.EContext)'>
     <summary>Returns a binary float with the same value as this object but rounded to
-      an integer, and signals an inexact flag if the result would be inexact.
+      an integer, and signals an inexact flag if the result would be inexact.  The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
     </summary>
     <param name='ctx'>An arithmetic context to control precision, rounding, and exponent range
       of the result. If
@@ -7511,7 +7510,7 @@
        or
       <c>FlagRounded
       </c>
-       flags.
+       flags.  The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
     </summary>
     <param name='ctx'>An arithmetic context to control precision and rounding of the result. If
       <c>HasFlags

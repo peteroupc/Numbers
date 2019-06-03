@@ -285,6 +285,8 @@ if (op.Equals("and")) {
  d3 = EDecimalExtras.Rescale(d1, d2, ctx);
   } else if (op.Equals("logb")) {
  d3 = EDecimalExtras.LogB(d1, ctx);
+  } else if (op.Equals("trim")) {
+ d3 = d1.Reduce(ctx);
   } else if (op.Equals("samequantum")) {
  d3 = EDecimal.FromBoolean(EDecimalExtras.SameQuantum(d1, d2));
 } else {
@@ -366,8 +368,8 @@ if (op.Equals("and")) {
                 object objectTemp2 = d3.ToString();
       string messageTemp = name + ": expected: [" + d4.UnsignedMantissa +
                 " " + d4.Exponent +
-                    "]\\n" + "but was: [" + d3.UnsignedMantissa + " " +
-                    d3.Exponent + "]";
+                    "]\n" + "but was: [" + d3.UnsignedMantissa + " " +
+                    d3.Exponent + "]\n" + ln;
                 Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
               }
             }
@@ -459,7 +461,7 @@ if (op.Equals("and")) {
     [Test]
     public void TestDecimalString() {
       var fr = new RandomGenerator();
-      for (var i = 0; i < 1000; ++i) {
+      for (var i = 0; i < 10000; ++i) {
         EDecimal ed = RandomObjects.RandomEDecimal(fr);
         if (!ed.IsFinite) {
           continue;

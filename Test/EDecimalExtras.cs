@@ -143,6 +143,46 @@ if (nc > 9) {
       throw new NotImplementedException();
     }
 
+    public static EDecimal Shift(EDecimal ed, EDecimal ed2, EContext ec) {
+      if (ed == null) {
+  throw new ArgumentNullException(nameof(ed));
+}
+      if (ed2 == null) {
+  throw new ArgumentNullException(nameof(ed2));
+}
+      if (ed.IsNaN() || ed2.IsNaN()) {
+        return ed.Add(ed2, ec);
+      }
+      if (ed.IsInfinity()) {
+ return ed;
+}
+      if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
+ return InvalidOperation(EDecimal.NaN, ec);
+}
+      throw new NotImplementedException();
+    }
+
+
+    public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
+if(ec!=null || !ec.HasMaxPrecision)return Shift(ed,ed2,ec);
+      if (ed == null) {
+  throw new ArgumentNullException(nameof(ed));
+}
+      if (ed2 == null) {
+  throw new ArgumentNullException(nameof(ed2));
+}
+      if (ed.IsNaN() || ed2.IsNaN()) {
+        return ed.Add(ed2, ec);
+      }
+      if (ed.IsInfinity()) {
+ return ed;
+}
+      if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
+ return InvalidOperation(EDecimal.NaN, ec);
+}
+      throw new NotImplementedException();
+    }
+
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
       return ed.CompareToTotal(other, ec);
     }
@@ -201,9 +241,24 @@ if (ed1.IsFinite && ed2.IsFinite) {
 if (ed == null || scale == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-return (!scale.IsFinite || !scale.Exponent.IsZero) ?
-  InvalidOperation(EDecimal.NaN, ec) :
-  ed.Quantize(EDecimal.Create(EInteger.One, scale.Mantissa), ec);
+if(!scale.IsFinite)return ed.Quantize(scale, ec);
+if(scale.Exponent.IsZero){
+  return ed.Quantize(EDecimal.Create(EInteger.One, scale.Mantissa), ec);
+} else {
+  EContext tec = ec==null ? null : ec.WithTraps(0).WithBlankFlags();
+  EDecimal rv = scale.RoundToExponentExact(0, tec);
+  if(!rv.IsFinite || (tec.Flags&EContext.FlagInexact)!=0){
+   if(ec!=null && ec.IsSimplified){
+     // In simplified arithmetic, round scale to trigger
+     // appropriate error conditions
+     scale=scale.RoundToPrecision(ec);
+   }
+   return InvalidOperation(EDecimal.NaN, ec);
+  }
+  EDecimal rounded = scale.Quantize(0, tec);
+  return ed.Quantize(
+    EDecimal.Create(EInteger.One, rounded.Mantissa), ec);
+}
     }
 
     // Logical Operations
