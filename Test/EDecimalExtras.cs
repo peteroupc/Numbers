@@ -20,7 +20,7 @@ namespace Test {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
       // miscellaneous operations here return booleans
-      return Int32ToDecimal(b ? 1 : 0, ec);
+      return EDecimal.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
     public static bool IsCanonical(EDecimal ed) {
@@ -146,7 +146,16 @@ if (ec != null && ec.HasMaxPrecision) {
     return InvalidOperation(EDecimal.NaN, ec);
   }
 }
-return ed.ScaleByPowerOfTen(scale, ec);
+      if (scale.IsZero) {
+        return ed.RoundToPrecision(ec);
+      }
+      EDecimal ret = EDecimal.Create(
+         ed.UnsignedMantissa,
+         ed.Exponent.Add(scale));
+      if (ed.IsNegative) {
+ ret = ret.Negate();
+}
+      return ret.RoundToPrecision(ec);
     }
 
     public static EDecimal Shift(EDecimal ed, EDecimal ed2, EContext ec) {
@@ -164,7 +173,7 @@ return ed.ScaleByPowerOfTen(scale, ec);
 }
 EInteger shift = ed2.Mantissa;
 if (ec != null) {
-  if (shift.Abs().CompareTo(ec.Precision)>0) {
+  if (shift.Abs().CompareTo(ec.Precision) > 0) {
     return InvalidOperation(EDecimal.NaN, ec);
   }
 }
@@ -180,8 +189,8 @@ if (mant.IsZero) {
 }
 EInteger mantprec = ed.Precision();
 EInteger radix = EInteger.FromInt32(DecimalRadix);
-if (shift.Sign< 0) {
-  if (shift.Abs().CompareTo(mantprec)< 0) {
+if (shift.Sign < 0) {
+  if (shift.Abs().CompareTo(mantprec) < 0) {
    // TODO: Add Pow(EInteger)
    EInteger divisor = radix.Pow(shift.Abs().ToInt32Checked());
    mant = mant.Divide(divisor);
@@ -214,7 +223,7 @@ if (ec == null || !ec.HasMaxPrecision) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
 EInteger shift = ed2.Mantissa;
-if (shift.Abs().CompareTo(ec.Precision)>0) {
+if (shift.Abs().CompareTo(ec.Precision) > 0) {
   return InvalidOperation(EDecimal.NaN, ec);
 }
 if (ed.IsInfinity()) {
@@ -228,14 +237,15 @@ if (mant.IsZero) {
    return ed.RoundToPrecision(ec);
 }
 EInteger mantprec = ed.Precision();
-EInteger rightShift = shift.Sign<0 ? shift.Abs() : ec.Precision.Subtract(shift);
+EInteger rightShift = shift.Sign < 0 ? shift.Abs() :
+  ec.Precision.Subtract(shift);
 EInteger leftShift = ec.Precision.Subtract(rightShift);
 EInteger mantRight = EInteger.Zero;
 EInteger mantLeft = EInteger.Zero;
 EInteger radix = EInteger.FromInt32(DecimalRadix);
 // Right shift
 // TODO: Add Pow(EInteger)
-if (rightShift.CompareTo(mantprec)< 0) {
+if (rightShift.CompareTo(mantprec) < 0) {
    EInteger divisor = radix.Pow(rightShift.ToInt32Checked());
    mantRight = mant.Divide(divisor);
 } else {
@@ -317,14 +327,17 @@ if (ed1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
 if (ed.IsSignalingNaN()) {
- return EDecimal.CreateNaN(ed.UnsignedMantissa,
-    true, ed.IsNegative, ec);
+ return EDecimal.CreateNaN(
+  ed.UnsignedMantissa,
+  true,
+  ed.IsNegative,
+  ec);
 }
 if (ed.IsFinite) {
   if (ed.IsZero) {
    return (ed.IsNegative ? EDecimal.NegativeZero :
       EDecimal.Zero).RoundToPrecision(ec);
-  } else if (ed.Exponent.Sign>0) {
+  } else if (ed.Exponent.Sign > 0) {
    return ed.Reduce(ec);
   } else if (ed.Exponent.Sign == 0) {
    return ed.RoundToPrecision(ec);
@@ -334,7 +347,7 @@ if (ed.IsFinite) {
    bool neg = ed.IsNegative;
    var trimmed = false;
    EInteger radixint = EInteger.FromInt32(DecimalRadix);
-   while (exp.Sign<0 && mant.Sign>0) {
+   while (exp.Sign < 0 && mant.Sign > 0) {
     EInteger[] divrem = mant.DivRem(radixint);
     int rem = divrem[1].ToInt32Checked();
     if (rem != 0) {
@@ -370,7 +383,7 @@ if (scale.Exponent.IsZero) {
 } else {
   EContext tec = ec == null ? null : ec.WithTraps(0).WithBlankFlags();
   EDecimal rv = scale.RoundToExponentExact(0, tec);
-  if (!rv.IsFinite || (tec.Flags&EContext.FlagInexact) != 0) {
+  if (!rv.IsFinite || (tec.Flags & EContext.FlagInexact) != 0) {
    if (ec != null && ec.IsSimplified) {
      // In simplified arithmetic, round scale to trigger
      // appropriate error conditions
