@@ -82,6 +82,12 @@ input3.Contains("#") ||
 output.Contains("#")) {
           return;
         }
+if (!extended && (input1.Contains("sNaN") ||
+input2.Contains("sNaN") ||
+input3.Contains("sNaN") ||
+output.Contains("sNaN"))) {
+          Console.WriteLine(ln);
+        }
         // Skip some tests that assume a maximum
         // supported precision of 999999999
         if (name.Equals("pow250") ||
@@ -285,8 +291,10 @@ if (op.Equals("and")) {
  d3 = EDecimalExtras.Rescale(d1, d2, ctx);
   } else if (op.Equals("logb")) {
  d3 = EDecimalExtras.LogB(d1, ctx);
+  } else if (op.Equals("scaleb")) {
+ d3 = EDecimalExtras.ScaleB(d1, d2, ctx);
   } else if (op.Equals("trim")) {
- d3 = d1.Reduce(ctx);
+ d3 = EDecimalExtras.Trim(d1, ctx);
   } else if (op.Equals("samequantum")) {
  d3 = EDecimal.FromBoolean(EDecimalExtras.SameQuantum(d1, d2));
 } else {

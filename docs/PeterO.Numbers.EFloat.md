@@ -106,7 +106,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this object's value equals 0.
 * <code>[Log10(PeterO.Numbers.EContext)](#Log10_PeterO_Numbers_EContext)</code> - Finds the base-10 logarithm of this object, that is, the power (exponent) that the number 10 must be raised to in order to equal this object's value.
 * <code>[Log(PeterO.Numbers.EContext)](#Log_PeterO_Numbers_EContext)</code> - Finds the natural logarithm of this object, that is, the power (exponent) that e (the base of natural logarithms) must be raised to in order to equal this object's value.
-* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value.
+* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value, or mantissa, and makes it negative if this obejct is negative.
 * <code>[MaxMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#MaxMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Gets the greater value between two values, ignoring their signs.
 * <code>[MaxMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#MaxMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Gets the greater value between two values, ignoring their signs.
 * <code>[Max(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#Max_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Gets the greater value between two binary floats.
@@ -148,7 +148,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Quantize(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but with the same exponent as another binary float.
 * <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value but a new exponent.
 * <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value but a new exponent.
-* <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Removes trailing zeros from this object's mantissa (significand).
+* <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand).
 * <code>[RemainderNaturalScale(PeterO.Numbers.EFloat)](#RemainderNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the remainder of a number by the formula"this" - (("this" / "divisor") * "divisor")
 * <code>[RemainderNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNear(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNear_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the distance to the closest multiple of the given divisor, based on the result of dividing this object's value by another object's value.
@@ -156,7 +156,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Remainder(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision binary floats.
 * <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
 * <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.ERounding)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding)</code> - Returns a binary number with the same value as this object but rounded to the given exponent.
-* <code>[RoundToExponentExact(int, PeterO.Numbers.EContext)](#RoundToExponentExact_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+* <code>[RoundToExponentExact(int, PeterO.Numbers.EContext)](#RoundToExponentExact_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.
 * <code>[RoundToExponent(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to a new exponent if necessary.
 * <code>[RoundToExponent(int, PeterO.Numbers.EContext)](#RoundToExponent_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to a new exponent if necessary.
 * <code>[RoundToIntegerExact(PeterO.Numbers.EContext)](#RoundToIntegerExact_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
@@ -212,7 +212,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ToUInt64IfExact()](#ToUInt64IfExact)</code> - Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
 * <code>[ToUInt64Unchecked()](#ToUInt64Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 * <code>[Ulp()](#Ulp)</code> - Returns the unit in the last place.
-* <code>[UnsignedMantissa](#UnsignedMantissa)</code> - Gets the absolute value of this object's unscaled value.
+* <code>[UnsignedMantissa](#UnsignedMantissa)</code> - Gets the absolute value of this object's unscaled value, or mantissa.
 * <code>[public static readonly PeterO.Numbers.EFloat Zero;](#Zero)</code> - Represents the number 0.
 * <code>[PeterO.Numbers.EFloat operator +(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Addition)</code> - Adds two arbitrary-precision binary floating-point numbers and returns the result.
 * <code>[PeterO.Numbers.EFloat operator /(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Division)</code> - Divides one binary float by another and returns the result.
@@ -334,7 +334,7 @@ Gets a value indicating whether this object's value equals 0.
 
     public PeterO.Numbers.EInteger Mantissa { get; }
 
-Gets this object's unscaled value.
+Gets this object's unscaled value, or mantissa, and makes it negative if this obejct is negative. If this value is not-a-number (NaN), that value's absolute value is the NaN's "payload" (diagnostic information).
 
 <b>Returns:</b>
 
@@ -356,7 +356,7 @@ This value's sign: -1 if negative; 1 if positive; 0 if zero.
 
     public PeterO.Numbers.EInteger UnsignedMantissa { get; }
 
-Gets the absolute value of this object's unscaled value.
+Gets the absolute value of this object's unscaled value, or mantissa. If this value is not-a-number (NaN), that value is the NaN's "payload" (diagnostic information).
 
 <b>Returns:</b>
 
@@ -2461,7 +2461,7 @@ A binary float with the same value as this object but with the exponent changed.
     public PeterO.Numbers.EFloat Reduce(
         PeterO.Numbers.EContext ctx);
 
-Removes trailing zeros from this object's mantissa (significand). For example, 1.00 becomes 1.If this object's value is 0, changes the exponent to 0.
+Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand). For example, 1.00 becomes 1.If this object's value is 0, changes the exponent to 0.
 
 <b>Parameters:</b>
 
@@ -2586,7 +2586,7 @@ The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to a new exponent if necessary.
+Returns a binary float with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2606,7 +2606,7 @@ A binary float rounded to the closest value representable in the given precision
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to a new exponent if necessary.
+Returns a binary float with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2626,7 +2626,7 @@ A binary float rounded to the closest value representable in the given precision
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+Returns a binary float with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2646,7 +2646,7 @@ A binary float rounded to the closest value representable in the given precision
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
+Returns a binary float with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2666,7 +2666,7 @@ A binary float rounded to the closest value representable in the given precision
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.ERounding rounding);
 
-Returns a binary number with the same value as this object but rounded to the given exponent.
+Returns a binary number with the same value as this object but rounded to the given exponent. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2684,7 +2684,7 @@ A binary number rounded to the closest value representable in the given precisio
     public PeterO.Numbers.EFloat RoundToIntegerExact(
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
 <b>Parameters:</b>
 
@@ -2703,7 +2703,7 @@ A binary float rounded to the closest integer representable in the given precisi
 
 Returns a binary float with the same value as this object but rounded to an integer, without adding the `FlagInexact
       ` or `FlagRounded
-      ` flags.
+      ` flags. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
 <b>Parameters:</b>
 

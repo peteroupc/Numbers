@@ -10,6 +10,7 @@ using System;
 namespace PeterO.Numbers {
    // TODO: Add WithNoFlagsOrTraps method which resets flags
    // and traps to 0
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.EContext"]/*'/>
   public sealed class EContext {

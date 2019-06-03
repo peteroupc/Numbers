@@ -3,7 +3,6 @@ using PeterO.Numbers;
 
 namespace Test {
   public static class EDecimalExtras {
-
     private const int DecimalRadix = 10;
 
     public static EDecimal Radix(EContext ec) {
@@ -140,7 +139,14 @@ if (nc > 9) {
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      throw new NotImplementedException();
+EInteger scale = ed2.Mantissa;
+if (ec != null && ec.HasMaxPrecision) {
+  EInteger exp = ec.EMax.Add(ec.Precision).Multiply(2);
+  if (scale.Abs().CompareTo(exp.Abs()) > 0) {
+    return InvalidOperation(EDecimal.NaN, ec);
+  }
+}
+return ed.ScaleByPowerOfTen(scale, ec);
     }
 
     public static EDecimal Shift(EDecimal ed, EDecimal ed2, EContext ec) {
@@ -159,12 +165,13 @@ if (nc > 9) {
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      throw new NotImplementedException();
+throw new NotImplementedException();
     }
 
-
     public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
-if(ec!=null || !ec.HasMaxPrecision)return Shift(ed,ed2,ec);
+if (ec != null || !ec.HasMaxPrecision) {
+ return Shift(ed, ed2, ec);
+}
       if (ed == null) {
   throw new ArgumentNullException(nameof(ed));
 }
@@ -237,27 +244,80 @@ if (ed1.IsFinite && ed2.IsFinite) {
 }
     }
 
+    public static EDecimal Trim(EDecimal ed1, EContext ec) {
+EDecimal ed = ed1;
+if (ed1 == null) {
+ return InvalidOperation(EDecimal.NaN, ec);
+}
+//if (ec != null && ec.IsSimplified) {
+ ed = ed.RoundToPrecision(ec);
+}
+if (ed.IsSignalingNaN()) {
+ return EDecimal.CreateNaN(ed.UnsignedMantissa,
+    true, ed.IsNegative, ec);
+}
+if (ed.IsFinite) {
+  if (ed.IsZero) {
+   return (ed.IsNegative ? EDecimal.NegativeZero :
+      EDecimal.Zero).RoundToPrecision(ec);
+  } else if (ed.Exponent.Sign>0) {
+   return ed.Reduce(ec);
+  } else if (ed.Exponent.Sign == 0) {
+   return ed.RoundToPrecision(ec);
+  } else {
+   EInteger exp = ed.Exponent;
+   EInteger mant = ed.UnsignedMantissa;
+   bool neg = ed.IsNegative;
+   bool trimmed = false;
+   EInteger radixint = EInteger.FromInt32(DecimalRadix);
+   while (exp.Sign<0 && mant.Sign>0) {
+    EInteger[] divrem = mant.DivRem(radixint);
+    int rem = divrem[1].ToInt32Checked();
+    if (rem != 0) {
+ break;
+}
+    mant = divrem[0];
+    exp = exp.Add(1);
+    trimmed = true;
+   }
+   if (!trimmed) {
+ return ed.RoundToPrecision(ec);
+}
+   EDecimal ret = EDecimal.Create(mant, exp);
+   if (neg) {
+ ret = ret.Negate();
+}
+   return ret.RoundToPrecision(ec);
+  }
+} else {
+  return ed1.Plus(ec);
+}
+    }
+
     public static EDecimal Rescale(EDecimal ed, EDecimal scale, EContext ec) {
 if (ed == null || scale == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-if(!scale.IsFinite)return ed.Quantize(scale, ec);
-if(scale.Exponent.IsZero){
+if (!scale.IsFinite) {
+ return ed.Quantize(scale, ec);
+}
+if (scale.Exponent.IsZero) {
   return ed.Quantize(EDecimal.Create(EInteger.One, scale.Mantissa), ec);
 } else {
-  EContext tec = ec==null ? null : ec.WithTraps(0).WithBlankFlags();
+  EContext tec = ec == null ? null : ec.WithTraps(0).WithBlankFlags();
   EDecimal rv = scale.RoundToExponentExact(0, tec);
-  if(!rv.IsFinite || (tec.Flags&EContext.FlagInexact)!=0){
-   if(ec!=null && ec.IsSimplified){
+  if (!rv.IsFinite || (tec.Flags&EContext.FlagInexact) != 0) {
+   if (ec != null && ec.IsSimplified) {
      // In simplified arithmetic, round scale to trigger
      // appropriate error conditions
-     scale=scale.RoundToPrecision(ec);
+     scale = scale.RoundToPrecision(ec);
    }
    return InvalidOperation(EDecimal.NaN, ec);
   }
   EDecimal rounded = scale.Quantize(0, tec);
   return ed.Quantize(
-    EDecimal.Create(EInteger.One, rounded.Mantissa), ec);
+    EDecimal.Create(EInteger.One, rounded.Mantissa),
+    ec);
 }
     }
 
@@ -345,7 +405,8 @@ if (bytes == null) {
       for (var i = bytes.Length - 1; i >= 0; --i) {
         int b = bytes[i];
         for (var j = 7; j >= 0; --j) {
-          ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(DecimalRadix).Add(1) :
+       ret = ((bytes[i] & (1 << j)) != 0) ?
+            ret.Multiply(DecimalRadix).Add(1) :
             ret.Multiply(DecimalRadix);
         }
       }
@@ -369,8 +430,9 @@ if (bytes == null) {
 }
       var bitindex = 0;
       var bytes = new byte[bytecount.ToInt32Checked()];
+      EInteger radixint = EInteger.FromInt32(DecimalRadix);
       while (um.Sign > 0) {
-        EInteger[] divrem = um.DivRem(EInteger.FromInt32(DecimalRadix));
+        EInteger[] divrem = um.DivRem(radixint);
         int rem = divrem[1].ToInt32Checked();
         um = divrem[0];
         if (rem == 1) {

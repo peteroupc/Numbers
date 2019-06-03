@@ -211,7 +211,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this object's value equals 0.
 * <code>[Log10(PeterO.Numbers.EContext)](#Log10_PeterO_Numbers_EContext)</code> - Finds the base-10 logarithm of this object, that is, the power (exponent) that the number 10 must be raised to in order to equal this object's value.
 * <code>[Log(PeterO.Numbers.EContext)](#Log_PeterO_Numbers_EContext)</code> - Finds the natural logarithm of this object, that is, the power (exponent) that e (the base of natural logarithms) must be raised to in order to equal this object's value.
-* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value.
+* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value, or mantissa, and makes it negative if this obejct is negative.
 * <code>[MaxMagnitude(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Gets the greater value between two values, ignoring their signs.
 * <code>[MaxMagnitude(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Gets the greater value between two values, ignoring their signs.
 * <code>[Max(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Gets the greater value between two decimal numbers.
@@ -254,15 +254,15 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value but a new exponent.
 * <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value but a new exponent.
 * <code>[Quantize(int, PeterO.Numbers.ERounding)](#Quantize_int_PeterO_Numbers_ERounding)</code> - Returns a decimal number with the same value as this one but a new exponent.
-* <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Removes trailing zeros from this object's mantissa (significand).
+* <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand).
 * <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal)](#RemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - Calculates the remainder of a number by the formula"this" - (("this" / "divisor") * "divisor")
 * <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNear(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNear_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the distance to the closest multiple of the given divisor, based on the result of dividing this object's value by another object's value.
 * <code>[RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNoRoundAfterDivide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision decimal numbers, except the intermediate division is not adjusted to fit the precision of the given arithmetic context.
 * <code>[Remainder(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision decimal numbers.
-* <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
-* <code>[RoundToExponentExact(int, PeterO.Numbers.EContext)](#RoundToExponentExact_int_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
-* <code>[RoundToExponentExact(int, PeterO.Numbers.ERounding)](#RoundToExponentExact_int_PeterO_Numbers_ERounding)</code> - Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+* <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to the given exponent represented as an arbitrary-precision integer, and signals an inexact flag if the result would be inexact.
+* <code>[RoundToExponentExact(int, PeterO.Numbers.EContext)](#RoundToExponentExact_int_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.
+* <code>[RoundToExponentExact(int, PeterO.Numbers.ERounding)](#RoundToExponentExact_int_PeterO_Numbers_ERounding)</code> - Returns a decimal number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.
 * <code>[RoundToExponent(PeterO.Numbers.EInteger)](#RoundToExponent_PeterO_Numbers_EInteger)</code> - Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode.
 * <code>[RoundToExponent(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a decimal number with the same value as this object but rounded to a new exponent if necessary.
 * <code>[RoundToExponent(PeterO.Numbers.EInteger, PeterO.Numbers.ERounding)](#RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding)</code> - Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the given rounding mode.
@@ -323,7 +323,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[ToUInt64IfExact()](#ToUInt64IfExact)</code> - Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
 * <code>[ToUInt64Unchecked()](#ToUInt64Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 * <code>[Ulp()](#Ulp)</code> - Returns the unit in the last place.
-* <code>[UnsignedMantissa](#UnsignedMantissa)</code> - Gets the absolute value of this object's unscaled value.
+* <code>[UnsignedMantissa](#UnsignedMantissa)</code> - Gets the absolute value of this object's unscaled value, or mantissa.
 * <code>[public static readonly PeterO.Numbers.EDecimal Zero;](#Zero)</code> - Represents the number 0.
 * <code>[PeterO.Numbers.EDecimal operator +(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Addition)</code> - Adds two arbitrary-precision decimal floating-point numbers and returns the result.
 * <code>[PeterO.Numbers.EDecimal operator /(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Division)</code> - Divides this object by another decimal number and returns the result.
@@ -445,7 +445,7 @@ Gets a value indicating whether this object's value equals 0.
 
     public PeterO.Numbers.EInteger Mantissa { get; }
 
-Gets this object's unscaled value.
+Gets this object's unscaled value, or mantissa, and makes it negative if this obejct is negative. If this value is not-a-number (NaN), that value's absolute value is the NaN's "payload" (diagnostic information).
 
 <b>Returns:</b>
 
@@ -467,7 +467,7 @@ This value's sign: -1 if negative; 1 if positive; 0 if zero.
 
     public PeterO.Numbers.EInteger UnsignedMantissa { get; }
 
-Gets the absolute value of this object's unscaled value.
+Gets the absolute value of this object's unscaled value, or mantissa. If this value is not-a-number (NaN), that value is the NaN's "payload" (diagnostic information).
 
 <b>Returns:</b>
 
@@ -2733,7 +2733,7 @@ A decimal number with the same value as this object but with the exponent change
     public PeterO.Numbers.EDecimal Reduce(
         PeterO.Numbers.EContext ctx);
 
-Removes trailing zeros from this object's mantissa (significand). For example, 1.00 becomes 1.If this object's value is 0, changes the exponent to 0.
+Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand). For example, 1.00 becomes 1.If this object's value is 0, changes the exponent to 0.
 
 <b>Parameters:</b>
 
@@ -2857,7 +2857,7 @@ The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (
     public PeterO.Numbers.EDecimal RoundToExponent(
         int exponentSmall);
 
-Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2874,7 +2874,7 @@ A decimal number rounded to the closest value representable for the given expone
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to a new exponent if necessary.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2894,7 +2894,7 @@ A decimal number rounded to the closest value representable in the given precisi
         int exponentSmall,
         PeterO.Numbers.ERounding rounding);
 
-Returns a decimal number with the same value as this object but rounded to a new exponent if necessary.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2912,7 +2912,7 @@ A decimal number rounded to the given negative number of decimal places.
     public PeterO.Numbers.EDecimal RoundToExponent(
         PeterO.Numbers.EInteger exponent);
 
-Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2929,7 +2929,7 @@ A decimal number rounded to the closest value representable for the given expone
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to a new exponent if necessary.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2949,7 +2949,7 @@ A decimal number rounded to the closest value representable in the given precisi
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.ERounding rounding);
 
-Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the given rounding mode.
+Returns a decimal number with the same value as this object but rounded to a new exponent if necessary, using the given rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2968,7 +2968,7 @@ A decimal number rounded to the closest value representable for the given expone
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -2988,7 +2988,7 @@ A decimal number rounded to the closest value representable in the given precisi
         int exponentSmall,
         PeterO.Numbers.ERounding rounding);
 
-Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -3007,7 +3007,7 @@ A decimal number rounded to the closest value representable using the given expo
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to the given exponent represented as an arbitrary-precision integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -3026,7 +3026,7 @@ A decimal number rounded to the closest value representable in the given precisi
     public PeterO.Numbers.EDecimal RoundToIntegerExact(
         PeterO.Numbers.EContext ctx);
 
-Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+Returns a decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
 <b>Parameters:</b>
 
@@ -3045,7 +3045,7 @@ A decimal number rounded to the closest integer representable in the given preci
 
 Returns a decimal number with the same value as this object but rounded to an integer, without adding the `FlagInexact
       ` or `FlagRounded
-      ` flags.
+      ` flags. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
 <b>Parameters:</b>
 
