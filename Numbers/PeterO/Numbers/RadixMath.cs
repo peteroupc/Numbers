@@ -8,6 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
+  // TODO: Avoid creating IShiftAccumulators just to get the digit length
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.RadixMath`1"]/*'/>
   internal class RadixMath<T> : IRadixMath<T> {
@@ -2373,19 +2374,19 @@ ctx.Precision).WithBlankFlags();
              thisFlags);
         } else {
           accum.ShiftRight(shift);
+          bigmantissa = accum.ShiftedInt;
+          thisValue = this.helper.CreateNewWithFlags(
+            bigmantissa,
+            expOther,
+            thisFlags);
+          return this.RoundToPrecisionInternal(
+            thisValue,
+            accum.LastDiscardedDigit,
+            accum.OlderDiscardedDigits,
+            null,
+            false,
+            ctx);
         }
-        bigmantissa = accum.ShiftedInt;
-        thisValue = this.helper.CreateNewWithFlags(
-          bigmantissa,
-          expOther,
-          thisFlags);
-        return this.RoundToPrecisionInternal(
-          thisValue,
-          accum.LastDiscardedDigit,
-          accum.OlderDiscardedDigits,
-          null,
-          false,
-          ctx);
       }
     }
 
@@ -2524,10 +2525,6 @@ ctx.Precision).WithBlankFlags();
         ctx.Flags |= ctxtmp.Flags;
       }
       return retval;
-    }
-
-    private static EInteger AbsInt(EInteger ei) {
-      return ei.Abs();
     }
 
     private static int CompareToFast(
@@ -2728,6 +2725,7 @@ ctx.Precision).WithBlankFlags();
         }
         return EInteger.One << val;
       } else {
+        // TODO: Use EInteger.ShiftLeft directly here
         EInteger bi = EInteger.One;
         FastInteger fi2 = fi.Copy();
         while (fi2.Sign > 0) {
@@ -4268,9 +4266,6 @@ ctx.Precision).WithBlankFlags();
       int radix = this.thisRadix;
       int lastDiscarded = accum.LastDiscardedDigit;
       int olderDiscarded = accum.OlderDiscardedDigits;
-      if (rounding == ERounding.OddOrZeroFiveUp) {
-        rounding = (radix == 2) ? ERounding.Odd : ERounding.ZeroFiveUp;
-      }
       if (rounding == ERounding.HalfUp) {
         incremented |= lastDiscarded >= (radix / 2);
       } else if (rounding == ERounding.HalfEven) {
@@ -4290,10 +4285,12 @@ ctx.Precision).WithBlankFlags();
                 (radix / 2) && olderDiscarded != 0);
       } else if (rounding == ERounding.Up) {
         incremented |= (lastDiscarded | olderDiscarded) != 0;
-      } else if (rounding == ERounding.Odd) {
+      } else if (rounding == ERounding.Odd ||
+        (rounding == ERounding.OddOrZeroFiveUp && radix == 2)) {
         incremented |= (lastDiscarded | olderDiscarded) != 0 &&
           accum.ShiftedIntFast.IsEvenNumber;
-      } else if (rounding == ERounding.ZeroFiveUp) {
+      } else if (rounding == ERounding.ZeroFiveUp ||
+        (rounding == ERounding.OddOrZeroFiveUp && radix != 2)) {
         if ((lastDiscarded | olderDiscarded) != 0) {
           if (radix == 2) {
             incremented = true;
@@ -4317,9 +4314,6 @@ ctx.Precision).WithBlankFlags();
   EInteger bigval) {
       var incremented = false;
       int radix = this.thisRadix;
-      if (rounding == ERounding.OddOrZeroFiveUp) {
-        rounding = (radix == 2) ? ERounding.Odd : ERounding.ZeroFiveUp;
-      }
       if (rounding == ERounding.HalfUp) {
         incremented |= lastDiscarded >= (radix / 2);
       } else if (rounding == ERounding.HalfEven) {
@@ -4339,9 +4333,11 @@ ctx.Precision).WithBlankFlags();
                 (radix / 2) && olderDiscarded != 0);
       } else if (rounding == ERounding.Up) {
         incremented |= (lastDiscarded | olderDiscarded) != 0;
-      } else if (rounding == ERounding.Odd) {
+      } else if (rounding == ERounding.Odd ||
+        (rounding == ERounding.OddOrZeroFiveUp && radix==2)) {
         incremented |= (lastDiscarded | olderDiscarded) != 0 && bigval.IsEven;
-      } else if (rounding == ERounding.ZeroFiveUp) {
+      } else if (rounding == ERounding.ZeroFiveUp ||
+        (rounding == ERounding.OddOrZeroFiveUp && radix!=2)) {
         if ((lastDiscarded | olderDiscarded) != 0) {
           if (radix == 2) {
             incremented = true;
@@ -4662,11 +4658,12 @@ accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
         if (rounding == ERounding.None) {
           return this.SignalInvalidWithMessage(ctx, "Rounding was required");
         }
-        if (!unlimitedPrec && (rounding == ERounding.Down || rounding ==
-                ERounding.ZeroFiveUp ||
-              (rounding == ERounding.OddOrZeroFiveUp && this.thisRadix != 2) ||
-                (rounding == ERounding.Ceiling && neg) || (rounding ==
-                  ERounding.Floor && !neg))) {
+        if (!unlimitedPrec && (rounding == ERounding.Down ||
+ rounding == ERounding.ZeroFiveUp ||
+    (rounding == ERounding.OddOrZeroFiveUp && 
+      this.thisRadix != 2) ||
+                (rounding == ERounding.Ceiling && neg) ||
+      (rounding == ERounding.Floor && !neg))) {
           // Set to the highest possible value for
           // the given precision
           EInteger overflowMant = EInteger.Zero;
@@ -4912,11 +4909,13 @@ accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
         if (adjExponent.CompareTo(fastEMax) > 0) {
           flags |= EContext.FlagOverflow |
             EContext.FlagInexact | EContext.FlagRounded;
-          if (!unlimitedPrec && (rounding == ERounding.Down || rounding ==
-                   ERounding.ZeroFiveUp ||
-        (rounding == ERounding.OddOrZeroFiveUp || rounding == ERounding.Odd) ||
-            (rounding == ERounding.Ceiling &&
-                neg) || (rounding == ERounding.Floor && !neg))) {
+          if (!unlimitedPrec && (
+       rounding == ERounding.Down || 
+        rounding == ERounding.ZeroFiveUp ||
+        rounding == ERounding.OddOrZeroFiveUp || 
+         rounding == ERounding.Odd ||
+            (rounding == ERounding.Ceiling && neg) || 
+            (rounding == ERounding.Floor && !neg))) {
             // Set to the highest possible value for
             // the given precision
             EInteger overflowMant = EInteger.Zero;

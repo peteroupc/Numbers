@@ -1495,20 +1495,36 @@ public EFloat Divide(int intValue) {
       if (valueEfRnd.IsInfinity()) {
         return valueEfRnd.ToString();
       }
+      if (this.IsZero) {
+        return this.RoundToPrecision(ctx).ToString();
+      }
       // NOTE: The original EFloat is converted to decimal,
       // not the rounded version, to avoid double rounding issues
-      bool mantissaIsPowerOfTwo = this.unsignedMantissa.IsPowerOfTwo;
       EDecimal dec = this.ToEDecimal();
-      if (ctx.Precision.CompareTo(EInteger.FromInt32(10)) >= 0) {
+      if (ctx.Precision.CompareTo(10) >= 0) {
         // Preround the decimal so the significand has closer to the
         // number of decimal digits of the maximum possible
         // decimal significand, to speed up further rounding
         EInteger roundedPrec = ctx.Precision.ShiftRight(1).Add(
           EInteger.FromInt32(3));
-        dec = dec.RoundToPrecision(
-          ctx2.WithRounding(ERounding.Odd).WithBigPrecision(roundedPrec));
+        EInteger dmant = dec.UnsignedMantissa;
+        EInteger dexp = dec.Exponent;
+        bool dneg = dec.IsNegative;
+        var dsa = new DigitShiftAccumulator(dmant, 0, 0);
+        dsa.ShiftToDigits(FastInteger.FromBig(roundedPrec), null, false);
+        dmant = dsa.ShiftedInt;
+        dexp = dexp.Add(dsa.DiscardedDigitCount.AsEInteger());
+        if (dsa.LastDiscardedDigit != 0 || dsa.OlderDiscardedDigits != 0) {
+           if (dmant.Remainder(10).ToInt32Checked() != 9) {
+              dmant = dmant.Add(1);
+           }
+        }
+        dec = EDecimal.Create(dmant, dexp);
+        if (dneg) {
+ dec = dec.Negate();
+}
       }
-      // int precision = dec.UnsignedMantissa.GetDigitCount();
+      bool mantissaIsPowerOfTwo = this.unsignedMantissa.IsPowerOfTwo;
       EInteger eprecision = EInteger.Zero;
       while (true) {
         EInteger nextPrecision = eprecision.Add(EInteger.One);

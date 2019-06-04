@@ -393,10 +393,10 @@ thisValue = this.wrapper.Remainder(
             EContext.FlagInexact | EContext.FlagRounded;
         }
         if (pc.HasMaxPrecision && pc.HasExponentRange &&
-            (roundingOnOverflow == ERounding.Down || roundingOnOverflow ==
-             ERounding.ZeroFiveUp ||
-             (roundingOnOverflow == ERounding.OddOrZeroFiveUp) ||
-             (roundingOnOverflow == ERounding.Odd) ||
+            (roundingOnOverflow == ERounding.Down ||
+             roundingOnOverflow == ERounding.ZeroFiveUp ||
+             roundingOnOverflow == ERounding.OddOrZeroFiveUp ||
+             roundingOnOverflow == ERounding.Odd ||
              (roundingOnOverflow == ERounding.Ceiling && neg) ||
              (roundingOnOverflow == ERounding.Floor && !neg))) {
           // Set to the highest possible value for

@@ -2237,17 +2237,16 @@ public EDecimal Divide(int intValue) {
     }
 
     private static readonly double[] ExactDoublePowersOfTen = {
-1, 10, 100, 100, 10000,
-  10e5, 10e6, 10e7, 10e8, 10e9,
-  10e10, 10e11, 10e12, 10e13, 10e14,
-  10e15, 10e16, 10e17, 10e18, 10e19,
-  10e20, 10e21, 10e22
+1, 10, 100, 1000, 10000,
+  1e5, 1e6, 1e7, 1e8, 1e9,
+  1e10, 1e11, 1e12, 1e13, 1e14,
+  1e15, 1e16, 1e17, 1e18, 1e19,
+  1e20, 1e21, 1e22
     };
 
     private static readonly float[] ExactSinglePowersOfTen = {
-1f, 10f, 100f, 100f, 10000f,
-  10e5f, 10e6f, 10e7f, 10e8f, 10e9f,
-  10e10f
+1f, 10f, 100f, 1000f, 10000f,
+  1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f
     };
 
     /// <include file='../../docs.xml'
@@ -2271,19 +2270,19 @@ public EDecimal Divide(int intValue) {
         return this.IsNegative ? Double.NegativeInfinity :
           Double.PositiveInfinity;
        }
-       if (this.exponent.CompareToInt(44) >= 0 &&
+       if (this.exponent.CompareToInt(-22) >= 0 &&
           this.exponent.CompareToInt(44) <= 0 &&
           this.unsignedMantissa.CanFitInInt64()) {
          // Fast-path optimization (explained on exploringbinary.com)
          long ml = this.unsignedMantissa.AsInt64();
          int exp = this.exponent.AsInt32();
-         int absexp = Math.Abs(exp);
-         while (ml <= 900719925474099L && absexp > 22) {
+         while (ml <= 900719925474099L && exp > 22) {
            ml *= 10;
-           --absexp;
+           --exp;
          }
-         if (ml < 9007199254740992L && absexp <= 22) {
-          double d = ExactDoublePowersOfTen[absexp];
+         int iabsexp = Math.Abs(exp);
+         if (ml < 9007199254740992L && iabsexp <= 22) {
+          double d = ExactDoublePowersOfTen[iabsexp];
           double dml = this.IsNegative ? (double)(-ml) : (double)ml;
           if (exp < 0) {
              return dml / d;
@@ -2367,24 +2366,32 @@ public EDecimal Divide(int intValue) {
         return 0.0f;
       }
       if (this.IsFinite) {
-       if (this.exponent.CompareToInt(-20) >= 0 &&
+       if (this.exponent.CompareToInt(-10) >= 0 &&
           this.exponent.CompareToInt(20) <= 0 &&
           this.unsignedMantissa.CanFitInInt32()) {
          // Fast-path optimization (version for 'double's explained
          // on exploringbinary.com)
          int iml = this.unsignedMantissa.AsInt32();
          int exp = this.exponent.AsInt32();
-         int absexp = Math.Abs(exp);
-         while (iml <= 1677721 && absexp > 10) {
+         // DebugUtility.Log("this=" + (this.ToString()));
+         // DebugUtility.Log("iml=" + iml + " exp=" + exp + " neg=" +
+         // (this.IsNegative));
+         while (iml <= 1677721 && exp > 10) {
            iml *= 10;
            --exp;
          }
-         if (iml < 16777216 && absexp <= 10) {
-          var fd = ExactSinglePowersOfTen[absexp];
+         int iabsexp = Math.Abs(exp);
+         // DebugUtility.Log("--> iml=" + iml + " absexp=" + iabsexp);
+         if (iml < 16777216 && iabsexp <= 10) {
+          var fd = ExactSinglePowersOfTen[iabsexp];
           float fml = this.IsNegative ? (float)(-iml) : (float)iml;
           if (exp < 0) {
+             // DebugUtility.Log("--> ret=" + (fml/fd) + " [fml=" + fml +
+             // ", fd=" + fd + "]");
              return fml / fd;
           } else {
+             // DebugUtility.Log("--> ret=" + (fml*fd) + " [fml=" + fml +
+             // ", fd=" + fd + "]");
              return fml * fd;
           }
          }

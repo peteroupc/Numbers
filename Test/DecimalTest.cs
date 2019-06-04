@@ -157,7 +157,10 @@ name.Equals("sqtx2847")) {
           ctx = ctx.WithRounding(ERounding.Floor);
         }
         if (rounding.Equals("05up")) {
-          ctx = ctx.WithRounding(ERounding.ZeroFiveUp);
+          // NOTE: This rounding mode is like Odd in the case
+          // of binary numbers, and ZeroFiveUp in the case of
+          // decimal numbers
+          ctx = ctx.WithRounding(ERounding.OddOrZeroFiveUp);
         }
         if (!extended) {
           ctx = ctx.WithSimplified(true);

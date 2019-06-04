@@ -1856,7 +1856,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Copy'>
-    <summary>Not documented yet.
+    <summary>Creates a copy of this arbitrary-precision binary number.
     </summary>
     <returns>An EDecimal object.
     </returns>
@@ -2455,17 +2455,8 @@
       <c>boolValue</c> is
       <c>true</c> ; otherwise, zero.
     </returns>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal
-      number.
-    </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
-    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
@@ -4690,13 +4681,11 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal'>
-    <summary>Not documented yet.
+    <summary>Converts a boolean value (true or false) to an arbitrary precision decimal.
     </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
-    <returns>An EDecimal object.
+    <returns>The number 1 if "boolValue" is true; otherwise, 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal'>
@@ -5309,7 +5298,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Copy'>
-    <summary>Not documented yet.
+    <summary>Creates a copy of this arbitrary-precision binary number.
     </summary>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
@@ -5734,9 +5723,7 @@
     <summary>Converts a boolean value (true or false) to an arbitrary-precision binary
       number.
     </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
     <returns>One if
       <c>boolValue</c> is
@@ -7766,13 +7753,11 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(System.Boolean)~PeterO.Numbers.EFloat'>
-    <summary>Not documented yet.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number.
     </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The number 1 if "boolValue" is true; otherwise, 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat'>
@@ -8208,13 +8193,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)'>
-    <summary>Not documented yet.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision integer.
     </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
-    <returns>An arbitrary-precision integer.
+    <returns>The number 1 if "boolValue" is true; otherwise, 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.FromByte(System.Byte)'>
@@ -9764,7 +9747,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Copy'>
-    <summary>Not documented yet.
+    <summary>Creates a copy of this arbitrary-precision rational number.
     </summary>
     <returns>An arbitrary-precision binary rational number.
     </returns>
@@ -9885,16 +9868,7 @@
     <summary>Converts a boolean value (true or false) to an arbitrary-precision
       rational number.
     </summary>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
-    </returns>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision
-      rational number.
-    </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
     <returns>One if
       <c>boolValue</c> is
@@ -10949,13 +10923,11 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(System.Boolean)~PeterO.Numbers.ERational'>
-    <summary>Not documented yet.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision rational number.
     </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>1 if "boolValue" is true; otherwise, 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.ERational'>
