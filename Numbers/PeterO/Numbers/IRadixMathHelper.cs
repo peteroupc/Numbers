@@ -44,8 +44,6 @@ namespace PeterO.Numbers {
   int lastDigit,
   int olderDigits);
 
-    IShiftAccumulator CreateShiftAccumulator(EInteger value);
-
     FastInteger DivisionShift(EInteger num, EInteger den);
 
     EInteger MultiplyByRadixPower(EInteger value, FastInteger power);

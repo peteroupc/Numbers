@@ -111,7 +111,8 @@ namespace PeterO.Numbers {
         }
         FastInteger prec = FastInteger.FromBig(ctxDest.Precision);
         FastInteger digits =
-          this.GetHelper().CreateShiftAccumulator(mant).GetDigitLength();
+          this.GetHelper().CreateShiftAccumulatorWithDigits(mant, 0, 0)
+             .GetDigitLength();
         prec.Subtract(digits);
         if (prec.Sign > 0 && prec.CompareTo(fastExp) >= 0) {
           mant = this.GetHelper().MultiplyByRadixPower(mant, fastExp);
@@ -240,7 +241,8 @@ namespace PeterO.Numbers {
       FastInteger fastPrecision = FastInteger.FromBig(ctx.Precision);
       EInteger mant = this.GetHelper().GetMantissa(val).Abs();
       FastInteger digits =
-        this.GetHelper().CreateShiftAccumulator(mant).GetDigitLength();
+        this.GetHelper().CreateShiftAccumulatorWithDigits(mant, 0, 0)
+           .GetDigitLength();
       EContext ctx2 = ctx.WithBlankFlags().WithTraps(0);
       if (digits.CompareTo(fastPrecision) <= 0) {
         // Rounding is only to be done if the digit count is
@@ -250,7 +252,7 @@ namespace PeterO.Numbers {
       }
       val = this.wrapper.RoundToPrecision(val, ctx2);
       // the only time rounding can signal an invalid
-      // operation is if an operand is signaling NaN, but
+      // operation is if an operand is a signaling NaN, but
       // this was already checked beforehand
       #if DEBUG
       if ((ctx2.Flags & EContext.FlagInvalid) != 0) {
@@ -385,6 +387,7 @@ thisValue = this.wrapper.Remainder(
       return this.wrapper.Pi(ctx);
     }
 
+#pragma warning disable CS0618 // certain ERounding values are obsolete
     private T SignalOverflow2(EContext pc, bool neg) {
       if (pc != null) {
         ERounding roundingOnOverflow = pc.Rounding;
@@ -422,6 +425,7 @@ thisValue = this.wrapper.Remainder(
           EInteger.Zero,
           (neg ? BigNumberFlags.FlagNegative : 0) | BigNumberFlags.FlagInfinity);
     }
+#pragma warning restore CS0618
 
     public T Power(T thisValue, T pow, EContext ctx) {
       T ret = this.CheckNotANumber2(thisValue, pow, ctx);
@@ -439,7 +443,6 @@ thisValue = this.wrapper.Remainder(
         this.wrapper.Power(thisValue, pow, ctx2);
       // Console.WriteLine("was " + thisValue);
       thisValue = this.PostProcessAfterDivision(thisValue, ctx, ctx2);
-      // Console.WriteLine("result was " + thisValue);
       // Console.WriteLine("now " + thisValue);
       return thisValue;
     }
@@ -621,13 +624,6 @@ thisValue = this.wrapper.Remainder(
       return this.PostProcess(a, ctx, ctx2);
     }
 
-    // <summary>Multiplies two T objects.</summary>
-    // <param name='thisValue'></param>
-    // <summary>Multiplies two T objects.</summary>
-    // <param name='thisValue'></param>
-    // <param name='other'></param>
-    // <param name='ctx'> (3).</param>
-    // <returns>The product of the two objects.</returns>
     public T Multiply(T thisValue, T other, EContext ctx) {
       T ret = this.CheckNotANumber2(thisValue, other, ctx);
       if ((object)ret != (object)default(T)) {

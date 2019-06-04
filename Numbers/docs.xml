@@ -2455,8 +2455,17 @@
       <c>boolValue</c> is
       <c>true</c> ; otherwise, zero.
     </returns>
-    <param name='boolValue'>Either true or false.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal
+      number.
+    </summary>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
     </param>
+    <returns>One if
+      <c>boolValue</c> is
+      <c>true</c> ; otherwise, zero.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
@@ -4681,7 +4690,8 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal'>
-    <summary>Converts a boolean value (true or false) to an arbitrary precision decimal.
+    <summary>Converts a boolean value (true or false) to an arbitrary precision
+      decimal.
     </summary>
     <param name='boolValue'>Either true or false.
     </param>
@@ -5720,15 +5730,8 @@
       <c>boolValue</c> is
       <c>true</c> ; otherwise, zero.
     </returns>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision binary
-      number.
-    </summary>
     <param name='boolValue'>Either true or false.
     </param>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
-    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
@@ -7753,7 +7756,8 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(System.Boolean)~PeterO.Numbers.EFloat'>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='boolValue'>Either true or false.
     </param>
@@ -8193,7 +8197,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)'>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision integer.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision
+      integer.
     </summary>
     <param name='boolValue'>Either true or false.
     </param>
@@ -9868,7 +9873,16 @@
     <summary>Converts a boolean value (true or false) to an arbitrary-precision
       rational number.
     </summary>
-    <param name='boolValue'>Either true or false.
+    <returns>One if
+      <c>boolValue</c> is
+      <c>true</c> ; otherwise, zero.
+    </returns>
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision
+      rational number.
+    </summary>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
     </param>
     <returns>One if
       <c>boolValue</c> is
@@ -10923,7 +10937,8 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(System.Boolean)~PeterO.Numbers.ERational'>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision rational number.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision
+      rational number.
     </summary>
     <param name='boolValue'>Either true or false.
     </param>
@@ -11336,8 +11351,7 @@
   <doc name='T:PeterO.Numbers.RadixMath`1'>
     <summary>Encapsulates radix-independent arithmetic.
     </summary>
-    <typeparam name='T'>
-       Data type for a numeric value in a particular radix.
+    <typeparam name='T'>Data type for a numeric value in a particular radix.
     </typeparam>
   </doc>
   <doc name='T:PeterO.Rdf.URIUtility'>

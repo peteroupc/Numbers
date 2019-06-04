@@ -444,12 +444,8 @@ private static readonly FastIntegerFixed FastIntZero = new
 /// <summary>Converts a boolean value (true or false) to an
 /// arbitrary-precision decimal number.</summary>
 /// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
-    /// <summary>Converts a boolean value (true or false) to an
-    /// arbitrary-precision decimal number.</summary>
-    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
-    /// is not documented yet.</param>
-    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
-    /// zero.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromBoolean(System.Boolean)"]/*'/>
 public static EDecimal FromBoolean(bool boolValue) {
  return boolValue ? EDecimal.One : EDecimal.Zero;
 }
@@ -3231,12 +3227,6 @@ return new DigitShiftAccumulator(
   lastDigit,
   olderDigits);
         }
-      }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)"]/*'/>
-      public IShiftAccumulator CreateShiftAccumulator(EInteger bigint) {
-        return new DigitShiftAccumulator(bigint, 0, 0);
       }
 
     public FastInteger DivisionShift(

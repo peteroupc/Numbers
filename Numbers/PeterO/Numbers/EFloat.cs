@@ -1765,12 +1765,6 @@ public EFloat Divide(int intValue) {
       }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)"]/*'/>
-      public IShiftAccumulator CreateShiftAccumulator(EInteger bigint) {
-        return new BitShiftAccumulator(bigint, 0, 0);
-      }
-
-    /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.DivisionShift(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
       public FastInteger DivisionShift(EInteger num, EInteger den) {
         if (den.IsZero) {
@@ -1937,6 +1931,7 @@ public int ToInt32IfExact() {
     /// is not documented yet.</param>
     /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
     /// zero.</returns>
+  ///
 public static EFloat FromBoolean(bool boolValue) {
  return boolValue ? EFloat.One : EFloat.Zero;
 }
