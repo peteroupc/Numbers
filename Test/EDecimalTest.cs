@@ -3220,6 +3220,11 @@ EFloat.Create(
     }
 
     [Test]
+public void TestToByteChecked(){
+Assert.Throws<OverflowException>(()=>EDecimal.FromString("-4.10020360E-11").ToByteChecked());
+}
+
+    [Test]
     public void TestToDouble() {
       // test for correct rounding
       double dbl;

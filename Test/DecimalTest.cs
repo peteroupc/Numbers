@@ -128,13 +128,15 @@ name.Equals("sqtx2847")) {
           return;
         }
         if (flags.Contains("Invalid_context")) {
+          Console.WriteLine(ln);
           return;
         }
         EContext ctx = EContext.ForPrecision(precision)
           .WithExponentClamp(clamp).WithExponentRange(
             minexponent,
             maxexponent);
-        string rounding = context["rounding"];
+        string rounding = GetKeyOrDefault(context, "rounding",
+              "half_even");
         if (rounding.Equals("half_up")) {
           ctx = ctx.WithRounding(ERounding.HalfUp);
         }
@@ -309,6 +311,7 @@ if (op.Equals("and")) {
           return;
 }
         }
+Console.WriteLine(ln);
         bool invalid = flags.Contains("Division_impossible") ||
           flags.Contains("Division_undefined") ||
           flags.Contains("Invalid_operation");
@@ -570,9 +573,12 @@ throw new InvalidOperationException(String.Empty, ex);
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-              {
+try {
                 ParseDecTest(ln, context);
-              }
+} catch(Exception ex){
+   Console.WriteLine(ex.Message);
+   failures++;
+}
             }
           }
         }

@@ -441,6 +441,9 @@ private static readonly FastIntegerFixed FastIntZero = new
       }
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <param name='boolValue'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
   public static EDecimal FromBoolean(bool boolValue) {
  return boolValue ? EDecimal.One : EDecimal.Zero;
 }
@@ -3353,11 +3356,8 @@ public byte ToByteChecked() {
 if (this.IsIntegerPartZero()) {
  return (byte)0;
 }
-if (this.IsNegative) {
- throw new OverflowException("Value out of range");
-}
 if (this.exponent.CompareToInt(3) >= 0) {
-throw new OverflowException("Value out of range: ");
+throw new OverflowException("Value out of range");
 }
  return this.ToEInteger().ToByteChecked();
 }
