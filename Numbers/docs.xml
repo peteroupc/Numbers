@@ -2451,16 +2451,7 @@
     <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal
       number.
     </summary>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
-    </returns>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal
-      number.
-    </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>A boolean value, either true or false.
     </param>
     <returns>One if
       <c>boolValue</c> is
@@ -9873,16 +9864,7 @@
     <summary>Converts a boolean value (true or false) to an arbitrary-precision
       rational number.
     </summary>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
-    </returns>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision
-      rational number.
-    </summary>
-    <param name='boolValue'>The parameter
-      <paramref name='boolValue'/>
-       is not documented yet.
+    <param name='boolValue'>Either true or false.
     </param>
     <returns>One if
       <c>boolValue</c> is

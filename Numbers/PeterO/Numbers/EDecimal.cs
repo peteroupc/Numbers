@@ -441,16 +441,7 @@ private static readonly FastIntegerFixed FastIntZero = new
       }
     }
 
-/// <summary>Converts a boolean value (true or false) to an
-/// arbitrary-precision decimal number.</summary>
-/// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
-    /// <summary>Converts a boolean value (true or false) to an
-    /// arbitrary-precision decimal number.</summary>
-    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
-    /// is not documented yet.</param>
-    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
-    /// zero.</returns>
-public static EDecimal FromBoolean(bool boolValue) {
+  public static EDecimal FromBoolean(bool boolValue) {
  return boolValue ? EDecimal.One : EDecimal.Zero;
 }
 
@@ -3209,7 +3200,7 @@ ec = ec ?? EContext.UnlimitedHalfEven;
         return value.exponent;
       }
 
-      public FastInteger GetDigitLength(EInteger ei){
+      public FastInteger GetDigitLength(EInteger ei) {
 return FastInteger.FromBig(ei.GetDigitCountAsEInteger());
       }
 

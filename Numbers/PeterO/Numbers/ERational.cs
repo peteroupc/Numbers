@@ -1698,16 +1698,7 @@ public int ToInt32IfExact() {
  return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
-/// <summary>Converts a boolean value (true or false) to an
-/// arbitrary-precision rational number.</summary>
-/// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
-    /// <summary>Converts a boolean value (true or false) to an
-    /// arbitrary-precision rational number.</summary>
-    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
-    /// is not documented yet.</param>
-    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
-    /// zero.</returns>
-public static ERational FromBoolean(bool boolValue) {
+  public static ERational FromBoolean(bool boolValue) {
  return FromInt32(boolValue ? 1 : 0);
 }
 

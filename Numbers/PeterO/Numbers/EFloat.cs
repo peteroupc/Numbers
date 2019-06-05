@@ -1730,10 +1730,9 @@ public EFloat Divide(int intValue) {
         return value.exponent;
       }
 
-      public FastInteger GetDigitLength(EInteger ei){
+      public FastInteger GetDigitLength(EInteger ei) {
 return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
       }
-
 
       public FastIntegerFixed GetMantissaFastInt(EFloat value) {
         return FastIntegerFixed.FromBig(value.unsignedMantissa);

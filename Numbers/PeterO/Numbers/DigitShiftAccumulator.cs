@@ -851,7 +851,6 @@ if (!(value >= 0)) {
       this.ShiftRightInt(digits);
     }
 
-
     private void ShiftRightSmall(int digits) {
       if (digits <= 0) {
         return;
