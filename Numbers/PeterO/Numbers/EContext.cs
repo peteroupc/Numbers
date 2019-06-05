@@ -9,6 +9,7 @@ using System;
 
 namespace PeterO.Numbers {
    // TODO: Add WithNoFlagsOrTraps method which resets flags
+   // TODO: Add HasFlagsOrTraps method
    // and traps to 0
 
     /// <include file='../../docs.xml'
@@ -710,8 +711,8 @@ return new EContext(
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithTraps(System.Int32)"]/*'/>
     public EContext WithTraps(int traps) {
- // TODO: In next major version, copy HasFlags rather than
- // setting it to true
+// NOTE: Apparently HasFlags must be set to true because
+// some parts of code may treat HasFlags as HasFlagsOrTraps
 return new EContext(
   this.adjustExponent,
   this.bigintPrecision,

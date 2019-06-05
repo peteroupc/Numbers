@@ -2616,7 +2616,7 @@ public EDecimal Divide(int intValue) {
         FastInteger bigexponent = this.exponent.ToFastInteger().Negate();
         EInteger bigmantissa = this.unsignedMantissa.ToEInteger();
         var acc = new DigitShiftAccumulator(bigmantissa, 0, 0);
-        acc.TruncateRight(bigexponent);
+        acc.TruncateOrShiftRight(bigexponent, true);
         if (exact && (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits !=
                     0)) {
           // Some digits were discarded

@@ -66,11 +66,9 @@ namespace PeterO.Numbers {
         // (//kbl) + " [" + this.shiftedBigInt + "]");
         if (this.knownBitLength.CompareTo(bits) <= 0) {
           // Known digit length is already small enough
-          if (truncate) {
-            this.TruncateRight(preShift);
-          } else {
-            this.ShiftRight(preShift);
-          }
+          // NOTE: For BitShiftAccumulator, truncating and shifting
+          // are the same, unlike in DigitShiftAccumulator
+          this.ShiftRight(preShift);
           this.VerifyKnownLength();
           return;
         } else {
@@ -79,21 +77,15 @@ namespace PeterO.Numbers {
           // DebugUtility.Log("bitDiff=" + bitDiff);
           int cmp = bitDiff.CompareTo(preShift);
           if (cmp <= 0) {
-            // Difference between desired digit length and current
-            // length is smaller than the shift, make it the shift
-           if (truncate) {
-             this.TruncateRight(preShift);
-           } else {
-             this.ShiftRight(preShift);
-           }
+          // NOTE: For BitShiftAccumulator, truncating and shifting
+          // are the same, unlike in DigitShiftAccumulator
+          this.ShiftRight(preShift);
           this.VerifyKnownLength();
            return;
           } else {
-           if (truncate) {
-             this.TruncateRight(bitDiff);
-           } else {
-             this.ShiftRight(bitDiff);
-           }
+          // NOTE: For BitShiftAccumulator, truncating and shifting
+          // are the same, unlike in DigitShiftAccumulator
+          this.ShiftRight(bitDiff);
           this.VerifyKnownLength();
            return;
           }
@@ -191,7 +183,7 @@ namespace PeterO.Numbers {
       return bsa;
     }
 
-    public void TruncateRight(FastInteger fastint) {
+    public void TruncateOrShiftRight(FastInteger fastint, bool truncate) {
       this.ShiftRight(fastint);
     }
 
