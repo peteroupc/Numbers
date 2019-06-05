@@ -110,9 +110,7 @@ namespace PeterO.Numbers {
           return thisValue;
         }
         FastInteger prec = FastInteger.FromBig(ctxDest.Precision);
-        FastInteger digits =
-          this.GetHelper().CreateShiftAccumulatorWithDigits(mant, 0, 0)
-             .GetDigitLength();
+        FastInteger digits = this.GetHelper().GetDigitLength(mant);
         prec.Subtract(digits);
         if (prec.Sign > 0 && prec.CompareTo(fastExp) >= 0) {
           mant = this.GetHelper().MultiplyByRadixPower(mant, fastExp);
@@ -240,9 +238,7 @@ namespace PeterO.Numbers {
       }
       FastInteger fastPrecision = FastInteger.FromBig(ctx.Precision);
       EInteger mant = this.GetHelper().GetMantissa(val).Abs();
-      FastInteger digits =
-        this.GetHelper().CreateShiftAccumulatorWithDigits(mant, 0, 0)
-           .GetDigitLength();
+      FastInteger digits = this.GetHelper().GetDigitLength(mant);
       EContext ctx2 = ctx.WithBlankFlags().WithTraps(0);
       if (digits.CompareTo(fastPrecision) <= 0) {
         // Rounding is only to be done if the digit count is
@@ -387,7 +383,7 @@ thisValue = this.wrapper.Remainder(
       return this.wrapper.Pi(ctx);
     }
 
-#pragma warning disable CS0618 // certain ERounding values are obsolete
+#pragma warning disable CS0618  // certain ERounding values are obsolete
     private T SignalOverflow2(EContext pc, bool neg) {
       if (pc != null) {
         ERounding roundingOnOverflow = pc.Rounding;

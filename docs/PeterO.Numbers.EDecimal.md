@@ -146,7 +146,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[CompareToTotal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToWithContext(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[CompareTo(PeterO.Numbers.EDecimal)](#CompareTo_PeterO_Numbers_EDecimal)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
-* <code>[Copy()](#Copy)</code> - Not documented yet.
+* <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
 * <code>[CopySign(PeterO.Numbers.EDecimal)](#CopySign_PeterO_Numbers_EDecimal)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
@@ -745,7 +745,7 @@ Quiet NaN if this object or the other object is NaN, or 0 if both objects have t
 
     public PeterO.Numbers.EDecimal Copy();
 
-Not documented yet.
+Creates a copy of this arbitrary-precision binary number.
 
 <b>Return Value:</b>
 
@@ -825,7 +825,7 @@ Creates a not-a-number arbitrary-precision decimal number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's  `UnsignedMantissa`  property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's `UnsignedMantissa`  property.
 
 <b>Return Value:</b>
 
@@ -844,7 +844,7 @@ Creates a not-a-number arbitrary-precision decimal number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's  `UnsignedMantissa`  property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's `UnsignedMantissa`  property.
 
  * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
 

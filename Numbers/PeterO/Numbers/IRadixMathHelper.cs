@@ -46,6 +46,8 @@ namespace PeterO.Numbers {
 
     FastInteger DivisionShift(EInteger num, EInteger den);
 
+    FastInteger GetDigitLength(EInteger ei);
+
     EInteger MultiplyByRadixPower(EInteger value, FastInteger power);
   }
 }

@@ -34,7 +34,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Equals(PeterO.Numbers.EInteger)](#Equals_PeterO_Numbers_EInteger)</code> - Determines whether this object and another object are equal.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
-* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Not documented yet.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision integer.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[FromBytes(byte[], bool)](#FromBytes_byte_bool)</code> - Initializes an arbitrary-precision integer from an array of bytes.
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision integer.
@@ -517,16 +517,15 @@ Determines whether this object and another object are equal.
     public static PeterO.Numbers.EInteger FromBoolean(
         bool boolValue);
 
-Not documented yet.
+Converts a boolean value (true or false) to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>boolValue</i>: The parameter <i>boolValue</i>
-is not documented yet.
+ * <i>boolValue</i>: Either true or false.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+The number 1 if "boolValue" is true; otherwise, 0.
 
 <a id="FromByte_byte"></a>
 ### FromByte

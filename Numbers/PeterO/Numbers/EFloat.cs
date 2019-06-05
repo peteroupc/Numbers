@@ -1730,6 +1730,11 @@ public EFloat Divide(int intValue) {
         return value.exponent;
       }
 
+      public FastInteger GetDigitLength(EInteger ei){
+return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
+      }
+
+
       public FastIntegerFixed GetMantissaFastInt(EFloat value) {
         return FastIntegerFixed.FromBig(value.unsignedMantissa);
       }
@@ -1931,7 +1936,6 @@ public int ToInt32IfExact() {
     /// is not documented yet.</param>
     /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
     /// zero.</returns>
-  ///
 public static EFloat FromBoolean(bool boolValue) {
  return boolValue ? EFloat.One : EFloat.Zero;
 }

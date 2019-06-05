@@ -444,8 +444,12 @@ private static readonly FastIntegerFixed FastIntZero = new
 /// <summary>Converts a boolean value (true or false) to an
 /// arbitrary-precision decimal number.</summary>
 /// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
-    /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromBoolean(System.Boolean)"]/*'/>
+    /// <summary>Converts a boolean value (true or false) to an
+    /// arbitrary-precision decimal number.</summary>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
+    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
+    /// zero.</returns>
 public static EDecimal FromBoolean(bool boolValue) {
  return boolValue ? EDecimal.One : EDecimal.Zero;
 }
@@ -2577,10 +2581,10 @@ public EDecimal Divide(int intValue) {
       if (sign >= 0) {
         return false;
       } else {
-        FastInteger bigexponent = this.exponent.ToFastInteger().Negate();
-        EInteger bigmantissa = this.unsignedMantissa.ToEInteger();
-        var acc = new DigitShiftAccumulator(bigmantissa, 0, 0);
-  return (acc.GetDigitLength().CompareTo(bigexponent) <= 0) ? true :
+        EInteger bigexponent = this.Exponent;
+        EInteger digitCount = this.UnsignedMantissa
+             .GetDigitCountAsEInteger();
+        return (digitCount.CompareTo(bigexponent) <= 0) ? true :
           false;
       }
     }
@@ -3203,6 +3207,10 @@ ec = ec ?? EContext.UnlimitedHalfEven;
 
       public FastIntegerFixed GetExponentFastInt(EDecimal value) {
         return value.exponent;
+      }
+
+      public FastInteger GetDigitLength(EInteger ei){
+return FastInteger.FromBig(ei.GetDigitCountAsEInteger());
       }
 
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
