@@ -16,6 +16,10 @@ using PeterO.Numbers;
 namespace Test {
   [TestFixture]
   public class DecimalTest {
+    public static void Timeout(int duration, Action action, string msg) {
+  action(); return;
+    }
+
     private static readonly Regex ValuePropertyLine = new Regex(
       "^(\\w+)\\:\\s*(\\S+)",
       RegexOptions.Compiled);
@@ -135,8 +139,10 @@ name.Equals("sqtx2847")) {
           .WithExponentClamp(clamp).WithExponentRange(
             minexponent,
             maxexponent);
-        string rounding = GetKeyOrDefault(context, "rounding",
-              "half_even");
+        string rounding = GetKeyOrDefault(
+  context,
+  "rounding",
+  "half_even");
         if (rounding.Equals("half_up")) {
           ctx = ctx.WithRounding(ERounding.HalfUp);
         }
@@ -168,6 +174,14 @@ name.Equals("sqtx2847")) {
           ctx = ctx.WithSimplified(true);
         }
         ctx = ctx.WithBlankFlags();
+        if (op.Length > 3 && op.Substring(op.Length - 3).Equals("_eq")) {
+            // Binary operators with both operands the same
+            input2 = input1;
+            op = op.Substring(0, op.Length - 3);
+        }
+if (!op.Equals("ln") && !op.Equals("log10")) {
+ return;
+}
         EDecimal d1 = EDecimal.Zero, d2 = null, d2a = null;
         if (!op.Equals("toSci") &&
 !op.Equals("toEng") &&
@@ -252,9 +266,13 @@ Assert.AreEqual(d3, EDecimalExtras.CopySign(d1, d2));
           d3 = d1.Exp(ctx);
         } else if (op.Equals("ln")) {
           d3 = d1.Log(ctx);
-        } else if (op.Equals("log10")) {
+        } else if (op.Equals("log10") || op.Equals("ln10")) {
           d3 = d1.Log10(ctx);
         } else if (op.Equals("power")) {
+if (d2a != null) {
+Console.WriteLine("Three-op power not yet supported");
+return;
+}
           d3 = d1.Pow(d2, ctx);
         } else if (op.Equals("squareroot")) {
           d3 = d1.Sqrt(ctx);
@@ -298,6 +316,33 @@ if (op.Equals("and")) {
  d3 = EDecimalExtras.Shift(d1, d2, ctx);
   } else if (op.Equals("rotate")) {
  d3 = EDecimalExtras.Rotate(d1, d2, ctx);
+  } else if (op.Equals("iscanonical")) {
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsCanonical(d1));
+  } else if (op.Equals("isnan")) {
+ Assert.AreEqual(EDecimalExtras.IsNaN(d1), d1.IsNaN());
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsNaN(d1));
+  } else if (op.Equals("issigned")) {
+ Assert.AreEqual(EDecimalExtras.IsSigned(d1), d1.IsNegative);
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsSigned(d1));
+  } else if (op.Equals("isqnan")) {
+ Assert.AreEqual(EDecimalExtras.IsQuietNaN(d1), d1.IsQuietNaN());
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsQuietNaN(d1));
+  } else if (op.Equals("issnan")) {
+ Assert.AreEqual(EDecimalExtras.IsSignalingNaN(d1), d1.IsSignalingNaN());
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsSignalingNaN(d1));
+  } else if (op.Equals("isfinite")) {
+ Assert.AreEqual(EDecimalExtras.IsFinite(d1), d1.IsFinite);
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsFinite(d1));
+  } else if (op.Equals("isinfinite")) {
+ Assert.AreEqual(EDecimalExtras.IsInfinite(d1), d1.IsInfinity());
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsInfinite(d1));
+  } else if (op.Equals("issubnormal")) {
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsSubnormal(d1, ctx));
+  } else if (op.Equals("isnormal")) {
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsNormal(d1, ctx));
+  } else if (op.Equals("iszero")) {
+ Assert.AreEqual(EDecimalExtras.IsZero(d1), d1.IsZero);
+ d3 = EDecimal.FromBoolean(EDecimalExtras.IsZero(d1));
   } else if (op.Equals("logb")) {
  d3 = EDecimalExtras.LogB(d1, ctx);
   } else if (op.Equals("scaleb")) {
@@ -311,7 +356,6 @@ if (op.Equals("and")) {
           return;
 }
         }
-Console.WriteLine(ln);
         bool invalid = flags.Contains("Division_impossible") ||
           flags.Contains("Division_undefined") ||
           flags.Contains("Invalid_operation");
@@ -560,11 +604,11 @@ throw new InvalidOperationException(String.Empty, ex);
     [Test]
     public void TestParser() {
       long failures = 0;
-      {
+          var sb = new System.Text.StringBuilder();
         // Reads decimal test files described in:
         // <http://speleotrove.com/decimal/dectest.html>
         foreach (var f in CBOR.ExtensiveTest.GetTestFiles()) {
-          if (!Path.GetFileName(f).Contains(".decTest")) {
+          if (!Path.GetFileName(f).ToLowerInvariant().Contains(".dectest")) {
             continue;
           }
           Console.WriteLine(f);
@@ -573,17 +617,28 @@ throw new InvalidOperationException(String.Empty, ex);
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
+if (!ln.Contains("ln") && !ln.Contains("log") &&
+  ValueTestLine.Match(ln).Success) {
+// continue;
+}
 try {
-                ParseDecTest(ln, context);
-} catch(Exception ex){
-   Console.WriteLine(ex.Message);
-   failures++;
+               Timeout(
+  30000,
+  () => ParseDecTest(ln, context),
+  ln.Substring(0, Math.Min(ln.Length, 500)));
+} catch (Exception ex) {
+   foreach (var k in context.Keys) {
+       sb.Append(k).Append(": ").Append(context[k])
+            .Append("\n");
+   }
+   sb.Append(ln).Append("\n");
+   ++failures;
 }
             }
           }
         }
-      }
       if (failures > 0) {
+Console.WriteLine(sb.ToString());
         Assert.Fail(failures + " failure(s)");
       }
     }

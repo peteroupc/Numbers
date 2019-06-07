@@ -1116,6 +1116,7 @@ ctx.Precision).WithBlankFlags();
   ctxdiv.WithUnlimitedExponents());
               roots.Increment();
             }
+   // DebugUtility.Log("LnInternal AA "+(thisValue as EDecimal)?.ToDouble());
             thisValue = this.LnInternal(thisValue, ctxdiv.Precision, ctxdiv);
             EInteger bigintRoots = PowerOfTwo(roots);
             // Multiply back 2^X, where X is the number
@@ -1135,12 +1136,14 @@ ctx.Precision).WithBlankFlags();
               error.AddInt(6);
               error.AddBig(ctx.Precision);
               bigError = error.AsEInteger();
-DebugUtility.Log("using error precision: {0}, {1}",error,thisValue);
-              thisValue = this.LnInternal(
+   // DebugUtility.Log("LnInternalCloseToOne B " +(thisValue as
+   // EDecimal)?.ToDouble());
+              thisValue = this.LnInternalCloseToOne(
   thisValue,
   error.AsEInteger(),
   ctxCopy);
             } else {
+   // DebugUtility.Log("LnInternal A "+(thisValue as EDecimal)?.ToDouble());
               thisValue = this.LnInternal(thisValue, ctxdiv.Precision, ctxCopy);
             }
           }
@@ -1159,7 +1162,7 @@ DebugUtility.Log("using error precision: {0}, {1}",error,thisValue);
             bigError = error.AsEInteger();
             ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
               .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
-            T smallfrac = this.Divide(one, this.helper.ValueOf(10), ctxdiv);
+            T smallfrac = this.Divide(one, this.helper.ValueOf(20), ctxdiv);
             T closeToOne = this.Add(one, smallfrac, null);
             // Take square root until this value
             // is close to 1
@@ -1171,7 +1174,10 @@ DebugUtility.Log("using error precision: {0}, {1}",error,thisValue);
             }
             // Find -Ln(1/thisValue)
             thisValue = this.Divide(one, thisValue, ctxdiv);
-            thisValue = this.LnInternal(thisValue, ctxdiv.Precision, ctxdiv);
+   // DebugUtility.Log("LnInternalCloseToOne C " +(thisValue as
+   // EDecimal)?.ToDouble());
+    thisValue = this.LnInternalCloseToOne(thisValue, ctxdiv.Precision,
+              ctxdiv);
             thisValue = this.NegateRaw(thisValue);
             EInteger bigintRoots = PowerOfTwo(roots);
             // Multiply back 2^X, where X is the number
@@ -1195,17 +1201,20 @@ DebugUtility.Log("using error precision: {0}, {1}",error,thisValue);
               error = error.Copy();
               error.AddInt(6);
               error.AddBig(ctx.Precision);
-DebugUtility.Log("using error precision: {0}, {1}",error,thisValue);
+   //DebugUtility.Log("using error precision: " + error + ", " + thisValue);
               bigError = error.AsEInteger();
               // Greater than 1 and close to 1, will require a higher working
               // precision
-              thisValue = this.LnInternal(
+   // DebugUtility.Log("LnInternalCloseToOne D " +(thisValue as
+   // EDecimal)?.ToDouble());
+              thisValue = this.LnInternalCloseToOne(
   thisValue,
   error.AsEInteger(),
   ctxCopy);
             } else {
               // Find -Ln(1/thisValue)
               thisValue = this.Divide(one, thisValue, ctxdiv);
+   // DebugUtility.Log("LnInternal B "+(thisValue as EDecimal)?.ToDouble());
               thisValue = this.LnInternal(thisValue, ctxdiv.Precision, ctxCopy);
               thisValue = this.NegateRaw(thisValue);
             }
@@ -1308,6 +1317,7 @@ DebugUtility.Log("using error precision: {0}, {1}",error,thisValue);
               ctx.Precision + (EInteger)10)
               .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
             T logNatural = this.Ln(thisValue, ctxdiv);
+            DebugUtility.Log("logNatural -> "+logNatural);
             T logTen = this.LnTenConstant(ctxdiv);
             thisValue = this.Divide(logNatural, logTen, ctx);
             // Treat result as inexact
@@ -3864,6 +3874,55 @@ DebugUtility.Log("using error precision: {0}, {1}",error,thisValue);
       return exp.CompareTo(ctx.EMin) >= 0 && exp.CompareTo(ctx.EMax) <= 0;
     }
 
+    private T LnInternalCloseToOne(
+  T thisValue,
+  EInteger workingPrecision,
+  EContext ctx) {
+      // Assumes 'thisValue' is close to 1
+      var more = true;
+      var lastCompare = 0;
+      var vacillations = 0;
+      EContext ctxdiv = SetPrecisionIfLimited(
+        ctx,
+        workingPrecision + (EInteger)6)
+        .WithRounding(ERounding.OddOrZeroFiveUp);
+      T rz = this.Add(thisValue, this.helper.ValueOf(-1), null);
+      T rzz = rz;
+      T guess = rz;
+      T lastGuess = default(T);
+      var sub = true;
+      var denom = (EInteger)2;
+      while (more) {
+        lastGuess = guess;
+        rzz = this.Multiply(rzz, rz, ctxdiv);
+        T rd = this.Divide(
+            rzz,
+            this.helper.CreateNewWithFlags(denom, EInteger.Zero, 0),
+            ctxdiv);
+        T newGuess = sub ?
+            this.Add(guess, this.NegateRaw(rd), ctxdiv) :
+            this.Add(guess, rd, ctxdiv);
+        {
+          int guessCmp = this.CompareTo(lastGuess, newGuess);
+          if (guessCmp == 0) {
+            more = false;
+          } else if ((guessCmp > 0 && lastCompare < 0) || (lastCompare > 0 &&
+                    guessCmp < 0)) {
+            // Guesses are vacillating
+            ++vacillations;
+            more &= vacillations <= 3 || guessCmp <= 0;
+          }
+          lastCompare = guessCmp;
+        }
+        guess = newGuess;
+        if (more) {
+          sub = !sub;
+          denom += EInteger.One;
+        }
+      }
+      return this.RoundToPrecision(guess, ctx);
+    }
+
     private T LnInternal(
   T thisValue,
   EInteger workingPrecision,
@@ -4528,9 +4587,9 @@ accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
       FastInteger adjExponent;
       adjExponent = ctx.AdjustExponent ?
         exp.Copy().Add(accum.GetDigitLength()).Decrement() : exp.Copy();
-      if (binaryPrec){
+      if (binaryPrec) {
         // NOTE: Binary precision case only
-        if(fastEMax != null && adjExponent.CompareTo(fastEMax) == 0) {
+        if (fastEMax != null && adjExponent.CompareTo(fastEMax) == 0) {
           // May or may not be an overflow depending on the mantissa
           FastInteger expdiff =
             fastPrecision.Copy().Subtract(accum.GetDigitLength());
@@ -4552,7 +4611,7 @@ accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
           if (ctx.HasFlags) {
             ctx.Flags |= flags | EContext.FlagClamped;
           }
-          if (ctx.ClampNormalExponents && 
+          if (ctx.ClampNormalExponents &&
               ctx.AdjustExponent) {
             // Clamp exponents to eMax + 1 - precision
             // if directed
@@ -4688,7 +4747,7 @@ accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
   neg ? BigNumberFlags.FlagNegative : 0);
         }
       }
-      // DebugUtility.Log("" + accum.ShiftedInt + ", exp=" + 
+      // DebugUtility.Log("" + accum.ShiftedInt + ", exp=" +
       // adjExponent + "/" + fastEMin);
       var recheckOverflow = false;
       bool doRounding = accum.DiscardedDigitCount.Sign != 0 ||

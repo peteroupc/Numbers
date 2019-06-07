@@ -442,7 +442,8 @@ private static readonly FastIntegerFixed FastIntZero = new
     }
 
     /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>Not documented yet.</param>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
     /// <returns>An EDecimal object.</returns>
   public static EDecimal FromBoolean(bool boolValue) {
  return boolValue ? EDecimal.One : EDecimal.Zero;

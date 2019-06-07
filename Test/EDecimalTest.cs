@@ -3220,8 +3220,16 @@ EFloat.Create(
     }
 
     [Test]
-public void TestToByteChecked(){
-Assert.Throws<OverflowException>(()=>EDecimal.FromString("-4.10020360E-11").ToByteChecked());
+public void TestToByteChecked() {
+try {
+ EDecimal.FromString("-4.10020360E-11").ToByteChecked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
 }
 
     [Test]

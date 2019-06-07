@@ -1699,7 +1699,8 @@ public int ToInt32IfExact() {
 }
 
     /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>Not documented yet.</param>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
     /// <returns>An ERational object.</returns>
   public static ERational FromBoolean(bool boolValue) {
  return FromInt32(boolValue ? 1 : 0);

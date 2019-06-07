@@ -1123,7 +1123,10 @@
     <summary>Gets the maximum length of a converted number in digits, ignoring the
       radix point and exponent. For example, if precision is 3, a converted
       number's mantissa (significand) can range from 0 to 999 (up to three
-      digits long). If 0, converted numbers can have any precision.
+      digits long). If 0, converted numbers can have any precision.<para>
+      Not-a-number (NaN) values can carry an optional number, its payload, that serves as its "diagnostic information",
+      In general, if an operation requires copying an NaN's payload, only up to as many digits of that
+      payload as the precision given in this context, namely the least significant digits, are copied.</para>
     </summary>
     <value>The maximum length of a converted number in digits, ignoring the radix
       point and exponent. For example, if precision is 3, a converted number's

@@ -43,7 +43,7 @@ namespace Test {
       return ed != null && ed.IsFinite && !ed.IsZero && !IsSubnormal(ed, ec);
     }
 
-    public static bool IsQNaN(EDecimal ed) {
+    public static bool IsQuietNaN(EDecimal ed) {
       return ed != null && ed.IsQuietNaN();
     }
 
@@ -51,7 +51,7 @@ namespace Test {
       return ed.IsNegative;
     }
 
-    public static bool IsSNaN(EDecimal ed) {
+    public static bool IsSignalingNaN(EDecimal ed) {
       return ed != null && ed.IsSignalingNaN();
     }
 
@@ -133,9 +133,6 @@ if (nc > 9) {
       if (ed.IsNaN() || ed2.IsNaN()) {
         return ed.Add(ed2, ec);
       }
-      if (ed.IsInfinity()) {
- return ed;
-}
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
@@ -145,6 +142,9 @@ if (ec != null && ec.HasMaxPrecision) {
   if (scale.Abs().CompareTo(exp.Abs()) > 0) {
     return InvalidOperation(EDecimal.NaN, ec);
   }
+}
+      if (ed.IsInfinity()) {
+ return ed;
 }
       if (scale.IsZero) {
         return ed.RoundToPrecision(ec);
