@@ -1317,8 +1317,12 @@ ctx.Precision).WithBlankFlags();
               ctx.Precision + (EInteger)10)
               .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
             T logNatural = this.Ln(thisValue, ctxdiv);
-            DebugUtility.Log("logNatural -> "+logNatural);
+            //DebugUtility.Log("thisValue -> " +(thisValue as
+            // EDecimal)?.ToDouble());
+            //DebugUtility.Log("logNatural -> " +(logNatural as
+            // EDecimal)?.ToDouble());
             T logTen = this.LnTenConstant(ctxdiv);
+            //DebugUtility.Log("logTen -> "+(logTen as EDecimal)?.ToDouble());
             thisValue = this.Divide(logNatural, logTen, ctx);
             // Treat result as inexact
             if (ctx.HasFlags) {
@@ -1862,7 +1866,7 @@ ctx.Precision).WithBlankFlags();
                     guessCmp < 0)) {
             // Guesses are vacillating
             ++vacillations;
-            more &= vacillations <= 3 || guessCmp <= 0;
+            more &= vacillations <= 3;
           }
           lastCompare = guessCmp;
         }
@@ -3744,6 +3748,8 @@ ctx.Precision).WithBlankFlags();
   T thisValue,
   EInteger workingPrecision,
   EContext ctx) {
+      DebugUtility.Log("ExpInternal " +(thisValue as
+        EDecimal)?.ToDouble()+", wp=" +workingPrecision);
       T one = this.helper.ValueOf(1);
       int precisionAdd = this.thisRadix == 2 ? 18 : 12;
       EContext ctxdiv = SetPrecisionIfLimited(
@@ -3753,7 +3759,11 @@ ctx.Precision).WithBlankFlags();
       var bigintN = (EInteger)2;
       EInteger facto = EInteger.One;
       // Guess starts with 1 + thisValue
-      T guess = this.Add(one, thisValue, null);
+      // NOTE: Specify ctxdiv rather than null here to avoid
+      // cases involving adding 1 to a number with a very high
+      // negative exponent, which could result in a number taking
+      // up lots of memory
+      T guess = this.Add(one, thisValue, ctxdiv);
       T lastGuess = guess;
       T pow = thisValue;
       var more = true;
@@ -3761,6 +3771,7 @@ ctx.Precision).WithBlankFlags();
       var vacillations = 0;
       while (more) {
         lastGuess = guess;
+        DebugUtility.Log("bigintN=" + (bigintN));
         // Iterate by:
         // newGuess = guess + (thisValue^n/factorial(n))
         // (n starts at 2 and increases by 1 after
@@ -3772,13 +3783,13 @@ ctx.Precision).WithBlankFlags();
           this.helper.CreateNewWithFlags(facto, EInteger.Zero, 0),
           ctxdiv);
         T newGuess = this.Add(guess, tmp, ctxdiv);
-        // DebugUtility.Log("newguess" +
-        // this.helper.GetMantissa(newGuess)+" ctxdiv " +
-        // ctxdiv.Precision);
+         DebugUtility.Log("newguess = " + (newGuess as EDecimal)?.ToDouble());
+         DebugUtility.Log("tmp = " + (tmp as EDecimal)?.ToDouble());
         // DebugUtility.Log("newguess " + newGuess);
         // DebugUtility.Log("newguessN " + NextPlus(newGuess,ctxdiv));
         {
           int guessCmp = this.CompareTo(lastGuess, newGuess);
+          DebugUtility.Log("guessCmp = " + (guessCmp));
           if (guessCmp == 0) {
             more = false;
           } else if ((guessCmp > 0 && lastCompare < 0) || (lastCompare > 0 &&
@@ -3794,6 +3805,7 @@ ctx.Precision).WithBlankFlags();
           bigintN += EInteger.One;
         }
       }
+      DebugUtility.Log("return final guess");
       return this.RoundToPrecision(guess, ctx);
     }
 
@@ -3882,6 +3894,7 @@ ctx.Precision).WithBlankFlags();
       var more = true;
       var lastCompare = 0;
       var vacillations = 0;
+      //DebugUtility.Log("workingprec=" + (workingPrecision));
       EContext ctxdiv = SetPrecisionIfLimited(
         ctx,
         workingPrecision + (EInteger)6)
@@ -3890,6 +3903,9 @@ ctx.Precision).WithBlankFlags();
       T rzz = rz;
       T guess = rz;
       T lastGuess = default(T);
+      T lastDiff = default(T);
+      bool haveLastDiff = false;
+      EInteger iterations = EInteger.Zero;
       var sub = true;
       var denom = (EInteger)2;
       while (more) {
@@ -3899,11 +3915,18 @@ ctx.Precision).WithBlankFlags();
             rzz,
             this.helper.CreateNewWithFlags(denom, EInteger.Zero, 0),
             ctxdiv);
-        T newGuess = sub ?
-            this.Add(guess, this.NegateRaw(rd), ctxdiv) :
+         if (haveLastDiff && this.CompareTo(lastDiff, rd) == 0) {
+            // iterate is the same as before, so break
+            break;
+         }
+        T newGuess = sub ? this.Add(guess, this.NegateRaw(rd), ctxdiv) :
             this.Add(guess, rd, ctxdiv);
-        {
           int guessCmp = this.CompareTo(lastGuess, newGuess);
+#if DEBUG
+         if (iterations.CompareTo(workingPrecision) >= 0) {
+     DebugUtility.Log("[" + ((thisValue as EDecimal)?.ToDouble()) + ", " + iterations + "] rd=" + ((rd as EDecimal)?.ToDouble()) + ", newGuess=" + ((newGuess as EDecimal)?.ToDouble()) + ", wp=" + workingPrecision + ", guessCmp=" + (guessCmp));
+         }
+#endif
           if (guessCmp == 0) {
             more = false;
           } else if ((guessCmp > 0 && lastCompare < 0) || (lastCompare > 0 &&
@@ -3913,11 +3936,13 @@ ctx.Precision).WithBlankFlags();
             more &= vacillations <= 3 || guessCmp <= 0;
           }
           lastCompare = guessCmp;
-        }
+          lastDiff = this.AbsRaw(rd);
+          haveLastDiff = true;
         guess = newGuess;
         if (more) {
           sub = !sub;
           denom += EInteger.One;
+          iterations += EInteger.One;
         }
       }
       return this.RoundToPrecision(guess, ctx);
@@ -3976,20 +4001,21 @@ ctx.Precision).WithBlankFlags();
       T thisValue = this.helper.ValueOf(10);
       FastInteger error;
       EInteger bigError;
-      error = new FastInteger(10);
+      error = new FastInteger(14);
       bigError = error.AsEInteger();
       EContext ctxdiv = SetPrecisionIfLimited(
         ctx,
         ctx.Precision + bigError)
         .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
-      for (var i = 0; i < 9; ++i) {
+      for (var i = 0; i < 13; ++i) {
         thisValue = this.SquareRoot(thisValue, ctxdiv.WithUnlimitedExponents());
       }
-      // Find -Ln(1/thisValue)
+      //DebugUtility.Log("lntenconstant thisValue=" + (thisValue));
       thisValue = this.Divide(this.helper.ValueOf(1), thisValue, ctxdiv);
-      thisValue = this.LnInternal(thisValue, ctxdiv.Precision, ctxdiv);
+      thisValue = this.LnInternalCloseToOne(thisValue, ctxdiv.Precision,
+              ctxdiv);
       thisValue = this.NegateRaw(thisValue);
-      thisValue = this.Multiply(thisValue, this.helper.ValueOf(1 << 9), ctx);
+      thisValue = this.Multiply(thisValue, this.helper.ValueOf(1 << 13), ctx);
       if (ctx.HasFlags) {
         ctx.Flags |= EContext.FlagInexact;
         ctx.Flags |= EContext.FlagRounded;

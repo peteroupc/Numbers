@@ -233,10 +233,14 @@ if (ed.IsInfinity()) {
  return ed;
 }
 EInteger mant = ed.UnsignedMantissa;
+EInteger mantprec = ed.Precision();
+if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) > 0) {
+  mant = mant.Remainder(EInteger.One.ShiftLeft(ec.Precision));
+  mantprec = ec.Precision;
+}
 if (mant.IsZero) {
    return ed.RoundToPrecision(ec);
 }
-EInteger mantprec = ed.Precision();
 EInteger rightShift = shift.Sign < 0 ? shift.Abs() :
   ec.Precision.Subtract(shift);
 EInteger leftShift = ec.Precision.Subtract(rightShift);

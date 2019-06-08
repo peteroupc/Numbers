@@ -17,7 +17,7 @@ namespace Test {
   [TestFixture]
   public class DecimalTest {
     public static void Timeout(int duration, Action action, string msg) {
-  action(); return;
+ action(); return;
     }
 
     private static readonly Regex ValuePropertyLine = new Regex(
@@ -57,6 +57,11 @@ namespace Test {
           match.Groups[2].ToString();
         return;
       }
+if (ln.Contains("format ") ||
+ln.Contains("shiftleft ") ||
+ln.Contains("shiftright ")) {
+ return;
+}
       match = ValueTestLine.Match(ln);
       if (match.Success) {
         string name = match.Groups[1].ToString();
@@ -78,6 +83,11 @@ namespace Test {
   context["minexponent"]);
         int maxexponent = StringToIntAllowPlus(
   context["maxexponent"]);
+        // Format op not supported
+        if (op.Equals("format")) {
+        // TODO
+          return;
+        }
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
         if (input1.Contains("#") ||
@@ -179,9 +189,6 @@ name.Equals("sqtx2847")) {
             input2 = input1;
             op = op.Substring(0, op.Length - 3);
         }
-if (!op.Equals("ln") && !op.Equals("log10")) {
- return;
-}
         EDecimal d1 = EDecimal.Zero, d2 = null, d2a = null;
         if (!op.Equals("toSci") &&
 !op.Equals("toEng") &&
@@ -266,7 +273,7 @@ Assert.AreEqual(d3, EDecimalExtras.CopySign(d1, d2));
           d3 = d1.Exp(ctx);
         } else if (op.Equals("ln")) {
           d3 = d1.Log(ctx);
-        } else if (op.Equals("log10") || op.Equals("ln10")) {
+        } else if (op.Equals("log10")) {
           d3 = d1.Log10(ctx);
         } else if (op.Equals("power")) {
 if (d2a != null) {
@@ -603,42 +610,72 @@ throw new InvalidOperationException(String.Empty, ex);
 
     [Test]
     public void TestParser() {
+         this.TestParserEx(false);
+         this.TestParserEx(true);
+    }
+
+    public void TestParserEx(bool recordfailing) {
       long failures = 0;
+      var testfiles = CBOR.ExtensiveTest.GetTestFiles();
+      if (testfiles.Length == 0) {
+ return;
+}
+      string failingpath = Path.Combine(
+  Path.GetDirectoryName(testfiles[0]),
+  "failing.decTest");
+      if (recordfailing && File.Exists(failingpath)) {
+ return;
+}
+          var failedLines = new Dictionary<string, bool>();
           var sb = new System.Text.StringBuilder();
         // Reads decimal test files described in:
         // <http://speleotrove.com/decimal/dectest.html>
-        foreach (var f in CBOR.ExtensiveTest.GetTestFiles()) {
-          if (!Path.GetFileName(f).ToLowerInvariant().Contains(".dectest")) {
+        foreach (var f in testfiles) {
+          if (!Path.GetFileName(f).ToLowerInvariant().Contains(
+               recordfailing ? ".dectest" : "failing.dectest")) {
             continue;
           }
           Console.WriteLine(f);
-          IDictionary<string, string> context =
-            new Dictionary<string, string>();
+          var context = new Dictionary<string, string>();
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-if (!ln.Contains("ln") && !ln.Contains("log") &&
-  ValueTestLine.Match(ln).Success) {
-// continue;
+if (recordfailing)if (ln.Length > 1000) {
+ continue;
 }
 try {
-               Timeout(
-  30000,
-  () => ParseDecTest(ln, context),
-  ln.Substring(0, Math.Min(ln.Length, 500)));
+if (recordfailing) {
+ Timeout(5000, () => ParseDecTest(ln, context), String.Empty);
+} else {
+ Timeout(15000, () => ParseDecTest(ln, context), ln);
+}
 } catch (Exception ex) {
+   if (!failedLines.ContainsKey(ln)) {
+   if (!context.ContainsKey("rounding")) {
+ context["rounding"] = "half_even";
+}
+   if (!context.ContainsKey("extended")) {
+ context["extended"] = "1";
+}
+   if (!context.ContainsKey("clamp")) {
+ context["clamp"] = "0";
+}
    foreach (var k in context.Keys) {
        sb.Append(k).Append(": ").Append(context[k])
-            .Append("\n");
+            .Append("\r\n");
    }
-   sb.Append(ln).Append("\n");
+   sb.Append(ln).Append("\r\n");
+   failedLines[ln] = true;
+   }
    ++failures;
 }
             }
           }
         }
       if (failures > 0) {
-Console.WriteLine(sb.ToString());
+// if (recordfailing) {
+// File.WriteAllText(failingpath, sb.ToString());
+// }
         Assert.Fail(failures + " failure(s)");
       }
     }
