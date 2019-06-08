@@ -17,7 +17,7 @@ namespace Test {
   [TestFixture]
   public class DecimalTest {
     public static void Timeout(int duration, Action action, string msg) {
- action(); return;
+  action(); return;
     }
 
     private static readonly Regex ValuePropertyLine = new Regex(
@@ -60,6 +60,7 @@ namespace Test {
 if (ln.Contains("format ") ||
 ln.Contains("shiftleft ") ||
 ln.Contains("shiftright ")) {
+        // TODO
  return;
 }
       match = ValueTestLine.Match(ln);
@@ -83,11 +84,6 @@ ln.Contains("shiftright ")) {
   context["minexponent"]);
         int maxexponent = StringToIntAllowPlus(
   context["maxexponent"]);
-        // Format op not supported
-        if (op.Equals("format")) {
-        // TODO
-          return;
-        }
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
         if (input1.Contains("#") ||
@@ -109,17 +105,25 @@ name.Equals("pow251") ||
 name.Equals("pow252")) {
           return;
         }
+        // Skip these unofficial test cases, which are incorrect
+        if (name.Equals("power_eq4") ||
+name.Equals("power_eq46") ||
+name.Equals("power_eq48") ||
+name.Equals("power_eq11") ||
+name.Equals("power_eq65")) {
+          return;
+        }
         // Skip some test cases that are incorrect
         // (all simplified arithmetic test cases)
         if (!extended) {
-          if (name.Equals("ln116") ||
+          if (
+   // TODO: Check if ln116 is correct after all
+  // name.Equals("ln116") ||
+// assumes that the input will underflow to 0
 name.Equals("qua530") ||
-// assumes that the input will underflow
-                    // to 0
+// assumes that the input will underflow to 0
               name.Equals("qua531") ||
-// assumes that the input will underflow
-                    // to 0
-              name.Equals("rpow068") ||
+name.Equals("rpow068") ||
 name.Equals("rpow159") ||
 name.Equals("rpow217") ||
 name.Equals("rpow272") ||
@@ -272,8 +276,16 @@ Assert.AreEqual(d3, EDecimalExtras.CopySign(d1, d2));
         } else if (op.Equals("exp")) {
           d3 = d1.Exp(ctx);
         } else if (op.Equals("ln")) {
+// NOTE: Gen. Decimal Arithmetic Spec.'s ln supports
+// only round-half-down mode, but EDecimal Log is not limited
+// to that rounding mode
+    ctx = ctx.WithRounding(ERounding.HalfEven);
           d3 = d1.Log(ctx);
         } else if (op.Equals("log10")) {
+// NOTE: Gen. Decimal Arithmetic Spec.'s log10 supports
+// only round-half-down mode, but EDecimal Log10 is not limited
+// to that rounding mode
+    ctx = ctx.WithRounding(ERounding.HalfEven);
           d3 = d1.Log10(ctx);
         } else if (op.Equals("power")) {
 if (d2a != null) {
@@ -673,9 +685,9 @@ if (recordfailing) {
           }
         }
       if (failures > 0) {
-// if (recordfailing) {
-// File.WriteAllText(failingpath, sb.ToString());
-// }
+ if (recordfailing) {
+ File.WriteAllText(failingpath, sb.ToString());
+ }
         Assert.Fail(failures + " failure(s)");
       }
     }

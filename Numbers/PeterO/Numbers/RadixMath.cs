@@ -1155,6 +1155,7 @@ ctx.Precision).WithBlankFlags();
           // Greater than 1
           T two = this.helper.ValueOf(2);
           if (this.CompareTo(thisValue, two) >= 0) {
+            // 2 or greater
             var roots = new FastInteger(0);
             FastInteger error;
             EInteger bigError;
@@ -1164,28 +1165,49 @@ ctx.Precision).WithBlankFlags();
               .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
             T smallfrac = this.Divide(one, this.helper.ValueOf(20), ctxdiv);
             T closeToOne = this.Add(one, smallfrac, null);
+   //DebugUtility.Log("Before Ln " +thisValue);
             // Take square root until this value
             // is close to 1
             while (this.CompareTo(thisValue, closeToOne) >= 0) {
               thisValue = this.SquareRoot(
   thisValue,
   ctxdiv.WithUnlimitedExponents());
+   //DebugUtility.Log("--> " +thisValue);
               roots.Increment();
             }
             // Find -Ln(1/thisValue)
             thisValue = this.Divide(one, thisValue, ctxdiv);
-   // DebugUtility.Log("LnInternalCloseToOne C " +(thisValue as
-   // EDecimal)?.ToDouble());
-    thisValue = this.LnInternalCloseToOne(thisValue, ctxdiv.Precision,
-              ctxdiv);
-            thisValue = this.NegateRaw(thisValue);
+   //DebugUtility.Log("LnInternalCloseToOne C " +(thisValue as
+     //EDecimal)?.ToDouble());
+    thisValue = this.LnInternalCloseToOne(
+               thisValue,
+               ctxdiv.Precision,
+               ctxdiv);
+               thisValue = this.NegateRaw(thisValue);
+     //DebugUtility.Log("After LnInternal " +(thisValue as
+       // EDecimal)?.ToDouble()+", roots="+roots);
             EInteger bigintRoots = PowerOfTwo(roots);
             // Multiply back 2^X, where X is the number
             // of square root calls
+            T ei2 = this.Multiply(
+  thisValue,
+  this.helper.CreateNewWithFlags(bigintRoots, EInteger.Zero, 0),
+  ctxdiv);
+    // DebugUtility.Log("After LnInternal Mult<ctxdiv> " +(ei2 as
+      // EDecimal)?.ToDouble());
+            T ei3 = this.Multiply(
+  thisValue,
+  this.helper.CreateNewWithFlags(bigintRoots, EInteger.Zero, 0),
+  ctxCopy.WithRounding(ERounding.HalfEven));
+     //DebugUtility.Log("After LnInternal Mult<ei3> " +(ei3 as
+       // EDecimal)?.ToDouble());
             thisValue = this.Multiply(
   thisValue,
   this.helper.CreateNewWithFlags(bigintRoots, EInteger.Zero, 0),
   ctxCopy);
+     //DebugUtility.Log("After LnInternal Mult " +(thisValue as
+       // EDecimal)?.ToDouble());
+     //DebugUtility.Log("ctx=" + ctxCopy + " ");
           } else {
             FastInteger error;
             EInteger bigError;
@@ -1315,7 +1337,8 @@ ctx.Precision).WithBlankFlags();
             EContext ctxdiv = SetPrecisionIfLimited(
               ctx,
               ctx.Precision + (EInteger)10)
-              .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
+              .WithRounding(ERounding.OddOrZeroFiveUp)
+              .WithBlankFlags() .WithUnlimitedExponents();
             T logNatural = this.Ln(thisValue, ctxdiv);
             //DebugUtility.Log("thisValue -> " +(thisValue as
             // EDecimal)?.ToDouble());
@@ -3771,7 +3794,7 @@ ctx.Precision).WithBlankFlags();
       var vacillations = 0;
       while (more) {
         lastGuess = guess;
-        DebugUtility.Log("bigintN=" + (bigintN));
+        DebugUtility.Log("bigintN=" + bigintN);
         // Iterate by:
         // newGuess = guess + (thisValue^n/factorial(n))
         // (n starts at 2 and increases by 1 after
@@ -3789,7 +3812,7 @@ ctx.Precision).WithBlankFlags();
         // DebugUtility.Log("newguessN " + NextPlus(newGuess,ctxdiv));
         {
           int guessCmp = this.CompareTo(lastGuess, newGuess);
-          DebugUtility.Log("guessCmp = " + (guessCmp));
+          DebugUtility.Log("guessCmp = " + guessCmp);
           if (guessCmp == 0) {
             more = false;
           } else if ((guessCmp > 0 && lastCompare < 0) || (lastCompare > 0 &&
@@ -3894,7 +3917,7 @@ ctx.Precision).WithBlankFlags();
       var more = true;
       var lastCompare = 0;
       var vacillations = 0;
-      //DebugUtility.Log("workingprec=" + (workingPrecision));
+      //DebugUtility.Log("workingprec=" + workingPrecision);
       EContext ctxdiv = SetPrecisionIfLimited(
         ctx,
         workingPrecision + (EInteger)6)
@@ -3904,7 +3927,7 @@ ctx.Precision).WithBlankFlags();
       T guess = rz;
       T lastGuess = default(T);
       T lastDiff = default(T);
-      bool haveLastDiff = false;
+      var haveLastDiff = false;
       EInteger iterations = EInteger.Zero;
       var sub = true;
       var denom = (EInteger)2;
@@ -3924,7 +3947,10 @@ ctx.Precision).WithBlankFlags();
           int guessCmp = this.CompareTo(lastGuess, newGuess);
 #if DEBUG
          if (iterations.CompareTo(workingPrecision) >= 0) {
-     DebugUtility.Log("[" + ((thisValue as EDecimal)?.ToDouble()) + ", " + iterations + "] rd=" + ((rd as EDecimal)?.ToDouble()) + ", newGuess=" + ((newGuess as EDecimal)?.ToDouble()) + ", wp=" + workingPrecision + ", guessCmp=" + (guessCmp));
+     DebugUtility.Log("[" + ((thisValue as EDecimal)?.ToDouble()) + ", " +
+       iterations + "] rd=" + ((rd as EDecimal)?.ToDouble()) + ", newGuess="+
+       ((newGuess as EDecimal)?.ToDouble()) + ", wp=" + workingPrecision +
+       ", guessCmp=" + guessCmp);
          }
 #endif
           if (guessCmp == 0) {
@@ -4010,7 +4036,7 @@ ctx.Precision).WithBlankFlags();
       for (var i = 0; i < 13; ++i) {
         thisValue = this.SquareRoot(thisValue, ctxdiv.WithUnlimitedExponents());
       }
-      //DebugUtility.Log("lntenconstant thisValue=" + (thisValue));
+      //DebugUtility.Log("lntenconstant thisValue=" + thisValue);
       thisValue = this.Divide(this.helper.ValueOf(1), thisValue, ctxdiv);
       thisValue = this.LnInternalCloseToOne(thisValue, ctxdiv.Precision,
               ctxdiv);
