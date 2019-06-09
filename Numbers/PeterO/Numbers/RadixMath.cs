@@ -1986,6 +1986,7 @@ ctx.Precision).WithBlankFlags();
           // Never odd for even radixes
           isPowOdd = false;
         } else {
+          DebugUtility.Log("trying to quantize " + pow);
           powInt = this.Quantize(
   pow,
   this.helper.CreateNewWithFlags(EInteger.Zero, EInteger.Zero, 0),
@@ -1993,7 +1994,7 @@ ctx.Precision).WithBlankFlags();
           isPowOdd = !this.helper.GetMantissa(powInt).IsEven;
         }
       }
-      // DebugUtility.Log("pow=" + pow + " powint=" + powInt);
+      //DebugUtility.Log("pow=" + pow + " powint=" + powInt);
       bool isResultNegative = (thisFlags & BigNumberFlags.FlagNegative) != 0 &&
         (powFlags & BigNumberFlags.FlagInfinity) == 0 && isPowIntegral &&
         isPowOdd;
@@ -2041,12 +2042,32 @@ ctx.Precision).WithBlankFlags();
             ctx);
       }
       if (isPowIntegral) {
-        // Special case for 1
+        // Special case for 1 in certain cases
         if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0) {
-          return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
-            this.SignalInvalid(ctx) : this.helper.ValueOf(1);
+          EInteger thisExponent = this.helper.GetExponent(thisValue);
+          if (thisExponent.Sign == 0 && powExponent.Sign == 0) {
+            return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
+              this.SignalInvalid(ctx) : this.helper.ValueOf(1);
+          }
+        }
+        // Very high values of pow and a very high exponent
+        if (powExponent.CompareTo(10)>0 &&
+           this.CompareTo(pow, this.helper.ValueOf(99999999))>0) {
+EContext ctxCopy = ctx.WithBlankFlags().WithTraps(0);
+//DebugUtility.Log("changing pow to 9999999*, ctx="+ctxCopy);
+// Try doing Power with a smaller value for pow
+T result = this.Power(thisValue, this.helper.ValueOf(
+   isPowOdd ? 99999999 : 99999998), ctxCopy);
+if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
+ // Caused overflow
+ if (ctx.HasFlags) {
+  ctx.Flags |= ctxCopy.Flags;
+ }
+ return result;
+}
         }
         if ((object)powInt == (object)default(T)) {
+//DebugUtility.Log("no powInt, quantizing "+pow);
           powInt = this.Quantize(
   pow,
   this.helper.CreateNewWithFlags(EInteger.Zero, EInteger.Zero, 0),
@@ -2056,12 +2077,13 @@ ctx.Precision).WithBlankFlags();
         if (powSign < 0) {
           signedMant = -signedMant;
         }
-        // DebugUtility.Log("tv=" + thisValue + " mant=" + signedMant);
+        //DebugUtility.Log("tv=" + thisValue + " mant=" + signedMant);
         return this.PowerIntegral(thisValue, signedMant, ctx);
       }
       // Special case for 1
       if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0 && powSign >
           0) {
+           //DebugUtility.Log("Special case 1B");
         return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
           this.SignalInvalid(ctx) :
           this.ExtendPrecision(this.helper.ValueOf(1), ctx);
@@ -3794,7 +3816,7 @@ ctx.Precision).WithBlankFlags();
       var vacillations = 0;
       while (more) {
         lastGuess = guess;
-        DebugUtility.Log("bigintN=" + bigintN);
+        //DebugUtility.Log("bigintN=" + bigintN);
         // Iterate by:
         // newGuess = guess + (thisValue^n/factorial(n))
         // (n starts at 2 and increases by 1 after
@@ -3806,13 +3828,13 @@ ctx.Precision).WithBlankFlags();
           this.helper.CreateNewWithFlags(facto, EInteger.Zero, 0),
           ctxdiv);
         T newGuess = this.Add(guess, tmp, ctxdiv);
-         DebugUtility.Log("newguess = " + (newGuess as EDecimal)?.ToDouble());
-         DebugUtility.Log("tmp = " + (tmp as EDecimal)?.ToDouble());
+         //DebugUtility.Log("newguess = " + (newGuess as EDecimal)?.ToDouble());
+         //DebugUtility.Log("tmp = " + (tmp as EDecimal)?.ToDouble());
         // DebugUtility.Log("newguess " + newGuess);
         // DebugUtility.Log("newguessN " + NextPlus(newGuess,ctxdiv));
         {
           int guessCmp = this.CompareTo(lastGuess, newGuess);
-          DebugUtility.Log("guessCmp = " + guessCmp);
+          //DebugUtility.Log("guessCmp = " + guessCmp);
           if (guessCmp == 0) {
             more = false;
           } else if ((guessCmp > 0 && lastCompare < 0) || (lastCompare > 0 &&
@@ -3828,7 +3850,7 @@ ctx.Precision).WithBlankFlags();
           bigintN += EInteger.One;
         }
       }
-      DebugUtility.Log("return final guess");
+      //DebugUtility.Log("return final guess");
       return this.RoundToPrecision(guess, ctx);
     }
 
@@ -4125,15 +4147,20 @@ ctx.Precision).WithBlankFlags();
         return this.SignalingNaNInvalid(op2, ctx);
       }
       int op3Flags = this.helper.GetFlags(op3);
-      if ((op3Flags & BigNumberFlags.FlagSignalingNaN) != 0) {
-        return this.SignalingNaNInvalid(op3, ctx);
-      }
       // Check operands in order for quiet NaN
       if ((op1Flags & BigNumberFlags.FlagQuietNaN) != 0) {
+        if ((op3Flags & BigNumberFlags.FlagSignalingNaN) != 0) {
+        return this.SignalingNaNInvalid(op3, ctx);
+        } else {
         return this.ReturnQuietNaN(op1, ctx);
+        }
       }
       if ((op2Flags & BigNumberFlags.FlagQuietNaN) != 0) {
-        return this.ReturnQuietNaN(op2, ctx);
+        if ((op3Flags & BigNumberFlags.FlagSignalingNaN) != 0) {
+          return this.SignalingNaNInvalid(op3, ctx);
+        } else {
+          return this.ReturnQuietNaN(op2, ctx);
+        }
       }
       // Check multiplying infinity by 0 (important to check
       // now before checking third operand for quiet NaN because
@@ -4152,6 +4179,10 @@ ctx.Precision).WithBlankFlags();
             this.helper.GetMantissa(op1).IsZero) {
           return this.SignalInvalid(ctx);
         }
+      }
+      // Now check third operand for signaling NaN
+      if ((op3Flags & BigNumberFlags.FlagSignalingNaN) != 0) {
+        return this.SignalingNaNInvalid(op3, ctx);
       }
       // Now check third operand for quiet NaN
       return ((op3Flags & BigNumberFlags.FlagQuietNaN) != 0) ?

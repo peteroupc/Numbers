@@ -105,20 +105,48 @@ name.Equals("pow251") ||
 name.Equals("pow252")) {
           return;
         }
-        // Skip these unofficial test cases, which are incorrect
+// Skip these unofficial test cases which involve
+// pretruncation of the first operand of a shift operation;
+// actually, the Gen. Decimal Arithmetic Spec. doesn't
+// say to truncate that operand's coefficient before
+// the shift operation, unlike for the rotate operation.
+if (name.Equals("extr1651") ||
+name.Equals("extr1652") ||
+name.Equals("extr1653") ||
+name.Equals("extr1654")) {
+  return;
+}
+// Skip these unofficial test cases, which misapply the
+// 'clamp' directive to NaNs in the test case format:
+// 'clamp' governs only exponent clamping;
+// although exponent clamping can
+// indirectly affect the coefficient in certain cases, NaNs
+// have neither a coefficient nor an exponent, so the
+// 'clamp' directive doesn't properly apply to NaNs
+if (name.Equals("covx5076") ||
+name.Equals("covx5082") ||
+name.Equals("covx5085") ||
+name.Equals("covx5086")) {
+  return;
+}
+// Skip these unofficial test cases, which are incorrect
+// for expecting underflow on raising a huge
+// positive integer to its own power
         if (name.Equals("power_eq4") ||
 name.Equals("power_eq46") ||
 name.Equals("power_eq48") ||
 name.Equals("power_eq11") ||
-name.Equals("power_eq65")) {
+name.Equals("power_eq65") ||
+name.Equals("power_eq84") ||
+name.Equals("power_eq94")) {
           return;
         }
         // Skip some test cases that are incorrect
         // (all simplified arithmetic test cases)
         if (!extended) {
           if (
-   // TODO: Check if ln116 is correct after all
-  // name.Equals("ln116") ||
+   // result expected by test case is wrong by > 0.5 ULP
+  name.Equals("ln116") ||
 // assumes that the input will underflow to 0
 name.Equals("qua530") ||
 // assumes that the input will underflow to 0
@@ -466,7 +494,7 @@ if (op.Equals("and")) {
 !name.Equals("pow120") &&
 !name.Equals("pow121") &&
 !name.Equals("pow122")) {
-          AssertFlags(expectedFlags, ctx.Flags, name);
+          AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       }
     }
@@ -661,7 +689,7 @@ if (recordfailing) {
 } else {
  Timeout(15000, () => ParseDecTest(ln, context), ln);
 }
-} catch (Exception ex) {
+} catch (Exception) {
    if (!failedLines.ContainsKey(ln)) {
    if (!context.ContainsKey("rounding")) {
  context["rounding"] = "half_even";
