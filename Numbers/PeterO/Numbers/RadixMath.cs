@@ -1592,23 +1592,27 @@ ctx.Precision).WithBlankFlags();
       EInteger mant = this.helper.GetMantissa(value);
       T zero;
       if ((flags & BigNumberFlags.FlagInfinity) == 0 && mant.IsZero) {
-        if ((flags & BigNumberFlags.FlagNegative) == 0) {
-          // positive 0 minus positive 0 is always positive 0
+          // Negate(-0) is treated as subtract(0, -0), which in turn is treated
+          // as add (0, 0), so that the result is positive 0 since both
+          // operands to add are positive
+          // Negate(0) is treated as subtract(0, 0), which in turn is treated
+          // as add(0, -0), so that the result is positive 0 since both
+          // operands to add are positive
+          var nonnegative=(flags & BigNumberFlags.FlagNegative) == 0;
+          var floor = ctx != null && ctx.Rounding == ERounding.Floor;
+          if (floor && nonnegative) {
+          zero = this.helper.CreateNewWithFlags(
+  mant,
+  this.helper.GetExponent(value),
+  flags | BigNumberFlags.FlagNegative);
+          } else {
           zero = this.helper.CreateNewWithFlags(
   mant,
   this.helper.GetExponent(value),
   flags & ~BigNumberFlags.FlagNegative);
+          }
+          //DebugUtility.Log("" + (// value) + " -> " + zero + " (nonneg=" + nonnegative + ", floor=" + floor + ")");
           return this.RoundToPrecision(zero, ctx);
-        }
-        zero = ctx != null && ctx.Rounding == ERounding.Floor ?
-          this.helper.CreateNewWithFlags(
-  mant,
-  this.helper.GetExponent(value),
-  flags | BigNumberFlags.FlagNegative) : this.helper.CreateNewWithFlags(
-  mant,
-  this.helper.GetExponent(value),
-  flags & ~BigNumberFlags.FlagNegative);
-        return this.RoundToPrecision(zero, ctx);
       }
       flags ^= BigNumberFlags.FlagNegative;
       return this.RoundToPrecision(

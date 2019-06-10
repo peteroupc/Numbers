@@ -728,6 +728,8 @@ if (recordfailing) {
  File.WriteAllText(failingpath, sb.ToString());
  }
         Assert.Fail(failures + " failure(s)");
+      } else {
+File.Delete(failingpath);
       }
     }
   }
