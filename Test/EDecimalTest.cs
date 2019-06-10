@@ -4841,14 +4841,14 @@ private static string Repeat(string s, int count) {
 
 [Test]
 public void TestOnePlusOne() {
-EContext ec = EContext.ForRounding(ERounding.OddOrZeroFiveUp).WithPrecision(4);
+EContext ec = EContext.ForRounding(ERounding.Up).WithPrecision(4);
 EDecimal ed = EDecimal.FromString("1");
 EDecimal ed2;
 string str;
 for (var i = 10; i < 1000; ++i) {
- str = "1."+Repeat("0",i)+"3";
+ str = "1." + Repeat("0",i)+"3";
  ed2 = EDecimal.FromString(str);
- Assert.AreEqual("2.001", ed.Add(ed2,ec).ToString(),str);
+ Assert.AreEqual("2.001", ed.Add(ed2, ec).ToString(),str);
 }
 }
 

@@ -1035,17 +1035,17 @@ ctx.Precision).WithBlankFlags();
         }
         }
         T fracpart = this.Add(thisValue, this.NegateRaw(intpart), null);
-        DebugUtility.Log("fracpart0=" + fracpart);
+        //DebugUtility.Log("fracpart0=" + fracpart);
         ctxdiv = SetPrecisionIfLimited(ctxdiv, ctxdiv.Precision + guardDigits)
            .WithBlankFlags();
         fracpart = this.Add(one, this.Divide(fracpart, intpart, ctxdiv), null);
         ctxdiv.Flags = 0;
-        DebugUtility.Log("fracpart1=" + fracpart);
-        DebugUtility.Log("intpart=" + intpart);
+        //DebugUtility.Log("fracpart1=" + fracpart);
+        //DebugUtility.Log("intpart=" + intpart);
         EInteger workingPrec = ctxdiv.Precision;
         workingPrec += (EInteger)17;
         thisValue = this.ExpInternal(fracpart, workingPrec, ctxdiv);
-        DebugUtility.Log("thisValue=" + thisValue);
+        //DebugUtility.Log("thisValue=" + thisValue);
         if ((ctxdiv.Flags & EContext.FlagUnderflow) != 0) {
           if (ctx.HasFlags) {
             ctx.Flags |= ctxdiv.Flags;
@@ -1059,7 +1059,7 @@ ctx.Precision).WithBlankFlags();
   thisValue,
   this.helper.GetMantissa(intpart),
   ctxCopy);
-        DebugUtility.Log(" -->" + thisValue);
+        //DebugUtility.Log(" -->" + thisValue);
       }
       if (ctx.HasFlags) {
         ctx.Flags |= ctxCopy.Flags;
@@ -2945,8 +2945,11 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
           // May overestimate by 1
   return new FastInteger(1 + ((bigBitLength.ToInt32Checked() * 631305) >>
             21));
+        } else {
+// Bit length is big enough that dividing it by 3 will not
+// underestimate the true base-10 digit length.
+        return FastInteger.FromBig(bigBitLength.Divide(3));
         }
-        return FastInteger.FromBig(bigBitLength.Divide(4));
       } else {
         return this.helper.GetDigitLength(ei);
       }
@@ -2971,6 +2974,7 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
       EInteger op1Exponent = this.helper.GetExponent(op1);
       EInteger op2Exponent = this.helper.GetExponent(op2);
       EInteger resultExponent = expcmp < 0 ? op1Exponent : op2Exponent;
+//DebugUtility.Log("[" + op1MantAbs + "," + op1Exponent + "], [" + (//op2MantAbs) + ", " + op2Exponent + "] -> " + (resultExponent));
       if (ctx != null && ctx.HasMaxPrecision && ctx.Precision.Sign > 0) {
         FastInteger fastOp1Exp = FastInteger.FromBig(op1Exponent);
         FastInteger fastOp2Exp = FastInteger.FromBig(op2Exponent);
@@ -3098,6 +3102,10 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
               // __111111111111|
               // ____________________222222222222222|
            FastInteger digitLength2 = this.OverestimateDigitLength(op2MantAbs);
+           //DebugUtility.Log("digitLength2 "
+           // +this.OverestimateDigitLength(op2MantAbs));
+           //DebugUtility.Log("actualDigitLength2 "
+           // +op2MantAbs.GetDigitCountAsEInteger());
               if (fastOp2Exp.Copy().Add(digitLength2).AddInt(2)
               .CompareTo(fastOp1Exp) < 0) {
                 // second operand's mantissa can't reach the
@@ -3142,6 +3150,7 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
                     if (oneOpIsZero && ctx != null && ctx.HasFlags) {
                     ctx.Flags |= EContext.FlagRounded;
                     }
+//DebugUtility.Log("thisValue D"+thisValue);
 
                     return this.RoundToPrecisionInternal(
                     thisValue,
@@ -3182,7 +3191,6 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
                     if (!sameSign && ctx != null && ctx.HasFlags) {
                     ctx.Flags |= EContext.FlagRounded;
                     }
-
                     return this.RoundToPrecisionInternal(
                     thisValue,
                     0,
@@ -3824,11 +3832,10 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
       // cases involving adding 1 to a number with a very high
       // negative exponent, which could result in a number taking
       // up lots of memory
-      DebugUtility.Log("this.Add("+one.ToString()+","+thisValue.ToString()+")");
       T guess = this.Add(one, thisValue, ctxdiv);
-      DebugUtility.Log(ctxdiv.ToString());
-      DebugUtility.Log("tv="+(thisValue as EDecimal)?.ToDouble());
-      DebugUtility.Log("startguess="+(guess as EDecimal)?.ToDouble());
+      //DebugUtility.Log(ctxdiv.ToString());
+      //DebugUtility.Log("tv="+(thisValue as EDecimal)?.ToDouble());
+      //DebugUtility.Log("startguess="+(guess as EDecimal)?.ToDouble());
       T lastGuess = guess;
       T pow = thisValue;
       var more = true;
@@ -4448,6 +4455,9 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
   EContext ctx) {
       bool unlimitedPrecisionExp = ctx == null ||
          (!ctx.HasMaxPrecision && !ctx.HasExponentRange);
+   //DebugUtility.Log("thisValue=" +thisValue+", disc=" +lastDiscarded+","
+   // +olderDiscarded+"," +
+     //   "shift="+shift);
       int thisFlags = this.helper.GetFlags(thisValue);
       if ((thisFlags & BigNumberFlags.FlagSpecial) != 0) {
         if ((thisFlags & BigNumberFlags.FlagSignalingNaN) != 0) {
