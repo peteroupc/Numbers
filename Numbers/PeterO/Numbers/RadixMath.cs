@@ -986,13 +986,8 @@ ctx.Precision).WithBlankFlags();
             EContext.FlagRounded;
         }
       } else {
-        T intpart = this.Quantize(
-          thisValue,
-          one,
-          EContext.ForRounding(ERounding.Down));
-        if (!this.GetHelper().GetExponent(intpart).IsZero) {
-          throw new ArgumentException("integer part not zero, as expected");
-        }
+        T intpart = default(T);
+        var haveIntPart = false;
         if (this.CompareTo(thisValue, this.helper.ValueOf(50000)) > 0 &&
             ctx.HasExponentRange) {
           // Try to check for overflow quickly
@@ -1007,6 +1002,15 @@ ctx.Precision).WithBlankFlags();
             // cause overflow as well
             return this.SignalOverflow(ctx, false);
           }
+          intpart = this.Quantize(
+          thisValue,
+          one,
+          EContext.ForRounding(ERounding.Down));
+
+        if (!this.GetHelper().GetExponent(intpart).IsZero) {
+          throw new ArgumentException("integer part not zero, as expected");
+        }
+          haveIntPart = true;
           ctxCopy.Flags = 0;
           // Now do the same using the integer part of the operand
           // as the power
@@ -1021,16 +1025,27 @@ ctx.Precision).WithBlankFlags();
           }
           ctxCopy.Flags = 0;
         }
+        if (!haveIntPart) {
+         intpart = this.Quantize(
+           thisValue,
+           one,
+           EContext.ForRounding(ERounding.Down));
+        if (!this.GetHelper().GetExponent(intpart).IsZero) {
+          throw new ArgumentException("integer part not zero, as expected");
+        }
+        }
         T fracpart = this.Add(thisValue, this.NegateRaw(intpart), null);
+        DebugUtility.Log("fracpart0=" + fracpart);
         ctxdiv = SetPrecisionIfLimited(ctxdiv, ctxdiv.Precision + guardDigits)
            .WithBlankFlags();
         fracpart = this.Add(one, this.Divide(fracpart, intpart, ctxdiv), null);
         ctxdiv.Flags = 0;
-        // DebugUtility.Log("fracpart=" + fracpart);
+        DebugUtility.Log("fracpart1=" + fracpart);
+        DebugUtility.Log("intpart=" + intpart);
         EInteger workingPrec = ctxdiv.Precision;
         workingPrec += (EInteger)17;
         thisValue = this.ExpInternal(fracpart, workingPrec, ctxdiv);
-        // DebugUtility.Log("thisValue=" + thisValue);
+        DebugUtility.Log("thisValue=" + thisValue);
         if ((ctxdiv.Flags & EContext.FlagUnderflow) != 0) {
           if (ctx.HasFlags) {
             ctx.Flags |= ctxdiv.Flags;
@@ -1044,6 +1059,7 @@ ctx.Precision).WithBlankFlags();
   thisValue,
   this.helper.GetMantissa(intpart),
   ctxCopy);
+        DebugUtility.Log(" -->" + thisValue);
       }
       if (ctx.HasFlags) {
         ctx.Flags |= ctxCopy.Flags;
@@ -2045,7 +2061,7 @@ ctx.Precision).WithBlankFlags();
         // Special case for 1 in certain cases
         if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0) {
           EInteger thisExponent = this.helper.GetExponent(thisValue);
-          if (thisExponent.Sign == 0 && powExponent.Sign == 0) {
+          if (thisExponent.Sign == 0 || powExponent.Sign == 0) {
             return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
               this.SignalInvalid(ctx) : this.helper.ValueOf(1);
           }
@@ -3793,8 +3809,8 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
   T thisValue,
   EInteger workingPrecision,
   EContext ctx) {
-      DebugUtility.Log("ExpInternal " +(thisValue as
-        EDecimal)?.ToDouble()+", wp=" +workingPrecision);
+      //DebugUtility.Log("ExpInternal " +(thisValue as
+      //  EDecimal)?.ToDouble()+", wp=" +workingPrecision);
       T one = this.helper.ValueOf(1);
       int precisionAdd = this.thisRadix == 2 ? 18 : 12;
       EContext ctxdiv = SetPrecisionIfLimited(
@@ -3808,7 +3824,11 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
       // cases involving adding 1 to a number with a very high
       // negative exponent, which could result in a number taking
       // up lots of memory
+      DebugUtility.Log("this.Add("+one.ToString()+","+thisValue.ToString()+")");
       T guess = this.Add(one, thisValue, ctxdiv);
+      DebugUtility.Log(ctxdiv.ToString());
+      DebugUtility.Log("tv="+(thisValue as EDecimal)?.ToDouble());
+      DebugUtility.Log("startguess="+(guess as EDecimal)?.ToDouble());
       T lastGuess = guess;
       T pow = thisValue;
       var more = true;
@@ -3828,8 +3848,8 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
           this.helper.CreateNewWithFlags(facto, EInteger.Zero, 0),
           ctxdiv);
         T newGuess = this.Add(guess, tmp, ctxdiv);
-         //DebugUtility.Log("newguess = " + (newGuess as EDecimal)?.ToDouble());
-         //DebugUtility.Log("tmp = " + (tmp as EDecimal)?.ToDouble());
+         //DebugUtility.Log("newguess = " + (newGuess as EDecimal)?.ToDouble() +
+         //  ", tmp = " + (tmp as EDecimal)?.ToDouble());
         // DebugUtility.Log("newguess " + newGuess);
         // DebugUtility.Log("newguessN " + NextPlus(newGuess,ctxdiv));
         {

@@ -40,8 +40,16 @@ namespace Test {
     }
 
     private static int StringToIntAllowPlus(string str) {
+      if (String.IsNullOrEmpty(str)) {
+ return 0;
+}
+   try {
       return (str[0] == '+') ? TestCommon.StringToInt(str.Substring(1)) :
         TestCommon.StringToInt(str);
+   } catch (Exception ex) {
+Console.WriteLine(ex.StackTrace);
+throw;
+   }
     }
 
     public static void ParseDecTest(
@@ -57,12 +65,8 @@ namespace Test {
           match.Groups[2].ToString();
         return;
       }
-if (ln.Contains("format ") ||
-ln.Contains("shiftleft ") ||
-ln.Contains("shiftright ")) {
-        // TODO
- return;
-}
+var sw = new System.Diagnostics.Stopwatch();
+sw.Start();
       match = ValueTestLine.Match(ln);
       if (match.Success) {
         string name = match.Groups[1].ToString();
@@ -78,12 +82,15 @@ ln.Contains("shiftright ")) {
         output = ValueQuotes.Replace(output, String.Empty);
         bool extended = GetKeyOrDefault(context, "extended", "1").Equals("1");
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1");
-       int precision = StringToIntAllowPlus(
-  context["precision"]);
-        int minexponent = StringToIntAllowPlus(
-  context["minexponent"]);
-        int maxexponent = StringToIntAllowPlus(
-  context["maxexponent"]);
+int precision = 0, minexponent = 0, maxexponent = 0;
+EContext ctx = null;
+string rounding = null;
+    precision = StringToIntAllowPlus(
+  GetKeyOrDefault(context, "precision", "9"));
+        minexponent = StringToIntAllowPlus(
+  GetKeyOrDefault(context, "minexponent", "-9999"));
+        maxexponent = StringToIntAllowPlus(
+  GetKeyOrDefault(context, "maxexponent", "9999"));
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
         if (input1.Contains("#") ||
@@ -104,6 +111,11 @@ output.Contains("sNaN"))) {
 name.Equals("pow251") ||
 name.Equals("pow252")) {
           return;
+        }
+   // Assumes a maximum supported
+   // value for pow exponent
+        if (name.Equals("powx4008")) {
+return;
         }
 // Skip these unofficial test cases which involve
 // pretruncation of the first operand of a shift operation;
@@ -177,11 +189,12 @@ name.Equals("sqtx2847")) {
           Console.WriteLine(ln);
           return;
         }
-        EContext ctx = EContext.ForPrecision(precision)
+
+        ctx = EContext.ForPrecision(precision)
           .WithExponentClamp(clamp).WithExponentRange(
             minexponent,
             maxexponent);
-        string rounding = GetKeyOrDefault(
+        rounding = GetKeyOrDefault(
   context,
   "rounding",
   "half_even");
@@ -226,7 +239,8 @@ name.Equals("sqtx2847")) {
 !op.Equals("toEng") &&
 !op.Equals("tosci") &&
 !op.Equals("toeng") &&
-!op.Equals("class")) {
+!op.Equals("class") &&
+!op.Equals("format")) {
           d1 = String.IsNullOrEmpty(input1) ? EDecimal.Zero :
             EDecimal.FromString(input1);
           d2 = String.IsNullOrEmpty(input2) ? null :
@@ -680,9 +694,6 @@ throw new InvalidOperationException(String.Empty, ex);
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-if (recordfailing)if (ln.Length > 1000) {
- continue;
-}
 try {
 if (recordfailing) {
  Timeout(5000, () => ParseDecTest(ln, context), String.Empty);

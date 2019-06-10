@@ -4832,6 +4832,26 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative, edecstr);
       }
     }
 
+private static string Repeat(string s, int count) {
+ var sb = new System.Text.StringBuilder();
+ for (var i = 0; i < count; ++i) { sb.Append(s);
+}
+ return sb.ToString();
+}
+
+[Test]
+public void TestOnePlusOne() {
+EContext ec = EContext.ForRounding(ERounding.OddOrZeroFiveUp).WithPrecision(4);
+EDecimal ed = EDecimal.FromString("1");
+EDecimal ed2;
+string str;
+for (var i = 10; i < 1000; ++i) {
+ str = "1."+Repeat("0",i)+"3";
+ ed2 = EDecimal.FromString(str);
+ Assert.AreEqual("2.001", ed.Add(ed2,ec).ToString(),str);
+}
+}
+
     [Test]
     public void TestToString() {
       for (var i = 0; i < ValueTestStrings.Length; i += 4) {
