@@ -232,8 +232,11 @@ namespace PeterO.Numbers {
                     newnegative));
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)"]/*'/>
+    /// <summary>Converts a boolean value (true or false) to an
+    /// arbitrary-precision integer.</summary>
+    /// <param name='boolValue'>Either true or false.</param>
+    /// <returns>The number 1 if <paramref name='boolValue'/> is true;
+    /// otherwise, 0.</returns>
 public static EInteger FromBoolean(bool boolValue) {
 return boolValue ? ValueOne : ValueZero;
 }
@@ -1063,6 +1066,7 @@ public int CompareTo(int intValue) {
         // where dividend is 0)
         return EInteger.Zero;
       }
+      //DebugUtility.Log("divide " + this + " " + (bigintDivisor));
       if (words1Size <= 2 && words2Size <= 2 && this.CanFitInInt32() &&
           bigintDivisor.CanFitInInt32()) {
         int valueASmall = this.ToInt32Checked();
@@ -2833,6 +2837,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       if (bigintMult.wordCount == 1 && bigintMult.words[0] == 1) {
         return bigintMult.negative ? this.Negate() : this;
       }
+      //DebugUtility.Log("multiply " + this + " " + (bigintMult));
       short[] productreg;
       int productwordCount;
       var needShorten = true;

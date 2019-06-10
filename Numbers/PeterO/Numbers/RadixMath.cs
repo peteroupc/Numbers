@@ -1179,7 +1179,9 @@ ctx.Precision).WithBlankFlags();
             bigError = error.AsEInteger();
             ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
               .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
-            T smallfrac = this.Divide(one, this.helper.ValueOf(20), ctxdiv);
+            T smallfrac = (ctxdiv.Precision.CompareTo(400)>0) ?
+                this.Divide(one, this.helper.ValueOf(1000000), ctxdiv) :
+                this.Divide(one, this.helper.ValueOf(20), ctxdiv);
             T closeToOne = this.Add(one, smallfrac, null);
    //DebugUtility.Log("Before Ln " +thisValue);
             // Take square root until this value
@@ -2058,12 +2060,19 @@ ctx.Precision).WithBlankFlags();
             ctx);
       }
       if (isPowIntegral) {
+        EInteger signedMant;
         // Special case for 1 in certain cases
         if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0) {
           EInteger thisExponent = this.helper.GetExponent(thisValue);
-          if (thisExponent.Sign == 0 || powExponent.Sign == 0) {
+          if (thisExponent.Sign == 0) {
             return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
               this.SignalInvalid(ctx) : this.helper.ValueOf(1);
+          } else if (powExponent.Sign == 0) {
+             if (!this.IsWithinExponentRangeForPow(pow, ctx)) {
+ return this.SignalInvalid(ctx);
+}
+             signedMant = this.helper.GetMantissa(powInt).Abs();
+             return this.PowerIntegral(thisValue, signedMant, ctx);
           }
         }
         // Very high values of pow and a very high exponent
@@ -2089,7 +2098,7 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
   this.helper.CreateNewWithFlags(EInteger.Zero, EInteger.Zero, 0),
   EContext.ForRounding(ERounding.Down));
         }
-        EInteger signedMant = this.helper.GetMantissa(powInt);
+        signedMant = this.helper.GetMantissa(powInt);
         if (powSign < 0) {
           signedMant = -signedMant;
         }
@@ -2974,7 +2983,8 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
       EInteger op1Exponent = this.helper.GetExponent(op1);
       EInteger op2Exponent = this.helper.GetExponent(op2);
       EInteger resultExponent = expcmp < 0 ? op1Exponent : op2Exponent;
-//DebugUtility.Log("[" + op1MantAbs + "," + op1Exponent + "], [" + (//op2MantAbs) + ", " + op2Exponent + "] -> " + (resultExponent));
+//DebugUtility.Log("[" + op1MantAbs + "," + op1Exponent + "], [" +
+// (//op2MantAbs) + ", " + op2Exponent + "] -> " + resultExponent);
       if (ctx != null && ctx.HasMaxPrecision && ctx.Precision.Sign > 0) {
         FastInteger fastOp1Exp = FastInteger.FromBig(op1Exponent);
         FastInteger fastOp2Exp = FastInteger.FromBig(op2Exponent);
@@ -3966,6 +3976,7 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
       var more = true;
       var lastCompare = 0;
       var vacillations = 0;
+      //DebugUtility.Log("start=" + thisValue);
       //DebugUtility.Log("workingprec=" + workingPrecision);
       EContext ctxdiv = SetPrecisionIfLimited(
         ctx,
@@ -3993,7 +4004,10 @@ if ((ctxCopy.Flags&EContext.FlagOverflow) != 0) {
          }
         T newGuess = sub ? this.Add(guess, this.NegateRaw(rd), ctxdiv) :
             this.Add(guess, rd, ctxdiv);
+       //DebugUtility.Log("rdiff "
+       // +this.Add(lastGuess, this.NegateRaw(newGuess), null));
           int guessCmp = this.CompareTo(lastGuess, newGuess);
+        //DebugUtility.Log("newGuess "+(newGuess as EDecimal)?.ToDouble());
 #if DEBUG
          if (iterations.CompareTo(workingPrecision) >= 0) {
      DebugUtility.Log("[" + ((thisValue as EDecimal)?.ToDouble()) + ", " +
