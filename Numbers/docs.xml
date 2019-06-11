@@ -7720,10 +7720,10 @@
        is null.
     </exception>
     <remarks>
-      Each arbitrary-precision integer is treated as a two's-complement form
+       Each arbitrary-precision integer is treated as a two's-complement form
       (see
       <see cref='T:PeterO.Numbers.EDecimal'>
-        "Forms of numbers"
+         "Forms of numbers"
       </see>
        ) for the purposes of this operator.
     </remarks>
@@ -8475,10 +8475,10 @@
        is null.
     </exception>
     <remarks>
-      Each arbitrary-precision integer is treated as a two's-complement form
+       Each arbitrary-precision integer is treated as a two's-complement form
       (see
       <see cref='T:PeterO.Numbers.EDecimal'>
-        "Forms of numbers"
+         "Forms of numbers"
       </see>
        ) for the purposes of this operator.
     </remarks>
@@ -8873,7 +8873,7 @@
       <para>Each arbitrary-precision integer is treated as a two's-complement form
         (see
         <see cref='T:PeterO.Numbers.EDecimal'>
-          "Forms of numbers"
+           "Forms of numbers"
         </see>
          ) for the purposes of this operator.
       </para>

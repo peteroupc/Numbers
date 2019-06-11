@@ -2948,6 +2948,43 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         !this.negative);
     }
 
+    public EInteger Pow(EInteger bigPower) {
+     if ((bigPower) == null) {
+  throw new ArgumentNullException(nameof(bigPower));
+}
+     ArgumentAssert.GreaterOrEqual(bigPower.Sign);
+     if (bigPower.Sign == 0) {
+        // however 0 to the power of 0 is undefined
+        return EInteger.One;
+      }
+      if (bigPower.CompareTo(1) == 0) {
+        return this;
+      }
+     if (this.IsZero || this.CompareTo(1) == 0) {
+ return this;
+}
+     if (this.CompareTo(-1) == 0) {
+       return this.IsEven ? EInteger.FromInt32(1) : this;
+     }
+     if (bigPower.CanFitInInt32()) {
+        return this.Pow(bigPower.ToInt32Checked());
+     }
+     EInteger bp = bigPower;
+     EInteger ret = EInteger.One;
+     EInteger rmax = this.Pow(Int32.MaxValue);
+     while (!bp.CanFitInInt32()) {
+        ret = ret.Multiply(rmax);
+        bp = bp.Subtract(Int32.MaxValue);
+     }
+     int lastp = bp.ToInt32Checked();
+     if (lastp == Int32.MaxValue) {
+ ret = ret.Multiply(rmax);
+} else {
+ ret = ret.Multiply(this.Pow(lastp));
+}
+     return ret;
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Pow(System.Int32)"]/*'/>
     public EInteger Pow(int powerSmall) {
@@ -2962,6 +2999,12 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       }
       if (powerSmall == 1) {
         return this;
+      }
+      if (this.IsZero || this.CompareTo(1) == 0) {
+ return this;
+}
+      if (this.CompareTo(-1) == 0) {
+        return this.IsEven ? EInteger.FromInt32(1) : this;
       }
       if (powerSmall == 2) {
         return thisVar * (EInteger)thisVar;

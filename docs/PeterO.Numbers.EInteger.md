@@ -268,7 +268,9 @@ is null.
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -282,8 +284,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
- or  <i>b</i>
- is null.
+or <i>b</i>
+is null.
 
 <a id="And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### And
@@ -554,8 +556,8 @@ Converts a boolean value (true or false) to an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-The number 1 if  <i>boolValue</i>
- is true; otherwise, 0.
+The number 1 if <i>boolValue</i>
+is true; otherwise, 0.
 
 <a id="FromByte_byte"></a>
 ### FromByte
@@ -1246,7 +1248,7 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>valueA</i>
- is null.
+is null.
 
 <a id="Not_PeterO_Numbers_EInteger"></a>
 ### Not
@@ -1670,7 +1672,9 @@ is null.
 
 Does an OR operation between two arbitrary-precision integer instances.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -1684,8 +1688,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>first</i>
- or  <i>second</i>
- is null.
+or <i>second</i>
+is null.
 
 <a id="Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Or
@@ -2222,7 +2226,9 @@ This number, converted to a 64-bit signed integer.
     public PeterO.Numbers.EInteger Xor(
         PeterO.Numbers.EInteger b);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
+           &#x22;Forms of numbers&#x22;
+        ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -2236,8 +2242,8 @@ An arbitrary-precision integer in which each bit is set if it's set in one input
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
- or  <i>b</i>
- is null.
+or <i>b</i>
+is null.
 
 <a id="Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Xor

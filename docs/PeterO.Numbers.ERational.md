@@ -620,12 +620,12 @@ Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>boolValue</i>: The parameter  <i>boolValue</i>
+ * <i>boolValue</i>: The parameter <i>boolValue</i>
 is not documented yet.
 
 <b>Return Value:</b>
 
-An ERational object.
+An arbitrary-precision binary rational number.
 
 <a id="FromByte_byte"></a>
 ### FromByte
