@@ -20,6 +20,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this object's value.
 * <code>[Add(PeterO.Numbers.EInteger)](#Add_PeterO_Numbers_EInteger)</code> - Adds this object and another object.
 * <code>[Add(int)](#Add_int)</code> - Adds this object and another object.
+* <code>[And(PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
 * <code>[And(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
 * <code>[AsInt32Checked()](#AsInt32Checked)</code> - Converts this object's value to a 32-bit signed integer, throwing an exception if it can't fit.
 * <code>[AsInt32Unchecked()](#AsInt32Unchecked)</code> - Converts this object's value to a 32-bit signed integer.
@@ -72,8 +73,10 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Multiply(PeterO.Numbers.EInteger)](#Multiply_PeterO_Numbers_EInteger)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Negate()](#Negate)</code> - Gets the value of this object with the sign reversed.
+* <code>[Not()](#Not)</code> - Returns an arbitrary-precision integer with every bit flipped.
 * <code>[Not(PeterO.Numbers.EInteger)](#Not_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with every bit flipped.
 * <code>[One](#One)</code> - Gets the number 1 as an arbitrary-precision integer.
+* <code>[Or(PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
 * <code>[Or(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
 * <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
@@ -108,6 +111,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ToUInt32Unchecked()](#ToUInt32Unchecked)</code> - Converts this number to a 32-bit signed integer, returning the least-significant bits of this number's two's-complement form.
 * <code>[ToUInt64Checked()](#ToUInt64Checked)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer.
 * <code>[ToUInt64Unchecked()](#ToUInt64Unchecked)</code> - Converts this number to a 64-bit signed integer, returning the least-significant bits of this number's two' s-complement form.
+* <code>[Xor(PeterO.Numbers.EInteger)](#Xor_PeterO_Numbers_EInteger)</code> - Finds the exclusive "or" of two arbitrary-precision integer objects.
 * <code>[Xor(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Finds the exclusive "or" of two arbitrary-precision integer objects.
 * <code>[Zero](#Zero)</code> - Gets the number zero as an arbitrary-precision integer.
 * <code>[PeterO.Numbers.EInteger operator +(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_Addition)</code> - Adds two arbitrary-precision integer objects and returns the result.
@@ -255,6 +259,31 @@ The sum of the two objects.
  * System.ArgumentNullException:
 The parameter <i>bigintAugend</i>
 is null.
+
+<a id="And_PeterO_Numbers_EInteger"></a>
+### And
+
+    public PeterO.Numbers.EInteger And(
+        PeterO.Numbers.EInteger b);
+
+Does an AND operation between two arbitrary-precision integer values.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>b</i>: The second arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>a</i>
+ or  <i>b</i>
+ is null.
 
 <a id="And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### And
@@ -525,7 +554,8 @@ Converts a boolean value (true or false) to an arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-The number 1 if "boolValue" is true; otherwise, 0.
+The number 1 if  <i>boolValue</i>
+ is true; otherwise, 0.
 
 <a id="FromByte_byte"></a>
 ### FromByte
@@ -1201,6 +1231,23 @@ Gets the value of this object with the sign reversed.
 
 This object's value with the sign reversed.
 
+<a id="Not"></a>
+### Not
+
+    public PeterO.Numbers.EInteger Not();
+
+Returns an arbitrary-precision integer with every bit flipped.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>valueA</i>
+ is null.
+
 <a id="Not_PeterO_Numbers_EInteger"></a>
 ### Not
 
@@ -1614,6 +1661,31 @@ An arbitrary-precision integer.
  * System.ArgumentNullException:
 The parameter <i>bigValue</i>
 is null.
+
+<a id="Or_PeterO_Numbers_EInteger"></a>
+### Or
+
+    public PeterO.Numbers.EInteger Or(
+        PeterO.Numbers.EInteger second);
+
+Does an OR operation between two arbitrary-precision integer instances.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>second</i>: The second operand.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Or
@@ -2143,6 +2215,29 @@ Converts this number to a 64-bit signed integer, returning the least-significant
 <b>Return Value:</b>
 
 This number, converted to a 64-bit signed integer.
+
+<a id="Xor_PeterO_Numbers_EInteger"></a>
+### Xor
+
+    public PeterO.Numbers.EInteger Xor(
+        PeterO.Numbers.EInteger b);
+
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>b</i>: The second arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer in which each bit is set if it's set in one input integer but not the other.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter <i>a</i>
+ or  <i>b</i>
+ is null.
 
 <a id="Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Xor

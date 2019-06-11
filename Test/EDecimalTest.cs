@@ -3221,15 +3221,10 @@ EFloat.Create(
 
     [Test]
 public void TestToByteChecked() {
-try {
- EDecimal.FromString("-4.10020360E-11").ToByteChecked();
-Assert.Fail("Should have failed");
-} catch (OverflowException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
-}
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToByteChecked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToByteChecked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToByteChecked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToByteChecked());
 }
 
     [Test]
@@ -4846,9 +4841,9 @@ EDecimal ed = EDecimal.FromString("1");
 EDecimal ed2;
 string str;
 for (var i = 10; i < 1000; ++i) {
- str = "1." + Repeat("0",i)+"3";
+ str = "1." + Repeat("0", i)+"3";
  ed2 = EDecimal.FromString(str);
- Assert.AreEqual("2.001", ed.Add(ed2, ec).ToString(),str);
+ Assert.AreEqual("2.001", ed.Add(ed2, ec).ToString(), str);
 }
 }
 

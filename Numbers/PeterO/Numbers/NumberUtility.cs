@@ -301,7 +301,7 @@ namespace PeterO.Numbers {
       if (intcurexp.CompareToInt(54) <= 0) {
         return FindPowerOfFive(intcurexp.AsInt32());
       }
-      //DebugUtility.Log("Getting power of five from big "+diff);
+      // DebugUtility.Log("Getting power of five from big "+diff);
       EInteger mantissa = EInteger.One;
       EInteger bigpow;
       EInteger origdiff = diff;
@@ -312,7 +312,7 @@ namespace PeterO.Numbers {
       EInteger[] otherPower =
       ValuePowerOfFiveCache.FindCachedPowerOrSmaller(origdiff);
       if (otherPower != null) {
-        //DebugUtility.Log("Found cached power " +otherPower[0]+", "
+        // DebugUtility.Log("Found cached power " +otherPower[0]+", "
         // +otherPower[1]);
         intcurexp.SubtractBig(otherPower[0]);
         bigpow = otherPower[1];
@@ -328,9 +328,9 @@ namespace PeterO.Numbers {
         }
         if (intcurexp.CompareToInt(9999999) <= 0) {
           int icurexp = intcurexp.AsInt32();
-          int halficurexp = icurexp/2;
+          int halficurexp = icurexp / 2;
           bigpow = FindPowerOfFive(halficurexp);
-          bigpow *= FindPowerOfFive(icurexp-halficurexp);
+          bigpow *= FindPowerOfFive(icurexp - halficurexp);
           mantissa *= (EInteger)bigpow;
           break;
         }
@@ -361,7 +361,7 @@ namespace PeterO.Numbers {
       FastInteger intcurexp = FastInteger.FromBig(bigintExponent);
       EInteger mantissa = EInteger.One;
       EInteger bigpow = EInteger.Zero;
-      //DebugUtility.Log("Getting power of ten from big "+bigintExponent);
+      // DebugUtility.Log("Getting power of ten from big "+bigintExponent);
       while (intcurexp.Sign > 0) {
         if (intcurexp.CompareToInt(18) <= 0) {
           bigpow = FindPowerOfTen(intcurexp.AsInt32());
@@ -406,7 +406,7 @@ namespace PeterO.Numbers {
         return bigpow;
       }
       var origPrecision = (EInteger)precision;
-      //DebugUtility.Log("Getting power of five "+precision);
+      // DebugUtility.Log("Getting power of five "+precision);
       if (precision <= 54) {
         if ((precision & 1) == 0) {
           ret = ValueBigIntPowersOfFive[(int)(precision >> 1)];

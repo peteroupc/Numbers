@@ -441,10 +441,8 @@ private static readonly FastIntegerFixed FastIntZero = new
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
-    /// is not documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromBoolean(System.Boolean)"]/*'/>
   public static EDecimal FromBoolean(bool boolValue) {
  return boolValue ? EDecimal.One : EDecimal.Zero;
 }
@@ -2645,7 +2643,6 @@ public EDecimal Divide(int intValue) {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToEFloat(PeterO.Numbers.EContext)"]/*'/>
     public EFloat ToEFloat(EContext ec) {
-      // TODO: Investigate speeding up Binary64 and Binary32 cases
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
       if (this.IsNaN()) {
@@ -2748,11 +2745,10 @@ ec = ec ?? EContext.UnlimitedHalfEven;
         } else if (quorem[0].CompareTo(desiredHigh) >= 0) {
           do {
             var optimized = false;
-            if (divisor.CompareTo(bigmantissa) < 0) {
-              if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
-               EInteger valueBmBits =
-                 bigmantissa.GetUnsignedBitLengthAsEInteger();
-               EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+            if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
+           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+              EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+              if (divisor.CompareTo(bigmantissa) < 0) {
                if (divBits.CompareTo(valueBmBits) < 0) {
                 EInteger bitdiff = valueBmBits.Subtract(divBits);
                 if (bitdiff.CompareTo(valueEcPrec.Add(1)) > 0) {
@@ -2762,12 +2758,8 @@ ec = ec ?? EContext.UnlimitedHalfEven;
                   optimized = true;
                 }
                }
-              }
             } else {
-              if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
-           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-               EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-             if (valueBmBits.CompareTo(divBits) >= 0 &&
+              if (valueBmBits.CompareTo(divBits) >= 0 &&
                  valueEcPrec.CompareTo(
                    EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
                   EInteger vbb = divBits.Add(valueEcPrec);

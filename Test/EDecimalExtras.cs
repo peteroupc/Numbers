@@ -406,11 +406,11 @@ if (scale.Exponent.IsZero) {
 
     // Logical Operations
     public static EDecimal And(EDecimal ed1, EDecimal ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1, ec);
+      byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2, ec);
+      byte[] logi2 = FromLogical(ed2, ec, 10);
       if (logi2 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
@@ -419,7 +419,7 @@ if (scale.Exponent.IsZero) {
       for (var i = 0; i < smaller.Length; ++i) {
         smaller[i] &= bigger[i];
       }
-      return ToLogical(smaller).RoundToPrecision(ec);
+      return ToLogical(smaller, 10).RoundToPrecision(ec);
     }
 
     public static EDecimal Invert(EDecimal ed1, EContext ec) {
@@ -428,7 +428,7 @@ if (scale.Exponent.IsZero) {
 }
       // TODO: Make it work for bit precisions (e.g., .NET decimal)
       EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
-      byte[] smaller = FromLogical(ed1, ec);
+      byte[] smaller = FromLogical(ed1, ec, 10);
       if (smaller == null) {
         return InvalidOperation(EDecimal.NaN, ec);
       }
@@ -443,15 +443,15 @@ if (smaller.Length > bigger.Length) {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return ToLogical(bigger).RoundToPrecision(ec);
+      return ToLogical(bigger, 10).RoundToPrecision(ec);
     }
 
     public static EDecimal Xor(EDecimal ed1, EDecimal ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1, ec);
+      byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2, ec);
+      byte[] logi2 = FromLogical(ed2, ec, 10);
       if (logi2 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
@@ -460,15 +460,15 @@ if (smaller.Length > bigger.Length) {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return ToLogical(bigger).RoundToPrecision(ec);
+      return ToLogical(bigger, 10).RoundToPrecision(ec);
     }
 
     public static EDecimal Or(EDecimal ed1, EDecimal ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1, ec);
+      byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2, ec);
+      byte[] logi2 = FromLogical(ed2, ec, 10);
       if (logi2 == null) {
  return InvalidOperation(EDecimal.NaN, ec);
 }
@@ -477,10 +477,10 @@ if (smaller.Length > bigger.Length) {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] |= smaller[i];
       }
-      return ToLogical(bigger).RoundToPrecision(ec);
+      return ToLogical(bigger, 10).RoundToPrecision(ec);
     }
 
-    private static EDecimal ToLogical(byte[] bytes) {
+    internal static EDecimal ToLogical(byte[] bytes, int radix) {
 if (bytes == null) {
   throw new ArgumentNullException(nameof(bytes));
 }
@@ -488,14 +488,14 @@ if (bytes == null) {
       for (var i = bytes.Length - 1; i >= 0; --i) {
         int b = bytes[i];
         for (var j = 7; j >= 0; --j) {
-       ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(DecimalRadix).Add(1) :
-            ret.Multiply(DecimalRadix);
+       ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(radix).Add(1) :
+            ret.Multiply(radix);
         }
       }
       return EDecimal.FromEInteger(ret);
     }
 
-    private static byte[] FromLogical(EDecimal ed, EContext ec) {
+    internal static byte[] FromLogical(EDecimal ed, EContext ec, int radix) {
       if (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
          ed.Mantissa.Sign < 0) {
  return null;
@@ -512,7 +512,7 @@ if (bytes == null) {
 }
       var bitindex = 0;
       var bytes = new byte[bytecount.ToInt32Checked()];
-      EInteger radixint = EInteger.FromInt32(DecimalRadix);
+      EInteger radixint = EInteger.FromInt32(radix);
       while (um.Sign > 0) {
         EInteger[] divrem = um.DivRem(radixint);
         int rem = divrem[1].ToInt32Checked();

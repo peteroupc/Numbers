@@ -55,22 +55,8 @@ namespace Test {
       return ed != null && ed.IsSignalingNaN();
     }
 
-    private static readonly string[] NumberClasses = {
- "+Normal", "-Normal",
- "+Subnormal", "-Subnormal",
- "+Zero", "-Zero",
- "+Infinity", "-Infinity",
- "NaN", "sNaN"
-};
-
     public static string NumberClassString(int nc) {
-      if (nc < 0) {
-throw new ArgumentException("nc (" + nc + ") is not greater or equal to 0");
-}
-if (nc > 9) {
-  throw new ArgumentException("nc (" + nc + ") is not less or equal to 9");
-}
-      return NumberClasses[nc];
+return EDecimalExtras.NumberClassString(nc);
     }
 
     public static int NumberClass(EFloat ed, EContext ec) {
@@ -404,11 +390,11 @@ if (scale.Exponent.IsZero) {
 
     // Logical Operations
     public static EFloat And(EFloat ed1, EFloat ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1, ec);
+      byte[] logi1 = FromLogical(ed1, ec, 2);
       if (logi1 == null) {
  return InvalidOperation(EFloat.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2, ec);
+      byte[] logi2 = FromLogical(ed2, ec, 2);
       if (logi2 == null) {
  return InvalidOperation(EFloat.NaN, ec);
 }
@@ -417,7 +403,7 @@ if (scale.Exponent.IsZero) {
       for (var i = 0; i < smaller.Length; ++i) {
         smaller[i] &= bigger[i];
       }
-      return ToLogical(smaller).RoundToPrecision(ec);
+      return EDecimalExtras.ToLogical(smaller, 2).RoundToPrecision(ec);
     }
 
     public static EFloat Invert(EFloat ed1, EContext ec) {
@@ -425,7 +411,7 @@ if (scale.Exponent.IsZero) {
  return InvalidOperation(EFloat.NaN, ec);
 }
       EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
-      byte[] smaller = FromLogical(ed1, ec);
+      byte[] smaller = EDecimalExtras.FromLogical(ed1, ec, 2);
       if (smaller == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
@@ -440,15 +426,15 @@ if (smaller.Length > bigger.Length) {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return ToLogical(bigger).RoundToPrecision(ec);
+      return EDecimalExtras.ToLogical(bigger, 2).RoundToPrecision(ec);
     }
 
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1, ec);
+      byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
  return InvalidOperation(EFloat.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2, ec);
+      byte[] logi2 = EDecimalExtras.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
  return InvalidOperation(EFloat.NaN, ec);
 }
@@ -457,15 +443,15 @@ if (smaller.Length > bigger.Length) {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return ToLogical(bigger).RoundToPrecision(ec);
+      return EDecimalExtras.ToLogical(bigger, 2).RoundToPrecision(ec);
     }
 
     public static EFloat Or(EFloat ed1, EFloat ed2, EContext ec) {
-      byte[] logi1 = FromLogical(ed1, ec);
+      byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
  return InvalidOperation(EFloat.NaN, ec);
 }
-      byte[] logi2 = FromLogical(ed2, ec);
+      byte[] logi2 = EDecimalExtras.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
  return InvalidOperation(EFloat.NaN, ec);
 }
@@ -474,58 +460,7 @@ if (smaller.Length > bigger.Length) {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] |= smaller[i];
       }
-      return ToLogical(bigger).RoundToPrecision(ec);
-    }
-
-    private static EFloat ToLogical(byte[] bytes) {
-if (bytes == null) {
-  throw new ArgumentNullException(nameof(bytes));
-}
-      EInteger ret = EInteger.Zero;
-      for (var i = bytes.Length - 1; i >= 0; --i) {
-        int b = bytes[i];
-        for (var j = 7; j >= 0; --j) {
-       ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(BinaryRadix).Add(1) :
-            ret.Multiply(BinaryRadix);
-        }
-      }
-      return EFloat.FromEInteger(ret);
-    }
-
-    private static byte[] FromLogical(EFloat ed, EContext ec) {
-      if (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
-         ed.Mantissa.Sign < 0) {
- return null;
-}
-      EInteger um = ed.UnsignedMantissa;
-      EInteger ret = EInteger.Zero;
-      EInteger prec = um.GetDigitCountAsEInteger();
-   EInteger maxprec = (ec != null && ec.HasMaxPrecision) ? ec.Precision :
-        null;
-      EInteger bytecount = prec.ShiftRight(3).Add(1);
-      if (bytecount.CompareTo(0x7fffffff) > 0) {
- return null;  // Out of memory
-}
-      var bitindex = 0;
-      var bytes = new byte[bytecount.ToInt32Checked()];
-      EInteger radixint = EInteger.FromInt32(BinaryRadix);
-      while (um.Sign > 0) {
-        EInteger[] divrem = um.DivRem(radixint);
-        int rem = divrem[1].ToInt32Checked();
-        um = divrem[0];
-        if (rem == 1) {
-         // Don't collect bits beyond max precision
-         if (maxprec == null || maxprec.CompareTo(bitindex) > 0) {
-           int byteindex = bitindex >> 3;
-           int mask = 1 << (bitindex & 7);
-           bytes[byteindex] |= (byte)mask;
-         }
-        } else if (rem != 0) {
-         return null;
-        }
-        ++bitindex;
-      }
-      return bytes;
+      return EDecimalExtras.ToLogical(bigger, 2).RoundToPrecision(ec);
     }
   }
 }

@@ -1,303 +1,4 @@
 <docs>
-  <doc name='T:PeterO.Cbor.CBORDataUtilities'>
-    <summary>Contains methods useful for reading and writing data, with a focus on
-      CBOR.
-    </summary>
-  </doc>
-  <doc name='M:PeterO.Cbor.CBORDataUtilities.ParseJSONNumber(System.String)'>
-    <summary>Parses a number whose format follows the JSON specification. See
-      #ParseJSONNumber(String, integersOnly, parseOnly) for more information.
-    </summary>
-    <param name='str'>A string to parse. The string is not allowed to contain white space
-      characters, including spaces.
-    </param>
-    <returns>A CBOR object that represents the parsed number. Returns positive zero if
-      the number is a zero that starts with a minus sign (such as "-0" or
-      "-0.0"). Returns null if the parsing fails, including if the string is
-      null or empty.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.CBORDataUtilities.ParseJSONNumber(System.String,System.Boolean,System.Boolean)'>
-    <summary>Parses a number whose format follows the JSON specification (RFC 8259).
-      Roughly speaking, a valid number consists of an optional minus sign, one
-      or more basic digits (starting with 1 to 9 unless the only digit is 0), an
-      optional decimal point (".", full stop) with one or more basic digits, and
-      an optional letter E or e with an optional plus or minus sign and one or
-      more basic digits (the exponent).
-    </summary>
-    <param name='str'>A string to parse. The string is not allowed to contain white space
-      characters, including spaces.
-    </param>
-    <param name='integersOnly'>If true, no decimal points or exponents are allowed in the string.
-    </param>
-    <param name='positiveOnly'>If true, only positive numbers are allowed (the leading minus is
-      disallowed).
-    </param>
-    <returns>A CBOR object that represents the parsed number. Returns positive zero if
-      the number is a zero that starts with a minus sign (such as "-0" or
-      "-0.0"). Returns null if the parsing fails, including if the string is
-      null or empty.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.CBORDataUtilities.ParseJSONNumber(System.String,System.Boolean,System.Boolean,System.Boolean)'>
-    <summary>Parses a number whose format follows the JSON specification (RFC 8259).
-      Roughly speaking, a valid number consists of an optional minus sign, one
-      or more basic digits (starting with 1 to 9 unless the only digit is 0), an
-      optional decimal point (".", full stop) with one or more basic digits, and
-      an optional letter E or e with an optional plus or minus sign and one or
-      more basic digits (the exponent).
-    </summary>
-    <param name='str'>A string to parse. The string is not allowed to contain white space
-      characters, including spaces.
-    </param>
-    <param name='integersOnly'>If true, no decimal points or exponents are allowed in the string.
-    </param>
-    <param name='positiveOnly'>If true, only positive numbers are allowed (the leading minus is
-      disallowed).
-    </param>
-    <param name='preserveNegativeZero'>If true, returns positive zero if the number is a zero that starts with a
-      minus sign (such as "-0" or "-0.0"). Otherwise, returns negative zero in
-      this case.
-    </param>
-    <returns>A CBOR object that represents the parsed number. Returns null if the
-      parsing fails, including if the string is null or empty.
-    </returns>
-  </doc>
-  <doc name='T:PeterO.Cbor.URIUtility'>
-    <summary>Contains utility methods for processing Uniform Resource Identifiers
-      (URIs) and Internationalized Resource Identifiers (IRIs) under RFC3986 and
-      RFC3987, respectively. In the following documentation, URIs and IRIs
-      include URI references and IRI references, for convenience.
-    </summary>
-  </doc>
-  <doc name='T:PeterO.Cbor.URIUtility.ParseMode'>
-    <summary>Specifies whether certain characters are allowed when parsing IRIs and
-      URIs.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Cbor.URIUtility.ParseMode.IRILenient'>
-    <summary>The rules only check for the appropriate delimiters when splitting the
-      path, without checking if all the characters in each component are valid.
-      Even with this mode, strings with unpaired surrogate code points are
-      considered invalid.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Cbor.URIUtility.ParseMode.IRIStrict'>
-    <summary>The rules follow the syntax for parsing IRIs. In particular, many code
-      points outside the Basic Latin range (U+0000 to U+007F) are allowed.
-      Strings with unpaired surrogate code points are considered invalid.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Cbor.URIUtility.ParseMode.IRISurrogateLenient'>
-    <summary>The rules only check for the appropriate delimiters when splitting the
-      path, without checking if all the characters in each component are valid.
-      Unpaired surrogate code points are treated as though they were replacement
-      characters instead for the purposes of these rules, so that strings with
-      those code points are not considered invalid strings.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Cbor.URIUtility.ParseMode.URILenient'>
-    <summary>The rules only check for the appropriate delimiters when splitting the
-      path, without checking if all the characters in each component are valid.
-      Code points outside the Basic Latin range (U+0000 to U+007F) are not
-      allowed.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Cbor.URIUtility.ParseMode.URIStrict'>
-    <summary>The rules follow the syntax for parsing IRIs, except that code points
-      outside the Basic Latin range (U+0000 to U+007F) are not allowed.
-    </summary>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.escapeURI(System.String,System.Int32)'>
-    <summary>Escapes characters that can't appear in URIs or IRIs. The function is
-      idempotent; that is, calling the function again on the result with the
-      same mode doesn't change the result.
-    </summary>
-    <param name='s'>A string to escape.
-    </param>
-    <param name='mode'>The parameter
-      <paramref name='mode'/>
-       is a 32-bit signed integer.
-    </param>
-    <returns>A string possibly containing escaped characters, or null if s is null.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.hasScheme(System.String)'>
-    <summary>Determines whether the string is a valid IRI with a scheme component. This
-      can be used to check for relative IRI references.
-      <para>The following cases return true:
-      </para>
-      <code>xx-x:mm example:/ww</code> The following cases return false:
-      <code>x@y:/z /x/y/z example.xyz</code> </summary>
-    <param name='refValue'>A string representing an IRI to check.
-    </param>
-    <returns><c>true</c> if the string is a valid IRI with a scheme component; otherwise,
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.hasSchemeForURI(System.String)'>
-    <summary>Determines whether the string is a valid URI with a scheme component. This
-      can be used to check for relative URI references. The following cases
-      return true:
-      <code>http://example/z xx-x:mm example:/ww</code> The following cases return false:
-      <code>x@y:/z /x/y/z example.xyz</code> </summary>
-    <param name='refValue'>A string representing an IRI to check.
-    </param>
-    <returns><c>true</c> if the string is a valid URI with a scheme component; otherwise,
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.isValidCurieReference(System.String,System.Int32,System.Int32)'>
-    <summary>Determines whether the substring is a valid CURIE reference under RDFA
-      1.1. (The CURIE reference is the part after the colon.).
-    </summary>
-    <param name='s'>A string containing a CURIE reference. Can be null.
-    </param>
-    <param name='offset'>A zero-based index showing where the desired portion of "s" begins.
-    </param>
-    <param name='length'>The number of elements in the desired portion of "s" (but not more than
-      "s" 's length).
-    </param>
-    <returns><c>true</c> if the substring is a valid CURIE reference under RDFA 1; otherwise,
-      <c>false</c> . Returns false if
-      <paramref name='s'/>
-       is null.
-    </returns>
-    <exception cref='T:System.ArgumentException'>Either
-      <paramref name='offset'/>
-       or
-      <paramref name='length'/>
-       is less than 0 or greater than
-      <paramref name='s'/>
-       's length, or
-      <paramref name='s'/>
-       ' s length minus
-      <paramref name='offset'/>
-       is less than
-      <paramref name='length'/>
-       .
-    </exception>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.relativeResolve(System.String,System.String)'>
-    <summary>Resolves a URI or IRI relative to another URI or IRI.
-    </summary>
-    <param name='refValue'>A string representing a URI or IRI reference. Example:
-      <c>dir/file.txt</c> .
-    </param>
-    <param name='baseURI'>A string representing an absolute URI reference. Example:
-      <c>http://example.com/my/path/</c> .
-    </param>
-    <returns>The resolved IRI, or null if
-      <paramref name='refValue'/>
-       is null or is not a valid IRI. If
-      <paramref name='baseURI'/>
-       is null or is not a valid IRI, returns refValue. Example:
-      <c>http://example.com/my/path/dir/file.txt</c> .
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.relativeResolve(System.String,System.String,PeterO.Cbor.URIUtility.ParseMode)'>
-    <summary>Resolves a URI or IRI relative to another URI or IRI.
-    </summary>
-    <param name='refValue'>A string representing a URI or IRI reference. Example:
-      <c>dir/file.txt</c> . Can be null.
-    </param>
-    <param name='baseURI'>A string representing an absolute URI reference. Example:
-      <c>http://example.com/my/path/</c> .
-    </param>
-    <param name='parseMode'>Parse mode that specifies whether certain characters are allowed when
-      parsing IRIs and URIs.
-    </param>
-    <returns>The resolved IRI, or null if
-      <paramref name='refValue'/>
-       is null or is not a valid IRI. If
-      <paramref name='baseURI'/>
-       is null or is not a valid IRI, returns refValue.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.splitIRI(System.String)'>
-    <summary>Parses an Internationalized Resource Identifier (IRI) reference under
-      RFC3987. If the IRI reference is syntactically valid, splits the string
-      into its components and returns an array containing the indices into the
-      components.
-    </summary>
-    <param name='s'>A string that contains an IRI. Can be null.
-    </param>
-    <returns>If the string is a valid IRI reference, returns an array of 10 integers.
-      Each of the five pairs corresponds to the start and end index of the IRI's
-      scheme, authority, path, query, or fragment component, respectively. The
-      scheme, authority, query, and fragment components, if present, will each
-      be given without the ending colon, the starting "//", the starting "?",
-      and the starting "#", respectively. If a component is absent, both indices
-      in that pair will be -1. If the string is null or is not a valid IRI,
-      returns null.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.splitIRI(System.String,PeterO.Cbor.URIUtility.ParseMode)'>
-    <summary>Parses an Internationalized Resource Identifier (IRI) reference under
-      RFC3987. If the IRI is syntactically valid, splits the string into its
-      components and returns an array containing the indices into the
-      components.
-    </summary>
-    <param name='s'>A string representing an IRI. Can be null.
-    </param>
-    <param name='parseMode'>The parameter
-      <paramref name='parseMode'/>
-       is a ParseMode object.
-    </param>
-    <returns>If the string is a valid IRI reference, returns an array of 10 integers.
-      Each of the five pairs corresponds to the start and end index of the IRI's
-      scheme, authority, path, query, or fragment component, respectively. The
-      scheme, authority, query, and fragment components, if present, will each
-      be given without the ending colon, the starting "//", the starting "?",
-      and the starting "#", respectively. If a component is absent, both indices
-      in that pair will be -1. If the string is null or is not a valid IRI,
-      returns null.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Cbor.URIUtility.splitIRI(System.String,System.Int32,System.Int32,PeterO.Cbor.URIUtility.ParseMode)'>
-    <summary>Parses a substring that represents an Internationalized Resource
-      Identifier (IRI) under RFC3987. If the IRI is syntactically valid, splits
-      the string into its components and returns an array containing the indices
-      into the components.
-    </summary>
-    <param name='s'>A string that contains an IRI. Can be null.
-    </param>
-    <param name='offset'>A zero-based index showing where the desired portion of "s" begins.
-    </param>
-    <param name='length'>The length of the desired portion of "s" (but not more than "s" 's
-      length).
-    </param>
-    <param name='parseMode'>Parse mode that specifies whether certain characters are allowed when
-      parsing IRIs and URIs.
-    </param>
-    <returns>If the string is a valid IRI, returns an array of 10 integers. Each of the
-      five pairs corresponds to the start and end index of the IRI's scheme,
-      authority, path, query, or fragment component, respectively. The scheme,
-      authority, query, and fragment components, if present, will each be given
-      without the ending colon, the starting "//", the starting "?", and the
-      starting "#", respectively. If a component is absent, both indices in that
-      pair will be -1 (an index won't be less than 0 in any other case). If the
-      string is null or is not a valid IRI, returns null.
-    </returns>
-    <exception cref='T:System.ArgumentException'>Either
-      <paramref name='offset'/>
-       or
-      <paramref name='length'/>
-       is less than 0 or greater than
-      <paramref name='s'/>
-       's length, or
-      <paramref name='s'/>
-       ' s length minus
-      <paramref name='offset'/>
-       is less than
-      <paramref name='length'/>
-       .
-    </exception>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='s'/>
-       is null.
-    </exception>
-  </doc>
   <doc name='T:PeterO.DataUtilities'>
     <summary>Contains methods useful for reading and writing strings. It is designed to
       have no dependencies other than the basic runtime class library.
@@ -1123,10 +824,13 @@
     <summary>Gets the maximum length of a converted number in digits, ignoring the
       radix point and exponent. For example, if precision is 3, a converted
       number's mantissa (significand) can range from 0 to 999 (up to three
-      digits long). If 0, converted numbers can have any precision.<para>
-      Not-a-number (NaN) values can carry an optional number, its payload, that serves as its "diagnostic information",
-      In general, if an operation requires copying an NaN's payload, only up to as many digits of that
-      payload as the precision given in this context, namely the least significant digits, are copied.</para>
+      digits long). If 0, converted numbers can have any precision.
+      <para>Not-a-number (NaN) values can carry an optional number, its payload,
+        that serves as its "diagnostic information", In general, if an operation
+        requires copying an NaN's payload, only up to as many digits of that
+        payload as the precision given in this context, namely the least
+        significant digits, are copied.
+      </para>
     </summary>
     <value>The maximum length of a converted number in digits, ignoring the radix
       point and exponent. For example, if precision is 3, a converted number's
@@ -1797,13 +1501,14 @@
     </summary>
     <param name='other'>An arbitrary-precision decimal number to compare with this one.
     </param>
-    <returns>The number 0 if both objects have the same value, or -1 if this object is
-      less than the other value, or 1 if this object is greater.
+    <returns>The number 0 if both objects have the same value (ignoring their signs),
+      or -1 if this object is less than the other value (ignoring their signs),
+      or 1 if this object is greater (ignoring their signs).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Compares the values of this object and another object, imposing a total
-      ordering on all possible values. In this method:
+      ordering on all possible values (ignoring their signs). In this method:
       <list>
         <item>For objects with the same value, the one with the higher exponent has
           a greater "absolute value".
@@ -1829,13 +1534,11 @@
       <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
       before carrying out the operation. Can be null.
     </param>
-    <returns>The number 0 if both objects have the same value, or -1 if this object is
-      less than the other value, or 1 if this object is greater. Does not signal
+    <returns>The number 0 if both objects have the same value (ignoring their signs),
+      or -1 if this object is less than the other value (ignoring their signs),
+      or 1 if this object is greater (ignoring their signs). Does not signal
       flags if either value is signaling NaN.
     </returns>
-    <remarks>
-       TODO: Edit this doc to account for magnitude
-    </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Compares the mathematical values of this object and another object.
@@ -2451,14 +2154,13 @@
     </value>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromBoolean(System.Boolean)'>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal
-      number.
+    <summary>Not documented yet.
     </summary>
-    <param name='boolValue'>A boolean value, either true or false.
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
     </param>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
+    <returns>An EDecimal object.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromByte(System.Byte)'>
@@ -5246,7 +4948,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Compares the values of this object and another object, imposing a total
-      ordering on all possible values. In this method:
+      ordering on all possible values (ignoring their signs). In this method:
       <list>
         <item>For objects with the same value, the one with the higher exponent has
           a greater "absolute value".
@@ -5272,13 +4974,11 @@
       <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
       before carrying out the operation. Can be null.
     </param>
-    <returns>The number 0 if both objects have the same value, or -1 if this object is
-      less than the other value, or 1 if this object is greater. Does not signal
+    <returns>The number 0 if both objects have the same value (ignoring their signs),
+      or -1 if this object is less than the other value (ignoring their signs),
+      or 1 if this object is greater (ignoring their signs). Does not signal
       flags if either value is signaling NaN.
     </returns>
-    <remarks>
-       TODO: Edit this
-    </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Compares the mathematical values of this object and another object.
@@ -5724,8 +5424,17 @@
       <c>boolValue</c> is
       <c>true</c> ; otherwise, zero.
     </returns>
-    <param name='boolValue'>Either true or false.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision binary
+      number.
+    </summary>
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
     </param>
+    <returns>One if
+      <c>boolValue</c> is
+      <c>true</c> ; otherwise, zero.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
@@ -7997,6 +7706,28 @@
     </returns>
     <example><code>EInteger result = EInteger.FromString("5").Add(200);</code> </example>
   </doc>
+  <doc name='M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)'>
+    <summary>Does an AND operation between two arbitrary-precision integer values.
+    </summary>
+    <param name='b'>The second arbitrary-precision integer.
+    </param>
+    <returns>An arbitrary-precision integer.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='a'/>
+       or
+      <paramref name='b'/>
+       is null.
+    </exception>
+    <remarks>
+      Each arbitrary-precision integer is treated as a two's-complement form
+      (see
+      <see cref='T:PeterO.Numbers.EDecimal'>
+        "Forms of numbers"
+      </see>
+       ) for the purposes of this operator.
+    </remarks>
+  </doc>
   <doc name='M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
     <summary>Does an AND operation between two arbitrary-precision integer values.
     </summary>
@@ -8196,7 +7927,9 @@
     </summary>
     <param name='boolValue'>Either true or false.
     </param>
-    <returns>The number 1 if "boolValue" is true; otherwise, 0.
+    <returns>The number 1 if
+      <paramref name='boolValue'/>
+       is true; otherwise, 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.FromByte(System.Byte)'>
@@ -8700,6 +8433,16 @@
     <returns>This object's value with the sign reversed.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EInteger.Not'>
+    <summary>Returns an arbitrary-precision integer with every bit flipped.
+    </summary>
+    <returns>An arbitrary-precision integer.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='valueA'/>
+       is null.
+    </exception>
+  </doc>
   <doc name='M:PeterO.Numbers.EInteger.Not(PeterO.Numbers.EInteger)'>
     <summary>Returns an arbitrary-precision integer with every bit flipped.
     </summary>
@@ -8717,6 +8460,28 @@
     </summary>
     <value>The number 1 as an arbitrary-precision integer.
     </value>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger)'>
+    <summary>Does an OR operation between two arbitrary-precision integer instances.
+    </summary>
+    <param name='second'>The second operand.
+    </param>
+    <returns>An arbitrary-precision integer.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='first'/>
+       or
+      <paramref name='second'/>
+       is null.
+    </exception>
+    <remarks>
+      Each arbitrary-precision integer is treated as a two's-complement form
+      (see
+      <see cref='T:PeterO.Numbers.EDecimal'>
+        "Forms of numbers"
+      </see>
+       ) for the purposes of this operator.
+    </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
     <summary>Does an OR operation between two arbitrary-precision integer instances.
@@ -9102,6 +8867,28 @@
     </summary>
     <returns>This number, converted to a 64-bit signed integer.
     </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger)'>
+    <summary>Finds the exclusive "or" of two arbitrary-precision integer objects.
+      <para>Each arbitrary-precision integer is treated as a two's-complement form
+        (see
+        <see cref='T:PeterO.Numbers.EDecimal'>
+          "Forms of numbers"
+        </see>
+         ) for the purposes of this operator.
+      </para>
+    </summary>
+    <param name='b'>The second arbitrary-precision integer.
+    </param>
+    <returns>An arbitrary-precision integer in which each bit is set if it's set in one
+      input integer but not the other.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='a'/>
+       or
+      <paramref name='b'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
     <summary>Finds the exclusive "or" of two arbitrary-precision integer objects.
@@ -9864,14 +9651,13 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromBoolean(System.Boolean)'>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision
-      rational number.
+    <summary>Not documented yet.
     </summary>
-    <param name='boolValue'>Either true or false.
+    <param name='boolValue'>The parameter
+      <paramref name='boolValue'/>
+       is not documented yet.
     </param>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
+    <returns>An arbitrary-precision binary rational number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromByte(System.Byte)'>

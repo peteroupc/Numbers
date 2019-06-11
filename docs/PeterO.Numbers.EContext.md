@@ -371,7 +371,7 @@ Gets a value indicating whether to use a "simplified" arithmetic. In the simplif
 
     public PeterO.Numbers.EInteger Precision { get; }
 
-Gets the maximum length of a converted number in digits, ignoring the radix point and exponent. For example, if precision is 3, a converted number's mantissa (significand) can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision.
+Gets the maximum length of a converted number in digits, ignoring the radix point and exponent. For example, if precision is 3, a converted number's mantissa (significand) can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision.Not-a-number (NaN) values can carry an optional number, its payload, that serves as its "diagnostic information", In general, if an operation requires copying an NaN's payload, only up to as many digits of that payload as the precision given in this context, namely the least significant digits, are copied.
 
 <b>Returns:</b>
 

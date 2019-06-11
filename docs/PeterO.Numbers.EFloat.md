@@ -46,7 +46,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Add(int)](#Add_int)</code> - Adds this object and another object.
 * <code>[CompareToSignal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
-* <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
+* <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
 * <code>[CompareToTotal(PeterO.Numbers.EFloat)](#CompareToTotal_PeterO_Numbers_EFloat)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToWithContext(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
@@ -567,7 +567,7 @@ The number 0 if both objects have the same value, or -1 if this object is less t
         PeterO.Numbers.EFloat other,
         PeterO.Numbers.EContext ctx);
 
-Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
+Compares the values of this object and another object, imposing a total ordering on all possible values (ignoring their signs). In this method:
 
  * For objects with the same value, the one with the higher exponent has a greater "absolute value".
 
@@ -581,8 +581,6 @@ Compares the values of this object and another object, imposing a total ordering
 
  * Negative numbers are less than positive numbers.
 
-TODO: Edit this
-
 <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision binary float to compare with this one.
@@ -591,7 +589,7 @@ TODO: Edit this
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. Does not signal flags if either value is signaling NaN.
+The number 0 if both objects have the same value (ignoring their signs), or -1 if this object is less than the other value (ignoring their signs), or 1 if this object is greater (ignoring their signs). Does not signal flags if either value is signaling NaN.
 
 <a id="CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareToWithContext

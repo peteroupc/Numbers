@@ -1698,10 +1698,8 @@ public int ToInt32IfExact() {
  return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
-    /// is not documented yet.</param>
-    /// <returns>An ERational object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromBoolean(System.Boolean)"]/*'/>
   public static ERational FromBoolean(bool boolValue) {
  return FromInt32(boolValue ? 1 : 0);
 }

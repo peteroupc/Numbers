@@ -232,11 +232,8 @@ namespace PeterO.Numbers {
                     newnegative));
     }
 
-    /// <summary>Converts a boolean value (true or false) to an
-    /// arbitrary-precision integer.</summary>
-    /// <param name='boolValue'>Either true or false.</param>
-    /// <returns>The number 1 if <paramref name='boolValue'/> is true;
-    /// otherwise, 0.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)"]/*'/>
 public static EInteger FromBoolean(bool boolValue) {
 return boolValue ? ValueOne : ValueZero;
 }
@@ -1066,7 +1063,7 @@ public int CompareTo(int intValue) {
         // where dividend is 0)
         return EInteger.Zero;
       }
-      //DebugUtility.Log("divide " + this + " " + (bigintDivisor));
+      // DebugUtility.Log("divide " + this + " " + bigintDivisor);
       if (words1Size <= 2 && words2Size <= 2 && this.CanFitInInt32() &&
           bigintDivisor.CanFitInInt32()) {
         int valueASmall = this.ToInt32Checked();
@@ -2837,7 +2834,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       if (bigintMult.wordCount == 1 && bigintMult.words[0] == 1) {
         return bigintMult.negative ? this.Negate() : this;
       }
-      //DebugUtility.Log("multiply " + this + " " + (bigintMult));
+      // DebugUtility.Log("multiply " + this + " " + bigintMult);
       short[] productreg;
       int productwordCount;
       var needShorten = true;
@@ -3144,6 +3141,189 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         TwosComplement(ret, 0, (int)ret.Length);
         return new EInteger(CountWords(ret), ret, true);
       }
+    }
+
+    private static void OrWords(short[] r, short[] a, short[] b, int n) {
+      for (var i = 0; i < n; ++i) {
+        r[i] = unchecked((short)(a[i] | b[i]));
+      }
+    }
+
+    private static void XorWords(short[] r, short[] a, short[] b, int n) {
+      for (var i = 0; i < n; ++i) {
+        r[i] = unchecked((short)(a[i] ^ b[i]));
+      }
+    }
+
+    private static void NotWords(short[] r, int n) {
+      for (var i = 0; i < n; ++i) {
+        r[i] = unchecked((short)(~r[i]));
+      }
+    }
+
+    private static void AndWords(short[] r, short[] a, short[] b, int n) {
+      for (var i = 0; i < n; ++i) {
+        r[i] = unchecked((short)(a[i] & b[i]));
+      }
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Not"]/*'/>
+    public EInteger Not() {
+      if (this.wordCount == 0) {
+        return EInteger.FromInt32(-1);
+      }
+      var valueXaNegative = false; int valueXaWordCount = 0;
+      var valueXaReg = new short[this.wordCount];
+      Array.Copy(this.words, valueXaReg, valueXaReg.Length);
+      valueXaWordCount = this.wordCount;
+      if (this.negative) {
+        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+      }
+      NotWords(valueXaReg, (int)valueXaReg.Length);
+      if (this.negative) {
+        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+      }
+      valueXaNegative = !this.negative;
+      valueXaWordCount = CountWords(valueXaReg);
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new
+        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)"]/*'/>
+    public EInteger And(EInteger b) {
+   if (b == null) {
+  throw new ArgumentNullException(nameof(b));
+}
+
+      if (b.IsZero || this.IsZero) {
+        return Zero;
+      }
+      var valueXaNegative = false; int valueXaWordCount = 0;
+      var valueXaReg = new short[this.wordCount];
+      Array.Copy(this.words, valueXaReg, valueXaReg.Length);
+      var valueXbNegative = false;
+      var valueXbReg = new short[this.wordCount];
+      Array.Copy(b.words, valueXbReg, valueXbReg.Length);
+      valueXaNegative = this.negative;
+      valueXaWordCount = this.wordCount;
+      valueXbNegative = b.negative;
+      valueXaReg = CleanGrow(
+  valueXaReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
+      valueXbReg = CleanGrow(
+  valueXbReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
+      if (valueXaNegative) {
+        {
+          TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+        }
+      }
+      if (valueXbNegative) {
+        {
+          TwosComplement(valueXbReg, 0, (int)valueXbReg.Length);
+        }
+      }
+      valueXaNegative &= valueXbNegative;
+      AndWords(valueXaReg, valueXaReg, valueXbReg, (int)valueXaReg.Length);
+      if (valueXaNegative) {
+        {
+          TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+        }
+      }
+      valueXaWordCount = CountWords(valueXaReg);
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new
+        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger)"]/*'/>
+    public EInteger Or(EInteger second) {
+   if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
+      if (this.wordCount == 0) {
+        return second;
+      }
+      if (second.wordCount == 0) {
+        return this;
+      }
+      var valueXaNegative = false; int valueXaWordCount = 0;
+      var valueXaReg = new short[this.wordCount];
+      Array.Copy(this.words, valueXaReg, valueXaReg.Length);
+      var valueXbNegative = false;
+      var valueXbReg = new short[second.wordCount];
+      Array.Copy(second.words, valueXbReg, valueXbReg.Length);
+      valueXaNegative = this.negative;
+      valueXaWordCount = this.wordCount;
+      valueXbNegative = second.negative;
+      valueXaReg = CleanGrow(
+  valueXaReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
+      valueXbReg = CleanGrow(
+  valueXbReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
+      if (valueXaNegative) {
+        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+      }
+      if (valueXbNegative) {
+        TwosComplement(valueXbReg, 0, (int)valueXbReg.Length);
+      }
+      valueXaNegative |= valueXbNegative;
+      OrWords(valueXaReg, valueXaReg, valueXbReg, (int)valueXaReg.Length);
+      if (valueXaNegative) {
+        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+      }
+      valueXaWordCount = CountWords(valueXaReg);
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new
+        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+    }
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger)"]/*'/>
+    public EInteger Xor(EInteger b) {
+      if (b == null) {
+        throw new ArgumentNullException(nameof(b));
+      }
+      if (this.Equals(b)) {
+        return EInteger.Zero;
+      }
+      if (this.wordCount == 0) {
+        return b;
+      }
+      if (b.wordCount == 0) {
+        return this;
+      }
+      var valueXaNegative = false; int valueXaWordCount = 0;
+      var valueXaReg = new short[this.wordCount];
+      Array.Copy(this.words, valueXaReg, valueXaReg.Length);
+      var valueXbNegative = false;
+      var valueXbReg = new short[b.wordCount];
+      Array.Copy(b.words, valueXbReg, valueXbReg.Length);
+      valueXaNegative = this.negative;
+      valueXaWordCount = this.wordCount;
+      valueXbNegative = b.negative;
+      valueXaReg = CleanGrow(
+  valueXaReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
+      valueXbReg = CleanGrow(
+  valueXbReg,
+  Math.Max(valueXaReg.Length, valueXbReg.Length));
+      if (valueXaNegative) {
+        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+      }
+      if (valueXbNegative) {
+        TwosComplement(valueXbReg, 0, (int)valueXbReg.Length);
+      }
+      valueXaNegative ^= valueXbNegative;
+      XorWords(valueXaReg, valueXaReg, valueXbReg, (int)valueXaReg.Length);
+      if (valueXaNegative) {
+        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
+      }
+      valueXaWordCount = CountWords(valueXaReg);
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new
+        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
     private short[] Copy() {

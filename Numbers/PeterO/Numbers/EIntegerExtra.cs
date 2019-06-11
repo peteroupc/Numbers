@@ -8,7 +8,6 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-// TODO: Move And/Or/Not/Xor from EIntegerExtra to EInteger
   public sealed partial class EInteger {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromUInt64(System.UInt64)"]/*'/>
@@ -231,30 +230,6 @@ namespace PeterO.Numbers {
       return result[0];
     }
 
-    private static void OrWords(short[] r, short[] a, short[] b, int n) {
-      for (var i = 0; i < n; ++i) {
-        r[i] = unchecked((short)(a[i] | b[i]));
-      }
-    }
-
-    private static void XorWords(short[] r, short[] a, short[] b, int n) {
-      for (var i = 0; i < n; ++i) {
-        r[i] = unchecked((short)(a[i] ^ b[i]));
-      }
-    }
-
-    private static void NotWords(short[] r, int n) {
-      for (var i = 0; i < n; ++i) {
-        r[i] = unchecked((short)(~r[i]));
-      }
-    }
-
-    private static void AndWords(short[] r, short[] a, short[] b, int n) {
-      for (var i = 0; i < n; ++i) {
-        r[i] = unchecked((short)(a[i] & b[i]));
-      }
-    }
-
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)"]/*'/>
     public bool Equals(EInteger other) {
@@ -267,24 +242,7 @@ namespace PeterO.Numbers {
       if (valueA == null) {
         throw new ArgumentNullException(nameof(valueA));
       }
-      if (valueA.wordCount == 0) {
-        return EInteger.FromInt32(-1);
-      }
-      var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[valueA.wordCount];
-      Array.Copy(valueA.words, valueXaReg, valueXaReg.Length);
-      valueXaWordCount = valueA.wordCount;
-      if (valueA.negative) {
-        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-      }
-      NotWords(valueXaReg, (int)valueXaReg.Length);
-      if (valueA.negative) {
-        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-      }
-      valueXaNegative = !valueA.negative;
-      valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return valueA.Not();
     }
 
     /// <include file='../../docs.xml'
@@ -296,44 +254,7 @@ namespace PeterO.Numbers {
       if (b == null) {
         throw new ArgumentNullException(nameof(b));
       }
-      if (b.IsZero || a.IsZero) {
-        return Zero;
-      }
-      var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[a.wordCount];
-      Array.Copy(a.words, valueXaReg, valueXaReg.Length);
-      var valueXbNegative = false;
-      var valueXbReg = new short[b.wordCount];
-      Array.Copy(b.words, valueXbReg, valueXbReg.Length);
-      valueXaNegative = a.negative;
-      valueXaWordCount = a.wordCount;
-      valueXbNegative = b.negative;
-      valueXaReg = CleanGrow(
-  valueXaReg,
-  Math.Max(valueXaReg.Length, valueXbReg.Length));
-      valueXbReg = CleanGrow(
-  valueXbReg,
-  Math.Max(valueXaReg.Length, valueXbReg.Length));
-      if (valueXaNegative) {
-        {
-          TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-        }
-      }
-      if (valueXbNegative) {
-        {
-          TwosComplement(valueXbReg, 0, (int)valueXbReg.Length);
-        }
-      }
-      valueXaNegative &= valueXbNegative;
-      AndWords(valueXaReg, valueXaReg, valueXbReg, (int)valueXaReg.Length);
-      if (valueXaNegative) {
-        {
-          TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-        }
-      }
-      valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return a.And(b);
     }
 
     /// <include file='../../docs.xml'
@@ -345,41 +266,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      if (first.wordCount == 0) {
-        return second;
-      }
-      if (second.wordCount == 0) {
-        return first;
-      }
-      var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[first.wordCount];
-      Array.Copy(first.words, valueXaReg, valueXaReg.Length);
-      var valueXbNegative = false;
-      var valueXbReg = new short[second.wordCount];
-      Array.Copy(second.words, valueXbReg, valueXbReg.Length);
-      valueXaNegative = first.negative;
-      valueXaWordCount = first.wordCount;
-      valueXbNegative = second.negative;
-      valueXaReg = CleanGrow(
-  valueXaReg,
-  Math.Max(valueXaReg.Length, valueXbReg.Length));
-      valueXbReg = CleanGrow(
-  valueXbReg,
-  Math.Max(valueXaReg.Length, valueXbReg.Length));
-      if (valueXaNegative) {
-        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-      }
-      if (valueXbNegative) {
-        TwosComplement(valueXbReg, 0, (int)valueXbReg.Length);
-      }
-      valueXaNegative |= valueXbNegative;
-      OrWords(valueXaReg, valueXaReg, valueXbReg, (int)valueXaReg.Length);
-      if (valueXaNegative) {
-        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-      }
-      valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return first.Or(second);
     }
 
     /// <include file='../../docs.xml'
@@ -391,44 +278,7 @@ namespace PeterO.Numbers {
       if (b == null) {
         throw new ArgumentNullException(nameof(b));
       }
-      if (a == b) {
-        return EInteger.Zero;
-      }
-      if (a.wordCount == 0) {
-        return b;
-      }
-      if (b.wordCount == 0) {
-        return a;
-      }
-      var valueXaNegative = false; int valueXaWordCount = 0;
-      var valueXaReg = new short[a.wordCount];
-      Array.Copy(a.words, valueXaReg, valueXaReg.Length);
-      var valueXbNegative = false;
-      var valueXbReg = new short[b.wordCount];
-      Array.Copy(b.words, valueXbReg, valueXbReg.Length);
-      valueXaNegative = a.negative;
-      valueXaWordCount = a.wordCount;
-      valueXbNegative = b.negative;
-      valueXaReg = CleanGrow(
-  valueXaReg,
-  Math.Max(valueXaReg.Length, valueXbReg.Length));
-      valueXbReg = CleanGrow(
-  valueXbReg,
-  Math.Max(valueXaReg.Length, valueXbReg.Length));
-      if (valueXaNegative) {
-        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-      }
-      if (valueXbNegative) {
-        TwosComplement(valueXbReg, 0, (int)valueXbReg.Length);
-      }
-      valueXaNegative ^= valueXbNegative;
-      XorWords(valueXaReg, valueXaReg, valueXbReg, (int)valueXaReg.Length);
-      if (valueXaNegative) {
-        TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-      }
-      valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return a.Xor(b);
     }
     // Begin integer conversions
 
