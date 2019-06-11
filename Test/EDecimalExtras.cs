@@ -425,12 +425,11 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       if (ec == null || !ec.HasMaxPrecision) {
         return InvalidOperation(EDecimal.NaN, ec);
       }
-      // TODO: Make it work for bit precisions (e.g., .NET decimal)
-      EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
       byte[] smaller = FromLogical(ed1, ec, 10);
       if (smaller == null) {
         return InvalidOperation(EDecimal.NaN, ec);
       }
+      EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
       byte[] bigger = ei.ToBytes(true);
 #if DEBUG
       if (smaller.Length > bigger.Length) {
@@ -503,8 +502,6 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
 }
       EInteger ret = EInteger.Zero;
       EInteger prec = um.GetDigitCountAsEInteger();
-      // TODO: Make it work for bit precisions (e.g., .NET decimal)
-      // while radix is other than 10
       EInteger maxprec = (ec != null && ec.HasMaxPrecision) ? ec.Precision :
            null;
       EInteger bytecount = prec.ShiftRight(3).Add(1);
@@ -534,12 +531,17 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     internal static byte[] FromLogical(EDecimal ed, EContext ec, int radix) {
+      if(ed==null)return null;
+      if(ec!=null && ec.IsPrecisionInBits)ed=ed.RoundToPrecision(ec);
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
     ed.Mantissa.Sign < 0) ? null : FromLogical(ed.UnsignedMantissa, ec,
            radix);
     }
 
     internal static byte[] FromLogical(EFloat ed, EContext ec, int radix) {
+      if(ed==null)return null;
+      // NOTE: Precision of EFloat is already in bits, so no need to check for
+      // IsPrecisionInBits here
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
     ed.Mantissa.Sign < 0) ? null : FromLogical(ed.UnsignedMantissa, ec,
            radix);
