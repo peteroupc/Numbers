@@ -1700,9 +1700,9 @@ public int ToInt32IfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromBoolean(System.Boolean)"]/*'/>
-  public static ERational FromBoolean(bool boolValue) {
- return FromInt32(boolValue ? 1 : 0);
-}
+    public static ERational FromBoolean(bool boolValue) {
+     return FromInt32(boolValue ? 1 : 0);
+   }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>

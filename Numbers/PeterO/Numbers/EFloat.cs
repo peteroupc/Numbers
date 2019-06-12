@@ -1926,18 +1926,12 @@ public int ToInt32IfExact() {
  return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
-/// <summary>Converts a boolean value (true or false) to an
-/// arbitrary-precision binary number.</summary>
-/// <returns>One if <c>boolValue</c> is <c>true</c>; otherwise, zero.</returns>
-    /// <summary>Converts a boolean value (true or false) to an
-    /// arbitrary-precision binary number.</summary>
-    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
-    /// is not documented yet.</param>
-    /// <returns>One if <c>boolValue</c> is <c>true</c> ; otherwise,
-    /// zero.</returns>
-public static EFloat FromBoolean(bool boolValue) {
- return boolValue ? EFloat.One : EFloat.Zero;
-}
+    /// <summary>Not documented yet.</summary>
+    /// <param name='boolValue'>Not documented yet.</param>
+    /// <returns>An EFloat object.</returns>
+   public static EFloat FromBoolean(bool boolValue) {
+    return boolValue ? EFloat.One : EFloat.Zero;
+   }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>

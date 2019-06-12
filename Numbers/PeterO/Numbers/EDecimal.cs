@@ -363,8 +363,8 @@ private static readonly FastIntegerFixed FastIntZero = new
       } else {
         // Value has a fractional part
         var bigmantissa = (EInteger)lvalue;
-        EInteger exp = NumberUtility.FindPowerOfFive(-floatExponent);
-        bigmantissa *= (EInteger)exp;
+        EInteger bigexp = NumberUtility.FindPowerOfFive(-floatExponent);
+        bigmantissa *= (EInteger)bigexp;
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
         }
@@ -443,9 +443,9 @@ private static readonly FastIntegerFixed FastIntZero = new
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromBoolean(System.Boolean)"]/*'/>
-  public static EDecimal FromBoolean(bool boolValue) {
- return boolValue ? EDecimal.One : EDecimal.Zero;
-}
+    public static EDecimal FromBoolean(bool boolValue) {
+      return boolValue ? EDecimal.One : EDecimal.Zero;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt32(System.Int32)"]/*'/>
@@ -2268,16 +2268,16 @@ public EDecimal Divide(int intValue) {
           this.unsignedMantissa.CanFitInInt64()) {
          // Fast-path optimization (explained on exploringbinary.com)
          long ml = this.unsignedMantissa.AsInt64();
-         int exp = this.exponent.AsInt32();
-         while (ml <= 900719925474099L && exp > 22) {
+         int iexp = this.exponent.AsInt32();
+         while (ml <= 900719925474099L && iexp > 22) {
            ml *= 10;
-           --exp;
+           --iexp;
          }
-         int iabsexp = Math.Abs(exp);
+         int iabsexp = Math.Abs(iexp);
          if (ml < 9007199254740992L && iabsexp <= 22) {
           double d = ExactDoublePowersOfTen[iabsexp];
           double dml = this.IsNegative ? (double)(-ml) : (double)ml;
-          if (exp < 0) {
+          if (iexp < 0) {
              return dml / d;
           } else {
              return dml * d;
@@ -2365,20 +2365,20 @@ public EDecimal Divide(int intValue) {
          // Fast-path optimization (version for 'double's explained
          // on exploringbinary.com)
          int iml = this.unsignedMantissa.AsInt32();
-         int exp = this.exponent.AsInt32();
+         int iexp = this.exponent.AsInt32();
          // DebugUtility.Log("this=" + (this.ToString()));
-         // DebugUtility.Log("iml=" + iml + " exp=" + exp + " neg=" +
+         // DebugUtility.Log("iml=" + iml + " iexp=" + iexp + " neg=" +
          // (this.IsNegative));
-         while (iml <= 1677721 && exp > 10) {
+         while (iml <= 1677721 && iexp > 10) {
            iml *= 10;
-           --exp;
+           --iexp;
          }
-         int iabsexp = Math.Abs(exp);
+         int iabsexp = Math.Abs(iexp);
          // DebugUtility.Log("--> iml=" + iml + " absexp=" + iabsexp);
          if (iml < 16777216 && iabsexp <= 10) {
-          var fd = ExactSinglePowersOfTen[iabsexp];
+          float fd = ExactSinglePowersOfTen[iabsexp];
           float fml = this.IsNegative ? (float)(-iml) : (float)iml;
-          if (exp < 0) {
+          if (iexp < 0) {
              // DebugUtility.Log("--> ret=" + (fml/fd) + " [fml=" + fml +
              // ", fd=" + fd + "]");
              return fml / fd;

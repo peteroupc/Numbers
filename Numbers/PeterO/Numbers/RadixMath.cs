@@ -1598,8 +1598,9 @@ ctx.Precision).WithBlankFlags();
           // Negate(0) is treated as subtract(0, 0), which in turn is treated
           // as add(0, -0), so that the result is positive 0 since both
           // operands to add are positive
-          var nonnegative = (flags & BigNumberFlags.FlagNegative) == 0;
-          var floor = ctx != null && ctx.Rounding == ERounding.Floor;
+          bool nonnegative, floor;
+          nonnegative = (flags & BigNumberFlags.FlagNegative) == 0;
+          floor = ctx != null && ctx.Rounding == ERounding.Floor;
           if (floor && nonnegative) {
           zero = this.helper.CreateNewWithFlags(
   mant,
@@ -4459,7 +4460,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
             incremented = true;
           } else {
             EInteger bigdigit = FastIntegerFixed.FromFastInteger(
-               fastNumber).Mod(radix);
+               fastNumber).Mod(EInteger.FromInt32(radix));
             var lastDigit = (int)bigdigit;
             if (lastDigit == 0 || lastDigit == (radix / 2)) {
               incremented = true;

@@ -176,7 +176,7 @@ namespace Test {
       EInteger mantprec = ed.Precision();
       if (shift.Sign < 0) {
         if (shift.Abs().CompareTo(mantprec) < 0) {
-          EInteger divisor = EInteger.ShiftLeft(shift.Abs());
+          EInteger divisor = EInteger.One.ShiftLeft(shift.Abs());
           mant = mant.Divide(divisor);
         } else {
           mant = EInteger.Zero;
@@ -184,10 +184,10 @@ namespace Test {
         EFloat ret = EFloat.Create(mant, ed.Exponent);
         return ed.IsNegative ? ret.Negate() : ret;
       } else {
-        EInteger mult = EInteger.ShiftLeft(shift);
+        EInteger mult = EInteger.One.ShiftLeft(shift);
         mant = mant.Multiply(mult);
         if (ec != null && ec.HasMaxPrecision) {
-          EInteger mod = EInteger.ShiftLeft(ec.Precision);
+          EInteger mod = EInteger.One.ShiftLeft(ec.Precision);
           mant = mant.Remainder(mod);
         }
         EFloat ret = EFloat.Create(mant, ed.Exponent);
@@ -232,7 +232,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       EInteger mantLeft = EInteger.Zero;
       // Right shift
       if (rightShift.CompareTo(mantprec) < 0) {
-        EInteger divisor = EInteger.ShiftLeft(rightShift);
+        EInteger divisor = EInteger.One.ShiftLeft(rightShift);
         mantRight = mant.Divide(divisor);
       } else {
         mantRight = EInteger.Zero;
@@ -243,9 +243,9 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       } else if (leftShift.CompareTo(ec.Precision) == 0) {
         mantLeft = EInteger.Zero;
       } else {
-        EInteger mult = EInteger.ShiftLeft(leftShift);
+        EInteger mult = EInteger.One.ShiftLeft(leftShift);
         mantLeft = mant.Multiply(mult);
-        EInteger mod = EInteger.ShiftLeft(ec.Precision);
+        EInteger mod = EInteger.One.ShiftLeft(ec.Precision);
         mantLeft = mantLeft.Remainder(mod);
       }
       EFloat ret = EFloat.Create(mantRight.Add(mantLeft), ed.Exponent);

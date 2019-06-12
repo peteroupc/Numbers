@@ -1,5 +1,5 @@
 /*
-Written in 2013-2018 by Peter O.
+Written in 2013-2019 by Peter O.
 
 Parts of the code were adapted by Peter O. from
 public-domain code by Wei Dai.
@@ -2790,6 +2790,20 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return remainderEInt;
     }
 
+
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
+    public EInteger Mod(int smallDivisor) {
+      if (smallDivisor < 0) {
+        throw new ArithmeticException("Divisor is negative");
+      }
+      EInteger remainderEInt = this.Remainder(smallDivisor);
+      if (remainderEInt.Sign < 0) {
+        remainderEInt = divisor.Add(remainderEInt);
+      }
+      return remainderEInt;
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public EInteger ModPow(EInteger pow, EInteger mod) {
@@ -2952,7 +2966,9 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
      if ((bigPower) == null) {
   throw new ArgumentNullException(nameof(bigPower));
 }
-     ArgumentAssert.GreaterOrEqual(bigPower.Sign);
+if(bigPower.Sign<0){
+  throw new ArgumentException("bigPower is negative");
+}
      if (bigPower.Sign == 0) {
         // however 0 to the power of 0 is undefined
         return EInteger.One;
@@ -2977,11 +2993,8 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         bp = bp.Subtract(Int32.MaxValue);
      }
      int lastp = bp.ToInt32Checked();
-     if (lastp == Int32.MaxValue) {
- ret = ret.Multiply(rmax);
-} else {
- ret = ret.Multiply(this.Pow(lastp));
-}
+     ret = (lastp == Int32.MaxValue) ? (ret.Multiply(rmax)) :
+       (ret.Multiply(this.Pow(lastp)));
      return ret;
     }
 
@@ -3235,23 +3248,37 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)"]/*'/>
-    public EInteger And(EInteger b) {
-   if (b == null) {
-  throw new ArgumentNullException(nameof(b));
+    public EInteger And(EInteger other) {
+   if (other == null) {
+  throw new ArgumentNullException(nameof(other));
 }
-
-      if (b.IsZero || this.IsZero) {
-        return Zero;
+      if (other.IsZero || this.IsZero) {
+        return EInteger.Zero;
       }
-      var valueXaNegative = false; int valueXaWordCount = 0;
+      if(!this.negative && !other.negative) {
+        var smallerCount = Math.Min(this.wordCount,other.wordCount);
+        var smaller = (this.wordCount == smallerCount) ?
+            this.words : other.words;
+        var bigger = (this.wordCount == smallerCount) ?
+            other.words : this.words;
+        var result = new short[smallerCount];
+        for (var i = 0; i < smallerCount; ++i) {
+          result[i] = unchecked((short)(smaller[i] & bigger[i]));
+        }
+        smallerCount = CountWords(result);
+        return (smallerCount == 0) ? EInteger.Zero : (new
+          EInteger(smallerCount, result, false));
+      }
+      var valueXaNegative = false; 
+      int valueXaWordCount = 0;
       var valueXaReg = new short[this.wordCount];
       Array.Copy(this.words, valueXaReg, valueXaReg.Length);
       var valueXbNegative = false;
-      var valueXbReg = new short[this.wordCount];
-      Array.Copy(b.words, valueXbReg, valueXbReg.Length);
+      var valueXbReg = new short[other.wordCount];
+      Array.Copy(other.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = this.negative;
       valueXaWordCount = this.wordCount;
-      valueXbNegative = b.negative;
+      valueXbNegative = other.negative;
       valueXaReg = CleanGrow(
   valueXaReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
@@ -3259,21 +3286,15 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
   valueXbReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
       if (valueXaNegative) {
-        {
           TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-        }
       }
       if (valueXbNegative) {
-        {
           TwosComplement(valueXbReg, 0, (int)valueXbReg.Length);
-        }
       }
       valueXaNegative &= valueXbNegative;
       AndWords(valueXaReg, valueXaReg, valueXbReg, (int)valueXaReg.Length);
       if (valueXaNegative) {
-        {
           TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
-        }
       }
       valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : (new
@@ -5881,8 +5902,10 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       int i = count;
       short remainder = 0;
       while ((i--) > 0) {
+        int dividendSmall = unchecked((int)((((int)dividendReg[i]) & 0xffff) | 
+          ((int)remainder << 16)));
         remainder = RemainderUnsigned(
-          MakeUint(dividendReg[i], remainder),
+          dividendSmall,
           divisorSmall);
       }
       return remainder;
@@ -5995,10 +6018,6 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         carry = (short)(p >> 16);
       }
       return carry;
-    }
-
-    private static int MakeUint(short first, short second) {
-      return unchecked((int)((((int)first) & 0xffff) | ((int)second << 16)));
     }
 
     private static void RecursiveSquare(

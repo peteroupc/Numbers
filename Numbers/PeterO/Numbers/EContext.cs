@@ -8,10 +8,6 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-   // TODO: Add WithNoFlagsOrTraps method which resets flags
-   // TODO: Add HasFlagsOrTraps method
-   // and traps to 0
-
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.EContext"]/*'/>
   public sealed class EContext {
@@ -528,6 +524,8 @@ return new EContext(
         this.flags + ", HasFlags=" + this.hasFlags + "]";
     }
 
+    public bool HasFlagsOrTraps { get { return this.HasFlags || this.Traps != 0; } }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)"]/*'/>
     public EContext WithAdjustExponent(bool adjustExponent) {
@@ -565,6 +563,23 @@ return new EContext(
   this.simplified,
   this.traps);
     }
+
+    public EContext WithNoFlagsOrTraps(){
+ return new EContext(
+  this.adjustExponent,
+  this.bigintPrecision,
+  this.clampNormalExponents,
+  exponentMax,
+  exponentMin,
+  0,
+  this.hasExponentRange,
+  false,
+  this.precisionInBits,
+  this.rounding,
+  this.simplified,
+  0);
+    }
+
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBigPrecision(PeterO.Numbers.EInteger)"]/*'/>
