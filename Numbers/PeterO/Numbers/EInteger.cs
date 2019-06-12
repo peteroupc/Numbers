@@ -2774,17 +2774,8 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return this.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
     }
 
-    /// <summary>Finds the modulus remainder that results when this
-    /// instance is divided by the value of an arbitrary-precision integer.
-    /// The modulus remainder is the same as the normal remainder if the
-    /// normal remainder is positive, and equals divisor plus normal
-    /// remainder if the normal remainder is negative.</summary>
-    /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='T:System.ArgumentException'>The parameter
-    /// <paramref name='divisor'/> is less than 0.</exception>
-    /// <exception cref='T:System.ArgumentNullException'>The parameter
-    /// <paramref name='divisor'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -2799,15 +2790,8 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return remainderEInt;
     }
 
-    /// <summary>Finds the modulus remainder that results when this
-    /// instance is divided by the value of another integer. The modulus
-    /// remainder is the same as the normal remainder if the normal
-    /// remainder is positive, and equals divisor plus normal remainder if
-    /// the normal remainder is negative.</summary>
-    /// <param name='smallDivisor'>The divisor of the modulus.</param>
-    /// <returns>The modulus remainder.</returns>
-    /// <exception cref='T:System.ArgumentException'>The parameter
-    /// <paramref name='divisor'/> is less than 0.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(System.Int32)"]/*'/>
     public EInteger Mod(int smallDivisor) {
       if (smallDivisor < 0) {
         throw new ArithmeticException("Divisor is negative");
@@ -2977,14 +2961,8 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         !this.negative);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bigPower'>The parameter <paramref name='bigPower'/> is
-    /// not documented yet.</param>
-    /// <returns>An EInteger object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigPower'/> is null.</exception>
-    /// <exception cref='ArgumentException'>BigPower is
-    /// negative.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Pow(EInteger bigPower) {
      if (bigPower == null) {
   throw new ArgumentNullException(nameof(bigPower));
@@ -3269,16 +3247,8 @@ if (bigPower.Sign < 0) {
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
-    /// <summary>Does an AND operation between two arbitrary-precision
-    /// integer values.</summary>
-    /// <param name='other'>An EInteger object.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='T:System.ArgumentNullException'>The parameter
-    /// <paramref name='a'/> or <paramref name='b'/> is null.</exception>
-    /// <remarks>Each arbitrary-precision integer is treated as a
-    /// two's-complement form (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> )
-    /// for the purposes of this operator.</remarks>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger And(EInteger other) {
    if (other == null) {
   throw new ArgumentNullException(nameof(other));
@@ -3332,20 +3302,8 @@ if (bigPower.Sign < 0) {
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
-    /// <summary>Does an OR operation between two arbitrary-precision
-    /// integer instances.</summary>
-    /// <param name='second'>The second operand.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='T:System.ArgumentNullException'>The parameter
-    /// <paramref name='first'/> or <paramref name='second'/> is
-    /// null.</exception>
-    /// <exception cref='ArgumentException'>Doesn't satisfy
-    /// biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
-    /// CountWords(result).</exception>
-    /// <remarks>Each arbitrary-precision integer is treated as a
-    /// two's-complement form (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> )
-    /// for the purposes of this operator.</remarks>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Or(EInteger second) {
    if (second == null) {
   throw new ArgumentNullException(nameof(second));
@@ -3416,19 +3374,8 @@ throw new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
-    /// <summary>Finds the exclusive "or" of two arbitrary-precision
-    /// integer objects.
-    /// <para>Each arbitrary-precision integer is treated as a
-    /// two's-complement form (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> )
-    /// for the purposes of this operator.</para></summary>
-    /// <param name='other'>An EInteger object.</param>
-    /// <returns>An arbitrary-precision integer in which each bit is set if
-    /// it's set in one input integer but not the other.</returns>
-    /// <exception cref='T:System.ArgumentNullException'>The parameter
-    /// <paramref name='a'/> or <paramref name='b'/> is null.</exception>
-    /// <exception cref='ArgumentException'>Doesn't satisfy smallerCount ==
-    /// CountWords(result).</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger)"]/*'/>
     public EInteger Xor(EInteger other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));

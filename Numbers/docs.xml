@@ -782,6 +782,15 @@
       <c>false</c> .
     </value>
   </doc>
+  <doc name='P:PeterO.Numbers.EContext.HasFlagsOrTraps'>
+    <summary>Gets a value indicating whether this context has a mutable Flags field,
+      one or more trap enablers, or both.
+    </summary>
+    <value><c>true</c> if this context has a mutable Flags field, one or more trap enablers, or
+      both; otherwise,
+      <c>false</c> .
+    </value>
+  </doc>
   <doc name='P:PeterO.Numbers.EContext.HasMaxPrecision'>
     <summary>Gets a value indicating whether this context defines a maximum precision.
     </summary>
@@ -952,6 +961,13 @@
   <doc name='M:PeterO.Numbers.EContext.WithNoFlags'>
     <summary>Copies this EContext with
       <c>HasFlags</c> set to false and a Flags value of 0.
+    </summary>
+    <returns>A context object for arbitrary-precision arithmetic settings.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EContext.WithNoFlagsOrTraps'>
+    <summary>Copies this EContext with
+      <c>HasFlags</c> set to false, a Traps value of 0, and a Flags value of 0.
     </summary>
     <returns>A context object for arbitrary-precision arithmetic settings.
     </returns>
@@ -2154,8 +2170,8 @@
     </value>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromBoolean(System.Boolean)'>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision
-      decimal number.
+    <summary>Converts a boolean value (true or false) to an arbitrary-precision decimal
+      number.
     </summary>
     <param name='boolValue'>Either true or false.
     </param>
@@ -4392,7 +4408,9 @@
     </summary>
     <param name='boolValue'>Either true or false.
     </param>
-    <returns>The number 1 if "boolValue" is true; otherwise, 0.
+    <returns>The number 1 if
+      <paramref name='boolValue'/>
+       is true; otherwise, 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal'>
@@ -4570,6 +4588,490 @@
       <paramref name='bigValue'/>
        is null.
     </exception>
+  </doc>
+  <doc name='T:PeterO.Numbers.EDecimalExtras'>
+    <summary>Not documented yet.
+    </summary>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.BoolToEDecimal(System.Boolean,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='b'>The parameter
+      <paramref name='b'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='other'>The parameter
+      <paramref name='other'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>A 32-bit signed integer.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.CompareTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='other'>The parameter
+      <paramref name='other'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>A 32-bit signed integer.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Copy(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.CopyAbs(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.CopyNegate(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.CopySign(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='other'>The parameter
+      <paramref name='other'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Int32ToEDecimal(System.Int32,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='i32'>The parameter
+      <paramref name='i32'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsCanonical(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsFinite(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsInfinite(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsNaN(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsNormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsQuietNaN(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsSignalingNaN(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsSigned(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsSubnormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.IsZero(PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.NumberClass(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>A 32-bit signed integer.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.NumberClassString(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='nc'>The parameter
+      <paramref name='nc'/>
+       is not documented yet.
+    </param>
+    <returns>A text string.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Radix(PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Rescale(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='scale'>The parameter
+      <paramref name='scale'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Rotate(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.SameQuantum(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='ed2'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Shift(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='ed2'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Trim(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EFloat'>
     <summary>Represents an arbitrary-precision binary floating-point number. (The "E"
@@ -5418,15 +5920,15 @@
     </value>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromBoolean(System.Boolean)'>
-    <summary>Converts a boolean value (true or false) to an arbitrary-precision binary
-      number.
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision
+      binary float.
     </summary>
-    <returns>One if
-      <c>boolValue</c> is
-      <c>true</c> ; otherwise, zero.
-    </returns>
     <param name='boolValue'>Either true or false.
     </param>
+    <returns>The number 1 if
+      <paramref name='boolValue'/>
+       is true, otherwise, 0.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
@@ -7701,7 +8203,7 @@
   <doc name='M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)'>
     <summary>Does an AND operation between two arbitrary-precision integer values.
     </summary>
-    <param name='b'>The second arbitrary-precision integer.
+    <param name='other'>An arbitrary-precision integer.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
@@ -8349,9 +8851,28 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
+    <exception cref='T:System.ArgumentException'>The parameter
+      <paramref name='divisor'/>
+       is less than 0.
+    </exception>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='divisor'/>
        is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EInteger.Mod(System.Int32)'>
+    <summary>Finds the modulus remainder that results when this instance is divided by
+      the value of another integer. The modulus remainder is the same as the
+      normal remainder if the normal remainder is positive, and equals divisor
+      plus normal remainder if the normal remainder is negative.
+    </summary>
+    <param name='smallDivisor'>The divisor of the modulus.
+    </param>
+    <returns>The modulus remainder.
+    </returns>
+    <exception cref='T:System.ArgumentException'>The parameter
+      <paramref name='divisor'/>
+       is less than 0.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
@@ -8466,6 +8987,9 @@
       <paramref name='second'/>
        is null.
     </exception>
+    <exception cref='T:System.ArgumentException'>Doesn't satisfy biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
+      CountWords(result).
+    </exception>
     <remarks>
        Each arbitrary-precision integer is treated as a two's-complement form
       (see
@@ -8499,10 +9023,26 @@
        ) for the purposes of this operator.
     </remarks>
   </doc>
+  <doc name='M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger)'>
+    <summary>Raises an arbitrary-precision integer to a power.
+    </summary>
+    <param name='bigPower'>The exponent to raise this integer to.
+    </param>
+    <returns>The result. Returns 1 if
+      <paramref name='bigPower'/>
+       is 0.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='bigPower'/>
+       is null.
+    </exception>
+    <exception cref='T:System.ArgumentException'>BigPower is negative.
+    </exception>
+  </doc>
   <doc name='M:PeterO.Numbers.EInteger.Pow(System.Int32)'>
     <summary>Raises an arbitrary-precision integer to a power.
     </summary>
-    <param name='powerSmall'>The exponent to raise to.
+    <param name='powerSmall'>The exponent to raise this integer to.
     </param>
     <returns>The result. Returns 1 if &#x22;powerSmall&#x22; is 0.
     </returns>
@@ -8870,7 +9410,7 @@
          ) for the purposes of this operator.
       </para>
     </summary>
-    <param name='b'>The second arbitrary-precision integer.
+    <param name='other'>An arbitrary-precision integer.
     </param>
     <returns>An arbitrary-precision integer in which each bit is set if it's set in one
       input integer but not the other.
@@ -8880,6 +9420,8 @@
        or
       <paramref name='b'/>
        is null.
+    </exception>
+    <exception cref='T:System.ArgumentException'>Doesn't satisfy smallerCount == CountWords(result).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
@@ -9643,7 +10185,6 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromBoolean(System.Boolean)'>
-
     <summary>Converts a boolean value (true or false) to an arbitrary-precision
       rational number.
     </summary>
@@ -11342,5 +11883,489 @@
       <paramref name='s'/>
        is null.
     </exception>
+  </doc>
+  <doc name='T:Test.EFloatExtras'>
+    <summary>Not documented yet.
+    </summary>
+  </doc>
+  <doc name='M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='b'>The parameter
+      <paramref name='b'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Canonical(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.CompareTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='other'>The parameter
+      <paramref name='other'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>A 32-bit signed integer.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.CompareTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='other'>The parameter
+      <paramref name='other'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>A 32-bit signed integer.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Copy(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.CopySign(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='other'>The parameter
+      <paramref name='other'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Int32ToEFloat(System.Int32,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='i32'>The parameter
+      <paramref name='i32'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Invert(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsCanonical(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsFinite(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsInfinite(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsNaN(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsNormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsQuietNaN(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsSignalingNaN(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsSigned(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsSubnormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.IsZero(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.NumberClass(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>A 32-bit signed integer.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:Test.EFloatExtras.NumberClassString(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='nc'>The parameter
+      <paramref name='nc'/>
+       is not documented yet.
+    </param>
+    <returns>A text string.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Radix(PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='scale'>The parameter
+      <paramref name='scale'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.SameQuantum(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <returns>Either
+      <c>true</c> or
+      <c>false</c> .
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='ed2'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Shift(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='ed2'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Trim(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+  </doc>
+  <doc name='M:Test.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ed2'>The parameter
+      <paramref name='ed2'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
   </doc>
 </docs>

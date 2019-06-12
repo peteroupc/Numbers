@@ -36,7 +36,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[ForRounding(PeterO.Numbers.ERounding)](#ForRounding_PeterO_Numbers_ERounding)</code> - Creates a new EContext object initialized with an unlimited precision, an unlimited exponent range, and the given rounding mode.
 * <code>[HasExponentRange](#HasExponentRange)</code> - Gets a value indicating whether this context defines a minimum and maximum exponent.
 * <code>[HasFlags](#HasFlags)</code> - Gets a value indicating whether this context has a mutable Flags field.
-* <code>[HasFlagsOrTraps](#HasFlagsOrTraps)</code> - Gets a value not documented yet.
+* <code>[HasFlagsOrTraps](#HasFlagsOrTraps)</code> - Gets a value indicating whether this context has a mutable Flags field, one or more trap enablers, or both.
 * <code>[HasMaxPrecision](#HasMaxPrecision)</code> - Gets a value indicating whether this context defines a maximum precision.
 * <code>[IsPrecisionInBits](#IsPrecisionInBits)</code> - Gets a value indicating whether this context's Precision property is in bits, rather than digits.
 * <code>[IsSimplified](#IsSimplified)</code> - Gets a value indicating whether to use a "simplified" arithmetic.
@@ -53,7 +53,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[WithExponentClamp(bool)](#WithExponentClamp_bool)</code> - Copies this arithmetic context and sets the copy's "ClampNormalExponents" flag to the given value.
 * <code>[WithExponentRange(int, int)](#WithExponentRange_int_int)</code> - Copies this arithmetic context and sets the copy's exponent range.
 * <code>[WithNoFlags()](#WithNoFlags)</code> - Copies this EContext withHasFlags set to false and a Flags value of 0.
-* <code>[WithNoFlagsOrTraps()](#WithNoFlagsOrTraps)</code> - Not documented yet.
+* <code>[WithNoFlagsOrTraps()](#WithNoFlagsOrTraps)</code> - Copies this EContext withHasFlags set to false, a Traps value of 0, and a Flags value of 0.
 * <code>[WithPrecisionInBits(bool)](#WithPrecisionInBits_bool)</code> - Copies this EContext and sets the copy's "IsPrecisionInBits" property to the given value.
 * <code>[WithPrecision(int)](#WithPrecision_int)</code> - Copies this EContext and gives it a particular precision value.
 * <code>[WithRounding(PeterO.Numbers.ERounding)](#WithRounding_PeterO_Numbers_ERounding)</code> - Copies this EContext with the specified rounding mode.
@@ -340,11 +340,11 @@ Gets a value indicating whether this context has a mutable Flags field.
 
     public bool HasFlagsOrTraps { get; }
 
-Gets a value not documented yet.
+Gets a value indicating whether this context has a mutable Flags field, one or more trap enablers, or both.
 
 <b>Returns:</b>
 
-A value not documented yet.
+ `true`  if this context has a mutable Flags field, one or more trap enablers, or both; otherwise, `false`  .
 
 <a id="HasMaxPrecision"></a>
 ### HasMaxPrecision
@@ -638,11 +638,11 @@ A context object for arbitrary-precision arithmetic settings.
 
     public PeterO.Numbers.EContext WithNoFlagsOrTraps();
 
-Not documented yet.
+Copies this EContext with `HasFlags`  set to false, a Traps value of 0, and a Flags value of 0.
 
 <b>Return Value:</b>
 
-An EContext object.
+A context object for arbitrary-precision arithmetic settings.
 
 <a id="WithPrecision_int"></a>
 ### WithPrecision

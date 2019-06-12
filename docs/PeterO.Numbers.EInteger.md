@@ -80,7 +80,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Or(PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
 * <code>[Or(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
 * <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
-* <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Not documented yet.
+* <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[Remainder(int)](#Remainder_int)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
@@ -270,11 +270,13 @@ is null.
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form see[
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
 <b>Parameters:</b>
 
- * <i>other</i>: An EInteger object.
+ * <i>other</i>: An arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -284,8 +286,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
- or  <i>b</i>
- is null.
+or <i>b</i>
+is null.
 
 <a id="And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### And
@@ -1122,7 +1124,7 @@ The modulus remainder.
 
  * System.ArgumentException:
 The parameter <i>divisor</i>
- is less than 0.
+is less than 0.
 
 <a id="Mod_PeterO_Numbers_EInteger"></a>
 ### Mod
@@ -1142,13 +1144,13 @@ An arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
+ * System.ArgumentException:
+The parameter <i>divisor</i>
+is less than 0.
+
  * System.ArgumentNullException:
 The parameter <i>divisor</i>
 is null.
-
- * System.ArgumentException:
-The parameter <i>divisor</i>
- is less than 0.
 
 <a id="ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### ModPow
@@ -1717,6 +1719,9 @@ The parameter <i>first</i>
 or <i>second</i>
 is null.
 
+ * System.ArgumentException:
+Doesn't satisfy biggerCount&gt;0; doesn't satisfy biggerCount == CountWords(result).
+
 <a id="Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Or
 
@@ -1757,7 +1762,7 @@ Raises an arbitrary-precision integer to a power.
 
 <b>Parameters:</b>
 
- * <i>powerSmall</i>: The exponent to raise to.
+ * <i>powerSmall</i>: The exponent to raise this integer to.
 
 <b>Return Value:</b>
 
@@ -1769,20 +1774,21 @@ The result. Returns 1 if "powerSmall" is 0.
     public PeterO.Numbers.EInteger Pow(
         PeterO.Numbers.EInteger bigPower);
 
-Not documented yet.
+Raises an arbitrary-precision integer to a power.
 
 <b>Parameters:</b>
 
- * <i>bigPower</i>: Not documented yet.
+ * <i>bigPower</i>: The exponent to raise this integer to.
 
 <b>Return Value:</b>
 
-An EInteger object.
+The result. Returns 1 if  <i>bigPower</i>
+ is 0.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bigPower</i>
+The parameter <i>bigPower</i>
  is null.
 
  * System.ArgumentException:
@@ -2283,7 +2289,7 @@ Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitra
 
 <b>Parameters:</b>
 
- * <i>b</i>: The second arbitrary-precision integer.
+ * <i>other</i>: An arbitrary-precision integer.
 
 <b>Return Value:</b>
 
@@ -2295,6 +2301,9 @@ An arbitrary-precision integer in which each bit is set if it's set in one input
 The parameter <i>a</i>
 or <i>b</i>
 is null.
+
+ * System.ArgumentException:
+Doesn't satisfy smallerCount == CountWords(result).
 
 <a id="Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Xor

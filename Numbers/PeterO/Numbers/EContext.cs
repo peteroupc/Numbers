@@ -524,8 +524,8 @@ return new EContext(
         this.flags + ", HasFlags=" + this.hasFlags + "]";
     }
 
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>A value not documented yet.</value>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.HasFlagsOrTraps"]/*'/>
     public bool HasFlagsOrTraps { get {
  return this.HasFlags || this.Traps != 0;
 } }
@@ -568,8 +568,8 @@ return new EContext(
   this.traps);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>An EContext object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithNoFlagsOrTraps"]/*'/>
     public EContext WithNoFlagsOrTraps() {
  return new EContext(
   this.adjustExponent,

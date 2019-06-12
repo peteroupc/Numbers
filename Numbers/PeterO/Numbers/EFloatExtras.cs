@@ -2,13 +2,19 @@ using System;
 using PeterO.Numbers;
 
 namespace Test {
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:Test.EFloatExtras"]/*'/>
   public static class EFloatExtras {
     private const int BinaryRadix = 2;
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Radix(PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Radix(EContext ec) {
       return EFloat.FromInt32(BinaryRadix).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Int32ToEFloat(System.Int32,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Int32ToEFloat(int i32, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -16,6 +22,8 @@ namespace Test {
       return EFloat.FromInt32(i32).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat BoolToEFloat(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -23,42 +31,62 @@ namespace Test {
       return EFloat.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsCanonical(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsCanonical(EFloat ed) {
       return true;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsFinite(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsFinite(EFloat ed) {
       return ed.IsFinite;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsInfinite(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsInfinite(EFloat ed) {
       return ed.IsInfinity();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsNaN(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsNaN(EFloat ed) {
       return ed != null && ed.IsNaN();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsNormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static bool IsNormal(EFloat ed, EContext ec) {
       return ed != null && ed.IsFinite && !ed.IsZero && !IsSubnormal(ed, ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsQuietNaN(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsQuietNaN(EFloat ed) {
       return ed != null && ed.IsQuietNaN();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsSigned(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsSigned(EFloat ed) {
       return ed.IsNegative;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsSignalingNaN(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsSignalingNaN(EFloat ed) {
       return ed != null && ed.IsSignalingNaN();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.NumberClassString(System.Int32)"]/*'/>
     public static string NumberClassString(int nc) {
       return EDecimalExtras.NumberClassString(nc);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.NumberClass(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static int NumberClass(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -79,6 +107,8 @@ namespace Test {
         (ed.IsNegative ? 1 : 0);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsSubnormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static bool IsSubnormal(EFloat ed, EContext ec) {
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
@@ -91,10 +121,14 @@ namespace Test {
       return false;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.IsZero(PeterO.Numbers.EFloat)"]/*'/>
     public static bool IsZero(EFloat ed) {
       return ed != null && ed.IsZero;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat LogB(EFloat ed, EContext ec) {
       if (ed.IsNaN()) {
         return ed.RoundToPrecision(ec);
@@ -109,6 +143,8 @@ namespace Test {
       return EFloat.FromEInteger(ei).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat ScaleB(EFloat ed, EFloat ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -144,6 +180,8 @@ namespace Test {
       return ret.RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Shift(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Shift(EFloat ed, EFloat ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -195,6 +233,8 @@ namespace Test {
       }
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Rotate(EFloat ed, EFloat ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -252,10 +292,14 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.IsNegative ? ret.Negate() : ret;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.CompareTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotal(EFloat ed, EFloat other, EContext ec) {
       return ed.CompareToTotal(other, ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.CompareTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotalMagnitude(
   EFloat ed,
   EFloat other,
@@ -263,22 +307,32 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.CompareToTotalMagnitude(other, ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Copy(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat Copy(EFloat ed) {
       return ed.Copy();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Canonical(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat Canonical(EFloat ed) {
       return Copy(ed);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat CopyAbs(EFloat ed) {
       return Copy(ed.Abs());
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat CopyNegate(EFloat ed) {
       return Copy(ed.Negate());
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.CopySign(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat CopySign(EFloat ed, EFloat other) {
       return ed.IsNegative == other.IsNegative ? Copy(ed) : CopyNegate(ed);
     }
@@ -295,6 +349,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.SameQuantum(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static bool SameQuantum(EFloat ed1, EFloat ed2) {
       if (ed1 == null || ed2 == null) {
         return false;
@@ -307,6 +363,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       }
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Trim(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Trim(EFloat ed1, EContext ec) {
       EFloat ed = ed1;
       if (ed1 == null) {
@@ -357,6 +415,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       }
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Rescale(EFloat ed, EFloat scale, EContext ec) {
       if (ed == null || scale == null) {
         return InvalidOperation(EFloat.NaN, ec);
@@ -385,6 +445,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     // Logical Operations
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat And(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
@@ -405,6 +467,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
   2)).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Invert(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Invert(EFloat ed1, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return InvalidOperation(EFloat.NaN, ec);
@@ -431,6 +495,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
   2)).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
@@ -451,6 +517,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
   2)).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:Test.EFloatExtras.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Or(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
       if (logi1 == null) {

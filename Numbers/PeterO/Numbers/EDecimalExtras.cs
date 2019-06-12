@@ -1,14 +1,19 @@
 using System;
-using PeterO.Numbers;
 
-namespace Test {
+namespace PeterO.Numbers {
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:PeterO.Numbers.EDecimalExtras"]/*'/>
   public static class EDecimalExtras {
     private const int DecimalRadix = 10;
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Radix(PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Radix(EContext ec) {
       return EDecimal.FromInt32(DecimalRadix).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Int32ToEDecimal(System.Int32,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Int32ToEDecimal(int i32, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -16,6 +21,8 @@ namespace Test {
       return EDecimal.FromInt32(i32).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.BoolToEDecimal(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal BoolToEDecimal(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -23,34 +30,50 @@ namespace Test {
       return EDecimal.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsCanonical(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsCanonical(EDecimal ed) {
       return true;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsFinite(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsFinite(EDecimal ed) {
       return ed.IsFinite;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsInfinite(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsInfinite(EDecimal ed) {
       return ed.IsInfinity();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsNaN(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsNaN(EDecimal ed) {
       return ed != null && ed.IsNaN();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsNormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static bool IsNormal(EDecimal ed, EContext ec) {
       return ed != null && ed.IsFinite && !ed.IsZero && !IsSubnormal(ed, ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsQuietNaN(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsQuietNaN(EDecimal ed) {
       return ed != null && ed.IsQuietNaN();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSigned(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsSigned(EDecimal ed) {
       return ed.IsNegative;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSignalingNaN(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsSignalingNaN(EDecimal ed) {
       return ed != null && ed.IsSignalingNaN();
     }
@@ -63,6 +86,8 @@ namespace Test {
  "NaN", "sNaN"
 };
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.NumberClassString(System.Int32)"]/*'/>
     public static string NumberClassString(int nc) {
       if (nc < 0) {
    throw new ArgumentException("nc (" + nc +
@@ -75,6 +100,8 @@ namespace Test {
       return NumberClasses[nc];
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.NumberClass(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static int NumberClass(EDecimal ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -95,6 +122,8 @@ namespace Test {
         (ed.IsNegative ? 1 : 0);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSubnormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static bool IsSubnormal(EDecimal ed, EContext ec) {
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
@@ -107,10 +136,14 @@ namespace Test {
       return false;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsZero(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsZero(EDecimal ed) {
       return ed != null && ed.IsZero;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal LogB(EDecimal ed, EContext ec) {
       if (ed.IsNaN()) {
         return ed.RoundToPrecision(ec);
@@ -125,6 +158,8 @@ namespace Test {
       return EDecimal.FromEInteger(ei).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal ScaleB(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -160,6 +195,8 @@ namespace Test {
       return ret.RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Shift(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Shift(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -212,6 +249,8 @@ namespace Test {
       }
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Rotate(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -271,10 +310,14 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.IsNegative ? ret.Negate() : ret;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
       return ed.CompareToTotal(other, ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CompareTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotalMagnitude(
   EDecimal ed,
   EDecimal other,
@@ -282,22 +325,32 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.CompareToTotalMagnitude(other, ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Copy(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal Copy(EDecimal ed) {
       return ed.Copy();
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal Canonical(EDecimal ed) {
       return Copy(ed);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CopyAbs(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal CopyAbs(EDecimal ed) {
       return Copy(ed.Abs());
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CopyNegate(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal CopyNegate(EDecimal ed) {
       return Copy(ed.Negate());
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CopySign(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal CopySign(EDecimal ed, EDecimal other) {
       return ed.IsNegative == other.IsNegative ? Copy(ed) : CopyNegate(ed);
     }
@@ -314,6 +367,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed;
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.SameQuantum(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static bool SameQuantum(EDecimal ed1, EDecimal ed2) {
       if (ed1 == null || ed2 == null) {
         return false;
@@ -326,6 +381,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       }
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Trim(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Trim(EDecimal ed1, EContext ec) {
       EDecimal ed = ed1;
       if (ed1 == null) {
@@ -376,6 +433,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       }
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Rescale(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Rescale(EDecimal ed, EDecimal scale, EContext ec) {
       if (ed == null || scale == null) {
         return InvalidOperation(EDecimal.NaN, ec);
@@ -404,6 +463,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     // Logical Operations
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal And(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -421,6 +482,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return EDecimal.FromEInteger(ToLogical(smaller, 10)).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Invert(EDecimal ed1, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return InvalidOperation(EDecimal.NaN, ec);
@@ -444,6 +507,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Xor(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -461,6 +526,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(ec);
     }
 
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Or(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -483,7 +550,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
         throw new ArgumentNullException(nameof(bytes));
       }
       EInteger ret = EInteger.Zero;
-      for (var i = bytes.Length - 1; i >= 0; --i) {
+      int i;
+      for (i = bytes.Length - 1; i >= 0; --i) {
         int b = bytes[i];
         for (var j = 7; j >= 0; --j) {
           ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(radix).Add(1) :

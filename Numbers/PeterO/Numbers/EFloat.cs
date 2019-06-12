@@ -1926,10 +1926,8 @@ public int ToInt32IfExact() {
  return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
 }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
-    /// is not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromBoolean(System.Boolean)"]/*'/>
    public static EFloat FromBoolean(bool boolValue) {
     return boolValue ? EFloat.One : EFloat.Zero;
    }

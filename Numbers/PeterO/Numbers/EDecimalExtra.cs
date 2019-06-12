@@ -39,11 +39,8 @@ System.Globalization.NumberStyles
   EDecimal.FromString(dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
-    /// <summary>Converts a boolean value (true or false) to an arbitrary
-    /// precision decimal.</summary>
-    /// <param name='boolValue'>Either true or false.</param>
-    /// <returns>The number 1 if <paramref name='boolValue'/> is true;
-    /// otherwise, 0.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal"]/*'/>
     public static explicit operator EDecimal(bool boolValue) {
       return FromBoolean(boolValue);
     }
