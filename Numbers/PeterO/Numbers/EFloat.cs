@@ -1927,7 +1927,8 @@ public int ToInt32IfExact() {
 }
 
     /// <summary>Not documented yet.</summary>
-    /// <param name='boolValue'>Not documented yet.</param>
+    /// <param name='boolValue'>The parameter <paramref name='boolValue'/>
+    /// is not documented yet.</param>
     /// <returns>An EFloat object.</returns>
    public static EFloat FromBoolean(bool boolValue) {
     return boolValue ? EFloat.One : EFloat.Zero;

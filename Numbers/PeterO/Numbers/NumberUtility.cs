@@ -330,7 +330,7 @@ namespace PeterO.Numbers {
           int icurexp = intcurexp.AsInt32();
           int halficurexp = icurexp / 2;
           bigpow = FindPowerOfFive(halficurexp);
-          bigpow=bigpow.Multiply(
+          bigpow = bigpow.Multiply(
            FindPowerOfFive(icurexp - halficurexp));
           mantissa *= (EInteger)bigpow;
           break;

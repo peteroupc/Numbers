@@ -4459,9 +4459,8 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
           if (radix == 2) {
             incremented = true;
           } else {
-            EInteger bigdigit = FastIntegerFixed.FromFastInteger(
-               fastNumber).Mod(EInteger.FromInt32(radix));
-            var lastDigit = (int)bigdigit;
+            int lastDigit = FastIntegerFixed.FromFastInteger(
+               fastNumber).Mod(radix);
             if (lastDigit == 0 || lastDigit == (radix / 2)) {
               incremented = true;
             }

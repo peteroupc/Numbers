@@ -3225,6 +3225,42 @@ Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToByteChecked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToByteChecked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToByteChecked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToByteChecked());
+try {
+ EDecimal.FromString("-1.0").ToByteChecked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.4").ToByteChecked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.5").ToByteChecked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.6").ToByteChecked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
 }
 
     [Test]
@@ -4841,7 +4877,7 @@ EDecimal ed = EDecimal.FromString("1");
 EDecimal ed2;
 string str;
 for (var i = 10; i < 1000; ++i) {
- str = "1." + Repeat("0", i)+"3";
+ str = "1." + Repeat("0", i) + "3";
  ed2 = EDecimal.FromString(str);
  Assert.AreEqual("2.001", ed.Add(ed2, ec).ToString(), str);
 }

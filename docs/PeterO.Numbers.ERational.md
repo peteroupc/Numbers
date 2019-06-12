@@ -24,7 +24,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[Divide(PeterO.Numbers.ERational)](#Divide_PeterO_Numbers_ERational)</code> - Divides this instance by the value of an arbitrary-precision rational number object.
 * <code>[Equals(PeterO.Numbers.ERational)](#Equals_PeterO_Numbers_ERational)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object and that other object is an arbitrary-precision rational number.
-* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Not documented yet.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
 * <code>[FromDecimal(System.Decimal)](#FromDecimal_System_Decimal)</code> - Converts adecimal under the Common Language Infrastructure (usually a .
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Converts a 64-bit floating-point number to a rational number.
@@ -616,16 +616,16 @@ Either `true`  or `false`  .
     public static PeterO.Numbers.ERational FromBoolean(
         bool boolValue);
 
-Not documented yet.
+Converts a boolean value (true or false) to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>boolValue</i>: The parameter <i>boolValue</i>
-is not documented yet.
+ * <i>boolValue</i>: Either true or false.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+The number 1 if <i>boolValue</i>
+is true; otherwise, 0.
 
 <a id="FromByte_byte"></a>
 ### FromByte

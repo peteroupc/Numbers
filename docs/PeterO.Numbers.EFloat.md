@@ -77,7 +77,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision binary float.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
 * <code>[Exponent](#Exponent)</code> - Gets this object's exponent.
-* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision binary number.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Not documented yet.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Creates a binary float from a 64-bit floating-point number.
 * <code>[FromEInteger(PeterO.Numbers.EInteger)](#FromEInteger_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to the same value as a binary float.
@@ -1107,22 +1107,15 @@ Exponential of this object. If this object's value is 1, returns an approximatio
     public static PeterO.Numbers.EFloat FromBoolean(
         bool boolValue);
 
-Converts a boolean value (true or false) to an arbitrary-precision binary number.
-
-Converts a boolean value (true or false) to an arbitrary-precision binary number.
+Not documented yet.
 
 <b>Parameters:</b>
 
- * <i>boolValue</i>: The parameter  <i>boolValue</i>
-is not documented yet.
+ * <i>boolValue</i>: Not documented yet.
 
 <b>Return Value:</b>
 
-One if  `boolValue`  is  `true` ; otherwise, zero.
-
-<b>Return Value:</b>
-
-One if  `boolValue`  is  `true`  ; otherwise, zero.
+An EFloat object.
 
 <a id="FromByte_byte"></a>
 ### FromByte

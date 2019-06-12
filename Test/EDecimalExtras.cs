@@ -538,8 +538,10 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
  ed = ed.RoundToPrecision(ec);
 }
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
-    ed.Mantissa.Sign < 0) ? null : FromLogical(ed.UnsignedMantissa, ec,
-           radix);
+    ed.Mantissa.Sign < 0) ? null : FromLogical(
+  ed.UnsignedMantissa,
+  ec,
+  radix);
     }
 
     internal static byte[] FromLogical(EFloat ed, EContext ec, int radix) {
@@ -549,8 +551,10 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       // NOTE: Precision of EFloat is already in bits, so no need to check for
       // IsPrecisionInBits here
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
-    ed.Mantissa.Sign < 0) ? null : FromLogical(ed.UnsignedMantissa, ec,
-           radix);
+    ed.Mantissa.Sign < 0) ? null : FromLogical(
+  ed.UnsignedMantissa,
+  ec,
+  radix);
     }
   }
 }

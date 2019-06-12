@@ -524,7 +524,11 @@ return new EContext(
         this.flags + ", HasFlags=" + this.hasFlags + "]";
     }
 
-    public bool HasFlagsOrTraps { get { return this.HasFlags || this.Traps != 0; } }
+    /// <summary>Gets a value not documented yet.</summary>
+    /// <value>A value not documented yet.</value>
+    public bool HasFlagsOrTraps { get {
+ return this.HasFlags || this.Traps != 0;
+} }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)"]/*'/>
@@ -564,13 +568,15 @@ return new EContext(
   this.traps);
     }
 
-    public EContext WithNoFlagsOrTraps(){
+    /// <summary>Not documented yet.</summary>
+    /// <returns>An EContext object.</returns>
+    public EContext WithNoFlagsOrTraps() {
  return new EContext(
   this.adjustExponent,
   this.bigintPrecision,
   this.clampNormalExponents,
-  exponentMax,
-  exponentMin,
+  this.exponentMax,
+  this.exponentMin,
   0,
   this.hasExponentRange,
   false,
@@ -579,7 +585,6 @@ return new EContext(
   this.simplified,
   0);
     }
-
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBigPrecision(PeterO.Numbers.EInteger)"]/*'/>

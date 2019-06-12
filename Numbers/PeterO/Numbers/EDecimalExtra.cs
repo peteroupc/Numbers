@@ -39,8 +39,11 @@ System.Globalization.NumberStyles
   EDecimal.FromString(dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a boolean value (true or false) to an arbitrary
+    /// precision decimal.</summary>
+    /// <param name='boolValue'>Either true or false.</param>
+    /// <returns>The number 1 if <paramref name='boolValue'/> is true;
+    /// otherwise, 0.</returns>
     public static explicit operator EDecimal(bool boolValue) {
       return FromBoolean(boolValue);
     }
@@ -240,9 +243,6 @@ public ushort ToUInt16Checked() {
 if (this.IsIntegerPartZero()) {
  return (ushort)0;
 }
-if (this.IsNegative) {
- throw new OverflowException("Value out of range");
-}
 if (this.exponent.CompareToInt(5) >= 0) {
 throw new OverflowException("Value out of range: ");
 }
@@ -319,9 +319,6 @@ public uint ToUInt32Checked() {
 if (this.IsIntegerPartZero()) {
  return (uint)0;
 }
-if (this.IsNegative) {
- throw new OverflowException("Value out of range");
-}
 if (this.exponent.CompareToInt(10) >= 0) {
 throw new OverflowException("Value out of range: ");
 }
@@ -397,9 +394,6 @@ public ulong ToUInt64Checked() {
 }
 if (this.IsIntegerPartZero()) {
  return (ulong)0;
-}
-if (this.IsNegative) {
- throw new OverflowException("Value out of range");
 }
 if (this.exponent.CompareToInt(20) >= 0) {
 throw new OverflowException("Value out of range: ");

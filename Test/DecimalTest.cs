@@ -663,6 +663,130 @@ throw new InvalidOperationException(String.Empty, ex);
     }
 
     [Test]
+public void TestToUintChecked() {
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToUInt16Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToUInt16Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToUInt16Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToUInt16Checked());
+try {
+ EDecimal.FromString("-1.0").ToUInt16Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.4").ToUInt16Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.5").ToUInt16Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.6").ToUInt16Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToUInt32Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToUInt32Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToUInt32Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToUInt32Checked());
+try {
+ EDecimal.FromString("-1.0").ToUInt32Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.4").ToUInt32Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.5").ToUInt32Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.6").ToUInt32Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToUInt64Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToUInt64Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToUInt64Checked());
+Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToUInt64Checked());
+try {
+ EDecimal.FromString("-1.0").ToUInt64Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.4").ToUInt64Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.5").ToUInt64Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+try {
+ EDecimal.FromString("-1.6").ToUInt64Checked();
+Assert.Fail("Should have failed");
+} catch (OverflowException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+}
+
+    [Test]
     public void TestParser() {
          this.TestParserEx(false);
          this.TestParserEx(true);

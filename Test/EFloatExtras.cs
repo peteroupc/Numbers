@@ -399,8 +399,10 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       for (var i = 0; i < smaller.Length; ++i) {
         smaller[i] &= bigger[i];
       }
-      return EFloat.FromEInteger(EDecimalExtras.ToLogical(smaller,
-        2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger(
+  EDecimalExtras.ToLogical(
+  smaller,
+  2)).RoundToPrecision(ec);
     }
 
     public static EFloat Invert(EFloat ed1, EContext ec) {
@@ -423,8 +425,10 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return EFloat.FromEInteger(EDecimalExtras.ToLogical(bigger,
-        2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger(
+  EDecimalExtras.ToLogical(
+  bigger,
+  2)).RoundToPrecision(ec);
     }
 
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
@@ -441,8 +445,10 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return EFloat.FromEInteger(EDecimalExtras.ToLogical(bigger,
-        2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger(
+  EDecimalExtras.ToLogical(
+  bigger,
+  2)).RoundToPrecision(ec);
     }
 
     public static EFloat Or(EFloat ed1, EFloat ed2, EContext ec) {
@@ -459,8 +465,10 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] |= smaller[i];
       }
-      return EFloat.FromEInteger(EDecimalExtras.ToLogical(bigger,
-        2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger(
+  EDecimalExtras.ToLogical(
+  bigger,
+  2)).RoundToPrecision(ec);
     }
   }
 }

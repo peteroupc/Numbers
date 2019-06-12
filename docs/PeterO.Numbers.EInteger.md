@@ -70,6 +70,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when this arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when an arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 * <code>[Mod(PeterO.Numbers.EInteger)](#Mod_PeterO_Numbers_EInteger)</code> - Finds the modulus remainder that results when this instance is divided by the value of an arbitrary-precision integer.
+* <code>[Mod(int)](#Mod_int)</code> - Finds the modulus remainder that results when this instance is divided by the value of another integer.
 * <code>[Multiply(PeterO.Numbers.EInteger)](#Multiply_PeterO_Numbers_EInteger)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Negate()](#Negate)</code> - Gets the value of this object with the sign reversed.
@@ -79,6 +80,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Or(PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
 * <code>[Or(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
 * <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
+* <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Not documented yet.
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[Remainder(int)](#Remainder_int)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
@@ -264,17 +266,15 @@ is null.
 ### And
 
     public PeterO.Numbers.EInteger And(
-        PeterO.Numbers.EInteger b);
+        PeterO.Numbers.EInteger other);
 
 Does an AND operation between two arbitrary-precision integer values.
 
-Each arbitrary-precision integer is treated as a two's-complement form see[
-         &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
- * <i>b</i>: The second arbitrary-precision integer.
+ * <i>other</i>: An EInteger object.
 
 <b>Return Value:</b>
 
@@ -284,8 +284,8 @@ An arbitrary-precision integer.
 
  * System.ArgumentNullException:
 The parameter <i>a</i>
-or <i>b</i>
-is null.
+ or  <i>b</i>
+ is null.
 
 <a id="And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### And
@@ -1102,6 +1102,28 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 
 The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
 
+<a id="Mod_int"></a>
+### Mod
+
+    public PeterO.Numbers.EInteger Mod(
+        int smallDivisor);
+
+Finds the modulus remainder that results when this instance is divided by the value of another integer. The modulus remainder is the same as the normal remainder if the normal remainder is positive, and equals divisor plus normal remainder if the normal remainder is negative.
+
+<b>Parameters:</b>
+
+ * <i>smallDivisor</i>: The divisor of the modulus.
+
+<b>Return Value:</b>
+
+The modulus remainder.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The parameter <i>divisor</i>
+ is less than 0.
+
 <a id="Mod_PeterO_Numbers_EInteger"></a>
 ### Mod
 
@@ -1123,6 +1145,10 @@ An arbitrary-precision integer.
  * System.ArgumentNullException:
 The parameter <i>divisor</i>
 is null.
+
+ * System.ArgumentException:
+The parameter <i>divisor</i>
+ is less than 0.
 
 <a id="ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### ModPow
@@ -1737,6 +1763,31 @@ Raises an arbitrary-precision integer to a power.
 
 The result. Returns 1 if "powerSmall" is 0.
 
+<a id="Pow_PeterO_Numbers_EInteger"></a>
+### Pow
+
+    public PeterO.Numbers.EInteger Pow(
+        PeterO.Numbers.EInteger bigPower);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bigPower</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+An EInteger object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigPower</i>
+ is null.
+
+ * System.ArgumentException:
+BigPower is negative.
+
 <a id="PowBigIntVar_PeterO_Numbers_EInteger"></a>
 ### PowBigIntVar
 
@@ -2224,7 +2275,7 @@ This number, converted to a 64-bit signed integer.
 ### Xor
 
     public PeterO.Numbers.EInteger Xor(
-        PeterO.Numbers.EInteger b);
+        PeterO.Numbers.EInteger other);
 
 Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
            &#x22;Forms of numbers&#x22;

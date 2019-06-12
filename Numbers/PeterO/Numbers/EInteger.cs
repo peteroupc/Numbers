@@ -2774,8 +2774,17 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return this.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Finds the modulus remainder that results when this
+    /// instance is divided by the value of an arbitrary-precision integer.
+    /// The modulus remainder is the same as the normal remainder if the
+    /// normal remainder is positive, and equals divisor plus normal
+    /// remainder if the normal remainder is negative.</summary>
+    /// <param name='divisor'>The number to divide by.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='T:System.ArgumentException'>The parameter
+    /// <paramref name='divisor'/> is less than 0.</exception>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='divisor'/> is null.</exception>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -2790,16 +2799,22 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       return remainderEInt;
     }
 
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Finds the modulus remainder that results when this
+    /// instance is divided by the value of another integer. The modulus
+    /// remainder is the same as the normal remainder if the normal
+    /// remainder is positive, and equals divisor plus normal remainder if
+    /// the normal remainder is negative.</summary>
+    /// <param name='smallDivisor'>The divisor of the modulus.</param>
+    /// <returns>The modulus remainder.</returns>
+    /// <exception cref='T:System.ArgumentException'>The parameter
+    /// <paramref name='divisor'/> is less than 0.</exception>
     public EInteger Mod(int smallDivisor) {
       if (smallDivisor < 0) {
         throw new ArithmeticException("Divisor is negative");
       }
       EInteger remainderEInt = this.Remainder(smallDivisor);
       if (remainderEInt.Sign < 0) {
-        remainderEInt = divisor.Add(remainderEInt);
+        remainderEInt = EInteger.FromInt32(smallDivisor).Add(remainderEInt);
       }
       return remainderEInt;
     }
@@ -2962,11 +2977,19 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
         !this.negative);
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bigPower'>The parameter <paramref name='bigPower'/> is
+    /// not documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigPower'/> is null.</exception>
+    /// <exception cref='ArgumentException'>BigPower is
+    /// negative.</exception>
     public EInteger Pow(EInteger bigPower) {
-     if ((bigPower) == null) {
+     if (bigPower == null) {
   throw new ArgumentNullException(nameof(bigPower));
 }
-if(bigPower.Sign<0){
+if (bigPower.Sign < 0) {
   throw new ArgumentException("bigPower is negative");
 }
      if (bigPower.Sign == 0) {
@@ -2993,8 +3016,8 @@ if(bigPower.Sign<0){
         bp = bp.Subtract(Int32.MaxValue);
      }
      int lastp = bp.ToInt32Checked();
-     ret = (lastp == Int32.MaxValue) ? (ret.Multiply(rmax)) :
-       (ret.Multiply(this.Pow(lastp)));
+     ret = (lastp == Int32.MaxValue) ? ret.Multiply(rmax) :
+       ret.Multiply(this.Pow(lastp));
      return ret;
     }
 
@@ -3246,8 +3269,16 @@ if(bigPower.Sign<0){
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Does an AND operation between two arbitrary-precision
+    /// integer values.</summary>
+    /// <param name='other'>An EInteger object.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='a'/> or <paramref name='b'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> )
+    /// for the purposes of this operator.</remarks>
     public EInteger And(EInteger other) {
    if (other == null) {
   throw new ArgumentNullException(nameof(other));
@@ -3255,11 +3286,11 @@ if(bigPower.Sign<0){
       if (other.IsZero || this.IsZero) {
         return EInteger.Zero;
       }
-      if(!this.negative && !other.negative) {
-        var smallerCount = Math.Min(this.wordCount,other.wordCount);
-        var smaller = (this.wordCount == smallerCount) ?
+      if (!this.negative && !other.negative) {
+        int smallerCount = Math.Min(this.wordCount, other.wordCount);
+        short[] smaller = (this.wordCount == smallerCount) ?
             this.words : other.words;
-        var bigger = (this.wordCount == smallerCount) ?
+        short[] bigger = (this.wordCount == smallerCount) ?
             other.words : this.words;
         var result = new short[smallerCount];
         for (var i = 0; i < smallerCount; ++i) {
@@ -3269,8 +3300,8 @@ if(bigPower.Sign<0){
         return (smallerCount == 0) ? EInteger.Zero : (new
           EInteger(smallerCount, result, false));
       }
-      var valueXaNegative = false; 
-      int valueXaWordCount = 0;
+      var valueXaNegative = false;
+      var valueXaWordCount = 0;
       var valueXaReg = new short[this.wordCount];
       Array.Copy(this.words, valueXaReg, valueXaReg.Length);
       var valueXbNegative = false;
@@ -3301,8 +3332,20 @@ if(bigPower.Sign<0){
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Does an OR operation between two arbitrary-precision
+    /// integer instances.</summary>
+    /// <param name='second'>The second operand.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='first'/> or <paramref name='second'/> is
+    /// null.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy
+    /// biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
+    /// CountWords(result).</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> )
+    /// for the purposes of this operator.</remarks>
     public EInteger Or(EInteger second) {
    if (second == null) {
   throw new ArgumentNullException(nameof(second));
@@ -3312,6 +3355,35 @@ if(bigPower.Sign<0){
       }
       if (second.wordCount == 0) {
         return this;
+      }
+      if (!this.negative && !second.negative) {
+        int smallerCount = Math.Min(this.wordCount, second.wordCount);
+        int biggerCount = Math.Max(this.wordCount, second.wordCount);
+        short[] smaller = (this.wordCount == smallerCount) ?
+            this.words : second.words;
+        short[] bigger = (this.wordCount == smallerCount) ?
+            second.words : this.words;
+        var result = new short[biggerCount];
+        for (var i = 0; i < smallerCount; ++i) {
+          result[i] = unchecked((short)(smaller[i] | bigger[i]));
+        }
+        Array.Copy(
+  bigger,
+  smallerCount,
+  result,
+  smallerCount,
+  biggerCount - smallerCount);
+        #if DEBUG
+if (!(biggerCount > 0)) {
+  throw new ArgumentException("doesn't satisfy biggerCount>0");
+}
+if (!(biggerCount == CountWords(result))) {
+throw new
+    ArgumentException("doesn't satisfy biggerCount==CountWords(result)");
+}
+#endif
+
+        return new EInteger(biggerCount, result, false);
       }
       var valueXaNegative = false; int valueXaWordCount = 0;
       var valueXaReg = new short[this.wordCount];
@@ -3344,30 +3416,71 @@ if(bigPower.Sign<0){
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger)"]/*'/>
-    public EInteger Xor(EInteger b) {
-      if (b == null) {
-        throw new ArgumentNullException(nameof(b));
+    /// <summary>Finds the exclusive "or" of two arbitrary-precision
+    /// integer objects.
+    /// <para>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> )
+    /// for the purposes of this operator.</para></summary>
+    /// <param name='other'>An EInteger object.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// it's set in one input integer but not the other.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='a'/> or <paramref name='b'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy smallerCount ==
+    /// CountWords(result).</exception>
+    public EInteger Xor(EInteger other) {
+      if (other == null) {
+        throw new ArgumentNullException(nameof(other));
       }
-      if (this.Equals(b)) {
+      if (this.Equals(other)) {
         return EInteger.Zero;
       }
       if (this.wordCount == 0) {
-        return b;
+        return other;
       }
-      if (b.wordCount == 0) {
+      if (other.wordCount == 0) {
         return this;
       }
-      var valueXaNegative = false; int valueXaWordCount = 0;
+      if (!this.negative && !other.negative) {
+        int smallerCount = Math.Min(this.wordCount, other.wordCount);
+        int biggerCount = Math.Max(this.wordCount, other.wordCount);
+        short[] smaller = (this.wordCount == smallerCount) ?
+            this.words : other.words;
+        short[] bigger = (this.wordCount == smallerCount) ?
+            other.words : this.words;
+        var result = new short[biggerCount];
+        for (var i = 0; i < smallerCount; ++i) {
+          result[i] = unchecked((short)(smaller[i] ^ bigger[i]));
+        }
+        Array.Copy(
+  bigger,
+  smallerCount,
+  result,
+  smallerCount,
+  biggerCount - smallerCount);
+        smallerCount = (smallerCount == biggerCount) ?
+            CountWords(result) : biggerCount;
+        #if DEBUG
+if (!(smallerCount == CountWords(result))) {
+  throw new
+    ArgumentException("doesn't satisfy smallerCount==CountWords(result)");
+}
+#endif
+
+        return (smallerCount == 0) ? EInteger.Zero :
+           new EInteger(smallerCount, result, false);
+      }
+      var valueXaNegative = false;
+      var valueXaWordCount = 0;
       var valueXaReg = new short[this.wordCount];
       Array.Copy(this.words, valueXaReg, valueXaReg.Length);
       var valueXbNegative = false;
-      var valueXbReg = new short[b.wordCount];
-      Array.Copy(b.words, valueXbReg, valueXbReg.Length);
+      var valueXbReg = new short[other.wordCount];
+      Array.Copy(other.words, valueXbReg, valueXbReg.Length);
       valueXaNegative = this.negative;
       valueXaWordCount = this.wordCount;
-      valueXbNegative = b.negative;
+      valueXbNegative = other.negative;
       valueXaReg = CleanGrow(
   valueXaReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
@@ -5902,7 +6015,7 @@ if(bigPower.Sign<0){
       int i = count;
       short remainder = 0;
       while ((i--) > 0) {
-        int dividendSmall = unchecked((int)((((int)dividendReg[i]) & 0xffff) | 
+        int dividendSmall = unchecked((int)((((int)dividendReg[i]) & 0xffff) |
           ((int)remainder << 16)));
         remainder = RemainderUnsigned(
           dividendSmall,
