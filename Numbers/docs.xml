@@ -4590,19 +4590,15 @@
     </exception>
   </doc>
   <doc name='T:PeterO.Numbers.EDecimalExtras'>
-    <summary>Not documented yet.
+    <summary>A class that implements additional operations on arbitrary-precision decimal numbers.  Many of them are listed as miscellaneous operations in the General Decimal Arithmetic Specification version 1.70.
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Performs a logical AND operation on two decimal numbers in the form of <i>logical operands</i>.  A <c>logical operand</c> is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>, but not <c>02001</c> or <c>99999</c>).  The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise.  For example, <c>01001 AND 111010 = 01000</c>.
     </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <param name='ed1'>The first logical operand to the logical AND operation.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The second logical operand to the logical AND operation.
     </param>
     <param name='ec'>The parameter
       <paramref name='ec'/>
@@ -4914,15 +4910,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Performs a logical OR operation on two decimal numbers in the form of <i>logical operands</i>.  A <c>logical operand</c> is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>, but not <c>02001</c> or <c>99999</c>).  The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise.  For example, <c>01001 OR 111010 = 111011</c>.
     </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <param name='ed1'>The first logical operand to the logical OR operation.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The second logical operand to the logical OR operation.
     </param>
     <param name='ec'>The parameter
       <paramref name='ec'/>
@@ -4932,13 +4924,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Radix(PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Returns the number 10, the decimal radix.
     </summary>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>Specifies a precision context for rounding the number 10.  Can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>The number 10, rounded as given in the precision context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Rescale(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -5058,13 +5048,9 @@
   <doc name='M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Not documented yet.
     </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
     </param>
     <param name='ec'>The parameter
       <paramref name='ec'/>
@@ -5161,7 +5147,7 @@
     <summary>Finds the absolute value of this object (if it's negative, it becomes
       positive).
     </summary>
-    <returns>An arbitrary-precision binary float. Returns signaling NaN if this value
+    <returns>An arbitrary-precision binary floating-point number. Returns signaling NaN if this value
       is signaling NaN. (In this sense, this method is similar to the "copy-abs"
       operation in the General Decimal Arithmetic Specification, except this
       method does not necessarily return a copy of this object.).
@@ -5184,7 +5170,7 @@
   <doc name='M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)'>
     <summary>Adds this object and another binary float and returns the result.
     </summary>
-    <param name='otherValue'>An arbitrary-precision binary float.
+    <param name='otherValue'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>The sum of the two objects.
     </returns>
@@ -5219,7 +5205,7 @@
       <paramref name='flags'/>
        is an internal parameter.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulator(PeterO.Numbers.EInteger)'>
@@ -5265,7 +5251,7 @@
   <doc name='M:PeterO.Numbers.EFloat.BinaryMathHelper.GetExponent(PeterO.Numbers.EFloat)'>
     <summary>This is an internal method.
     </summary>
-    <param name='value'>An arbitrary-precision binary float.
+    <param name='value'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
@@ -5273,7 +5259,7 @@
   <doc name='M:PeterO.Numbers.EFloat.BinaryMathHelper.GetFlags(PeterO.Numbers.EFloat)'>
     <summary>This is an internal method.
     </summary>
-    <param name='value'>An arbitrary-precision binary float.
+    <param name='value'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>A 32-bit signed integer.
     </returns>
@@ -5281,7 +5267,7 @@
   <doc name='M:PeterO.Numbers.EFloat.BinaryMathHelper.GetMantissa(PeterO.Numbers.EFloat)'>
     <summary>This is an internal method.
     </summary>
-    <param name='value'>An arbitrary-precision binary float.
+    <param name='value'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
@@ -5295,7 +5281,7 @@
   <doc name='M:PeterO.Numbers.EFloat.BinaryMathHelper.GetSign(PeterO.Numbers.EFloat)'>
     <summary>This is an internal method.
     </summary>
-    <param name='value'>An arbitrary-precision binary float.
+    <param name='value'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>A 32-bit signed integer.
     </returns>
@@ -5317,7 +5303,7 @@
       <paramref name='val'/>
        is a 32-bit signed integer.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareTo(PeterO.Numbers.EFloat)'>
@@ -5335,7 +5321,7 @@
         considered equal.
       </para>
     </summary>
-    <param name='other'>An arbitrary-precision binary float.
+    <param name='other'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>Less than 0 if this object's value is less than the other value, or
       greater than 0 if this object's value is greater than the other value or
@@ -5351,7 +5337,7 @@
         method will return a quiet NaN and will signal a FlagInvalid flag.
       </para>
     </summary>
-    <param name='other'>An arbitrary-precision binary float.
+    <param name='other'>An arbitrary-precision binary floating-point number.
     </param>
     <param name='ctx'>An arithmetic context. The precision, rounding, and exponent range are
       ignored. If
@@ -5492,7 +5478,7 @@
         is a signaling NaN.
       </para>
     </summary>
-    <param name='other'>An arbitrary-precision binary float.
+    <param name='other'>An arbitrary-precision binary floating-point number.
     </param>
     <param name='ctx'>An arithmetic context. The precision, rounding, and exponent range are
       ignored. If
@@ -5518,7 +5504,7 @@
     </summary>
     <param name='other'>A number whose sign will be copied.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='other'/>
@@ -5550,7 +5536,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger)'>
-    <summary>Creates a not-a-number arbitrary-precision binary float.
+    <summary>Creates a not-a-number arbitrary-precision binary floating-point number.
     </summary>
     <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
       this object. If none is needed, should be zero. To get the diagnostic
@@ -5566,7 +5552,7 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean,PeterO.Numbers.EContext)'>
-    <summary>Creates a not-a-number arbitrary-precision binary float.
+    <summary>Creates a not-a-number arbitrary-precision binary floating-point number.
     </summary>
     <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
       this object. If none is needed, should be zero. To get the diagnostic
@@ -5633,7 +5619,7 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Divides this arbitrary-precision binary float by another
-      arbitrary-precision binary float. The preferred exponent for the result is
+      arbitrary-precision binary floating-point number. The preferred exponent for the result is
       this object's exponent minus the divisor's exponent.
     </summary>
     <param name='divisor'>The number to divide by.
@@ -5858,7 +5844,7 @@
       properties are equal to those of another object. Not-a-number values are
       considered equal if the rest of their properties are equal.
     </summary>
-    <param name='other'>An arbitrary-precision binary float.
+    <param name='other'>An arbitrary-precision binary floating-point number.
     </param>
     <returns><c>true</c> if this object's mantissa (significand) and exponent are equal to those
       of another object; otherwise,
@@ -5868,7 +5854,7 @@
   <doc name='M:PeterO.Numbers.EFloat.Equals(System.Object)'>
     <summary>Determines whether this object's mantissa (significand), exponent, and
       properties are equal to those of another object and that other object is
-      an arbitrary-precision binary float. Not-a-number values are considered
+      an arbitrary-precision binary floating-point number. Not-a-number values are considered
       equal if the rest of their properties are equal.
     </summary>
     <param name='obj'>The parameter
@@ -5883,7 +5869,7 @@
     <summary>Determines whether this object's mantissa (significand) and exponent are
       equal to those of another object.
     </summary>
-    <param name='otherValue'>An arbitrary-precision binary float.
+    <param name='otherValue'>An arbitrary-precision binary floating-point number.
     </param>
     <returns><c>true</c> if this object's mantissa (significand) and exponent are equal to those
       of another object; otherwise,
@@ -5931,11 +5917,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromByte(System.Byte)'>
-    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
+    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputByte'>The number to convert as a byte (from 0 to 255).
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromDouble(System.Double)'>
@@ -5957,39 +5943,39 @@
     </summary>
     <param name='bigint'>An arbitrary-precision integer.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromInt16(System.Int16)'>
-    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputInt16'>The number to convert as a 16-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromInt32(System.Int32)'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputInt32'>The number to convert as a 32-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromInt64(System.Int64)'>
-    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputInt64'>The number to convert as a 64-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromSByte(System.SByte)'>
-    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputSByte'>The number to convert as an 8-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromSingle(System.Single)'>
@@ -6012,7 +5998,7 @@
     </summary>
     <param name='str'>A text string to convert to a binary float.
     </param>
-    <returns>The parsed number, converted to arbitrary-precision binary float.
+    <returns>The parsed number, converted to arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)'>
@@ -6025,7 +6011,7 @@
     <param name='ctx'>A precision context specifying the precision, rounding, and exponent range
       to apply to the parsed number. Can be null.
     </param>
-    <returns>The parsed number, converted to arbitrary-precision binary float.
+    <returns>The parsed number, converted to arbitrary-precision binary floating-point number.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='str'/>
@@ -6051,7 +6037,7 @@
       <paramref name='str'/>
        's length).
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
     <exception cref=' T:System.ArgumentException'>Either
       <paramref name=' offset'/>
@@ -6124,7 +6110,7 @@
       <paramref name='ctx'/>
        is an EContext object.
     </param>
-    <returns>The parsed number, converted to arbitrary-precision binary float.
+    <returns>The parsed number, converted to arbitrary-precision binary floating-point number.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='str'/>
@@ -6146,29 +6132,29 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromUInt16(System.UInt16)'>
-    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary float.
+    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
     </summary>
     <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromUInt32(System.UInt32)'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputUInt32'>The number to convert as a 32-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromUInt64(System.UInt64)'>
-    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary float.
+    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
     </summary>
     <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary float.
+    <returns>This number's value as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.GetHashCode'>
@@ -6307,9 +6293,9 @@
   <doc name='M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
     <summary>Gets the greater value between two binary floats.
     </summary>
-    <param name='first'>An arbitrary-precision binary float.
+    <param name='first'>An arbitrary-precision binary floating-point number.
     </param>
-    <param name='second'>Another arbitrary-precision binary float.
+    <param name='second'>Another arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
@@ -6355,7 +6341,7 @@
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
@@ -6409,7 +6395,7 @@
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger)'>
@@ -6623,7 +6609,7 @@
     <summary>Gets an object with the same value as this one, but with the sign
       reversed.
     </summary>
-    <returns>An arbitrary-precision binary float. If this value is positive zero,
+    <returns>An arbitrary-precision binary floating-point number. If this value is positive zero,
       returns negative zero. Returns signaling NaN if this value is signaling
       NaN. (In this sense, this method is similar to the "copy-negate" operation
       in the General Decimal Arithmetic Specification, except this method does
@@ -6640,7 +6626,7 @@
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
     </param>
-    <returns>An arbitrary-precision binary float. If this value is positive zero,
+    <returns>An arbitrary-precision binary floating-point number. If this value is positive zero,
       returns positive zero. Signals FlagInvalid and returns quiet NaN if this
       value is signaling NaN.
     </returns>
@@ -6950,7 +6936,7 @@
       <c>"this" - (("this" / "divisor") * "divisor")</c> </summary>
     <param name='divisor'>The number to divide by.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -7267,7 +7253,7 @@
       <paramref name='places'/>
        is a 32-bit signed integer.
     </param>
-    <returns>An arbitrary-precision binary float.
+    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(System.Int32,PeterO.Numbers.EContext)'>
@@ -7775,7 +7761,7 @@
       arbitrary-precision integer. Any fractional part in this value will be
       discarded when converting to an arbitrary-precision integer.
     </summary>
-    <param name='bigValue'>The number to convert as an arbitrary-precision binary float.
+    <param name='bigValue'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
@@ -7786,7 +7772,7 @@
     <summary>Converts an arbitrary-precision binary float to a byte (from 0 to 255) if
       it can fit in a byte (from 0 to 255) after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7822,7 +7808,7 @@
     <summary>Converts an arbitrary-precision binary float to a 16-bit signed integer if
       it can fit in a 16-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7838,7 +7824,7 @@
     <summary>Converts an arbitrary-precision binary float to a 32-bit signed integer if
       it can fit in a 32-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7854,7 +7840,7 @@
     <summary>Converts an arbitrary-precision binary float to a 64-bit signed integer if
       it can fit in a 64-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7870,7 +7856,7 @@
     <summary>Converts an arbitrary-precision binary float to an 8-bit signed integer if
       it can fit in an 8-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7895,7 +7881,7 @@
         if a signaling NaN would otherwise be generated.
       </para>
     </summary>
-    <param name='bigValue'>The number to convert as an arbitrary-precision binary float.
+    <param name='bigValue'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The closest 32-bit binary floating-point number to this value. The return
       value can be positive infinity or negative infinity if this value exceeds
@@ -7907,7 +7893,7 @@
       if it can fit in a 16-bit unsigned integer after truncating to an integer.
 
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7923,7 +7909,7 @@
     <summary>Converts an arbitrary-precision binary float to a 32-bit signed integer if
       it can fit in a 32-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7940,7 +7926,7 @@
       if it can fit in a 64-bit unsigned integer after truncating to an integer.
 
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary float.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7970,13 +7956,13 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Byte)~PeterO.Numbers.EFloat'>
-    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary float.
+    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputByte'>The number to convert as a byte (from 0 to 255).
     </param>
     <returns>The value of
       <paramref name='inputByte'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat'>
@@ -7995,43 +7981,43 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Int16)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputInt16'>The number to convert as a 16-bit signed integer.
     </param>
     <returns>The value of
       <paramref name='inputInt16'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputInt32'>The number to convert as a 32-bit signed integer.
     </param>
     <returns>The value of
       <paramref name='inputInt32'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputInt64'>The number to convert as a 64-bit signed integer.
     </param>
     <returns>The value of
       <paramref name='inputInt64'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.SByte)~PeterO.Numbers.EFloat'>
-    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputSByte'>The number to convert as an 8-bit signed integer.
     </param>
     <returns>The value of
       <paramref name='inputSByte'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat'>
@@ -8050,35 +8036,35 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.UInt16)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary float.
+    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
     </summary>
     <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.
     </param>
     <returns>The value of
       <paramref name='inputUInt16'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.UInt32)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary float.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='inputUInt32'>The number to convert as a 32-bit signed integer.
     </param>
     <returns>The value of
       <paramref name='inputUInt32'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.UInt64)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary float.
+    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
     </summary>
     <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.
     </param>
     <returns>The value of
       <paramref name='inputUInt64'/>
-       as an arbitrary-precision binary float.
+       as an arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
@@ -8129,7 +8115,7 @@
     <summary>Gets an object with the same value as this one, but with the sign
       reversed.
     </summary>
-    <param name='bigValue'>An arbitrary-precision binary float.
+    <param name='bigValue'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>The negated form of the given number. If the given number is positive
       zero, returns negative zero. Returns signaling NaN if this value is
@@ -9994,7 +9980,7 @@
   <doc name='M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)'>
     <summary>Compares an arbitrary-precision binary float with this instance.
     </summary>
-    <param name='other'>An arbitrary-precision binary float.
+    <param name='other'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
@@ -10241,7 +10227,7 @@
   <doc name='M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)'>
     <summary>Converts an arbitrary-precision binary float to a rational number.
     </summary>
-    <param name='ef'>The number to convert as an arbitrary-precision binary float.
+    <param name='ef'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
@@ -10267,7 +10253,7 @@
   <doc name='M:PeterO.Numbers.ERational.FromExtendedFloat(PeterO.Numbers.EFloat)'>
     <summary>Converts an arbitrary-precision binary float to a rational number.
     </summary>
-    <param name='ef'>The number to convert as an arbitrary-precision binary float.
+    <param name='ef'>The number to convert as an arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
@@ -11266,7 +11252,7 @@
     <summary>Converts an arbitrary-precision binary float to an arbitrary-precision
       rational number.
     </summary>
-    <param name='eint'>An arbitrary-precision binary float.
+    <param name='eint'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
@@ -11885,7 +11871,7 @@
     </exception>
   </doc>
   <doc name='T:Test.EFloatExtras'>
-    <summary>Not documented yet.
+    <summary>A class that implements additional operations on arbitrary-precision binary floating-point numbers.
     </summary>
   </doc>
   <doc name='M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
