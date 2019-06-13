@@ -1,7 +1,6 @@
 using System;
-using PeterO.Numbers;
 
-namespace Test {
+namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:Test.EFloatExtras"]/*'/>
   public static class EFloatExtras {
@@ -22,9 +21,28 @@ namespace Test {
       return EFloat.FromInt32(i32).RoundToPrecision(ec);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Converts a boolean value (either true or false) to an
+    /// arbitrary-precision binary floating-point number.</summary>
+    /// <param name='b'>Either true or false.</param>
+    /// <param name='ec'>A context used for rounding the result. Can be
+    /// null.</param>
+    /// <returns>Either 1 if <paramref name='b'/> is true, or 0 if
+    /// <paramref name='b'/> is false.. The result will be rounded as
+    /// specified by the given context, if any.</returns>
+    [Obsolete]
     public static EFloat BoolToEFloat(bool b, EContext ec) {
+      return EFloat.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
+    }
+
+    /// <summary>Converts a boolean value (either true or false) to an
+    /// arbitrary-precision binary floating-point number.</summary>
+    /// <param name='b'>Either true or false.</param>
+    /// <param name='ec'>A context used for rounding the result. Can be
+    /// null.</param>
+    /// <returns>Either 1 if <paramref name='b'/> is true, or 0 if
+    /// <paramref name='b'/> is false.. The result will be rounded as
+    /// specified by the given context, if any.</returns>
+    public static EFloat BooleanToEFloat(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
       // miscellaneous operations here return booleans
@@ -32,61 +50,61 @@ namespace Test {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsCanonical(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsCanonical(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsCanonical(EFloat ed) {
       return true;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsFinite(PeterO.Numbers.EFloat)"]/*'/>
-    public static bool IsFinite(EFloat ed) {
-      return ed.IsFinite;
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsFinite(PeterO.Numbers.EDecimal)"]/*'/>
+   public static bool IsFinite(EFloat ed) {
+      return ed != null && ed.IsFinite;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsInfinite(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsInfinite(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsInfinite(EFloat ed) {
-      return ed.IsInfinity();
+      return ed != null && ed.IsInfinity();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsNaN(PeterO.Numbers.EFloat)"]/*'/>
-    public static bool IsNaN(EFloat ed) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsNaN(PeterO.Numbers.EDecimal)"]/*'/>
+   public static bool IsNaN(EFloat ed) {
       return ed != null && ed.IsNaN();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsNormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsNormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static bool IsNormal(EFloat ed, EContext ec) {
       return ed != null && ed.IsFinite && !ed.IsZero && !IsSubnormal(ed, ec);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsQuietNaN(PeterO.Numbers.EFloat)"]/*'/>
-    public static bool IsQuietNaN(EFloat ed) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsQuietNaN(PeterO.Numbers.EDecimal)"]/*'/>
+  public static bool IsQuietNaN(EFloat ed) {
       return ed != null && ed.IsQuietNaN();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsSigned(PeterO.Numbers.EFloat)"]/*'/>
-    public static bool IsSigned(EFloat ed) {
-      return ed.IsNegative;
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSigned(PeterO.Numbers.EDecimal)"]/*'/>
+     public static bool IsSigned(EFloat ed) {
+      return ed != null && ed.IsNegative;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsSignalingNaN(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSignalingNaN(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsSignalingNaN(EFloat ed) {
       return ed != null && ed.IsSignalingNaN();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.NumberClassString(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.NumberClassString(System.Int32)"]/*'/>
     public static string NumberClassString(int nc) {
       return EDecimalExtras.NumberClassString(nc);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.NumberClass(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.NumberClass(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static int NumberClass(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -108,8 +126,8 @@ namespace Test {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsSubnormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
-    public static bool IsSubnormal(EFloat ed, EContext ec) {
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSubnormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+     public static bool IsSubnormal(EFloat ed, EContext ec) {
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
           return ed.Exponent.Add(ed.Precision().Subtract(1)).CompareTo(
@@ -122,14 +140,17 @@ namespace Test {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.IsZero(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsZero(PeterO.Numbers.EDecimal)"]/*'/>
     public static bool IsZero(EFloat ed) {
       return ed != null && ed.IsZero;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat LogB(EFloat ed, EContext ec) {
+      if ((ed) == null) {
+  throw new ArgumentNullException(nameof(ed));
+}
       if (ed.IsNaN()) {
         return ed.RoundToPrecision(ec);
       }
@@ -233,8 +254,31 @@ namespace Test {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Rotates the digits of an arbitrary-precision binary
+    /// number's mantissa.</summary>
+    /// <param name='ed'>An arbitrary-precision number containing the
+    /// mantissa to rotate. If this mantissa contains more bits than the
+    /// precision, the most-significant bits are chopped off the
+    /// mantissa.</param>
+    /// <param name='ed2'>An arbitrary-precision number indicating the
+    /// number of bits to rotate the first operand's mantissa. Must be an
+    /// integer with an exponent of 0. If this parameter is positive, the
+    /// mantissa is shifted by the given number of bits and the
+    /// most-significant bits shifted out of the mantissa become the
+    /// least-significant bits instead. If this parameter is negative, the
+    /// number is shifted by the given number of bits and the
+    /// least-significant bits shifted out of the mantissa become the
+    /// most-significant bits instead.</param>
+    /// <param name='ec'>A context that specifies the precision of
+    /// arbitrary-precision numbers. If this parameter is null or specifies
+    /// an unlimited precision, this method has the same behavior as
+    /// <c>Shift</c>.</param>
+    /// <returns>An arbitrary-precision binary number whose mantissa is
+    /// rotated the given number of bits. Signals an invalid operation and
+    /// returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
+    /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
+    /// has an exponent other than 0, or has an absolute value that exceeds
+    /// the maximum precision specified in the context.</returns>
     public static EFloat Rotate(EFloat ed, EFloat ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -292,8 +336,29 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.IsNegative ? ret.Negate() : ret;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.CompareTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Compares the values of one arbitrary-precision number
+    /// object and another object, imposing a total ordering on all
+    /// possible values. In this method:
+    /// <list>
+    /// <item>For objects with the same value, the one with the higher
+    /// exponent has a greater "absolute value".</item>
+    /// <item>Negative zero is less than positive zero.</item>
+    /// <item>Quiet NaN has a higher "absolute value" than signaling NaN.
+    /// If both objects are quiet NaN or both are signaling NaN, the one
+    /// with the higher diagnostic information has a greater "absolute
+    /// value".</item>
+    /// <item>NaN has a higher "absolute value" than infinity.</item>
+    /// <item>Infinity has a higher "absolute value" than any finite
+    /// number.</item>
+    /// <item>Negative numbers are less than positive
+    /// numbers.</item></list></summary>
+    /// <param name='ed'>Not documented yet.</param>
+    /// <param name='other'>Not documented yet.</param>
+    /// <param name='ec'>Not documented yet. (3).</param>
+    /// <returns>The number 0 if both objects have the same value, or -1 if
+    /// the first object is less than the other value, or 1 if the first
+    /// object is greater. Does not signal flags if either value is
+    /// signaling NaN.</returns>
     public static int CompareTotal(EFloat ed, EFloat other, EContext ec) {
       return ed.CompareToTotal(other, ec);
     }
@@ -313,8 +378,11 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.Copy();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.Canonical(PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Returns a canonical version of the given
+    /// arbitrary-precision number object. In this method, this is the same
+    /// as that object.</summary>
+    /// <param name='ed'>An arbitrary-precision number object.</param>
+    /// <returns>The parameter <paramref name='ed'/>.</returns>
     public static EFloat Canonical(EFloat ed) {
       return Copy(ed);
     }

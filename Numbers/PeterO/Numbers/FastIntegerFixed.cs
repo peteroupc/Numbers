@@ -9,9 +9,9 @@ using System;
 
 namespace PeterO.Numbers {
   internal sealed class FastIntegerFixed : IComparable<FastIntegerFixed> {
-    private int smallValue;  // if integerMode is 0
-    private EInteger largeValue;  // if integerMode is 2
-    private int integerMode;
+    private readonly int smallValue;  // if integerMode is 0
+    private readonly EInteger largeValue;  // if integerMode is 2
+    private readonly int integerMode;
 
     public static readonly FastIntegerFixed Zero = new FastIntegerFixed(0);
     public static readonly FastIntegerFixed One = new FastIntegerFixed(1);
@@ -22,8 +22,16 @@ namespace PeterO.Numbers {
     private static readonly EInteger ValueNegativeInt32MinValue =
     -(EInteger)ValueInt32MinValue;
 
-    internal FastIntegerFixed(int value) {
-      this.smallValue = value;
+    internal FastIntegerFixed(int smallValue) : this(0, smallValue, null) {
+}
+
+    internal FastIntegerFixed(
+  int integerMode,
+  int smallValue,
+  EInteger largeValue) {
+   this.integerMode = integerMode;
+      this.smallValue = smallValue;
+   this.largeValue = largeValue;
     }
 
     public override bool Equals(object obj) {
@@ -57,23 +65,18 @@ namespace PeterO.Numbers {
     }
 
     internal static FastIntegerFixed FromLong(long longVal) {
-      if (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) {
-        return new FastIntegerFixed((int)longVal);
-      }
-      var fi = new FastIntegerFixed(0);
-      fi.integerMode = 2;
-      fi.largeValue = EInteger.FromInt64(longVal);
-      return fi;
+      return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? (new
+        FastIntegerFixed(
+  (
+  int)longVal)) : (new FastIntegerFixed(2,
+ 0,
+        EInteger.FromInt64(longVal)));
     }
 
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
-      if (bigintVal.CanFitInInt32()) {
-        return new FastIntegerFixed(bigintVal.ToInt32Unchecked());
-      }
-      var fi = new FastIntegerFixed(0);
-      fi.integerMode = 2;
-      fi.largeValue = bigintVal;
-      return fi;
+      return (bigintVal.CanFitInInt32()) ? (new
+        FastIntegerFixed(bigintVal.ToInt32Unchecked())) : (new
+        FastIntegerFixed(2, 0, bigintVal));
     }
 
     internal int AsInt32() {

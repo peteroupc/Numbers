@@ -339,7 +339,7 @@ Compares an arbitrary-precision binary float with this instance.
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision binary float.
+ * <i>other</i>: An arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -707,7 +707,7 @@ Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
+ * <i>ef</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -764,7 +764,7 @@ Converts an arbitrary-precision binary float to a rational number.
 
 <b>Parameters:</b>
 
- * <i>ef</i>: The number to convert as an arbitrary-precision binary float.
+ * <i>ef</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 

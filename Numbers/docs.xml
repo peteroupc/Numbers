@@ -4590,64 +4590,92 @@
     </exception>
   </doc>
   <doc name='T:PeterO.Numbers.EDecimalExtras'>
-    <summary>A class that implements additional operations on arbitrary-precision decimal numbers.  Many of them are listed as miscellaneous operations in the General Decimal Arithmetic Specification version 1.70.
+    <summary>A class that implements additional operations on arbitrary-precision
+      decimal numbers. Many of them are listed as miscellaneous operations in
+      the General Decimal Arithmetic Specification version 1.70.
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Performs a logical AND operation on two decimal numbers in the form of <i>logical operands</i>.  A <c>logical operand</c> is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>, but not <c>02001</c> or <c>99999</c>).  The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise.  For example, <c>01001 AND 111010 = 01000</c>.
-    </summary>
+    <summary>Performs a logical AND operation on two decimal numbers in the form of
+      <i>
+        logical operands
+      </i>
+      . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no other
+      base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical AND operation sets each digit of the result to 1 if the
+      corresponding digits of each logical operand are both 1, and to 0
+      otherwise. For example,
+      <c>01001 AND 111010 = 01000</c> </summary>
     <param name='ed1'>The first logical operand to the logical AND operation.
     </param>
     <param name='ed2'>The second logical operand to the logical AND operation.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more digits than the
+      maximum precision specified in this context, the operand's most
+      significant digits that exceed that precision are discarded. This parameter
+      can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>The result of the logical AND operation as a logical operand.  Signals an invalid operation and returns not-a-number (NaN) if "ed1", "ed2", or both are not logical operands.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.BoolToEDecimal(System.Boolean,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision decimal number.
     </summary>
-    <param name='b'>The parameter
-      <paramref name='b'/>
-       is not documented yet.
+    <param name='b'>Either true or false.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context used for rounding the result.  Can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>Either 1 if "b" is true, or 0 if "b" is false..  The result will be rounded as specified by the given context, if any.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns a canonical version of the given arbitrary-precision number
+      object. In this method, this is the same as that object.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
-    <returns>An EDecimal object.
+    <returns>The parameter "ed".
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Compares the values of one arbitrary-precision number object and another
+      object, imposing a total ordering on all possible values. In this method:
+      <list>
+        <item>For objects with the same value, the one with the higher exponent has
+          a greater "absolute value".
+        </item>
+        <item>Negative zero is less than positive zero.
+        </item>
+        <item>Quiet NaN has a higher "absolute value" than signaling NaN. If both
+          objects are quiet NaN or both are signaling NaN, the one with the
+          higher diagnostic information has a greater "absolute value".
+        </item>
+        <item>NaN has a higher "absolute value" than infinity.
+        </item>
+        <item>Infinity has a higher "absolute value" than any finite number.
+        </item>
+        <item>Negative numbers are less than positive numbers.
+        </item>
+      </list>
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='other'>An arbitrary-precision number to compare with the other one.
     </param>
-    <param name='other'>The parameter
-      <paramref name='other'/>
-       is not documented yet.
+    <param name='ctx'>An arithmetic context. Flags will be set in this context only if
+      <c>HasFlags</c> and
+      <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
+      before carrying out the operation. Can be null.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
-    </param>
-    <returns>A 32-bit signed integer.
+    <returns>The number 0 if both objects have the same value, or -1 if the first
+      object is less than the other value, or 1 if the first object is greater.
+      Does not signal flags if either value is signaling NaN.
     </returns>
+    <param name='ed'>An arbitrary-precision number object.
+    </param>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CompareTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Not documented yet.
@@ -4732,9 +4760,12 @@
       <paramref name='ed1'/>
        is not documented yet.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more digits than
+      the maximum precision specified in this context, the operand's most
+      significant digits that exceed that precision are discarded. This
+      parameter cannot be null and must specify a maximum precision (unlimited
+      precision contexts are not allowed).
     </param>
     <returns>An EDecimal object.
     </returns>
@@ -4746,9 +4777,8 @@
       <paramref name='ed'/>
        is not documented yet.
     </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
+    <returns>Always
+      <c>true</c> .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsFinite(PeterO.Numbers.EDecimal)'>
@@ -4776,11 +4806,10 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsNaN(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given arbitrary-precision number object is a
+      not-a-number (NaN).
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
     <returns>Either
       <c>true</c> or
@@ -4788,27 +4817,60 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsNormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given number is a
+      <i>
+         normal
+      </i>
+       number. A
+      <i>
+         subnormal number
+      </i>
+       is a nonzero finite number whose Exponent property (or the number's
+      exponent in scientific notation) is less than the minimum possible
+      exponent for that number. A
+      <i>
+         normal number
+      </i>
+       is nonzero and finite, but not subnormal.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context specifying the exponent range of arbitrary-precision numbers.
+      Can be null. If AdjustExponent of the given context is
+      <c>true</c> , a nonzero number is normal if the number's exponent in scientific
+      notation is at least the given context's EMax property (e.g., if EMax is
+      -100, 2.3456 * 10
+      <sup>
+         -99
+      </sup>
+       is normal, but 2.3456 * 10
+      <sup>
+         -102
+      </sup>
+       is not). If AdjustExponent of the given context is
+      <c>false</c> , a nonzero number is subnormal if the number's Exponent property is at
+      least given context's EMax property (e.g., if EMax is -100, 23456 * 10
+      <sup>
+         -99
+      </sup>
+       is normal, but 23456 * 10
+      <sup>
+         -102
+      </sup>
+       is not).
     </param>
     <returns>Either
-      <c>true</c> or
+      <c>true</c> if the given number is subnormal, or
+      <c>false</c> otherwise. Returns
+      <c>true</c> if the given context is null or HasExponentRange of the given context is
       <c>false</c> .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsQuietNaN(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given arbitrary-precision number object is a quiet
+      not-a-number (NaN).
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
     <returns>Either
       <c>true</c> or
@@ -4816,11 +4878,10 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsSignalingNaN(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given arbitrary-precision number object is a signaling
+      not-a-number (NaN).
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
     <returns>Either
       <c>true</c> or
@@ -4828,11 +4889,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsSigned(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given arbitrary-precision number object is negative
+      (including negative infinity, negative not-a-number [NaN], or negative
+      zero).
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
     <returns>Either
       <c>true</c> or
@@ -4840,18 +4901,48 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsSubnormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given number is a
+      <i>
+         subnormal
+      </i>
+       number. A
+      <i>
+         subnormal number
+      </i>
+       is a nonzero finite number whose Exponent property (or the number's
+      exponent in scientific notation) is less than the minimum possible
+      exponent for that number.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context specifying the exponent range of arbitrary-precision numbers.
+      Can be null. If AdjustExponent of the given context is
+      <c>true</c> , a nonzero number is subnormal if the number's exponent in scientific
+      notation is less than the given context's EMax property (e.g., if EMax is
+      -100, 2.3456 * 10
+      <sup>
+         -102
+      </sup>
+       is subnormal, but 2.3456 * 10
+      <sup>
+         -99
+      </sup>
+       is not). If AdjustExponent of the given context is
+      <c>false</c> , a nonzero number is subnormal if the number's Exponent property is less
+      than the given context's EMax property (e.g., if EMax is -100, 23456 * 10
+      <sup>
+         -102
+      </sup>
+       is subnormal, but 23456 * 10
+      <sup>
+         -99
+      </sup>
+       is not).
     </param>
     <returns>Either
-      <c>true</c> or
+      <c>true</c> if the given number is subnormal, or
+      <c>false</c> otherwise. Returns
+      <c>false</c> if the given context is null or HasExponentRange of the given context is
       <c>false</c> .
     </returns>
   </doc>
@@ -4880,19 +4971,24 @@
     </param>
     <returns>An EDecimal object.
     </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.NumberClass(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Finds the number class for an arbitrary-precision decimal number object.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision decimal number object.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context object that specifies the precision and exponent range of
+      arbitrary-precision numbers. This is used only to distinguish between
+      normal and subnormal numbers. Can be null.
     </param>
-    <returns>A 32-bit signed integer.
+    <returns>A 32-bit signed integer identifying the given number class as follows: 0 =
+      positive normal; 1 = negative normal, 2 = positive subnormal, 3 = negative
+      subnormal, 4 = positive zero, 5 = negative zero, 6 = positive infinity, 7
+      = negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling NaN.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -4900,33 +4996,53 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.NumberClassString(System.Int32)'>
-    <summary>Not documented yet.
+    <summary>Converts a number class identifier (ranging from 1 to 9) to a text string.
+      An arbitrary-precision number object can belong in one of ten number
+      classes.
     </summary>
-    <param name='nc'>The parameter
-      <paramref name='nc'/>
-       is not documented yet.
+    <param name='nc'>An integer identifying a number class.
     </param>
-    <returns>A text string.
+    <returns>A text string identifying the given number class as follows: 0 =
+      "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero",
+      5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
     </returns>
+    <exception cref='T:System.ArgumentException'>The parameter
+      <paramref name='nc'/>
+       is less than 0 or greater than 9 .
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Performs a logical OR operation on two decimal numbers in the form of <i>logical operands</i>.  A <c>logical operand</c> is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>, but not <c>02001</c> or <c>99999</c>).  The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise.  For example, <c>01001 OR 111010 = 111011</c>.
-    </summary>
+    <summary>Performs a logical OR operation on two decimal numbers in the form of
+      <i>
+        logical operands
+      </i>
+      . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no other
+      base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical OR operation sets each digit of the result to 1 if either
+      or both of the corresponding digits of the logical operands are 1, and to
+      0 otherwise. For example,
+      <c>01001 OR 111010 = 111011</c> </summary>
     <param name='ed1'>The first logical operand to the logical OR operation.
     </param>
     <param name='ed2'>The second logical operand to the logical OR operation.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more digits than the
+      maximum precision specified in this context, the operand's most
+      significant digits that exceed that precision are discarded. This parameter
+      can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>The result of the logical OR operation as a logical operand.  Signals an invalid operation and returns not-a-number (NaN) if "ed1", "ed2", or both are not logical operands.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Radix(PeterO.Numbers.EContext)'>
     <summary>Returns the number 10, the decimal radix.
     </summary>
-    <param name='ec'>Specifies a precision context for rounding the number 10.  Can be null.
+    <param name='ec'>Specifies a precision context for rounding the number 10. Can be null.
     </param>
     <returns>The number 10, rounded as given in the precision context.
     </returns>
@@ -4950,21 +5066,31 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Rotate(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Rotates the digits of an arbitrary-precision decimal number's mantissa.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number containing the mantissa to rotate. If this
+      mantissa contains more digits than the precision, the most-significant
+      digits are chopped off the mantissa.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>An arbitrary-precision number indicating the number of digits to rotate
+      the first operand's mantissa. Must be an integer with an Exponent property of 0. If
+      this parameter is positive, the mantissa is shifted by the given number of
+      digits and the most-significant digits shifted out of the mantissa become
+      the least-significant digits instead. If this parameter is negative, the
+      number is shifted by the given number of digits and the least-significant
+      digits shifted out of the mantissa become the most-significant digits
+      instead.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
+      this parameter is null or specifies an unlimited precision, this method
+      has the same behavior as
+      <c>Shift</c> .
     </param>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision decimal number whose mantissa is rotated the given
+      number of bits. Signals an invalid operation and returns NaN
+      (not-a-number) if "ed2" is a signaling NaN or if "ed2" is not an integer,
+      is negative, has an exponent other than 0, or has an absolute value that
+      exceeds the maximum precision specified in the context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.SameQuantum(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
@@ -5046,17 +5172,33 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Performs a logical exclusive-OR (XOR) operation on two decimal numbers in
+      the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no other
+      base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical exclusive-OR operation sets each digit of the result to 1
+      if either corresponding digit of the logical operands, but not both, are
+      1, and to 0 otherwise. For example,
+      <c>01001 OR 111010 = 101010</c> .
     </summary>
     <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
     </param>
     <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more digits than the
+      maximum precision specified in this context, the operand's most
+      significant digits that exceed that precision are discarded. This parameter
+      can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>The result of the logical exclusive-OR operation as a logical operand.  Signals an invalid operation and returns not-a-number (NaN) if "ed1", "ed2", or both are not logical operands.
     </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EFloat'>
@@ -5147,10 +5289,10 @@
     <summary>Finds the absolute value of this object (if it's negative, it becomes
       positive).
     </summary>
-    <returns>An arbitrary-precision binary floating-point number. Returns signaling NaN if this value
-      is signaling NaN. (In this sense, this method is similar to the "copy-abs"
-      operation in the General Decimal Arithmetic Specification, except this
-      method does not necessarily return a copy of this object.).
+    <returns>An arbitrary-precision binary floating-point number. Returns signaling NaN
+      if this value is signaling NaN. (In this sense, this method is similar to
+      the "copy-abs" operation in the General Decimal Arithmetic Specification,
+      except this method does not necessarily return a copy of this object.).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Abs(PeterO.Numbers.EContext)'>
@@ -5619,8 +5761,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Divides this arbitrary-precision binary float by another
-      arbitrary-precision binary floating-point number. The preferred exponent for the result is
-      this object's exponent minus the divisor's exponent.
+      arbitrary-precision binary floating-point number. The preferred exponent
+      for the result is this object's exponent minus the divisor's exponent.
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
@@ -5854,8 +5996,8 @@
   <doc name='M:PeterO.Numbers.EFloat.Equals(System.Object)'>
     <summary>Determines whether this object's mantissa (significand), exponent, and
       properties are equal to those of another object and that other object is
-      an arbitrary-precision binary floating-point number. Not-a-number values are considered
-      equal if the rest of their properties are equal.
+      an arbitrary-precision binary floating-point number. Not-a-number values
+      are considered equal if the rest of their properties are equal.
     </summary>
     <param name='obj'>The parameter
       <paramref name='obj'/>
@@ -5917,11 +6059,13 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromByte(System.Byte)'>
-    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number.
+    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputByte'>The number to convert as a byte (from 0 to 255).
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromDouble(System.Double)'>
@@ -5947,35 +6091,43 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromInt16(System.Int16)'>
-    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputInt16'>The number to convert as a 16-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromInt32(System.Int32)'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputInt32'>The number to convert as a 32-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromInt64(System.Int64)'>
-    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputInt64'>The number to convert as a 64-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromSByte(System.SByte)'>
-    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputSByte'>The number to convert as an 8-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromSingle(System.Single)'>
@@ -5998,7 +6150,8 @@
     </summary>
     <param name='str'>A text string to convert to a binary float.
     </param>
-    <returns>The parsed number, converted to arbitrary-precision binary floating-point number.
+    <returns>The parsed number, converted to arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)'>
@@ -6011,7 +6164,8 @@
     <param name='ctx'>A precision context specifying the precision, rounding, and exponent range
       to apply to the parsed number. Can be null.
     </param>
-    <returns>The parsed number, converted to arbitrary-precision binary floating-point number.
+    <returns>The parsed number, converted to arbitrary-precision binary floating-point
+      number.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='str'/>
@@ -6110,7 +6264,8 @@
       <paramref name='ctx'/>
        is an EContext object.
     </param>
-    <returns>The parsed number, converted to arbitrary-precision binary floating-point number.
+    <returns>The parsed number, converted to arbitrary-precision binary floating-point
+      number.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='str'/>
@@ -6132,29 +6287,33 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromUInt16(System.UInt16)'>
-    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
-
+    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromUInt32(System.UInt32)'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputUInt32'>The number to convert as a 32-bit signed integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromUInt64(System.UInt64)'>
-    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
-
+    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.
     </param>
-    <returns>This number's value as an arbitrary-precision binary floating-point number.
+    <returns>This number's value as an arbitrary-precision binary floating-point
+      number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.GetHashCode'>
@@ -6609,11 +6768,11 @@
     <summary>Gets an object with the same value as this one, but with the sign
       reversed.
     </summary>
-    <returns>An arbitrary-precision binary floating-point number. If this value is positive zero,
-      returns negative zero. Returns signaling NaN if this value is signaling
-      NaN. (In this sense, this method is similar to the "copy-negate" operation
-      in the General Decimal Arithmetic Specification, except this method does
-      not necessarily return a copy of this object.).
+    <returns>An arbitrary-precision binary floating-point number. If this value is
+      positive zero, returns negative zero. Returns signaling NaN if this value
+      is signaling NaN. (In this sense, this method is similar to the
+      "copy-negate" operation in the General Decimal Arithmetic Specification,
+      except this method does not necessarily return a copy of this object.).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Negate(PeterO.Numbers.EContext)'>
@@ -6626,9 +6785,9 @@
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
     </param>
-    <returns>An arbitrary-precision binary floating-point number. If this value is positive zero,
-      returns positive zero. Signals FlagInvalid and returns quiet NaN if this
-      value is signaling NaN.
+    <returns>An arbitrary-precision binary floating-point number. If this value is
+      positive zero, returns positive zero. Signals FlagInvalid and returns
+      quiet NaN if this value is signaling NaN.
     </returns>
   </doc>
   <doc name='F:PeterO.Numbers.EFloat.NegativeInfinity'>
@@ -7761,7 +7920,8 @@
       arbitrary-precision integer. Any fractional part in this value will be
       discarded when converting to an arbitrary-precision integer.
     </summary>
-    <param name='bigValue'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='bigValue'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
@@ -7772,7 +7932,8 @@
     <summary>Converts an arbitrary-precision binary float to a byte (from 0 to 255) if
       it can fit in a byte (from 0 to 255) after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7808,7 +7969,8 @@
     <summary>Converts an arbitrary-precision binary float to a 16-bit signed integer if
       it can fit in a 16-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7824,7 +7986,8 @@
     <summary>Converts an arbitrary-precision binary float to a 32-bit signed integer if
       it can fit in a 32-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7840,7 +8003,8 @@
     <summary>Converts an arbitrary-precision binary float to a 64-bit signed integer if
       it can fit in a 64-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7856,7 +8020,8 @@
     <summary>Converts an arbitrary-precision binary float to an 8-bit signed integer if
       it can fit in an 8-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7881,7 +8046,8 @@
         if a signaling NaN would otherwise be generated.
       </para>
     </summary>
-    <param name='bigValue'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='bigValue'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The closest 32-bit binary floating-point number to this value. The return
       value can be positive infinity or negative infinity if this value exceeds
@@ -7893,7 +8059,8 @@
       if it can fit in a 16-bit unsigned integer after truncating to an integer.
 
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7909,7 +8076,8 @@
     <summary>Converts an arbitrary-precision binary float to a 32-bit signed integer if
       it can fit in a 32-bit signed integer after truncating to an integer.
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7926,7 +8094,8 @@
       if it can fit in a 64-bit unsigned integer after truncating to an integer.
 
     </summary>
-    <param name='input'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='input'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>The value of
       <paramref name='input'/>
@@ -7956,7 +8125,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Byte)~PeterO.Numbers.EFloat'>
-    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number.
+    <summary>Converts a byte (from 0 to 255) to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputByte'>The number to convert as a byte (from 0 to 255).
     </param>
@@ -7981,7 +8151,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Int16)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 16-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputInt16'>The number to convert as a 16-bit signed integer.
     </param>
@@ -7991,7 +8162,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputInt32'>The number to convert as a 32-bit signed integer.
     </param>
@@ -8001,7 +8173,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 64-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputInt64'>The number to convert as a 64-bit signed integer.
     </param>
@@ -8011,7 +8184,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.SByte)~PeterO.Numbers.EFloat'>
-    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts an 8-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputSByte'>The number to convert as an 8-bit signed integer.
     </param>
@@ -8036,8 +8210,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.UInt16)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
-
+    <summary>Converts a 16-bit unsigned integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputUInt16'>The number to convert as a 16-bit unsigned integer.
     </param>
@@ -8047,7 +8221,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.UInt32)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
+    <summary>Converts a 32-bit signed integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputUInt32'>The number to convert as a 32-bit signed integer.
     </param>
@@ -8057,8 +8232,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Implicit(System.UInt64)~PeterO.Numbers.EFloat'>
-    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
-
+    <summary>Converts a 64-bit unsigned integer to an arbitrary-precision binary
+      floating-point number.
     </summary>
     <param name='inputUInt64'>The number to convert as a 64-bit unsigned integer.
     </param>
@@ -8124,6 +8299,40 @@
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Not documented yet.
+    </summary>
+    <param name='ed'>The parameter
+      <paramref name='ed'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>An arbitrary-precision binary floating-point number.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.NumberClassString(System.Int32)'>
+    <summary>Converts a number class identifier (ranging from 1 to 9) to a text string.
+      An arbitrary-precision number object can belong in one of ten number
+      classes.
+    </summary>
+    <param name='nc'>An integer identifying a number class.
+    </param>
+    <returns>A text string identifying the given number class as follows: 0 =
+      "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero",
+      5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
+    </returns>
+    <exception cref='T:System.ArgumentException'>The parameter
+      <paramref name='nc'/>
+       is less than 0 or greater than 9 .
     </exception>
   </doc>
   <doc name='T:PeterO.Numbers.EInteger'>
@@ -10227,7 +10436,8 @@
   <doc name='M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)'>
     <summary>Converts an arbitrary-precision binary float to a rational number.
     </summary>
-    <param name='ef'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='ef'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
@@ -10253,7 +10463,8 @@
   <doc name='M:PeterO.Numbers.ERational.FromExtendedFloat(PeterO.Numbers.EFloat)'>
     <summary>Converts an arbitrary-precision binary float to a rational number.
     </summary>
-    <param name='ef'>The number to convert as an arbitrary-precision binary floating-point number.
+    <param name='ef'>The number to convert as an arbitrary-precision binary floating-point
+      number.
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
@@ -11871,7 +12082,8 @@
     </exception>
   </doc>
   <doc name='T:Test.EFloatExtras'>
-    <summary>A class that implements additional operations on arbitrary-precision binary floating-point numbers.
+    <summary>A class that implements additional operations on arbitrary-precision
+      binary floating-point numbers.
     </summary>
   </doc>
   <doc name='M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -11885,25 +12097,23 @@
       <paramref name='ed2'/>
        is not documented yet.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more bits than the
+      maximum precision specified in this context, the operand's most
+      significant bits that exceed that precision are discarded. This parameter
+      can be null.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
     </summary>
-    <param name='b'>The parameter
-      <paramref name='b'/>
-       is not documented yet.
+    <param name='b'>Either true or false.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context used for rounding the result.  Can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>Either 1 if "b" is true, or 0 if "b" is false..  The result will be rounded as specified by the given context, if any.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Canonical(PeterO.Numbers.EFloat)'>
@@ -11917,22 +12127,39 @@
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.CompareTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Compares the values of one arbitrary-precision number object and another
+      object, imposing a total ordering on all possible values. In this method:
+      <list>
+        <item>For objects with the same value, the one with the higher exponent has
+          a greater "absolute value".
+        </item>
+        <item>Negative zero is less than positive zero.
+        </item>
+        <item>Quiet NaN has a higher "absolute value" than signaling NaN. If both
+          objects are quiet NaN or both are signaling NaN, the one with the
+          higher diagnostic information has a greater "absolute value".
+        </item>
+        <item>NaN has a higher "absolute value" than infinity.
+        </item>
+        <item>Infinity has a higher "absolute value" than any finite number.
+        </item>
+        <item>Negative numbers are less than positive numbers.
+        </item>
+      </list>
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='other'>An arbitrary-precision number to compare with the other one.
     </param>
-    <param name='other'>The parameter
-      <paramref name='other'/>
-       is not documented yet.
+    <param name='ctx'>An arithmetic context. Flags will be set in this context only if
+      <c>HasFlags</c> and
+      <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
+      before carrying out the operation. Can be null.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
-    </param>
-    <returns>A 32-bit signed integer.
+    <returns>The number 0 if both objects have the same value, or -1 if the first
+      object is less than the other value, or 1 if the first object is greater.
+      Does not signal flags if either value is signaling NaN.
     </returns>
+    <param name='ed'>An arbitrary-precision number object.
+    </param>
   </doc>
   <doc name='M:Test.EFloatExtras.CompareTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Not documented yet.
@@ -12017,139 +12244,14 @@
       <paramref name='ed1'/>
        is not documented yet.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more bits than the
+      maximum precision specified in this context, the operand's most
+      significant bits that exceed that precision are discarded. This parameter
+      cannot be null and must specify a maximum precision (unlimited precision
+      contexts are not allowed).
     </param>
     <returns>An arbitrary-precision binary floating-point number.
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsCanonical(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsFinite(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsInfinite(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsNaN(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsNormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsQuietNaN(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsSignalingNaN(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsSigned(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsSubnormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.IsZero(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>Either
-      <c>true</c> or
-      <c>false</c> .
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -12205,9 +12307,11 @@
       <paramref name='ed2'/>
        is not documented yet.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more bits than the
+      maximum precision specified in this context, the operand's most
+      significant bits that exceed that precision are discarded. This parameter
+      can be null.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
@@ -12241,21 +12345,30 @@
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Rotates the digits of an arbitrary-precision binary number's mantissa.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number containing the mantissa to rotate. If this
+      mantissa contains more bits than the precision, the most-significant bits
+      are chopped off the mantissa.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>An arbitrary-precision number indicating the number of bits to rotate the
+      first operand's mantissa. Must be an integer with an Exponent property of 0. If
+      this parameter is positive, the mantissa is shifted by the given number of
+      bits and the most-significant bits shifted out of the mantissa become the
+      least-significant bits instead. If this parameter is negative, the number
+      is shifted by the given number of bits and the least-significant bits
+      shifted out of the mantissa become the most-significant bits instead.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
+      this parameter is null or specifies an unlimited precision, this method
+      has the same behavior as
+      <c>Shift</c> .
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>An arbitrary-precision binary number whose mantissa is rotated the given
+      number of bits. Signals an invalid operation and returns NaN
+      (not-a-number) if "ed2" is a signaling NaN or if "ed2" is not an integer,
+      is negative, has an exponent other than 0, or has an absolute value that
+      exceeds the maximum precision specified in the context.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.SameQuantum(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
@@ -12347,9 +12460,11 @@
       <paramref name='ed2'/>
        is not documented yet.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
+      numbers. If a logical operand passed to this method has more bits than the
+      maximum precision specified in this context, the operand's most
+      significant bits that exceed that precision are discarded. This parameter
+      can be null.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>

@@ -1782,14 +1782,14 @@ Raises an arbitrary-precision integer to a power.
 
 <b>Return Value:</b>
 
-The result. Returns 1 if  <i>bigPower</i>
- is 0.
+The result. Returns 1 if <i>bigPower</i>
+is 0.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter <i>bigPower</i>
- is null.
+is null.
 
  * System.ArgumentException:
 BigPower is negative.

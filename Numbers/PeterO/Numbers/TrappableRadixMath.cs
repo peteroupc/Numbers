@@ -323,14 +323,6 @@ namespace PeterO.Numbers {
       return this.TriggerTraps(result, tctx, ctx);
     }
 
-    // <summary>Compares a T object with this instance.</summary>
-    // <param name='thisValue'></param>
-    // <param name='otherValue'>A T object.</param>
-    // <param name='treatQuietNansAsSignaling'>A Boolean object.</param>
-    // <param name='ctx'>A PrecisionContext object.</param>
-    // <returns>Zero if the values are equal; a negative number if this
-    // instance is less, or a positive number if this instance is
-    // greater.</returns>
     public T CompareToWithContext(
   T thisValue,
   T otherValue,
