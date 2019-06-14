@@ -77,6 +77,21 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
+    public static ERational operator ++(ERational bthis) {
+      if (bthis == null) {
+        throw new ArgumentNullException(nameof(bthis));
+      }
+      return bthis.Add(1);
+    }
+
+    public static ERational operator --(ERational bthis) {
+      if (bthis == null) {
+        throw new ArgumentNullException(nameof(bthis));
+      }
+      return bthis.Subtract(1);
+    }
+
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Multiply(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator *(

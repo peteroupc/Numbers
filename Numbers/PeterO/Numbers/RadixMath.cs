@@ -281,6 +281,8 @@ private static EInteger ShiftedMask(FastInteger prec) {
         }
         if (haveRetval) {
           if (!IsNullOrSimpleContext(ctx)) {
+            if(resultExponent.IsValueZero &&
+                 IsNullOrInt32FriendlyContext(ctx))return retval;
             retval = this.RoundToPrecision(retval, ctx);
           }
           return retval;
@@ -362,9 +364,16 @@ private static EInteger ShiftedMask(FastInteger prec) {
         }
         if (haveRetval && result != 0) {
           if (!IsNullOrSimpleContext(ctx)) {
+            if(resultExponent.IsValueZero &&
+                 IsNullOrInt32FriendlyContext(ctx))return retval;
             retval = this.RoundToPrecision(retval, ctx);
           }
           return retval;
+        }
+        if(haveRetval && result == 0){
+DebugUtility.Log("haveRetval, result=0, [{0},{1},{2}] + [{3},{4},{5}]",
+    thisFlags,op1Mantissa,op1Exponent,
+    otherFlags,op2Mantissa,op2Exponent);
         }
       }
       return default(T);
@@ -2972,7 +2981,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
       }
     }
 
-    private static FastInteger valueFastIntegerTwo = new FastInteger(2);
+    private static readonly FastInteger valueFastIntegerTwo = new FastInteger(2);
 
     private T AddExDiffExp(
   T thisValue,
@@ -4408,6 +4417,17 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
       return this.helper.CreateNewWithFlags(mant, EInteger.Zero, flags);
     }
 
+    private bool IsNullOrInt32FriendlyContext(EContext ctx){
+       return ctx==null || (
+        (!ctx.HasFlags && ctx.Traps == 0) &&
+        (!ctx.HasExponentRange || (ctx.EMin.CompareTo(-10)<0 && ctx.EMax.CompareTo(0)>=0)) &&
+        ctx.Rounding!=ERounding.Floor &&
+        (!ctx.HasMaxPrecision ||
+            (this.thisRadix >= 10 && !ctx.IsPrecisionInBits && ctx.Precision.CompareTo(10)>=0) ||
+            ((this.thisRadix >= 2 || ctx.IsPrecisionInBits) && ctx.Precision.CompareTo(32)>=0)
+        ));
+    }
+
     private bool RoundGivenAccum(
   IShiftAccumulator accum,
   ERounding rounding,
@@ -4470,8 +4490,6 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
       return incremented;
     }
 
-    // binaryPrec means whether precision is the number of bits and not
-    // digits
     private T RoundToPrecisionInternal(
   T thisValue,
   int lastDiscarded,
@@ -4554,8 +4572,24 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
           }
         }
       }
+      if (IsNullOrInt32FriendlyContext(ctx) &&
+        (lastDiscarded | olderDiscarded) == 0 &&
+        (shift == null || shift.IsValueZero)) {
+         //DebugUtility.Log("fastpath for "+ctx+", "+thisValue);
+         FastIntegerFixed expabs = this.helper.GetExponentFastInt(thisValue);
+         if(expabs.IsValueZero){
+          FastIntegerFixed mantabs = this.helper.GetMantissaFastInt(thisValue);
+          if(mantabs.IsValueZero && adjustNegativeZero &&
+               (thisFlags & BigNumberFlags.FlagNegative) != 0) {
+             return this.helper.ValueOf(0);
+          }
+          if(mantabs.CanFitInInt32())return thisValue;
+         }        
+      }
       ctx = ctx ?? EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven);
       // Binary precision of potentially non-binary numbers
+      // binaryPrec means whether precision is the number of bits and not
+      // digits
       bool binaryPrec = ctx.IsPrecisionInBits;
       // get the precision
       FastInteger fastPrecision = ctx.Precision.CanFitInInt32() ? new

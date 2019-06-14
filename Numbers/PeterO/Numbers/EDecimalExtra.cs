@@ -83,6 +83,21 @@ System.Globalization.NumberStyles
       return bthis.Subtract(subtrahend);
     }
 
+
+    public static EDecimal operator ++(EDecimal bthis) {
+      if (bthis == null) {
+        throw new ArgumentNullException(nameof(bthis));
+      }
+      return bthis.Add(1);
+    }
+
+    public static EDecimal operator --(EDecimal bthis) {
+      if (bthis == null) {
+        throw new ArgumentNullException(nameof(bthis));
+      }
+      return bthis.Subtract(1);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator *(

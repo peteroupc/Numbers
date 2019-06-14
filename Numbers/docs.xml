@@ -1,489 +1,4 @@
 <docs>
-  <doc name='T:PeterO.DataUtilities'>
-    <summary>Contains methods useful for reading and writing strings. It is designed to
-      have no dependencies other than the basic runtime class library.
-      <para>Many of these methods work with text encoded in UTF-8, an encoding form
-        of the Unicode Standard which uses one byte to encode the most basic
-        characters and two to four bytes to encode other characters. For
-        example, the
-        <c>GetUtf8</c> method converts a text string to an array of bytes in UTF-8.
-      </para>
-      <para>In C# and Java, text strings are represented as sequences of 16-bit
-        values called
-        <c>char</c> s. These sequences are well-formed under UTF-16, a 16-bit encoding form
-        of Unicode, except if they contain unpaired surrogate code points. (A
-        surrogate code point is used to encode supplementary characters, those
-        with code points U+10000 or higher, in UTF-16. A surrogate pair is a
-        high surrogate [U+D800 to U+DBFF] followed by a low surrogate [U+DC00 to
-        U+DFFF]. An unpaired surrogate code point is a surrogate not appearing
-        in a surrogate pair.) Many of the methods in this class allow setting
-        the behavior to follow when unpaired surrogate code points are found in
-        text strings, such as throwing an error or treating the unpaired
-        surrogate as a replacement character (U+FFFD).
-      </para>
-    </summary>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.CodePointAt(System.String,System.Int32)'>
-    <summary>Gets the Unicode code point at the given index of the string.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <param name='index'>Index of the current position into the string.
-    </param>
-    <returns>The Unicode code point at the given position. Returns -1 if
-      <paramref name='index'/>
-       is less than 0, or is the string's length or greater. Returns the
-      replacement character (U+FFFD) if the current character is an unpaired
-      surrogate code point.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.CodePointAt(System.String,System.Int32,System.Int32)'>
-    <summary>Gets the Unicode code point at the given index of the string.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <param name='index'>Index of the current position into the string.
-    </param>
-    <param name='surrogateBehavior'>Specifies what kind of value to return if the previous character is an
-      unpaired surrogate code point: if 0, return the replacement character
-      (U+FFFD); if 1, return the value of the surrogate code point; if neither 0
-      nor 1, return -1.
-    </param>
-    <returns>The Unicode code point at the current position. Returns -1 if
-      <paramref name='index'/>
-       is less than 0, or is the string's length or greater. Returns a value as
-      specified under
-      <paramref name='surrogateBehavior'/>
-       if the previous character is an unpaired surrogate code point.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.CodePointBefore(System.String,System.Int32)'>
-    <summary>Gets the Unicode code point just before the given index of the string.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <param name='index'>Index of the current position into the string.
-    </param>
-    <returns>The Unicode code point at the previous position. Returns -1 if
-      <paramref name='index'/>
-       is 0 or less, or is greater than the string's length. Returns the
-      replacement character (U+FFFD) if the previous character is an unpaired
-      surrogate code point.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.CodePointBefore(System.String,System.Int32,System.Int32)'>
-    <summary>Gets the Unicode code point just before the given index of the string.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <param name='index'>Index of the current position into the string.
-    </param>
-    <param name='surrogateBehavior'>Specifies what kind of value to return if the previous character is an
-      unpaired surrogate code point: if 0, return the replacement character
-      (U+FFFD); if 1, return the value of the surrogate code point; if neither 0
-      nor 1, return -1.
-    </param>
-    <returns>The Unicode code point at the previous position. Returns -1 if
-      <paramref name='index'/>
-       is 0 or less, or is greater than the string's length. Returns a value as
-      specified under
-      <paramref name='surrogateBehavior'/>
-       if the previous character is an unpaired surrogate code point.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.CodePointCompare(System.String,System.String)'>
-    <summary>Compares two strings in Unicode code point order. Unpaired surrogate code
-      points are treated as individual code points.
-    </summary>
-    <param name='strA'>The first string. Can be null.
-    </param>
-    <param name='strB'>The second string. Can be null.
-    </param>
-    <returns>A value indicating which string is " less" or " greater" . 0: Both strings
-      are equal or null. Less than 0: a is null and b isn't; or the first code
-      point that's different is less in A than in B; or b starts with a and is
-      longer than a. Greater than 0: b is null and a isn't; or the first code
-      point that's different is greater in A than in B; or a starts with b and
-      is longer than b.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.GetUtf8Bytes(System.String,System.Boolean)'>
-    <summary>Encodes a string in UTF-8 as a byte array.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <param name='replace'>If true, replaces unpaired surrogate code points with the replacement
-      character (U+FFFD). If false, stops processing when an unpaired surrogate
-      code point is seen.
-    </param>
-    <returns>The string encoded in UTF-8.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The string contains an unpaired surrogate code point and
-      <paramref name='replace'/>
-       is false, or an internal error occurred.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.GetUtf8Bytes(System.String,System.Boolean,System.Boolean)'>
-    <summary>Encodes a string in UTF-8 as a byte array.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <param name='replace'>If true, replaces unpaired surrogate code points with the replacement
-      character (U+FFFD). If false, stops processing when an unpaired surrogate
-      code point is seen.
-    </param>
-    <param name='lenientLineBreaks'>If true, replaces carriage return (CR) not followed by line feed (LF) and
-      LF not preceded by CR with CR-LF pairs.
-    </param>
-    <returns>The string encoded in UTF-8.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The string contains an unpaired surrogate code point and
-      <paramref name='replace'/>
-       is false, or an internal error occurred.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.GetUtf8Length(System.String,System.Boolean)'>
-    <summary>Calculates the number of bytes needed to encode a string in UTF-8.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <param name='replace'>If true, treats unpaired surrogate code points as having 3 UTF-8 bytes
-      (the UTF-8 length of the replacement character U+FFFD).
-    </param>
-    <returns>The number of bytes needed to encode the given string in UTF-8, or -1 if
-      the string contains an unpaired surrogate code point and
-      <paramref name='replace'/>
-       is false.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.GetUtf8String(System.Byte[],System.Boolean)'>
-    <summary>Generates a text string from a UTF-8 byte array.
-    </summary>
-    <param name='bytes'>A byte array containing text encoded in UTF-8.
-    </param>
-    <param name='replace'>If true, replaces invalid encoding with the replacement character
-      (U+FFFD). If false, stops processing when invalid UTF-8 is seen.
-    </param>
-    <returns>A string represented by the UTF-8 byte array.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='bytes'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The string is not valid UTF-8 and
-      <paramref name='replace'/>
-       is false.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.GetUtf8String(System.Byte[],System.Int32,System.Int32,System.Boolean)'>
-    <summary>Generates a text string from a portion of a UTF-8 byte array.
-    </summary>
-    <param name='bytes'>A byte array containing text encoded in UTF-8.
-    </param>
-    <param name='offset'>Offset into the byte array to start reading.
-    </param>
-    <param name='bytesCount'>Length, in bytes, of the UTF-8 string.
-    </param>
-    <param name='replace'>If true, replaces invalid encoding with the replacement character
-      (U+FFFD). If false, stops processing when invalid UTF-8 is seen.
-    </param>
-    <returns>A string represented by the UTF-8 byte array.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='bytes'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The portion of the byte array is not valid UTF-8 and
-      <paramref name='replace'/>
-       is false.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The parameter
-      <paramref name='offset'/>
-       is less than 0,
-      <paramref name='bytesCount'/>
-       is less than 0, or offset plus bytesCount is greater than the length of
-      "data" .
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.ReadUtf8(System.IO.Stream,System.Int32,System.Text.StringBuilder,System.Boolean)'>
-    <summary>Reads a string in UTF-8 encoding from a data stream.
-    </summary>
-    <param name='stream'>A readable data stream.
-    </param>
-    <param name='bytesCount'>The length, in bytes, of the string. If this is less than 0, this function
-      will read until the end of the stream.
-    </param>
-    <param name='builder'>A string builder object where the resulting string will be stored.
-    </param>
-    <param name='replace'>If true, replaces invalid encoding with the replacement character
-      (U+FFFD). If false, stops processing when an unpaired surrogate code point
-      is seen.
-    </param>
-    <returns>0 if the entire string was read without errors, -1 if the string is not
-      valid UTF-8 and
-      <paramref name='replace'/>
-       is false, or -2 if the end of the stream was reached before the last
-      character was read completely (which is only the case if
-      <paramref name='bytesCount'/>
-       is 0 or greater).
-    </returns>
-    <exception cref='T:System.IO.IOException'>An I/O error occurred.
-    </exception>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='stream'/>
-       is null or
-      <paramref name='builder'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.ReadUtf8FromBytes(System.Byte[],System.Int32,System.Int32,System.Text.StringBuilder,System.Boolean)'>
-    <summary>Reads a string in UTF-8 encoding from a byte array.
-    </summary>
-    <param name='data'>A byte array containing a UTF-8 string.
-    </param>
-    <param name='offset'>Offset into the byte array to start reading.
-    </param>
-    <param name='bytesCount'>Length, in bytes, of the UTF-8 string.
-    </param>
-    <param name='builder'>A string builder object where the resulting string will be stored.
-    </param>
-    <param name='replace'>If true, replaces invalid encoding with the replacement character
-      (U+FFFD). If false, stops processing when invalid UTF-8 is seen.
-    </param>
-    <returns>0 if the entire string was read without errors, or -1 if the string is not
-      valid UTF-8 and
-      <paramref name='replace'/>
-       is false.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='data'/>
-       is null or
-      <paramref name='builder'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The parameter
-      <paramref name='offset'/>
-       is less than 0,
-      <paramref name='bytesCount'/>
-       is less than 0, or offset plus bytesCount is greater than the length of
-      <paramref name='data'/>
-       .
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.ReadUtf8ToString(System.IO.Stream)'>
-    <summary>Reads a string in UTF-8 encoding from a data stream in full and returns
-      that string. Replaces invalid encoding with the replacement character
-      (U+FFFD).
-    </summary>
-    <param name='stream'>A readable data stream.
-    </param>
-    <returns>The string read.
-    </returns>
-    <exception cref='T:System.IO.IOException'>An I/O error occurred.
-    </exception>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='stream'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.ReadUtf8ToString(System.IO.Stream,System.Int32,System.Boolean)'>
-    <summary>Reads a string in UTF-8 encoding from a data stream and returns that
-      string.
-    </summary>
-    <param name='stream'>A readable data stream.
-    </param>
-    <param name='bytesCount'>The length, in bytes, of the string. If this is less than 0, this function
-      will read until the end of the stream.
-    </param>
-    <param name='replace'>If true, replaces invalid encoding with the replacement character
-      (U+FFFD). If false, throws an error if an unpaired surrogate code point is
-      seen.
-    </param>
-    <returns>The string read.
-    </returns>
-    <exception cref='T:System.IO.IOException'>An I/O error occurred; or, the string is not valid UTF-8 and
-      <paramref name='replace'/>
-       is false.
-    </exception>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='stream'/>
-       is null.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.ToLowerCaseAscii(System.String)'>
-    <summary>Returns a string with the basic upper-case letters A to Z (U+0041 to
-      U+005A) converted to lower-case. Other characters remain unchanged.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <returns>The converted string, or null if
-      <paramref name='str'/>
-       is null.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.ToUpperCaseAscii(System.String)'>
-    <summary>Returns a string with the basic lower-case letters A to Z (U+0061 to
-      U+007A) converted to upper-case. Other characters remain unchanged.
-    </summary>
-    <param name='str'>The parameter
-      <paramref name='str'/>
-       is a text string.
-    </param>
-    <returns>The converted string, or null if
-      <paramref name='str'/>
-       is null.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.WriteUtf8(System.String,System.IO.Stream,System.Boolean)'>
-    <summary>Writes a string in UTF-8 encoding to a data stream.
-    </summary>
-    <param name='str'>A string to write.
-    </param>
-    <param name='stream'>A writable data stream.
-    </param>
-    <param name='replace'>If true, replaces unpaired surrogate code points with the replacement
-      character (U+FFFD). If false, stops processing when an unpaired surrogate
-      code point is seen.
-    </param>
-    <returns>0 if the entire string was written; or -1 if the string contains an
-      unpaired surrogate code point and
-      <paramref name='replace'/>
-       is false.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null or
-      <paramref name='stream'/>
-       is null.
-    </exception>
-    <exception cref='T:System.IO.IOException'>An I/O error occurred.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.WriteUtf8(System.String,System.Int32,System.Int32,System.IO.Stream,System.Boolean)'>
-    <summary>Writes a portion of a string in UTF-8 encoding to a data stream.
-    </summary>
-    <param name='str'>A string to write.
-    </param>
-    <param name='offset'>The zero-based index where the string portion to write begins.
-    </param>
-    <param name='length'>The length of the string portion to write.
-    </param>
-    <param name='stream'>A writable data stream.
-    </param>
-    <param name='replace'>If true, replaces unpaired surrogate code points with the replacement
-      character (U+FFFD). If false, stops processing when an unpaired surrogate
-      code point is seen.
-    </param>
-    <returns>0 if the entire string portion was written; or -1 if the string portion
-      contains an unpaired surrogate code point and
-      <paramref name='replace'/>
-       is false.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null or
-      <paramref name='stream'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The parameter
-      <paramref name='offset'/>
-       is less than 0,
-      <paramref name='length'/>
-       is less than 0, or
-      <paramref name='offset'/>
-       plus
-      <paramref name='length'/>
-       is greater than the string's length.
-    </exception>
-    <exception cref='T:System.IO.IOException'>An I/O error occurred.
-    </exception>
-  </doc>
-  <doc name='M:PeterO.DataUtilities.WriteUtf8(System.String,System.Int32,System.Int32,System.IO.Stream,System.Boolean,System.Boolean)'>
-    <summary>Writes a portion of a string in UTF-8 encoding to a data stream.
-    </summary>
-    <param name='str'>A string to write.
-    </param>
-    <param name='offset'>The zero-based index where the string portion to write begins.
-    </param>
-    <param name='length'>The length of the string portion to write.
-    </param>
-    <param name='stream'>A writable data stream.
-    </param>
-    <param name='replace'>If true, replaces unpaired surrogate code points with the replacement
-      character (U+FFFD). If false, stops processing when an unpaired surrogate
-      code point is seen.
-    </param>
-    <param name='lenientLineBreaks'>If true, replaces carriage return (CR) not followed by line feed (LF) and
-      LF not preceded by CR with CR-LF pairs.
-    </param>
-    <returns>0 if the entire string portion was written; or -1 if the string portion
-      contains an unpaired surrogate code point and
-      <paramref name='replace'/>
-       is false.
-    </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='str'/>
-       is null or
-      <paramref name='stream'/>
-       is null.
-    </exception>
-    <exception cref='T:System.ArgumentException'>The parameter
-      <paramref name='offset'/>
-       is less than 0,
-      <paramref name='length'/>
-       is less than 0, or
-      <paramref name='offset'/>
-       plus
-      <paramref name='length'/>
-       is greater than the string's length.
-    </exception>
-    <exception cref='T:System.IO.IOException'>An I/O error occurred.
-    </exception>
-  </doc>
   <doc name='T:PeterO.Numbers.EContext'>
     <summary>Contains parameters for controlling the precision, rounding, and exponent
       range of arbitrary-precision numbers. (The "E" stands for "extended", and
@@ -3383,9 +2898,9 @@
     <returns>A decimal number rounded to the closest value representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to the given exponent when rounding, and the given
-      exponent is outside of the valid range of the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to the given exponent when rounding, and the
+      given exponent is outside of the valid range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)'>
@@ -3447,9 +2962,9 @@
     <returns>A decimal number rounded to the closest value representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to the given exponent when rounding, and the given
-      exponent is outside of the valid range of the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to the given exponent when rounding, and the
+      given exponent is outside of the valid range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.ERounding)'>
@@ -3586,9 +3101,9 @@
     <returns>A decimal number rounded to the closest integer representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to 0 when rounding, and 0 is outside of the valid range of
-      the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to 0 when rounding, and 0 is outside of the valid
+      range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToIntegralExact(PeterO.Numbers.EContext)'>
@@ -3626,9 +3141,9 @@
     <returns>A decimal number rounded to the closest integer representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to 0 when rounding, and 0 is outside of the valid range of
-      the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to 0 when rounding, and 0 is outside of the valid
+      range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RoundToPrecision(PeterO.Numbers.EContext)'>
@@ -4598,39 +4113,63 @@
   <doc name='M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Performs a logical AND operation on two decimal numbers in the form of
       <i>
-        logical operands
+         logical operands
       </i>
-      . A
-      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no other
-      base-10 digits than 0 or 1 (examples include
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
+      other base-10 digits than 0 or 1 (examples include
       <c>01001</c> and
       <c>111001</c> , but not
       <c>02001</c> or
       <c>99999</c> ). The logical AND operation sets each digit of the result to 1 if the
       corresponding digits of each logical operand are both 1, and to 0
       otherwise. For example,
-      <c>01001 AND 111010 = 01000</c> </summary>
+      <c>01001 AND 111010 = 01000</c> .
+    </summary>
     <param name='ed1'>The first logical operand to the logical AND operation.
     </param>
     <param name='ed2'>The second logical operand to the logical AND operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more digits than the
-      maximum precision specified in this context, the operand's most
-      significant digits that exceed that precision are discarded. This parameter
-      can be null.
+      numbers. If a logical operand passed to this method has more digits than
+      the maximum precision specified in this context, the operand's most
+      significant digits that exceed that precision are discarded. This
+      parameter can be null.
     </param>
-    <returns>The result of the logical AND operation as a logical operand.  Signals an invalid operation and returns not-a-number (NaN) if "ed1", "ed2", or both are not logical operands.
+    <returns>The result of the logical AND operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.BoolToEDecimal(System.Boolean,PeterO.Numbers.EContext)'>
-    <summary>Converts a boolean value (either true or false) to an arbitrary-precision decimal number.
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision
+      decimal number.
     </summary>
     <param name='b'>Either true or false.
     </param>
-    <param name='ec'>A context used for rounding the result.  Can be null.
+    <param name='ec'>A context used for rounding the result. Can be null.
     </param>
-    <returns>Either 1 if "b" is true, or 0 if "b" is false..  The result will be rounded as specified by the given context, if any.
+    <returns>Either 1 if "b" is true, or 0 if "b" is false.. The result will be rounded
+      as specified by the given context, if any.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimalExtras.BooleanToEDecimal(System.Boolean,PeterO.Numbers.EContext)'>
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision
+      decimal number.
+    </summary>
+    <param name='b'>Either true or false.
+    </param>
+    <param name='ec'>A context used for rounding the result. Can be null.
+    </param>
+    <returns>Either 1 if
+      <paramref name='b'/>
+       is true, or 0 if
+      <paramref name='b'/>
+       is false.. The result will be rounded as specified by the given context,
+      if any.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)'>
@@ -4639,7 +4178,9 @@
     </summary>
     <param name='ed'>An arbitrary-precision number object.
     </param>
-    <returns>The parameter "ed".
+    <returns>The parameter
+      <paramref name='ed'/>
+       .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -4663,9 +4204,11 @@
         </item>
       </list>
     </summary>
-    <param name='other'>An arbitrary-precision number to compare with the other one.
+    <param name='ed'>The first arbitrary-precision number to compare.
     </param>
-    <param name='ctx'>An arithmetic context. Flags will be set in this context only if
+    <param name='other'>The second arbitrary-precision number to compare.
+    </param>
+    <param name='ec'>An arithmetic context. Flags will be set in this context only if
       <c>HasFlags</c> and
       <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
       before carrying out the operation. Can be null.
@@ -4674,25 +4217,20 @@
       object is less than the other value, or 1 if the first object is greater.
       Does not signal flags if either value is signaling NaN.
     </returns>
-    <param name='ed'>An arbitrary-precision number object.
-    </param>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CompareTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Not documented yet.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>The first arbitrary-precision number to compare.
     </param>
-    <param name='other'>The parameter
-      <paramref name='other'/>
-       is not documented yet.
+    <param name='other'>The second arbitrary-precision number to compare.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context. Flags will be set in this context only if
+      <c>HasFlags</c> and
+      <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
+      before carrying out the operation. Can be null.
     </param>
-    <returns>A 32-bit signed integer.
+    <returns>A value not documented yet.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Copy(PeterO.Numbers.EDecimal)'>
@@ -4706,59 +4244,73 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CopyAbs(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns an arbitrary-precision number object with the same value as the
+      given number object but with a nonnegative sign (that is, the given number
+      object's absolute value).
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision number object with the same value as the given
+      number object but with a nonnegative sign.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CopyNegate(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns an arbitrary-precision number object with the sign reversed from
+      the given number object.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision number object with the sign reversed from the given
+      number object.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CopySign(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns an arbitrary-precision number object with the same value as the
+      first given number object but with a the same sign (positive or negative)
+      as the second given number object.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object with the value the result will have.
     </param>
-    <param name='other'>The parameter
-      <paramref name='other'/>
-       is not documented yet.
+    <param name='ed2'>An arbitrary-precision number object with the sign (positive or negative)
+      that the result will have.
     </param>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision number object with the same value as the first
+      given number object but with a the same sign (positive or negative) as the
+      second given number object.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Int32ToEDecimal(System.Int32,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Creates a decimal number from a 32-bit signed integer.
     </summary>
     <param name='i32'>The parameter
       <paramref name='i32'/>
-       is not documented yet.
+       is a 32-bit signed integer.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision decimal number with the closest representable value
+      to the given integer.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Performs a logical NOT operation on a decimal numbers in the form of a
+      <i>
+         logical operand
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
+      other base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical NOT operation sets each digit of the result to 1 if the
+      corresponding digit is 0, and to 0 otherwise; it can set no more digits
+      than the maximum precision, however. For example, if the maximum precision
+      is 8 digits, then
+      <c>NOT 111010 = 11000101</c> .
     </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <param name='ed1'>The logical operand to the logical NOT operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
       numbers. If a logical operand passed to this method has more digits than
@@ -4767,7 +4319,10 @@
       parameter cannot be null and must specify a maximum precision (unlimited
       precision contexts are not allowed).
     </param>
-    <returns>An EDecimal object.
+    <returns>The result of the logical NOT operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       is not a logical operand.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsCanonical(PeterO.Numbers.EDecimal)'>
@@ -4782,27 +4337,27 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsFinite(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given arbitrary-precision number object is neither
+      null nor infinity nor not-a-number (NaN).
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
     <returns>Either
-      <c>true</c> or
-      <c>false</c> .
+      <c>true</c> if the given arbitrary-precision number object is neither null nor
+      infinity nor not-a-number (NaN), or
+      <c>false</c> otherwise.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsInfinite(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Returns whether the given arbitrary-precision number object is positive or
+      negative infinity.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
     <returns>Either
-      <c>true</c> or
-      <c>false</c> .
+      <c>true</c> if the given arbitrary-precision number object is positive or negative
+      infinity, or
+      <c>false</c> otherwise.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.IsNaN(PeterO.Numbers.EDecimal)'>
@@ -5014,11 +4569,11 @@
   <doc name='M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Performs a logical OR operation on two decimal numbers in the form of
       <i>
-        logical operands
+         logical operands
       </i>
-      . A
-      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no other
-      base-10 digits than 0 or 1 (examples include
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
+      other base-10 digits than 0 or 1 (examples include
       <c>01001</c> and
       <c>111001</c> , but not
       <c>02001</c> or
@@ -5031,20 +4586,26 @@
     <param name='ed2'>The second logical operand to the logical OR operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more digits than the
-      maximum precision specified in this context, the operand's most
-      significant digits that exceed that precision are discarded. This parameter
-      can be null.
+      numbers. If a logical operand passed to this method has more digits than
+      the maximum precision specified in this context, the operand's most
+      significant digits that exceed that precision are discarded. This
+      parameter can be null.
     </param>
-    <returns>The result of the logical OR operation as a logical operand.  Signals an invalid operation and returns not-a-number (NaN) if "ed1", "ed2", or both are not logical operands.
+    <returns>The result of the logical OR operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Radix(PeterO.Numbers.EContext)'>
     <summary>Returns the number 10, the decimal radix.
     </summary>
-    <param name='ec'>Specifies a precision context for rounding the number 10. Can be null.
+    <param name='ec'>Specifies an arithmetic context for rounding the number 10. Can be null.
     </param>
-    <returns>The number 10, rounded as given in the precision context.
+    <returns>The number 10, or the closest representable number to 10 in the arithmetic
+      context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Rescale(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -5073,13 +4634,13 @@
       digits are chopped off the mantissa.
     </param>
     <param name='ed2'>An arbitrary-precision number indicating the number of digits to rotate
-      the first operand's mantissa. Must be an integer with an Exponent property of 0. If
-      this parameter is positive, the mantissa is shifted by the given number of
-      digits and the most-significant digits shifted out of the mantissa become
-      the least-significant digits instead. If this parameter is negative, the
-      number is shifted by the given number of digits and the least-significant
-      digits shifted out of the mantissa become the most-significant digits
-      instead.
+      the first operand's mantissa. Must be an integer with an exponent of 0. If
+      this parameter is positive, the mantissa is shifted to the left by the
+      given number of digits and the most-significant digits shifted out of the
+      mantissa become the least-significant digits instead. If this parameter is
+      negative, the mantissa is shifted to the right by the given number of
+      digits and the least-significant digits shifted out of the mantissa become
+      the most-significant digits instead.
     </param>
     <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
       this parameter is null or specifies an unlimited precision, this method
@@ -5088,9 +4649,13 @@
     </param>
     <returns>An arbitrary-precision decimal number whose mantissa is rotated the given
       number of bits. Signals an invalid operation and returns NaN
-      (not-a-number) if "ed2" is a signaling NaN or if "ed2" is not an integer,
-      is negative, has an exponent other than 0, or has an absolute value that
-      exceeds the maximum precision specified in the context.
+      (not-a-number) if
+      <paramref name='ed2'/>
+       is a signaling NaN or if
+      <paramref name='ed2'/>
+       is not an integer, is negative, has an exponent other than 0, or has an
+      absolute value that exceeds the maximum precision specified in the
+      context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.SameQuantum(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
@@ -5134,21 +4699,30 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Shift(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Rotates the digits of an arbitrary-precision decimal number's mantissa.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number containing the mantissa to rotate. If this
+      mantissa contains more digits than the precision, the most-significant
+      digits are chopped off the mantissa.
     </param>
-    <param name='ed2'>The parameter
+    <param name='ed2'>An arbitrary-precision number indicating the number of digits to rotate
+      the first operand's mantissa. Must be an integer with an exponent of 0. If
+      this parameter is positive, the mantissa is shifted to the left by the
+      given number of digits . If this parameter is negative, the mantissa is
+      shifted to the right by the given number of digits.
+    </param>
+    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. Can
+      be null.
+    </param>
+    <returns>An arbitrary-precision decimal number whose mantissa is rotated the given
+      number of bits. Signals an invalid operation and returns NaN
+      (not-a-number) if
       <paramref name='ed2'/>
-       is not documented yet.
-    </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
-    </param>
-    <returns>An EDecimal object.
+       is a signaling NaN or if
+      <paramref name='ed2'/>
+       is not an integer, is negative, has an exponent other than 0, or has an
+      absolute value that exceeds the maximum precision specified in the
+      context.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -5178,27 +4752,26 @@
          logical operands
       </i>
        . A
-      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no other
+      <c>logical operand</c> is a non-negative base-10 number with an exponent of 0 and no other
       base-10 digits than 0 or 1 (examples include
       <c>01001</c> and
       <c>111001</c> , but not
       <c>02001</c> or
       <c>99999</c> ). The logical exclusive-OR operation sets each digit of the result to 1
-      if either corresponding digit of the logical operands, but not both, are
-      1, and to 0 otherwise. For example,
-      <c>01001 OR 111010 = 101010</c> .
-    </summary>
+      if either corresponding digit of the logical operands, but not both, is 1,
+      and to 0 otherwise. For example,
+      <c>01001 XOR 111010 = 101010</c> </summary>
     <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
     </param>
     <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more digits than the
-      maximum precision specified in this context, the operand's most
-      significant digits that exceed that precision are discarded. This parameter
-      can be null.
+      numbers. If a logical operand passed to this method has more digits than
+      the maximum precision specified in this context, the operand's most
+      significant digits that exceed that precision are discarded. This
+      parameter can be null.
     </param>
-    <returns>The result of the logical exclusive-OR operation as a logical operand.  Signals an invalid operation and returns not-a-number (NaN) if "ed1", "ed2", or both are not logical operands.
+    <returns>An EDecimal object.
     </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EFloat'>
@@ -5221,7 +4794,7 @@
       </para>
       <para>When an arithmetic operation signals the flag FlagInvalid, FlagOverflow,
         or FlagDivideByZero, it will not throw an exception too, unless the
-        operation's trap is enabled in the precision context (see EContext's
+        operation's trap is enabled in the arithmetic context (see EContext's
         Traps property).
       </para>
       <para>An arbitrary-precision binary float value can be serialized in one of
@@ -6161,8 +5734,8 @@
     </summary>
     <param name='str'>A text string to convert to a binary float.
     </param>
-    <param name='ctx'>A precision context specifying the precision, rounding, and exponent range
-      to apply to the parsed number. Can be null.
+    <param name='ctx'>an arithmetic context specifying the precision, rounding, and exponent
+      range to apply to the parsed number. Can be null.
     </param>
     <returns>The parsed number, converted to arbitrary-precision binary floating-point
       number.
@@ -7177,9 +6750,9 @@
     <returns>A binary float rounded to the closest value representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to the given exponent when rounding, and the given
-      exponent is outside of the valid range of the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to the given exponent when rounding, and the
+      given exponent is outside of the valid range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToExponent(System.Int32,PeterO.Numbers.EContext)'>
@@ -7204,9 +6777,9 @@
     <returns>A binary float rounded to the closest value representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to the given exponent when rounding, and the given
-      exponent is outside of the valid range of the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to the given exponent when rounding, and the
+      given exponent is outside of the valid range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
@@ -7323,9 +6896,9 @@
     <returns>A binary float rounded to the closest integer representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to 0 when rounding, and 0 is outside of the valid range of
-      the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to 0 when rounding, and 0 is outside of the valid
+      range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToIntegralExact(PeterO.Numbers.EContext)'>
@@ -7363,9 +6936,9 @@
     <returns>A binary float rounded to the closest integer representable in the given
       precision. If the result can't fit the precision, additional digits are
       discarded to make it fit. Signals FlagInvalid and returns not-a-number
-      (NaN) if the precision context defines an exponent range, the new exponent
-      must be changed to 0 when rounding, and 0 is outside of the valid range of
-      the arithmetic context.
+      (NaN) if the arithmetic context defines an exponent range, the new
+      exponent must be changed to 0 when rounding, and 0 is outside of the valid
+      range of the arithmetic context.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RoundToPrecision(PeterO.Numbers.EContext)'>
@@ -8301,6 +7874,92 @@
        is null.
     </exception>
   </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)'>
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision
+      binary floating-point number.
+    </summary>
+    <param name='b'>Either true or false.
+    </param>
+    <param name='ec'>A context used for rounding the result. Can be null.
+    </param>
+    <returns>Either 1 if
+      <paramref name='b'/>
+       is true, or 0 if
+      <paramref name='b'/>
+       is false.. The result will be rounded as specified by the given context,
+      if any.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.BooleanToEFloat(System.Boolean,PeterO.Numbers.EContext)'>
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision
+      binary floating-point number.
+    </summary>
+    <param name='b'>Either true or false.
+    </param>
+    <param name='ec'>A context used for rounding the result. Can be null.
+    </param>
+    <returns>Either 1 if
+      <paramref name='b'/>
+       is true, or 0 if
+      <paramref name='b'/>
+       is false.. The result will be rounded as specified by the given context,
+      if any.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.Canonical(PeterO.Numbers.EFloat)'>
+    <summary>Returns a canonical version of the given arbitrary-precision number
+      object. In this method, this is the same as that object.
+    </summary>
+    <param name='ed'>An arbitrary-precision number object.
+    </param>
+    <returns>The parameter
+      <paramref name='ed'/>
+       .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.CompareTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Compares the values of one arbitrary-precision number object and another
+      object, imposing a total ordering on all possible values. In this method:
+      <list>
+        <item>For objects with the same value, the one with the higher exponent has
+          a greater "absolute value".
+        </item>
+        <item>Negative zero is less than positive zero.
+        </item>
+        <item>Quiet NaN has a higher "absolute value" than signaling NaN. If both
+          objects are quiet NaN or both are signaling NaN, the one with the
+          higher diagnostic information has a greater "absolute value".
+        </item>
+        <item>NaN has a higher "absolute value" than infinity.
+        </item>
+        <item>Infinity has a higher "absolute value" than any finite number.
+        </item>
+        <item>Negative numbers are less than positive numbers.
+        </item>
+      </list>
+    </summary>
+    <param name='ed'>The first arbitrary-precision number to compare.
+    </param>
+    <param name='other'>The second arbitrary-precision number to compare.
+    </param>
+    <param name='ec'>An arithmetic context. Flags will be set in this context only if
+      <c>HasFlags</c> and
+      <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
+      before carrying out the operation. Can be null.
+    </param>
+    <returns>The number 0 if both objects have the same value, or -1 if the first
+      object is less than the other value, or 1 if the first object is greater.
+      Does not signal flags if either value is signaling NaN.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)'>
+    <summary>Not documented yet.
+    </summary>
+  </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Not documented yet.
     </summary>
@@ -8334,6 +7993,38 @@
       <paramref name='nc'/>
        is less than 0 or greater than 9 .
     </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Rotates the digits of an arbitrary-precision binary number's mantissa.
+    </summary>
+    <param name='ed'>An arbitrary-precision number containing the mantissa to rotate. If this
+      mantissa contains more bits than the precision, the most-significant bits
+      are chopped off the mantissa.
+    </param>
+    <param name='ed2'>An arbitrary-precision number indicating the number of bits to rotate the
+      first operand's mantissa. Must be an integer with an exponent of 0. If
+      this parameter is positive, the mantissa is shifted to the left by the
+      given number of bits and the most-significant bits shifted out of the
+      mantissa become the least-significant bits instead. If this parameter is
+      negative, the number is shifted by the given number of bits and the
+      least-significant bits shifted out of the mantissa become the
+      most-significant bits instead.
+    </param>
+    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
+      this parameter is null or specifies an unlimited precision, this method
+      has the same behavior as
+      <c>Shift</c> .
+    </param>
+    <returns>An arbitrary-precision binary number whose mantissa is rotated the given
+      number of bits. Signals an invalid operation and returns NaN
+      (not-a-number) if
+      <paramref name='ed2'/>
+       is a signaling NaN or if
+      <paramref name='ed2'/>
+       is not an integer, is negative, has an exponent other than 0, or has an
+      absolute value that exceeds the maximum precision specified in the
+      context.
+    </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EInteger'>
     <summary>Represents an arbitrary-precision integer. (The "E" stands for "extended",
@@ -12087,15 +11778,21 @@
     </summary>
   </doc>
   <doc name='M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <summary>Performs a logical AND operation on two binary numbers in the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include the base-2 numbers
+      <c>01001</c> and
+      <c>111001</c> ). The logical AND operation sets each bit of the result to 1 if the
+      corresponding bits of each logical operand are both 1, and to 0 otherwise.
+      For example,
+      <c>01001 AND 111010 = 01000</c> </summary>
+    <param name='ed1'>The first logical operand to the logical AND operation.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The second logical operand to the logical AND operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
       numbers. If a logical operand passed to this method has more bits than the
@@ -12103,17 +11800,24 @@
       significant bits that exceed that precision are discarded. This parameter
       can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The result of the logical AND operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)'>
-    <summary>Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
+    <summary>Converts a boolean value (either true or false) to an arbitrary-precision
+      binary floating-point number.
     </summary>
     <param name='b'>Either true or false.
     </param>
-    <param name='ec'>A context used for rounding the result.  Can be null.
+    <param name='ec'>A context used for rounding the result. Can be null.
     </param>
-    <returns>Either 1 if "b" is true, or 0 if "b" is false..  The result will be rounded as specified by the given context, if any.
+    <returns>Either 1 if "b" is true, or 0 if "b" is false.. The result will be rounded
+      as specified by the given context, if any.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Canonical(PeterO.Numbers.EFloat)'>
@@ -12172,9 +11876,10 @@
       <paramref name='other'/>
        is not documented yet.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context. Flags will be set in this context only if
+      <c>HasFlags</c> and
+      <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
+      before carrying out the operation. Can be null.
     </param>
     <returns>A 32-bit signed integer.
     </returns>
@@ -12224,25 +11929,23 @@
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Int32ToEFloat(System.Int32,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Creates a binary floating-point number from a 32-bit signed integer.
     </summary>
     <param name='i32'>The parameter
       <paramref name='i32'/>
-       is not documented yet.
+       is a 32-bit signed integer.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>An arbitrary-precision binary floating-point number with the closest
+      representable value to the given integer.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Invert(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Not documented yet.
     </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <param name='ed1'>The logical operand to the logical NOT operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
       numbers. If a logical operand passed to this method has more bits than the
@@ -12251,7 +11954,10 @@
       cannot be null and must specify a maximum precision (unlimited precision
       contexts are not allowed).
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The result of the logical NOT operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       is not a logical operand.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -12297,15 +12003,21 @@
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <summary>Performs a logical OR operation on two binary numbers in the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include the base-2 numbers
+      <c>01001</c> and
+      <c>111001</c> ). The logical OR operation sets each bit of the result to 1 if either or
+      both of the corresponding bits of each logical operand are 1, and to 0
+      otherwise. For example,
+      <c>01001 OR 111010 = 111011</c> </summary>
+    <param name='ed1'>The first logical operand to the logical OR operation.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The second logical operand to the logical OR operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
       numbers. If a logical operand passed to this method has more bits than the
@@ -12313,17 +12025,21 @@
       significant bits that exceed that precision are discarded. This parameter
       can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The result of the logical OR operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Radix(PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Returns the number 2, the binary radix.
     </summary>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>Specifies an arithmetic context for rounding the number 2. Can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The number 2, or the closest representable number to 2 in the arithmetic
+      context.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -12352,12 +12068,13 @@
       are chopped off the mantissa.
     </param>
     <param name='ed2'>An arbitrary-precision number indicating the number of bits to rotate the
-      first operand's mantissa. Must be an integer with an Exponent property of 0. If
-      this parameter is positive, the mantissa is shifted by the given number of
-      bits and the most-significant bits shifted out of the mantissa become the
-      least-significant bits instead. If this parameter is negative, the number
-      is shifted by the given number of bits and the least-significant bits
-      shifted out of the mantissa become the most-significant bits instead.
+      first operand's mantissa. Must be an integer with an Exponent property of
+      0. If this parameter is positive, the mantissa is shifted to the left by
+      the given number of bits and the most-significant bits shifted out of the
+      mantissa become the least-significant bits instead. If this parameter is
+      negative, the mantissa is shifted to the right by the given number of bits
+      and the least-significant bits shifted out of the mantissa become the
+      most-significant bits instead.
     </param>
     <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
       this parameter is null or specifies an unlimited precision, this method
@@ -12450,15 +12167,23 @@
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Performs a logical exclusive-OR (XOR) operation on two binary numbers in
+      the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include the base-2 numbers
+      <c>01001</c> and
+      <c>111001</c> ). The logical exclusive-OR operation sets each digit of the result to 1
+      if either corresponding digit of the logical operands, but not both, is 1,
+      and to 0 otherwise. For example,
+      <c>01001 XOR 111010 = 101010</c> .
     </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
     </param>
     <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
       numbers. If a logical operand passed to this method has more bits than the
@@ -12466,7 +12191,12 @@
       significant bits that exceed that precision are discarded. This parameter
       can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The result of the logical exclusive-OR operation as a logical operand.
+      Signals an invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
     </returns>
   </doc>
 </docs>

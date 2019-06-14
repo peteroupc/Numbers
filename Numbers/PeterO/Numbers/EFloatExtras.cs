@@ -21,27 +21,15 @@ namespace PeterO.Numbers {
       return EFloat.FromInt32(i32).RoundToPrecision(ec);
     }
 
-    /// <summary>Converts a boolean value (either true or false) to an
-    /// arbitrary-precision binary floating-point number.</summary>
-    /// <param name='b'>Either true or false.</param>
-    /// <param name='ec'>A context used for rounding the result. Can be
-    /// null.</param>
-    /// <returns>Either 1 if <paramref name='b'/> is true, or 0 if
-    /// <paramref name='b'/> is false.. The result will be rounded as
-    /// specified by the given context, if any.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
     [Obsolete]
     public static EFloat BoolToEFloat(bool b, EContext ec) {
       return EFloat.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
-    /// <summary>Converts a boolean value (either true or false) to an
-    /// arbitrary-precision binary floating-point number.</summary>
-    /// <param name='b'>Either true or false.</param>
-    /// <param name='ec'>A context used for rounding the result. Can be
-    /// null.</param>
-    /// <returns>Either 1 if <paramref name='b'/> is true, or 0 if
-    /// <paramref name='b'/> is false.. The result will be rounded as
-    /// specified by the given context, if any.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.BooleanToEFloat(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat BooleanToEFloat(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -254,31 +242,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Rotates the digits of an arbitrary-precision binary
-    /// number's mantissa.</summary>
-    /// <param name='ed'>An arbitrary-precision number containing the
-    /// mantissa to rotate. If this mantissa contains more bits than the
-    /// precision, the most-significant bits are chopped off the
-    /// mantissa.</param>
-    /// <param name='ed2'>An arbitrary-precision number indicating the
-    /// number of bits to rotate the first operand's mantissa. Must be an
-    /// integer with an exponent of 0. If this parameter is positive, the
-    /// mantissa is shifted by the given number of bits and the
-    /// most-significant bits shifted out of the mantissa become the
-    /// least-significant bits instead. If this parameter is negative, the
-    /// number is shifted by the given number of bits and the
-    /// least-significant bits shifted out of the mantissa become the
-    /// most-significant bits instead.</param>
-    /// <param name='ec'>A context that specifies the precision of
-    /// arbitrary-precision numbers. If this parameter is null or specifies
-    /// an unlimited precision, this method has the same behavior as
-    /// <c>Shift</c>.</param>
-    /// <returns>An arbitrary-precision binary number whose mantissa is
-    /// rotated the given number of bits. Signals an invalid operation and
-    /// returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
-    /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
-    /// has an exponent other than 0, or has an absolute value that exceeds
-    /// the maximum precision specified in the context.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Rotate(EFloat ed, EFloat ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -336,29 +301,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.IsNegative ? ret.Negate() : ret;
     }
 
-    /// <summary>Compares the values of one arbitrary-precision number
-    /// object and another object, imposing a total ordering on all
-    /// possible values. In this method:
-    /// <list>
-    /// <item>For objects with the same value, the one with the higher
-    /// exponent has a greater "absolute value".</item>
-    /// <item>Negative zero is less than positive zero.</item>
-    /// <item>Quiet NaN has a higher "absolute value" than signaling NaN.
-    /// If both objects are quiet NaN or both are signaling NaN, the one
-    /// with the higher diagnostic information has a greater "absolute
-    /// value".</item>
-    /// <item>NaN has a higher "absolute value" than infinity.</item>
-    /// <item>Infinity has a higher "absolute value" than any finite
-    /// number.</item>
-    /// <item>Negative numbers are less than positive
-    /// numbers.</item></list></summary>
-    /// <param name='ed'>Not documented yet.</param>
-    /// <param name='other'>Not documented yet.</param>
-    /// <param name='ec'>Not documented yet. (3).</param>
-    /// <returns>The number 0 if both objects have the same value, or -1 if
-    /// the first object is less than the other value, or 1 if the first
-    /// object is greater. Does not signal flags if either value is
-    /// signaling NaN.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.CompareTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotal(EFloat ed, EFloat other, EContext ec) {
       return ed.CompareToTotal(other, ec);
     }
@@ -378,23 +322,20 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.Copy();
     }
 
-    /// <summary>Returns a canonical version of the given
-    /// arbitrary-precision number object. In this method, this is the same
-    /// as that object.</summary>
-    /// <param name='ed'>An arbitrary-precision number object.</param>
-    /// <returns>The parameter <paramref name='ed'/>.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Canonical(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat Canonical(EFloat ed) {
       return Copy(ed);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)"]/*'/>
+    ///<include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat CopyAbs(EFloat ed) {
       return Copy(ed.Abs());
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)"]/*'/>
+    ///<include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat CopyNegate(EFloat ed) {
       return Copy(ed.Negate());
     }

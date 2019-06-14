@@ -53,6 +53,21 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
+
+    public static EFloat operator ++(EFloat bthis) {
+      if (bthis == null) {
+        throw new ArgumentNullException(nameof(bthis));
+      }
+      return bthis.Add(1);
+    }
+
+    public static EFloat operator --(EFloat bthis) {
+      if (bthis == null) {
+        throw new ArgumentNullException(nameof(bthis));
+      }
+      return bthis.Subtract(1);
+    }
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator *(

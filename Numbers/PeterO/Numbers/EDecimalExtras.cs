@@ -21,25 +21,13 @@ namespace PeterO.Numbers {
       return EDecimal.FromInt32(i32).RoundToPrecision(ec);
     }
 
-/// <include file='../../docs.xml'
-    /// <param name='b'>The parameter <paramref name='b'/> is not
-    /// documented yet.</param>
-    /// <param name='ec'>The parameter <paramref name='ec'/> is not
-    /// documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
     [Obsolete]
     public static EDecimal BoolToEDecimal(bool b, EContext ec) {
       return EDecimal.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
-    /// <summary>Converts a boolean value (either true or false) to an
-    /// arbitrary-precision decimal number.</summary>
-    /// <param name='b'>Either true or false.</param>
-    /// <param name='ec'>A context used for rounding the result. Can be
-    /// null.</param>
-    /// <returns>Either 1 if <paramref name='b'/> is true, or 0 if
-    /// <paramref name='b'/> is false.. The result will be rounded as
-    /// specified by the given context, if any.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.BooleanToEDecimal(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal BooleanToEDecimal(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -269,31 +257,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Rotates the digits of an arbitrary-precision decimal
-    /// number's mantissa.</summary>
-    /// <param name='ed'>An arbitrary-precision number containing the
-    /// mantissa to rotate. If this mantissa contains more digits than the
-    /// precision, the most-significant digits are chopped off the
-    /// mantissa.</param>
-    /// <param name='ed2'>An arbitrary-precision number indicating the
-    /// number of digits to rotate the first operand's mantissa. Must be an
-    /// integer with an exponent of 0. If this parameter is positive, the
-    /// mantissa is shifted by the given number of digits and the
-    /// most-significant digits shifted out of the mantissa become the
-    /// least-significant digits instead. If this parameter is negative,
-    /// the number is shifted by the given number of digits and the
-    /// least-significant digits shifted out of the mantissa become the
-    /// most-significant digits instead.</param>
-    /// <param name='ec'>A context that specifies the precision of
-    /// arbitrary-precision numbers. If this parameter is null or specifies
-    /// an unlimited precision, this method has the same behavior as
-    /// <c>Shift</c>.</param>
-    /// <returns>An arbitrary-precision decimal number whose mantissa is
-    /// rotated the given number of bits. Signals an invalid operation and
-    /// returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
-    /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
-    /// has an exponent other than 0, or has an absolute value that exceeds
-    /// the maximum precision specified in the context.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Rotate(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -353,32 +318,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.IsNegative ? ret.Negate() : ret;
     }
 
-    /// <summary>Compares the values of one arbitrary-precision number
-    /// object and another object, imposing a total ordering on all
-    /// possible values. In this method:
-    /// <list>
-    /// <item>For objects with the same value, the one with the higher
-    /// exponent has a greater "absolute value".</item>
-    /// <item>Negative zero is less than positive zero.</item>
-    /// <item>Quiet NaN has a higher "absolute value" than signaling NaN.
-    /// If both objects are quiet NaN or both are signaling NaN, the one
-    /// with the higher diagnostic information has a greater "absolute
-    /// value".</item>
-    /// <item>NaN has a higher "absolute value" than infinity.</item>
-    /// <item>Infinity has a higher "absolute value" than any finite
-    /// number.</item>
-    /// <item>Negative numbers are less than positive
-    /// numbers.</item></list></summary>
-    /// <param name='ed'>The parameter <paramref name='ed'/> is not
-    /// documented yet.</param>
-    /// <param name='other'>The parameter <paramref name='other'/> is not
-    /// documented yet.</param>
-    /// <param name='ec'>The parameter <paramref name='ec'/> is not
-    /// documented yet.</param>
-    /// <returns>The number 0 if both objects have the same value, or -1 if
-    /// the first object is less than the other value, or 1 if the first
-    /// object is greater. Does not signal flags if either value is
-    /// signaling NaN.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
       return ed.CompareToTotal(other, ec);
     }
@@ -398,11 +339,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.Copy();
     }
 
-    /// <summary>Returns a canonical version of the given
-    /// arbitrary-precision number object. In this method, this is the same
-    /// as that object.</summary>
-    /// <param name='ed'>An arbitrary-precision number object.</param>
-    /// <returns>The parameter <paramref name='ed'/>.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal Canonical(EDecimal ed) {
       return Copy(ed);
     }
@@ -533,28 +471,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     // Logical Operations
-    /// <summary>Performs a logical AND operation on two decimal numbers in
-    /// the form of
-    /// <i>logical operands</i>. A <c>logical operand</c> is a
-    /// non-negative base-10 number with an Exponent property of 0 and no
-    /// other base-10 digits than 0 or 1 (examples include <c>01001</c> and
-    /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
-    /// AND operation sets each digit of the result to 1 if the
-    /// corresponding digits of each logical operand are both 1, and to 0
-    /// otherwise. For example, <c>01001 AND 111010 = 01000</c></summary>
-    /// <param name='ed1'>The first logical operand to the logical AND
-    /// operation.</param>
-    /// <param name='ed2'>The second logical operand to the logical AND
-    /// operation.</param>
-    /// <param name='ec'>A context that specifies the maximum precision of
-    /// arbitrary-precision numbers. If a logical operand passed to this
-    /// method has more digits than the maximum precision specified in this
-    /// context, the operand's most significant digits that exceed that
-    /// precision are discarded. This parameter can be null.</param>
-    /// <returns>The result of the logical AND operation as a logical
-    /// operand. Signals an invalid operation and returns not-a-number
-    /// (NaN) if <paramref name='ed1'/>, <paramref name='ed2'/>, or both
-    /// are not logical operands.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal And(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -597,26 +515,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(ec);
     }
 
-    /// <summary>Performs a logical exclusive-OR (XOR) operation on two
-    /// decimal numbers in the form of
-    /// <i>logical operands</i>. A <c>logical operand</c> is a
-    /// non-negative base-10 number with an exponent of 0 and no other
-    /// base-10 digits than 0 or 1 (examples include <c>01001</c> and
-    /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
-    /// exclusive-OR operation sets each digit of the result to 1 if either
-    /// corresponding digit of the logical operands, but not both, are 1,
-    /// and to 0 otherwise. For example, <c>01001 OR 111010 =
-    /// 101010</c></summary>
-    /// <param name='ed1'>The first logical operand to the logical
-    /// exclusive-OR operation.</param>
-    /// <param name='ed2'>The second logical operand to the logical
-    /// exclusive-OR operation.</param>
-    /// <param name='ec'>A context that specifies the maximum precision of
-    /// arbitrary-precision numbers. If a logical operand passed to this
-    /// method has more digits than the maximum precision specified in this
-    /// context, the operand's most significant digits that exceed that
-    /// precision are discarded. This parameter can be null.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Xor(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -634,28 +534,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(ec);
     }
 
-    /// <summary>Performs a logical OR operation on two decimal numbers in
-    /// the form of
-    /// <i>logical operands</i>. A <c>logical operand</c> is a
-    /// non-negative base-10 number with an Exponent property of 0 and no
-    /// other base-10 digits than 0 or 1 (examples include <c>01001</c> and
-    /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
-    /// OR operation sets each digit of the result to 1 if either or both
-    /// of the corresponding digits of the logical operands are 1, and to 0
-    /// otherwise. For example, <c>01001 OR 111010 = 111011</c></summary>
-    /// <param name='ed1'>The first logical operand to the logical OR
-    /// operation.</param>
-    /// <param name='ed2'>The second logical operand to the logical OR
-    /// operation.</param>
-    /// <param name='ec'>A context that specifies the maximum precision of
-    /// arbitrary-precision numbers. If a logical operand passed to this
-    /// method has more digits than the maximum precision specified in this
-    /// context, the operand's most significant digits that exceed that
-    /// precision are discarded. This parameter can be null.</param>
-    /// <returns>The result of the logical OR operation as a logical
-    /// operand. Signals an invalid operation and returns not-a-number
-    /// (NaN) if <paramref name='ed1'/>, <paramref name='ed2'/>, or both
-    /// are not logical operands.</returns>
+    /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Or(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -730,7 +610,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       if (ed == null) {
  return null;
 }
-      if (ec != null && ec.IsPrecisionInBits) {
+      if (ec != null && ec.IsPrecisionInBits && radix!=2) {
+  // Round to bit precision if necessary and if the radix isn't binary
  ed = ed.RoundToPrecision(ec);
 }
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
