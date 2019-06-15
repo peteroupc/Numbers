@@ -10,7 +10,7 @@ Passing a quiet NaN to any arithmetic operation shown here will return a quiet N
 
 Unless noted otherwise, passing a null arbitrary-precision binary float argument to any method here will throw an exception.
 
-When an arithmetic operation signals the flag FlagInvalid, FlagOverflow, or FlagDivideByZero, it will not throw an exception too, unless the operation's trap is enabled in the precision context (see EContext's Traps property).
+When an arithmetic operation signals the flag FlagInvalid, FlagOverflow, or FlagDivideByZero, it will not throw an exception too, unless the operation's trap is enabled in the arithmetic context (see EContext's Traps property).
 
 An arbitrary-precision binary float value can be serialized in one of the following ways:
 
@@ -214,7 +214,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[UnsignedMantissa](#UnsignedMantissa)</code> - Gets the absolute value of this object's unscaled value, or mantissa.
 * <code>[public static readonly PeterO.Numbers.EFloat Zero;](#Zero)</code> - Represents the number 0.
 * <code>[PeterO.Numbers.EFloat operator +(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Addition)</code> - Adds two arbitrary-precision binary floating-point numbers and returns the result.
+* <code>[PeterO.Numbers.EFloat operator --(PeterO.Numbers.EFloat)](#op_Decrement)</code> - Not documented yet.
 * <code>[PeterO.Numbers.EFloat operator /(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Division)</code> - Divides one binary float by another and returns the result.
+* <code>[PeterO.Numbers.EFloat operator ++(PeterO.Numbers.EFloat)](#op_Increment)</code> - Not documented yet.
 * <code>[PeterO.Numbers.EFloat operator %(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision binary float by another.
 * <code>[PeterO.Numbers.EFloat operator *(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Multiply)</code> - Multiplies two binary floats.
 * <code>[PeterO.Numbers.EFloat operator -(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Subtraction)</code> - Subtracts one arbitrary-precision binary float from another.
@@ -1370,13 +1372,14 @@ is less than <i>length</i>
         string str,
         PeterO.Numbers.EContext ctx);
 
-Creates a binary float from a text string that represents a number. For more information, see the `FromString(String, int, int, EContext)`  method.
+Creates a binary float from a text string that represents a number. For more information, see the  `FromString(String, int,
+            int, EContext)`  method.
 
 <b>Parameters:</b>
 
  * <i>str</i>: A text string to convert to a binary float.
 
- * <i>ctx</i>: A precision context specifying the precision, rounding, and exponent range to apply to the parsed number. Can be null.
+ * <i>ctx</i>: An arithmetic context specifying the precision, rounding, and exponent range to apply to the parsed number. Can be null.
 
 <b>Return Value:</b>
 
@@ -1386,7 +1389,7 @@ The parsed number, converted to arbitrary-precision binary floating-point number
 
  * System.ArgumentNullException:
 The parameter <i>str</i>
-is null.
+ is null.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -2083,6 +2086,29 @@ The parameter <i>bthis</i>
 or <i>otherValue</i>
 is null.
 
+<a id="op_Decrement"></a>
+### Operator `--`
+
+    public static PeterO.Numbers.EFloat operator --(
+        PeterO.Numbers.EFloat bthis);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bthis</i>: The parameter  <i>bthis</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An EFloat object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
+
 <a id="op_Division"></a>
 ### Operator `/`
 
@@ -2107,6 +2133,29 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
  * System.ArgumentNullException:
 The parameter <i>dividend</i>
 is null.
+
+<a id="op_Increment"></a>
+### Operator `++`
+
+    public static PeterO.Numbers.EFloat operator ++(
+        PeterO.Numbers.EFloat bthis);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bthis</i>: The parameter  <i>bthis</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An EFloat object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 <a id="op_Modulus"></a>
 ### Operator `%`
@@ -2516,7 +2565,7 @@ Returns a binary float with the same value as this object but rounded to a new e
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary float rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
 
 <a id="RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### RoundToExponent
@@ -2535,7 +2584,7 @@ Returns a binary float with the same value as this object but rounded to a new e
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary float rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_int_PeterO_Numbers_EContext"></a>
 ### RoundToExponentExact
@@ -2624,7 +2673,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary float rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
 
 <a id="RoundToIntegralExact_PeterO_Numbers_EContext"></a>
 ### RoundToIntegralExact
@@ -2660,7 +2709,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the precision context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary float rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
 
 <a id="RoundToPrecision_PeterO_Numbers_EContext"></a>
 ### RoundToPrecision

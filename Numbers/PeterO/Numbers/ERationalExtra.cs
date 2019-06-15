@@ -9,11 +9,8 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class ERational {
-    /// <summary>Converts a boolean value (true or false) to an
-    /// arbitrary-precision rational number.</summary>
-    /// <param name='boolValue'>Either true or false.</param>
-    /// <returns>1 if <paramref name='boolValue'/> is true; otherwise,
-    /// 0.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(System.Boolean)~PeterO.Numbers.ERational"]/*'/>
     public static explicit operator ERational(bool boolValue) {
       return FromBoolean(boolValue);
     }
@@ -80,12 +77,8 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
-    /// documented yet.</param>
-    /// <returns>An ERational object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Increment(PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator ++(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -93,12 +86,8 @@ namespace PeterO.Numbers {
       return bthis.Add(1);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
-    /// documented yet.</param>
-    /// <returns>An ERational object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Decrement(PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator --(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));

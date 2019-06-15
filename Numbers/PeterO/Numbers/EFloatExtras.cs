@@ -328,16 +328,14 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return Copy(ed);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='ed'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat CopyAbs(EFloat ed) {
       return Copy(ed.Abs());
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='ed'>Not documented yet.</param>
-    /// <returns>An EFloat object.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat CopyNegate(EFloat ed) {
       return Copy(ed.Negate());
     }
@@ -506,28 +504,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
   2)).RoundToPrecision(ec);
     }
 
-    /// <summary>Performs a logical exclusive-OR (XOR) operation on two
-    /// binary numbers in the form of
-    /// <i>logical operands</i>. A <c>logical operand</c> is a
-    /// non-negative base-2 number with an Exponent property of 0 (examples
-    /// include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
-    /// logical exclusive-OR operation sets each digit of the result to 1
-    /// if either corresponding digit of the logical operands, but not
-    /// both, is 1, and to 0 otherwise. For example, <c>01001 XOR 111010 =
-    /// 101010</c></summary>
-    /// <param name='ed1'>The first logical operand to the logical
-    /// exclusive-OR operation.</param>
-    /// <param name='ed2'>The second logical operand to the logical
-    /// exclusive-OR operation.</param>
-    /// <param name='ec'>A context that specifies the maximum precision of
-    /// arbitrary-precision numbers. If a logical operand passed to this
-    /// method has more bits than the maximum precision specified in this
-    /// context, the operand's most significant bits that exceed that
-    /// precision are discarded. This parameter can be null.</param>
-    /// <returns>The result of the logical exclusive-OR operation as a
-    /// logical operand. Signals an invalid operation and returns
-    /// not-a-number (NaN) if <paramref name='ed1'/>, <paramref
-    /// name='ed2'/>, or both are not logical operands.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
       if (logi1 == null) {

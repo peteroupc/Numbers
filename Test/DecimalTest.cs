@@ -818,10 +818,19 @@ throw new InvalidOperationException(String.Empty, ex);
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-//if(!ln.Contains(" 0E") && !ln.Contains(" -0E"))continue;
-//if(!ln.Contains("plus") && !ln.Contains("minus") && !ln.Contains("subtr") && !ln.Contains("fma") &&
-//    !ln.Contains("add"))continue;
-//if(ln.Contains("#"))continue;
+//if (!ln.Contains(" 0E") && !ln.Contains(" -0E")) {
+// continue;
+//}
+//if (!ln.Contains("plus") &&
+//!ln.Contains("minus") &&
+// !ln.Contains("subtr") &&
+//!ln.Contains("fma") &&
+//    !ln.Contains("add")) {
+// continue;
+//}
+//if (ln.Contains("#")) {
+// continue;
+//}
 //Console.WriteLine(ln);
 try {
 if (recordfailing) {

@@ -177,7 +177,7 @@ private static EInteger ShiftedMask(FastInteger prec) {
         }
         int m1, m2;
         var haveRetval = false;
-     if (expcmp == 0 || (e1int >= SafeMin32 && e1int <= SafeMax32 && 
+     if (expcmp == 0 || (e1int >= SafeMin32 && e1int <= SafeMax32 &&
         e2int >= SafeMin32 && e2int <= SafeMax32)) {
           int ediff = (expcmp == 0) ? 0 : ((e1int > e2int) ? (e1int - e2int) :
             (e2int - e1int));
@@ -315,7 +315,7 @@ private static EInteger ShiftedMask(FastInteger prec) {
         }
         int m1, m2;
         var haveRetval = false;
-     if (expcmp == 0 || (e1int >= SafeMin32 && e1int <= SafeMax32 && 
+     if (expcmp == 0 || (e1int >= SafeMin32 && e1int <= SafeMax32 &&
         e2int >= SafeMin32 && e2int <= SafeMax32)) {
           int ediff = (expcmp == 0) ? 0 : ((e1int > e2int) ? (e1int - e2int) :
             (e2int - e1int));
@@ -386,10 +386,10 @@ private static EInteger ShiftedMask(FastInteger prec) {
       return default(T);
     }
 
-    private const int SafeMin32 = -0x3FFFFFFE;
-    private const int SafeMax32 = 0x3FFFFFFE;
-    private const long SafeMin64 = -0x3FFFFFFFFFFFFFFEL;
-    private const long SafeMax64 = 0x3FFFFFFFFFFFFFFEL;
+    private const int SafeMin32 = -0x3ffffffe;
+    private const int SafeMax32 = 0x3ffffffe;
+    private const long SafeMin64 = -0x3ffffffffffffffeL;
+    private const long SafeMax64 = 0x3ffffffffffffffeL;
 
     private T AddEx64Bit(
       long expcmp,
@@ -416,7 +416,7 @@ private static EInteger ShiftedMask(FastInteger prec) {
         }
         long m1, m2;
         var haveRetval = false;
-   if (expcmp == 0 || (e1long >= SafeMin64 && e1long <= SafeMax64 && 
+   if (expcmp == 0 || (e1long >= SafeMin64 && e1long <= SafeMax64 &&
         e2long >= SafeMin64 && e2long <= SafeMax64)) {
   long ediffLong = (expcmp == 0) ? 0 : ((e1long > e2long) ? (e1long -
             e2long) : (e2long - e1long));
@@ -550,7 +550,7 @@ private static EInteger ShiftedMask(FastInteger prec) {
         }
         long m1, m2;
         var haveRetval = false;
-   if (expcmp == 0 || (e1long >= SafeMin64 && e1long <= SafeMax64 && 
+   if (expcmp == 0 || (e1long >= SafeMin64 && e1long <= SafeMax64 &&
         e2long >= SafeMin64 && e2long <= SafeMax64)) {
   long ediffLong = (expcmp == 0) ? 0 : ((e1long > e2long) ? (e1long -
             e2long) : (e2long - e1long));
@@ -2639,10 +2639,11 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
   FastIntegerFixed op2Mantissa,
   int radix) {
       int m1, m2;
-      //DebugUtility.Log("{0} {1}, expcmp={2}, signA={3}, om={4}, {5}",
-        //  e1int, e2int, expcmp, signA, op1Mantissa, op2Mantissa);
-      if ((e1int >= SafeMin32 && e1int <= SafeMax32 && 
-        e2int >= SafeMin32 && e2int <= SafeMax32)) {
+      //DebugUtility.Log("" + (// e1int) + " " + e2int + ", expcmp=" +
+      // expcmp + ", signA=" + signA + ", om=" + op1Mantissa + ", " +
+      // op2Mantissa);
+      if (e1int >= SafeMin32 && e1int <= SafeMax32 &&
+        e2int >= SafeMin32 && e2int <= SafeMax32) {
         int ediff = (e1int > e2int) ? (e1int - e2int) : (e2int - e1int);
         if (ediff <= 9 && radix == 10) {
           int power = ValueTenPowers[ediff];
@@ -2684,7 +2685,6 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
       return 2;
     }
 
-
     private static int CompareToFast64(
   int e1int,
   int e2int,
@@ -2694,10 +2694,11 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
   FastIntegerFixed op2Mantissa,
   int radix) {
       long m1, m2;
-      //DebugUtility.Log("{0} {1}, expcmp={2}, signA={3}, om={4}, {5}",
-        //  e1int, e2int, expcmp, signA, op1Mantissa, op2Mantissa);
-      if ((e1int >= SafeMin32 && e1int <= SafeMax32 && 
-        e2int >= SafeMin32 && e2int <= SafeMax32)) {
+      //DebugUtility.Log("" + (// e1int) + " " + e2int + ", expcmp=" +
+      // expcmp + ", signA=" + signA + ", om=" + op1Mantissa + ", " +
+      // op2Mantissa);
+      if (e1int >= SafeMin32 && e1int <= SafeMax32 &&
+        e2int >= SafeMin32 && e2int <= SafeMax32) {
         long ediffLong = (e1int > e2int) ? (e1int - e2int) : (e2int - e1int);
         if (ediffLong <= 18 && radix == 10) {
           long power = ValueTenPowers64[(int)ediffLong];
@@ -2705,7 +2706,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
           if (expcmp > 0) {
             m1 = op1Mantissa.AsInt64();
             m2 = op2Mantissa.AsInt64();
-            //DebugUtility.Log("overflowmax {0} for {1}",maxoverflow, m1);
+            //DebugUtility.Log("overflowmax " + maxoverflow + " for " + m1);
             if (m1 <= maxoverflow) {
               m1 *= power;
               return (m1 == m2) ? 0 : ((m1 < m2) ? -signA : signA);
@@ -2713,7 +2714,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
           } else {
             m1 = op1Mantissa.AsInt64();
             m2 = op2Mantissa.AsInt64();
-            //DebugUtility.Log("overflowmax {0} for {1}",maxoverflow, m2);
+            //DebugUtility.Log("overflowmax " + maxoverflow + " for " + m2);
             if (m2 <= maxoverflow) {
               m2 *= power;
               return (m1 == m2) ? 0 : ((m1 < m2) ? -signA : signA);
@@ -3465,8 +3466,10 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
       IRadixMathHelper<TMath> helper) {
       int signA = helper.GetSign(thisValue);
       int signB = helper.GetSign(otherValue);
-//if(compareNone%50==0)DebugUtility.Log("compare={0},{1},{2}",compareNone,
-  //compareFast,compareSlow);
+//if (compareNone%50 == 0) {
+// DebugUtility.Log("compare=" + compareNone + "," + (//compareFast) + "," +
+// compareSlow);
+// }
     // compareNone++;
       if (signA != signB) {
         return (signA < signB) ? -1 : 1;
@@ -3490,8 +3493,8 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
       if (expcmp == 0) {
         return signA < 0 ? -mantcmp : mantcmp;
       }
-      if (op1Exponent.CanFitInInt32() && op2Exponent.CanFitInInt32()){ 
-        if(op1Mantissa.CanFitInInt32() && op2Mantissa.CanFitInInt32()) {
+      if (op1Exponent.CanFitInInt32() && op2Exponent.CanFitInInt32()) {
+        if (op1Mantissa.CanFitInInt32() && op2Mantissa.CanFitInInt32()) {
          int e1int = op1Exponent.AsInt32();
          int e2int = op2Exponent.AsInt32();
          int c = CompareToFast(
@@ -3506,7 +3509,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
 ////compareFast++;
           return c;
         }
-      } else if(op1Mantissa.CanFitInInt64() && op2Mantissa.CanFitInInt64()) {
+      } else if (op1Mantissa.CanFitInInt64() && op2Mantissa.CanFitInInt64()) {
         int e1int = op1Exponent.AsInt32();
         int e2int = op2Exponent.AsInt32();
         int c = CompareToFast64(
@@ -3523,6 +3526,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
         }
       }
      }
+
 ////compareSlow++;
       return CompareToSlow(
         op1Exponent.ToEInteger(),
@@ -4589,12 +4593,9 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
     private static readonly EContext DefaultUnlimited =
       EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven);
 
-
-    //private static int compareFast=0;
-    //private static int compareSlow=0;
-    //private static int compareNone=0;
-
-
+    //private static int compareFast = 0;
+    //private static int compareSlow = 0;
+    //private static int compareNone = 0;
 
     private T RoundToPrecisionInternal(
   T thisValue,
@@ -4605,8 +4606,10 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
   EContext ctx) {
       bool unlimitedPrecisionExp = ctx == null ||
          (!ctx.HasMaxPrecision && !ctx.HasExponentRange);
- // if(compareNone%100==0)DebugUtility.Log("compare={0},{1},{2}",
-   //   compareNone,compareFast,compareSlow);
+ // if (compareNone%100 == 0) {
+// DebugUtility.Log("compare=" + compareNone + "," + compareFast + "," +
+// compareSlow);
+// }
  //compareNone++;
       int thisFlags = this.helper.GetFlags(thisValue);
       if ((thisFlags & BigNumberFlags.FlagSpecial) != 0) {
@@ -4745,7 +4748,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
             lastDiscarded,
             olderDiscarded);
           FastInteger digitCount = accum.GetDigitLength();
-          //DebugUtility.Log("digitCount={0}, {1}",digitCount,fastPrecision);
+          //DebugUtility.Log("digitCount=" + digitCount + ", " + fastPrecision);
           if (digitCount.CompareTo(fastPrecision) <= 0) {
             if (!this.RoundGivenAccum(
   accum,
@@ -5068,9 +5071,10 @@ accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
           recheckOverflow |= binaryPrec;
           // Check if mantissa's precision is now greater
           // than the one set by the context
-          if (!unlimitedPrec && 
+          if (!unlimitedPrec &&
                (bigmantissa.IsEvenNumber || (this.thisRadix & 1) != 0) &&
-               (binaryPrec || accum.GetDigitLength().CompareTo(fastPrecision) >= 0)) {
+        (binaryPrec || accum.GetDigitLength().CompareTo(fastPrecision) >=
+                 0)) {
             accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
               bigmantissa,
               0,

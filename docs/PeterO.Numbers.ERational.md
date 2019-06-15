@@ -71,18 +71,18 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
 * <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to adecimal under the Common Language Infrastructure (usually a .
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to a 64-bit floating-point number.
-* <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this rational number to a decimal number.
-* <code>[ToEDecimalExactIfPossible(PeterO.Numbers.EContext)](#ToEDecimalExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
-* <code>[ToEDecimal(PeterO.Numbers.EContext)](#ToEDecimal_PeterO_Numbers_EContext)</code> - Converts this rational number to a decimal number and rounds the result to the given precision.
+* <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this rational number to an arbitrary-precision decimal number.
+* <code>[ToEDecimalExactIfPossible(PeterO.Numbers.EContext)](#ToEDecimalExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to an arbitrary-precision decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
+* <code>[ToEDecimal(PeterO.Numbers.EContext)](#ToEDecimal_PeterO_Numbers_EContext)</code> - Converts this rational number to an arbitrary-precision decimal number and rounds the result to the given precision.
 * <code>[ToEFloat()](#ToEFloat)</code> - Converts this rational number to a binary float.
 * <code>[ToEFloatExactIfPossible(PeterO.Numbers.EContext)](#ToEFloatExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary float, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
 * <code>[ToEFloat(PeterO.Numbers.EContext)](#ToEFloat_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary float and rounds that result to the given precision.
 * <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer.
 * <code>[ToEIntegerExact()](#ToEIntegerExact)</code> - Converts this value to an arbitrary-precision integer, checking whether the value is an exact integer.
 * <code>[ToEIntegerIfExact()](#ToEIntegerIfExact)</code> - Converts this value to an arbitrary-precision integer, checking whether the value is an exact integer.
-* <code>[ToExtendedDecimal()](#ToExtendedDecimal)</code> - Converts this rational number to a decimal number.
-* <code>[ToExtendedDecimalExactIfPossible(PeterO.Numbers.EContext)](#ToExtendedDecimalExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
-* <code>[ToExtendedDecimal(PeterO.Numbers.EContext)](#ToExtendedDecimal_PeterO_Numbers_EContext)</code> - Converts this rational number to a decimal number and rounds the result to the given precision.
+* <code>[ToExtendedDecimal()](#ToExtendedDecimal)</code> - Converts this rational number to an arbitrary-precision decimal number.
+* <code>[ToExtendedDecimalExactIfPossible(PeterO.Numbers.EContext)](#ToExtendedDecimalExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to an arbitrary-precision decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
+* <code>[ToExtendedDecimal(PeterO.Numbers.EContext)](#ToExtendedDecimal_PeterO_Numbers_EContext)</code> - Converts this rational number to an arbitrary-precision decimal number and rounds the result to the given precision.
 * <code>[ToExtendedFloat()](#ToExtendedFloat)</code> - Converts this rational number to a binary float.
 * <code>[ToExtendedFloatExactIfPossible(PeterO.Numbers.EContext)](#ToExtendedFloatExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary float, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
 * <code>[ToExtendedFloat(PeterO.Numbers.EContext)](#ToExtendedFloat_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary float and rounds that result to the given precision.
@@ -112,7 +112,9 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[UnsignedNumerator](#UnsignedNumerator)</code> - Gets this object's numerator with the sign removed.
 * <code>[public static readonly PeterO.Numbers.ERational Zero;](#Zero)</code> - A rational number for zero.
 * <code>[PeterO.Numbers.ERational operator +(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Addition)</code> - Adds two rational numbers.
+* <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Not documented yet.
 * <code>[PeterO.Numbers.ERational operator /(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Division)</code> - Divides an arbitrary-precision rational number by the value of another arbitrary-precision rational number object.
+* <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Not documented yet.
 * <code>[PeterO.Numbers.ERational operator %(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Modulus)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator *(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Multiply)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator -(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Subtraction)</code> - Subtracts an arbitrary-precision rational number from this instance.
@@ -1098,6 +1100,29 @@ The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
  * System.ArgumentNullException:
 The parameter "otherValue" is null.
 
+<a id="op_Decrement"></a>
+### Operator `--`
+
+    public static PeterO.Numbers.ERational operator --(
+        PeterO.Numbers.ERational bthis);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bthis</i>: The parameter  <i>bthis</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
+
 <a id="op_Division"></a>
 ### Operator `/`
 
@@ -1121,6 +1146,29 @@ The quotient of the two objects.
 
  * System.ArgumentNullException:
 The parameter "otherValue" is null.
+
+<a id="op_Increment"></a>
+### Operator `++`
+
+    public static PeterO.Numbers.ERational operator ++(
+        PeterO.Numbers.ERational bthis);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>bthis</i>: The parameter  <i>bthis</i>
+ is not documented yet.
+
+<b>Return Value:</b>
+
+An ERational object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 <a id="op_Modulus"></a>
 ### Operator `%`
@@ -1329,7 +1377,7 @@ The closest 64-bit floating-point number to this value. The return value can be 
     public PeterO.Numbers.EDecimal ToEDecimal(
         PeterO.Numbers.EContext ctx);
 
-Converts this rational number to a decimal number and rounds the result to the given precision.
+Converts this rational number to an arbitrary-precision decimal number and rounds the result to the given precision.
 
 <b>Parameters:</b>
 
@@ -1344,7 +1392,7 @@ The value of the rational number, rounded to the given precision. Returns not-a-
 
     public PeterO.Numbers.EDecimal ToEDecimal();
 
-Converts this rational number to a decimal number.
+Converts this rational number to an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -1356,7 +1404,7 @@ The exact value of the rational number, or not-a-number (NaN) if the result can'
     public PeterO.Numbers.EDecimal ToEDecimalExactIfPossible(
         PeterO.Numbers.EContext ctx);
 
-Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
+Converts this rational number to an arbitrary-precision decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
 
 <b>Parameters:</b>
 
@@ -1467,7 +1515,7 @@ This object's value is infinity or not-a-number (NaN).
 
 <b>Deprecated.</b> Renamed to ToEDecimal.
 
-Converts this rational number to a decimal number and rounds the result to the given precision.
+Converts this rational number to an arbitrary-precision decimal number and rounds the result to the given precision.
 
 <b>Parameters:</b>
 
@@ -1484,7 +1532,7 @@ The value of the rational number, rounded to the given precision. Returns not-a-
 
 <b>Deprecated.</b> Renamed to ToEDecimal.
 
-Converts this rational number to a decimal number.
+Converts this rational number to an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -1498,7 +1546,7 @@ The exact value of the rational number, or not-a-number (NaN) if the result can'
 
 <b>Deprecated.</b> Renamed to ToEDecimalExactIfPossible.
 
-Converts this rational number to a decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
+Converts this rational number to an arbitrary-precision decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
 
 <b>Parameters:</b>
 
