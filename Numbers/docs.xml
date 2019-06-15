@@ -142,13 +142,13 @@
   </doc>
   <doc name='P:PeterO.Numbers.EContext.EMax'>
     <summary>Gets the highest exponent possible when a converted number is expressed in
-      scientific notation with one digit before the radix point. For example,
+      scientific notation with one nonzero digit before the radix point. For example,
       with a precision of 3 and an EMax of 100, the maximum value possible is
       9.99E + 100. (This is not the same as the highest possible Exponent
       property.) If HasExponentRange is false, this value will be 0.
     </summary>
     <value>The highest exponent possible when a converted number is expressed in
-      scientific notation with one digit before the radix point. For example,
+      scientific notation with one nonzero digit before the radix point. For example,
       with a precision of 3 and an EMax of 100, the maximum value possible is
       9.99E + 100. (This is not the same as the highest possible Exponent
       property.) If HasExponentRange is false, this value will be 0.
@@ -156,14 +156,14 @@
   </doc>
   <doc name='P:PeterO.Numbers.EContext.EMin'>
     <summary>Gets the lowest exponent possible when a converted number is expressed in
-      scientific notation with one digit before the radix point. For example,
+      scientific notation with one nonzero digit before the radix point. For example,
       with a precision of 3 and an EMin of -100, the next value that comes after
       0 is 0.001E-100. (If AdjustExponent is false, this property specifies the
       lowest possible Exponent property instead.) If HasExponentRange is false,
       this value will be 0.
     </summary>
     <value>The lowest exponent possible when a converted number is expressed in
-      scientific notation with one digit before the radix point. For example,
+      scientific notation with one nonzero digit before the radix point. For example,
       with a precision of 3 and an EMin of -100, the next value that comes after
       0 is 0.001E-100. (If AdjustExponent is false, this property specifies the
       lowest possible Exponent property instead.) If HasExponentRange is false,
@@ -853,8 +853,8 @@
     <summary>Finds the absolute value of this object (if it's negative, it becomes
       positive).
     </summary>
-    <param name='context'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='context'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -877,8 +877,8 @@
     </summary>
     <param name='otherValue'>The number to add to.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -1294,8 +1294,8 @@
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -1659,8 +1659,8 @@
     <summary>Finds e (the base of natural logarithms) raised to the power of this
       object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -1853,8 +1853,8 @@
     </summary>
     <param name='str'>A string that represents a number.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -1931,8 +1931,8 @@
       <paramref name='str'/>
        's length).
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2056,8 +2056,8 @@
       that e (the base of natural logarithms) must be raised to in order to
       equal this object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -2081,8 +2081,8 @@
       that the number 10 must be raised to in order to equal this object's
       value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -2124,8 +2124,8 @@
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2152,8 +2152,8 @@
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2178,8 +2178,8 @@
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2206,8 +2206,8 @@
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2235,8 +2235,8 @@
       this number is negative, instead moves the decimal point to the right by
       this number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2266,8 +2266,8 @@
       this number is negative, instead moves the decimal point to the right by
       this number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2297,8 +2297,8 @@
       this number is negative, instead moves the decimal point to the left by
       this number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2328,8 +2328,8 @@
       this number is negative, instead moves the decimal point to the left by
       this number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2355,8 +2355,8 @@
     </summary>
     <param name='op'>Another decimal number.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2390,8 +2390,8 @@
     </param>
     <param name='augend'>The value to add.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2409,8 +2409,8 @@
     </param>
     <param name='subtrahend'>The value to subtract.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2442,8 +2442,8 @@
     <summary>Returns an arbitrary-precision decimal number with the same value as this
       object but with the sign reversed.
     </summary>
-    <param name='context'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='context'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2518,8 +2518,8 @@
     <summary>Finds the constant π, the circumference of a circle divided by its
       diameter.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -2557,8 +2557,8 @@
     <param name='exponent'>An arbitrary-precision decimal number expressing the exponent to raise
       this object's value to.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2586,8 +2586,8 @@
     </summary>
     <param name='exponentSmall'>The exponent to raise this object's value to.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2620,13 +2620,16 @@
       </para>
     </summary>
     <param name='otherValue'>An arbitrary-precision decimal number containing the desired exponent of
-      the result. The mantissa (significand) is ignored.  The exponent is the
+      the result. The mantissa (significand) is ignored. The exponent is the
       number of fractional digits in the result, expressed as a negative number.
       Can also be positive, which eliminates lower-order places from the number.
-      For example, -3 means round to the thousandth (10^-3, 0.0001), and 3
-      means round to the thousands-place (10^3, 1000). A value of 0 rounds the
-      number to an integer.  The following examples for this parameter express a desired exponent of 3:
-      <c>10e3</c>, <c>8888e3</c>, <c>4.56e5</c>.
+      For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means
+      round to the thousands-place (10^3, 1000). A value of 0 rounds the number
+      to an integer. The following examples for this parameter express a desired
+      exponent of 3:
+      <c>10e3</c> ,
+      <c>8888e3</c> ,
+      <c>4.56e5</c> .
     </param>
     <param name='ctx'>An arithmetic context to control precision and rounding of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
@@ -2695,9 +2698,9 @@
         point. The following code example returns a fixed-point number with up
         to 20 digits before and exactly 5 digits after the decimal point:
       </para>
-      <code>/* After performing arithmetic operations, adjust  the number to 5
-        digits after the decimal point */ number = number.Quantize(-5, /* five
-        digits after the decimal point  */EContext.ForPrecision(25) /* 25-digit
+      <code>/* After performing arithmetic operations, adjust the number to 5 digits
+        after the decimal point */ number = number.Quantize(-5, /* five digits
+        after the decimal point */EContext.ForPrecision(25) /* 25-digit
         precision*/);</code> <para>A fixed-point decimal arithmetic in which no digits come after the
         decimal point (a desired exponent of 0) is considered an "integer
         arithmetic".
@@ -2754,8 +2757,8 @@
       <para>If this object's value is 0, changes the exponent to 0.
       </para>
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -2903,8 +2906,8 @@
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -2969,8 +2972,8 @@
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -3018,8 +3021,8 @@
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -3048,8 +3051,8 @@
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -3091,8 +3094,8 @@
       necessarily be 0; use the Quantize method instead to give the result an
       exponent of 0.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -3134,8 +3137,8 @@
       object but rounded to an integer, and signals an inexact flag if the
       result would be inexact.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -3175,8 +3178,8 @@
     <summary>Rounds this object's value to a given precision, using the given rounding
       mode and range of exponent.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -3199,8 +3202,8 @@
     </summary>
     <param name='bigPlaces'>The power of 10 to scale by.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -3223,8 +3226,8 @@
     </summary>
     <param name='places'>The power of 10 to scale by.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -3247,8 +3250,8 @@
   <doc name='M:PeterO.Numbers.EDecimal.Sqrt(PeterO.Numbers.EContext)'>
     <summary>Finds the square root of this object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -3268,8 +3271,8 @@
   <doc name='M:PeterO.Numbers.EDecimal.SquareRoot(PeterO.Numbers.EContext)'>
     <summary>Finds the square root of this object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -3300,8 +3303,8 @@
     </summary>
     <param name='otherValue'>The number to subtract from this instance's value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -4162,9 +4165,9 @@
   <doc name='M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Performs a logical AND operation on two decimal numbers in the form of
       <i>
-        logical operands
+         logical operands
       </i>
-      . A
+       . A
       <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
       other base-10 digits than 0 or 1 (examples include
       <c>01001</c> and
@@ -4178,18 +4181,18 @@
     </param>
     <param name='ed2'>The second logical operand to the logical AND operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more digits than
-      the maximum precision specified in this context, the operand's most
-      significant digits that exceed that precision are discarded. This
-      parameter can be null.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter can be null.
     </param>
     <returns>The result of the logical AND operation as a logical operand. Signals an
       invalid operation and returns not-a-number (NaN) if
       <paramref name='ed1'/>
-      ,
+       ,
       <paramref name='ed2'/>
-      , or both are not logical operands.
+       , or both are not logical operands.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.BoolToEDecimal(System.Boolean,PeterO.Numbers.EContext)'>
@@ -4222,13 +4225,11 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)'>
     <summary>Returns a canonical version of the given arbitrary-precision number
-      object. In this method, this is the same as that object.
+      object. In this method, this method behaves like the Copy method.
     </summary>
     <param name='ed'>An arbitrary-precision number object.
     </param>
-    <returns>The parameter
-      <paramref name='ed'/>
-       .
+    <returns>A copy of the parameter "ed".
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -4362,11 +4363,12 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Performs a logical NOT operation on a decimal numbers in the form of a
+    <summary>Performs a logical NOT operation on an arbitrary-precision decimal number
+      in the form of a
       <i>
-        logical operand
+         logical operand
       </i>
-      . A
+       . A
       <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
       other base-10 digits than 0 or 1 (examples include
       <c>01001</c> and
@@ -4379,12 +4381,12 @@
       <c>NOT 111010 = 11000101</c> </summary>
     <param name='ed1'>The logical operand to the logical NOT operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more digits than
-      the maximum precision specified in this context, the operand's most
-      significant digits that exceed that precision are discarded. This
-      parameter cannot be null and must specify a maximum precision (unlimited
-      precision contexts are not allowed).
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter cannot be null and must specify a maximum
+      precision (unlimited precision contexts are not allowed).
     </param>
     <returns>The result of the logical NOT operation as a logical operand. Signals an
       invalid operation and returns not-a-number (NaN) if
@@ -4448,8 +4450,9 @@
          subnormal number
       </i>
        is a nonzero finite number whose Exponent property (or the number's
-      exponent in scientific notation) is less than the minimum possible
-      exponent for that number. A
+      exponent when that number is expressed in scientific notation with one
+      digit before the radix point) is less than the minimum possible exponent
+      for that number. A
       <i>
          normal number
       </i>
@@ -4459,9 +4462,10 @@
     </param>
     <param name='ec'>A context specifying the exponent range of arbitrary-precision numbers.
       Can be null. If AdjustExponent of the given context is
-      <c>true</c> , a nonzero number is normal if the number's exponent in scientific
-      notation is at least the given context's EMax property (e.g., if EMax is
-      -100, 2.3456 * 10
+      <c>true</c> , a nonzero number is normal if the number's exponent (when that number
+      is expressed in scientific notation with one nonzero digit before the radix point)
+      is at least the given context's EMax property (e.g., if EMax is -100,
+      2.3456 * 10
       <sup>
          -99
       </sup>
@@ -4532,15 +4536,17 @@
          subnormal number
       </i>
        is a nonzero finite number whose Exponent property (or the number's
-      exponent in scientific notation) is less than the minimum possible
-      exponent for that number.
+      exponent when that number is expressed in scientific notation with one
+      digit before the radix point) is less than the minimum possible exponent
+      for that number.
     </summary>
     <param name='ed'>An arbitrary-precision number object.
     </param>
     <param name='ec'>A context specifying the exponent range of arbitrary-precision numbers.
       Can be null. If AdjustExponent of the given context is
-      <c>true</c> , a nonzero number is subnormal if the number's exponent in scientific
-      notation is less than the given context's EMax property (e.g., if EMax is
+      <c>true</c> , a nonzero number is subnormal if the number's exponent (when that
+      number is expressed in scientific notation with one nonzero digit before the radix
+      point) is less than the given context's EMax property (e.g., if EMax is
       -100, 2.3456 * 10
       <sup>
          -102
@@ -4580,17 +4586,21 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Returns the base-10 exponent of an arbitrary-precision decimal number
+      (when that number is expressed in scientific notation with one digit
+      before the radix point). For example, returns 3 for the numbers
+      <c>6.66E+3</c> and
+      <c>666E+1</c> .
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision decimal number.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>The base-10 exponent of the given number (when that number is expressed in
+      scientific notation with one nonzero digit before the radix point). Signals
+      DivideByZero and returns negative infinity if "ed" is zero. Returns
+      positive infinity if "ed" is positive infinity or negative infinity.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -4652,11 +4662,11 @@
     </param>
     <param name='ed2'>The second logical operand to the logical OR operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more digits than
-      the maximum precision specified in this context, the operand's most
-      significant digits that exceed that precision are discarded. This
-      parameter can be null.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter can be null.
     </param>
     <returns>The result of the logical OR operation as a logical operand. Signals an
       invalid operation and returns not-a-number (NaN) if
@@ -4677,7 +4687,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Rescale(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Returns an arbitrary-precision decimal number with the same value as this
-      object but with the given exponent, expressed as an arbitrary-precision decimal number.
+      object but with the given exponent, expressed as an arbitrary-precision
+      decimal number.
       <para>Note that this is not always the same as rounding to a given number of
         decimal places, since it can fail if the difference between this value's
         exponent and the desired exponent is too big, depending on the maximum
@@ -4690,19 +4701,19 @@
         point (a desired exponent of 0) is considered an "integer arithmetic" .
       </para>
     </summary>
-    <param name='ed'>An arbitrary-precision decimal number whose exponent is to be changed.</param>
-    <param name='scale'>The desired exponent of
-      the result, expressed as an arbitrary-precision decimal number. The exponent is the
-      number of fractional digits in the result, expressed as a negative number.
-      Can also be positive, which eliminates lower-order places from the number.
-      For example, -3 means round to the thousandth (10^-3, 0.0001), and 3
-      means round to the thousands-place (10^3, 1000). A value of 0 rounds the
-      number to an integer.
+    <param name='ed'>An arbitrary-precision decimal number whose exponent is to be changed.
     </param>
-    <param name='ctx'>An arithmetic context to control precision and rounding of the result. If
-      <c>HasFlags</c> of the context is true, will also store the flags resulting from the
-      operation (the flags are in addition to the pre-existing flags). Can be
-      null, in which case the default rounding mode is HalfEven.
+    <param name='scale'>The desired exponent of the result, expressed as an arbitrary-precision
+      decimal number. The exponent is the number of fractional digits in the
+      result, expressed as a negative number. Can also be positive, which
+      eliminates lower-order places from the number. For example, -3 means round
+      to the thousandth (10^-3, 0.0001), and 3 means round to the
+      thousands-place (10^3, 1000). A value of 0 rounds the number to an
+      integer.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is an EContext object.
     </param>
     <returns>An arbitrary-precision decimal number with the same value as this object
       but with the exponent changed. Signals FlagInvalid and returns
@@ -4727,9 +4738,9 @@
       digits and the least-significant digits shifted out of the mantissa become
       the most-significant digits instead.
     </param>
-    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
-      this parameter is null or specifies an unlimited precision, this method
-      has the same behavior as
+    <param name='ec'>An arithmetic context to control the precision of arbitrary-precision
+      numbers. If this parameter is null or specifies an unlimited precision,
+      this method has the same behavior as
       <c>Shift</c> .
     </param>
     <returns>An arbitrary-precision decimal number whose mantissa is rotated the given
@@ -4744,35 +4755,31 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.SameQuantum(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
-    <summary>Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both
-are infinity (positive and/or negative).
+    <summary>Returns whether two arbitrary-precision numbers have the same exponent,
+      they both are not-a-number (NaN), or they both are infinity (positive
+      and/or negative).
     </summary>
     <param name='ed1'>The first arbitrary-precision number.
     </param>
     <param name='ed2'>The second arbitrary-precision number.
     </param>
     <returns>Either
-      <c>true</c> if the given arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both
-are infinity (positive and/or negative); otherwise,
+      <c>true</c> if the given arbitrary-precision numbers have the same exponent, they
+      both are not-a-number (NaN), or they both are infinity (positive and/or
+      negative); otherwise,
       <c>false</c> .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Finds an arbitrary-precision decimal number whose decimal point is moved a given number of places.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision decimal number.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The number of decimal places to move the decimal point of "ed".  This must be an integer with an exponent of 0.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent range of the result.  Can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>The given arbitrary-precision decimal number whose decimal point is moved the given number of places.  Signals an invalid operation and returns not-a-number (NaN) if "ed2" is infinity or NaN, has an Exponent property other than 0. Signals an invalid operation and returns not-a-number (NaN) if "ec" defines a limited precision and exponent range and if "ed2"'s absolute value is greater than twice the sum of the context's EMax property and its Precision property.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -4792,8 +4799,8 @@ are infinity (positive and/or negative); otherwise,
       given number of digits . If this parameter is negative, the mantissa is
       shifted to the right by the given number of digits.
     </param>
-    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. Can
-      be null.
+    <param name='ec'>An arithmetic context to control the precision of arbitrary-precision
+      numbers. Can be null.
     </param>
     <returns>An arbitrary-precision decimal number whose mantissa is shifted the given
       number of digits. Signals an invalid operation and returns NaN
@@ -4813,13 +4820,23 @@ are infinity (positive and/or negative); otherwise,
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Trim(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa.  If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the mantissa (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the mantissa until the exponent reaches 0 (then the number is rounded if necessary).
+    <summary>Returns an arbitrary-precision number with the same value as this one but
+      with certain trailing zeros removed from its mantissa. If the number's
+      exponent is 0, it is returned unchanged (but may be rounded depending on
+      the arithmetic context); if that exponent is greater 0, its trailing zeros
+      are removed from the mantissa (then rounded if necessary); if that
+      exponent is less than 0, its trailing zeros are removed from the mantissa
+      until the exponent reaches 0 (then the number is rounded if necessary).
     </summary>
     <param name='ed1'>An arbitrary-precision number.
     </param>
-    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent range of the result.  Can be null.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>An arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa.  If "ed1" is not-a-number (NaN) or infinity, it is generally returned unchanged.
+    <returns>An arbitrary-precision number with the same value as this one but with
+      certain trailing zeros removed from its mantissa. If
+      <paramref name='ed1'/>
+       is not-a-number (NaN) or infinity, it is generally returned unchanged.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -4842,11 +4859,11 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more digits than
-      the maximum precision specified in this context, the operand's most
-      significant digits that exceed that precision are discarded. This
-      parameter can be null.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter can be null.
     </param>
     <returns>An EDecimal object.
     </returns>
@@ -4949,8 +4966,8 @@ are infinity (positive and/or negative); otherwise,
     <summary>Finds the absolute value of this object (if it's negative, it becomes
       positive).
     </summary>
-    <param name='context'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='context'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -4973,8 +4990,8 @@ are infinity (positive and/or negative); otherwise,
     </summary>
     <param name='otherValue'>The number to add to.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -5416,8 +5433,8 @@ are infinity (positive and/or negative); otherwise,
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -5672,8 +5689,8 @@ are infinity (positive and/or negative); otherwise,
     <summary>Finds e (the base of natural logarithms) raised to the power of this
       object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -6048,8 +6065,8 @@ are infinity (positive and/or negative); otherwise,
       that e (the base of natural logarithms) must be raised to in order to
       equal this object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -6073,8 +6090,8 @@ are infinity (positive and/or negative); otherwise,
       that the number 10 must be raised to in order to equal this object's
       value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -6116,8 +6133,8 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6144,8 +6161,8 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6170,8 +6187,8 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6198,8 +6215,8 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='second'>The second value to compare.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6227,8 +6244,8 @@ are infinity (positive and/or negative); otherwise,
       this number is negative, instead moves the radix point to the right by
       this number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6258,8 +6275,8 @@ are infinity (positive and/or negative); otherwise,
       this number is negative, instead moves the radix point to the right by
       this number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6289,8 +6306,8 @@ are infinity (positive and/or negative); otherwise,
       this number is negative, instead moves the radix point to the left by this
       number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6320,8 +6337,8 @@ are infinity (positive and/or negative); otherwise,
       this number is negative, instead moves the radix point to the left by this
       number's absolute value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6347,8 +6364,8 @@ are infinity (positive and/or negative); otherwise,
     </summary>
     <param name='op'>Another binary float.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6373,8 +6390,8 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='augend'>The value to add.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6392,8 +6409,8 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='subtrahend'>The value to subtract.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6429,8 +6446,8 @@ are infinity (positive and/or negative); otherwise,
     <summary>Returns a binary float with the same value as this object but with the
       sign reversed.
     </summary>
-    <param name='context'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='context'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6504,8 +6521,8 @@ are infinity (positive and/or negative); otherwise,
     <summary>Finds the constant π, the circumference of a circle divided by its
       diameter.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -6543,8 +6560,8 @@ are infinity (positive and/or negative); otherwise,
     <param name='exponent'>An arbitrary-precision binary float expressing the exponent to raise this
       object's value to.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6572,8 +6589,8 @@ are infinity (positive and/or negative); otherwise,
     </summary>
     <param name='exponentSmall'>The exponent to raise this object's value to.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6711,8 +6728,8 @@ are infinity (positive and/or negative); otherwise,
       <para>If this object's value is 0, changes the exponent to 0.
       </para>
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and rounding isn't needed.
@@ -6818,8 +6835,8 @@ are infinity (positive and/or negative); otherwise,
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -6845,8 +6862,8 @@ are infinity (positive and/or negative); otherwise,
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -6873,8 +6890,8 @@ are infinity (positive and/or negative); otherwise,
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -6920,8 +6937,8 @@ are infinity (positive and/or negative); otherwise,
       round to the thousand (10^3, 1000). A value of 0 rounds the number to an
       integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -6941,8 +6958,8 @@ are infinity (positive and/or negative); otherwise,
       The resulting number's Exponent property will not necessarily be 0; use
       the Quantize method instead to give the result an exponent of 0.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -6982,8 +6999,8 @@ are infinity (positive and/or negative); otherwise,
     <summary>Returns a binary float with the same value as this object but rounded to
       an integer, and signals an inexact flag if the result would be inexact.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -7022,8 +7039,8 @@ are infinity (positive and/or negative); otherwise,
     <summary>Rounds this object's value to a given precision, using the given rounding
       mode and range of exponent.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -7046,8 +7063,8 @@ are infinity (positive and/or negative); otherwise,
     </summary>
     <param name='bigPlaces'>An arbitrary-precision integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null.
@@ -7072,8 +7089,8 @@ are infinity (positive and/or negative); otherwise,
       <paramref name='places'/>
        is a 32-bit signed integer.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null.
@@ -7096,8 +7113,8 @@ are infinity (positive and/or negative); otherwise,
   <doc name='M:PeterO.Numbers.EFloat.Sqrt(PeterO.Numbers.EContext)'>
     <summary>Finds the square root of this object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -7117,8 +7134,8 @@ are infinity (positive and/or negative); otherwise,
   <doc name='M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)'>
     <summary>Finds the square root of this object's value.
     </summary>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
@@ -7149,8 +7166,8 @@ are infinity (positive and/or negative); otherwise,
     </summary>
     <param name='otherValue'>The number to subtract from this instance's value.
     </param>
-    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range
-      of the result. If
+    <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the precision is unlimited and no rounding is needed.
@@ -7907,13 +7924,11 @@ are infinity (positive and/or negative); otherwise,
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Increment(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
+    <summary>Adds one to an arbitrary-precision binary floating-point number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision binary floating-point number.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The given arbitrary-precision binary floating-point number plus one.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bthis'/>
@@ -8058,37 +8073,42 @@ are infinity (positive and/or negative); otherwise,
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
+    <summary>Returns an arbitrary-precision number object with the same value as the
+      given number object but with a nonnegative sign (that is, the given number
+      object's absolute value).
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>An arbitrary-precision number object with the same value as the given
+      number object but with a nonnegative sign.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
+    <summary>Returns an arbitrary-precision number object with the sign reversed from
+      the given number object.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision number object.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>An arbitrary-precision number object with the sign reversed from the given
+      number object.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Returns the base-2 exponent of an arbitrary-precision binary number (when
+      that number is expressed in scientific notation with one nonzero digit before the
+      radix point). For example, returns 3 for the numbers
+      <c>1.11b * 2^3</c> and
+      <c>111 * 2^1</c> .
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision binary number.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The base-2 exponent of the given number (when that number is expressed in
+      scientific notation with one nonzero digit before the radix point). Signals
+      DivideByZero and returns negative infinity if "ed" is zero. Returns
+      positive infinity if "ed" is positive infinity or negative infinity.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -8111,6 +8131,44 @@ are infinity (positive and/or negative); otherwise,
        is less than 0 or greater than 9 .
     </exception>
   </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Returns an arbitrary-precision binary number with the same value as this
+      object but with the given exponent, expressed as an arbitrary-precision
+      binary number.
+      <para>Note that this is not always the same as rounding to a given number of
+        binary places, since it can fail if the difference between this value's
+        exponent and the desired exponent is too big, depending on the maximum
+        precision. If rounding to a number of binary places is desired, it's
+        better to use the RoundToExponent and RoundToIntegral methods instead.
+      </para>
+      <para><b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in
+        which a fixed number of digits come after the binary point. A
+        fixed-point binary arithmetic in which no digits come after the binary
+        point (a desired exponent of 0) is considered an "integer arithmetic" .
+      </para>
+    </summary>
+    <param name='ed'>An arbitrary-precision binary number whose exponent is to be changed.
+    </param>
+    <param name='scale'>The desired exponent of the result, expressed as an arbitrary-precision
+      binary number. The exponent is the number of fractional digits in the
+      result, expressed as a negative number. Can also be positive, which
+      eliminates lower-order places from the number. For example, -3 means round
+      to the sixteenth (10b^-3, 0.0001b), and 3 means round to the
+      sixteens-place (10b^3, 1000b). A value of 0 rounds the number to an
+      integer.
+    </param>
+    <param name='ec'>An arithmetic context to control precision and rounding of the result. If
+      <c>HasFlags</c> of the context is true, will also store the flags resulting from the
+      operation (the flags are in addition to the pre-existing flags). Can be
+      null, in which case the default rounding mode is HalfEven.
+    </param>
+    <returns>An arbitrary-precision binary number with the same value as this object
+      but with the exponent changed. Signals FlagInvalid and returns
+      not-a-number (NaN) if the result can't fit the given precision without
+      rounding, or if the arithmetic context defines an exponent range and the
+      given exponent is outside that range.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Rotates the digits of an arbitrary-precision binary number's mantissa.
     </summary>
@@ -8127,9 +8185,9 @@ are infinity (positive and/or negative); otherwise,
       least-significant bits shifted out of the mantissa become the
       most-significant bits instead.
     </param>
-    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
-      this parameter is null or specifies an unlimited precision, this method
-      has the same behavior as
+    <param name='ec'>An arithmetic context to control the precision of arbitrary-precision
+      numbers. If this parameter is null or specifies an unlimited precision,
+      this method has the same behavior as
       <c>Shift</c> .
     </param>
     <returns>An arbitrary-precision binary number whose mantissa is rotated the given
@@ -8143,13 +8201,33 @@ are infinity (positive and/or negative); otherwise,
       context.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EFloatExtras.Trim(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Returns an arbitrary-precision number with the same value as this one but
+      with certain trailing zeros removed from its mantissa. If the number's
+      exponent is 0, it is returned unchanged (but may be rounded depending on
+      the arithmetic context); if that exponent is greater 0, its trailing zeros
+      are removed from the mantissa (then rounded if necessary); if that
+      exponent is less than 0, its trailing zeros are removed from the mantissa
+      until the exponent reaches 0 (then the number is rounded if necessary).
+    </summary>
+    <param name='ed1'>An arbitrary-precision number.
+    </param>
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
+    </param>
+    <returns>An arbitrary-precision number with the same value as this one but with
+      certain trailing zeros removed from its mantissa. If
+      <paramref name='ed1'/>
+       is not-a-number (NaN) or infinity, it is generally returned unchanged.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Performs a logical exclusive-OR (XOR) operation on two binary numbers in
       the form of
       <i>
-        logical operands
+         logical operands
       </i>
-      . A
+       . A
       <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
       include the base-2 numbers
       <c>01001</c> and
@@ -8161,18 +8239,18 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more bits than the
-      maximum precision specified in this context, the operand's most
-      significant bits that exceed that precision are discarded. This parameter
-      can be null.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter can be null.
     </param>
     <returns>The result of the logical exclusive-OR operation as a logical operand.
       Signals an invalid operation and returns not-a-number (NaN) if
       <paramref name='ed1'/>
-      ,
+       ,
       <paramref name='ed2'/>
-      , or both are not logical operands.
+       , or both are not logical operands.
     </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EInteger'>
@@ -8243,9 +8321,7 @@ are infinity (positive and/or negative); otherwise,
     <returns>An arbitrary-precision integer.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='a'/>
-       or
-      <paramref name='b'/>
+      <paramref name='other'/>
        is null.
     </exception>
     <remarks>
@@ -8906,7 +8982,7 @@ are infinity (positive and/or negative); otherwise,
     <returns>The modulus remainder.
     </returns>
     <exception cref='T:System.ArgumentException'>The parameter
-      <paramref name='divisor'/>
+      <paramref name='smallDivisor'/>
        is less than 0.
     </exception>
   </doc>
@@ -8982,14 +9058,10 @@ are infinity (positive and/or negative); otherwise,
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Not'>
-    <summary>Returns an arbitrary-precision integer with every bit flipped.
+    <summary>Returns an arbitrary-precision integer with every bit flipped from this one.
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='valueA'/>
-       is null.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Not(PeterO.Numbers.EInteger)'>
     <summary>Returns an arbitrary-precision integer with every bit flipped.
@@ -9017,8 +9089,6 @@ are infinity (positive and/or negative); otherwise,
     <returns>An arbitrary-precision integer.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='first'/>
-       or
       <paramref name='second'/>
        is null.
     </exception>
@@ -9450,12 +9520,6 @@ are infinity (positive and/or negative); otherwise,
     <returns>An arbitrary-precision integer in which each bit is set if it's set in one
       input integer but not the other.
     </returns>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='a'/>
-       or
-      <paramref name='b'/>
-       is null.
-    </exception>
     <exception cref='T:System.ArgumentException'>Doesn't satisfy smallerCount == CountWords(result).
     </exception>
   </doc>
@@ -9469,7 +9533,7 @@ are infinity (positive and/or negative); otherwise,
          ) for the purposes of this operator.
       </para>
     </summary>
-    <param name='a'>The first arbitrary-precision integer.
+    <param name='a'>The second arbitrary-precision integer.
     </param>
     <param name='b'>The second arbitrary-precision integer.
     </param>
@@ -9504,8 +9568,9 @@ are infinity (positive and/or negative); otherwise,
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_BitwiseAnd(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
-    <summary>Does an AND operation between two arbitrary-precision integer values. For each bit of the result, that bit is 1
-if the corresponding bits of the two operands are both 1, or is 0 otherwise.
+    <summary>Does an AND operation between two arbitrary-precision integer values. For
+      each bit of the result, that bit is 1 if the corresponding bits of the two
+      operands are both 1, or is 0 otherwise.
     </summary>
     <param name='thisValue'>The first operand.
     </param>
@@ -9525,8 +9590,9 @@ if the corresponding bits of the two operands are both 1, or is 0 otherwise.
     </remarks>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_BitwiseOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
-    <summary>Does an OR operation between two arbitrary-precision integer instances.  For each bit of the result, that bit is 1
-if either or both of the corresponding bits of the two operands are 1, or is 0 otherwise.
+    <summary>Does an OR operation between two arbitrary-precision integer instances.
+      For each bit of the result, that bit is 1 if either or both of the
+      corresponding bits of the two operands are 1, or is 0 otherwise.
     </summary>
     <param name='thisValue'>An arbitrary-precision integer.
     </param>
@@ -9550,7 +9616,8 @@ if either or both of the corresponding bits of the two operands are 1, or is 0 o
     </summary>
     <param name='bthis'>An arbitrary-precision integer.
     </param>
-    <returns>The given arbitrary-precision integer minus one.</returns>
+    <returns>The given arbitrary-precision integer minus one.
+    </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
@@ -9572,8 +9639,9 @@ if either or both of the corresponding bits of the two operands are 1, or is 0 o
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_ExclusiveOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
-    <summary>Finds the exclusive "or" of two arbitrary-precision integer objects.   For each bit of the result, that bit is 1
-if either of the corresponding bits of the two operands, but not both, is 1, or is 0 otherwise.
+    <summary>Finds the exclusive "or" of two arbitrary-precision integer objects. For
+      each bit of the result, that bit is 1 if either of the corresponding bits
+      of the two operands, but not both, is 1, or is 0 otherwise.
       <para>Each arbitrary-precision integer is treated as a two's-complement form
         (see
         <see cref='T:PeterO.Numbers.EDecimal'>
@@ -9723,8 +9791,7 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
       <c>true</c> or
       <c>false</c> .
     </param>
-    <returns>The value of
-      <paramref name='inputByte'/>
+    <returns>The value of "boolValue"
        as an arbitrary-precision integer.
     </returns>
   </doc>
@@ -9841,13 +9908,11 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Increment(PeterO.Numbers.EInteger)'>
-    <summary>Not documented yet.
+    <summary>Adds one to an arbitrary-precision integer.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision integer.
     </param>
-    <returns>An arbitrary-precision integer.
+    <returns>The given arbitrary-precision integer plus one.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bthis'/>
@@ -11116,13 +11181,11 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Decrement(PeterO.Numbers.ERational)'>
-    <summary>Not documented yet.
+    <summary>Subtracts one from an arbitrary-precision rational number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision rational number.
     </param>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>The given arbitrary-precision rational number minus one.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bthis'/>
@@ -11485,13 +11548,11 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Increment(PeterO.Numbers.ERational)'>
-    <summary>Not documented yet.
+    <summary>Adds one to an arbitrary-precision rational number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision rational number.
     </param>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>The given arbitrary-precision rational number plus one.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='bthis'/>
@@ -11755,230 +11816,6 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     <typeparam name='T'>Data type for a numeric value in a particular radix.
     </typeparam>
   </doc>
-  <doc name='T:PeterO.Rdf.URIUtility'>
-    <summary>Contains utility methods for processing Uniform Resource Identifiers
-      (URIs) and Internationalized Resource Identifiers (IRIs) under RFC3986 and
-      RFC3987, respectively. In the following documentation, URIs and IRIs
-      include URI references and IRI references, for convenience.
-    </summary>
-  </doc>
-  <doc name='T:PeterO.Rdf.URIUtility.ParseMode'>
-    <summary>Specifies whether certain characters are allowed when parsing IRIs and
-      URIs.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Rdf.URIUtility.ParseMode.IRILenient'>
-    <summary>The rules only check for the appropriate delimiters when splitting the
-      path, without checking if all the characters in each component are valid.
-      Even with this mode, strings with unpaired surrogate code points are
-      considered invalid.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Rdf.URIUtility.ParseMode.IRIStrict'>
-    <summary>The rules follow the syntax for parsing IRIs. In particular, many code
-      points outside the Basic Latin range (U+0000 to U+007F) are allowed.
-      Strings with unpaired surrogate code points are considered invalid.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Rdf.URIUtility.ParseMode.IRISurrogateLenient'>
-    <summary>The rules only check for the appropriate delimiters when splitting the
-      path, without checking if all the characters in each component are valid.
-      Unpaired surrogate code points are treated as though they were replacement
-      characters instead for the purposes of these rules, so that strings with
-      those code points are not considered invalid strings.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Rdf.URIUtility.ParseMode.URILenient'>
-    <summary>The rules only check for the appropriate delimiters when splitting the
-      path, without checking if all the characters in each component are valid.
-      Code points outside the Basic Latin range (U+0000 to U+007F) are not
-      allowed.
-    </summary>
-  </doc>
-  <doc name='F:PeterO.Rdf.URIUtility.ParseMode.URIStrict'>
-    <summary>The rules follow the syntax for parsing IRIs, except that code points
-      outside the Basic Latin range (U+0000 to U+007F) are not allowed.
-    </summary>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.escapeURI(System.String,System.Int32)'>
-    <returns>A string possibly containing escaped characters, or null if s is null.
-    </returns>
-    <summary>Escapes characters that cannot appear in URIs or IRIs. The function is
-      idempotent; that is, calling the function again on the result with the
-      same mode doesn't change the result.
-    </summary>
-    <param name='s'>A string to escape.
-    </param>
-    <param name='mode'>The parameter
-      <paramref name='mode'/>
-       is a 32-bit signed integer.
-    </param>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.hasScheme(System.String)'>
-    <summary>Determines whether the string is a valid IRI with a scheme component. This
-      can be used to check for relative IRI references.
-      <para>The following cases return true:
-      </para>
-      <code>xx-x:mm example:/ww</code> The following cases return false:
-      <code>x@y:/z /x/y/z example.xyz</code> </summary>
-    <param name='refValue'>A string representing an IRI to check.
-    </param>
-    <returns><c>true</c> if the string is a valid IRI with a scheme component; otherwise,
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.hasSchemeForURI(System.String)'>
-    <summary>Determines whether the string is a valid URI with a scheme component. This
-      can be used to check for relative URI references. The following cases
-      return true:
-      <code>http://example/z xx-x:mm example:/ww</code> The following cases return false:
-      <code>x@y:/z /x/y/z example.xyz</code> </summary>
-    <param name='refValue'>A string representing an IRI to check.
-    </param>
-    <returns><c>true</c> if the string is a valid URI with a scheme component; otherwise,
-      <c>false</c> .
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.isValidCurieReference(System.String,System.Int32,System.Int32)'>
-    <summary>Determines whether the substring is a valid CURIE reference under RDFA
-      1.1. (The CURIE reference is the part after the colon.).
-    </summary>
-    <param name='s'>A string containing a CURIE reference. Can be null.
-    </param>
-    <param name='offset'>A zero-based index showing where the desired portion of "s" begins.
-    </param>
-    <param name='length'>The number of elements in the desired portion of "s" (but not more than
-      "s" 's length).
-    </param>
-    <returns><c>true</c> if the substring is a valid CURIE reference under RDFA 1; otherwise,
-      <c>false</c> . Returns false if
-      <paramref name='s'/>
-       is null.
-    </returns>
-    <exception cref='T:System.ArgumentException'>Either
-      <paramref name='offset'/>
-       or
-      <paramref name='length'/>
-       is less than 0 or greater than
-      <paramref name='s'/>
-       's length, or
-      <paramref name='s'/>
-       's length minus
-      <paramref name='offset'/>
-       is less than
-      <paramref name='length'/>
-       .
-    </exception>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.relativeResolve(System.String,System.String)'>
-    <summary>Resolves a URI or IRI relative to another URI or IRI.
-    </summary>
-    <param name='refValue'>A string representing a URI or IRI reference. Example:
-      <c>dir/file.txt</c> .
-    </param>
-    <param name='baseURI'>A string representing an absolute URI reference. Example:
-      <c>http://example.com/my/path/</c> .
-    </param>
-    <returns>The resolved IRI, or null if
-      <paramref name='refValue'/>
-       is null or is not a valid IRI. If base is null or is not a valid IRI,
-      returns refValue. Example: http://example.com/my/path/dir/file.txt.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.relativeResolve(System.String,System.String,PeterO.Rdf.URIUtility.ParseMode)'>
-    <summary>Resolves a URI or IRI relative to another URI or IRI.
-    </summary>
-    <param name='refValue'>A string representing a URI or IRI reference. Example:
-      <c>dir/file.txt</c> .
-    </param>
-    <param name='baseURI'>A string representing an absolute URI reference. Example:
-      <c>http://example.com/my/path/</c> .
-    </param>
-    <param name='parseMode'>Parse mode that specifies whether certain characters are allowed when
-      parsing IRIs and URIs.
-    </param>
-    <returns>The resolved IRI, or null if
-      <paramref name='refValue'/>
-       is null or is not a valid IRI. If base is null or is not a valid IRI,
-      returns refValue.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.splitIRI(System.String)'>
-    <summary>Parses an Internationalized Resource Identifier (IRI) reference under
-      RFC3987. If the IRI reference is syntactically valid, splits the string
-      into its components and returns an array containing the indices into the
-      components.
-      <returns>If the string is a valid IRI reference, returns an array of 10 integers.
-        Each of the five pairs corresponds to the start and end index of the
-        IRI's scheme, authority, path, query, or fragment component,
-        respectively. If a component is absent, both indices in that pair will
-        be -1. If the string is null or is not a valid IRI, returns null.
-      </returns>
-    </summary>
-    <param name='s'>A string that contains an IRI.
-    </param>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.splitIRI(System.String,PeterO.Rdf.URIUtility.ParseMode)'>
-    <summary>Parses an Internationalized Resource Identifier (IRI) reference under
-      RFC3987. If the IRI is syntactically valid, splits the string into its
-      components and returns an array containing the indices into the
-      components.
-    </summary>
-    <param name='s'>A string representing an IRI. Can be null.
-    </param>
-    <param name='parseMode'>The parameter
-      <paramref name='parseMode'/>
-       is a ParseMode object.
-    </param>
-    <returns>If the string is a valid IRI reference, returns an array of 10 integers.
-      Each of the five pairs corresponds to the start and end index of the IRI's
-      scheme, authority, path, query, or fragment component, respectively. If a
-      component is absent, both indices in that pair will be -1. If the string
-      is null or is not a valid IRI, returns null.
-    </returns>
-  </doc>
-  <doc name='M:PeterO.Rdf.URIUtility.splitIRI(System.String,System.Int32,System.Int32,PeterO.Rdf.URIUtility.ParseMode)'>
-    <summary>Parses a substring that represents an Internationalized Resource
-      Identifier (IRI) under RFC3987. If the IRI is syntactically valid, splits
-      the string into its components and returns an array containing the indices
-      into the components.
-    </summary>
-    <param name='s'>A string that contains an IRI.
-    </param>
-    <param name='offset'>A zero-based index showing where the desired portion of "s" begins.
-    </param>
-    <param name='length'>The length of the desired portion of "s" (but not more than "s" 's
-      length).
-    </param>
-    <param name='parseMode'>Parse mode that specifies whether certain characters are allowed when
-      parsing IRIs and URIs.
-    </param>
-    <returns>If the string is a valid IRI, returns an array of 10 integers. Each of the
-      five pairs corresponds to the start and end index of the IRI's scheme,
-      authority, path, query, or fragment component, respectively. If a
-      component is absent, both indices in that pair will be -1 (an index won't
-      be less than 0 in any other case). If the string is null or is not a valid
-      IRI, returns null.
-    </returns>
-    <exception cref='T:System.ArgumentException'>Either
-      <paramref name='offset'/>
-       or
-      <paramref name='length'/>
-       is less than 0 or greater than
-      <paramref name='s'/>
-       's length, or
-      <paramref name='s'/>
-       's length minus
-      <paramref name='offset'/>
-       is less than
-      <paramref name='length'/>
-       .
-    </exception>
-    <exception cref='T:System.ArgumentNullException'>The parameter
-      <paramref name='s'/>
-       is null.
-    </exception>
-  </doc>
   <doc name='T:Test.EFloatExtras'>
     <summary>A class that implements additional operations on arbitrary-precision
       binary floating-point numbers.
@@ -12001,11 +11838,11 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </param>
     <param name='ed2'>The second logical operand to the logical AND operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more bits than the
-      maximum precision specified in this context, the operand's most
-      significant bits that exceed that precision are discarded. This parameter
-      can be null.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter can be null.
     </param>
     <returns>The result of the logical AND operation as a logical operand. Signals an
       invalid operation and returns not-a-number (NaN) if
@@ -12025,16 +11862,6 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </param>
     <returns>Either 1 if "b" is true, or 0 if "b" is false.. The result will be rounded
       as specified by the given context, if any.
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.Canonical(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>An arbitrary-precision binary floating-point number.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.CompareTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -12107,50 +11934,6 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
       not signal flags if either value is signaling NaN.
     </returns>
   </doc>
-  <doc name='M:Test.EFloatExtras.Copy(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>An arbitrary-precision binary floating-point number.
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>An arbitrary-precision binary floating-point number.
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <returns>An arbitrary-precision binary floating-point number.
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.CopySign(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <param name='other'>The parameter
-      <paramref name='other'/>
-       is not documented yet.
-    </param>
-    <returns>An arbitrary-precision binary floating-point number.
-    </returns>
-  </doc>
   <doc name='M:Test.EFloatExtras.Int32ToEFloat(System.Int32,PeterO.Numbers.EContext)'>
     <summary>Creates a binary floating-point number from a 32-bit signed integer.
     </summary>
@@ -12166,16 +11949,25 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Invert(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed1'>The logical operand to the logical NOT operation.
-    </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more bits than the
-      maximum precision specified in this context, the operand's most
-      significant bits that exceed that precision are discarded. This parameter
-      cannot be null and must specify a maximum precision (unlimited precision
-      contexts are not allowed).
+    <summary>Performs a logical NOT operation on a binary number in the form of a
+      <i>
+         logical operand
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include
+      <c>01001</c> and
+      <c>111001</c> ). The logical NOT operation sets each bit of the result to 1 if the
+      corresponding bit is 0, and to 0 otherwise; it can set no more bits than
+      the maximum precision, however. For example, if the maximum precision is 8
+      bits, then
+      <c>NOT 111010 = 11000101</c> </summary>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter cannot be null and must specify a maximum precision
+      (unlimited precision contexts are not allowed).
     </param>
     <returns>The result of the logical NOT operation as a logical operand. Signals an
       invalid operation and returns not-a-number (NaN) if
@@ -12184,46 +11976,26 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+    <summary>Returns the base-2 exponent of an arbitrary-precision binary number (when
+      that number is expressed in scientific notation with one nonzero digit before the
+      radix point). For example, returns 3 for the numbers
+      <c>1.11b * 2^3</c> and
+      <c>111 * 2^1</c> .
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision binary number.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
-    </returns>
-  </doc>
-  <doc name='M:Test.EFloatExtras.NumberClass(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
-    </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
-    </param>
-    <returns>A 32-bit signed integer.
+    <returns>The base-2 exponent of the given number (when that number is expressed in
+      scientific notation with one nonzero digit before the radix point). Signals
+      DivideByZero and returns negative infinity if "ed" is zero. Returns
+      positive infinity if "ed" is positive infinity or negative infinity.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
-  </doc>
-  <doc name='M:Test.EFloatExtras.NumberClassString(System.Int32)'>
-    <summary>Not documented yet.
-    </summary>
-    <param name='nc'>The parameter
-      <paramref name='nc'/>
-       is not documented yet.
-    </param>
-    <returns>A text string.
-    </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Performs a logical OR operation on two binary numbers in the form of
@@ -12242,11 +12014,11 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </param>
     <param name='ed2'>The second logical operand to the logical OR operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more bits than the
-      maximum precision specified in this context, the operand's most
-      significant bits that exceed that precision are discarded. This parameter
-      can be null.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter can be null.
     </param>
     <returns>The result of the logical OR operation as a logical operand. Signals an
       invalid operation and returns not-a-number (NaN) if
@@ -12266,8 +12038,9 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-   <summary>Returns an arbitrary-precision binary number with the same value as this
-      object but with the given exponent, expressed as an arbitrary-precision binary number.
+    <summary>Returns an arbitrary-precision binary number with the same value as this
+      object but with the given exponent, expressed as an arbitrary-precision
+      binary number.
       <para>Note that this is not always the same as rounding to a given number of
         binary places, since it can fail if the difference between this value's
         exponent and the desired exponent is too big, depending on the maximum
@@ -12280,16 +12053,17 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
         point (a desired exponent of 0) is considered an "integer arithmetic" .
       </para>
     </summary>
-    <param name='ed'>An arbitrary-precision binary number whose exponent is to be changed.</param>
-    <param name='scale'>The desired exponent of
-      the result, expressed as an arbitrary-precision binary number. The exponent is the
-      number of fractional digits in the result, expressed as a negative number.
-      Can also be positive, which eliminates lower-order places from the number.
-      For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3
-      means round to the sixteens-place (10b^3, 1000b). A value of 0 rounds the
-      number to an integer.
+    <param name='ed'>An arbitrary-precision binary number whose exponent is to be changed.
     </param>
-    <param name='ctx'>An arithmetic context to control precision and rounding of the result. If
+    <param name='scale'>The desired exponent of the result, expressed as an arbitrary-precision
+      binary number. The exponent is the number of fractional digits in the
+      result, expressed as a negative number. Can also be positive, which
+      eliminates lower-order places from the number. For example, -3 means round
+      to the sixteenth (10b^-3, 0.0001b), and 3 means round to the
+      sixteens-place (10b^3, 1000b). A value of 0 rounds the number to an
+      integer.
+    </param>
+    <param name='ec'>An arithmetic context to control precision and rounding of the result. If
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags). Can be
       null, in which case the default rounding mode is HalfEven.
@@ -12317,9 +12091,9 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
       and the least-significant bits shifted out of the mantissa become the
       most-significant bits instead.
     </param>
-    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. If
-      this parameter is null or specifies an unlimited precision, this method
-      has the same behavior as
+    <param name='ec'>An arithmetic context to control the precision of arbitrary-precision
+      numbers. If this parameter is null or specifies an unlimited precision,
+      this method has the same behavior as
       <c>Shift</c> .
     </param>
     <returns>An arbitrary-precision binary number whose mantissa is rotated the given
@@ -12330,35 +12104,32 @@ if either of the corresponding bits of the two operands, but not both, is 1, or 
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.SameQuantum(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
-    <summary>Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both
-are infinity (positive and/or negative).
+    <summary>Returns whether two arbitrary-precision numbers have the same exponent,
+      they both are not-a-number (NaN), or they both are infinity (positive
+      and/or negative).
     </summary>
     <param name='ed1'>The first arbitrary-precision number.
     </param>
     <param name='ed2'>The second arbitrary-precision number.
     </param>
     <returns>Either
-      <c>true</c> if the given arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both
-are infinity (positive and/or negative); otherwise,
+      <c>true</c> if the given arbitrary-precision numbers have the same exponent, they
+      both are not-a-number (NaN), or they both are infinity (positive and/or
+      negative); otherwise,
       <c>false</c> .
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Not documented yet.
+
+    <summary>Finds an arbitrary-precision binary number whose binary point is moved a given number of places.
     </summary>
-    <param name='ed'>The parameter
-      <paramref name='ed'/>
-       is not documented yet.
+    <param name='ed'>An arbitrary-precision binary number.
     </param>
-    <param name='ed2'>The parameter
-      <paramref name='ed2'/>
-       is not documented yet.
+    <param name='ed2'>The number of binary places to move the binary point of "ed".  This must be an integer with an exponent of 0.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent range of the result.  Can be null.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The given arbitrary-precision binary number whose binary point is moved the given number of places.  Signals an invalid operation and returns not-a-number (NaN) if "ed2" is infinity or NaN, has an Exponent property other than 0. Signals an invalid operation and returns not-a-number (NaN) if "ec" defines a limited precision and exponent range and if "ed2"'s absolute value is greater than twice the sum of the context's EMax property and its Precision property.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -12380,8 +12151,8 @@ are infinity (positive and/or negative); otherwise,
       given number of bits. If this parameter is negative, the mantissa is
       shifted to the right by the given number of bits.
     </param>
-    <param name='ec'>A context that specifies the precision of arbitrary-precision numbers. Can
-      be null.
+    <param name='ec'>An arithmetic context to control the precision of arbitrary-precision
+      numbers. Can be null.
     </param>
     <returns>An arbitrary-precision decimal number whose mantissa is shifted the given
       number of bits. Signals an invalid operation and returns NaN
@@ -12401,13 +12172,22 @@ are infinity (positive and/or negative); otherwise,
     </exception>
   </doc>
   <doc name='M:Test.EFloatExtras.Trim(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-      <summary>Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa.  If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the mantissa (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the mantissa until the exponent reaches 0 (then the number is rounded if necessary).
+    <summary>Returns an arbitrary-precision number with the same value as this one but
+      with certain trailing zeros removed from its mantissa. If the number's
+      exponent is 0, it is returned unchanged (but may be rounded depending on
+      the arithmetic context); if that exponent is greater 0, its trailing zeros
+      are removed from the mantissa (then rounded if necessary); if that
+      exponent is less than 0, its trailing zeros are removed from the mantissa
+      until the exponent reaches 0 (then the number is rounded if necessary).
     </summary>
     <param name='ed1'>An arbitrary-precision number.
     </param>
-    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent range of the result.  Can be null.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>An arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa.  If "ed1" is not-a-number (NaN) or infinity, it is generally returned unchanged.
+    <returns>An arbitrary-precision number with the same value as this one but with
+      certain trailing zeros removed from its mantissa. If "ed1" is not-a-number
+      (NaN) or infinity, it is generally returned unchanged.
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -12429,11 +12209,11 @@ are infinity (positive and/or negative); otherwise,
     </param>
     <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
     </param>
-    <param name='ec'>A context that specifies the maximum precision of arbitrary-precision
-      numbers. If a logical operand passed to this method has more bits than the
-      maximum precision specified in this context, the operand's most
-      significant bits that exceed that precision are discarded. This parameter
-      can be null.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter can be null.
     </param>
     <returns>The result of the logical exclusive-OR operation as a logical operand.
       Signals an invalid operation and returns not-a-number (NaN) if

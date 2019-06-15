@@ -3388,8 +3388,19 @@ throw new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Finds the exclusive "or" of two arbitrary-precision
+    /// integer objects.
+    /// <para>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> )
+    /// for the purposes of this operator.</para></summary>
+    /// <param name='other'>An arbitrary-precision integer.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// it's set in one input integer but not the other.</returns>
+    /// <exception cref='T:System.ArgumentException'>Doesn't satisfy
+    /// smallerCount == CountWords(result).</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='other'/> is null.</exception>
     public EInteger Xor(EInteger other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));

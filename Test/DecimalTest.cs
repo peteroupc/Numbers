@@ -279,13 +279,13 @@ name.Equals("sqtx2847")) {
         } else if (op.Equals("comparetotal")) {
           int id3 = d1.CompareToTotal(d2, ctx);
           d3 = EDecimal.FromInt32(id3);
-          Assert.AreEqual(id3, EDecimalExtras.CompareTotal(d1, d2, ctx), ln);
+          Assert.AreEqual(id3, EDecimals.CompareTotal(d1, d2, ctx), ln);
         } else if (op.Equals("comparetotmag")) {
           int id3 = d1.CompareToTotalMagnitude(d2, ctx);
           d3 = EDecimal.FromInt32(id3);
     {
 object objectTemp = id3;
-object objectTemp2 = EDecimalExtras.CompareTotalMagnitude(
+object objectTemp2 = EDecimals.CompareTotalMagnitude(
   d1,
   d2,
   ctx);
@@ -294,13 +294,13 @@ Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
 }
         } else if (op.Equals("copyabs")) {
           d3 = d1.Abs();
-          Assert.AreEqual(d3, EDecimalExtras.CopyAbs(d1));
+          Assert.AreEqual(d3, EDecimals.CopyAbs(d1));
         } else if (op.Equals("copynegate")) {
           d3 = d1.Negate();
-          Assert.AreEqual(d3, EDecimalExtras.CopyNegate(d1));
+          Assert.AreEqual(d3, EDecimals.CopyNegate(d1));
         } else if (op.Equals("copysign")) {
           d3 = d1.CopySign(d2);
-Assert.AreEqual(d3, EDecimalExtras.CopySign(d1, d2));
+Assert.AreEqual(d3, EDecimals.CopySign(d1, d2));
         } else if (op.Equals("comparesig")) {
           d3 = d1.CompareToSignal(d2, ctx);
         } else if (op.Equals("subtract")) {
@@ -347,7 +347,7 @@ return;
           d3 = d1.NextMinus(ctx);
         } else if (op.Equals("copy")) {
           d3 = d1;
-Assert.AreEqual(d3, EDecimalExtras.Copy(d1), "copy equiv");
+Assert.AreEqual(d3, EDecimals.Copy(d1), "copy equiv");
         } else if (op.Equals("abs")) {
           d3 = d1.Abs(ctx);
         } else if (op.Equals("reduce")) {
@@ -364,54 +364,54 @@ Assert.AreEqual(d3, EDecimalExtras.Copy(d1), "copy equiv");
           d3 = d1.Plus(ctx);
         } else {
 if (op.Equals("and")) {
- d3 = EDecimalExtras.And(d1, d2, ctx);
+ d3 = EDecimals.And(d1, d2, ctx);
   } else if (op.Equals("or")) {
- d3 = EDecimalExtras.Or(d1, d2, ctx);
+ d3 = EDecimals.Or(d1, d2, ctx);
   } else if (op.Equals("xor")) {
- d3 = EDecimalExtras.Xor(d1, d2, ctx);
+ d3 = EDecimals.Xor(d1, d2, ctx);
   } else if (op.Equals("invert")) {
- d3 = EDecimalExtras.Invert(d1, ctx);
+ d3 = EDecimals.Invert(d1, ctx);
   } else if (op.Equals("rescale")) {
- d3 = EDecimalExtras.Rescale(d1, d2, ctx);
+ d3 = EDecimals.Rescale(d1, d2, ctx);
   } else if (op.Equals("shift")) {
- d3 = EDecimalExtras.Shift(d1, d2, ctx);
+ d3 = EDecimals.Shift(d1, d2, ctx);
   } else if (op.Equals("rotate")) {
- d3 = EDecimalExtras.Rotate(d1, d2, ctx);
+ d3 = EDecimals.Rotate(d1, d2, ctx);
   } else if (op.Equals("iscanonical")) {
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsCanonical(d1));
+ d3 = EDecimal.FromBoolean(EDecimals.IsCanonical(d1));
   } else if (op.Equals("isnan")) {
- Assert.AreEqual(EDecimalExtras.IsNaN(d1), d1.IsNaN());
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsNaN(d1));
+ Assert.AreEqual(EDecimals.IsNaN(d1), d1.IsNaN());
+ d3 = EDecimal.FromBoolean(EDecimals.IsNaN(d1));
   } else if (op.Equals("issigned")) {
- Assert.AreEqual(EDecimalExtras.IsSigned(d1), d1.IsNegative);
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsSigned(d1));
+ Assert.AreEqual(EDecimals.IsSigned(d1), d1.IsNegative);
+ d3 = EDecimal.FromBoolean(EDecimals.IsSigned(d1));
   } else if (op.Equals("isqnan")) {
- Assert.AreEqual(EDecimalExtras.IsQuietNaN(d1), d1.IsQuietNaN());
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsQuietNaN(d1));
+ Assert.AreEqual(EDecimals.IsQuietNaN(d1), d1.IsQuietNaN());
+ d3 = EDecimal.FromBoolean(EDecimals.IsQuietNaN(d1));
   } else if (op.Equals("issnan")) {
- Assert.AreEqual(EDecimalExtras.IsSignalingNaN(d1), d1.IsSignalingNaN());
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsSignalingNaN(d1));
+ Assert.AreEqual(EDecimals.IsSignalingNaN(d1), d1.IsSignalingNaN());
+ d3 = EDecimal.FromBoolean(EDecimals.IsSignalingNaN(d1));
   } else if (op.Equals("isfinite")) {
- Assert.AreEqual(EDecimalExtras.IsFinite(d1), d1.IsFinite);
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsFinite(d1));
+ Assert.AreEqual(EDecimals.IsFinite(d1), d1.IsFinite);
+ d3 = EDecimal.FromBoolean(EDecimals.IsFinite(d1));
   } else if (op.Equals("isinfinite")) {
- Assert.AreEqual(EDecimalExtras.IsInfinite(d1), d1.IsInfinity());
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsInfinite(d1));
+ Assert.AreEqual(EDecimals.IsInfinite(d1), d1.IsInfinity());
+ d3 = EDecimal.FromBoolean(EDecimals.IsInfinite(d1));
   } else if (op.Equals("issubnormal")) {
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsSubnormal(d1, ctx));
+ d3 = EDecimal.FromBoolean(EDecimals.IsSubnormal(d1, ctx));
   } else if (op.Equals("isnormal")) {
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsNormal(d1, ctx));
+ d3 = EDecimal.FromBoolean(EDecimals.IsNormal(d1, ctx));
   } else if (op.Equals("iszero")) {
- Assert.AreEqual(EDecimalExtras.IsZero(d1), d1.IsZero);
- d3 = EDecimal.FromBoolean(EDecimalExtras.IsZero(d1));
+ Assert.AreEqual(EDecimals.IsZero(d1), d1.IsZero);
+ d3 = EDecimal.FromBoolean(EDecimals.IsZero(d1));
   } else if (op.Equals("logb")) {
- d3 = EDecimalExtras.LogB(d1, ctx);
+ d3 = EDecimals.LogB(d1, ctx);
   } else if (op.Equals("scaleb")) {
- d3 = EDecimalExtras.ScaleB(d1, d2, ctx);
+ d3 = EDecimals.ScaleB(d1, d2, ctx);
   } else if (op.Equals("trim")) {
- d3 = EDecimalExtras.Trim(d1, ctx);
+ d3 = EDecimals.Trim(d1, ctx);
   } else if (op.Equals("samequantum")) {
- d3 = EDecimal.FromBoolean(EDecimalExtras.SameQuantum(d1, d2));
+ d3 = EDecimal.FromBoolean(EDecimals.SameQuantum(d1, d2));
 } else {
  Console.WriteLine("unknown op " + op);
           return;
@@ -454,8 +454,8 @@ if (op.Equals("and")) {
         }
         if (op.Equals("class")) {
             d1 = EDecimal.FromString(input1);
-            string numclass = EDecimalExtras.NumberClassString(
-                    EDecimalExtras.NumberClass(d1, ctx));
+            string numclass = EDecimals.NumberClassString(
+                    EDecimals.NumberClass(d1, ctx));
             Assert.AreEqual(output, numclass, input1);
         } else if (op.Equals("toSci") || op.Equals("tosci")) {
           try {
@@ -818,20 +818,20 @@ throw new InvalidOperationException(String.Empty, ex);
           using (var w = new StreamReader(f)) {
             while (!w.EndOfStream) {
               string ln = w.ReadLine();
-//if (!ln.Contains(" 0E") && !ln.Contains(" -0E")) {
+// if (!ln.Contains(" 0E") && !ln.Contains(" -0E")) {
 // continue;
-//}
-//if (!ln.Contains("plus") &&
-//!ln.Contains("minus") &&
+// }
+// if (!ln.Contains("plus") &&
+// !ln.Contains("minus") &&
 // !ln.Contains("subtr") &&
-//!ln.Contains("fma") &&
-//    !ln.Contains("add")) {
+// !ln.Contains("fma") &&
+// !ln.Contains("add")) {
 // continue;
-//}
-//if (ln.Contains("#")) {
+// }
+// if (ln.Contains("#")) {
 // continue;
-//}
-//Console.WriteLine(ln);
+// }
+// Console.WriteLine(ln);
 try {
 if (recordfailing) {
  Timeout(5000, () => ParseDecTest(ln, context), String.Empty);

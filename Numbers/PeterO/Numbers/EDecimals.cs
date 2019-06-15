@@ -3,7 +3,7 @@ using System;
 namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.EDecimalExtras"]/*'/>
-  public static class EDecimalExtras {
+  public static class EDecimals {
     private const int DecimalRadix = 10;
 
     /// <include file='../../docs.xml'
@@ -19,17 +19,6 @@ namespace PeterO.Numbers {
       // Arithmetic Specification 1.70, but required since some of the
       // miscellaneous operations here return integers
       return EDecimal.FromInt32(i32).RoundToPrecision(ec);
-    }
-
-    [Obsolete]
-    /// <summary>Not documented yet.</summary>
-    /// <param name='b'>The parameter <paramref name='b'/> is not
-    /// documented yet.</param>
-    /// <param name='ec'>The parameter <paramref name='ec'/> is not
-    /// documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
-    public static EDecimal BoolToEDecimal(bool b, EContext ec) {
-      return EDecimal.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
     /// <include file='../../docs.xml'
@@ -153,8 +142,22 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsZero;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Returns the base-10 exponent of an arbitrary-precision
+    /// decimal number (when that number is expressed in scientific
+    /// notation with one digit before the radix point). For example,
+    /// returns 3 for the numbers <c>6.66E + 3</c> and <c>666E +
+    /// 1</c></summary>
+    /// <param name='ed'>An arbitrary-precision decimal number.</param>
+    /// <param name='ec'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. Can be null.</param>
+    /// <returns>The base-10 exponent of the given number (when that number
+    /// is expressed in scientific notation with one nonzero digit before
+    /// the radix point). Signals DivideByZero and returns negative
+    /// infinity if <paramref name='ed'/> is zero. Returns positive
+    /// infinity if <paramref name='ed'/> is positive infinity or negative
+    /// infinity.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='ed'/> is null.</exception>
     public static EDecimal LogB(EDecimal ed, EContext ec) {
       if ((ed) == null) {
   throw new ArgumentNullException(nameof(ed));
@@ -172,8 +175,26 @@ namespace PeterO.Numbers {
       return EDecimal.FromEInteger(ei).RoundToPrecision(ec);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Finds an arbitrary-precision decimal number whose decimal
+    /// point is moved a given number of places.</summary>
+    /// <param name='ed'>An arbitrary-precision decimal number.</param>
+    /// <param name='ed2'>The number of decimal places to move the decimal
+    /// point of "ed". This must be an integer with an exponent of
+    /// 0.</param>
+    /// <param name='ec'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. Can be null.</param>
+    /// <returns>The given arbitrary-precision decimal number whose decimal
+    /// point is moved the given number of places. Signals an invalid
+    /// operation and returns not-a-number (NaN) if <paramref name='ed2'/>
+    /// is infinity or NaN, has an Exponent property other than 0. Signals
+    /// an invalid operation and returns not-a-number (NaN) if <paramref
+    /// name='ec'/> defines a limited precision and exponent range and if
+    /// <paramref name='ed2'/> 's absolute value is greater than twice the
+    /// sum of the context's EMax property and its Precision
+    /// property.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='ed'/> or <paramref name='ed2'/> is
+    /// null.</exception>
     public static EDecimal ScaleB(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -188,7 +209,7 @@ namespace PeterO.Numbers {
         return InvalidOperation(EDecimal.NaN, ec);
       }
       EInteger scale = ed2.Mantissa;
-      if (ec != null && ec.HasMaxPrecision) {
+      if (ec != null && ec.HasMaxPrecision && ec.HasExponentRange) {
         EInteger exp = ec.EMax.Add(ec.Precision).Multiply(2);
         if (scale.Abs().CompareTo(exp.Abs()) > 0) {
           return InvalidOperation(EDecimal.NaN, ec);
@@ -345,8 +366,11 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return ed.Copy();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Returns a canonical version of the given
+    /// arbitrary-precision number object. In this method, this method
+    /// behaves like the Copy method.</summary>
+    /// <param name='ed'>An arbitrary-precision number object.</param>
+    /// <returns>A copy of the parameter <paramref name='ed'/>.</returns>
     public static EDecimal Canonical(EDecimal ed) {
       return Copy(ed);
     }
@@ -395,22 +419,8 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       }
     }
 
-    /// <summary>Returns an arbitrary-precision number with the same value
-    /// as this one but with certain trailing zeros removed from its
-    /// mantissa. If the number's exponent is 0, it is returned unchanged
-    /// (but may be rounded depending on the arithmetic context); if that
-    /// exponent is greater 0, its trailing zeros are removed from the
-    /// mantissa (then rounded if necessary); if that exponent is less than
-    /// 0, its trailing zeros are removed from the mantissa until the
-    /// exponent reaches 0 (then the number is rounded if
-    /// necessary).</summary>
-    /// <param name='ed1'>An arbitrary-precision number.</param>
-    /// <param name='ec'>An arithmetic context to control the precision,
-    /// rounding, and exponent range of the result. Can be null.</param>
-    /// <returns>An arbitrary-precision number with the same value as this
-    /// one but with certain trailing zeros removed from its mantissa. If
-    /// <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
-    /// generally returned unchanged.</returns>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Trim(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Trim(EDecimal ed1, EContext ec) {
       EDecimal ed = ed1;
       if (ed1 == null) {

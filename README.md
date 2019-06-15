@@ -44,6 +44,19 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
+Version 1.4.0
+
+- Added EDecimals and EFloats class that implements more methods for arbitrary-precision decimal and binary numbers
+- Increment and decrement operators added to EInteger, EDecimal, EFloat, and ERational classes
+- Allowed EDecimal values in (-1, 0) to EDecimal's *Checked methods, to conform to documentation.
+- Added WithNoFlagsOrTraps method and HasFlagsOrTraps property to EContext
+- Add Mod(int), Pow(int), and FromBoolean methods to EInteger
+- Add And, Not, Xor, and Or methods to EInteger.cs
+- Add Copy method to EDecimal, EFloat, and ERational
+- Add CompareToTotalMagnitude overload to EDecimal, EFloat, and ERational
+- Deprecated Odd and ZeroFiveUp rounding modes
+- Bug fixes and performance improvements
+
 Version 1.3.0:
 
 - Improve performance of EDecimal.CompareToBinary in certain cases

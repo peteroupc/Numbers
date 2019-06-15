@@ -119,12 +119,12 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[PeterO.Numbers.EInteger operator +(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_Addition)</code> - Adds two arbitrary-precision integer objects and returns the result.
 * <code>[PeterO.Numbers.EInteger operator &amp;(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_BitwiseAnd)</code> - Does an AND operation between two arbitrary-precision integer values.
 * <code>[PeterO.Numbers.EInteger operator |(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_BitwiseOr)</code> - Does an OR operation between two arbitrary-precision integer instances.
-* <code>[PeterO.Numbers.EInteger operator --(PeterO.Numbers.EInteger)](#op_Decrement)</code> - Not documented yet.
+* <code>[PeterO.Numbers.EInteger operator --(PeterO.Numbers.EInteger)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision integer.
 * <code>[PeterO.Numbers.EInteger operator /(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_Division)</code> - Divides an arbitrary-precision integer by the value of an arbitrary-precision integer object.
 * <code>[PeterO.Numbers.EInteger operator ^(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_ExclusiveOr)</code> - Finds the exclusive "or" of two arbitrary-precision integer objects.
 * <code>[bool operator &gt;(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_GreaterThan)</code> - Determines whether an arbitrary-precision integer is greater than another arbitrary-precision integer.
 * <code>[bool operator &gt;=(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_GreaterThanOrEqual)</code> - Determines whether an arbitrary-precision integer value is greater than another arbitrary-precision integer.
-* <code>[PeterO.Numbers.EInteger operator ++(PeterO.Numbers.EInteger)](#op_Increment)</code> - Not documented yet.
+* <code>[PeterO.Numbers.EInteger operator ++(PeterO.Numbers.EInteger)](#op_Increment)</code> - Adds one to an arbitrary-precision integer.
 * <code>[PeterO.Numbers.EInteger operator &lt;&lt;(PeterO.Numbers.EInteger, int)](#op_LeftShift)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
 * <code>[bool operator &lt;(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_LessThan)</code> - Determines whether an arbitrary-precision integer is less than another arbitrary-precision integer.
 * <code>[bool operator &lt;=(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_LessThanOrEqual)</code> - Determines whether an arbitrary-precision integer is up to another arbitrary-precision integer.
@@ -1334,7 +1334,7 @@ is null.
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
 
-Does an AND operation between two arbitrary-precision integer values.
+Does an AND operation between two arbitrary-precision integer values. For each bit of the result, that bit is 1 if the corresponding bits of the two operands are both 1, or is 0 otherwise.
 
 Each arbitrary-precision integer is treated as a two's-complement form see[
          &#x22;Forms of numbers&#x22;
@@ -1362,7 +1362,7 @@ The parameter "a" or "b" is null.
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
 
-Does an OR operation between two arbitrary-precision integer instances.
+Does an OR operation between two arbitrary-precision integer instances. For each bit of the result, that bit is 1 if either or both of the corresponding bits of the two operands are 1, or is 0 otherwise.
 
 Each arbitrary-precision integer is treated as a two's-complement form see[
          &#x22;Forms of numbers&#x22;
@@ -1389,22 +1389,21 @@ The parameter "first" or "second" is null.
     public static PeterO.Numbers.EInteger operator --(
         PeterO.Numbers.EInteger bthis);
 
-Not documented yet.
+Subtracts one from an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-An EInteger object.
+The given arbitrary-precision integer minus one.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
+The parameter <i>bthis</i>
+is null.
 
 <a id="op_Division"></a>
 ### Operator `/`
@@ -1438,7 +1437,7 @@ is null.
         PeterO.Numbers.EInteger a,
         PeterO.Numbers.EInteger b);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
+Finds the exclusive "or" of two arbitrary-precision integer objects. For each bit of the result, that bit is 1 if either of the corresponding bits of the two operands, but not both, is 1, or is 0 otherwise.Each arbitrary-precision integer is treated as a two's-complement form (see[
            &#x22;Forms of numbers&#x22;
         ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
 
@@ -1507,22 +1506,21 @@ is at least <i>otherValue</i>
     public static PeterO.Numbers.EInteger operator ++(
         PeterO.Numbers.EInteger bthis);
 
-Not documented yet.
+Adds one to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-An EInteger object.
+The given arbitrary-precision integer plus one.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
+The parameter <i>bthis</i>
+is null.
 
 <a id="op_LeftShift"></a>
 ### Operator `<<`

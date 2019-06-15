@@ -306,8 +306,12 @@ namespace PeterO.Numbers {
       return input.ToByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Explicit(System.Boolean)~PeterO.Numbers.EInteger"]/*'/>
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='boolValue'>Either <c>true</c> or <c>false</c>
+    /// .</param>
+    /// <returns>The value of <paramref name='boolValue'/> as an
+    /// arbitrary-precision integer.</returns>
     public static explicit operator EInteger(bool boolValue) {
       return EInteger.FromBoolean(boolValue);
     }

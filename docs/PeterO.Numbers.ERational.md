@@ -112,9 +112,9 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[UnsignedNumerator](#UnsignedNumerator)</code> - Gets this object's numerator with the sign removed.
 * <code>[public static readonly PeterO.Numbers.ERational Zero;](#Zero)</code> - A rational number for zero.
 * <code>[PeterO.Numbers.ERational operator +(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Addition)</code> - Adds two rational numbers.
-* <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Not documented yet.
+* <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator /(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Division)</code> - Divides an arbitrary-precision rational number by the value of another arbitrary-precision rational number object.
-* <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Not documented yet.
+* <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Adds one to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator %(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Modulus)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator *(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Multiply)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator -(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Subtraction)</code> - Subtracts an arbitrary-precision rational number from this instance.
@@ -1106,22 +1106,21 @@ The parameter "otherValue" is null.
     public static PeterO.Numbers.ERational operator --(
         PeterO.Numbers.ERational bthis);
 
-Not documented yet.
+Subtracts one from an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-An ERational object.
+The given arbitrary-precision rational number minus one.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
+The parameter <i>bthis</i>
+is null.
 
 <a id="op_Division"></a>
 ### Operator `/`
@@ -1153,22 +1152,21 @@ The parameter "otherValue" is null.
     public static PeterO.Numbers.ERational operator ++(
         PeterO.Numbers.ERational bthis);
 
-Not documented yet.
+Adds one to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-An ERational object.
+The given arbitrary-precision rational number plus one.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
+The parameter <i>bthis</i>
+is null.
 
 <a id="op_Modulus"></a>
 ### Operator `%`

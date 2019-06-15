@@ -3,7 +3,7 @@ using System;
 namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:Test.EFloatExtras"]/*'/>
-  public static class EFloatExtras {
+  public static class EFloats {
     private const int BinaryRadix = 2;
 
     /// <include file='../../docs.xml'
@@ -19,13 +19,6 @@ namespace PeterO.Numbers {
       // Arithmetic Specification 1.70, but required since some of the
       // miscellaneous operations here return integers
       return EFloat.FromInt32(i32).RoundToPrecision(ec);
-    }
-
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.BoolToEFloat(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
-    [Obsolete]
-    public static EFloat BoolToEFloat(bool b, EContext ec) {
-      return EFloat.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
     /// <include file='../../docs.xml'
@@ -86,9 +79,9 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.NumberClassString(System.Int32)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.NumberClassString(System.Int32)"]/*'/>
     public static string NumberClassString(int nc) {
-      return EDecimalExtras.NumberClassString(nc);
+      return EDecimals.NumberClassString(nc);
     }
 
     /// <include file='../../docs.xml'
@@ -133,8 +126,22 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsZero;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Returns the base-2 exponent of an arbitrary-precision
+    /// binary number (when that number is expressed in scientific notation
+    /// with one nonzero digit before the radix point). For example,
+    /// returns 3 for the numbers <c>1.11b * 2^3</c> and <c>111 *
+    /// 2^1</c></summary>
+    /// <param name='ed'>An arbitrary-precision binary number.</param>
+    /// <param name='ec'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. Can be null.</param>
+    /// <returns>The base-2 exponent of the given number (when that number
+    /// is expressed in scientific notation with one nonzero digit before
+    /// the radix point). Signals DivideByZero and returns negative
+    /// infinity if <paramref name='ed'/> is zero. Returns positive
+    /// infinity if <paramref name='ed'/> is positive infinity or negative
+    /// infinity.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='ed'/> is null.</exception>
     public static EFloat LogB(EFloat ed, EContext ec) {
       if ((ed) == null) {
   throw new ArgumentNullException(nameof(ed));
@@ -152,8 +159,26 @@ namespace PeterO.Numbers {
       return EFloat.FromEInteger(ei).RoundToPrecision(ec);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Finds an arbitrary-precision binary number whose binary
+    /// point is moved a given number of places.</summary>
+    /// <param name='ed'>An arbitrary-precision binary number.</param>
+    /// <param name='ed2'>The number of binary places to move the binary
+    /// point of "ed". This must be an integer with an exponent of
+    /// 0.</param>
+    /// <param name='ec'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. Can be null.</param>
+    /// <returns>The given arbitrary-precision binary number whose binary
+    /// point is moved the given number of places. Signals an invalid
+    /// operation and returns not-a-number (NaN) if <paramref name='ed2'/>
+    /// is infinity or NaN, has an Exponent property other than 0. Signals
+    /// an invalid operation and returns not-a-number (NaN) if <paramref
+    /// name='ec'/> defines a limited precision and exponent range and if
+    /// <paramref name='ed2'/> 's absolute value is greater than twice the
+    /// sum of the context's EMax property and its Precision
+    /// property.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='ed'/> or <paramref name='ed2'/> is
+    /// null.</exception>
     public static EFloat ScaleB(EFloat ed, EFloat ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -168,7 +193,7 @@ namespace PeterO.Numbers {
         return InvalidOperation(EFloat.NaN, ec);
       }
       EInteger scale = ed2.Mantissa;
-      if (ec != null && ec.HasMaxPrecision) {
+      if (ec != null && ec.HasMaxPrecision && ec.HasExponentRange) {
         EInteger exp = ec.EMax.Add(ec.Precision).Multiply(2);
         if (scale.Abs().CompareTo(exp.Abs()) > 0) {
           return InvalidOperation(EFloat.NaN, ec);
@@ -317,31 +342,34 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.Copy(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Copy(PeterO.Numbers.EDecimal)"]/*'/>
     public static EFloat Copy(EFloat ed) {
       return ed.Copy();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Canonical(PeterO.Numbers.EFloat)"]/*'/>
+    /// <summary>Returns a canonical version of the given
+    /// arbitrary-precision number object. In this method, this method
+    /// behaves like the Copy method.</summary>
+    /// <param name='ed'>An arbitrary-precision number object.</param>
+    /// <returns>A copy of the parameter <paramref name='ed'/>.</returns>
     public static EFloat Canonical(EFloat ed) {
       return Copy(ed);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.CopyAbs(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CopyAbs(PeterO.Numbers.EDecimal)"]/*'/>
     public static EFloat CopyAbs(EFloat ed) {
       return Copy(ed.Abs());
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.CopyNegate(PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CopyNegate(PeterO.Numbers.EDecimal)"]/*'/>
     public static EFloat CopyNegate(EFloat ed) {
       return Copy(ed.Negate());
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.CopySign(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CopySign(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EFloat CopySign(EFloat ed, EFloat other) {
       return ed.IsNegative == other.IsNegative ? Copy(ed) : CopyNegate(ed);
     }
@@ -373,7 +401,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.Trim(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Trim(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Trim(EFloat ed1, EContext ec) {
       EFloat ed = ed1;
       if (ed1 == null) {
@@ -425,7 +453,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Rescale(EFloat ed, EFloat scale, EContext ec) {
       if (ed == null || scale == null) {
         return InvalidOperation(EFloat.NaN, ec);
@@ -457,11 +485,11 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat And(EFloat ed1, EFloat ed2, EContext ec) {
-      byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
+      byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
-      byte[] logi2 = EDecimalExtras.FromLogical(ed2, ec, 2);
+      byte[] logi2 = EDecimals.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
@@ -471,19 +499,31 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
         smaller[i] &= bigger[i];
       }
       return EFloat.FromEInteger(
-  EDecimalExtras.ToLogical(
+  EDecimals.ToLogical(
   smaller,
   2)).RoundToPrecision(ec);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.Invert(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Performs a logical NOT operation on a binary number in the
+    /// form of a
+    /// <i>logical operand</i>. A <c>logical operand</c> is a non-negative
+    /// base-2 number with an Exponent property of 0 (examples include
+    /// <c>01001</c> and <c>111001</c> ). The logical NOT operation sets
+    /// each bit of the result to 1 if the corresponding bit is 0, and to 0
+    /// otherwise; it can set no more bits than the maximum precision,
+    /// however. For example, if the maximum precision is 8 bits, then
+    /// <c>NOT 111010 = 11000101</c></summary>
+    /// <param name='ed1'>Not documented yet.</param>
+    /// <param name='ec'>Not documented yet.</param>
+    /// <returns>The result of the logical NOT operation as a logical
+    /// operand. Signals an invalid operation and returns not-a-number
+    /// (NaN) if <paramref name='ed1'/> is not a logical operand.</returns>
     public static EFloat Invert(EFloat ed1, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return InvalidOperation(EFloat.NaN, ec);
       }
       EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
-      byte[] smaller = EDecimalExtras.FromLogical(ed1, ec, 2);
+      byte[] smaller = EDecimals.FromLogical(ed1, ec, 2);
       if (smaller == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
@@ -499,7 +539,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
         bigger[i] ^= smaller[i];
       }
       return EFloat.FromEInteger(
-  EDecimalExtras.ToLogical(
+  EDecimals.ToLogical(
   bigger,
   2)).RoundToPrecision(ec);
     }
@@ -507,11 +547,11 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
-      byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
+      byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
-      byte[] logi2 = EDecimalExtras.FromLogical(ed2, ec, 2);
+      byte[] logi2 = EDecimals.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
@@ -521,7 +561,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
         bigger[i] ^= smaller[i];
       }
       return EFloat.FromEInteger(
-  EDecimalExtras.ToLogical(
+  EDecimals.ToLogical(
   bigger,
   2)).RoundToPrecision(ec);
     }
@@ -529,11 +569,11 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:Test.EFloatExtras.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Or(EFloat ed1, EFloat ed2, EContext ec) {
-      byte[] logi1 = EDecimalExtras.FromLogical(ed1, ec, 2);
+      byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
-      byte[] logi2 = EDecimalExtras.FromLogical(ed2, ec, 2);
+      byte[] logi2 = EDecimals.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
         return InvalidOperation(EFloat.NaN, ec);
       }
@@ -543,7 +583,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
         bigger[i] |= smaller[i];
       }
       return EFloat.FromEInteger(
-  EDecimalExtras.ToLogical(
+  EDecimals.ToLogical(
   bigger,
   2)).RoundToPrecision(ec);
     }
