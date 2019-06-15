@@ -22,12 +22,16 @@ namespace PeterO.Numbers {
     }
 
     [Obsolete]
+    /// <summary>Not documented yet.</summary>
+    /// <param name='b'>Not documented yet.</param>
+    /// <param name='ec'>Not documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
     public static EDecimal BoolToEDecimal(bool b, EContext ec) {
       return EDecimal.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.BooleanToEDecimal(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.BooleanToEDecimal(System.Boolean,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal BooleanToEDecimal(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -258,7 +262,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Rotate(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Rotate(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -319,7 +323,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CompareTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
       return ed.CompareToTotal(other, ec);
     }
@@ -340,7 +344,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Canonical(PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal Canonical(EDecimal ed) {
       return Copy(ed);
     }
@@ -357,8 +361,15 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return Copy(ed.Negate());
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CopySign(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Returns an arbitrary-precision number object with the same
+    /// value as the first given number object but with a the same sign
+    /// (positive or negative) as the second given number object.</summary>
+    /// <param name='ed'>An arbitrary-precision number object with the
+    /// value the result will have.</param>
+    /// <param name='other'>An EDecimal object.</param>
+    /// <returns>An arbitrary-precision number object with the same value
+    /// as the first given number object but with a the same sign (positive
+    /// or negative) as the second given number object.</returns>
     public static EDecimal CopySign(EDecimal ed, EDecimal other) {
       return ed.IsNegative == other.IsNegative ? Copy(ed) : CopyNegate(ed);
     }
@@ -471,8 +482,28 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     // Logical Operations
-    /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Performs a logical AND operation on two decimal numbers in
+    /// the form of
+    /// <i>logical operands</i>. A <c>logical operand</c> is a
+    /// non-negative base-10 number with an Exponent property of 0 and no
+    /// other base-10 digits than 0 or 1 (examples include <c>01001</c> and
+    /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
+    /// AND operation sets each digit of the result to 1 if the
+    /// corresponding digits of each logical operand are both 1, and to 0
+    /// otherwise. For example, <c>01001 AND 111010 = 01000</c></summary>
+    /// <param name='ed1'>The first logical operand to the logical AND
+    /// operation.</param>
+    /// <param name='ed2'>The second logical operand to the logical AND
+    /// operation.</param>
+    /// <param name='ec'>A context that specifies the maximum precision of
+    /// arbitrary-precision numbers. If a logical operand passed to this
+    /// method has more digits than the maximum precision specified in this
+    /// context, the operand's most significant digits that exceed that
+    /// precision are discarded. This parameter can be null.</param>
+    /// <returns>The result of the logical AND operation as a logical
+    /// operand. Signals an invalid operation and returns not-a-number
+    /// (NaN) if <paramref name='ed1'/>, <paramref name='ed2'/>, or both
+    /// are not logical operands.</returns>
     public static EDecimal And(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -490,8 +521,28 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return EDecimal.FromEInteger(ToLogical(smaller, 10)).RoundToPrecision(ec);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Performs a logical NOT operation on a decimal numbers in
+    /// the form of a
+    /// <i>logical operand</i>. A <c>logical operand</c> is a non-negative
+    /// base-10 number with an Exponent property of 0 and no other base-10
+    /// digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>
+    /// , but not <c>02001</c> or <c>99999</c> ). The logical NOT operation
+    /// sets each digit of the result to 1 if the corresponding digit is 0,
+    /// and to 0 otherwise; it can set no more digits than the maximum
+    /// precision, however. For example, if the maximum precision is 8
+    /// digits, then <c>NOT 111010 = 11000101</c></summary>
+    /// <param name='ed1'>The logical operand to the logical NOT
+    /// operation.</param>
+    /// <param name='ec'>A context that specifies the maximum precision of
+    /// arbitrary-precision numbers. If a logical operand passed to this
+    /// method has more digits than the maximum precision specified in this
+    /// context, the operand's most significant digits that exceed that
+    /// precision are discarded. This parameter cannot be null and must
+    /// specify a maximum precision (unlimited precision contexts are not
+    /// allowed).</param>
+    /// <returns>The result of the logical NOT operation as a logical
+    /// operand. Signals an invalid operation and returns not-a-number
+    /// (NaN) if <paramref name='ed1'/> is not a logical operand.</returns>
     public static EDecimal Invert(EDecimal ed1, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return InvalidOperation(EDecimal.NaN, ec);
@@ -516,7 +567,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Xor(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -535,7 +586,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Or(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -553,7 +604,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(ec);
     }
 
-    internal static EInteger ToLogical(byte[] bytes, int radix) {
+    internal static EInteger ToLogical(byte[] bytes, int iradix) {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
       }
@@ -562,14 +613,14 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       for (i = bytes.Length - 1; i >= 0; --i) {
         int b = bytes[i];
         for (var j = 7; j >= 0; --j) {
-          ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(radix).Add(1) :
-               ret.Multiply(radix);
+          ret = ((bytes[i] & (1 << j)) != 0) ? ret.Multiply(iradix).Add(1) :
+               ret.Multiply(iradix);
         }
       }
       return ret;
     }
 
-    internal static byte[] FromLogical(EInteger um, EContext ec, int radix) {
+    internal static byte[] FromLogical(EInteger um, EContext ec, int iradix) {
       if (um == null || um.Sign < 0) {
  return null;
 }
@@ -586,7 +637,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       }
       var bitindex = 0;
       var bytes = new byte[bytecount.ToInt32Checked()];
-      EInteger radixint = EInteger.FromInt32(radix);
+      EInteger radixint = EInteger.FromInt32(iradix);
       while (um.Sign > 0) {
         EInteger[] divrem = um.DivRem(radixint);
         int rem = divrem[1].ToInt32Checked();
@@ -606,11 +657,11 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
       return bytes;
     }
 
-    internal static byte[] FromLogical(EDecimal ed, EContext ec, int radix) {
+    internal static byte[] FromLogical(EDecimal ed, EContext ec, int iradix) {
       if (ed == null) {
  return null;
 }
-      if (ec != null && ec.IsPrecisionInBits && radix!=2) {
+      if (ec != null && ec.IsPrecisionInBits && iradix != 2) {
   // Round to bit precision if necessary and if the radix isn't binary
  ed = ed.RoundToPrecision(ec);
 }
@@ -618,10 +669,10 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     ed.Mantissa.Sign < 0) ? null : FromLogical(
   ed.UnsignedMantissa,
   ec,
-  radix);
+  iradix);
     }
 
-    internal static byte[] FromLogical(EFloat ed, EContext ec, int radix) {
+    internal static byte[] FromLogical(EFloat ed, EContext ec, int iradix) {
       if (ed == null) {
  return null;
 }
@@ -631,7 +682,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     ed.Mantissa.Sign < 0) ? null : FromLogical(
   ed.UnsignedMantissa,
   ec,
-  radix);
+  iradix);
     }
   }
 }

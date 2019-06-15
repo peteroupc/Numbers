@@ -66,11 +66,12 @@ namespace PeterO.Numbers {
 
     internal static FastIntegerFixed FromLong(long longVal) {
       return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? (new
-        FastIntegerFixed(
-  (
-  int)longVal)) : (new FastIntegerFixed(2,
- 0,
-        EInteger.FromInt64(longVal)));
+        FastIntegerFixed((
+  int)longVal)) : (
+  new FastIntegerFixed(
+  2,
+  0,
+  EInteger.FromInt64(longVal)));
     }
 
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {

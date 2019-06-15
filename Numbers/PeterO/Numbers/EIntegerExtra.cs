@@ -41,7 +41,12 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EInteger operator ++(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -49,6 +54,12 @@ namespace PeterO.Numbers {
       return bthis.Add(1);
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An EInteger object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EInteger operator --(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));

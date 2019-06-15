@@ -534,10 +534,10 @@ namespace PeterO.Numbers {
         if (otherPower != null) {
           EInteger otherPower0 = otherPower[0];
           EInteger otherPower1 = otherPower[1];
-          if (precision != otherPower0.ToInt32Checked()) {
+          // if (precision != otherPower0.ToInt32Checked()) {
             // DebugUtility.Log("bigcachedpower miss {0} -> {1}"
             // , precision, otherPower0);
-          }
+          // }
           precision -= (int)otherPower0;
           if (first) {
             bigpow = otherPower[1];

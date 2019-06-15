@@ -83,7 +83,12 @@ System.Globalization.NumberStyles
       return bthis.Subtract(subtrahend);
     }
 
-
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EDecimal operator ++(EDecimal bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -91,6 +96,12 @@ System.Globalization.NumberStyles
       return bthis.Add(1);
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EDecimal operator --(EDecimal bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));

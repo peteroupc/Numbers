@@ -380,8 +380,18 @@ return new EFloat(this.unsignedMantissa, this.exponent, this.flags);
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)"]/*'/>
+    /// <summary>Creates a binary float from a text string that represents
+    /// a number. For more information, see the <c>FromString(String, int,
+    /// int, EContext)</c> method.</summary>
+    /// <param name='str'>A text string to convert to a binary
+    /// float.</param>
+    /// <param name='ctx'>An arithmetic context specifying the precision,
+    /// rounding, and exponent range to apply to the parsed number. Can be
+    /// null.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// <paramref name='str'/> is null.</exception>
     public static EFloat FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length, ctx);
     }

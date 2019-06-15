@@ -1047,16 +1047,16 @@ public int CompareTo(int intValue) {
         return this.negative ? -1 : 1;
       }
       if (c == 2 && (this.words[1] & 0x8000) != 0) {
-        if(this.negative && this.words[1] == unchecked((short)0x8000) &&
-          this.words[0] == 0){
+        if (this.negative && this.words[1] == unchecked((short)0x8000) &&
+          this.words[0] == 0) {
            // This value is Int32.MinValue
-           return intValue==Int32.MinValue ? 0 : -1;
+           return intValue == Int32.MinValue ? 0 : -1;
         } else {
            return this.negative ? -1 : 1;
         }
       }
-      int thisInt=this.ToInt32Unchecked();
-      return (thisInt==intValue ? 0 : (thisInt<intValue ? -1 : 1));
+      int thisInt = this.ToInt32Unchecked();
+      return thisInt == intValue ? 0 : (thisInt < intValue ? -1 : 1);
 }
 
     /// <include file='../../docs.xml'
