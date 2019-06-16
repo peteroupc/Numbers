@@ -74,7 +74,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Multiply(PeterO.Numbers.EInteger)](#Multiply_PeterO_Numbers_EInteger)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Negate()](#Negate)</code> - Gets the value of this object with the sign reversed.
-* <code>[Not()](#Not)</code> - Returns an arbitrary-precision integer with every bit flipped.
+* <code>[Not()](#Not)</code> - Returns an arbitrary-precision integer with every bit flipped from this one.
 * <code>[Not(PeterO.Numbers.EInteger)](#Not_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with every bit flipped.
 * <code>[One](#One)</code> - Gets the number 1 as an arbitrary-precision integer.
 * <code>[Or(PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
@@ -287,8 +287,7 @@ An arbitrary-precision integer.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>a</i>
-or <i>b</i>
+The parameter <i>other</i>
 is null.
 
 <a id="And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
@@ -1125,7 +1124,7 @@ The modulus remainder.
 <b>Exceptions:</b>
 
  * System.ArgumentException:
-The parameter <i>divisor</i>
+The parameter <i>smallDivisor</i>
 is less than 0.
 
 <a id="Mod_PeterO_Numbers_EInteger"></a>
@@ -1268,17 +1267,11 @@ This object's value with the sign reversed.
 
     public PeterO.Numbers.EInteger Not();
 
-Returns an arbitrary-precision integer with every bit flipped.
+Returns an arbitrary-precision integer with every bit flipped from this one.
 
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter <i>valueA</i>
-is null.
 
 <a id="Not_PeterO_Numbers_EInteger"></a>
 ### Not
@@ -1761,8 +1754,7 @@ An arbitrary-precision integer.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter <i>first</i>
-or <i>second</i>
+The parameter <i>second</i>
 is null.
 
  * System.ArgumentException:
@@ -2329,9 +2321,7 @@ This number, converted to a 64-bit signed integer.
     public PeterO.Numbers.EInteger Xor(
         PeterO.Numbers.EInteger other);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[
-           &#x22;Forms of numbers&#x22;
-        ](PeterO.Numbers.EDecimal.md)) for the purposes of this operator.
+Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitrary-precision integer is treated as a two's-complement form (see[&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md) ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
@@ -2343,13 +2333,12 @@ An arbitrary-precision integer in which each bit is set if it's set in one input
 
 <b>Exceptions:</b>
 
- * System.ArgumentNullException:
-The parameter <i>a</i>
-or <i>b</i>
-is null.
-
  * System.ArgumentException:
 Doesn't satisfy smallerCount == CountWords(result).
+
+ * System.ArgumentNullException:
+The parameter  <i>other</i>
+ is null.
 
 <a id="Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Xor
@@ -2364,7 +2353,7 @@ Finds the exclusive "or" of two arbitrary-precision integer objects.Each arbitra
 
 <b>Parameters:</b>
 
- * <i>a</i>: The first arbitrary-precision integer.
+ * <i>a</i>: The second arbitrary-precision integer.
 
  * <i>b</i>: The second arbitrary-precision integer.
 

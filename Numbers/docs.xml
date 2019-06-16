@@ -142,32 +142,32 @@
   </doc>
   <doc name='P:PeterO.Numbers.EContext.EMax'>
     <summary>Gets the highest exponent possible when a converted number is expressed in
-      scientific notation with one nonzero digit before the radix point. For example,
-      with a precision of 3 and an EMax of 100, the maximum value possible is
-      9.99E + 100. (This is not the same as the highest possible Exponent
-      property.) If HasExponentRange is false, this value will be 0.
+      scientific notation with one nonzero digit before the radix point. For
+      example, with a precision of 3 and an EMax of 100, the maximum value
+      possible is 9.99E + 100. (This is not the same as the highest possible
+      Exponent property.) If HasExponentRange is false, this value will be 0.
     </summary>
     <value>The highest exponent possible when a converted number is expressed in
-      scientific notation with one nonzero digit before the radix point. For example,
-      with a precision of 3 and an EMax of 100, the maximum value possible is
-      9.99E + 100. (This is not the same as the highest possible Exponent
-      property.) If HasExponentRange is false, this value will be 0.
+      scientific notation with one nonzero digit before the radix point. For
+      example, with a precision of 3 and an EMax of 100, the maximum value
+      possible is 9.99E + 100. (This is not the same as the highest possible
+      Exponent property.) If HasExponentRange is false, this value will be 0.
     </value>
   </doc>
   <doc name='P:PeterO.Numbers.EContext.EMin'>
     <summary>Gets the lowest exponent possible when a converted number is expressed in
-      scientific notation with one nonzero digit before the radix point. For example,
-      with a precision of 3 and an EMin of -100, the next value that comes after
-      0 is 0.001E-100. (If AdjustExponent is false, this property specifies the
-      lowest possible Exponent property instead.) If HasExponentRange is false,
-      this value will be 0.
+      scientific notation with one nonzero digit before the radix point. For
+      example, with a precision of 3 and an EMin of -100, the next value that
+      comes after 0 is 0.001E-100. (If AdjustExponent is false, this property
+      specifies the lowest possible Exponent property instead.) If
+      HasExponentRange is false, this value will be 0.
     </summary>
     <value>The lowest exponent possible when a converted number is expressed in
-      scientific notation with one nonzero digit before the radix point. For example,
-      with a precision of 3 and an EMin of -100, the next value that comes after
-      0 is 0.001E-100. (If AdjustExponent is false, this property specifies the
-      lowest possible Exponent property instead.) If HasExponentRange is false,
-      this value will be 0.
+      scientific notation with one nonzero digit before the radix point. For
+      example, with a precision of 3 and an EMin of -100, the next value that
+      comes after 0 is 0.001E-100. (If AdjustExponent is false, this property
+      specifies the lowest possible Exponent property instead.) If
+      HasExponentRange is false, this value will be 0.
     </value>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.ExponentWithinRange(PeterO.Numbers.EInteger)'>
@@ -4463,9 +4463,9 @@
     <param name='ec'>A context specifying the exponent range of arbitrary-precision numbers.
       Can be null. If AdjustExponent of the given context is
       <c>true</c> , a nonzero number is normal if the number's exponent (when that number
-      is expressed in scientific notation with one nonzero digit before the radix point)
-      is at least the given context's EMax property (e.g., if EMax is -100,
-      2.3456 * 10
+      is expressed in scientific notation with one nonzero digit before the
+      radix point) is at least the given context's EMax property (e.g., if EMax
+      is -100, 2.3456 * 10
       <sup>
          -99
       </sup>
@@ -4545,9 +4545,9 @@
     <param name='ec'>A context specifying the exponent range of arbitrary-precision numbers.
       Can be null. If AdjustExponent of the given context is
       <c>true</c> , a nonzero number is subnormal if the number's exponent (when that
-      number is expressed in scientific notation with one nonzero digit before the radix
-      point) is less than the given context's EMax property (e.g., if EMax is
-      -100, 2.3456 * 10
+      number is expressed in scientific notation with one nonzero digit before
+      the radix point) is less than the given context's EMax property (e.g., if
+      EMax is -100, 2.3456 * 10
       <sup>
          -102
       </sup>
@@ -4598,9 +4598,10 @@
       range of the result. Can be null.
     </param>
     <returns>The base-10 exponent of the given number (when that number is expressed in
-      scientific notation with one nonzero digit before the radix point). Signals
-      DivideByZero and returns negative infinity if "ed" is zero. Returns
-      positive infinity if "ed" is positive infinity or negative infinity.
+      scientific notation with one nonzero digit before the radix point).
+      Signals DivideByZero and returns negative infinity if "ed" is zero.
+      Returns positive infinity if "ed" is positive infinity or negative
+      infinity.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -4771,15 +4772,24 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimalExtras.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
-    <summary>Finds an arbitrary-precision decimal number whose decimal point is moved a given number of places.
+    <summary>Finds an arbitrary-precision decimal number whose decimal point is moved a
+      given number of places.
     </summary>
     <param name='ed'>An arbitrary-precision decimal number.
     </param>
-    <param name='ed2'>The number of decimal places to move the decimal point of "ed".  This must be an integer with an exponent of 0.
+    <param name='ed2'>The number of decimal places to move the decimal point of "ed". This must
+      be an integer with an exponent of 0.
     </param>
-    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent range of the result.  Can be null.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>The given arbitrary-precision decimal number whose decimal point is moved the given number of places.  Signals an invalid operation and returns not-a-number (NaN) if "ed2" is infinity or NaN, has an Exponent property other than 0. Signals an invalid operation and returns not-a-number (NaN) if "ec" defines a limited precision and exponent range and if "ed2"'s absolute value is greater than twice the sum of the context's EMax property and its Precision property.
+    <returns>The given arbitrary-precision decimal number whose decimal point is moved
+      the given number of places. Signals an invalid operation and returns
+      not-a-number (NaN) if "ed2" is infinity or NaN, has an Exponent property
+      other than 0. Signals an invalid operation and returns not-a-number (NaN)
+      if "ec" defines a limited precision and exponent range and if "ed2"'s
+      absolute value is greater than twice the sum of the context's EMax
+      property and its Precision property.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -4867,6 +4877,72 @@
     </param>
     <returns>An EDecimal object.
     </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimals.Canonical(PeterO.Numbers.EDecimal)'>
+    <summary>Returns a canonical version of the given arbitrary-precision number
+      object. In this method, this method behaves like the Copy method.
+    </summary>
+    <param name='ed'>An arbitrary-precision number object.
+    </param>
+    <returns>A copy of the parameter
+      <paramref name='ed'/>
+      .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimals.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Returns the base-10 exponent of an arbitrary-precision decimal number
+      (when that number is expressed in scientific notation with one digit
+      before the radix point). For example, returns 3 for the numbers
+      <c>6.66E + 3</c> and
+      <c>666E + 1</c> </summary>
+    <param name='ed'>An arbitrary-precision decimal number.
+    </param>
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
+    </param>
+    <returns>The base-10 exponent of the given number (when that number is expressed in
+      scientific notation with one nonzero digit before the radix point).
+      Signals DivideByZero and returns negative infinity if
+      <paramref name='ed'/>
+       is zero. Returns positive infinity if
+      <paramref name='ed'/>
+       is positive infinity or negative infinity.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimals.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Finds an arbitrary-precision decimal number whose decimal point is moved a
+      given number of places.
+    </summary>
+    <param name='ed'>An arbitrary-precision decimal number.
+    </param>
+    <param name='ed2'>The number of decimal places to move the decimal point of "ed". This must
+      be an integer with an exponent of 0.
+    </param>
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
+    </param>
+    <returns>The given arbitrary-precision decimal number whose decimal point is moved
+      the given number of places. Signals an invalid operation and returns
+      not-a-number (NaN) if
+      <paramref name='ed2'/>
+       is infinity or NaN, has an Exponent property other than 0. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ec'/>
+       defines a limited precision and exponent range and if
+      <paramref name='ed2'/>
+       's absolute value is greater than twice the sum of the context's EMax
+      property and its Precision property.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='ed2'/>
+       is null.
+    </exception>
   </doc>
   <doc name='T:PeterO.Numbers.EFloat'>
     <summary>Represents an arbitrary-precision binary floating-point number. (The "E"
@@ -8095,8 +8171,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Returns the base-2 exponent of an arbitrary-precision binary number (when
-      that number is expressed in scientific notation with one nonzero digit before the
-      radix point). For example, returns 3 for the numbers
+      that number is expressed in scientific notation with one nonzero digit
+      before the radix point). For example, returns 3 for the numbers
       <c>1.11b * 2^3</c> and
       <c>111 * 2^1</c> .
     </summary>
@@ -8106,9 +8182,10 @@
       range of the result. Can be null.
     </param>
     <returns>The base-2 exponent of the given number (when that number is expressed in
-      scientific notation with one nonzero digit before the radix point). Signals
-      DivideByZero and returns negative infinity if "ed" is zero. Returns
-      positive infinity if "ed" is positive infinity or negative infinity.
+      scientific notation with one nonzero digit before the radix point).
+      Signals DivideByZero and returns negative infinity if "ed" is zero.
+      Returns positive infinity if "ed" is positive infinity or negative
+      infinity.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -8170,7 +8247,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloatExtras.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Rotates the digits of an arbitrary-precision binary number's mantissa.
+    <summary>Rotates the bits of an arbitrary-precision binary number's mantissa.
     </summary>
     <param name='ed'>An arbitrary-precision number containing the mantissa to rotate. If this
       mantissa contains more bits than the precision, the most-significant bits
@@ -8252,6 +8329,100 @@
       <paramref name='ed2'/>
        , or both are not logical operands.
     </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloats.Canonical(PeterO.Numbers.EFloat)'>
+    <summary>Returns a canonical version of the given arbitrary-precision number
+      object. In this method, this method behaves like the Copy method.
+    </summary>
+    <param name='ed'>An arbitrary-precision number object.
+    </param>
+    <returns>A copy of the parameter
+      <paramref name='ed'/>
+      .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloats.Invert(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical NOT operation on a binary number in the form of a
+      <i>
+        logical operand
+      </i>
+      . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include
+      <c>01001</c> and
+      <c>111001</c> ). The logical NOT operation sets each bit of the result to 1 if the
+      corresponding bit is 0, and to 0 otherwise; it can set no more bits than
+      the maximum precision, however. For example, if the maximum precision is 8
+      bits, then
+      <c>NOT 111010 = 11000101</c> </summary>
+    <param name='ed1'>The parameter
+      <paramref name='ed1'/>
+       is not documented yet.
+    </param>
+    <param name='ec'>The parameter
+      <paramref name='ec'/>
+       is not documented yet.
+    </param>
+    <returns>The result of the logical NOT operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       is not a logical operand.
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloats.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Returns the base-2 exponent of an arbitrary-precision binary number (when
+      that number is expressed in scientific notation with one nonzero digit
+      before the radix point). For example, returns 3 for the numbers
+      <c>1.11b * 2^3</c> and
+      <c>111 * 2^1</c> </summary>
+    <param name='ed'>An arbitrary-precision binary number.
+    </param>
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
+    </param>
+    <returns>The base-2 exponent of the given number (when that number is expressed in
+      scientific notation with one nonzero digit before the radix point).
+      Signals DivideByZero and returns negative infinity if
+      <paramref name='ed'/>
+       is zero. Returns positive infinity if
+      <paramref name='ed'/>
+       is positive infinity or negative infinity.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloats.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Finds an arbitrary-precision binary number whose binary point is moved a
+      given number of places.
+    </summary>
+    <param name='ed'>An arbitrary-precision binary number.
+    </param>
+    <param name='ed2'>The number of binary places to move the binary point of "ed". This must be
+      an integer with an exponent of 0.
+    </param>
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
+    </param>
+    <returns>The given arbitrary-precision binary number whose binary point is moved
+      the given number of places. Signals an invalid operation and returns
+      not-a-number (NaN) if
+      <paramref name='ed2'/>
+       is infinity or NaN, has an Exponent property other than 0. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ec'/>
+       defines a limited precision and exponent range and if
+      <paramref name='ed2'/>
+       's absolute value is greater than twice the sum of the context's EMax
+      property and its Precision property.
+    </returns>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='ed2'/>
+       is null.
+    </exception>
   </doc>
   <doc name='T:PeterO.Numbers.EInteger'>
     <summary>Represents an arbitrary-precision integer. (The "E" stands for "extended",
@@ -9058,7 +9229,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Not'>
-    <summary>Returns an arbitrary-precision integer with every bit flipped from this one.
+    <summary>Returns an arbitrary-precision integer with every bit flipped from this
+      one.
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
@@ -9510,7 +9682,7 @@
       <para>Each arbitrary-precision integer is treated as a two's-complement form
         (see
         <see cref='T:PeterO.Numbers.EDecimal'>
-           "Forms of numbers"
+          "Forms of numbers"
         </see>
          ) for the purposes of this operator.
       </para>
@@ -9521,6 +9693,10 @@
       input integer but not the other.
     </returns>
     <exception cref='T:System.ArgumentException'>Doesn't satisfy smallerCount == CountWords(result).
+    </exception>
+    <exception cref='T:System.ArgumentNullException'>The parameter
+      <paramref name='other'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
@@ -9791,7 +9967,8 @@
       <c>true</c> or
       <c>false</c> .
     </param>
-    <returns>The value of "boolValue"
+    <returns>The value of
+      <paramref name='boolValue'/>
        as an arbitrary-precision integer.
     </returns>
   </doc>
@@ -11977,8 +12154,8 @@
   </doc>
   <doc name='M:Test.EFloatExtras.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Returns the base-2 exponent of an arbitrary-precision binary number (when
-      that number is expressed in scientific notation with one nonzero digit before the
-      radix point). For example, returns 3 for the numbers
+      that number is expressed in scientific notation with one nonzero digit
+      before the radix point). For example, returns 3 for the numbers
       <c>1.11b * 2^3</c> and
       <c>111 * 2^1</c> .
     </summary>
@@ -11988,9 +12165,10 @@
       range of the result. Can be null.
     </param>
     <returns>The base-2 exponent of the given number (when that number is expressed in
-      scientific notation with one nonzero digit before the radix point). Signals
-      DivideByZero and returns negative infinity if "ed" is zero. Returns
-      positive infinity if "ed" is positive infinity or negative infinity.
+      scientific notation with one nonzero digit before the radix point).
+      Signals DivideByZero and returns negative infinity if "ed" is zero.
+      Returns positive infinity if "ed" is positive infinity or negative
+      infinity.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
@@ -12120,16 +12298,24 @@
     </returns>
   </doc>
   <doc name='M:Test.EFloatExtras.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-
-    <summary>Finds an arbitrary-precision binary number whose binary point is moved a given number of places.
+    <summary>Finds an arbitrary-precision binary number whose binary point is moved a
+      given number of places.
     </summary>
     <param name='ed'>An arbitrary-precision binary number.
     </param>
-    <param name='ed2'>The number of binary places to move the binary point of "ed".  This must be an integer with an exponent of 0.
+    <param name='ed2'>The number of binary places to move the binary point of "ed". This must be
+      an integer with an exponent of 0.
     </param>
-    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent range of the result.  Can be null.
+    <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
+      range of the result. Can be null.
     </param>
-    <returns>The given arbitrary-precision binary number whose binary point is moved the given number of places.  Signals an invalid operation and returns not-a-number (NaN) if "ed2" is infinity or NaN, has an Exponent property other than 0. Signals an invalid operation and returns not-a-number (NaN) if "ec" defines a limited precision and exponent range and if "ed2"'s absolute value is greater than twice the sum of the context's EMax property and its Precision property.
+    <returns>The given arbitrary-precision binary number whose binary point is moved
+      the given number of places. Signals an invalid operation and returns
+      not-a-number (NaN) if "ed2" is infinity or NaN, has an Exponent property
+      other than 0. Signals an invalid operation and returns not-a-number (NaN)
+      if "ec" defines a limited precision and exponent range and if "ed2"'s
+      absolute value is greater than twice the sum of the context's EMax
+      property and its Precision property.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='ed'/>
