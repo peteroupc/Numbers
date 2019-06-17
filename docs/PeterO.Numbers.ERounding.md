@@ -9,17 +9,17 @@
 Specifies the mode to use when "shortening" numbers that otherwise can't fit a given number of digits, so that the shortened number has about the same value. This "shortening" is known as rounding. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
 
 ### Member Summary
-* <code>[public static PeterO.Numbers.ERounding Ceiling = 6;](#Ceiling)</code> - If there is a fractional part, the number is rounded to the highest representable number that's closest to it.
-* <code>[public static PeterO.Numbers.ERounding Down = 2;](#Down)</code> - The fractional part is discarded (the number is truncated).
-* <code>[public static PeterO.Numbers.ERounding Floor = 7;](#Floor)</code> - If there is a fractional part, the number is rounded to the lowest representable number that's closest to it.
-* <code>[public static PeterO.Numbers.ERounding HalfDown = 4;](#HalfDown)</code> - Rounded to the nearest number; if the fractional part is exactly half, it is discarded.
-* <code>[public static PeterO.Numbers.ERounding HalfEven = 5;](#HalfEven)</code> - Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number that is even.
-* <code>[public static PeterO.Numbers.ERounding HalfUp = 3;](#HalfUp)</code> - Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number away from zero.
-* <code>[public static PeterO.Numbers.ERounding None = 0;](#None)</code> - Indicates that rounding will not be used.
-* <code>[public static PeterO.Numbers.ERounding Odd = 8;](#Odd)</code> - If there is a fractional part and the whole number part is even, the number is rounded to the closest representable odd number away from zero.
-* <code>[public static PeterO.Numbers.ERounding OddOrZeroFiveUp = 10;](#OddOrZeroFiveUp)</code> - For binary floating point numbers, this is the same as Odd.
-* <code>[public static PeterO.Numbers.ERounding Up = 1;](#Up)</code> - If there is a fractional part, the number is rounded to the closest representable number away from zero.
-* <code>[public static PeterO.Numbers.ERounding ZeroFiveUp = 9;](#ZeroFiveUp)</code> - If there is a fractional part and if the last digit before rounding is 0 or half the radix, the number is rounded to the closest representable number away from zero; otherwise the fractional part is discarded.
+* <code>[Ceiling](#Ceiling)</code> - If there is a fractional part, the number is rounded to the highest representable number that's closest to it.
+* <code>[Down](#Down)</code> - The fractional part is discarded (the number is truncated).
+* <code>[Floor](#Floor)</code> - If there is a fractional part, the number is rounded to the lowest representable number that's closest to it.
+* <code>[HalfDown](#HalfDown)</code> - Rounded to the nearest number; if the fractional part is exactly half, it is discarded.
+* <code>[HalfEven](#HalfEven)</code> - Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number that is even.
+* <code>[HalfUp](#HalfUp)</code> - Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number away from zero.
+* <code>[None](#None)</code> - Indicates that rounding will not be used.
+* <code>[Odd](#Odd)</code> - If there is a fractional part and the whole number part is even, the number is rounded to the closest representable odd number away from zero.
+* <code>[OddOrZeroFiveUp](#OddOrZeroFiveUp)</code> - For binary floating point numbers, this is the same as Odd.
+* <code>[Up](#Up)</code> - If there is a fractional part, the number is rounded to the closest representable number away from zero.
+* <code>[ZeroFiveUp](#ZeroFiveUp)</code> - If there is a fractional part and if the last digit before rounding is 0 or half the radix, the number is rounded to the closest representable number away from zero; otherwise the fractional part is discarded.
 
 <a id="Ceiling"></a>
 ### Ceiling
