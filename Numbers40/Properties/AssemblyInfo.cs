@@ -1,9 +1,9 @@
 using System.Reflection;
 
 [assembly: System.CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("1.4.0")]
-[assembly: AssemblyVersion("1.4.0.0")]
-[assembly: AssemblyFileVersion("1.4.0.0")]
+[assembly: AssemblyInformationalVersion("1.4.1")]
+[assembly: AssemblyVersion("1.4.1.0")]
+[assembly: AssemblyFileVersion("1.4.1.0")]
 [assembly: AssemblyProduct("Arbitrary-Precision Number Library")]
 [assembly: AssemblyTitle("Arbitrary-Precision Number Library")]
 [assembly: AssemblyDescription("A C# library that supports arbitrary-pre" +

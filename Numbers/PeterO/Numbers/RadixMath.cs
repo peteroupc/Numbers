@@ -15,6 +15,11 @@ namespace PeterO.Numbers {
     // Use flexible exponent
     private const int IntegerModeRegular = 0;
 
+    private const int SafeMin32 = -0x3ffffffe;
+    private const int SafeMax32 = 0x3ffffffe;
+    private const long SafeMin64 = -0x3ffffffffffffffeL;
+    private const long SafeMax64 = 0x3ffffffffffffffeL;
+
     private static readonly int[] BitMasks = {
       0x7fffffff, 0x3fffffff, 0x1fffffff,
       0xfffffff, 0x7ffffff, 0x3ffffff, 0x1ffffff,
@@ -385,11 +390,6 @@ private static EInteger ShiftedMask(FastInteger prec) {
       }
       return default(T);
     }
-
-    private const int SafeMin32 = -0x3ffffffe;
-    private const int SafeMax32 = 0x3ffffffe;
-    private const long SafeMin64 = -0x3ffffffffffffffeL;
-    private const long SafeMax64 = 0x3ffffffffffffffeL;
 
     private T AddEx64Bit(
       long expcmp,
@@ -4524,8 +4524,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
             (this.thisRadix >= 10 && !ctx.IsPrecisionInBits &&
               ctx.Precision.CompareTo(10) >= 0) ||
             ((this.thisRadix >= 2 || ctx.IsPrecisionInBits) &&
-              ctx.Precision.CompareTo(32) >= 0)
-));
+              ctx.Precision.CompareTo(32) >= 0)));
     }
 
     private bool RoundGivenAccum(

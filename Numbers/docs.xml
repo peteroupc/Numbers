@@ -8355,13 +8355,14 @@
       the maximum precision, however. For example, if the maximum precision is 8
       bits, then
       <c>NOT 111010 = 11000101</c> </summary>
-    <param name='ed1'>The parameter
-      <paramref name='ed1'/>
-       is not documented yet.
+    <param name='ed1'>The operand to the logical NOT operation.
     </param>
-    <param name='ec'>The parameter
-      <paramref name='ec'/>
-       is not documented yet.
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter cannot be null and must specify a maximum precision
+      (unlimited precision contexts are not allowed).
     </param>
     <returns>The result of the logical NOT operation as a logical operand. Signals an
       invalid operation and returns not-a-number (NaN) if

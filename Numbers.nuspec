@@ -1,5 +1,9 @@
 <package
-><metadata><version>1.4.0</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.4.0
+><metadata><version>1.4.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.4.1
+
+- Added EDecimals and EFloats classes to .NET 2.0 and .NET 4.0 versions; those classes were inadvertently omitted there
+
+Version 1.4.0
 
 - Added EDecimals and EFloats class that implements more methods for arbitrary-precision decimal and binary numbers
 - Increment and decrement operators added to EInteger, EDecimal, EFloat, and ERational classes
