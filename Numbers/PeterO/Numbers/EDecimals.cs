@@ -145,7 +145,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimals.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal LogB(EDecimal ed, EContext ec) {
-      if ((ed) == null) {
+      if (ed == null) {
   throw new ArgumentNullException(nameof(ed));
 }
       if (ed.IsNaN()) {
@@ -466,6 +466,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     // Logical Operations
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal And(EDecimal ed1, EDecimal ed2, EContext ec) {

@@ -129,7 +129,7 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloats.LogB(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat LogB(EFloat ed, EContext ec) {
-      if ((ed) == null) {
+      if (ed == null) {
   throw new ArgumentNullException(nameof(ed));
 }
       if (ed.IsNaN()) {
@@ -447,6 +447,7 @@ if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
     }
 
     // Logical Operations
+
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat And(EFloat ed1, EFloat ed2, EContext ec) {

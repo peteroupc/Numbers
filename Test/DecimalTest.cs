@@ -16,10 +16,6 @@ using PeterO.Numbers;
 namespace Test {
   [TestFixture]
   public class DecimalTest {
-    public static void Timeout(int duration, Action action, string msg) {
-  action(); return;
-    }
-
     private static readonly Regex ValuePropertyLine = new Regex(
       "^(\\w+)\\:\\s*(\\S+)",
       RegexOptions.Compiled);
@@ -833,11 +829,7 @@ throw new InvalidOperationException(String.Empty, ex);
 // }
 // Console.WriteLine(ln);
 try {
-if (recordfailing) {
- Timeout(5000, () => ParseDecTest(ln, context), String.Empty);
-} else {
- Timeout(15000, () => ParseDecTest(ln, context), ln);
-}
+              ParseDecTest(ln, context);
 } catch (Exception) {
    if (!failedLines.ContainsKey(ln)) {
    if (!context.ContainsKey("rounding")) {
