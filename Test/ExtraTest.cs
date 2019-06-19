@@ -80,14 +80,18 @@ namespace Test {
       Assert.AreEqual(
         ERational.NegativeInfinity,
         ERational.FromEFloat(EFloat.NegativeInfinity));
-
-  Assert.IsTrue(Double.IsPositiveInfinity(ERational.PositiveInfinity.ToDouble()));
-
-  Assert.IsTrue(Double.IsNegativeInfinity(ERational.NegativeInfinity.ToDouble()));
-
-  Assert.IsTrue(Single.IsPositiveInfinity(ERational.PositiveInfinity.ToSingle()));
-
-  Assert.IsTrue(Single.IsNegativeInfinity(ERational.NegativeInfinity.ToSingle()));
+        Assert.IsTrue(
+        Double.IsPositiveInfinity(
+          ERational.PositiveInfinity.ToDouble()));
+          Assert.IsTrue(
+        Double.IsNegativeInfinity(
+          ERational.NegativeInfinity.ToDouble()));
+          Assert.IsTrue(
+        Single.IsPositiveInfinity(
+          ERational.PositiveInfinity.ToSingle()));
+          Assert.IsTrue(
+        Single.IsNegativeInfinity(
+          ERational.NegativeInfinity.ToSingle()));
     }
   }
 }

@@ -325,14 +325,14 @@ return this.IsZero ? ((ushort)0) : this.ToEInteger().ToUInt16Checked();
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
-return this.IsZero ? ((uint)0) : this.ToEInteger().ToUInt32Checked();
+return this.IsZero ? 0U : this.ToEInteger().ToUInt32Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Unchecked"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : (uint)0;
+ return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
 }
 
     /// <include file='../../docs.xml'
@@ -342,7 +342,7 @@ return this.IsZero ? ((uint)0) : this.ToEInteger().ToUInt32Checked();
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
- return this.IsZero ? ((uint)0) :
+ return this.IsZero ? 0U :
    this.ToEIntegerIfExact().ToUInt32Checked();
 }
 
@@ -387,14 +387,14 @@ return this.IsZero ? ((uint)0) : this.ToEInteger().ToUInt32Checked();
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
-return this.IsZero ? ((ulong)0) : this.ToEInteger().ToUInt64Checked();
+return this.IsZero ? 0UL : this.ToEInteger().ToUInt64Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Unchecked"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : (ulong)0;
+ return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
 }
 
     /// <include file='../../docs.xml'
@@ -404,7 +404,7 @@ return this.IsZero ? ((ulong)0) : this.ToEInteger().ToUInt64Checked();
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
- return this.IsZero ? ((ulong)0) :
+ return this.IsZero ? 0UL :
    this.ToEIntegerIfExact().ToUInt64Checked();
 }
 

@@ -255,11 +255,11 @@ name.Equals("sqtx2847")) {
         }
         if (op.Equals("multiply")) {
           d3 = d1.Multiply(d2, ctx);
-        } else if (op.Equals("toSci")) {  // handled below
-        } else if (op.Equals("toEng")) {  // handled below
-        } else if (op.Equals("tosci")) {  // handled below
-        } else if (op.Equals("toeng")) {  // handled below
-        } else if (op.Equals("class")) {  // handled below
+        } else if (op.Equals("toSci")) { // handled below
+        } else if (op.Equals("toEng")) { // handled below
+        } else if (op.Equals("tosci")) { // handled below
+        } else if (op.Equals("toeng")) { // handled below
+        } else if (op.Equals("class")) { // handled below
         } else if (op.Equals("fma")) {
           d3 = d1.MultiplyAndAdd(d2, d2a, ctx);
         } else if (op.Equals("min")) {
@@ -485,9 +485,8 @@ if (op.Equals("and")) {
               {
                 object objectTemp = output;
                 object objectTemp2 = d3.ToString();
-            string messageTemp = name + ": expected: [" +
-                  d4.UnsignedMantissa +
-                " " + d4.Exponent +
+                string messageTemp = name + ": expected: [" +
+                d4.UnsignedMantissa + " " + d4.Exponent +
                     "]\n" + "but was: [" + d3.UnsignedMantissa + " " +
                     d3.Exponent + "]\n" + ln;
                 Assert.AreEqual(objectTemp, objectTemp2, messageTemp);

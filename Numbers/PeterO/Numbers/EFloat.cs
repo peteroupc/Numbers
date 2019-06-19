@@ -1778,8 +1778,7 @@ return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
           return null;
         }
         EInteger valueELowBit = den.GetLowBitAsEInteger();
-      return
-          den.GetUnsignedBitLengthAsEInteger().Equals(valueELowBit.Add(1)) ?
+        return den.GetUnsignedBitLengthAsEInteger().Equals(valueELowBit.Add(1)) ?
           FastInteger.FromBig(valueELowBit) : null;
       }
 
@@ -1945,13 +1944,13 @@ return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
-return this.IsZero ? ((long)0) : this.ToEInteger().ToInt64Checked();
+return this.IsZero ? 0L : this.ToEInteger().ToInt64Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
     public long ToInt64Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : (long)0;
+ return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : 0L;
 }
 
     /// <include file='../../docs.xml'
@@ -1960,7 +1959,7 @@ return this.IsZero ? ((long)0) : this.ToEInteger().ToInt64Checked();
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
- return this.IsZero ? ((long)0) : this.ToEIntegerIfExact().ToInt64Checked();
+ return this.IsZero ? 0L : this.ToEIntegerIfExact().ToInt64Checked();
 }
 
     /// <include file='../../docs.xml'

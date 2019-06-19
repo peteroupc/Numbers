@@ -383,7 +383,7 @@ namespace PeterO.Numbers {
       return this.wrapper.Pi(ctx);
     }
 
-#pragma warning disable CS0618  // certain ERounding values are obsolete
+#pragma warning disable CS0618 // certain ERounding values are obsolete
     private T SignalOverflow2(EContext pc, bool neg) {
       if (pc != null) {
         ERounding roundingOnOverflow = pc.Rounding;

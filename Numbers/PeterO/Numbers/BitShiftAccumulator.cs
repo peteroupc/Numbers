@@ -38,7 +38,7 @@ namespace PeterO.Numbers {
       this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
       return FastInteger.CopyFrozen(this.knownBitLength);
     }
-        private void VerifyKnownLength() {
+    private void VerifyKnownLength() {
 #if DEBUG
       if (this.knownBitLength != null) {
         if (this.knownBitLength.CompareTo(this.CalcKnownBitLength()) != 0) {
@@ -401,7 +401,7 @@ namespace PeterO.Numbers {
       }
       this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
     }
-      public void ShiftToDigitsInt(int bits) {
+    public void ShiftToDigitsInt(int bits) {
       if (bits < 0) {
         throw new ArgumentException("bits (" + bits + ") is less than 0");
       }

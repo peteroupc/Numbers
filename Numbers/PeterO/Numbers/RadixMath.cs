@@ -8,7 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-#pragma warning disable CS0618  // certain ERounding values are obsolete
+#pragma warning disable CS0618 // certain ERounding values are obsolete
   internal class RadixMath<T> : IRadixMath<T> {
     // Use given exponent
     private const int IntegerModeFixedScale = 1;
@@ -28,7 +28,7 @@ namespace PeterO.Numbers {
       0xffff, 0x7fff, 0x3fff, 0x1fff,
       0xfff, 0x7ff, 0x3ff, 0x1ff,
       0xff, 0x7f, 0x3f, 0x1f,
-      0xf, 0x7, 0x3, 0x1
+      0xf, 0x7, 0x3, 0x1,
     };
 
     private static readonly long[] BitMasks64 = {
@@ -49,12 +49,12 @@ namespace PeterO.Numbers {
       0xffff, 0x7fff, 0x3fff, 0x1fff,
       0xfff, 0x7ff, 0x3ff, 0x1ff,
       0xff, 0x7f, 0x3f, 0x1f,
-      0xf, 0x7, 0x3, 0x1
+      0xf, 0x7, 0x3, 0x1,
     };
 
     private static readonly int[] OverflowMaxes = {
      2147483647, 214748364, 21474836,
-     2147483, 214748, 21474, 2147, 214, 21, 2
+     2147483, 214748, 21474, 2147, 214, 21, 2,
     };
 
     private static readonly EInteger ValueMinusOne = EInteger.Zero -
@@ -63,17 +63,17 @@ namespace PeterO.Numbers {
     private static readonly int[] ValueTenPowers = {
       1, 10, 100, 1000, 10000, 100000,
       1000000, 10000000, 100000000,
-      1000000000
+      1000000000,
     };
 
     private static readonly long[] OverflowMaxes64 = {
 9223372036854775807L, 922337203685477580L,
-  92233720368547758L, 9223372036854775L,
-  922337203685477L, 92233720368547L,
-  9223372036854L, 922337203685L,
-  92233720368L, 9223372036L,
-  922337203L, 92233720, 9223372,
-  922337, 92233, 9223, 922, 92, 9 };
+92233720368547758L, 9223372036854775L,
+922337203685477L, 92233720368547L,
+9223372036854L, 922337203685L,
+92233720368L, 9223372036L,
+922337203L, 92233720, 9223372,
+922337, 92233, 9223, 922, 92, 9, };
 
     private static readonly long[] ValueTenPowers64 = {
       1, 10, 100, 1000,
@@ -83,7 +83,7 @@ namespace PeterO.Numbers {
       1000000000000L, 10000000000000L,
       100000000000000L, 1000000000000000L,
       10000000000000000L, 100000000000000000L,
-      1000000000000000000L
+      1000000000000000000L,
     };
 
     private readonly IRadixMathHelper<T> helper;
@@ -125,7 +125,7 @@ namespace PeterO.Numbers {
       }
       return this.AddEx(thisValue, other, ctx, false);
     }
-private FastInteger MaxDigitLengthForBitLength(FastInteger prec) {
+    private FastInteger MaxDigitLengthForBitLength(FastInteger prec) {
   FastInteger result;
   if (this.thisRadix == 2) {
     result = prec;
@@ -1025,7 +1025,7 @@ ctx.Precision).WithBlankFlags();
           thisValue,
           one,
           EContext.ForRounding(ERounding.Down));
-        if (!this.GetHelper().GetExponent(intpart).IsZero) {
+          if (!this.GetHelper().GetExponent(intpart).IsZero) {
           throw new ArgumentException("integer part not zero, as expected");
         }
           haveIntPart = true;
@@ -3050,7 +3050,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
         return this.helper.GetDigitLength(ei);
       }
     }
-  private static readonly FastInteger ValueFastIntegerTwo = new
+    private static readonly FastInteger ValueFastIntegerTwo = new
       FastInteger(2);
 
     private T AddExDiffExp(
@@ -3106,8 +3106,7 @@ if ((ctxCopy.Flags & EContext.FlagOverflow) != 0) {
                   bool sameSign = this.helper.GetSign(thisValue) ==
                   this.helper.GetSign(other);
                   bool oneOpIsZero = op1MantAbs.IsZero;
-             FastInteger digitLength2 =
-                    this.helper.GetDigitLength(op2MantAbs);
+                  FastInteger digitLength2 = this.helper.GetDigitLength(op2MantAbs);
                   if (digitLength2.CompareTo(fastPrecision) < 0) {
                     // Second operand's precision too short, extend
                     // it to the full precision
@@ -4757,8 +4756,7 @@ if (guessCmp == 0) {
 // compareFast++;
                 return thisValue;
               }
-           FastIntegerFixed bigexp =
-                this.helper.GetExponentFastInt(thisValue);
+              FastIntegerFixed bigexp = this.helper.GetExponentFastInt(thisValue);
               if (ctx == null || ctx.AdjustExponent) {
                 fastAdjustedExp = bigexp.ToFastInteger()
                   .Add(fastPrecision).Decrement();
@@ -4807,8 +4805,7 @@ if (guessCmp == 0) {
                     this.helper.GetExponentFastInt(thisValue),
                     thisFlags);
                 }
-           FastIntegerFixed bigexp =
-                  this.helper.GetExponentFastInt(thisValue);
+                FastIntegerFixed bigexp = this.helper.GetExponentFastInt(thisValue);
                 if (ctx == null || ctx.AdjustExponent) {
                   fastAdjustedExp = bigexp.ToFastInteger()
                     .Add(fastPrecision).Decrement();
@@ -4935,8 +4932,7 @@ accum = this.helper.CreateShiftAccumulatorWithDigitsFastInt(
             FastInteger newAdjExponent = adjExponent;
             if (this.RoundGivenAccum(accum, rounding, neg)) {
               EInteger earlyRounded = accum.ShiftedInt + EInteger.One;
-          if (!unlimitedPrec && (earlyRounded.IsEven || (this.thisRadix & 1)
-                !=
+              if (!unlimitedPrec && (earlyRounded.IsEven || (this.thisRadix & 1)!=
                 0)) {
            FastInteger newDigitLength =
                   this.helper.GetDigitLength(earlyRounded);

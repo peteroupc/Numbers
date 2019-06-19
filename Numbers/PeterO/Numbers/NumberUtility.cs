@@ -17,7 +17,7 @@ namespace PeterO.Numbers {
       (EInteger)1000000000000L, (EInteger)10000000000000L,
       (EInteger)100000000000000L, (EInteger)1000000000000000L,
       (EInteger)10000000000000000L,
-      (EInteger)100000000000000000L, (EInteger)1000000000000000000L
+      (EInteger)100000000000000000L, (EInteger)1000000000000000000L,
     };
 
     private static readonly EInteger[] ValueBigIntPowersOfFive = {
@@ -33,7 +33,7 @@ namespace PeterO.Numbers {
       (EInteger)476837158203125L, (EInteger)2384185791015625L,
       (EInteger)11920928955078125L,
       (EInteger)59604644775390625L, (EInteger)298023223876953125L,
-      (EInteger)1490116119384765625L, (EInteger)7450580596923828125L
+      (EInteger)1490116119384765625L, (EInteger)7450580596923828125L,
     };
 
     internal static int ShiftLeftOne(int[] arr) {
@@ -265,7 +265,7 @@ namespace PeterO.Numbers {
               this.outputs[i] = this.outputs[i - 1];
             }
             this.inputs[0] = input;
-      this.inputsInts[0] = input.CanFitInInt32() ? input.ToInt32Checked() :
+            this.inputsInts[0] = input.CanFitInInt32() ? input.ToInt32Checked() :
               -1;
             this.outputs[0] = output;
             ++this.size;
@@ -277,7 +277,7 @@ namespace PeterO.Numbers {
               this.outputs[i] = this.outputs[i - 1];
             }
             this.inputs[0] = input;
-      this.inputsInts[0] = input.CanFitInInt32() ? input.ToInt32Checked() :
+            this.inputsInts[0] = input.CanFitInInt32() ? input.ToInt32Checked() :
               -1;
             this.outputs[0] = output;
           }

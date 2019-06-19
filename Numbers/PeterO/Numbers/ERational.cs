@@ -8,8 +8,8 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.ERational"]/*'/>
+  /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="T:PeterO.Numbers.ERational"]/*'/>
   public sealed partial class ERational : IComparable<ERational>,
     IEquatable<ERational> {
     private const int MaxSafeInt = 214748363;
@@ -101,51 +101,51 @@ namespace PeterO.Numbers {
 
     private ERational(EInteger numerator, EInteger denominator, int flags) {
 #if DEBUG
-if (numerator == null) {
-  throw new ArgumentNullException(nameof(numerator));
-}
-if (denominator == null) {
-  throw new ArgumentNullException(nameof(denominator));
-}
-if (denominator.IsZero) {
- throw new ArgumentException();
-}
+      if (numerator == null) {
+        throw new ArgumentNullException(nameof(numerator));
+      }
+      if (denominator == null) {
+        throw new ArgumentNullException(nameof(denominator));
+      }
+      if (denominator.IsZero) {
+        throw new ArgumentException();
+      }
 #endif
-this.unsignedNumerator = numerator;
-this.denominator = denominator;
-this.flags = flags;
-}
+      this.unsignedNumerator = numerator;
+      this.denominator = denominator;
+      this.flags = flags;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public ERational(EInteger numerator, EInteger denominator) {
-            if (numerator == null) {
-                throw new ArgumentNullException(nameof(numerator));
-            }
-            if (denominator == null) {
-                throw new ArgumentNullException(nameof(denominator));
-            }
-            if (denominator.IsZero) {
-                throw new ArgumentException("denominator is zero");
-            }
-            bool numNegative = numerator.Sign < 0;
-            bool denNegative = denominator.Sign < 0;
-            this.flags = (numNegative != denNegative) ?
-              BigNumberFlags.FlagNegative : 0;
-            if (numNegative) {
-                numerator = -numerator;
-            }
-            if (denNegative) {
-                denominator = -denominator;
-            }
-            this.unsignedNumerator = numerator;
-            this.denominator = denominator;
+      if (numerator == null) {
+        throw new ArgumentNullException(nameof(numerator));
+      }
+      if (denominator == null) {
+        throw new ArgumentNullException(nameof(denominator));
+      }
+      if (denominator.IsZero) {
+        throw new ArgumentException("denominator is zero");
+      }
+      bool numNegative = numerator.Sign < 0;
+      bool denNegative = denominator.Sign < 0;
+      this.flags = (numNegative != denNegative) ?
+        BigNumberFlags.FlagNegative : 0;
+      if (numNegative) {
+        numerator = -numerator;
+      }
+      if (denNegative) {
+        denominator = -denominator;
+      }
+      this.unsignedNumerator = numerator;
+      this.denominator = denominator;
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Copy"]/*'/>
     public ERational Copy() {
-return new ERational(this.unsignedNumerator, this.denominator, this.flags);
+      return new ERational(this.unsignedNumerator, this.denominator, this.flags);
     }
 
     /// <include file='../../docs.xml'
@@ -253,7 +253,7 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-        return new ERational(diag, EInteger.One, flags);
+      return new ERational(diag, EInteger.One, flags);
     }
 
     /// <include file='../../docs.xml'
@@ -558,10 +558,10 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
                 numerBufferMult = 10;
               } else {
                 // multiply numerBufferMult and numerBuffer each by 10
-             numerBufferMult = (numerBufferMult << 3) + (numerBufferMult <<
-                  1);
-                  numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
-                  numerBuffer += thisdigit;
+                numerBufferMult = (numerBufferMult << 3) + (numerBufferMult <<
+                     1);
+                numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
+                numerBuffer += thisdigit;
               }
             }
           } else {
@@ -607,10 +607,10 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
                   denomBufferMult = 10;
                 } else {
                   // multiply denomBufferMult and denomBuffer each by 10
-             denomBufferMult = (denomBufferMult << 3) + (denomBufferMult <<
-                    1);
-                    denomBuffer = (denomBuffer << 3) + (denomBuffer << 1);
-                    denomBuffer += thisdigit;
+                  denomBufferMult = (denomBufferMult << 3) + (denomBufferMult <<
+                         1);
+                  denomBuffer = (denomBuffer << 3) + (denomBuffer << 1);
+                  denomBuffer += thisdigit;
                 }
               }
             } else {
@@ -746,10 +746,10 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Abs"]/*'/>
     public ERational Abs() {
       if (this.IsNegative) {
-     return new ERational(
-  this.unsignedNumerator,
-  this.denominator,
-  this.flags & ~BigNumberFlags.FlagNegative);
+        return new ERational(
+     this.unsignedNumerator,
+     this.denominator,
+     this.flags & ~BigNumberFlags.FlagNegative);
       }
       return this;
     }
@@ -950,9 +950,9 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
         if (other.Exponent.Sign > 0) {
           // NOTE: if unsigned numerator is 0, bitLength will return
           // 0 instead of 1, but the possibility of 0 was already excluded
- EInteger bigDigitCount = this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
-             .Subtract(1);
-             if (bigDigitCount.CompareTo(other.Exponent) < 0) {
+          EInteger bigDigitCount = this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
+                      .Subtract(1);
+          if (bigDigitCount.CompareTo(other.Exponent) < 0) {
             // Numerator's digit count minus 1 is less than the other' s
             // exponent,
             // and other's exponent is positive, so this value's absolute
@@ -1066,10 +1066,10 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
         }
         // Console.WriteLine("---" + this + " " + other);
         if (other.Exponent.Sign > 0) {
-      EInteger bigDigitCount =
-            this.UnsignedNumerator.GetDigitCountAsEInteger()
-             .Subtract(1);
-             if (bigDigitCount.CompareTo(other.Exponent) < 0) {
+          EInteger bigDigitCount =
+                this.UnsignedNumerator.GetDigitCountAsEInteger()
+                 .Subtract(1);
+          if (bigDigitCount.CompareTo(other.Exponent) < 0) {
             // Numerator's digit count minus 1 is less than the other' s
             // exponent,
             // and other's exponent is positive, so this value's absolute
@@ -1609,137 +1609,137 @@ return new ERational(this.unsignedNumerator, this.denominator, this.flags);
         this.Denominator) : (this.Numerator + "/" + this.Denominator);
     }
 
-        // Begin integer conversions
+    // Begin integer conversions
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteChecked"]/*'/>
     public byte ToByteChecked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-return this.IsZero ? ((byte)0) : this.ToEInteger().ToByteChecked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? ((byte)0) : this.ToEInteger().ToByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteUnchecked"]/*'/>
     public byte ToByteUnchecked() {
- return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
-}
+      return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToByteIfExact"]/*'/>
     public byte ToByteIfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- return this.IsZero ? ((byte)0) : this.ToEIntegerIfExact().ToByteChecked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? ((byte)0) : this.ToEIntegerIfExact().ToByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromByte(System.Byte)"]/*'/>
     public static ERational FromByte(byte inputByte) {
- int val = ((int)inputByte) & 0xff;
- return FromInt32(val);
-}
+      int val = ((int)inputByte) & 0xff;
+      return FromInt32(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16Checked"]/*'/>
     public short ToInt16Checked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-return this.IsZero ? ((short)0) : this.ToEInteger().ToInt16Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? ((short)0) : this.ToEInteger().ToInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16Unchecked"]/*'/>
     public short ToInt16Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
-}
+      return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt16IfExact"]/*'/>
     public short ToInt16IfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- return this.IsZero ? ((short)0) :
-   this.ToEIntegerIfExact().ToInt16Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? ((short)0) :
+        this.ToEIntegerIfExact().ToInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt16(System.Int16)"]/*'/>
     public static ERational FromInt16(short inputInt16) {
- var val = (int)inputInt16;
- return FromInt32(val);
-}
+      var val = (int)inputInt16;
+      return FromInt32(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32Checked"]/*'/>
     public int ToInt32Checked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32Unchecked"]/*'/>
     public int ToInt32Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
-}
+      return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt32IfExact"]/*'/>
     public int ToInt32IfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromBoolean(System.Boolean)"]/*'/>
     public static ERational FromBoolean(bool boolValue) {
-     return FromInt32(boolValue ? 1 : 0);
-   }
+      return FromInt32(boolValue ? 1 : 0);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt32(System.Int32)"]/*'/>
     public static ERational FromInt32(int inputInt32) {
- return FromEInteger(EInteger.FromInt32(inputInt32));
-}
+      return FromEInteger(EInteger.FromInt32(inputInt32));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64Checked"]/*'/>
     public long ToInt64Checked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-return this.IsZero ? ((long)0) : this.ToEInteger().ToInt64Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? 0L : this.ToEInteger().ToInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64Unchecked"]/*'/>
     public long ToInt64Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : (long)0;
-}
+      return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : 0L;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToInt64IfExact"]/*'/>
     public long ToInt64IfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- return this.IsZero ? ((long)0) : this.ToEIntegerIfExact().ToInt64Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      return this.IsZero ? 0L : this.ToEIntegerIfExact().ToInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromInt64(System.Int64)"]/*'/>
     public static ERational FromInt64(long inputInt64) {
- return FromEInteger(EInteger.FromInt64(inputInt64));
-}
+      return FromEInteger(EInteger.FromInt64(inputInt64));
+    }
 
-// End integer conversions
+    // End integer conversions
   }
 }

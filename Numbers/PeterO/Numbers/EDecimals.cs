@@ -83,7 +83,7 @@ namespace PeterO.Numbers {
  "+Subnormal", "-Subnormal",
  "+Zero", "-Zero",
  "+Infinity", "-Infinity",
- "NaN", "sNaN"
+ "NaN", "sNaN",
 };
 
     /// <include file='../../docs.xml'

@@ -105,7 +105,7 @@ namespace PeterO.Numbers {
       internal int ToInt32() {
         return this.wordCount == 0 ? 0 : this.data[0];
       }
-    public static MutableNumber FromLong(long longVal) {
+      public static MutableNumber FromLong(long longVal) {
       if (longVal < 0) {
         throw new ArgumentException();
       }
@@ -129,7 +129,7 @@ namespace PeterO.Numbers {
         mbi.wordCount = this.wordCount;
         return mbi;
       }
-        internal MutableNumber Multiply(int multiplicand) {
+      internal MutableNumber Multiply(int multiplicand) {
         if (multiplicand < 0) {
           throw new ArgumentException("multiplicand (" + multiplicand +
             ") is less than " + "0 ");
@@ -268,7 +268,7 @@ namespace PeterO.Numbers {
           return this.wordCount == 0 ? 0 : 1;
         }
       }
-     internal bool IsEvenNumber {
+      internal bool IsEvenNumber {
         get {
           return this.wordCount == 0 || (this.data[0] & 1) == 0;
         }
@@ -396,7 +396,7 @@ namespace PeterO.Numbers {
         }
         return 0;
       }
-       internal MutableNumber Add(int augend) {
+      internal MutableNumber Add(int augend) {
         if (augend < 0) {
    throw new ArgumentException("augend (" + augend + ") is less than " +
             "0 ");
@@ -519,7 +519,7 @@ namespace PeterO.Numbers {
 }
 #endif
     }
-     public int CompareTo(FastInteger val) {
+    public int CompareTo(FastInteger val) {
       switch ((this.integerMode << 2) | val.integerMode) {
           case (0 << 2) | 0: {
             int vsv = val.smallValue;
@@ -609,7 +609,7 @@ namespace PeterO.Numbers {
               this.largeValue = this.mnum.ToEInteger();
               this.largeValue *= (EInteger)val;
             } else {
-              mnum.Multiply(val);
+              this.mnum.Multiply(val);
             }
             break;
           case 2:
@@ -633,7 +633,7 @@ namespace PeterO.Numbers {
             this.mnum =
             MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
           } else {
-            smallValue = -smallValue;
+            this.smallValue = -this.smallValue;
           }
           break;
         case 1:
@@ -669,10 +669,10 @@ namespace PeterO.Numbers {
               this.smallValue -= vsv;
             }
           } else {
-            integerMode = 2;
-            largeValue = (EInteger)smallValue;
+            this.integerMode = 2;
+            this.largeValue = (EInteger)this.smallValue;
             valValue = val.AsEInteger();
-            largeValue -= (EInteger)valValue;
+            this.largeValue -= (EInteger)valValue;
           }
           break;
         case 1:
@@ -681,12 +681,12 @@ namespace PeterO.Numbers {
             // currently always zero or positive
             this.mnum.Subtract(val.mnum);
           } else if (val.integerMode == 0 && val.smallValue >= 0) {
-            mnum.SubtractInt(val.smallValue);
+            this.mnum.SubtractInt(val.smallValue);
           } else {
-            integerMode = 2;
-            largeValue = mnum.ToEInteger();
+            this.integerMode = 2;
+            this.largeValue = this.mnum.ToEInteger();
             valValue = val.AsEInteger();
-            largeValue -= (EInteger)valValue;
+            this.largeValue -= (EInteger)valValue;
           }
           break;
         case 2:
@@ -792,20 +792,20 @@ namespace PeterO.Numbers {
               this.smallValue += val.smallValue;
             }
           } else {
-            integerMode = 2;
-            largeValue = (EInteger)smallValue;
+            this.integerMode = 2;
+            this.largeValue = (EInteger)this.smallValue;
             valValue = val.AsEInteger();
-            largeValue += (EInteger)valValue;
+            this.largeValue += (EInteger)valValue;
           }
           break;
         case 1:
           if (val.integerMode == 0 && val.smallValue >= 0) {
             this.mnum.Add(val.smallValue);
           } else {
-            integerMode = 2;
-            largeValue = mnum.ToEInteger();
+            this.integerMode = 2;
+            this.largeValue = this.mnum.ToEInteger();
             valValue = val.AsEInteger();
-            largeValue += (EInteger)valValue;
+            this.largeValue += (EInteger)valValue;
           }
           break;
         case 2:
@@ -886,7 +886,7 @@ namespace PeterO.Numbers {
               this.mnum =
               MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
             } else {
-              smallValue /= divisor;
+              this.smallValue /= divisor;
             }
             break;
           case 1:
@@ -960,17 +960,17 @@ namespace PeterO.Numbers {
               this.largeValue += (EInteger)val;
             }
           } else {
-            smallValue += val;
+            this.smallValue += val;
           }
           break;
         case 1:
           if (val >= 0) {
             this.mnum.Add(val);
           } else {
-            integerMode = 2;
-            largeValue = mnum.ToEInteger();
+            this.integerMode = 2;
+            this.largeValue = this.mnum.ToEInteger();
             valValue = (EInteger)val;
-            largeValue += (EInteger)valValue;
+            this.largeValue += (EInteger)valValue;
           }
           break;
         case 2:

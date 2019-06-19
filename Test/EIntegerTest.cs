@@ -64,7 +64,7 @@ namespace Test {
       28L, 268435455L, 28L, 268435456L, 29L, 268435457L, 29L, 536870911L, 29L,
       536870912L, 30L, 536870913L, 30L, 1073741823L, 30L, 1073741824L, 31L,
       1073741825L, 31L, 2147483647L, 31L, 2147483648L, 32L, 2147483649L, 32L,
-      4294967295L, 32L, 4294967296L, 33L, 4294967297L, 33 };
+      4294967295L, 32L, 4294967296L, 33L, 4294967297L, 33, };
 
     private static long[] valueLowBits = { 0L, -1L, 1L, 0L, 2L, 1L, 3L, 0L, 4L,
       2L, 5L, 0L,
@@ -74,8 +74,8 @@ namespace Test {
       0L, 511L, 0L, 512L,
       9L, 513L, 0L, 1023L, 0L, 1024L, 10L, 1025L, 0L, 2047L, 0L, 2048L, 11L,
       2049L, 0L,
-    4095L, 0L, 4096L, 12L, 4097L, 0L, 8191L, 0L, 8192L, 13L, 8193L, 0L,
-        16383L,
+      4095L, 0L, 4096L, 12L, 4097L, 0L, 8191L, 0L, 8192L, 13L, 8193L, 0L,
+      16383L,
       0L,
       16384L, 14L, 16385L, 0L, 32767L, 0L, 32768L, 15L, 32769L, 0L, 65535L,
       0L, 65536L,
@@ -95,7 +95,7 @@ namespace Test {
       536870911L, 0L,
       536870912L, 29L, 536870913L, 0L, 1073741823L, 0L, 1073741824L, 30L,
       1073741825L, 0L, 2147483647L, 0L, 2147483648L, 31L, 2147483649L, 0L,
-      4294967295L, 0L, 4294967296L, 32L, 4294967297L, 0 };
+      4294967295L, 0L, 4294967296L, 32L, 4294967297L, 0, };
 
     public static void AssertAdd(EInteger bi, EInteger bi2, string s) {
       EIntegerTest.AssertBigIntegersEqual(s, bi + (EInteger)bi2);
@@ -362,11 +362,11 @@ namespace Test {
       }
       return BigFromBytes(bytes);
     }
-[Test]
-public void TestFromBoolean() {
-Assert.AreEqual(EInteger.One, EInteger.FromBoolean(true));
-Assert.AreEqual(EInteger.Zero, EInteger.FromBoolean(false));
-}
+    [Test]
+    public void TestFromBoolean() {
+      Assert.AreEqual(EInteger.One, EInteger.FromBoolean(true));
+      Assert.AreEqual(EInteger.Zero, EInteger.FromBoolean(false));
+    }
 
     [Test]
     public void TestAdd() {
@@ -444,105 +444,105 @@ Assert.AreEqual(EInteger.Zero, EInteger.FromBoolean(false));
         }
       }
     }
-[Test]
-public void TestAddSubSmall() {
-// Test int overloads
-Assert.AreEqual(
-  EInteger.FromInt32(2370),
-  EInteger.FromInt32(1970).Add(400));
-Assert.AreEqual(
-  EInteger.FromInt32(1570),
-  EInteger.FromInt32(1970).Add(-400));
-Assert.AreEqual(
-  EInteger.FromInt32(1970),
-  EInteger.FromInt32(1570).Add(400));
-Assert.AreEqual(
-  EInteger.FromInt32(770),
-  EInteger.FromInt32(370).Add(400));
-Assert.AreEqual(
-  EInteger.FromInt32(-30),
-  EInteger.FromInt32(370).Add(-400));
-Assert.AreEqual(
-  EInteger.FromInt32(370),
-  EInteger.FromInt32(-30).Add(400));
-Assert.AreEqual(
-  EInteger.FromInt32(-430),
-  EInteger.FromInt32(-30).Add(-400));
-Assert.AreEqual(
-  EInteger.FromInt32(1570),
-  EInteger.FromInt32(1970).Subtract(400));
-Assert.AreEqual(
-  EInteger.FromInt32(2370),
-  EInteger.FromInt32(1970).Subtract(-400));
-Assert.AreEqual(
-  EInteger.FromInt32(1170),
-  EInteger.FromInt32(1570).Subtract(400));
-Assert.AreEqual(
-  EInteger.FromInt32(-30),
-  EInteger.FromInt32(370).Subtract(400));
-Assert.AreEqual(
-  EInteger.FromInt32(770),
-  EInteger.FromInt32(370).Subtract(-400));
-Assert.AreEqual(
-  EInteger.FromInt32(-430),
-  EInteger.FromInt32(-30).Subtract(400));
-Assert.AreEqual(
-  EInteger.FromInt32(370),
-  EInteger.FromInt32(-30).Subtract(-400));
-// Check with EInteger overloads
-Assert.AreEqual(
-  EInteger.FromInt32(2370),
-  EInteger.FromInt32(1970).Add(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(1570),
-  EInteger.FromInt32(1970).Add(EInteger.FromInt32(-400)));
-Assert.AreEqual(
-  EInteger.FromInt32(1970),
-  EInteger.FromInt32(1570).Add(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(770),
-  EInteger.FromInt32(370).Add(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(-30),
-  EInteger.FromInt32(370).Add(EInteger.FromInt32(-400)));
-Assert.AreEqual(
-  EInteger.FromInt32(370),
-  EInteger.FromInt32(-30).Add(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(-430),
-  EInteger.FromInt32(-30).Add(EInteger.FromInt32(-400)));
-Assert.AreEqual(
-  EInteger.FromInt32(1570),
-  EInteger.FromInt32(1970).Subtract(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(2370),
-  EInteger.FromInt32(1970).Subtract(EInteger.FromInt32(-400)));
-Assert.AreEqual(
-  EInteger.FromInt32(1170),
-  EInteger.FromInt32(1570).Subtract(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(-30),
-  EInteger.FromInt32(370).Subtract(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(770),
-  EInteger.FromInt32(370).Subtract(EInteger.FromInt32(-400)));
-Assert.AreEqual(
-  EInteger.FromInt32(-430),
-  EInteger.FromInt32(-30).Subtract(EInteger.FromInt32(400)));
-Assert.AreEqual(
-  EInteger.FromInt32(370),
-  EInteger.FromInt32(-30).Subtract(EInteger.FromInt32(-400)));
-// Other tests
-EInteger bigintC = EInteger.FromInt32(0).Add(60916);
-EInteger bigintD = bigintC.Subtract(60916);
-Assert.AreEqual(EInteger.FromInt32(60916), bigintC);
-Assert.AreEqual(EInteger.FromInt32(0), bigintD);
+    [Test]
+    public void TestAddSubSmall() {
+      // Test int overloads
+      Assert.AreEqual(
+        EInteger.FromInt32(2370),
+        EInteger.FromInt32(1970).Add(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(1570),
+        EInteger.FromInt32(1970).Add(-400));
+      Assert.AreEqual(
+        EInteger.FromInt32(1970),
+        EInteger.FromInt32(1570).Add(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(770),
+        EInteger.FromInt32(370).Add(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(-30),
+        EInteger.FromInt32(370).Add(-400));
+      Assert.AreEqual(
+        EInteger.FromInt32(370),
+        EInteger.FromInt32(-30).Add(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(-430),
+        EInteger.FromInt32(-30).Add(-400));
+      Assert.AreEqual(
+        EInteger.FromInt32(1570),
+        EInteger.FromInt32(1970).Subtract(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(2370),
+        EInteger.FromInt32(1970).Subtract(-400));
+      Assert.AreEqual(
+        EInteger.FromInt32(1170),
+        EInteger.FromInt32(1570).Subtract(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(-30),
+        EInteger.FromInt32(370).Subtract(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(770),
+        EInteger.FromInt32(370).Subtract(-400));
+      Assert.AreEqual(
+        EInteger.FromInt32(-430),
+        EInteger.FromInt32(-30).Subtract(400));
+      Assert.AreEqual(
+        EInteger.FromInt32(370),
+        EInteger.FromInt32(-30).Subtract(-400));
+      // Check with EInteger overloads
+      Assert.AreEqual(
+        EInteger.FromInt32(2370),
+        EInteger.FromInt32(1970).Add(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(1570),
+        EInteger.FromInt32(1970).Add(EInteger.FromInt32(-400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(1970),
+        EInteger.FromInt32(1570).Add(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(770),
+        EInteger.FromInt32(370).Add(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(-30),
+        EInteger.FromInt32(370).Add(EInteger.FromInt32(-400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(370),
+        EInteger.FromInt32(-30).Add(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(-430),
+        EInteger.FromInt32(-30).Add(EInteger.FromInt32(-400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(1570),
+        EInteger.FromInt32(1970).Subtract(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(2370),
+        EInteger.FromInt32(1970).Subtract(EInteger.FromInt32(-400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(1170),
+        EInteger.FromInt32(1570).Subtract(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(-30),
+        EInteger.FromInt32(370).Subtract(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(770),
+        EInteger.FromInt32(370).Subtract(EInteger.FromInt32(-400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(-430),
+        EInteger.FromInt32(-30).Subtract(EInteger.FromInt32(400)));
+      Assert.AreEqual(
+        EInteger.FromInt32(370),
+        EInteger.FromInt32(-30).Subtract(EInteger.FromInt32(-400)));
+      // Other tests
+      EInteger bigintC = EInteger.FromInt32(0).Add(60916);
+      EInteger bigintD = bigintC.Subtract(60916);
+      Assert.AreEqual(EInteger.FromInt32(60916), bigintC);
+      Assert.AreEqual(EInteger.FromInt32(0), bigintD);
 
-bigintC = EInteger.FromInt32(0).Add(EInteger.FromInt32(60916));
-bigintD = bigintC.Subtract(EInteger.FromInt32(60916));
-Assert.AreEqual(EInteger.FromInt32(60916), bigintC);
-Assert.AreEqual(EInteger.FromInt32(0), bigintD);
-}
+      bigintC = EInteger.FromInt32(0).Add(EInteger.FromInt32(60916));
+      bigintD = bigintC.Subtract(EInteger.FromInt32(60916));
+      Assert.AreEqual(EInteger.FromInt32(60916), bigintC);
+      Assert.AreEqual(EInteger.FromInt32(0), bigintD);
+    }
 
     [Test]
     public void TestAsInt32Checked() {
@@ -848,7 +848,7 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
   "39401404978667143593022554770633078187236345017741021112301638514137074723630749875836463116600753265992771999563776",
   "6277005955876855982708123588802319701019026907066160578560",
   "6277101735386680763835789423207589043669308487479442014208");
-}
+    }
 
     [Test]
     public void TestDivide() {
@@ -891,70 +891,70 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
   "281470681808895",
   "79226953606891185567396986880",
   "0");
-  DoTestDivide(
-  "1208907373151751269056511",
-  "281470681808895",
-  "4294967295");
-  DoTestDivide(
-  "1208907373151751269056511",
-  "79226953606891185567396986880",
-  "0");
-  DoTestDivide(
-  "79226953606891185567396986880",
-  "79226953606891185567396986880",
-  "1");
-  DoTestDivide(
-  "79226953606891185567396986880",
-  "79226953606891185567396986880",
-  "1");
-  DoTestDivide(
-  "79149582354435849300215791616",
-  "281470681808895",
-  "281200094609408");
-  DoTestDivide(
-  "79149582354435849304510693376",
-  "79226953606891185567396986880",
-  "0");
-  DoTestDivide(
-  "340277174703229510990181926235654782976",
-  "79226953606891185567396986880",
-  "4294967295");
-  DoTestDivide(
-  "340277174703229510990181926235654782976",
-  "79226953606891185567396986880",
-  "4294967295");
-  DoTestDivide(
-  "79226953606891185567396986880",
-  "6277005955876855982708123588802319701019026907066160578560",
-  "0");
-  DoTestDivide(
-  "22278626849872979772991819660510225504468991",
-  "79226953606891185567396986880",
-  "281200094609408");
-  DoTestDivide(
-  "6270875973713392427274690200693718464284551950581721071616",
-  "79226953606891185567396986880",
-  "79150790081217380608951451648");
-  DoTestDivide(
-  "6277005955876855982708123588802242329766571570798979383296",
-  "6277005955876855982708123588802319701019026907066160578560",
-  "0");
-  DoTestDivide(
-  "6277005955876855982708123588802242329766571570798979383296",
-  "6277005955876855982708123588802319701019026907066160578560",
-  "0");
-  DoTestDivide(
-  "26959535297282185466869868771998681536704617202858716036715199266816",
-  "6277005955876855982708123588802319701019026907066160578560",
-  "4294967295");
-  DoTestDivide(
-  "496829980752160275550680055858571148163286974448396184421327120687227627818219200249856",
-  "6277005955876855982708123588802319701019026907066160578560",
-  "79150790081217380608951451648");
-  DoTestDivide(
-  "2135954443842118711369801686589217620410698847025641089415087336821733096438436218376946913837056",
-  "6277005955876855982708123588802319701019026907066160578560",
-  "340282366920861091030327650447175712768");
+      DoTestDivide(
+      "1208907373151751269056511",
+      "281470681808895",
+      "4294967295");
+      DoTestDivide(
+      "1208907373151751269056511",
+      "79226953606891185567396986880",
+      "0");
+      DoTestDivide(
+      "79226953606891185567396986880",
+      "79226953606891185567396986880",
+      "1");
+      DoTestDivide(
+      "79226953606891185567396986880",
+      "79226953606891185567396986880",
+      "1");
+      DoTestDivide(
+      "79149582354435849300215791616",
+      "281470681808895",
+      "281200094609408");
+      DoTestDivide(
+      "79149582354435849304510693376",
+      "79226953606891185567396986880",
+      "0");
+      DoTestDivide(
+      "340277174703229510990181926235654782976",
+      "79226953606891185567396986880",
+      "4294967295");
+      DoTestDivide(
+      "340277174703229510990181926235654782976",
+      "79226953606891185567396986880",
+      "4294967295");
+      DoTestDivide(
+      "79226953606891185567396986880",
+      "6277005955876855982708123588802319701019026907066160578560",
+      "0");
+      DoTestDivide(
+      "22278626849872979772991819660510225504468991",
+      "79226953606891185567396986880",
+      "281200094609408");
+      DoTestDivide(
+      "6270875973713392427274690200693718464284551950581721071616",
+      "79226953606891185567396986880",
+      "79150790081217380608951451648");
+      DoTestDivide(
+      "6277005955876855982708123588802242329766571570798979383296",
+      "6277005955876855982708123588802319701019026907066160578560",
+      "0");
+      DoTestDivide(
+      "6277005955876855982708123588802242329766571570798979383296",
+      "6277005955876855982708123588802319701019026907066160578560",
+      "0");
+      DoTestDivide(
+      "26959535297282185466869868771998681536704617202858716036715199266816",
+      "6277005955876855982708123588802319701019026907066160578560",
+      "4294967295");
+      DoTestDivide(
+      "496829980752160275550680055858571148163286974448396184421327120687227627818219200249856",
+      "6277005955876855982708123588802319701019026907066160578560",
+      "79150790081217380608951451648");
+      DoTestDivide(
+      "2135954443842118711369801686589217620410698847025641089415087336821733096438436218376946913837056",
+      "6277005955876855982708123588802319701019026907066160578560",
+      "340282366920861091030327650447175712768");
     }
 
     [Test]
@@ -1748,7 +1748,7 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
       // not implemented yet
     }
 
-#pragma warning disable CS0618  // We're testing an obsolete method here
+#pragma warning disable CS0618 // We're testing an obsolete method here
     [Test]
     public void TestGetDigitCount() {
       var r = new RandomGenerator();
@@ -1787,44 +1787,44 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
         Assert.IsTrue(BigValueOf(-1).GetSignedBit(EInteger.FromInt32(i)));
       }
       try {
- EInteger.Zero.GetSignedBit(null);
- Assert.Fail("Should have failed");
-} catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EInteger.Zero.GetSignedBit(null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       try {
- EInteger.One.GetSignedBit(null);
- Assert.Fail("Should have failed");
-} catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EInteger.One.GetSignedBit(null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       try {
- EInteger.Zero.GetSignedBit(EInteger.FromInt32(-1));
- Assert.Fail("Should have failed");
-} catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EInteger.Zero.GetSignedBit(EInteger.FromInt32(-1));
+        Assert.Fail("Should have failed");
+      } catch (ArgumentException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       try {
- EInteger.One.GetSignedBit(EInteger.FromInt32(-1));
- Assert.Fail("Should have failed");
-} catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EInteger.One.GetSignedBit(EInteger.FromInt32(-1));
+        Assert.Fail("Should have failed");
+      } catch (ArgumentException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
 
-#pragma warning disable CS0618  // We're testing an obsolete method here
+#pragma warning disable CS0618 // We're testing an obsolete method here
     [Test]
     public void TestGetSignedBitLength() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
@@ -1866,13 +1866,13 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
     public void TestGetSignedBitLengthAsEInteger() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
         {
-object objectTemp = (int)valueBitLengths[i + 1];
-object objectTemp2 =
-  BigValueOf(valueBitLengths[i]).GetSignedBitLengthAsEInteger()
-            .ToInt32Checked();
-string messageTemp = TestCommon.LongToString(valueBitLengths[i]);
-Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
-}
+          object objectTemp = (int)valueBitLengths[i + 1];
+          object objectTemp2 =
+            BigValueOf(valueBitLengths[i]).GetSignedBitLengthAsEInteger()
+                      .ToInt32Checked();
+          string messageTemp = TestCommon.LongToString(valueBitLengths[i]);
+          Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
+        }
       }
       Assert.AreEqual(
   31,
@@ -1899,21 +1899,21 @@ Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
   32,
   BigValueOf(2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked());
       {
-long numberTemp = BigValueOf(0).GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(0, numberTemp);
-}
+        long numberTemp = BigValueOf(0).GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(0, numberTemp);
+      }
       {
-long numberTemp = BigValueOf(1).GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(1, numberTemp);
-}
+        long numberTemp = BigValueOf(1).GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(1, numberTemp);
+      }
       {
-long numberTemp = BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(2, numberTemp);
-}
+        long numberTemp = BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(2, numberTemp);
+      }
       {
-long numberTemp = BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(2, numberTemp);
-}
+        long numberTemp = BigValueOf(2).GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(2, numberTemp);
+      }
       Assert.AreEqual(
   31,
   BigValueOf(Int32.MaxValue).GetSignedBitLengthAsEInteger().ToInt32Checked());
@@ -1933,27 +1933,27 @@ Assert.AreEqual(2, numberTemp);
   16,
   BigValueOf(-65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
       {
-object objectTemp = 65;
-object objectTemp2 = BigFromString("19084941898444092059")
-.GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(objectTemp, objectTemp2);
-}
+        object objectTemp = 65;
+        object objectTemp2 = BigFromString("19084941898444092059")
+        .GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
       {
-object objectTemp = 65;
-object objectTemp2 = BigFromString("-19084941898444092059")
-.GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(objectTemp, objectTemp2);
-}
+        object objectTemp = 65;
+        object objectTemp2 = BigFromString("-19084941898444092059")
+        .GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
       {
-long numberTemp =
-  BigValueOf(-1).GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(0, numberTemp);
-}
+        long numberTemp =
+          BigValueOf(-1).GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(0, numberTemp);
+      }
       {
-long numberTemp =
-  BigValueOf(-2).GetSignedBitLengthAsEInteger().ToInt32Checked();
-Assert.AreEqual(1, numberTemp);
-}
+        long numberTemp =
+          BigValueOf(-2).GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(1, numberTemp);
+      }
     }
 
     [Test]
@@ -1975,36 +1975,36 @@ Assert.AreEqual(1, numberTemp);
           Assert.IsTrue(negint.GetUnsignedBit(EInteger.FromInt32(lowbit)));
         }
         try {
- posint.GetUnsignedBit(EInteger.FromInt32(-1));
- Assert.Fail("Should have failed");
-} catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+          posint.GetUnsignedBit(EInteger.FromInt32(-1));
+          Assert.Fail("Should have failed");
+        } catch (ArgumentException) {
+          // NOTE: Intentionally empty
+        } catch (Exception ex) {
+          Assert.Fail(ex.ToString());
+          throw new InvalidOperationException(String.Empty, ex);
+        }
         try {
- negint.GetUnsignedBit((int)-1);
- Assert.Fail("Should have failed");
-} catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+          negint.GetUnsignedBit((int)-1);
+          Assert.Fail("Should have failed");
+        } catch (ArgumentException) {
+          // NOTE: Intentionally empty
+        } catch (Exception ex) {
+          Assert.Fail(ex.ToString());
+          throw new InvalidOperationException(String.Empty, ex);
+        }
         try {
- posint.GetUnsignedBit(null);
- Assert.Fail("Should have failed");
-} catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+          posint.GetUnsignedBit(null);
+          Assert.Fail("Should have failed");
+        } catch (ArgumentNullException) {
+          // NOTE: Intentionally empty
+        } catch (Exception ex) {
+          Assert.Fail(ex.ToString());
+          throw new InvalidOperationException(String.Empty, ex);
+        }
       }
     }
 
-#pragma warning disable CS0618  // We're testing an obsolete method here
+#pragma warning disable CS0618 // We're testing an obsolete method here
     [Test]
     public void TestGetUnsignedBitLength() {
       for (var i = 0; i < valueBitLengths.Length; i += 2) {
@@ -2023,7 +2023,7 @@ Assert.AreEqual(1, numberTemp);
     }
 #pragma warning restore CS0618
 
-#pragma warning disable CS0618  // We're testing an obsolete method here
+#pragma warning disable CS0618 // We're testing an obsolete method here
     [Test]
     public void TestGetLowBit() {
       for (var i = 0; i < valueLowBits.Length; i += 2) {
@@ -2368,72 +2368,72 @@ Assert.AreEqual(1, numberTemp);
     [Test]
     [Timeout(5000)]
     public void TestMultiplyDivideSpecific() {
-string
+      string
 
-  strParam =
+        strParam =
 
-  "D28E831580A0A69BD2259283B7E894A5B766C1FC9C93E776AB78E226A66983788A36C8458A1EAB8DA505CBFBCD41F7A4953CF426CCB884CCFF85B189D2759102C0CCF7A3DE909AE486B38A6DEC0B86FBE95DA041D8FEC163D24D95CEECCDBC7DE2FD88A99CF9A25AB3078E4BBFE3A2BBAD61C53CEA68E40BA3D7D66296C6CE66A6E4DC32E1A0F020DAD8820C9A698282EB5ADDC9CFF8F42ED565";
-{
-EInteger valueEObjectTemp = EInteger.FromRadixString(
-  strParam,
-  16);
-strParam =
-
-  "E29BE968D480A9FEE535E95FD35DD081868CDF4ED961B2148530A98AD961D4249920AE57AF49E6E1BB50940FD710E5C598249829FA8886C6A63D853BC52CE8D1D2E8B6EF927DC5AF9D14F3AFA2669EC4DAB7FD88F15BACB79149";
-        EInteger valueEObjectTemp2 =
-  EInteger.FromRadixString(
-  strParam,
-  16);
-TestMultiplyDivideOne(valueEObjectTemp, valueEObjectTemp2);
-}
-TestMultiplyDivideOne(
-  EInteger.FromRadixString("E6E8FFFFFFFF", 16),
-  EInteger.FromRadixString("E6E8FFFFFFFF", 16));
-TestMultiplyDivideOne(
-  EInteger.FromRadixString("AE0CFFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString("AE0CFFFFFFFFFFFF", 16));
-TestMultiplyDivideOne(
-  EInteger.FromRadixString("E6E8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString("FFFFFFFFFFFFFFFFFFFFFFFF", 16));
-TestMultiplyDivideOne(
-  EInteger.FromRadixString("83E7FFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString("83E7FFFFFFFFFFFF", 16));
-  TestMultiplyDivideOne(
-  EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
-  EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFF", 16));
-EInteger eia = EInteger.FromRadixString(
-  "C66BE66EC212C77883DAFEB9F73C914BF88E9DEB897CB817EBA7DBC7D0ABEB55A164EAFB9C9A856A8532D901FADC85E7EEC28A329670968AE45AEECDC050F12AA34CBF75B0DC81C588CEE8CDE6138704D73E958DF5FEED5E80C4D86BD0C2D60C8DFCFF72B43BBBF2A3B68760DF35E3F1B1588584971CE9EF983D8678D7C8BB84D196C37585FC8B4FC8F88CDCA65B843F8DBAA4F0F324D003B0AAD4EACA04961EBF63936FFF29F459B0A197D79B38B5B8E31C9E88FA67BD97C2F9DBE8B926D06FF80E8D7AB0D5E7D1C0B2E4DED8FA8EA4E96C9597ABB9F801B9CA8F98F4088990AFB58427A57BBDC983B1",
-  16);
-EInteger eib = EInteger.FromRadixString(
-  "EB7E892CD29F9B4182F58769C12BD885B7D7DE038074F48ACCAA9F6CFB63D6CCF1D4C603C5A08721F2F3F81FD380F847AE37EEC8FCF39C87A351F816E9D4EDF3B6C9AB0A958FC3FEF04BA3B38D4BF005A29A9D83F8B9F850BB36C9568C99CF3FFFDE9977BFD7D62AF597E4E8D483DE5FF323B0C49732EE23CC4EAA0EEF4AF47FE4BCB0D1C081F315CBE2D892DCA8F3E9A3AFA4CAE67082EBBDC9A59AB82D96009BC5CC8492699F89E21CD8A3F6DE8E86",
-  16);
-TestMultiplyDivideOne(eia, eib);
+        "D28E831580A0A69BD2259283B7E894A5B766C1FC9C93E776AB78E226A66983788A36C8458A1EAB8DA505CBFBCD41F7A4953CF426CCB884CCFF85B189D2759102C0CCF7A3DE909AE486B38A6DEC0B86FBE95DA041D8FEC163D24D95CEECCDBC7DE2FD88A99CF9A25AB3078E4BBFE3A2BBAD61C53CEA68E40BA3D7D66296C6CE66A6E4DC32E1A0F020DAD8820C9A698282EB5ADDC9CFF8F42ED565";
       {
-string str1 =
+        EInteger valueEObjectTemp = EInteger.FromRadixString(
+          strParam,
+          16);
+        strParam =
 
-  "10101000100010101010101000100000101000001010000000000000001000001000001010001010100010100010100000000000101010001000101010000000001000100000101000000000100010100000000010100010000000101010001000101000001000101010100000000010001010001010100010000000101010100000000010100000000010100000100010101010001010100000100000100010100000001010001010101000000000001010000010000010100010100010001010001010001010101000101000001000000000000000000000000010000000101000001000001000000010000010001000101010101000100010100010100000100000101000100010101010100000000000100000101000000000001010101000100000100000001000000000001010101000000010100000100000000010000000001000101010001010001";
+          "E29BE968D480A9FEE535E95FD35DD081868CDF4ED961B2148530A98AD961D4249920AE57AF49E6E1BB50940FD710E5C598249829FA8886C6A63D853BC52CE8D1D2E8B6EF927DC5AF9D14F3AFA2669EC4DAB7FD88F15BACB79149";
+        EInteger valueEObjectTemp2 =
+        EInteger.FromRadixString(
+        strParam,
+        16);
+        TestMultiplyDivideOne(valueEObjectTemp, valueEObjectTemp2);
+      }
+      TestMultiplyDivideOne(
+        EInteger.FromRadixString("E6E8FFFFFFFF", 16),
+        EInteger.FromRadixString("E6E8FFFFFFFF", 16));
+      TestMultiplyDivideOne(
+        EInteger.FromRadixString("AE0CFFFFFFFFFFFFFFFF", 16),
+        EInteger.FromRadixString("AE0CFFFFFFFFFFFF", 16));
+      TestMultiplyDivideOne(
+        EInteger.FromRadixString("E6E8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
+        EInteger.FromRadixString("FFFFFFFFFFFFFFFFFFFFFFFF", 16));
+      TestMultiplyDivideOne(
+        EInteger.FromRadixString("83E7FFFFFFFFFFFFFFFF", 16),
+        EInteger.FromRadixString("83E7FFFFFFFFFFFF", 16));
+      TestMultiplyDivideOne(
+      EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
+      EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFF", 16));
+      EInteger eia = EInteger.FromRadixString(
+        "C66BE66EC212C77883DAFEB9F73C914BF88E9DEB897CB817EBA7DBC7D0ABEB55A164EAFB9C9A856A8532D901FADC85E7EEC28A329670968AE45AEECDC050F12AA34CBF75B0DC81C588CEE8CDE6138704D73E958DF5FEED5E80C4D86BD0C2D60C8DFCFF72B43BBBF2A3B68760DF35E3F1B1588584971CE9EF983D8678D7C8BB84D196C37585FC8B4FC8F88CDCA65B843F8DBAA4F0F324D003B0AAD4EACA04961EBF63936FFF29F459B0A197D79B38B5B8E31C9E88FA67BD97C2F9DBE8B926D06FF80E8D7AB0D5E7D1C0B2E4DED8FA8EA4E96C9597ABB9F801B9CA8F98F4088990AFB58427A57BBDC983B1",
+        16);
+      EInteger eib = EInteger.FromRadixString(
+        "EB7E892CD29F9B4182F58769C12BD885B7D7DE038074F48ACCAA9F6CFB63D6CCF1D4C603C5A08721F2F3F81FD380F847AE37EEC8FCF39C87A351F816E9D4EDF3B6C9AB0A958FC3FEF04BA3B38D4BF005A29A9D83F8B9F850BB36C9568C99CF3FFFDE9977BFD7D62AF597E4E8D483DE5FF323B0C49732EE23CC4EAA0EEF4AF47FE4BCB0D1C081F315CBE2D892DCA8F3E9A3AFA4CAE67082EBBDC9A59AB82D96009BC5CC8492699F89E21CD8A3F6DE8E86",
+        16);
+      TestMultiplyDivideOne(eia, eib);
+      {
+        string str1 =
 
-string str2 =
+          "10101000100010101010101000100000101000001010000000000000001000001000001010001010100010100010100000000000101010001000101010000000001000100000101000000000100010100000000010100010000000101010001000101000001000101010100000000010001010001010100010000000101010100000000010100000000010100000100010101010001010100000100000100010100000001010001010101000000000001010000010000010100010100010001010001010001010101000101000001000000000000000000000000010000000101000001000001000000010000010001000101010101000100010100010100000100000101000100010101010100000000000100000101000000000001010101000100000100000001000000000001010101000000010100000100000000010000000001000101010001010001";
 
-  "101010101000101010100000000010100000101000001010001000000000101000101010000000100010001000100010000000001010101010100010101010000010000000100000100000100010001010001010100000000000100010001000000000001010000000100000000000100010001000101000001010101000000010000010100010100000100010000000001000101010001000001000101000101000000000001010001010001000000000101010100000001000001010000010100010101000001000101000001000000000000010100010100010001010001000001010000010100000000";
+        string str2 =
 
-EInteger objectTemp = EInteger.FromRadixString(
-  str1,
-  16);
-EInteger objectTemp2 = EInteger.FromRadixString(
-  str2,
-  16);
-TestMultiplyDivideOne(objectTemp, objectTemp2);
-}
-{
+          "101010101000101010100000000010100000101000001010001000000000101000101010000000100010001000100010000000001010101010100010101010000010000000100000100000100010001010001010100000000000100010001000000000001010000000100000000000100010001000101000001010101000000010000010100010100000100010000000001000101010001000001000101000101000000000001010001010001000000000101010100000001000001010000010100010101000001000101000001000000000000010100010100010001010001000001010000010100000000";
+
+        EInteger objectTemp = EInteger.FromRadixString(
+          str1,
+          16);
+        EInteger objectTemp2 = EInteger.FromRadixString(
+          str2,
+          16);
+        TestMultiplyDivideOne(objectTemp, objectTemp2);
+      }
+      {
         EInteger ei1, ei2;
         ei1 = EInteger.FromString(
   "44461738044811866704570272160729755524383493147516085922742403681586307620758054502667856562873477505768158700319760453047044081412393321568753479912147358343844563186048273758088945022589574729044743021988362306225753942249201773678443992606696524197361479929661991788310321409367753462284203449631729626517511224343015354155975783754763572354740724506742793459644155837703671449155713000260325445046273385372701820583016334341594713806706345456633635125343104401883366671083569152");
-  ei2 = EInteger.FromString(
-  "6667912688606651657935168942074070387623462798286393292334546164025938697493268465740399785103348978411106010660409247384863031649363973174034406552719188394559243700794785023362300512913065060420313203793021880700852215978918600154969735168");
-  TestMultiplyDivideOne(ei1, ei2);
-            }
-        }
+        ei2 = EInteger.FromString(
+        "6667912688606651657935168942074070387623462798286393292334546164025938697493268465740399785103348978411106010660409247384863031649363973174034406552719188394559243700794785023362300512913065060420313203793021880700852215978918600154969735168");
+        TestMultiplyDivideOne(ei1, ei2);
+      }
+    }
 
     [Test]
     public void TestMultiplyDivideA() {
@@ -3021,12 +3021,12 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
           TestCommon.CompareTestEqualAndConsistent(efloatA, efloatD);
         }
       } catch (Exception ex) {
-    string testLine = "TestMultiplyDivideOne (\nEInteger.FromRadixString (\"" +
-          bigintA.ToRadixString(16) + "\",16),\nEInteger.FromRadixString(\"" +
-                bigintB.ToRadixString(16) + "\",16));";
-                Console.WriteLine(testLine);
-         throw new InvalidOperationException(ex.Message + "\n" + testLine,
-                  ex);
+        string testLine = "TestMultiplyDivideOne (\nEInteger.FromRadixString (\"" +
+              bigintA.ToRadixString(16) + "\",16),\nEInteger.FromRadixString(\"" +
+                    bigintB.ToRadixString(16) + "\",16));";
+        Console.WriteLine(testLine);
+        throw new InvalidOperationException(ex.Message + "\n" + testLine,
+          ex);
       }
     }
 

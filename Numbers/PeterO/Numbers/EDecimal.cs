@@ -106,7 +106,7 @@ public static readonly EDecimal SignalingNaN =
 
     private static readonly IRadixMath<EDecimal> ExtendedMathValue = new
       RadixMath<EDecimal>(new DecimalMathHelper());
-private static readonly FastIntegerFixed FastIntZero = new
+      private static readonly FastIntegerFixed FastIntZero = new
       FastIntegerFixed(0);
     //----------------------------------------------------------------
     private static readonly IRadixMath<EDecimal> MathValue = new
@@ -117,7 +117,7 @@ private static readonly FastIntegerFixed FastIntZero = new
     private static readonly int[] ValueTenPowers = {
       1, 10, 100, 1000, 10000, 100000,
       1000000, 10000000, 100000000,
-      1000000000
+      1000000000,
     };
 
     private readonly FastIntegerFixed exponent;
@@ -904,7 +904,7 @@ newScale.Decrement();
         if (exp != null && (expBufferMult != 1 || expBuffer != 0)) {
           exp.Multiply(expBufferMult).AddInt(expBuffer);
         }
-   if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp ==
+        if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp ==
           null) {
           newScaleInt = expInt;
         } else if (exp == null) {
@@ -1095,7 +1095,7 @@ if (tmpoffset < 0) {
     public int CompareToBinary(EFloat other) {
   return CompareEDecimalToEFloat(this, other);
     }
-private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
+    private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
       if (ef == null) {
         return 1;
       }
@@ -2230,15 +2230,15 @@ if (absexp.CompareTo(bitCount) > 0) {
 
     private static readonly double[] ExactDoublePowersOfTen = {
 1, 10, 100, 1000, 10000,
-  1e5, 1e6, 1e7, 1e8, 1e9,
-  1e10, 1e11, 1e12, 1e13, 1e14,
-  1e15, 1e16, 1e17, 1e18, 1e19,
-  1e20, 1e21, 1e22
+1e5, 1e6, 1e7, 1e8, 1e9,
+1e10, 1e11, 1e12, 1e13, 1e14,
+1e15, 1e16, 1e17, 1e18, 1e19,
+1e20, 1e21, 1e22,
     };
 
     private static readonly float[] ExactSinglePowersOfTen = {
 1f, 10f, 100f, 1000f, 10000f,
-  1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f
+1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f,
     };
 
     /// <include file='../../docs.xml'
@@ -2287,7 +2287,7 @@ if (absexp.CompareTo(bitCount) > 0) {
        if (adjExp.CompareTo((EInteger)(-326)) < 0) {
           // Very low exponent, treat as 0
         return this.IsNegative ? Extras.IntegersToDouble(new[] { 0,
-            unchecked((int)(1 << 31)) }) : 0.0;
+            unchecked((int)(1 << 31)), }) : 0.0;
        }
        if (adjExp.CompareTo((EInteger)309) > 0) {
         // Very high exponent, treat as infinity
@@ -3222,7 +3222,7 @@ return new DigitShiftAccumulator(
   olderDigits);
         }
       }
-    public FastInteger DivisionShift(
+      public FastInteger DivisionShift(
         EInteger num,
         EInteger den) {
         if (den.IsZero) {
@@ -3470,7 +3470,7 @@ throw new OverflowException("Value out of range");
  throw new OverflowException("Value is infinity or NaN");
 }
 if (this.IsIntegerPartZero()) {
- return (long)0;
+ return 0L;
 }
 if (this.exponent.CompareToInt(19) >= 0) {
 throw new OverflowException("Value out of range: ");
@@ -3481,7 +3481,7 @@ throw new OverflowException("Value out of range: ");
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
     public long ToInt64Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : (long)0;
+ return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : 0L;
 }
 
     /// <include file='../../docs.xml'
@@ -3491,7 +3491,7 @@ throw new OverflowException("Value out of range: ");
  throw new OverflowException("Value is infinity or NaN");
 }
  if (this.IsZero) {
- return (long)0;
+ return 0L;
 }
 if (this.exponent.CompareToInt(19) >= 0) {
 throw new OverflowException("Value out of range");

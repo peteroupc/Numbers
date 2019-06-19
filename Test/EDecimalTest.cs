@@ -99,7 +99,7 @@ namespace Test {
       "0.0E-15", "0.0000000000000000", "0.000000000000000e+13", "0.00",
       "0.00", "0.00", "0.00000000000e-13", "0E-24", "0E-24",
       "0.000000000000000000000000", "0.000e-10", "0E-13", "0.0E-12",
-      "0.0000000000000" };
+      "0.0000000000000", };
     [Test]
     public void TestAbs() {
       // not implemented yet
@@ -121,11 +121,11 @@ namespace Test {
         TestCommon.CompareTestEqual(decD, decA);
       }
     }
-[Test]
-public void TestFromBoolean() {
-Assert.AreEqual(EDecimal.Zero, EDecimal.FromBoolean(false));
-Assert.AreEqual(EDecimal.One, EDecimal.FromBoolean(true));
-}
+    [Test]
+    public void TestFromBoolean() {
+      Assert.AreEqual(EDecimal.Zero, EDecimal.FromBoolean(false));
+      Assert.AreEqual(EDecimal.One, EDecimal.FromBoolean(true));
+    }
 
     [Test]
     public void TestPrecisionOneHalfEven() {
@@ -226,7 +226,6 @@ Assert.AreEqual(EDecimal.One, EDecimal.FromBoolean(true));
       Assert.AreEqual(1, EDecimal.SignalingNaN.CompareToBinary(null));
       Assert.AreEqual(1, EDecimal.Zero.CompareToBinary(null));
       Assert.AreEqual(1, EDecimal.One.CompareToBinary(null));
-
       {
         long numberTemp = EDecimal.NaN.CompareToBinary(EFloat.NaN);
         Assert.AreEqual(0, numberTemp);
@@ -267,70 +266,70 @@ Assert.AreEqual(EDecimal.One, EDecimal.FromBoolean(true));
         Assert.AreEqual(0, cmp);
       }
     }
-[Test]
-[Timeout(1000)]
-public void TestSlowCompareTo() {
-EInteger ei = EInteger.FromString(
-  "-108854259699738613336073386912819333959164543792902007057925129910904321192623590227704182838777516070192327852552376209933022606");
-EFloat ef = EFloat.Create(
-  ei,
-  EInteger.FromString("-94432713210"));
-EDecimal ed = EDecimal.FromString("-0.00007");
-Assert.AreEqual(-1, ed.CompareToBinary(ef));
-}
-[Test]
-[Timeout(1000)]
-public void TestSlowCompareTo2() {
-EFloat ef = EFloat.Create(
- EInteger.FromString("310698658007725142033104896"),
- EInteger.FromString("-910015527228"));
-EDecimal ed = EDecimal.FromString(
-  "5.46812681195752988681792163205092489269012868995370381431608431437654836803981061017608940175753472E-373278497416");
-Assert.AreEqual(-1, ed.CompareToBinary(ef));
-}
-[Test]
-[Timeout(1000)]
-public void TestSlowCompareTo3() {
-EDecimal ed;
-EFloat ef;
-string str;
-str =
-"1766847170502052161990715830264538670879951287225036514637396697134727424";
-ef = EFloat.Create(
-  EInteger.FromString(str),
-  EInteger.FromString("-312166824097095580"));
-str =
+    [Test]
+    [Timeout(1000)]
+    public void TestSlowCompareTo() {
+      EInteger ei = EInteger.FromString(
+        "-108854259699738613336073386912819333959164543792902007057925129910904321192623590227704182838777516070192327852552376209933022606");
+      EFloat ef = EFloat.Create(
+        ei,
+        EInteger.FromString("-94432713210"));
+      EDecimal ed = EDecimal.FromString("-0.00007");
+      Assert.AreEqual(-1, ed.CompareToBinary(ef));
+    }
+    [Test]
+    [Timeout(1000)]
+    public void TestSlowCompareTo2() {
+      EFloat ef = EFloat.Create(
+       EInteger.FromString("310698658007725142033104896"),
+       EInteger.FromString("-910015527228"));
+      EDecimal ed = EDecimal.FromString(
+        "5.46812681195752988681792163205092489269012868995370381431608431437654836803981061017608940175753472E-373278497416");
+      Assert.AreEqual(-1, ed.CompareToBinary(ef));
+    }
+    [Test]
+    [Timeout(1000)]
+    public void TestSlowCompareTo3() {
+      EDecimal ed;
+      EFloat ef;
+      string str;
+      str =
+      "1766847170502052161990715830264538670879951287225036514637396697134727424";
+      ef = EFloat.Create(
+        EInteger.FromString(str),
+        EInteger.FromString("-312166824097095580"));
+      str =
 
-  "9.173994463968662338877236893297097756859177826848079536001717300706132083132181223420891571892014689615873E-411";
-ed = EDecimal.FromString(str);
-Assert.AreEqual(1, ed.CompareToBinary(ef), ed.ToString());
-ed = EDecimal.FromString("-0.8686542656448184");
-EInteger num = EInteger.FromString(
-  "-140066031252330072924596216562033152419723178072587092376847513280411121126147871380984127579961289495006067586678128473926216639728812381688517268223431349786843141449122136993998169636988109708853983609451615499412285220750795244924615776386873830928453488263516664209329914433973932921432682935336466252311348743988191166143");
+        "9.173994463968662338877236893297097756859177826848079536001717300706132083132181223420891571892014689615873E-411";
+      ed = EDecimal.FromString(str);
+      Assert.AreEqual(1, ed.CompareToBinary(ef), ed.ToString());
+      ed = EDecimal.FromString("-0.8686542656448184");
+      EInteger num = EInteger.FromString(
+        "-140066031252330072924596216562033152419723178072587092376847513280411121126147871380984127579961289495006067586678128473926216639728812381688517268223431349786843141449122136993998169636988109708853983609451615499412285220750795244924615776386873830928453488263516664209329914433973932921432682935336466252311348743988191166143");
 
-ef = EFloat.Create(
-   num,
-   EInteger.FromString("-6881037062769847"));
-Assert.AreEqual(-1, ed.CompareToBinary(ef), ed.ToString());
-}
-[Test]
-[Timeout(1000)]
-public void TestSlowCompareTo4() {
-EInteger eim =
-  EInteger.FromString("22387857484482745027162156293292508271673600");
-EInteger eie = EInteger.FromString("17968626318971");
-EDecimal ed =
-  EDecimal.FromString("7.19575518693181831266567929996929334493885016E+432");
-EFloat ef = EFloat.Create(eim, eie);
-Assert.AreEqual(-1, ed.CompareToBinary(ef));
-eim = EInteger.FromString("309485028268090241945960705");
-eie = EInteger.FromString("525342875590");
-ed =
+      ef = EFloat.Create(
+         num,
+         EInteger.FromString("-6881037062769847"));
+      Assert.AreEqual(-1, ed.CompareToBinary(ef), ed.ToString());
+    }
+    [Test]
+    [Timeout(1000)]
+    public void TestSlowCompareTo4() {
+      EInteger eim =
+        EInteger.FromString("22387857484482745027162156293292508271673600");
+      EInteger eie = EInteger.FromString("17968626318971");
+      EDecimal ed =
+        EDecimal.FromString("7.19575518693181831266567929996929334493885016E+432");
+      EFloat ef = EFloat.Create(eim, eie);
+      Assert.AreEqual(-1, ed.CompareToBinary(ef));
+      eim = EInteger.FromString("309485028268090241945960705");
+      eie = EInteger.FromString("525342875590");
+      ed =
 
-  EDecimal.FromString("9.511414777277089412154948033116658722787183213120804541938141882272749696679385407387275461761800238977533242480831603777061215911374370925809077057683501541910383022943115134850573547079633633752563620027531228739865573373209036911484539031800435471797748936642897560822226476374652683917217409048036924712889788014206259609E+676");
-ef = EFloat.Create(eim, eie);
-Assert.AreEqual(-1, ed.CompareToBinary(ef));
-}
+        EDecimal.FromString("9.511414777277089412154948033116658722787183213120804541938141882272749696679385407387275461761800238977533242480831603777061215911374370925809077057683501541910383022943115134850573547079633633752563620027531228739865573373209036911484539031800435471797748936642897560822226476374652683917217409048036924712889788014206259609E+676");
+      ef = EFloat.Create(eim, eie);
+      Assert.AreEqual(-1, ed.CompareToBinary(ef));
+    }
     [Test]
     public void TestCompareToSignal() {
       // not implemented yet
@@ -805,32 +804,32 @@ Assert.AreEqual(-1, ed.CompareToBinary(ef));
     [Test]
     public void TestCreateNaN() {
       try {
- EDecimal.CreateNaN(null);
- Assert.Fail("Should have failed");
-} catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EDecimal.CreateNaN(null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       try {
- EDecimal.CreateNaN(EInteger.FromString("-1"));
- Assert.Fail("Should have failed");
-} catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EDecimal.CreateNaN(EInteger.FromString("-1"));
+        Assert.Fail("Should have failed");
+      } catch (ArgumentException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       try {
- EDecimal.CreateNaN(null, false, false, null);
- Assert.Fail("Should have failed");
-} catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EDecimal.CreateNaN(null, false, false, null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       EDecimal ef = EDecimal.CreateNaN(EInteger.Zero, false, true, null);
       Assert.IsTrue(ef.IsNegative);
       ef = EDecimal.CreateNaN(EInteger.Zero, false, false, null);
@@ -3217,47 +3216,47 @@ EFloat.Create(
 
     [Test]
     public void TestToByteChecked() {
-Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToByteChecked());
-Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToByteChecked());
-Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToByteChecked());
-Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToByteChecked());
-try {
- EDecimal.FromString("-1.0").ToByteChecked();
- Assert.Fail("Should have failed");
-} catch (OverflowException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
-try {
- EDecimal.FromString("-1.4").ToByteChecked();
- Assert.Fail("Should have failed");
-} catch (OverflowException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
-try {
- EDecimal.FromString("-1.5").ToByteChecked();
- Assert.Fail("Should have failed");
-} catch (OverflowException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
-try {
- EDecimal.FromString("-1.6").ToByteChecked();
- Assert.Fail("Should have failed");
-} catch (OverflowException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
-}
+      Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToByteChecked());
+      Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToByteChecked());
+      Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToByteChecked());
+      Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToByteChecked());
+      try {
+        EDecimal.FromString("-1.0").ToByteChecked();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.FromString("-1.4").ToByteChecked();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.FromString("-1.5").ToByteChecked();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.FromString("-1.6").ToByteChecked();
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+    }
 
     [Test]
     public void TestToDouble() {
@@ -3315,10 +3314,10 @@ try {
   edec.Abs(),
   DoubleUnderflowToZero,
   edecstr);
-  Assert.AreEqual(
-  edec.IsNegative,
-  EDecimal.FromDouble(dbl).IsNegative,
-  edecstr);
+            Assert.AreEqual(
+            edec.IsNegative,
+            EDecimal.FromDouble(dbl).IsNegative,
+            edecstr);
           } else {
             Assert.IsTrue(!Double.IsNaN(dbl));
             edec = edec.Abs();
@@ -4840,12 +4839,12 @@ try {
   SingleOverflowToInfinity,
   edecstr);
           } else if (sng == 0.0f) {
-    TestCommon.CompareTestLessEqual(
-  edec.Abs(),
-  SingleUnderflowToZero,
-  edecstr);
-Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative,
-    edecstr);
+            TestCommon.CompareTestLessEqual(
+          edec.Abs(),
+          SingleUnderflowToZero,
+          edecstr);
+            Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative,
+              edecstr);
           } else {
             Assert.IsTrue(!Single.IsNaN(sng));
             edec = edec.Abs();
@@ -4859,24 +4858,25 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative,
         }
       }
     }
-private static string Repeat(string s, int count) {
- var sb = new System.Text.StringBuilder();
- for (var i = 0; i < count; ++i) { sb.Append(s);
-}
- return sb.ToString();
-}
-[Test]
-public void TestOnePlusOne() {
-EContext ec = EContext.ForRounding(ERounding.Up).WithPrecision(4);
-EDecimal ed = EDecimal.FromString("1");
-EDecimal ed2;
-string str;
-for (var i = 10; i < 1000; ++i) {
- str = "1." + Repeat("0", i) + "3";
- ed2 = EDecimal.FromString(str);
- Assert.AreEqual("2.001", ed.Add(ed2, ec).ToString(), str);
-}
-}
+    private static string Repeat(string s, int count) {
+      var sb = new System.Text.StringBuilder();
+      for (var i = 0; i < count; ++i) {
+        sb.Append(s);
+      }
+      return sb.ToString();
+    }
+    [Test]
+    public void TestOnePlusOne() {
+      EContext ec = EContext.ForRounding(ERounding.Up).WithPrecision(4);
+      EDecimal ed = EDecimal.FromString("1");
+      EDecimal ed2;
+      string str;
+      for (var i = 10; i < 1000; ++i) {
+        str = "1." + Repeat("0", i) + "3";
+        ed2 = EDecimal.FromString(str);
+        Assert.AreEqual("2.001", ed.Add(ed2, ec).ToString(), str);
+      }
+    }
 
     [Test]
     public void TestToString() {

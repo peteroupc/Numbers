@@ -271,8 +271,10 @@ namespace Test {
         Assert.Fail(str);
       }
     }
+
 public static void CompareTestGreaterEqual<T>(T o1, T o2, string msg) where
-      T : IComparable<T> {
+      T :
+        IComparable<T> {
       if (CompareTestReciprocal(o1, o2) < 0) {
         string str = msg + "\r\n" + ObjectMessages(
           o1,

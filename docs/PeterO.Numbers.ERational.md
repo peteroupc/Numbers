@@ -63,8 +63,8 @@
 * <code>[PeterO.Numbers.ERational operator +(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Addition)</code> - Adds two rational numbers.
 * <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator /(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Division)</code> - Divides an arbitrary-precision rational number by the value of another arbitrary-precision rational number object.
-* <code>[explicit operator ulong(PeterO.Numbers.ERational)](#op_Explicit)</code> -
-* <code>[implicit operator PeterO.Numbers.ERational(ulong)](#op_Implicit)</code> -
+* <code>[explicit operator ulong(PeterO.Numbers.ERational)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision integer to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Adds one to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator %(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Modulus)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator *(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Multiply)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
@@ -1004,6 +1004,460 @@ The quotient of the two objects.
 
  * System.ArgumentNullException:
 The parameter "otherValue" is null.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator byte(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator double(
+        PeterO.Numbers.ERational bigValue);
+
+ Converts an arbitrary-precision rational number to a 64-bit floating-point number. The half-even rounding mode is used.  <b>Parameters:</b>
+
+ * <i>bigValue</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator float(
+        PeterO.Numbers.ERational bigValue);
+
+ Converts an arbitrary-precision rational number to a 32-bit binary floating-point number. The half-even rounding mode is used.  <b>Parameters:</b>
+
+ * <i>bigValue</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator int(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator long(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator PeterO.Numbers.EInteger(
+        PeterO.Numbers.ERational bigValue);
+
+ Converts an arbitrary-precision rational number to an arbitrary-precision integer. Any fractional part in the value will be discarded when converting to an arbitrary-precision integer.  <b>Parameters:</b>
+
+ * <i>bigValue</i>: An arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator PeterO.Numbers.ERational(
+        bool boolValue);
+
+ Converts a boolean value (true or false) to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>boolValue</i>: Either true or false.
+
+<b>Return Value:</b>
+
+1 if  <i>boolValue</i>
+ is true; otherwise, 0.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator sbyte(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator short(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator System.Decimal(
+        PeterO.Numbers.ERational extendedNumber);
+
+ Converts an arbitrary-precision rational number to a  `decimal` decimal under the Common Language Infrastructure (see [
+         &#x22;Forms of numbers&#x22;
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ).  <b>Parameters:</b>
+
+ * <i>extendedNumber</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+A  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal).
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator uint(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator ulong(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 64-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator ushort(
+        PeterO.Numbers.ERational input);
+
+ Converts an arbitrary-precision rational number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        byte inputByte);
+
+ Converts a byte (from 0 to 255) to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+The value of  <i>inputByte</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        double eint);
+
+ Converts a 64-bit floating-point number to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>eint</i>: The parameter  <i>eint</i>
+ is a 64-bit floating-point number.
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        float eint);
+
+ Converts a 32-bit binary floating-point number to a rational number.  <b>Parameters:</b>
+
+ * <i>eint</i>: The parameter  <i>eint</i>
+ is a 32-bit binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>eint</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        int inputInt32);
+
+ Converts a 32-bit signed integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputInt32</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        long inputInt64);
+
+ Converts a 64-bit signed integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputInt64</i>: The number to convert as a 64-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputInt64</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        PeterO.Numbers.EDecimal eint);
+
+ Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>eint</i>: The parameter  <i>eint</i>
+ is an arbitrary-precision decimal floating-point number.
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        PeterO.Numbers.EFloat eint);
+
+ Converts an arbitrary-precision binary float to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>eint</i>: An arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        PeterO.Numbers.EInteger eint);
+
+ Converts an arbitrary-precision integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>eint</i>: An arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        sbyte inputSByte);
+
+ Converts an 8-bit signed integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputSByte</i>: The number to convert as an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputSByte</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        short inputInt16);
+
+ Converts a 16-bit signed integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputInt16</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        System.Decimal eint);
+
+ Converts a  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal). to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>eint</i>: A  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal).
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        uint inputUInt32);
+
+ Converts a 32-bit signed integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputUInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputUInt32</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        ulong inputUInt64);
+
+ Converts a 64-bit unsigned integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputUInt64</i>: The number to convert as a 64-bit unsigned integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputUInt64</i>
+ as an arbitrary-precision rational number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.ERational(
+        ushort inputUInt16);
+
+ Converts a 16-bit unsigned integer to an arbitrary-precision rational number.  <b>Parameters:</b>
+
+ * <i>inputUInt16</i>: The number to convert as a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputUInt16</i>
+ as an arbitrary-precision rational number.
 
 <a id="op_Increment"></a>
 ### Operator `++`

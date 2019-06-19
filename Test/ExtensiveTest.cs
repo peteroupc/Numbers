@@ -131,7 +131,7 @@ namespace CBOR {
 
       public static DecimalNumber Create(EDecimal dec) {
         var dn = new ExtensiveTest.DecimalNumber {
-          ed = dec };
+          ed = dec, };
         return dn;
       }
 
@@ -728,7 +728,7 @@ namespace CBOR {
             result = op2;
             op2 = null;
           } else {
-            result = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[6])
+            result = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[6]),
                     });
           }
 
@@ -739,16 +739,16 @@ namespace CBOR {
             return 0;
           }
           op1 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[4]),
-                    HexInt(chunks[5]) });
+                    HexInt(chunks[5]), });
           op2 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[6]),
-                    HexInt(chunks[7]) });
+                    HexInt(chunks[7]), });
           if (chunks.Length == 8 || chunks[8].Length == 0) {
             result = op2;
             op2 = null;
             return 0;
           }
           result = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[8]),
-                    HexInt(chunks[9]) });
+                    HexInt(chunks[9]), });
           break;
         case 2:
           // quad
@@ -757,17 +757,17 @@ namespace CBOR {
           }
           op1 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[4]),
   HexInt(chunks[5]), HexInt(chunks[6]),
-  HexInt(chunks[7]) });
+  HexInt(chunks[7]), });
           op2 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[8]),
   HexInt(chunks[9]), HexInt(chunks[10]),
-  HexInt(chunks[11]) });
+  HexInt(chunks[11]), });
           if (chunks.Length == 12 || chunks[12].Length == 0) {
             result = op2;
             op2 = null;
           } else {
             result = BinaryNumber.FromFloatWords(new[] {
 HexInt(chunks[12]), HexInt(chunks[13]),
-  HexInt(chunks[14]), HexInt(chunks[15]) });
+HexInt(chunks[14]), HexInt(chunks[15]), });
           }
 
           break;

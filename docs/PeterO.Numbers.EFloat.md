@@ -140,8 +140,8 @@
 * <code>[PeterO.Numbers.EFloat operator +(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Addition)</code> - Adds two arbitrary-precision binary floating-point numbers and returns the result.
 * <code>[PeterO.Numbers.EFloat operator --(PeterO.Numbers.EFloat)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision binary floating-point number.
 * <code>[PeterO.Numbers.EFloat operator /(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Division)</code> - Divides one binary float by another and returns the result.
-* <code>[explicit operator ulong(PeterO.Numbers.EFloat)](#op_Explicit)</code> -
-* <code>[implicit operator PeterO.Numbers.EFloat(ulong)](#op_Implicit)</code> -
+* <code>[explicit operator ulong(PeterO.Numbers.EFloat)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number.
+* <code>[implicit operator PeterO.Numbers.EFloat(ulong)](#op_Implicit)</code> - Creates a binary float from a 32-bit floating-point number.
 * <code>[PeterO.Numbers.EFloat operator ++(PeterO.Numbers.EFloat)](#op_Increment)</code> - Adds one to an arbitrary-precision binary floating-point number.
 * <code>[PeterO.Numbers.EFloat operator %(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision binary float by another.
 * <code>[PeterO.Numbers.EFloat operator *(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Multiply)</code> - Multiplies two binary floats.
@@ -1943,6 +1943,406 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
  * System.ArgumentNullException:
 The parameter  <i>dividend</i>
  is null.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator byte(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator double(
+        PeterO.Numbers.EFloat bigValue);
+
+ Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+
+  <b>Parameters:</b>
+
+ * <i>bigValue</i>: The value to convert to a 64-bit floating-point number.
+
+<b>Return Value:</b>
+
+The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator float(
+        PeterO.Numbers.EFloat bigValue);
+
+ Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+
+  <b>Parameters:</b>
+
+ * <i>bigValue</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator int(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator long(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator PeterO.Numbers.EFloat(
+        bool boolValue);
+
+ Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>boolValue</i>: Either true or false.
+
+<b>Return Value:</b>
+
+The number 1 if  <i>boolValue</i>
+ is true; otherwise, 0.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator PeterO.Numbers.EInteger(
+        PeterO.Numbers.EFloat bigValue);
+
+ Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.  <b>Parameters:</b>
+
+ * <i>bigValue</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator sbyte(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator short(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator uint(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator ulong(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 64-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+
+<a id="op_Explicit"></a>
+### Explicit Operator
+
+    public static explicit operator ushort(
+        PeterO.Numbers.EFloat input);
+
+ Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.  <b>Parameters:</b>
+
+ * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+The value of  <i>input</i>
+ , truncated to a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        byte inputByte);
+
+ Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
+
+<b>Return Value:</b>
+
+The value of  <i>inputByte</i>
+ as an arbitrary-precision binary floating-point number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        double dbl);
+
+ Creates a binary float from a 64-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.  <b>Parameters:</b>
+
+ * <i>dbl</i>: The parameter  <i>dbl</i>
+ is a 64-bit floating-point number.
+
+<b>Return Value:</b>
+
+A binary float with the same value as  <i>dbl</i>
+ .
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        float flt);
+
+ Creates a binary float from a 32-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.  <b>Parameters:</b>
+
+ * <i>flt</i>: The parameter  <i>flt</i>
+ is a 32-bit binary floating-point number.
+
+<b>Return Value:</b>
+
+A binary float with the same value as  <i>flt</i>
+ .
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        int inputInt32);
+
+ Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputInt32</i>
+ as an arbitrary-precision binary floating-point number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        long inputInt64);
+
+ Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputInt64</i>: The number to convert as a 64-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputInt64</i>
+ as an arbitrary-precision binary floating-point number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        PeterO.Numbers.EInteger eint);
+
+ Converts an arbitrary-precision integer to an arbitrary precision binary.  <b>Parameters:</b>
+
+ * <i>eint</i>: An arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary float with the exponent set to 0.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        sbyte inputSByte);
+
+ Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputSByte</i>: The number to convert as an 8-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputSByte</i>
+ as an arbitrary-precision binary floating-point number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        short inputInt16);
+
+ Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputInt16</i>
+ as an arbitrary-precision binary floating-point number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        uint inputUInt32);
+
+ Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputUInt32</i>: The number to convert as a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputUInt32</i>
+ as an arbitrary-precision binary floating-point number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        ulong inputUInt64);
+
+ Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputUInt64</i>: The number to convert as a 64-bit unsigned integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputUInt64</i>
+ as an arbitrary-precision binary floating-point number.
+
+<a id="op_Implicit"></a>
+### Implicit Operator
+
+    public static implicit operator PeterO.Numbers.EFloat(
+        ushort inputUInt16);
+
+ Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.  <b>Parameters:</b>
+
+ * <i>inputUInt16</i>: The number to convert as a 16-bit unsigned integer.
+
+<b>Return Value:</b>
+
+The value of  <i>inputUInt16</i>
+ as an arbitrary-precision binary floating-point number.
 
 <a id="op_Increment"></a>
 ### Operator `++`

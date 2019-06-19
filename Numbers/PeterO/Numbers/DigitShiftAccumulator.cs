@@ -28,7 +28,7 @@ namespace PeterO.Numbers {
 
     private static readonly int[] ValueTenPowers = {
       1, 10, 100, 1000, 10000, 100000,
-      1000000, 10000000, 100000000
+      1000000, 10000000, 100000000,
     };
 
     private int bitLeftmost;
@@ -75,14 +75,14 @@ namespace PeterO.Numbers {
   int smallint,
   int lastDiscarded,
   int olderDiscarded) {
-        this.shiftedSmall = smallint;
-        if (this.shiftedSmall < 0) {
-          throw new ArgumentException("shiftedSmall (" + this.shiftedSmall +
-            ") is less than 0");
-        }
-        this.isSmall = true;
-        this.bitsAfterLeftmost = (olderDiscarded != 0) ? 1 : 0;
-        this.bitLeftmost = lastDiscarded;
+      this.shiftedSmall = smallint;
+      if (this.shiftedSmall < 0) {
+        throw new ArgumentException("shiftedSmall (" + this.shiftedSmall +
+          ") is less than 0");
+      }
+      this.isSmall = true;
+      this.bitsAfterLeftmost = (olderDiscarded != 0) ? 1 : 0;
+      this.bitLeftmost = lastDiscarded;
     }
 
     public FastInteger DiscardedDigitCount {
@@ -119,9 +119,9 @@ namespace PeterO.Numbers {
     }
 
     public FastInteger GetDigitLength() {
-  this.knownDigitLength = this.knownDigitLength ??
-        this.CalcKnownDigitLength();
-        return this.knownDigitLength;
+      this.knownDigitLength = this.knownDigitLength ??
+            this.CalcKnownDigitLength();
+      return this.knownDigitLength;
     }
 
     public void ShiftRight(FastInteger fastint) {
@@ -171,12 +171,12 @@ namespace PeterO.Numbers {
   FastInteger preShift,
   bool truncate) {
 #if DEBUG
-        if (bits.Sign < 0) {
-          throw new ArgumentException("bits's sign (" + bits.Sign +
-            ") is less than 0");
-        }
+      if (bits.Sign < 0) {
+        throw new ArgumentException("bits's sign (" + bits.Sign +
+          ") is less than 0");
+      }
 #endif
-if (preShift != null && preShift.Sign > 0) {
+      if (preShift != null && preShift.Sign > 0) {
         FastInteger kdl = this.knownDigitLength ?? this.CalcKnownDigitLength();
         this.knownDigitLength = kdl;
         // DebugUtility.Log("bits=" + bits + " pre=" + preShift + " known=" +
@@ -193,13 +193,13 @@ if (preShift != null && preShift.Sign > 0) {
           if (cmp <= 0) {
             // Difference between desired digit length and current
             // length is smaller than the shift, make it the shift
-           this.TruncateOrShiftRight(preShift, truncate);
-           this.VerifyKnownLength();
-           return;
+            this.TruncateOrShiftRight(preShift, truncate);
+            this.VerifyKnownLength();
+            return;
           } else {
-           this.TruncateOrShiftRight(bitDiff, truncate);
-           this.VerifyKnownLength();
-           return;
+            this.TruncateOrShiftRight(bitDiff, truncate);
+            this.VerifyKnownLength();
+            return;
           }
         }
       }
@@ -273,12 +273,12 @@ if (preShift != null && preShift.Sign > 0) {
     }
 
     private static int LongDigitLength(long value) {
- #if DEBUG
-if (!(value >= 0)) {
-  throw new ArgumentException("doesn't satisfy value>= 0");
-}
+#if DEBUG
+      if (!(value >= 0)) {
+        throw new ArgumentException("doesn't satisfy value>= 0");
+      }
 #endif
-if (value >= 1000000000L) {
+      if (value >= 1000000000L) {
         return (value >= 1000000000000000000L) ? 19 : ((value >=
                  100000000000000000L) ? 18 : ((value >= 10000000000000000L) ?
                   17 : ((value >= 1000000000000000L) ? 16 :
@@ -313,17 +313,17 @@ if (value >= 1000000000L) {
     }
 
     private void VerifyKnownLength() {
-/*
-#if DEBUG
-      if (this.knownDigitLength != null) {
-        if (this.knownDigitLength.CompareTo(this.CalcKnownDigitLength()) != 0) {
-          throw new InvalidOperationException("*****"
-            +this+"\n*****expected " +this.CalcKnownDigitLength()+"\n" +
-             "*****kdl="+this.knownDigitLength);
-        }
-      }
-#endif
-*/
+      /*
+      #if DEBUG
+            if (this.knownDigitLength != null) {
+              if (this.knownDigitLength.CompareTo(this.CalcKnownDigitLength()) != 0) {
+                throw new InvalidOperationException("*****"
+                  +this+"\n*****expected " +this.CalcKnownDigitLength()+"\n" +
+                   "*****kdl="+this.knownDigitLength);
+              }
+            }
+      #endif
+      */
     }
 
     private void UpdateKnownLengthInt(int digits) {
@@ -363,12 +363,12 @@ if (value >= 1000000000L) {
         if (digits > 50) {
           // To avoid having to calculate a very big power of 10,
           // check the digit count to see if doing so can be avoided
-   EInteger bigBitLength = this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
+          EInteger bigBitLength = this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
           // NOTE: Overflowing bigBitLength will be MaxValue, which is OK
           // for the use of this variable
           int bitLength = bigBitLength.CanFitInInt32() ?
              bigBitLength.ToInt32Checked() : Int32.MaxValue;
-             var bigPower = false;
+          var bigPower = false;
           // 10^48 has 160 bits; 10^98 has 326; bit length is cheaper
           // to calculate than base-10 digit length
           if (bitLength < 160 || (digits > 100 && bitLength < 326)) {
@@ -384,16 +384,16 @@ if (value >= 1000000000L) {
           }
           if (bigPower) {
             // Power of 10 to be divided would be much bigger
-       this.discardedBitCount = this.discardedBitCount ?? (new
-              FastInteger(0));
-              this.discardedBitCount.AddInt(digits);
-              this.bitsAfterLeftmost |= this.bitLeftmost;
-              this.bitsAfterLeftmost |= this.shiftedBigInt.IsZero ? 0 : 1;
-              this.bitLeftmost = 0;
-              this.knownDigitLength = new FastInteger(1);
-              this.isSmall = true;
-              this.shiftedSmall = 0;
-              return;
+            this.discardedBitCount = this.discardedBitCount ?? (new
+                   FastInteger(0));
+            this.discardedBitCount.AddInt(digits);
+            this.bitsAfterLeftmost |= this.bitLeftmost;
+            this.bitsAfterLeftmost |= this.shiftedBigInt.IsZero ? 0 : 1;
+            this.bitLeftmost = 0;
+            this.knownDigitLength = new FastInteger(1);
+            this.isSmall = true;
+            this.shiftedSmall = 0;
+            return;
           }
         }
         if (this.shiftedBigInt.IsEven && this.bitLeftmost == 0) {
@@ -613,14 +613,14 @@ if (value >= 1000000000L) {
           this.bitLeftmost = 0;
           break;
         } else {
-        long newShift = (shiftedLong < 43698) ? ((shiftedLong * 26215) >>
-            18) : (shiftedLong / 10);
-            var digit = (int)(shiftedLong - (newShift * 10));
-            this.bitsAfterLeftmost |= this.bitLeftmost;
-            this.bitLeftmost = digit;
-            --digits;
-            ++digitsShifted;
-            shiftedLong = newShift;
+          long newShift = (shiftedLong < 43698) ? ((shiftedLong * 26215) >>
+              18) : (shiftedLong / 10);
+          var digit = (int)(shiftedLong - (newShift * 10));
+          this.bitsAfterLeftmost |= this.bitLeftmost;
+          this.bitLeftmost = digit;
+          --digits;
+          ++digitsShifted;
+          shiftedLong = newShift;
         }
       }
       this.isSmall = shiftedLong <= Int32.MaxValue;
@@ -700,8 +700,8 @@ if (value >= 1000000000L) {
       if (digitDiff.CanFitInInt32()) {
 #if DEBUG
         if (!(digitDiff.CompareToInt(2) > 0)) {
-    throw new ArgumentException(
-  "doesn't satisfy digitDiff.CompareToInt(2)>0");
+          throw new ArgumentException(
+        "doesn't satisfy digitDiff.CompareToInt(2)>0");
         }
 #endif
         EInteger bigrem = null;

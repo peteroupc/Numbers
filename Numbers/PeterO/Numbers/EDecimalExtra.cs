@@ -332,7 +332,7 @@ throw new OverflowException("Value out of range");
  throw new OverflowException("Value is infinity or NaN");
 }
 if (this.IsIntegerPartZero()) {
- return (uint)0;
+ return 0U;
 }
 if (this.exponent.CompareToInt(10) >= 0) {
 throw new OverflowException("Value out of range: ");
@@ -344,7 +344,7 @@ throw new OverflowException("Value out of range: ");
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32Unchecked"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : (uint)0;
+ return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
 }
 
     /// <include file='../../docs.xml'
@@ -355,7 +355,7 @@ throw new OverflowException("Value out of range: ");
  throw new OverflowException("Value is infinity or NaN");
 }
  if (this.IsZero) {
- return (uint)0;
+ return 0U;
 }
  if (this.IsNegative) {
 throw new OverflowException("Value out of range");
@@ -408,7 +408,7 @@ throw new OverflowException("Value out of range");
  throw new OverflowException("Value is infinity or NaN");
 }
 if (this.IsIntegerPartZero()) {
- return (ulong)0;
+ return 0UL;
 }
 if (this.exponent.CompareToInt(20) >= 0) {
 throw new OverflowException("Value out of range: ");
@@ -420,7 +420,7 @@ throw new OverflowException("Value out of range: ");
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64Unchecked"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : (ulong)0;
+ return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
 }
 
     /// <include file='../../docs.xml'
@@ -431,7 +431,7 @@ throw new OverflowException("Value out of range: ");
  throw new OverflowException("Value is infinity or NaN");
 }
  if (this.IsZero) {
- return (ulong)0;
+ return 0UL;
 }
  if (this.IsNegative) {
 throw new OverflowException("Value out of range");
