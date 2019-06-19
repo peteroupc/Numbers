@@ -9,58 +9,58 @@ namespace Test {
   public class EIntegerTest {
     private static long[] valueBitLengths = { -4294967297L, 33L, -4294967296L,
       32L,
-    -4294967295L, 32L, -2147483649L, 32L, -2147483648L, 31L, -2147483647L,
-        31L,
+      -4294967295L, 32L, -2147483649L, 32L, -2147483648L, 31L, -2147483647L,
+      31L,
       -1073741825L, 31L, -1073741824L, 30L, -1073741823L, 30L, -536870913L, 30L,
       -536870912L, 29L, -536870911L, 29L, -268435457L, 29L, -268435456L, 28L,
       -268435455L, 28L, -134217729L, 28L, -134217728L, 27L, -134217727L, 27L,
-  -67108865L, 27L, -67108864L, 26L, -67108863L, 26L, -33554433L, 26L,
-        -33554432L,
+      -67108865L, 27L, -67108864L, 26L, -67108863L, 26L, -33554433L, 26L,
+      -33554432L,
       25L, -33554431L, 25L, -16777217L, 25L, -16777216L, 24L, -16777215L, 24L,
-  -8388609L, 24L, -8388608L, 23L, -8388607L, 23L, -4194305L, 23L, -4194304L,
-        22L,
-  -4194303L, 22L, -2097153L, 22L, -2097152L, 21L, -2097151L, 21L, -1048577L,
-        21L,
-   -1048576L, 20L, -1048575L, 20L, -524289L, 20L, -524288L, 19L, -524287L,
-        19L,
+      -8388609L, 24L, -8388608L, 23L, -8388607L, 23L, -4194305L, 23L, -4194304L,
+      22L,
+      -4194303L, 22L, -2097153L, 22L, -2097152L, 21L, -2097151L, 21L, -1048577L,
+      21L,
+      -1048576L, 20L, -1048575L, 20L, -524289L, 20L, -524288L, 19L, -524287L,
+      19L,
       -262145L, 19L, -262144L, 18L, -262143L, 18L, -131073L, 18L, -131072L, 17L,
-  -131071L, 17L, -65537L, 17L, -65536L, 16L, -65535L, 16L, -32769L, 16L,
-        -32768L,
+      -131071L, 17L, -65537L, 17L, -65536L, 16L, -65535L, 16L, -32769L, 16L,
+      -32768L,
       15L, -32767L, 15L, -16385L, 15L, -16384L, 14L, -16383L, 14L, -8193L,
-        14L, -8192L,
+      14L, -8192L,
       13L, -8191L, 13L, -4097L, 13L, -4096L, 12L, -4095L, 12L, -2049L, 12L,
-        -2048L, 11L,
+      -2048L, 11L,
       -2047L, 11L, -1025L, 11L, -1024L, 10L, -1023L, 10L, -513L, 10L, -512L,
-        9L, -511L,
+      9L, -511L,
       9L, -257L, 9L, -256L, 8L, -255L, 8L, -129L, 8L, -128L, 7L, -127L, 7L,
-        -65L, 7L, -64L,
+      -65L, 7L, -64L,
       6L, -63L, 6L, -33L, 6L, -32L, 5L, -31L, 5L, -17L, 5L, -16L, 4L, -15L,
-        4L, -9L, 4L, -8L,
+      4L, -9L, 4L, -8L,
       3L, -7L, 3L, -5L, 3L, -4L, 2L, -3L, 2L, -2L, 1L, -1L, 0L, 0L, 0L, 1L,
-        1L, 2L, 2L, 3L, 2L,
+      1L, 2L, 2L, 3L, 2L,
       4L, 3L, 5L, 3L, 7L, 3L, 8L, 4L, 9L, 4L, 15L, 4L, 16L, 5L, 17L, 5L,
-        31L, 5L, 32L, 6L, 33L,
+      31L, 5L, 32L, 6L, 33L,
       6L, 63L, 6L, 64L, 7L, 65L, 7L, 127L, 7L, 128L, 8L, 129L, 8L, 255L, 8L,
-        256L, 9L, 257L,
+      256L, 9L, 257L,
       9L, 511L, 9L, 512L, 10L, 513L, 10L, 1023L, 10L, 1024L, 11L, 1025L,
-        11L, 2047L, 11L,
+      11L, 2047L, 11L,
       2048L, 12L, 2049L, 12L, 4095L, 12L, 4096L, 13L, 4097L, 13L, 8191L,
-        13L, 8192L, 14L,
-   8193L, 14L, 16383L, 14L, 16384L, 15L, 16385L, 15L, 32767L, 15L, 32768L,
-        16L,
-  32769L, 16L, 65535L, 16L, 65536L, 17L, 65537L, 17L, 131071L, 17L, 131072L,
-        18L,
- 131073L, 18L, 262143L, 18L, 262144L, 19L, 262145L, 19L, 524287L, 19L,
-        524288L,
- 20L, 524289L, 20L, 1048575L, 20L, 1048576L, 21L, 1048577L, 21L, 2097151L,
-        21L,
+      13L, 8192L, 14L,
+      8193L, 14L, 16383L, 14L, 16384L, 15L, 16385L, 15L, 32767L, 15L, 32768L,
+      16L,
+      32769L, 16L, 65535L, 16L, 65536L, 17L, 65537L, 17L, 131071L, 17L, 131072L,
+      18L,
+      131073L, 18L, 262143L, 18L, 262144L, 19L, 262145L, 19L, 524287L, 19L,
+      524288L,
+      20L, 524289L, 20L, 1048575L, 20L, 1048576L, 21L, 1048577L, 21L, 2097151L,
+      21L,
       2097152L, 22L, 2097153L, 22L, 4194303L, 22L, 4194304L, 23L, 4194305L, 23L,
-   8388607L, 23L, 8388608L, 24L, 8388609L, 24L, 16777215L, 24L, 16777216L,
-        25L,
-  16777217L, 25L, 33554431L, 25L, 33554432L, 26L, 33554433L, 26L, 67108863L,
-        26L,
-  67108864L, 27L, 67108865L, 27L, 134217727L, 27L, 134217728L, 28L,
-        134217729L,
+      8388607L, 23L, 8388608L, 24L, 8388609L, 24L, 16777215L, 24L, 16777216L,
+      25L,
+      16777217L, 25L, 33554431L, 25L, 33554432L, 26L, 33554433L, 26L, 67108863L,
+      26L,
+      67108864L, 27L, 67108865L, 27L, 134217727L, 27L, 134217728L, 28L,
+      134217729L,
       28L, 268435455L, 28L, 268435456L, 29L, 268435457L, 29L, 536870911L, 29L,
       536870912L, 30L, 536870913L, 30L, 1073741823L, 30L, 1073741824L, 31L,
       1073741825L, 31L, 2147483647L, 31L, 2147483648L, 32L, 2147483649L, 32L,
@@ -69,29 +69,30 @@ namespace Test {
     private static long[] valueLowBits = { 0L, -1L, 1L, 0L, 2L, 1L, 3L, 0L, 4L,
       2L, 5L, 0L,
       7L, 0L, 8L, 3L, 9L, 0L, 15L, 0L, 16L, 4L, 17L, 0L, 31L, 0L, 32L, 5L,
-        33L, 0L, 63L, 0L, 64L,
+      33L, 0L, 63L, 0L, 64L,
       6L, 65L, 0L, 127L, 0L, 128L, 7L, 129L, 0L, 255L, 0L, 256L, 8L, 257L,
-        0L, 511L, 0L, 512L,
+      0L, 511L, 0L, 512L,
       9L, 513L, 0L, 1023L, 0L, 1024L, 10L, 1025L, 0L, 2047L, 0L, 2048L, 11L,
-        2049L, 0L,
-  4095L, 0L, 4096L, 12L, 4097L, 0L, 8191L, 0L, 8192L, 13L, 8193L, 0L, 16383L,
-        0L,
+      2049L, 0L,
+    4095L, 0L, 4096L, 12L, 4097L, 0L, 8191L, 0L, 8192L, 13L, 8193L, 0L,
+        16383L,
+      0L,
       16384L, 14L, 16385L, 0L, 32767L, 0L, 32768L, 15L, 32769L, 0L, 65535L,
-        0L, 65536L,
+      0L, 65536L,
       16L, 65537L, 0L, 131071L, 0L, 131072L, 17L, 131073L, 0L, 262143L, 0L,
-        262144L, 18L,
+      262144L, 18L,
       262145L, 0L, 524287L, 0L, 524288L, 19L, 524289L, 0L, 1048575L, 0L,
-        1048576L, 20L,
+      1048576L, 20L,
       1048577L, 0L, 2097151L, 0L, 2097152L, 21L, 2097153L, 0L, 4194303L, 0L,
-        4194304L,
-   22L, 4194305L, 0L, 8388607L, 0L, 8388608L, 23L, 8388609L, 0L, 16777215L,
-        0L,
-   16777216L, 24L, 16777217L, 0L, 33554431L, 0L, 33554432L, 25L, 33554433L,
-        0L,
- 67108863L, 0L, 67108864L, 26L, 67108865L, 0L, 134217727L, 0L, 134217728L,
-        27L,
+      4194304L,
+      22L, 4194305L, 0L, 8388607L, 0L, 8388608L, 23L, 8388609L, 0L, 16777215L,
+      0L,
+      16777216L, 24L, 16777217L, 0L, 33554431L, 0L, 33554432L, 25L, 33554433L,
+      0L,
+      67108863L, 0L, 67108864L, 26L, 67108865L, 0L, 134217727L, 0L, 134217728L,
+      27L,
       134217729L, 0L, 268435455L, 0L, 268435456L, 28L, 268435457L, 0L,
-        536870911L, 0L,
+      536870911L, 0L,
       536870912L, 29L, 536870913L, 0L, 1073741823L, 0L, 1073741824L, 30L,
       1073741825L, 0L, 2147483647L, 0L, 2147483648L, 31L, 2147483649L, 0L,
       4294967295L, 0L, 4294967296L, 32L, 4294967297L, 0 };
@@ -361,7 +362,6 @@ namespace Test {
       }
       return BigFromBytes(bytes);
     }
-
 [Test]
 public void TestFromBoolean() {
 Assert.AreEqual(EInteger.One, EInteger.FromBoolean(true));
@@ -444,7 +444,6 @@ Assert.AreEqual(EInteger.Zero, EInteger.FromBoolean(false));
         }
       }
     }
-
 [Test]
 public void TestAddSubSmall() {
 // Test int overloads
@@ -534,8 +533,8 @@ Assert.AreEqual(
   EInteger.FromInt32(370),
   EInteger.FromInt32(-30).Subtract(EInteger.FromInt32(-400)));
 // Other tests
-        EInteger bigintC = EInteger.FromInt32(0).Add(60916);
-        EInteger bigintD = bigintC.Subtract(60916);
+EInteger bigintC = EInteger.FromInt32(0).Add(60916);
+EInteger bigintD = bigintC.Subtract(60916);
 Assert.AreEqual(EInteger.FromInt32(60916), bigintC);
 Assert.AreEqual(EInteger.FromInt32(0), bigintD);
 
@@ -638,16 +637,16 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
       }
       Assert.AreEqual(
         unchecked((long)0xfffffff200000000L),
-  BigValueOf(unchecked((long)0xfffffff200000000L)).ToInt64Checked());
+        BigValueOf(unchecked((long)0xfffffff200000000L)).ToInt64Checked());
       Assert.AreEqual(
         unchecked((long)0xfffffff280000000L),
-  BigValueOf(unchecked((long)0xfffffff280000000L)).ToInt64Checked());
+        BigValueOf(unchecked((long)0xfffffff280000000L)).ToInt64Checked());
       Assert.AreEqual(
         unchecked((long)0xfffffff280000001L),
-  BigValueOf(unchecked((long)0xfffffff280000001L)).ToInt64Checked());
+        BigValueOf(unchecked((long)0xfffffff280000001L)).ToInt64Checked());
       Assert.AreEqual(
         unchecked((long)0xfffffff27fffffffL),
-  BigValueOf(unchecked((long)0xfffffff27fffffffL)).ToInt64Checked());
+        BigValueOf(unchecked((long)0xfffffff27fffffffL)).ToInt64Checked());
       Assert.AreEqual(
         0x0000000380000001L,
         BigValueOf(0x0000000380000001L).ToInt64Checked());
@@ -885,74 +884,74 @@ Assert.AreEqual(EInteger.FromInt32(0), bigintD);
         EInteger bigintC = bigintA / (EInteger)bigintB;
         Assert.AreEqual((int)bigintC, c);
       }
-DoTestDivide("4294901760", "281470681808895", "0");
-            DoTestDivide("281470681808895", "281470681808895", "1");
-            DoTestDivide("281195803901951", "281470681808895", "0");
-        DoTestDivide(
+      DoTestDivide("4294901760", "281470681808895", "0");
+      DoTestDivide("281470681808895", "281470681808895", "1");
+      DoTestDivide("281195803901951", "281470681808895", "0");
+      DoTestDivide(
   "281470681808895",
   "79226953606891185567396986880",
   "0");
-   DoTestDivide(
+  DoTestDivide(
   "1208907373151751269056511",
   "281470681808895",
   "4294967295");
-            DoTestDivide(
+  DoTestDivide(
   "1208907373151751269056511",
   "79226953606891185567396986880",
   "0");
-            DoTestDivide(
+  DoTestDivide(
   "79226953606891185567396986880",
   "79226953606891185567396986880",
   "1");
-            DoTestDivide(
+  DoTestDivide(
   "79226953606891185567396986880",
   "79226953606891185567396986880",
   "1");
-            DoTestDivide(
+  DoTestDivide(
   "79149582354435849300215791616",
   "281470681808895",
   "281200094609408");
-            DoTestDivide(
+  DoTestDivide(
   "79149582354435849304510693376",
   "79226953606891185567396986880",
   "0");
-            DoTestDivide(
+  DoTestDivide(
   "340277174703229510990181926235654782976",
   "79226953606891185567396986880",
   "4294967295");
-            DoTestDivide(
+  DoTestDivide(
   "340277174703229510990181926235654782976",
   "79226953606891185567396986880",
   "4294967295");
-            DoTestDivide(
+  DoTestDivide(
   "79226953606891185567396986880",
   "6277005955876855982708123588802319701019026907066160578560",
   "0");
-            DoTestDivide(
+  DoTestDivide(
   "22278626849872979772991819660510225504468991",
   "79226953606891185567396986880",
   "281200094609408");
-            DoTestDivide(
+  DoTestDivide(
   "6270875973713392427274690200693718464284551950581721071616",
   "79226953606891185567396986880",
   "79150790081217380608951451648");
-            DoTestDivide(
+  DoTestDivide(
   "6277005955876855982708123588802242329766571570798979383296",
   "6277005955876855982708123588802319701019026907066160578560",
   "0");
-            DoTestDivide(
+  DoTestDivide(
   "6277005955876855982708123588802242329766571570798979383296",
   "6277005955876855982708123588802319701019026907066160578560",
   "0");
-            DoTestDivide(
+  DoTestDivide(
   "26959535297282185466869868771998681536704617202858716036715199266816",
   "6277005955876855982708123588802319701019026907066160578560",
   "4294967295");
-            DoTestDivide(
+  DoTestDivide(
   "496829980752160275550680055858571148163286974448396184421327120687227627818219200249856",
   "6277005955876855982708123588802319701019026907066160578560",
   "79150790081217380608951451648");
-            DoTestDivide(
+  DoTestDivide(
   "2135954443842118711369801686589217620410698847025641089415087336821733096438436218376946913837056",
   "6277005955876855982708123588802319701019026907066160578560",
   "340282366920861091030327650447175712768");
@@ -1789,39 +1788,39 @@ DoTestDivide("4294901760", "281470681808895", "0");
       }
       try {
  EInteger.Zero.GetSignedBit(null);
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
       try {
  EInteger.One.GetSignedBit(null);
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
       try {
  EInteger.Zero.GetSignedBit(EInteger.FromInt32(-1));
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
       try {
  EInteger.One.GetSignedBit(EInteger.FromInt32(-1));
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
     }
 
@@ -1977,30 +1976,30 @@ Assert.AreEqual(1, numberTemp);
         }
         try {
  posint.GetUnsignedBit(EInteger.FromInt32(-1));
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
         try {
  negint.GetUnsignedBit((int)-1);
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
         try {
  posint.GetUnsignedBit(null);
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
       }
     }
@@ -2340,7 +2339,7 @@ throw new InvalidOperationException(String.Empty, ex);
   RandomGenerator r) {
       byte[] bytes = ei.ToBytes(true);
       EInteger ebits = ei.GetUnsignedBitLengthAsEInteger();
-    int bits = ebits.CanFitInInt32() ? ebits.ToInt32Checked() :
+      int bits = ebits.CanFitInInt32() ? ebits.ToInt32Checked() :
         Int32.MaxValue;
       for (var i = 0; i < fuzzes; ++i) {
         int bit = r.UniformInt(bits);
@@ -2381,7 +2380,6 @@ EInteger valueEObjectTemp = EInteger.FromRadixString(
 strParam =
 
   "E29BE968D480A9FEE535E95FD35DD081868CDF4ED961B2148530A98AD961D4249920AE57AF49E6E1BB50940FD710E5C598249829FA8886C6A63D853BC52CE8D1D2E8B6EF927DC5AF9D14F3AFA2669EC4DAB7FD88F15BACB79149";
-
         EInteger valueEObjectTemp2 =
   EInteger.FromRadixString(
   strParam,
@@ -2400,7 +2398,7 @@ TestMultiplyDivideOne(
 TestMultiplyDivideOne(
   EInteger.FromRadixString("83E7FFFFFFFFFFFFFFFF", 16),
   EInteger.FromRadixString("83E7FFFFFFFFFFFF", 16));
-      TestMultiplyDivideOne(
+  TestMultiplyDivideOne(
   EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16),
   EInteger.FromRadixString("C57DFFFFFFFFFFFFFFFFFFFF", 16));
 EInteger eia = EInteger.FromRadixString(
@@ -2410,7 +2408,6 @@ EInteger eib = EInteger.FromRadixString(
   "EB7E892CD29F9B4182F58769C12BD885B7D7DE038074F48ACCAA9F6CFB63D6CCF1D4C603C5A08721F2F3F81FD380F847AE37EEC8FCF39C87A351F816E9D4EDF3B6C9AB0A958FC3FEF04BA3B38D4BF005A29A9D83F8B9F850BB36C9568C99CF3FFFDE9977BFD7D62AF597E4E8D483DE5FF323B0C49732EE23CC4EAA0EEF4AF47FE4BCB0D1C081F315CBE2D892DCA8F3E9A3AFA4CAE67082EBBDC9A59AB82D96009BC5CC8492699F89E21CD8A3F6DE8E86",
   16);
 TestMultiplyDivideOne(eia, eib);
-
       {
 string str1 =
 
@@ -2428,13 +2425,13 @@ EInteger objectTemp2 = EInteger.FromRadixString(
   16);
 TestMultiplyDivideOne(objectTemp, objectTemp2);
 }
-            {
+{
         EInteger ei1, ei2;
-                ei1 = EInteger.FromString(
+        ei1 = EInteger.FromString(
   "44461738044811866704570272160729755524383493147516085922742403681586307620758054502667856562873477505768158700319760453047044081412393321568753479912147358343844563186048273758088945022589574729044743021988362306225753942249201773678443992606696524197361479929661991788310321409367753462284203449631729626517511224343015354155975783754763572354740724506742793459644155837703671449155713000260325445046273385372701820583016334341594713806706345456633635125343104401883366671083569152");
-                ei2 = EInteger.FromString(
+  ei2 = EInteger.FromString(
   "6667912688606651657935168942074070387623462798286393292334546164025938697493268465740399785103348978411106010660409247384863031649363973174034406552719188394559243700794785023362300512913065060420313203793021880700852215978918600154969735168");
-                TestMultiplyDivideOne(ei1, ei2);
+  TestMultiplyDivideOne(ei1, ei2);
             }
         }
 
@@ -3027,8 +3024,9 @@ TestMultiplyDivideOne(objectTemp, objectTemp2);
     string testLine = "TestMultiplyDivideOne (\nEInteger.FromRadixString (\"" +
           bigintA.ToRadixString(16) + "\",16),\nEInteger.FromRadixString(\"" +
                 bigintB.ToRadixString(16) + "\",16));";
-        Console.WriteLine(testLine);
-        throw new InvalidOperationException(ex.Message + "\n" + testLine, ex);
+                Console.WriteLine(testLine);
+         throw new InvalidOperationException(ex.Message + "\n" + testLine,
+                  ex);
       }
     }
 

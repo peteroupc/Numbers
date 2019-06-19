@@ -63,14 +63,14 @@ namespace Test {
 
   Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(EInteger.FromString(
   "9999999")));
-      try {
+  try {
  EContext.Unlimited.ExponentWithinRange(null);
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
     }
     [Test]

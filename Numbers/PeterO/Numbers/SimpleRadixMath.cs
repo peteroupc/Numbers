@@ -359,7 +359,7 @@ namespace PeterO.Numbers {
       EContext ctx2 = GetContextWithFlags(ctx);
       thisValue = this.RoundBeforeOp(thisValue, ctx2);
       divisor = this.RoundBeforeOp(divisor, ctx2);
-thisValue = this.wrapper.Remainder(
+      thisValue = this.wrapper.Remainder(
   thisValue,
   divisor,
   ctx2,

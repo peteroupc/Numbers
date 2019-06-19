@@ -22,13 +22,13 @@ namespace Test {
       "0.0000000000000000000000000000000", "0.0000e-1", "0.00000",
       "0.00000", "0.00000", "0.00000000000e-11", "0E-22", "0.0E-21",
       "0.0000000000000000000000", "0.00000000000e-17", "0E-28", "0.0E-27",
-  "0.0000000000000000000000000000", "0.00000000000000e+9", "0.00000",
-  "0.00000", "0.00000", "0.0000000000e-18", "0E-28", "0.0E-27",
+      "0.0000000000000000000000000000", "0.00000000000000e+9", "0.00000",
+      "0.00000", "0.00000", "0.0000000000e-18", "0E-28", "0.0E-27",
       "0.0000000000000000000000000000", "0.0e-13", "0E-14", "0.00E-12",
       "0.00000000000000", "0.000000000000000000e+10", "0E-8", "0.00E-6",
       "0.00000000", "0.0000e+19", "0E+15", "0E+15", "0", "0.00000e-8",
       "0E-13", "0.0E-12", "0.0000000000000", "0.00000000000e+14", "0E+3",
-  "0E+3", "0", "0.000e-14", "0E-17", "0.00E-15",
+      "0E+3", "0", "0.000e-14", "0E-17", "0.00E-15",
       "0.00000000000000000", "0.000000e-19", "0E-25", "0.0E-24",
       "0.0000000000000000000000000", "0.000000000000e+19", "0E+7",
       "0.00E+9", "0", "0.0000000000000e+18", "0E+5", "0.0E+6", "0",
@@ -39,25 +39,25 @@ namespace Test {
       "0.00000000000000000e+0", "0E-17", "0.00E-15",
       "0.00000000000000000", "0.0000000000000e+0", "0E-13", "0.0E-12",
       "0.0000000000000", "0.0000000000000000000e-12", "0E-31", "0.0E-30",
-  "0.0000000000000000000000000000000", "0.0000000000000000000e+10",
+      "0.0000000000000000000000000000000", "0.0000000000000000000e+10",
       "0E-9", "0E-9", "0.000000000", "0.00000e-2", "0E-7", "0.0E-6",
       "0.0000000", "0.000000e+15", "0E+9", "0E+9", "0",
       "0.000000000e-10", "0E-19", "0.0E-18", "0.0000000000000000000",
       "0.00000000000000e+6", "0E-8", "0.00E-6", "0.00000000",
       "0.00000e+17", "0E+12", "0E+12", "0", "0.000000000000000000e-0",
       "0E-18", "0E-18", "0.000000000000000000", "0.0000000000000000e+11",
-  "0.00000", "0.00000", "0.00000", "0.000000000000e+15", "0E+3",
+      "0.00000", "0.00000", "0.00000", "0.000000000000e+15", "0E+3",
       "0E+3", "0", "0.00000000e-19", "0E-27", "0E-27",
       "0.000000000000000000000000000", "0.00000e-6", "0E-11", "0.00E-9",
       "0.00000000000", "0e-14", "0E-14", "0.00E-12", "0.00000000000000",
-  "0.000000000e+9", "0", "0", "0", "0.00000e+13", "0E+8",
+      "0.000000000e+9", "0", "0", "0", "0.00000e+13", "0E+8",
       "0.0E+9", "0", "0.000e-0", "0.000", "0.000", "0.000",
       "0.000000000000000e+6", "0E-9", "0E-9", "0.000000000",
       "0.000000000e+17", "0E+8", "0.0E+9", "0", "0.00000000000e+6",
       "0.00000", "0.00000", "0.00000", "0.00000000000000e+3", "0E-11",
       "0.00E-9", "0.00000000000", "0e+0", "0", "0", "0", "0.000e+12",
       "0E+9", "0E+9", "0", "0.00000000000e+9", "0.00", "0.00", "0.00",
-  "0.00000000000000e-9", "0E-23", "0.00E-21",
+      "0.00000000000000e-9", "0E-23", "0.00E-21",
       "0.00000000000000000000000", "0e-1", "0.0", "0.0", "0.0",
       "0.0000e-13", "0E-17", "0.00E-15", "0.00000000000000000",
       "0.00000000000e-7", "0E-18", "0E-18", "0.000000000000000000",
@@ -66,9 +66,9 @@ namespace Test {
       "0.00e-6", "0E-8", "0.00E-6", "0.00000000", "0.0e-1", "0.00",
       "0.00", "0.00", "0.0000000000000000e-10", "0E-26", "0.00E-24",
       "0.00000000000000000000000000", "0.00e+14", "0E+12", "0E+12", "0",
-  "0.000000000000000000e+5", "0E-13", "0.0E-12", "0.0000000000000",
-  "0.0e+7", "0E+6", "0E+6", "0", "0.00000000e+8", "0", "0", "0",
-  "0.000000000e+0", "0E-9", "0E-9", "0.000000000", "0.000e+13",
+      "0.000000000000000000e+5", "0E-13", "0.0E-12", "0.0000000000000",
+      "0.0e+7", "0E+6", "0E+6", "0", "0.00000000e+8", "0", "0", "0",
+      "0.000000000e+0", "0E-9", "0E-9", "0.000000000", "0.000e+13",
       "0E+10", "0.00E+12", "0", "0.0000000000000000e+16", "0", "0",
       "0", "0.00000000e-1", "0E-9", "0E-9", "0.000000000",
       "0.00000000000e-15", "0E-26", "0.00E-24",
@@ -77,7 +77,7 @@ namespace Test {
       "0.0000000000000000000e-19", "0E-38", "0.00E-36",
       "0.00000000000000000000000000000000000000", "0.0000000000e-6",
       "0E-16", "0.0E-15", "0.0000000000000000", "0.00000000000000000e-15",
-  "0E-32", "0.00E-30", "0.00000000000000000000000000000000",
+      "0E-32", "0.00E-30", "0.00000000000000000000000000000000",
       "0.000000000000000e+2", "0E-13", "0.0E-12", "0.0000000000000",
       "0.0e-18", "0E-19", "0.0E-18", "0.0000000000000000000",
       "0.00000000000000e-6", "0E-20", "0.00E-18",
@@ -85,7 +85,7 @@ namespace Test {
       "0.00000000000000000000", "0.00000000000000e-7", "0E-21", "0E-21",
       "0.000000000000000000000", "0.000000e-9", "0E-15", "0E-15",
       "0.000000000000000", "0e-11", "0E-11", "0.00E-9", "0.00000000000",
-  "0.000000000e+11", "0E+2", "0.0E+3", "0",
+      "0.000000000e+11", "0E+2", "0.0E+3", "0",
       "0.0000000000000000e+15", "0.0", "0.0", "0.0",
       "0.0000000000000000e+10", "0.000000", "0.000000", "0.000000",
       "0.000000000e+4", "0.00000", "0.00000", "0.00000",
@@ -121,7 +121,6 @@ namespace Test {
         TestCommon.CompareTestEqual(decD, decA);
       }
     }
-
 [Test]
 public void TestFromBoolean() {
 Assert.AreEqual(EDecimal.Zero, EDecimal.FromBoolean(false));
@@ -213,7 +212,7 @@ Assert.AreEqual(EDecimal.One, EDecimal.FromBoolean(true));
   EDecimal.FromString("8451910"));
     }
     [Test]
-[Timeout(100000)]
+    [Timeout(100000)]
     public void TestCompareToBinary() {
       {
         long numberTemp = EDecimal.NegativeInfinity.CompareToBinary(null);
@@ -268,7 +267,6 @@ Assert.AreEqual(EDecimal.One, EDecimal.FromBoolean(true));
         Assert.AreEqual(0, cmp);
       }
     }
-
 [Test]
 [Timeout(1000)]
 public void TestSlowCompareTo() {
@@ -280,7 +278,6 @@ EFloat ef = EFloat.Create(
 EDecimal ed = EDecimal.FromString("-0.00007");
 Assert.AreEqual(-1, ed.CompareToBinary(ef));
 }
-
 [Test]
 [Timeout(1000)]
 public void TestSlowCompareTo2() {
@@ -291,7 +288,6 @@ EDecimal ed = EDecimal.FromString(
   "5.46812681195752988681792163205092489269012868995370381431608431437654836803981061017608940175753472E-373278497416");
 Assert.AreEqual(-1, ed.CompareToBinary(ef));
 }
-
 [Test]
 [Timeout(1000)]
 public void TestSlowCompareTo3() {
@@ -810,30 +806,30 @@ Assert.AreEqual(-1, ed.CompareToBinary(ef));
     public void TestCreateNaN() {
       try {
  EDecimal.CreateNaN(null);
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
       try {
  EDecimal.CreateNaN(EInteger.FromString("-1"));
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
       try {
  EDecimal.CreateNaN(null, false, false, null);
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (ArgumentNullException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
       EDecimal ef = EDecimal.CreateNaN(EInteger.Zero, false, true, null);
       Assert.IsTrue(ef.IsNegative);
@@ -3220,46 +3216,46 @@ EFloat.Create(
     }
 
     [Test]
-public void TestToByteChecked() {
+    public void TestToByteChecked() {
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToByteChecked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToByteChecked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToByteChecked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToByteChecked());
 try {
  EDecimal.FromString("-1.0").ToByteChecked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.4").ToByteChecked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.5").ToByteChecked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.6").ToByteChecked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 }
 
@@ -3304,13 +3300,13 @@ throw new InvalidOperationException(String.Empty, ex);
           dbl = edec.ToDouble();
           if (Double.IsNegativeInfinity(dbl)) {
             Assert.IsTrue(edec.IsNegative);
-  TestCommon.CompareTestGreaterEqual(
+            TestCommon.CompareTestGreaterEqual(
   edec.Abs(),
   DoubleOverflowToInfinity,
   edecstr);
           } else if (Double.IsPositiveInfinity(dbl)) {
             Assert.IsTrue(!edec.IsNegative);
-  TestCommon.CompareTestGreaterEqual(
+            TestCommon.CompareTestGreaterEqual(
   edec.Abs(),
   DoubleOverflowToInfinity,
   edecstr);
@@ -3319,7 +3315,7 @@ throw new InvalidOperationException(String.Empty, ex);
   edec.Abs(),
   DoubleUnderflowToZero,
   edecstr);
-Assert.AreEqual(
+  Assert.AreEqual(
   edec.IsNegative,
   EDecimal.FromDouble(dbl).IsNegative,
   edecstr);
@@ -4833,13 +4829,13 @@ Assert.AreEqual(
           sng = edec.ToSingle();
           if (Single.IsNegativeInfinity(sng)) {
             Assert.IsTrue(edec.IsNegative);
-  TestCommon.CompareTestGreaterEqual(
+            TestCommon.CompareTestGreaterEqual(
   edec.Abs(),
   SingleOverflowToInfinity,
   edecstr);
           } else if (Single.IsPositiveInfinity(sng)) {
             Assert.IsTrue(!edec.IsNegative);
-  TestCommon.CompareTestGreaterEqual(
+            TestCommon.CompareTestGreaterEqual(
   edec.Abs(),
   SingleOverflowToInfinity,
   edecstr);
@@ -4848,7 +4844,8 @@ Assert.AreEqual(
   edec.Abs(),
   SingleUnderflowToZero,
   edecstr);
-Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative, edecstr);
+Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative,
+    edecstr);
           } else {
             Assert.IsTrue(!Single.IsNaN(sng));
             edec = edec.Abs();
@@ -4862,14 +4859,12 @@ Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative, edecstr);
         }
       }
     }
-
 private static string Repeat(string s, int count) {
  var sb = new System.Text.StringBuilder();
  for (var i = 0; i < count; ++i) { sb.Append(s);
 }
  return sb.ToString();
 }
-
 [Test]
 public void TestOnePlusOne() {
 EContext ec = EContext.ForRounding(ERounding.Up).WithPrecision(4);

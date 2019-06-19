@@ -30,7 +30,7 @@ namespace PeterO.Numbers {
   int smallValue,
   EInteger largeValue) {
    this.integerMode = integerMode;
-      this.smallValue = smallValue;
+   this.smallValue = smallValue;
    this.largeValue = largeValue;
     }
 
@@ -117,7 +117,7 @@ namespace PeterO.Numbers {
         return this.smallValue % value;
       } else {
       EInteger retval = this.ToEInteger().Remainder(EInteger.FromInt32(value));
-        return retval.ToInt32Checked();
+      return retval.ToInt32Checked();
       }
     }
 
@@ -147,7 +147,7 @@ namespace PeterO.Numbers {
         if (b.smallValue == 0) {
  return a;
 }
-      if ((b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue) ||
+if ((b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue) ||
           (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
                   a.smallValue)) {
         return new FastIntegerFixed(a.smallValue - b.smallValue);

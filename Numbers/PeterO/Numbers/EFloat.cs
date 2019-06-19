@@ -487,26 +487,26 @@ return new EFloat(this.unsignedMantissa, this.exponent, this.flags);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(System.Int32)"]/*'/>
-public EFloat Add(int intValue) {
+    public EFloat Add(int intValue) {
  return this.Add(EFloat.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
-public EFloat Subtract(int intValue) {
+    public EFloat Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
    this.Subtract(EFloat.FromInt32(intValue)) : this.Add(-intValue);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)"]/*'/>
-public EFloat Multiply(int intValue) {
+    public EFloat Multiply(int intValue) {
  return this.Multiply(EFloat.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(System.Int32)"]/*'/>
-public EFloat Divide(int intValue) {
+    public EFloat Divide(int intValue) {
  return this.Divide(EFloat.FromInt32(intValue));
 }
 
@@ -1778,7 +1778,8 @@ return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
           return null;
         }
         EInteger valueELowBit = den.GetLowBitAsEInteger();
-      return den.GetUnsignedBitLengthAsEInteger().Equals(valueELowBit.Add(1)) ?
+      return
+          den.GetUnsignedBitLengthAsEInteger().Equals(valueELowBit.Add(1)) ?
           FastInteger.FromBig(valueELowBit) : null;
       }
 
@@ -1841,7 +1842,7 @@ return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteChecked"]/*'/>
-public byte ToByteChecked() {
+    public byte ToByteChecked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1850,13 +1851,13 @@ return this.IsZero ? ((byte)0) : this.ToEInteger().ToByteChecked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteUnchecked"]/*'/>
-public byte ToByteUnchecked() {
+    public byte ToByteUnchecked() {
  return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToByteIfExact"]/*'/>
-public byte ToByteIfExact() {
+    public byte ToByteIfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1865,14 +1866,14 @@ public byte ToByteIfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromByte(System.Byte)"]/*'/>
-public static EFloat FromByte(byte inputByte) {
+    public static EFloat FromByte(byte inputByte) {
  int val = ((int)inputByte) & 0xff;
  return FromInt32(val);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Checked"]/*'/>
-public short ToInt16Checked() {
+    public short ToInt16Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1881,13 +1882,13 @@ return this.IsZero ? ((short)0) : this.ToEInteger().ToInt16Checked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16Unchecked"]/*'/>
-public short ToInt16Unchecked() {
+    public short ToInt16Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt16IfExact"]/*'/>
-public short ToInt16IfExact() {
+    public short ToInt16IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1897,14 +1898,14 @@ public short ToInt16IfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt16(System.Int16)"]/*'/>
-public static EFloat FromInt16(short inputInt16) {
+    public static EFloat FromInt16(short inputInt16) {
  var val = (int)inputInt16;
  return FromInt32(val);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Checked"]/*'/>
-public int ToInt32Checked() {
+    public int ToInt32Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1913,13 +1914,13 @@ return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32Unchecked"]/*'/>
-public int ToInt32Unchecked() {
+    public int ToInt32Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt32IfExact"]/*'/>
-public int ToInt32IfExact() {
+    public int ToInt32IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1928,19 +1929,19 @@ public int ToInt32IfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromBoolean(System.Boolean)"]/*'/>
-   public static EFloat FromBoolean(bool boolValue) {
+    public static EFloat FromBoolean(bool boolValue) {
     return boolValue ? EFloat.One : EFloat.Zero;
    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt32(System.Int32)"]/*'/>
-public static EFloat FromInt32(int inputInt32) {
+    public static EFloat FromInt32(int inputInt32) {
  return FromEInteger(EInteger.FromInt32(inputInt32));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Checked"]/*'/>
-public long ToInt64Checked() {
+    public long ToInt64Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1949,13 +1950,13 @@ return this.IsZero ? ((long)0) : this.ToEInteger().ToInt64Checked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64Unchecked"]/*'/>
-public long ToInt64Unchecked() {
+    public long ToInt64Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : (long)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToInt64IfExact"]/*'/>
-public long ToInt64IfExact() {
+    public long ToInt64IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -1964,7 +1965,7 @@ public long ToInt64IfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromInt64(System.Int64)"]/*'/>
-public static EFloat FromInt64(long inputInt64) {
+    public static EFloat FromInt64(long inputInt64) {
  return FromEInteger(EInteger.FromInt64(inputInt64));
 }
 

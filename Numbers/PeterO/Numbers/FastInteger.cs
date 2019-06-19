@@ -105,7 +105,6 @@ namespace PeterO.Numbers {
       internal int ToInt32() {
         return this.wordCount == 0 ? 0 : this.data[0];
       }
-
     public static MutableNumber FromLong(long longVal) {
       if (longVal < 0) {
         throw new ArgumentException();
@@ -115,7 +114,7 @@ namespace PeterO.Numbers {
 }
       var mbi = new MutableNumber(0);
       mbi.data[0] = unchecked((int)longVal);
-        int mbd = unchecked((int)(longVal >> 32));
+      int mbd = unchecked((int)(longVal >> 32));
       mbi.data[1] = mbd;
       mbi.wordCount = (mbd == 0) ? 1 : 2;
       return mbi;
@@ -130,7 +129,6 @@ namespace PeterO.Numbers {
         mbi.wordCount = this.wordCount;
         return mbi;
       }
-
         internal MutableNumber Multiply(int multiplicand) {
         if (multiplicand < 0) {
           throw new ArgumentException("multiplicand (" + multiplicand +
@@ -270,7 +268,6 @@ namespace PeterO.Numbers {
           return this.wordCount == 0 ? 0 : 1;
         }
       }
-
      internal bool IsEvenNumber {
         get {
           return this.wordCount == 0 || (this.data[0] & 1) == 0;
@@ -298,7 +295,7 @@ namespace PeterO.Numbers {
      throw new ArgumentException("other (" + other + ") is less than " +
             "0 ");
         }
-      if (other != 0) {
+        if (other != 0) {
           unchecked {
             // Ensure a length of at least 1
             if (this.wordCount == 0) {
@@ -399,7 +396,6 @@ namespace PeterO.Numbers {
         }
         return 0;
       }
-
        internal MutableNumber Add(int augend) {
         if (augend < 0) {
    throw new ArgumentException("augend (" + augend + ") is less than " +
@@ -523,29 +519,28 @@ namespace PeterO.Numbers {
 }
 #endif
     }
-
      public int CompareTo(FastInteger val) {
       switch ((this.integerMode << 2) | val.integerMode) {
           case (0 << 2) | 0: {
             int vsv = val.smallValue;
-        return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
+            return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
               1);
           }
-        case (0 << 2) | 1:
+          case (0 << 2) | 1:
           return -val.mnum.CompareToInt(this.smallValue);
-        case (0 << 2) | 2:
+          case (0 << 2) | 2:
           return this.AsEInteger().CompareTo(val.largeValue);
-        case (1 << 2) | 0:
+          case (1 << 2) | 0:
           return this.mnum.CompareToInt(val.smallValue);
-        case (1 << 2) | 1:
+          case (1 << 2) | 1:
           return this.mnum.CompareTo(val.mnum);
-        case (1 << 2) | 2:
+          case (1 << 2) | 2:
           return this.AsEInteger().CompareTo(val.largeValue);
-        case (2 << 2) | 0:
-        case (2 << 2) | 1:
-        case (2 << 2) | 2:
+          case (2 << 2) | 0:
+          case (2 << 2) | 1:
+          case (2 << 2) | 2:
           return this.largeValue.CompareTo(val.AsEInteger());
-        default: throw new InvalidOperationException();
+          default: throw new InvalidOperationException();
       }
     }
 
@@ -592,7 +587,7 @@ namespace PeterO.Numbers {
               // would overflow, convert to large
              bool apos = this.smallValue > 0L;
              bool bpos = val > 0L;
-              if (apos && bpos) {
+             if (apos && bpos) {
                 // if both operands are nonnegative
                 // convert to mutable big integer
                 this.integerMode = 1;
@@ -734,15 +729,15 @@ namespace PeterO.Numbers {
             return bigintVal.CanFitInInt32() ? this.AddInt((int)bigintVal) :
             this.Add(FastInteger.FromBig(bigintVal));
           }
-        case 1:
+          case 1:
           this.integerMode = 2;
           this.largeValue = this.mnum.ToEInteger();
           this.largeValue += bigintVal;
           break;
-        case 2:
+          case 2:
           this.largeValue += bigintVal;
           break;
-        default:
+          default:
           throw new InvalidOperationException();
       }
       return this;
@@ -948,7 +943,7 @@ namespace PeterO.Numbers {
 
     internal FastInteger AddInt(int val) {
       this.CheckFrozen();
-     EInteger valValue;
+      EInteger valValue;
       switch (this.integerMode) {
         case 0:
           if ((this.smallValue < 0 && (int)val < Int32.MinValue -
@@ -1090,9 +1085,9 @@ namespace PeterO.Numbers {
           return (this.smallValue == 0) ? 0 : ((this.smallValue < 0) ? -1 :
               1);
           case 1:
-            return this.mnum.Sign;
+          return this.mnum.Sign;
           case 2:
-            return this.largeValue.Sign;
+          return this.largeValue.Sign;
           default: return 0;
         }
       }

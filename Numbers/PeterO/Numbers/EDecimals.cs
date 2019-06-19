@@ -276,11 +276,11 @@ namespace PeterO.Numbers {
       }
       EInteger mant = ed.UnsignedMantissa;
       EInteger mantprec = ed.Precision();
-if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
+      if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
         0) {
      mant =
   mant.Remainder(EInteger.FromInt32(DecimalRadix).Pow(ec.Precision));
-        mantprec = ec.Precision;
+  mantprec = ec.Precision;
       }
       if (mant.IsZero) {
         return ed.RoundToPrecision(ec);

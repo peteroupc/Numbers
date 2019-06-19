@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk='Microsoft.NET.Sdk'>
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
@@ -35,9 +35,9 @@ Version 1.4.0
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
     <Title>Arbitrary-Precision Arithmetic Library</Title>
-  </PropertyGroup>
+  <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Debug|AnyCPU&apos; '>
     <DocumentationFile>bin\Debug\netstandard1.0\Numbers.xml</DocumentationFile>
     <CustomCommands>
       <CustomCommands>
@@ -51,9 +51,9 @@ Version 1.4.0
       </CustomCommands>
     </CustomCommands>
     <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType></DebugType>
+  <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
+  <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Release|AnyCPU&apos; '>
+    <DebugType/>
     <DocumentationFile>bin\Release\netstandard1.0\Numbers.xml</DocumentationFile>
     <CustomCommands>
       <CustomCommands>
@@ -66,5 +66,8 @@ Version 1.4.0
         </Command>
       </CustomCommands>
     </CustomCommands>
-  </PropertyGroup>
+  <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.1.118'/>
+  </ItemGroup>
 </Project>

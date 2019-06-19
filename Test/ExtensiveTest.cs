@@ -757,7 +757,7 @@ namespace CBOR {
           }
           op1 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[4]),
   HexInt(chunks[5]), HexInt(chunks[6]),
-                    HexInt(chunks[7]) });
+  HexInt(chunks[7]) });
           op2 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[8]),
   HexInt(chunks[9]), HexInt(chunks[10]),
   HexInt(chunks[11]) });
@@ -1358,7 +1358,7 @@ StartsWith(chunks[2], "o")) {
       Console.WriteLine("ProcTime: " + (valueSwProcessing.ElapsedMilliseconds /
         1000.0) + " s");
       // Ratio of number processing time to total running time
-    Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
+      Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
         1.0 / sw.ElapsedMilliseconds) + "%");
       if (failures > 0) {
         foreach (string err in errors) {

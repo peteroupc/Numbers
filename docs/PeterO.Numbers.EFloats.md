@@ -246,11 +246,9 @@ An arbitrary-precision binary floating-point number with the closest representab
 
  Performs a logical NOT operation on a binary number in the form of a <i> logical operand </i> . A  `logical operand` logical operand is a non-negative base-2 number with an Exponent property of 0 (examples include  `01001` 01001 and  `111001` 111001 ). The logical NOT operation sets each bit of the result to 1 if the corresponding bit is 0, and to 0 otherwise; it can set no more bits than the maximum precision, however. For example, if the maximum precision is 8 bits, then  `NOT 111010 = 11000101` NOT 111010 = 11000101  <b>Parameters:</b>
 
- * <i>ed1</i>: The parameter  <i>ed1</i>
- is not documented yet.
+ * <i>ed1</i>: The operand to the logical NOT operation.
 
- * <i>ec</i>: The parameter  <i>ec</i>
- is not documented yet.
+ * <i>ec</i>: An arithmetic context to control the maximum precision of arbitrary-precision numbers. If a logical operand passed to this method has more bits than the maximum precision specified in this context, the operand's most significant bits that exceed that precision are discarded. This parameter cannot be null and must specify a maximum precision (unlimited precision contexts are not allowed).
 
 <b>Return Value:</b>
 

@@ -216,7 +216,7 @@ if (exponentMin == null) {
 if (exponentMax == null) {
  throw new ArgumentNullException(nameof(exponentMax));
 }
-      if (bigintPrecision.Sign < 0) {
+if (bigintPrecision.Sign < 0) {
         throw new ArgumentException("precision (" + bigintPrecision +
           ") is less than 0");
       }

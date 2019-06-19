@@ -30,8 +30,8 @@ namespace Test {
 
     private static TValue GetKeyOrDefault<TKey, TValue>(
   IDictionary<TKey, TValue> dict,
- TKey key,
- TValue defaultValue) {
+  TKey key,
+  TValue defaultValue) {
       return (!dict.ContainsKey(key)) ? defaultValue : dict[key];
     }
 
@@ -39,7 +39,7 @@ namespace Test {
       if (String.IsNullOrEmpty(str)) {
  return 0;
 }
-   try {
+try {
       return (str[0] == '+') ? TestCommon.StringToInt(str.Substring(1)) :
         TestCommon.StringToInt(str);
    } catch (Exception ex) {
@@ -50,7 +50,7 @@ throw;
 
     public static void ParseDecTest(
   string ln,
- IDictionary<string, string> context) {
+  IDictionary<string, string> context) {
       Match match;
       if (ln.Contains("-- ")) {
         ln = ln.Substring(0, ln.IndexOf("-- ", StringComparison.Ordinal));
@@ -61,8 +61,8 @@ throw;
           match.Groups[2].ToString();
         return;
       }
-var sw = new System.Diagnostics.Stopwatch();
-sw.Start();
+      var sw = new System.Diagnostics.Stopwatch();
+      sw.Start();
       match = ValueTestLine.Match(ln);
       if (match.Success) {
         string name = match.Groups[1].ToString();
@@ -78,10 +78,10 @@ sw.Start();
         output = ValueQuotes.Replace(output, String.Empty);
         bool extended = GetKeyOrDefault(context, "extended", "1").Equals("1");
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1");
-int precision = 0, minexponent = 0, maxexponent = 0;
-EContext ctx = null;
-string rounding = null;
-    precision = StringToIntAllowPlus(
+        int precision = 0, minexponent = 0, maxexponent = 0;
+        EContext ctx = null;
+        string rounding = null;
+        precision = StringToIntAllowPlus(
   GetKeyOrDefault(context, "precision", "9"));
         minexponent = StringToIntAllowPlus(
   GetKeyOrDefault(context, "minexponent", "-9999"));
@@ -95,7 +95,7 @@ input3.Contains("#") ||
 output.Contains("#")) {
           return;
         }
-if (!extended && (input1.Contains("sNaN") ||
+        if (!extended && (input1.Contains("sNaN") ||
 input2.Contains("sNaN") ||
 input3.Contains("sNaN") ||
 output.Contains("sNaN"))) {
@@ -279,7 +279,7 @@ name.Equals("sqtx2847")) {
         } else if (op.Equals("comparetotmag")) {
           int id3 = d1.CompareToTotalMagnitude(d2, ctx);
           d3 = EDecimal.FromInt32(id3);
-    {
+          {
 object objectTemp = id3;
 object objectTemp2 = EDecimals.CompareTotalMagnitude(
   d1,
@@ -296,7 +296,7 @@ Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
           Assert.AreEqual(d3, EDecimals.CopyNegate(d1));
         } else if (op.Equals("copysign")) {
           d3 = d1.CopySign(d2);
-Assert.AreEqual(d3, EDecimals.CopySign(d1, d2));
+          Assert.AreEqual(d3, EDecimals.CopySign(d1, d2));
         } else if (op.Equals("comparesig")) {
           d3 = d1.CompareToSignal(d2, ctx);
         } else if (op.Equals("subtract")) {
@@ -318,19 +318,19 @@ Assert.AreEqual(d3, EDecimals.CopySign(d1, d2));
 // only round-half-down mode, but EDecimal Log is not limited
 // to that rounding mode
     ctx = ctx.WithRounding(ERounding.HalfEven);
-          d3 = d1.Log(ctx);
+    d3 = d1.Log(ctx);
         } else if (op.Equals("log10")) {
 // NOTE: Gen. Decimal Arithmetic Spec.'s log10 supports
 // only round-half-down mode, but EDecimal Log10 is not limited
 // to that rounding mode
     ctx = ctx.WithRounding(ERounding.HalfEven);
-          d3 = d1.Log10(ctx);
+    d3 = d1.Log10(ctx);
         } else if (op.Equals("power")) {
 if (d2a != null) {
 Console.WriteLine("Three-op power not yet supported");
 return;
 }
-          d3 = d1.Pow(d2, ctx);
+d3 = d1.Pow(d2, ctx);
         } else if (op.Equals("squareroot")) {
           d3 = d1.Sqrt(ctx);
         } else if (op.Equals("remaindernear") || op.Equals("remainderNear")) {
@@ -343,7 +343,7 @@ return;
           d3 = d1.NextMinus(ctx);
         } else if (op.Equals("copy")) {
           d3 = d1;
-Assert.AreEqual(d3, EDecimals.Copy(d1), "copy equiv");
+          Assert.AreEqual(d3, EDecimals.Copy(d1), "copy equiv");
         } else if (op.Equals("abs")) {
           d3 = d1.Abs(ctx);
         } else if (op.Equals("reduce")) {
@@ -410,7 +410,7 @@ if (op.Equals("and")) {
  d3 = EDecimal.FromBoolean(EDecimals.SameQuantum(d1, d2));
 } else {
  Console.WriteLine("unknown op " + op);
-          return;
+ return;
 }
         }
         bool invalid = flags.Contains("Division_impossible") ||
@@ -485,7 +485,8 @@ if (op.Equals("and")) {
               {
                 object objectTemp = output;
                 object objectTemp2 = d3.ToString();
-      string messageTemp = name + ": expected: [" + d4.UnsignedMantissa +
+            string messageTemp = name + ": expected: [" +
+                  d4.UnsignedMantissa +
                 " " + d4.Exponent +
                     "]\n" + "but was: [" + d3.UnsignedMantissa + " " +
                     d3.Exponent + "]\n" + ln;
@@ -659,46 +660,46 @@ throw new InvalidOperationException(String.Empty, ex);
     }
 
     [Test]
-public void TestToUintChecked() {
+    public void TestToUintChecked() {
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToUInt16Checked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToUInt16Checked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToUInt16Checked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToUInt16Checked());
 try {
  EDecimal.FromString("-1.0").ToUInt16Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.4").ToUInt16Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.5").ToUInt16Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.6").ToUInt16Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToUInt32Checked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToUInt32Checked());
@@ -706,39 +707,39 @@ Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToUInt32Checked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToUInt32Checked());
 try {
  EDecimal.FromString("-1.0").ToUInt32Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.4").ToUInt32Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.5").ToUInt32Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.6").ToUInt32Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.1").ToUInt64Checked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.4").ToUInt64Checked());
@@ -746,39 +747,39 @@ Assert.AreEqual((byte)0, EDecimal.FromString("-0.5").ToUInt64Checked());
 Assert.AreEqual((byte)0, EDecimal.FromString("-0.6").ToUInt64Checked());
 try {
  EDecimal.FromString("-1.0").ToUInt64Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.4").ToUInt64Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.5").ToUInt64Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 try {
  EDecimal.FromString("-1.6").ToUInt64Checked();
-Assert.Fail("Should have failed");
+ Assert.Fail("Should have failed");
 } catch (OverflowException) {
 // NOTE: Intentionally empty
 } catch (Exception ex) {
  Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
+ throw new InvalidOperationException(String.Empty, ex);
 }
 }
 
@@ -800,8 +801,8 @@ throw new InvalidOperationException(String.Empty, ex);
       if (recordfailing && File.Exists(failingpath)) {
  return;
 }
-          var failedLines = new Dictionary<string, bool>();
-          var sb = new System.Text.StringBuilder();
+var failedLines = new Dictionary<string, bool>();
+var sb = new System.Text.StringBuilder();
         // Reads decimal test files described in:
         // <http://speleotrove.com/decimal/dectest.html>
         foreach (var f in testfiles) {
@@ -857,7 +858,7 @@ try {
  if (recordfailing) {
  File.WriteAllText(failingpath, sb.ToString());
  }
-        Assert.Fail(failures + " failure(s)");
+ Assert.Fail(failures + " failure(s)");
       } else {
 File.Delete(failingpath);
       }

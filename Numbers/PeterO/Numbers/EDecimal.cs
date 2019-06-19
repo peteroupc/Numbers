@@ -106,7 +106,6 @@ public static readonly EDecimal SignalingNaN =
 
     private static readonly IRadixMath<EDecimal> ExtendedMathValue = new
       RadixMath<EDecimal>(new DecimalMathHelper());
-
 private static readonly FastIntegerFixed FastIntZero = new
       FastIntegerFixed(0);
     //----------------------------------------------------------------
@@ -690,14 +689,14 @@ private static readonly FastIntegerFixed FastIntZero = new
                   } else {
                     // multiply by 10
    mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
-                    mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                    mantBuffer += thisdigit;
+   mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
+   mantBuffer += thisdigit;
                   }
                 }
               } else {
                 // multiply by 10
    mantInt = (mantInt << 3) + (mantInt << 1);
-                mantInt += thisdigit;
+   mantInt += thisdigit;
               }
               if (haveDigits && maxDigits != null) {
                 digitCount.Increment();
@@ -767,14 +766,14 @@ private static readonly FastIntegerFixed FastIntZero = new
                   } else {
                     // multiply by 10
    mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
-                    mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                    mantBuffer += thisdigit;
+   mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
+   mantBuffer += thisdigit;
                   }
                 }
               } else {
                 // multiply by 10
    mantInt = (mantInt << 3) + (mantInt << 1);
-                mantInt += thisdigit;
+   mantInt += thisdigit;
               }
               if (haveDigits && maxDigits != null) {
                 digitCount.Increment();
@@ -825,13 +824,13 @@ private static readonly FastIntegerFixed FastIntZero = new
           } else {
             // multiply by 10
    mantInt = (mantInt << 3) + (mantInt << 1);
-            mantInt += thisdigit;
+   mantInt += thisdigit;
           }
           haveDigits = true;
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue) {
 newScale = newScale ?? (new FastInteger(newScaleInt));
-              newScale.Decrement();
+newScale.Decrement();
             } else {
               --newScaleInt;
             }
@@ -905,18 +904,19 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
         if (exp != null && (expBufferMult != 1 || expBuffer != 0)) {
           exp.Multiply(expBufferMult).AddInt(expBuffer);
         }
-   if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp == null) {
+   if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp ==
+          null) {
           newScaleInt = expInt;
         } else if (exp == null) {
 newScale = newScale ?? (new FastInteger(newScaleInt));
-          if (tmpoffset < 0) {
+if (tmpoffset < 0) {
             newScale.SubtractInt(expInt);
           } else if (expInt != 0) {
             newScale.AddInt(expInt);
           }
         } else {
 newScale = newScale ?? (new FastInteger(newScaleInt));
-          if (tmpoffset < 0) {
+if (tmpoffset < 0) {
             newScale.Subtract(exp);
           } else {
             newScale.Add(exp);
@@ -1095,7 +1095,6 @@ newScale = newScale ?? (new FastInteger(newScaleInt));
     public int CompareToBinary(EFloat other) {
   return CompareEDecimalToEFloat(this, other);
     }
-
 private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
       if (ef == null) {
         return 1;
@@ -1145,9 +1144,9 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
           }
         }
 // DebugUtility.Log("edexp=" + ed.Exponent + ", efexp=" + (ef.Exponent));
-   EInteger bitCount = ef.Mantissa.GetUnsignedBitLengthAsEInteger();
-   EInteger absexp = ef.Exponent.Abs();
-   if (absexp.CompareTo(bitCount) > 0) {
+EInteger bitCount = ef.Mantissa.GetUnsignedBitLengthAsEInteger();
+EInteger absexp = ef.Exponent.Abs();
+if (absexp.CompareTo(bitCount) > 0) {
      // Float's absolute value is less than 1, so do a trial comparison
      // using exponent closer to 0
      EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(-1000));
@@ -1171,7 +1170,7 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
         EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
  // DebugUtility.Log("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
  // DebugUtility.Log("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
-      if (thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) >= 0 &&
+ if (thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) >= 0 &&
         otherAdjExp.CompareTo((EInteger)(-4000)) < 0) {
         // With these exponent combinations, the binary's absolute
         // value is less than the decimal's
@@ -1222,7 +1221,7 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
           // have a greater value in decimal than in binary
           return (signA > 0) ? 1 : -1;
         }
-      if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)(1000)) < 0 &&
+        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)(1000)) < 0 &&
         otherAdjExp.CompareTo((EInteger)(4000)) >= 0) {
         // With these exponent combinations, the binary's absolute
         // value is greater than the decimal's
@@ -1787,26 +1786,26 @@ private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Add(System.Int32)"]/*'/>
-public EDecimal Add(int intValue) {
+    public EDecimal Add(int intValue) {
  return this.Add(EDecimal.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Subtract(System.Int32)"]/*'/>
-public EDecimal Subtract(int intValue) {
+    public EDecimal Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
    this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Multiply(System.Int32)"]/*'/>
-public EDecimal Multiply(int intValue) {
+    public EDecimal Multiply(int intValue) {
  return this.Multiply(EDecimal.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Divide(System.Int32)"]/*'/>
-public EDecimal Divide(int intValue) {
+    public EDecimal Divide(int intValue) {
  return this.Divide(EDecimal.FromInt32(intValue));
 }
 
@@ -2285,7 +2284,7 @@ public EDecimal Divide(int intValue) {
          }
        }
        EInteger adjExp = GetAdjustedExponent(this);
-        if (adjExp.CompareTo((EInteger)(-326)) < 0) {
+       if (adjExp.CompareTo((EInteger)(-326)) < 0) {
           // Very low exponent, treat as 0
         return this.IsNegative ? Extras.IntegersToDouble(new[] { 0,
             unchecked((int)(1 << 31)) }) : 0.0;
@@ -2687,7 +2686,7 @@ if (ec == EContext.Binary32) {
         EInteger bigmantissa = bigintMant;
         bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
         bigmantissa *= (EInteger)bigintExp;
-    return this.WithThisSign(EFloat.FromEInteger(bigmantissa))
+        return this.WithThisSign(EFloat.FromEInteger(bigmantissa))
   .RoundToPrecision(ec);
       } else {
         // Fractional number
@@ -2704,7 +2703,7 @@ if (ec == EContext.Binary32) {
         EInteger desiredHigh;
         EInteger desiredLow;
         var haveCopy = false;
-ec = ec ?? EContext.UnlimitedHalfEven;
+        ec = ec ?? EContext.UnlimitedHalfEven;
         EContext originalEc = ec;
         if (!ec.HasMaxPrecision) {
           EInteger num = bigmantissa;
@@ -2747,8 +2746,8 @@ ec = ec ?? EContext.UnlimitedHalfEven;
             var optimized = false;
             if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
            EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-              EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-              if (divisor.CompareTo(bigmantissa) < 0) {
+           EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+           if (divisor.CompareTo(bigmantissa) < 0) {
                if (divBits.CompareTo(valueBmBits) < 0) {
                 EInteger bitdiff = valueBmBits.Subtract(divBits);
                 if (bitdiff.CompareTo(valueEcPrec.Add(1)) > 0) {
@@ -2802,8 +2801,8 @@ ec = ec ?? EContext.UnlimitedHalfEven;
             var optimized = false;
             if (bigmantissa.CompareTo(divisor) < 0) {
            EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-              EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-              if (valueBmBits.CompareTo(divBits) < 0) {
+           EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+           if (valueBmBits.CompareTo(divBits) < 0) {
                 valueBmBits = divBits.Subtract(valueBmBits);
                 bigmantissa = bigmantissa.ShiftLeft(valueBmBits);
                 adjust.SubtractBig(valueBmBits);
@@ -2812,8 +2811,8 @@ ec = ec ?? EContext.UnlimitedHalfEven;
             } else {
               if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
            EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-             if (valueBmBits.CompareTo(divBits) >= 0 &&
+           EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+           if (valueBmBits.CompareTo(divBits) >= 0 &&
                  valueEcPrec.CompareTo(
                   EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
                   EInteger vbb = divBits.Add(valueEcPrec);
@@ -3223,7 +3222,6 @@ return new DigitShiftAccumulator(
   olderDigits);
         }
       }
-
     public FastInteger DivisionShift(
         EInteger num,
         EInteger den) {
@@ -3342,7 +3340,7 @@ return new DigitShiftAccumulator(
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteChecked"]/*'/>
-public byte ToByteChecked() {
+    public byte ToByteChecked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -3357,13 +3355,13 @@ throw new OverflowException("Value out of range");
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteUnchecked"]/*'/>
-public byte ToByteUnchecked() {
+    public byte ToByteUnchecked() {
  return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToByteIfExact"]/*'/>
-public byte ToByteIfExact() {
+    public byte ToByteIfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -3381,14 +3379,14 @@ throw new OverflowException("Value out of range");
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromByte(System.Byte)"]/*'/>
-public static EDecimal FromByte(byte inputByte) {
+    public static EDecimal FromByte(byte inputByte) {
  int val = ((int)inputByte) & 0xff;
  return FromInt32(val);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Checked"]/*'/>
-public short ToInt16Checked() {
+    public short ToInt16Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -3403,13 +3401,13 @@ throw new OverflowException("Value out of range: ");
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked"]/*'/>
-public short ToInt16Unchecked() {
+    public short ToInt16Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt16IfExact"]/*'/>
-public short ToInt16IfExact() {
+    public short ToInt16IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -3424,14 +3422,14 @@ throw new OverflowException("Value out of range");
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)"]/*'/>
-public static EDecimal FromInt16(short inputInt16) {
+    public static EDecimal FromInt16(short inputInt16) {
  var val = (int)inputInt16;
  return FromInt32(val);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Checked"]/*'/>
-public int ToInt32Checked() {
+    public int ToInt32Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -3446,13 +3444,13 @@ throw new OverflowException("Value out of range: ");
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked"]/*'/>
-public int ToInt32Unchecked() {
+    public int ToInt32Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt32IfExact"]/*'/>
-public int ToInt32IfExact() {
+    public int ToInt32IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -3467,7 +3465,7 @@ throw new OverflowException("Value out of range");
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Checked"]/*'/>
-public long ToInt64Checked() {
+    public long ToInt64Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -3482,13 +3480,13 @@ throw new OverflowException("Value out of range: ");
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked"]/*'/>
-public long ToInt64Unchecked() {
+    public long ToInt64Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : (long)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToInt64IfExact"]/*'/>
-public long ToInt64IfExact() {
+    public long ToInt64IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }

@@ -234,7 +234,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)"]/*'/>
-public static EInteger FromBoolean(bool boolValue) {
+    public static EInteger FromBoolean(bool boolValue) {
 return boolValue ? ValueOne : ValueZero;
 }
 
@@ -965,7 +965,7 @@ return boolValue ? ValueOne : ValueZero;
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(System.Int32)"]/*'/>
-public EInteger Add(int intValue) {
+    public EInteger Add(int intValue) {
  if (intValue == 0) {
  return this;
 }
@@ -1015,7 +1015,7 @@ public EInteger Add(int intValue) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
-public EInteger Subtract(int intValue) {
+    public EInteger Subtract(int intValue) {
  return (intValue == Int32.MinValue) ?
    this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ? this :
      this.Add(-intValue));
@@ -1023,25 +1023,25 @@ public EInteger Subtract(int intValue) {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)"]/*'/>
-public EInteger Multiply(int intValue) {
+    public EInteger Multiply(int intValue) {
  return this.Multiply(EInteger.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(System.Int32)"]/*'/>
-public EInteger Divide(int intValue) {
+    public EInteger Divide(int intValue) {
  return this.Divide(EInteger.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(System.Int32)"]/*'/>
-public EInteger Remainder(int intValue) {
+    public EInteger Remainder(int intValue) {
  return this.Remainder(EInteger.FromInt32(intValue));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(System.Int32)"]/*'/>
-public int CompareTo(int intValue) {
+    public int CompareTo(int intValue) {
       int c = this.wordCount;
       if (c > 2) {
         return this.negative ? -1 : 1;
@@ -1151,7 +1151,7 @@ public int CompareTo(int intValue) {
       var a = 0;
       var b = 0;
       var cc = 0;
-        for (var i = 0; i < factor2Count; ++i) {
+      for (var i = 0; i < factor2Count; ++i) {
           a = unchecked((((int)factor2[factor2Start + i]) & 0xffff) * factor1);
           a = unchecked(a + (cc & 0xffff));
           b = ((int)minuendArr[minuendArrStart + i] & 0xffff) - (a & 0xffff);
@@ -1225,7 +1225,7 @@ if (rem.Length - posRem < blockCount * 2) {
     (rem.Length - posRem) + ") is less than " + (blockCount * 2));
 }
         }
-if (tmp.Length < blockCount * 6) {
+        if (tmp.Length < blockCount * 6) {
   throw new ArgumentException("tmp.Length (" + tmp.Length +
     ") is less than " + (blockCount * 6));
 }
@@ -1398,7 +1398,7 @@ if (quot.Length - posQuot < blockSize * 2) {
     (quot.Length - posQuot) + ") is less than " + (blockSize * 2));
 }
 }
-        if (rem != null) {
+if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
     ") is less than 0");
@@ -1436,10 +1436,10 @@ if (rem.Length - posRem < (blockSize * 2)) {
   posRem);
       } else {
                 int halfBlock = blockSize >> 1;
-        var tmp = new short[halfBlock * 10];
-        Array.Clear(quot, posQuot, blockSize * 2);
-        Array.Clear(rem, posRem, blockSize);
-        DivideThreeBlocksByTwo(
+                var tmp = new short[halfBlock * 10];
+                Array.Clear(quot, posQuot, blockSize * 2);
+                Array.Clear(rem, posRem, blockSize);
+                DivideThreeBlocksByTwo(
   a,
   posA + halfBlock,
   a,
@@ -1452,7 +1452,7 @@ if (rem.Length - posRem < (blockSize * 2)) {
   tmp,
   halfBlock * 8,
   tmp);
-        DivideThreeBlocksByTwo(
+  DivideThreeBlocksByTwo(
   a,
   posA,
   tmp,
@@ -1465,7 +1465,7 @@ if (rem.Length - posRem < (blockSize * 2)) {
   rem,
   posRem,
   tmp);
-        Array.Copy(tmp, halfBlock * 6, quot, posQuot + halfBlock, halfBlock);
+  Array.Copy(tmp, halfBlock * 6, quot, posQuot + halfBlock, halfBlock);
       }
     }
 
@@ -1532,7 +1532,7 @@ if (b.Length - posB < countB) {
   throw new ArgumentException("b's length minus " + posB + " (" +
     (b.Length - posB) + ") is less than " + countB);
 }
-        if (rem != null) {
+if (rem != null) {
 if (posRem < 0) {
   throw new ArgumentException("posRem (" + posRem +
     ") is less than 0");
@@ -1555,15 +1555,15 @@ if (rem.Length - posRem < countB) {
 }
 }
 #endif
-      int workPosA, workPosB, i;
-      short[] workA = a;
-      short[] workB = b;
-      workPosA = posA;
-      workPosB = posB;
-      int blocksB = RecursiveDivisionLimit;
-      var shiftB = 0;
-      var m = 1;
-      while (blocksB < countB) {
+int workPosA, workPosB, i;
+short[] workA = a;
+short[] workB = b;
+workPosA = posA;
+workPosB = posB;
+int blocksB = RecursiveDivisionLimit;
+var shiftB = 0;
+var m = 1;
+while (blocksB < countB) {
         blocksB <<= 1;
         m <<= 1;
       }
@@ -1604,7 +1604,7 @@ if (rem.Length - posRem < countB) {
   workA,
   workPosA + (blocksB - countB),
   countA);
-      ShiftWordsLeftByBits(
+  ShiftWordsLeftByBits(
   workA,
   workPosA + (blocksB - countB),
   countA + extraWord,
@@ -1640,10 +1640,10 @@ if (rem.Length - posRem < countB) {
           if (size > 0) {
           Array.Copy(
   tmprem,
- blocksB * 3,
- quot,
- posQuot + (i * blocksB),
-              size);
+  blocksB * 3,
+  quot,
+  posQuot + (i * blocksB),
+  size);
           }
         }
         // Set the high part of the sub-dividend with the remainder
@@ -1666,7 +1666,6 @@ if (rem.Length - posRem < countB) {
       Array.Copy(a, pos, words, 0, len);
       return "\"" + new EInteger(len, words, false).ToUnoptString() + "\"";
     }
-
         private static string WordsToStringHex(short[] a, int pos, int len) {
             while (len != 0 && a[pos + len - 1] == 0) {
                 --len;
@@ -1676,10 +1675,9 @@ if (rem.Length - posRem < countB) {
             }
             var words = new short[len];
             Array.Copy(a, pos, words, 0, len);
-      return "\"" + new EInteger(len, words, false).ToRadixString(16) +
+            return "\"" + new EInteger(len, words, false).ToRadixString(16) +
               "\"";
         }
-
         private static string WordsToString2(
   short[] a,
   int pos,
@@ -1690,7 +1688,7 @@ if (rem.Length - posRem < countB) {
       var words = new short[len + len2];
       Array.Copy(a, pos, words, 0, len);
       Array.Copy(b, pos2, words, len, len2);
-       len += len2;
+      len += len2;
       while (len != 0 && words[len - 1] == 0) {
                 --len;
       }
@@ -1716,7 +1714,7 @@ if (rem.Length - posRem < countB) {
       if (!(countA > 0 && countB > 0)) {
  throw new ArgumentException("doesn't satisfy countA>0 && countB>0");
       }
-if (a == null) {
+      if (a == null) {
   throw new ArgumentNullException(nameof(a));
 }
 if (posA < 0) {
@@ -1998,7 +1996,6 @@ if (rem.Length - posRem < countB) {
           throw new InvalidOperationException();
         }
 #endif
-
   c = LinearMultiplySubtractMinuend1Bigger(
   workA,
   wpoffset,
@@ -2345,7 +2342,7 @@ WordsShiftRightOne(bu, buc);
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
-  [Obsolete("This method may overflow. Use GetDigitCountAsEInteger instead.")]
+    [Obsolete("This method may overflow. Use GetDigitCountAsEInteger instead.")]
     public int GetDigitCount() {
       long dc = this.GetDigitCountAsInt64();
       if (dc < Int32.MinValue || dc > Int32.MaxValue) {
@@ -2502,7 +2499,8 @@ WordsShiftRightOne(bu, buc);
                 if (minDigits > 1) {
                  int maxDigitEstimate = maxDigits + 4;
                  int minDigitEstimate = minDigits + 4;
- return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigitEstimate))
+    return
+  this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigitEstimate))
                 >= 0 ? retval + maxDigitEstimate : retval + minDigitEstimate;
                 }
               } else if (bitlen <= 6432162) {
@@ -2605,8 +2603,8 @@ WordsShiftRightOne(bu, buc);
          if (bigIndex.CanFitInInt32()) {
  return this.GetSignedBit(bigIndex.ToInt32Checked());
 }
-        EInteger valueEWordPos = bigIndex.Divide(16);
-        if (valueEWordPos.CompareTo(this.words.Length) >= 0) {
+EInteger valueEWordPos = bigIndex.Divide(16);
+if (valueEWordPos.CompareTo(this.words.Length) >= 0) {
           return true;
         }
         long tcindex = 0;
@@ -2679,10 +2677,10 @@ if (wc > 1 && eiabs.words[0] != 0) {
 }
         }
         int numberValue = ((int)this.words[wc - 1]) & 0xffff;
-int wcextra = 0;
-if (numberValue != 0) {
+        var wcextra = 0;
+        if (numberValue != 0) {
  wcextra = 16;
-         unchecked {
+ unchecked {
           if ((numberValue >> 8) == 0) {
             numberValue <<= 8;
             wcextra -= 8;
@@ -2744,7 +2742,7 @@ EInteger eiwc = EInteger.FromInt32(wc).Subtract(1)
       if (index < 0) {
         throw new ArgumentException("index (" + index + ") is less than 0");
       }
-    return ((index >> 4) < this.words.Length) &&
+      return ((index >> 4) < this.words.Length) &&
         ((bool)(((this.words[(index >> 4)] >> (int)(index & 15)) & 1) != 0));
     }
 
@@ -3267,7 +3265,7 @@ if (bigPower.Sign < 0) {
    if (other == null) {
   throw new ArgumentNullException(nameof(other));
 }
-      if (other.IsZero || this.IsZero) {
+if (other.IsZero || this.IsZero) {
         return EInteger.Zero;
       }
       if (!this.negative && !other.negative) {
@@ -3297,10 +3295,10 @@ if (bigPower.Sign < 0) {
       valueXaReg = CleanGrow(
   valueXaReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
-      valueXbReg = CleanGrow(
+  valueXbReg = CleanGrow(
   valueXbReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
-      if (valueXaNegative) {
+  if (valueXaNegative) {
           TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
       if (valueXbNegative) {
@@ -3322,7 +3320,7 @@ if (bigPower.Sign < 0) {
    if (second == null) {
   throw new ArgumentNullException(nameof(second));
 }
-      if (this.wordCount == 0) {
+if (this.wordCount == 0) {
         return second;
       }
       if (second.wordCount == 0) {
@@ -3346,7 +3344,7 @@ if (bigPower.Sign < 0) {
   smallerCount,
   biggerCount - smallerCount);
         #if DEBUG
-if (!(biggerCount > 0)) {
+        if (!(biggerCount > 0)) {
   throw new ArgumentException("doesn't satisfy biggerCount>0");
 }
 if (!(biggerCount == CountWords(result))) {
@@ -3369,10 +3367,10 @@ throw new
       valueXaReg = CleanGrow(
   valueXaReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
-      valueXbReg = CleanGrow(
+  valueXbReg = CleanGrow(
   valueXbReg,
   Math.Max(valueXaReg.Length, valueXbReg.Length));
-      if (valueXaNegative) {
+  if (valueXaNegative) {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
       if (valueXbNegative) {
@@ -3423,7 +3421,7 @@ throw new
         smallerCount = (smallerCount == biggerCount) ?
             CountWords(result) : biggerCount;
         #if DEBUG
-if (!(smallerCount == CountWords(result))) {
+        if (!(smallerCount == CountWords(result))) {
   throw new
     ArgumentException("doesn't satisfy smallerCount==CountWords(result)");
 }
@@ -3999,8 +3997,8 @@ if (!(smallerCount == CountWords(result))) {
         if (this.HasSmallValue()) {
           return this.SmallValueToString();
         }
-            var sb = new StringBuilder();
-            if (this.negative) {
+        var sb = new StringBuilder();
+        if (this.negative) {
                 sb.Append('-');
             }
             this.Abs().ToRadixStringDecimal(sb, false);
@@ -6769,7 +6767,7 @@ if (!(smallerCount == CountWords(result))) {
           throw new ArgumentException();
         }
       }
-if (words1Count <= 0) {
+      if (words1Count <= 0) {
   throw new ArgumentException("words1Count (" + words1Count +
     ") is not greater than 0");
 }
@@ -6783,10 +6781,10 @@ if (words2Count <= 0) {
       if (words1Count < words2Count) {
         // words1 is shorter than words2, so put words2 on top
          carry = 0;
-        valueBint = ((int)words1[words1Start]) & 0xffff;
-        for (int j = 0; j < words2Count; ++j) {
+         valueBint = ((int)words1[words1Start]) & 0xffff;
+         for (int j = 0; j < words2Count; ++j) {
               int p;
-          p = unchecked((((int)words2[words2Start + j]) & 0xffff) *
+              p = unchecked((((int)words2[words2Start + j]) & 0xffff) *
                 valueBint);
               p = unchecked(p + (((int)carry) & 0xffff));
               resultArr[resultStart + j] = unchecked((short)p);
@@ -6795,11 +6793,11 @@ if (words2Count <= 0) {
         resultArr[resultStart + words2Count] = unchecked((short)carry);
         for (var i = 1; i < words1Count; ++i) {
           cstart = resultStart + i;
-           carry = 0;
+          carry = 0;
           valueBint = ((int)words1[words1Start + i]) & 0xffff;
           for (int j = 0; j < words2Count; ++j) {
               int p;
-          p = unchecked((((int)words2[words2Start + j]) & 0xffff) *
+              p = unchecked((((int)words2[words2Start + j]) & 0xffff) *
                 valueBint);
               p = unchecked(p + (((int)carry) & 0xffff));
               p = unchecked(p + (((int)resultArr[cstart + j]) & 0xffff));
@@ -6811,10 +6809,10 @@ if (words2Count <= 0) {
       } else {
         // words2 is shorter or the same length as words1
          carry = 0;
-        valueBint = ((int)words2[words2Start]) & 0xffff;
-        for (int j = 0; j < words1Count; ++j) {
+         valueBint = ((int)words2[words2Start]) & 0xffff;
+         for (int j = 0; j < words1Count; ++j) {
               int p;
-          p = unchecked((((int)words1[words1Start + j]) & 0xffff) *
+              p = unchecked((((int)words1[words1Start + j]) & 0xffff) *
                 valueBint);
               p = unchecked(p + (((int)carry) & 0xffff));
               resultArr[resultStart + j] = unchecked((short)p);
@@ -6823,11 +6821,11 @@ if (words2Count <= 0) {
         resultArr[resultStart + words1Count] = unchecked((short)carry);
         for (var i = 1; i < words2Count; ++i) {
           cstart = resultStart + i;
-           carry = 0;
+          carry = 0;
           valueBint = ((int)words2[words2Start + i]) & 0xffff;
           for (int j = 0; j < words1Count; ++j) {
               int p;
-          p = unchecked((((int)words1[words1Start + j]) & 0xffff) *
+              p = unchecked((((int)words1[words1Start + j]) & 0xffff) *
                 valueBint);
               p = unchecked(p + (((int)carry) & 0xffff));
               p = unchecked(p + (((int)resultArr[cstart + j]) & 0xffff));
@@ -7205,13 +7203,13 @@ if (words2Count <= 0) {
       if (this.wordCount >= 4) {
      int wordsPerPart = (this.wordCount >> 2) + ((this.wordCount & 3) > 0 ? 1 :
           0);
-        long bitsPerPart = wordsPerPart * 16;
-        EInteger valueEBitsPerPart = EInteger.FromInt64(bitsPerPart);
-        long totalBits = bitsPerPart * 4;
-        EInteger valueEBitLength = this.GetUnsignedBitLengthAsEInteger();
-        bool bitLengthEven = valueEBitLength.IsEven;
-        bigintX = this;
-        EInteger eshift = EInteger.Zero;
+          long bitsPerPart = wordsPerPart * 16;
+          EInteger valueEBitsPerPart = EInteger.FromInt64(bitsPerPart);
+          long totalBits = bitsPerPart * 4;
+          EInteger valueEBitLength = this.GetUnsignedBitLengthAsEInteger();
+          bool bitLengthEven = valueEBitLength.IsEven;
+          bigintX = this;
+          EInteger eshift = EInteger.Zero;
      if (valueEBitLength.CompareTo(EInteger.FromInt64(totalBits).Subtract(1)) <
           0) {
           long targetLength = bitLengthEven ? totalBits : (totalBits - 1);
@@ -7228,15 +7226,15 @@ if (words2Count <= 0) {
         Array.Copy(ww, wordsPerPart, w2, 0, wordsPerPart);
         Array.Copy(ww, wordsPerPart * 2, w3, 0, wordsPerPart * 2);
         #if DEBUG
-if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
+        if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
   throw new
     ArgumentException("doesn't satisfy (ww[wordsPerPart*4-1]&0xC000)!=0");
 }
 #endif
-        var e1 = new EInteger(CountWords(w1), w1, false);
-        var e2 = new EInteger(CountWords(w2), w2, false);
-        var e3 = new EInteger(CountWords(w3), w3, false);
-        EInteger[] srem = e3.SqrtRemInternal(true);
+var e1 = new EInteger(CountWords(w1), w1, false);
+var e2 = new EInteger(CountWords(w2), w2, false);
+var e3 = new EInteger(CountWords(w3), w3, false);
+EInteger[] srem = e3.SqrtRemInternal(true);
         // DebugUtility.Log("sqrt0({0})[depth={3}] = {1},{2}"
         // , e3, srem[0], srem[1], 0);
         // DebugUtility.Log("sqrt1({0})[depth={3}] = {1},{2}"
@@ -7244,10 +7242,11 @@ if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
         // if (!srem[0].Equals(srem2[0]) || !srem[1].Equals(srem2[1])) {
   // throw new InvalidOperationException(this.ToString());
    // }
-        EInteger[] qrem = srem[1].ShiftLeft(valueEBitsPerPart).Add(e2).DivRem(
+   EInteger[] qrem = srem[1].ShiftLeft(valueEBitsPerPart).Add(e2).DivRem(
            srem[0].ShiftLeft(1));
-        EInteger sqroot = srem[0].ShiftLeft(valueEBitsPerPart).Add(qrem[0]);
-        EInteger sqrem = qrem[1].ShiftLeft(valueEBitsPerPart).Add(e1).Subtract(
+           EInteger sqroot = srem[0].ShiftLeft(valueEBitsPerPart).Add(qrem[0]);
+        EInteger sqrem =
+             qrem[1].ShiftLeft(valueEBitsPerPart).Add(e1).Subtract(
            qrem[0].Multiply(qrem[0]));
         // DebugUtility.Log("sqrem=" + sqrem + ",sqroot=" + sqroot);
         if (sqrem.Sign < 0) {
@@ -7256,7 +7255,7 @@ if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
           }
           sqroot = sqroot.Subtract(EInteger.One);
           #if DEBUG
-if (!(sqroot.Sign >= 0)) {
+          if (!(sqroot.Sign >= 0)) {
   throw new ArgumentException("doesn't satisfy sqroot.Sign>= 0");
 }
 #endif

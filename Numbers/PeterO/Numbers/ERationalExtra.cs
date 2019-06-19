@@ -184,20 +184,20 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Byte"]/*'/>
-public static explicit operator byte(ERational input) {
+    public static explicit operator byte(ERational input) {
  return input.ToByteChecked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Byte)~PeterO.Numbers.ERational"]/*'/>
-public static implicit operator ERational(byte inputByte) {
+    public static implicit operator ERational(byte inputByte) {
  return ERational.FromByte(inputByte);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteChecked"]/*'/>
-[CLSCompliant(false)]
-public sbyte ToSByteChecked() {
+    [CLSCompliant(false)]
+    public sbyte ToSByteChecked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -206,15 +206,15 @@ return this.IsZero ? ((sbyte)0) : this.ToEInteger().ToSByteChecked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteUnchecked"]/*'/>
-[CLSCompliant(false)]
-public sbyte ToSByteUnchecked() {
+    [CLSCompliant(false)]
+    public sbyte ToSByteUnchecked() {
  return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteIfExact"]/*'/>
-[CLSCompliant(false)]
-public sbyte ToSByteIfExact() {
+    [CLSCompliant(false)]
+    public sbyte ToSByteIfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -224,42 +224,42 @@ public sbyte ToSByteIfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromSByte(System.SByte)"]/*'/>
-[CLSCompliant(false)]
-public static ERational FromSByte(sbyte inputSByte) {
+    [CLSCompliant(false)]
+    public static ERational FromSByte(sbyte inputSByte) {
  var val = (int)inputSByte;
  return FromInt32(val);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.SByte"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator sbyte(ERational input) {
+    [CLSCompliant(false)]
+    public static explicit operator sbyte(ERational input) {
  return input.ToSByteChecked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.SByte)~PeterO.Numbers.ERational"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator ERational(sbyte inputSByte) {
+    [CLSCompliant(false)]
+    public static implicit operator ERational(sbyte inputSByte) {
  return ERational.FromSByte(inputSByte);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16"]/*'/>
-public static explicit operator short(ERational input) {
+    public static explicit operator short(ERational input) {
  return input.ToInt16Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int16)~PeterO.Numbers.ERational"]/*'/>
-public static implicit operator ERational(short inputInt16) {
+    public static implicit operator ERational(short inputInt16) {
  return ERational.FromInt16(inputInt16);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16Checked"]/*'/>
-[CLSCompliant(false)]
-public ushort ToUInt16Checked() {
+    [CLSCompliant(false)]
+    public ushort ToUInt16Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -268,15 +268,15 @@ return this.IsZero ? ((ushort)0) : this.ToEInteger().ToUInt16Checked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16Unchecked"]/*'/>
-[CLSCompliant(false)]
-public ushort ToUInt16Unchecked() {
+    [CLSCompliant(false)]
+    public ushort ToUInt16Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16IfExact"]/*'/>
-[CLSCompliant(false)]
-public ushort ToUInt16IfExact() {
+    [CLSCompliant(false)]
+    public ushort ToUInt16IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -286,42 +286,42 @@ public ushort ToUInt16IfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt16(System.UInt16)"]/*'/>
-[CLSCompliant(false)]
-public static ERational FromUInt16(ushort inputUInt16) {
+    [CLSCompliant(false)]
+    public static ERational FromUInt16(ushort inputUInt16) {
  int val = ((int)inputUInt16) & 0xffff;
  return FromInt32(val);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt16"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator ushort(ERational input) {
+    [CLSCompliant(false)]
+    public static explicit operator ushort(ERational input) {
  return input.ToUInt16Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt16)~PeterO.Numbers.ERational"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator ERational(ushort inputUInt16) {
+    [CLSCompliant(false)]
+    public static implicit operator ERational(ushort inputUInt16) {
  return ERational.FromUInt16(inputUInt16);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32"]/*'/>
-public static explicit operator int(ERational input) {
+    public static explicit operator int(ERational input) {
  return input.ToInt32Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int32)~PeterO.Numbers.ERational"]/*'/>
-public static implicit operator ERational(int inputInt32) {
+    public static implicit operator ERational(int inputInt32) {
  return ERational.FromInt32(inputInt32);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Checked"]/*'/>
-[CLSCompliant(false)]
-public uint ToUInt32Checked() {
+    [CLSCompliant(false)]
+    public uint ToUInt32Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -330,15 +330,15 @@ return this.IsZero ? ((uint)0) : this.ToEInteger().ToUInt32Checked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Unchecked"]/*'/>
-[CLSCompliant(false)]
-public uint ToUInt32Unchecked() {
+    [CLSCompliant(false)]
+    public uint ToUInt32Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : (uint)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32IfExact"]/*'/>
-[CLSCompliant(false)]
-public uint ToUInt32IfExact() {
+    [CLSCompliant(false)]
+    public uint ToUInt32IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -348,42 +348,42 @@ public uint ToUInt32IfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt32(System.UInt32)"]/*'/>
-[CLSCompliant(false)]
-public static ERational FromUInt32(uint inputUInt32) {
+    [CLSCompliant(false)]
+    public static ERational FromUInt32(uint inputUInt32) {
  long val = ((long)inputUInt32) & 0xffffffffL;
  return FromInt64(val);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt32"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator uint(ERational input) {
+    [CLSCompliant(false)]
+    public static explicit operator uint(ERational input) {
  return input.ToUInt32Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt32)~PeterO.Numbers.ERational"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator ERational(uint inputUInt32) {
+    [CLSCompliant(false)]
+    public static implicit operator ERational(uint inputUInt32) {
  return ERational.FromUInt32(inputUInt32);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int64"]/*'/>
-public static explicit operator long(ERational input) {
+    public static explicit operator long(ERational input) {
  return input.ToInt64Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int64)~PeterO.Numbers.ERational"]/*'/>
-public static implicit operator ERational(long inputInt64) {
+    public static implicit operator ERational(long inputInt64) {
  return ERational.FromInt64(inputInt64);
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Checked"]/*'/>
-[CLSCompliant(false)]
-public ulong ToUInt64Checked() {
+    [CLSCompliant(false)]
+    public ulong ToUInt64Checked() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -392,15 +392,15 @@ return this.IsZero ? ((ulong)0) : this.ToEInteger().ToUInt64Checked();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Unchecked"]/*'/>
-[CLSCompliant(false)]
-public ulong ToUInt64Unchecked() {
+    [CLSCompliant(false)]
+    public ulong ToUInt64Unchecked() {
  return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : (ulong)0;
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64IfExact"]/*'/>
-[CLSCompliant(false)]
-public ulong ToUInt64IfExact() {
+    [CLSCompliant(false)]
+    public ulong ToUInt64IfExact() {
  if (!this.IsFinite) {
  throw new OverflowException("Value is infinity or NaN");
 }
@@ -410,22 +410,22 @@ public ulong ToUInt64IfExact() {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt64(System.UInt64)"]/*'/>
-[CLSCompliant(false)]
-public static ERational FromUInt64(ulong inputUInt64) {
+    [CLSCompliant(false)]
+    public static ERational FromUInt64(ulong inputUInt64) {
  return FromEInteger(EInteger.FromUInt64(inputUInt64));
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt64"]/*'/>
-[CLSCompliant(false)]
-public static explicit operator ulong(ERational input) {
+    [CLSCompliant(false)]
+    public static explicit operator ulong(ERational input) {
  return input.ToUInt64Checked();
 }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt64)~PeterO.Numbers.ERational"]/*'/>
-[CLSCompliant(false)]
-public static implicit operator ERational(ulong inputUInt64) {
+    [CLSCompliant(false)]
+    public static implicit operator ERational(ulong inputUInt64) {
  return ERational.FromUInt64(inputUInt64);
 }
 

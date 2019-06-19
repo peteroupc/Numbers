@@ -38,7 +38,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsFinite(PeterO.Numbers.EDecimal)"]/*'/>
-   public static bool IsFinite(EFloat ed) {
+    public static bool IsFinite(EFloat ed) {
       return ed != null && ed.IsFinite;
     }
 
@@ -50,7 +50,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsNaN(PeterO.Numbers.EDecimal)"]/*'/>
-   public static bool IsNaN(EFloat ed) {
+    public static bool IsNaN(EFloat ed) {
       return ed != null && ed.IsNaN();
     }
 
@@ -62,13 +62,13 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsQuietNaN(PeterO.Numbers.EDecimal)"]/*'/>
-  public static bool IsQuietNaN(EFloat ed) {
+    public static bool IsQuietNaN(EFloat ed) {
       return ed != null && ed.IsQuietNaN();
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSigned(PeterO.Numbers.EDecimal)"]/*'/>
-     public static bool IsSigned(EFloat ed) {
+    public static bool IsSigned(EFloat ed) {
       return ed != null && ed.IsNegative;
     }
 
@@ -108,7 +108,7 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.IsSubnormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
-     public static bool IsSubnormal(EFloat ed, EContext ec) {
+    public static bool IsSubnormal(EFloat ed, EContext ec) {
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
           return ed.Exponent.Add(ed.Precision().Subtract(1)).CompareTo(
@@ -259,7 +259,7 @@ namespace PeterO.Numbers {
       }
       EInteger mant = ed.UnsignedMantissa;
       EInteger mantprec = ed.Precision();
-if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
+      if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
         0) {
         mant = mant.Remainder(EInteger.One.ShiftLeft(ec.Precision));
         mantprec = ec.Precision;
