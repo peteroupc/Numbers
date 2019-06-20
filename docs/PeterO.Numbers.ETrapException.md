@@ -43,9 +43,9 @@ The arithmetic context used during the operation that triggered the trap. May be
 
     public int Error { get; }
 
- Gets the flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact` FlagInexact or FlagSubnormal.  <b>Returns:</b>
+ Gets the flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact`  or FlagSubnormal.  <b>Returns:</b>
 
-The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as.  `FlagInexact` FlagInexact or FlagSubnormal.
+The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as.  `FlagInexact`  or FlagSubnormal.
 
 <a id="Result"></a>
 ### Result

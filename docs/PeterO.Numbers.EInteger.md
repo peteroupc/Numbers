@@ -10,7 +10,7 @@
 
  It is not recommended to implement security-sensitive algorithms using the methods in this class, for several reasons:
 
-  *  `EInteger` EInteger objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-bit-long numbers as secret parameters.
+  *  `EInteger`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-bit-long numbers as secret parameters.
 
   * The methods in this class (especially those that involve arithmetic) are not guaranteed to run in constant time for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
@@ -145,7 +145,7 @@
 
  Gets a value indicating whether this value is even.  <b>Returns:</b>
 
- `true` true if this value is even; otherwise,  `false` false .
+ `true`  if this value is even; otherwise,  `false`  .
 
 <a id="IsPowerOfTwo"></a>
 ### IsPowerOfTwo
@@ -154,7 +154,7 @@
 
  Gets a value indicating whether this object's value is a power of two, and greater than 0.  <b>Returns:</b>
 
- `true` true if this object' s value is a power of two, and greater than 0; otherwise,  `false` false .
+ `true`  if this object' s value is a power of two, and greater than 0; otherwise,  `false`  .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -163,7 +163,7 @@
 
  Gets a value indicating whether this value is 0.  <b>Returns:</b>
 
- `true` true if this value is 0; otherwise,  `false` false .
+ `true`  if this value is 0; otherwise,  `false`  .
 
 <a id="One"></a>
 ### One
@@ -220,8 +220,6 @@ This object's value with the sign removed.
 
     EInteger result = EInteger.FromString("5").Add(200);
 
-EInteger result = EInteger.FromString("5").Add(200);
-
  <b>Parameters:</b>
 
  * <i>intValue</i>: The parameter  <i>intValue</i>
@@ -257,11 +255,11 @@ The parameter  <i>bigintAugend</i>
     public PeterO.Numbers.EInteger And(
         PeterO.Numbers.EInteger other);
 
- Does an AND operation between two arbitrary-precision integer values.
-
- Each arbitrary-precision integer is treated as a two's-complement form (see [
+ Does an AND operation between two arbitrary-precision integer values.  Each arbitrary-precision integer is treated as a two's-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.
+
+ <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision integer.
 
@@ -282,11 +280,11 @@ The parameter  <i>other</i>
         PeterO.Numbers.EInteger a,
         PeterO.Numbers.EInteger b);
 
- Does an AND operation between two arbitrary-precision integer values.
-
- Each arbitrary-precision integer is treated as a two's-complement form (see [
+ Does an AND operation between two arbitrary-precision integer values.  Each arbitrary-precision integer is treated as a two's-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.
+
+ <b>Parameters:</b>
 
  * <i>a</i>: The first arbitrary-precision integer.
 
@@ -368,7 +366,7 @@ A 64-bit signed integer.
 
  Returns whether this object's value can fit in a 32-bit signed integer.  <b>Return Value:</b>
 
- `true` true if this object's value is from -2147483648 through 2147483647; otherwise,  `false` false .
+ `true`  if this object's value is from -2147483648 through 2147483647; otherwise,  `false`  .
 
 <a id="CanFitInInt64"></a>
 ### CanFitInInt64
@@ -377,7 +375,7 @@ A 64-bit signed integer.
 
  Returns whether this object's value can fit in a 64-bit signed integer.  <b>Return Value:</b>
 
- `true` true if this object's value is from -9223372036854775808 through 9223372036854775807; otherwise,  `false` false .
+ `true`  if this object's value is from -9223372036854775808 through 9223372036854775807; otherwise,  `false`  .
 
 <a id="CompareTo_int"></a>
 ### CompareTo
@@ -486,7 +484,7 @@ The parameter  <i>divisor</i>
 
 <b>Return Value:</b>
 
- `true` true if this object and another object are equal; otherwise,  `false` false .
+ `true`  if this object and another object are equal; otherwise,  `false`  .
 
 <a id="Equals_PeterO_Numbers_EInteger"></a>
 ### Equals
@@ -500,7 +498,7 @@ The parameter  <i>divisor</i>
 
 <b>Return Value:</b>
 
- `true` true if this object and another object are equal; otherwise,  `false` false .
+ `true`  if this object and another object are equal; otherwise,  `false`  .
 
 <a id="FromBoolean_bool"></a>
 ### FromBoolean
@@ -546,9 +544,9 @@ This number's value as an arbitrary-precision integer.
 
   * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
 
-  * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as  `0x01, 0x2C` 0x01, 0x2C and 200 as  `0x00, 0xC8` 0x00, 0xC8 . (Note that the second example contains a set high bit in  `0xC8` 0xC8 , so an additional 0 is added at the start to ensure it's interpreted as positive.)
+  * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as  `0x01, 0x2C`  and 200 as  `0x00, 0xC8`  . (Note that the second example contains a set high bit in  `0xC8`  , so an additional 0 is added at the start to ensure it's interpreted as positive.)
 
-  * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as  `0xfe, 0x70` 0xfe, 0x70 and -52869 as  `0xff, 0x31, 0x7B` 0xff, 0x31, 0x7B . (Note that the second example contains a cleared high bit in  `0x31, 0x7B` 0x31, 0x7B , so an additional 0xff is added at the start to ensure it's interpreted as negative.)
+  * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as  `0xfe, 0x70`  and -52869 as  `0xff, 0x31, 0x7B`  . (Note that the second example contains a cleared high bit in  `0x31, 0x7B`  , so an additional 0xff is added at the start to ensure it's interpreted as negative.)
 
   For little-endian, the byte order is reversed from the byte order just discussed.
 
@@ -892,9 +890,9 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
 
 <b>Return Value:</b>
 
- `true` true if a bit is set in the two' s-complement form (see [
+ `true`  if a bit is set in the two' s-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) of this object' s value; otherwise,  `false` false .
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) of this object' s value; otherwise,  `false`  .
 
 <a id="GetSignedBit_PeterO_Numbers_EInteger"></a>
 ### GetSignedBit
@@ -910,9 +908,9 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
 
 <b>Return Value:</b>
 
- `true` true if a bit is set in the two' s-complement form (see [
+ `true`  if a bit is set in the two' s-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) of this object' s value; otherwise,  `false` false .
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) of this object' s value; otherwise,  `false`  .
 
 <b>Exceptions:</b>
 
@@ -957,7 +955,7 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
 <b>Return Value:</b>
 
- `true` true if a bit is set in this number's absolute value.
+ `true`  if a bit is set in this number's absolute value.
 
 <a id="GetUnsignedBit_PeterO_Numbers_EInteger"></a>
 ### GetUnsignedBit
@@ -971,7 +969,7 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
 <b>Return Value:</b>
 
- `true` true if a bit is set in this number's absolute value.
+ `true`  if a bit is set in this number's absolute value.
 
 <b>Exceptions:</b>
 
@@ -1111,8 +1109,6 @@ The parameter  <i>bigintValue</i>
 
     EInteger result = EInteger.FromString("5").Multiply(200);
 
-EInteger result = EInteger.FromString("5").Multiply(200);
-
  <b>Parameters:</b>
 
  * <i>intValue</i>: The parameter  <i>intValue</i>
@@ -1210,11 +1206,11 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
 
- Does an AND operation between two arbitrary-precision integer values. For each bit of the result, that bit is 1 if the corresponding bits of the two operands are both 1, or is 0 otherwise.
-
- Each arbitrary-precision integer is treated as a two's-complement form (see [
+ Does an AND operation between two arbitrary-precision integer values. For each bit of the result, that bit is 1 if the corresponding bits of the two operands are both 1, or is 0 otherwise.  Each arbitrary-precision integer is treated as a two's-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.
+
+ <b>Parameters:</b>
 
  * <i>thisValue</i>: The first operand.
 
@@ -1236,11 +1232,11 @@ The parameter "a" or "b" is null.
         PeterO.Numbers.EInteger thisValue,
         PeterO.Numbers.EInteger otherValue);
 
- Does an OR operation between two arbitrary-precision integer instances. For each bit of the result, that bit is 1 if either or both of the corresponding bits of the two operands are 1, or is 0 otherwise.
-
- Each arbitrary-precision integer is treated as a two's-complement form (see [
+ Does an OR operation between two arbitrary-precision integer instances. For each bit of the result, that bit is 1 if either or both of the corresponding bits of the two operands are 1, or is 0 otherwise.  Each arbitrary-precision integer is treated as a two's-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.
+
+ <b>Parameters:</b>
 
  * <i>thisValue</i>: An arbitrary-precision integer.
 
@@ -1397,7 +1393,7 @@ The parameter  <i>input</i>
 
  Converts a byte (from 0 to 255) to an arbitrary-precision integer.  <b>Parameters:</b>
 
- * <i>boolValue</i>: Either  `true` true or  `false` false .
+ * <i>boolValue</i>: Either  `true`  or  `false`  .
 
 <b>Return Value:</b>
 
@@ -1524,9 +1520,9 @@ The parameter  <i>input</i>
 
 <b>Return Value:</b>
 
- `true` true if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is greater than  <i>otherValue</i>
- ; otherwise,  `false` false .
+ ; otherwise,  `false`  .
 
 <a id="op_GreaterThanOrEqual"></a>
 ### Operator `>=`
@@ -1543,9 +1539,9 @@ The parameter  <i>input</i>
 
 <b>Return Value:</b>
 
- `true` true if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is at least  <i>otherValue</i>
- ; otherwise,  `false` false .
+ ; otherwise,  `false`  .
 
 <a id="op_Implicit"></a>
 ### Implicit Operator
@@ -1725,9 +1721,9 @@ The parameter  <i>bthis</i>
 
 <b>Return Value:</b>
 
- `true` true if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is less than  <i>otherValue</i>
- ; otherwise,  `false` false .
+ ; otherwise,  `false`  .
 
 <a id="op_LessThanOrEqual"></a>
 ### Operator `<=`
@@ -1744,9 +1740,9 @@ The parameter  <i>bthis</i>
 
 <b>Return Value:</b>
 
- `true` true if  <i>thisValue</i>
+ `true`  if  <i>thisValue</i>
  is up to  <i>otherValue</i>
- ; otherwise,  `false` false .
+ ; otherwise,  `false`  .
 
 <a id="op_Modulus"></a>
 ### Operator `%`
@@ -1821,11 +1817,11 @@ The parameter  <i>thisValue</i>
         PeterO.Numbers.EInteger bthis,
         int smallValue);
 
- Shifts the bits of an arbitrary-precision integer to the right.
-
- For this operation, the arbitrary-precision integer is treated as a two's-complement form (see [
+ Shifts the bits of an arbitrary-precision integer to the right.  For this operation, the arbitrary-precision integer is treated as a two's-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ). Thus, for negative values, the arbitrary-precision integer is sign-extended.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ). Thus, for negative values, the arbitrary-precision integer is sign-extended.
+
+ <b>Parameters:</b>
 
  * <i>bthis</i>: Another arbitrary-precision integer.
 
@@ -1891,11 +1887,11 @@ The parameter  <i>bigValue</i>
     public PeterO.Numbers.EInteger Or(
         PeterO.Numbers.EInteger second);
 
- Does an OR operation between two arbitrary-precision integer instances.
-
- Each arbitrary-precision integer is treated as a two's-complement form (see [
+ Does an OR operation between two arbitrary-precision integer instances.  Each arbitrary-precision integer is treated as a two's-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.
+
+ <b>Parameters:</b>
 
  * <i>second</i>: The second operand.
 
@@ -1919,11 +1915,11 @@ Doesn't satisfy biggerCount&gt;0; doesn't satisfy biggerCount == CountWords(resu
         PeterO.Numbers.EInteger first,
         PeterO.Numbers.EInteger second);
 
- Does an OR operation between two arbitrary-precision integer instances.
-
- Each arbitrary-precision integer is treated as a two's-complement form (see [
+ Does an OR operation between two arbitrary-precision integer instances.  Each arbitrary-precision integer is treated as a two's-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) for the purposes of this operator.
+
+ <b>Parameters:</b>
 
  * <i>first</i>: The first operand.
 
@@ -2196,9 +2192,9 @@ This value is less than 0 or greater than 255.
 
  Returns a byte array of this integer's value. The byte array will take the number's two' s-complement form (see [
          &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ), using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()` FromBytes() method (with the same byte order) to reconstruct this integer's value.  <b>Parameters:</b>
+      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ), using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.  <b>Parameters:</b>
 
- * <i>littleEndian</i>: Either  `true` true or  `false` false .
+ * <i>littleEndian</i>: Either  `true`  or  `false`  .
 
 <b>Return Value:</b>
 

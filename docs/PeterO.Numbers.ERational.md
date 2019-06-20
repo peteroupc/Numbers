@@ -201,7 +201,7 @@ This object' s denominator.
 
  Gets a value indicating whether this object is finite (not infinity or NaN).  <b>Returns:</b>
 
- `true` true if this object is finite (not infinity or NaN); otherwise,  `false` false .
+ `true`  if this object is finite (not infinity or NaN); otherwise,  `false`  .
 
 <a id="IsNegative"></a>
 ### IsNegative
@@ -210,7 +210,7 @@ This object' s denominator.
 
  Gets a value indicating whether this object's value is negative (including negative zero).  <b>Returns:</b>
 
- `true` true if this object's value is negative (including negative zero); otherwise,  `false` false .  `true` true if this object's value is negative; otherwise,  `false` false .
+ `true`  if this object's value is negative (including negative zero); otherwise,  `false`  .  `true`  if this object's value is negative; otherwise,  `false`  .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -219,7 +219,7 @@ This object' s denominator.
 
  Gets a value indicating whether this object's value equals 0.  <b>Returns:</b>
 
- `true` true if this object's value equals 0; otherwise,  `false` false .  `true` true if this object' s value equals 0; otherwise, .  `false` false .
+ `true`  if this object's value equals 0; otherwise,  `false`  .  `true`  if this object' s value equals 0; otherwise, .  `false`  .
 
 <a id="Numerator"></a>
 ### Numerator
@@ -467,7 +467,7 @@ The denominator is zero.
 
  Creates a not-a-number arbitrary-precision rational number.  <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary rational number, use that object's  `UnsignedNumerator` UnsignedNumerator property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary rational number, use that object's  `UnsignedNumerator`  property.
 
 <b>Return Value:</b>
 
@@ -488,7 +488,7 @@ The parameter "diag" is less than 0.
 
  Creates a not-a-number arbitrary-precision rational number.  <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary rational number, use that object's  `UnsignedNumerator` UnsignedNumerator property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary rational number, use that object's  `UnsignedNumerator`  property.
 
  * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
 
@@ -538,7 +538,7 @@ The parameter "otherValue" is null.
 
 <b>Return Value:</b>
 
- `true` true if the objects are equal; otherwise,  `false` false .
+ `true`  if the objects are equal; otherwise,  `false`  .
 
 <a id="Equals_PeterO_Numbers_ERational"></a>
 ### Equals
@@ -552,7 +552,7 @@ The parameter "otherValue" is null.
 
 <b>Return Value:</b>
 
-Either  `true` true or  `false` false .
+Either  `true`  or  `false`  .
 
 <a id="FromBoolean_bool"></a>
 ### FromBoolean
@@ -589,9 +589,9 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromDecimal(
         System.Decimal eint);
 
- Converts a  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal) to a rational number.  <b>Parameters:</b>
+ Converts a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal) to a rational number.  <b>Parameters:</b>
 
- * <i>eint</i>: The number to convert as a  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal).
+ * <i>eint</i>: The number to convert as a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <b>Return Value:</b>
 
@@ -773,7 +773,7 @@ A rational number with the same value as "flt".
     public static PeterO.Numbers.ERational FromString(
         string str);
 
- Creates a rational number from a text string that represents a number. See  `FromString(String, int, int)` FromString(String, int, int) for more information.  <b>Parameters:</b>
+ Creates a rational number from a text string that represents a number. See  `FromString(String, int, int)`  for more information.  <b>Parameters:</b>
 
  * <i>str</i>: A string that represents a number.
 
@@ -889,7 +889,7 @@ A 32-bit signed integer.
 
  Gets a value indicating whether this object's value is infinity.  <b>Return Value:</b>
 
- `true` true if this object's value is infinity; otherwise,  `false` false .
+ `true`  if this object's value is infinity; otherwise,  `false`  .
 
 <a id="IsNaN"></a>
 ### IsNaN
@@ -898,7 +898,7 @@ A 32-bit signed integer.
 
  Returns whether this object is a not-a-number value.  <b>Return Value:</b>
 
- `true` true if this object is a not-a-number value; otherwise,  `false` false .
+ `true`  if this object is a not-a-number value; otherwise,  `false`  .
 
 <a id="IsNegativeInfinity"></a>
 ### IsNegativeInfinity
@@ -907,7 +907,7 @@ A 32-bit signed integer.
 
  Returns whether this object is negative infinity.  <b>Return Value:</b>
 
- `true` true if this object is negative infinity; otherwise,  `false` false .
+ `true`  if this object is negative infinity; otherwise,  `false`  .
 
 <a id="IsPositiveInfinity"></a>
 ### IsPositiveInfinity
@@ -916,7 +916,7 @@ A 32-bit signed integer.
 
  Returns whether this object is positive infinity.  <b>Return Value:</b>
 
- `true` true if this object is positive infinity; otherwise,  `false` false .
+ `true`  if this object is positive infinity; otherwise,  `false`  .
 
 <a id="IsQuietNaN"></a>
 ### IsQuietNaN
@@ -925,7 +925,7 @@ A 32-bit signed integer.
 
  Returns whether this object is a quiet not-a-number value.  <b>Return Value:</b>
 
- `true` true if this object is a quiet not-a-number value; otherwise,  `false` false .
+ `true`  if this object is a quiet not-a-number value; otherwise,  `false`  .
 
 <a id="IsSignalingNaN"></a>
 ### IsSignalingNaN
@@ -934,7 +934,7 @@ A 32-bit signed integer.
 
  Returns whether this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class).  <b>Return Value:</b>
 
- `true` true if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise,  `false` false .
+ `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise,  `false`  .
 
 <a id="Multiply_PeterO_Numbers_ERational"></a>
 ### Multiply
@@ -1201,7 +1201,7 @@ The parameter  <i>input</i>
     public static explicit operator System.Decimal(
         PeterO.Numbers.ERational extendedNumber);
 
- Converts an arbitrary-precision rational number to a  `decimal` decimal under the Common Language Infrastructure (see [
+ Converts an arbitrary-precision rational number to a  `decimal`  under the Common Language Infrastructure (see [
          &#x22;Forms of numbers&#x22;
       ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ).  <b>Parameters:</b>
 
@@ -1209,7 +1209,7 @@ The parameter  <i>input</i>
 
 <b>Return Value:</b>
 
-A  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal).
+A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1429,9 +1429,9 @@ The value of  <i>inputInt16</i>
     public static implicit operator PeterO.Numbers.ERational(
         System.Decimal eint);
 
- Converts a  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal). to an arbitrary-precision rational number.  <b>Parameters:</b>
+ Converts a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal). to an arbitrary-precision rational number.  <b>Parameters:</b>
 
- * <i>eint</i>: A  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal).
+ * <i>eint</i>: A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <b>Return Value:</b>
 
@@ -1668,9 +1668,9 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public System.Decimal ToDecimal();
 
- Converts this value to a  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal). Currently, converts this value to the precision and range of a .NET Framework decimal.  <b>Return Value:</b>
+ Converts this value to a  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal). Currently, converts this value to the precision and range of a .NET Framework decimal.  <b>Return Value:</b>
 
-A  `decimal` decimal under the Common Language Infrastructure (usually a .NET Framework decimal).
+A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
 
 <a id="ToDouble"></a>
 ### ToDouble
@@ -2049,7 +2049,7 @@ The closest 32-bit binary floating-point number to this value. The return value 
 
  Converts this object to a text string.  <b>Return Value:</b>
 
-A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString` EDecimal.ToString method. Otherwise, the return value has the following form:  `[-]numerator/denominator` [-]numerator/denominator .
+A string representation of this object. If this object's value is infinity or not-a-number, the result is the analogous return value of the  `EDecimal.ToString`  method. Otherwise, the return value has the following form:  `[-]numerator/denominator`  .
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked
