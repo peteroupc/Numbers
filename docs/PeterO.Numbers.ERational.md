@@ -122,6 +122,29 @@
 * <code>[UnsignedNumerator](#UnsignedNumerator)</code> - Gets this object's numerator with the sign removed.
 * <code>[public static readonly PeterO.Numbers.ERational Zero;](#Zero)</code> - A rational number for zero.
 
+<a id="Void_ctor_EInteger_EInteger"></a>
+### ERational Constructor
+
+    public ERational(
+        PeterO.Numbers.EInteger numerator,
+        PeterO.Numbers.EInteger denominator);
+
+ Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.  <b>Parameters:</b>
+
+ * <i>numerator</i>: The numerator.
+
+ * <i>denominator</i>: The denominator.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The denominator is zero.
+
+ * System.ArgumentNullException:
+The parameter  <i>numerator</i>
+ or  <i>denominator</i>
+ is null.
+
 <a id="NaN"></a>
 ### NaN
 

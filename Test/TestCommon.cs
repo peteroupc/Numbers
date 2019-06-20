@@ -408,9 +408,9 @@ public static void CompareTestGreaterEqual<T>(T o1, T o2, string msg) where
         }
         while (intlongValue > 43698) {
           int intdivValue = intlongValue / 10;
-          char digit = ValueDigits[(int)(intlongValue - (intdivValue * 10))];
-          chars[count--] = digit;
-          intlongValue = intdivValue;
+        char digit = ValueDigits[(int)(intlongValue - (intdivValue * 10))];
+        chars[count--] = digit;
+        intlongValue = intdivValue;
       }
       while (intlongValue > 9) {
         int intdivValue = (intlongValue * 26215) >> 18;
@@ -435,9 +435,9 @@ public static void CompareTestGreaterEqual<T>(T o1, T o2, string msg) where
         }
         while (longValue > 43698) {
           long divValue = longValue / 10;
-          char digit = ValueDigits[(int)(longValue - (divValue * 10))];
-          chars[count--] = digit;
-          longValue = divValue;
+        char digit = ValueDigits[(int)(longValue - (divValue * 10))];
+        chars[count--] = digit;
+        longValue = divValue;
       }
       while (longValue > 9) {
         long divValue = (longValue * 26215) >> 18;

@@ -10,6 +10,25 @@
 * <code>[Error](#Error)</code> - Gets the flag that specifies the kind of error (EContext.
 * <code>[Result](#Result)</code> - Gets the defined result of the operation that caused the trap.
 
+<a id="Void_ctor_Int32_EContext_Object"></a>
+### ETrapException Constructor
+
+    public ETrapException(
+        int flag,
+        PeterO.Numbers.EContext ctx,
+        object result);
+
+ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.  <b>Parameters:</b>
+
+ * <i>flag</i>: The parameter  <i>flag</i>
+ is a 32-bit signed integer.
+
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is an EContext object.
+
+ * <i>result</i>: The parameter  <i>result</i>
+ is an arbitrary object.
+
 <a id="Context"></a>
 ### Context
 

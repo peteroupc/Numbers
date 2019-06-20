@@ -61,6 +61,50 @@
 * <code>[WithTraps(int)](#WithTraps_int)</code> - Copies this EContext with Traps set to the given value.
 * <code>[WithUnlimitedExponents()](#WithUnlimitedExponents)</code> - Copies this EContext with an unlimited exponent range.
 
+<a id="Void_ctor_Int32_ERounding_Int32_Int32_Boolean"></a>
+### EContext Constructor
+
+    public EContext(
+        int precision,
+        PeterO.Numbers.ERounding rounding,
+        int exponentMinSmall,
+        int exponentMaxSmall,
+        bool clampNormalExponents);
+
+ Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.  <b>Parameters:</b>
+
+ * <i>precision</i>: Maximum precision, in decimal digits, of a number's significand.
+
+ * <i>rounding</i>: The rounding mode for this context.
+
+ * <i>exponentMinSmall</i>: Smallest exponent of a number, as a power of 10.
+
+ * <i>exponentMaxSmall</i>: Largest exponent of a number, as a power of 10.
+
+ * <i>clampNormalExponents</i>: The value of the "ClampNormalExponents" property for this context.
+
+<a id="Void_ctor_EInteger_ERounding_EInteger_EInteger_Boolean"></a>
+### EContext Constructor
+
+    public EContext(
+        PeterO.Numbers.EInteger bigintPrecision,
+        PeterO.Numbers.ERounding rounding,
+        PeterO.Numbers.EInteger exponentMin,
+        PeterO.Numbers.EInteger exponentMax,
+        bool clampNormalExponents);
+
+ Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class, using arbitrary-precision integers to hold the precision and exponent range.  <b>Parameters:</b>
+
+ * <i>bigintPrecision</i>: Maximum precision, in decimal digits, of a number's significand.
+
+ * <i>rounding</i>: The rounding mode for this context.
+
+ * <i>exponentMin</i>: Smallest exponent of a number, as a power of 10.
+
+ * <i>exponentMax</i>: Largest exponent of a number, as a power of 10.
+
+ * <i>clampNormalExponents</i>: The value of the "ClampNormalExponents" property for this context.
+
 <a id="Basic"></a>
 ### Basic
 
