@@ -33,7 +33,7 @@
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Divide(PeterO.Numbers.EInteger)](#Divide_PeterO_Numbers_EInteger)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[DivRem(PeterO.Numbers.EInteger)](#DivRem_PeterO_Numbers_EInteger)</code> - Divides this object by another arbitrary-precision integer and returns the quotient and remainder.
-* <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> -
+* <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Divides one arbitrary-precision integer by another, and returns the quotient and sets an output parameter to the remainder.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
 * <code>[Equals(PeterO.Numbers.EInteger)](#Equals_PeterO_Numbers_EInteger)</code> - Determines whether this object and another object are equal.
 * <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision integer.
@@ -469,6 +469,35 @@ The parameter divisor is 0.
 
  * System.ArgumentNullException:
 The parameter  <i>divisor</i>
+ is null.
+
+<a id="DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
+### DivRem
+
+    public static PeterO.Numbers.EInteger DivRem(
+        PeterO.Numbers.EInteger dividend,
+        PeterO.Numbers.EInteger divisor,
+        PeterO.Numbers.EInteger& remainder);
+
+<b>Deprecated.</b> Use the DivRem instance method instead.
+
+ Divides one arbitrary-precision integer by another, and returns the quotient and sets an output parameter to the remainder.  <b>Parameters:</b>
+
+ * <i>dividend</i>: The arbitrary-precision integer to be divided.
+
+ * <i>divisor</i>: The arbitrary-precision integer to divide by.
+
+ * <i>remainder</i>: An arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+An array of two arbitrary-precision integers: the first is the quotient, and the second is the remainder.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>dividend</i>
+ or  <i>divisor</i>
  is null.
 
 <a id="Equals_object"></a>
