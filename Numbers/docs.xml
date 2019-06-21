@@ -23,7 +23,7 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Boolean)'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class, using arbitrary-precision integers to hold the precision and
+    <summary>Initializes a new instance of the <see cref='EContext'/> class, using arbitrary-precision integers to hold the precision and
       exponent range.
     </summary>
     <param name='bigintPrecision'>Maximum precision, in decimal digits, of a number's significand.
@@ -38,7 +38,7 @@
     </param>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.EContext'/> class.
+    <summary>Initializes a new instance of the <see cref='EContext'/> class.
     </summary>
     <param name='precision'>Maximum precision, in decimal digits, of a number's significand.
     </param>
@@ -10253,7 +10253,7 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.ERational'/> class.
+    <summary>Initializes a new instance of the <see cref='ERational'/> class.
     </summary>
     <param name='numerator'>The numerator.
     </param>
@@ -11864,7 +11864,7 @@
     </summary>
   </doc>
   <doc name='M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)'>
-    <summary>Initializes a new instance of the <see cref='T:PeterO.Numbers.ETrapException'/> class.
+    <summary>Initializes a new instance of the <see cref='ETrapException'/> class.
     </summary>
     <param name='flag'>The parameter
       <paramref name='flag'/>

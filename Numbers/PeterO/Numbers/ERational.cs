@@ -1304,7 +1304,7 @@ namespace PeterO.Numbers {
       }
       EInteger ad = this.Numerator * (EInteger)otherValue.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
-      EInteger quo = ad / (EInteger)bc;  // Find the integer quotient
+      EInteger quo = ad / (EInteger)bc; // Find the integer quotient
       EInteger tnum = quo * (EInteger)otherValue.Numerator;
       EInteger tden = otherValue.Denominator;
       EInteger thisDen = this.Denominator;

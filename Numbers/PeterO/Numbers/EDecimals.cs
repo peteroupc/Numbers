@@ -578,7 +578,7 @@ namespace PeterO.Numbers {
            null;
       EInteger bytecount = prec.ShiftRight(3).Add(1);
       if (bytecount.CompareTo(0x7fffffff) > 0) {
-        return null;  // Out of memory
+        return null; // Out of memory
       }
       var bitindex = 0;
       var bytes = new byte[bytecount.ToInt32Checked()];

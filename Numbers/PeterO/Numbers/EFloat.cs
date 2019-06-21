@@ -285,7 +285,7 @@ return new EFloat(this.unsignedMantissa, this.exponent, this.flags);
           EInteger.Zero,
           value[0]);
       }
-      value[1] &= 0xfffff;  // Mask out the exponent and sign
+      value[1] &= 0xfffff; // Mask out the exponent and sign
       if (floatExponent == 0) {
         ++floatExponent;
       } else {

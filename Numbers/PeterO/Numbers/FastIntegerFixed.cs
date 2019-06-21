@@ -9,8 +9,8 @@ using System;
 
 namespace PeterO.Numbers {
   internal sealed class FastIntegerFixed : IComparable<FastIntegerFixed> {
-    private readonly int smallValue;  // if integerMode is 0
-    private readonly EInteger largeValue;  // if integerMode is 2
+    private readonly int smallValue; // if integerMode is 0
+    private readonly EInteger largeValue; // if integerMode is 2
     private readonly int integerMode;
 
     public static readonly FastIntegerFixed Zero = new FastIntegerFixed(0);

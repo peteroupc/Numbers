@@ -151,8 +151,8 @@ namespace PeterO {
           x = this.Normal();
           v = Math.Pow((c * x) + 1, 3);
         } while (v <= 0);
-         u = 1.0 - this.Uniform();
-         x2 = x * x;
+        u = 1.0 - this.Uniform();
+        x2 = x * x;
   } while (u >= 1 - (0.0331 * x2 * x2) &&
                Math.Log(u) >= (0.5 * x2) + (d * (1 - v + Math.Log(v))));
       if (a < 1) {
@@ -399,7 +399,7 @@ namespace PeterO {
     /// <param name='maxExclusive'>One plus the largest possible value of
     /// the random number.</param>
     /// <returns>A 32-bit signed integer.</returns>
-        public int UniformInt(int minInclusive, int maxExclusive) {
+    public int UniformInt(int minInclusive, int maxExclusive) {
       if (minInclusive > maxExclusive) {
   throw new ArgumentException("minInclusive (" + minInclusive +
     ") is more than " + maxExclusive);
@@ -524,7 +524,7 @@ if (minInclusive == maxExclusive) {
     /// <param name='maxExclusive'>One plus the largest possible value of
     /// the random number.</param>
     /// <returns>A 64-bit signed integer.</returns>
-        public long UniformLong(long maxExclusive) {
+    public long UniformLong(long maxExclusive) {
       if (maxExclusive < 0) {
   throw new ArgumentException("maxExclusive (" + maxExclusive +
     ") is less than 0");
