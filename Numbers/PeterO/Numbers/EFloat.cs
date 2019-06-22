@@ -14,8 +14,10 @@ namespace PeterO.Numbers {
   IEquatable<EFloat> {
     //----------------------------------------------------------------
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.NaN"]/*'/>
+    ///
+    /// <summary>A not-a-number value.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -25,8 +27,10 @@ namespace PeterO.Numbers {
       EInteger.Zero,
       BigNumberFlags.FlagQuietNaN);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.NegativeInfinity"]/*'/>
+    ///
+    /// <summary>Negative infinity, less than any other number.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -36,8 +40,10 @@ namespace PeterO.Numbers {
       EInteger.Zero,
       BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.NegativeZero"]/*'/>
+    ///
+    /// <summary>Represents the number negative zero.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -47,8 +53,10 @@ namespace PeterO.Numbers {
       EInteger.Zero,
       BigNumberFlags.FlagNegative);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.One"]/*'/>
+    ///
+    /// <summary>Represents the number 1.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -56,8 +64,10 @@ namespace PeterO.Numbers {
     public static readonly EFloat One =
       EFloat.Create(EInteger.One, EInteger.Zero);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.PositiveInfinity"]/*'/>
+    ///
+    /// <summary>Positive infinity, greater than any other number.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -67,8 +77,12 @@ namespace PeterO.Numbers {
       EInteger.Zero,
       BigNumberFlags.FlagInfinity);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.SignalingNaN"]/*'/>
+    ///
+    /// <summary>A not-a-number value that signals an invalid operation flag when it's
+    /// passed as an argument to any arithmetic operation in arbitrary-precision
+    /// binary float.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -78,8 +92,10 @@ namespace PeterO.Numbers {
       EInteger.Zero,
       BigNumberFlags.FlagSignalingNaN);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.Ten"]/*'/>
+    ///
+    /// <summary>Represents the number 10.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -87,8 +103,10 @@ namespace PeterO.Numbers {
     public static readonly EFloat Ten =
       EFloat.Create((EInteger)10, EInteger.Zero);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EFloat.Zero"]/*'/>
+    ///
+    /// <summary>Represents the number 0.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",

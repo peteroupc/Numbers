@@ -15,8 +15,10 @@ namespace PeterO.Numbers {
   IEquatable<EDecimal> {
     //----------------------------------------------------------------
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.NaN"]/*'/>
+    ///
+    /// <summary>A not-a-number value.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -26,8 +28,10 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagQuietNaN);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.NegativeInfinity"]/*'/>
+    ///
+    /// <summary>Negative infinity, less than any other number.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -38,8 +42,10 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.NegativeZero"]/*'/>
+    ///
+    /// <summary>Represents the number negative zero.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -50,8 +56,10 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagNegative);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.One"]/*'/>
+    ///
+    /// <summary>Represents the number 1.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -59,8 +67,10 @@ namespace PeterO.Numbers {
     public static readonly EDecimal One =
       EDecimal.Create(EInteger.One, EInteger.Zero);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.PositiveInfinity"]/*'/>
+    ///
+    /// <summary>Positive infinity, greater than any other number.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -71,8 +81,12 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagInfinity);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.SignalingNaN"]/*'/>
+    ///
+    /// <summary>A not-a-number value that signals an invalid operation flag when it's
+    /// passed as an argument to any arithmetic operation in arbitrary-precision
+    /// decimal.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -83,8 +97,10 @@ public static readonly EDecimal SignalingNaN =
         EInteger.Zero,
         BigNumberFlags.FlagSignalingNaN);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.Ten"]/*'/>
+    ///
+    /// <summary>Represents the number 10.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -93,8 +109,10 @@ public static readonly EDecimal SignalingNaN =
     public static readonly EDecimal Ten =
       EDecimal.Create((EInteger)10, EInteger.Zero);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EDecimal.Zero"]/*'/>
+    ///
+    /// <summary>Represents the number 0.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]

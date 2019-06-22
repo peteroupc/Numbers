@@ -14,8 +14,10 @@ namespace PeterO.Numbers {
     IEquatable<ERational> {
     private const int MaxSafeInt = 214748363;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NaN"]/*'/>
+    ///
+    /// <summary>A not-a-number value.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -25,8 +27,10 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagQuietNaN);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeInfinity"]/*'/>
+    ///
+    /// <summary>Negative infinity, less than any other number.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -37,8 +41,10 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.NegativeZero"]/*'/>
+    ///
+    /// <summary>A rational number for negative zero.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -46,16 +52,20 @@ namespace PeterO.Numbers {
     public static readonly ERational NegativeZero =
       new ERational(EInteger.Zero, EInteger.One, BigNumberFlags.FlagNegative);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.One"]/*'/>
+    ///
+    /// <summary>The rational number one.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational One = FromEInteger(EInteger.One);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.PositiveInfinity"]/*'/>
+    ///
+    /// <summary>Positive infinity, greater than any other number.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -66,8 +76,10 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagInfinity);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.SignalingNaN"]/*'/>
+    ///
+    /// <summary>A signaling not-a-number value.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -78,16 +90,20 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagSignalingNaN);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Ten"]/*'/>
+    ///
+    /// <summary>The rational number ten.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational Ten = FromEInteger((EInteger)10);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.ERational.Zero"]/*'/>
+    ///
+    /// <summary>A rational number for zero.
+    /// </summary>
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",

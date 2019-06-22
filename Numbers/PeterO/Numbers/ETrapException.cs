@@ -53,8 +53,8 @@ namespace PeterO.Numbers {
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)"]/*'/>
-    public ETrapException(int flag, EContext ctx, Object result) :
-      base(FlagToMessage(flag)) {
+    public ETrapException(int flag, EContext ctx, Object result)
+      : base(FlagToMessage(flag)) {
       this.error = flag;
       this.ctx = (ctx == null) ? null : ctx.Copy();
       this.result = result;

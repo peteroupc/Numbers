@@ -11,44 +11,72 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="T:PeterO.Numbers.EContext"]/*'/>
   public sealed class EContext {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagClamped"]/*'/>
+    ///
+    /// <summary>Signals that the exponent was adjusted to fit the exponent range.
+    /// </summary>
+    ///
     public const int FlagClamped = 32;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagDivideByZero"]/*'/>
+    ///
+    /// <summary>Signals a division of a nonzero number by zero.
+    /// </summary>
+    ///
     public const int FlagDivideByZero = 128;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagInexact"]/*'/>
+    ///
+    /// <summary>Signals that the result was rounded to a different mathematical value, but
+    /// as close as possible to the original.
+    /// </summary>
+    ///
     public const int FlagInexact = 1;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagInvalid"]/*'/>
+    ///
+    /// <summary>Signals an invalid operation.
+    /// </summary>
+    ///
     public const int FlagInvalid = 64;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagLostDigits"]/*'/>
+    ///
+    /// <summary>Signals that an operand was rounded to a different mathematical value
+    /// before an operation.
+    /// </summary>
+    ///
     public const int FlagLostDigits = 256;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagOverflow"]/*'/>
+    ///
+    /// <summary>Signals that the result is non-zero and the exponent is higher than the
+    /// highest exponent allowed.
+    /// </summary>
+    ///
     public const int FlagOverflow = 16;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagRounded"]/*'/>
+    ///
+    /// <summary>Signals that the result was rounded to fit the precision; either the value
+    /// or the exponent may have changed from the original.
+    /// </summary>
+    ///
     public const int FlagRounded = 2;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagSubnormal"]/*'/>
+    ///
+    /// <summary>Signals that the result's exponent, before rounding, is lower than the
+    /// lowest exponent allowed.
+    /// </summary>
+    ///
     public const int FlagSubnormal = 4;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.FlagUnderflow"]/*'/>
+    ///
+    /// <summary>Signals that the result's exponent, before rounding, is lower than the
+    /// lowest exponent allowed, and the result was rounded to a different
+    /// mathematical value, but as close as possible to the original.
+    /// </summary>
+    ///
     public const int FlagUnderflow = 8;
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Basic"]/*'/>
+    ///
+    /// <summary>A basic arithmetic context, 9 digits precision, rounding mode half-up,
+    /// unlimited exponent range. The default rounding mode is HalfUp.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -58,8 +86,11 @@ namespace PeterO.Numbers {
     public static readonly EContext Basic =
       EContext.ForPrecisionAndRounding(9, ERounding.HalfUp);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.BigDecimalJava"]/*'/>
+    ///
+    /// <summary>An arithmetic context for Java's BigDecimal format. The default rounding
+    /// mode is HalfUp.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -73,8 +104,11 @@ namespace PeterO.Numbers {
   EInteger.Zero - (EInteger)Int32.MaxValue,
   EInteger.One + (EInteger)Int32.MaxValue);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Binary128"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary128 format, 113 bits
+    /// precision. The default rounding mode is HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -85,8 +119,11 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(113, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-16382, 16383);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Binary16"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary16 format, 11 bits
+    /// precision. The default rounding mode is HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -97,8 +134,11 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(11, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-14, 15);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Binary32"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary32 format, 24 bits
+    /// precision. The default rounding mode is HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -109,8 +149,11 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(24, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-126, 127);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Binary64"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary64 format, 53 bits
+    /// precision. The default rounding mode is HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -121,8 +164,18 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(53, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-1022, 1023);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.CliDecimal"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the .NET Framework decimal format (see
+    /// <see cref='T:PeterO.Numbers.EDecimal'>
+    /// "Forms of numbers"
+    /// </see>
+    /// ), 96 bits precision, and a valid exponent range of -28 to 0. The default
+    /// rounding mode is HalfEven. (The
+    /// <c>"Cli"</c> stands for "Common Language Infrastructure", which defined this format as
+    /// the .NET Framework decimal format in version 1, but leaves it unspecified
+    /// in later versions.).
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -134,8 +187,11 @@ namespace PeterO.Numbers {
       new EContext(96, ERounding.HalfEven, 0, 28, true)
       .WithPrecisionInBits(true);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Decimal128"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the IEEE-754-2008 decimal128 format. The default
+    /// rounding mode is HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -146,8 +202,11 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal128 =
       new EContext(34, ERounding.HalfEven, -6143, 6144, true);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Decimal32"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the IEEE-754-2008 decimal32 format. The default
+    /// rounding mode is HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -158,8 +217,11 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal32 =
       new EContext(7, ERounding.HalfEven, -95, 96, true);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Decimal64"]/*'/>
+    ///
+    /// <summary>An arithmetic context for the IEEE-754-2008 decimal64 format. The default
+    /// rounding mode is HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -170,8 +232,10 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal64 =
       new EContext(16, ERounding.HalfEven, -383, 384, true);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.Unlimited"]/*'/>
+    ///
+    /// <summary>No specific (theoretical) limit on precision. Rounding mode HalfUp.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -182,8 +246,10 @@ namespace PeterO.Numbers {
     public static readonly EContext Unlimited =
       EContext.ForPrecision(0);
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="F:PeterO.Numbers.EContext.UnlimitedHalfEven"]/*'/>
+    ///
+    /// <summary>No specific (theoretical) limit on precision. Rounding mode HalfEven.
+    /// </summary>
+    ///
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
