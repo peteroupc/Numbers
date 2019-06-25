@@ -131,7 +131,8 @@ namespace CBOR {
 
       public static DecimalNumber Create(EDecimal dec) {
         var dn = new ExtensiveTest.DecimalNumber {
-          ed = dec, };
+          ed = dec,
+        };
         return dn;
       }
 
@@ -420,10 +421,10 @@ namespace CBOR {
           var exponent = (words[0] >> 23) & 0xff;
           var mantissa = words[0] & 0x7fffff;
           if (exponent == 255) {
-         return (mantissa == 0) ? Create(neg ? EFloat.NegativeInfinity :
-                    EFloat.PositiveInfinity) : (((mantissa &
-                0x00400000) != 0) ? Create(EFloat.NaN) :
-  Create(EFloat.SignalingNaN));
+            return (mantissa == 0) ? Create(neg ? EFloat.NegativeInfinity :
+                       EFloat.PositiveInfinity) : (((mantissa &
+                   0x00400000) != 0) ? Create(EFloat.NaN) :
+     Create(EFloat.SignalingNaN));
           }
           if (exponent == 0) {
             if (mantissa == 0) {
@@ -1160,8 +1161,8 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
-      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-            0) {
+          if ((expectedFlags & (EContext.FlagInexact |
+                                EContext.FlagInvalid)) == 0) {
             d3 = op1.Add(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1178,8 +1179,8 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
-      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-            0) {
+          if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+                0) {
             d3 = op1.Subtract(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1196,8 +1197,8 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
-      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-            0) {
+          if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+                0) {
             d3 = op1.Multiply(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1214,8 +1215,8 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
-      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-            0) {
+          if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+                0) {
             d3 = op1.Divide(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1240,8 +1241,8 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
-      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-            0) {
+          if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+                0) {
             d3 = op1.MultiplyAndAdd(op2, op3, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1258,8 +1259,8 @@ StartsWith(chunks[2], "o")) {
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
-      if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-            0) {
+          if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
+                0) {
             d3 = op1.MultiplyAndSubtract(op2, op3, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1283,7 +1284,7 @@ StartsWith(chunks[2], "o")) {
 
     [System.Diagnostics.Conditional("DEBUG")]
     public static void IgnoreIfDebug() {
-         Assert.Ignore();
+      Assert.Ignore();
     }
 
     [Test]
@@ -1307,8 +1308,8 @@ StartsWith(chunks[2], "o")) {
         ++x;
         var lowerF = f.ToLowerInvariant();
         // if (lowerF.Contains("txt") && !lowerF.Contains("overflow")) {
- // continue;
- // }
+        // continue;
+        // }
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") &&
 !lowerF.Contains(".txt") &&

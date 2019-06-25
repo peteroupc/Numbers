@@ -20,13 +20,13 @@ namespace Test {
     }
 
     public static void TestStringEqualRoundTrip(ERational obj) {
-            string str = obj.ToString();
-            ERational newobj = ERational.FromString(str);
-            string str2 = newobj.ToString();
-            TestCommon.AssertEqualsHashCode(obj, newobj);
-            TestCommon.AssertEqualsHashCode(str, str2);
-        }
-        public static void TestStringEqualRoundTrip(EInteger obj) {
+      string str = obj.ToString();
+      ERational newobj = ERational.FromString(str);
+      string str2 = newobj.ToString();
+      TestCommon.AssertEqualsHashCode(obj, newobj);
+      TestCommon.AssertEqualsHashCode(str, str2);
+    }
+    public static void TestStringEqualRoundTrip(EInteger obj) {
       string str = obj.ToString();
       EInteger newobj = EInteger.FromString(str);
       string str2 = newobj.ToString();
@@ -80,18 +80,18 @@ namespace Test {
       Assert.AreEqual(
         ERational.NegativeInfinity,
         ERational.FromEFloat(EFloat.NegativeInfinity));
-        Assert.IsTrue(
+      Assert.IsTrue(
         Double.IsPositiveInfinity(
           ERational.PositiveInfinity.ToDouble()));
-          Assert.IsTrue(
+      Assert.IsTrue(
         Double.IsNegativeInfinity(
           ERational.NegativeInfinity.ToDouble()));
-          Assert.IsTrue(
-        Single.IsPositiveInfinity(
-          ERational.PositiveInfinity.ToSingle()));
-          Assert.IsTrue(
-        Single.IsNegativeInfinity(
-          ERational.NegativeInfinity.ToSingle()));
+      Assert.IsTrue(
+    Single.IsPositiveInfinity(
+      ERational.PositiveInfinity.ToSingle()));
+      Assert.IsTrue(
+    Single.IsNegativeInfinity(
+      ERational.NegativeInfinity.ToSingle()));
     }
   }
 }

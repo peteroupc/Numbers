@@ -26,7 +26,7 @@ namespace PeterO.Numbers {
   ns,
   System.Globalization.CultureInfo.InvariantCulture,
   out ret)) {
-          return ret;
+        return ret;
       }
       throw new OverflowException("This object's value is out of range");
     }
@@ -166,303 +166,303 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte"]/*'/>
     public static explicit operator byte(EDecimal input) {
- return input.ToByteChecked();
-}
+      return input.ToByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Byte)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(byte inputByte) {
- return EDecimal.FromByte(inputByte);
-}
+      return EDecimal.FromByte(inputByte);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteChecked"]/*'/>
     [CLSCompliant(false)]
     public sbyte ToSByteChecked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-if (this.IsIntegerPartZero()) {
- return (sbyte)0;
-}
-if (this.exponent.CompareToInt(3) >= 0) {
-throw new OverflowException("Value out of range: ");
-}
- return this.ToEInteger().ToSByteChecked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsIntegerPartZero()) {
+        return (sbyte)0;
+      }
+      if (this.exponent.CompareToInt(3) >= 0) {
+        throw new OverflowException("Value out of range: ");
+      }
+      return this.ToEInteger().ToSByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteUnchecked"]/*'/>
     [CLSCompliant(false)]
     public sbyte ToSByteUnchecked() {
- return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
-}
+      return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteIfExact"]/*'/>
     [CLSCompliant(false)]
     public sbyte ToSByteIfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- if (this.IsZero) {
- return (sbyte)0;
-}
-if (this.exponent.CompareToInt(3) >= 0) {
-throw new OverflowException("Value out of range");
-}
- return this.ToEIntegerIfExact().ToSByteChecked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsZero) {
+        return (sbyte)0;
+      }
+      if (this.exponent.CompareToInt(3) >= 0) {
+        throw new OverflowException("Value out of range");
+      }
+      return this.ToEIntegerIfExact().ToSByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromSByte(System.SByte)"]/*'/>
     [CLSCompliant(false)]
     public static EDecimal FromSByte(sbyte inputSByte) {
- var val = (int)inputSByte;
- return FromInt32(val);
-}
+      var val = (int)inputSByte;
+      return FromInt32(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.SByte"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator sbyte(EDecimal input) {
- return input.ToSByteChecked();
-}
+      return input.ToSByteChecked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.SByte)~PeterO.Numbers.EDecimal"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(sbyte inputSByte) {
- return EDecimal.FromSByte(inputSByte);
-}
+      return EDecimal.FromSByte(inputSByte);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16"]/*'/>
     public static explicit operator short(EDecimal input) {
- return input.ToInt16Checked();
-}
+      return input.ToInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int16)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(short inputInt16) {
- return EDecimal.FromInt16(inputInt16);
-}
+      return EDecimal.FromInt16(inputInt16);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16Checked"]/*'/>
     [CLSCompliant(false)]
     public ushort ToUInt16Checked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-if (this.IsIntegerPartZero()) {
- return (ushort)0;
-}
-if (this.exponent.CompareToInt(5) >= 0) {
-throw new OverflowException("Value out of range: ");
-}
- return this.ToEInteger().ToUInt16Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsIntegerPartZero()) {
+        return (ushort)0;
+      }
+      if (this.exponent.CompareToInt(5) >= 0) {
+        throw new OverflowException("Value out of range: ");
+      }
+      return this.ToEInteger().ToUInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16Unchecked"]/*'/>
     [CLSCompliant(false)]
     public ushort ToUInt16Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
-}
+      return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16IfExact"]/*'/>
     [CLSCompliant(false)]
     public ushort ToUInt16IfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- if (this.IsZero) {
- return (ushort)0;
-}
- if (this.IsNegative) {
-throw new OverflowException("Value out of range");
-}
-if (this.exponent.CompareToInt(5) >= 0) {
-throw new OverflowException("Value out of range");
-}
- return this.ToEIntegerIfExact().ToUInt16Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsZero) {
+        return (ushort)0;
+      }
+      if (this.IsNegative) {
+        throw new OverflowException("Value out of range");
+      }
+      if (this.exponent.CompareToInt(5) >= 0) {
+        throw new OverflowException("Value out of range");
+      }
+      return this.ToEIntegerIfExact().ToUInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromUInt16(System.UInt16)"]/*'/>
     [CLSCompliant(false)]
     public static EDecimal FromUInt16(ushort inputUInt16) {
- int val = ((int)inputUInt16) & 0xffff;
- return FromInt32(val);
-}
+      int val = ((int)inputUInt16) & 0xffff;
+      return FromInt32(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt16"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator ushort(EDecimal input) {
- return input.ToUInt16Checked();
-}
+      return input.ToUInt16Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt16)~PeterO.Numbers.EDecimal"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(ushort inputUInt16) {
- return EDecimal.FromUInt16(inputUInt16);
-}
+      return EDecimal.FromUInt16(inputUInt16);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32"]/*'/>
     public static explicit operator int(EDecimal input) {
- return input.ToInt32Checked();
-}
+      return input.ToInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(int inputInt32) {
- return EDecimal.FromInt32(inputInt32);
-}
+      return EDecimal.FromInt32(inputInt32);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32Checked"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32Checked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-if (this.IsIntegerPartZero()) {
- return 0U;
-}
-if (this.exponent.CompareToInt(10) >= 0) {
-throw new OverflowException("Value out of range: ");
-}
- return this.ToEInteger().ToUInt32Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsIntegerPartZero()) {
+        return 0U;
+      }
+      if (this.exponent.CompareToInt(10) >= 0) {
+        throw new OverflowException("Value out of range: ");
+      }
+      return this.ToEInteger().ToUInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32Unchecked"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
-}
+      return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32IfExact"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32IfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- if (this.IsZero) {
- return 0U;
-}
- if (this.IsNegative) {
-throw new OverflowException("Value out of range");
-}
-if (this.exponent.CompareToInt(10) >= 0) {
-throw new OverflowException("Value out of range");
-}
- return this.ToEIntegerIfExact().ToUInt32Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsZero) {
+        return 0U;
+      }
+      if (this.IsNegative) {
+        throw new OverflowException("Value out of range");
+      }
+      if (this.exponent.CompareToInt(10) >= 0) {
+        throw new OverflowException("Value out of range");
+      }
+      return this.ToEIntegerIfExact().ToUInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromUInt32(System.UInt32)"]/*'/>
     [CLSCompliant(false)]
     public static EDecimal FromUInt32(uint inputUInt32) {
- long val = ((long)inputUInt32) & 0xffffffffL;
- return FromInt64(val);
-}
+      long val = ((long)inputUInt32) & 0xffffffffL;
+      return FromInt64(val);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt32"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator uint(EDecimal input) {
- return input.ToUInt32Checked();
-}
+      return input.ToUInt32Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt32)~PeterO.Numbers.EDecimal"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(uint inputUInt32) {
- return EDecimal.FromUInt32(inputUInt32);
-}
+      return EDecimal.FromUInt32(inputUInt32);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64"]/*'/>
     public static explicit operator long(EDecimal input) {
- return input.ToInt64Checked();
-}
+      return input.ToInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal"]/*'/>
     public static implicit operator EDecimal(long inputInt64) {
- return EDecimal.FromInt64(inputInt64);
-}
+      return EDecimal.FromInt64(inputInt64);
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64Checked"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64Checked() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
-if (this.IsIntegerPartZero()) {
- return 0UL;
-}
-if (this.exponent.CompareToInt(20) >= 0) {
-throw new OverflowException("Value out of range: ");
-}
- return this.ToEInteger().ToUInt64Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsIntegerPartZero()) {
+        return 0UL;
+      }
+      if (this.exponent.CompareToInt(20) >= 0) {
+        throw new OverflowException("Value out of range: ");
+      }
+      return this.ToEInteger().ToUInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64Unchecked"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64Unchecked() {
- return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
-}
+      return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64IfExact"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64IfExact() {
- if (!this.IsFinite) {
- throw new OverflowException("Value is infinity or NaN");
-}
- if (this.IsZero) {
- return 0UL;
-}
- if (this.IsNegative) {
-throw new OverflowException("Value out of range");
-}
-if (this.exponent.CompareToInt(20) >= 0) {
-throw new OverflowException("Value out of range");
-}
- return this.ToEIntegerIfExact().ToUInt64Checked();
-}
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      if (this.IsZero) {
+        return 0UL;
+      }
+      if (this.IsNegative) {
+        throw new OverflowException("Value out of range");
+      }
+      if (this.exponent.CompareToInt(20) >= 0) {
+        throw new OverflowException("Value out of range");
+      }
+      return this.ToEIntegerIfExact().ToUInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromUInt64(System.UInt64)"]/*'/>
     [CLSCompliant(false)]
     public static EDecimal FromUInt64(ulong inputUInt64) {
- return FromEInteger(EInteger.FromUInt64(inputUInt64));
-}
+      return FromEInteger(EInteger.FromUInt64(inputUInt64));
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt64"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator ulong(EDecimal input) {
- return input.ToUInt64Checked();
-}
+      return input.ToUInt64Checked();
+    }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt64)~PeterO.Numbers.EDecimal"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(ulong inputUInt64) {
- return EDecimal.FromUInt64(inputUInt64);
-}
+      return EDecimal.FromUInt64(inputUInt64);
+    }
 
-// End integer conversions
+    // End integer conversions
   }
 }

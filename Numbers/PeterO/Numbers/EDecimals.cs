@@ -1,8 +1,8 @@
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.EDecimalExtras"]/*'/>
+  /// <include file='../../docs.xml'
+  /// path='docs/doc[@name="T:PeterO.Numbers.EDecimalExtras"]/*'/>
   public static class EDecimals {
     private const int DecimalRadix = 10;
 
@@ -90,12 +90,12 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.NumberClassString(System.Int32)"]/*'/>
     public static string NumberClassString(int nc) {
       if (nc < 0) {
-   throw new ArgumentException("nc (" + nc +
-          ") is not greater or equal to 0");
+        throw new ArgumentException("nc (" + nc +
+               ") is not greater or equal to 0");
       }
       if (nc > 9) {
-      throw new ArgumentException("nc (" + nc +
-          ") is not less or equal to 9");
+        throw new ArgumentException("nc (" + nc +
+            ") is not less or equal to 9");
       }
       return NumberClasses[nc];
     }
@@ -146,8 +146,8 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimals.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal LogB(EDecimal ed, EContext ec) {
       if (ed == null) {
-  throw new ArgumentNullException(nameof(ed));
-}
+        throw new ArgumentNullException(nameof(ed));
+      }
       if (ed.IsNaN()) {
         return ed.RoundToPrecision(ec);
       }
@@ -276,11 +276,11 @@ namespace PeterO.Numbers {
       }
       EInteger mant = ed.UnsignedMantissa;
       EInteger mantprec = ed.Precision();
-      if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
-        0) {
-     mant =
-  mant.Remainder(EInteger.FromInt32(DecimalRadix).Pow(ec.Precision));
-  mantprec = ec.Precision;
+      if (ec != null && ec.HasMaxPrecision &&
+          mantprec.CompareTo(ec.Precision) > 0) {
+        mant = mant.Remainder(
+               EInteger.FromInt32(DecimalRadix).Pow(ec.Precision));
+        mantprec = ec.Precision;
       }
       if (mant.IsZero) {
         return ed.RoundToPrecision(ec);
@@ -379,8 +379,8 @@ namespace PeterO.Numbers {
       if (ed1.IsFinite && ed2.IsFinite) {
         return ed1.Exponent.Equals(ed2.Exponent);
       } else {
- return (ed1.IsNaN() && ed2.IsNaN()) || (ed1.IsInfinity() &&
-          ed2.IsInfinity());
+        return (ed1.IsNaN() && ed2.IsNaN()) || (ed1.IsInfinity() &&
+                 ed2.IsInfinity());
       }
     }
 
@@ -567,11 +567,11 @@ namespace PeterO.Numbers {
 
     internal static byte[] FromLogical(EInteger um, EContext ec, int iradix) {
       if (um == null || um.Sign < 0) {
- return null;
-}
+        return null;
+      }
       if (um.Sign == 0) {
- return new byte[] { 0 };
-}
+        return new byte[] { 0 };
+      }
       EInteger ret = EInteger.Zero;
       EInteger prec = um.GetDigitCountAsEInteger();
       EInteger maxprec = (ec != null && ec.HasMaxPrecision) ? ec.Precision :
@@ -604,12 +604,12 @@ namespace PeterO.Numbers {
 
     internal static byte[] FromLogical(EDecimal ed, EContext ec, int iradix) {
       if (ed == null) {
- return null;
-}
+        return null;
+      }
       if (ec != null && ec.IsPrecisionInBits && iradix != 2) {
-  // Round to bit precision if necessary and if the radix isn't binary
- ed = ed.RoundToPrecision(ec);
-}
+        // Round to bit precision if necessary and if the radix isn't binary
+        ed = ed.RoundToPrecision(ec);
+      }
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
     ed.Mantissa.Sign < 0) ? null : FromLogical(
   ed.UnsignedMantissa,
@@ -619,8 +619,8 @@ namespace PeterO.Numbers {
 
     internal static byte[] FromLogical(EFloat ed, EContext ec, int iradix) {
       if (ed == null) {
- return null;
-}
+        return null;
+      }
       // NOTE: Precision of EFloat is already in bits, so no need to check for
       // IsPrecisionInBits here
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||

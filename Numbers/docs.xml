@@ -1754,7 +1754,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromEInteger(PeterO.Numbers.EInteger)'>
     <summary>Converts an arbitrary-precision integer to an arbitrary precision decimal.
-
     </summary>
     <param name='bigint'>An arbitrary-precision integer.
     </param>
@@ -1772,7 +1771,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)'>
     <summary>Converts a 16-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputInt16'>The number to convert as a 16-bit signed integer.
     </param>
@@ -1803,7 +1801,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromSByte(System.SByte)'>
     <summary>Converts an 8-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputSByte'>The number to convert as an 8-bit signed integer.
     </param>
@@ -1958,7 +1955,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromUInt32(System.UInt32)'>
     <summary>Converts a 32-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputUInt32'>The number to convert as a 32-bit signed integer.
     </param>
@@ -2028,7 +2024,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.IsQuietNaN'>
     <summary>Gets a value indicating whether this object is a quiet not-a-number value.
-
     </summary>
     <returns><c>true</c> if this object is a quiet not-a-number value; otherwise,
       <c>false</c> .
@@ -3316,7 +3311,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Subtract(System.Int32)'>
     <summary>Subtracts a 32-bit signed integer from this object and returns the result.
-
     </summary>
     <param name='intValue'>A 32-bit signed integer to subtract from this object.
     </param>
@@ -3615,7 +3609,6 @@
   <doc name='M:PeterO.Numbers.EDecimal.ToUInt16IfExact'>
     <summary>Converts this number's value to a 16-bit unsigned integer if it can fit in
       a 16-bit unsigned integer without rounding to a different numerical value.
-
     </summary>
     <returns>This number's value as a 16-bit unsigned integer.
     </returns>
@@ -3674,7 +3667,6 @@
   <doc name='M:PeterO.Numbers.EDecimal.ToUInt64IfExact'>
     <summary>Converts this number's value to a 64-bit unsigned integer if it can fit in
       a 64-bit unsigned integer without rounding to a different numerical value.
-
     </summary>
     <returns>This number's value as a 64-bit unsigned integer.
     </returns>
@@ -3970,7 +3962,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal'>
     <summary>Converts an arbitrary-precision integer to an arbitrary precision decimal.
-
     </summary>
     <param name='eint'>An arbitrary-precision integer.
     </param>
@@ -4005,7 +3996,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(System.Int16)~PeterO.Numbers.EDecimal'>
     <summary>Converts a 16-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputInt16'>The number to convert as a 16-bit signed integer.
     </param>
@@ -4016,7 +4006,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal'>
     <summary>Converts a 32-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputInt32'>The number to convert as a 32-bit signed integer.
     </param>
@@ -4027,7 +4016,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal'>
     <summary>Converts a 64-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputInt64'>The number to convert as a 64-bit signed integer.
     </param>
@@ -4038,7 +4026,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(System.SByte)~PeterO.Numbers.EDecimal'>
     <summary>Converts an 8-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputSByte'>The number to convert as an 8-bit signed integer.
     </param>
@@ -4060,7 +4047,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt32)~PeterO.Numbers.EDecimal'>
     <summary>Converts a 32-bit signed integer to an arbitrary-precision decimal number.
-
     </summary>
     <param name='inputUInt32'>The number to convert as a 32-bit signed integer.
     </param>
@@ -6113,7 +6099,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.IsQuietNaN'>
     <summary>Gets a value indicating whether this object is a quiet not-a-number value.
-
     </summary>
     <returns><c>true</c> if this object is a quiet not-a-number value; otherwise,
       <c>false</c> .
@@ -7527,7 +7512,6 @@
   <doc name='M:PeterO.Numbers.EFloat.ToUInt16IfExact'>
     <summary>Converts this number's value to a 16-bit unsigned integer if it can fit in
       a 16-bit unsigned integer without rounding to a different numerical value.
-
     </summary>
     <returns>This number's value as a 16-bit unsigned integer.
     </returns>
@@ -7586,7 +7570,6 @@
   <doc name='M:PeterO.Numbers.EFloat.ToUInt64IfExact'>
     <summary>Converts this number's value to a 64-bit unsigned integer if it can fit in
       a 64-bit unsigned integer without rounding to a different numerical value.
-
     </summary>
     <returns>This number's value as a 64-bit unsigned integer.
     </returns>
@@ -7812,7 +7795,6 @@
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt16'>
     <summary>Converts an arbitrary-precision binary float to a 16-bit unsigned integer
       if it can fit in a 16-bit unsigned integer after truncating to an integer.
-
     </summary>
     <param name='input'>The number to convert as an arbitrary-precision binary floating-point
       number.
@@ -7847,7 +7829,6 @@
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt64'>
     <summary>Converts an arbitrary-precision binary float to a 64-bit unsigned integer
       if it can fit in a 64-bit unsigned integer after truncating to an integer.
-
     </summary>
     <param name='input'>The number to convert as an arbitrary-precision binary floating-point
       number.
@@ -10503,7 +10484,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromByte(System.Byte)'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
-
     </summary>
     <param name='inputByte'>The number to convert as a byte (from 0 to 255).
     </param>
@@ -11258,7 +11238,6 @@
   <doc name='M:PeterO.Numbers.ERational.ToUInt16IfExact'>
     <summary>Converts this number's value to a 16-bit unsigned integer if it can fit in
       a 16-bit unsigned integer without rounding to a different numerical value.
-
     </summary>
     <returns>This number's value as a 16-bit unsigned integer.
     </returns>
@@ -11317,7 +11296,6 @@
   <doc name='M:PeterO.Numbers.ERational.ToUInt64IfExact'>
     <summary>Converts this number's value to a 64-bit unsigned integer if it can fit in
       a 64-bit unsigned integer without rounding to a different numerical value.
-
     </summary>
     <returns>This number's value as a 64-bit unsigned integer.
     </returns>
@@ -11604,7 +11582,6 @@
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Implicit(System.Byte)~PeterO.Numbers.ERational'>
     <summary>Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
-
     </summary>
     <param name='inputByte'>The number to convert as a byte (from 0 to 255).
     </param>

@@ -65,13 +65,12 @@ namespace PeterO.Numbers {
     }
 
     internal static FastIntegerFixed FromLong(long longVal) {
-      return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? (new
-        FastIntegerFixed((
-  int)longVal)) : (
-  new FastIntegerFixed(
-  2,
-  0,
-  EInteger.FromInt64(longVal)));
+      return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? new
+        FastIntegerFixed((int)longVal) :
+        new FastIntegerFixed(
+         2,
+         0,
+         EInteger.FromInt64(longVal));
     }
 
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
@@ -260,7 +259,8 @@ namespace PeterO.Numbers {
         case 0:
           return true;
         case 2:
-        return this.largeValue.CanFitInInt64();
+          return this.largeValue
+                     .CanFitInInt64();
 
         default:
           throw new InvalidOperationException();
@@ -272,7 +272,8 @@ namespace PeterO.Numbers {
         case 0:
           return (long)this.smallValue;
         case 2:
-        return this.largeValue.ToInt64Unchecked();
+          return this.largeValue
+                     .ToInt64Unchecked();
 
         default:
           throw new InvalidOperationException();

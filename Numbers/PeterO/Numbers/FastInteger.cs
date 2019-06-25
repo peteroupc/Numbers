@@ -106,19 +106,19 @@ namespace PeterO.Numbers {
         return this.wordCount == 0 ? 0 : this.data[0];
       }
       public static MutableNumber FromLong(long longVal) {
-      if (longVal < 0) {
-        throw new ArgumentException();
+        if (longVal < 0) {
+          throw new ArgumentException();
+        }
+        if (longVal == 0) {
+          return new MutableNumber(0);
+        }
+        var mbi = new MutableNumber(0);
+        mbi.data[0] = unchecked((int)longVal);
+        int mbd = unchecked((int)(longVal >> 32));
+        mbi.data[1] = mbd;
+        mbi.wordCount = (mbd == 0) ? 1 : 2;
+        return mbi;
       }
-      if (longVal == 0) {
- return new MutableNumber(0);
-}
-      var mbi = new MutableNumber(0);
-      mbi.data[0] = unchecked((int)longVal);
-      int mbd = unchecked((int)(longVal >> 32));
-      mbi.data[1] = mbd;
-      mbi.wordCount = (mbd == 0) ? 1 : 2;
-      return mbi;
-    }
 
       internal MutableNumber Copy() {
         var mbi = new MutableNumber(0);
@@ -160,35 +160,35 @@ namespace PeterO.Numbers {
               this.data[0] = unchecked((int)longV);
               carry = unchecked((int)(longV >> 32));
             } else {
-            for (var i = 0; i < this.wordCount; ++i) {
-              int x0 = this.data[i];
-              int x1 = x0;
-              int y0 = multiplicand;
-              x0 &= 65535;
-              x1 = (x1 >> 16) & 65535;
-              int temp = unchecked(x0 * y0); // a * c
-              result1 = (temp >> 16) & 65535;
-              result0 = temp & 65535;
-              result2 = 0;
-              temp = unchecked(x1 * y0); // b * c
-              result2 += (temp >> 16) & 65535;
-              result1 += temp & 65535;
-              result2 += (result1 >> 16) & 65535;
-              result1 &= 65535;
-              result3 = (result2 >> 16) & 65535;
-              result2 &= 65535;
-              // Add carry
-              x0 = unchecked((int)(result0 | (result1 << 16)));
-              x1 = unchecked((int)(result2 | (result3 << 16)));
-              int x2 = unchecked(x0 + carry);
-              if (((x2 >> 31) == (x0 >> 31)) ? ((x2 & Int32.MaxValue) < (x0 &
-              Int32.MaxValue)) : ((x2 >> 31) == 0)) {
-                // Carry in addition
-                x1 = unchecked(x1 + 1);
+              for (var i = 0; i < this.wordCount; ++i) {
+                int x0 = this.data[i];
+                int x1 = x0;
+                int y0 = multiplicand;
+                x0 &= 65535;
+                x1 = (x1 >> 16) & 65535;
+                int temp = unchecked(x0 * y0); // a * c
+                result1 = (temp >> 16) & 65535;
+                result0 = temp & 65535;
+                result2 = 0;
+                temp = unchecked(x1 * y0); // b * c
+                result2 += (temp >> 16) & 65535;
+                result1 += temp & 65535;
+                result2 += (result1 >> 16) & 65535;
+                result1 &= 65535;
+                result3 = (result2 >> 16) & 65535;
+                result2 &= 65535;
+                // Add carry
+                x0 = unchecked((int)(result0 | (result1 << 16)));
+                x1 = unchecked((int)(result2 | (result3 << 16)));
+                int x2 = unchecked(x0 + carry);
+                if (((x2 >> 31) == (x0 >> 31)) ? ((x2 & Int32.MaxValue) < (x0 &
+                Int32.MaxValue)) : ((x2 >> 31) == 0)) {
+                  // Carry in addition
+                  x1 = unchecked(x1 + 1);
+                }
+                this.data[i] = x2;
+                carry = x1;
               }
-              this.data[i] = x2;
-              carry = x1;
-            }
             }
           } else {
             if (this.wordCount == 1) {
@@ -198,47 +198,47 @@ namespace PeterO.Numbers {
               this.data[0] = unchecked((int)longV);
               carry = unchecked((int)(longV >> 32));
             } else {
-            for (var i = 0; i < this.wordCount; ++i) {
-              int x0 = this.data[i];
-              int x1 = x0;
-              int y0 = multiplicand;
-              int y1 = y0;
-              x0 &= 65535;
-              y0 &= 65535;
-              x1 = (x1 >> 16) & 65535;
-              y1 = (y1 >> 16) & 65535;
-              int temp = unchecked(x0 * y0); // a * c
-              result1 = (temp >> 16) & 65535;
-              result0 = temp & 65535;
-              temp = unchecked(x0 * y1); // a * d
-              result2 = (temp >> 16) & 65535;
-              result1 += temp & 65535;
-              result2 += (result1 >> 16) & 65535;
-              result1 &= 65535;
-              temp = unchecked(x1 * y0); // b * c
-              result2 += (temp >> 16) & 65535;
-              result1 += temp & 65535;
-              result2 += (result1 >> 16) & 65535;
-              result1 &= 65535;
-              result3 = (result2 >> 16) & 65535;
-              result2 &= 65535;
-              temp = unchecked(x1 * y1); // b * d
-              result3 += (temp >> 16) & 65535;
-              result2 += temp & 65535;
-              result3 += (result2 >> 16) & 65535;
-              result2 &= 65535;
-              // Add carry
-              x0 = unchecked((int)(result0 | (result1 << 16)));
-              x1 = unchecked((int)(result2 | (result3 << 16)));
-              int x2 = unchecked(x0 + carry);
-              if (((x2 >> 31) == (x0 >> 31)) ? ((x2 & Int32.MaxValue) < (x0 &
-              Int32.MaxValue)) : ((x2 >> 31) == 0)) {
-                // Carry in addition
-                x1 = unchecked(x1 + 1);
+              for (var i = 0; i < this.wordCount; ++i) {
+                int x0 = this.data[i];
+                int x1 = x0;
+                int y0 = multiplicand;
+                int y1 = y0;
+                x0 &= 65535;
+                y0 &= 65535;
+                x1 = (x1 >> 16) & 65535;
+                y1 = (y1 >> 16) & 65535;
+                int temp = unchecked(x0 * y0); // a * c
+                result1 = (temp >> 16) & 65535;
+                result0 = temp & 65535;
+                temp = unchecked(x0 * y1); // a * d
+                result2 = (temp >> 16) & 65535;
+                result1 += temp & 65535;
+                result2 += (result1 >> 16) & 65535;
+                result1 &= 65535;
+                temp = unchecked(x1 * y0); // b * c
+                result2 += (temp >> 16) & 65535;
+                result1 += temp & 65535;
+                result2 += (result1 >> 16) & 65535;
+                result1 &= 65535;
+                result3 = (result2 >> 16) & 65535;
+                result2 &= 65535;
+                temp = unchecked(x1 * y1); // b * d
+                result3 += (temp >> 16) & 65535;
+                result2 += temp & 65535;
+                result3 += (result2 >> 16) & 65535;
+                result2 &= 65535;
+                // Add carry
+                x0 = unchecked((int)(result0 | (result1 << 16)));
+                x1 = unchecked((int)(result2 | (result3 << 16)));
+                int x2 = unchecked(x0 + carry);
+                if (((x2 >> 31) == (x0 >> 31)) ? ((x2 & Int32.MaxValue) < (x0 &
+                Int32.MaxValue)) : ((x2 >> 31) == 0)) {
+                  // Carry in addition
+                  x1 = unchecked(x1 + 1);
+                }
+                this.data[i] = x2;
+                carry = x1;
               }
-              this.data[i] = x2;
-              carry = x1;
-            }
             }
           }
           if (carry != 0) {
@@ -292,8 +292,8 @@ namespace PeterO.Numbers {
 
       internal MutableNumber SubtractInt(int other) {
         if (other < 0) {
-     throw new ArgumentException("other (" + other + ") is less than " +
-            "0 ");
+          throw new ArgumentException("other (" + other + ") is less than " +
+                 "0 ");
         }
         if (other != 0) {
           unchecked {
@@ -334,8 +334,8 @@ namespace PeterO.Numbers {
       internal MutableNumber Subtract(MutableNumber other) {
         unchecked {
           {
-       // Console.WriteLine("" + this.data.Length + " " +
-             // (other.data.Length));
+            // Console.WriteLine("" + this.data.Length + " " +
+            // (other.data.Length));
             int neededSize = (this.wordCount > other.wordCount) ?
             this.wordCount : other.wordCount;
             if (this.data.Length < neededSize) {
@@ -398,50 +398,50 @@ namespace PeterO.Numbers {
       }
       internal MutableNumber Add(int augend) {
         if (augend < 0) {
-   throw new ArgumentException("augend (" + augend + ") is less than " +
-            "0 ");
+          throw new ArgumentException("augend (" + augend + ") is less than " +
+                   "0 ");
         }
         unchecked {
-        if (augend != 0) {
-          var carry = 0;
-          // Ensure a length of at least 1
-          if (this.wordCount == 0) {
-            if (this.data.Length == 0) {
-              this.data = new int[4];
+          if (augend != 0) {
+            var carry = 0;
+            // Ensure a length of at least 1
+            if (this.wordCount == 0) {
+              if (this.data.Length == 0) {
+                this.data = new int[4];
+              }
+              this.data[0] = 0;
+              this.wordCount = 1;
             }
-            this.data[0] = 0;
-            this.wordCount = 1;
-          }
-          for (var i = 0; i < this.wordCount; ++i) {
-            int u;
-            int a = this.data[i];
-            u = (a + augend) + carry;
-            carry = ((((u >> 31) == (a >> 31)) ? ((u & Int32.MaxValue) < (a &
-            Int32.MaxValue)) :
-                    ((u >> 31) == 0)) || (u == a && augend != 0)) ? 1 : 0;
-            this.data[i] = u;
-            if (carry == 0) {
-              return this;
+            for (var i = 0; i < this.wordCount; ++i) {
+              int u;
+              int a = this.data[i];
+              u = (a + augend) + carry;
+              carry = ((((u >> 31) == (a >> 31)) ? ((u & Int32.MaxValue) < (a &
+              Int32.MaxValue)) :
+                      ((u >> 31) == 0)) || (u == a && augend != 0)) ? 1 : 0;
+              this.data[i] = u;
+              if (carry == 0) {
+                return this;
+              }
+              augend = 0;
             }
-            augend = 0;
-          }
-          if (carry != 0) {
-            if (this.wordCount >= this.data.Length) {
-              var newdata = new int[this.wordCount + 20];
-              Array.Copy(this.data, 0, newdata, 0, this.data.Length);
-              this.data = newdata;
+            if (carry != 0) {
+              if (this.wordCount >= this.data.Length) {
+                var newdata = new int[this.wordCount + 20];
+                Array.Copy(this.data, 0, newdata, 0, this.data.Length);
+                this.data = newdata;
+              }
+              this.data[this.wordCount] = carry;
+              ++this.wordCount;
             }
-            this.data[this.wordCount] = carry;
-            ++this.wordCount;
           }
+          // Calculate the correct data length
+          while (this.wordCount != 0 && this.data[this.wordCount - 1] == 0) {
+            --this.wordCount;
+          }
+          return this;
         }
-        // Calculate the correct data length
-        while (this.wordCount != 0 && this.data[this.wordCount - 1] == 0) {
-          --this.wordCount;
-        }
-        return this;
       }
-    }
     }
 
     private int smallValue; // if integerMode is 0
@@ -514,40 +514,40 @@ namespace PeterO.Numbers {
 
     private void CheckFrozen() {
 #if DEBUG
-            if (this.frozen) {
- throw new InvalidOperationException();
-}
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
 #endif
     }
     public int CompareTo(FastInteger val) {
       switch ((this.integerMode << 2) | val.integerMode) {
-          case (0 << 2) | 0: {
+        case (0 << 2) | 0: {
             int vsv = val.smallValue;
             return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
               1);
           }
-          case (0 << 2) | 1:
+        case (0 << 2) | 1:
           return -val.mnum.CompareToInt(this.smallValue);
-          case (0 << 2) | 2:
+        case (0 << 2) | 2:
           return this.AsEInteger().CompareTo(val.largeValue);
-          case (1 << 2) | 0:
+        case (1 << 2) | 0:
           return this.mnum.CompareToInt(val.smallValue);
-          case (1 << 2) | 1:
+        case (1 << 2) | 1:
           return this.mnum.CompareTo(val.mnum);
-          case (1 << 2) | 2:
+        case (1 << 2) | 2:
           return this.AsEInteger().CompareTo(val.largeValue);
-          case (2 << 2) | 0:
-          case (2 << 2) | 1:
-          case (2 << 2) | 2:
+        case (2 << 2) | 0:
+        case (2 << 2) | 1:
+        case (2 << 2) | 2:
           return this.largeValue.CompareTo(val.AsEInteger());
-          default: throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
     internal FastInteger Abs() {
       if (this.frozen) {
- throw new InvalidOperationException();
-}
+        throw new InvalidOperationException();
+      }
       switch (this.integerMode) {
         case 0:
           if (this.smallValue == Int32.MinValue) {
@@ -582,27 +582,27 @@ namespace PeterO.Numbers {
       } else {
         switch (this.integerMode) {
           case 0: {
-            long amult = ((long)val) * ((long)this.smallValue);
-            if (amult > Int32.MaxValue || amult < Int32.MinValue) {
-              // would overflow, convert to large
-             bool apos = this.smallValue > 0L;
-             bool bpos = val > 0L;
-             if (apos && bpos) {
-                // if both operands are nonnegative
-                // convert to mutable big integer
-                this.integerMode = 1;
-                this.mnum = MutableNumber.FromLong(amult);
+              long amult = ((long)val) * ((long)this.smallValue);
+              if (amult > Int32.MaxValue || amult < Int32.MinValue) {
+                // would overflow, convert to large
+                bool apos = this.smallValue > 0L;
+                bool bpos = val > 0L;
+                if (apos && bpos) {
+                  // if both operands are nonnegative
+                  // convert to mutable big integer
+                  this.integerMode = 1;
+                  this.mnum = MutableNumber.FromLong(amult);
+                } else {
+                  // if either operand is negative
+                  // convert to big integer
+                  this.integerMode = 2;
+                  this.largeValue = EInteger.FromInt64(amult);
+                }
               } else {
-                // if either operand is negative
-                // convert to big integer
-                this.integerMode = 2;
-                this.largeValue = EInteger.FromInt64(amult);
+                this.smallValue = unchecked((int)amult);
               }
-            } else {
-              this.smallValue = unchecked((int)amult);
+              break;
             }
-            break;
-          }
           case 1:
             if (val < 0) {
               this.integerMode = 2;
@@ -725,19 +725,19 @@ namespace PeterO.Numbers {
     internal FastInteger AddBig(EInteger bigintVal) {
       this.CheckFrozen();
       switch (this.integerMode) {
-          case 0: {
+        case 0: {
             return bigintVal.CanFitInInt32() ? this.AddInt((int)bigintVal) :
             this.Add(FastInteger.FromBig(bigintVal));
           }
-          case 1:
+        case 1:
           this.integerMode = 2;
           this.largeValue = this.mnum.ToEInteger();
           this.largeValue += bigintVal;
           break;
-          case 2:
+        case 2:
           this.largeValue += bigintVal;
           break;
-          default:
+        default:
           throw new InvalidOperationException();
       }
       return this;
@@ -915,15 +915,15 @@ namespace PeterO.Numbers {
     }
 
     internal EInteger ShiftEIntegerLeftByThis(EInteger ei) {
-        switch (this.integerMode) {
-          case 0:
-            return ei.ShiftLeft(this.smallValue);
-          case 1:
-            return ei.ShiftLeft(this.mnum.ToEInteger());
-          case 2:
-            return ei.ShiftLeft(this.largeValue);
-          default: throw new InvalidOperationException();
-        }
+      switch (this.integerMode) {
+        case 0:
+          return ei.ShiftLeft(this.smallValue);
+        case 1:
+          return ei.ShiftLeft(this.mnum.ToEInteger());
+        case 2:
+          return ei.ShiftLeft(this.largeValue);
+        default: throw new InvalidOperationException();
+      }
     }
 
     internal bool IsEvenNumber {
@@ -988,9 +988,8 @@ namespace PeterO.Numbers {
           return true;
         case 1:
           return this.mnum.CanFitInInt32();
-          case 2: {
-            return this.largeValue.CanFitInInt32();
-          }
+        case 2:
+          return this.largeValue.CanFitInInt32();
         default:
           throw new InvalidOperationException();
       }
@@ -1002,9 +1001,9 @@ namespace PeterO.Numbers {
           return true;
         case 1:
           return this.AsEInteger().CanFitInInt64();
-          case 2: {
-            return this.largeValue.CanFitInInt64();
-          }
+        case 2:
+          return this.largeValue.CanFitInInt64();
+
         default:
           throw new InvalidOperationException();
       }
@@ -1016,9 +1015,9 @@ namespace PeterO.Numbers {
           return (long)this.smallValue;
         case 1:
           return this.AsEInteger().ToInt64Unchecked();
-          case 2: {
-            return this.largeValue.ToInt64Unchecked();
-          }
+        case 2:
+          return this.largeValue.ToInt64Unchecked();
+
         default:
           throw new InvalidOperationException();
       }
@@ -1046,13 +1045,13 @@ namespace PeterO.Numbers {
         value = intdivvalue;
       }
       while (value > 9) {
-          int intdivvalue = (value * 26215) >> 18;
-          char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
-          chars[count--] = digit;
-          value = intdivvalue;
+        int intdivvalue = (value * 26215) >> 18;
+        char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
+        chars[count--] = digit;
+        value = intdivvalue;
       }
       if (value != 0) {
-          chars[count--] = HexAlphabet[(int)value];
+        chars[count--] = HexAlphabet[(int)value];
       }
       if (neg) {
         chars[count] = '-';
@@ -1082,12 +1081,12 @@ namespace PeterO.Numbers {
       get {
         switch (this.integerMode) {
           case 0:
-          return (this.smallValue == 0) ? 0 : ((this.smallValue < 0) ? -1 :
-              1);
+            return (this.smallValue == 0) ? 0 : ((this.smallValue < 0) ? -1 :
+                1);
           case 1:
-          return this.mnum.Sign;
+            return this.mnum.Sign;
           case 2:
-          return this.largeValue.Sign;
+            return this.largeValue.Sign;
           default: return 0;
         }
       }

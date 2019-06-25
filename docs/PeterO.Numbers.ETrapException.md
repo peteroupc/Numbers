@@ -18,15 +18,15 @@
         PeterO.Numbers.EContext ctx,
         object result);
 
- Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.  <b>Parameters:</b>
+ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.     <b>Parameters:</b>
 
- * <i>flag</i>: The parameter  <i>flag</i>
+ * <i>flag</i>:  The parameter  <i>flag</i>
  is a 32-bit signed integer.
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
+ * <i>ctx</i>:  The parameter  <i>ctx</i>
  is an EContext object.
 
- * <i>result</i>: The parameter  <i>result</i>
+ * <i>result</i>:  The parameter  <i>result</i>
  is an arbitrary object.
 
 <a id="Context"></a>

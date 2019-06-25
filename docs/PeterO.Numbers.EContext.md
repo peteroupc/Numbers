@@ -71,17 +71,17 @@
         int exponentMaxSmall,
         bool clampNormalExponents);
 
- Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.  <b>Parameters:</b>
+ Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class.       <b>Parameters:</b>
 
- * <i>precision</i>: Maximum precision, in decimal digits, of a number's significand.
+ * <i>precision</i>:  Maximum precision, in decimal digits, of a number's significand.
 
- * <i>rounding</i>: The rounding mode for this context.
+ * <i>rounding</i>:  The rounding mode for this context.
 
- * <i>exponentMinSmall</i>: Smallest exponent of a number, as a power of 10.
+ * <i>exponentMinSmall</i>:  Smallest exponent of a number, as a power of 10.
 
- * <i>exponentMaxSmall</i>: Largest exponent of a number, as a power of 10.
+ * <i>exponentMaxSmall</i>:  Largest exponent of a number, as a power of 10.
 
- * <i>clampNormalExponents</i>: The value of the "ClampNormalExponents" property for this context.
+ * <i>clampNormalExponents</i>:  The value of the "ClampNormalExponents" property for this context.
 
 <a id="Void_ctor_EInteger_ERounding_EInteger_EInteger_Boolean"></a>
 ### EContext Constructor
@@ -93,17 +93,17 @@
         PeterO.Numbers.EInteger exponentMax,
         bool clampNormalExponents);
 
- Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class, using arbitrary-precision integers to hold the precision and exponent range.  <b>Parameters:</b>
+ Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.EContext.md) class, using arbitrary-precision integers to hold the precision and exponent range.       <b>Parameters:</b>
 
- * <i>bigintPrecision</i>: Maximum precision, in decimal digits, of a number's significand.
+ * <i>bigintPrecision</i>:  Maximum precision, in decimal digits, of a number's significand.
 
- * <i>rounding</i>: The rounding mode for this context.
+ * <i>rounding</i>:  The rounding mode for this context.
 
- * <i>exponentMin</i>: Smallest exponent of a number, as a power of 10.
+ * <i>exponentMin</i>:  Smallest exponent of a number, as a power of 10.
 
- * <i>exponentMax</i>: Largest exponent of a number, as a power of 10.
+ * <i>exponentMax</i>:  Largest exponent of a number, as a power of 10.
 
- * <i>clampNormalExponents</i>: The value of the "ClampNormalExponents" property for this context.
+ * <i>clampNormalExponents</i>:  The value of the "ClampNormalExponents" property for this context.
 
 <a id="Basic"></a>
 ### Basic
@@ -141,8 +141,8 @@
     public static readonly PeterO.Numbers.EContext CliDecimal;
 
  An arithmetic context for the .NET Framework decimal format (see [
-         &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven. (The  `"Cli"`  stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.).  <a id="Decimal128"></a>
+            &#x22;Forms of numbers&#x22;
+            ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven. (The  `"Cli"`  stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.).  <a id="Decimal128"></a>
 ### Decimal128
 
     public static readonly PeterO.Numbers.EContext Decimal128;

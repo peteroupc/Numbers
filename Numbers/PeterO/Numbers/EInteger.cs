@@ -693,10 +693,10 @@ namespace PeterO.Numbers {
           }
         }
         // DebugUtility.Log("" + this + " + " + bigintAugend);
-        sumreg = new short[(
-          int)Math.Max(
+        var wordLength2 = (int)Math.Max(
                     this.words.Length,
-                    bigintAugend.words.Length)];
+                    bigintAugend.words.Length);
+        sumreg = new short[wordLength2];
         int carry;
         int desiredLength = Math.Max(addendCount, augendCount);
         if (addendCount == augendCount) {
@@ -792,10 +792,10 @@ namespace PeterO.Numbers {
       }
 #endif
       short borrow;
-      var diffReg = new short[(
-        int)Math.Max(
+      int wordLength = (int)Math.Max(
                     minuend.words.Length,
-                    subtrahend.words.Length)];
+                    subtrahend.words.Length);
+      var diffReg = new short[wordLength];
       if (words1Size == words2Size) {
         if (Compare(minuend.words, 0, subtrahend.words, 0, (int)words1Size) >=
             0) {
@@ -822,8 +822,7 @@ namespace PeterO.Numbers {
         }
       } else if (words1Size > words2Size) {
         // words1 is greater than words2
-        borrow = (
-          short)SubtractInternal(
+        borrow = (short)SubtractInternal(
           diffReg,
           0,
           minuend.words,
@@ -840,8 +839,7 @@ namespace PeterO.Numbers {
         Decrement(diffReg, words2Size, (int)(words1Size - words2Size), borrow);
       } else {
         // words1 is less than words2
-        borrow = (
-          short)SubtractInternal(
+        borrow = (short)SubtractInternal(
           diffReg,
           0,
           subtrahend.words,

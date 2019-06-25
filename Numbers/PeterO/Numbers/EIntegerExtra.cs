@@ -221,7 +221,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)"]/*'/>
     public long GetBits(int index, int numberBits) {
       if (numberBits < 0 || numberBits > 64) {
-        throw new ArgumentOutOfRangeException("numberBits");
+        throw new ArgumentOutOfRangeException(nameof(numberBits));
       }
       long v = 0;
       for (int j = 0; j < numberBits; ++j) {

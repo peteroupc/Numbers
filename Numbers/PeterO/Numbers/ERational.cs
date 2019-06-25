@@ -14,10 +14,7 @@ namespace PeterO.Numbers {
     IEquatable<ERational> {
     private const int MaxSafeInt = 214748363;
 
-    ///
-    /// <summary>A not-a-number value.
-    /// </summary>
-    ///
+    /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -27,10 +24,7 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagQuietNaN);
 
-    ///
-    /// <summary>Negative infinity, less than any other number.
-    /// </summary>
-    ///
+    /// <summary>Negative infinity, less than any other number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -41,10 +35,7 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
-    ///
-    /// <summary>A rational number for negative zero.
-    /// </summary>
-    ///
+    /// <summary>A rational number for negative zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -52,20 +43,14 @@ namespace PeterO.Numbers {
     public static readonly ERational NegativeZero =
       new ERational(EInteger.Zero, EInteger.One, BigNumberFlags.FlagNegative);
 
-    ///
-    /// <summary>The rational number one.
-    /// </summary>
-    ///
+    /// <summary>The rational number one.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational One = FromEInteger(EInteger.One);
 
-    ///
-    /// <summary>Positive infinity, greater than any other number.
-    /// </summary>
-    ///
+    /// <summary>Positive infinity, greater than any other number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -76,10 +61,7 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagInfinity);
 
-    ///
-    /// <summary>A signaling not-a-number value.
-    /// </summary>
-    ///
+    /// <summary>A signaling not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -90,20 +72,14 @@ namespace PeterO.Numbers {
   EInteger.One,
   BigNumberFlags.FlagSignalingNaN);
 
-    ///
-    /// <summary>The rational number ten.
-    /// </summary>
-    ///
+    /// <summary>The rational number ten.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
       Justification = "ERational is immutable")]
     public static readonly ERational Ten = FromEInteger((EInteger)10);
 
-    ///
-    /// <summary>A rational number for zero.
-    /// </summary>
-    ///
+    /// <summary>A rational number for zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -132,8 +108,23 @@ namespace PeterO.Numbers {
       this.flags = flags;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Initializes a new instance of the <see cref='ERational'/> class.</summary>
+    /// <param name='numerator'>
+    /// The numerator.
+    /// </param>
+    /// <param name='denominator'>
+    /// The denominator.
+    /// </param>
+    /// <exception cref='T:System.ArgumentException'>
+    /// The denominator is zero.
+    /// </exception>
+    /// <exception cref='T:System.ArgumentNullException'>
+    /// The parameter
+    /// <paramref name='numerator'/>
+    /// or
+    /// <paramref name='denominator'/>
+    /// is null.
+    /// </exception>
     public ERational(EInteger numerator, EInteger denominator) {
       if (numerator == null) {
         throw new ArgumentNullException(nameof(numerator));
