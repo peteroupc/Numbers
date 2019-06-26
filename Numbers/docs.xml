@@ -5542,8 +5542,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
-    <summary>Divides two arbitrary-precision binary floats, and gives a particular
-      exponent to the result.
+    <summary>Divides two arbitrary-precision binary floating-point numbers, and gives a
+      particular exponent to the result.
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
@@ -5572,8 +5572,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)'>
-    <summary>Divides two arbitrary-precision binary floats, and gives a particular
-      exponent to the result.
+    <summary>Divides two arbitrary-precision binary floating-point numbers, and gives a
+      particular exponent to the result.
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
@@ -5592,8 +5592,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,System.Int64,PeterO.Numbers.EContext)'>
-    <summary>Divides two arbitrary-precision binary floats, and gives a particular
-      exponent to the result.
+    <summary>Divides two arbitrary-precision binary floating-point numbers, and gives a
+      particular exponent to the result.
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
@@ -5622,8 +5622,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.DivideToExponent(PeterO.Numbers.EFloat,System.Int64,PeterO.Numbers.ERounding)'>
-    <summary>Divides two arbitrary-precision binary floats, and gives a particular
-      exponent to the result.
+    <summary>Divides two arbitrary-precision binary floating-point numbers, and gives a
+      particular exponent to the result.
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
@@ -5643,9 +5643,9 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.DivideToIntegerNaturalScale(PeterO.Numbers.EFloat)'>
-    <summary>Divides two arbitrary-precision binary floats, and returns the integer
-      part of the result, rounded down, with the preferred exponent set to this
-      value's exponent minus the divisor's exponent.
+    <summary>Divides two arbitrary-precision binary floating-point numbers, and returns
+      the integer part of the result, rounded down, with the preferred exponent
+      set to this value's exponent minus the divisor's exponent.
     </summary>
     <param name='divisor'>The number to divide by.
     </param>
@@ -6178,17 +6178,17 @@
     </value>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
-    <summary>Gets the greater value between two binary floats.
+    <summary>Gets the greater value between two binary floating-point numbers.
     </summary>
     <param name='first'>An arbitrary-precision binary floating-point number.
     </param>
     <param name='second'>Another arbitrary-precision binary floating-point number.
     </param>
-    <returns>An arbitrary-precision binary floating-point number.
+    <returns>The greater of the two arbitrary-precision numbers.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Gets the greater value between two binary floats.
+    <summary>Gets the greater value between two binary floating-point numbers.
     </summary>
     <param name='first'>The first value to compare.
     </param>
@@ -6232,7 +6232,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
-    <summary>Gets the lesser value between two binary floats.
+    <summary>Gets the lesser value between two binary floating-point numbers.
     </summary>
     <param name='first'>The first value to compare.
     </param>
@@ -6242,7 +6242,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Gets the lesser value between two binary floats.
+    <summary>Gets the lesser value between two binary floating-point numbers.
     </summary>
     <param name='first'>The first value to compare.
     </param>
@@ -6410,18 +6410,19 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat)'>
-    <summary>Multiplies two binary floats. The resulting exponent will be the sum of
-      the exponents of the two binary floats.
+    <summary>Multiplies two binary floating-point numbers. The resulting exponent will
+      be the sum of the exponents of the two binary floating-point numbers.
     </summary>
     <param name='otherValue'>Another binary float.
     </param>
-    <returns>The product of the two binary floats.
+    <returns>The product of the two binary floating-point numbers.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
-    <summary>Multiplies two binary floats. The resulting scale will be the sum of the
-      scales of the two binary floats. The result's sign is positive if both
-      operands have the same sign, and negative if they have different signs.
+    <summary>Multiplies two binary floating-point numbers. The resulting scale will be
+      the sum of the scales of the two binary floating-point numbers. The
+      result's sign is positive if both operands have the same sign, and
+      negative if they have different signs.
     </summary>
     <param name='op'>Another binary float.
     </param>
@@ -6802,10 +6803,10 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Finds the remainder that results when dividing two arbitrary-precision
-      binary floats. The remainder is the value that remains when the absolute
-      value of this object is divided by the absolute value of the other object;
-      the remainder has the same sign (positive or negative) as this object's
-      value.
+      binary floating-point numbers. The remainder is the value that remains
+      when the absolute value of this object is divided by the absolute value of
+      the other object; the remainder has the same sign (positive or negative)
+      as this object's value.
     </summary>
     <param name='divisor'>An arbitrary-precision binary floating-point number.
     </param>
@@ -8008,14 +8009,14 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
-    <summary>Multiplies two binary floats. The resulting exponent will be the sum of
-      the exponents of the two binary floats.
+    <summary>Multiplies two binary floating-point numbers. The resulting exponent will
+      be the sum of the exponents of the two binary floating-point numbers.
     </summary>
     <param name='operand1'>The first operand.
     </param>
     <param name='operand2'>The second operand.
     </param>
-    <returns>The product of the two binary floats.
+    <returns>The product of the two binary floating-point numbers.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='operand1'/>
@@ -8471,7 +8472,8 @@
     </summary>
     <param name='other'>An arbitrary-precision integer.
     </param>
-    <returns>An arbitrary-precision integer.
+    <returns>An arbitrary-precision integer in which each bit is set if the
+      corresponding bits of this integer and the other integer are both set.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='other'/>
@@ -8493,7 +8495,8 @@
     </param>
     <param name='b'>The second arbitrary-precision integer.
     </param>
-    <returns>An arbitrary-precision integer.
+    <returns>An arbitrary-precision integer in which each bit is set if the
+      corresponding bits of the two integers are both set.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='a'/>
@@ -9671,11 +9674,9 @@
     </summary>
     <param name='other'>An arbitrary-precision integer.
     </param>
-    <returns>An arbitrary-precision integer in which each bit is set if it's set in one
-      input integer but not the other.
+    <returns>An arbitrary-precision integer in which each bit is set if the
+      corresponding bit is set in one input integer but not in the other.
     </returns>
-    <exception cref='T:System.ArgumentException'>Doesn't satisfy smallerCount == CountWords(result).
-    </exception>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='other'/>
        is null.
@@ -9691,12 +9692,12 @@
          ) for the purposes of this operator.
       </para>
     </summary>
-    <param name='a'>The second arbitrary-precision integer.
+    <param name='a'>The first arbitrary-precision integer.
     </param>
     <param name='b'>The second arbitrary-precision integer.
     </param>
-    <returns>An arbitrary-precision integer in which each bit is set if it's set in one
-      input integer but not the other.
+    <returns>An arbitrary-precision integer in which each bit is set if the
+      corresponding bit is set in one input integer but not in the other.
     </returns>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='a'/>

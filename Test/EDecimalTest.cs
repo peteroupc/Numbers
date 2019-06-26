@@ -4840,10 +4840,12 @@ EFloat.Create(
   edecstr);
           } else if (sng == 0.0f) {
             TestCommon.CompareTestLessEqual(
-          edec.Abs(),
-          SingleUnderflowToZero,
-          edecstr);
-            Assert.AreEqual(edec.IsNegative, EDecimal.FromSingle(sng).IsNegative,
+              edec.Abs(),
+              SingleUnderflowToZero,
+              edecstr);
+            Assert.AreEqual(
+              edec.IsNegative,
+              EDecimal.FromSingle(sng).IsNegative,
               edecstr);
           } else {
             Assert.IsTrue(!Single.IsNaN(sng));

@@ -69,5 +69,5 @@ Version 1.4.0
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>
     <PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.1.118'/>
-  </ItemGroup>
+  <AdditionalFiles Include='stylecop.json'></AdditionalFiles></ItemGroup>
 </Project>

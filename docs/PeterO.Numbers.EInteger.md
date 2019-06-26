@@ -265,7 +265,7 @@ The parameter  <i>bigintAugend</i>
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer in which each bit is set if the corresponding bits of this integer and the other integer are both set.
 
 <b>Exceptions:</b>
 
@@ -292,7 +292,7 @@ The parameter  <i>other</i>
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer in which each bit is set if the corresponding bits of the two integers are both set.
 
 <b>Exceptions:</b>
 
@@ -2442,12 +2442,9 @@ This number, converted to a 64-bit signed integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer in which each bit is set if it's set in one input integer but not the other.
+An arbitrary-precision integer in which each bit is set if the corresponding bit is set in one input integer but not in the other.
 
 <b>Exceptions:</b>
-
- * System.ArgumentException:
-Doesn't satisfy smallerCount == CountWords(result).
 
  * System.ArgumentNullException:
 The parameter  <i>other</i>
@@ -2466,13 +2463,13 @@ The parameter  <i>other</i>
 
   <b>Parameters:</b>
 
- * <i>a</i>: The second arbitrary-precision integer.
+ * <i>a</i>: The first arbitrary-precision integer.
 
  * <i>b</i>: The second arbitrary-precision integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer in which each bit is set if it's set in one input integer but not the other.
+An arbitrary-precision integer in which each bit is set if the corresponding bit is set in one input integer but not in the other.
 
 <b>Exceptions:</b>
 
