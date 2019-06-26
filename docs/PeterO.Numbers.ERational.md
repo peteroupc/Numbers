@@ -271,6 +271,11 @@ An arbitrary-precision binary rational number.
 
 The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
+
 <a id="CompareTo_PeterO_Numbers_ERational"></a>
 ### CompareTo
 
@@ -284,6 +289,11 @@ The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 <b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
 
 <a id="CompareToBinary_PeterO_Numbers_EFloat"></a>
 ### CompareToBinary
@@ -299,6 +309,11 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
+
 <a id="CompareToDecimal_PeterO_Numbers_EDecimal"></a>
 ### CompareToDecimal
 
@@ -312,6 +327,11 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 <b>Return Value:</b>
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
 
 <a id="CompareToTotal_PeterO_Numbers_ERational"></a>
 ### CompareToTotal
@@ -390,6 +410,11 @@ An arbitrary-precision binary rational number.
 
 An arbitrary-precision rational number.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "other" is null.
+
 <a id="Create_int_int"></a>
 ### Create
 
@@ -407,6 +432,11 @@ An arbitrary-precision rational number.
 
 An arbitrary-precision binary rational number.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The denominator is zero.
+
 <a id="Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Create
 
@@ -423,6 +453,11 @@ An arbitrary-precision binary rational number.
 <b>Return Value:</b>
 
 An arbitrary-precision binary rational number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The denominator is zero.
 
 <a id="CreateNaN_PeterO_Numbers_EInteger"></a>
 ### CreateNaN
@@ -465,6 +500,9 @@ An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
+ * System.ArgumentException:
+The parameter "diag" is less than 0.
+
  * System.ArgumentNullException:
 The parameter "diag" is null.
 
@@ -481,6 +519,11 @@ The parameter "diag" is null.
 <b>Return Value:</b>
 
 The quotient of the two objects.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
 
 <a id="Equals_object"></a>
 ### Equals
@@ -601,6 +644,11 @@ The parameter "ef" is null.
 <b>Return Value:</b>
 
 An arbitrary-precision rational number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "ef" is null.
 
 <a id="FromEInteger_PeterO_Numbers_EInteger"></a>
 ### FromEInteger
@@ -733,6 +781,11 @@ A rational number with the same value as "flt".
 
 An arbitrary-precision rational number with the same value as the given string.
 
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter "str" is not a correctly formatted number string.
+
 <a id="FromString_string_int_int"></a>
 ### FromString
 
@@ -769,6 +822,14 @@ An arbitrary-precision rational number with the same value as the given string.
 <b>Return Value:</b>
 
 An arbitrary-precision rational number.
+
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter "str" is not a correctly formatted number string.
+
+ * System.ArgumentNullException:
+The parameter "str" is null.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -889,6 +950,11 @@ A 32-bit signed integer.
 
 The product of the two numbers.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
+
 <a id="Negate"></a>
 ### Negate
 
@@ -934,6 +1000,12 @@ The parameter "otherValue" is null.
 
 The given arbitrary-precision rational number minus one.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
+
 <a id="op_Division"></a>
 ### Operator `/`
 
@@ -951,6 +1023,11 @@ The given arbitrary-precision rational number minus one.
 
 The quotient of the two objects.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -965,6 +1042,12 @@ The quotient of the two objects.
 
 The value of  <i>input</i>
  , truncated to a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1009,6 +1092,12 @@ The closest 32-bit binary floating-point number to this value. The return value 
 The value of  <i>input</i>
  , truncated to a 32-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1024,6 +1113,12 @@ The value of  <i>input</i>
 The value of  <i>input</i>
  , truncated to a 64-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1037,6 +1132,11 @@ The value of  <i>input</i>
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1068,6 +1168,12 @@ An arbitrary-precision integer.
 The value of  <i>input</i>
  , truncated to an 8-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1082,6 +1188,12 @@ The value of  <i>input</i>
 
 The value of  <i>input</i>
  , truncated to a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1114,6 +1226,12 @@ A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework
 The value of  <i>input</i>
  , truncated to a 32-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1129,6 +1247,12 @@ The value of  <i>input</i>
 The value of  <i>input</i>
  , truncated to a 64-bit unsigned integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1143,6 +1267,12 @@ The value of  <i>input</i>
 
 The value of  <i>input</i>
  , truncated to a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+The parameter  <i>input</i>
+ is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
 
 <a id="op_Implicit"></a>
 ### Implicit Operator
@@ -1366,6 +1496,12 @@ The value of  <i>inputUInt16</i>
 
 The given arbitrary-precision rational number plus one.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
+
 <a id="op_Modulus"></a>
 ### Operator `%`
 
@@ -1382,6 +1518,11 @@ The given arbitrary-precision rational number plus one.
 <b>Return Value:</b>
 
 The remainder of the two numbers.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
 
 <a id="op_Multiply"></a>
 ### Operator `*`
@@ -1400,6 +1541,11 @@ The remainder of the two numbers.
 
 The product of the two numbers.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
+
 <a id="op_Subtraction"></a>
 ### Operator `-`
 
@@ -1417,6 +1563,11 @@ The product of the two numbers.
 
 The difference of the two objects.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
+
 <a id="op_UnaryNegation"></a>
 ### Operator `-`
 
@@ -1430,6 +1581,12 @@ The difference of the two objects.
 <b>Return Value:</b>
 
 An arbitrary-precision rational number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="Remainder_PeterO_Numbers_ERational"></a>
 ### Remainder
@@ -1445,6 +1602,11 @@ An arbitrary-precision rational number.
 
 The remainder of the two numbers.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
+
 <a id="Subtract_PeterO_Numbers_ERational"></a>
 ### Subtract
 
@@ -1459,6 +1621,11 @@ The remainder of the two numbers.
 
 The difference of the two objects.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter "otherValue" is null.
+
 <a id="ToByteChecked"></a>
 ### ToByteChecked
 
@@ -1468,6 +1635,11 @@ The difference of the two objects.
 
 This number's value, truncated to a byte (from 0 to 255).
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
+
 <a id="ToByteIfExact"></a>
 ### ToByteIfExact
 
@@ -1476,6 +1648,11 @@ This number's value, truncated to a byte (from 0 to 255).
  Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as a byte (from 0 to 255).
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 255.
 
 <a id="ToByteUnchecked"></a>
 ### ToByteUnchecked
@@ -1587,6 +1764,11 @@ The exact value of the rational number if possible; otherwise, the rounded versi
 
 An arbitrary-precision integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
+
 <a id="ToEIntegerExact"></a>
 ### ToEIntegerExact
 
@@ -1598,6 +1780,11 @@ An arbitrary-precision integer.
 
 An arbitrary-precision integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
+
 <a id="ToEIntegerIfExact"></a>
 ### ToEIntegerIfExact
 
@@ -1606,6 +1793,11 @@ An arbitrary-precision integer.
  Converts this value to an arbitrary-precision integer, checking whether the value is an exact integer.  <b>Return Value:</b>
 
 An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
 
 <a id="ToExtendedDecimal_PeterO_Numbers_EContext"></a>
 ### ToExtendedDecimal
@@ -1702,6 +1894,11 @@ The exact value of the rational number if possible; otherwise, the rounded versi
 
 This number's value, truncated to a 16-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
+
 <a id="ToInt16IfExact"></a>
 ### ToInt16IfExact
 
@@ -1710,6 +1907,11 @@ This number's value, truncated to a 16-bit signed integer.
  Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as a 16-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater than 32767.
 
 <a id="ToInt16Unchecked"></a>
 ### ToInt16Unchecked
@@ -1729,6 +1931,11 @@ This number, converted to a 16-bit signed integer. Returns 0 if this value is in
 
 This number's value, truncated to a 32-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+
 <a id="ToInt32IfExact"></a>
 ### ToInt32IfExact
 
@@ -1737,6 +1944,11 @@ This number's value, truncated to a 32-bit signed integer.
  Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than -2147483648 or greater than 2147483647.
 
 <a id="ToInt32Unchecked"></a>
 ### ToInt32Unchecked
@@ -1756,6 +1968,11 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 
 This number's value, truncated to a 64-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
 <a id="ToInt64IfExact"></a>
 ### ToInt64IfExact
 
@@ -1764,6 +1981,11 @@ This number's value, truncated to a 64-bit signed integer.
  Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as a 64-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than -9223372036854775808 or greater than 9223372036854775807.
 
 <a id="ToInt64Unchecked"></a>
 ### ToInt64Unchecked
@@ -1783,6 +2005,11 @@ This number, converted to a 64-bit signed integer. Returns 0 if this value is in
 
 This number's value, truncated to an 8-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+
 <a id="ToSByteIfExact"></a>
 ### ToSByteIfExact
 
@@ -1791,6 +2018,11 @@ This number's value, truncated to an 8-bit signed integer.
  Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as an 8-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than -128 or greater than 127.
 
 <a id="ToSByteUnchecked"></a>
 ### ToSByteUnchecked
@@ -1828,6 +2060,11 @@ A string representation of this object. If this object's value is infinity or no
 
 This number's value, truncated to a 16-bit unsigned integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
 <a id="ToUInt16IfExact"></a>
 ### ToUInt16IfExact
 
@@ -1836,6 +2073,11 @@ This number's value, truncated to a 16-bit unsigned integer.
  Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as a 16-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 65535.
 
 <a id="ToUInt16Unchecked"></a>
 ### ToUInt16Unchecked
@@ -1855,6 +2097,11 @@ This number, converted to a 16-bit unsigned integer. Returns 0 if this value is 
 
 This number's value, truncated to a 32-bit signed integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+
 <a id="ToUInt32IfExact"></a>
 ### ToUInt32IfExact
 
@@ -1863,6 +2110,11 @@ This number's value, truncated to a 32-bit signed integer.
  Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as a 32-bit signed integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 4294967295.
 
 <a id="ToUInt32Unchecked"></a>
 ### ToUInt32Unchecked
@@ -1882,6 +2134,11 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 
 This number's value, truncated to a 64-bit unsigned integer.
 
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+
 <a id="ToUInt64IfExact"></a>
 ### ToUInt64IfExact
 
@@ -1890,6 +2147,11 @@ This number's value, truncated to a 64-bit unsigned integer.
  Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.  <b>Return Value:</b>
 
 This number's value as a 64-bit unsigned integer.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+This value is infinity or not-a-number, is not an exact integer, or is less than 0 or greater than 18446744073709551615.
 
 <a id="ToUInt64Unchecked"></a>
 ### ToUInt64Unchecked

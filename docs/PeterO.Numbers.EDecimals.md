@@ -420,6 +420,12 @@ The base-10 exponent of the given number (when that number is expressed in scien
  is zero. Returns positive infinity if  <i>ed</i>
  is positive infinity or negative infinity.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
+
 <a id="NumberClass_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### NumberClass
 
@@ -436,6 +442,12 @@ The base-10 exponent of the given number (when that number is expressed in scien
 <b>Return Value:</b>
 
 A 32-bit signed integer identifying the given number object, number class as follows: 0 = positive normal; 1 = negative normal, 2 = positive subnormal, 3 = negative subnormal, 4 = positive zero, 5 = negative zero, 6 = positive infinity, 7 = negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling NaN.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
 
 <a id="NumberClassString_int"></a>
 ### NumberClassString
@@ -580,6 +592,13 @@ The given arbitrary-precision decimal number whose decimal point is moved the gi
  defines a limited precision and exponent range and if  <i>ed2</i>
  's absolute value is greater than twice the sum of the context's EMax property and its Precision property.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ or  <i>ed2</i>
+ is null.
+
 <a id="Shift_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Shift
 
@@ -601,6 +620,13 @@ The given arbitrary-precision decimal number whose decimal point is moved the gi
 An arbitrary-precision decimal number whose mantissa is shifted the given number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ or  <i>ed2</i>
+ is null.
 
 <a id="Trim_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Trim
