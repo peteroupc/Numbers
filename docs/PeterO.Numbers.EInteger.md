@@ -267,12 +267,6 @@ The parameter  <i>bigintAugend</i>
 
 An arbitrary-precision integer in which each bit is set if the corresponding bits of this integer and the other integer are both set.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>other</i>
- is null.
-
 <a id="And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### And
 
@@ -419,11 +413,6 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 <b>Return Value:</b>
 
 The quotient of the two objects.
-
-<b>Exceptions:</b>
-
- * System.DivideByZeroException:
-Attempted to divide by zero.
 
 <a id="Divide_PeterO_Numbers_EInteger"></a>
 ### Divide
@@ -654,12 +643,6 @@ An arbitrary-precision integer with the same value as the 64-bit number.
 
 An arbitrary-precision integer with the same value as the given string.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
-
 <a id="FromRadixSubstring_string_int_int_int"></a>
 ### FromRadixSubstring
 
@@ -684,10 +667,6 @@ The parameter  <i>str</i>
 An arbitrary-precision integer with the same value as given in the string portion.
 
 <b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
 
  * System.FormatException:
 The string portion is empty or in an invalid format.
@@ -729,10 +708,6 @@ An arbitrary-precision integer with the same value as given in the string.
 The parameter  <i>str</i>
  is in an invalid format.
 
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
-
 <a id="FromSubstring_string_int_int"></a>
 ### FromSubstring
 
@@ -761,10 +736,6 @@ The parameter  <i>index</i>
  is less than 0, or either is greater than the string's length, or  <i>endIndex</i>
  is less than  <i>index</i>
  .
-
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -958,11 +929,6 @@ The parameter  <i>bigIndex</i>
 
 The number of bits in this object's value. Returns 0 if this object's value is 0 or negative 1.
 
-<b>Exceptions:</b>
-
- * System.OverflowException:
-The return value would exceed the range of a 32-bit signed integer.
-
 <a id="GetSignedBitLengthAsEInteger"></a>
 ### GetSignedBitLengthAsEInteger
 
@@ -1000,12 +966,6 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
  `true`  if a bit is set in this number's absolute value.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bigIndex</i>
- is null.
-
 <a id="GetUnsignedBitLength"></a>
 ### GetUnsignedBitLength
 
@@ -1016,11 +976,6 @@ The parameter  <i>bigIndex</i>
  Finds the minimum number of bits needed to represent this number's absolute value.  <b>Return Value:</b>
 
 The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
-
-<b>Exceptions:</b>
-
- * System.OverflowException:
-The return value would exceed the range of a 32-bit signed integer.
 
 <a id="GetUnsignedBitLengthAsEInteger"></a>
 ### GetUnsignedBitLengthAsEInteger
@@ -1070,10 +1025,6 @@ An arbitrary-precision integer.
  * System.ArgumentException:
 The parameter  <i>divisor</i>
  is less than 0.
-
- * System.ArgumentNullException:
-The parameter  <i>divisor</i>
- is null.
 
 <a id="ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### ModPow
@@ -1222,12 +1173,6 @@ The parameter  <i>valueA</i>
 
 The sum of the two objects.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
-
 <a id="op_BitwiseAnd"></a>
 ### Operator `&`
 
@@ -1294,12 +1239,6 @@ The parameter "first" or "second" is null.
 
 The given arbitrary-precision integer minus one.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
-
 <a id="op_Division"></a>
 ### Operator `/`
 
@@ -1316,12 +1255,6 @@ The parameter  <i>bthis</i>
 <b>Return Value:</b>
 
 The quotient of the two objects.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>dividend</i>
- is null.
 
 <a id="op_ExclusiveOr"></a>
 ### Operator `^`
@@ -1343,13 +1276,6 @@ The parameter  <i>dividend</i>
 <b>Return Value:</b>
 
 An arbitrary-precision integer in which each bit is set if it's set in one input integer but not the other.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>a</i>
- or  <i>b</i>
- is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1706,12 +1632,6 @@ The value of  <i>inputUInt16</i>
 
 The given arbitrary-precision integer plus one.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
-
 <a id="op_LeftShift"></a>
 ### Operator `<<`
 
@@ -1728,12 +1648,6 @@ The parameter  <i>bthis</i>
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
 
 <a id="op_LessThan"></a>
 ### Operator `<`
@@ -1790,12 +1704,6 @@ The parameter  <i>bthis</i>
 
 The remainder of the two numbers.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>dividend</i>
- is null.
-
 <a id="op_Multiply"></a>
 ### Operator `*`
 
@@ -1812,12 +1720,6 @@ The parameter  <i>dividend</i>
 <b>Return Value:</b>
 
 The product of the two numbers.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>operand1</i>
- is null.
 
 <a id="op_OnesComplement"></a>
 ### Operator `~`
@@ -1861,12 +1763,6 @@ The parameter  <i>thisValue</i>
 
 An arbitrary-precision integer.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
-
 <a id="op_Subtraction"></a>
 ### Operator `-`
 
@@ -1884,12 +1780,6 @@ The parameter  <i>bthis</i>
 
 The difference of the two objects.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
-
 <a id="op_UnaryNegation"></a>
 ### Operator `-`
 
@@ -1903,12 +1793,6 @@ The parameter  <i>bthis</i>
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bigValue</i>
- is null.
 
 <a id="Or_PeterO_Numbers_EInteger"></a>
 ### Or
@@ -2044,9 +1928,6 @@ The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
- * System.DivideByZeroException:
-Attempted to divide by zero.
-
  * System.ArgumentNullException:
 The parameter  <i>intValue</i>
  is null.
@@ -2064,15 +1945,6 @@ The parameter  <i>intValue</i>
 <b>Return Value:</b>
 
 The remainder of the two numbers.
-
-<b>Exceptions:</b>
-
- * System.DivideByZeroException:
-Attempted to divide by zero.
-
- * System.ArgumentNullException:
-The parameter  <i>divisor</i>
- is null.
 
 <a id="ShiftLeft_int"></a>
 ### ShiftLeft
@@ -2139,12 +2011,6 @@ An arbitrary-precision integer.
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>eshift</i>
- is null.
 
 <a id="Sqrt"></a>
 ### Sqrt
@@ -2270,11 +2136,6 @@ This number, converted to a 16-bit signed integer.
 
 A 32-bit signed integer.
 
-<b>Exceptions:</b>
-
- *  T:System.OverflowException:
-This object' s value is too big to fit a 32-bit signed integer.
-
 <a id="ToInt32Unchecked"></a>
 ### ToInt32Unchecked
 
@@ -2294,11 +2155,6 @@ A 32-bit signed integer.
  Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.  <b>Return Value:</b>
 
 A 64-bit signed integer.
-
-<b>Exceptions:</b>
-
- *  T:System.OverflowException:
-This object' s value is too big to fit a 64-bit signed integer.
 
 <a id="ToInt64Unchecked"></a>
 ### ToInt64Unchecked
@@ -2444,12 +2300,6 @@ This number, converted to a 64-bit signed integer.
 
 An arbitrary-precision integer in which each bit is set if the corresponding bit is set in one input integer but not in the other.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>other</i>
- is null.
-
 <a id="Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Xor
 
@@ -2470,10 +2320,3 @@ The parameter  <i>other</i>
 <b>Return Value:</b>
 
 An arbitrary-precision integer in which each bit is set if the corresponding bit is set in one input integer but not in the other.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>a</i>
- or  <i>b</i>
- is null.

@@ -1427,14 +1427,6 @@ The parameter "str" is not a correctly formatted number string.
 
 An arbitrary-precision decimal number with the same value as the given string.
 
-<b>Exceptions:</b>
-
- * System.FormatException:
-The parameter "str" is not a correctly formatted number string.
-
- * System.ArgumentNullException:
-The parameter "str" is null.
-
 <a id="FromString_string_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -1476,9 +1468,6 @@ The parameter "str" is null.
 An arbitrary-precision decimal number with the same value as the given string.
 
 <b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter "str" is null.
 
  * System.ArgumentException:
 Either "offset" or "length" is less than 0 or greater than "str" 's length, or "str" 's length minus "offset" is less than "length".
@@ -2282,11 +2271,6 @@ The number 1 if  <i>boolValue</i>
 
 An arbitrary-precision integer.
 
-<b>Exceptions:</b>
-
- * System.OverflowException:
-This object's value is infinity or not-a-number (NaN).
-
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2573,12 +2557,6 @@ The value of  <i>inputUInt16</i>
 
 The given arbitrary-precision decimal number plus one.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
-
 <a id="op_Modulus"></a>
 ### Operator `%`
 
@@ -2595,12 +2573,6 @@ The parameter  <i>bthis</i>
 <b>Return Value:</b>
 
 The result of the operation.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>dividend</i>
- is null.
 
 <a id="op_Multiply"></a>
 ### Operator `*`
@@ -3432,11 +3404,6 @@ This object's value is infinity or not-a-number (NaN).
 
 An arbitrary-precision integer.
 
-<b>Exceptions:</b>
-
- * System.OverflowException:
-This object's value is infinity or not-a-number (NaN).
-
 <a id="ToEIntegerIfExact"></a>
 ### ToEIntegerIfExact
 
@@ -3445,11 +3412,6 @@ This object's value is infinity or not-a-number (NaN).
  Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.  <b>Return Value:</b>
 
 An arbitrary-precision integer.
-
-<b>Exceptions:</b>
-
- * System.OverflowException:
-This object's value is infinity or not-a-number (NaN).
 
 <a id="ToEngineeringString"></a>
 ### ToEngineeringString
