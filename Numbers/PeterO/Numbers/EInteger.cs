@@ -153,8 +153,7 @@ namespace PeterO.Numbers {
       while (newwordCount != 0 && words[newwordCount - 1] == 0) {
         --newwordCount;
       }
-      return (newwordCount == 0) ? EInteger.Zero : (new
-                    EInteger(
+      return (newwordCount == 0) ? EInteger.Zero : (new EInteger(
                     newwordCount,
                     words,
                     false));
@@ -224,8 +223,7 @@ namespace PeterO.Numbers {
       while (newwordCount != 0 && newreg[newwordCount - 1] == 0) {
         --newwordCount;
       }
-      return (newwordCount == 0) ? EInteger.Zero : (new
-                    EInteger(
+      return (newwordCount == 0) ? EInteger.Zero : (new EInteger(
                     newwordCount,
                     newreg,
                     newnegative));
@@ -1104,14 +1102,13 @@ namespace PeterO.Numbers {
           --quotwordCount;
         }
         return (
-          quotwordCount != 0) ? (
-          new EInteger(
+          quotwordCount != 0) ? ( new EInteger(
             quotwordCount,
             quotReg,
             this.negative ^ bigintDivisor.negative)) : EInteger.Zero;
       }
       // ---- General case
-      quotReg = new short[((int)(words1Size - words2Size + 1))];
+      quotReg = new short[(int)(words1Size - words2Size + 1)];
       GeneralDivide(
   this.words,
   0,
@@ -1126,8 +1123,7 @@ namespace PeterO.Numbers {
       quotwordCount = CountWords(quotReg);
       quotReg = ShortenArray(quotReg, quotwordCount);
       return (
-        quotwordCount != 0) ? (
-        new EInteger(
+        quotwordCount != 0) ? ( new EInteger(
           quotwordCount,
           quotReg,
           this.negative ^ bigintDivisor.negative)) : EInteger.Zero;
@@ -2120,8 +2116,8 @@ Math.Max(0, origQuotSize - newQuotSize));
         // , this.ToInt64Checked(), divisor.ToInt64Checked());
       }
       // --- General case
-      var bigRemainderreg = new short[((int)words2Size)];
-      var quotientreg = new short[((int)(words1Size - words2Size + 1))];
+      var bigRemainderreg = new short[(int)words2Size];
+      var quotientreg = new short[(int)(words1Size - words2Size + 1)];
       GeneralDivide(
   this.words,
   0,
@@ -2740,7 +2736,7 @@ WordsShiftRightOne(bu, buc);
         throw new ArgumentException("index (" + index + ") is less than 0");
       }
       return ((index >> 4) < this.words.Length) &&
-        ((bool)(((this.words[(index >> 4)] >> (int)(index & 15)) & 1) != 0));
+        ((bool)(((this.words[index >> 4] >> (int)(index & 15)) & 1) != 0));
     }
 
     /// <include file='../../docs.xml'
@@ -2933,7 +2929,7 @@ WordsShiftRightOne(bu, buc);
       } else {
         int words1Size = this.wordCount;
         int words2Size = bigintMult.wordCount;
-        productreg = new short[(words1Size + words2Size)];
+        productreg = new short[words1Size + words2Size];
         var workspace = new short[words1Size + words2Size];
         productwordCount = productreg.Length;
         AsymmetricMultiply(
@@ -3114,7 +3110,7 @@ WordsShiftRightOne(bu, buc);
       if (this.PositiveCompare(divisor) < 0) {
         return this;
       }
-      var remainderReg = new short[((int)words2Size)];
+      var remainderReg = new short[(int)words2Size];
       GeneralDivide(
   this.words,
   0,
@@ -3185,7 +3181,7 @@ WordsShiftRightOne(bu, buc);
       var shiftWords = (int)(numberBits >> 4);
       var shiftBits = (int)(numberBits & 15);
       if (!this.negative) {
-        var ret = new short[(numWords + BitsToWords((int)numberBits))];
+        var ret = new short[numWords + BitsToWords((int)numberBits)];
         Array.Copy(this.words, 0, ret, shiftWords, numWords);
         ShiftWordsLeftByBits(
           ret,
@@ -3194,8 +3190,7 @@ WordsShiftRightOne(bu, buc);
           shiftBits);
         return new EInteger(CountWords(ret), ret, false);
       } else {
-        var ret = new short[(numWords +
-                    BitsToWords((int)numberBits))];
+        var ret = new short[(numWords + BitsToWords((int)numberBits))];
         Array.Copy(this.words, ret, numWords);
         TwosComplement(ret, 0, (int)ret.Length);
         ShiftWordsLeftByWords(ret, 0, numWords + shiftWords, shiftWords);
@@ -3252,8 +3247,7 @@ WordsShiftRightOne(bu, buc);
       }
       valueXaNegative = !this.negative;
       valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
     /// <include file='../../docs.xml'
@@ -3276,8 +3270,7 @@ WordsShiftRightOne(bu, buc);
           result[i] = unchecked((short)(smaller[i] & bigger[i]));
         }
         smallerCount = CountWords(result);
-        return (smallerCount == 0) ? EInteger.Zero : (new
-          EInteger(smallerCount, result, false));
+        return (smallerCount == 0) ? EInteger.Zero : (new EInteger(smallerCount, result, false));
       }
       var valueXaNegative = false;
       var valueXaWordCount = 0;
@@ -3307,8 +3300,7 @@ WordsShiftRightOne(bu, buc);
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
       valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
     /// <include file='../../docs.xml'
@@ -3379,8 +3371,7 @@ WordsShiftRightOne(bu, buc);
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
       valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
     /// <include file='../../docs.xml'
@@ -3455,8 +3446,7 @@ WordsShiftRightOne(bu, buc);
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
       valueXaWordCount = CountWords(valueXaReg);
-      return (valueXaWordCount == 0) ? EInteger.Zero : (new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
+      return (valueXaWordCount == 0) ? EInteger.Zero : (new EInteger(valueXaWordCount, valueXaReg, valueXaNegative));
     }
 
     private short[] Copy() {

@@ -4122,9 +4122,8 @@ ctx.Precision).WithBlankFlags();
         // DebugUtility.Log("newGuess "+(newGuess as EDecimal)?.ToDouble());
 #if DEBUG
         if (iterations.CompareTo(workingPrecision) >= 0) {
-          DebugUtility.Log("[" + ((thisValue as EDecimal)?.ToDouble()) + ", " +
-            iterations + "] rd=" + ((rd as EDecimal)?.ToDouble()) + ", newGuess=" +
-            ((newGuess as EDecimal)?.ToDouble()) + ", wp=" + workingPrecision +
+          DebugUtility.Log("[" + ((thisValue as EDecimal)?.ToDouble()) + ", " + iterations + "] rd=" + ((rd as EDecimal)?.ToDouble()) + ", newGuess=" +
+            (newGuess as EDecimal)?.ToDouble() + ", wp=" + workingPrecision +
             ", guessCmp=" + guessCmp);
         }
 #endif

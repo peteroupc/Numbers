@@ -121,7 +121,7 @@ namespace PeterO.Numbers {
     public FastInteger ShiftedIntFast
     {
       get {
-        return this.isSmall ? (new FastInteger(this.shiftedSmall)) :
+        return this.isSmall ? new FastInteger(this.shiftedSmall) :
         FastInteger.FromBig(this.shiftedBigInt);
       }
     }
@@ -285,7 +285,7 @@ namespace PeterO.Numbers {
         // Console.WriteLine("{0:X8} kbl=" + kb);
         return new FastInteger(kb);
       }
-      return this.shiftedBigInt.IsZero ? (new FastInteger(1)) :
+      return this.shiftedBigInt.IsZero ? new FastInteger(1) :
   FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
     }
 

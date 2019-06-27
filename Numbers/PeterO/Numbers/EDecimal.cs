@@ -194,8 +194,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Sign"]/*'/>
     public int Sign {
       get {
-        return (((this.flags & (BigNumberFlags.FlagSpecial)) == 0) &&
-          this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
+        return (((this.flags & (BigNumberFlags.FlagSpecial)) == 0) && this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
                     BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       }
     }
@@ -823,7 +822,7 @@ namespace PeterO.Numbers {
           haveDigits = true;
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue) {
-              newScale = newScale ?? (new FastInteger(newScaleInt));
+              newScale = newScale ?? new FastInteger(newScaleInt);
               newScale.Decrement();
             } else {
               --newScaleInt;
@@ -902,14 +901,14 @@ namespace PeterO.Numbers {
           null) {
           newScaleInt = expInt;
         } else if (exp == null) {
-          newScale = newScale ?? (new FastInteger(newScaleInt));
+          newScale = newScale ?? new FastInteger(newScaleInt);
           if (tmpoffset < 0) {
             newScale.SubtractInt(expInt);
           } else if (expInt != 0) {
             newScale.AddInt(expInt);
           }
         } else {
-          newScale = newScale ?? (new FastInteger(newScaleInt));
+          newScale = newScale ?? new FastInteger(newScaleInt);
           if (tmpoffset < 0) {
             newScale.Subtract(exp);
           } else {
@@ -922,7 +921,7 @@ namespace PeterO.Numbers {
       }
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
-      fastIntScale = (newScale == null) ? (new FastIntegerFixed(newScaleInt)) :
+      fastIntScale = (newScale == null) ? new FastIntegerFixed(newScaleInt) :
         FastIntegerFixed.FromFastInteger(newScale);
       int sign = negative ? -1 : 1;
       if (mant == null) {
@@ -1215,8 +1214,7 @@ namespace PeterO.Numbers {
           // have a greater value in decimal than in binary
           return (signA > 0) ? 1 : -1;
         }
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)(1000)) < 0 &&
-        otherAdjExp.CompareTo((EInteger)(4000)) >= 0) {
+        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)(1000)) < 0 && otherAdjExp.CompareTo((EInteger)(4000)) >= 0) {
           // With these exponent combinations, the binary's absolute
           // value is greater than the decimal's
           return (signA > 0) ? -1 : 1;

@@ -1740,12 +1740,12 @@ namespace Test {
         EInteger.FromString("9223372036854775807")) <= 0;
         EInteger eb;
         if (isNum) {
-          eb = (EInteger.FromInt64(enumber.ToInt64Checked()));
+          eb = EInteger.FromInt64(enumber.ToInt64Checked());
           TestCommon.AssertEquals(eint, eb);
-          eb = (EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          eb = EInteger.FromInt64(enumber.ToInt64Unchecked());
           TestCommon.AssertEquals(eint, eb);
           if (isInteger) {
-            eb = (EInteger.FromInt64(enumber.ToInt64IfExact()));
+            eb = EInteger.FromInt64(enumber.ToInt64IfExact());
             TestCommon.AssertEquals(eint, eb);
           } else {
             try {
@@ -1759,9 +1759,9 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          eb = (EInteger.FromInt64(enumber.ToInt64Checked()));
+          eb = EInteger.FromInt64(enumber.ToInt64Checked());
           TestCommon.AssertEquals(eint, eb);
-          eb = (EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          eb = EInteger.FromInt64(enumber.ToInt64Unchecked());
           TestCommon.AssertEquals(eint, eb);
           try {
             enumber.ToInt64IfExact();
