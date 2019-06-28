@@ -250,8 +250,6 @@ namespace PeterO.Numbers {
 
     private readonly EInteger exponentMin;
 
-    private int flags;
-
     private readonly bool hasExponentRange;
     private readonly bool hasFlags;
 
@@ -262,6 +260,8 @@ namespace PeterO.Numbers {
     private readonly bool simplified;
 
     private readonly int traps;
+
+    private int flags;
 
     /// <summary>Initializes a new instance of the <see cref='EContext'/> class.</summary>
     /// <param name='precision'>

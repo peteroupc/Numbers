@@ -194,8 +194,7 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Sign"]/*'/>
     public int Sign {
       get {
-        return (((this.flags & (BigNumberFlags.FlagSpecial)) == 0) && this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
-                    BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
+        return (((this.flags & BigNumberFlags.FlagSpecial) == 0) && this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags & BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       }
     }
 
@@ -1214,12 +1213,11 @@ namespace PeterO.Numbers {
           // have a greater value in decimal than in binary
           return (signA > 0) ? 1 : -1;
         }
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)(1000)) < 0 && otherAdjExp.CompareTo((EInteger)(4000)) >= 0) {
+        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(1000) < 0 && otherAdjExp.CompareTo(4000) >= 0) {
           // With these exponent combinations, the binary's absolute
           // value is greater than the decimal's
           return (signA > 0) ? -1 : 1;
         }
-
         if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)1000) >= 0 &&
                 otherAdjExp.CompareTo((EInteger)1000) >= 0) {
           thisAdjExp = thisAdjExp.Add(EInteger.One);

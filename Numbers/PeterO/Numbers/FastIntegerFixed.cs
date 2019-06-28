@@ -74,8 +74,7 @@ namespace PeterO.Numbers {
     }
 
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
-      return (bigintVal.CanFitInInt32()) ? new FastIntegerFixed(bigintVal.ToInt32Unchecked()) : (new
-        FastIntegerFixed(2, 0, bigintVal));
+      return bigintVal.CanFitInInt32() ? new FastIntegerFixed(bigintVal.ToInt32Unchecked()) : new FastIntegerFixed(2, 0, bigintVal);
     }
 
     internal int AsInt32() {

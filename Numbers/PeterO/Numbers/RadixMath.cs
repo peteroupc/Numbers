@@ -296,10 +296,16 @@ namespace PeterO.Numbers {
       if ((thisFlags & BigNumberFlags.FlagNegative) != 0 &&
           (otherFlags & BigNumberFlags.FlagNegative) == 0) {
         FastIntegerFixed fftmp;
-        fftmp = op1Exponent; op1Exponent = op2Exponent; op2Exponent = fftmp;
-        fftmp = op1Mantissa; op1Mantissa = op2Mantissa; op2Mantissa = fftmp;
+        fftmp = op1Exponent;
+        op1Exponent = op2Exponent;
+        op2Exponent = fftmp;
+        fftmp = op1Mantissa;
+        op1Mantissa = op2Mantissa;
+        op2Mantissa = fftmp;
         int tmp;
-        tmp = thisFlags; thisFlags = otherFlags; otherFlags = tmp;
+        tmp = thisFlags;
+        thisFlags = otherFlags;
+        otherFlags = tmp;
         expcmp = -expcmp;
         resultExponent = expcmp < 0 ? op1Exponent : op2Exponent;
       }
@@ -529,10 +535,16 @@ namespace PeterO.Numbers {
       if ((thisFlags & BigNumberFlags.FlagNegative) != 0 &&
           (otherFlags & BigNumberFlags.FlagNegative) == 0) {
         FastIntegerFixed fftmp;
-        fftmp = op1Exponent; op1Exponent = op2Exponent; op2Exponent = fftmp;
-        fftmp = op1Mantissa; op1Mantissa = op2Mantissa; op2Mantissa = fftmp;
+        fftmp = op1Exponent;
+        op1Exponent = op2Exponent;
+        op2Exponent = fftmp;
+        fftmp = op1Mantissa;
+        op1Mantissa = op2Mantissa;
+        op2Mantissa = fftmp;
         int tmp;
-        tmp = thisFlags; thisFlags = otherFlags; otherFlags = tmp;
+        tmp = thisFlags;
+        thisFlags = otherFlags;
+        otherFlags = tmp;
         expcmp = -expcmp;
         resultExponent = expcmp < 0 ? op1Exponent : op2Exponent;
       }
@@ -4122,9 +4134,7 @@ ctx.Precision).WithBlankFlags();
         // DebugUtility.Log("newGuess "+(newGuess as EDecimal)?.ToDouble());
 #if DEBUG
         if (iterations.CompareTo(workingPrecision) >= 0) {
-          DebugUtility.Log("[" + ((thisValue as EDecimal)?.ToDouble()) + ", " + iterations + "] rd=" + ((rd as EDecimal)?.ToDouble()) + ", newGuess=" +
-            (newGuess as EDecimal)?.ToDouble() + ", wp=" + workingPrecision +
-            ", guessCmp=" + guessCmp);
+          DebugUtility.Log("[" + (thisValue as EDecimal)?.ToDouble() + ", " + iterations + "] rd=" + (rd as EDecimal)?.ToDouble() + ", newGuess=" + (newGuess as EDecimal)?.ToDouble() + ", wp=" + workingPrecision + ", guessCmp=" + guessCmp);
         }
 #endif
         if (guessCmp == 0) {

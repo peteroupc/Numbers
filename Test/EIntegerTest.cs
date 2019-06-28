@@ -203,7 +203,8 @@ namespace Test {
       EInteger bigintB = BigFromString(divisor);
       if (bigintB.IsZero) {
         try {
-          bigintA.Remainder(bigintB); Assert.Fail("Expected divide by 0 error");
+          bigintA.Remainder(bigintB);
+          Assert.Fail("Expected divide by 0 error");
         } catch (ArithmeticException ex) {
           Console.WriteLine(ex.Message);
         }

@@ -18,18 +18,12 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRules>-Microsoft.Design#CA1017;-Microsoft.Globalization#CA1303;-Microsoft.Naming#CA1705;-Microsoft.Naming#CA1708;-Microsoft.Naming#CA1709;-Microsoft.Usage#CA2225</CodeAnalysisRules>
     <SourceAnalysisOverrideSettingsFile>Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <SignAssembly>False</SignAssembly>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <PropertyGroup Condition=' &apos;$(Platform)&apos; == &apos;AnyCPU&apos; '>
-    <PlatformTarget>x86</PlatformTarget>
-    <BaseAddress>4194304</BaseAddress>
-    <RegisterForComInterop>False</RegisterForComInterop>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <FileAlignment>4096</FileAlignment>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <PropertyGroup Condition=' &apos;$(Configuration)&apos; == &apos;Debug&apos; '>
     <OutputPath>bin\Debug\</OutputPath>
@@ -53,13 +47,11 @@
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <PropertyGroup Condition='&apos;$(Configuration)|$(Platform)&apos; == &apos;Debug|AnyCPU&apos;'>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>..\..\CBOR\CBOR.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>anycpu</PlatformTarget>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <PropertyGroup Condition='&apos;$(Configuration)|$(Platform)&apos; == &apos;Release|AnyCPU&apos;'>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -94,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include='app.config'/>
+    <AdditionalFiles Include='stylecop.json'/>
   </ItemGroup>
   <ItemGroup>
     <Service Include='{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}'/>

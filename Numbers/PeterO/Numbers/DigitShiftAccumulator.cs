@@ -384,7 +384,7 @@ namespace PeterO.Numbers {
           }
           if (bigPower) {
             // Power of 10 to be divided would be much bigger
-            this.discardedBitCount = this.discardedBitCount ?? (new FastInteger(0));
+            this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
             this.discardedBitCount.AddInt(digits);
             this.bitsAfterLeftmost |= this.bitLeftmost;
             this.bitsAfterLeftmost |= this.shiftedBigInt.IsZero ? 0 : 1;
@@ -550,7 +550,7 @@ namespace PeterO.Numbers {
         if (shiftedLong >= ValueTenPowers[digits]) {
           long bigPower = ValueTenPowers[digits];
           long smallPower = ValueTenPowers[digits - 1];
-          this.discardedBitCount = this.discardedBitCount ?? (new FastInteger(0));
+          this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
           this.discardedBitCount.AddInt(digits);
           long div = shiftedLong / bigPower;
           long rem = shiftedLong - (div * bigPower);
@@ -865,7 +865,7 @@ namespace PeterO.Numbers {
         if (this.shiftedSmall >= ValueTenPowers[digits]) {
           int bigPower = ValueTenPowers[digits];
           int smallPower = ValueTenPowers[digits - 1];
-          this.discardedBitCount = this.discardedBitCount ?? (new FastInteger(0));
+          this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
           this.discardedBitCount.AddInt(digits);
           int div = this.shiftedSmall / bigPower;
           int rem = this.shiftedSmall - (div * bigPower);

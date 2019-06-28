@@ -202,19 +202,27 @@ namespace PeterO.Numbers {
               if (i != 0) {
                 EInteger tmp;
                 // Move to head of cache if it isn't already
-                tmp = this.inputs[i]; this.inputs[i] = this.inputs[0];
+                tmp = this.inputs[i];
+                this.inputs[i] = this.inputs[0];
                 this.inputs[0] = tmp;
-                int tmpi = this.inputsInts[i]; this.inputsInts[i] =
-                this.inputsInts[0]; this.inputsInts[0] = tmpi;
-                tmp = this.outputs[i]; this.outputs[i] = this.outputs[0];
+                int tmpi = this.inputsInts[i];
+                this.inputsInts[i] =
+                this.inputsInts[0];
+                this.inputsInts[0] = tmpi;
+                tmp = this.outputs[i];
+                this.outputs[i] = this.outputs[0];
                 this.outputs[0] = tmp;
                 // Move formerly newest to next newest
                 if (i != 1) {
-                  tmp = this.inputs[i]; this.inputs[i] = this.inputs[1];
+                  tmp = this.inputs[i];
+                  this.inputs[i] = this.inputs[1];
                   this.inputs[1] = tmp;
-                  tmpi = this.inputsInts[i]; this.inputsInts[i] =
-                  this.inputsInts[1]; this.inputsInts[1] = tmpi;
-                  tmp = this.outputs[i]; this.outputs[i] = this.outputs[1];
+                  tmpi = this.inputsInts[i];
+                  this.inputsInts[i] =
+                  this.inputsInts[1];
+                  this.inputsInts[1] = tmpi;
+                  tmp = this.outputs[i];
+                  this.outputs[i] = this.outputs[1];
                   this.outputs[1] = tmp;
                 }
               }
@@ -232,19 +240,27 @@ namespace PeterO.Numbers {
               if (i != 0) {
                 EInteger tmp;
                 // Move to head of cache if it isn't already
-                tmp = this.inputs[i]; this.inputs[i] = this.inputs[0];
+                tmp = this.inputs[i];
+                this.inputs[i] = this.inputs[0];
                 this.inputs[0] = tmp;
-                int tmpi = this.inputsInts[i]; this.inputsInts[i] =
-                this.inputsInts[0]; this.inputsInts[0] = tmpi;
-                tmp = this.outputs[i]; this.outputs[i] = this.outputs[0];
+                int tmpi = this.inputsInts[i];
+                this.inputsInts[i] =
+                this.inputsInts[0];
+                this.inputsInts[0] = tmpi;
+                tmp = this.outputs[i];
+                this.outputs[i] = this.outputs[0];
                 this.outputs[0] = tmp;
                 // Move formerly newest to next newest
                 if (i != 1) {
-                  tmp = this.inputs[i]; this.inputs[i] = this.inputs[1];
+                  tmp = this.inputs[i];
+                  this.inputs[i] = this.inputs[1];
                   this.inputs[1] = tmp;
-                  tmpi = this.inputsInts[i]; this.inputsInts[i] =
-                  this.inputsInts[1]; this.inputsInts[1] = tmpi;
-                  tmp = this.outputs[i]; this.outputs[i] = this.outputs[1];
+                  tmpi = this.inputsInts[i];
+                  this.inputsInts[i] =
+                  this.inputsInts[1];
+                  this.inputsInts[1] = tmpi;
+                  tmp = this.outputs[i];
+                  this.outputs[i] = this.outputs[1];
                   this.outputs[1] = tmp;
                 }
               }
