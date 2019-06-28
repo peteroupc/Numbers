@@ -220,6 +220,8 @@ This object's value with the sign removed.
 
     EInteger result = EInteger.FromString("5").Add(200);
 
+ .
+
  <b>Parameters:</b>
 
  * <i>intValue</i>: The parameter  <i>intValue</i>
@@ -1137,6 +1139,8 @@ The parameter  <i>bigintValue</i>
  Multiplies this instance by the value of an arbitrary-precision integer object.
 
     EInteger result = EInteger.FromString("5").Multiply(200);
+
+ .
 
  <b>Parameters:</b>
 

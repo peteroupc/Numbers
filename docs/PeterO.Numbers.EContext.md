@@ -307,9 +307,9 @@ The flags that are set from converting numbers according to this arithmetic cont
 
     public bool IsSimplified { get; }
 
- Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html`  </a>  <b>Returns:</b>
+ Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html` </a>.  <b>Returns:</b>
 
- `true`  if to use a "simplified" arithmetic; otherwise,  `false`  .. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html`  </a> .  `true`  if a "simplified" arithmetic will be used; otherwise,  `false`  .
+ `true`  if to use a "simplified" arithmetic; otherwise,  `false`  In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html` </a>.  `true`  if a "simplified" arithmetic will be used; otherwise,  `false`  .
 
 <a id="Precision"></a>
 ### Precision
@@ -608,7 +608,7 @@ A context object for arbitrary-precision arithmetic settings.
     public PeterO.Numbers.EContext WithTraps(
         int traps);
 
- Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to  `True`  , but this may change in version 2.0 of this library.).  <b>Parameters:</b>
+ Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to  `True` , but this may change in version 2.0 of this library.).  <b>Parameters:</b>
 
  * <i>traps</i>: Flags representing the traps to enable. See the property "Traps".
 

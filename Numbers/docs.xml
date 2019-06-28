@@ -336,14 +336,15 @@
       further details, see
       <a href='http://speleotrove.com/decimal/dax3274.html'>
         <c>http://speleotrove.com/decimal/dax3274.html</c> </a>
+      .
     </summary>
     <value><c>true</c> if to use a "simplified" arithmetic; otherwise,
-      <c>false</c> .. In the simplified arithmetic, infinity, not-a-number, and subnormal
+      <c>false</c> In the simplified arithmetic, infinity, not-a-number, and subnormal
       numbers are not allowed, and negative zero is treated the same as positive
       zero. For further details, see
       <a href='http://speleotrove.com/decimal/dax3274.html'>
         <c>http://speleotrove.com/decimal/dax3274.html</c> </a>
-       .
+      .
       <c>true</c> if a "simplified" arithmetic will be used; otherwise,
       <c>false</c> .
     </value>
@@ -1117,7 +1118,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
     <summary>Creates a number with the value
-      <c>exponent*10^mantissa</c> </summary>
+      <c>exponent*10^mantissa</c> .
+    </summary>
     <param name='mantissa'>Desired value for the mantissa.
     </param>
     <param name='exponent'>Desired value for the exponent.
@@ -1129,7 +1131,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)'>
     <summary>Creates a number with the value
-      <c>exponent*10^mantissa</c> </summary>
+      <c>exponent*10^mantissa</c> .
+    </summary>
     <param name='mantissaSmall'>Desired value for the mantissa.
     </param>
     <param name='exponentSmall'>Desired value for the exponent.
@@ -2790,7 +2793,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.RemainderNaturalScale(PeterO.Numbers.EDecimal)'>
     <summary>Calculates the remainder of a number by the formula
-      <c>"this" - (("this" / "divisor") * "divisor")</c> </summary>
+      <c>"this" - (("this" / "divisor") * "divisor")</c> .
+    </summary>
     <param name='divisor'>The number to divide by.
     </param>
     <returns>An arbitrary-precision decimal number.
@@ -4166,7 +4170,8 @@
       <c>99999</c> ). The logical AND operation sets each digit of the result to 1 if the
       corresponding digits of each logical operand are both 1, and to 0
       otherwise. For example,
-      <c>01001 AND 111010 = 01000</c> </summary>
+      <c>01001 AND 111010 = 01000</c> .
+    </summary>
     <param name='ed1'>The first logical operand to the logical AND operation.
     </param>
     <param name='ed2'>The second logical operand to the logical AND operation.
@@ -4368,7 +4373,8 @@
       corresponding digit is 0, and to 0 otherwise; it can set no more digits
       than the maximum precision, however. For example, if the maximum precision
       is 8 digits, then
-      <c>NOT 111010 = 11000101</c> </summary>
+      <c>NOT 111010 = 11000101</c> .
+    </summary>
     <param name='ed1'>The logical operand to the logical NOT operation.
     </param>
     <param name='ec'>An arithmetic context to control the maximum precision of
@@ -4648,7 +4654,8 @@
       <c>99999</c> ). The logical OR operation sets each digit of the result to 1 if either
       or both of the corresponding digits of the logical operands are 1, and to
       0 otherwise. For example,
-      <c>01001 OR 111010 = 111011</c> </summary>
+      <c>01001 OR 111010 = 111011</c> .
+    </summary>
     <param name='ed1'>The first logical operand to the logical OR operation.
     </param>
     <param name='ed2'>The second logical operand to the logical OR operation.
@@ -4854,7 +4861,8 @@
       <c>99999</c> ). The logical exclusive-OR operation sets each digit of the result to 1
       if either corresponding digit of the logical operands, but not both, is 1,
       and to 0 otherwise. For example,
-      <c>01001 XOR 111010 = 101010</c> </summary>
+      <c>01001 XOR 111010 = 101010</c> .
+    </summary>
     <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
     </param>
     <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
@@ -4884,7 +4892,8 @@
       (when that number is expressed in scientific notation with one digit
       before the radix point). For example, returns 3 for the numbers
       <c>6.66E + 3</c> and
-      <c>666E + 1</c> </summary>
+      <c>666E + 1</c> .
+    </summary>
     <param name='ed'>An arbitrary-precision decimal number.
     </param>
     <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
@@ -6825,7 +6834,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat)'>
     <summary>Calculates the remainder of a number by the formula
-      <c>"this" - (("this" / "divisor") * "divisor")</c> </summary>
+      <c>"this" - (("this" / "divisor") * "divisor")</c> .
+    </summary>
     <param name='divisor'>The number to divide by.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
@@ -8297,7 +8307,8 @@
       <c>111001</c> ). The logical exclusive-OR operation sets each digit of the result to 1
       if either corresponding digit of the logical operands, but not both, is 1,
       and to 0 otherwise. For example,
-      <c>01001 XOR 111010 = 101010</c> </summary>
+      <c>01001 XOR 111010 = 101010</c> .
+    </summary>
     <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
     </param>
     <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
@@ -8340,7 +8351,8 @@
       corresponding bit is 0, and to 0 otherwise; it can set no more bits than
       the maximum precision, however. For example, if the maximum precision is 8
       bits, then
-      <c>NOT 111010 = 11000101</c> </summary>
+      <c>NOT 111010 = 11000101</c> .
+    </summary>
     <param name='ed1'>The operand to the logical NOT operation.
     </param>
     <param name='ec'>An arithmetic context to control the maximum precision of
@@ -8361,7 +8373,8 @@
       that number is expressed in scientific notation with one nonzero digit
       before the radix point). For example, returns 3 for the numbers
       <c>1.11b * 2^3</c> and
-      <c>111 * 2^1</c> </summary>
+      <c>111 * 2^1</c> .
+    </summary>
     <param name='ed'>An arbitrary-precision binary number.
     </param>
     <param name='ec'>An arithmetic context to control the precision, rounding, and exponent
@@ -8469,7 +8482,8 @@
     </param>
     <returns>The sum of the two objects.
     </returns>
-    <example><code>EInteger result = EInteger.FromString("5").Add(200);</code> </example>
+    <example><code>EInteger result = EInteger.FromString("5").Add(200);</code> .
+    </example>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)'>
     <summary>Does an AND operation between two arbitrary-precision integer values.
@@ -9209,7 +9223,8 @@
     </param>
     <returns>The product of the two numbers.
     </returns>
-    <example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code> </example>
+    <example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code> .
+    </example>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Negate'>
     <summary>Gets the value of this object with the sign reversed.
@@ -11997,7 +12012,8 @@
       <c>111001</c> ). The logical AND operation sets each bit of the result to 1 if the
       corresponding bits of each logical operand are both 1, and to 0 otherwise.
       For example,
-      <c>01001 AND 111010 = 01000</c> </summary>
+      <c>01001 AND 111010 = 01000</c> .
+    </summary>
     <param name='ed1'>The first logical operand to the logical AND operation.
     </param>
     <param name='ed2'>The second logical operand to the logical AND operation.
@@ -12125,7 +12141,8 @@
       corresponding bit is 0, and to 0 otherwise; it can set no more bits than
       the maximum precision, however. For example, if the maximum precision is 8
       bits, then
-      <c>NOT 111010 = 11000101</c> </summary>
+      <c>NOT 111010 = 11000101</c> .
+    </summary>
     <param name='ec'>An arithmetic context to control the maximum precision of
       arbitrary-precision numbers. If a logical operand passed to this method
       has more bits than the maximum precision specified in this context, the
@@ -12174,7 +12191,8 @@
       <c>111001</c> ). The logical OR operation sets each bit of the result to 1 if either or
       both of the corresponding bits of each logical operand are 1, and to 0
       otherwise. For example,
-      <c>01001 OR 111010 = 111011</c> </summary>
+      <c>01001 OR 111010 = 111011</c> .
+    </summary>
     <param name='ed1'>The first logical operand to the logical OR operation.
     </param>
     <param name='ed2'>The second logical operand to the logical OR operation.

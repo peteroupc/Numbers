@@ -159,7 +159,7 @@
 * <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value but a new exponent.
 * <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand).
 * <code>[Remainder(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision binary floating-point numbers.
-* <code>[RemainderNaturalScale(PeterO.Numbers.EFloat)](#RemainderNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor")
+* <code>[RemainderNaturalScale(PeterO.Numbers.EFloat)](#RemainderNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor") .
 * <code>[RemainderNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNear(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNear_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the distance to the closest multiple of the given divisor, based on the result of dividing this object's value by another object's value.
 * <code>[RemainderNoRoundAfterDivide(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNoRoundAfterDivide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision binary floating-point numbers.
@@ -359,6 +359,8 @@ An arbitrary-precision binary floating-point number. Returns signaling NaN if th
  Adds this object and another object.
 
     EInteger result = EInteger.FromString("5").Add(200);
+
+ .
 
  <b>Parameters:</b>
 
@@ -1699,6 +1701,8 @@ A number whose exponent is increased by  <i>bigPlaces</i>
 
     EInteger result = EInteger.FromString("5").Multiply(200);
 
+ .
+
  <b>Parameters:</b>
 
  * <i>intValue</i>: The parameter  <i>intValue</i>
@@ -2651,7 +2655,7 @@ The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (
     public PeterO.Numbers.EFloat RemainderNaturalScale(
         PeterO.Numbers.EFloat divisor);
 
- Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")`   <b>Parameters:</b>
+ Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")`  .  <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
