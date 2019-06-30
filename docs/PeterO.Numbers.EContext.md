@@ -4,7 +4,7 @@
 
  Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.). <b>Thread safety:</b> With one exception, instances of this class are immutable and are safe to use among multiple threads. The one exception involves the  `Flags`  property. If the context's  `HasFlags`  property (a read-only property) is  `true`  , the  `Flags`  property is mutable, thus making the context mutable. This class doesn't synchronize access to such mutable contexts, so applications should provide their own synchronization if a context with the  `HasFlags`  property set to  `true`  will be shared among multiple threads and at least one of those threads needs to write the  `Flags`  property (which can happen, for example, by passing the context to most methods of  `EDecimal`  such as  `Add`  ).
 
-  ### Member Summary
+### Member Summary
 * <code>[AdjustExponent](#AdjustExponent)</code> - Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property.
 * <code>[public static readonly PeterO.Numbers.EContext Basic;](#Basic)</code> - A basic arithmetic context, 9 digits precision, rounding mode half-up, unlimited exponent range.
 * <code>[public static readonly PeterO.Numbers.EContext BigDecimalJava;](#BigDecimalJava)</code> - An arithmetic context for Java's BigDecimal format.
@@ -307,9 +307,9 @@ The flags that are set from converting numbers according to this arithmetic cont
 
     public bool IsSimplified { get; }
 
- Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html` </a>.  <b>Returns:</b>
+ Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html`  </a> .  <b>Returns:</b>
 
- `true`  if to use a "simplified" arithmetic; otherwise,  `false`  In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html` </a>.  `true`  if a "simplified" arithmetic will be used; otherwise,  `false`  .
+ `true`  if to use a "simplified" arithmetic; otherwise,  `false`  In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html">  `http://speleotrove.com/decimal/dax3274.html`  </a> .  `true`  if a "simplified" arithmetic will be used; otherwise,  `false`  .
 
 <a id="Precision"></a>
 ### Precision
@@ -608,7 +608,7 @@ A context object for arbitrary-precision arithmetic settings.
     public PeterO.Numbers.EContext WithTraps(
         int traps);
 
- Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to  `True` , but this may change in version 2.0 of this library.).  <b>Parameters:</b>
+ Copies this EContext with Traps set to the given value. (Also sets HasFlags on the copy to  `True`  , but this may change in version 2.0 of this library.).  <b>Parameters:</b>
 
  * <i>traps</i>: Flags representing the traps to enable. See the property "Traps".
 

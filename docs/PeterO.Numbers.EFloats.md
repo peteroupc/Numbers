@@ -2,7 +2,9 @@
 
     public static class EFloats
 
- A class that implements additional operations on arbitrary-precision binary floating-point numbers.  ### Member Summary
+ A class that implements additional operations on arbitrary-precision binary floating-point numbers.
+
+### Member Summary
 * <code>[And(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#And_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Performs a logical AND operation on two binary numbers in the form of logical operands .
 * <code>[BooleanToEFloat(bool, PeterO.Numbers.EContext)](#BooleanToEFloat_bool_PeterO_Numbers_EContext)</code> - Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
 * <code>[Canonical(PeterO.Numbers.EFloat)](#Canonical_PeterO_Numbers_EFloat)</code> - Returns a canonical version of the given arbitrary-precision number object.

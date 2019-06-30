@@ -12,11 +12,11 @@
 
   *  `EInteger`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-bit-long numbers as secret parameters.
 
-  * The methods in this class (especially those that involve arithmetic) are not guaranteed to run in constant time for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
+  * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (non-data-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
   Applications should instead use dedicated security libraries to handle big numbers in security-sensitive algorithms.
 
-  ### Member Summary
+### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this object's value.
 * <code>[Add(int)](#Add_int)</code> - Adds this object and another object.
 * <code>[Add(PeterO.Numbers.EInteger)](#Add_PeterO_Numbers_EInteger)</code> - Adds this object and another object.

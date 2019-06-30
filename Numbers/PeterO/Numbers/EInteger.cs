@@ -911,6 +911,8 @@ namespace PeterO.Numbers {
       }
       if (c == 4 && (this.words[3] & 0x8000) != 0) {
         return this.negative && this.words[3] == unchecked((short)0x8000) &&
+          this.words[2] == 0 &&
+          this.words[1] == 0 &&
           this.words[0] == 0;
       }
       return true;

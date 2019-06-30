@@ -6,7 +6,9 @@
         System.IComparable,
         System.IConvertible
 
- Specifies the mode to use when "shortening" numbers that otherwise can't fit a given number of digits, so that the shortened number has about the same value. This "shortening" is known as rounding. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).  ### Member Summary
+ Specifies the mode to use when "shortening" numbers that otherwise can't fit a given number of digits, so that the shortened number has about the same value. This "shortening" is known as rounding. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
+
+### Member Summary
 * <code>[public static PeterO.Numbers.ERounding Ceiling = 6;](#Ceiling)</code> - If there is a fractional part, the number is rounded to the highest representable number that's closest to it.
 * <code>[public static PeterO.Numbers.ERounding Down = 2;](#Down)</code> - The fractional part is discarded (the number is truncated).
 * <code>[public static PeterO.Numbers.ERounding Floor = 7;](#Floor)</code> - If there is a fractional part, the number is rounded to the lowest representable number that's closest to it.

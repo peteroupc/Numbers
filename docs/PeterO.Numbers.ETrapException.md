@@ -5,7 +5,9 @@
         System.Runtime.InteropServices._Exception,
         System.Runtime.Serialization.ISerializable
 
- Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).  ### Member Summary
+ Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
+
+### Member Summary
 * <code>[Context](#Context)</code> - Gets the arithmetic context used during the operation that triggered the trap.
 * <code>[Error](#Error)</code> - Gets the flag that specifies the kind of error (EContext.
 * <code>[Result](#Result)</code> - Gets the defined result of the operation that caused the trap.

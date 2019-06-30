@@ -336,7 +336,7 @@
       further details, see
       <a href='http://speleotrove.com/decimal/dax3274.html'>
         <c>http://speleotrove.com/decimal/dax3274.html</c> </a>
-      .
+       .
     </summary>
     <value><c>true</c> if to use a "simplified" arithmetic; otherwise,
       <c>false</c> In the simplified arithmetic, infinity, not-a-number, and subnormal
@@ -344,7 +344,7 @@
       zero. For further details, see
       <a href='http://speleotrove.com/decimal/dax3274.html'>
         <c>http://speleotrove.com/decimal/dax3274.html</c> </a>
-      .
+       .
       <c>true</c> if a "simplified" arithmetic will be used; otherwise,
       <c>false</c> .
     </value>
@@ -667,10 +667,10 @@
           many-digit-long numbers as secret parameters.
         </item>
         <item>The methods in this class (especially those that involve arithmetic)
-          are not guaranteed to run in constant time for all relevant inputs.
-          Certain attacks that involve encrypted communications have exploited
-          the timing and other aspects of such communications to derive keying
-          material or cleartext indirectly.
+          are not guaranteed to be "constant-time" (non-data-dependent) for all
+          relevant inputs. Certain attacks that involve encrypted communications
+          have exploited the timing and other aspects of such communications to
+          derive keying material or cleartext indirectly.
         </item>
       </list>
       <para>Applications should instead use dedicated security libraries to handle
@@ -5016,10 +5016,10 @@
           many-bit-long numbers as secret parameters.
         </item>
         <item>The methods in this class (especially those that involve arithmetic)
-          are not guaranteed to run in constant time for all relevant inputs.
-          Certain attacks that involve encrypted communications have exploited
-          the timing and other aspects of such communications to derive keying
-          material or cleartext indirectly.
+          are not guaranteed to be "constant-time" (non-data-dependent) for all
+          relevant inputs. Certain attacks that involve encrypted communications
+          have exploited the timing and other aspects of such communications to
+          derive keying material or cleartext indirectly.
         </item>
       </list>
       <para>Applications should instead use dedicated security libraries to handle
@@ -8444,10 +8444,10 @@
           many-bit-long numbers as secret parameters.
         </item>
         <item>The methods in this class (especially those that involve arithmetic)
-          are not guaranteed to run in constant time for all relevant inputs.
-          Certain attacks that involve encrypted communications have exploited
-          the timing and other aspects of such communications to derive keying
-          material or cleartext indirectly.
+          are not guaranteed to be "constant-time" (non-data-dependent) for all
+          relevant inputs. Certain attacks that involve encrypted communications
+          have exploited the timing and other aspects of such communications to
+          derive keying material or cleartext indirectly.
         </item>
       </list>
       <para>Applications should instead use dedicated security libraries to handle

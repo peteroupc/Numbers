@@ -2,7 +2,9 @@
 
     public static class EDecimals
 
- A class that implements additional operations on arbitrary-precision decimal numbers. Many of them are listed as miscellaneous operations in the General Decimal Arithmetic Specification version 1.70.  ### Member Summary
+ A class that implements additional operations on arbitrary-precision decimal numbers. Many of them are listed as miscellaneous operations in the General Decimal Arithmetic Specification version 1.70.
+
+### Member Summary
 * <code>[And(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#And_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical AND operation on two decimal numbers in the form of logical operands .
 * <code>[BooleanToEDecimal(bool, PeterO.Numbers.EContext)](#BooleanToEDecimal_bool_PeterO_Numbers_EContext)</code> - Converts a boolean value (either true or false) to an arbitrary-precision decimal number.
 * <code>[Canonical(PeterO.Numbers.EDecimal)](#Canonical_PeterO_Numbers_EDecimal)</code> - Returns a canonical version of the given arbitrary-precision number object.

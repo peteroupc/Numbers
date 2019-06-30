@@ -831,6 +831,73 @@ namespace Test {
               bigintA.GetSignedBitLengthAsEInteger().CompareTo(63) <= 0);
       }
     }
+
+    [Test]
+    public void TestCanFitInInt64() {
+      EInteger ei;
+      ei = EInteger.FromString("9223372036854775807");
+      Assert.IsTrue(ei.CanFitInInt64(), ei.ToString());
+      Assert.AreEqual(
+        63,
+        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      ei = EInteger.FromString("9223372036854775808");
+      Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
+      Assert.AreEqual(
+        64,
+        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      ei = EInteger.FromString("-9223372036854775807");
+      Assert.IsTrue(ei.CanFitInInt64(), ei.ToString());
+      Assert.AreEqual(
+        63,
+        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      ei = EInteger.FromString("-9223372036854775808");
+      Assert.IsTrue(ei.CanFitInInt64(), ei.ToString());
+      Assert.AreEqual(
+        63,
+        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      ei = EInteger.FromString("-9223372036854775809");
+      Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
+      Assert.AreEqual(
+        64,
+        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      ei = EInteger.FromString("-9223373136366403584");
+      Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
+      Assert.AreEqual(
+        64,
+        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      ei = EInteger.FromString("9223373136366403584");
+      Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
+      Assert.AreEqual(
+        64,
+        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      var strings = new string[] {
+   "8000FFFFFFFF0000",
+   "8000AAAAAAAA0000",
+   "8000800080000000",
+   "8000000100010000",
+   "8000FFFF00000000",
+   "80000000FFFF0000",
+   "8000800000000000",
+   "8000000080000000",
+   "8000AAAA00000000",
+   "80000000AAAA0000",
+   "8000000100000000",
+   "8000000000010000",
+ };
+      foreach (var str in strings) {
+        ei = EInteger.FromRadixString(str, 16);
+        Assert.IsFalse(ei.CanFitInInt64());
+        Assert.AreEqual(
+         64,
+         ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+        ei = ei.Negate();
+        Assert.IsFalse(ei.CanFitInInt64());
+        Assert.AreEqual(
+         64,
+         ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      }
+    }
+
     [Test]
     public void TestCompareTo() {
       var r = new RandomGenerator();
