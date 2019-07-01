@@ -44,6 +44,10 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
+Version 1.4.2
+
+- Bug fix in the EInteger.CanFitInInt64 method
+
 Version 1.4.1
 
 - Added EDecimals and EFloats classes to .NET 2.0 and .NET 4.0 versions; those classes were inadvertently omitted there

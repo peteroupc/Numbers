@@ -1,5 +1,9 @@
 <package
-><metadata><version>1.4.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.4.1
+><metadata><version>1.4.2</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.4.2
+
+- Bug fix in the EInteger.CanFitInInt64 method
+
+Version 1.4.1
 
 - Added EDecimals and EFloats classes to .NET 2.0 and .NET 4.0 versions; those classes were inadvertently omitted there
 
@@ -14,5 +18,5 @@ Version 1.4.0
 - Add Copy method to EDecimal, EFloat, and ERational
 - Add CompareToTotalMagnitude overload to EDecimal, EFloat, and ERational
 - Deprecated Odd and ZeroFiveUp rounding modes
-- Bug fixes and performance improvements</releaseNotes><summary></summary><license type='expression'>CC0-1.0</license><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
+- Bug fixes and performance improvements</releaseNotes><summary></summary><license type='expression'>CC0-1.0</license><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags><dependencies><group><dependency id='StyleCop.Analyzers' version='1.1.118' /></group></dependencies></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
 >
