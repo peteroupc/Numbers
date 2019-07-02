@@ -884,7 +884,7 @@ namespace Test {
    "8000000100000000",
    "8000000000010000",
  };
-      foreach (var str in strings) {
+      foreach (string str in strings) {
         ei = EInteger.FromRadixString(str, 16);
         Assert.IsFalse(ei.CanFitInInt64());
         Assert.AreEqual(
