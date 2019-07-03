@@ -6157,23 +6157,26 @@ EFloat.Create(
     public static EDecimal Ulps(EDecimal expected, EDecimal actual, int
       precision) {
       if (expected == null) {
-  throw new ArgumentNullException(nameof(expected));
-}
+        throw new ArgumentNullException(nameof(expected));
+      }
       if (actual == null) {
-  throw new ArgumentNullException(nameof(actual));
-}
-if (precision <= 0) {
+        throw new ArgumentNullException(nameof(actual));
+      }
+      if (precision <= 0) {
         throw new ArgumentOutOfRangeException(nameof(precision));
       }
       EInteger k = EInteger.Zero;
       while (true) {
-        EDecimal pk = EDecimal.Create(1, k.Negate()).Multiply(expected).Abs();
-        if (pk.CompareTo(1) >= 0 && pk.CompareTo(10) < 0) {
+        EDecimal pk = EDecimal.Create(EInteger.FromInt32(1), k.Negate())
+          .Multiply(expected).Abs();
+        if (pk.CompareTo(EDecimal.FromInt32(1)) >= 0 &&
+            pk.CompareTo(EDecimal.FromInt32(10)) < 0) {
           break;
         }
-        k = (pk.CompareTo(1) < 0) ? k.Subtract(1) : (kAdd(1);
+        k = k.Add((pk.CompareTo(EDecimal.FromInt32(1)) < 0) ? -1 : 1);
       }
-      return expected.Subtract(actual).Divide(EDecimal.Create(1,
+      return expected.Subtract(actual).Divide(EDecimal.Create(
+        EInteger.FromInt32(1),
         k.Subtract(precision - 1)),
           EContext.ForPrecisionAndRounding(5, ERounding.Up)).Abs();
     }

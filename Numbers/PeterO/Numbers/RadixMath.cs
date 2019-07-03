@@ -3057,7 +3057,7 @@ ctx.Precision).WithBlankFlags();
         EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
         if (bigBitLength.CompareTo(2135) <= 0) {
           // May overestimate by 1
-        return new FastInteger(1 + ((bigBitLength.ToInt32Checked() * 631305)>>
+        return new FastInteger(1 + ((bigBitLength.ToInt32Checked() * 631305) >>
             21));
         } else {
           // Bit length is big enough that dividing it by 3 will not
@@ -3111,7 +3111,7 @@ ctx.Precision).WithBlankFlags();
               // _________________________111111111111|_
               // ___222222222222222|____________________
            FastInteger digitLength1 = this.OverestimateDigitLength(op1MantAbs);
-                if (fastOp1Exp.Copy().Add(digitLength1).AddInt(2)
+           if (fastOp1Exp.Copy().Add(digitLength1).AddInt(2)
                  .CompareTo(fastOp2Exp) < 0) {
                 // first operand's mantissa can't reach the
                 // second operand's mantissa, so the exponent can be
@@ -3836,7 +3836,7 @@ ctx.Precision).WithBlankFlags();
         var lastDiscarded = 0;
         var olderDiscarded = 0;
         if (!mantissaDividend.IsZero) {
-        if (rounding == ERounding.HalfDown || rounding == ERounding.HalfEven||
+        if (rounding == ERounding.HalfDown || rounding == ERounding.HalfEven ||
             rounding == ERounding.HalfUp) {
             EInteger halfDivisor = mantissaDivisor >> 1;
             int cmpHalf = mantissaDividend.CompareTo(halfDivisor);

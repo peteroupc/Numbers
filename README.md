@@ -44,6 +44,11 @@ at: [http://peteroupc.github.io/Numbers/](http://peteroupc.github.io/Numbers/)
 Release notes
 -------
 
+Version 1.4.3
+
+- Fix accuracy issue with Log, especially where 1 < x < 1.07
+- Remove StyleCop.Analyzers, which is used only in development, as dependency in .NET version
+
 Version 1.4.2
 
 - Bug fix in the EInteger.CanFitInInt64 method

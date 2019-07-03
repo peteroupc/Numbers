@@ -8,9 +8,11 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
+// TODO: Add CompareTo(int) to EDecimal/EFloat/ERational in
+// next minor/major version
 namespace PeterO.Numbers {
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="T:PeterO.Numbers.EDecimal"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:PeterO.Numbers.EDecimal"]/*'/>
   public sealed partial class EDecimal : IComparable<EDecimal>,
   IEquatable<EDecimal> {
     //----------------------------------------------------------------
@@ -21,9 +23,9 @@ namespace PeterO.Numbers {
                 "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal NaN = CreateWithFlags(
-        EInteger.Zero,
-        EInteger.Zero,
-        BigNumberFlags.FlagQuietNaN);
+      EInteger.Zero,
+      EInteger.Zero,
+      BigNumberFlags.FlagQuietNaN);
 
     /// <summary>Negative infinity, less than any other number.</summary>
 #if CODE_ANALYSIS
@@ -55,7 +57,8 @@ namespace PeterO.Numbers {
     public static readonly EDecimal One =
       EDecimal.Create(EInteger.One, EInteger.Zero);
 
-    /// <summary>Positive infinity, greater than any other number.</summary>
+    /// <summary>Positive infinity, greater than any other
+    /// number.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -66,9 +69,9 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagInfinity);
 
-    /// <summary>A not-a-number value that signals an invalid operation flag when it's
-    /// passed as an argument to any arithmetic operation in arbitrary-precision
-    /// decimal.</summary>
+    /// <summary>A not-a-number value that signals an invalid operation
+    /// flag when it's passed as an argument to any arithmetic operation in
+    /// arbitrary-precision decimal.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
                 "CA2104", Justification = "EDecimal is immutable")]
@@ -194,7 +197,9 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="P:PeterO.Numbers.EDecimal.Sign"]/*'/>
     public int Sign {
       get {
-        return (((this.flags & BigNumberFlags.FlagSpecial) == 0) && this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags & BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
+        return (((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
+          this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
+          BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       }
     }
 
@@ -206,8 +211,11 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)"]/*'/>
+    /// <summary>Creates a number with the value
+    /// <c>exponent*10^mantissa</c></summary>
+    /// <param name='mantissaSmall'>Desired value for the mantissa.</param>
+    /// <param name='exponentSmall'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision decimal number.</returns>
     public static EDecimal Create(int mantissaSmall, int exponentSmall) {
       if (mantissaSmall == Int32.MinValue) {
         return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
@@ -229,8 +237,13 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Creates a number with the value
+    /// <c>exponent*10^mantissa</c></summary>
+    /// <param name='mantissa'>Desired value for the mantissa.</param>
+    /// <param name='exponent'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision decimal number.</returns>
+    /// <exception cref='T:System.ArgumentNullException'>The parameter
+    /// &#x22;mantissa&#x22; or &#x22;exponent&#x22; is null.</exception>
     public static EDecimal Create(
       EInteger mantissa,
       EInteger exponent) {
@@ -287,9 +300,9 @@ namespace PeterO.Numbers {
         newFlags |= signaling ? BigNumberFlags.FlagSignalingNaN :
           BigNumberFlags.FlagQuietNaN;
         return new EDecimal(
-  ef.unsignedMantissa,
-  ef.exponent,
-  newFlags);
+          ef.unsignedMantissa,
+          ef.exponent,
+          newFlags);
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
@@ -680,9 +693,10 @@ namespace PeterO.Numbers {
                     mantBufferMult = 10;
                   } else {
                     // multiply by 10
-                    mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
-                    mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                    mantBuffer += thisdigit;
+                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult <<
+                      1);
+                      mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
+                      mantBuffer += thisdigit;
                   }
                 }
               } else {
@@ -757,9 +771,10 @@ namespace PeterO.Numbers {
                     mantBufferMult = 10;
                   } else {
                     // multiply by 10
-                    mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
-                    mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                    mantBuffer += thisdigit;
+                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult <<
+                      1);
+                      mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
+                      mantBuffer += thisdigit;
                   }
                 }
               } else {
@@ -938,9 +953,9 @@ namespace PeterO.Numbers {
         fastIntMant = FastIntegerFixed.FromFastInteger(mant);
       }
       var ret = new EDecimal(
-  fastIntMant,
-  fastIntScale,
-  negative ? BigNumberFlags.FlagNegative : 0);
+        fastIntMant,
+        fastIntScale,
+        negative ? BigNumberFlags.FlagNegative : 0);
       if (ctx != null) {
         ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
       }
@@ -1026,9 +1041,9 @@ namespace PeterO.Numbers {
     public EDecimal Abs() {
       if (this.IsNegative) {
         var er = new EDecimal(
-  this.unsignedMantissa,
-  this.exponent,
-  this.flags & ~BigNumberFlags.FlagNegative);
+          this.unsignedMantissa,
+          this.exponent,
+          this.flags & ~BigNumberFlags.FlagNegative);
         return er;
       }
       return this;
@@ -1061,8 +1076,8 @@ namespace PeterO.Numbers {
         ((this.flags | otherValue.flags) & BigNumberFlags.FlagNegative) == 0 &&
             this.exponent.CompareTo(otherValue.exponent) == 0) {
         FastIntegerFixed result = FastIntegerFixed.Add(
-  this.unsignedMantissa,
-  otherValue.unsignedMantissa);
+          this.unsignedMantissa,
+          otherValue.unsignedMantissa);
         return new EDecimal(result, this.exponent, 0);
       }
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
@@ -1135,7 +1150,8 @@ namespace PeterO.Numbers {
             return (signA > 0) ? 1 : -1;
           }
         }
-        // DebugUtility.Log("edexp=" + ed.Exponent + ", efexp=" + (ef.Exponent));
+        // DebugUtility.Log("edexp=" + ed.Exponent + ", efexp=" +
+        // (ef.Exponent));
         EInteger bitCount = ef.Mantissa.GetUnsignedBitLengthAsEInteger();
         EInteger absexp = ef.Exponent.Abs();
         if (absexp.CompareTo(bitCount) > 0) {
@@ -1163,13 +1179,13 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
         // DebugUtility.Log("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
         if (thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) >= 0 &&
-               otherAdjExp.CompareTo((EInteger)(-4000)) < 0) {
+          otherAdjExp.CompareTo((EInteger)(-4000)) < 0) {
           // With these exponent combinations, the binary's absolute
           // value is less than the decimal's
           return (signA > 0) ? 1 : -1;
         }
         if (thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) < 0 &&
-            otherAdjExp.CompareTo((EInteger)(-1000)) < 0) {
+          otherAdjExp.CompareTo((EInteger)(-1000)) < 0) {
           thisAdjExp = thisAdjExp.Add(EInteger.One).Abs();
           otherAdjExp = otherAdjExp.Add(EInteger.One).Abs();
           EInteger ratio = otherAdjExp.Multiply(1000).Divide(thisAdjExp);
@@ -1213,7 +1229,8 @@ namespace PeterO.Numbers {
           // have a greater value in decimal than in binary
           return (signA > 0) ? 1 : -1;
         }
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(1000) < 0 && otherAdjExp.CompareTo(4000) >= 0) {
+        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(1000) < 0 &&
+          otherAdjExp.CompareTo(4000) >= 0) {
           // With these exponent combinations, the binary's absolute
           // value is greater than the decimal's
           return (signA > 0) ? -1 : 1;
@@ -1516,9 +1533,9 @@ namespace PeterO.Numbers {
       EDecimal divisor,
       long desiredExponentSmall) {
       return this.DivideToExponent(
-  divisor,
-  desiredExponentSmall,
-  ERounding.HalfEven);
+        divisor,
+        desiredExponentSmall,
+        ERounding.HalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -1527,9 +1544,9 @@ namespace PeterO.Numbers {
       EDecimal divisor,
       int desiredExponentInt) {
       return this.DivideToExponent(
-       divisor,
-       desiredExponentInt,
-       ERounding.HalfEven);
+        divisor,
+        desiredExponentInt,
+        ERounding.HalfEven);
     }
 
     /// <include file='../../docs.xml'
@@ -1683,8 +1700,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal MovePointLeft(
-  EInteger bigPlaces,
-  EContext ctx) {
+      EInteger bigPlaces,
+      EContext ctx) {
       return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
@@ -1710,8 +1727,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal MovePointRight(
-  EInteger bigPlaces,
-  EContext ctx) {
+      EInteger bigPlaces,
+      EContext ctx) {
       if (!this.IsFinite) {
         return this.RoundToPrecision(ctx);
       }
@@ -1722,9 +1739,9 @@ namespace PeterO.Numbers {
         EInteger bigPower = NumberUtility.FindPowerOfTenFromBig(bigExp);
         mant *= bigPower;
         return CreateWithFlags(
-  mant,
-  EInteger.Zero,
-  this.flags).RoundToPrecision(ctx);
+          mant,
+          EInteger.Zero,
+          this.flags).RoundToPrecision(ctx);
       }
       return CreateWithFlags(
         this.unsignedMantissa,
@@ -1743,8 +1760,8 @@ namespace PeterO.Numbers {
           int integerB = otherValue.unsignedMantissa.AsInt32();
           long longA = ((long)integerA) * ((long)integerB);
           FastIntegerFixed exp = FastIntegerFixed.Add(
-  this.exponent,
-  otherValue.exponent);
+            this.exponent,
+            otherValue.exponent);
           if ((longA >> 31) == 0) {
             return new EDecimal(
   new FastIntegerFixed((int)longA),
@@ -1844,9 +1861,9 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.Negate"]/*'/>
     public EDecimal Negate() {
       return new EDecimal(
-  this.unsignedMantissa,
-  this.exponent,
-  this.flags ^ BigNumberFlags.FlagNegative);
+        this.unsignedMantissa,
+        this.exponent,
+        this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
@@ -1928,8 +1945,8 @@ namespace PeterO.Numbers {
       int desiredExponentInt,
       ERounding rounding) {
       EDecimal ret = this.RoundToExponentFast(
-  desiredExponentInt,
-  rounding);
+        desiredExponentInt,
+        rounding);
       if (ret != null) {
         return ret;
       }
@@ -1947,8 +1964,8 @@ namespace PeterO.Numbers {
          (!ctx.HasExponentRange && !ctx.HasFlags && ctx.Traps == 0 &&
           !ctx.HasMaxPrecision && !ctx.IsSimplified)) {
         EDecimal ret = this.RoundToExponentFast(
-  desiredExponentInt,
-  ctx == null ? ERounding.HalfEven : ctx.Rounding);
+          desiredExponentInt,
+          ctx == null ? ERounding.HalfEven : ctx.Rounding);
         if (ret != null) {
           return ret;
         }
@@ -1988,8 +2005,10 @@ namespace PeterO.Numbers {
       return GetMathValue(ctx).Remainder(this, divisor, ctx, false);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.RemainderNaturalScale(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Calculates the remainder of a number by the formula
+    /// <c>"this" - (("this" / "divisor") * "divisor")</c></summary>
+    /// <param name='divisor'>The number to divide by.</param>
+    /// <returns>An arbitrary-precision decimal number.</returns>
     public EDecimal RemainderNaturalScale(EDecimal divisor) {
       return this.RemainderNaturalScale(divisor, null);
     }
@@ -2057,8 +2076,8 @@ namespace PeterO.Numbers {
          (!ctx.HasExponentRange && !ctx.HasFlags && ctx.Traps == 0 &&
           !ctx.HasMaxPrecision && !ctx.IsSimplified)) {
         EDecimal ret = this.RoundToExponentFast(
-  exponentSmall,
-  ctx == null ? ERounding.HalfEven : ctx.Rounding);
+          exponentSmall,
+          ctx == null ? ERounding.HalfEven : ctx.Rounding);
         if (ret != null) {
           return ret;
         }
@@ -2072,8 +2091,8 @@ namespace PeterO.Numbers {
       int exponentSmall,
       ERounding rounding) {
       EDecimal ret = this.RoundToExponentFast(
-  exponentSmall,
-  rounding);
+        exponentSmall,
+        rounding);
       if (ret != null) {
         return ret;
       }
@@ -2164,8 +2183,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ScaleByPowerOfTen(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EDecimal ScaleByPowerOfTen(
-  EInteger bigPlaces,
-  EContext ctx) {
+      EInteger bigPlaces,
+      EContext ctx) {
       if (bigPlaces.IsZero) {
         return this.RoundToPrecision(ctx);
       }
@@ -2220,15 +2239,15 @@ namespace PeterO.Numbers {
 
     private static readonly double[] ExactDoublePowersOfTen = {
 1, 10, 100, 1000, 10000,
-1e5, 1e6, 1e7, 1e8, 1e9,
-1e10, 1e11, 1e12, 1e13, 1e14,
-1e15, 1e16, 1e17, 1e18, 1e19,
-1e20, 1e21, 1e22,
+  1e5, 1e6, 1e7, 1e8, 1e9,
+  1e10, 1e11, 1e12, 1e13, 1e14,
+  1e15, 1e16, 1e17, 1e18, 1e19,
+  1e20, 1e21, 1e22,
     };
 
     private static readonly float[] ExactSinglePowersOfTen = {
 1f, 10f, 100f, 1000f, 10000f,
-1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f,
+  1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f,
     };
 
     /// <include file='../../docs.xml'
@@ -2508,8 +2527,8 @@ namespace PeterO.Numbers {
     }
 
     private EDecimal RoundToExponentFast(
-  int exponentSmall,
-  ERounding rounding) {
+      int exponentSmall,
+      ERounding rounding) {
       if (this.IsFinite && this.exponent.CanFitInInt32() &&
         this.unsignedMantissa.CanFitInInt32()) {
         int thisExponentSmall = this.exponent.AsInt32();
@@ -2737,9 +2756,9 @@ namespace PeterO.Numbers {
           do {
             var optimized = false;
             if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
-              EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-              EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-              if (divisor.CompareTo(bigmantissa) < 0) {
+           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+                if (divisor.CompareTo(bigmantissa) < 0) {
                 if (divBits.CompareTo(valueBmBits) < 0) {
                   EInteger bitdiff = valueBmBits.Subtract(divBits);
                   if (bitdiff.CompareTo(valueEcPrec.Add(1)) > 0) {
@@ -2752,7 +2771,8 @@ namespace PeterO.Numbers {
               } else {
                 if (valueBmBits.CompareTo(divBits) >= 0 &&
                    valueEcPrec.CompareTo(
-                     EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
+                  EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <=
+                       0) {
                   EInteger vbb = divBits.Add(valueEcPrec);
                   if (valueBmBits.CompareTo(vbb) < 0) {
                     valueBmBits = vbb.Subtract(valueBmBits);
@@ -2792,9 +2812,9 @@ namespace PeterO.Numbers {
           do {
             var optimized = false;
             if (bigmantissa.CompareTo(divisor) < 0) {
-              EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-              EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-              if (valueBmBits.CompareTo(divBits) < 0) {
+           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+                if (valueBmBits.CompareTo(divBits) < 0) {
                 valueBmBits = divBits.Subtract(valueBmBits);
                 bigmantissa = bigmantissa.ShiftLeft(valueBmBits);
                 adjust.SubtractBig(valueBmBits);
@@ -2802,11 +2822,12 @@ namespace PeterO.Numbers {
               }
             } else {
               if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
-                EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-                if (valueBmBits.CompareTo(divBits) >= 0 &&
+           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
+                  EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+                  if (valueBmBits.CompareTo(divBits) >= 0 &&
                       valueEcPrec.CompareTo(
-                       EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <= 0) {
+                  EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <=
+                         0) {
                   EInteger vbb = divBits.Add(valueEcPrec);
                   if (valueBmBits.CompareTo(vbb) < 0) {
                     valueBmBits = vbb.Subtract(valueBmBits);
@@ -3155,26 +3176,26 @@ namespace PeterO.Numbers {
     }
 
     private sealed class DecimalMathHelper : IRadixMathHelper<EDecimal> {
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetRadix"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetRadix"]/*'/>
       public int GetRadix() {
         return 10;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetSign(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetSign(PeterO.Numbers.EDecimal)"]/*'/>
       public int GetSign(EDecimal value) {
         return value.Sign;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetMantissa(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetMantissa(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetMantissa(EDecimal value) {
         return value.unsignedMantissa.ToEInteger();
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetExponent(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetExponent(PeterO.Numbers.EDecimal)"]/*'/>
       public EInteger GetExponent(EDecimal value) {
         return value.exponent.ToEInteger();
       }
@@ -3290,14 +3311,14 @@ namespace PeterO.Numbers {
           NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetFlags(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetFlags(PeterO.Numbers.EDecimal)"]/*'/>
       public int GetFlags(EDecimal value) {
         return value.flags;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
       public EDecimal CreateNewWithFlags(
         EInteger mantissa,
         EInteger exponent,
@@ -3315,14 +3336,14 @@ namespace PeterO.Numbers {
         return CreateWithFlags(fmantissa, fexponent, flags);
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetArithmeticSupport"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.GetArithmeticSupport"]/*'/>
       public int GetArithmeticSupport() {
         return BigNumberFlags.FiniteAndNonFinite;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.ValueOf(System.Int32)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.ValueOf(System.Int32)"]/*'/>
       public EDecimal ValueOf(int val) {
         return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
       }

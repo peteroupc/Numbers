@@ -11,7 +11,7 @@
     <TargetFrameworkProfile/>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RunCodeAnalysis>False</RunCodeAnalysis>
+
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
