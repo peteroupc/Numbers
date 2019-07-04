@@ -2238,16 +2238,16 @@ namespace PeterO.Numbers {
     }
 
     private static readonly double[] ExactDoublePowersOfTen = {
-1, 10, 100, 1000, 10000,
-  1e5, 1e6, 1e7, 1e8, 1e9,
-  1e10, 1e11, 1e12, 1e13, 1e14,
-  1e15, 1e16, 1e17, 1e18, 1e19,
-  1e20, 1e21, 1e22,
+      1, 10, 100, 1000, 10000,
+      1e5, 1e6, 1e7, 1e8, 1e9,
+      1e10, 1e11, 1e12, 1e13, 1e14,
+      1e15, 1e16, 1e17, 1e18, 1e19,
+      1e20, 1e21, 1e22,
     };
 
     private static readonly float[] ExactSinglePowersOfTen = {
-1f, 10f, 100f, 1000f, 10000f,
-  1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f,
+      1f, 10f, 100f, 1000f, 10000f,
+      1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f,
     };
 
     /// <include file='../../docs.xml'
