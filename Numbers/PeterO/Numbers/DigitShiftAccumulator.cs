@@ -53,9 +53,9 @@ namespace PeterO.Numbers {
     }
 
     public DigitShiftAccumulator(
-  EInteger bigint,
-  int lastDiscarded,
-  int olderDiscarded) {
+      EInteger bigint,
+      int lastDiscarded,
+      int olderDiscarded) {
       if (bigint.CanFitInInt32()) {
         this.shiftedSmall = (int)bigint;
         if (this.shiftedSmall < 0) {
@@ -72,9 +72,9 @@ namespace PeterO.Numbers {
     }
 
     public DigitShiftAccumulator(
-  int smallint,
-  int lastDiscarded,
-  int olderDiscarded) {
+      int smallint,
+      int lastDiscarded,
+      int olderDiscarded) {
       this.shiftedSmall = smallint;
       if (this.shiftedSmall < 0) {
         throw new ArgumentException("shiftedSmall (" + this.shiftedSmall +
@@ -167,9 +167,9 @@ namespace PeterO.Numbers {
     }
 
     public void ShiftToDigits(
-  FastInteger bits,
-  FastInteger preShift,
-  bool truncate) {
+      FastInteger bits,
+      FastInteger preShift,
+      bool truncate) {
 #if DEBUG
       if (bits.Sign < 0) {
         throw new ArgumentException("bits's sign (" + bits.Sign +
@@ -316,7 +316,8 @@ namespace PeterO.Numbers {
       /*
       #if DEBUG
             if (this.knownDigitLength != null) {
-              if (this.knownDigitLength.CompareTo(this.CalcKnownDigitLength()) != 0) {
+       if (this.knownDigitLength.CompareTo(this.CalcKnownDigitLength()) !=
+                0) {
                 throw new InvalidOperationException("*****"
                   +this+"\n*****expected " +this.CalcKnownDigitLength()+"\n" +
                    "*****kdl="+this.knownDigitLength);
@@ -363,12 +364,12 @@ namespace PeterO.Numbers {
         if (digits > 50) {
           // To avoid having to calculate a very big power of 10,
           // check the digit count to see if doing so can be avoided
-          EInteger bigBitLength = this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
+   EInteger bigBitLength = this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
           // NOTE: Overflowing bigBitLength will be MaxValue, which is OK
           // for the use of this variable
           int bitLength = bigBitLength.CanFitInInt32() ?
              bigBitLength.ToInt32Checked() : Int32.MaxValue;
-          var bigPower = false;
+             var bigPower = false;
           // 10^48 has 160 bits; 10^98 has 326; bit length is cheaper
           // to calculate than base-10 digit length
           if (bitLength < 160 || (digits > 100 && bitLength < 326)) {
@@ -384,15 +385,16 @@ namespace PeterO.Numbers {
           }
           if (bigPower) {
             // Power of 10 to be divided would be much bigger
-            this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
-            this.discardedBitCount.AddInt(digits);
-            this.bitsAfterLeftmost |= this.bitLeftmost;
-            this.bitsAfterLeftmost |= this.shiftedBigInt.IsZero ? 0 : 1;
-            this.bitLeftmost = 0;
-            this.knownDigitLength = new FastInteger(1);
-            this.isSmall = true;
-            this.shiftedSmall = 0;
-            return;
+         this.discardedBitCount = this.discardedBitCount ?? new
+              FastInteger(0);
+              this.discardedBitCount.AddInt(digits);
+              this.bitsAfterLeftmost |= this.bitLeftmost;
+              this.bitsAfterLeftmost |= this.shiftedBigInt.IsZero ? 0 : 1;
+              this.bitLeftmost = 0;
+              this.knownDigitLength = new FastInteger(1);
+              this.isSmall = true;
+              this.shiftedSmall = 0;
+              return;
           }
         }
         if (this.shiftedBigInt.IsEven && this.bitLeftmost == 0) {

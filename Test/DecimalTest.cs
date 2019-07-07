@@ -119,9 +119,9 @@ name.Equals("pow252")) {
         // say to truncate that operand's coefficient before
         // the shift operation, unlike for the rotate operation.
         if (name.Equals("extr1651") ||
-        name.Equals("extr1652") ||
-        name.Equals("extr1653") ||
-        name.Equals("extr1654")) {
+name.Equals("extr1652") ||
+name.Equals("extr1653") ||
+name.Equals("extr1654")) {
           return;
         }
         // Skip these unofficial test cases, which misapply the
@@ -132,9 +132,9 @@ name.Equals("pow252")) {
         // have neither a coefficient nor an exponent, so the
         // 'clamp' directive doesn't properly apply to NaNs
         if (name.Equals("covx5076") ||
-        name.Equals("covx5082") ||
-        name.Equals("covx5085") ||
-        name.Equals("covx5086")) {
+name.Equals("covx5082") ||
+name.Equals("covx5085") ||
+name.Equals("covx5086")) {
           return;
         }
         // Skip these unofficial test cases, which are incorrect
@@ -191,9 +191,9 @@ name.Equals("sqtx2847")) {
             minexponent,
             maxexponent);
         rounding = GetKeyOrDefault(
-  context,
-  "rounding",
-  "half_even");
+          context,
+          "rounding",
+          "half_even");
         if (rounding.Equals("half_up")) {
           ctx = ctx.WithRounding(ERounding.HalfUp);
         }

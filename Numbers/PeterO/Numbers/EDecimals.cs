@@ -1,8 +1,8 @@
 using System;
 
 namespace PeterO.Numbers {
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="T:PeterO.Numbers.EDecimalExtras"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:PeterO.Numbers.EDecimalExtras"]/*'/>
   public static class EDecimals {
     private const int DecimalRadix = 10;
 
@@ -84,7 +84,7 @@ namespace PeterO.Numbers {
  "+Zero", "-Zero",
  "+Infinity", "-Infinity",
  "NaN", "sNaN",
-};
+  };
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.NumberClassString(System.Int32)"]/*'/>
@@ -322,9 +322,9 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.CompareTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotalMagnitude(
-  EDecimal ed,
-  EDecimal other,
-  EContext ec) {
+      EDecimal ed,
+      EDecimal other,
+      EContext ec) {
       return ed.CompareToTotalMagnitude(other, ec);
     }
 
@@ -393,10 +393,10 @@ namespace PeterO.Numbers {
       }
       if (ed.IsSignalingNaN()) {
         return EDecimal.CreateNaN(
-         ed.UnsignedMantissa,
-         true,
-         ed.IsNegative,
-         ec);
+          ed.UnsignedMantissa,
+          true,
+          ed.IsNegative,
+          ec);
       }
       if (ed.IsFinite) {
         if (ed.IsZero) {
@@ -468,7 +468,7 @@ namespace PeterO.Numbers {
     // Logical Operations
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimals.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal And(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -487,7 +487,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimals.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Invert(EDecimal ed1, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return InvalidOperation(EDecimal.NaN, ec);
@@ -512,7 +512,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimals.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Xor(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -531,7 +531,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimalExtras.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimals.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)"]/*'/>
     public static EDecimal Or(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {
@@ -612,9 +612,9 @@ namespace PeterO.Numbers {
       }
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
     ed.Mantissa.Sign < 0) ? null : FromLogical(
-  ed.UnsignedMantissa,
-  ec,
-  iradix);
+      ed.UnsignedMantissa,
+      ec,
+      iradix);
     }
 
     internal static byte[] FromLogical(EFloat ed, EContext ec, int iradix) {
@@ -625,9 +625,9 @@ namespace PeterO.Numbers {
       // IsPrecisionInBits here
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
     ed.Mantissa.Sign < 0) ? null : FromLogical(
-  ed.UnsignedMantissa,
-  ec,
-  iradix);
+      ed.UnsignedMantissa,
+      ec,
+      iradix);
     }
   }
 }

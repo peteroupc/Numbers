@@ -2454,6 +2454,9 @@ An arbitrary-precision integer in which each bit is set if the corresponding bit
 The parameter  <i>other</i>
  is null.
 
+ * System.ArgumentException:
+Doesn't satisfy smallerCount == CountWords(result).
+
 <a id="Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Xor
 

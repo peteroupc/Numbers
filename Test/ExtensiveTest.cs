@@ -66,8 +66,8 @@ namespace CBOR {
     }
 
     private static EContext SetRounding(
-  EContext ctx,
-  string round) {
+      EContext ctx,
+      string round) {
       if (round.Equals(">")) {
         ctx = ctx.WithRounding(ERounding.Ceiling);
       }
@@ -108,14 +108,14 @@ namespace CBOR {
       IExtendedNumber SquareRoot(EContext ctx);
 
       IExtendedNumber MultiplyAndAdd(
-  IExtendedNumber b,
-  IExtendedNumber c,
-  EContext ctx);
+        IExtendedNumber b,
+        IExtendedNumber c,
+        EContext ctx);
 
       IExtendedNumber MultiplyAndSubtract(
-  IExtendedNumber b,
-  IExtendedNumber c,
-  EContext ctx);
+        IExtendedNumber b,
+        IExtendedNumber c,
+        EContext ctx);
 
       bool IsQuietNaN();
 
@@ -193,16 +193,16 @@ namespace CBOR {
       }
 
       public ExtensiveTest.IExtendedNumber MultiplyAndAdd(
-          ExtensiveTest.IExtendedNumber b,
-          ExtensiveTest.IExtendedNumber c,
-          EContext ctx) {
+        ExtensiveTest.IExtendedNumber b,
+        ExtensiveTest.IExtendedNumber c,
+        EContext ctx) {
         return Create(this.ed.MultiplyAndAdd(ToValue(b), ToValue(c), ctx));
       }
 
       public ExtensiveTest.IExtendedNumber MultiplyAndSubtract(
-          ExtensiveTest.IExtendedNumber b,
-          ExtensiveTest.IExtendedNumber c,
-          EContext ctx) {
+        ExtensiveTest.IExtendedNumber b,
+        ExtensiveTest.IExtendedNumber c,
+        EContext ctx) {
         return Create(this.ed.MultiplyAndSubtract(ToValue(b), ToValue(c), ctx));
       }
 
@@ -592,8 +592,8 @@ namespace CBOR {
       }
 
       public BinaryNumber Pow(
-  ExtensiveTest.IExtendedNumber b,
-  EContext ctx) {
+        ExtensiveTest.IExtendedNumber b,
+        EContext ctx) {
         return Create(this.ef.Pow(ToValue(b), ctx));
       }
 
@@ -602,16 +602,16 @@ namespace CBOR {
       }
 
       public ExtensiveTest.IExtendedNumber MultiplyAndAdd(
-          ExtensiveTest.IExtendedNumber b,
-          ExtensiveTest.IExtendedNumber c,
-          EContext ctx) {
+        ExtensiveTest.IExtendedNumber b,
+        ExtensiveTest.IExtendedNumber c,
+        EContext ctx) {
         return Create(this.ef.MultiplyAndAdd(ToValue(b), ToValue(c), ctx));
       }
 
       public ExtensiveTest.IExtendedNumber MultiplyAndSubtract(
-          ExtensiveTest.IExtendedNumber b,
-          ExtensiveTest.IExtendedNumber c,
-          EContext ctx) {
+        ExtensiveTest.IExtendedNumber b,
+        ExtensiveTest.IExtendedNumber c,
+        EContext ctx) {
         return Create(this.ef.MultiplyAndSubtract(ToValue(b), ToValue(c), ctx));
       }
 
@@ -768,7 +768,7 @@ namespace CBOR {
           } else {
             result = BinaryNumber.FromFloatWords(new[] {
 HexInt(chunks[12]), HexInt(chunks[13]),
-HexInt(chunks[14]), HexInt(chunks[15]), });
+  HexInt(chunks[14]), HexInt(chunks[15]), });
           }
 
           break;

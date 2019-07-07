@@ -114,7 +114,7 @@
   <doc name='F:PeterO.Numbers.EContext.CliDecimal'>
     <summary>An arithmetic context for the .NET Framework decimal format (see
       <see cref='T:PeterO.Numbers.EDecimal'>
-         "Forms of numbers"
+        "Forms of numbers"
       </see>
        ), 96 bits precision, and a valid exponent range of -28 to 0. The default
       rounding mode is HalfEven. (The
@@ -4876,6 +4876,40 @@
     <returns>An EDecimal object.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EDecimals.And(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical AND operation on two decimal numbers in the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
+      other base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical AND operation sets each digit of the result to 1 if the
+      corresponding digits of each logical operand are both 1, and to 0
+      otherwise. For example,
+      <c>01001 AND 111010 = 01000</c> .
+    </summary>
+    <param name='ed1'>The first logical operand to the logical AND operation.
+    </param>
+    <param name='ed2'>The second logical operand to the logical AND operation.
+    </param>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter can be null.
+    </param>
+    <returns>The result of the logical AND operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EDecimals.Canonical(PeterO.Numbers.EDecimal)'>
     <summary>Returns a canonical version of the given arbitrary-precision number
       object. In this method, this method behaves like the Copy method.
@@ -4885,6 +4919,39 @@
     <returns>A copy of the parameter
       <paramref name='ed'/>
        .
+    </returns>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimals.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical NOT operation on an arbitrary-precision decimal number
+      in the form of a
+      <i>
+         logical operand
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
+      other base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical NOT operation sets each digit of the result to 1 if the
+      corresponding digit is 0, and to 0 otherwise; it can set no more digits
+      than the maximum precision, however. For example, if the maximum precision
+      is 8 digits, then
+      <c>NOT 111010 = 11000101</c> .
+    </summary>
+    <param name='ed1'>The logical operand to the logical NOT operation.
+    </param>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter cannot be null and must specify a maximum
+      precision (unlimited precision contexts are not allowed).
+    </param>
+    <returns>The result of the logical NOT operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       is not a logical operand.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.LogB(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -4911,6 +4978,40 @@
       <paramref name='ed'/>
        is null.
     </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimals.Or(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical OR operation on two decimal numbers in the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an Exponent property of 0 and no
+      other base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical OR operation sets each digit of the result to 1 if either
+      or both of the corresponding digits of the logical operands are 1, and to
+      0 otherwise. For example,
+      <c>01001 OR 111010 = 111011</c> .
+    </summary>
+    <param name='ed1'>The first logical operand to the logical OR operation.
+    </param>
+    <param name='ed2'>The second logical operand to the logical OR operation.
+    </param>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter can be null.
+    </param>
+    <returns>The result of the logical OR operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
+    </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Finds an arbitrary-precision decimal number whose decimal point is moved a
@@ -4942,6 +5043,36 @@
       <paramref name='ed2'/>
        is null.
     </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EDecimals.Xor(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical exclusive-OR (XOR) operation on two decimal numbers in
+      the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-10 number with an exponent of 0 and no other
+      base-10 digits than 0 or 1 (examples include
+      <c>01001</c> and
+      <c>111001</c> , but not
+      <c>02001</c> or
+      <c>99999</c> ). The logical exclusive-OR operation sets each digit of the result to 1
+      if either corresponding digit of the logical operands, but not both, is 1,
+      and to 0 otherwise. For example,
+      <c>01001 XOR 111010 = 101010</c> .
+    </summary>
+    <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
+    </param>
+    <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
+    </param>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more digits than the maximum precision specified in this context, the
+      operand's most significant digits that exceed that precision are
+      discarded. This parameter can be null.
+    </param>
+    <returns>An EDecimal object.
+    </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EFloat'>
     <summary>Represents an arbitrary-precision binary floating-point number. (The "E"
@@ -8327,6 +8458,38 @@
        , or both are not logical operands.
     </returns>
   </doc>
+  <doc name='M:PeterO.Numbers.EFloats.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical AND operation on two binary numbers in the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include the base-2 numbers
+      <c>01001</c> and
+      <c>111001</c> ). The logical AND operation sets each bit of the result to 1 if the
+      corresponding bits of each logical operand are both 1, and to 0 otherwise.
+      For example,
+      <c>01001 AND 111010 = 01000</c> .
+    </summary>
+    <param name='ed1'>The first logical operand to the logical AND operation.
+    </param>
+    <param name='ed2'>The second logical operand to the logical AND operation.
+    </param>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter can be null.
+    </param>
+    <returns>The result of the logical AND operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EFloats.Canonical(PeterO.Numbers.EFloat)'>
     <summary>Returns a canonical version of the given arbitrary-precision number
       object. In this method, this method behaves like the Copy method.
@@ -8393,6 +8556,38 @@
        is null.
     </exception>
   </doc>
+  <doc name='M:PeterO.Numbers.EFloats.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical OR operation on two binary numbers in the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include the base-2 numbers
+      <c>01001</c> and
+      <c>111001</c> ). The logical OR operation sets each bit of the result to 1 if either or
+      both of the corresponding bits of each logical operand are 1, and to 0
+      otherwise. For example,
+      <c>01001 OR 111010 = 111011</c> .
+    </summary>
+    <param name='ed1'>The first logical operand to the logical OR operation.
+    </param>
+    <param name='ed2'>The second logical operand to the logical OR operation.
+    </param>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter can be null.
+    </param>
+    <returns>The result of the logical OR operation as a logical operand. Signals an
+      invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
+    </returns>
+  </doc>
   <doc name='M:PeterO.Numbers.EFloats.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Finds an arbitrary-precision binary number whose binary point is moved a
       given number of places.
@@ -8423,6 +8618,39 @@
       <paramref name='ed2'/>
        is null.
     </exception>
+  </doc>
+  <doc name='M:PeterO.Numbers.EFloats.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
+    <summary>Performs a logical exclusive-OR (XOR) operation on two binary numbers in
+      the form of
+      <i>
+         logical operands
+      </i>
+       . A
+      <c>logical operand</c> is a non-negative base-2 number with an Exponent property of 0 (examples
+      include the base-2 numbers
+      <c>01001</c> and
+      <c>111001</c> ). The logical exclusive-OR operation sets each digit of the result to 1
+      if either corresponding digit of the logical operands, but not both, is 1,
+      and to 0 otherwise. For example,
+      <c>01001 XOR 111010 = 101010</c> .
+    </summary>
+    <param name='ed1'>The first logical operand to the logical exclusive-OR operation.
+    </param>
+    <param name='ed2'>The second logical operand to the logical exclusive-OR operation.
+    </param>
+    <param name='ec'>An arithmetic context to control the maximum precision of
+      arbitrary-precision numbers. If a logical operand passed to this method
+      has more bits than the maximum precision specified in this context, the
+      operand's most significant bits that exceed that precision are discarded.
+      This parameter can be null.
+    </param>
+    <returns>The result of the logical exclusive-OR operation as a logical operand.
+      Signals an invalid operation and returns not-a-number (NaN) if
+      <paramref name='ed1'/>
+       ,
+      <paramref name='ed2'/>
+       , or both are not logical operands.
+    </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EInteger'>
     <summary>Represents an arbitrary-precision integer. (The "E" stands for "extended",
@@ -9699,6 +9927,8 @@
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='other'/>
        is null.
+    </exception>
+    <exception cref='T:System.ArgumentException'>Doesn't satisfy smallerCount == CountWords(result).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>

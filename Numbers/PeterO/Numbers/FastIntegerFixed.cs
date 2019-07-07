@@ -26,9 +26,9 @@ namespace PeterO.Numbers {
     }
 
     internal FastIntegerFixed(
-  int integerMode,
-  int smallValue,
-  EInteger largeValue) {
+      int integerMode,
+      int smallValue,
+      EInteger largeValue) {
       this.integerMode = integerMode;
       this.smallValue = smallValue;
       this.largeValue = largeValue;
@@ -66,15 +66,16 @@ namespace PeterO.Numbers {
 
     internal static FastIntegerFixed FromLong(long longVal) {
       return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? new
-        FastIntegerFixed((int)longVal) :
-        new FastIntegerFixed(
+        FastIntegerFixed((int)longVal) : new FastIntegerFixed(
          2,
          0,
          EInteger.FromInt64(longVal));
     }
 
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
-      return bigintVal.CanFitInInt32() ? new FastIntegerFixed(bigintVal.ToInt32Unchecked()) : new FastIntegerFixed(2, 0, bigintVal);
+      return bigintVal.CanFitInInt32() ? new
+        FastIntegerFixed(bigintVal.ToInt32Unchecked()) : new
+        FastIntegerFixed(2, 0, bigintVal);
     }
 
     internal int AsInt32() {
@@ -113,8 +114,8 @@ namespace PeterO.Numbers {
       if (this.integerMode == 0 && this.smallValue >= 0) {
         return this.smallValue % value;
       } else {
-        EInteger retval = this.ToEInteger().Remainder(EInteger.FromInt32(value));
-        return retval.ToInt32Checked();
+      EInteger retval = this.ToEInteger().Remainder(EInteger.FromInt32(value));
+      return retval.ToInt32Checked();
       }
     }
 
@@ -138,14 +139,15 @@ namespace PeterO.Numbers {
     }
 
     public static FastIntegerFixed Subtract(
-  FastIntegerFixed a,
-  FastIntegerFixed b) {
+      FastIntegerFixed a,
+      FastIntegerFixed b) {
       if (a.integerMode == 0 && b.integerMode == 0) {
         if (b.smallValue == 0) {
           return a;
         }
-        if ((b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue) ||
-                  (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
+        if (
+          (b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue) ||
+          (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
                           a.smallValue)) {
           return new FastIntegerFixed(a.smallValue - b.smallValue);
         }
@@ -182,7 +184,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.Negate"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.Negate"]/*'/>
     internal FastIntegerFixed Negate() {
       switch (this.integerMode) {
         case 0:
@@ -215,7 +217,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.ToString"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.ToString"]/*'/>
     public override string ToString() {
       switch (this.integerMode) {
         case 0:
@@ -260,8 +262,7 @@ namespace PeterO.Numbers {
           return this.largeValue
                      .CanFitInInt64();
 
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -273,8 +274,7 @@ namespace PeterO.Numbers {
           return this.largeValue
                      .ToInt64Unchecked();
 
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 

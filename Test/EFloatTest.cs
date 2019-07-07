@@ -860,10 +860,15 @@ namespace Test {
       "2251799813685248", "4503599627370496", "9007199254740992",
       "18014398509481984", "36028797018963968", "72057594037927936",
       "144115188075855872", "288230376151711744",
-      "11235582092889474423308157442431404585112356118389416079589380072358292237843810195794279832650471001320007117491962084853674360550901038905802964414967132773610493339054092829768888725077880882465817684505312860552384417646403930092119569408801702322709406917786643639996702871154982269052209770601514008576",
-      "22471164185778948846616314884862809170224712236778832159178760144716584475687620391588559665300942002640014234983924169707348721101802077811605928829934265547220986678108185659537777450155761764931635369010625721104768835292807860184239138817603404645418813835573287279993405742309964538104419541203028017152",
-      "44942328371557897693232629769725618340449424473557664318357520289433168951375240783177119330601884005280028469967848339414697442203604155623211857659868531094441973356216371319075554900311523529863270738021251442209537670585615720368478277635206809290837627671146574559986811484619929076208839082406056034304",
-      "89884656743115795386465259539451236680898848947115328636715040578866337902750481566354238661203768010560056939935696678829394884407208311246423715319737062188883946712432742638151109800623047059726541476042502884419075341171231440736956555270413618581675255342293149119973622969239858152417678164812112068608",
+
+  "11235582092889474423308157442431404585112356118389416079589380072358292237843810195794279832650471001320007117491962084853674360550901038905802964414967132773610493339054092829768888725077880882465817684505312860552384417646403930092119569408801702322709406917786643639996702871154982269052209770601514008576",
+
+  "22471164185778948846616314884862809170224712236778832159178760144716584475687620391588559665300942002640014234983924169707348721101802077811605928829934265547220986678108185659537777450155761764931635369010625721104768835292807860184239138817603404645418813835573287279993405742309964538104419541203028017152",
+
+  "44942328371557897693232629769725618340449424473557664318357520289433168951375240783177119330601884005280028469967848339414697442203604155623211857659868531094441973356216371319075554900311523529863270738021251442209537670585615720368478277635206809290837627671146574559986811484619929076208839082406056034304",
+
+  "89884656743115795386465259539451236680898848947115328636715040578866337902750481566354238661203768010560056939935696678829394884407208311246423715319737062188883946712432742638151109800623047059726541476042502884419075341171231440736956555270413618581675255342293149119973622969239858152417678164812112068608",
+
     };
 
     private static readonly int[] ValueFPIntegersExp = { 0, 1, 2, 3, 48, 49,
@@ -1158,9 +1163,9 @@ namespace Test {
     }
 
     public static void TestDoubleRounding(
-  EFloat expected,
-  EFloat input,
-  EFloat src) {
+      EFloat expected,
+      EFloat input,
+      EFloat src) {
       if (!input.IsFinite || !expected.IsFinite) {
         return;
       }
@@ -1170,27 +1175,26 @@ namespace Test {
       }
       string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
-        string msg =
-        "\nexpectedDbl " + OutputDouble(expectedDouble) +
+        string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
         ",\ngot----- " + OutputDouble(input.ToDouble()) +
-              "\nsrc-----=" + OutputEF(src) + "\nexpected=" + OutputEF(expected) +
-              "\ninput---=" + OutputEF(input);
+           "\nsrc-----=" + OutputEF(src) + "\nexpected=" +
+                OutputEF(expected) + "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
       double inputDouble = EDecimal.FromString(str).ToDouble();
       if (inputDouble != expectedDouble) {
         string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
                 ",\ngot----- " + OutputDouble(inputDouble) +
-              "\nsrc-----=" + OutputEF(src) + "\nexpected=" + OutputEF(expected) +
-              "\ninput---=" + OutputEF(input);
+           "\nsrc-----=" + OutputEF(src) + "\nexpected=" +
+                OutputEF(expected) + "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
     }
 
     public static void TestSingleRounding(
-  EFloat expected,
-  EFloat input,
-  EFloat src) {
+      EFloat expected,
+      EFloat input,
+      EFloat src) {
       if (!input.IsFinite || !expected.IsFinite) {
         return;
       }
@@ -1268,13 +1272,13 @@ namespace Test {
     }
 
     private static void TestBinaryToDecimal(
-  string input,
-  int digits,
-  string expected,
-  string msg) {
+      string input,
+      int digits,
+      string expected,
+      string msg) {
       EContext ec = EContext.ForPrecisionAndRounding(
-    digits,
-    ERounding.HalfEven);
+        digits,
+        ERounding.HalfEven);
       string str = EFloat.FromString(input, EContext.Binary64)
               .ToEDecimal().RoundToPrecision(ec).ToString();
       TestCommon.CompareTestEqual(
@@ -1299,24 +1303,26 @@ namespace Test {
         EFloat ef = EFloat.FromDouble(64.1);
         string stringTemp = ef.ToShortestString(EContext.Binary64);
         Assert.AreEqual(
-  "64.1",
-  stringTemp);
-        stringTemp = EFloat.FromSingle(0.1f).ToShortestString(EContext.Binary32);
-        Assert.AreEqual(
-        "0.1",
-        stringTemp);
-      }
-      {
-        string stringTemp = EFloat.NegativeZero.ToShortestString(EContext.Binary32);
-        Assert.AreEqual(
-          "-0",
+          "64.1",
           stringTemp);
-      }
-      {
-        string stringTemp = EFloat.FromDouble(0.1).ToShortestString(EContext.Binary64);
+          stringTemp =
+          EFloat.FromSingle(0.1f).ToShortestString(EContext.Binary32);
         Assert.AreEqual(
           "0.1",
           stringTemp);
+      }
+      {
+   string stringTemp = EFloat.NegativeZero.ToShortestString(EContext.Binary32);
+   Assert.AreEqual(
+     "-0",
+     stringTemp);
+      }
+      {
+string stringTemp =
+          EFloat.FromDouble(0.1).ToShortestString(EContext.Binary64);
+          Assert.AreEqual(
+            "0.1",
+            stringTemp);
       }
       {
         string stringTemp = EFloat.FromString(
@@ -1835,8 +1841,8 @@ namespace Test {
       }
       {
         EFloat objectTemp = EFloat.Create(
-          EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
-          EInteger.FromInt32(-1074));
+  EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
+  EInteger.FromInt32(-1074));
         TestToFloatRoundingOne(objectTemp, true);
       }
     }

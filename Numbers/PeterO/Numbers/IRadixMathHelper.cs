@@ -30,19 +30,19 @@ namespace PeterO.Numbers {
     T CreateNewWithFlags(EInteger mantissa, EInteger exponent, int flags);
 
     T CreateNewWithFlagsFastInt(
-  FastIntegerFixed mantissa,
-  FastIntegerFixed exponent,
-  int flags);
+      FastIntegerFixed mantissa,
+      FastIntegerFixed exponent,
+      int flags);
 
     IShiftAccumulator CreateShiftAccumulatorWithDigits(
-  EInteger value,
-  int lastDigit,
-  int olderDigits);
+      EInteger value,
+      int lastDigit,
+      int olderDigits);
 
     IShiftAccumulator CreateShiftAccumulatorWithDigitsFastInt(
-  FastIntegerFixed value,
-  int lastDigit,
-  int olderDigits);
+      FastIntegerFixed value,
+      int lastDigit,
+      int olderDigits);
 
     FastInteger DivisionShift(EInteger num, EInteger den);
 

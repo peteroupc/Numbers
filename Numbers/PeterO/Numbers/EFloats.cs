@@ -303,9 +303,9 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:Test.EFloatExtras.CompareTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static int CompareTotalMagnitude(
-  EFloat ed,
-  EFloat other,
-  EContext ec) {
+      EFloat ed,
+      EFloat other,
+      EContext ec) {
       return ed.CompareToTotalMagnitude(other, ec);
     }
 
@@ -374,10 +374,10 @@ namespace PeterO.Numbers {
       }
       if (ed.IsSignalingNaN()) {
         return EFloat.CreateNaN(
-         ed.UnsignedMantissa,
-         true,
-         ed.IsNegative,
-         ec);
+          ed.UnsignedMantissa,
+          true,
+          ed.IsNegative,
+          ec);
       }
       if (ed.IsFinite) {
         if (ed.IsZero) {
@@ -449,7 +449,7 @@ namespace PeterO.Numbers {
     // Logical Operations
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloats.And(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat And(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
@@ -466,8 +466,8 @@ namespace PeterO.Numbers {
       }
       return EFloat.FromEInteger(
   EDecimals.ToLogical(
-  smaller,
-  2)).RoundToPrecision(ec);
+    smaller,
+    2)).RoundToPrecision(ec);
     }
 
     /// <include file='../../docs.xml'
@@ -494,12 +494,12 @@ namespace PeterO.Numbers {
       }
       return EFloat.FromEInteger(
   EDecimals.ToLogical(
-  bigger,
-  2)).RoundToPrecision(ec);
+    bigger,
+    2)).RoundToPrecision(ec);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloatExtras.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloats.Xor(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
@@ -516,12 +516,12 @@ namespace PeterO.Numbers {
       }
       return EFloat.FromEInteger(
   EDecimals.ToLogical(
-  bigger,
-  2)).RoundToPrecision(ec);
+    bigger,
+    2)).RoundToPrecision(ec);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:Test.EFloatExtras.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloats.Or(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)"]/*'/>
     public static EFloat Or(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
@@ -538,8 +538,8 @@ namespace PeterO.Numbers {
       }
       return EFloat.FromEInteger(
   EDecimals.ToLogical(
-  bigger,
-  2)).RoundToPrecision(ec);
+    bigger,
+    2)).RoundToPrecision(ec);
     }
   }
 }

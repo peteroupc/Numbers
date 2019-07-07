@@ -45,8 +45,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator -(
-   EFloat bthis,
-   EFloat subtrahend) {
+      EFloat bthis,
+      EFloat subtrahend) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
       }
@@ -74,8 +74,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator *(
-    EFloat operand1,
-    EFloat operand2) {
+      EFloat operand1,
+      EFloat operand2) {
       if (operand1 == null) {
         throw new ArgumentNullException(nameof(operand1));
       }
@@ -85,8 +85,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator /(
-   EFloat dividend,
-   EFloat divisor) {
+      EFloat dividend,
+      EFloat divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }
@@ -96,8 +96,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator %(
-   EFloat dividend,
-   EFloat divisor) {
+      EFloat dividend,
+      EFloat divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }

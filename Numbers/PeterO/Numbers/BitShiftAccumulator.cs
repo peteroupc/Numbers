@@ -52,9 +52,9 @@ namespace PeterO.Numbers {
     }
 
     public void ShiftToDigits(
-  FastInteger bits,
-  FastInteger preShift,
-  bool truncate) {
+      FastInteger bits,
+      FastInteger preShift,
+      bool truncate) {
       if (bits.Sign < 0) {
         throw new ArgumentException("bits's sign (" + bits.Sign +
           ") is less than 0");
@@ -137,9 +137,9 @@ namespace PeterO.Numbers {
     }
 
     public BitShiftAccumulator(
-  EInteger bigint,
-  int lastDiscarded,
-  int olderDiscarded) {
+      EInteger bigint,
+      int lastDiscarded,
+      int olderDiscarded) {
       if (bigint.Sign < 0) {
         throw new ArgumentException("bigint's sign (" + bigint.Sign +
           ") is less than 0");
@@ -156,9 +156,9 @@ namespace PeterO.Numbers {
     }
 
     public BitShiftAccumulator(
-  int smallint,
-  int lastDiscarded,
-  int olderDiscarded) {
+      int smallint,
+      int lastDiscarded,
+      int olderDiscarded) {
         this.shiftedSmall = smallint;
         if (this.shiftedSmall < 0) {
           throw new ArgumentException("shiftedSmall (" + this.shiftedSmall +

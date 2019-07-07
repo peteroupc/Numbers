@@ -131,17 +131,17 @@
 
  Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.      <b>Parameters:</b>
 
- * <i>numerator</i>:  The numerator.
+ * <i>numerator</i>: The numerator.
 
- * <i>denominator</i>:  The denominator.
+ * <i>denominator</i>: The denominator.
 
 <b>Exceptions:</b>
 
  * System.ArgumentException:
- The denominator is zero.
+The denominator is zero.
 
  * System.ArgumentNullException:
- The parameter  <i>numerator</i>
+The parameter  <i>numerator</i>
  or  <i>denominator</i>
  is null.
 

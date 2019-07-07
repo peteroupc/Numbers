@@ -75,8 +75,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Subtraction(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator -(
-   EDecimal bthis,
-   EDecimal subtrahend) {
+      EDecimal bthis,
+      EDecimal subtrahend) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
       }
@@ -104,8 +104,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator *(
-    EDecimal operand1,
-    EDecimal operand2) {
+      EDecimal operand1,
+      EDecimal operand2) {
       if (operand1 == null) {
         throw new ArgumentNullException(nameof(operand1));
       }
@@ -115,8 +115,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator /(
-   EDecimal dividend,
-   EDecimal divisor) {
+      EDecimal dividend,
+      EDecimal divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }
@@ -126,8 +126,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
     public static EDecimal operator %(
-   EDecimal dividend,
-   EDecimal divisor) {
+      EDecimal dividend,
+      EDecimal divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }

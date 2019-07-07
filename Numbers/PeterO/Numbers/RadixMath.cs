@@ -53,8 +53,8 @@ namespace PeterO.Numbers {
     };
 
     private static readonly int[] OverflowMaxes = {
-     2147483647, 214748364, 21474836,
-     2147483, 214748, 21474, 2147, 214, 21, 2,
+      2147483647, 214748364, 21474836,
+      2147483, 214748, 21474, 2147, 214, 21, 2,
     };
 
     private static readonly EInteger ValueMinusOne = EInteger.Zero -

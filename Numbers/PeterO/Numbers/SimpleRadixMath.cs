@@ -181,8 +181,8 @@ namespace PeterO.Numbers {
       return ((thisFlags & BigNumberFlags.FlagQuietNaN) != 0) ?
         this.ReturnQuietNaN(thisValue, ctx) : (((otherFlags &
                 BigNumberFlags.FlagQuietNaN) != 0) ? this.ReturnQuietNaN(
-                    other,
-                    ctx) : default(T));
+                  other,
+                  ctx) : default(T));
     }
 
     private T CheckNotANumber3(
@@ -207,8 +207,8 @@ namespace PeterO.Numbers {
       return ((thisFlags & BigNumberFlags.FlagQuietNaN) != 0) ?
         this.ReturnQuietNaN(thisValue, ctx) : (((otherFlags &
                 BigNumberFlags.FlagQuietNaN) != 0) ? this.ReturnQuietNaN(
-                    other,
-                    ctx) :
+                  other,
+                  ctx) :
                     (((other2Flags & BigNumberFlags.FlagQuietNaN) !=
                 0) ? this.ReturnQuietNaN(other, ctx) : default(T)));
     }
@@ -348,10 +348,10 @@ namespace PeterO.Numbers {
     // <param name='ctx'> (3).</param>
     // <returns>The remainder of the two objects.</returns>
     public T Remainder(
-  T thisValue,
-  T divisor,
-  EContext ctx,
-  bool roundAfterDivide) {
+      T thisValue,
+      T divisor,
+      EContext ctx,
+      bool roundAfterDivide) {
       T ret = this.CheckNotANumber2(thisValue, divisor, ctx);
       if ((object)ret != (object)default(T)) {
         return ret;
@@ -360,10 +360,10 @@ namespace PeterO.Numbers {
       thisValue = this.RoundBeforeOp(thisValue, ctx2);
       divisor = this.RoundBeforeOp(divisor, ctx2);
       thisValue = this.wrapper.Remainder(
-  thisValue,
-  divisor,
-  ctx2,
-  roundAfterDivide);
+        thisValue,
+        divisor,
+        ctx2,
+        roundAfterDivide);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
 
@@ -658,10 +658,10 @@ namespace PeterO.Numbers {
         thisValue = this.RoundToPrecision(thisValue, ctx2);
       } else {
         thisValue = !zeroB ? this.wrapper.MultiplyAndAdd(
-  thisValue,
-  multiplicand,
-  augend,
-  ctx2) : this.wrapper.Multiply(thisValue, multiplicand, ctx2);
+          thisValue,
+          multiplicand,
+          augend,
+          ctx2) : this.wrapper.Multiply(thisValue, multiplicand, ctx2);
       }
       return this.PostProcess(thisValue, ctx, ctx2);
     }

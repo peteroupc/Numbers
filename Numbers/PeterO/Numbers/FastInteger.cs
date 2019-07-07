@@ -990,8 +990,7 @@ namespace PeterO.Numbers {
           return this.mnum.CanFitInInt32();
         case 2:
           return this.largeValue.CanFitInInt32();
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -1004,8 +1003,7 @@ namespace PeterO.Numbers {
         case 2:
           return this.largeValue.CanFitInInt64();
 
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -1018,8 +1016,7 @@ namespace PeterO.Numbers {
         case 2:
           return this.largeValue.ToInt64Unchecked();
 
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 

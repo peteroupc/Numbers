@@ -8,8 +8,8 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="T:PeterO.Numbers.EFloat"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:PeterO.Numbers.EFloat"]/*'/>
   public sealed partial class EFloat : IComparable<EFloat>,
   IEquatable<EFloat> {
     //----------------------------------------------------------------
@@ -52,7 +52,8 @@ namespace PeterO.Numbers {
     public static readonly EFloat One =
       EFloat.Create(EInteger.One, EInteger.Zero);
 
-    /// <summary>Positive infinity, greater than any other number.</summary>
+    /// <summary>Positive infinity, greater than any other
+    /// number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -62,9 +63,9 @@ namespace PeterO.Numbers {
       EInteger.Zero,
       BigNumberFlags.FlagInfinity);
 
-    /// <summary>A not-a-number value that signals an invalid operation flag when it's
-    /// passed as an argument to any arithmetic operation in arbitrary-precision
-    /// binary float.</summary>
+    /// <summary>A not-a-number value that signals an invalid operation
+    /// flag when it's passed as an argument to any arithmetic operation in
+    /// arbitrary-precision binary float.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
@@ -465,9 +466,9 @@ namespace PeterO.Numbers {
     public EFloat Abs() {
       if (this.IsNegative) {
         var er = new EFloat(
-  this.unsignedMantissa,
-  this.exponent,
-  this.flags & ~BigNumberFlags.FlagNegative);
+          this.unsignedMantissa,
+          this.exponent,
+          this.flags & ~BigNumberFlags.FlagNegative);
         return er;
       }
       return this;
@@ -930,8 +931,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EFloat MovePointLeft(
-  EInteger bigPlaces,
-  EContext ctx) {
+      EInteger bigPlaces,
+      EContext ctx) {
       return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
@@ -957,8 +958,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EFloat MovePointRight(
-  EInteger bigPlaces,
-  EContext ctx) {
+      EInteger bigPlaces,
+      EContext ctx) {
       if (!this.IsFinite) {
         return this.RoundToPrecision(ctx);
       }
@@ -967,9 +968,9 @@ namespace PeterO.Numbers {
       if (bigExp.Sign > 0) {
         EInteger mant = this.unsignedMantissa.ShiftLeft(bigExp);
         return CreateWithFlags(
-  mant,
-  EInteger.Zero,
-  this.flags).RoundToPrecision(ctx);
+          mant,
+          EInteger.Zero,
+          this.flags).RoundToPrecision(ctx);
       }
       return CreateWithFlags(
         this.unsignedMantissa,
@@ -1050,9 +1051,9 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.Negate"]/*'/>
     public EFloat Negate() {
       return new EFloat(
-  this.unsignedMantissa,
-  this.exponent,
-  this.flags ^ BigNumberFlags.FlagNegative);
+        this.unsignedMantissa,
+        this.exponent,
+        this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <include file='../../docs.xml'
@@ -1286,8 +1287,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)"]/*'/>
     public EFloat ScaleByPowerOfTwo(
-  EInteger bigPlaces,
-  EContext ctx) {
+      EInteger bigPlaces,
+      EContext ctx) {
       if (bigPlaces.IsZero) {
         return this.RoundToPrecision(ctx);
       }
@@ -1700,26 +1701,26 @@ namespace PeterO.Numbers {
     }
 
     private sealed class BinaryMathHelper : IRadixMathHelper<EFloat> {
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetRadix"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetRadix"]/*'/>
       public int GetRadix() {
         return 2;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetSign(PeterO.Numbers.EFloat)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetSign(PeterO.Numbers.EFloat)"]/*'/>
       public int GetSign(EFloat value) {
         return value.Sign;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetMantissa(PeterO.Numbers.EFloat)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetMantissa(PeterO.Numbers.EFloat)"]/*'/>
       public EInteger GetMantissa(EFloat value) {
         return value.unsignedMantissa;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetExponent(PeterO.Numbers.EFloat)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetExponent(PeterO.Numbers.EFloat)"]/*'/>
       public EInteger GetExponent(EFloat value) {
         return value.exponent;
       }
@@ -1736,8 +1737,8 @@ namespace PeterO.Numbers {
         return FastIntegerFixed.FromBig(value.exponent);
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateShiftAccumulatorWithDigits(PeterO.Numbers.EInteger,System.Int32,System.Int32)"]/*'/>
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
         EInteger bigint,
         int lastDigit,
@@ -1762,8 +1763,8 @@ namespace PeterO.Numbers {
         }
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.DivisionShift(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.DivisionShift(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
       public FastInteger DivisionShift(EInteger num, EInteger den) {
         if (den.IsZero) {
           return null;
@@ -1772,12 +1773,13 @@ namespace PeterO.Numbers {
           return null;
         }
         EInteger valueELowBit = den.GetLowBitAsEInteger();
-        return den.GetUnsignedBitLengthAsEInteger().Equals(valueELowBit.Add(1)) ?
+        return
+          den.GetUnsignedBitLengthAsEInteger().Equals(valueELowBit.Add(1)) ?
           FastInteger.FromBig(valueELowBit) : null;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.MultiplyByRadixPower(PeterO.Numbers.EInteger,PeterO.Numbers.FastInteger)"]/*'/>
       public EInteger MultiplyByRadixPower(
         EInteger bigint,
         FastInteger power) {
@@ -1794,14 +1796,14 @@ namespace PeterO.Numbers {
         return power.ShiftEIntegerLeftByThis(tmpbigint);
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetFlags(PeterO.Numbers.EFloat)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetFlags(PeterO.Numbers.EFloat)"]/*'/>
       public int GetFlags(EFloat value) {
         return value.flags;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)"]/*'/>
       public EFloat CreateNewWithFlags(
         EInteger mantissa,
         EInteger exponent,
@@ -1819,14 +1821,14 @@ namespace PeterO.Numbers {
   flags);
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetArithmeticSupport"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.GetArithmeticSupport"]/*'/>
       public int GetArithmeticSupport() {
         return BigNumberFlags.FiniteAndNonFinite;
       }
 
-      /// <include file='../../docs.xml'
-      /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.ValueOf(System.Int32)"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.BinaryMathHelper.ValueOf(System.Int32)"]/*'/>
       public EFloat ValueOf(int val) {
         return FromInt64(val);
       }

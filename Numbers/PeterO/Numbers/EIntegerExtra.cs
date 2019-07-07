@@ -33,8 +33,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Subtraction(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator -(
-     EInteger bthis,
-     EInteger subtrahend) {
+      EInteger bthis,
+      EInteger subtrahend) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
       }
@@ -73,8 +73,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Division(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator /(
-     EInteger dividend,
-     EInteger divisor) {
+      EInteger dividend,
+      EInteger divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }
@@ -84,8 +84,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_Modulus(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator %(
-     EInteger dividend,
-     EInteger divisor) {
+      EInteger dividend,
+      EInteger divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }
@@ -104,9 +104,9 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger ModPow(
-  EInteger bigintValue,
-  EInteger pow,
-  EInteger mod) {
+      EInteger bigintValue,
+      EInteger pow,
+      EInteger mod) {
       if (bigintValue == null) {
         throw new ArgumentNullException(nameof(bigintValue));
       }
@@ -166,8 +166,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_LessThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static bool operator <=(
-    EInteger thisValue,
-    EInteger otherValue) {
+      EInteger thisValue,
+      EInteger otherValue) {
       return (thisValue == null) || (thisValue.CompareTo(otherValue) <= 0);
     }
 
@@ -180,8 +180,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_GreaterThanOrEqual(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static bool operator >=(
-    EInteger thisValue,
-    EInteger otherValue) {
+      EInteger thisValue,
+      EInteger otherValue) {
       return (thisValue == null) ? (otherValue == null) :
         (thisValue.CompareTo(otherValue) >= 0);
     }
@@ -196,24 +196,24 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_BitwiseAnd(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator &(
-    EInteger thisValue,
-    EInteger otherValue) {
+      EInteger thisValue,
+      EInteger otherValue) {
       return And(thisValue, otherValue);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_BitwiseOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator |(
-    EInteger thisValue,
-    EInteger otherValue) {
+      EInteger thisValue,
+      EInteger otherValue) {
       return Or(thisValue, otherValue);
     }
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.op_ExclusiveOr(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
     public static EInteger operator ^(
-    EInteger a,
-    EInteger b) {
+      EInteger a,
+      EInteger b) {
       return Xor(a, b);
     }
 
@@ -234,9 +234,9 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)"]/*'/>
     [Obsolete("Use the DivRem instance method instead.")]
     public static EInteger DivRem(
-  EInteger dividend,
-  EInteger divisor,
-  out EInteger remainder) {
+      EInteger dividend,
+      EInteger divisor,
+      out EInteger remainder) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }

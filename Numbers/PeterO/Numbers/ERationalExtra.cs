@@ -69,8 +69,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Subtraction(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator -(
-   ERational bthis,
-   ERational subtrahend) {
+      ERational bthis,
+      ERational subtrahend) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
       }
@@ -98,8 +98,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Multiply(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator *(
-    ERational operand1,
-    ERational operand2) {
+      ERational operand1,
+      ERational operand2) {
       if (operand1 == null) {
         throw new ArgumentNullException(nameof(operand1));
       }
@@ -109,8 +109,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Division(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator /(
-   ERational dividend,
-   ERational divisor) {
+      ERational dividend,
+      ERational divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }
@@ -120,8 +120,8 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Modulus(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
     public static ERational operator %(
-   ERational dividend,
-   ERational divisor) {
+      ERational dividend,
+      ERational divisor) {
       if (dividend == null) {
         throw new ArgumentNullException(nameof(dividend));
       }

@@ -8,45 +8,50 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-  /// <include file='../../docs.xml'
-  /// path='docs/doc[@name="T:PeterO.Numbers.EContext"]/*'/>
+    /// <include file='../../docs.xml'
+    /// path='docs/doc[@name="T:PeterO.Numbers.EContext"]/*'/>
   public sealed class EContext {
-    /// <summary>Signals that the exponent was adjusted to fit the exponent range.</summary>
+    /// <summary>Signals that the exponent was adjusted to fit the exponent
+    /// range.</summary>
     public const int FlagClamped = 32;
 
     /// <summary>Signals a division of a nonzero number by zero.</summary>
     public const int FlagDivideByZero = 128;
 
-    /// <summary>Signals that the result was rounded to a different mathematical value, but
-    /// as close as possible to the original.</summary>
+    /// <summary>Signals that the result was rounded to a different
+    /// mathematical value, but as close as possible to the
+    /// original.</summary>
     public const int FlagInexact = 1;
 
     /// <summary>Signals an invalid operation.</summary>
     public const int FlagInvalid = 64;
 
-    /// <summary>Signals that an operand was rounded to a different mathematical value
-    /// before an operation.</summary>
+    /// <summary>Signals that an operand was rounded to a different
+    /// mathematical value before an operation.</summary>
     public const int FlagLostDigits = 256;
 
-    /// <summary>Signals that the result is non-zero and the exponent is higher than the
-    /// highest exponent allowed.</summary>
+    /// <summary>Signals that the result is non-zero and the exponent is
+    /// higher than the highest exponent allowed.</summary>
     public const int FlagOverflow = 16;
 
-    /// <summary>Signals that the result was rounded to fit the precision; either the value
-    /// or the exponent may have changed from the original.</summary>
+    /// <summary>Signals that the result was rounded to fit the precision;
+    /// either the value or the exponent may have changed from the
+    /// original.</summary>
     public const int FlagRounded = 2;
 
-    /// <summary>Signals that the result's exponent, before rounding, is lower than the
-    /// lowest exponent allowed.</summary>
+    /// <summary>Signals that the result's exponent, before rounding, is
+    /// lower than the lowest exponent allowed.</summary>
     public const int FlagSubnormal = 4;
 
-    /// <summary>Signals that the result's exponent, before rounding, is lower than the
-    /// lowest exponent allowed, and the result was rounded to a different
-    /// mathematical value, but as close as possible to the original.</summary>
+    /// <summary>Signals that the result's exponent, before rounding, is
+    /// lower than the lowest exponent allowed, and the result was rounded
+    /// to a different mathematical value, but as close as possible to the
+    /// original.</summary>
     public const int FlagUnderflow = 8;
 
-    /// <summary>A basic arithmetic context, 9 digits precision, rounding mode half-up,
-    /// unlimited exponent range. The default rounding mode is HalfUp.</summary>
+    /// <summary>A basic arithmetic context, 9 digits precision, rounding
+    /// mode half-up, unlimited exponent range. The default rounding mode
+    /// is HalfUp.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -56,8 +61,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Basic =
       EContext.ForPrecisionAndRounding(9, ERounding.HalfUp);
 
-    /// <summary>An arithmetic context for Java's BigDecimal format. The default rounding
-    /// mode is HalfUp.</summary>
+    /// <summary>An arithmetic context for Java's BigDecimal format. The
+    /// default rounding mode is HalfUp.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -71,8 +76,9 @@ namespace PeterO.Numbers {
   EInteger.Zero - (EInteger)Int32.MaxValue,
   EInteger.One + (EInteger)Int32.MaxValue);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary128 format, 113 bits
-    /// precision. The default rounding mode is HalfEven.</summary>
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary128
+    /// format, 113 bits precision. The default rounding mode is
+    /// HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -83,8 +89,9 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(113, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-16382, 16383);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary16 format, 11 bits
-    /// precision. The default rounding mode is HalfEven.</summary>
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary16
+    /// format, 11 bits precision. The default rounding mode is
+    /// HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -95,8 +102,9 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(11, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-14, 15);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary32 format, 24 bits
-    /// precision. The default rounding mode is HalfEven.</summary>
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary32
+    /// format, 24 bits precision. The default rounding mode is
+    /// HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -107,8 +115,9 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(24, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-126, 127);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary64 format, 53 bits
-    /// precision. The default rounding mode is HalfEven.</summary>
+    /// <summary>An arithmetic context for the IEEE-754-2008 binary64
+    /// format, 53 bits precision. The default rounding mode is
+    /// HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -119,15 +128,14 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(53, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-1022, 1023);
 
-    /// <summary>An arithmetic context for the .NET Framework decimal format (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>
-    /// "Forms of numbers"
-    /// </see>
-    /// ), 96 bits precision, and a valid exponent range of -28 to 0. The default
-    /// rounding mode is HalfEven. (The
-    /// <c>"Cli"</c> stands for "Common Language Infrastructure", which defined this format as
-    /// the .NET Framework decimal format in version 1, but leaves it unspecified
-    /// in later versions.).</summary>
+    /// <summary>An arithmetic context for the .NET Framework decimal
+    /// format (see
+    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
+    /// 96 bits precision, and a valid exponent range of -28 to 0. The
+    /// default rounding mode is HalfEven. (The <c>"Cli"</c> stands for
+    /// "Common Language Infrastructure", which defined this format as the
+    /// .NET Framework decimal format in version 1, but leaves it
+    /// unspecified in later versions.).</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -139,8 +147,8 @@ namespace PeterO.Numbers {
       new EContext(96, ERounding.HalfEven, 0, 28, true)
       .WithPrecisionInBits(true);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 decimal128 format. The default
-    /// rounding mode is HalfEven.</summary>
+    /// <summary>An arithmetic context for the IEEE-754-2008 decimal128
+    /// format. The default rounding mode is HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -151,8 +159,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal128 =
       new EContext(34, ERounding.HalfEven, -6143, 6144, true);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 decimal32 format. The default
-    /// rounding mode is HalfEven.</summary>
+    /// <summary>An arithmetic context for the IEEE-754-2008 decimal32
+    /// format. The default rounding mode is HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -163,8 +171,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal32 =
       new EContext(7, ERounding.HalfEven, -95, 96, true);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 decimal64 format. The default
-    /// rounding mode is HalfEven.</summary>
+    /// <summary>An arithmetic context for the IEEE-754-2008 decimal64
+    /// format. The default rounding mode is HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -175,7 +183,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal64 =
       new EContext(16, ERounding.HalfEven, -383, 384, true);
 
-    /// <summary>No specific (theoretical) limit on precision. Rounding mode HalfUp.</summary>
+    /// <summary>No specific (theoretical) limit on precision. Rounding
+    /// mode HalfUp.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -186,7 +195,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Unlimited =
       EContext.ForPrecision(0);
 
-    /// <summary>No specific (theoretical) limit on precision. Rounding mode HalfEven.</summary>
+    /// <summary>No specific (theoretical) limit on precision. Rounding
+    /// mode HalfEven.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -198,18 +208,18 @@ namespace PeterO.Numbers {
       EContext.ForPrecision(0).WithRounding(ERounding.HalfEven);
 
     private EContext(
-     bool adjustExponent,
-     EInteger bigintPrecision,
-     bool clampNormalExponents,
-     EInteger exponentMax,
-     EInteger exponentMin,
-     int flags,
-     bool hasExponentRange,
-     bool hasFlags,
-     bool precisionInBits,
-     ERounding rounding,
-     bool simplified,
-     int traps) {
+      bool adjustExponent,
+      EInteger bigintPrecision,
+      bool clampNormalExponents,
+      EInteger exponentMax,
+      EInteger exponentMin,
+      int flags,
+      bool hasExponentRange,
+      bool hasFlags,
+      bool precisionInBits,
+      ERounding rounding,
+      bool simplified,
+      int traps) {
       if (bigintPrecision == null) {
         throw new ArgumentNullException(nameof(bigintPrecision));
       }
@@ -263,28 +273,23 @@ namespace PeterO.Numbers {
 
     private int flags;
 
-    /// <summary>Initializes a new instance of the <see cref='EContext'/> class.</summary>
-    /// <param name='precision'>
-    /// Maximum precision, in decimal digits, of a number's significand.
-    /// </param>
-    /// <param name='rounding'>
-    /// The rounding mode for this context.
-    /// </param>
-    /// <param name='exponentMinSmall'>
-    /// Smallest exponent of a number, as a power of 10.
-    /// </param>
-    /// <param name='exponentMaxSmall'>
-    /// Largest exponent of a number, as a power of 10.
-    /// </param>
-    /// <param name='clampNormalExponents'>
-    /// The value of the "ClampNormalExponents" property for this context.
-    /// </param>
+    /// <summary>Initializes a new instance of the
+    /// <see cref='EContext'/> class.</summary>
+    /// <param name='precision'>Maximum precision, in decimal digits, of a
+    /// number's significand.</param>
+    /// <param name='rounding'>The rounding mode for this context.</param>
+    /// <param name='exponentMinSmall'>Smallest exponent of a number, as a
+    /// power of 10.</param>
+    /// <param name='exponentMaxSmall'>Largest exponent of a number, as a
+    /// power of 10.</param>
+    /// <param name='clampNormalExponents'>The value of the
+    /// "ClampNormalExponents" property for this context.</param>
     public EContext(
-  int precision,
-  ERounding rounding,
-  int exponentMinSmall,
-  int exponentMaxSmall,
-  bool clampNormalExponents) : this(
+      int precision,
+      ERounding rounding,
+      int exponentMinSmall,
+      int exponentMaxSmall,
+      bool clampNormalExponents) : this(
       true,
       EInteger.FromInt32(precision),
       clampNormalExponents,
@@ -299,29 +304,24 @@ namespace PeterO.Numbers {
       0) {
     }
 
-    /// <summary>Initializes a new instance of the <see cref='EContext'/> class, using arbitrary-precision integers to hold the precision and
-    /// exponent range.</summary>
-    /// <param name='bigintPrecision'>
-    /// Maximum precision, in decimal digits, of a number's significand.
-    /// </param>
-    /// <param name='rounding'>
-    /// The rounding mode for this context.
-    /// </param>
-    /// <param name='exponentMin'>
-    /// Smallest exponent of a number, as a power of 10.
-    /// </param>
-    /// <param name='exponentMax'>
-    /// Largest exponent of a number, as a power of 10.
-    /// </param>
-    /// <param name='clampNormalExponents'>
-    /// The value of the "ClampNormalExponents" property for this context.
-    /// </param>
+    /// <summary>Initializes a new instance of the
+    /// <see cref='EContext'/> class, using arbitrary-precision integers to
+    /// hold the precision and exponent range.</summary>
+    /// <param name='bigintPrecision'>Maximum precision, in decimal digits,
+    /// of a number's significand.</param>
+    /// <param name='rounding'>The rounding mode for this context.</param>
+    /// <param name='exponentMin'>Smallest exponent of a number, as a power
+    /// of 10.</param>
+    /// <param name='exponentMax'>Largest exponent of a number, as a power
+    /// of 10.</param>
+    /// <param name='clampNormalExponents'>The value of the
+    /// "ClampNormalExponents" property for this context.</param>
     public EContext(
-  EInteger bigintPrecision,
-  ERounding rounding,
-  EInteger exponentMin,
-  EInteger exponentMax,
-  bool clampNormalExponents) : this(
+      EInteger bigintPrecision,
+      ERounding rounding,
+      EInteger exponentMin,
+      EInteger exponentMax,
+      bool clampNormalExponents) : this(
       true,
       bigintPrecision,
       clampNormalExponents,
@@ -451,11 +451,11 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.ForPrecision(System.Int32)"]/*'/>
     public static EContext ForPrecision(int precision) {
       return new EContext(
-  precision,
-  ERounding.HalfUp,
-  0,
-  0,
-  false).WithUnlimitedExponents();
+        precision,
+        ERounding.HalfUp,
+        0,
+        0,
+        false).WithUnlimitedExponents();
     }
 
     /// <include file='../../docs.xml'
@@ -464,26 +464,26 @@ namespace PeterO.Numbers {
       int precision,
       ERounding rounding) {
       return new EContext(
-  precision,
-  rounding,
-  0,
-  0,
-  false).WithUnlimitedExponents();
+        precision,
+        rounding,
+        0,
+        0,
+        false).WithUnlimitedExponents();
     }
 
     private static readonly EContext ForRoundingHalfEven = new EContext(
-  0,
-  ERounding.HalfEven,
-  0,
-  0,
-  false).WithUnlimitedExponents();
+      0,
+      ERounding.HalfEven,
+      0,
+      0,
+      false).WithUnlimitedExponents();
 
     private static readonly EContext ForRoundingDown = new EContext(
-  0,
-  ERounding.Down,
-  0,
-  0,
-  false).WithUnlimitedExponents();
+      0,
+      ERounding.Down,
+      0,
+      0,
+      false).WithUnlimitedExponents();
 
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.ForRounding(PeterO.Numbers.ERounding)"]/*'/>
@@ -495,11 +495,11 @@ namespace PeterO.Numbers {
         return ForRoundingDown;
       }
       return new EContext(
-  0,
-  rounding,
-  0,
-  0,
-  false).WithUnlimitedExponents();
+        0,
+        rounding,
+        0,
+        0,
+        false).WithUnlimitedExponents();
     }
 
     /// <include file='../../docs.xml'
@@ -606,18 +606,18 @@ namespace PeterO.Numbers {
     /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithNoFlagsOrTraps"]/*'/>
     public EContext WithNoFlagsOrTraps() {
       return new EContext(
-       this.adjustExponent,
-       this.bigintPrecision,
-       this.clampNormalExponents,
-       this.exponentMax,
-       this.exponentMin,
-       0,
-       this.hasExponentRange,
-       false,
-       this.precisionInBits,
-       this.rounding,
-       this.simplified,
-       0);
+        this.adjustExponent,
+        this.bigintPrecision,
+        this.clampNormalExponents,
+        this.exponentMax,
+        this.exponentMin,
+        0,
+        this.hasExponentRange,
+        false,
+        this.precisionInBits,
+        this.rounding,
+        this.simplified,
+        0);
     }
 
     /// <include file='../../docs.xml'
