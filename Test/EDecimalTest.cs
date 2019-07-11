@@ -2319,7 +2319,10 @@ namespace Test {
     }
     [Test]
     public void TestIsPositiveInfinity() {
-      // not implemented yet
+      Assert.IsTrue(EDecimal.PositiveInfinity.IsInfinity());
+      Assert.IsFalse(EDecimal.NegativeInfinity.IsInfinity());
+      Assert.IsFalse(EDecimal.Zero.IsInfinity());
+      Assert.IsFalse(EDecimal.NaN.IsInfinity());
     }
     [Test]
     public void TestIsQuietNaN() {
@@ -2340,9 +2343,10 @@ namespace Test {
       Assert.IsTrue(EDecimal.One.Log(EContext.Unlimited).IsNaN());
       EContext ep = EContext.ForPrecision(15);
       var resources = new AppResources("Resources");
-      var json = resources.GetJSONString("logprec15");
+      string json = resources.GetString("logprec15");
+      json = DecTestUtil.ParseJSONString(json);
       string[] items = json.Split(',');
-      for (var i = 0;i<items.Length;i+=2) {
+      for (var i = 0; i < items.Length; i += 2) {
         TestCommon.CompareTestEqual(
            EDecimal.FromString(items[i]),
            EDecimal.FromString(items[i + 1]).Log(ep));

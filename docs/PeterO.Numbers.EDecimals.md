@@ -47,7 +47,9 @@
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
- Performs a logical AND operation on two decimal numbers in the form of <i> logical operands </i> . A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010 = 01000`  .  <b>Parameters:</b>
+ Performs a logical AND operation on two decimal numbers in the form of <i> logical operands </i> . A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010 = 01000`  .
+
+<b>Parameters:</b>
 
  * <i>ed1</i>: The first logical operand to the logical AND operation.
 
@@ -68,7 +70,9 @@ The result of the logical AND operation as a logical operand. Signals an invalid
         bool b,
         PeterO.Numbers.EContext ec);
 
- Converts a boolean value (either true or false) to an arbitrary-precision decimal number.  <b>Parameters:</b>
+ Converts a boolean value (either true or false) to an arbitrary-precision decimal number.
+
+<b>Parameters:</b>
 
  * <i>b</i>: Either true or false.
 
@@ -86,7 +90,9 @@ Either 1 if  <i>b</i>
     public static PeterO.Numbers.EDecimal Canonical(
         PeterO.Numbers.EDecimal ed);
 
- Returns a canonical version of the given arbitrary-precision number object. In this method, this method behaves like the Copy method.  <b>Parameters:</b>
+ Returns a canonical version of the given arbitrary-precision number object. In this method, this method behaves like the Copy method.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -117,7 +123,7 @@ A copy of the parameter  <i>ed</i>
 
   * Negative numbers are less than positive numbers.
 
-   <b>Parameters:</b>
+<b>Parameters:</b>
 
  * <i>ed</i>: The first arbitrary-precision number to compare.
 
@@ -149,7 +155,7 @@ The number 0 if both objects have the same value, or -1 if the first object is l
 
   * Infinity has a higher "absolute value" than any finite number.
 
-   <b>Parameters:</b>
+<b>Parameters:</b>
 
  * <i>ed</i>: The first arbitrary-precision number to compare.
 
@@ -167,7 +173,9 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
     public static PeterO.Numbers.EDecimal Copy(
         PeterO.Numbers.EDecimal ed);
 
- Creates a copy of the given arbitrary-precision number object.  <b>Parameters:</b>
+ Creates a copy of the given arbitrary-precision number object.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object to copy.
 
@@ -181,7 +189,9 @@ A copy of the given arbitrary-precision number object.
     public static PeterO.Numbers.EDecimal CopyAbs(
         PeterO.Numbers.EDecimal ed);
 
- Returns an arbitrary-precision number object with the same value as the given number object but with a nonnegative sign (that is, the given number object's absolute value).  <b>Parameters:</b>
+ Returns an arbitrary-precision number object with the same value as the given number object but with a nonnegative sign (that is, the given number object's absolute value).
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -195,7 +205,9 @@ An arbitrary-precision number object with the same value as the given number obj
     public static PeterO.Numbers.EDecimal CopyNegate(
         PeterO.Numbers.EDecimal ed);
 
- Returns an arbitrary-precision number object with the sign reversed from the given number object.  <b>Parameters:</b>
+ Returns an arbitrary-precision number object with the sign reversed from the given number object.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -210,7 +222,9 @@ An arbitrary-precision number object with the sign reversed from the given numbe
         PeterO.Numbers.EDecimal ed,
         PeterO.Numbers.EDecimal other);
 
- Returns an arbitrary-precision number object with the same value as the first given number object but with a the same sign (positive or negative) as the second given number object.  <b>Parameters:</b>
+ Returns an arbitrary-precision number object with the same value as the first given number object but with a the same sign (positive or negative) as the second given number object.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object with the value the result will have.
 
@@ -228,7 +242,9 @@ An arbitrary-precision number object with the same value as the first given numb
         int i32,
         PeterO.Numbers.EContext ec);
 
- Creates an arbitrary-precision decimal number from a 32-bit signed integer.  <b>Parameters:</b>
+ Creates an arbitrary-precision decimal number from a 32-bit signed integer.
+
+<b>Parameters:</b>
 
  * <i>i32</i>: The parameter  <i>i32</i>
  is a 32-bit signed integer.
@@ -246,7 +262,9 @@ An arbitrary-precision decimal number with the closest representable value to th
         PeterO.Numbers.EDecimal ed1,
         PeterO.Numbers.EContext ec);
 
- Performs a logical NOT operation on an arbitrary-precision decimal number in the form of a <i> logical operand </i> . A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical NOT operation sets each digit of the result to 1 if the corresponding digit is 0, and to 0 otherwise; it can set no more digits than the maximum precision, however. For example, if the maximum precision is 8 digits, then  `NOT 111010 = 11000101`  .  <b>Parameters:</b>
+ Performs a logical NOT operation on an arbitrary-precision decimal number in the form of a <i> logical operand </i> . A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical NOT operation sets each digit of the result to 1 if the corresponding digit is 0, and to 0 otherwise; it can set no more digits than the maximum precision, however. For example, if the maximum precision is 8 digits, then  `NOT 111010 = 11000101`  .
+
+<b>Parameters:</b>
 
  * <i>ed1</i>: The logical operand to the logical NOT operation.
 
@@ -263,7 +281,9 @@ The result of the logical NOT operation as a logical operand. Signals an invalid
     public static bool IsCanonical(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is in a canonical form. For the current version of EDecimal, all EDecimal objects are in a canonical form.  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is in a canonical form. For the current version of EDecimal, all EDecimal objects are in a canonical form.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -277,7 +297,9 @@ Always  `true`  .
     public static bool IsFinite(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN).  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN).
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -291,7 +313,9 @@ Either  `true`  if the given arbitrary-precision number object is neither null n
     public static bool IsInfinite(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is positive or negative infinity.  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is positive or negative infinity.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -305,7 +329,9 @@ Either  `true`  if the given arbitrary-precision number object is positive or ne
     public static bool IsNaN(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is a not-a-number (NaN).  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is a not-a-number (NaN).
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -320,7 +346,9 @@ Either  `true`  or  `false`  .
         PeterO.Numbers.EDecimal ed,
         PeterO.Numbers.EContext ec);
 
- Returns whether the given number is a <i> normal </i> number. A <i> subnormal number </i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number. A <i> normal number </i> is nonzero and finite, but not subnormal.  <b>Parameters:</b>
+ Returns whether the given number is a <i> normal </i> number. A <i> subnormal number </i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number. A <i> normal number </i> is nonzero and finite, but not subnormal.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -336,7 +364,9 @@ Either  `true`  if the given number is subnormal, or  `false`  otherwise. Return
     public static bool IsQuietNaN(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is a quiet not-a-number (NaN).  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is a quiet not-a-number (NaN).
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -350,7 +380,9 @@ Either  `true`  or  `false`  .
     public static bool IsSignalingNaN(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is a signaling not-a-number (NaN).  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is a signaling not-a-number (NaN).
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -364,7 +396,9 @@ Either  `true`  or  `false`  .
     public static bool IsSigned(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is negative (including negative infinity, negative not-a-number [NaN], or negative zero).  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is negative (including negative infinity, negative not-a-number [NaN], or negative zero).
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -379,7 +413,9 @@ Either  `true`  or  `false`  .
         PeterO.Numbers.EDecimal ed,
         PeterO.Numbers.EContext ec);
 
- Returns whether the given number is a <i> subnormal </i> number. A <i> subnormal number </i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number.  <b>Parameters:</b>
+ Returns whether the given number is a <i> subnormal </i> number. A <i> subnormal number </i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -395,7 +431,9 @@ Either  `true`  if the given number is subnormal, or  `false`  otherwise. Return
     public static bool IsZero(
         PeterO.Numbers.EDecimal ed);
 
- Returns whether the given arbitrary-precision number object is zero (positive zero or negative zero).  <b>Parameters:</b>
+ Returns whether the given arbitrary-precision number object is zero (positive zero or negative zero).
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -410,7 +448,9 @@ Either  `true`  if the given number is subnormal, or  `false`  otherwise. Return
         PeterO.Numbers.EDecimal ed,
         PeterO.Numbers.EContext ec);
 
- Returns the base-10 exponent of an arbitrary-precision decimal number (when that number is expressed in scientific notation with one digit before the radix point). For example, returns 3 for the numbers  `6.66E + 3`  and  `666E + 1`  .  <b>Parameters:</b>
+ Returns the base-10 exponent of an arbitrary-precision decimal number (when that number is expressed in scientific notation with one digit before the radix point). For example, returns 3 for the numbers  `6.66E + 3`  and  `666E + 1`  .
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision decimal number.
 
@@ -435,7 +475,9 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EDecimal ed,
         PeterO.Numbers.EContext ec);
 
- Finds the number class for an arbitrary-precision decimal number object.  <b>Parameters:</b>
+ Finds the number class for an arbitrary-precision decimal number object.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision decimal number object.
 
@@ -457,7 +499,9 @@ The parameter  <i>ed</i>
     public static string NumberClassString(
         int nc);
 
- Converts a number class identifier (ranging from 1 to 9) to a text string. An arbitrary-precision number object can belong in one of ten number classes.  <b>Parameters:</b>
+ Converts a number class identifier (ranging from 1 to 9) to a text string. An arbitrary-precision number object can belong in one of ten number classes.
+
+<b>Parameters:</b>
 
  * <i>nc</i>: An integer identifying a number class.
 
@@ -479,7 +523,9 @@ The parameter  <i>nc</i>
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
- Performs a logical OR operation on two decimal numbers in the form of <i> logical operands </i> . A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example,  `01001 OR 111010 = 111011`  .  <b>Parameters:</b>
+ Performs a logical OR operation on two decimal numbers in the form of <i> logical operands </i> . A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example,  `01001 OR 111010 = 111011`  .
+
+<b>Parameters:</b>
 
  * <i>ed1</i>: The first logical operand to the logical OR operation.
 
@@ -499,7 +545,9 @@ The result of the logical OR operation as a logical operand. Signals an invalid 
     public static PeterO.Numbers.EDecimal Radix(
         PeterO.Numbers.EContext ec);
 
- Returns the number 10, the decimal radix.  <b>Parameters:</b>
+ Returns the number 10, the decimal radix.
+
+<b>Parameters:</b>
 
  * <i>ec</i>: Specifies an arithmetic context for rounding the number 10. Can be null.
 
@@ -519,7 +567,7 @@ The number 10, or the closest representable number to 10 in the arithmetic conte
 
  <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which a fixed number of digits come after the decimal point. A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic" .
 
-  <b>Parameters:</b>
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision decimal number whose exponent is to be changed.
 
@@ -540,7 +588,9 @@ An arbitrary-precision decimal number with the same value as this object but wit
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
- Rotates the digits of an arbitrary-precision decimal number's mantissa.  <b>Parameters:</b>
+ Rotates the digits of an arbitrary-precision decimal number's mantissa.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number containing the mantissa to rotate. If this mantissa contains more digits than the precision, the most-significant digits are chopped off the mantissa before the rotation begins.
 
@@ -561,7 +611,9 @@ An arbitrary-precision decimal number whose mantissa is rotated the given number
         PeterO.Numbers.EDecimal ed1,
         PeterO.Numbers.EDecimal ed2);
 
- Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).  <b>Parameters:</b>
+ Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).
+
+<b>Parameters:</b>
 
  * <i>ed1</i>: The first arbitrary-precision number.
 
@@ -579,7 +631,9 @@ Either  `true`  if the given arbitrary-precision numbers have the same exponent,
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
- Finds an arbitrary-precision decimal number whose decimal point is moved a given number of places.  <b>Parameters:</b>
+ Finds an arbitrary-precision decimal number whose decimal point is moved a given number of places.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision decimal number.
 
@@ -609,7 +663,9 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
- Shifts the digits of an arbitrary-precision decimal number's mantissa.  <b>Parameters:</b>
+ Shifts the digits of an arbitrary-precision decimal number's mantissa.
+
+<b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number containing the mantissa to shift.
 
@@ -637,7 +693,9 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EDecimal ed1,
         PeterO.Numbers.EContext ec);
 
- Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa. If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the mantissa (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the mantissa until the exponent reaches 0 (then the number is rounded if necessary).  <b>Parameters:</b>
+ Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa. If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the mantissa (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the mantissa until the exponent reaches 0 (then the number is rounded if necessary).
+
+<b>Parameters:</b>
 
  * <i>ed1</i>: An arbitrary-precision number.
 
@@ -656,7 +714,9 @@ An arbitrary-precision number with the same value as this one but with certain t
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
- Performs a logical exclusive-OR (XOR) operation on two decimal numbers in the form of <i> logical operands </i> . A  `logical operand`  is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010 = 101010`  .  <b>Parameters:</b>
+ Performs a logical exclusive-OR (XOR) operation on two decimal numbers in the form of <i> logical operands </i> . A  `logical operand`  is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010 = 101010`  .
+
+<b>Parameters:</b>
 
  * <i>ed1</i>: The first logical operand to the logical exclusive-OR operation.
 

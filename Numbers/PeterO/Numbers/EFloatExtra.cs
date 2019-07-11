@@ -10,31 +10,31 @@ using System;
 namespace PeterO.Numbers {
   public sealed partial class EFloat {
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(System.Boolean)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(System.Boolean)~PeterO.Numbers.EFloat"]/*'/>
     public static explicit operator EFloat(bool boolValue) {
       return FromBoolean(boolValue);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Single)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(float flt) {
       return FromSingle(flt);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Double)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(double dbl) {
       return FromDouble(dbl);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(EInteger eint) {
       return FromEInteger(eint);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Addition(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator +(EFloat bthis, EFloat otherValue) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -43,7 +43,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Subtraction(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator -(
       EFloat bthis,
       EFloat subtrahend) {
@@ -54,7 +54,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Increment(PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Increment(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator ++(EFloat bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -63,7 +63,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Decrement(PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Decrement(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator --(EFloat bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -72,7 +72,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator *(
       EFloat operand1,
       EFloat operand2) {
@@ -83,7 +83,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Division(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator /(
       EFloat dividend,
       EFloat divisor) {
@@ -94,7 +94,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator %(
       EFloat dividend,
       EFloat divisor) {
@@ -105,7 +105,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_UnaryNegation(PeterO.Numbers.EFloat)"]/*'/>
     public static EFloat operator -(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -114,32 +114,32 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~PeterO.Numbers.EInteger"]/*'/>
     public static explicit operator EInteger(EFloat bigValue) {
       return bigValue.ToEInteger();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double"]/*'/>
     public static explicit operator double(EFloat bigValue) {
       return bigValue.ToDouble();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single"]/*'/>
     public static explicit operator float(EFloat bigValue) {
       return bigValue.ToSingle();
     }
     // Begin integer conversions
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte"]/*'/>
     public static explicit operator byte(EFloat input) {
       return input.ToByteChecked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Byte)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Byte)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(byte inputByte) {
       return EFloat.FromByte(inputByte);
     }
@@ -155,7 +155,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToSByteUnchecked"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToSByteUnchecked"]/*'/>
     [CLSCompliant(false)]
     public sbyte ToSByteUnchecked() {
       return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
@@ -173,7 +173,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromSByte(System.SByte)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromSByte(System.SByte)"]/*'/>
     [CLSCompliant(false)]
     public static EFloat FromSByte(sbyte inputSByte) {
       var val = (int)inputSByte;
@@ -181,33 +181,33 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.SByte"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.SByte"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator sbyte(EFloat input) {
       return input.ToSByteChecked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.SByte)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.SByte)~PeterO.Numbers.EFloat"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EFloat(sbyte inputSByte) {
       return EFloat.FromSByte(inputSByte);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16"]/*'/>
     public static explicit operator short(EFloat input) {
       return input.ToInt16Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int16)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int16)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(short inputInt16) {
       return EFloat.FromInt16(inputInt16);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt16Checked"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt16Checked"]/*'/>
     [CLSCompliant(false)]
     public ushort ToUInt16Checked() {
       if (!this.IsFinite) {
@@ -217,14 +217,14 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt16Unchecked"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt16Unchecked"]/*'/>
     [CLSCompliant(false)]
     public ushort ToUInt16Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt16IfExact"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt16IfExact"]/*'/>
     [CLSCompliant(false)]
     public ushort ToUInt16IfExact() {
       if (!this.IsFinite) {
@@ -235,7 +235,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromUInt16(System.UInt16)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromUInt16(System.UInt16)"]/*'/>
     [CLSCompliant(false)]
     public static EFloat FromUInt16(ushort inputUInt16) {
       int val = ((int)inputUInt16) & 0xffff;
@@ -243,33 +243,33 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt16"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt16"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator ushort(EFloat input) {
       return input.ToUInt16Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt16)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt16)~PeterO.Numbers.EFloat"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EFloat(ushort inputUInt16) {
       return EFloat.FromUInt16(inputUInt16);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32"]/*'/>
     public static explicit operator int(EFloat input) {
       return input.ToInt32Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int32)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(int inputInt32) {
       return EFloat.FromInt32(inputInt32);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt32Checked"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt32Checked"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32Checked() {
       if (!this.IsFinite) {
@@ -279,14 +279,14 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt32Unchecked"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt32Unchecked"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt32IfExact"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt32IfExact"]/*'/>
     [CLSCompliant(false)]
     public uint ToUInt32IfExact() {
       if (!this.IsFinite) {
@@ -297,7 +297,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromUInt32(System.UInt32)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromUInt32(System.UInt32)"]/*'/>
     [CLSCompliant(false)]
     public static EFloat FromUInt32(uint inputUInt32) {
       long val = ((long)inputUInt32) & 0xffffffffL;
@@ -305,33 +305,33 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt32"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt32"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator uint(EFloat input) {
       return input.ToUInt32Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt32)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt32)~PeterO.Numbers.EFloat"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EFloat(uint inputUInt32) {
       return EFloat.FromUInt32(inputUInt32);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64"]/*'/>
     public static explicit operator long(EFloat input) {
       return input.ToInt64Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.Int64)~PeterO.Numbers.EFloat"]/*'/>
     public static implicit operator EFloat(long inputInt64) {
       return EFloat.FromInt64(inputInt64);
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt64Checked"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt64Checked"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64Checked() {
       if (!this.IsFinite) {
@@ -341,14 +341,14 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt64Unchecked"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt64Unchecked"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt64IfExact"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.ToUInt64IfExact"]/*'/>
     [CLSCompliant(false)]
     public ulong ToUInt64IfExact() {
       if (!this.IsFinite) {
@@ -359,21 +359,21 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromUInt64(System.UInt64)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.FromUInt64(System.UInt64)"]/*'/>
     [CLSCompliant(false)]
     public static EFloat FromUInt64(ulong inputUInt64) {
       return FromEInteger(EInteger.FromUInt64(inputUInt64));
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt64"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt64"]/*'/>
     [CLSCompliant(false)]
     public static explicit operator ulong(EFloat input) {
       return input.ToUInt64Checked();
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt64)~PeterO.Numbers.EFloat"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.EFloat.op_Implicit(System.UInt64)~PeterO.Numbers.EFloat"]/*'/>
     [CLSCompliant(false)]
     public static implicit operator EFloat(ulong inputUInt64) {
       return EFloat.FromUInt64(inputUInt64);

@@ -25,34 +25,47 @@
   <doc name='M:PeterO.Numbers.EContext.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Boolean)'>
     <summary>Initializes a new instance of the
       <see cref='EContext'/>
-       class, using arbitrary-precision integers to hold the precision and
-      exponent range.
+       class,.
     </summary>
-    <param name='bigintPrecision'>Maximum precision, in decimal digits, of a number's significand.
+    <param name='bigintPrecision'>An arbitrary-precision integer.
     </param>
-    <param name='rounding'>The rounding mode for this context.
+    <param name='rounding'>The parameter
+      <paramref name='rounding'/>
+       is an ERounding object.
     </param>
-    <param name='exponentMin'>Smallest exponent of a number, as a power of 10.
+    <param name='exponentMin'>An arbitrary-precision integer.
     </param>
-    <param name='exponentMax'>Largest exponent of a number, as a power of 10.
+    <param name='exponentMax'>An arbitrary-precision integer.
     </param>
-    <param name='clampNormalExponents'>The value of the "ClampNormalExponents" property for this context.
+    <param name='clampNormalExponents'>either
+      <c>true</c> or
+      <c>false</c> .
     </param>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)'>
     <summary>Initializes a new instance of the
-      <see cref='EContext'/>
-       class.
+      <see cref='T:PeterO.Numbers.EContext'/>
+      .
     </summary>
-    <param name='precision'>Maximum precision, in decimal digits, of a number's significand.
+    <param name='precision'>The parameter
+      <paramref name='precision'/>
+       is a 32-bit signed integer.
     </param>
-    <param name='rounding'>The rounding mode for this context.
+    <param name='rounding'>The parameter
+      <paramref name='rounding'/>
+       is an ERounding object.
     </param>
-    <param name='exponentMinSmall'>Smallest exponent of a number, as a power of 10.
+    <param name='exponentMinSmall'>The parameter
+      <paramref name='exponentMinSmall'/>
+       is a 32-bit signed integer.
     </param>
-    <param name='exponentMaxSmall'>Largest exponent of a number, as a power of 10.
+    <param name='exponentMaxSmall'>The parameter
+      <paramref name='exponentMaxSmall'/>
+       is a 32-bit signed integer.
     </param>
-    <param name='clampNormalExponents'>The value of the "ClampNormalExponents" property for this context.
+    <param name='clampNormalExponents'>either
+      <c>true</c> or
+      <c>false</c> .
     </param>
   </doc>
   <doc name='P:PeterO.Numbers.EContext.AdjustExponent'>
@@ -112,7 +125,7 @@
     </value>
   </doc>
   <doc name='F:PeterO.Numbers.EContext.CliDecimal'>
-    <summary>An arithmetic context for the .NET Framework decimal format (see
+    <summary>An arithmetic context for the.NET Framework decimal format (see
       <see cref='T:PeterO.Numbers.EDecimal'>
         "Forms of numbers"
       </see>
@@ -10485,20 +10498,20 @@
   </doc>
   <doc name='M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
     <summary>Initializes a new instance of the
-      <see cref='ERational'/>
-       class.
+      <see cref='T:PeterO.Numbers.ERational'/>
+      .
     </summary>
-    <param name='numerator'>The numerator.
+    <param name='numerator'>An arbitrary-precision integer.
     </param>
-    <param name='denominator'>The denominator.
+    <param name='denominator'>An arbitrary-precision integer.
     </param>
-    <exception cref='T:System.ArgumentException'>The denominator is zero.
-    </exception>
     <exception cref='T:System.ArgumentNullException'>The parameter
       <paramref name='numerator'/>
        or
       <paramref name='denominator'/>
        is null.
+    </exception>
+    <exception cref='T:System.ArgumentException'>Denominator is zero.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Abs'>
@@ -12094,8 +12107,8 @@
   </doc>
   <doc name='M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)'>
     <summary>Initializes a new instance of the
-      <see cref='ETrapException'/>
-       class.
+      <see cref='T:PeterO.Numbers.ETrapException'/>
+      .
     </summary>
     <param name='flag'>The parameter
       <paramref name='flag'/>

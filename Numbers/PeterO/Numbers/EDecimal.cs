@@ -685,10 +685,9 @@ namespace PeterO.Numbers {
                     mantBufferMult = 10;
                   } else {
                     // multiply by 10
-                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult <<
-                      1);
-                      mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                      mantBuffer += thisdigit;
+                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
+                mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
+                mantBuffer += thisdigit;
                   }
                 }
               } else {
@@ -763,10 +762,10 @@ namespace PeterO.Numbers {
                     mantBufferMult = 10;
                   } else {
                     // multiply by 10
-                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult <<
-                      1);
-                      mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                      mantBuffer += thisdigit;
+                    mantBufferMult = (mantBufferMult << 3) + (mantBufferMult <<
+                          1);
+                    mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
+                    mantBuffer += thisdigit;
                   }
                 }
               } else {
@@ -2750,9 +2749,10 @@ namespace PeterO.Numbers {
           do {
             var optimized = false;
             if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
-           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-           EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-           if (divisor.CompareTo(bigmantissa) < 0) {
+              EInteger valueBmBits =
+bigmantissa.GetUnsignedBitLengthAsEInteger();
+              EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+              if (divisor.CompareTo(bigmantissa) < 0) {
                 if (divBits.CompareTo(valueBmBits) < 0) {
                   EInteger bitdiff = valueBmBits.Subtract(divBits);
                   if (bitdiff.CompareTo(valueEcPrec.Add(1)) > 0) {
@@ -2806,9 +2806,10 @@ namespace PeterO.Numbers {
           do {
             var optimized = false;
             if (bigmantissa.CompareTo(divisor) < 0) {
-           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-           EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-           if (valueBmBits.CompareTo(divBits) < 0) {
+              EInteger valueBmBits =
+bigmantissa.GetUnsignedBitLengthAsEInteger();
+              EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+              if (valueBmBits.CompareTo(divBits) < 0) {
                 valueBmBits = divBits.Subtract(valueBmBits);
                 bigmantissa = bigmantissa.ShiftLeft(valueBmBits);
                 adjust.SubtractBig(valueBmBits);
@@ -2816,12 +2817,13 @@ namespace PeterO.Numbers {
               }
             } else {
               if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
-           EInteger valueBmBits = bigmantissa.GetUnsignedBitLengthAsEInteger();
-           EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-           if (valueBmBits.CompareTo(divBits) >= 0 &&
-                      valueEcPrec.CompareTo(
-                  EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <=
-                         0) {
+                EInteger valueBmBits =
+bigmantissa.GetUnsignedBitLengthAsEInteger();
+                EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
+                if (valueBmBits.CompareTo(divBits) >= 0 &&
+                           valueEcPrec.CompareTo(
+                       EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <=
+                              0) {
                   EInteger vbb = divBits.Add(valueEcPrec);
                   if (valueBmBits.CompareTo(vbb) < 0) {
                     valueBmBits = vbb.Subtract(valueBmBits);
@@ -3505,7 +3507,6 @@ namespace PeterO.Numbers {
       }
       return this.ToEIntegerIfExact().ToInt64Checked();
     }
-
     // End integer conversions
   }
 }

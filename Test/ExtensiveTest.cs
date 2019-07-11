@@ -68,29 +68,29 @@ namespace CBOR {
     private static EContext SetRounding(
       EContext ctx,
       string round) {
-      if (round.Equals(">")) {
+      if (round.Equals(">", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.Ceiling);
       }
-      if (round.Equals("<")) {
+      if (round.Equals("<", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.Floor);
       }
-      if (round.Equals("0")) {
+      if (round.Equals("0", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.Down);
       }
-      if (round.Equals("=0")) {
+      if (round.Equals("=0", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.HalfEven);
       }
-      if (round.Equals("h>") || round.Equals("=^")) {
+      if (round.Equals("h>", StringComparison.Ordinal) || round.Equals("=^", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.HalfUp);
       }
-      if (round.Equals("h<")) {
+      if (round.Equals("h<", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.HalfDown);
       }
       return ctx;
     }
 
     private static string ConvertOp(string s) {
-      return s.Equals("S") ? "sNaN" : ((s.Equals("Q") || s.Equals("#")) ?
+      return s.Equals("S", StringComparison.Ordinal) ? "sNaN" : ((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#", StringComparison.Ordinal)) ?
                 "NaN" : s);
     }
 
@@ -250,28 +250,28 @@ namespace CBOR {
       }
 
       public static BinaryNumber FromString(String str) {
-        if (str.Equals("NaN")) {
+        if (str.Equals("NaN", StringComparison.Ordinal)) {
           return Create(EFloat.NaN);
         }
-        if (str.Equals("sNaN")) {
+        if (str.Equals("sNaN", StringComparison.Ordinal)) {
           return Create(EFloat.SignalingNaN);
         }
-        if (str.Equals("+Zero")) {
+        if (str.Equals("+Zero", StringComparison.Ordinal)) {
           return Create(EFloat.Zero);
         }
-        if (str.Equals("0x0")) {
+        if (str.Equals("0x0", StringComparison.Ordinal)) {
           return Create(EFloat.Zero);
         }
-        if (str.Equals("0x1")) {
+        if (str.Equals("0x1", StringComparison.Ordinal)) {
           return Create(EFloat.One);
         }
-        if (str.Equals("-Zero")) {
+        if (str.Equals("-Zero", StringComparison.Ordinal)) {
           return Create(EFloat.NegativeZero);
         }
-        if (str.Equals("-Inf")) {
+        if (str.Equals("-Inf", StringComparison.Ordinal)) {
           return Create(EFloat.NegativeInfinity);
         }
-        if (str.Equals("+Inf")) {
+        if (str.Equals("+Inf", StringComparison.Ordinal)) {
           return Create(EFloat.PositiveInfinity);
         }
         var offset = 0;
@@ -729,8 +729,9 @@ namespace CBOR {
             result = op2;
             op2 = null;
           } else {
-            result = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[6]),
-                    });
+            result = BinaryNumber.FromFloatWords(new[] {
+              HexInt(chunks[6]),
+            });
           }
 
           break;
@@ -739,36 +740,47 @@ namespace CBOR {
           if (chunks.Length < 8) {
             return 0;
           }
-          op1 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[4]),
-                    HexInt(chunks[5]), });
-          op2 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[6]),
-                    HexInt(chunks[7]), });
+          op1 = BinaryNumber.FromFloatWords(new[] {
+            HexInt(chunks[4]),
+            HexInt(chunks[5]),
+          });
+          op2 = BinaryNumber.FromFloatWords(new[] {
+            HexInt(chunks[6]),
+            HexInt(chunks[7]),
+          });
           if (chunks.Length == 8 || chunks[8].Length == 0) {
             result = op2;
             op2 = null;
             return 0;
           }
-          result = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[8]),
-                    HexInt(chunks[9]), });
+          result = BinaryNumber.FromFloatWords(new[] {
+            HexInt(chunks[8]),
+            HexInt(chunks[9]),
+          });
           break;
         case 2:
           // quad
           if (chunks.Length < 12) {
             return 0;
           }
-          op1 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[4]),
-  HexInt(chunks[5]), HexInt(chunks[6]),
-  HexInt(chunks[7]), });
-          op2 = BinaryNumber.FromFloatWords(new[] { HexInt(chunks[8]),
-  HexInt(chunks[9]), HexInt(chunks[10]),
-  HexInt(chunks[11]), });
+          op1 = BinaryNumber.FromFloatWords(new[] {
+            HexInt(chunks[4]),
+            HexInt(chunks[5]), HexInt(chunks[6]),
+            HexInt(chunks[7]),
+          });
+          op2 = BinaryNumber.FromFloatWords(new[] {
+            HexInt(chunks[8]),
+            HexInt(chunks[9]), HexInt(chunks[10]),
+            HexInt(chunks[11]),
+          });
           if (chunks.Length == 12 || chunks[12].Length == 0) {
             result = op2;
             op2 = null;
           } else {
             result = BinaryNumber.FromFloatWords(new[] {
-HexInt(chunks[12]), HexInt(chunks[13]),
-  HexInt(chunks[14]), HexInt(chunks[15]), });
+              HexInt(chunks[12]), HexInt(chunks[13]),
+              HexInt(chunks[14]), HexInt(chunks[15]),
+            });
           }
 
           break;
@@ -776,7 +788,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
           return 0;
       }
 
-      if (compareOp.Equals("uo")) {
+      if (compareOp.Equals("uo", StringComparison.Ordinal)) {
         result = BinaryNumber.FromString("NaN");
       }
       var expectedFlags = 0;
@@ -800,7 +812,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
       }
 
       ctx = ctx.WithBlankFlags();
-      if (op.Equals("add")) {
+      if (op.Equals("add", StringComparison.Ordinal)) {
         var d3 = op1.Add(op2, ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
@@ -813,7 +825,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         } else {
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
-      } else if (op.Equals("sub")) {
+      } else if (op.Equals("sub", StringComparison.Ordinal)) {
         var d3 = op1.Subtract(op2, ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
@@ -826,7 +838,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         } else {
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
-      } else if (op.Equals("mul")) {
+      } else if (op.Equals("mul", StringComparison.Ordinal)) {
         var d3 = op1.Multiply(op2, ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
@@ -839,7 +851,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         } else {
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
-      } else if (op.Equals("pow")) {
+      } else if (op.Equals("pow", StringComparison.Ordinal)) {
         var d3 = op1.Pow(op2, ctx);
         // Check for cases that contradict the General Decimal
         // Arithmetic spec
@@ -868,11 +880,11 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         ignoredFlags |= EContext.FlagUnderflow;
         ignoredFlags |= EContext.FlagOverflow;
         if (!result.Equals(d3)) {
-          if (compareOp.Equals("vn")) {
+          if (compareOp.Equals("vn", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Assert.AreEqual(result, d3, ln);
             }
-          } else if (compareOp.Equals("nb")) {
+          } else if (compareOp.Equals("nb", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Assert.AreEqual(result, d3, ln);
             }
@@ -889,40 +901,40 @@ HexInt(chunks[12]), HexInt(chunks[13]),
           ctx.Flags &= ~ignoredFlags;
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
-      } else if (op.Equals("floor")) {
+      } else if (op.Equals("floor", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.Floor);
         IExtendedNumber d3 = op1.RoundToIntegralExact(ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
         }
         AssertFlags(expectedFlags, ctx.Flags, ln);
-      } else if (op.Equals("fabs")) {
+      } else if (op.Equals("fabs", StringComparison.Ordinal)) {
         // NOTE: Fabs never sets flags
         IExtendedNumber d3 = op1.Abs(ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
         }
-      } else if (op.Equals("ceil")) {
+      } else if (op.Equals("ceil", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.Ceiling);
         IExtendedNumber d3 = op1.RoundToIntegralExact(ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
         }
         AssertFlags(expectedFlags, ctx.Flags, ln);
-      } else if (op.Equals("sqrt")) {
+      } else if (op.Equals("sqrt", StringComparison.Ordinal)) {
         var d3 = op1.SquareRoot(ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
         }
         AssertFlags(expectedFlags, ctx.Flags, ln);
-      } else if (op.Equals("log")) {
+      } else if (op.Equals("log", StringComparison.Ordinal)) {
         IExtendedNumber d3 = op1.Log(ctx);
         if (!result.Equals(d3)) {
-          if (compareOp.Equals("vn")) {
+          if (compareOp.Equals("vn", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Assert.AreEqual(result, d3, ln);
             }
-          } else if (compareOp.Equals("nb")) {
+          } else if (compareOp.Equals("nb", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Assert.AreEqual(result, d3, ln);
             }
@@ -936,14 +948,14 @@ HexInt(chunks[12]), HexInt(chunks[13]),
           // spec doesn't set flags in this case
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
-      } else if (op.Equals("exp")) {
+      } else if (op.Equals("exp", StringComparison.Ordinal)) {
         IExtendedNumber d3 = op1.Exp(ctx);
         if (!result.Equals(d3)) {
-          if (compareOp.Equals("vn")) {
+          if (compareOp.Equals("vn", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Assert.AreEqual(result, d3, ln);
             }
-          } else if (compareOp.Equals("nb")) {
+          } else if (compareOp.Equals("nb", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Assert.AreEqual(result, d3, ln);
             }
@@ -952,16 +964,16 @@ HexInt(chunks[12]), HexInt(chunks[13]),
           }
         }
         AssertFlags(expectedFlags, ctx.Flags, ln);
-      } else if (op.Equals("log10")) {
+      } else if (op.Equals("log10", StringComparison.Ordinal)) {
         IExtendedNumber d3 = op1.Log10(ctx);
         if (!result.Equals(d3)) {
-          if (compareOp.Equals("vn")) {
+          if (compareOp.Equals("vn", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Console.WriteLine("op1=..." + op1 + " result=" + result +
                 " d3=...." + d3);
               Assert.AreEqual(result, d3, ln);
             }
-          } else if (compareOp.Equals("nb")) {
+          } else if (compareOp.Equals("nb", StringComparison.Ordinal)) {
             if (!result.IsNear(d3)) {
               Console.WriteLine("op1=..." + op1 + " result=" + result +
                 " d3=...." + d3);
@@ -982,7 +994,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
           // spec doesn't set flags in this case
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
-      } else if (op.Equals("div")) {
+      } else if (op.Equals("div", StringComparison.Ordinal)) {
         var d3 = op1.Divide(op2, ctx);
         if (!result.Equals(d3)) {
           Assert.AreEqual(result, d3, ln);
@@ -995,7 +1007,7 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         } else {
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
-      } else if (op.Equals("fmod")) {
+      } else if (op.Equals("fmod", StringComparison.Ordinal)) {
         IExtendedNumber d3 = op1.Remainder(op2, ctx);
         if ((ctx.Flags & EContext.FlagInvalid) != 0 &&
             (expectedFlags & EContext.FlagInvalid) == 0) {
@@ -1059,20 +1071,20 @@ HexInt(chunks[12]), HexInt(chunks[13]),
         // conversion to another floating point format
         return 0;
       }
-      var squroot = op.Equals("V");
+      var squroot = op.Equals("V", StringComparison.Ordinal);
       // var mod = op.Equals("%");
-      var div = op.Equals("/");
-      var fma = op.Equals("*+");
-      var fms = op.Equals("*-");
-      var addop = op.Equals("+");
-      var subop = op.Equals("-");
-      var mul = op.Equals("*");
+      var div = op.Equals("/", StringComparison.Ordinal);
+      var fma = op.Equals("*+", StringComparison.Ordinal);
+      var fms = op.Equals("*-", StringComparison.Ordinal);
+      var addop = op.Equals("+", StringComparison.Ordinal);
+      var subop = op.Equals("-", StringComparison.Ordinal);
+      var mul = op.Equals("*", StringComparison.Ordinal);
       var round = chunks[1];
       ctx = SetRounding(ctx, round);
       var offset = 0;
       var traps = String.Empty;
       if (Contains(chunks[2], "x") ||
-chunks[2].Equals("i") ||
+chunks[2].Equals("i", StringComparison.Ordinal) ||
 StartsWith(chunks[2], "o")) {
         // traps
         ++offset;
@@ -1092,7 +1104,7 @@ StartsWith(chunks[2], "o")) {
       var sresult = String.Empty;
       var flags = String.Empty;
       op3str = chunks[4 + offset];
-      if (op2str.Equals("->")) {
+      if (op2str.Equals("->", StringComparison.Ordinal)) {
         if (chunks.Length <= 5 + offset) {
           return 0;
         }
@@ -1100,7 +1112,7 @@ StartsWith(chunks[2], "o")) {
         op3str = String.Empty;
         sresult = chunks[4 + offset];
         flags = chunks[5 + offset];
-      } else if (op3str.Equals("->")) {
+      } else if (op3str.Equals("->", StringComparison.Ordinal)) {
         if (chunks.Length <= 6 + offset) {
           return 0;
         }

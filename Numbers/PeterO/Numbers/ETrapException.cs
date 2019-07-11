@@ -15,7 +15,7 @@ namespace PeterO.Numbers {
     private readonly EContext ctx;
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.ETrapException.Context"]/*'/>
+    ///   path='docs/doc[@name="P:PeterO.Numbers.ETrapException.Context"]/*'/>
     public EContext Context {
       get {
         return this.ctx;
@@ -52,13 +52,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='ETrapException'/> class.</summary>
-    /// <param name='flag'>The parameter <paramref name='flag'/> is a
-    /// 32-bit signed integer.</param>
-    /// <param name='ctx'>The parameter <paramref name='ctx'/> is an
-    /// EContext object.</param>
-    /// <param name='result'>The parameter <paramref name='result'/> is an
-    /// arbitrary object.</param>
+    /// <see cref='T:PeterO.Numbers.ETrapException'/>.</summary>
+    /// <param name='flag'>A 32-bit signed integer.</param>
+    /// <param name='ctx'>An EContext object.</param>
+    /// <param name='result'>An arbitrary object.</param>
     public ETrapException(int flag, EContext ctx, Object result)
       : base(FlagToMessage(flag)) {
       this.error = flag;

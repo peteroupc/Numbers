@@ -110,14 +110,14 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='ERational'/> class.</summary>
-    /// <param name='numerator'>The numerator.</param>
-    /// <param name='denominator'>The denominator.</param>
-    /// <exception cref='T:System.ArgumentException'>The denominator is
-    /// zero.</exception>
+    /// <see cref='T:PeterO.Numbers.ERational'/>.</summary>
+    /// <param name='numerator'>An EInteger object.</param>
+    /// <param name='denominator'>An EInteger object.</param>
     /// <exception cref='T:System.ArgumentNullException'>The parameter
     /// <paramref name='numerator'/> or <paramref name='denominator'/> is
     /// null.</exception>
+    /// <exception cref='T:System.ArgumentException'>Denominator is
+    /// zero.</exception>
     public ERational(EInteger numerator, EInteger denominator) {
       if (numerator == null) {
         throw new ArgumentNullException(nameof(numerator));
@@ -145,7 +145,9 @@ namespace PeterO.Numbers {
     /// <include file='../../docs.xml'
     /// path='docs/doc[@name="M:PeterO.Numbers.ERational.Copy"]/*'/>
     public ERational Copy() {
-    return new ERational(this.unsignedNumerator, this.denominator,
+      return new ERational(
+        this.unsignedNumerator,
+        this.denominator,
         this.flags);
     }
 
@@ -951,9 +953,10 @@ namespace PeterO.Numbers {
         if (other.Exponent.Sign > 0) {
           // NOTE: if unsigned numerator is 0, bitLength will return
           // 0 instead of 1, but the possibility of 0 was already excluded
- EInteger bigDigitCount = this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
-                      .Subtract(1);
-                      if (bigDigitCount.CompareTo(other.Exponent) < 0) {
+          EInteger bigDigitCount =
+this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
+                               .Subtract(1);
+          if (bigDigitCount.CompareTo(other.Exponent) < 0) {
             // Numerator's digit count minus 1 is less than the other' s
             // exponent,
             // and other's exponent is positive, so this value's absolute

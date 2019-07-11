@@ -78,5 +78,5 @@ Version 1.4.0
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>
 
-  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.1.118'></PackageReference></ItemGroup>
+  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.1.118'/><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='2.6.4'></PackageReference></ItemGroup>
 </Project>

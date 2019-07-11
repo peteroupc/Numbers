@@ -573,7 +573,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'/>
     internal FastInteger Multiply(int val) {
       this.CheckFrozen();
       if (val == 0) {
@@ -651,7 +651,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'/>
     internal FastInteger Subtract(FastInteger val) {
       this.CheckFrozen();
       EInteger valValue;
@@ -699,7 +699,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'/>
     internal FastInteger SubtractInt(int val) {
       this.CheckFrozen();
       if (val == Int32.MinValue) {
@@ -721,7 +721,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'/>
     internal FastInteger AddBig(EInteger bigintVal) {
       this.CheckFrozen();
       switch (this.integerMode) {
@@ -744,7 +744,7 @@ namespace PeterO.Numbers {
     }
 
     /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'/>
+    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'/>
     internal FastInteger SubtractBig(EInteger bigintVal) {
       this.CheckFrozen();
       if (this.integerMode == 2) {

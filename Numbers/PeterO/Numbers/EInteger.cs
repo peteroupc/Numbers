@@ -1103,8 +1103,10 @@ namespace PeterO.Numbers {
           --quotwordCount;
         }
         return (quotwordCount != 0) ?
- new EInteger(quotwordCount, quotReg, this.negative ^
-            bigintDivisor.negative) : EInteger.Zero;
+ new EInteger(
+   quotwordCount,
+   quotReg,
+   this.negative ^ bigintDivisor.negative) : EInteger.Zero;
       }
       // ---- General case
       quotReg = new short[(int)(words1Size - words2Size + 1)];
@@ -2588,7 +2590,7 @@ WordsShiftRightOne(bu, buc);
         throw new ArgumentNullException(nameof(bigIndex));
       }
       if (bigIndex.Sign < 0) {
-        throw new ArgumentOutOfRangeException("bigIndex");
+        throw new ArgumentOutOfRangeException(nameof(bigIndex));
       }
       if (this.negative) {
         if (bigIndex.CanFitInInt32()) {
@@ -2624,7 +2626,7 @@ WordsShiftRightOne(bu, buc);
     ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'/>
     public bool GetSignedBit(int index) {
       if (index < 0) {
-        throw new ArgumentOutOfRangeException("index");
+        throw new ArgumentOutOfRangeException(nameof(index));
       }
       if (this.wordCount == 0) {
         return false;
@@ -2684,8 +2686,7 @@ WordsShiftRightOne(bu, buc);
               numberValue <<= 2;
               wcextra -= 2;
             }
-            wcextra = ((numberValue >> 15) == 0) ?
-               wcextra - 1 : wcextra;
+            wcextra = ((numberValue >> 15) == 0) ? wcextra - 1 : wcextra;
           }
         }
         if (wc < 0xffffff0) {
@@ -7504,15 +7505,15 @@ WordsShiftRightOne(bu, buc);
         Array.Copy(ww, wordsPerPart, w2, 0, wordsPerPart);
         Array.Copy(ww, wordsPerPart * 2, w3, 0, wordsPerPart * 2);
 #if DEBUG
-if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
+        if (!((ww[(wordsPerPart * 4) - 1] & 0xc000) != 0)) {
           throw new
   ArgumentException("doesn't satisfy (ww[wordsPerPart*4-1]&0xC000)!=0");
         }
 #endif
-var e1 = new EInteger(CountWords(w1), w1, false);
-var e2 = new EInteger(CountWords(w2), w2, false);
-var e3 = new EInteger(CountWords(w3), w3, false);
-EInteger[] srem = e3.SqrtRemInternal(true);
+        var e1 = new EInteger(CountWords(w1), w1, false);
+        var e2 = new EInteger(CountWords(w2), w2, false);
+        var e3 = new EInteger(CountWords(w3), w3, false);
+        EInteger[] srem = e3.SqrtRemInternal(true);
         // DebugUtility.Log("sqrt0({0})[depth={3}] = {1},{2}"
         // , e3, srem[0], srem[1], 0);
         // DebugUtility.Log("sqrt1({0})[depth={3}] = {1},{2}"
@@ -7527,7 +7528,7 @@ EInteger[] srem = e3.SqrtRemInternal(true);
                   srem[0].ShiftLeft(valueEBitsPerPart).Add(qrem[0]);
                   EInteger sqrem = qrem[1].ShiftLeft(
                     valueEBitsPerPart).Add(e1).Subtract(
-        qrem[0].Multiply(qrem[0]));
+                 qrem[0].Multiply(qrem[0]));
         // DebugUtility.Log("sqrem=" + sqrem + ",sqroot=" + sqroot);
         if (sqrem.Sign < 0) {
           if (useRem) {
@@ -7540,18 +7541,6 @@ EInteger[] srem = e3.SqrtRemInternal(true);
           }
 #endif
         }
-        /*
-
-  DebugUtility.Log("sqrt({0}) =
-{1},{2},\n---shift={3},words={4},wpp={5},bxwords={6}",
-
-  this, sqroot, sqrem, shift, this.wordCount, wordsPerPart,
-   bigintX.wordCount);
-        if (useRem) {
-         DebugUtility.Log("srshHalf=" + (sqrem.ShiftRight(shift>>1)));
-         DebugUtility.Log("srshFull=" + (sqrem.ShiftRight(shift)));
-        }
-        */
         var retarr = new EInteger[2];
         retarr[0] = sqroot.ShiftRight(eshift.ShiftRight(1));
         if (useRem) {
