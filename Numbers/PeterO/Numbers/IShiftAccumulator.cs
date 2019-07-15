@@ -8,8 +8,9 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.IShiftAccumulator"]/*'/>
+    /// <summary>Common interface for classes that shift a number of digits
+    /// and record information on whether a non-zero digit was discarded
+    /// this way.</summary>
   internal interface IShiftAccumulator {
     EInteger ShiftedInt { get; }
 

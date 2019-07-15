@@ -77,18 +77,6 @@ namespace PeterO.Numbers {
           return EInteger.FromInt64(longV);
         }
         return EInteger.FromInts(this.data, this.wordCount);
-        /* var bytes = new byte[(this.wordCount >> 2) + 1];
-        var i = 0;
-        var j = 0;
-        for (i = 0, j = 0; i < this.wordCount; ++i) {
-          int d = this.data[i];
-          bytes[j++] = unchecked((byte)(d));
-          bytes[j++] = unchecked((byte)(d >> 8));
-          bytes[j++] = unchecked((byte)(d >> 16));
-          bytes[j++] = unchecked((byte)(d >> 24));
-        }
-        bytes[bytes.Length - 1] = (byte)0;
-        return EInteger.FromBytes(bytes, true);*/
       }
 
       internal int[] GetLastWordsInternal(int numWords32Bit) {
@@ -107,7 +95,7 @@ namespace PeterO.Numbers {
       }
       public static MutableNumber FromLong(long longVal) {
         if (longVal < 0) {
-          throw new ArgumentException();
+          throw new ArgumentOutOfRangeException(nameof(longVal));
         }
         if (longVal == 0) {
           return new MutableNumber(0);
@@ -444,11 +432,11 @@ namespace PeterO.Numbers {
       }
     }
 
+    private const string HexAlphabet = "0123456789ABCDEF";
     private int smallValue; // if integerMode is 0
     private MutableNumber mnum; // if integerMode is 1
     private EInteger largeValue; // if integerMode is 2
     private int integerMode;
-
     private bool frozen;
 
     private static readonly EInteger ValueInt32MinValue =
@@ -572,8 +560,10 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Multiply(System.Int32)"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <param name='val'>The parameter <paramref name='val'/> is an
+    /// internal value.</param>
+    /// <returns>A FastInteger object.</returns>
     internal FastInteger Multiply(int val) {
       this.CheckFrozen();
       if (val == 0) {
@@ -621,8 +611,8 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Negate"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <returns>A FastInteger object.</returns>
     internal FastInteger Negate() {
       this.CheckFrozen();
       switch (this.integerMode) {
@@ -650,8 +640,10 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.Subtract(PeterO.Numbers.FastInteger)"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <param name='val'>The parameter <paramref name='val'/> is an
+    /// internal value.</param>
+    /// <returns>A FastInteger object.</returns>
     internal FastInteger Subtract(FastInteger val) {
       this.CheckFrozen();
       EInteger valValue;
@@ -698,8 +690,10 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractInt(System.Int32)"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <param name='val'>The parameter <paramref name='val'/> is an
+    /// internal value.</param>
+    /// <returns>A FastInteger object.</returns>
     internal FastInteger SubtractInt(int val) {
       this.CheckFrozen();
       if (val == Int32.MinValue) {
@@ -720,8 +714,10 @@ namespace PeterO.Numbers {
       return this.AddInt(-val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.AddBig(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <param name='bigintVal'>The parameter <paramref name='bigintVal'/>
+    /// is an internal value.</param>
+    /// <returns>A FastInteger object.</returns>
     internal FastInteger AddBig(EInteger bigintVal) {
       this.CheckFrozen();
       switch (this.integerMode) {
@@ -743,8 +739,10 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.FastInteger.SubtractBig(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <param name='bigintVal'>The parameter <paramref name='bigintVal'/>
+    /// is an internal value.</param>
+    /// <returns>A FastInteger object.</returns>
     internal FastInteger SubtractBig(EInteger bigintVal) {
       this.CheckFrozen();
       if (this.integerMode == 2) {
@@ -1020,8 +1018,6 @@ namespace PeterO.Numbers {
       }
     }
 
-    private static readonly string HexAlphabet = "0123456789ABCDEF";
-
     internal static string IntToString(int value) {
       if (value == Int32.MinValue) {
         return "-2147483648";
@@ -1058,8 +1054,8 @@ namespace PeterO.Numbers {
       return new String(chars, count, 12 - count);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.FastInteger.ToString"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <returns>A text string.</returns>
     public override string ToString() {
       switch (this.integerMode) {
         case 0:
@@ -1072,8 +1068,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.FastInteger.Sign"]/*'/>
+    /// <summary>Gets an internal value.</summary>
+    /// <value>An internal value.</value>
     internal int Sign {
       get {
         switch (this.integerMode) {

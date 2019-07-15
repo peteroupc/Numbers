@@ -9,8 +9,12 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class EDecimal {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToDecimal"]/*'/>
+    /// <summary>Converts this value to a <c>decimal</c> under the Common
+    /// Language Infrastructure (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
+    /// using the half-even rounding mode.</summary>
+    /// <returns>A <c>decimal</c> under the Common Language Infrastructure
+    /// (usually a.NET Framework decimal).</returns>
     public decimal ToDecimal() {
       EDecimal extendedNumber = this;
       if (extendedNumber.IsInfinity() || extendedNumber.IsNaN()) {
@@ -31,8 +35,14 @@ namespace PeterO.Numbers {
       throw new OverflowException("This object's value is out of range");
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromDecimal(System.Decimal)"]/*'/>
+    /// <summary>Converts a <c>decimal</c> under the Common Language
+    /// Infrastructure (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) to
+    /// an arbitrary-precision decimal.</summary>
+    /// <param name='dec'>A <c>decimal</c> under the Common Language
+    /// Infrastructure (usually a.NET Framework decimal).</param>
+    /// <returns>An arbitrary-precision decimal floating-point
+    /// number.</returns>
     public static EDecimal FromDecimal(decimal dec) {
       return
 
@@ -40,32 +50,58 @@ namespace PeterO.Numbers {
     dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a boolean value (true or false) to an arbitrary
+    /// precision decimal.</summary>
+    /// <param name='boolValue'>Either true or false.</param>
+    /// <returns>The number 1 if <paramref name='boolValue'/> is true;
+    /// otherwise, 0.</returns>
     public static explicit operator EDecimal(bool boolValue) {
       return FromBoolean(boolValue);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Decimal)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a
+    /// <c>decimal</c> under the Common Language Infrastructure (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
+    /// using the half-even rounding mode.</summary>
+    /// <param name='dec'>The number to convert as an arbitrary-precision
+    /// decimal floating-point number.</param>
+    /// <returns>A <c>decimal</c> under the Common Language Infrastructure
+    /// (usually a.NET Framework decimal).</returns>
     public static implicit operator EDecimal(decimal dec) {
       return FromDecimal(dec);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal's value to a
+    /// <c>decimal</c> under the Common Language Infrastructure (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
+    /// using the half-even rounding mode.</summary>
+    /// <param name='bigValue'>The parameter <paramref name='bigValue'/> is
+    /// an arbitrary-precision decimal floating-point number.</param>
+    /// <returns>A <c>decimal</c> under the Common Language Infrastructure
+    /// (usually a.NET Framework decimal).</returns>
     public static explicit operator decimal(EDecimal bigValue) {
       return bigValue.ToDecimal();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts an arbitrary-precision integer to an arbitrary
+    /// precision decimal.</summary>
+    /// <param name='eint'>An arbitrary-precision integer.</param>
+    /// <returns>An arbitrary-precision decimal number with the exponent
+    /// set to 0.</returns>
     public static implicit operator EDecimal(EInteger eint) {
       return FromEInteger(eint);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Addition(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Adds two arbitrary-precision decimal floating-point
+    /// numbers and returns the result.</summary>
+    /// <param name='bthis'>The first arbitrary-precision decimal
+    /// floating-point number.</param>
+    /// <param name='otherValue'>The second decimal binary floating-point
+    /// number.</param>
+    /// <returns>The sum of the two objects.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> or <paramref name='otherValue'/> is
+    /// null.</exception>
     public static EDecimal operator +(EDecimal bthis, EDecimal otherValue) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -73,8 +109,14 @@ namespace PeterO.Numbers {
       return bthis.Add(otherValue);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Subtraction(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Subtracts one arbitrary-precision decimal number from
+    /// another and returns the result.</summary>
+    /// <param name='bthis'>The first operand.</param>
+    /// <param name='subtrahend'>The second operand.</param>
+    /// <returns>The difference of the two decimal numbers.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> or <paramref name='subtrahend'/> is
+    /// null.</exception>
     public static EDecimal operator -(
       EDecimal bthis,
       EDecimal subtrahend) {
@@ -84,8 +126,22 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Increment(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Adds one to an arbitrary-precision decimal
+    /// number.</summary>
+    /// <returns>The given arbitrary-precision decimal number plus
+    /// one.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
+    public EDecimal Increment() {
+  return this + (EDecimal)1;
+}
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
     public static EDecimal operator ++(EDecimal bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -93,8 +149,22 @@ namespace PeterO.Numbers {
       return bthis.Add(1);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Decrement(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Subtracts one from an arbitrary-precision decimal
+    /// number.</summary>
+    /// <returns>The given arbitrary-precision decimal number minus
+    /// one.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
+    public EDecimal Decrement() {
+  return this.Subtract(1);
+}
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An EDecimal object.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
     public static EDecimal operator --(EDecimal bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -102,8 +172,15 @@ namespace PeterO.Numbers {
       return bthis.Subtract(1);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Multiplies two decimal numbers. The resulting exponent
+    /// will be the sum of the exponents of the two decimal
+    /// numbers.</summary>
+    /// <param name='operand1'>The first operand.</param>
+    /// <param name='operand2'>The second operand.</param>
+    /// <returns>The product of the two decimal numbers.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='operand1'/> or <paramref name='operand2'/> is
+    /// null.</exception>
     public static EDecimal operator *(
       EDecimal operand1,
       EDecimal operand2) {
@@ -113,8 +190,18 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Division(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Divides this object by another decimal number and returns
+    /// the result. When possible, the result will be exact.</summary>
+    /// <param name='dividend'>The number that will be divided by the
+    /// divisor.</param>
+    /// <param name='divisor'>The number to divide by.</param>
+    /// <returns>The quotient of the two numbers. Returns infinity if the
+    /// divisor is 0 and the dividend is nonzero. Returns not-a-number
+    /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
+    /// result can't be exact because it would have a nonterminating
+    /// decimal expansion.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='dividend'/> is null.</exception>
     public static EDecimal operator /(
       EDecimal dividend,
       EDecimal divisor) {
@@ -124,8 +211,14 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Finds the remainder when dividing one arbitrary-precision
+    /// decimal number by another.</summary>
+    /// <param name='dividend'>The number that will be divided by the
+    /// divisor.</param>
+    /// <param name='divisor'>The number to divide by.</param>
+    /// <returns>The result of the operation.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='dividend'/> is null.</exception>
     public static EDecimal operator %(
       EDecimal dividend,
       EDecimal divisor) {
@@ -135,8 +228,15 @@ namespace PeterO.Numbers {
       return dividend.Remainder(divisor, null);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)"]/*'/>
+    /// <summary>Gets an arbitrary-precision decimal number with the same
+    /// value as the given one, but with the sign reversed.</summary>
+    /// <param name='bigValue'>An arbitrary-precision decimal number to
+    /// negate.</param>
+    /// <returns>An arbitrary-precision decimal number. If this value is
+    /// positive zero, returns negative zero. Returns signaling NaN if this
+    /// value is signaling NaN.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigValue'/> is null.</exception>
     public static EDecimal operator -(EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -144,40 +244,95 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.EInteger"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal floating-point
+    /// number to an arbitrary-precision integer. Any fractional part in
+    /// this value will be discarded when converting to an
+    /// arbitrary-precision integer.</summary>
+    /// <param name='bigValue'>The number to convert as an
+    /// arbitrary-precision decimal.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.OverflowException'>This object's value is
+    /// infinity or not-a-number (NaN).</exception>
     public static explicit operator EInteger(EDecimal bigValue) {
       return bigValue.ToEInteger();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double"]/*'/>
+    /// <summary>Converts this value to its closest equivalent as a 64-bit
+    /// floating-point number. The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the 64-bit
+    /// floating point number's significand area for a quiet NaN, and
+    /// clears it for a signaling NaN. Then the other bits of the
+    /// significand area are set to the lowest bits of this object's
+    /// unsigned mantissa (significand), and the next-highest bit of the
+    /// significand area is set if those bits are all zeros and this is a
+    /// signaling NaN. Unfortunately, in the.NET implementation, the return
+    /// value of this method may be a quiet NaN even if a signaling NaN
+    /// would otherwise be generated.</para></summary>
+    /// <param name='bigValue'>The value to convert to a 64-bit
+    /// floating-point number.</param>
+    /// <returns>The closest 64-bit floating-point number to this value.
+    /// The return value can be positive infinity or negative infinity if
+    /// this value exceeds the range of a 64-bit floating point
+    /// number.</returns>
     public static explicit operator double(EDecimal bigValue) {
       return bigValue.ToDouble();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single"]/*'/>
+    /// <summary>Converts this value to its closest equivalent as a 32-bit
+    /// floating-point number. The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the 32-bit
+    /// floating point number's significand area for a quiet NaN, and
+    /// clears it for a signaling NaN. Then the other bits of the
+    /// significand area are set to the lowest bits of this object's
+    /// unsigned mantissa (significand), and the next-highest bit of the
+    /// significand area is set if those bits are all zeros and this is a
+    /// signaling NaN. Unfortunately, in the.NET implementation, the return
+    /// value of this method may be a quiet NaN even if a signaling NaN
+    /// would otherwise be generated.</para></summary>
+    /// <param name='bigValue'>The number to convert as an
+    /// arbitrary-precision decimal number.</param>
+    /// <returns>The closest 32-bit binary floating-point number to this
+    /// value. The return value can be positive infinity or negative
+    /// infinity if this value exceeds the range of a 32-bit floating point
+    /// number.</returns>
     public static explicit operator float(EDecimal bigValue) {
       return bigValue.ToSingle();
     }
 
     // Begin integer conversions
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a byte
+    /// (from 0 to 255) if it can fit in a byte (from 0 to 255) after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// byte (from 0 to 255).</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than 255.</exception>
     public static explicit operator byte(EDecimal input) {
       return input.ToByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Byte)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputByte'>The number to convert as a byte (from 0 to
+    /// 255).</param>
+    /// <returns>The value of <paramref name='inputByte'/> as an
+    /// arbitrary-precision decimal number.</returns>
     public static implicit operator EDecimal(byte inputByte) {
       return EDecimal.FromByte(inputByte);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteChecked"]/*'/>
+    /// <summary>Converts this number's value to an 8-bit signed integer if
+    /// it can fit in an 8-bit signed integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to an 8-bit signed
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than -128 or
+    /// greater than 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteChecked() {
       if (!this.IsFinite) {
@@ -192,15 +347,23 @@ namespace PeterO.Numbers {
       return this.ToEInteger().ToSByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteUnchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as an 8-bit
+    /// signed integer.</summary>
+    /// <returns>This number, converted to an 8-bit signed integer. Returns
+    /// 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public sbyte ToSByteUnchecked() {
       return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToSByteIfExact"]/*'/>
+    /// <summary>Converts this number's value to an 8-bit signed integer if
+    /// it can fit in an 8-bit signed integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as an 8-bit signed integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than -128 or
+    /// greater than 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteIfExact() {
       if (!this.IsFinite) {
@@ -215,42 +378,76 @@ namespace PeterO.Numbers {
       return this.ToEIntegerIfExact().ToSByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromSByte(System.SByte)"]/*'/>
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputSByte'>The number to convert as an 8-bit signed
+    /// integer.</param>
+    /// <returns>This number's value as an arbitrary-precision decimal
+    /// number.</returns>
     [CLSCompliant(false)]
     public static EDecimal FromSByte(sbyte inputSByte) {
       var val = (int)inputSByte;
       return FromInt32(val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.SByte"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to an 8-bit
+    /// signed integer if it can fit in an 8-bit signed integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to an
+    /// 8-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -128 or greater than 127.</exception>
     [CLSCompliant(false)]
     public static explicit operator sbyte(EDecimal input) {
       return input.ToSByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.SByte)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputSByte'>The number to convert as an 8-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputSByte'/> as an
+    /// arbitrary-precision decimal number.</returns>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(sbyte inputSByte) {
       return EDecimal.FromSByte(inputSByte);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a 16-bit
+    /// signed integer if it can fit in a 16-bit signed integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 16-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -32768 or greater than 32767.</exception>
     public static explicit operator short(EDecimal input) {
       return input.ToInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int16)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputInt16'>The number to convert as a 16-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputInt16'/> as an
+    /// arbitrary-precision decimal number.</returns>
     public static implicit operator EDecimal(short inputInt16) {
       return EDecimal.FromInt16(inputInt16);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16Checked"]/*'/>
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
+    /// if it can fit in a 16-bit unsigned integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to a 16-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// than 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16Checked() {
       if (!this.IsFinite) {
@@ -265,15 +462,24 @@ namespace PeterO.Numbers {
       return this.ToEInteger().ToUInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16Unchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as a 16-bit
+    /// unsigned integer.</summary>
+    /// <returns>This number, converted to a 16-bit unsigned integer.
+    /// Returns 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public ushort ToUInt16Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt16IfExact"]/*'/>
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
+    /// if it can fit in a 16-bit unsigned integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as a 16-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than 0 or
+    /// greater than 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16IfExact() {
       if (!this.IsFinite) {
@@ -291,42 +497,77 @@ namespace PeterO.Numbers {
       return this.ToEIntegerIfExact().ToUInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromUInt16(System.UInt16)"]/*'/>
+    /// <summary>Converts a 16-bit unsigned integer to an
+    /// arbitrary-precision decimal number.</summary>
+    /// <param name='inputUInt16'>The number to convert as a 16-bit
+    /// unsigned integer.</param>
+    /// <returns>This number's value as an arbitrary-precision decimal
+    /// number.</returns>
     [CLSCompliant(false)]
     public static EDecimal FromUInt16(ushort inputUInt16) {
       int val = ((int)inputUInt16) & 0xffff;
       return FromInt32(val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt16"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a 16-bit
+    /// unsigned integer if it can fit in a 16-bit unsigned integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 16-bit unsigned integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than 65535.</exception>
     [CLSCompliant(false)]
     public static explicit operator ushort(EDecimal input) {
       return input.ToUInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt16)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a 16-bit unsigned integer to an
+    /// arbitrary-precision decimal number.</summary>
+    /// <param name='inputUInt16'>The number to convert as a 16-bit
+    /// unsigned integer.</param>
+    /// <returns>The value of <paramref name='inputUInt16'/> as an
+    /// arbitrary-precision decimal number.</returns>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(ushort inputUInt16) {
       return EDecimal.FromUInt16(inputUInt16);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a 32-bit
+    /// signed integer if it can fit in a 32-bit signed integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 32-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -2147483648 or greater than
+    /// 2147483647.</exception>
     public static explicit operator int(EDecimal input) {
       return input.ToInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int32)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputInt32'>The number to convert as a 32-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputInt32'/> as an
+    /// arbitrary-precision decimal number.</returns>
     public static implicit operator EDecimal(int inputInt32) {
       return EDecimal.FromInt32(inputInt32);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32Checked"]/*'/>
+    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// it can fit in a 32-bit signed integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to a 32-bit signed
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// than 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32Checked() {
       if (!this.IsFinite) {
@@ -341,15 +582,23 @@ namespace PeterO.Numbers {
       return this.ToEInteger().ToUInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32Unchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as a 32-bit
+    /// signed integer.</summary>
+    /// <returns>This number, converted to a 32-bit signed integer. Returns
+    /// 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public uint ToUInt32Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt32IfExact"]/*'/>
+    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// it can fit in a 32-bit signed integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as a 32-bit signed integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than 0 or
+    /// greater than 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32IfExact() {
       if (!this.IsFinite) {
@@ -367,42 +616,77 @@ namespace PeterO.Numbers {
       return this.ToEIntegerIfExact().ToUInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromUInt32(System.UInt32)"]/*'/>
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputUInt32'>The number to convert as a 32-bit signed
+    /// integer.</param>
+    /// <returns>This number's value as an arbitrary-precision decimal
+    /// number.</returns>
     [CLSCompliant(false)]
     public static EDecimal FromUInt32(uint inputUInt32) {
       long val = ((long)inputUInt32) & 0xffffffffL;
       return FromInt64(val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt32"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a 32-bit
+    /// signed integer if it can fit in a 32-bit signed integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 32-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than 4294967295.</exception>
     [CLSCompliant(false)]
     public static explicit operator uint(EDecimal input) {
       return input.ToUInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt32)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputUInt32'>The number to convert as a 32-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputUInt32'/> as an
+    /// arbitrary-precision decimal number.</returns>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(uint inputUInt32) {
       return EDecimal.FromUInt32(inputUInt32);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a 64-bit
+    /// signed integer if it can fit in a 64-bit signed integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 64-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -9223372036854775808 or greater than
+    /// 9223372036854775807.</exception>
     public static explicit operator long(EDecimal input) {
       return input.ToInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.Int64)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
+    /// decimal number.</summary>
+    /// <param name='inputInt64'>The number to convert as a 64-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputInt64'/> as an
+    /// arbitrary-precision decimal number.</returns>
     public static implicit operator EDecimal(long inputInt64) {
       return EDecimal.FromInt64(inputInt64);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64Checked"]/*'/>
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
+    /// if it can fit in a 64-bit unsigned integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to a 64-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// than 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64Checked() {
       if (!this.IsFinite) {
@@ -417,15 +701,24 @@ namespace PeterO.Numbers {
       return this.ToEInteger().ToUInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64Unchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as a 64-bit
+    /// unsigned integer.</summary>
+    /// <returns>This number, converted to a 64-bit unsigned integer.
+    /// Returns 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public ulong ToUInt64Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.ToUInt64IfExact"]/*'/>
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
+    /// if it can fit in a 64-bit unsigned integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as a 64-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than 0 or
+    /// greater than 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64IfExact() {
       if (!this.IsFinite) {
@@ -443,22 +736,39 @@ namespace PeterO.Numbers {
       return this.ToEIntegerIfExact().ToUInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.FromUInt64(System.UInt64)"]/*'/>
+    /// <summary>Converts a 64-bit unsigned integer to an
+    /// arbitrary-precision decimal number.</summary>
+    /// <param name='inputUInt64'>The number to convert as a 64-bit
+    /// unsigned integer.</param>
+    /// <returns>This number's value as an arbitrary-precision decimal
+    /// number.</returns>
     [CLSCompliant(false)]
     public static EDecimal FromUInt64(ulong inputUInt64) {
       return FromEInteger(EInteger.FromUInt64(inputUInt64));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt64"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal number to a 64-bit
+    /// unsigned integer if it can fit in a 64-bit unsigned integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 64-bit unsigned integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than
+    /// 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public static explicit operator ulong(EDecimal input) {
       return input.ToUInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EDecimal.op_Implicit(System.UInt64)~PeterO.Numbers.EDecimal"]/*'/>
+    /// <summary>Converts a 64-bit unsigned integer to an
+    /// arbitrary-precision decimal number.</summary>
+    /// <param name='inputUInt64'>The number to convert as a 64-bit
+    /// unsigned integer.</param>
+    /// <returns>The value of <paramref name='inputUInt64'/> as an
+    /// arbitrary-precision decimal number.</returns>
     [CLSCompliant(false)]
     public static implicit operator EDecimal(ulong inputUInt64) {
       return EDecimal.FromUInt64(inputUInt64);

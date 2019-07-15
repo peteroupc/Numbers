@@ -8,8 +8,23 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.EContext"]/*'/>
+    /// <summary>Contains parameters for controlling the precision,
+    /// rounding, and exponent range of arbitrary-precision numbers. (The
+    /// "E" stands for "extended", and has this prefix to group it with the
+    /// other classes common to this library, particularly EDecimal,
+    /// EFloat, and ERational.).
+    /// <para><b>Thread safety:</b> With one exception, instances of this
+    /// class are immutable and are safe to use among multiple threads. The
+    /// one exception involves the <c>Flags</c> property. If the context's
+    /// <c>HasFlags</c> property (a read-only property) is <c>true</c>,
+    /// the <c>Flags</c> property is mutable, thus making the context
+    /// mutable. This class doesn't synchronize access to such mutable
+    /// contexts, so applications should provide their own synchronization
+    /// if a context with the <c>HasFlags</c> property set to <c>true</c>
+    /// will be shared among multiple threads and at least one of those
+    /// threads needs to write the <c>Flags</c> property (which can happen,
+    /// for example, by passing the context to most methods of
+    /// <c>EDecimal</c> such as <c>Add</c> ).</para></summary>
   public sealed class EContext {
     /// <summary>Signals that the exponent was adjusted to fit the exponent
     /// range.</summary>
@@ -130,12 +145,12 @@ namespace PeterO.Numbers {
 
     /// <summary>An arithmetic context for the.NET Framework decimal format
     /// (see
-    /// <see cref='T:PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
-    /// 96 bits precision, and a valid exponent range of -28 to 0. The
-    /// default rounding mode is HalfEven. (The <c>"Cli"</c> stands for
-    /// "Common Language Infrastructure", which defined this format as the
-    /// .NET Framework decimal format in version 1, but leaves it
-    /// unspecified in later versions.).</summary>
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ), 96
+    /// bits precision, and a valid exponent range of -28 to 0. The default
+    /// rounding mode is HalfEven. (The <c>"Cli"</c> stands for "Common
+    /// Language Infrastructure", which defined this format as the .NET
+    /// Framework decimal format in version 1, but leaves it unspecified in
+    /// later versions.).</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
@@ -274,7 +289,7 @@ namespace PeterO.Numbers {
     private int flags;
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='T:PeterO.Numbers.EContext'/>.</summary>
+    /// <see cref='PeterO.Numbers.EContext'/>.</summary>
     /// <param name='precision'>A 32-bit signed integer.</param>
     /// <param name='rounding'>An ERounding object.</param>
     /// <param name='exponentMinSmall'>Another 32-bit signed
@@ -329,40 +344,89 @@ namespace PeterO.Numbers {
       0) {
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="P:PeterO.Numbers.EContext.AdjustExponent"]/*'/>
+    /// <summary>Gets a value indicating whether the EMax and EMin
+    /// properties refer to the number's Exponent property adjusted to the
+    /// number's precision, or just the number's Exponent property. The
+    /// default value is true, meaning that EMax and EMin refer to the
+    /// adjusted exponent. Setting this value to false (using
+    /// WithAdjustExponent) is useful for modeling floating point
+    /// representations with an integer mantissa (significand) and an
+    /// integer exponent, such as Java's BigDecimal.</summary>
+    /// <value><c>true</c> if the EMax and EMin properties refer to the
+    /// number's Exponent property adjusted to the number's precision, or
+    /// false if they refer to just the number's Exponent property.</value>
     public bool AdjustExponent {
       get {
         return this.adjustExponent;
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="P:PeterO.Numbers.EContext.ClampNormalExponents"]/*'/>
+    /// <summary>Gets a value indicating whether a converted number's
+    /// Exponent property will not be higher than EMax + 1 - Precision. If
+    /// a number's exponent is higher than that value, but not high enough
+    /// to cause overflow, the exponent is clamped to that value and enough
+    /// zeros are added to the number's mantissa (significand) to account
+    /// for the adjustment. If HasExponentRange is false, this value is
+    /// always false.</summary>
+    /// <value>If true, a converted number's Exponent property will not be
+    /// higher than EMax + 1 - Precision.</value>
     public bool ClampNormalExponents {
       get {
         return this.hasExponentRange && this.clampNormalExponents;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.EMax"]/*'/>
+    /// <summary>Gets the highest exponent possible when a converted number
+    /// is expressed in scientific notation with one nonzero digit before
+    /// the radix point. For example, with a precision of 3 and an EMax of
+    /// 100, the maximum value possible is 9.99E + 100. (This is not the
+    /// same as the highest possible Exponent property.) If
+    /// HasExponentRange is false, this value will be 0.</summary>
+    /// <value>The highest exponent possible when a converted number is
+    /// expressed in scientific notation with one nonzero digit before the
+    /// radix point. For example, with a precision of 3 and an EMax of 100,
+    /// the maximum value possible is 9.99E + 100. (This is not the same as
+    /// the highest possible Exponent property.) If HasExponentRange is
+    /// false, this value will be 0.</value>
     public EInteger EMax {
       get {
         return this.hasExponentRange ? this.exponentMax : EInteger.Zero;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.EMin"]/*'/>
+    /// <summary>Gets the lowest exponent possible when a converted number
+    /// is expressed in scientific notation with one nonzero digit before
+    /// the radix point. For example, with a precision of 3 and an EMin of
+    /// -100, the next value that comes after 0 is 0.001E-100. (If
+    /// AdjustExponent is false, this property specifies the lowest
+    /// possible Exponent property instead.) If HasExponentRange is false,
+    /// this value will be 0.</summary>
+    /// <value>The lowest exponent possible when a converted number is
+    /// expressed in scientific notation with one nonzero digit before the
+    /// radix point. For example, with a precision of 3 and an EMin of
+    /// -100, the next value that comes after 0 is 0.001E-100. (If
+    /// AdjustExponent is false, this property specifies the lowest
+    /// possible Exponent property instead.) If HasExponentRange is false,
+    /// this value will be 0.</value>
     public EInteger EMin {
       get {
         return this.hasExponentRange ? this.exponentMin : EInteger.Zero;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.Flags"]/*'/>
+    /// <summary>Gets or sets the flags that are set from converting
+    /// numbers according to this arithmetic context. If <c>HasFlags</c> is
+    /// false, this value will be 0. This value is a combination of bit
+    /// fields. To retrieve a particular flag, use the AND operation on the
+    /// return value of this method. For example: <c>(this.Flags &amp;
+    /// EContext.FlagInexact) != 0</c> returns <c>true</c> if the Inexact
+    /// flag is set.</summary>
+    /// <value>The flags that are set from converting numbers according to
+    /// this arithmetic context. If <c>HasFlags</c> is false, this value
+    /// will be 0. This value is a combination of bit fields. To retrieve a
+    /// particular flag, use the AND operation on the return value of this
+    /// method. For example: <c>(this.Flags &amp; EContext.FlagInexact) !=
+    /// 0</c> returns <c>true</c> if the Inexact flag is set.</value>
     public int Flags {
       get {
         return this.flags;
@@ -376,72 +440,139 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="P:PeterO.Numbers.EContext.HasExponentRange"]/*'/>
+    /// <summary>Gets a value indicating whether this context defines a
+    /// minimum and maximum exponent. If false, converted exponents can
+    /// have any exponent and operations can't cause overflow or
+    /// underflow.</summary>
+    /// <value><c>true</c> if this context defines a minimum and maximum
+    /// exponent; otherwise, <c>false</c>.. If false, converted exponents
+    /// can have any exponent and operations can't cause overflow or
+    /// underflow. <c>true</c> if this context defines a minimum and
+    /// maximum exponent; otherwise, <c>false</c>.</value>
     public bool HasExponentRange {
       get {
         return this.hasExponentRange;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.HasFlags"]/*'/>
+    /// <summary>Gets a value indicating whether this context has a mutable
+    /// Flags field.</summary>
+    /// <value><c>true</c> if this context has a mutable Flags field;
+    /// otherwise, <c>false</c>.</value>
     public bool HasFlags {
       get {
         return this.hasFlags;
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="P:PeterO.Numbers.EContext.HasMaxPrecision"]/*'/>
+    /// <summary>Gets a value indicating whether this context defines a
+    /// maximum precision.</summary>
+    /// <value><c>true</c> if this context defines a maximum precision;
+    /// otherwise, <c>false</c>.</value>
     public bool HasMaxPrecision {
       get {
         return !this.bigintPrecision.IsZero;
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="P:PeterO.Numbers.EContext.IsPrecisionInBits"]/*'/>
+    /// <summary>Gets a value indicating whether this context's Precision
+    /// property is in bits, rather than digits. The default is
+    /// false.</summary>
+    /// <value><c>true</c> if this context's Precision property is in bits,
+    /// rather than digits; otherwise, <c>false</c>.. The default is
+    /// false. <c>true</c> if this context's Precision property is in bits,
+    /// rather than digits; otherwise, <c>false</c>. The default is
+    /// false.</value>
     public bool IsPrecisionInBits {
       get {
         return this.precisionInBits;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.IsSimplified"]/*'/>
+    /// <summary>Gets a value indicating whether to use a "simplified"
+    /// arithmetic. In the simplified arithmetic, infinity, not-a-number,
+    /// and subnormal numbers are not allowed, and negative zero is treated
+    /// the same as positive zero. For further details, see
+    /// <a
+    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
+    /// .</summary>
+    /// <value><c>true</c> if to use a "simplified" arithmetic; otherwise,
+    /// <c>false</c> In the simplified arithmetic, infinity, not-a-number,
+    /// and subnormal numbers are not allowed, and negative zero is treated
+    /// the same as positive zero. For further details, see
+    /// <a
+    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
+    /// . <c>true</c> if a "simplified" arithmetic will be used; otherwise,
+    /// <c>false</c>.</value>
     public bool IsSimplified {
       get {
         return this.simplified;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.Precision"]/*'/>
+    /// <summary>Gets the maximum length of a converted number in digits,
+    /// ignoring the radix point and exponent. For example, if precision is
+    /// 3, a converted number's mantissa (significand) can range from 0 to
+    /// 999 (up to three digits long). If 0, converted numbers can have any
+    /// precision.
+    /// <para>Not-a-number (NaN) values can carry an optional number, its
+    /// payload, that serves as its "diagnostic information", In general,
+    /// if an operation requires copying an NaN's payload, only up to as
+    /// many digits of that payload as the precision given in this context,
+    /// namely the least significant digits, are copied.</para></summary>
+    /// <value>The maximum length of a converted number in digits, ignoring
+    /// the radix point and exponent. For example, if precision is 3, a
+    /// converted number's mantissa (significand) can range from 0 to 999
+    /// (up to three digits long). If 0, converted numbers can have any
+    /// precision.</value>
     public EInteger Precision {
       get {
         return this.bigintPrecision;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.Rounding"]/*'/>
+    /// <summary>Gets the desired rounding mode when converting numbers
+    /// that can't be represented in the given precision and exponent
+    /// range.</summary>
+    /// <value>The desired rounding mode when converting numbers that can't
+    /// be represented in the given precision and exponent range.</value>
     public ERounding Rounding {
       get {
         return this.rounding;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EContext.Traps"]/*'/>
+    /// <summary>Gets the traps that are set for each flag in the context.
+    /// Whenever a flag is signaled, even if <c>HasFlags</c> is false, and
+    /// the flag's trap is enabled, the operation will throw a
+    /// TrapException.
+    /// <para>For example, if Traps equals <c>FlagInexact</c> and
+    /// FlagSubnormal, a TrapException will be thrown if an operation's
+    /// return value is not the same as the exact result (FlagInexact) or
+    /// if the return value's exponent is lower than the lowest allowed
+    /// (FlagSubnormal).</para></summary>
+    /// <value>The traps that are set for each flag in the context.
+    /// Whenever a flag is signaled, even if <c>HasFlags</c> is false, and
+    /// the flag's trap is enabled, the operation will throw a
+    /// TrapException.
+    /// <para>For example, if Traps equals <c>FlagInexact</c> and
+    /// FlagSubnormal, a TrapException will be thrown if an operation's
+    /// return value is not the same as the exact result (FlagInexact) or
+    /// if the return value's exponent is lower than the lowest allowed
+    /// (FlagSubnormal).</para>.</value>
     public int Traps {
       get {
         return this.traps;
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.ForPrecision(System.Int32)"]/*'/>
+    /// <summary>Creates a new arithmetic context using the given maximum
+    /// number of digits, an unlimited exponent range, and the HalfUp
+    /// rounding mode.</summary>
+    /// <param name='precision'>Maximum number of digits
+    /// (precision).</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public static EContext ForPrecision(int precision) {
       return new EContext(
         precision,
@@ -451,8 +582,15 @@ namespace PeterO.Numbers {
         false).WithUnlimitedExponents();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.ForPrecisionAndRounding(System.Int32,PeterO.Numbers.ERounding)"]/*'/>
+    /// <summary>Creates a new EContext object initialized with an
+    /// unlimited exponent range, and the given rounding mode and maximum
+    /// precision.</summary>
+    /// <param name='precision'>Maximum number of digits
+    /// (precision).</param>
+    /// <param name='rounding'>The parameter <paramref name='rounding'/> is
+    /// an ERounding object.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public static EContext ForPrecisionAndRounding(
       int precision,
       ERounding rounding) {
@@ -478,8 +616,13 @@ namespace PeterO.Numbers {
       0,
       false).WithUnlimitedExponents();
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.ForRounding(PeterO.Numbers.ERounding)"]/*'/>
+    /// <summary>Creates a new EContext object initialized with an
+    /// unlimited precision, an unlimited exponent range, and the given
+    /// rounding mode.</summary>
+    /// <param name='rounding'>The rounding mode for the new precision
+    /// context.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public static EContext ForRounding(ERounding rounding) {
       if (rounding == ERounding.HalfEven) {
         return ForRoundingHalfEven;
@@ -495,8 +638,10 @@ namespace PeterO.Numbers {
         false).WithUnlimitedExponents();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EContext.Copy"]/*'/>
+    /// <summary>Initializes a new EContext that is a copy of another
+    /// EContext.</summary>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext Copy() {
       return new EContext(
         this.adjustExponent,
@@ -513,8 +658,16 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.ExponentWithinRange(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Determines whether a number can have the given Exponent
+    /// property under this arithmetic context.</summary>
+    /// <param name='exponent'>An arbitrary-precision integer indicating
+    /// the desired exponent.</param>
+    /// <returns><c>true</c> if a number can have the given Exponent
+    /// property under this arithmetic context; otherwise, <c>false</c>.
+    /// If this context allows unlimited precision, returns true for the
+    /// exponent EMax and any exponent less than EMax.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='exponent'/> is null.</exception>
     public bool ExponentWithinRange(EInteger exponent) {
       if (exponent == null) {
         throw new ArgumentNullException(nameof(exponent));
@@ -538,8 +691,10 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EContext.ToString"]/*'/>
+    /// <summary>Gets a string representation of this object. Note that the
+    /// string's format is not intended to be parsed and may change at any
+    /// time.</summary>
+    /// <returns>A string representation of this object.</returns>
     public override string ToString() {
       return "[PrecisionContext ExponentMax=" + this.exponentMax +
         ", Traps=" + this.traps + ", ExponentMin=" + this.exponentMin +
@@ -549,16 +704,22 @@ namespace PeterO.Numbers {
         this.flags + ", HasFlags=" + this.hasFlags + "]";
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="P:PeterO.Numbers.EContext.HasFlagsOrTraps"]/*'/>
+    /// <summary>Gets a value indicating whether this context has a mutable
+    /// Flags field, one or more trap enablers, or both.</summary>
+    /// <value><c>true</c> if this context has a mutable Flags field, one
+    /// or more trap enablers, or both; otherwise, <c>false</c>.</value>
     public bool HasFlagsOrTraps {
       get {
         return this.HasFlags || this.Traps != 0;
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)"]/*'/>
+    /// <summary>Copies this EContext and sets the copy's "AdjustExponent"
+    /// property to the given value.</summary>
+    /// <param name='adjustExponent'>The new value of the "AdjustExponent"
+    /// property for the copy.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithAdjustExponent(bool adjustExponent) {
       return new EContext(
         adjustExponent,
@@ -575,8 +736,16 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBigExponentRange(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Copies this arithmetic context and sets the copy's
+    /// exponent range.</summary>
+    /// <param name='exponentMin'>Desired minimum exponent (EMin).</param>
+    /// <param name='exponentMax'>Desired maximum exponent (EMax).</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='exponentMin'/> is null.</exception>
+    /// <exception cref='System.ArgumentException'>ExponentMin greater than
+    /// exponentMax".</exception>
     public EContext WithBigExponentRange(
       EInteger exponentMin,
       EInteger exponentMax) {
@@ -595,8 +764,10 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithNoFlagsOrTraps"]/*'/>
+    /// <summary>Copies this EContext with <c>HasFlags</c> set to false, a
+    /// Traps value of 0, and a Flags value of 0.</summary>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithNoFlagsOrTraps() {
       return new EContext(
         this.adjustExponent,
@@ -613,8 +784,14 @@ namespace PeterO.Numbers {
         0);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBigPrecision(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Copies this EContext and gives it a particular precision
+    /// value.</summary>
+    /// <param name='bigintPrecision'>Desired precision. 0 means unlimited
+    /// precision.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigintPrecision'/> is null.</exception>
     public EContext WithBigPrecision(EInteger bigintPrecision) {
       return new EContext(
         this.adjustExponent,
@@ -631,8 +808,10 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithBlankFlags"]/*'/>
+    /// <summary>Copies this EContext with <c>HasFlags</c> set to true and
+    /// a Flags value of 0.</summary>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithBlankFlags() {
       return new EContext(
         this.adjustExponent,
@@ -649,8 +828,12 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithExponentClamp(System.Boolean)"]/*'/>
+    /// <summary>Copies this arithmetic context and sets the copy's
+    /// "ClampNormalExponents" flag to the given value.</summary>
+    /// <param name='clamp'>The desired value of the "ClampNormalExponents"
+    /// flag.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithExponentClamp(bool clamp) {
       return new EContext(
         this.adjustExponent,
@@ -667,8 +850,14 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithExponentRange(System.Int32,System.Int32)"]/*'/>
+    /// <summary>Copies this arithmetic context and sets the copy's
+    /// exponent range.</summary>
+    /// <param name='exponentMinSmall'>Desired minimum exponent
+    /// (EMin).</param>
+    /// <param name='exponentMaxSmall'>Desired maximum exponent
+    /// (EMax).</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithExponentRange(
       int exponentMinSmall,
       int exponentMaxSmall) {
@@ -677,8 +866,10 @@ namespace PeterO.Numbers {
         EInteger.FromInt32(exponentMaxSmall));
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EContext.WithNoFlags"]/*'/>
+    /// <summary>Copies this EContext with <c>HasFlags</c> set to false and
+    /// a Flags value of 0.</summary>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithNoFlags() {
       return new EContext(
         this.adjustExponent,
@@ -695,14 +886,22 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithPrecision(System.Int32)"]/*'/>
+    /// <summary>Copies this EContext and gives it a particular precision
+    /// value.</summary>
+    /// <param name='precision'>Desired precision. 0 means unlimited
+    /// precision.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithPrecision(int precision) {
       return this.WithBigPrecision(EInteger.FromInt32(precision));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithPrecisionInBits(System.Boolean)"]/*'/>
+    /// <summary>Copies this EContext and sets the copy's
+    /// "IsPrecisionInBits" property to the given value.</summary>
+    /// <param name='isPrecisionBits'>The new value of the
+    /// "IsPrecisionInBits" property for the copy.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithPrecisionInBits(bool isPrecisionBits) {
       return new EContext(
         this.adjustExponent,
@@ -719,8 +918,12 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithRounding(PeterO.Numbers.ERounding)"]/*'/>
+    /// <summary>Copies this EContext with the specified rounding
+    /// mode.</summary>
+    /// <param name='rounding'>Desired value of the Rounding
+    /// property.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithRounding(ERounding rounding) {
       return new EContext(
         this.adjustExponent,
@@ -737,8 +940,12 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithSimplified(System.Boolean)"]/*'/>
+    /// <summary>Copies this EContext and sets the copy's "IsSimplified"
+    /// property to the given value.</summary>
+    /// <param name='simplified'>Desired value of the IsSimplified
+    /// property.</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithSimplified(bool simplified) {
       return new EContext(
         this.adjustExponent,
@@ -755,8 +962,13 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithTraps(System.Int32)"]/*'/>
+    /// <summary>Copies this EContext with Traps set to the given value.
+    /// (Also sets HasFlags on the copy to <c>True</c>, but this may
+    /// change in version 2.0 of this library.).</summary>
+    /// <param name='traps'>Flags representing the traps to enable. See the
+    /// property "Traps".</param>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithTraps(int traps) {
       // NOTE: Apparently HasFlags must be set to true because
       // some parts of code may treat HasFlags as HasFlagsOrTraps
@@ -775,8 +987,10 @@ namespace PeterO.Numbers {
         traps);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EContext.WithUnlimitedExponents"]/*'/>
+    /// <summary>Copies this EContext with an unlimited exponent
+    /// range.</summary>
+    /// <returns>A context object for arbitrary-precision arithmetic
+    /// settings.</returns>
     public EContext WithUnlimitedExponents() {
       return new EContext(
         this.adjustExponent,

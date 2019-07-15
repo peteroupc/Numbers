@@ -5,9 +5,9 @@ namespace Test {
   public static class SevenBitEncoded {
     private static void Write7BitEncoded(Stream outputStream, EInteger ei) {
       if (outputStream == null) {
-  throw new ArgumentNullException(nameof(outputStream));
-}
-if (ei.Sign < 0) {
+        throw new ArgumentNullException(nameof(outputStream));
+      }
+      if (ei.Sign < 0) {
         throw new ArgumentOutOfRangeException(nameof(ei));
       }
       if (ei.IsZero) {
@@ -52,8 +52,8 @@ if (ei.Sign < 0) {
     private static EInteger Read7BitEncoded(Stream inputStream, EInteger
 maxValue) {
       if (inputStream == null) {
-  throw new ArgumentNullException(nameof(inputStream));
-}
+        throw new ArgumentNullException(nameof(inputStream));
+      }
       EInteger ei = EInteger.Zero;
       EInteger shift = EInteger.Zero;
       var endOfValue = false;

@@ -184,7 +184,6 @@ namespace PeterO.Numbers {
         if (kdl.CompareTo(bits) <= 0) {
           // Known digit length is already small enough
           this.TruncateOrShiftRight(preShift, truncate);
-          this.VerifyKnownLength();
           return;
         } else {
           FastInteger bitDiff = kdl.Copy().Subtract(bits);
@@ -194,11 +193,9 @@ namespace PeterO.Numbers {
             // Difference between desired digit length and current
             // length is smaller than the shift, make it the shift
             this.TruncateOrShiftRight(preShift, truncate);
-            this.VerifyKnownLength();
             return;
           } else {
             this.TruncateOrShiftRight(bitDiff, truncate);
-            this.VerifyKnownLength();
             return;
           }
         }
@@ -214,11 +211,9 @@ namespace PeterO.Numbers {
         } else {
           this.ShiftToDigitsBig(intval, truncate);
         }
-        this.VerifyKnownLength();
       } else {
         FastInteger kdl = this.knownDigitLength ?? this.CalcKnownDigitLength();
         this.knownDigitLength = kdl;
-        this.VerifyKnownLength();
         EInteger bigintDiff = kdl.AsEInteger();
         EInteger bitsBig = bits.AsEInteger();
         bigintDiff -= (EInteger)bitsBig;
@@ -227,7 +222,6 @@ namespace PeterO.Numbers {
           // desired bit length
           this.ShiftRight(FastInteger.FromBig(bigintDiff));
         }
-        this.VerifyKnownLength();
       }
     }
 
@@ -312,28 +306,12 @@ namespace PeterO.Numbers {
       return FastInteger.FromBig(this.shiftedBigInt.GetDigitCountAsEInteger());
     }
 
-    private void VerifyKnownLength() {
-      /*
-      #if DEBUG
-            if (this.knownDigitLength != null) {
-       if (this.knownDigitLength.CompareTo(this.CalcKnownDigitLength()) !=
-                0) {
-                throw new InvalidOperationException("*****"
-                  +this+"\n*****expected " +this.CalcKnownDigitLength()+"\n" +
-                   "*****kdl="+this.knownDigitLength);
-              }
-            }
-      #endif
-      */
-    }
-
     private void UpdateKnownLengthInt(int digits) {
       if (this.knownDigitLength != null) {
         this.knownDigitLength.SubtractInt(digits);
         if (this.knownDigitLength.CompareToInt(1) < 0) {
           this.knownDigitLength.SetInt(1);
         }
-        this.VerifyKnownLength();
       }
     }
 
@@ -343,7 +321,6 @@ namespace PeterO.Numbers {
         if (this.knownDigitLength.CompareToInt(1) < 0) {
           this.knownDigitLength.SetInt(1);
         }
-        this.VerifyKnownLength();
       }
     }
 

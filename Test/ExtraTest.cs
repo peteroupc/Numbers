@@ -10,7 +10,7 @@ using NUnit.Framework;
 using PeterO.Numbers;
 
 namespace Test {
-  public class ExtraTest {
+  public static class ExtraTest {
     public static void TestStringEqualRoundTrip(EDecimal obj) {
       string str = obj.ToString();
       EDecimal newobj = EDecimal.FromString(str);
@@ -34,6 +34,7 @@ namespace Test {
       TestCommon.AssertEqualsHashCode(str, str2);
     }
 
+    [Obsolete]
     public static void TestStringEqualRoundTrip(EFloat obj) {
       Assert.AreEqual(
         EDecimal.PositiveInfinity,

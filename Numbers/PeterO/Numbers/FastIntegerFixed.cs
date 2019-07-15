@@ -183,8 +183,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.Negate"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <returns>A FastIntegerFixed object.</returns>
     internal FastIntegerFixed Negate() {
       switch (this.integerMode) {
         case 0:
@@ -216,8 +216,8 @@ namespace PeterO.Numbers {
       return this.integerMode == 0 || this.largeValue.CanFitInInt32();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.FastIntegerFixed.ToString"]/*'/>
+    /// <summary>This is an internal API.</summary>
+    /// <returns>A text string.</returns>
     public override string ToString() {
       switch (this.integerMode) {
         case 0:

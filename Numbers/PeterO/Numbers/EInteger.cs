@@ -17,8 +17,34 @@ using System;
 using System.Text;
 
 namespace PeterO.Numbers {
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="T:PeterO.Numbers.EInteger"]/*'/>
+    /// <summary>Represents an arbitrary-precision integer. (The "E" stands
+    /// for "extended", and has this prefix to group it with the other
+    /// classes common to this library, particularly EDecimal, EFloat, and
+    /// ERational.)
+    /// <para>Instances of this class are immutable, so they are inherently
+    /// safe for use by multiple threads. Multiple instances of this object
+    /// with the same value are interchangeable, but they should be
+    /// compared using the "Equals" method rather than the "=="
+    /// operator.</para>
+    /// <para><b>Security note</b></para>
+    /// <para>It is not recommended to implement security-sensitive
+    /// algorithms using the methods in this class, for several
+    /// reasons:</para>
+    /// <list>
+    /// <item><c>EInteger</c> objects are immutable, so they can't be
+    /// modified, and the memory they occupy is not guaranteed to be
+    /// cleared in a timely fashion due to garbage collection. This is
+    /// relevant for applications that use many-bit-long numbers as secret
+    /// parameters.</item>
+    /// <item>The methods in this class (especially those that involve
+    /// arithmetic) are not guaranteed to be "constant-time"
+    /// (non-data-dependent) for all relevant inputs. Certain attacks that
+    /// involve encrypted communications have exploited the timing and
+    /// other aspects of such communications to derive keying material or
+    /// cleartext indirectly.</item></list>
+    /// <para>Applications should instead use dedicated security libraries
+    /// to handle big numbers in security-sensitive
+    /// algorithms.</para></summary>
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -87,40 +113,46 @@ namespace PeterO.Numbers {
       this.negative = negative;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.One"]/*'/>
+    /// <summary>Gets the number 1 as an arbitrary-precision
+    /// integer.</summary>
+    /// <value>The number 1 as an arbitrary-precision integer.</value>
     public static EInteger One {
       get {
         return ValueOne;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Ten"]/*'/>
+    /// <summary>Gets the number 10 as an arbitrary-precision
+    /// integer.</summary>
+    /// <value>The number 10 as an arbitrary-precision integer.</value>
     public static EInteger Ten {
       get {
         return ValueTen;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Zero"]/*'/>
+    /// <summary>Gets the number zero as an arbitrary-precision
+    /// integer.</summary>
+    /// <value>The number zero as an arbitrary-precision integer.</value>
     public static EInteger Zero {
       get {
         return ValueZero;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsEven"]/*'/>
+    /// <summary>Gets a value indicating whether this value is
+    /// even.</summary>
+    /// <value><c>true</c> if this value is even; otherwise, <c>false</c>.</value>
     public bool IsEven {
       get {
         return !this.GetUnsignedBit(0);
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsPowerOfTwo"]/*'/>
+    /// <summary>Gets a value indicating whether this object's value is a
+    /// power of two, and greater than 0.</summary>
+    /// <value><c>true</c> if this object' s value is a power of two, and
+    /// greater than 0; otherwise, <c>false</c>.</value>
     public bool IsPowerOfTwo {
       get {
         return !this.negative && this.wordCount > 0 &&
@@ -129,16 +161,16 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.IsZero"]/*'/>
+    /// <summary>Gets a value indicating whether this value is 0.</summary>
+    /// <value><c>true</c> if this value is 0; otherwise, <c>false</c>.</value>
     public bool IsZero {
       get {
         return this.wordCount == 0;
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="P:PeterO.Numbers.EInteger.Sign"]/*'/>
+    /// <summary>Gets the sign of this object's value.</summary>
+    /// <value>The sign of this object' s value.</value>
     public int Sign {
       get {
         return (this.wordCount == 0) ? 0 : (this.negative ? -1 : 1);
@@ -161,8 +193,40 @@ namespace PeterO.Numbers {
               new EInteger(newwordCount, words, false);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Boolean)"]/*'/>
+    /// <summary>Initializes an arbitrary-precision integer from an array
+    /// of bytes.</summary>
+    /// <param name='bytes'>A byte array consisting of the two's-complement
+    /// form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+    /// the arbitrary-precision integer to create. The byte array is
+    /// encoded using the following rules:
+    /// <list>
+    /// <item>Positive numbers have the first byte's highest bit cleared,
+    /// and negative numbers have the bit set.</item>
+    /// <item>The last byte contains the lowest 8-bits, the next-to-last
+    /// contains the next lowest 8 bits, and so on. For example, the number
+    /// 300 can be encoded as <c>0x01, 0x2C</c> and 200 as <c>0x00,
+    /// 0xC8</c>. (Note that the second example contains a set high bit in
+    /// <c>0xC8</c>, so an additional 0 is added at the start to ensure
+    /// it's interpreted as positive.)</item>
+    /// <item>To encode negative numbers, take the absolute value of the
+    /// number, subtract by 1, encode the number into bytes, and toggle
+    /// each bit of each byte. Any further bits that appear beyond the most
+    /// significant bit of the number will be all ones. For example, the
+    /// number -450 can be encoded as <c>0xfe, 0x70</c> and -52869 as
+    /// <c>0xff, 0x31, 0x7B</c>. (Note that the second example contains a
+    /// cleared high bit in <c>0x31, 0x7B</c>, so an additional 0xff is
+    /// added at the start to ensure it's interpreted as
+    /// negative.)</item></list>
+    /// <para>For little-endian, the byte order is reversed from the byte
+    /// order just discussed.</para>.</param>
+    /// <param name='littleEndian'>If true, the byte order is
+    /// little-endian, or least-significant-byte first. If false, the byte
+    /// order is big-endian, or most-significant-byte first.</param>
+    /// <returns>An arbitrary-precision integer. Returns 0 if the byte
+    /// array's length is 0.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bytes'/> is null.</exception>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
@@ -229,14 +293,21 @@ namespace PeterO.Numbers {
         new EInteger(newwordCount, newreg, newnegative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)"]/*'/>
+    /// <summary>Converts a boolean value (true or false) to an
+    /// arbitrary-precision integer.</summary>
+    /// <param name='boolValue'>Either true or false.</param>
+    /// <returns>The number 1 if <paramref name='boolValue'/> is true;
+    /// otherwise, 0.</returns>
     public static EInteger FromBoolean(bool boolValue) {
       return boolValue ? ValueOne : ValueZero;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt32(System.Int32)"]/*'/>
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>An arbitrary-precision integer with the same value as the
+    /// 64-bit number.</returns>
     public static EInteger FromInt32(int intValue) {
       if (intValue == 0) {
         return ValueZero;
@@ -278,8 +349,12 @@ namespace PeterO.Numbers {
       return new EInteger(retwordcount, retreg, retnegative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt64(System.Int64)"]/*'/>
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='longerValue'>The parameter <paramref
+    /// name='longerValue'/> is a 64-bit signed integer.</param>
+    /// <returns>An arbitrary-precision integer with the same value as the
+    /// 64-bit number.</returns>
     public static EInteger FromInt64(long longerValue) {
       if (longerValue == 0) {
         return ValueZero;
@@ -344,8 +419,18 @@ namespace PeterO.Numbers {
       return new EInteger(retwordcount, retreg, retnegative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)"]/*'/>
+    /// <summary>Converts a string to an arbitrary-precision integer in a
+    /// given radix.</summary>
+    /// <param name='str'>A string described by the FromRadixSubstring
+    /// method.</param>
+    /// <param name='radix'>A base from 2 to 36. Depending on the radix,
+    /// the string can use the basic digits 0 to 9 (U + 0030 to U + 0039)
+    /// and then the basic letters A to Z (U + 0041 to U + 005A). For
+    /// example, 0-9 in radix 10, and 0-9, then A-F in radix 16.</param>
+    /// <returns>An arbitrary-precision integer with the same value as the
+    /// given string.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='str'/> is null.</exception>
     public static EInteger FromRadixString(string str, int radix) {
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
@@ -353,8 +438,29 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, radix, 0, str.Length);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)"]/*'/>
+    /// <summary>Converts a portion of a string to an arbitrary-precision
+    /// integer in a given radix.</summary>
+    /// <param name='str'>A text string. The desired portion of the string
+    /// must contain only characters allowed by the given radix, except
+    /// that it may start with a minus sign ("-", U+002D) to indicate a
+    /// negative number. The desired portion is not allowed to contain
+    /// white space characters, including spaces.</param>
+    /// <param name='radix'>A base from 2 to 36. Depending on the radix,
+    /// the string can use the basic digits 0 to 9 (U + 0030 to U + 0039)
+    /// and then the basic letters A to Z (U + 0041 to U + 005A). For
+    /// example, 0-9 in radix 10, and 0-9, then A-F in radix 16.</param>
+    /// <param name='index'>The index of the string that starts the string
+    /// portion.</param>
+    /// <param name='endIndex'>The index of the string that ends the string
+    /// portion. The length will be index + endIndex - 1.</param>
+    /// <returns>An arbitrary-precision integer with the same value as
+    /// given in the string portion.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='str'/> is null.</exception>
+    /// <exception cref='System.FormatException'>The string portion is
+    /// empty or in an invalid format.</exception>
+    /// <exception cref='System.ArgumentException'>Doesn't satisfy
+    /// (endIndex - index) % 4 == 0".</exception>
     public static EInteger FromRadixSubstring(
       string str,
       int radix,
@@ -578,8 +684,19 @@ namespace PeterO.Numbers {
         negative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromString(System.String)"]/*'/>
+    /// <summary>Converts a string to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='str'>A text string. The string must contain only basic
+    /// digits 0 to 9 (U + 0030 to U+0039), except that it may start with a
+    /// minus sign ("-", U+002D) to indicate a negative number. The string
+    /// is not allowed to contain white space characters, including
+    /// spaces.</param>
+    /// <returns>An arbitrary-precision integer with the same value as
+    /// given in the string.</returns>
+    /// <exception cref='System.FormatException'>The parameter <paramref
+    /// name='str'/> is in an invalid format.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='str'/> is null.</exception>
     public static EInteger FromString(string str) {
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
@@ -587,8 +704,26 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, 10, 0, str.Length);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)"]/*'/>
+    /// <summary>Converts a portion of a string to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='str'>A text string. The desired portion of the string
+    /// must contain only basic digits 0 to 9 (U + 0030 to U + 0039),
+    /// except that it may start with a minus sign ("-", U+002D) to
+    /// indicate a negative number. The desired portion is not allowed to
+    /// contain white space characters, including spaces.</param>
+    /// <param name='index'>The index of the string that starts the string
+    /// portion.</param>
+    /// <param name='endIndex'>The index of the string that ends the string
+    /// portion. The length will be index + endIndex - 1.</param>
+    /// <returns>An arbitrary-precision integer with the same value as
+    /// given in the string portion.</returns>
+    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// name='index'/> is less than 0, <paramref name='endIndex'/> is less
+    /// than 0, or either is greater than the string's length, or <paramref
+    /// name='endIndex'/> is less than <paramref
+    /// name='index'/>.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='str'/> is null.</exception>
     public static EInteger FromSubstring(
       string str,
       int index,
@@ -599,15 +734,20 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, 10, index, endIndex);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Abs"]/*'/>
+    /// <summary>Returns the absolute value of this object's
+    /// value.</summary>
+    /// <returns>This object's value with the sign removed.</returns>
     public EInteger Abs() {
       return (this.wordCount == 0 || !this.negative) ? this : new
         EInteger(this.wordCount, this.words, false);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Adds this object and another object.</summary>
+    /// <param name='bigintAugend'>Another arbitrary-precision
+    /// integer.</param>
+    /// <returns>The sum of the two objects.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigintAugend'/> is null.</exception>
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
         throw new ArgumentNullException(nameof(bigintAugend));
@@ -862,36 +1002,54 @@ namespace PeterO.Numbers {
       return new EInteger(count, diffReg, diffNeg);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Checked"]/*'/>
+    /// <summary>Converts this object's value to a 32-bit signed integer,
+    /// throwing an exception if it can't fit.</summary>
+    /// <returns>A 32-bit signed integer.</returns>
+    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// is too big to fit a 32-bit signed integer.</exception>
     [Obsolete("Renamed to ToInt32Checked.")]
     public int AsInt32Checked() {
       return this.ToInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt32Unchecked"]/*'/>
+    /// <summary>Converts this object's value to a 32-bit signed integer.
+    /// If the value can't fit in a 32-bit integer, returns the lower 32
+    /// bits of this object's two' s-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
+    /// which case the return value might have a different sign than this
+    /// object's value).</summary>
+    /// <returns>A 32-bit signed integer.</returns>
     [Obsolete("Renamed to ToInt32Unchecked.")]
     public int AsInt32Unchecked() {
       return this.ToInt32Unchecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Checked"]/*'/>
+    /// <summary>Converts this object's value to a 64-bit signed integer,
+    /// throwing an exception if it can't fit.</summary>
+    /// <returns>A 64-bit signed integer.</returns>
+    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// is too big to fit a 64-bit signed integer.</exception>
     [Obsolete("Renamed to ToInt64Checked.")]
     public long AsInt64Checked() {
       return this.ToInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.AsInt64Unchecked"]/*'/>
+    /// <summary>Converts this object's value to a 64-bit signed integer.
+    /// If the value can't fit in a 64-bit integer, returns the lower 64
+    /// bits of this object's two' s-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
+    /// which case the return value might have a different sign than this
+    /// object's value).</summary>
+    /// <returns>A 64-bit signed integer.</returns>
     [Obsolete("Renamed to ToInt64Unchecked.")]
     public long AsInt64Unchecked() {
       return this.ToInt64Unchecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.CanFitInInt32"]/*'/>
+    /// <summary>Returns whether this object's value can fit in a 32-bit
+    /// signed integer.</summary>
+    /// <returns><c>true</c> if this object's value is from -2147483648
+    /// through 2147483647; otherwise, <c>false</c>.</returns>
     public bool CanFitInInt32() {
       int c = this.wordCount;
       if (c > 2) {
@@ -904,8 +1062,11 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.CanFitInInt64"]/*'/>
+    /// <summary>Returns whether this object's value can fit in a 64-bit
+    /// signed integer.</summary>
+    /// <returns><c>true</c> if this object's value is from
+    /// -9223372036854775808 through 9223372036854775807; otherwise,
+    /// <c>false</c>.</returns>
     public bool CanFitInInt64() {
       int c = this.wordCount;
       if (c > 4) {
@@ -919,8 +1080,12 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Compares an arbitrary-precision integer with this
+    /// instance.</summary>
+    /// <param name='other'>The integer to compare to this value.</param>
+    /// <returns>Zero if the values are equal; a negative number if this
+    /// instance is less, or a positive number if this instance is
+    /// greater.</returns>
     public int CompareTo(EInteger other) {
       if (other == null) {
         return 1;
@@ -959,8 +1124,9 @@ namespace PeterO.Numbers {
       return ((size > tempSize) ^ (sa <= 0)) ? 1 : -1;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Add(System.Int32)"]/*'/>
+    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
+    /// not documented yet.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
     public EInteger Add(int intValue) {
       if (intValue == 0) {
         return this;
@@ -1009,34 +1175,69 @@ namespace PeterO.Numbers {
       return this.Add(EInteger.FromInt32(intValue));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(System.Int32)"]/*'/>
+    /// <summary>Subtracts an arbitrary-precision integer from this
+    /// arbitrary-precision integer.</summary>
+    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>The difference of the two objects.</returns>
     public EInteger Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ? this :
           this.Add(-intValue));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(System.Int32)"]/*'/>
+    /// <summary>Multiplies this instance by the value of an
+    /// arbitrary-precision // /integer object.</summary>
+    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>The product of the two numbers.</returns>
+    /// <example>
+    /// <code>EInteger result = // /
+    ///     ///EInteger.FromString("5").Multiply(200);</code>
+    ///  .
+    /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(System.Int32)"]/*'/>
+    /// <summary>Divides this instance by the value of an
+    /// arbitrary-precision integer. The result is rounded down (the
+    /// fractional part is discarded). Except if the result is 0, it will
+    /// be negative if this object is positive and the other is negative,
+    /// or vice versa, and will be positive if both are positive or both
+    /// are negative.</summary>
+    /// <param name='intValue'>The divisor.</param>
+    /// <returns>The quotient of the two objects.</returns>
+    /// <exception cref='System.DivideByZeroException'>Attempted to divide
+    /// by zero.</exception>
     public EInteger Divide(int intValue) {
       return this.Divide(EInteger.FromInt32(intValue));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(System.Int32)"]/*'/>
+    /// <summary>Finds the remainder that results when this instance is
+    /// divided by the value of an arbitrary-precision integer. The
+    /// remainder is the value that remains when the absolute value of this
+    /// object is divided by the absolute value of the other object; the
+    /// remainder has the same sign (positive or negative) as this
+    /// object.</summary>
+    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>The remainder of the two numbers.</returns>
+    /// <exception cref='System.DivideByZeroException'>Attempted to divide
+    /// by zero.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='intValue'/> is null.</exception>
     public EInteger Remainder(int intValue) {
       return this.Remainder(EInteger.FromInt32(intValue));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.CompareTo(System.Int32)"]/*'/>
+    /// <summary>Compares an arbitrary-precision integer with this
+    /// instance.</summary>
+    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>Zero if the values are equal; a negative number if this
+    /// instance is less, or a positive number if this instance is
+    /// greater.</returns>
     public int CompareTo(int intValue) {
       int c = this.wordCount;
       if (c > 2) {
@@ -1055,8 +1256,18 @@ namespace PeterO.Numbers {
       return thisInt == intValue ? 0 : (thisInt < intValue ? -1 : 1);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Divides this instance by the value of an
+    /// arbitrary-precision integer. The result is rounded down (the
+    /// fractional part is discarded). Except if the result is 0, it will
+    /// be negative if this object is positive and the other is negative,
+    /// or vice versa, and will be positive if both are positive or both
+    /// are negative.</summary>
+    /// <param name='bigintDivisor'>The divisor.</param>
+    /// <returns>The quotient of the two objects.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigintDivisor'/> is null.</exception>
+    /// <exception cref='System.DivideByZeroException'>Attempted to divide
+    /// by zero.</exception>
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
         throw new ArgumentNullException(nameof(bigintDivisor));
@@ -1124,8 +1335,10 @@ namespace PeterO.Numbers {
       quotwordCount = CountWords(quotReg);
       quotReg = ShortenArray(quotReg, quotwordCount);
       return (quotwordCount != 0) ?
- new EInteger(quotwordCount, quotReg, this.negative ^
-          bigintDivisor.negative) : EInteger.Zero;
+ new EInteger(quotwordCount,
+              quotReg,
+              this.negative ^ bigintDivisor.negative) :
+        EInteger.Zero;
     }
 
     private static short LinearMultiplySubtractMinuend1Bigger(
@@ -1138,7 +1351,7 @@ namespace PeterO.Numbers {
       int factor2Start,
       int factor2Count) {
       if (factor2Count <= 0 || (factor1 >> 16) != 0) {
-        throw new ArgumentException();
+        throw new InvalidOperationException();
       }
       var a = 0;
       var b = 0;
@@ -1761,12 +1974,12 @@ namespace PeterO.Numbers {
             ") is more than " + quot.Length);
         }
         if (countA - countB + 1 < 0) {
-    throw new ArgumentException("(countA-countB+1) (" + (countA - countB +
-            1) + ") is less than 0");
+          throw new ArgumentException("(countA-countB+1) (" + (countA - countB +
+                  1) + ") is less than 0");
         }
         if (countA - countB + 1 > quot.Length) {
-    throw new ArgumentException("(countA-countB+1) (" + (countA - countB +
-            1) + ") is more than " + quot.Length);
+          throw new ArgumentException("(countA-countB+1) (" + (countA - countB +
+                  1) + ") is more than " + quot.Length);
         }
         if ((quot.Length - posQuot) < (countA - countB + 1)) {
           throw new ArgumentException("quot's length minus " + posQuot + " (" +
@@ -1822,10 +2035,10 @@ namespace PeterO.Numbers {
       }
 #if DEBUG
       if (countA != 0 && !(a[posA + countA - 1] != 0)) {
-        throw new ArgumentException();
+        throw new InvalidOperationException();
       }
       if (countB == 0 || !(b[posB + countB - 1] != 0)) {
-        throw new ArgumentException();
+        throw new InvalidOperationException();
       }
 #endif
       if (countA < countB) {
@@ -1929,7 +2142,8 @@ namespace PeterO.Numbers {
 #if DEBUG
       // Assert that pieceBHighInt is normalized
       if (!((pieceBHighInt & 0x8000) != 0)) {
-    throw new ArgumentException("doesn't satisfy (pieceBHighInt & 0x8000)!=0");
+        throw new ArgumentException("doesn't satisfy (pieceBHighInt &" +
+"\u00200x8000)!=0");
       }
 #endif
       short pieceBNextHigh = workB[workPosB + countB - 2];
@@ -2022,8 +2236,15 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Divides this object by another arbitrary-precision integer
+    /// and returns the quotient and remainder.</summary>
+    /// <param name='divisor'>The number to divide by.</param>
+    /// <returns>An array with two arbitrary-precision integers: the first
+    /// is the quotient, and the second is the remainder.</returns>
+    /// <exception cref='System.DivideByZeroException'>The parameter
+    /// divisor is 0.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='divisor'/> is null.</exception>
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -2140,8 +2361,12 @@ namespace PeterO.Numbers {
       return new[] { bigquo2, bigrem };
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Equals(System.Object)"]/*'/>
+    /// <summary>Determines whether this object and another object are
+    /// equal and have the same type.</summary>
+    /// <param name='obj'>The parameter <paramref name='obj'/> is an
+    /// arbitrary object.</param>
+    /// <returns><c>true</c> if this object and another object are equal;
+    /// otherwise, <c>false</c>.</returns>
     public override bool Equals(object obj) {
       var other = obj as EInteger;
       if (other == null) {
@@ -2210,8 +2435,14 @@ namespace PeterO.Numbers {
       return eret;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Returns the greatest common divisor of this integer and
+    /// the given integer. The greatest common divisor (GCD) is also known
+    /// as the greatest common factor (GCF).</summary>
+    /// <param name='bigintSecond'>Another arbitrary-precision
+    /// integer.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigintSecond'/> is null.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -2325,16 +2556,22 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger"]/*'/>
+    /// <summary>Returns the number of decimal digits used by this integer,
+    /// in the form of an arbitrary-precision integer.</summary>
+    /// <returns>The number of digits in the decimal form of this integer.
+    /// Returns 1 if this number is 0.</returns>
     public EInteger GetDigitCountAsEInteger() {
       // NOTE: All digit counts can currently fit in Int64, so just
       // use GetDigitCountAsInt64 for the time being
       return EInteger.FromInt64(this.GetDigitCountAsInt64());
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetDigitCount"]/*'/>
+    /// <summary>Returns the number of decimal digits used by this
+    /// integer.</summary>
+    /// <returns>The number of digits in the decimal form of this integer.
+    /// Returns 1 if this number is 0.</returns>
+    /// <exception cref='System.OverflowException'>The return value would
+    /// exceed the range of a 32-bit signed integer.</exception>
     [Obsolete("This method may overflow. Use GetDigitCountAsEInteger instead.")]
     public int GetDigitCount() {
       long dc = this.GetDigitCountAsInt64();
@@ -2403,8 +2640,8 @@ WordsShiftRightOne(bu, buc);
           return 1 + minDigits;
         }
         if (bitlen < 50000) {
-       return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits +
-            1)) >= 0 ? maxDigits + 1 : minDigits + 1;
+          return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits +
+               1)) >= 0 ? maxDigits + 1 : minDigits + 1;
         }
       }
       short[] tempReg = null;
@@ -2533,8 +2770,9 @@ WordsShiftRightOne(bu, buc);
       return retval;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetHashCode"]/*'/>
+    /// <summary>Returns the hash code for this instance. No application or
+    /// process IDs are used in the hash code calculation.</summary>
+    /// <returns>A 32-bit signed integer.</returns>
     public override int GetHashCode() {
       var hashCodeValue = 0;
       unchecked {
@@ -2548,15 +2786,25 @@ WordsShiftRightOne(bu, buc);
       return hashCodeValue;
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBit"]/*'/>
+    /// <summary>Gets the lowest set bit in this number's absolute value.
+    /// (This will also be the lowest set bit in the number's
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
+    /// ).).</summary>
+    /// <returns>The lowest bit set in the number, starting at 0. Returns
+    /// -1 if this value is 0.</returns>
     [Obsolete("This method may overflow. Use GetLowBitAsEInteger instead.")]
     public int GetLowBit() {
       return this.GetLowBitAsEInteger().ToInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetLowBitAsEInteger"]/*'/>
+    /// <summary>Gets the lowest set bit in this number's absolute value,
+    /// in the form of an arbitrary-precision integer. (This will also be
+    /// the lowest set bit in the number's two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
+    /// ).).</summary>
+    /// <returns>The lowest bit set in the number, starting at 0. Returns
+    /// -1 if this value is 0 or odd.</returns>
     public EInteger GetLowBitAsEInteger() {
       long retSetBitLong = 0;
       for (var i = 0; i < this.wordCount; ++i) {
@@ -2583,8 +2831,17 @@ WordsShiftRightOne(bu, buc);
       return EInteger.FromInt32(-1);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Returns whether a bit is set in the two's-complement form
+    /// (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+    /// this object' s value.</summary>
+    /// <param name='bigIndex'>An arbitrary-precision integer.</param>
+    /// <returns><c>true</c> if a bit is set in the two' s-complement form
+    /// (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+    /// this object' s value; otherwise, <c>false</c>.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigIndex'/> is null.</exception>
     public bool GetSignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
         throw new ArgumentNullException(nameof(bigIndex));
@@ -2622,8 +2879,16 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBit(System.Int32)"]/*'/>
+    /// <summary>Returns whether a bit is set in the two's-complement form
+    /// (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+    /// this object' s value.</summary>
+    /// <param name='index'>The parameter <paramref name='index'/> is a
+    /// 32-bit signed integer.</param>
+    /// <returns><c>true</c> if a bit is set in the two' s-complement form
+    /// (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+    /// this object' s value; otherwise, <c>false</c>.</returns>
     public bool GetSignedBit(int index) {
       if (index < 0) {
         throw new ArgumentOutOfRangeException(nameof(index));
@@ -2653,8 +2918,13 @@ WordsShiftRightOne(bu, buc);
       return this.GetUnsignedBit(index);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger"]/*'/>
+    /// <summary>Finds the minimum number of bits needed to represent this
+    /// object's value, except for its sign, in the form of an
+    /// arbitrary-precision integer. If the value is negative, finds the
+    /// number of bits in the value equal to this object's absolute value
+    /// minus 1.</summary>
+    /// <returns>The number of bits in this object's value. Returns 0 if
+    /// this object's value is 0 or negative 1.</returns>
     public EInteger GetSignedBitLengthAsEInteger() {
       int wc = this.wordCount;
       if (wc != 0) {
@@ -2700,16 +2970,27 @@ WordsShiftRightOne(bu, buc);
       return EInteger.Zero;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetSignedBitLength"]/*'/>
+    /// <summary>Finds the minimum number of bits needed to represent this
+    /// object's value, except for its sign. If the value is negative,
+    /// finds the number of bits in the value equal to this object's
+    /// absolute value minus 1.</summary>
+    /// <returns>The number of bits in this object's value. Returns 0 if
+    /// this object's value is 0 or negative 1.</returns>
+    /// <exception cref='System.OverflowException'>The return value would
+    /// exceed the range of a 32-bit signed integer.</exception>
     [Obsolete("This method may overflow. Use GetSignedBitLength" +
        "AsEInteger instead.")]
     public int GetSignedBitLength() {
       return this.GetSignedBitLengthAsEInteger().ToInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Returns whether a bit is set in this number's absolute
+    /// value.</summary>
+    /// <param name='bigIndex'>An arbitrary-precision integer.</param>
+    /// <returns><c>true</c> if a bit is set in this number's absolute
+    /// value.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigIndex'/> is null.</exception>
     public bool GetUnsignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
         throw new ArgumentNullException(nameof(bigIndex));
@@ -2729,8 +3010,12 @@ WordsShiftRightOne(bu, buc);
       return (bool)(((this.words[index] >> (int)indexmod) & 1) != 0);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)"]/*'/>
+    /// <summary>Returns whether a bit is set in this number's absolute
+    /// value.</summary>
+    /// <param name='index'>Zero based index of the bit to test. 0 means
+    /// the least significant bit.</param>
+    /// <returns><c>true</c> if a bit is set in this number's absolute
+    /// value.</returns>
     public bool GetUnsignedBit(int index) {
       if (index < 0) {
         throw new ArgumentException("index (" + index + ") is less than 0");
@@ -2739,8 +3024,11 @@ WordsShiftRightOne(bu, buc);
         ((bool)(((this.words[index >> 4] >> (int)(index & 15)) & 1) != 0));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger"]/*'/>
+    /// <summary>Finds the minimum number of bits needed to represent this
+    /// number's absolute value.</summary>
+    /// <returns>The number of bits in this object's value. Returns 0 if
+    /// this object's value is 0, and returns 1 if the value is negative
+    /// 1.</returns>
     public EInteger GetUnsignedBitLengthAsEInteger() {
       int wc = this.wordCount;
       if (wc != 0) {
@@ -2772,16 +3060,30 @@ WordsShiftRightOne(bu, buc);
       return EInteger.Zero;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.GetUnsignedBitLength"]/*'/>
+    /// <summary>Finds the minimum number of bits needed to represent this
+    /// number's absolute value.</summary>
+    /// <returns>The number of bits in this object's value. Returns 0 if
+    /// this object's value is 0, and returns 1 if the value is negative
+    /// 1.</returns>
+    /// <exception cref='System.OverflowException'>The return value would
+    /// exceed the range of a 32-bit signed integer.</exception>
     [Obsolete("This method may overflow. Use GetUnsignedBitLength" +
        "AsEInteger instead.")]
     public int GetUnsignedBitLength() {
       return this.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Finds the modulus remainder that results when this
+    /// instance is divided by the value of an arbitrary-precision integer.
+    /// The modulus remainder is the same as the normal remainder if the
+    /// normal remainder is positive, and equals divisor plus normal
+    /// remainder if the normal remainder is negative.</summary>
+    /// <param name='divisor'>The number to divide by.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// name='divisor'/> is less than 0.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='divisor'/> is null.</exception>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -2796,8 +3098,15 @@ WordsShiftRightOne(bu, buc);
       return remainderEInt;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Mod(System.Int32)"]/*'/>
+    /// <summary>Finds the modulus remainder that results when this
+    /// instance is divided by the value of another integer. The modulus
+    /// remainder is the same as the normal remainder if the normal
+    /// remainder is positive, and equals divisor plus normal remainder if
+    /// the normal remainder is negative.</summary>
+    /// <param name='smallDivisor'>The divisor of the modulus.</param>
+    /// <returns>The modulus remainder.</returns>
+    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// name='smallDivisor'/> is less than 0.</exception>
     public EInteger Mod(int smallDivisor) {
       if (smallDivisor < 0) {
         throw new ArithmeticException("Divisor is negative");
@@ -2809,8 +3118,16 @@ WordsShiftRightOne(bu, buc);
       return remainderEInt;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ModPow(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Calculates the remainder when this arbitrary-precision
+    /// integer raised to a certain power is divided by another
+    /// arbitrary-precision integer.</summary>
+    /// <param name='pow'>The power to raise this integer by.</param>
+    /// <param name='mod'>The integer to divide the raised number
+    /// by.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='pow'/> or <paramref name='mod'/> is
+    /// null.</exception>
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
         throw new ArgumentNullException(nameof(pow));
@@ -2838,8 +3155,13 @@ WordsShiftRightOne(bu, buc);
       return r;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Multiply(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Multiplies this instance by the value of an
+    /// arbitrary-precision integer object.</summary>
+    /// <param name='bigintMult'>Another arbitrary-precision
+    /// integer.</param>
+    /// <returns>The product of the two numbers.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigintMult'/> is null.</exception>
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
         throw new ArgumentNullException(nameof(bigintMult));
@@ -2958,8 +3280,9 @@ WordsShiftRightOne(bu, buc);
         this.negative ^ bigintMult.negative);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Negate"]/*'/>
+    /// <summary>Gets the value of this object with the sign
+    /// reversed.</summary>
+    /// <returns>This object's value with the sign reversed.</returns>
     public EInteger Negate() {
       return this.wordCount == 0 ? this : new EInteger(
         this.wordCount,
@@ -2967,8 +3290,16 @@ WordsShiftRightOne(bu, buc);
         !this.negative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Raises an arbitrary-precision integer to a
+    /// power.</summary>
+    /// <param name='bigPower'>The exponent to raise this integer
+    /// to.</param>
+    /// <returns>The result. Returns 1 if <paramref name='bigPower'/> is
+    /// 0.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigPower'/> is null.</exception>
+    /// <exception cref='System.ArgumentException'>BigPower is
+    /// negative.</exception>
     public EInteger Pow(EInteger bigPower) {
       if (bigPower == null) {
         throw new ArgumentNullException(nameof(bigPower));
@@ -3005,8 +3336,12 @@ WordsShiftRightOne(bu, buc);
       return ret;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Pow(System.Int32)"]/*'/>
+    /// <summary>Raises an arbitrary-precision integer to a
+    /// power.</summary>
+    /// <param name='powerSmall'>The exponent to raise this integer
+    /// to.</param>
+    /// <returns>The result. Returns 1 if &#x22;powerSmall&#x22; is
+    /// 0.</returns>
     public EInteger Pow(int powerSmall) {
       if (powerSmall < 0) {
         throw new ArgumentException("powerSmall (" + powerSmall +
@@ -3045,8 +3380,14 @@ WordsShiftRightOne(bu, buc);
       return r;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Raises an arbitrary-precision integer to a power, which is
+    /// given as another arbitrary-precision integer.</summary>
+    /// <param name='power'>The exponent to raise to.</param>
+    /// <returns>The result. Returns 1 if &#x22;power&#x22; is 0.</returns>
+    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// name='power'/> is less than 0.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='power'/> is null.</exception>
     public EInteger PowBigIntVar(EInteger power) {
       if (power == null) {
         throw new ArgumentNullException(nameof(power));
@@ -3082,8 +3423,18 @@ WordsShiftRightOne(bu, buc);
       return r;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Remainder(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Finds the remainder that results when this instance is
+    /// divided by the value of an arbitrary-precision integer. The
+    /// remainder is the value that remains when the absolute value of this
+    /// object is divided by the absolute value of the other object; the
+    /// remainder has the same sign (positive or negative) as this
+    /// object.</summary>
+    /// <param name='divisor'>The number to divide by.</param>
+    /// <returns>The remainder of the two numbers.</returns>
+    /// <exception cref='System.DivideByZeroException'>Attempted to divide
+    /// by zero.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='divisor'/> is null.</exception>
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -3131,8 +3482,18 @@ WordsShiftRightOne(bu, buc);
       return new EInteger(count, remainderReg, this.negative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Returns an arbitrary-precision integer with the bits
+    /// shifted to the right. For this operation, the arbitrary-precision
+    /// integer is treated as a two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
+    /// Thus, for negative values, the arbitrary-precision integer is
+    /// sign-extended.</summary>
+    /// <param name='eshift'>The number of bits to shift. Can be negative,
+    /// in which case this is the same as shiftLeft with the absolute value
+    /// of this parameter.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='eshift'/> is null.</exception>
     public EInteger ShiftRight(EInteger eshift) {
       if (eshift == null) {
         throw new ArgumentNullException(nameof(eshift));
@@ -3149,8 +3510,17 @@ WordsShiftRightOne(bu, buc);
       return ret.ShiftRight(valueETempShift.ToInt32Checked());
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Returns an arbitrary-precision integer with the bits
+    /// shifted to the left by a number of bits given as an
+    /// arbitrary-precision integer. A value of 1 doubles this value, a
+    /// value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by
+    /// 16, and so on.</summary>
+    /// <param name='eshift'>The number of bits to shift. Can be negative,
+    /// in which case this is the same as shiftRight with the absolute
+    /// value of this parameter.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='eshift'/> is null.</exception>
     public EInteger ShiftLeft(EInteger eshift) {
       if (eshift == null) {
         throw new ArgumentNullException(nameof(eshift));
@@ -3167,8 +3537,14 @@ WordsShiftRightOne(bu, buc);
       return ret.ShiftLeft(valueETempShift.ToInt32Checked());
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftLeft(System.Int32)"]/*'/>
+    /// <summary>Returns an arbitrary-precision integer with the bits
+    /// shifted to the left by a number of bits. A value of 1 doubles this
+    /// value, a value of 2 multiplies it by 4, a value of 3 by 8, a value
+    /// of 4 by 16, and so on.</summary>
+    /// <param name='numberBits'>The number of bits to shift. Can be
+    /// negative, in which case this is the same as shiftRight with the
+    /// absolute value of this parameter.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
     public EInteger ShiftLeft(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
         return this;
@@ -3229,8 +3605,9 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Not"]/*'/>
+    /// <summary>Returns an arbitrary-precision integer with every bit
+    /// flipped from this one.</summary>
+    /// <returns>An arbitrary-precision integer.</returns>
     public EInteger Not() {
       if (this.wordCount == 0) {
         return EInteger.FromInt32(-1);
@@ -3253,8 +3630,18 @@ WordsShiftRightOne(bu, buc);
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Does an AND operation between two arbitrary-precision
+    /// integer values.</summary>
+    /// <param name='other'>An arbitrary-precision integer.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bits of this integer and the other integer are
+    /// both set.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='other'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
     public EInteger And(EInteger other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
@@ -3308,8 +3695,19 @@ WordsShiftRightOne(bu, buc);
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Does an OR operation between two arbitrary-precision
+    /// integer instances.</summary>
+    /// <param name='second'>The second operand.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='second'/> is null.</exception>
+    /// <exception cref='System.ArgumentException'>Doesn't satisfy
+    /// biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
+    /// CountWords(result).</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
@@ -3381,8 +3779,20 @@ WordsShiftRightOne(bu, buc);
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Finds the exclusive "or" of two arbitrary-precision
+    /// integer objects.
+    /// <para>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</para></summary>
+    /// <param name='other'>An arbitrary-precision integer.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit is set in one input integer but not in the
+    /// other.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='other'/> is null.</exception>
+    /// <exception cref='System.ArgumentException'>Doesn't satisfy
+    /// smallerCount == CountWords(result).</exception>
     public EInteger Xor(EInteger other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
@@ -3654,8 +4064,16 @@ WordsShiftRightOne(bu, buc);
       return wordCount;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ShiftRight(System.Int32)"]/*'/>
+    /// <summary>Returns an arbitrary-precision integer with the bits
+    /// shifted to the right. For this operation, the arbitrary-precision
+    /// integer is treated as a two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
+    /// Thus, for negative values, the arbitrary-precision integer is
+    /// sign-extended.</summary>
+    /// <param name='numberBits'>The number of bits to shift. Can be
+    /// negative, in which case this is the same as shiftLeft with the
+    /// absolute value of this parameter.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
     public EInteger ShiftRight(int numberBits) {
       if (numberBits == 0 || this.wordCount == 0) {
         return this;
@@ -3708,21 +4126,32 @@ WordsShiftRightOne(bu, buc);
       return new EInteger(retWordCount, ret, this.negative);
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.Sqrt"]/*'/>
+    /// <summary>Finds the square root of this instance's value, rounded
+    /// down.</summary>
+    /// <returns>The square root of this object's value. Returns 0 if this
+    /// value is 0 or less.</returns>
     public EInteger Sqrt() {
       EInteger[] srrem = this.SqrtRemInternal(false);
       return srrem[0];
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.SqrtRem"]/*'/>
+    /// <summary>Calculates the square root and the remainder.</summary>
+    /// <returns>An array of two arbitrary-precision integers: the first
+    /// integer is the square root, and the second is the difference
+    /// between this value and the square of the first integer. Returns two
+    /// zeros if this value is 0 or less, or one and zero if this value
+    /// equals 1.</returns>
     public EInteger[] SqrtRem() {
       return this.SqrtRemInternal(true);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.Subtract(PeterO.Numbers.EInteger)"]/*'/>
+    /// <summary>Subtracts an arbitrary-precision integer from this
+    /// arbitrary-precision integer.</summary>
+    /// <param name='subtrahend'>Another arbitrary-precision
+    /// integer.</param>
+    /// <returns>The difference of the two objects.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='subtrahend'/> is null.</exception>
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
         throw new ArgumentNullException(nameof(subtrahend));
@@ -3731,8 +4160,17 @@ WordsShiftRightOne(bu, buc);
         ((subtrahend.wordCount == 0) ? this : this.Add(subtrahend.Negate()));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)"]/*'/>
+    /// <summary>Returns a byte array of this integer's value. The byte
+    /// array will take the number's two' s-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
+    /// using the fewest bytes necessary to store its value unambiguously.
+    /// If this value is negative, the bits that appear beyond the most
+    /// significant bit of the number will be all ones. The resulting byte
+    /// array can be passed to the <c>FromBytes()</c> method (with the same
+    /// byte order) to reconstruct this integer's value.</summary>
+    /// <param name='littleEndian'>Either <c>true</c> or <c>false</c>.</param>
+    /// <returns>A byte array. If this value is 0, returns a byte array
+    /// with the single element 0.</returns>
     public byte[] ToBytes(bool littleEndian) {
       int sign = this.Sign;
       if (sign == 0) {
@@ -3795,8 +4233,11 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt32Checked"]/*'/>
+    /// <summary>Converts this object's value to a 32-bit signed integer,
+    /// throwing an exception if it can't fit.</summary>
+    /// <returns>A 32-bit signed integer.</returns>
+    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// is too big to fit a 32-bit signed integer.</exception>
     public int ToInt32Checked() {
       int count = this.wordCount;
       if (count == 0) {
@@ -3815,8 +4256,13 @@ WordsShiftRightOne(bu, buc);
       return this.ToInt32Unchecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt32Unchecked"]/*'/>
+    /// <summary>Converts this object's value to a 32-bit signed integer.
+    /// If the value can't fit in a 32-bit integer, returns the lower 32
+    /// bits of this object's two' s-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
+    /// which case the return value might have a different sign than this
+    /// object's value).</summary>
+    /// <returns>A 32-bit signed integer.</returns>
     public int ToInt32Unchecked() {
       var c = (int)this.wordCount;
       if (c == 0) {
@@ -3833,8 +4279,11 @@ WordsShiftRightOne(bu, buc);
       return intRetValue;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt64Checked"]/*'/>
+    /// <summary>Converts this object's value to a 64-bit signed integer,
+    /// throwing an exception if it can't fit.</summary>
+    /// <returns>A 64-bit signed integer.</returns>
+    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// is too big to fit a 64-bit signed integer.</exception>
     public long ToInt64Checked() {
       int count = this.wordCount;
       if (count == 0) {
@@ -3854,8 +4303,13 @@ WordsShiftRightOne(bu, buc);
       return this.ToInt64Unchecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt64Unchecked"]/*'/>
+    /// <summary>Converts this object's value to a 64-bit signed integer.
+    /// If the value can't fit in a 64-bit integer, returns the lower 64
+    /// bits of this object's two' s-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
+    /// which case the return value might have a different sign than this
+    /// object's value).</summary>
+    /// <returns>A 64-bit signed integer.</returns>
     public long ToInt64Unchecked() {
       var c = (int)this.wordCount;
       if (c == 0) {
@@ -4000,8 +4454,17 @@ WordsShiftRightOne(bu, buc);
       return sb.ToString();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)"]/*'/>
+    /// <summary>Generates a string representing the value of this object,
+    /// in the given radix.</summary>
+    /// <param name='radix'>A radix from 2 through 36. For example, to
+    /// generate a hexadecimal (base-16) string, specify 16. To generate a
+    /// decimal (base-10) string, specify 10.</param>
+    /// <returns>A string representing the value of this object. If this
+    /// value is 0, returns "0". If negative, the string will begin with a
+    /// minus sign ("-", U + 002D). Depending on the radix, the string will
+    /// use the basic digits 0 to 9 (U + 0030 to U + 0039) and then the
+    /// basic letters A to Z (U + 0041 to U + 005A). For example, 0-9 in
+    /// radix 10, and 0-9, then A-F in radix 16.</returns>
     public string ToRadixString(int radix) {
       if (radix < 2) {
         throw new ArgumentException("radix (" + radix +
@@ -4136,8 +4599,11 @@ WordsShiftRightOne(bu, buc);
       }
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToString"]/*'/>
+    /// <summary>Converts this object to a text string in base
+    /// 10.</summary>
+    /// <returns>A string representation of this object. If negative, the
+    /// string will begin with a minus sign ("-", U+002D). The string will
+    /// use the basic digits 0 to 9 (U + 0030 to U + 0039).</returns>
     public override string ToString() {
       if (this.IsZero) {
         return "0";
@@ -6644,15 +7110,16 @@ WordsShiftRightOne(bu, buc);
               words2,
               words2Start);
             break;
-          default: SchoolbookMultiply(
-            resultArr,
-            resultStart,
-            words1,
-            words1Start,
-            count,
-            words2,
-            words2Start,
-            count);
+          default:
+            SchoolbookMultiply(
+              resultArr,
+              resultStart,
+              words1,
+              words1Start,
+              count,
+              words2,
+              words2Start,
+              count);
             break;
         }
       } else {
@@ -7032,7 +7499,7 @@ WordsShiftRightOne(bu, buc);
           resultStart + words1Count + words2Count,
           words1Start + words1Count);
         if (m1 < m2) {
-          throw new ArgumentException();
+          throw new InvalidOperationException();
         }
       }
       if (resultArr == words2) {
@@ -7041,7 +7508,7 @@ WordsShiftRightOne(bu, buc);
           resultStart + words1Count + words2Count,
           words2Start + words2Count);
         if (m1 < m2) {
-          throw new ArgumentException();
+          throw new InvalidOperationException();
         }
       }
       if (words1Count <= 0) {
@@ -7479,18 +7946,18 @@ WordsShiftRightOne(bu, buc);
       EInteger valueEPowerBits =
         thisValue.GetUnsignedBitLengthAsEInteger().Add(1).Divide(2);
       if (this.wordCount >= 4) {
-     int wordsPerPart = (this.wordCount >> 2) + ((this.wordCount & 3) > 0 ?
-          1 : 0);
-          long bitsPerPart = wordsPerPart * 16;
-          EInteger valueEBitsPerPart = EInteger.FromInt64(bitsPerPart);
-          long totalBits = bitsPerPart * 4;
-          EInteger valueEBitLength = this.GetUnsignedBitLengthAsEInteger();
-          bool bitLengthEven = valueEBitLength.IsEven;
-          bigintX = this;
-          EInteger eshift = EInteger.Zero;
-     if
-  (valueEBitLength.CompareTo(EInteger.FromInt64(totalBits).Subtract(1)) <
-             0) {
+        int wordsPerPart = (this.wordCount >> 2) +
+             ((this.wordCount & 3) > 0 ? 1 : 0);
+        long bitsPerPart = wordsPerPart * 16;
+        EInteger valueEBitsPerPart = EInteger.FromInt64(bitsPerPart);
+        long totalBits = bitsPerPart * 4;
+        EInteger valueEBitLength = this.GetUnsignedBitLengthAsEInteger();
+        bool bitLengthEven = valueEBitLength.IsEven;
+        bigintX = this;
+        EInteger eshift = EInteger.Zero;
+        if
+     (valueEBitLength.CompareTo(EInteger.FromInt64(totalBits).Subtract(1)) <
+                0) {
           long targetLength = bitLengthEven ? totalBits : (totalBits - 1);
           eshift = EInteger.FromInt64(targetLength).Subtract(valueEBitLength);
           bigintX = bigintX.ShiftLeft(eshift);
@@ -7524,11 +7991,11 @@ WordsShiftRightOne(bu, buc);
         EInteger[] qrem = srem[1].ShiftLeft(
           valueEBitsPerPart).Add(e2).DivRem(
                 srem[0].ShiftLeft(1));
-                EInteger sqroot =
-                  srem[0].ShiftLeft(valueEBitsPerPart).Add(qrem[0]);
-                  EInteger sqrem = qrem[1].ShiftLeft(
-                    valueEBitsPerPart).Add(e1).Subtract(
-                 qrem[0].Multiply(qrem[0]));
+        EInteger sqroot =
+          srem[0].ShiftLeft(valueEBitsPerPart).Add(qrem[0]);
+        EInteger sqrem = qrem[1].ShiftLeft(
+          valueEBitsPerPart).Add(e1).Subtract(
+       qrem[0].Multiply(qrem[0]));
         // DebugUtility.Log("sqrem=" + sqrem + ",sqroot=" + sqroot);
         if (sqrem.Sign < 0) {
           if (useRem) {
@@ -7572,8 +8039,11 @@ WordsShiftRightOne(bu, buc);
     }
     // Begin integer conversions
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteChecked"]/*'/>
+    /// <summary>Converts this number's value to a byte (from 0 to 255) if
+    /// it can fit in a byte (from 0 to 255).</summary>
+    /// <returns>This number's value as a byte (from 0 to 255).</returns>
+    /// <exception cref='System.OverflowException'>This value is less than
+    /// 0 or greater than 255.</exception>
     public byte ToByteChecked() {
       int val = this.ToInt32Checked();
       if (val < 0 || val > 255) {
@@ -7582,22 +8052,32 @@ WordsShiftRightOne(bu, buc);
       return unchecked((byte)(val & 0xff));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToByteUnchecked"]/*'/>
+    /// <summary>Converts this number to a byte (from 0 to 255), returning
+    /// the least-significant bits of this number's two's-complement
+    /// form.</summary>
+    /// <returns>This number, converted to a byte (from 0 to
+    /// 255).</returns>
     public byte ToByteUnchecked() {
       int val = this.ToInt32Unchecked();
       return unchecked((byte)(val & 0xff));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromByte(System.Byte)"]/*'/>
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='inputByte'>The number to convert as a byte (from 0 to
+    /// 255).</param>
+    /// <returns>This number's value as an arbitrary-precision
+    /// integer.</returns>
     public static EInteger FromByte(byte inputByte) {
       int val = ((int)inputByte) & 0xff;
       return FromInt32(val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Checked"]/*'/>
+    /// <summary>Converts this number's value to a 16-bit signed integer if
+    /// it can fit in a 16-bit signed integer.</summary>
+    /// <returns>This number's value as a 16-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is less than
+    /// -32768 or greater than 32767.</exception>
     public short ToInt16Checked() {
       int val = this.ToInt32Checked();
       if (val < -32768 || val > 32767) {
@@ -7606,15 +8086,22 @@ WordsShiftRightOne(bu, buc);
       return unchecked((short)(val & 0xffff));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.ToInt16Unchecked"]/*'/>
+    /// <summary>Converts this number to a 16-bit signed integer, returning
+    /// the least-significant bits of this number's two's-complement
+    /// form.</summary>
+    /// <returns>This number, converted to a 16-bit signed
+    /// integer.</returns>
     public short ToInt16Unchecked() {
       int val = this.ToInt32Unchecked();
       return unchecked((short)(val & 0xffff));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)"]/*'/>
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='inputInt16'>The number to convert as a 16-bit signed
+    /// integer.</param>
+    /// <returns>This number's value as an arbitrary-precision
+    /// integer.</returns>
     public static EInteger FromInt16(short inputInt16) {
       var val = (int)inputInt16;
       return FromInt32(val);

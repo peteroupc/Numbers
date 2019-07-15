@@ -178,8 +178,9 @@ namespace Test {
       }
       match = (!ln.Contains(":")) ? null : ValuePropertyLine.Match(ln);
       if (match != null && match.Success) {
-        context[match.Groups[1].ToString().ToLowerInvariant()] =
-          match.Groups[2].ToString();
+        string paramName = DataUtilities.ToLowerCaseAscii(
+           match.Groups[1].ToString());
+        context[paramName] = match.Groups[2].ToString();
         return;
       }
       // var sw = new System.Diagnostics.Stopwatch();
@@ -197,8 +198,10 @@ namespace Test {
         input2 = ValueQuotes.Replace(input2, String.Empty);
         input3 = ValueQuotes.Replace(input3, String.Empty);
         output = ValueQuotes.Replace(output, String.Empty);
-        bool extended = GetKeyOrDefault(context, "extended", "1").Equals("1", StringComparison.Ordinal);
-        bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1", StringComparison.Ordinal);
+        bool extended = GetKeyOrDefault(context, "extended",
+  "1").Equals("1", StringComparison.Ordinal);
+        bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1",
+  StringComparison.Ordinal);
         int precision = 0, minexponent = 0, maxexponent = 0;
         EContext ctx = null;
         string rounding = null;
@@ -346,7 +349,8 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
           ctx = ctx.WithSimplified(true);
         }
         ctx = ctx.WithBlankFlags();
-        if (op.Length > 3 && op.Substring(op.Length - 3).Equals("_eq", StringComparison.Ordinal)) {
+        if (op.Length > 3 && op.Substring(op.Length - 3).Equals("_eq",
+  StringComparison.Ordinal)) {
           // Binary operators with both operands the same
           input2 = input1;
           op = op.Substring(0, op.Length - 3);
@@ -376,11 +380,16 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
         }
         if (op.Equals("multiply", StringComparison.Ordinal)) {
           d3 = d1.Multiply(d2, ctx);
-        } else if (op.Equals("toSci", StringComparison.Ordinal)) { // handled below
-        } else if (op.Equals("toEng", StringComparison.Ordinal)) { // handled below
-        } else if (op.Equals("tosci", StringComparison.Ordinal)) { // handled below
-        } else if (op.Equals("toeng", StringComparison.Ordinal)) { // handled below
-        } else if (op.Equals("class", StringComparison.Ordinal)) { // handled below
+        } else if (op.Equals("toSci", StringComparison.Ordinal)) {
+// handled below
+        } else if (op.Equals("toEng", StringComparison.Ordinal)) {
+// handled below
+        } else if (op.Equals("tosci", StringComparison.Ordinal)) {
+// handled below
+        } else if (op.Equals("toeng", StringComparison.Ordinal)) {
+// handled below
+        } else if (op.Equals("class", StringComparison.Ordinal)) {
+// handled below
         } else if (op.Equals("fma", StringComparison.Ordinal)) {
           d3 = d1.MultiplyAndAdd(d2, d2a, ctx);
         } else if (op.Equals("min", StringComparison.Ordinal)) {
@@ -454,7 +463,8 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
           d3 = d1.Pow(d2, ctx);
         } else if (op.Equals("squareroot", StringComparison.Ordinal)) {
           d3 = d1.Sqrt(ctx);
-        } else if (op.Equals("remaindernear", StringComparison.Ordinal) || op.Equals("remainderNear", StringComparison.Ordinal)) {
+        } else if (op.Equals("remaindernear", StringComparison.Ordinal) ||
+op.Equals("remainderNear", StringComparison.Ordinal)) {
           d3 = d1.RemainderNear(d2, ctx);
         } else if (op.Equals("nexttoward", StringComparison.Ordinal)) {
           d3 = d1.NextToward(d2, ctx);
@@ -574,7 +584,8 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
           string numclass = EDecimals.NumberClassString(
                   EDecimals.NumberClass(d1, ctx));
           Assert.AreEqual(output, numclass, input1);
-        } else if (op.Equals("toSci", StringComparison.Ordinal) || op.Equals("tosci", StringComparison.Ordinal)) {
+        } else if (op.Equals("toSci", StringComparison.Ordinal) ||
+op.Equals("tosci", StringComparison.Ordinal)) {
           try {
             d1 = EDecimal.FromString(input1, ctx);
             Assert.IsTrue(!conversionError, "Expected no conversion error");
@@ -585,7 +596,8 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
           } catch (FormatException) {
             Assert.IsTrue(conversionError, "Expected conversion error");
           }
-        } else if (op.Equals("toEng", StringComparison.Ordinal) || op.Equals("toeng", StringComparison.Ordinal)) {
+        } else if (op.Equals("toEng", StringComparison.Ordinal) ||
+op.Equals("toeng", StringComparison.Ordinal)) {
           try {
             d1 = EDecimal.FromString(input1, ctx);
             Assert.IsTrue(!conversionError, "Expected no conversion error");
@@ -601,7 +613,8 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
             if (output == null && d3 != null) {
               Assert.Fail(name + ": d3 must be null");
             }
-            if (output != null && !d3.ToString().Equals(output, StringComparison.Ordinal)) {
+            if (output != null && !d3.ToString().Equals(output,
+  StringComparison.Ordinal)) {
               EDecimal d4 = EDecimal.FromString(output);
               {
                 object objectTemp = output;

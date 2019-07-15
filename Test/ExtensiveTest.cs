@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using PeterO;
 using PeterO.Numbers;
 
 namespace CBOR {
@@ -80,7 +81,8 @@ namespace CBOR {
       if (round.Equals("=0", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.HalfEven);
       }
-      if (round.Equals("h>", StringComparison.Ordinal) || round.Equals("=^", StringComparison.Ordinal)) {
+      if (round.Equals("h>", StringComparison.Ordinal) || round.Equals("=^",
+  StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.HalfUp);
       }
       if (round.Equals("h<", StringComparison.Ordinal)) {
@@ -90,8 +92,9 @@ namespace CBOR {
     }
 
     private static string ConvertOp(string s) {
-      return s.Equals("S", StringComparison.Ordinal) ? "sNaN" : ((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#", StringComparison.Ordinal)) ?
-                "NaN" : s);
+      return s.Equals("S", StringComparison.Ordinal) ? "sNaN" :
+((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#",
+  StringComparison.Ordinal)) ? "NaN" : s);
     }
 
     private interface IExtendedNumber : IComparable<IExtendedNumber> {
@@ -1318,10 +1321,7 @@ StartsWith(chunks[2], "o")) {
           break;
         }
         ++x;
-        var lowerF = f.ToLowerInvariant();
-        // if (lowerF.Contains("txt") && !lowerF.Contains("overflow")) {
-        // continue;
-        // }
+        var lowerF = DataUtilities.ToLowerCaseAscii(f);
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") &&
 !lowerF.Contains(".txt") &&

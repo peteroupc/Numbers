@@ -9,56 +9,88 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class ERational {
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(System.Boolean)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a boolean value (true or false) to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='boolValue'>Either true or false.</param>
+    /// <returns>1 if <paramref name='boolValue'/> is true; otherwise,
+    /// 0.</returns>
     public static explicit operator ERational(bool boolValue) {
       return FromBoolean(boolValue);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EInteger)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts an arbitrary-precision integer to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='eint'>An arbitrary-precision integer.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public static implicit operator ERational(EInteger eint) {
       return FromEInteger(eint);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EDecimal)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts an arbitrary-precision decimal floating-point
+    /// number to an arbitrary-precision rational number.</summary>
+    /// <param name='eint'>The parameter <paramref name='eint'/> is an
+    /// arbitrary-precision decimal floating-point number.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public static implicit operator ERational(EDecimal eint) {
       return FromEDecimal(eint);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(PeterO.Numbers.EFloat)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts an arbitrary-precision binary float to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='eint'>An arbitrary-precision binary floating-point
+    /// number.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public static implicit operator ERational(EFloat eint) {
       return FromEFloat(eint);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.FromDecimal(System.Decimal)"]/*'/>
+    /// <summary>Converts a <c>decimal</c> under the Common Language
+    /// Infrastructure (usually a.NET Framework decimal) to a rational
+    /// number.</summary>
+    /// <param name='eint'>The number to convert as a <c>decimal</c> under
+    /// the Common Language Infrastructure (usually a.NET Framework
+    /// decimal).</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public static ERational FromDecimal(decimal eint) {
       return FromEDecimal(EDecimal.FromDecimal(eint));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Decimal)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a <c>decimal</c> under the Common Language
+    /// Infrastructure (usually a.NET Framework decimal). to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='eint'>A <c>decimal</c> under the Common Language
+    /// Infrastructure (usually a.NET Framework decimal).</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public static implicit operator ERational(decimal eint) {
       return FromDecimal(eint);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Single)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 32-bit binary floating-point number to a
+    /// rational number.</summary>
+    /// <param name='eint'>The parameter <paramref name='eint'/> is a
+    /// 32-bit binary floating-point number.</param>
+    /// <returns>The value of <paramref name='eint'/> as an
+    /// arbitrary-precision rational number.</returns>
     public static implicit operator ERational(float eint) {
       return ERational.FromSingle(eint);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Double)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 64-bit floating-point number to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='eint'>The parameter <paramref name='eint'/> is a
+    /// 64-bit floating-point number.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public static implicit operator ERational(double eint) {
       return ERational.FromDouble(eint);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Addition(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Adds two rational numbers.</summary>
+    /// <param name='bthis'>The first operand.</param>
+    /// <param name='augend'>The second operand.</param>
+    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+    /// either operand is NaN.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// "otherValue" is null.</exception>
     public static ERational operator +(ERational bthis, ERational augend) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -66,8 +98,13 @@ namespace PeterO.Numbers {
       return bthis.Add(augend);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Subtraction(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Subtracts an arbitrary-precision rational number from this
+    /// instance.</summary>
+    /// <param name='bthis'>The first operand.</param>
+    /// <param name='subtrahend'>The second operand.</param>
+    /// <returns>The difference of the two objects.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// "otherValue" is null.</exception>
     public static ERational operator -(
       ERational bthis,
       ERational subtrahend) {
@@ -77,8 +114,22 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Increment(PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Adds one to an arbitrary-precision rational
+    /// number.</summary>
+    /// <returns>The given arbitrary-precision rational number plus
+    /// one.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
+    public ERational Increment() {
+  return this + (ERational)1;
+}
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
     public static ERational operator ++(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -86,8 +137,22 @@ namespace PeterO.Numbers {
       return bthis.Add(1);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Decrement(PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Subtracts one from an arbitrary-precision rational
+    /// number.</summary>
+    /// <returns>The given arbitrary-precision rational number minus
+    /// one.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
+    public ERational Decrement() {
+  return this.Subtract(1);
+}
+
+    /// <summary>Not documented yet.</summary>
+    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
+    /// documented yet.</param>
+    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bthis'/> is null.</exception>
     public static ERational operator --(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -95,8 +160,13 @@ namespace PeterO.Numbers {
       return bthis.Subtract(1);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Multiply(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Multiplies this instance by the value of an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='operand1'>The first operand.</param>
+    /// <param name='operand2'>The second operand.</param>
+    /// <returns>The product of the two numbers.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// "otherValue" is null.</exception>
     public static ERational operator *(
       ERational operand1,
       ERational operand2) {
@@ -106,8 +176,16 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Division(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Divides an arbitrary-precision rational number by the
+    /// value of another arbitrary-precision rational number
+    /// object.</summary>
+    /// <param name='dividend'>An arbitrary-precision rational number
+    /// serving as the dividend.</param>
+    /// <param name='divisor'>An arbitrary-precision rational number
+    /// serving as the divisor.</param>
+    /// <returns>The quotient of the two objects.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// "otherValue" is null.</exception>
     public static ERational operator /(
       ERational dividend,
       ERational divisor) {
@@ -117,8 +195,14 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Modulus(PeterO.Numbers.ERational,PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Finds the remainder that results when this instance is
+    /// divided by the value of an arbitrary-precision rational
+    /// number.</summary>
+    /// <param name='dividend'>The dividend.</param>
+    /// <param name='divisor'>The divisor.</param>
+    /// <returns>The remainder of the two numbers.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// "otherValue" is null.</exception>
     public static ERational operator %(
       ERational dividend,
       ERational divisor) {
@@ -128,8 +212,13 @@ namespace PeterO.Numbers {
       return dividend.Remainder(divisor);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_UnaryNegation(PeterO.Numbers.ERational)"]/*'/>
+    /// <summary>Returns an arbitrary-precision rational number with the
+    /// same value as the given one but with its sign reversed.</summary>
+    /// <param name='bigValue'>An arbitrary-precision rational number to
+    /// negate.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <paramref name='bigValue'/> is null.</exception>
     public static ERational operator -(ERational bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -137,8 +226,12 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <include file='../../docs.xml'
-    /// path='docs/doc[@name="M:PeterO.Numbers.ERational.ToDecimal"]/*'/>
+    /// <summary>Converts this value to a <c>decimal</c> under the Common
+    /// Language Infrastructure (usually a.NET Framework decimal).
+    /// Currently, converts this value to the precision and range of a.NET
+    /// Framework decimal.</summary>
+    /// <returns>A <c>decimal</c> under the Common Language Infrastructure
+    /// (usually a.NET Framework decimal).</returns>
     public decimal ToDecimal() {
       ERational extendedNumber = this;
       if (extendedNumber.IsInfinity() || extendedNumber.IsNaN()) {
@@ -155,47 +248,92 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Decimal"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// <c>decimal</c> under the Common Language Infrastructure (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
+    /// ).</summary>
+    /// <param name='extendedNumber'>The number to convert as an
+    /// arbitrary-precision rational number.</param>
+    /// <returns>A <c>decimal</c> under the Common Language Infrastructure
+    /// (usually a.NET Framework decimal).</returns>
     public static explicit operator decimal(
       ERational extendedNumber) {
       return extendedNumber.ToDecimal();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~PeterO.Numbers.EInteger"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to an
+    /// arbitrary-precision integer. Any fractional part in the value will
+    /// be discarded when converting to an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='bigValue'>An arbitrary-precision rational
+    /// number.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='System.OverflowException'>This object's value is
+    /// infinity or not-a-number (NaN).</exception>
     public static explicit operator EInteger(ERational bigValue) {
       return bigValue.ToEInteger();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Double"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 64-bit floating-point number. The half-even rounding mode is
+    /// used.</summary>
+    /// <param name='bigValue'>The number to convert as an
+    /// arbitrary-precision rational number.</param>
+    /// <returns>The closest 64-bit floating-point number to this value.
+    /// The return value can be positive infinity or negative infinity if
+    /// this value exceeds the range of a 64-bit floating point
+    /// number.</returns>
     public static explicit operator double(ERational bigValue) {
       return bigValue.ToDouble();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Single"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 32-bit binary floating-point number. The half-even rounding mode is
+    /// used.</summary>
+    /// <param name='bigValue'>The number to convert as an
+    /// arbitrary-precision rational number.</param>
+    /// <returns>The closest 32-bit binary floating-point number to this
+    /// value. The return value can be positive infinity or negative
+    /// infinity if this value exceeds the range of a 32-bit floating point
+    /// number.</returns>
     public static explicit operator float(ERational bigValue) {
       return bigValue.ToSingle();
     }
 
     // Begin integer conversions
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Byte"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a byte
+    /// (from 0 to 255) if it can fit in a byte (from 0 to 255) after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// byte (from 0 to 255).</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than 255.</exception>
     public static explicit operator byte(ERational input) {
       return input.ToByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Byte)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputByte'>The number to convert as a byte (from 0 to
+    /// 255).</param>
+    /// <returns>The value of <paramref name='inputByte'/> as an
+    /// arbitrary-precision rational number.</returns>
     public static implicit operator ERational(byte inputByte) {
       return ERational.FromByte(inputByte);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteChecked"]/*'/>
+    /// <summary>Converts this number's value to an 8-bit signed integer if
+    /// it can fit in an 8-bit signed integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to an 8-bit signed
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than -128 or
+    /// greater than 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteChecked() {
       if (!this.IsFinite) {
@@ -205,15 +343,23 @@ namespace PeterO.Numbers {
                  this.ToEInteger().ToSByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteUnchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as an 8-bit
+    /// signed integer.</summary>
+    /// <returns>This number, converted to an 8-bit signed integer. Returns
+    /// 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public sbyte ToSByteUnchecked() {
       return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToSByteIfExact"]/*'/>
+    /// <summary>Converts this number's value to an 8-bit signed integer if
+    /// it can fit in an 8-bit signed integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as an 8-bit signed integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than -128 or
+    /// greater than 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteIfExact() {
       if (!this.IsFinite) {
@@ -223,42 +369,76 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToSByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.FromSByte(System.SByte)"]/*'/>
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputSByte'>The number to convert as an 8-bit signed
+    /// integer.</param>
+    /// <returns>This number's value as an arbitrary-precision rational
+    /// number.</returns>
     [CLSCompliant(false)]
     public static ERational FromSByte(sbyte inputSByte) {
       var val = (int)inputSByte;
       return FromInt32(val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.SByte"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to an
+    /// 8-bit signed integer if it can fit in an 8-bit signed integer after
+    /// truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to an
+    /// 8-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -128 or greater than 127.</exception>
     [CLSCompliant(false)]
     public static explicit operator sbyte(ERational input) {
       return input.ToSByteChecked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.SByte)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputSByte'>The number to convert as an 8-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputSByte'/> as an
+    /// arbitrary-precision rational number.</returns>
     [CLSCompliant(false)]
     public static implicit operator ERational(sbyte inputSByte) {
       return ERational.FromSByte(inputSByte);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 16-bit signed integer if it can fit in a 16-bit signed integer
+    /// after truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 16-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -32768 or greater than 32767.</exception>
     public static explicit operator short(ERational input) {
       return input.ToInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int16)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputInt16'>The number to convert as a 16-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputInt16'/> as an
+    /// arbitrary-precision rational number.</returns>
     public static implicit operator ERational(short inputInt16) {
       return ERational.FromInt16(inputInt16);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16Checked"]/*'/>
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
+    /// if it can fit in a 16-bit unsigned integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to a 16-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// than 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16Checked() {
       if (!this.IsFinite) {
@@ -268,15 +448,24 @@ namespace PeterO.Numbers {
                  ((ushort)0) : this.ToEInteger().ToUInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16Unchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as a 16-bit
+    /// unsigned integer.</summary>
+    /// <returns>This number, converted to a 16-bit unsigned integer.
+    /// Returns 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public ushort ToUInt16Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt16IfExact"]/*'/>
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
+    /// if it can fit in a 16-bit unsigned integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as a 16-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than 0 or
+    /// greater than 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16IfExact() {
       if (!this.IsFinite) {
@@ -286,42 +475,77 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToUInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt16(System.UInt16)"]/*'/>
+    /// <summary>Converts a 16-bit unsigned integer to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='inputUInt16'>The number to convert as a 16-bit
+    /// unsigned integer.</param>
+    /// <returns>This number's value as an arbitrary-precision rational
+    /// number.</returns>
     [CLSCompliant(false)]
     public static ERational FromUInt16(ushort inputUInt16) {
       int val = ((int)inputUInt16) & 0xffff;
       return FromInt32(val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt16"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 16-bit unsigned integer if it can fit in a 16-bit unsigned integer
+    /// after truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 16-bit unsigned integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than 65535.</exception>
     [CLSCompliant(false)]
     public static explicit operator ushort(ERational input) {
       return input.ToUInt16Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt16)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 16-bit unsigned integer to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='inputUInt16'>The number to convert as a 16-bit
+    /// unsigned integer.</param>
+    /// <returns>The value of <paramref name='inputUInt16'/> as an
+    /// arbitrary-precision rational number.</returns>
     [CLSCompliant(false)]
     public static implicit operator ERational(ushort inputUInt16) {
       return ERational.FromUInt16(inputUInt16);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 32-bit signed integer if it can fit in a 32-bit signed integer
+    /// after truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 32-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -2147483648 or greater than
+    /// 2147483647.</exception>
     public static explicit operator int(ERational input) {
       return input.ToInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int32)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputInt32'>The number to convert as a 32-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputInt32'/> as an
+    /// arbitrary-precision rational number.</returns>
     public static implicit operator ERational(int inputInt32) {
       return ERational.FromInt32(inputInt32);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Checked"]/*'/>
+    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// it can fit in a 32-bit signed integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to a 32-bit signed
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// than 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32Checked() {
       if (!this.IsFinite) {
@@ -330,15 +554,23 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0U : this.ToEInteger().ToUInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32Unchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as a 32-bit
+    /// signed integer.</summary>
+    /// <returns>This number, converted to a 32-bit signed integer. Returns
+    /// 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public uint ToUInt32Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt32IfExact"]/*'/>
+    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// it can fit in a 32-bit signed integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as a 32-bit signed integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than 0 or
+    /// greater than 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32IfExact() {
       if (!this.IsFinite) {
@@ -348,42 +580,77 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToUInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt32(System.UInt32)"]/*'/>
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputUInt32'>The number to convert as a 32-bit signed
+    /// integer.</param>
+    /// <returns>This number's value as an arbitrary-precision rational
+    /// number.</returns>
     [CLSCompliant(false)]
     public static ERational FromUInt32(uint inputUInt32) {
       long val = ((long)inputUInt32) & 0xffffffffL;
       return FromInt64(val);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt32"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 32-bit signed integer if it can fit in a 32-bit signed integer
+    /// after truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 32-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than 4294967295.</exception>
     [CLSCompliant(false)]
     public static explicit operator uint(ERational input) {
       return input.ToUInt32Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt32)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputUInt32'>The number to convert as a 32-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputUInt32'/> as an
+    /// arbitrary-precision rational number.</returns>
     [CLSCompliant(false)]
     public static implicit operator ERational(uint inputUInt32) {
       return ERational.FromUInt32(inputUInt32);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int64"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 64-bit signed integer if it can fit in a 64-bit signed integer
+    /// after truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 64-bit signed integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than -9223372036854775808 or greater than
+    /// 9223372036854775807.</exception>
     public static explicit operator long(ERational input) {
       return input.ToInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.Int64)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
+    /// rational number.</summary>
+    /// <param name='inputInt64'>The number to convert as a 64-bit signed
+    /// integer.</param>
+    /// <returns>The value of <paramref name='inputInt64'/> as an
+    /// arbitrary-precision rational number.</returns>
     public static implicit operator ERational(long inputInt64) {
       return ERational.FromInt64(inputInt64);
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Checked"]/*'/>
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
+    /// if it can fit in a 64-bit unsigned integer after truncating to an
+    /// integer.</summary>
+    /// <returns>This number's value, truncated to a 64-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.OverflowException'>This value is infinity
+    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// than 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64Checked() {
       if (!this.IsFinite) {
@@ -393,15 +660,24 @@ namespace PeterO.Numbers {
                  this.ToEInteger().ToUInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64Unchecked"]/*'/>
+    /// <summary>Truncates this number's value to an integer and returns
+    /// the least-significant bits of its two's-complement form as a 64-bit
+    /// unsigned integer.</summary>
+    /// <returns>This number, converted to a 64-bit unsigned integer.
+    /// Returns 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
     public ulong ToUInt64Unchecked() {
       return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.ToUInt64IfExact"]/*'/>
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
+    /// if it can fit in a 64-bit unsigned integer without rounding to a
+    /// different numerical value.</summary>
+    /// <returns>This number's value as a 64-bit unsigned
+    /// integer.</returns>
+    /// <exception cref='System.ArithmeticException'>This value is infinity
+    /// or not-a-number, is not an exact integer, or is less than 0 or
+    /// greater than 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64IfExact() {
       if (!this.IsFinite) {
@@ -411,22 +687,39 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToUInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.FromUInt64(System.UInt64)"]/*'/>
+    /// <summary>Converts a 64-bit unsigned integer to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='inputUInt64'>The number to convert as a 64-bit
+    /// unsigned integer.</param>
+    /// <returns>This number's value as an arbitrary-precision rational
+    /// number.</returns>
     [CLSCompliant(false)]
     public static ERational FromUInt64(ulong inputUInt64) {
       return FromEInteger(EInteger.FromUInt64(inputUInt64));
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt64"]/*'/>
+    /// <summary>Converts an arbitrary-precision rational number to a
+    /// 64-bit unsigned integer if it can fit in a 64-bit unsigned integer
+    /// after truncating to an integer.</summary>
+    /// <param name='input'>The number to convert as an arbitrary-precision
+    /// rational number.</param>
+    /// <returns>The value of <paramref name='input'/>, truncated to a
+    /// 64-bit unsigned integer.</returns>
+    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// integer is less than 0 or greater than
+    /// 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public static explicit operator ulong(ERational input) {
       return input.ToUInt64Checked();
     }
 
-    /// <include file='../../docs.xml'
-    ///   path='docs/doc[@name="M:PeterO.Numbers.ERational.op_Implicit(System.UInt64)~PeterO.Numbers.ERational"]/*'/>
+    /// <summary>Converts a 64-bit unsigned integer to an
+    /// arbitrary-precision rational number.</summary>
+    /// <param name='inputUInt64'>The number to convert as a 64-bit
+    /// unsigned integer.</param>
+    /// <returns>The value of <paramref name='inputUInt64'/> as an
+    /// arbitrary-precision rational number.</returns>
     [CLSCompliant(false)]
     public static implicit operator ERational(ulong inputUInt64) {
       return ERational.FromUInt64(inputUInt64);

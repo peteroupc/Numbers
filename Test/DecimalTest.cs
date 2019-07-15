@@ -249,11 +249,11 @@ System.Globalization.NumberStyles.Number;
 
     [Test]
     public void TestParser() {
-      this.TestParserEx(false);
-      this.TestParserEx(true);
+      TestParserEx(false);
+      TestParserEx(true);
     }
 
-    public void TestParserEx(bool recordfailing) {
+    public static void TestParserEx(bool recordfailing) {
       long failures = 0;
       var testfiles = CBOR.ExtensiveTest.GetTestFiles();
       if (testfiles.Length == 0) {
@@ -270,8 +270,8 @@ System.Globalization.NumberStyles.Number;
       // Reads decimal test files described in:
       // <http://speleotrove.com/decimal/dectest.html>
       foreach (var f in testfiles) {
-        if (!Path.GetFileName(f).ToLowerInvariant().Contains(
-             recordfailing ? ".dectest" : "failing.dectest")) {
+        if (!DataUtilities.ToLowerCaseAscii(Path.GetFileName(f))
+           .Contains(recordfailing ? ".dectest" : "failing.dectest")) {
           continue;
         }
         Console.WriteLine(f);
