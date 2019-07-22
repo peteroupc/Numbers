@@ -13,9 +13,9 @@ using System.Text;
 namespace PeterO.Numbers {
     /// <summary>
     /// Represents an arbitrary-precision decimal
-    /// floating-point number. ////// (The "E" stands for
-    /// "extended", meaning that instances of this class can be
-    /// values other than numbers proper, such as infinity and
+    /// floating-point number. (The "E" stands for "extended",
+    /// meaning that instances of this class can be values
+    /// other than numbers proper, such as infinity and
     /// not-a-number.)
     /// <para><b>About decimal arithmetic</b>
     /// </para>
@@ -30,15 +30,15 @@ namespace PeterO.Numbers {
     /// price by a premium rate, then rounding, should result in a decimal
     /// amount of money).</para>
     /// <para>On the other hand, most implementations of <c>float</c>
-    ///  and
+    /// and
     /// <c>double</c>
-    ///  , including in C# and Java, store numbers in a binary
-    /// // / ///(base-2) floating-point format and use binary
-    /// floating-point arithmetic. Many decimal numbers can't be
-    /// represented exactly in binary floating-point format (regardless of
-    /// its length). Applying binary arithmetic to numbers intended to be
-    /// decimals can sometimes lead to unintuitive results, as is shown in
-    /// the description for the FromDouble() method of this class.</para>
+    /// , including in C# and Java, store numbers in a binary
+    /// (base-2) floating-point format and use binary floating-point
+    /// arithmetic. Many decimal numbers can't be represented exactly in
+    /// binary floating-point format (regardless of its length). Applying
+    /// binary arithmetic to numbers intended to be decimals can sometimes
+    /// lead to unintuitive results, as is shown in the description for the
+    /// FromDouble() method of this class.</para>
     /// <para><b>About EDecimal instances</b>
     /// </para>
     /// <para>Each instance of this class consists of an integer mantissa
@@ -56,7 +56,7 @@ namespace PeterO.Numbers {
     /// Therefore, in the arbitrary-precision decimal representation, this
     /// number would be stored as 235678 * 10^-2.</para>
     /// <para>The mantissa (significand) and exponent format preserves
-    /// trailing // / zeros in the number's value. This may give rise to
+    /// trailing zeros in the number's value. This may give rise to
     /// multiple ways to store the same value. For example, 1.00 and 1
     /// would be stored differently, even though they have the same value.
     /// In the first case, 100 * 10^-2 (100 with decimal point moved left
@@ -64,18 +64,19 @@ namespace PeterO.Numbers {
     /// 0).</para>
     /// <para>This class also supports values for negative zero,
     /// not-a-number (NaN) values, and infinity. <b>Negative zero</b>
-    ///  is
-    /// generally used when a negative number is rounded to ///// /0; it
-    /// has the same mathematical value as positive zero. <b>Infinity</b>
-    /// is generally used when a non-zero number is divided by // ////zero,
-    /// or when a very high or very low number can't be represented in a
-    /// given exponent range. <b>Not-a-number</b>
-    ///  is generally used to
-    /// signal errors.</para>
+    /// is
+    /// generally used when a negative number is rounded to 0; it has the
+    /// same mathematical value as positive zero. <b>Infinity</b>
+    /// is
+    /// generally used when a non-zero number is divided by zero, or when a
+    /// very high or very low number can't be represented in a given
+    /// exponent range. <b>Not-a-number</b>
+    /// is generally used to signal
+    /// errors.</para>
     /// <para>This class implements the General Decimal Arithmetic
     /// Specification version 1.70 (except part of chapter 6):
     /// <c>http://speleotrove.com/decimal/decarith.html</c>
-    ///  </para>
+    /// </para>
     /// <para><b>Errors and Exceptions</b>
     /// </para>
     /// <para>Passing a signaling NaN to any arithmetic operation shown
@@ -83,13 +84,13 @@ namespace PeterO.Numbers {
     /// if another operand to that operation is a quiet NaN, unless noted
     /// otherwise.</para>
     /// <para>Passing a quiet NaN to any arithmetic operation shown here
-    /// will // /return a quiet NaN, unless noted otherwise. Invalid
-    /// operations will also return a quiet NaN, as stated in the
-    /// individual methods.</para>
+    /// will return a quiet NaN, unless noted otherwise. Invalid operations
+    /// will also return a quiet NaN, as stated in the individual
+    /// methods.</para>
     /// <para>Unless noted otherwise, passing a null arbitrary-precision
     /// decimal argument to any method here will throw an exception.</para>
-    /// <para>When an arithmetic operation signals the flag FlagInvalid, //
-    /// / FlagOverflow, or FlagDivideByZero, it will not throw an exception
+    /// <para>When an arithmetic operation signals the flag FlagInvalid,
+    /// FlagOverflow, or FlagDivideByZero, it will not throw an exception
     /// too, unless the flag's trap is enabled in the arithmetic context
     /// (see EContext's Traps property).</para>
     /// <para>If an operation requires creating an intermediate value that
@@ -102,12 +103,11 @@ namespace PeterO.Numbers {
     /// <para><b>Serialization</b>
     /// </para>
     /// <para>An arbitrary-precision decimal value can be serialized
-    /// (converted to ///// /a stable format) in one of the following
-    /// ways:</para>
+    /// (converted to a stable format) in one of the following ways:</para>
     /// <list><item>By calling the toString() method, which will always
     /// return distinct strings for distinct arbitrary-precision decimal
     /// values.</item>
-    ///  <item>By calling the UnsignedMantissa, Exponent, and
+    /// <item>By calling the UnsignedMantissa, Exponent, and
     /// IsNegative properties, and calling the IsInfinity, IsQuietNaN, and
     /// IsSignalingNaN methods. The return values combined will uniquely
     /// identify a particular arbitrary-precision decimal value.</item>
@@ -115,10 +115,10 @@ namespace PeterO.Numbers {
     /// <para><b>Thread safety</b>
     /// </para>
     /// <para>Instances of this class are immutable, so they are inherently
-    /// safe // /for use by multiple threads. Multiple instances of this
-    /// object with the same properties are interchangeable, so they should
-    /// not be compared using the "==" operator (which might only check if
-    /// each side of the operator is the same instance).</para>
+    /// safe for use by multiple threads. Multiple instances of this object
+    /// with the same properties are interchangeable, so they should not be
+    /// compared using the "==" operator (which might only check if each
+    /// side of the operator is the same instance).</para>
     /// <para><b>Comparison considerations</b>
     /// </para>
     /// <para>This class's natural ordering (under the CompareTo method) is
@@ -132,132 +132,132 @@ namespace PeterO.Numbers {
     /// <para><b>Security note</b>
     /// </para>
     /// <para>It is not recommended to implement security-sensitive
-    /// algorithms // /using the methods in this class, for several
+    /// algorithms using the methods in this class, for several
     /// reasons:</para>
     /// <list><item><c>EDecimal</c>
-    ///  objects are immutable, so they can't be
-    /// modified, and ///// /the memory they occupy is not guaranteed to be
+    /// objects are immutable, so they can't be
+    /// modified, and the memory they occupy is not guaranteed to be
     /// cleared in a timely fashion due to garbage collection. This is
     /// relevant for applications that use many-digit-long numbers as
     /// secret parameters.</item>
-    ///  <item>The methods in this class
+    /// <item>The methods in this class
     /// (especially those that involve arithmetic) are not guaranteed to be
     /// "constant-time" (non-data-dependent) for all relevant inputs.
     /// Certain attacks that involve encrypted communications have
     /// exploited the timing and other aspects of such communications to
     /// derive keying material or cleartext indirectly.</item>
-    ///  </list>
+    /// </list>
     /// <para>Applications should instead use dedicated security libraries
-    /// to // /handle big numbers in security-sensitive algorithms.</para>
+    /// to handle big numbers in security-sensitive algorithms.</para>
     /// <para><b>Forms of numbers</b>
     /// </para>
     /// <para>There are several other types of numbers that are mentioned
     /// in this class and elsewhere in this documentation. For reference,
     /// they are specified here.</para>
     /// <para><b>Unsigned integer</b>
-    ///  : An integer that's always 0 or
-    /// greater, with ///// /the following maximum values:</para>
+    /// : An integer that's always 0 or
+    /// greater, with the following maximum values:</para>
     /// <list><item>8-bit unsigned integer, or <i>byte</i>
-    ///  : 255.</item>
+    /// : 255.</item>
     /// <item>16-bit unsigned integer: 65535.</item>
-    ///  <item>32-bit unsigned
+    /// <item>32-bit unsigned
     /// integer: (2 <sup>32</sup>
-    ///  -1).</item>
-    ///  <item>64-bit unsigned
+    /// -1).</item>
+    /// <item>64-bit unsigned
     /// integer: (2 <sup>64</sup>
-    ///  -1).</item>
-    ///  </list>
+    /// -1).</item>
+    /// </list>
     /// <para><b>Signed integer</b>
-    ///  : An integer in <i>two's-complement
+    /// : An integer in <i>two's-complement
     /// form</i>
-    ///  , with the following ranges:</para>
+    /// , with the following ranges:</para>
     /// <list><item>8-bit signed integer: -128 to 127.</item>
-    ///  <item>16-bit
+    /// <item>16-bit
     /// signed integer: -32768 to 32767.</item>
-    ///  <item>32-bit signed
+    /// <item>32-bit signed
     /// integer: -2 <sup>31</sup>
-    ///  to (2 <sup>31</sup>
-    ///  - 1).</item>
+    /// to (2 <sup>31</sup>
+    /// - 1).</item>
     /// <item>64-bit signed integer: -2 <sup>63</sup>
-    ///  to (2 <sup>63</sup>
-    ///  -
+    /// to (2 <sup>63</sup>
+    /// -
     /// 1).</item>
-    ///  </list>
+    /// </list>
     /// <para><b>Two's complement form</b>
-    ///  : In <i>two' s-complement
+    /// : In <i>two' s-complement
     /// form</i>
-    ///  , nonnegative numbers have the highest (most significant)
+    /// , nonnegative numbers have the highest (most significant)
     /// bit set to zero, and negative numbers have that bit (and all bits
     /// beyond) set to one, and a negative number is stored in such form by
     /// decreasing its absolute value by 1 and swapping the bits of the
     /// resulting number.</para>
     /// <para><b>64-bit floating-point number</b>
-    ///  : A 64-bit binary
-    /// floating-point ///// /number, in the form <i>significand</i>
-    ///  * 2
+    /// : A 64-bit binary
+    /// floating-point number, in the form <i>significand</i>
+    /// * 2
     /// <sup><i>exponent</i>
-    ///  </sup>
-    ///  . The significand is 53 bits long
+    /// </sup>
+    /// . The significand is 53 bits long
     /// (Precision) and the exponent ranges from -1074 (EMin) to 971
     /// (EMax). The number is stored in the following format (commonly
     /// called the IEEE 754 format):</para>
     /// <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code>
     /// <list><item>A. Low 52 bits (Precision minus 1 bits): Lowest bits of
     /// the significand.</item>
-    ///  <item>B. Next 11 bits: Exponent area:
+    /// <item>B. Next 11 bits: Exponent area:
     /// <list><item>If all bits are ones, this value is infinity (positive
     /// or negative depending on the C bit) if all bits in area A are
     /// zeros, or not-a-number (NaN) otherwise.</item>
-    ///  <item>If all bits
+    /// <item>If all bits
     /// are zeros, this is a subnormal number. The exponent is EMin and the
     /// highest bit of the significand is zero.</item>
-    ///  <item>If any other
+    /// <item>If any other
     /// number, the exponent is this value reduced by 1, then raised by
     /// EMin, and the highest bit of the significand is one.</item>
-    ///  </list>
+    /// </list>
     /// </item>
-    ///  <item>C. Highest bit: If one, this is a negative
+    /// <item>C. Highest bit: If one, this is a negative
     /// number.</item>
-    ///  </list>
+    /// </list>
     /// <para>The elements described above are in the same order as the
-    /// order of // /each bit of each element, that is, either most
-    /// significant first or least significant first.</para>
+    /// order of each bit of each element, that is, either most significant
+    /// first or least significant first.</para>
     /// <para><b>32-bit binary floating-point number</b>
-    ///  : A 32-bit binary
-    /// number ///// /which is stored similarly to a <i>64-bit
-    /// floating-point number</i>
-    ///  , except that:</para>
+    /// : A 32-bit binary
+    /// number which is stored similarly to a <i>64-bit floating-point
+    /// number</i>
+    /// , except that:</para>
     /// <list><item>Precision is 24 bits.</item>
-    ///  <item>EMin is -149.</item>
+    /// <item>EMin is -149.</item>
     /// <item>EMax is 104.</item>
-    ///  <item>A. The low 23 bits (Precision minus
-    /// 1 bits) are the lowest bits of // /the significand.</item>
-    ///  <item>B.
-    /// The next 8 bits are the exponent area.</item>
-    ///  <item>C. If the
-    /// highest bit is one, this is a negative number.</item>
-    ///  </list>
+    /// <item>A. The low 23 bits (Precision minus
+    /// 1 bits) are the lowest bits of the significand.</item>
+    /// <item>B. The
+    /// next 8 bits are the exponent area.</item>
+    /// <item>C. If the highest
+    /// bit is one, this is a negative number.</item>
+    /// </list>
     /// <para><b>.NET Framework decimal</b>
-    ///  : A 128-bit decimal
-    /// floating-point // ////number, in the form <i>significand</i>
-    ///  * 10
-    /// <sup>- <i>scale</i>
-    ///  </sup>
-    ///  , where the scale ranges from 0 to 28.
-    /// The number is stored in the following format:</para>
+    /// : A 128-bit decimal
+    /// floating-point number, in the form <i>significand</i>
+    /// * 10 <sup>-
+    /// <i>scale</i>
+    /// </sup>
+    /// , where the scale ranges from 0 to 28. The
+    /// number is stored in the following format:</para>
     /// <list><item>Low 96 bits are the significand, as a 96-bit unsigned
     /// integer (all 96-bit values are allowed, up to (2 <sup>96</sup>
     /// -1)).</item>
-    ///  <item>Next 16 bits are unused.</item>
-    ///  <item>Next 8
+    /// <item>Next 16 bits are unused.</item>
+    /// <item>Next 8
     /// bits are the scale, stored as an 8-bit unsigned integer.</item>
     /// <item>Next 7 bits are unused.</item>
-    ///  <item>If the highest bit is
+    /// <item>If the highest bit is
     /// one, it's a negative number.</item>
-    ///  </list>
+    /// </list>
     /// <para>The elements described above are in the same order as the
-    /// order of // /each bit of each element, that is, either most
-    /// significant first or least significant first.</para>
+    /// order of each bit of each element, that is, either most significant
+    /// first or least significant first.</para>
     /// </summary>
   public sealed partial class EDecimal : IComparable<EDecimal>,
   IEquatable<EDecimal> {
@@ -441,7 +441,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Gets this object's unscaled value, or mantissa, and makes
-    /// it negative if this obejct is negative. If this value is
+    /// it negative if this object is negative. If this value is
     /// not-a-number (NaN), that value's absolute value is the NaN's
     /// "payload" (diagnostic information).</summary>
     /// <value>This object' s unscaled value. Will be negative if this
@@ -506,7 +506,7 @@ namespace PeterO.Numbers {
     /// <param name='mantissa'>Desired value for the mantissa.</param>
     /// <param name='exponent'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;mantissa&#x22; or &#x22;exponent&#x22; is null.</exception>
     public static EDecimal Create(
       EInteger mantissa,
@@ -553,7 +553,7 @@ namespace PeterO.Numbers {
     /// which happens if diagnostic information needs to be truncated and
     /// too much memory is required to do so.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;diag&#x22; is null or is less than 0.</exception>
     public static EDecimal CreateNaN(
       EInteger diag,
@@ -702,7 +702,7 @@ namespace PeterO.Numbers {
     /// <param name='bigfloat'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;bigfloat&#x22; is null.</exception>
     public static EDecimal FromEFloat(EFloat bigfloat) {
       if (bigfloat == null) {
@@ -919,7 +919,7 @@ namespace PeterO.Numbers {
     /// isn't needed.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;str&#x22; is null.</exception>
     public static EDecimal FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length, ctx);
@@ -939,18 +939,13 @@ namespace PeterO.Numbers {
     /// <exception cref='System.FormatException'>The parameter
     /// &#x22;str&#x22; is not a correctly formatted number
     /// string.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;str&#x22; is null.</exception>
-    /// <exception cref='System.ArgumentException'>Either
-    /// &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-    /// than &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s
-    /// length minus &#x22;offset&#x22; is less than
+    /// <exception cref='ArgumentException'>Either &#x22;offset&#x22; or
+    /// &#x22;length&#x22; is less than 0 or greater than
+    /// &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length
+    /// minus &#x22;offset&#x22; is less than
     /// &#x22;length&#x22;.</exception>
-    /// <exception cref='ArgumentException'>Either &quot;offset&quot; or
-    /// &quot;length&quot; is less than 0 or greater than
-    /// &quot;str&quot;&apos;s length, or &quot;str&quot;&apos;s length
-    /// minus &quot;offset&quot; is less than
-    /// &quot;length&quot;.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EDecimal FromString(
@@ -965,8 +960,8 @@ namespace PeterO.Numbers {
     /// string that represents a number.</para>
     /// <para>The format of the string generally consists of:</para>
     /// <list type=''>
-    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
-    /// U+002D) (if the minus sign, the value is negative.)</item>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-", U +
+    /// 002D) (if the minus sign, the value is negative.)</item>
     /// <item>One or more digits, with a single optional decimal point
     /// after the first digit and before the last digit.</item>
     /// <item>Optionally, "E"/"e" followed by an optional (positive
@@ -996,17 +991,17 @@ namespace PeterO.Numbers {
     /// isn't needed.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;str&#x22; is null.</exception>
-    /// <exception cref='System.ArgumentException'>Either
-    /// &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-    /// than &#x22;str&#x22; 's length, or &#x22;str&#x22; 's length minus
-    /// &#x22;offset&#x22; is less than &#x22;length&#x22;.</exception>
-    /// <exception cref='ArgumentException'>Either &quot;offset&quot; or
-    /// &quot;length&quot; is less than 0 or greater than
-    /// &quot;str&quot;&apos;s length, or &quot;str&quot;&apos;s length
-    /// minus &quot;offset&quot; is less than
-    /// &quot;length&quot;.</exception>
+    /// <exception cref='ArgumentException'>Either &#x22;offset&#x22; or
+    /// &#x22;length&#x22; is less than 0 or greater than &#x22;str&#x22;
+    /// 's length, or &#x22;str&#x22; 's length minus &#x22;offset&#x22; is
+    /// less than &#x22;length&#x22;.</exception>
+    /// <exception cref='ArgumentException'>Either &#x22;offset&#x22; or
+    /// &#x22;length&#x22; is less than 0 or greater than
+    /// &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length
+    /// minus &#x22;offset&#x22; is less than
+    /// &#x22;length&#x22;.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EDecimal FromString(
@@ -1555,7 +1550,7 @@ namespace PeterO.Numbers {
     /// necessarily return a copy of this object.).</summary>
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;other&#x22; is null.</exception>
     public EDecimal CopySign(EDecimal other) {
       if (other == null) {
@@ -1646,8 +1641,8 @@ namespace PeterO.Numbers {
     /// Returns 0 if both values are NaN (even signaling NaN) and 1 if this
     /// value is NaN (even signaling NaN) and the other isn't, or if the
     /// other value is null.</returns>
-    /// <exception cref='System.ArgumentException'>Doesn't satisfy
-    /// this.IsFinite; doesn't satisfy other.IsFinite.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy this.IsFinite;
+    /// doesn't satisfy other.IsFinite.</exception>
     public int CompareToBinary(EFloat other) {
       return CompareEDecimalToEFloat(this, other);
     }
@@ -2944,7 +2939,7 @@ namespace PeterO.Numbers {
     /// once, namely, after multiplying and subtracting.</param>
     /// <returns>The result thisValue * multiplicand -
     /// subtrahend.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;op&#x22; or &#x22;subtrahend&#x22; is null.</exception>
     public EDecimal MultiplyAndSubtract(
       EDecimal op,
@@ -3129,47 +3124,47 @@ namespace PeterO.Numbers {
 
     /// <summary>
     /// Returns an arbitrary-precision decimal number with the
-    /// same value ///// /but a new exponent.
+    /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
-    /// number ///// /of decimal places, since it can fail if the
-    /// difference between this value's exponent and the desired exponent
-    /// is too big, depending on the maximum precision. If rounding to a
-    /// number of decimal places is desired, it's better to use the
-    /// RoundToExponent and RoundToIntegral methods instead.</para>
+    /// number of decimal places, since it can fail if the difference
+    /// between this value's exponent and the desired exponent is too big,
+    /// depending on the maximum precision. If rounding to a number of
+    /// decimal places is desired, it's better to use the RoundToExponent
+    /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    ///  This method can be used to implement
-    /// fixed-point // ////decimal arithmetic, in which each decimal number
-    /// has a fixed number of digits after the decimal point. The following
-    /// code example returns a fixed-point number with up to 20 digits
-    /// before and exactly 5 digits after the decimal point:</para>
+    /// This method can be used to implement
+    /// fixed-point decimal arithmetic, in which each decimal number has a
+    /// fixed number of digits after the decimal point. The following code
+    /// example returns a fixed-point number with up to 20 digits before
+    /// and exactly 5 digits after the decimal point:</para>
     /// <code> // After performing arithmetic operations, adjust // the number to 5
-    ///     //////
-    /// // digits after the decimal point number = number.Quantize(
+    /// /// //
+    /// digits after the decimal point number = number.Quantize(
     /// EInteger.FromInt32(-5), // five digits after the decimal point
     /// EContext.ForPrecision(25) // 25-digit precision);</code>
-    /// <para>A // ////fixed-point decimal arithmetic in which no digits
-    /// come after the decimal point (a desired exponent of 0) is
-    /// considered an "integer arithmetic".</para>
+    /// <para>A fixed-point decimal arithmetic in which no digits come
+    /// after the decimal point (a desired exponent of 0) is considered an
+    /// "integer arithmetic".</para>
     /// </summary>
-    /// <param name='desiredExponent'>The desired exponent for the //////
-    /// result. The exponent is the number of fractional digits in the
-    /// result, expressed as a negative number. Can also be positive, which
+    /// <param name='desiredExponent'>The desired exponent for the result.
+    /// The exponent is the number of fractional digits in the result,
+    /// expressed as a negative number. Can also be positive, which
     /// eliminates lower-order places from the number. For example, -3
     /// means round to the thousandth (10^-3, 0.0001), and 3 means round to
     /// the thousand (10^3, 1000). A value of 0 rounds the number to an
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
-    /// ////// rounding of the result. If <c>HasFlags</c>
-    ///  of the context is
-    /// true, will also store the flags resulting ///// /from the operation
-    /// (the flags are in addition to the pre-existing flags). Can be null,
-    /// in which case the default rounding mode is HalfEven.</param>
+    /// rounding of the result. If <c>HasFlags</c>
+    /// of the context is true,
+    /// will also store the flags resulting from the operation (the flags
+    /// are in addition to the pre-existing flags). Can be null, in which
+    /// case the default rounding mode is HalfEven.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
-    /// ////// as this object but with the exponent changed. Signals
-    /// FlagInvalid and returns not-a-number (NaN) if this object is
-    /// infinity, if the rounded result can't fit the given precision, or
-    /// if the context defines an exponent range and the given exponent is
-    /// outside that range.</returns>
+    /// as this object but with the exponent changed. Signals FlagInvalid
+    /// and returns not-a-number (NaN) if this object is infinity, if the
+    /// rounded result can't fit the given precision, or if the context
+    /// defines an exponent range and the given exponent is outside that
+    /// range.</returns>
     public EDecimal Quantize(
       EInteger desiredExponent,
       EContext ctx) {
@@ -3214,46 +3209,47 @@ namespace PeterO.Numbers {
 
     /// <summary>
     /// Returns an arbitrary-precision decimal number with the
-    /// same value ///// /but a new exponent.
+    /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
-    /// number ///// /of decimal places, since it can fail if the
-    /// difference between this value's exponent and the desired exponent
-    /// is too big, depending on the maximum precision. If rounding to a
-    /// number of decimal places is desired, it's better to use the
-    /// RoundToExponent and RoundToIntegral methods instead.</para>
+    /// number of decimal places, since it can fail if the difference
+    /// between this value's exponent and the desired exponent is too big,
+    /// depending on the maximum precision. If rounding to a number of
+    /// decimal places is desired, it's better to use the RoundToExponent
+    /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    ///  This method can be used to implement
-    /// fixed-point // ////decimal arithmetic, in which each decimal number
-    /// has a fixed number of digits after the decimal point. The following
-    /// code example returns a fixed-point number with up to 20 digits
-    /// before and exactly 5 digits after the decimal point:</para>
-    /// <code>/* After performing arithmetic operations, adjust the number to 5 // /
-    /// digits after the decimal point */ number = number.Quantize(-5, /* five
-    /// digits after the decimal point */EContext.ForPrecision(25) /* 25-digit
+    /// This method can be used to implement
+    /// fixed-point decimal arithmetic, in which each decimal number has a
+    /// fixed number of digits after the decimal point. The following code
+    /// example returns a fixed-point number with up to 20 digits before
+    /// and exactly 5 digits after the decimal point:</para>
+    /// <code>/* After performing arithmetic operations, adjust the number to 5
+    /// digits
+    /// after the decimal point */ number = number.Quantize(-5, /* five digits
+    /// after the decimal point */EContext.ForPrecision(25) /* 25-digit
     /// precision*/);</code>
-    /// <para>A fixed-point decimal arithmetic in which no // ////digits
-    /// come after the decimal point (a desired exponent of 0) is
-    /// considered an "integer arithmetic".</para>
+    /// <para>A fixed-point decimal arithmetic in which no digits come
+    /// after the decimal point (a desired exponent of 0) is considered an
+    /// "integer arithmetic".</para>
     /// </summary>
-    /// <param name='desiredExponentInt'>The desired exponent for //////
-    /// the result. The exponent is the number of fractional digits in the
+    /// <param name='desiredExponentInt'>The desired exponent for the
+    /// result. The exponent is the number of fractional digits in the
     /// result, expressed as a negative number. Can also be positive, which
     /// eliminates lower-order places from the number. For example, -3
     /// means round to the thousandth (10^-3, 0.0001), and 3 means round to
     /// the thousand (10^3, 1000). A value of 0 rounds the number to an
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
-    /// ////// rounding of the result. If <c>HasFlags</c>
-    ///  of the context is
-    /// true, will also store the flags resulting ///// /from the operation
-    /// (the flags are in addition to the pre-existing flags). Can be null,
-    /// in which case the default rounding mode is HalfEven.</param>
+    /// rounding of the result. If <c>HasFlags</c>
+    /// of the context is true,
+    /// will also store the flags resulting from the operation (the flags
+    /// are in addition to the pre-existing flags). Can be null, in which
+    /// case the default rounding mode is HalfEven.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
-    /// ////// as this object but with the exponent changed. Signals
-    /// FlagInvalid and returns not-a-number (NaN) if this object is
-    /// infinity, if the rounded result can't fit the given precision, or
-    /// if the context defines an exponent range and the given exponent is
-    /// outside that range.</returns>
+    /// as this object but with the exponent changed. Signals FlagInvalid
+    /// and returns not-a-number (NaN) if this object is infinity, if the
+    /// rounded result can't fit the given precision, or if the context
+    /// defines an exponent range and the given exponent is outside that
+    /// range.</returns>
     public EDecimal Quantize(
       int desiredExponentInt,
       EContext ctx) {
@@ -3939,7 +3935,7 @@ namespace PeterO.Numbers {
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;otherValue&#x22; is null.</exception>
     public EDecimal Subtract(
       EDecimal otherValue,

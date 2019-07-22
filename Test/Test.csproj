@@ -63,7 +63,7 @@
     <Reference Include='System.Core'/>
     <Reference Include='System.Numerics'/>
     <Reference Include='System.Xml'/>
-  <AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers'><Version>1.1.118</Version></PackageReference></ItemGroup>
+  <AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers'><Version>1.1.118</Version></PackageReference><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers'><Version>2.9.3</Version></PackageReference></ItemGroup>
   <ItemGroup>
     <Compile Include='EIntegerTest.cs'/>
     <Compile Include='ExtraTest.cs'/>
@@ -93,7 +93,7 @@
     <Service Include='{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}'/>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include='Resources.restext'/>
+    <EmbeddedResource Include='Resources.restext'><LogicalName>Resources.resources</LogicalName></EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include='NUnit'>

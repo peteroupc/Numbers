@@ -318,7 +318,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='EContext'/> class,.</summary>
+    /// <see cref='PeterO.Numbers.EContext'/> class,.</summary>
     /// <param name='bigintPrecision'>An EInteger object.</param>
     /// <param name='rounding'>An ERounding object.</param>
     /// <param name='exponentMin'>An EInteger object.</param>
@@ -418,14 +418,14 @@ namespace PeterO.Numbers {
     /// numbers according to this arithmetic context. If <c>HasFlags</c> is
     /// false, this value will be 0. This value is a combination of bit
     /// fields. To retrieve a particular flag, use the AND operation on the
-    /// return value of this method. For example: <c>(this.Flags &amp;
-    /// EContext.FlagInexact) != 0</c> returns <c>true</c> if the Inexact
-    /// flag is set.</summary>
+    /// return value of this method. For example: <c>(this.Flags
+    /// &amp;EContext.FlagInexact) != 0</c> returns <c>true</c> if the
+    /// Inexact flag is set.</summary>
     /// <value>The flags that are set from converting numbers according to
     /// this arithmetic context. If <c>HasFlags</c> is false, this value
     /// will be 0. This value is a combination of bit fields. To retrieve a
     /// particular flag, use the AND operation on the return value of this
-    /// method. For example: <c>(this.Flags &amp; EContext.FlagInexact) !=
+    /// method. For example: <c>(this.Flags &amp;EContext.FlagInexact) !=
     /// 0</c> returns <c>true</c> if the Inexact flag is set.</value>
     public int Flags {
       get {
@@ -494,14 +494,14 @@ namespace PeterO.Numbers {
     /// and subnormal numbers are not allowed, and negative zero is treated
     /// the same as positive zero. For further details, see
     /// <a
-    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
+    /// href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
     /// .</summary>
     /// <value><c>true</c> if to use a "simplified" arithmetic; otherwise,
     /// <c>false</c> In the simplified arithmetic, infinity, not-a-number,
     /// and subnormal numbers are not allowed, and negative zero is treated
     /// the same as positive zero. For further details, see
     /// <a
-    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
+    /// href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
     /// . <c>true</c> if a "simplified" arithmetic will be used; otherwise,
     /// <c>false</c>.</value>
     public bool IsSimplified {
@@ -666,8 +666,8 @@ namespace PeterO.Numbers {
     /// property under this arithmetic context; otherwise, <c>false</c>.
     /// If this context allows unlimited precision, returns true for the
     /// exponent EMax and any exponent less than EMax.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='exponent'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='exponent'/> is null.</exception>
     public bool ExponentWithinRange(EInteger exponent) {
       if (exponent == null) {
         throw new ArgumentNullException(nameof(exponent));
@@ -742,9 +742,9 @@ namespace PeterO.Numbers {
     /// <param name='exponentMax'>Desired maximum exponent (EMax).</param>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='exponentMin'/> is null.</exception>
-    /// <exception cref='System.ArgumentException'>ExponentMin greater than
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='exponentMin'/> is null.</exception>
+    /// <exception cref='ArgumentException'>ExponentMin greater than
     /// exponentMax".</exception>
     public EContext WithBigExponentRange(
       EInteger exponentMin,
@@ -790,8 +790,8 @@ namespace PeterO.Numbers {
     /// precision.</param>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigintPrecision'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigintPrecision'/> is null.</exception>
     public EContext WithBigPrecision(EInteger bigintPrecision) {
       return new EContext(
         this.adjustExponent,

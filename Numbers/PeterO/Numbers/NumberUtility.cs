@@ -651,9 +651,9 @@ throw new ArgumentException("doesn't satisfy precision==null || digits!=null");
           EInteger bigrem;
           EInteger bigquo;
           {
-EInteger[] divrem = bigmant.DivRem(bigradix);
-bigquo = divrem[0];
-bigrem = divrem[1]; }
+            EInteger[] divrem = bigmant.DivRem(bigradix);
+            bigquo = divrem[0];
+            bigrem = divrem[1]; }
           if (!bigrem.IsZero) {
             break;
           }

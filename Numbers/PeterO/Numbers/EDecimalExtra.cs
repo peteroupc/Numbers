@@ -99,8 +99,8 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>The second decimal binary floating-point
     /// number.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> or <paramref name='otherValue'/> is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> or <paramref name='otherValue'/> is
     /// null.</exception>
     public static EDecimal operator +(EDecimal bthis, EDecimal otherValue) {
       if (bthis == null) {
@@ -114,8 +114,8 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The first operand.</param>
     /// <param name='subtrahend'>The second operand.</param>
     /// <returns>The difference of the two decimal numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> or <paramref name='subtrahend'/> is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> or <paramref name='subtrahend'/> is
     /// null.</exception>
     public static EDecimal operator -(
       EDecimal bthis,
@@ -130,8 +130,8 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision decimal number plus
     /// one.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public EDecimal Increment() {
   return this + (EDecimal)1;
 }
@@ -140,8 +140,8 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
     /// documented yet.</param>
     /// <returns>An EDecimal object.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EDecimal operator ++(EDecimal bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -153,8 +153,8 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision decimal number minus
     /// one.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public EDecimal Decrement() {
   return this.Subtract(1);
 }
@@ -163,8 +163,8 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
     /// documented yet.</param>
     /// <returns>An EDecimal object.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EDecimal operator --(EDecimal bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -178,8 +178,8 @@ namespace PeterO.Numbers {
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two decimal numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='operand1'/> or <paramref name='operand2'/> is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='operand1'/> or <paramref name='operand2'/> is
     /// null.</exception>
     public static EDecimal operator *(
       EDecimal operand1,
@@ -200,8 +200,8 @@ namespace PeterO.Numbers {
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating
     /// decimal expansion.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='dividend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='dividend'/> is null.</exception>
     public static EDecimal operator /(
       EDecimal dividend,
       EDecimal divisor) {
@@ -217,8 +217,8 @@ namespace PeterO.Numbers {
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='dividend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='dividend'/> is null.</exception>
     public static EDecimal operator %(
       EDecimal dividend,
       EDecimal divisor) {
@@ -235,8 +235,8 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision decimal number. If this value is
     /// positive zero, returns negative zero. Returns signaling NaN if this
     /// value is signaling NaN.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigValue'/> is null.</exception>
     public static EDecimal operator -(EDecimal bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));

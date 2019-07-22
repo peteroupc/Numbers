@@ -255,7 +255,7 @@ System.Globalization.NumberStyles.Number;
 
     public static void TestParserEx(bool recordfailing) {
       long failures = 0;
-      var testfiles = CBOR.ExtensiveTest.GetTestFiles();
+      var testfiles = ExtensiveTest.GetTestFiles();
       if (testfiles.Length == 0) {
         return;
       }
@@ -270,7 +270,7 @@ System.Globalization.NumberStyles.Number;
       // Reads decimal test files described in:
       // <http://speleotrove.com/decimal/dectest.html>
       foreach (var f in testfiles) {
-        if (!DataUtilities.ToLowerCaseAscii(Path.GetFileName(f))
+        if (!DecTestUtil.ToLowerCaseAscii(Path.GetFileName(f))
            .Contains(recordfailing ? ".dectest" : "failing.dectest")) {
           continue;
         }

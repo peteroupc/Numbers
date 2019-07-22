@@ -19,6 +19,42 @@ namespace Test {
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)",
   RegexOptions.Compiled);
 
+    /// <summary>Returns a string with the basic upper-case letters A to Z
+    /// (U + 0041 to U + 005A) converted to lower-case. Other characters
+    /// remain unchanged.</summary>
+    /// <param name='str'>The parameter <paramref name='str'/> is a text
+    /// string.</param>
+    /// <returns>The converted string, or null if <paramref name='str'/> is
+    /// null.</returns>
+    public static string ToLowerCaseAscii(string str) {
+      if (str == null) {
+        return null;
+      }
+      var len = str.Length;
+      var c = (char)0;
+      var hasUpperCase = false;
+      for (var i = 0; i < len; ++i) {
+        c = str[i];
+        if (c >= 'A' && c <= 'Z') {
+          hasUpperCase = true;
+          break;
+        }
+      }
+      if (!hasUpperCase) {
+        return str;
+      }
+      var builder = new StringBuilder();
+      for (var i = 0; i < len; ++i) {
+        c = str[i];
+        if (c >= 'A' && c <= 'Z') {
+          builder.Append((char)(c + 0x20));
+        } else {
+          builder.Append(c);
+        }
+      }
+      return builder.ToString();
+    }
+
     private static TValue GetKeyOrDefault<TKey, TValue>(
   IDictionary<TKey, TValue> dict,
   TKey key,
@@ -178,7 +214,7 @@ namespace Test {
       }
       match = (!ln.Contains(":")) ? null : ValuePropertyLine.Match(ln);
       if (match != null && match.Success) {
-        string paramName = DataUtilities.ToLowerCaseAscii(
+        string paramName = ToLowerCaseAscii(
            match.Groups[1].ToString());
         context[paramName] = match.Groups[2].ToString();
         return;

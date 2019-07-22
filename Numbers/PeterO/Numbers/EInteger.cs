@@ -225,8 +225,8 @@ namespace PeterO.Numbers {
     /// order is big-endian, or most-significant-byte first.</param>
     /// <returns>An arbitrary-precision integer. Returns 0 if the byte
     /// array's length is 0.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bytes'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
@@ -429,8 +429,8 @@ namespace PeterO.Numbers {
     /// example, 0-9 in radix 10, and 0-9, then A-F in radix 16.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given string.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='str'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
     public static EInteger FromRadixString(string str, int radix) {
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
@@ -455,12 +455,12 @@ namespace PeterO.Numbers {
     /// portion. The length will be index + endIndex - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string portion.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='str'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
     /// <exception cref='System.FormatException'>The string portion is
     /// empty or in an invalid format.</exception>
-    /// <exception cref='System.ArgumentException'>Doesn't satisfy
-    /// (endIndex - index) % 4 == 0".</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy (endIndex -
+    /// index) % 4 == 0".</exception>
     public static EInteger FromRadixSubstring(
       string str,
       int radix,
@@ -687,16 +687,16 @@ namespace PeterO.Numbers {
     /// <summary>Converts a string to an arbitrary-precision
     /// integer.</summary>
     /// <param name='str'>A text string. The string must contain only basic
-    /// digits 0 to 9 (U + 0030 to U+0039), except that it may start with a
-    /// minus sign ("-", U+002D) to indicate a negative number. The string
-    /// is not allowed to contain white space characters, including
+    /// digits 0 to 9 (U + 0030 to U + 0039), except that it may start with
+    /// a minus sign ("-", U+002D) to indicate a negative number. The
+    /// string is not allowed to contain white space characters, including
     /// spaces.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string.</returns>
     /// <exception cref='System.FormatException'>The parameter <paramref
     /// name='str'/> is in an invalid format.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='str'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
     public static EInteger FromString(string str) {
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
@@ -717,13 +717,13 @@ namespace PeterO.Numbers {
     /// portion. The length will be index + endIndex - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string portion.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='index'/> is less than 0, <paramref name='endIndex'/> is less
     /// than 0, or either is greater than the string's length, or <paramref
     /// name='endIndex'/> is less than <paramref
     /// name='index'/>.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='str'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
     public static EInteger FromSubstring(
       string str,
       int index,
@@ -746,8 +746,8 @@ namespace PeterO.Numbers {
     /// <param name='bigintAugend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigintAugend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigintAugend'/> is null.</exception>
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
         throw new ArgumentNullException(nameof(bigintAugend));
@@ -1187,14 +1187,14 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Multiplies this instance by the value of an
-    /// arbitrary-precision // /integer object.</summary>
+    /// arbitrary-precision integer object.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
     /// <example>
-    /// <code>EInteger result = // /
-    ///     ///EInteger.FromString("5").Multiply(200);</code>
-    ///  .
+    /// <code>EInteger result =
+    /// EInteger.FromString("5").Multiply(200);</code>
+    /// .
     /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
@@ -1225,8 +1225,8 @@ namespace PeterO.Numbers {
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='System.DivideByZeroException'>Attempted to divide
     /// by zero.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='intValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='intValue'/> is null.</exception>
     public EInteger Remainder(int intValue) {
       return this.Remainder(EInteger.FromInt32(intValue));
     }
@@ -1264,8 +1264,8 @@ namespace PeterO.Numbers {
     /// are negative.</summary>
     /// <param name='bigintDivisor'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigintDivisor'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigintDivisor'/> is null.</exception>
     /// <exception cref='System.DivideByZeroException'>Attempted to divide
     /// by zero.</exception>
     public EInteger Divide(EInteger bigintDivisor) {
@@ -2243,8 +2243,8 @@ namespace PeterO.Numbers {
     /// is the quotient, and the second is the remainder.</returns>
     /// <exception cref='System.DivideByZeroException'>The parameter
     /// divisor is 0.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='divisor'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='divisor'/> is null.</exception>
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -2441,8 +2441,8 @@ namespace PeterO.Numbers {
     /// <param name='bigintSecond'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigintSecond'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigintSecond'/> is null.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -2840,8 +2840,8 @@ WordsShiftRightOne(bu, buc);
     /// (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object' s value; otherwise, <c>false</c>.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigIndex'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigIndex'/> is null.</exception>
     public bool GetSignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
         throw new ArgumentNullException(nameof(bigIndex));
@@ -2989,8 +2989,8 @@ WordsShiftRightOne(bu, buc);
     /// <param name='bigIndex'>An arbitrary-precision integer.</param>
     /// <returns><c>true</c> if a bit is set in this number's absolute
     /// value.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigIndex'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigIndex'/> is null.</exception>
     public bool GetUnsignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
         throw new ArgumentNullException(nameof(bigIndex));
@@ -3080,10 +3080,10 @@ WordsShiftRightOne(bu, buc);
     /// remainder if the normal remainder is negative.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='divisor'/> is less than 0.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='divisor'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='divisor'/> is null.</exception>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -3105,7 +3105,7 @@ WordsShiftRightOne(bu, buc);
     /// the normal remainder is negative.</summary>
     /// <param name='smallDivisor'>The divisor of the modulus.</param>
     /// <returns>The modulus remainder.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='smallDivisor'/> is less than 0.</exception>
     public EInteger Mod(int smallDivisor) {
       if (smallDivisor < 0) {
@@ -3125,9 +3125,8 @@ WordsShiftRightOne(bu, buc);
     /// <param name='mod'>The integer to divide the raised number
     /// by.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='pow'/> or <paramref name='mod'/> is
-    /// null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='pow'/> or <paramref name='mod'/> is null.</exception>
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
         throw new ArgumentNullException(nameof(pow));
@@ -3160,8 +3159,8 @@ WordsShiftRightOne(bu, buc);
     /// <param name='bigintMult'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigintMult'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigintMult'/> is null.</exception>
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
         throw new ArgumentNullException(nameof(bigintMult));
@@ -3296,9 +3295,9 @@ WordsShiftRightOne(bu, buc);
     /// to.</param>
     /// <returns>The result. Returns 1 if <paramref name='bigPower'/> is
     /// 0.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigPower'/> is null.</exception>
-    /// <exception cref='System.ArgumentException'>BigPower is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigPower'/> is null.</exception>
+    /// <exception cref='ArgumentException'>BigPower is
     /// negative.</exception>
     public EInteger Pow(EInteger bigPower) {
       if (bigPower == null) {
@@ -3384,10 +3383,10 @@ WordsShiftRightOne(bu, buc);
     /// given as another arbitrary-precision integer.</summary>
     /// <param name='power'>The exponent to raise to.</param>
     /// <returns>The result. Returns 1 if &#x22;power&#x22; is 0.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='power'/> is less than 0.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='power'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='power'/> is null.</exception>
     public EInteger PowBigIntVar(EInteger power) {
       if (power == null) {
         throw new ArgumentNullException(nameof(power));
@@ -3433,8 +3432,8 @@ WordsShiftRightOne(bu, buc);
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='System.DivideByZeroException'>Attempted to divide
     /// by zero.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='divisor'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='divisor'/> is null.</exception>
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
         throw new ArgumentNullException(nameof(divisor));
@@ -3492,8 +3491,8 @@ WordsShiftRightOne(bu, buc);
     /// in which case this is the same as shiftLeft with the absolute value
     /// of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='eshift'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='eshift'/> is null.</exception>
     public EInteger ShiftRight(EInteger eshift) {
       if (eshift == null) {
         throw new ArgumentNullException(nameof(eshift));
@@ -3519,8 +3518,8 @@ WordsShiftRightOne(bu, buc);
     /// in which case this is the same as shiftRight with the absolute
     /// value of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='eshift'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='eshift'/> is null.</exception>
     public EInteger ShiftLeft(EInteger eshift) {
       if (eshift == null) {
         throw new ArgumentNullException(nameof(eshift));
@@ -3636,8 +3635,8 @@ WordsShiftRightOne(bu, buc);
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bits of this integer and the other integer are
     /// both set.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='other'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='other'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
@@ -3699,9 +3698,9 @@ WordsShiftRightOne(bu, buc);
     /// integer instances.</summary>
     /// <param name='second'>The second operand.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='second'/> is null.</exception>
-    /// <exception cref='System.ArgumentException'>Doesn't satisfy
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='second'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy
     /// biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
     /// CountWords(result).</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
@@ -3789,10 +3788,10 @@ WordsShiftRightOne(bu, buc);
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bit is set in one input integer but not in the
     /// other.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='other'/> is null.</exception>
-    /// <exception cref='System.ArgumentException'>Doesn't satisfy
-    /// smallerCount == CountWords(result).</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='other'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy smallerCount ==
+    /// CountWords(result).</exception>
     public EInteger Xor(EInteger other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
@@ -4150,8 +4149,8 @@ WordsShiftRightOne(bu, buc);
     /// <param name='subtrahend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='subtrahend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='subtrahend'/> is null.</exception>
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
         throw new ArgumentNullException(nameof(subtrahend));

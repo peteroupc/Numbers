@@ -89,8 +89,8 @@ namespace PeterO.Numbers {
     /// <param name='augend'>The second operand.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
     /// either operand is NaN.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// "otherValue" is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
+    /// is null.</exception>
     public static ERational operator +(ERational bthis, ERational augend) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -103,8 +103,8 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The first operand.</param>
     /// <param name='subtrahend'>The second operand.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// "otherValue" is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
+    /// is null.</exception>
     public static ERational operator -(
       ERational bthis,
       ERational subtrahend) {
@@ -118,8 +118,8 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision rational number plus
     /// one.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public ERational Increment() {
   return this + (ERational)1;
 }
@@ -128,8 +128,8 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
     /// documented yet.</param>
     /// <returns>An arbitrary-precision binary rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static ERational operator ++(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -141,8 +141,8 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision rational number minus
     /// one.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public ERational Decrement() {
   return this.Subtract(1);
 }
@@ -151,8 +151,8 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
     /// documented yet.</param>
     /// <returns>An arbitrary-precision binary rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static ERational operator --(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -165,8 +165,8 @@ namespace PeterO.Numbers {
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// "otherValue" is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
+    /// is null.</exception>
     public static ERational operator *(
       ERational operand1,
       ERational operand2) {
@@ -184,8 +184,8 @@ namespace PeterO.Numbers {
     /// <param name='divisor'>An arbitrary-precision rational number
     /// serving as the divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// "otherValue" is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
+    /// is null.</exception>
     public static ERational operator /(
       ERational dividend,
       ERational divisor) {
@@ -201,8 +201,8 @@ namespace PeterO.Numbers {
     /// <param name='dividend'>The dividend.</param>
     /// <param name='divisor'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// "otherValue" is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
+    /// is null.</exception>
     public static ERational operator %(
       ERational dividend,
       ERational divisor) {
@@ -217,8 +217,8 @@ namespace PeterO.Numbers {
     /// <param name='bigValue'>An arbitrary-precision rational number to
     /// negate.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigValue'/> is null.</exception>
     public static ERational operator -(ERational bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));

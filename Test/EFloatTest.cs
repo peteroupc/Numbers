@@ -1316,7 +1316,7 @@ namespace Test {
      stringTemp);
       }
       {
-string stringTemp =
+        string stringTemp =
           EFloat.FromDouble(0.1).ToShortestString(EContext.Binary64);
           Assert.AreEqual(
             "0.1",

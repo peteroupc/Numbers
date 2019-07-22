@@ -38,7 +38,7 @@
 
  An arbitrary-precision decimal value can be serialized (converted to a stable format) in one of the following ways:
 
-  * By calling the toString() method, which will always return distinct strings for distinct arbitrary-precision decimal values.
+ * By calling the toString() method, which will always return distinct strings for distinct arbitrary-precision decimal values.
 
   * By calling the UnsignedMantissa, Exponent, and IsNegative properties, and calling the IsInfinity, IsQuietNaN, and IsSignalingNaN methods. The return values combined will uniquely identify a particular arbitrary-precision decimal value.
 
@@ -54,7 +54,7 @@
 
  It is not recommended to implement security-sensitive algorithms using the methods in this class, for several reasons:
 
-  *  `EDecimal`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-digit-long numbers as secret parameters.
+ *  `EDecimal`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-digit-long numbers as secret parameters.
 
   * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (non-data-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
@@ -66,35 +66,35 @@
 
  <b>Unsigned integer</b> : An integer that's always 0 or greater, with the following maximum values:
 
-  * 8-bit unsigned integer, or <i> byte </i> : 255.
+ * 8-bit unsigned integer, or <i>byte</i> : 255.
 
   * 16-bit unsigned integer: 65535.
 
-  * 32-bit unsigned integer: (2 <sup> 32 </sup> -1).
+  * 32-bit unsigned integer: (2 <sup>32</sup> -1).
 
-  * 64-bit unsigned integer: (2 <sup> 64 </sup> -1).
+  * 64-bit unsigned integer: (2 <sup>64</sup> -1).
 
-  <b>Signed integer</b> : An integer in <i> two's-complement form </i> , with the following ranges:
+  <b>Signed integer</b> : An integer in <i>two's-complement form</i> , with the following ranges:
 
-  * 8-bit signed integer: -128 to 127.
+ * 8-bit signed integer: -128 to 127.
 
   * 16-bit signed integer: -32768 to 32767.
 
-  * 32-bit signed integer: -2 <sup> 31 </sup> to (2 <sup> 31 </sup> - 1).
+  * 32-bit signed integer: -2 <sup>31</sup> to (2 <sup>31</sup> - 1).
 
-  * 64-bit signed integer: -2 <sup> 63 </sup> to (2 <sup> 63 </sup> - 1).
+  * 64-bit signed integer: -2 <sup>63</sup> to (2 <sup>63</sup> - 1).
 
-  <b>Two's complement form</b> : In <i> two' s-complement form </i> , nonnegative numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one, and a negative number is stored in such form by decreasing its absolute value by 1 and swapping the bits of the resulting number.
+  <b>Two's complement form</b> : In <i>two' s-complement form</i> , nonnegative numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one, and a negative number is stored in such form by decreasing its absolute value by 1 and swapping the bits of the resulting number.
 
- <b>64-bit floating-point number</b> : A 64-bit binary floating-point number, in the form <i> significand </i> * 2 <sup> <i> exponent </i> </sup> . The significand is 53 bits long (Precision) and the exponent ranges from -1074 (EMin) to 971 (EMax). The number is stored in the following format (commonly called the IEEE 754 format):
+ <b>64-bit floating-point number</b> : A 64-bit binary floating-point number, in the form <i>significand</i> * 2 <sup><i>exponent</i> </sup> . The significand is 53 bits long (Precision) and the exponent ranges from -1074 (EMin) to 971 (EMax). The number is stored in the following format (commonly called the IEEE 754 format):
 
     |C|BBB...BBB|AAAAAA...AAAAAA|
 
-  * A. Low 52 bits (Precision minus 1 bits): Lowest bits of the significand.
+ * A. Low 52 bits (Precision minus 1 bits): Lowest bits of the significand.
 
   * B. Next 11 bits: Exponent area:
 
-  * If all bits are ones, this value is infinity (positive or negative depending on the C bit) if all bits in area A are zeros, or not-a-number (NaN) otherwise.
+ * If all bits are ones, this value is infinity (positive or negative depending on the C bit) if all bits in area A are zeros, or not-a-number (NaN) otherwise.
 
   * If all bits are zeros, this is a subnormal number. The exponent is EMin and the highest bit of the significand is zero.
 
@@ -104,9 +104,9 @@
 
   The elements described above are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
 
- <b>32-bit binary floating-point number</b> : A 32-bit binary number which is stored similarly to a <i> 64-bit floating-point number </i> , except that:
+ <b>32-bit binary floating-point number</b> : A 32-bit binary number which is stored similarly to a <i>64-bit floating-point number</i> , except that:
 
-  * Precision is 24 bits.
+ * Precision is 24 bits.
 
   * EMin is -149.
 
@@ -118,9 +118,9 @@
 
   * C. If the highest bit is one, this is a negative number.
 
-  <b>.NET Framework decimal</b> : A 128-bit decimal floating-point number, in the form <i> significand </i> * 10 <sup> - <i> scale </i> </sup> , where the scale ranges from 0 to 28. The number is stored in the following format:
+  <b>.NET Framework decimal</b> : A 128-bit decimal floating-point number, in the form <i>significand</i> * 10 <sup>- <i>scale</i> </sup> , where the scale ranges from 0 to 28. The number is stored in the following format:
 
-  * Low 96 bits are the significand, as a 96-bit unsigned integer (all 96-bit values are allowed, up to (2 <sup> 96 </sup> -1)).
+ * Low 96 bits are the significand, as a 96-bit unsigned integer (all 96-bit values are allowed, up to (2 <sup>96</sup> -1)).
 
   * Next 16 bits are unused.
 
@@ -148,10 +148,11 @@
 * <code>[CompareToWithContext(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
 * <code>[CopySign(PeterO.Numbers.EDecimal)](#CopySign_PeterO_Numbers_EDecimal)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
-* <code>[Create(int, int)](#Create_int_int)</code> - Creates a number with the value exponent*10^mantissa .
-* <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*10^mantissa .
+* <code>[Create(int, int)](#Create_int_int)</code> - Creates a number with the value exponent*10^mantissa.
+* <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*10^mantissa.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
+* <code>[Decrement()](#Decrement)</code> - Subtracts one from an arbitrary-precision decimal number.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this object by an 32-bit signed integer and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this object by another decimal number and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number.
@@ -196,6 +197,7 @@
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 * <code>[GetHashCode()](#GetHashCode)</code> - Calculates this object's hash code.
+* <code>[Increment()](#Increment)</code> - Adds one to an arbitrary-precision decimal number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object is positive or negative infinity.
 * <code>[IsNaN()](#IsNaN)</code> - Gets a value indicating whether this object is not a number (NaN).
@@ -207,7 +209,7 @@
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this object's value equals 0.
 * <code>[Log(PeterO.Numbers.EContext)](#Log_PeterO_Numbers_EContext)</code> - Finds the natural logarithm of this object, that is, the power (exponent) that e (the base of natural logarithms) must be raised to in order to equal this object's value.
 * <code>[Log10(PeterO.Numbers.EContext)](#Log10_PeterO_Numbers_EContext)</code> - Finds the base-10 logarithm of this object, that is, the power (exponent) that the number 10 must be raised to in order to equal this object's value.
-* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value, or mantissa, and makes it negative if this obejct is negative.
+* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value, or mantissa, and makes it negative if this object is negative.
 * <code>[Max(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Gets the greater value between two decimal numbers.
 * <code>[Max(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Gets the greater value between two decimal numbers.
 * <code>[MaxMagnitude(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Gets the greater value between two values, ignoring their signs.
@@ -240,11 +242,11 @@
 * <code>[NextToward(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#NextToward_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the next value that is closer to the other object's value than this object's value.
 * <code>[public static readonly PeterO.Numbers.EDecimal One;](#One)</code> - Represents the number 1.
 * <code>[PeterO.Numbers.EDecimal operator +(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Addition)</code> - Adds two arbitrary-precision decimal floating-point numbers and returns the result.
-* <code>[PeterO.Numbers.EDecimal operator --(PeterO.Numbers.EDecimal)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision decimal number.
+* <code>[PeterO.Numbers.EDecimal operator --(PeterO.Numbers.EDecimal)](#op_Decrement)</code> - Not documented yet.
 * <code>[PeterO.Numbers.EDecimal operator /(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Division)</code> - Divides this object by another decimal number and returns the result.
 * <code>[explicit operator ulong(PeterO.Numbers.EDecimal)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary precision decimal.
 * <code>[implicit operator PeterO.Numbers.EDecimal(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision decimal number to a decimal under the Common Language Infrastructure (see T:PeterO.
-* <code>[PeterO.Numbers.EDecimal operator ++(PeterO.Numbers.EDecimal)](#op_Increment)</code> - Adds one to an arbitrary-precision decimal number.
+* <code>[PeterO.Numbers.EDecimal operator ++(PeterO.Numbers.EDecimal)](#op_Increment)</code> - Not documented yet.
 * <code>[PeterO.Numbers.EDecimal operator %(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision decimal number by another.
 * <code>[PeterO.Numbers.EDecimal operator *(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Multiply)</code> - Multiplies two decimal numbers.
 * <code>[PeterO.Numbers.EDecimal operator -(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Subtraction)</code> - Subtracts one arbitrary-precision decimal number from another and returns the result.
@@ -262,7 +264,7 @@
 * <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value but a new exponent.
 * <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand).
 * <code>[Remainder(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision decimal numbers.
-* <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal)](#RemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor") .
+* <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal)](#RemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNear(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNear_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the distance to the closest multiple of the given divisor, based on the result of dividing this object's value by another object's value.
 * <code>[RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNoRoundAfterDivide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision decimal numbers, except the intermediate division is not adjusted to fit the precision of the given arithmetic context.
@@ -337,47 +339,65 @@
 
     public static readonly PeterO.Numbers.EDecimal NaN;
 
- A not-a-number value.  <a id="NegativeInfinity"></a>
+ A not-a-number value.
+
+  <a id="NegativeInfinity"></a>
 ### NegativeInfinity
 
     public static readonly PeterO.Numbers.EDecimal NegativeInfinity;
 
- Negative infinity, less than any other number.  <a id="NegativeZero"></a>
+ Negative infinity, less than any other number.
+
+  <a id="NegativeZero"></a>
 ### NegativeZero
 
     public static readonly PeterO.Numbers.EDecimal NegativeZero;
 
- Represents the number negative zero.  <a id="One"></a>
+ Represents the number negative zero.
+
+  <a id="One"></a>
 ### One
 
     public static readonly PeterO.Numbers.EDecimal One;
 
- Represents the number 1.  <a id="PositiveInfinity"></a>
+ Represents the number 1.
+
+  <a id="PositiveInfinity"></a>
 ### PositiveInfinity
 
     public static readonly PeterO.Numbers.EDecimal PositiveInfinity;
 
- Positive infinity, greater than any other number.  <a id="SignalingNaN"></a>
+ Positive infinity, greater than any other number.
+
+  <a id="SignalingNaN"></a>
 ### SignalingNaN
 
     public static readonly PeterO.Numbers.EDecimal SignalingNaN;
 
- A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision decimal.  <a id="Ten"></a>
+ A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision decimal.
+
+  <a id="Ten"></a>
 ### Ten
 
     public static readonly PeterO.Numbers.EDecimal Ten;
 
- Represents the number 10.  <a id="Zero"></a>
+ Represents the number 10.
+
+  <a id="Zero"></a>
 ### Zero
 
     public static readonly PeterO.Numbers.EDecimal Zero;
 
- Represents the number 0.  <a id="Exponent"></a>
+ Represents the number 0.
+
+  <a id="Exponent"></a>
 ### Exponent
 
     public PeterO.Numbers.EInteger Exponent { get; }
 
- Gets this object's exponent. This object's value will be an integer if the exponent is positive or zero.  <b>Returns:</b>
+ Gets this object's exponent. This object's value will be an integer if the exponent is positive or zero.
+
+   <b>Returns:</b>
 
 This object's exponent. This object' s value will be an integer if the exponent is positive or zero.
 
@@ -386,34 +406,42 @@ This object's exponent. This object' s value will be an integer if the exponent 
 
     public bool IsFinite { get; }
 
- Gets a value indicating whether this object is finite (not infinity or NaN).  <b>Returns:</b>
+ Gets a value indicating whether this object is finite (not infinity or NaN).
 
- `true`  if this object is finite (not infinity or NaN); otherwise,  `false`  .
+   <b>Returns:</b>
+
+ `true`  if this object is finite (not infinity or NaN); otherwise,  `false` .
 
 <a id="IsNegative"></a>
 ### IsNegative
 
     public bool IsNegative { get; }
 
- Gets a value indicating whether this object is negative, including negative zero.  <b>Returns:</b>
+ Gets a value indicating whether this object is negative, including negative zero.
 
- `true`  if this object is negative, including negative zero; otherwise,  `false`  .
+   <b>Returns:</b>
+
+ `true`  if this object is negative, including negative zero; otherwise,  `false` .
 
 <a id="IsZero"></a>
 ### IsZero
 
     public bool IsZero { get; }
 
- Gets a value indicating whether this object's value equals 0.  <b>Returns:</b>
+ Gets a value indicating whether this object's value equals 0.
 
- `true`  if this object's value equals 0; otherwise,  `false`  .  `true`  if this object' s value equals 0; otherwise, .  `false`  .
+   <b>Returns:</b>
+
+ `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object' s value equals 0; otherwise,  `false` .
 
 <a id="Mantissa"></a>
 ### Mantissa
 
     public PeterO.Numbers.EInteger Mantissa { get; }
 
- Gets this object's unscaled value, or mantissa, and makes it negative if this obejct is negative. If this value is not-a-number (NaN), that value's absolute value is the NaN's "payload" (diagnostic information).  <b>Returns:</b>
+ Gets this object's unscaled value, or mantissa, and makes it negative if this object is negative. If this value is not-a-number (NaN), that value's absolute value is the NaN's "payload" (diagnostic information).
+
+   <b>Returns:</b>
 
 This object' s unscaled value. Will be negative if this object's value is negative (including a negative NaN).
 
@@ -422,7 +450,9 @@ This object' s unscaled value. Will be negative if this object's value is negati
 
     public int Sign { get; }
 
- Gets this value's sign: -1 if negative; 1 if positive; 0 if zero.  <b>Returns:</b>
+ Gets this value's sign: -1 if negative; 1 if positive; 0 if zero.
+
+   <b>Returns:</b>
 
 This value's sign: -1 if negative; 1 if positive; 0 if zero.
 
@@ -431,7 +461,9 @@ This value's sign: -1 if negative; 1 if positive; 0 if zero.
 
     public PeterO.Numbers.EInteger UnsignedMantissa { get; }
 
- Gets the absolute value of this object's unscaled value, or mantissa. If this value is not-a-number (NaN), that value is the NaN's "payload" (diagnostic information).  <b>Returns:</b>
+ Gets the absolute value of this object's unscaled value, or mantissa. If this value is not-a-number (NaN), that value is the NaN's "payload" (diagnostic information).
+
+   <b>Returns:</b>
 
 The absolute value of this object's unscaled value.
 
@@ -443,7 +475,7 @@ The absolute value of this object's unscaled value.
 
  Finds the absolute value of this object (if it's negative, it becomes positive).
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>context</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
@@ -458,7 +490,7 @@ The absolute value of this object. Signals FlagInvalid and returns quiet NaN if 
 
  Finds the absolute value of this object (if it's negative, it becomes positive).
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 An arbitrary-precision decimal number. Returns signaling NaN if this value is signaling NaN. (In this sense, this method is similar to the "copy-abs" operation in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.).
 
@@ -470,7 +502,7 @@ An arbitrary-precision decimal number. Returns signaling NaN if this value is si
 
  Adds this object and an 32-bit signed integer and returns the result.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>intValue</i>: A 32-bit signed integer to add to this object.
 
@@ -486,7 +518,7 @@ The sum of the two objects.
 
  Adds this object and another decimal number and returns the result.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>otherValue</i>: An arbitrary-precision decimal number.
 
@@ -503,7 +535,7 @@ The sum of the two objects.
 
  Finds the sum of this object and another object. The result's exponent is set to the lower of the exponents of the two operands.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>otherValue</i>: The number to add to.
 
@@ -525,7 +557,7 @@ The sum of thisValue and the other object.
 
  If this object or the other object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number, including infinity. Two different NaN values will be considered equal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number.
 
@@ -541,7 +573,7 @@ Less than 0 if this object's value is less than the other value, or greater than
 
  Compares an arbitrary-precision binary float with this instance.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>other</i>: The other object to compare. Can be null.
 
@@ -565,7 +597,7 @@ Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
 
  If this object or the other object is a quiet NaN or signaling NaN, this method will return a quiet NaN and will signal a FlagInvalid flag.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number.
 
@@ -595,7 +627,7 @@ Quiet NaN if this object or the other object is NaN, or 0 if both objects have t
 
   * Negative numbers are less than positive numbers.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
 
@@ -624,7 +656,7 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
   * Negative numbers are less than positive numbers.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
 
@@ -652,7 +684,7 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
   * Infinity has a higher "absolute value" than any finite number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
 
@@ -681,7 +713,7 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
 
   * Negative numbers are less than positive numbers.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
 
@@ -702,7 +734,7 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
 
  If this object or the other object is a quiet NaN or signaling NaN, this method returns a quiet NaN, and will signal a FlagInvalid flag if either is a signaling NaN.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number.
 
@@ -719,7 +751,7 @@ Quiet NaN if this object or the other object is NaN, or 0 if both objects have t
 
  Creates a copy of this arbitrary-precision binary number.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 An EDecimal object.
 
@@ -731,7 +763,7 @@ An EDecimal object.
 
  Returns a number with the same value as this one, but copying the sign (positive or negative) of another number. (This method is similar to the "copy-sign" operation in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.).
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>other</i>: A number whose sign will be copied.
 
@@ -751,9 +783,9 @@ The parameter "other" is null.
         int mantissaSmall,
         int exponentSmall);
 
- Creates a number with the value  `exponent*10^mantissa`  .
+ Creates a number with the value  `exponent*10^mantissa` .
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>mantissaSmall</i>: Desired value for the mantissa.
 
@@ -770,9 +802,9 @@ An arbitrary-precision decimal number.
         PeterO.Numbers.EInteger mantissa,
         PeterO.Numbers.EInteger exponent);
 
- Creates a number with the value  `exponent*10^mantissa`  .
+ Creates a number with the value  `exponent*10^mantissa` .
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>mantissa</i>: Desired value for the mantissa.
 
@@ -795,7 +827,7 @@ The parameter "mantissa" or "exponent" is null.
 
  Creates a not-a-number arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's  `UnsignedMantissa`  property.
 
@@ -814,7 +846,7 @@ A quiet not-a-number.
 
  Creates a not-a-number arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+        <b>Parameters:</b>
 
  * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's  `UnsignedMantissa`  property.
 
@@ -833,6 +865,23 @@ An arbitrary-precision decimal number.
  * System.ArgumentNullException:
 The parameter "diag" is null or is less than 0.
 
+<a id="Decrement"></a>
+### Decrement
+
+    public PeterO.Numbers.EDecimal Decrement();
+
+ Subtracts one from an arbitrary-precision decimal number.
+
+    <b>Return Value:</b>
+
+The given arbitrary-precision decimal number minus one.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
+
 <a id="Divide_int"></a>
 ### Divide
 
@@ -841,7 +890,7 @@ The parameter "diag" is null or is less than 0.
 
  Divides this object by an 32-bit signed integer and returns the result. When possible, the result will be exact.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>intValue</i>: A 32-bit signed integer, the divisor, to divide this object by.
 
@@ -857,7 +906,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
 
  Divides this object by another decimal number and returns the result. When possible, the result will be exact.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -874,7 +923,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
 
  Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number. The preferred exponent for the result is this object's exponent minus the divisor's exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -896,7 +945,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -915,7 +964,7 @@ A 2 element array consisting of the quotient and remainder in that order.
 
  Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -934,7 +983,7 @@ A 2 element array consisting of the quotient and remainder in that order.
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -954,7 +1003,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -976,7 +1025,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -997,7 +1046,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 64-bit signed integer) to the result, using the half-even rounding mode.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1017,7 +1066,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1039,7 +1088,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1061,7 +1110,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1082,7 +1131,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result, using the half-even rounding mode.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1102,7 +1151,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1122,7 +1171,7 @@ The quotient of the two objects. Signals FlagDivideByZero and returns infinity i
 
  Divides two arbitrary-precision decimal numbers, and returns the integer part of the result, rounded down, with the preferred exponent set to this value's exponent minus the divisor's exponent.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1139,7 +1188,7 @@ The integer part of the quotient of the two objects. Signals FlagDivideByZero an
 
  Divides this object by another object, and returns the integer part of the result (which is initially rounded down), with the preferred exponent set to this value's exponent minus the divisor's exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The parameter  <i>divisor</i>
  is an EDecimal object.
@@ -1160,7 +1209,7 @@ The integer part of the quotient of the two objects. Signals FlagInvalid and ret
 
  Divides this object by another object, and returns the integer part of the result, with the exponent set to 0.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1179,7 +1228,7 @@ The integer part of the quotient of the two objects. The exponent will be set to
 
  Divides this object by another decimal number and returns a result with the same exponent as this object (the dividend).
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1197,7 +1246,7 @@ The quotient of the two numbers. Signals FlagDivideByZero and returns infinity i
 
  Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1214,7 +1263,7 @@ A 2 element array consisting of the quotient and remainder in that order.
 
  Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -1232,14 +1281,14 @@ A 2 element array consisting of the quotient and remainder in that order.
 
  Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision decimal number. Not-a-number values are considered equal if the rest of their properties are equal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>obj</i>: The parameter  <i>obj</i>
  is an arbitrary object.
 
 <b>Return Value:</b>
 
- `true`  if the objects are equal; otherwise,  `false`  .
+ `true`  if the objects are equal; otherwise,  `false` .
 
 <a id="Equals_PeterO_Numbers_EDecimal"></a>
 ### Equals
@@ -1249,13 +1298,13 @@ A 2 element array consisting of the quotient and remainder in that order.
 
  Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object. Not-a-number values are considered equal if the rest of their properties are equal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
- `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise,  `false`  .
+ `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise,  `false` .
 
 <a id="Exp_PeterO_Numbers_EContext"></a>
 ### Exp
@@ -1265,9 +1314,9 @@ A 2 element array consisting of the quotient and remainder in that order.
 
  Finds e (the base of natural logarithms) raised to the power of this object's value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i> This parameter can't be null, as the exponential function's results are generally not exact. </i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i>This parameter can't be null, as the exponential function's results are generally not exact.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1281,7 +1330,7 @@ Exponential of this object. If this object's value is 1, returns an approximatio
 
  Converts a boolean value (true or false) to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>boolValue</i>: Either true or false.
 
@@ -1298,7 +1347,7 @@ The number 1 if  <i>boolValue</i>
 
  Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
 
@@ -1312,13 +1361,11 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromDecimal(
         System.Decimal dec);
 
- Converts a  `decimal`  under the Common Language Infrastructure (see [
-         &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ) to an arbitrary-precision decimal.
+ Converts a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) to an arbitrary-precision decimal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
- * <i>dec</i>: A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+ * <i>dec</i>: A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework decimal).
 
 <b>Return Value:</b>
 
@@ -1332,7 +1379,7 @@ An arbitrary-precision decimal floating-point number.
 
  Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromDouble(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from an arbitrary-precision decimal number, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>dbl</i>: The parameter  <i>dbl</i>
  is a 64-bit floating-point number.
@@ -1349,7 +1396,7 @@ An arbitrary-precision decimal number with the same value as "dbl".
 
  Creates an arbitrary-precision decimal number from an arbitrary-precision binary floating-point number.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigfloat</i>: An arbitrary-precision binary floating-point number.
 
@@ -1370,7 +1417,7 @@ The parameter "bigfloat" is null.
 
  Converts an arbitrary-precision integer to an arbitrary precision decimal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>bigint</i>: An arbitrary-precision integer.
 
@@ -1388,7 +1435,7 @@ An arbitrary-precision decimal number with the exponent set to 0.
 
  Converts an arbitrary-precision binary floating-point number to an arbitrary precision decimal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ef</i>: An arbitrary-precision binary floating-point number.
 
@@ -1404,7 +1451,7 @@ An arbitrary-precision decimal number.
 
  Converts a 16-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
 
@@ -1420,7 +1467,7 @@ This number's value as an arbitrary-precision decimal number.
 
  Creates an arbitrary-precision decimal number from a 32-bit signed integer.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>valueSmaller</i>: The parameter  <i>valueSmaller</i>
  is a 32-bit signed integer.
@@ -1437,7 +1484,7 @@ An arbitrary-precision decimal number with the exponent set to 0.
 
  Creates an arbitrary-precision decimal number from a 64-bit signed integer.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>valueSmall</i>: The parameter  <i>valueSmall</i>
  is a 64-bit signed integer.
@@ -1454,7 +1501,7 @@ An arbitrary-precision decimal number with the exponent set to 0.
 
  Converts an 8-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputSByte</i>: The number to convert as an 8-bit signed integer.
 
@@ -1470,7 +1517,7 @@ This number's value as an arbitrary-precision decimal number.
 
  Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromSingle(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from an arbitrary-precision decimal number, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>flt</i>: The parameter  <i>flt</i>
  is a 32-bit binary floating-point number.
@@ -1485,9 +1532,10 @@ An arbitrary-precision decimal number with the same value as "flt".
     public static PeterO.Numbers.EDecimal FromString(
         string str);
 
- Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
+ Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
+            int, EContext)`  for more information.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>str</i>: A string that represents a number.
 
@@ -1508,9 +1556,10 @@ The parameter "str" is not a correctly formatted number string.
         int offset,
         int length);
 
- Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
+ Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
+            int, EContext)`  for more information.
 
-<b>Parameters:</b>
+          <b>Parameters:</b>
 
  * <i>str</i>: A string that represents a number.
 
@@ -1533,6 +1582,13 @@ The parameter "str" is not a correctly formatted number string.
  * System.ArgumentNullException:
 The parameter "str" is null.
 
+ * System.ArgumentException:
+Either "offset" or "length" is less than 0 or greater than "str"'s length, or "str"'s length minus "offset" is less than "length".
+
+ * System.ArgumentNullException:
+The parameter  <i>str</i>
+ is null.
+
 <a id="FromString_string_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -1546,17 +1602,17 @@ The parameter "str" is null.
 
  The format of the string generally consists of:
 
-  * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if the minus sign, the value is negative.)
+  * An optional plus sign ("+" , U+002B) or minus sign ("-", U + 002D) (if the minus sign, the value is negative.)
 
   * One or more digits, with a single optional decimal point after the first digit and before the last digit.
 
   * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent.
 
-  The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
+ The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 
- All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
+ All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is not allowed to contain white space characters, including spaces.
 
-<b>Parameters:</b>
+           <b>Parameters:</b>
 
  * <i>str</i>: A text string, a portion of which represents a number.
 
@@ -1581,6 +1637,13 @@ The parameter "str" is null.
  * System.ArgumentException:
 Either "offset" or "length" is less than 0 or greater than "str" 's length, or "str" 's length minus "offset" is less than "length".
 
+ * System.ArgumentException:
+Either "offset" or "length" is less than 0 or greater than "str"'s length, or "str"'s length minus "offset" is less than "length".
+
+ * System.ArgumentNullException:
+The parameter  <i>str</i>
+ is null.
+
 <a id="FromString_string_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -1588,9 +1651,10 @@ Either "offset" or "length" is less than 0 or greater than "str" 's length, or "
         string str,
         PeterO.Numbers.EContext ctx);
 
- Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int, int, EContext)`  for more information.
+ Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
+            int, EContext)`  for more information.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>str</i>: A string that represents a number.
 
@@ -1613,7 +1677,7 @@ The parameter "str" is null.
 
  Converts a 16-bit unsigned integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputUInt16</i>: The number to convert as a 16-bit unsigned integer.
 
@@ -1629,7 +1693,7 @@ This number's value as an arbitrary-precision decimal number.
 
  Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputUInt32</i>: The number to convert as a 32-bit signed integer.
 
@@ -1645,7 +1709,7 @@ This number's value as an arbitrary-precision decimal number.
 
  Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputUInt64</i>: The number to convert as a 64-bit unsigned integer.
 
@@ -1660,9 +1724,26 @@ This number's value as an arbitrary-precision decimal number.
 
  Calculates this object's hash code. No application or process IDs are used in the hash code calculation.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 A 32-bit signed integer.
+
+<a id="Increment"></a>
+### Increment
+
+    public PeterO.Numbers.EDecimal Increment();
+
+ Adds one to an arbitrary-precision decimal number.
+
+    <b>Return Value:</b>
+
+The given arbitrary-precision decimal number plus one.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 <a id="IsInfinity"></a>
 ### IsInfinity
@@ -1671,9 +1752,9 @@ A 32-bit signed integer.
 
  Gets a value indicating whether this object is positive or negative infinity.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
- `true`  if this object is positive or negative infinity; otherwise,  `false`  .
+ `true`  if this object is positive or negative infinity; otherwise,  `false` .
 
 <a id="IsNaN"></a>
 ### IsNaN
@@ -1682,9 +1763,9 @@ A 32-bit signed integer.
 
  Gets a value indicating whether this object is not a number (NaN).
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
- `true`  if this object is not a number (NaN); otherwise,  `false`  .
+ `true`  if this object is not a number (NaN); otherwise,  `false` .
 
 <a id="IsNegativeInfinity"></a>
 ### IsNegativeInfinity
@@ -1693,9 +1774,9 @@ A 32-bit signed integer.
 
  Returns whether this object is negative infinity.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
- `true`  if this object is negative infinity; otherwise,  `false`  .
+ `true`  if this object is negative infinity; otherwise,  `false` .
 
 <a id="IsPositiveInfinity"></a>
 ### IsPositiveInfinity
@@ -1704,9 +1785,9 @@ A 32-bit signed integer.
 
  Returns whether this object is positive infinity.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
- `true`  if this object is positive infinity; otherwise,  `false`  .
+ `true`  if this object is positive infinity; otherwise,  `false` .
 
 <a id="IsQuietNaN"></a>
 ### IsQuietNaN
@@ -1715,9 +1796,9 @@ A 32-bit signed integer.
 
  Gets a value indicating whether this object is a quiet not-a-number value.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
- `true`  if this object is a quiet not-a-number value; otherwise,  `false`  .
+ `true`  if this object is a quiet not-a-number value; otherwise,  `false` .
 
 <a id="IsSignalingNaN"></a>
 ### IsSignalingNaN
@@ -1726,9 +1807,9 @@ A 32-bit signed integer.
 
  Gets a value indicating whether this object is a signaling not-a-number value.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
- `true`  if this object is a signaling not-a-number value; otherwise,  `false`  .
+ `true`  if this object is a signaling not-a-number value; otherwise,  `false` .
 
 <a id="Log_PeterO_Numbers_EContext"></a>
 ### Log
@@ -1738,9 +1819,9 @@ A 32-bit signed integer.
 
  Finds the natural logarithm of this object, that is, the power (exponent) that e (the base of natural logarithms) must be raised to in order to equal this object's value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i> This parameter can't be null, as the ln function's results are generally not exact. </i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i>This parameter can't be null, as the ln function's results are generally not exact.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1754,9 +1835,9 @@ Ln(this object). Signals the flag FlagInvalid and returns NaN if this object is 
 
  Finds the base-10 logarithm of this object, that is, the power (exponent) that the number 10 must be raised to in order to equal this object's value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i> This parameter can't be null, as the ln function's results are generally not exact. </i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i>This parameter can't be null, as the ln function's results are generally not exact.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -1771,7 +1852,7 @@ Ln(this object)/Ln(10). Signals the flag FlagInvalid and returns not-a-number (N
 
  Gets the greater value between two decimal numbers.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>first</i>: An arbitrary-precision decimal number.
 
@@ -1791,7 +1872,7 @@ The larger value of the two numbers.
 
  Gets the greater value between two decimal numbers.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>first</i>: The first value to compare.
 
@@ -1812,7 +1893,7 @@ The larger value of the two numbers.
 
  Gets the greater value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Max.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>first</i>: The first value to compare.
 
@@ -1832,7 +1913,7 @@ An arbitrary-precision decimal number.
 
  Gets the greater value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Max.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>first</i>: The first value to compare.
 
@@ -1853,7 +1934,7 @@ An arbitrary-precision decimal number.
 
  Gets the lesser value between two decimal numbers.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>first</i>: The first value to compare.
 
@@ -1873,7 +1954,7 @@ The smaller value of the two numbers.
 
  Gets the lesser value between two decimal numbers.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>first</i>: The first value to compare.
 
@@ -1894,7 +1975,7 @@ The smaller value of the two numbers.
 
  Gets the lesser value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Min.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>first</i>: The first value to compare.
 
@@ -1914,7 +1995,7 @@ An arbitrary-precision decimal number.
 
  Gets the lesser value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Min.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>first</i>: The first value to compare.
 
@@ -1934,7 +2015,7 @@ An arbitrary-precision decimal number.
 
  Returns a number similar to this number but with the decimal point moved to the left.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>places</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
@@ -1951,7 +2032,7 @@ A number whose exponent is decreased by "places", but not to more than 0.
 
  Returns a number similar to this number but with the decimal point moved to the left.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>places</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
@@ -1960,7 +2041,7 @@ A number whose exponent is decreased by "places", but not to more than 0.
 <b>Return Value:</b>
 
 A number whose exponent is decreased by  <i>places</i>
- , but not to more than 0.
+, but not to more than 0.
 
 <a id="MovePointLeft_PeterO_Numbers_EInteger"></a>
 ### MovePointLeft
@@ -1970,7 +2051,7 @@ A number whose exponent is decreased by  <i>places</i>
 
  Returns a number similar to this number but with the decimal point moved to the left.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
@@ -1987,7 +2068,7 @@ A number whose exponent is decreased by "bigPlaces", but not to more than 0.
 
  Returns a number similar to this number but with the decimal point moved to the left.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
@@ -1996,7 +2077,7 @@ A number whose exponent is decreased by "bigPlaces", but not to more than 0.
 <b>Return Value:</b>
 
 A number whose exponent is decreased by  <i>bigPlaces</i>
- , but not to more than 0.
+, but not to more than 0.
 
 <a id="MovePointRight_int"></a>
 ### MovePointRight
@@ -2006,7 +2087,7 @@ A number whose exponent is decreased by  <i>bigPlaces</i>
 
  Returns a number similar to this number but with the decimal point moved to the right.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>places</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
@@ -2023,7 +2104,7 @@ A number whose exponent is increased by "places", but not to more than 0.
 
  Returns a number similar to this number but with the decimal point moved to the right.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>places</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
@@ -2032,7 +2113,7 @@ A number whose exponent is increased by "places", but not to more than 0.
 <b>Return Value:</b>
 
 A number whose exponent is increased by  <i>places</i>
- , but not to more than 0.
+, but not to more than 0.
 
 <a id="MovePointRight_PeterO_Numbers_EInteger"></a>
 ### MovePointRight
@@ -2042,7 +2123,7 @@ A number whose exponent is increased by  <i>places</i>
 
  Returns a number similar to this number but with the decimal point moved to the right.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
@@ -2059,7 +2140,7 @@ A number whose exponent is increased by "bigPlaces", but not to more than 0.
 
  Returns a number similar to this number but with the decimal point moved to the right.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
@@ -2068,7 +2149,7 @@ A number whose exponent is increased by "bigPlaces", but not to more than 0.
 <b>Return Value:</b>
 
 A number whose exponent is increased by  <i>bigPlaces</i>
- , but not to more than 0.
+, but not to more than 0.
 
 <a id="Multiply_int"></a>
 ### Multiply
@@ -2078,7 +2159,7 @@ A number whose exponent is increased by  <i>bigPlaces</i>
 
  Multiplies this object by the given 32-bit signed integer. The resulting exponent will be the sum of the exponents of the two numbers.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>intValue</i>: A 32-bit signed integer to multiply this object by.
 
@@ -2095,7 +2176,7 @@ The product of the two numbers.
 
  Multiplies two decimal numbers. The resulting scale will be the sum of the scales of the two decimal numbers. The result's sign is positive if both operands have the same sign, and negative if they have different signs.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>op</i>: Another decimal number.
 
@@ -2113,7 +2194,7 @@ The product of the two decimal numbers.
 
  Multiplies two decimal numbers. The resulting exponent will be the sum of the exponents of the two decimal numbers.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>otherValue</i>: Another decimal number.
 
@@ -2130,7 +2211,7 @@ The product of the two decimal numbers.
 
  Multiplies by one decimal number, and then adds another decimal number.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>multiplicand</i>: The value to multiply.
 
@@ -2150,7 +2231,7 @@ An EDecimal object.
 
  Multiplies by one value, and then adds another value.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>op</i>: The value to multiply.
 
@@ -2172,7 +2253,7 @@ The result thisValue * multiplicand + augend.
 
  Multiplies by one value, and then subtracts another value.
 
-<b>Parameters:</b>
+       <b>Parameters:</b>
 
  * <i>op</i>: The value to multiply.
 
@@ -2197,7 +2278,7 @@ The parameter "op" or "subtrahend" is null.
 
  Returns an arbitrary-precision decimal number with the same value as this object but with the sign reversed.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>context</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
 
@@ -2212,7 +2293,7 @@ An arbitrary-precision decimal number. If this value is positive zero, returns p
 
  Gets an object with the same value as this one, but with the sign reversed.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 An arbitrary-precision decimal number. If this value is positive zero, returns negative zero. Returns signaling NaN if this value is signaling NaN. (In this sense, this method is similar to the "copy-negate" operation in the General Decimal Arithmetic Specification, except this method does not necessarily return a copy of this object.).
 
@@ -2224,7 +2305,7 @@ An arbitrary-precision decimal number. If this value is positive zero, returns n
 
  Finds the largest value that's smaller than the given value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).
 
@@ -2240,7 +2321,7 @@ Returns the largest value that's less than the given value. Returns negative inf
 
  Finds the smallest value that's greater than the given value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).
 
@@ -2257,7 +2338,7 @@ Returns the smallest value that's greater than the given value.Signals FlagInval
 
  Finds the next value that is closer to the other object's value than this object's value. Returns a copy of this value with the same sign as the other value if both values are equal.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>otherValue</i>: An arbitrary-precision decimal number that the return value will approach.
 
@@ -2278,7 +2359,7 @@ Returns the next value that is closer to the other object' s value than this obj
 
  Adds two arbitrary-precision decimal floating-point numbers and returns the result.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>bthis</i>: The first arbitrary-precision decimal floating-point number.
 
@@ -2301,15 +2382,16 @@ The parameter  <i>bthis</i>
     public static PeterO.Numbers.EDecimal operator --(
         PeterO.Numbers.EDecimal bthis);
 
- Subtracts one from an arbitrary-precision decimal number.
+ Not documented yet.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
- * <i>bthis</i>: An arbitrary-precision decimal number.
+ * <i>bthis</i>: The parameter  <i>bthis</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-The given arbitrary-precision decimal number minus one.
+An EDecimal object.
 
 <b>Exceptions:</b>
 
@@ -2326,7 +2408,7 @@ The parameter  <i>bthis</i>
 
  Divides this object by another decimal number and returns the result. When possible, the result will be exact.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>dividend</i>: The number that will be divided by the divisor.
 
@@ -2350,14 +2432,14 @@ The parameter  <i>dividend</i>
 
  Converts an arbitrary-precision decimal number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to a byte (from 0 to 255).
+, truncated to a byte (from 0 to 255).
 
 <b>Exceptions:</b>
 
@@ -2371,9 +2453,9 @@ The parameter  <i>input</i>
     public static explicit operator double(
         PeterO.Numbers.EDecimal bigValue);
 
- Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+ Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>bigValue</i>: The value to convert to a 64-bit floating-point number.
 
@@ -2387,9 +2469,9 @@ The closest 64-bit floating-point number to this value. The return value can be 
     public static explicit operator float(
         PeterO.Numbers.EDecimal bigValue);
 
- Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+ Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2405,14 +2487,14 @@ The closest 32-bit binary floating-point number to this value. The return value 
 
  Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to a 32-bit signed integer.
+, truncated to a 32-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -2428,14 +2510,14 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to a 64-bit signed integer.
+, truncated to a 64-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -2451,7 +2533,7 @@ The parameter  <i>input</i>
 
  Converts a boolean value (true or false) to an arbitrary precision decimal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>boolValue</i>: Either true or false.
 
@@ -2468,7 +2550,7 @@ The number 1 if  <i>boolValue</i>
 
  Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision decimal.
 
@@ -2489,14 +2571,14 @@ This object's value is infinity or not-a-number (NaN).
 
  Converts an arbitrary-precision decimal number to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to an 8-bit signed integer.
+, truncated to an 8-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -2512,14 +2594,14 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to a 16-bit signed integer.
+, truncated to a 16-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -2533,18 +2615,16 @@ The parameter  <i>input</i>
     public static explicit operator System.Decimal(
         PeterO.Numbers.EDecimal bigValue);
 
- Converts an arbitrary-precision decimal's value to a  `decimal`  under the Common Language Infrastructure (see [
-         &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ), using the half-even rounding mode.
+ Converts an arbitrary-precision decimal's value to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the half-even rounding mode.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>bigValue</i>: The parameter  <i>bigValue</i>
  is an arbitrary-precision decimal floating-point number.
 
 <b>Return Value:</b>
 
-A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework decimal).
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2554,14 +2634,14 @@ A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework
 
  Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to a 32-bit signed integer.
+, truncated to a 32-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -2577,14 +2657,14 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to a 64-bit unsigned integer.
+, truncated to a 64-bit unsigned integer.
 
 <b>Exceptions:</b>
 
@@ -2600,14 +2680,14 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The value of  <i>input</i>
- , truncated to a 16-bit unsigned integer.
+, truncated to a 16-bit unsigned integer.
 
 <b>Exceptions:</b>
 
@@ -2623,7 +2703,7 @@ The parameter  <i>input</i>
 
  Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputByte</i>: The number to convert as a byte (from 0 to 255).
 
@@ -2640,7 +2720,7 @@ The value of  <i>inputByte</i>
 
  Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputInt32</i>: The number to convert as a 32-bit signed integer.
 
@@ -2657,7 +2737,7 @@ The value of  <i>inputInt32</i>
 
  Converts a 64-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputInt64</i>: The number to convert as a 64-bit signed integer.
 
@@ -2674,7 +2754,7 @@ The value of  <i>inputInt64</i>
 
  Converts an arbitrary-precision integer to an arbitrary precision decimal.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>eint</i>: An arbitrary-precision integer.
 
@@ -2690,7 +2770,7 @@ An arbitrary-precision decimal number with the exponent set to 0.
 
  Converts an 8-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputSByte</i>: The number to convert as an 8-bit signed integer.
 
@@ -2707,7 +2787,7 @@ The value of  <i>inputSByte</i>
 
  Converts a 16-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputInt16</i>: The number to convert as a 16-bit signed integer.
 
@@ -2722,17 +2802,15 @@ The value of  <i>inputInt16</i>
     public static implicit operator PeterO.Numbers.EDecimal(
         System.Decimal dec);
 
- Converts an arbitrary-precision decimal number to a  `decimal`  under the Common Language Infrastructure (see [
-         &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ), using the half-even rounding mode.
+ Converts an arbitrary-precision decimal number to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the half-even rounding mode.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>dec</i>: The number to convert as an arbitrary-precision decimal floating-point number.
 
 <b>Return Value:</b>
 
-A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework decimal).
 
 <a id="op_Implicit"></a>
 ### Implicit Operator
@@ -2742,7 +2820,7 @@ A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework
 
  Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputUInt32</i>: The number to convert as a 32-bit signed integer.
 
@@ -2759,7 +2837,7 @@ The value of  <i>inputUInt32</i>
 
  Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputUInt64</i>: The number to convert as a 64-bit unsigned integer.
 
@@ -2776,7 +2854,7 @@ The value of  <i>inputUInt64</i>
 
  Converts a 16-bit unsigned integer to an arbitrary-precision decimal number.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>inputUInt16</i>: The number to convert as a 16-bit unsigned integer.
 
@@ -2791,15 +2869,16 @@ The value of  <i>inputUInt16</i>
     public static PeterO.Numbers.EDecimal operator ++(
         PeterO.Numbers.EDecimal bthis);
 
- Adds one to an arbitrary-precision decimal number.
+ Not documented yet.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
- * <i>bthis</i>: An arbitrary-precision decimal number.
+ * <i>bthis</i>: The parameter  <i>bthis</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
-The given arbitrary-precision decimal number plus one.
+An EDecimal object.
 
 <b>Exceptions:</b>
 
@@ -2816,7 +2895,7 @@ The parameter  <i>bthis</i>
 
  Finds the remainder when dividing one arbitrary-precision decimal number by another.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>dividend</i>: The number that will be divided by the divisor.
 
@@ -2841,7 +2920,7 @@ The parameter  <i>dividend</i>
 
  Multiplies two decimal numbers. The resulting exponent will be the sum of the exponents of the two decimal numbers.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>operand1</i>: The first operand.
 
@@ -2867,7 +2946,7 @@ The parameter  <i>operand1</i>
 
  Subtracts one arbitrary-precision decimal number from another and returns the result.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>bthis</i>: The first operand.
 
@@ -2892,7 +2971,7 @@ The parameter  <i>bthis</i>
 
  Gets an arbitrary-precision decimal number with the same value as the given one, but with the sign reversed.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: An arbitrary-precision decimal number to negate.
 
@@ -2914,9 +2993,9 @@ The parameter  <i>bigValue</i>
 
  Finds the constant π, the circumference of a circle divided by its diameter.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i> This parameter can't be null, as π can never be represented exactly. </i> .
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i>This parameter can't be null, as π can never be represented exactly.</i>.
 
 <b>Return Value:</b>
 
@@ -2930,7 +3009,7 @@ The constant π rounded to the given precision. Signals FlagInvalid and returns 
 
  Rounds this object's value to a given precision, using the given rounding mode and range of exponent, and also converts negative zero to positive zero.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: A context for controlling the precision, rounding mode, and exponent range. Can be null, in which case the precision is unlimited and rounding isn't needed.
 
@@ -2946,7 +3025,7 @@ The closest value to this object's value, rounded to the specified precision. Re
 
  Raises this object's value to the given exponent.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>exponentSmall</i>: The exponent to raise this object's value to.
 
@@ -2963,7 +3042,7 @@ This^exponent. Returns not-a-number (NaN) if this object and exponent are both 0
 
  Raises this object's value to the given exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponentSmall</i>: The exponent to raise this object's value to.
 
@@ -2982,7 +3061,7 @@ This^exponent. Signals the flag FlagInvalid and returns NaN if this object and e
 
  Raises this object's value to the given exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponent</i>: An arbitrary-precision decimal number expressing the exponent to raise this object's value to.
 
@@ -3000,7 +3079,7 @@ This^exponent. Signals the flag FlagInvalid and returns NaN if this object and e
 
  Finds the number of digits in this number's mantissa (significand). Returns 1 if this value is 0, and 0 if this value is infinity or not-a-number (NaN).
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -3015,14 +3094,15 @@ An arbitrary-precision integer.
 
  <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
 
-    /* After performing arithmetic operations, adjust the number to 5 digits
-            after the decimal point */ number = number.Quantize(-5, /* five digits
-            after the decimal point */EContext.ForPrecision(25) /* 25-digit
-            precision*/);
+    /* After performing arithmetic operations, adjust the number to 5
+                digits
+                after the decimal point */ number = number.Quantize(-5, /* five digits
+                after the decimal point */EContext.ForPrecision(25) /* 25-digit
+                precision*/);
 
  A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic".
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3041,7 +3121,7 @@ An arbitrary-precision decimal number with the same value as this object but wit
 
  Returns an arbitrary-precision decimal number with the same value as this one but a new exponent. <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which a fixed number of digits come after the decimal point. A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic" .
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>desiredExponentInt</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3062,9 +3142,9 @@ An arbitrary-precision decimal number with the same value as this object but wit
 
  <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which a fixed number of digits come after the decimal point. A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic" .
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision decimal number containing the desired exponent of the result. The mantissa (significand) is ignored. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousands-place (10^3, 1000). A value of 0 rounds the number to an integer. The following examples for this parameter express a desired exponent of 3:  `10e3`  ,  `8888e3`  ,  `4.56e5`  .
+ * <i>otherValue</i>: An arbitrary-precision decimal number containing the desired exponent of the result. The mantissa (significand) is ignored. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousands-place (10^3, 1000). A value of 0 rounds the number to an integer. The following examples for this parameter express a desired exponent of 3:  `10e3` ,  `8888e3` ,  `4.56e5` .
 
  * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
@@ -3083,14 +3163,15 @@ An arbitrary-precision decimal number with the same value as this object but wit
 
  <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
 
-    // After performing arithmetic operations, adjust // the number to 5 //
-            digits after the decimal point number = number.Quantize(
-            EInteger.FromInt32(-5), // five digits after the decimal point
-            EContext.ForPrecision(25) // 25-digit precision);
+     // After performing arithmetic operations, adjust // the number to 5
+                /// //
+                digits after the decimal point number = number.Quantize(
+                EInteger.FromInt32(-5), // five digits after the decimal point
+                EContext.ForPrecision(25) // 25-digit precision);
 
  A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic".
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>desiredExponent</i>: The desired exponent for the result. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3108,7 +3189,7 @@ An arbitrary-precision decimal number with the same value as this object but wit
 
  Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand). For example, 1.00 becomes 1. If this object's value is 0, changes the exponent to 0.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
 
@@ -3125,7 +3206,7 @@ This value with trailing zeros removed. Note that if the result has a very high 
 
  Finds the remainder that results when dividing two arbitrary-precision decimal numbers. The remainder is the value that remains when the absolute value of this object is divided by the absolute value of the other object; the remainder has the same sign (positive or negative) as this object's value.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -3141,9 +3222,9 @@ The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (
     public PeterO.Numbers.EDecimal RemainderNaturalScale(
         PeterO.Numbers.EDecimal divisor);
 
- Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")`  .
+ Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")` .
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -3160,7 +3241,7 @@ An arbitrary-precision decimal number.
 
  Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -3187,9 +3268,9 @@ An arbitrary-precision decimal number.
 
   * If the remainder's absolute value is exactly half of the divisor's absolute value, the result has the opposite sign of this object if the quotient, rounded down, is odd, and has the same sign as this object if the quotient, rounded down, is even, and the result's absolute value is half of the divisor's absolute value.
 
-  This function is also known as the "IEEE Remainder" function.
+ This function is also known as the "IEEE Remainder" function.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -3208,7 +3289,7 @@ The distance of the closest multiple. Signals FlagInvalid and returns not-a-numb
 
  Finds the remainder that results when dividing two arbitrary-precision decimal numbers, except the intermediate division is not adjusted to fit the precision of the given arithmetic context. The value of this object is divided by the absolute value of the other object; the remainder has the same sign (positive or negative) as this object's value.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
@@ -3226,7 +3307,7 @@ The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3243,7 +3324,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3262,7 +3343,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3280,7 +3361,7 @@ An arbitrary-precision decimal number rounded to the given negative number of de
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3297,7 +3378,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3316,7 +3397,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary, using the given rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3335,7 +3416,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3354,7 +3435,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3373,7 +3454,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to the given exponent represented as an arbitrary-precision integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
@@ -3391,7 +3472,7 @@ An arbitrary-precision decimal number rounded to the closest value representable
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
@@ -3407,7 +3488,7 @@ An arbitrary-precision decimal number rounded to the closest integer representab
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to an integer, without adding the  `FlagInexact`  or  `FlagRounded`  flags. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact`  flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
@@ -3425,7 +3506,7 @@ An arbitrary-precision decimal number rounded to the closest integer representab
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
@@ -3443,7 +3524,7 @@ An arbitrary-precision decimal number rounded to the closest integer representab
 
  Returns an arbitrary-precision decimal number with the same value as this object but rounded to an integer, without adding the  `FlagInexact`  or  `FlagRounded`  flags.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags), except that this function will never add the  `FlagRounded`  and  `FlagInexact`  flags (the only difference between this and RoundToExponentExact). Can be null, in which case the default rounding mode is HalfEven.
 
@@ -3459,7 +3540,7 @@ An arbitrary-precision decimal number rounded to the closest integer representab
 
  Rounds this object's value to a given precision, using the given rounding mode and range of exponent.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
 
@@ -3475,7 +3556,7 @@ The closest value to this object's value, rounded to the specified precision. Re
 
  Returns a number similar to this number but with the scale adjusted.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>places</i>: The power of 10 to scale by.
 
@@ -3492,7 +3573,7 @@ An arbitrary-precision decimal number.
 
  Returns a number similar to this number but with the scale adjusted.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>places</i>: The power of 10 to scale by.
 
@@ -3510,7 +3591,7 @@ An arbitrary-precision decimal number.
 
  Returns a number similar to this number but with the scale adjusted.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The power of 10 to scale by.
 
@@ -3527,7 +3608,7 @@ An arbitrary-precision decimal number.
 
  Returns a number similar to this number but with its scale adjusted.
 
-<b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The power of 10 to scale by.
 
@@ -3536,7 +3617,7 @@ An arbitrary-precision decimal number.
 <b>Return Value:</b>
 
 A number whose exponent is increased by  <i>bigPlaces</i>
- .
+.
 
 <a id="Sqrt_PeterO_Numbers_EContext"></a>
 ### Sqrt
@@ -3546,9 +3627,9 @@ A number whose exponent is increased by  <i>bigPlaces</i>
 
  Finds the square root of this object's value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i> This parameter can't be null, as the square root function's results are generally not exact for many inputs. </i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i>This parameter can't be null, as the square root function's results are generally not exact for many inputs.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -3564,9 +3645,9 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
 
  Finds the square root of this object's value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i> This parameter can't be null, as the square root function's results are generally not exact for many inputs. </i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). <i>This parameter can't be null, as the square root function's results are generally not exact for many inputs.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).
 
 <b>Return Value:</b>
 
@@ -3580,7 +3661,7 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
 
  Subtracts a 32-bit signed integer from this object and returns the result.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>intValue</i>: A 32-bit signed integer to subtract from this object.
 
@@ -3596,7 +3677,7 @@ The difference of the two objects.
 
  Subtracts an arbitrary-precision decimal number from this instance and returns the result.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>otherValue</i>: The number to subtract from this instance's value.
 
@@ -3613,7 +3694,7 @@ The difference of the two objects.
 
  Subtracts an arbitrary-precision decimal number from this instance.
 
-<b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>otherValue</i>: The number to subtract from this instance's value.
 
@@ -3635,7 +3716,7 @@ The parameter "otherValue" is null.
 
  Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to a byte (from 0 to 255).
 
@@ -3651,7 +3732,7 @@ This value is infinity or not-a-number, or the truncated integer is less than 0 
 
  Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as a byte (from 0 to 255).
 
@@ -3667,7 +3748,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to a byte (from 0 to 255). Returns 0 if this value is infinity or not-a-number.
 
@@ -3676,22 +3757,20 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public System.Decimal ToDecimal();
 
- Converts this value to a  `decimal`  under the Common Language Infrastructure (see [
-         &#x22;Forms of numbers&#x22;
-      ](PeterO.Numbers.EDecimal.md) "Forms of numbers"  ), using the half-even rounding mode.
+ Converts this value to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the half-even rounding mode.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
-A  `decimal`  under the Common Language Infrastructure (usually a .NET Framework decimal).
+A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework decimal).
 
 <a id="ToDouble"></a>
 ### ToDouble
 
     public double ToDouble();
 
- Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+ Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
 
@@ -3703,7 +3782,7 @@ The closest 64-bit floating-point number to this value. The return value can be 
 
  Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
 
-<b>Parameters:</b>
+    <b>Parameters:</b>
 
  * <i>ec</i>: The parameter  <i>ec</i>
  is an EContext object.
@@ -3719,7 +3798,7 @@ An arbitrary-precision float floating-point number.
 
  Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 An arbitrary-precision binary floating-point number.
 
@@ -3730,7 +3809,7 @@ An arbitrary-precision binary floating-point number.
 
  Converts this value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -3748,7 +3827,7 @@ This object's value is infinity or not-a-number (NaN).
 
  Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -3764,7 +3843,7 @@ This object's value is infinity or not-a-number (NaN).
 
  Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 An arbitrary-precision integer.
 
@@ -3780,7 +3859,7 @@ This object's value is infinity or not-a-number (NaN).
 
  Same as ToString(), except that when an exponent is used it will be a multiple of 3.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 A text string.
 
@@ -3793,7 +3872,7 @@ A text string.
 
  Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 An arbitrary-precision binary floating-point number.
 
@@ -3804,7 +3883,7 @@ An arbitrary-precision binary floating-point number.
 
  Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to a 16-bit signed integer.
 
@@ -3820,7 +3899,7 @@ This value is infinity or not-a-number, or the truncated integer is less than -3
 
  Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as a 16-bit signed integer.
 
@@ -3836,7 +3915,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to a 16-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
@@ -3847,7 +3926,7 @@ This number, converted to a 16-bit signed integer. Returns 0 if this value is in
 
  Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to a 32-bit signed integer.
 
@@ -3863,7 +3942,7 @@ This value is infinity or not-a-number, or the truncated integer is less than -2
 
  Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as a 32-bit signed integer.
 
@@ -3879,7 +3958,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
@@ -3890,7 +3969,7 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 
  Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to a 64-bit signed integer.
 
@@ -3906,7 +3985,7 @@ This value is infinity or not-a-number, or the truncated integer is less than -9
 
  Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as a 64-bit signed integer.
 
@@ -3922,7 +4001,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to a 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
@@ -3933,7 +4012,7 @@ This number, converted to a 64-bit signed integer. Returns 0 if this value is in
 
  Converts this value to a string, but without using exponential notation.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 A text string.
 
@@ -3944,7 +4023,7 @@ A text string.
 
  Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to an 8-bit signed integer.
 
@@ -3960,7 +4039,7 @@ This value is infinity or not-a-number, or the truncated integer is less than -1
 
  Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as an 8-bit signed integer.
 
@@ -3976,7 +4055,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to an 8-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
@@ -3985,9 +4064,9 @@ This number, converted to an 8-bit signed integer. Returns 0 if this value is in
 
     public float ToSingle();
 
- Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the .NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+ Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
@@ -3998,7 +4077,7 @@ The closest 32-bit binary floating-point number to this value. The return value 
 
  Converts this value to a string. Returns a value compatible with this class's FromString method.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 A string representation of this object. The text string will be in exponential notation if the exponent is greater than 0 or if the number's first nonzero digit is more than five digits after the decimal point.
 
@@ -4009,7 +4088,7 @@ A string representation of this object. The text string will be in exponential n
 
  Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to a 16-bit unsigned integer.
 
@@ -4025,7 +4104,7 @@ This value is infinity or not-a-number, or the truncated integer is less than 0 
 
  Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as a 16-bit unsigned integer.
 
@@ -4041,7 +4120,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to a 16-bit unsigned integer. Returns 0 if this value is infinity or not-a-number.
 
@@ -4052,7 +4131,7 @@ This number, converted to a 16-bit unsigned integer. Returns 0 if this value is 
 
  Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to a 32-bit signed integer.
 
@@ -4068,7 +4147,7 @@ This value is infinity or not-a-number, or the truncated integer is less than 0 
 
  Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as a 32-bit signed integer.
 
@@ -4084,7 +4163,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to a 32-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
@@ -4095,7 +4174,7 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 
  Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value, truncated to a 64-bit unsigned integer.
 
@@ -4111,7 +4190,7 @@ This value is infinity or not-a-number, or the truncated integer is less than 0 
 
  Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
 
-<b>Return Value:</b>
+    <b>Return Value:</b>
 
 This number's value as a 64-bit unsigned integer.
 
@@ -4127,7 +4206,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
  Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 This number, converted to a 64-bit unsigned integer. Returns 0 if this value is infinity or not-a-number.
 
@@ -4138,6 +4217,6 @@ This number, converted to a 64-bit unsigned integer. Returns 0 if this value is 
 
  Returns the unit in the last place. The mantissa (significand) will be 1 and the exponent will be this number's exponent. Returns 1 with an exponent of 0 if this number is infinity or not-a-number (NaN).
 
-<b>Return Value:</b>
+   <b>Return Value:</b>
 
 An arbitrary-precision decimal number.

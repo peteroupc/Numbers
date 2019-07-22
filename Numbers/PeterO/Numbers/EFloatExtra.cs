@@ -58,8 +58,8 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>The second arbitrary-precision binary
     /// floating-point number.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> or <paramref name='otherValue'/> is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> or <paramref name='otherValue'/> is
     /// null.</exception>
     public static EFloat operator +(EFloat bthis, EFloat otherValue) {
       if (bthis == null) {
@@ -73,8 +73,8 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The first operand.</param>
     /// <param name='subtrahend'>The second operand.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EFloat operator -(
       EFloat bthis,
       EFloat subtrahend) {
@@ -88,8 +88,8 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision binary floating-point number
     /// plus one.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public EFloat Increment() {
   return this + (EFloat)1;
 }
@@ -99,8 +99,8 @@ namespace PeterO.Numbers {
     /// documented yet.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EFloat operator ++(EFloat bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -112,8 +112,8 @@ namespace PeterO.Numbers {
     /// floating-point number.</summary>
     /// <returns>The given arbitrary-precision binary floating-point number
     /// minus one.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public EFloat Decrement() {
   return this.Subtract(1);
 }
@@ -123,8 +123,8 @@ namespace PeterO.Numbers {
     /// documented yet.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EFloat operator --(EFloat bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -139,8 +139,8 @@ namespace PeterO.Numbers {
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two binary floating-point
     /// numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='operand1'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='operand1'/> is null.</exception>
     public static EFloat operator *(
       EFloat operand1,
       EFloat operand2) {
@@ -160,8 +160,8 @@ namespace PeterO.Numbers {
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating binary
     /// expansion.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='dividend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='dividend'/> is null.</exception>
     public static EFloat operator /(
       EFloat dividend,
       EFloat divisor) {
@@ -177,8 +177,8 @@ namespace PeterO.Numbers {
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='dividend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='dividend'/> is null.</exception>
     public static EFloat operator %(
       EFloat dividend,
       EFloat divisor) {
@@ -195,8 +195,8 @@ namespace PeterO.Numbers {
     /// <returns>The negated form of the given number. If the given number
     /// is positive zero, returns negative zero. Returns signaling NaN if
     /// this value is signaling NaN.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigValue'/> is null.</exception>
     public static EFloat operator -(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));

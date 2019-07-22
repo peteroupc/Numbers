@@ -419,7 +419,8 @@ namespace PeterO.Numbers {
         default(T) : this.GetHelper().CreateNewWithFlags(
           EInteger.Zero,
           EInteger.Zero,
-          (neg ? BigNumberFlags.FlagNegative : 0) | BigNumberFlags.FlagInfinity);
+          (
+            neg ? BigNumberFlags.FlagNegative : 0) | BigNumberFlags.FlagInfinity);
     }
 #pragma warning restore CS0618
 

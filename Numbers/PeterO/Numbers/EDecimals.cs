@@ -156,7 +156,7 @@ namespace PeterO.Numbers {
     /// follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
     /// "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 =
     /// "-Infinity", 8 = "NaN", 9 = "sNaN".</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='nc'/> is less than 0 or greater than 9.</exception>
     public static string NumberClassString(int nc) {
       if (nc < 0) {
@@ -184,8 +184,8 @@ namespace PeterO.Numbers {
     /// positive zero, 5 = negative zero, 6 = positive infinity, 7 =
     /// negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling
     /// NaN.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int NumberClass(EDecimal ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -264,8 +264,8 @@ namespace PeterO.Numbers {
     /// infinity if <paramref name='ed'/> is zero. Returns positive
     /// infinity if <paramref name='ed'/> is positive infinity or negative
     /// infinity.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal LogB(EDecimal ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -300,9 +300,8 @@ namespace PeterO.Numbers {
     /// <paramref name='ed2'/> 's absolute value is greater than twice the
     /// sum of the context's EMax property and its Precision
     /// property.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='ed'/> or <paramref name='ed2'/> is
-    /// null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EDecimal ScaleB(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -357,9 +356,8 @@ namespace PeterO.Numbers {
     /// negative, has an exponent other than 0, or has an absolute value
     /// that exceeds the maximum precision specified in the
     /// context.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='ed'/> or <paramref name='ed2'/> is
-    /// null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EDecimal Shift(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));

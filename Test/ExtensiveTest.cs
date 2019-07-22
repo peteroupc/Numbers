@@ -14,7 +14,7 @@ using NUnit.Framework;
 using PeterO;
 using PeterO.Numbers;
 
-namespace CBOR {
+namespace Test {
   [TestFixture]
   public class ExtensiveTest {
     public static void AssertFlags(int expected, int actual, string str) {
@@ -1321,7 +1321,7 @@ StartsWith(chunks[2], "o")) {
           break;
         }
         ++x;
-        var lowerF = DataUtilities.ToLowerCaseAscii(f);
+        var lowerF = DecTestUtil.ToLowerCaseAscii(f);
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") &&
 !lowerF.Contains(".txt") &&

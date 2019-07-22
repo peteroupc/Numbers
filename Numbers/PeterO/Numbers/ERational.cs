@@ -121,10 +121,10 @@ namespace PeterO.Numbers {
     /// <see cref='PeterO.Numbers.ERational'/>.</summary>
     /// <param name='numerator'>An EInteger object.</param>
     /// <param name='denominator'>An EInteger object.</param>
-    /// <exception cref='System.ArgumentNullException'>The parameter
-    /// <paramref name='numerator'/> or <paramref name='denominator'/> is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='numerator'/> or <paramref name='denominator'/> is
     /// null.</exception>
-    /// <exception cref='System.ArgumentException'>Denominator is
+    /// <exception cref='ArgumentException'>Denominator is
     /// zero.</exception>
     public ERational(EInteger numerator, EInteger denominator) {
       if (numerator == null) {
@@ -237,7 +237,7 @@ namespace PeterO.Numbers {
     /// <param name='numeratorSmall'>The numerator.</param>
     /// <param name='denominatorSmall'>The denominator.</param>
     /// <returns>An arbitrary-precision binary rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The denominator is
+    /// <exception cref='ArgumentException'>The denominator is
     /// zero.</exception>
     public static ERational Create(
       int numeratorSmall,
@@ -250,7 +250,7 @@ namespace PeterO.Numbers {
     /// <param name='numerator'>The numerator.</param>
     /// <param name='denominator'>The denominator.</param>
     /// <returns>An arbitrary-precision binary rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The denominator is
+    /// <exception cref='ArgumentException'>The denominator is
     /// zero.</exception>
     public static ERational Create(
       EInteger numerator,
@@ -266,8 +266,8 @@ namespace PeterO.Numbers {
     /// arbitrary-precision binary rational number, use that object's
     /// <c>UnsignedNumerator</c> property.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter
-    /// &#x22;diag&#x22; is less than 0.</exception>
+    /// <exception cref='ArgumentException'>The parameter &#x22;diag&#x22;
+    /// is less than 0.</exception>
     public static ERational CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false);
     }
@@ -284,9 +284,9 @@ namespace PeterO.Numbers {
     /// <param name='negative'>Whether the return value is
     /// negative.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter
-    /// &#x22;diag&#x22; is less than 0.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentException'>The parameter &#x22;diag&#x22;
+    /// is less than 0.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;diag&#x22; is null.</exception>
     public static ERational CreateNaN(
       EInteger diag,
@@ -349,7 +349,7 @@ namespace PeterO.Numbers {
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// decimal number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;ef&#x22; is null.</exception>
     public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {
@@ -397,7 +397,7 @@ namespace PeterO.Numbers {
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;ef&#x22; is null.</exception>
     public static ERational FromEFloat(EFloat ef) {
       if (ef == null) {
@@ -505,18 +505,13 @@ namespace PeterO.Numbers {
     /// <exception cref='System.FormatException'>The parameter
     /// &#x22;str&#x22; is not a correctly formatted number
     /// string.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;str&#x22; is null.</exception>
-    /// <exception cref='System.ArgumentException'>Either
-    /// &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-    /// than &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s
-    /// length minus &#x22;offset&#x22; is less than
+    /// <exception cref='ArgumentException'>Either &#x22;offset&#x22; or
+    /// &#x22;length&#x22; is less than 0 or greater than
+    /// &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length
+    /// minus &#x22;offset&#x22; is less than
     /// &#x22;length&#x22;.</exception>
-    /// <exception cref='ArgumentException'>Either &quot;offset&quot; or
-    /// &quot;length&quot; is less than 0 or greater than
-    /// &quot;str&quot;&apos;s length, or &quot;str&quot;&apos;s length
-    /// minus &quot;offset&quot; is less than
-    /// &quot;length&quot;.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static ERational FromString(
@@ -934,7 +929,7 @@ namespace PeterO.Numbers {
     /// number.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
     /// either operand is NaN.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;otherValue&#x22; is null.</exception>
     public ERational Add(ERational otherValue) {
       if (otherValue == null) {
@@ -975,8 +970,8 @@ namespace PeterO.Numbers {
     /// <returns>Zero if the values are equal; a negative number if this
     /// instance is less, or a positive number if this instance is
     /// greater.</returns>
-    /// <exception cref='System.ArgumentException'>Doesn't satisfy
-    /// this.IsFinite; doesn't satisfy other.IsFinite.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy this.IsFinite;
+    /// doesn't satisfy other.IsFinite.</exception>
     public int CompareTo(ERational other) {
       if (other == null) {
         return 1;
@@ -1050,8 +1045,8 @@ namespace PeterO.Numbers {
     /// <returns>Zero if the values are equal; a negative number if this
     /// instance is less, or a positive number if this instance is
     /// greater.</returns>
-    /// <exception cref='System.ArgumentException'>Doesn't satisfy
-    /// this.IsFinite; doesn't satisfy other.IsFinite.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy this.IsFinite;
+    /// doesn't satisfy other.IsFinite.</exception>
     public int CompareToBinary(EFloat other) {
       if (other == null) {
         return 1;
@@ -1172,8 +1167,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <returns>Zero if the values are equal; a negative number if this
     /// instance is less, or a positive number if this instance is
     /// greater.</returns>
-    /// <exception cref='System.ArgumentException'>Doesn't satisfy
-    /// this.IsFinite; doesn't satisfy other.IsFinite.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy this.IsFinite;
+    /// doesn't satisfy other.IsFinite.</exception>
     public int CompareToDecimal(EDecimal other) {
       if (other == null) {
         return 1;
@@ -1294,7 +1289,7 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// number.</summary>
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;other&#x22; is null.</exception>
     public ERational CopySign(ERational other) {
       if (other == null) {
@@ -1312,7 +1307,7 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;otherValue&#x22; is null.</exception>
     public ERational Divide(ERational otherValue) {
       if (otherValue == null) {
@@ -1462,7 +1457,7 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;otherValue&#x22; is null.</exception>
     public ERational Multiply(ERational otherValue) {
       if (otherValue == null) {
@@ -1517,7 +1512,7 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;otherValue&#x22; is null.</exception>
     public ERational Remainder(ERational otherValue) {
       if (otherValue == null) {
@@ -1572,7 +1567,7 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter
+    /// <exception cref='ArgumentNullException'>The parameter
     /// &#x22;otherValue&#x22; is null.</exception>
     public ERational Subtract(ERational otherValue) {
       if (otherValue == null) {
