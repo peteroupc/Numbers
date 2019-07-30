@@ -119,8 +119,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Initializes a new instance of the
     /// <see cref='PeterO.Numbers.ERational'/>.</summary>
-    /// <param name='numerator'>An EInteger object.</param>
-    /// <param name='denominator'>An EInteger object.</param>
+    /// <param name='numerator'>An arbitrary-precision integer.</param>
+    /// <param name='denominator'>An arbitrary-precision integer.</param>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='numerator'/> or <paramref name='denominator'/> is
     /// null.</exception>

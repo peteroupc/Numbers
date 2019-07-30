@@ -230,7 +230,12 @@ namespace PeterO.Numbers {
     /// <returns>Either <c>true</c> if the given number is subnormal, or
     /// <c>false</c> otherwise. Returns <c>false</c> if the given context
     /// is null or HasExponentRange of the given context is <c>false</c>.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static bool IsSubnormal(EDecimal ed, EContext ec) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
           return ed.Exponent.Add(ed.Precision().Subtract(1)).CompareTo(
@@ -436,9 +441,17 @@ namespace PeterO.Numbers {
     /// negative, has an exponent other than 0, or has an absolute value
     /// that exceeds the maximum precision specified in the
     /// context.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed2'/> or <paramref name='ed'/> is null.</exception>
     public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
+      }
+      if (ed2 == null) {
+        throw new ArgumentNullException(nameof(ed2));
+      }
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
       }
       if (ed.IsNaN() || ed2.IsNaN()) {
         return ed.Add(ed2, ec);
@@ -523,7 +536,12 @@ namespace PeterO.Numbers {
     /// the first object is less than the other value, or 1 if the first
     /// object is greater. Does not signal flags if either value is
     /// signaling NaN.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return ed.CompareToTotal(other, ec);
     }
 
@@ -554,10 +572,15 @@ namespace PeterO.Numbers {
     /// value (ignoring their signs), or 1 if the first object is greater
     /// (ignoring their signs). Does not signal flags if either value is
     /// signaling NaN.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int CompareTotalMagnitude(
       EDecimal ed,
       EDecimal other,
       EContext ec) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return ed.CompareToTotalMagnitude(other, ec);
     }
 
@@ -567,7 +590,12 @@ namespace PeterO.Numbers {
     /// copy.</param>
     /// <returns>A copy of the given arbitrary-precision number
     /// object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal Copy(EDecimal ed) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return ed.Copy();
     }
 
@@ -586,7 +614,12 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the given number object but with a nonnegative sign.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal CopyAbs(EDecimal ed) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return Copy(ed.Abs());
     }
 
@@ -595,7 +628,12 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the sign
     /// reversed from the given number object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal CopyNegate(EDecimal ed) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return Copy(ed.Negate());
     }
 
@@ -609,7 +647,15 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='other'/> is null.</exception>
     public static EDecimal CopySign(EDecimal ed, EDecimal other) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
+      if (other == null) {
+        throw new ArgumentNullException(nameof(other));
+      }
       return ed.IsNegative == other.IsNegative ? Copy(ed) : CopyNegate(ed);
     }
 
@@ -678,11 +724,11 @@ namespace PeterO.Numbers {
         if (ed.IsZero) {
           return (ed.IsNegative ? EDecimal.NegativeZero :
              EDecimal.Zero).RoundToPrecision(ec);
-        } else if (ed.Exponent.Sign > 0) {
-          return ed.Reduce(ec);
-        } else if (ed.Exponent.Sign == 0) {
-          return ed.RoundToPrecision(ec);
-        } else {
+           } else if (ed.Exponent.Sign > 0) {
+             return ed.Reduce(ec);
+           } else if (ed.Exponent.Sign == 0) {
+             return ed.RoundToPrecision(ec);
+           } else {
           EInteger exp = ed.Exponent;
           EInteger mant = ed.UnsignedMantissa;
           bool neg = ed.IsNegative;
@@ -780,7 +826,7 @@ namespace PeterO.Numbers {
     /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
     /// AND operation sets each digit of the result to 1 if the
     /// corresponding digits of each logical operand are both 1, and to 0
-    /// otherwise. For example, <c>01001 AND 111010 = 01000</c>.</summary>
+    /// otherwise. For example, <c>01001 AND 111010=01000</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical AND
     /// operation.</param>
     /// <param name='ed2'>The second logical operand to the logical AND
@@ -821,7 +867,7 @@ namespace PeterO.Numbers {
     /// sets each digit of the result to 1 if the corresponding digit is 0,
     /// and to 0 otherwise; it can set no more digits than the maximum
     /// precision, however. For example, if the maximum precision is 8
-    /// digits, then <c>NOT 111010 = 11000101</c>.</summary>
+    /// digits, then <c>NOT 111010=11000101</c>.</summary>
     /// <param name='ed1'>The logical operand to the logical NOT
     /// operation.</param>
     /// <param name='ec'>An arithmetic context to control the maximum
@@ -865,7 +911,7 @@ namespace PeterO.Numbers {
     /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
     /// exclusive-OR operation sets each digit of the result to 1 if either
     /// corresponding digit of the logical operands, but not both, is 1,
-    /// and to 0 otherwise. For example, <c>01001 XOR 111010 = 101010</c>.</summary>
+    /// and to 0 otherwise. For example, <c>01001 XOR 111010=101010</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical
     /// exclusive-OR operation.</param>
     /// <param name='ed2'>The second logical operand to the logical
@@ -902,7 +948,7 @@ namespace PeterO.Numbers {
     /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
     /// OR operation sets each digit of the result to 1 if either or both
     /// of the corresponding digits of the logical operands are 1, and to 0
-    /// otherwise. For example, <c>01001 OR 111010 = 111011</c>.</summary>
+    /// otherwise. For example, <c>01001 OR 111010=111011</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical OR
     /// operation.</param>
     /// <param name='ed2'>The second logical operand to the logical OR

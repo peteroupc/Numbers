@@ -37,7 +37,7 @@
     </param>
     <param name='exponentMax'>An arbitrary-precision integer.
     </param>
-    <param name='clampNormalExponents'>either
+    <param name='clampNormalExponents'>Either
       <c>true</c> or
       <c>false</c> .
     </param>
@@ -63,7 +63,7 @@
       <paramref name='exponentMaxSmall'/>
        is a 32-bit signed integer.
     </param>
-    <param name='clampNormalExponents'>either
+    <param name='clampNormalExponents'>Either
       <c>true</c> or
       <c>false</c> .
     </param>
@@ -2397,6 +2397,10 @@
     </param>
     <returns>The product of the two decimal numbers.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Multiplies two decimal numbers. The resulting scale will be the sum of the
@@ -3261,6 +3265,10 @@
       <paramref name='bigPlaces'/>
       .
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigPlaces'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.ScaleByPowerOfTen(System.Int32)'>
     <summary>Returns a number similar to this number but with the scale adjusted.
@@ -3456,6 +3464,10 @@
     </param>
     <returns>An arbitrary-precision float floating-point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ec'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.ToEInteger'>
     <summary>Converts this value to an arbitrary-precision integer. Any fractional part
@@ -3817,6 +3829,10 @@
     </returns>
     <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Byte'>
     <summary>Converts an arbitrary-precision decimal number to a byte (from 0 to 255)
@@ -3832,6 +3848,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 255.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Decimal'>
@@ -3850,6 +3870,10 @@
       <c>decimal</c> under the Common Language Infrastructure (usually a.NET Framework
       decimal).
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Double'>
     <summary>Converts this value to its closest equivalent as a 64-bit floating-point
@@ -3870,6 +3894,10 @@
       can be positive infinity or negative infinity if this value exceeds the
       range of a 64-bit floating point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16'>
     <summary>Converts an arbitrary-precision decimal number to a 16-bit signed integer
@@ -3885,6 +3913,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -32768
       or greater than 32767.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32'>
@@ -3902,6 +3934,10 @@
        is infinity or not-a-number, or the truncated integer is less than
       -2147483648 or greater than 2147483647.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int64'>
     <summary>Converts an arbitrary-precision decimal number to a 64-bit signed integer
@@ -3918,6 +3954,10 @@
        is infinity or not-a-number, or the truncated integer is less than
       -9223372036854775808 or greater than 9223372036854775807.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.SByte'>
     <summary>Converts an arbitrary-precision decimal number to an 8-bit signed integer
@@ -3933,6 +3973,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -128
       or greater than 127.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Single'>
@@ -3954,6 +3998,10 @@
       value can be positive infinity or negative infinity if this value exceeds
       the range of a 32-bit floating point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt16'>
     <summary>Converts an arbitrary-precision decimal number to a 16-bit unsigned
@@ -3971,6 +4019,10 @@
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 65535.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt32'>
     <summary>Converts an arbitrary-precision decimal number to a 32-bit signed integer
@@ -3986,6 +4038,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 4294967295.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.UInt64'>
@@ -4003,6 +4059,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 18446744073709551615.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Explicit(System.Boolean)~PeterO.Numbers.EDecimal'>
@@ -5027,6 +5087,10 @@
       object is less than the other value, or 1 if the first object is greater.
       Does not signal flags if either value is signaling NaN.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.CompareTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Compares the absolute values of two arbitrary-precision number objects,
@@ -5062,6 +5126,10 @@
       signs), or 1 if the first object is greater (ignoring their signs). Does
       not signal flags if either value is signaling NaN.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.Copy(PeterO.Numbers.EDecimal)'>
     <summary>Creates a copy of the given arbitrary-precision number object.
@@ -5070,6 +5138,10 @@
     </param>
     <returns>A copy of the given arbitrary-precision number object.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.CopyAbs(PeterO.Numbers.EDecimal)'>
     <summary>Returns an arbitrary-precision number object with the same value as the
@@ -5081,6 +5153,10 @@
     <returns>An arbitrary-precision number object with the same value as the given
       number object but with a nonnegative sign.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.CopyNegate(PeterO.Numbers.EDecimal)'>
     <summary>Returns an arbitrary-precision number object with the sign reversed from
@@ -5091,6 +5167,10 @@
     <returns>An arbitrary-precision number object with the sign reversed from the given
       number object.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.CopySign(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
     <summary>Returns an arbitrary-precision number object with the same value as the
@@ -5107,6 +5187,12 @@
       given number object but with a the same sign (positive or negative) as the
       second given number object.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='other'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.Int32ToEDecimal(System.Int32,PeterO.Numbers.EContext)'>
     <summary>Creates an arbitrary-precision decimal number from a 32-bit signed
@@ -5335,6 +5421,10 @@
       <c>false</c> if the given context is null or HasExponentRange of the given context is
       <c>false</c> .
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.IsZero(PeterO.Numbers.EDecimal)'>
     <summary>Returns whether the given arbitrary-precision number object is zero
@@ -5519,6 +5609,12 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed2'/>
+       or
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.SameQuantum(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)'>
     <summary>Returns whether two arbitrary-precision numbers have the same exponent,
@@ -7181,6 +7277,10 @@
     </param>
     <returns>The product of the two binary floating-point numbers.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Multiplies two binary floating-point numbers. The resulting scale will be
@@ -7928,6 +8028,10 @@
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigPlaces'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(System.Int32)'>
     <summary>Returns a number similar to this number but with the scale adjusted.
@@ -8474,6 +8578,10 @@
     </returns>
     <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Byte'>
     <summary>Converts an arbitrary-precision binary float to a byte (from 0 to 255) if
@@ -8490,6 +8598,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 255.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Double'>
@@ -8511,6 +8623,10 @@
       can be positive infinity or negative infinity if this value exceeds the
       range of a 64-bit floating point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16'>
     <summary>Converts an arbitrary-precision binary float to a 16-bit signed integer if
@@ -8527,6 +8643,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -32768
       or greater than 32767.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32'>
@@ -8545,6 +8665,10 @@
        is infinity or not-a-number, or the truncated integer is less than
       -2147483648 or greater than 2147483647.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int64'>
     <summary>Converts an arbitrary-precision binary float to a 64-bit signed integer if
@@ -8562,6 +8686,10 @@
        is infinity or not-a-number, or the truncated integer is less than
       -9223372036854775808 or greater than 9223372036854775807.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.SByte'>
     <summary>Converts an arbitrary-precision binary float to an 8-bit signed integer if
@@ -8578,6 +8706,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -128
       or greater than 127.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Single'>
@@ -8600,6 +8732,10 @@
       value can be positive infinity or negative infinity if this value exceeds
       the range of a 32-bit floating point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt16'>
     <summary>Converts an arbitrary-precision binary float to a 16-bit unsigned integer
@@ -8616,6 +8752,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 65535.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt32'>
@@ -8634,6 +8774,10 @@
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 4294967295.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.UInt64'>
     <summary>Converts an arbitrary-precision binary float to a 64-bit unsigned integer
@@ -8650,6 +8794,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 18446744073709551615.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Explicit(System.Boolean)~PeterO.Numbers.EFloat'>
@@ -9221,6 +9369,10 @@
       object is less than the other value, or 1 if the first object is greater.
       Does not signal flags if either value is signaling NaN.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.CompareTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Compares the absolute values of two arbitrary-precision number objects,
@@ -9256,6 +9408,10 @@
       signs), or 1 if the first object is greater (ignoring their signs). Does
       not signal flags if either value is signaling NaN.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.Copy(PeterO.Numbers.EFloat)'>
     <summary>Creates a copy of the given arbitrary-precision number object.
@@ -9264,6 +9420,10 @@
     </param>
     <returns>A copy of the given arbitrary-precision number object.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.CopyAbs(PeterO.Numbers.EFloat)'>
     <summary>Returns an arbitrary-precision number object with the same value as the
@@ -9275,6 +9435,10 @@
     <returns>An arbitrary-precision number object with the same value as the given
       number object but with a nonnegative sign.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.CopyNegate(PeterO.Numbers.EFloat)'>
     <summary>Returns an arbitrary-precision number object with the sign reversed from
@@ -9285,6 +9449,10 @@
     <returns>An arbitrary-precision number object with the sign reversed from the given
       number object.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.CopySign(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
     <summary>Returns an arbitrary-precision number object with the same value as the
@@ -9301,6 +9469,12 @@
       given number object but with a the same sign (positive or negative) as the
       second given number object.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       or
+      <paramref name='other'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.Int32ToEFloat(System.Int32,PeterO.Numbers.EContext)'>
     <summary>Creates a binary floating-point number from a 32-bit signed integer.
@@ -9525,6 +9699,10 @@
       <c>false</c> if the given context is null or HasExponentRange of the given context is
       <c>false</c> .
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.IsZero(PeterO.Numbers.EFloat)'>
     <summary>Returns whether the given arbitrary-precision number object is zero
@@ -9708,6 +9886,12 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ed2'/>
+       or
+      <paramref name='ed'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.SameQuantum(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)'>
     <summary>Returns whether two arbitrary-precision numbers have the same exponent,
@@ -10423,9 +10607,10 @@
       </see>
        ) of this object' s value.
     </summary>
-    <param name='bigIndex'>An arbitrary-precision integer.
+    <param name='bigIndex'>The index, starting at zero, of the bit to test, where 0 is the least
+      significant bit, 1 is the next least significant bit, and so on.
     </param>
-    <returns><c>true</c> if a bit is set in the two' s-complement form (see
+    <returns><c>true</c> if the given bit is set in the two' s-complement form (see
       <see cref='PeterO.Numbers.EDecimal'>
         "Forms of numbers"
       </see>
@@ -10444,11 +10629,10 @@
       </see>
        ) of this object' s value.
     </summary>
-    <param name='index'>The parameter
-      <paramref name='index'/>
-       is a 32-bit signed integer.
+    <param name='index'>The index, starting at 0, of the bit to test, where 0 is the least
+      significant bit, 1 is the next least significant bit, and so on.
     </param>
-    <returns><c>true</c> if a bit is set in the two' s-complement form (see
+    <returns><c>true</c> if the given bit is set in the two' s-complement form (see
       <see cref='PeterO.Numbers.EDecimal'>
         "Forms of numbers"
       </see>
@@ -10459,7 +10643,11 @@
   <doc name='M:PeterO.Numbers.EInteger.GetSignedBitLength'>
     <summary>Finds the minimum number of bits needed to represent this object's value,
       except for its sign. If the value is negative, finds the number of bits in
-      the value equal to this object's absolute value minus 1.
+      the value equal to this object's absolute value minus 1. For example, all
+      integers in the interval [-(2^63), (2^63) - 1], which is the same as the
+      range of integers in Java's and.NET's
+      <c>long</c> type, have a signed bit length of 63 or less, and all other integers have
+      a signed bit length of greater than 63.
     </summary>
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0 or negative 1.
@@ -10471,7 +10659,11 @@
     <summary>Finds the minimum number of bits needed to represent this object's value,
       except for its sign, in the form of an arbitrary-precision integer. If the
       value is negative, finds the number of bits in the value equal to this
-      object's absolute value minus 1.
+      object's absolute value minus 1. For example, all integers in the interval
+      [-(2^63), (2^63) - 1], which is the same as the range of integers in
+      Java's and.NET's
+      <c>long</c> type, have a signed bit length of 63 or less, and all other integers have
+      a signed bit length of greater than 63.
     </summary>
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0 or negative 1.
@@ -10480,9 +10672,10 @@
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBit(PeterO.Numbers.EInteger)'>
     <summary>Returns whether a bit is set in this number's absolute value.
     </summary>
-    <param name='bigIndex'>An arbitrary-precision integer.
+    <param name='bigIndex'>The index, starting at zero, of the bit to test, where 0 is the least
+      significant bit, 1 is the next least significant bit, and so on.
     </param>
-    <returns><c>true</c> if a bit is set in this number's absolute value.
+    <returns><c>true</c> if the given bit is set in this number's absolute value.
     </returns>
     <exception cref='System.ArgumentNullException'>The parameter
       <paramref name='bigIndex'/>
@@ -10492,14 +10685,19 @@
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBit(System.Int32)'>
     <summary>Returns whether a bit is set in this number's absolute value.
     </summary>
-    <param name='index'>Zero based index of the bit to test. 0 means the least significant bit.
+    <param name='index'>The index, starting at 0, of the bit to test, where 0 is the least
+      significant bit, 1 is the next least significant bit, and so on.
     </param>
-    <returns><c>true</c> if a bit is set in this number's absolute value.
+    <returns><c>true</c> if the given bit is set in this number's absolute value.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBitLength'>
     <summary>Finds the minimum number of bits needed to represent this number's
-      absolute value.
+      absolute value. For example, all integers in the interval [-((2^63) - 1),
+      (2^63) - 1] have an unsigned bit length of 63 or less, and all other
+      integers have an unsigned bit length of greater than 63. This interval is
+      not the same as the range of integers in Java's and.NET's
+      <c>long</c> type.
     </summary>
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0, and returns 1 if the value is negative 1.
@@ -10509,7 +10707,11 @@
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger'>
     <summary>Finds the minimum number of bits needed to represent this number's
-      absolute value.
+      absolute value. For example, all integers in the interval [-((2^63) - 1),
+      (2^63) - 1] have an unsigned bit length of 63 or less, and all other
+      integers have an unsigned bit length of greater than 63. This interval is
+      not the same as the range of integers in Java's and.NET's
+      <c>long</c> type.
     </summary>
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0, and returns 1 if the value is negative 1.
@@ -11270,6 +11472,10 @@
       <paramref name='input'/>
        is less than 0 or greater than 255.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16'>
     <summary>Converts an arbitrary-precision integer to a 16-bit signed integer if it
@@ -11284,6 +11490,10 @@
     <exception cref='System.OverflowException'>The parameter
       <paramref name='input'/>
        is less than -32768 or greater than 32767.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32'>
@@ -11300,6 +11510,10 @@
       <paramref name='input'/>
        is less than -2147483648 or greater than 2147483647.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int64'>
     <summary>Converts an arbitrary-precision integer to a 64-bit signed integer if it
@@ -11314,6 +11528,10 @@
     <exception cref='System.OverflowException'>The parameter
       <paramref name='input'/>
        is less than -9223372036854775808 or greater than 9223372036854775807.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.SByte'>
@@ -11330,6 +11548,10 @@
       <paramref name='input'/>
        is less than -128 or greater than 127.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt16'>
     <summary>Converts an arbitrary-precision integer to a 16-bit unsigned integer if it
@@ -11344,6 +11566,10 @@
     <exception cref='System.OverflowException'>The parameter
       <paramref name='input'/>
        is less than 0 or greater than 65535.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt32'>
@@ -11360,6 +11586,10 @@
       <paramref name='input'/>
        is less than 0 or greater than 4294967295.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.UInt64'>
     <summary>Converts an arbitrary-precision integer to a 64-bit unsigned integer if it
@@ -11374,6 +11604,10 @@
     <exception cref='System.OverflowException'>The parameter
       <paramref name='input'/>
        is less than 0 or greater than 18446744073709551615.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.op_Explicit(System.Boolean)~PeterO.Numbers.EInteger'>
@@ -12838,6 +13072,10 @@
     </returns>
     <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Byte'>
     <summary>Converts an arbitrary-precision rational number to a byte (from 0 to 255)
@@ -12854,6 +13092,10 @@
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 255.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Decimal'>
     <summary>Converts an arbitrary-precision rational number to a
@@ -12869,6 +13111,10 @@
       <c>decimal</c> under the Common Language Infrastructure (usually a.NET Framework
       decimal).
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='extendedNumber'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Double'>
     <summary>Converts an arbitrary-precision rational number to a 64-bit floating-point
@@ -12880,6 +13126,10 @@
       can be positive infinity or negative infinity if this value exceeds the
       range of a 64-bit floating point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16'>
     <summary>Converts an arbitrary-precision rational number to a 16-bit signed integer
@@ -12895,6 +13145,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -32768
       or greater than 32767.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32'>
@@ -12912,6 +13166,10 @@
        is infinity or not-a-number, or the truncated integer is less than
       -2147483648 or greater than 2147483647.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int64'>
     <summary>Converts an arbitrary-precision rational number to a 64-bit signed integer
@@ -12927,6 +13185,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than
       -9223372036854775808 or greater than 9223372036854775807.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.SByte'>
@@ -12944,6 +13206,10 @@
        is infinity or not-a-number, or the truncated integer is less than -128
       or greater than 127.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Single'>
     <summary>Converts an arbitrary-precision rational number to a 32-bit binary
@@ -12955,6 +13221,10 @@
       value can be positive infinity or negative infinity if this value exceeds
       the range of a 32-bit floating point number.
     </returns>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigValue'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt16'>
     <summary>Converts an arbitrary-precision rational number to a 16-bit unsigned
@@ -12972,6 +13242,10 @@
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 65535.
     </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
+    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt32'>
     <summary>Converts an arbitrary-precision rational number to a 32-bit signed integer
@@ -12987,6 +13261,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 4294967295.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.UInt64'>
@@ -13004,6 +13282,10 @@
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 18446744073709551615.
+    </exception>
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='input'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(System.Boolean)~PeterO.Numbers.ERational'>

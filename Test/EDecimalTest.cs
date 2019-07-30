@@ -452,7 +452,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromByte(enumber.ToByteIfExact()));
-          } else {
+       } else {
             try {
               enumber.ToByteIfExact();
               Assert.Fail("Should have failed");
@@ -535,7 +535,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt16(enumber.ToInt16IfExact()));
-          } else {
+         } else {
             try {
               enumber.ToInt16IfExact();
               Assert.Fail("Should have failed");
@@ -618,7 +618,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt32(enumber.ToInt32IfExact()));
-          } else {
+         } else {
             try {
               enumber.ToInt32IfExact();
               Assert.Fail("Should have failed");
@@ -702,7 +702,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt64(enumber.ToInt64IfExact()));
-          } else {
+         } else {
             try {
               enumber.ToInt64IfExact();
               Assert.Fail("Should have failed");
@@ -2394,11 +2394,11 @@ namespace Test {
           TestCommon.CompareTestEqual(
        bigintB,
        EDecimal.Max(bigintA, bigintB));
-        } else if (cmp > 0) {
+     } else if (cmp > 0) {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Max(bigintA, bigintB));
-        } else {
+     } else {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Max(bigintA, bigintB));
@@ -2461,11 +2461,11 @@ namespace Test {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Min(bigintA, bigintB));
-        } else if (cmp > 0) {
+     } else if (cmp > 0) {
           TestCommon.CompareTestEqual(
        bigintB,
        EDecimal.Min(bigintA, bigintB));
-        } else {
+     } else {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Min(bigintA, bigintB));

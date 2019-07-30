@@ -1943,13 +1943,19 @@ An arbitrary-precision binary floating-point number.
 
  Multiplies two binary floating-point numbers. The resulting exponent will be the sum of the exponents of the two binary floating-point numbers.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>otherValue</i>: Another binary float.
 
 <b>Return Value:</b>
 
 The product of the two binary floating-point numbers.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="MultiplyAndAdd_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
 ### MultiplyAndAdd
@@ -2183,7 +2189,7 @@ The parameter  <i>dividend</i>
 
  Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2198,6 +2204,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2206,13 +2216,19 @@ The parameter  <i>input</i>
 
  Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The value to convert to a 64-bit floating-point number.
 
 <b>Return Value:</b>
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2222,13 +2238,19 @@ The closest 64-bit floating-point number to this value. The return value can be 
 
  Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
 The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2238,7 +2260,7 @@ The closest 32-bit binary floating-point number to this value. The return value 
 
  Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2253,6 +2275,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2261,7 +2287,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2275,6 +2301,10 @@ The value of  <i>input</i>
  * System.OverflowException:
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2301,7 +2331,7 @@ The number 1 if  <i>boolValue</i>
 
  Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2314,6 +2344,10 @@ An arbitrary-precision integer.
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
 
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2322,7 +2356,7 @@ This object's value is infinity or not-a-number (NaN).
 
  Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2337,6 +2371,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2345,7 +2383,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2360,6 +2398,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2368,7 +2410,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2383,6 +2425,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2391,7 +2437,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2406,6 +2452,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2414,7 +2464,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision binary floating-point number.
 
@@ -2428,6 +2478,10 @@ The value of  <i>input</i>
  * System.OverflowException:
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
 
 <a id="op_Implicit"></a>
 ### Implicit Operator
@@ -2842,7 +2896,7 @@ An arbitrary-precision integer.
         int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
- Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+  Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
  <b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
@@ -2891,7 +2945,7 @@ A binary float with the same value as this object but with the exponent changed.
         PeterO.Numbers.EInteger desiredExponent,
         PeterO.Numbers.EContext ctx);
 
- Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+  Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
  <b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
@@ -3274,7 +3328,7 @@ A number whose exponent is increased by "bigPlaces".
 
  Returns a number similar to this number but with its scale adjusted.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>bigPlaces</i>: An arbitrary-precision integer.
 
@@ -3283,6 +3337,12 @@ A number whose exponent is increased by "bigPlaces".
 <b>Return Value:</b>
 
 An arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigPlaces</i>
+ is null.
 
 <a id="Sqrt_PeterO_Numbers_EContext"></a>
 ### Sqrt

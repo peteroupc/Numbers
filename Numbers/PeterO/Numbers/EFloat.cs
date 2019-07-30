@@ -814,7 +814,7 @@ namespace PeterO.Numbers {
     /// <example>
     /// <code>EInteger result =
     /// EInteger.FromString("5").Multiply(200);</code>
-    /// .
+    ///  .
     /// </example>
     public EFloat Multiply(int intValue) {
       return this.Multiply(EFloat.FromInt32(intValue));
@@ -940,7 +940,7 @@ namespace PeterO.Numbers {
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotal(other.RoundToPrecision(ctx));
-      } else {
+        } else {
         return this.CompareToTotal(other);
       }
     }
@@ -982,7 +982,7 @@ namespace PeterO.Numbers {
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
-      } else {
+        } else {
         return this.CompareToTotalMagnitude(other);
       }
     }
@@ -1784,7 +1784,12 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>Another binary float.</param>
     /// <returns>The product of the two binary floating-point
     /// numbers.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public EFloat Multiply(EFloat otherValue) {
+      if (otherValue == null) {
+        throw new ArgumentNullException(nameof(otherValue));
+      }
       if (this.IsFinite && otherValue.IsFinite) {
         EInteger exp = this.exponent.Add(otherValue.exponent);
         int newflags = otherValue.flags ^ this.flags;
@@ -2050,7 +2055,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>
-    /// Returns a binary float with the same value but a new
+    ///  Returns a binary float with the same value but a new
     /// exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of binary digit places, since it can fail if the difference
@@ -2059,13 +2064,12 @@ namespace PeterO.Numbers {
     /// binary digit places is desired, it's better to use the
     /// RoundToExponent and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point binary arithmetic, in which each binary float has a
     /// fixed number of digits after the radix point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the radix point:</para>
-    /// <code> // After performing arithmetic operations, adjust // the number to 5
-    /// /// //
+    /// <code> // After performing arithmetic operations, adjust // the number to 5 //
     /// digits after the radix point number = number.Quantize(
     /// EInteger.FromInt32(-5), // five digits after the radix point
     /// EContext.ForPrecision(25) // 25-digit precision);</code>
@@ -2082,7 +2086,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -2100,7 +2104,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>
-    /// Returns a binary float with the same value but a new
+    ///  Returns a binary float with the same value but a new
     /// exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of binary digit places, since it can fail if the difference
@@ -2109,7 +2113,7 @@ namespace PeterO.Numbers {
     /// binary digit places is desired, it's better to use the
     /// RoundToExponent and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point binary arithmetic, in which each binary float has a
     /// fixed number of digits after the radix point. The following code
     /// example returns a fixed-point number with up to 20 digits before
@@ -2131,7 +2135,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -2616,9 +2620,14 @@ namespace PeterO.Numbers {
     /// Can be null.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigPlaces'/> is null.</exception>
     public EFloat ScaleByPowerOfTwo(
       EInteger bigPlaces,
       EContext ctx) {
+      if (bigPlaces == null) {
+        throw new ArgumentNullException(nameof(bigPlaces));
+      }
       if (bigPlaces.IsZero) {
         return this.RoundToPrecision(ctx);
       }
@@ -2729,6 +2738,8 @@ namespace PeterO.Numbers {
           nan[1] |= unchecked((int)(1 << 31));
         }
         if (this.IsQuietNaN()) {
+          // Quiet NaN is a NaN in which the highest bit of
+          // the mantissa area is set
           nan[1] |= 0x80000;
         } else if (this.UnsignedMantissa.IsZero) {
           // Set the 0x40000 bit to keep the mantissa from

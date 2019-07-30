@@ -657,7 +657,7 @@ namespace PeterO.Numbers {
         if (expcmp < 0 && op2Mantissa.IsValueZero) {
           return IsNullOrSimpleContext(ctx) ?
            thisValue : this.RoundToPrecision(thisValue, ctx);
-        } else if (expcmp >= 0 && op1Mantissa.IsValueZero) {
+         } else if (expcmp >= 0 && op1Mantissa.IsValueZero) {
           return IsNullOrSimpleContext(ctx) ?
            other : this.RoundToPrecision(other, ctx);
         }
@@ -829,7 +829,7 @@ ctx.Precision).WithBlankFlags();
   EInteger.Zero,
   dividendExp - (EInteger)divisorExp,
   this.helper.GetFlags(ret));
-      } else {
+} else {
         if (desiredScale.Sign < 0) {
           // Desired scale is negative, shift left
           desiredScale.Negate();
@@ -845,7 +845,7 @@ ctx.Precision).WithBlankFlags();
   bigmantissa,
   this.helper.GetExponent(thisValue) - (EInteger)exponentDivisor,
   this.helper.GetFlags(ret));
-        } else if (desiredScale.Sign > 0) {
+} else if (desiredScale.Sign > 0) {
           // Desired scale is positive, shift away zeros
           // but not after scale is reached
           EInteger bigmantissa = this.helper.GetMantissa(ret);
@@ -1815,7 +1815,7 @@ ctx.Precision).WithBlankFlags();
         return this.RoundToPrecision(
    this.EnsureSign(thisValue, (otherFlags & BigNumberFlags.FlagNegative) != 0),
    ctx.WithNoFlags());
-      } else {
+ } else {
         if ((thisFlags & BigNumberFlags.FlagInfinity) != 0) {
           if ((thisFlags & (BigNumberFlags.FlagInfinity |
                     BigNumberFlags.FlagNegative)) == (otherFlags &
@@ -2112,7 +2112,7 @@ ctx.Precision).WithBlankFlags();
           if (thisExponent.Sign == 0) {
             return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
               this.SignalInvalid(ctx) : this.helper.ValueOf(1);
-          } else if (powExponent.Sign == 0) {
+            } else if (powExponent.Sign == 0) {
             if (!this.IsWithinExponentRangeForPow(pow, ctx)) {
               return this.SignalInvalid(ctx);
             }
@@ -4588,17 +4588,17 @@ ERounding.HalfEven ||
       } else if (rounding == ERounding.HalfDown) {
         incremented |= lastDiscarded > (radix / 2) || (lastDiscarded ==
                 (radix / 2) && olderDiscarded != 0);
-      } else if (rounding == ERounding.Ceiling) {
-        incremented |= !neg && (lastDiscarded | olderDiscarded) != 0;
-      } else if (rounding == ERounding.Floor) {
-        incremented |= neg && (lastDiscarded | olderDiscarded) != 0;
-      } else if (rounding == ERounding.Up) {
-        incremented |= (lastDiscarded | olderDiscarded) != 0;
-      } else if (rounding == ERounding.Odd ||
+              } else if (rounding == ERounding.Ceiling) {
+                incremented |= !neg && (lastDiscarded | olderDiscarded) != 0;
+              } else if (rounding == ERounding.Floor) {
+                incremented |= neg && (lastDiscarded | olderDiscarded) != 0;
+              } else if (rounding == ERounding.Up) {
+                incremented |= (lastDiscarded | olderDiscarded) != 0;
+              } else if (rounding == ERounding.Odd ||
         (rounding == ERounding.OddOrZeroFiveUp && radix == 2)) {
         incremented |= (lastDiscarded | olderDiscarded) != 0 &&
             fastNumber.IsEvenNumber;
-      } else if (rounding == ERounding.ZeroFiveUp ||
+          } else if (rounding == ERounding.ZeroFiveUp ||
         (rounding == ERounding.OddOrZeroFiveUp && radix != 2)) {
         if ((lastDiscarded | olderDiscarded) != 0) {
           if (radix == 2) {
@@ -4793,7 +4793,7 @@ ERounding.HalfEven ||
                   .Add(fastPrecision).Decrement();
                 fastNormalMin = fastEMin.Copy()
                   .Add(fastPrecision).Decrement();
-              } else {
+                } else {
                 fastAdjustedExp = bigexp.ToFastInteger();
                 fastNormalMin = fastEMin;
               }
@@ -4843,7 +4843,7 @@ ERounding.HalfEven ||
                     .Add(fastPrecision).Decrement();
                   fastNormalMin = fastEMin.Copy()
                     .Add(fastPrecision).Decrement();
-                } else {
+                  } else {
                   fastAdjustedExp = bigexp.ToFastInteger();
                   fastNormalMin = fastEMin;
                 }

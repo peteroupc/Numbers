@@ -17,7 +17,8 @@ namespace Test {
 #endif
     }
     public string GetString(string name) {
-      return this.mgr.GetString(name);
+      return this.mgr.GetString(name,
+  System.Globalization.CultureInfo.InvariantCulture);
     }
   }
 }

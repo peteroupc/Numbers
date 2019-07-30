@@ -281,7 +281,7 @@ namespace PeterO.Numbers {
                   14 : ((value >= 1000000000000L) ? 13 : ((value
                   >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
                   11 : ((value >= 1000000000L) ? 10 : 9)))))))));
-      } else {
+                } else {
         var v2 = (int)value;
         return (v2 >= 100000000) ? 9 : ((v2 >= 10000000) ? 8 : ((v2 >=
                   1000000) ? 7 : ((v2 >= 100000) ? 6 : ((v2
@@ -542,7 +542,7 @@ this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
             this.shiftedSmall = (int)div;
             this.knownDigitLength = (div < 10) ? new FastInteger(1) :
               new FastInteger(LongDigitLength(div));
-          } else {
+            } else {
             this.shiftedBigInt = EInteger.FromInt64(div);
             this.knownDigitLength = (div < 10) ? new FastInteger(1) :
               this.CalcKnownDigitLength();

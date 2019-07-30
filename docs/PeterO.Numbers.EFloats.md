@@ -47,7 +47,7 @@
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
- Performs a logical AND operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical AND operation sets each bit of the result to 1 if the corresponding bits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010 = 01000` .
+ Performs a logical AND operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical AND operation sets each bit of the result to 1 if the corresponding bits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010=01000` .
 
       <b>Parameters:</b>
 
@@ -123,7 +123,7 @@ A copy of the parameter  <i>ed</i>
 
   * Negative numbers are less than positive numbers.
 
-      <b>Parameters:</b>
+       <b>Parameters:</b>
 
  * <i>ed</i>: The first arbitrary-precision number to compare.
 
@@ -134,6 +134,12 @@ A copy of the parameter  <i>ed</i>
 <b>Return Value:</b>
 
 The number 0 if both objects have the same value, or -1 if the first object is less than the other value, or 1 if the first object is greater. Does not signal flags if either value is signaling NaN.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
 
 <a id="CompareTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareTotalMagnitude
@@ -155,7 +161,7 @@ The number 0 if both objects have the same value, or -1 if the first object is l
 
   * Infinity has a higher "absolute value" than any finite number.
 
-      <b>Parameters:</b>
+       <b>Parameters:</b>
 
  * <i>ed</i>: The first arbitrary-precision number to compare.
 
@@ -167,6 +173,12 @@ The number 0 if both objects have the same value, or -1 if the first object is l
 
 The number 0 if both objects have the same value (ignoring their signs), or -1 if the first object is less than the other value (ignoring their signs), or 1 if the first object is greater (ignoring their signs). Does not signal flags if either value is signaling NaN.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
+
 <a id="Copy_PeterO_Numbers_EFloat"></a>
 ### Copy
 
@@ -175,13 +187,19 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
 
  Creates a copy of the given arbitrary-precision number object.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object to copy.
 
 <b>Return Value:</b>
 
 A copy of the given arbitrary-precision number object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
 
 <a id="CopyAbs_PeterO_Numbers_EFloat"></a>
 ### CopyAbs
@@ -191,13 +209,19 @@ A copy of the given arbitrary-precision number object.
 
  Returns an arbitrary-precision number object with the same value as the given number object but with a nonnegative sign (that is, the given number object's absolute value).
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
 <b>Return Value:</b>
 
 An arbitrary-precision number object with the same value as the given number object but with a nonnegative sign.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
 
 <a id="CopyNegate_PeterO_Numbers_EFloat"></a>
 ### CopyNegate
@@ -207,13 +231,19 @@ An arbitrary-precision number object with the same value as the given number obj
 
  Returns an arbitrary-precision number object with the sign reversed from the given number object.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
 <b>Return Value:</b>
 
 An arbitrary-precision number object with the sign reversed from the given number object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
 
 <a id="CopySign_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
 ### CopySign
@@ -224,7 +254,7 @@ An arbitrary-precision number object with the sign reversed from the given numbe
 
  Returns an arbitrary-precision number object with the same value as the first given number object but with a the same sign (positive or negative) as the second given number object.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object with the value the result will have.
 
@@ -234,6 +264,13 @@ An arbitrary-precision number object with the sign reversed from the given numbe
 <b>Return Value:</b>
 
 An arbitrary-precision number object with the same value as the first given number object but with a the same sign (positive or negative) as the second given number object.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ or  <i>other</i>
+ is null.
 
 <a id="Int32ToEFloat_int_PeterO_Numbers_EContext"></a>
 ### Int32ToEFloat
@@ -262,7 +299,7 @@ An arbitrary-precision binary floating-point number with the closest representab
         PeterO.Numbers.EFloat ed1,
         PeterO.Numbers.EContext ec);
 
- Performs a logical NOT operation on a binary number in the form of a <i>logical operand</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include  `01001`  and  `111001`  ). The logical NOT operation sets each bit of the result to 1 if the corresponding bit is 0, and to 0 otherwise; it can set no more bits than the maximum precision, however. For example, if the maximum precision is 8 bits, then  `NOT 111010 = 11000101` .
+ Performs a logical NOT operation on a binary number in the form of a <i>logical operand</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include  `01001`  and  `111001`  ). The logical NOT operation sets each bit of the result to 1 if the corresponding bit is 0, and to 0 otherwise; it can set no more bits than the maximum precision, however. For example, if the maximum precision is 8 bits, then  `NOT 111010=11000101` .
 
      <b>Parameters:</b>
 
@@ -415,7 +452,7 @@ Either  `true`  or  `false` .
 
  Returns whether the given number is a <i>subnormal</i> number. A <i>subnormal number</i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
@@ -424,6 +461,12 @@ Either  `true`  or  `false` .
 <b>Return Value:</b>
 
 Either  `true`  if the given number is subnormal, or  `false`  otherwise. Returns  `false`  if the given context is null or HasExponentRange of the given context is  `false` .
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed</i>
+ is null.
 
 <a id="IsZero_PeterO_Numbers_EFloat"></a>
 ### IsZero
@@ -523,7 +566,7 @@ The parameter  <i>nc</i>
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
- Performs a logical OR operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical OR operation sets each bit of the result to 1 if either or both of the corresponding bits of each logical operand are 1, and to 0 otherwise. For example,  `01001 OR 111010 = 111011` .
+ Performs a logical OR operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical OR operation sets each bit of the result to 1 if either or both of the corresponding bits of each logical operand are 1, and to 0 otherwise. For example,  `01001 OR 111010=111011` .
 
       <b>Parameters:</b>
 
@@ -589,7 +632,7 @@ An arbitrary-precision binary number with the same value as this object but with
 
  Rotates the bits of an arbitrary-precision binary number's mantissa.
 
-      <b>Parameters:</b>
+       <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number containing the mantissa to rotate. If this mantissa contains more bits than the precision, the most-significant bits are chopped off the mantissa.
 
@@ -602,6 +645,13 @@ An arbitrary-precision binary number with the same value as this object but with
 An arbitrary-precision binary number whose mantissa is rotated the given number of bits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ed2</i>
+ or  <i>ed</i>
+ is null.
 
 <a id="SameQuantum_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
 ### SameQuantum

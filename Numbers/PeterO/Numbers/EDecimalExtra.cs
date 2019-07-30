@@ -79,7 +79,12 @@ namespace PeterO.Numbers {
     /// an arbitrary-precision decimal floating-point number.</param>
     /// <returns>A <c>decimal</c> under the Common Language Infrastructure
     /// (usually a.NET Framework decimal).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigValue'/> is null.</exception>
     public static explicit operator decimal(EDecimal bigValue) {
+      if (bigValue == null) {
+        throw new ArgumentNullException(nameof(bigValue));
+      }
       return bigValue.ToDecimal();
     }
 
@@ -253,7 +258,12 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='System.OverflowException'>This object's value is
     /// infinity or not-a-number (NaN).</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigValue'/> is null.</exception>
     public static explicit operator EInteger(EDecimal bigValue) {
+      if (bigValue == null) {
+        throw new ArgumentNullException(nameof(bigValue));
+      }
       return bigValue.ToEInteger();
     }
 
@@ -274,7 +284,12 @@ namespace PeterO.Numbers {
     /// The return value can be positive infinity or negative infinity if
     /// this value exceeds the range of a 64-bit floating point
     /// number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigValue'/> is null.</exception>
     public static explicit operator double(EDecimal bigValue) {
+      if (bigValue == null) {
+        throw new ArgumentNullException(nameof(bigValue));
+      }
       return bigValue.ToDouble();
     }
 
@@ -295,7 +310,12 @@ namespace PeterO.Numbers {
     /// value. The return value can be positive infinity or negative
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigValue'/> is null.</exception>
     public static explicit operator float(EDecimal bigValue) {
+      if (bigValue == null) {
+        throw new ArgumentNullException(nameof(bigValue));
+      }
       return bigValue.ToSingle();
     }
 
@@ -311,7 +331,12 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 255.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator byte(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToByteChecked();
     }
 
@@ -400,8 +425,13 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -128 or greater than 127.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator sbyte(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToSByteChecked();
     }
 
@@ -426,7 +456,12 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -32768 or greater than 32767.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator short(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToInt16Checked();
     }
 
@@ -519,8 +554,13 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 65535.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ushort(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToUInt16Checked();
     }
 
@@ -546,7 +586,12 @@ namespace PeterO.Numbers {
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -2147483648 or greater than
     /// 2147483647.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator int(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToInt32Checked();
     }
 
@@ -638,8 +683,13 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 4294967295.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator uint(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToUInt32Checked();
     }
 
@@ -665,7 +715,12 @@ namespace PeterO.Numbers {
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator long(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToInt64Checked();
     }
 
@@ -758,8 +813,13 @@ namespace PeterO.Numbers {
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than
     /// 18446744073709551615.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ulong(EDecimal input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToUInt64Checked();
     }
 

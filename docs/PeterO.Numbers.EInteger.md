@@ -989,12 +989,11 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
 
     <b>Parameters:</b>
 
- * <i>index</i>: The parameter  <i>index</i>
- is a 32-bit signed integer.
+ * <i>index</i>: The index, starting at 0, of the bit to test, where 0 is the least significant bit, 1 is the next least significant bit, and so on.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value; otherwise,  `false` .
+ `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value; otherwise,  `false` .
 
 <a id="GetSignedBit_PeterO_Numbers_EInteger"></a>
 ### GetSignedBit
@@ -1006,11 +1005,11 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
 
      <b>Parameters:</b>
 
- * <i>bigIndex</i>: An arbitrary-precision integer.
+ * <i>bigIndex</i>: The index, starting at zero, of the bit to test, where 0 is the least significant bit, 1 is the next least significant bit, and so on.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value; otherwise,  `false` .
+ `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value; otherwise,  `false` .
 
 <b>Exceptions:</b>
 
@@ -1025,7 +1024,7 @@ The parameter  <i>bigIndex</i>
 
 <b>Deprecated.</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
 
- Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
+ Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
 
     <b>Return Value:</b>
 
@@ -1041,7 +1040,7 @@ The return value would exceed the range of a 32-bit signed integer.
 
     public PeterO.Numbers.EInteger GetSignedBitLengthAsEInteger();
 
- Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1.
+ Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
 
    <b>Return Value:</b>
 
@@ -1057,11 +1056,11 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
     <b>Parameters:</b>
 
- * <i>index</i>: Zero based index of the bit to test. 0 means the least significant bit.
+ * <i>index</i>: The index, starting at 0, of the bit to test, where 0 is the least significant bit, 1 is the next least significant bit, and so on.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in this number's absolute value.
+ `true`  if the given bit is set in this number's absolute value.
 
 <a id="GetUnsignedBit_PeterO_Numbers_EInteger"></a>
 ### GetUnsignedBit
@@ -1073,11 +1072,11 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
      <b>Parameters:</b>
 
- * <i>bigIndex</i>: An arbitrary-precision integer.
+ * <i>bigIndex</i>: The index, starting at zero, of the bit to test, where 0 is the least significant bit, 1 is the next least significant bit, and so on.
 
 <b>Return Value:</b>
 
- `true`  if a bit is set in this number's absolute value.
+ `true`  if the given bit is set in this number's absolute value.
 
 <b>Exceptions:</b>
 
@@ -1092,7 +1091,7 @@ The parameter  <i>bigIndex</i>
 
 <b>Deprecated.</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
 
- Finds the minimum number of bits needed to represent this number's absolute value.
+ Finds the minimum number of bits needed to represent this number's absolute value. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
 
     <b>Return Value:</b>
 
@@ -1108,7 +1107,7 @@ The return value would exceed the range of a 32-bit signed integer.
 
     public PeterO.Numbers.EInteger GetUnsignedBitLengthAsEInteger();
 
- Finds the minimum number of bits needed to represent this number's absolute value.
+ Finds the minimum number of bits needed to represent this number's absolute value. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
 
    <b>Return Value:</b>
 
@@ -1465,7 +1464,7 @@ The parameter  <i>a</i>
 
  Converts an arbitrary-precision integer to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255).
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1480,6 +1479,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is less than 0 or greater than 255.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1488,7 +1491,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1503,6 +1506,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is less than -2147483648 or greater than 2147483647.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1511,7 +1518,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision integer to a 64-bit signed integer if it can fit in a 64-bit signed integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1525,6 +1532,10 @@ The value of  <i>input</i>
  * System.OverflowException:
 The parameter  <i>input</i>
  is less than -9223372036854775808 or greater than 9223372036854775807.
+
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1551,7 +1562,7 @@ The value of  <i>boolValue</i>
 
  Converts an arbitrary-precision integer to an 8-bit signed integer if it can fit in an 8-bit signed integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1566,6 +1577,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is less than -128 or greater than 127.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1574,7 +1589,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision integer to a 16-bit signed integer if it can fit in a 16-bit signed integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1589,6 +1604,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is less than -32768 or greater than 32767.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1597,7 +1616,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1612,6 +1631,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is less than 0 or greater than 4294967295.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1620,7 +1643,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision integer to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1635,6 +1658,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is less than 0 or greater than 18446744073709551615.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1643,7 +1670,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision integer to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision integer.
 
@@ -1657,6 +1684,10 @@ The value of  <i>input</i>
  * System.OverflowException:
 The parameter  <i>input</i>
  is less than 0 or greater than 65535.
+
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
 
 <a id="op_GreaterThan"></a>
 ### Operator `>`

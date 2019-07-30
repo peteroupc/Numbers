@@ -11,6 +11,9 @@ namespace Test {
       var smallExponent = 0;
       var index = 0;
       EInteger ret = EInteger.Zero;
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
       while (index < str.Length) {
         if (str[index] == '0') {
           ++index;
@@ -707,11 +710,11 @@ namespace Test {
           TestCommon.CompareTestEqual(
      bigintB,
      EFloat.Max(bigintA, bigintB));
-        } else if (cmp > 0) {
+   } else if (cmp > 0) {
           TestCommon.CompareTestEqual(
      bigintA,
      EFloat.Max(bigintA, bigintB));
-        } else {
+   } else {
           TestCommon.CompareTestEqual(
      bigintA,
      EFloat.Max(bigintA, bigintB));
@@ -775,11 +778,11 @@ namespace Test {
           TestCommon.CompareTestEqual(
      bigintA,
      EFloat.Min(bigintA, bigintB));
-        } else if (cmp > 0) {
+   } else if (cmp > 0) {
           TestCommon.CompareTestEqual(
      bigintB,
      EFloat.Min(bigintA, bigintB));
-        } else {
+   } else {
           TestCommon.CompareTestEqual(
      bigintA,
      EFloat.Min(bigintA, bigintB));
@@ -1079,6 +1082,9 @@ namespace Test {
 
     public EFloat RandomDoubleEFloat(RandomGenerator rnd, bool subnormal) {
       var sb = new StringBuilder();
+      if (rnd == null) {
+        throw new ArgumentNullException(nameof(rnd));
+      }
       if (rnd.UniformInt(2) == 0) {
         sb.Append('-');
       }
@@ -1114,6 +1120,9 @@ namespace Test {
 
     public EFloat RandomSingleEFloat(RandomGenerator rnd, bool subnormal) {
       var sb = new StringBuilder();
+      if (rnd == null) {
+        throw new ArgumentNullException(nameof(rnd));
+      }
       if (rnd.UniformInt(2) == 0) {
         sb.Append('-');
       }
@@ -1156,6 +1165,9 @@ namespace Test {
     }
 
     public static string OutputEF(EFloat ef) {
+      if (ef == null) {
+        throw new ArgumentNullException(nameof(ef));
+      }
       return ef.ToDouble() + " [" + ef.Mantissa.Abs().ToRadixString(2) +
         "," + ef.Exponent + "]";
     }
@@ -1164,6 +1176,12 @@ namespace Test {
       EFloat expected,
       EFloat input,
       EFloat src) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
+      if (expected == null) {
+        throw new ArgumentNullException(nameof(expected));
+      }
       if (!input.IsFinite || !expected.IsFinite) {
         return;
       }
@@ -1193,6 +1211,12 @@ namespace Test {
       EFloat expected,
       EFloat input,
       EFloat src) {
+      if (expected == null) {
+        throw new ArgumentNullException(nameof(expected));
+      }
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       if (!input.IsFinite || !expected.IsFinite) {
         return;
       }
@@ -1505,7 +1529,7 @@ namespace Test {
             TestCommon.AssertEquals(
          eint,
          EInteger.FromByte(enumber.ToByteIfExact()));
-          } else {
+       } else {
             try {
               enumber.ToByteIfExact();
               Assert.Fail("Should have failed");
@@ -1587,7 +1611,7 @@ namespace Test {
             TestCommon.AssertEquals(
            eint,
            EInteger.FromInt16(enumber.ToInt16IfExact()));
-          } else {
+         } else {
             try {
               enumber.ToInt16IfExact();
               Assert.Fail("Should have failed");
@@ -1670,7 +1694,7 @@ namespace Test {
             TestCommon.AssertEquals(
            eint,
            EInteger.FromInt32(enumber.ToInt32IfExact()));
-          } else {
+         } else {
             try {
               enumber.ToInt32IfExact();
               Assert.Fail("Should have failed");

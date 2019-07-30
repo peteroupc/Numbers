@@ -135,9 +135,9 @@
 
       <b>Parameters:</b>
 
- * <i>numerator</i>: An EInteger object.
+ * <i>numerator</i>: An arbitrary-precision integer.
 
- * <i>denominator</i>: An EInteger object.
+ * <i>denominator</i>: An arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
@@ -903,7 +903,7 @@ The parameter "str" is not a correctly formatted number string.
         int offset,
         int length);
 
- Creates a rational number from a text string that represents a number.
+  Creates a rational number from a text string that represents a number.
 
  The format of the string generally consists of:
 
@@ -1200,7 +1200,7 @@ The parameter "otherValue" is null.
 
  Converts an arbitrary-precision rational number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1215,6 +1215,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1223,13 +1227,19 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision rational number to a 64-bit floating-point number. The half-even rounding mode is used.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1239,13 +1249,19 @@ The closest 64-bit floating-point number to this value. The return value can be 
 
  Converts an arbitrary-precision rational number to a 32-bit binary floating-point number. The half-even rounding mode is used.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
 The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1255,7 +1271,7 @@ The closest 32-bit binary floating-point number to this value. The return value 
 
  Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1270,6 +1286,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1278,7 +1298,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision rational number to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1293,6 +1313,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1301,7 +1325,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision rational number to an arbitrary-precision integer. Any fractional part in the value will be discarded when converting to an arbitrary-precision integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>bigValue</i>: An arbitrary-precision rational number.
 
@@ -1313,6 +1337,10 @@ An arbitrary-precision integer.
 
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1339,7 +1367,7 @@ This object's value is infinity or not-a-number (NaN).
 
  Converts an arbitrary-precision rational number to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1354,6 +1382,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1362,7 +1394,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision rational number to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1377,6 +1409,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1385,13 +1421,19 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision rational number to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ).
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>extendedNumber</i>: The number to convert as an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
 A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework decimal).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>extendedNumber</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -1401,7 +1443,7 @@ A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework 
 
  Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1416,6 +1458,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1424,7 +1470,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision rational number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1439,6 +1485,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -1447,7 +1497,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision rational number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision rational number.
 
@@ -1461,6 +1511,10 @@ The value of  <i>input</i>
  * System.OverflowException:
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
 
 <a id="op_Implicit"></a>
 ### Implicit Operator

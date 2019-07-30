@@ -507,7 +507,12 @@ namespace PeterO.Numbers {
     /// 255).</returns>
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than 255.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator byte(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToByteChecked();
     }
 
@@ -575,8 +580,13 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than -128 or greater than 127.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator sbyte(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToSByteChecked();
     }
 
@@ -600,7 +610,12 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than -32768 or greater than
     /// 32767.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator short(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToInt16Checked();
     }
 
@@ -661,8 +676,13 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than 65535.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ushort(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToUInt16Checked();
     }
 
@@ -686,7 +706,12 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than -2147483648 or greater than
     /// 2147483647.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator int(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToInt32Checked();
     }
 
@@ -746,8 +771,13 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than
     /// 4294967295.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator uint(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToUInt32Checked();
     }
 
@@ -771,7 +801,12 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     public static explicit operator long(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToInt64Checked();
     }
 
@@ -795,8 +830,13 @@ namespace PeterO.Numbers {
     /// <exception cref='System.OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than
     /// 18446744073709551615.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ulong(EInteger input) {
+      if (input == null) {
+        throw new ArgumentNullException(nameof(input));
+      }
       return input.ToUInt64Checked();
     }
 

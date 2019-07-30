@@ -1194,7 +1194,7 @@ namespace PeterO.Numbers {
     /// <example>
     /// <code>EInteger result =
     /// EInteger.FromString("5").Multiply(200);</code>
-    /// .
+    ///  .
     /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
@@ -2526,7 +2526,7 @@ WordsShiftRightOne(bu, buc);
             buc = WordsSubtract(bu, buc, bv, bvc);
             buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x02) == 0) ?
               WordsShiftRightTwo(bu, buc) : WordsShiftRightOne(bu, buc);
-          } else {
+            } else {
             short[] butmp = bv;
             short[] bvtmp = bu;
             int buctmp = bvc;
@@ -2602,7 +2602,7 @@ WordsShiftRightOne(bu, buc);
                     14 : ((value >= 1000000000000L) ? 13 : ((value
                     >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
                     11 : ((value >= 1000000000L) ? 10 : 9)))))))));
-        } else {
+                  } else {
           var v2 = (int)value;
           return (v2 >= 100000000) ? 9 : ((v2 >= 10000000) ? 8 : ((v2 >=
                     1000000) ? 7 : ((v2 >= 100000) ? 6 : ((v2
@@ -2630,7 +2630,7 @@ WordsShiftRightOne(bu, buc);
         }
         return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits)) >=
               0 ? maxDigits : minDigits;
-      } else if (bitlen <= 6432162) {
+            } else if (bitlen <= 6432162) {
         // Much more accurate approximation
         int minDigits = ApproxLogTenOfTwo(bitlen - 1);
         int maxDigits = ApproxLogTenOfTwo(bitlen);
@@ -2835,9 +2835,11 @@ WordsShiftRightOne(bu, buc);
     /// (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object' s value.</summary>
-    /// <param name='bigIndex'>An arbitrary-precision integer.</param>
-    /// <returns><c>true</c> if a bit is set in the two' s-complement form
-    /// (see
+    /// <param name='bigIndex'>The index, starting at zero, of the bit to
+    /// test, where 0 is the least significant bit, 1 is the next least
+    /// significant bit, and so on.</param>
+    /// <returns><c>true</c> if the given bit is set in the two'
+    /// s-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object' s value; otherwise, <c>false</c>.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -2883,10 +2885,11 @@ WordsShiftRightOne(bu, buc);
     /// (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object' s value.</summary>
-    /// <param name='index'>The parameter <paramref name='index'/> is a
-    /// 32-bit signed integer.</param>
-    /// <returns><c>true</c> if a bit is set in the two' s-complement form
-    /// (see
+    /// <param name='index'>The index, starting at 0, of the bit to test,
+    /// where 0 is the least significant bit, 1 is the next least
+    /// significant bit, and so on.</param>
+    /// <returns><c>true</c> if the given bit is set in the two'
+    /// s-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object' s value; otherwise, <c>false</c>.</returns>
     public bool GetSignedBit(int index) {
@@ -2922,7 +2925,11 @@ WordsShiftRightOne(bu, buc);
     /// object's value, except for its sign, in the form of an
     /// arbitrary-precision integer. If the value is negative, finds the
     /// number of bits in the value equal to this object's absolute value
-    /// minus 1.</summary>
+    /// minus 1. For example, all integers in the interval [-(2^63), (2^63)
+    /// - 1], which is the same as the range of integers in Java's
+    /// and.NET's <c>long</c> type, have a signed bit length of 63 or less,
+    /// and all other integers have a signed bit length of greater than
+    /// 63.</summary>
     /// <returns>The number of bits in this object's value. Returns 0 if
     /// this object's value is 0 or negative 1.</returns>
     public EInteger GetSignedBitLengthAsEInteger() {
@@ -2973,7 +2980,11 @@ WordsShiftRightOne(bu, buc);
     /// <summary>Finds the minimum number of bits needed to represent this
     /// object's value, except for its sign. If the value is negative,
     /// finds the number of bits in the value equal to this object's
-    /// absolute value minus 1.</summary>
+    /// absolute value minus 1. For example, all integers in the interval
+    /// [-(2^63), (2^63) - 1], which is the same as the range of integers
+    /// in Java's and.NET's <c>long</c> type, have a signed bit length of
+    /// 63 or less, and all other integers have a signed bit length of
+    /// greater than 63.</summary>
     /// <returns>The number of bits in this object's value. Returns 0 if
     /// this object's value is 0 or negative 1.</returns>
     /// <exception cref='System.OverflowException'>The return value would
@@ -2986,9 +2997,11 @@ WordsShiftRightOne(bu, buc);
 
     /// <summary>Returns whether a bit is set in this number's absolute
     /// value.</summary>
-    /// <param name='bigIndex'>An arbitrary-precision integer.</param>
-    /// <returns><c>true</c> if a bit is set in this number's absolute
-    /// value.</returns>
+    /// <param name='bigIndex'>The index, starting at zero, of the bit to
+    /// test, where 0 is the least significant bit, 1 is the next least
+    /// significant bit, and so on.</param>
+    /// <returns><c>true</c> if the given bit is set in this number's
+    /// absolute value.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigIndex'/> is null.</exception>
     public bool GetUnsignedBit(EInteger bigIndex) {
@@ -3012,10 +3025,11 @@ WordsShiftRightOne(bu, buc);
 
     /// <summary>Returns whether a bit is set in this number's absolute
     /// value.</summary>
-    /// <param name='index'>Zero based index of the bit to test. 0 means
-    /// the least significant bit.</param>
-    /// <returns><c>true</c> if a bit is set in this number's absolute
-    /// value.</returns>
+    /// <param name='index'>The index, starting at 0, of the bit to test,
+    /// where 0 is the least significant bit, 1 is the next least
+    /// significant bit, and so on.</param>
+    /// <returns><c>true</c> if the given bit is set in this number's
+    /// absolute value.</returns>
     public bool GetUnsignedBit(int index) {
       if (index < 0) {
         throw new ArgumentException("index (" + index + ") is less than 0");
@@ -3025,7 +3039,11 @@ WordsShiftRightOne(bu, buc);
     }
 
     /// <summary>Finds the minimum number of bits needed to represent this
-    /// number's absolute value.</summary>
+    /// number's absolute value. For example, all integers in the interval
+    /// [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or
+    /// less, and all other integers have an unsigned bit length of greater
+    /// than 63. This interval is not the same as the range of integers in
+    /// Java's and.NET's <c>long</c> type.</summary>
     /// <returns>The number of bits in this object's value. Returns 0 if
     /// this object's value is 0, and returns 1 if the value is negative
     /// 1.</returns>
@@ -3061,7 +3079,11 @@ WordsShiftRightOne(bu, buc);
     }
 
     /// <summary>Finds the minimum number of bits needed to represent this
-    /// number's absolute value.</summary>
+    /// number's absolute value. For example, all integers in the interval
+    /// [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or
+    /// less, and all other integers have an unsigned bit length of greater
+    /// than 63. This interval is not the same as the range of integers in
+    /// Java's and.NET's <c>long</c> type.</summary>
     /// <returns>The number of bits in this object's value. Returns 0 if
     /// this object's value is 0, and returns 1 if the value is negative
     /// 1.</returns>
@@ -6911,7 +6933,7 @@ WordsShiftRightOne(bu, buc);
           (int)(resultStart + count + count2),
           count2,
           (short)carry);
-      } else {
+        } else {
         SameSizeMultiply(
           resultArr,
           resultStart,

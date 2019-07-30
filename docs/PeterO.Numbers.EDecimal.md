@@ -4,7 +4,7 @@
         System.IEquatable,
         System.IComparable
 
- Represents an arbitrary-precision decimal floating-point number. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.) <b>About decimal arithmetic</b>
+  Represents an arbitrary-precision decimal floating-point number. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.) <b>About decimal arithmetic</b>
 
  Decimal (base-10) arithmetic, such as that provided by this class, is appropriate for calculations involving such real-world data as prices and other sums of money, tax rates, and measurements. These calculations often involve multiplying or dividing one decimal with another decimal, or performing other operations on decimal numbers. Many of these calculations also rely on rounding behavior in which the result after rounding is an arbitrary-precision decimal number (for example, multiplying a price by a premium rate, then rounding, should result in a decimal amount of money).
 
@@ -1598,7 +1598,7 @@ The parameter  <i>str</i>
         int length,
         PeterO.Numbers.EContext ctx);
 
- Creates an arbitrary-precision decimal number from a text string that represents a number.
+  Creates an arbitrary-precision decimal number from a text string that represents a number.
 
  The format of the string generally consists of:
 
@@ -2194,13 +2194,19 @@ The product of the two decimal numbers.
 
  Multiplies two decimal numbers. The resulting exponent will be the sum of the exponents of the two decimal numbers.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>otherValue</i>: Another decimal number.
 
 <b>Return Value:</b>
 
 The product of the two decimal numbers.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="MultiplyAndAdd_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### MultiplyAndAdd
@@ -2432,7 +2438,7 @@ The parameter  <i>dividend</i>
 
  Converts an arbitrary-precision decimal number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2447,6 +2453,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2455,13 +2465,19 @@ The parameter  <i>input</i>
 
  Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The value to convert to a 64-bit floating-point number.
 
 <b>Return Value:</b>
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2471,13 +2487,19 @@ The closest 64-bit floating-point number to this value. The return value can be 
 
  Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
 The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2487,7 +2509,7 @@ The closest 32-bit binary floating-point number to this value. The return value 
 
  Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2502,6 +2524,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2510,7 +2536,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2524,6 +2550,10 @@ The value of  <i>input</i>
  * System.OverflowException:
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2550,7 +2580,7 @@ The number 1 if  <i>boolValue</i>
 
  Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>bigValue</i>: The number to convert as an arbitrary-precision decimal.
 
@@ -2563,6 +2593,10 @@ An arbitrary-precision integer.
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
 
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2571,7 +2605,7 @@ This object's value is infinity or not-a-number (NaN).
 
  Converts an arbitrary-precision decimal number to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2586,6 +2620,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2594,7 +2632,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2609,6 +2647,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2617,7 +2659,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal's value to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the half-even rounding mode.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>bigValue</i>: The parameter  <i>bigValue</i>
  is an arbitrary-precision decimal floating-point number.
@@ -2625,6 +2667,12 @@ The parameter  <i>input</i>
 <b>Return Value:</b>
 
 A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework decimal).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigValue</i>
+ is null.
 
 <a id="op_Explicit"></a>
 ### Explicit Operator
@@ -2634,7 +2682,7 @@ A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework 
 
  Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2649,6 +2697,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2657,7 +2709,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2672,6 +2724,10 @@ The value of  <i>input</i>
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
 
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
+
 <a id="op_Explicit"></a>
 ### Explicit Operator
 
@@ -2680,7 +2736,7 @@ The parameter  <i>input</i>
 
  Converts an arbitrary-precision decimal number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>input</i>: The number to convert as an arbitrary-precision decimal number.
 
@@ -2694,6 +2750,10 @@ The value of  <i>input</i>
  * System.OverflowException:
 The parameter  <i>input</i>
  is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+
+ * System.ArgumentNullException:
+The parameter  <i>input</i>
+ is null.
 
 <a id="op_Implicit"></a>
 ### Implicit Operator
@@ -3090,7 +3150,7 @@ An arbitrary-precision integer.
         int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
- Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+  Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
  <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
 
@@ -3159,7 +3219,7 @@ An arbitrary-precision decimal number with the same value as this object but wit
         PeterO.Numbers.EInteger desiredExponent,
         PeterO.Numbers.EContext ctx);
 
- Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+  Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
  <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
 
@@ -3608,7 +3668,7 @@ An arbitrary-precision decimal number.
 
  Returns a number similar to this number but with its scale adjusted.
 
-     <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>bigPlaces</i>: The power of 10 to scale by.
 
@@ -3618,6 +3678,12 @@ An arbitrary-precision decimal number.
 
 A number whose exponent is increased by  <i>bigPlaces</i>
 .
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigPlaces</i>
+ is null.
 
 <a id="Sqrt_PeterO_Numbers_EContext"></a>
 ### Sqrt
@@ -3782,7 +3848,7 @@ The closest 64-bit floating-point number to this value. The return value can be 
 
  Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
 
-    <b>Parameters:</b>
+     <b>Parameters:</b>
 
  * <i>ec</i>: The parameter  <i>ec</i>
  is an EContext object.
@@ -3790,6 +3856,12 @@ The closest 64-bit floating-point number to this value. The return value can be 
 <b>Return Value:</b>
 
 An arbitrary-precision float floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>ec</i>
+ is null.
 
 <a id="ToEFloat"></a>
 ### ToEFloat

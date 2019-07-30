@@ -212,7 +212,12 @@ namespace PeterO.Numbers {
     /// <returns>Either <c>true</c> if the given number is subnormal, or
     /// <c>false</c> otherwise. Returns <c>false</c> if the given context
     /// is null or HasExponentRange of the given context is <c>false</c>.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static bool IsSubnormal(EFloat ed, EContext ec) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
           return ed.Exponent.Add(ed.Precision().Subtract(1)).CompareTo(
@@ -250,8 +255,8 @@ namespace PeterO.Numbers {
     /// name='ed'/> is null.</exception>
     public static EFloat LogB(EFloat ed, EContext ec) {
       if (ed == null) {
-  throw new ArgumentNullException(nameof(ed));
-}
+        throw new ArgumentNullException(nameof(ed));
+      }
       if (ed.IsNaN()) {
         return ed.RoundToPrecision(ec);
       }
@@ -415,9 +420,17 @@ namespace PeterO.Numbers {
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
     /// has an exponent other than 0, or has an absolute value that exceeds
     /// the maximum precision specified in the context.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed2'/> or <paramref name='ed'/> is null.</exception>
     public static EFloat Rotate(EFloat ed, EFloat ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
+      }
+      if (ed2 == null) {
+        throw new ArgumentNullException(nameof(ed2));
+      }
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
       }
       if (ed.IsNaN() || ed2.IsNaN()) {
         return ed.Add(ed2, ec);
@@ -500,7 +513,12 @@ namespace PeterO.Numbers {
     /// the first object is less than the other value, or 1 if the first
     /// object is greater. Does not signal flags if either value is
     /// signaling NaN.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int CompareTotal(EFloat ed, EFloat other, EContext ec) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return ed.CompareToTotal(other, ec);
     }
 
@@ -531,10 +549,15 @@ namespace PeterO.Numbers {
     /// value (ignoring their signs), or 1 if the first object is greater
     /// (ignoring their signs). Does not signal flags if either value is
     /// signaling NaN.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int CompareTotalMagnitude(
       EFloat ed,
       EFloat other,
       EContext ec) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return ed.CompareToTotalMagnitude(other, ec);
     }
 
@@ -544,7 +567,12 @@ namespace PeterO.Numbers {
     /// copy.</param>
     /// <returns>A copy of the given arbitrary-precision number
     /// object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat Copy(EFloat ed) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return ed.Copy();
     }
 
@@ -563,7 +591,12 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the given number object but with a nonnegative sign.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat CopyAbs(EFloat ed) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return Copy(ed.Abs());
     }
 
@@ -572,7 +605,12 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the sign
     /// reversed from the given number object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat CopyNegate(EFloat ed) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
       return Copy(ed.Negate());
     }
 
@@ -586,7 +624,15 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='other'/> is null.</exception>
     public static EFloat CopySign(EFloat ed, EFloat other) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
+      if (other == null) {
+        throw new ArgumentNullException(nameof(other));
+      }
       return ed.IsNegative == other.IsNegative ? Copy(ed) : CopyNegate(ed);
     }
 
@@ -655,11 +701,11 @@ namespace PeterO.Numbers {
         if (ed.IsZero) {
           return (ed.IsNegative ? EFloat.NegativeZero :
              EFloat.Zero).RoundToPrecision(ec);
-        } else if (ed.Exponent.Sign > 0) {
-          return ed.Reduce(ec);
-        } else if (ed.Exponent.Sign == 0) {
-          return ed.RoundToPrecision(ec);
-        } else {
+           } else if (ed.Exponent.Sign > 0) {
+             return ed.Reduce(ec);
+           } else if (ed.Exponent.Sign == 0) {
+             return ed.RoundToPrecision(ec);
+           } else {
           EInteger exp = ed.Exponent;
           EInteger mant = ed.UnsignedMantissa;
           bool neg = ed.IsNegative;
@@ -759,7 +805,7 @@ namespace PeterO.Numbers {
     /// include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
     /// logical AND operation sets each bit of the result to 1 if the
     /// corresponding bits of each logical operand are both 1, and to 0
-    /// otherwise. For example, <c>01001 AND 111010 = 01000</c>.</summary>
+    /// otherwise. For example, <c>01001 AND 111010=01000</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical AND
     /// operation.</param>
     /// <param name='ed2'>The second logical operand to the logical AND
@@ -802,7 +848,7 @@ namespace PeterO.Numbers {
     /// each bit of the result to 1 if the corresponding bit is 0, and to 0
     /// otherwise; it can set no more bits than the maximum precision,
     /// however. For example, if the maximum precision is 8 bits, then
-    /// <c>NOT 111010 = 11000101</c>.</summary>
+    /// <c>NOT 111010=11000101</c>.</summary>
     /// <param name='ed1'>The operand to the logical NOT operation.</param>
     /// <param name='ec'>An arithmetic context to control the maximum
     /// precision of arbitrary-precision numbers. If a logical operand
@@ -890,7 +936,7 @@ namespace PeterO.Numbers {
     /// include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
     /// logical OR operation sets each bit of the result to 1 if either or
     /// both of the corresponding bits of each logical operand are 1, and
-    /// to 0 otherwise. For example, <c>01001 OR 111010 = 111011</c>.</summary>
+    /// to 0 otherwise. For example, <c>01001 OR 111010=111011</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical OR
     /// operation.</param>
     /// <param name='ed2'>The second logical operand to the logical OR

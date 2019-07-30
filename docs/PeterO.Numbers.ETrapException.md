@@ -24,11 +24,14 @@
 
      <b>Parameters:</b>
 
- * <i>flag</i>: A 32-bit signed integer.
+ * <i>flag</i>: The parameter  <i>flag</i>
+ is a 32-bit signed integer.
 
- * <i>ctx</i>: An EContext object.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is an EContext object.
 
- * <i>result</i>: An arbitrary object.
+ * <i>result</i>: The parameter  <i>result</i>
+ is an arbitrary object.
 
 <a id="Context"></a>
 ### Context

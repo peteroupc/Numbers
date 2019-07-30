@@ -75,15 +75,19 @@
 
        <b>Parameters:</b>
 
- * <i>precision</i>: A 32-bit signed integer.
+ * <i>precision</i>: The parameter  <i>precision</i>
+ is a 32-bit signed integer.
 
- * <i>rounding</i>: An ERounding object.
+ * <i>rounding</i>: The parameter  <i>rounding</i>
+ is an ERounding object.
 
- * <i>exponentMinSmall</i>: Another 32-bit signed integer.
+ * <i>exponentMinSmall</i>: The parameter  <i>exponentMinSmall</i>
+ is a 32-bit signed integer.
 
- * <i>exponentMaxSmall</i>: A 32-bit signed integer. (3).
+ * <i>exponentMaxSmall</i>: The parameter  <i>exponentMaxSmall</i>
+ is a 32-bit signed integer.
 
- * <i>clampNormalExponents</i>: A Boolean object.
+ * <i>clampNormalExponents</i>: Either  `true`  or  `false` .
 
 <a id="Void_ctor_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_Boolean"></a>
 ### EContext Constructor
@@ -99,15 +103,16 @@
 
        <b>Parameters:</b>
 
- * <i>bigintPrecision</i>: An EInteger object.
+ * <i>bigintPrecision</i>: An arbitrary-precision integer.
 
- * <i>rounding</i>: An ERounding object.
+ * <i>rounding</i>: The parameter  <i>rounding</i>
+ is an ERounding object.
 
- * <i>exponentMin</i>: An EInteger object.
+ * <i>exponentMin</i>: An arbitrary-precision integer.
 
- * <i>exponentMax</i>: An EInteger object. (3).
+ * <i>exponentMax</i>: An arbitrary-precision integer. (3).
 
- * <i>clampNormalExponents</i>: A Boolean object.
+ * <i>clampNormalExponents</i>: Either  `true`  or  `false` .
 
 <a id="Basic"></a>
 ### Basic
@@ -305,13 +310,13 @@ The lowest exponent possible when a converted number is expressed in scientific 
 
     public int Flags { get; set; }
 
- Gets or sets the flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags &
-            EContext.FlagInexact) != 0`  returns  `true`  if the Inexact flag is set.
+ Gets or sets the flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags
+            &EContext.FlagInexact) != 0`  returns  `true`  if the Inexact flag is set.
 
    <b>Returns:</b>
 
-The flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags & EContext.FlagInexact) !=
-            0`  returns  `true`  if the Inexact flag is set.
+The flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags &EContext.FlagInexact)
+            !=0`  returns  `true`  if the Inexact flag is set.
 
 <a id="HasExponentRange"></a>
 ### HasExponentRange

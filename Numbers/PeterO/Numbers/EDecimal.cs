@@ -12,7 +12,7 @@ using System.Text;
 // next minor/major version
 namespace PeterO.Numbers {
     /// <summary>
-    /// Represents an arbitrary-precision decimal
+    ///  Represents an arbitrary-precision decimal
     /// floating-point number. (The "E" stands for "extended",
     /// meaning that instances of this class can be values
     /// other than numbers proper, such as infinity and
@@ -30,9 +30,9 @@ namespace PeterO.Numbers {
     /// price by a premium rate, then rounding, should result in a decimal
     /// amount of money).</para>
     /// <para>On the other hand, most implementations of <c>float</c>
-    /// and
+    ///  and
     /// <c>double</c>
-    /// , including in C# and Java, store numbers in a binary
+    ///  , including in C# and Java, store numbers in a binary
     /// (base-2) floating-point format and use binary floating-point
     /// arithmetic. Many decimal numbers can't be represented exactly in
     /// binary floating-point format (regardless of its length). Applying
@@ -64,19 +64,19 @@ namespace PeterO.Numbers {
     /// 0).</para>
     /// <para>This class also supports values for negative zero,
     /// not-a-number (NaN) values, and infinity. <b>Negative zero</b>
-    /// is
+    ///  is
     /// generally used when a negative number is rounded to 0; it has the
     /// same mathematical value as positive zero. <b>Infinity</b>
-    /// is
+    ///  is
     /// generally used when a non-zero number is divided by zero, or when a
     /// very high or very low number can't be represented in a given
     /// exponent range. <b>Not-a-number</b>
-    /// is generally used to signal
+    ///  is generally used to signal
     /// errors.</para>
     /// <para>This class implements the General Decimal Arithmetic
     /// Specification version 1.70 (except part of chapter 6):
     /// <c>http://speleotrove.com/decimal/decarith.html</c>
-    /// </para>
+    ///  </para>
     /// <para><b>Errors and Exceptions</b>
     /// </para>
     /// <para>Passing a signaling NaN to any arithmetic operation shown
@@ -107,7 +107,7 @@ namespace PeterO.Numbers {
     /// <list><item>By calling the toString() method, which will always
     /// return distinct strings for distinct arbitrary-precision decimal
     /// values.</item>
-    /// <item>By calling the UnsignedMantissa, Exponent, and
+    ///  <item>By calling the UnsignedMantissa, Exponent, and
     /// IsNegative properties, and calling the IsInfinity, IsQuietNaN, and
     /// IsSignalingNaN methods. The return values combined will uniquely
     /// identify a particular arbitrary-precision decimal value.</item>
@@ -135,18 +135,18 @@ namespace PeterO.Numbers {
     /// algorithms using the methods in this class, for several
     /// reasons:</para>
     /// <list><item><c>EDecimal</c>
-    /// objects are immutable, so they can't be
+    ///  objects are immutable, so they can't be
     /// modified, and the memory they occupy is not guaranteed to be
     /// cleared in a timely fashion due to garbage collection. This is
     /// relevant for applications that use many-digit-long numbers as
     /// secret parameters.</item>
-    /// <item>The methods in this class
+    ///  <item>The methods in this class
     /// (especially those that involve arithmetic) are not guaranteed to be
     /// "constant-time" (non-data-dependent) for all relevant inputs.
     /// Certain attacks that involve encrypted communications have
     /// exploited the timing and other aspects of such communications to
     /// derive keying material or cleartext indirectly.</item>
-    /// </list>
+    ///  </list>
     /// <para>Applications should instead use dedicated security libraries
     /// to handle big numbers in security-sensitive algorithms.</para>
     /// <para><b>Forms of numbers</b>
@@ -155,48 +155,48 @@ namespace PeterO.Numbers {
     /// in this class and elsewhere in this documentation. For reference,
     /// they are specified here.</para>
     /// <para><b>Unsigned integer</b>
-    /// : An integer that's always 0 or
+    ///  : An integer that's always 0 or
     /// greater, with the following maximum values:</para>
     /// <list><item>8-bit unsigned integer, or <i>byte</i>
-    /// : 255.</item>
+    ///  : 255.</item>
     /// <item>16-bit unsigned integer: 65535.</item>
-    /// <item>32-bit unsigned
+    ///  <item>32-bit unsigned
     /// integer: (2 <sup>32</sup>
-    /// -1).</item>
-    /// <item>64-bit unsigned
+    ///  -1).</item>
+    ///  <item>64-bit unsigned
     /// integer: (2 <sup>64</sup>
-    /// -1).</item>
-    /// </list>
+    ///  -1).</item>
+    ///  </list>
     /// <para><b>Signed integer</b>
-    /// : An integer in <i>two's-complement
+    ///  : An integer in <i>two's-complement
     /// form</i>
-    /// , with the following ranges:</para>
+    ///  , with the following ranges:</para>
     /// <list><item>8-bit signed integer: -128 to 127.</item>
-    /// <item>16-bit
+    ///  <item>16-bit
     /// signed integer: -32768 to 32767.</item>
-    /// <item>32-bit signed
+    ///  <item>32-bit signed
     /// integer: -2 <sup>31</sup>
-    /// to (2 <sup>31</sup>
-    /// - 1).</item>
+    ///  to (2 <sup>31</sup>
+    ///  - 1).</item>
     /// <item>64-bit signed integer: -2 <sup>63</sup>
-    /// to (2 <sup>63</sup>
-    /// -
+    ///  to (2 <sup>63</sup>
+    ///  -
     /// 1).</item>
-    /// </list>
+    ///  </list>
     /// <para><b>Two's complement form</b>
-    /// : In <i>two' s-complement
+    ///  : In <i>two' s-complement
     /// form</i>
-    /// , nonnegative numbers have the highest (most significant)
+    ///  , nonnegative numbers have the highest (most significant)
     /// bit set to zero, and negative numbers have that bit (and all bits
     /// beyond) set to one, and a negative number is stored in such form by
     /// decreasing its absolute value by 1 and swapping the bits of the
     /// resulting number.</para>
     /// <para><b>64-bit floating-point number</b>
-    /// : A 64-bit binary
+    ///  : A 64-bit binary
     /// floating-point number, in the form <i>significand</i>
-    /// * 2
+    ///  * 2
     /// <sup><i>exponent</i>
-    /// </sup>
+    ///  </sup>
     /// . The significand is 53 bits long
     /// (Precision) and the exponent ranges from -1074 (EMin) to 971
     /// (EMax). The number is stored in the following format (commonly
@@ -204,57 +204,57 @@ namespace PeterO.Numbers {
     /// <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code>
     /// <list><item>A. Low 52 bits (Precision minus 1 bits): Lowest bits of
     /// the significand.</item>
-    /// <item>B. Next 11 bits: Exponent area:
+    ///  <item>B. Next 11 bits: Exponent area:
     /// <list><item>If all bits are ones, this value is infinity (positive
     /// or negative depending on the C bit) if all bits in area A are
     /// zeros, or not-a-number (NaN) otherwise.</item>
-    /// <item>If all bits
+    ///  <item>If all bits
     /// are zeros, this is a subnormal number. The exponent is EMin and the
     /// highest bit of the significand is zero.</item>
-    /// <item>If any other
+    ///  <item>If any other
     /// number, the exponent is this value reduced by 1, then raised by
     /// EMin, and the highest bit of the significand is one.</item>
-    /// </list>
+    ///  </list>
     /// </item>
-    /// <item>C. Highest bit: If one, this is a negative
+    ///  <item>C. Highest bit: If one, this is a negative
     /// number.</item>
-    /// </list>
+    ///  </list>
     /// <para>The elements described above are in the same order as the
     /// order of each bit of each element, that is, either most significant
     /// first or least significant first.</para>
     /// <para><b>32-bit binary floating-point number</b>
-    /// : A 32-bit binary
+    ///  : A 32-bit binary
     /// number which is stored similarly to a <i>64-bit floating-point
     /// number</i>
-    /// , except that:</para>
+    ///  , except that:</para>
     /// <list><item>Precision is 24 bits.</item>
-    /// <item>EMin is -149.</item>
+    ///  <item>EMin is -149.</item>
     /// <item>EMax is 104.</item>
-    /// <item>A. The low 23 bits (Precision minus
+    ///  <item>A. The low 23 bits (Precision minus
     /// 1 bits) are the lowest bits of the significand.</item>
-    /// <item>B. The
+    ///  <item>B. The
     /// next 8 bits are the exponent area.</item>
-    /// <item>C. If the highest
+    ///  <item>C. If the highest
     /// bit is one, this is a negative number.</item>
-    /// </list>
+    ///  </list>
     /// <para><b>.NET Framework decimal</b>
-    /// : A 128-bit decimal
+    ///  : A 128-bit decimal
     /// floating-point number, in the form <i>significand</i>
-    /// * 10 <sup>-
+    ///  * 10 <sup>-
     /// <i>scale</i>
-    /// </sup>
-    /// , where the scale ranges from 0 to 28. The
+    ///  </sup>
+    ///  , where the scale ranges from 0 to 28. The
     /// number is stored in the following format:</para>
     /// <list><item>Low 96 bits are the significand, as a 96-bit unsigned
     /// integer (all 96-bit values are allowed, up to (2 <sup>96</sup>
     /// -1)).</item>
-    /// <item>Next 16 bits are unused.</item>
-    /// <item>Next 8
+    ///  <item>Next 16 bits are unused.</item>
+    ///  <item>Next 8
     /// bits are the scale, stored as an 8-bit unsigned integer.</item>
     /// <item>Next 7 bits are unused.</item>
-    /// <item>If the highest bit is
+    ///  <item>If the highest bit is
     /// one, it's a negative number.</item>
-    /// </list>
+    ///  </list>
     /// <para>The elements described above are in the same order as the
     /// order of each bit of each element, that is, either most significant
     /// first or least significant first.</para>
@@ -1929,7 +1929,7 @@ namespace PeterO.Numbers {
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotal(other.RoundToPrecision(ctx));
-      } else {
+        } else {
         return this.CompareToTotal(other);
       }
     }
@@ -1971,7 +1971,7 @@ namespace PeterO.Numbers {
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
-      } else {
+        } else {
         return this.CompareToTotalMagnitude(other);
       }
     }
@@ -2801,7 +2801,12 @@ namespace PeterO.Numbers {
     /// numbers.</summary>
     /// <param name='otherValue'>Another decimal number.</param>
     /// <returns>The product of the two decimal numbers.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public EDecimal Multiply(EDecimal otherValue) {
+      if (otherValue == null) {
+        throw new ArgumentNullException(nameof(otherValue));
+      }
       if (this.IsFinite && otherValue.IsFinite) {
         int newflags = otherValue.flags ^ this.flags;
         if (this.unsignedMantissa.CanFitInInt32() &&
@@ -3123,7 +3128,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>
-    /// Returns an arbitrary-precision decimal number with the
+    ///  Returns an arbitrary-precision decimal number with the
     /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of decimal places, since it can fail if the difference
@@ -3132,13 +3137,12 @@ namespace PeterO.Numbers {
     /// decimal places is desired, it's better to use the RoundToExponent
     /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point decimal arithmetic, in which each decimal number has a
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the decimal point:</para>
-    /// <code> // After performing arithmetic operations, adjust // the number to 5
-    /// /// //
+    /// <code> // After performing arithmetic operations, adjust // the number to 5 //
     /// digits after the decimal point number = number.Quantize(
     /// EInteger.FromInt32(-5), // five digits after the decimal point
     /// EContext.ForPrecision(25) // 25-digit precision);</code>
@@ -3155,7 +3159,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -3208,7 +3212,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>
-    /// Returns an arbitrary-precision decimal number with the
+    ///  Returns an arbitrary-precision decimal number with the
     /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of decimal places, since it can fail if the difference
@@ -3217,7 +3221,7 @@ namespace PeterO.Numbers {
     /// decimal places is desired, it's better to use the RoundToExponent
     /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point decimal arithmetic, in which each decimal number has a
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
@@ -3240,7 +3244,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -3859,9 +3863,14 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='bigPlaces'/>.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigPlaces'/> is null.</exception>
     public EDecimal ScaleByPowerOfTen(
       EInteger bigPlaces,
       EContext ctx) {
+      if (bigPlaces == null) {
+        throw new ArgumentNullException(nameof(bigPlaces));
+      }
       if (bigPlaces.IsZero) {
         return this.RoundToPrecision(ctx);
       }
@@ -4435,6 +4444,8 @@ namespace PeterO.Numbers {
     /// object.</param>
     /// <returns>An arbitrary-precision float floating-point
     /// number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ec'/> is null.</exception>
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
@@ -4482,7 +4493,7 @@ namespace PeterO.Numbers {
         bigmantissa *= (EInteger)bigintExp;
         return this.WithThisSign(EFloat.FromEInteger(bigmantissa))
   .RoundToPrecision(ec);
-      } else {
+} else {
         // Fractional number
         // DebugUtility.Log("Fractional");
         EInteger scale = bigintExp;
@@ -4654,6 +4665,9 @@ bigmantissa.GetUnsignedBitLengthAsEInteger();
         // DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " +
         // (// efret.Exponent));
         efret = efret.RoundToPrecision(ec);
+        if (ec == null) {
+          throw new ArgumentNullException(nameof(ec));
+        }
         if (haveCopy && originalEc.HasFlags) {
           originalEc.Flags |= ec.Flags;
         }
@@ -4896,7 +4910,7 @@ bigmantissa.GetUnsignedBitLengthAsEInteger();
             builder,
             '0',
             decimalPointAdjust.Copy().Decrement());
-        } else {
+          } else {
           FastInteger tmp = decimalPointAdjust.Copy();
           int cmp = tmp.CompareToInt(mantissaString.Length);
           if (cmp > 0) {
