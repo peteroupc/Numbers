@@ -135,16 +135,15 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision decimal number plus
     /// one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
     public EDecimal Increment() {
-  return this + (EDecimal)1;
-}
+       return this + (EDecimal)1;
+    }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
-    /// documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <summary>Adds one to an arbitrary-precision decimal
+    /// number.</summary>
+    /// <param name='bthis'>An arbitrary-precision decimal number.</param>
+    /// <returns>The given arbitrary-precision decimal number plus
+    /// one.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EDecimal operator ++(EDecimal bthis) {
@@ -158,16 +157,15 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision decimal number minus
     /// one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
     public EDecimal Decrement() {
   return this.Subtract(1);
 }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='bthis'>The parameter <paramref name='bthis'/> is not
-    /// documented yet.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <summary>Subtracts one from an arbitrary-precision decimal
+    /// number.</summary>
+    /// <param name='bthis'>An arbitrary-precision decimal number.</param>
+    /// <returns>The given arbitrary-precision decimal number minus
+    /// one.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EDecimal operator --(EDecimal bthis) {

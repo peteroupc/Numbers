@@ -788,6 +788,7 @@ namespace PeterO.Numbers {
       return MathValue.Abs(this, context);
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// not documented yet.</param>
     /// <returns>An arbitrary-precision binary floating-point

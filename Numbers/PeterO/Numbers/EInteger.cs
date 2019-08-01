@@ -1124,6 +1124,7 @@ namespace PeterO.Numbers {
       return ((size > tempSize) ^ (sa <= 0)) ? 1 : -1;
     }
 
+    /// <summary>Not documented yet.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// not documented yet.</param>
     /// <returns>An arbitrary-precision integer.</returns>
