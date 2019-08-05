@@ -30,8 +30,7 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The first operand.</param>
     /// <param name='augend'>The second operand.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EInteger operator +(EInteger bthis, EInteger augend) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -45,8 +44,7 @@ namespace PeterO.Numbers {
     /// <param name='subtrahend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EInteger operator -(
       EInteger bthis,
       EInteger subtrahend) {
@@ -59,8 +57,7 @@ namespace PeterO.Numbers {
     /// <summary>Adds one to an arbitrary-precision integer.</summary>
     /// <param name='bthis'>An arbitrary-precision integer.</param>
     /// <returns>The given arbitrary-precision integer plus one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EInteger operator ++(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -72,8 +69,7 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <param name='bthis'>An arbitrary-precision integer.</param>
     /// <returns>The given arbitrary-precision integer minus one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EInteger operator --(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -86,8 +82,7 @@ namespace PeterO.Numbers {
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='operand1'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='operand1'/> is null.</exception>
     public static EInteger operator *(
       EInteger operand1,
       EInteger operand2) {
@@ -103,8 +98,7 @@ namespace PeterO.Numbers {
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
     public static EInteger operator /(
       EInteger dividend,
       EInteger divisor) {
@@ -120,8 +114,7 @@ namespace PeterO.Numbers {
     /// <param name='dividend'>The first operand.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
     public static EInteger operator %(
       EInteger dividend,
       EInteger divisor) {
@@ -141,8 +134,7 @@ namespace PeterO.Numbers {
     /// negative, in which case this is the same as shiftRight with the
     /// absolute value of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EInteger operator <<(EInteger bthis, int bitCount) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -157,10 +149,8 @@ namespace PeterO.Numbers {
     /// <param name='pow'>The power to raise this integer by.</param>
     /// <param name='mod'>The integer to divide the raised number
     /// by.</param>
-    /// <returns>The value ( <paramref name='bigintValue'/> ^ <paramref
-    /// name='pow'/> )% <paramref name='mod'/>.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigintValue'/> is null.</exception>
+    /// <returns>The value ( <paramref name='bigintValue'/> ^ <paramref name='pow'/> )% <paramref name='mod'/>.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bigintValue'/> is null.</exception>
     public static EInteger ModPow(
       EInteger bigintValue,
       EInteger pow,
@@ -174,11 +164,9 @@ namespace PeterO.Numbers {
     /// <summary>Shifts the bits of an arbitrary-precision integer to the
     /// right.</summary>
     /// <param name='bthis'>Another arbitrary-precision integer.</param>
-    /// <param name='smallValue'>The parameter <paramref
-    /// name='smallValue'/> is a 32-bit signed integer.</param>
+    /// <param name='smallValue'>The parameter <paramref name='smallValue'/> is a 32-bit signed integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     /// <remarks>For this operation, the arbitrary-precision integer is
     /// treated as a two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
@@ -195,8 +183,7 @@ namespace PeterO.Numbers {
     /// <param name='bigValue'>An arbitrary-precision integer to
     /// negate.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static EInteger operator -(EInteger bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -294,8 +281,7 @@ namespace PeterO.Numbers {
     /// <param name='thisValue'>The operand as an arbitrary-precision
     /// integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='thisValue'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='thisValue'/> is null.</exception>
     public static EInteger operator ~(
     EInteger thisValue) {
       return Not(thisValue);
@@ -308,7 +294,7 @@ namespace PeterO.Numbers {
     /// <param name='thisValue'>The first operand.</param>
     /// <param name='otherValue'>The second operand.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter "a" or "b" is
+    /// <exception cref='System.ArgumentNullException'>The parameter "a" or "b" is
     /// null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
@@ -328,7 +314,7 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter "first" or
+    /// <exception cref='System.ArgumentNullException'>The parameter "first" or
     /// "second" is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
@@ -352,8 +338,7 @@ namespace PeterO.Numbers {
     /// <param name='b'>The second arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// it's set in one input integer but not the other.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='a'/> or <paramref name='b'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='a'/> or <paramref name='b'/> is null.</exception>
     public static EInteger operator ^(
       EInteger a,
       EInteger b) {
@@ -390,8 +375,7 @@ namespace PeterO.Numbers {
     /// <param name='remainder'>An arbitrary-precision integer.</param>
     /// <returns>An array of two arbitrary-precision integers: the first is
     /// the quotient, and the second is the remainder.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> or <paramref name='divisor'/> is
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='dividend'/> or <paramref name='divisor'/> is
     /// null.</exception>
     [Obsolete("Use the DivRem instance method instead.")]
     public static EInteger DivRem(
@@ -423,8 +407,7 @@ namespace PeterO.Numbers {
     /// <param name='valueA'>The operand as an arbitrary-precision
     /// integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='valueA'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='valueA'/> is null.</exception>
     public static EInteger Not(EInteger valueA) {
       if (valueA == null) {
         throw new ArgumentNullException(nameof(valueA));
@@ -438,8 +421,7 @@ namespace PeterO.Numbers {
     /// <param name='b'>The second arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bits of the two integers are both set.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='a'/> or <paramref name='b'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='a'/> or <paramref name='b'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
@@ -459,8 +441,7 @@ namespace PeterO.Numbers {
     /// <param name='first'>The first operand.</param>
     /// <param name='second'>The second operand.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='first'/> or <paramref name='second'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
@@ -486,8 +467,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bit is set in one input integer but not in the
     /// other.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='a'/> or <paramref name='b'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='a'/> or <paramref name='b'/> is null.</exception>
     public static EInteger Xor(EInteger a, EInteger b) {
       if (a == null) {
         throw new ArgumentNullException(nameof(a));
@@ -505,10 +485,8 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a byte (from 0 to
     /// 255).</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than 0 or greater than 255.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than 0 or greater than 255.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator byte(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -578,10 +556,8 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as an 8-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than -128 or greater than 127.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than -128 or greater than 127.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator sbyte(EInteger input) {
       if (input == null) {
@@ -607,11 +583,9 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 16-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than -32768 or greater than
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than -32768 or greater than
     /// 32767.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator short(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -674,10 +648,8 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 16-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than 0 or greater than 65535.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than 0 or greater than 65535.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ushort(EInteger input) {
       if (input == null) {
@@ -703,11 +675,9 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than -2147483648 or greater than
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than -2147483648 or greater than
     /// 2147483647.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator int(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -768,11 +738,9 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than 0 or greater than
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than 0 or greater than
     /// 4294967295.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator uint(EInteger input) {
       if (input == null) {
@@ -798,11 +766,9 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 64-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than -9223372036854775808 or greater than
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator long(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -827,11 +793,9 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 64-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
-    /// name='input'/> is less than 0 or greater than
+    /// <exception cref='System.OverflowException'>The parameter <paramref name='input'/> is less than 0 or greater than
     /// 18446744073709551615.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ulong(EInteger input) {
       if (input == null) {

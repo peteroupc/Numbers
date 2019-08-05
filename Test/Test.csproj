@@ -63,7 +63,10 @@
     <Reference Include='System.Core'/>
     <Reference Include='System.Numerics'/>
     <Reference Include='System.Xml'/>
-  <AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers'><Version>1.1.118</Version></PackageReference><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers'><Version>2.9.3</Version></PackageReference></ItemGroup>
+  <AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers'><Version>1.1.118</Version></PackageReference><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers'>
+  <Version>2.9.4</Version>
+</PackageReference>
+</ItemGroup>
   <ItemGroup>
     <Compile Include='EIntegerTest.cs'/>
     <Compile Include='ExtraTest.cs'/>

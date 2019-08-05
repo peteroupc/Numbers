@@ -18,7 +18,7 @@
 
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this object's value.
-* <code>[Add(int)](#Add_int)</code> -
+* <code>[Add(int)](#Add_int)</code> - Not documented yet.
 * <code>[Add(PeterO.Numbers.EInteger)](#Add_PeterO_Numbers_EInteger)</code> - Adds this object and another object.
 * <code>[And(PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
 * <code>[And(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
@@ -231,6 +231,8 @@ This object's value with the sign removed.
 
     public PeterO.Numbers.EInteger Add(
         int intValue);
+
+ Not documented yet.
 
     <b>Parameters:</b>
 
@@ -1226,8 +1228,7 @@ The parameter  <i>bigintValue</i>
 
  Multiplies this instance by the value of an arbitrary-precision integer object.
 
-    EInteger result =
-                EInteger.FromString("5").Multiply(200);
+    EInteger result = EInteger.FromString("5").Multiply(200);
 
  .
 
@@ -2172,7 +2173,8 @@ The parameter  <i>first</i>
 
 <b>Return Value:</b>
 
-The result. Returns 1 if "powerSmall" is 0.
+The result. Returns 1 if  <i>powerSmall</i>
+ is 0.
 
 <a id="Pow_PeterO_Numbers_EInteger"></a>
 ### Pow
@@ -2214,7 +2216,8 @@ BigPower is negative.
 
 <b>Return Value:</b>
 
-The result. Returns 1 if "power" is 0.
+The result. Returns 1 if  <i>power</i>
+ is 0.
 
 <b>Exceptions:</b>
 

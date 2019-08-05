@@ -312,7 +312,8 @@ The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "otherValue" is null.
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="CompareTo_PeterO_Numbers_ERational"></a>
 ### CompareTo
@@ -461,7 +462,8 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "other" is null.
+The parameter  <i>other</i>
+ is null.
 
 <a id="Create_int_int"></a>
 ### Create
@@ -530,7 +532,8 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentException:
-The parameter "diag" is less than 0.
+The parameter  <i>diag</i>
+ is less than 0.
 
 <a id="CreateNaN_PeterO_Numbers_EInteger_bool_bool"></a>
 ### CreateNaN
@@ -557,10 +560,12 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentException:
-The parameter "diag" is less than 0.
+The parameter  <i>diag</i>
+ is less than 0.
 
  * System.ArgumentNullException:
-The parameter "diag" is null.
+The parameter  <i>diag</i>
+ is null.
 
 <a id="Decrement"></a>
 ### Decrement
@@ -598,7 +603,8 @@ The quotient of the two objects.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "otherValue" is null.
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="Equals_object"></a>
 ### Equals
@@ -697,7 +703,8 @@ An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-A rational number with the same value as "flt".
+A rational number with the same value as  <i>flt</i>
+.
 
 <a id="FromEDecimal_PeterO_Numbers_EDecimal"></a>
 ### FromEDecimal
@@ -718,7 +725,8 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "ef" is null.
+The parameter  <i>ef</i>
+ is null.
 
 <a id="FromEFloat_PeterO_Numbers_EFloat"></a>
 ### FromEFloat
@@ -739,7 +747,8 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "ef" is null.
+The parameter  <i>ef</i>
+ is null.
 
 <a id="FromEInteger_PeterO_Numbers_EInteger"></a>
 ### FromEInteger
@@ -872,7 +881,8 @@ This number's value as an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-A rational number with the same value as "flt".
+A rational number with the same value as  <i>flt</i>
+.
 
 <a id="FromString_string"></a>
 ### FromString
@@ -893,7 +903,8 @@ An arbitrary-precision rational number with the same value as the given string.
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter "str" is not a correctly formatted number string.
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
 
 <a id="FromString_string_int_int"></a>
 ### FromString
@@ -935,13 +946,21 @@ An arbitrary-precision rational number.
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter "str" is not a correctly formatted number string.
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
 
  * System.ArgumentNullException:
-The parameter "str" is null.
+The parameter  <i>str</i>
+ is null.
 
  * System.ArgumentException:
-Either "offset" or "length" is less than 0 or greater than "str"'s length, or "str"'s length minus "offset" is less than "length".
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>str</i>
+ 's length, or  <i>str</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
 
  * System.ArgumentNullException:
 The parameter  <i>str</i>
@@ -1108,7 +1127,8 @@ The product of the two numbers.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "otherValue" is null.
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="Negate"></a>
 ### Negate
@@ -1888,7 +1908,8 @@ The remainder of the two numbers.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "otherValue" is null.
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="Subtract_PeterO_Numbers_ERational"></a>
 ### Subtract
@@ -1909,7 +1930,8 @@ The difference of the two objects.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "otherValue" is null.
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="ToByteChecked"></a>
 ### ToByteChecked

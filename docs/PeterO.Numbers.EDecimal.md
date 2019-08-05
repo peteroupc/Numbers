@@ -242,11 +242,11 @@
 * <code>[NextToward(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#NextToward_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the next value that is closer to the other object's value than this object's value.
 * <code>[public static readonly PeterO.Numbers.EDecimal One;](#One)</code> - Represents the number 1.
 * <code>[PeterO.Numbers.EDecimal operator +(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Addition)</code> - Adds two arbitrary-precision decimal floating-point numbers and returns the result.
-* <code>[PeterO.Numbers.EDecimal operator --(PeterO.Numbers.EDecimal)](#op_Decrement)</code> - Not documented yet.
+* <code>[PeterO.Numbers.EDecimal operator --(PeterO.Numbers.EDecimal)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision decimal number.
 * <code>[PeterO.Numbers.EDecimal operator /(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Division)</code> - Divides this object by another decimal number and returns the result.
 * <code>[explicit operator ulong(PeterO.Numbers.EDecimal)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary precision decimal.
 * <code>[implicit operator PeterO.Numbers.EDecimal(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision decimal number to a decimal under the Common Language Infrastructure (see T:PeterO.
-* <code>[PeterO.Numbers.EDecimal operator ++(PeterO.Numbers.EDecimal)](#op_Increment)</code> - Not documented yet.
+* <code>[PeterO.Numbers.EDecimal operator ++(PeterO.Numbers.EDecimal)](#op_Increment)</code> - Adds one to an arbitrary-precision decimal number.
 * <code>[PeterO.Numbers.EDecimal operator %(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision decimal number by another.
 * <code>[PeterO.Numbers.EDecimal operator *(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Multiply)</code> - Multiplies two decimal numbers.
 * <code>[PeterO.Numbers.EDecimal operator -(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Subtraction)</code> - Subtracts one arbitrary-precision decimal number from another and returns the result.
@@ -563,7 +563,8 @@ The sum of thisValue and the other object.
 
 <b>Return Value:</b>
 
-Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value or if "other" is null, or 0 if both values are equal.
+Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value or if  <i>other</i>
+ is null, or 0 if both values are equal.
 
 <a id="CompareToBinary_PeterO_Numbers_EFloat"></a>
 ### CompareToBinary
@@ -774,7 +775,8 @@ An arbitrary-precision decimal number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "other" is null.
+The parameter  <i>other</i>
+ is null.
 
 <a id="Create_int_int"></a>
 ### Create
@@ -817,7 +819,9 @@ An arbitrary-precision decimal number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "mantissa" or "exponent" is null.
+The parameter  <i>mantissa</i>
+ or  <i>exponent</i>
+ is null.
 
 <a id="CreateNaN_PeterO_Numbers_EInteger"></a>
 ### CreateNaN
@@ -863,7 +867,8 @@ An arbitrary-precision decimal number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "diag" is null or is less than 0.
+The parameter  <i>diag</i>
+ is null or is less than 0.
 
 <a id="Decrement"></a>
 ### Decrement
@@ -872,15 +877,9 @@ The parameter "diag" is null or is less than 0.
 
  Subtracts one from an arbitrary-precision decimal number.
 
-    <b>Return Value:</b>
+   <b>Return Value:</b>
 
 The given arbitrary-precision decimal number minus one.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
 
 <a id="Divide_int"></a>
 ### Divide
@@ -1320,7 +1319,8 @@ A 2 element array consisting of the quotient and remainder in that order.
 
 <b>Return Value:</b>
 
-Exponential of this object. If this object's value is 1, returns an approximation to " e" within the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0).
+Exponential of this object. If this object's value is 1, returns an approximation to " e" within the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0).
 
 <a id="FromBoolean_bool"></a>
 ### FromBoolean
@@ -1386,7 +1386,8 @@ An arbitrary-precision decimal floating-point number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number with the same value as "dbl".
+An arbitrary-precision decimal number with the same value as  <i>dbl</i>
+.
 
 <a id="FromEFloat_PeterO_Numbers_EFloat"></a>
 ### FromEFloat
@@ -1407,7 +1408,8 @@ An arbitrary-precision decimal number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "bigfloat" is null.
+The parameter  <i>bigfloat</i>
+ is null.
 
 <a id="FromEInteger_PeterO_Numbers_EInteger"></a>
 ### FromEInteger
@@ -1524,7 +1526,8 @@ This number's value as an arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number with the same value as "flt".
+An arbitrary-precision decimal number with the same value as  <i>flt</i>
+.
 
 <a id="FromString_string"></a>
 ### FromString
@@ -1546,7 +1549,8 @@ An arbitrary-precision decimal number with the same value as the given string.
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter "str" is not a correctly formatted number string.
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
 
 <a id="FromString_string_int_int"></a>
 ### FromString
@@ -1577,13 +1581,21 @@ An arbitrary-precision decimal number with the same value as the given string.
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter "str" is not a correctly formatted number string.
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
 
  * System.ArgumentNullException:
-The parameter "str" is null.
+The parameter  <i>str</i>
+ is null.
 
  * System.ArgumentException:
-Either "offset" or "length" is less than 0 or greater than "str"'s length, or "str"'s length minus "offset" is less than "length".
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>str</i>
+ 's length, or  <i>str</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
 
  * System.ArgumentNullException:
 The parameter  <i>str</i>
@@ -1632,13 +1644,26 @@ An arbitrary-precision decimal number with the same value as the given string.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "str" is null.
+The parameter  <i>str</i>
+ is null.
 
  * System.ArgumentException:
-Either "offset" or "length" is less than 0 or greater than "str" 's length, or "str" 's length minus "offset" is less than "length".
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>str</i>
+ 's length, or  <i>str</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
 
  * System.ArgumentException:
-Either "offset" or "length" is less than 0 or greater than "str"'s length, or "str"'s length minus "offset" is less than "length".
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>str</i>
+ 's length, or  <i>str</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
 
  * System.ArgumentNullException:
 The parameter  <i>str</i>
@@ -1667,7 +1692,8 @@ An arbitrary-precision decimal number with the same value as the given string.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "str" is null.
+The parameter  <i>str</i>
+ is null.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -1735,15 +1761,9 @@ A 32-bit signed integer.
 
  Adds one to an arbitrary-precision decimal number.
 
-    <b>Return Value:</b>
+   <b>Return Value:</b>
 
 The given arbitrary-precision decimal number plus one.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
 
 <a id="IsInfinity"></a>
 ### IsInfinity
@@ -1825,7 +1845,8 @@ The parameter  <i>bthis</i>
 
 <b>Return Value:</b>
 
-Ln(this object). Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the result would be a complex number with a real part equal to Ln of this object's absolute value and an imaginary part equal to pi, but the return value is still NaN.). Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0). Signals no flags and returns negative infinity if this object's value is 0.
+Ln(this object). Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the result would be a complex number with a real part equal to Ln of this object's absolute value and an imaginary part equal to pi, but the return value is still NaN.). Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0). Signals no flags and returns negative infinity if this object's value is 0.
 
 <a id="Log10_PeterO_Numbers_EContext"></a>
 ### Log10
@@ -1841,7 +1862,8 @@ Ln(this object). Signals the flag FlagInvalid and returns NaN if this object is 
 
 <b>Return Value:</b>
 
-Ln(this object)/Ln(10). Signals the flag FlagInvalid and returns not-a-number (NaN) if this object is less than 0. Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0).
+Ln(this object)/Ln(10). Signals the flag FlagInvalid and returns not-a-number (NaN) if this object is less than 0. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0).
 
 <a id="Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### Max
@@ -2021,7 +2043,8 @@ An arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
-A number whose exponent is decreased by "places", but not to more than 0.
+A number whose exponent is decreased by  <i>places</i>
+, but not to more than 0.
 
 <a id="MovePointLeft_int_PeterO_Numbers_EContext"></a>
 ### MovePointLeft
@@ -2057,7 +2080,8 @@ A number whose exponent is decreased by  <i>places</i>
 
 <b>Return Value:</b>
 
-A number whose exponent is decreased by "bigPlaces", but not to more than 0.
+A number whose exponent is decreased by  <i>bigPlaces</i>
+, but not to more than 0.
 
 <a id="MovePointLeft_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### MovePointLeft
@@ -2093,7 +2117,8 @@ A number whose exponent is decreased by  <i>bigPlaces</i>
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by "places", but not to more than 0.
+A number whose exponent is increased by  <i>places</i>
+, but not to more than 0.
 
 <a id="MovePointRight_int_PeterO_Numbers_EContext"></a>
 ### MovePointRight
@@ -2129,7 +2154,8 @@ A number whose exponent is increased by  <i>places</i>
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by "bigPlaces", but not to more than 0.
+A number whose exponent is increased by  <i>bigPlaces</i>
+, but not to more than 0.
 
 <a id="MovePointRight_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### MovePointRight
@@ -2274,7 +2300,9 @@ The result thisValue * multiplicand - subtrahend.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "op" or "subtrahend" is null.
+The parameter  <i>op</i>
+ or  <i>subtrahend</i>
+ is null.
 
 <a id="Negate_PeterO_Numbers_EContext"></a>
 ### Negate
@@ -2317,7 +2345,9 @@ An arbitrary-precision decimal number. If this value is positive zero, returns n
 
 <b>Return Value:</b>
 
-Returns the largest value that's less than the given value. Returns negative infinity if the result is negative infinity. Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null, the precision is 0, or "ctx" has an unlimited exponent range.
+Returns the largest value that's less than the given value. Returns negative infinity if the result is negative infinity. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null, the precision is 0, or  <i>ctx</i>
+ has an unlimited exponent range.
 
 <a id="NextPlus_PeterO_Numbers_EContext"></a>
 ### NextPlus
@@ -2333,7 +2363,9 @@ Returns the largest value that's less than the given value. Returns negative inf
 
 <b>Return Value:</b>
 
-Returns the smallest value that's greater than the given value.Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null, the precision is 0, or "ctx" has an unlimited exponent range.
+Returns the smallest value that's greater than the given value.Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null, the precision is 0, or  <i>ctx</i>
+ has an unlimited exponent range.
 
 <a id="NextToward_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### NextToward
@@ -2388,16 +2420,15 @@ The parameter  <i>bthis</i>
     public static PeterO.Numbers.EDecimal operator --(
         PeterO.Numbers.EDecimal bthis);
 
- Not documented yet.
+ Subtracts one from an arbitrary-precision decimal number.
 
      <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+The given arbitrary-precision decimal number minus one.
 
 <b>Exceptions:</b>
 
@@ -2929,16 +2960,15 @@ The value of  <i>inputUInt16</i>
     public static PeterO.Numbers.EDecimal operator ++(
         PeterO.Numbers.EDecimal bthis);
 
- Not documented yet.
+ Adds one to an arbitrary-precision decimal number.
 
      <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+The given arbitrary-precision decimal number plus one.
 
 <b>Exceptions:</b>
 
@@ -3059,7 +3089,8 @@ The parameter  <i>bigValue</i>
 
 <b>Return Value:</b>
 
-The constant π rounded to the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0).
+The constant π rounded to the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0).
 
 <a id="Plus_PeterO_Numbers_EContext"></a>
 ### Plus
@@ -3075,7 +3106,8 @@ The constant π rounded to the given precision. Signals FlagInvalid and returns 
 
 <b>Return Value:</b>
 
-The closest value to this object's value, rounded to the specified precision. Returns the same value as this object if "ctx" is null or the precision and exponent range are unlimited.
+The closest value to this object's value, rounded to the specified precision. Returns the same value as this object if  <i>ctx</i>
+ is null or the precision and exponent range are unlimited.
 
 <a id="Pow_int"></a>
 ### Pow
@@ -3154,8 +3186,7 @@ An arbitrary-precision integer.
 
  <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
 
-    /* After performing arithmetic operations, adjust the number to 5
-                digits
+    /* After performing arithmetic operations, adjust the number to 5 digits
                 after the decimal point */ number = number.Quantize(-5, /* five digits
                 after the decimal point */EContext.ForPrecision(25) /* 25-digit
                 precision*/);
@@ -3605,7 +3636,8 @@ An arbitrary-precision decimal number rounded to the closest integer representab
 
 <b>Return Value:</b>
 
-The closest value to this object's value, rounded to the specified precision. Returns the same value as this object if "ctx" is null or the precision and exponent range are unlimited.
+The closest value to this object's value, rounded to the specified precision. Returns the same value as this object if  <i>ctx</i>
+ is null or the precision and exponent range are unlimited.
 
 <a id="ScaleByPowerOfTen_int"></a>
 ### ScaleByPowerOfTen
@@ -3698,7 +3730,8 @@ The parameter  <i>bigPlaces</i>
 
 <b>Return Value:</b>
 
-The square root. Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the square root would be a complex number, but the return value is still NaN). Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0).
+The square root. Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the square root would be a complex number, but the return value is still NaN). Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0).
 
 <a id="SquareRoot_PeterO_Numbers_EContext"></a>
 ### SquareRoot
@@ -3716,7 +3749,8 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
 
 <b>Return Value:</b>
 
-The square root. Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the square root would be a complex number, but the return value is still NaN). Signals FlagInvalid and returns not-a-number (NaN) if the parameter "ctx" is null or the precision is unlimited (the context's Precision property is 0).
+The square root. Signals the flag FlagInvalid and returns NaN if this object is less than 0 (the square root would be a complex number, but the return value is still NaN). Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0).
 
 <a id="Subtract_int"></a>
 ### Subtract
@@ -3772,7 +3806,8 @@ The difference of the two objects.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "otherValue" is null.
+The parameter  <i>otherValue</i>
+ is null.
 
 <a id="ToByteChecked"></a>
 ### ToByteChecked

@@ -10,9 +10,12 @@ using System.Text;
 
 // TODO: Add CompareTo(int) to EDecimal/EFloat/ERational in
 // next minor/major version
+// TODO: Add CompareToValue which implements current
+// version of CompareTo; replace CompareTo with
+// CompareToTotal in next major version; do this for EDecimal,
+// EFloat, and ERational
 namespace PeterO.Numbers {
-    /// <summary>
-    ///  Represents an arbitrary-precision decimal
+    /// <summary>Represents an arbitrary-precision decimal
     /// floating-point number. (The "E" stands for "extended",
     /// meaning that instances of this class can be values
     /// other than numbers proper, such as infinity and
@@ -30,9 +33,9 @@ namespace PeterO.Numbers {
     /// price by a premium rate, then rounding, should result in a decimal
     /// amount of money).</para>
     /// <para>On the other hand, most implementations of <c>float</c>
-    ///  and
+    /// and
     /// <c>double</c>
-    ///  , including in C# and Java, store numbers in a binary
+    /// , including in C# and Java, store numbers in a binary
     /// (base-2) floating-point format and use binary floating-point
     /// arithmetic. Many decimal numbers can't be represented exactly in
     /// binary floating-point format (regardless of its length). Applying
@@ -64,19 +67,19 @@ namespace PeterO.Numbers {
     /// 0).</para>
     /// <para>This class also supports values for negative zero,
     /// not-a-number (NaN) values, and infinity. <b>Negative zero</b>
-    ///  is
+    /// is
     /// generally used when a negative number is rounded to 0; it has the
     /// same mathematical value as positive zero. <b>Infinity</b>
-    ///  is
+    /// is
     /// generally used when a non-zero number is divided by zero, or when a
     /// very high or very low number can't be represented in a given
     /// exponent range. <b>Not-a-number</b>
-    ///  is generally used to signal
+    /// is generally used to signal
     /// errors.</para>
     /// <para>This class implements the General Decimal Arithmetic
     /// Specification version 1.70 (except part of chapter 6):
     /// <c>http://speleotrove.com/decimal/decarith.html</c>
-    ///  </para>
+    /// </para>
     /// <para><b>Errors and Exceptions</b>
     /// </para>
     /// <para>Passing a signaling NaN to any arithmetic operation shown
@@ -107,7 +110,7 @@ namespace PeterO.Numbers {
     /// <list><item>By calling the toString() method, which will always
     /// return distinct strings for distinct arbitrary-precision decimal
     /// values.</item>
-    ///  <item>By calling the UnsignedMantissa, Exponent, and
+    /// <item>By calling the UnsignedMantissa, Exponent, and
     /// IsNegative properties, and calling the IsInfinity, IsQuietNaN, and
     /// IsSignalingNaN methods. The return values combined will uniquely
     /// identify a particular arbitrary-precision decimal value.</item>
@@ -135,18 +138,18 @@ namespace PeterO.Numbers {
     /// algorithms using the methods in this class, for several
     /// reasons:</para>
     /// <list><item><c>EDecimal</c>
-    ///  objects are immutable, so they can't be
+    /// objects are immutable, so they can't be
     /// modified, and the memory they occupy is not guaranteed to be
     /// cleared in a timely fashion due to garbage collection. This is
     /// relevant for applications that use many-digit-long numbers as
     /// secret parameters.</item>
-    ///  <item>The methods in this class
+    /// <item>The methods in this class
     /// (especially those that involve arithmetic) are not guaranteed to be
     /// "constant-time" (non-data-dependent) for all relevant inputs.
     /// Certain attacks that involve encrypted communications have
     /// exploited the timing and other aspects of such communications to
     /// derive keying material or cleartext indirectly.</item>
-    ///  </list>
+    /// </list>
     /// <para>Applications should instead use dedicated security libraries
     /// to handle big numbers in security-sensitive algorithms.</para>
     /// <para><b>Forms of numbers</b>
@@ -155,48 +158,48 @@ namespace PeterO.Numbers {
     /// in this class and elsewhere in this documentation. For reference,
     /// they are specified here.</para>
     /// <para><b>Unsigned integer</b>
-    ///  : An integer that's always 0 or
+    /// : An integer that's always 0 or
     /// greater, with the following maximum values:</para>
     /// <list><item>8-bit unsigned integer, or <i>byte</i>
-    ///  : 255.</item>
+    /// : 255.</item>
     /// <item>16-bit unsigned integer: 65535.</item>
-    ///  <item>32-bit unsigned
+    /// <item>32-bit unsigned
     /// integer: (2 <sup>32</sup>
-    ///  -1).</item>
-    ///  <item>64-bit unsigned
+    /// -1).</item>
+    /// <item>64-bit unsigned
     /// integer: (2 <sup>64</sup>
-    ///  -1).</item>
-    ///  </list>
+    /// -1).</item>
+    /// </list>
     /// <para><b>Signed integer</b>
-    ///  : An integer in <i>two's-complement
+    /// : An integer in <i>two's-complement
     /// form</i>
-    ///  , with the following ranges:</para>
+    /// , with the following ranges:</para>
     /// <list><item>8-bit signed integer: -128 to 127.</item>
-    ///  <item>16-bit
+    /// <item>16-bit
     /// signed integer: -32768 to 32767.</item>
-    ///  <item>32-bit signed
+    /// <item>32-bit signed
     /// integer: -2 <sup>31</sup>
-    ///  to (2 <sup>31</sup>
-    ///  - 1).</item>
+    /// to (2 <sup>31</sup>
+    /// - 1).</item>
     /// <item>64-bit signed integer: -2 <sup>63</sup>
-    ///  to (2 <sup>63</sup>
-    ///  -
+    /// to (2 <sup>63</sup>
+    /// -
     /// 1).</item>
-    ///  </list>
+    /// </list>
     /// <para><b>Two's complement form</b>
-    ///  : In <i>two' s-complement
+    /// : In <i>two' s-complement
     /// form</i>
-    ///  , nonnegative numbers have the highest (most significant)
+    /// , nonnegative numbers have the highest (most significant)
     /// bit set to zero, and negative numbers have that bit (and all bits
     /// beyond) set to one, and a negative number is stored in such form by
     /// decreasing its absolute value by 1 and swapping the bits of the
     /// resulting number.</para>
     /// <para><b>64-bit floating-point number</b>
-    ///  : A 64-bit binary
+    /// : A 64-bit binary
     /// floating-point number, in the form <i>significand</i>
-    ///  * 2
+    /// * 2
     /// <sup><i>exponent</i>
-    ///  </sup>
+    /// </sup>
     /// . The significand is 53 bits long
     /// (Precision) and the exponent ranges from -1074 (EMin) to 971
     /// (EMax). The number is stored in the following format (commonly
@@ -204,61 +207,60 @@ namespace PeterO.Numbers {
     /// <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code>
     /// <list><item>A. Low 52 bits (Precision minus 1 bits): Lowest bits of
     /// the significand.</item>
-    ///  <item>B. Next 11 bits: Exponent area:
+    /// <item>B. Next 11 bits: Exponent area:
     /// <list><item>If all bits are ones, this value is infinity (positive
     /// or negative depending on the C bit) if all bits in area A are
     /// zeros, or not-a-number (NaN) otherwise.</item>
-    ///  <item>If all bits
+    /// <item>If all bits
     /// are zeros, this is a subnormal number. The exponent is EMin and the
     /// highest bit of the significand is zero.</item>
-    ///  <item>If any other
+    /// <item>If any other
     /// number, the exponent is this value reduced by 1, then raised by
     /// EMin, and the highest bit of the significand is one.</item>
-    ///  </list>
+    /// </list>
     /// </item>
-    ///  <item>C. Highest bit: If one, this is a negative
+    /// <item>C. Highest bit: If one, this is a negative
     /// number.</item>
-    ///  </list>
+    /// </list>
     /// <para>The elements described above are in the same order as the
     /// order of each bit of each element, that is, either most significant
     /// first or least significant first.</para>
     /// <para><b>32-bit binary floating-point number</b>
-    ///  : A 32-bit binary
+    /// : A 32-bit binary
     /// number which is stored similarly to a <i>64-bit floating-point
     /// number</i>
-    ///  , except that:</para>
+    /// , except that:</para>
     /// <list><item>Precision is 24 bits.</item>
-    ///  <item>EMin is -149.</item>
+    /// <item>EMin is -149.</item>
     /// <item>EMax is 104.</item>
-    ///  <item>A. The low 23 bits (Precision minus
+    /// <item>A. The low 23 bits (Precision minus
     /// 1 bits) are the lowest bits of the significand.</item>
-    ///  <item>B. The
+    /// <item>B. The
     /// next 8 bits are the exponent area.</item>
-    ///  <item>C. If the highest
+    /// <item>C. If the highest
     /// bit is one, this is a negative number.</item>
-    ///  </list>
+    /// </list>
     /// <para><b>.NET Framework decimal</b>
-    ///  : A 128-bit decimal
+    /// : A 128-bit decimal
     /// floating-point number, in the form <i>significand</i>
-    ///  * 10 <sup>-
+    /// * 10 <sup>-
     /// <i>scale</i>
-    ///  </sup>
-    ///  , where the scale ranges from 0 to 28. The
+    /// </sup>
+    /// , where the scale ranges from 0 to 28. The
     /// number is stored in the following format:</para>
     /// <list><item>Low 96 bits are the significand, as a 96-bit unsigned
     /// integer (all 96-bit values are allowed, up to (2 <sup>96</sup>
     /// -1)).</item>
-    ///  <item>Next 16 bits are unused.</item>
-    ///  <item>Next 8
+    /// <item>Next 16 bits are unused.</item>
+    /// <item>Next 8
     /// bits are the scale, stored as an 8-bit unsigned integer.</item>
     /// <item>Next 7 bits are unused.</item>
-    ///  <item>If the highest bit is
+    /// <item>If the highest bit is
     /// one, it's a negative number.</item>
-    ///  </list>
+    /// </list>
     /// <para>The elements described above are in the same order as the
     /// order of each bit of each element, that is, either most significant
-    /// first or least significant first.</para>
-    /// </summary>
+    /// first or least significant first.</para></summary>
   public sealed partial class EDecimal : IComparable<EDecimal>,
   IEquatable<EDecimal> {
     //----------------------------------------------------------------
@@ -506,8 +508,8 @@ namespace PeterO.Numbers {
     /// <param name='mantissa'>Desired value for the mantissa.</param>
     /// <param name='exponent'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;mantissa&#x22; or &#x22;exponent&#x22; is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='mantissa'/> or <paramref name='exponent'/> is
+    /// null.</exception>
     public static EDecimal Create(
       EInteger mantissa,
       EInteger exponent) {
@@ -553,8 +555,7 @@ namespace PeterO.Numbers {
     /// which happens if diagnostic information needs to be truncated and
     /// too much memory is required to do so.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;diag&#x22; is null or is less than 0.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='diag'/> is null or is less than 0.</exception>
     public static EDecimal CreateNaN(
       EInteger diag,
       bool signaling,
@@ -605,17 +606,17 @@ namespace PeterO.Numbers {
     /// first. Remember, though, that the exact value of a 64-bit binary
     /// floating-point number is not always the value that results when
     /// passing a literal decimal number (for example, calling
-    /// <c>ExtendedDecimal.FromDouble(0.1f)</c> ), since not all decimal
+    /// <c>ExtendedDecimal.FromDouble(0.1f)</c>), since not all decimal
     /// numbers can be converted to exact binary numbers (in the example
     /// given, the resulting arbitrary-precision decimal will be the value
     /// of the closest "double" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from an arbitrary-precision
     /// decimal number, use FromString instead in most cases (for example:
-    /// <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
+    /// <c>ExtendedDecimal.FromString("0.1")</c>).</summary>
     /// <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
     /// floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
-    /// as &#x22;dbl&#x22;.</returns>
+    /// as <paramref name='dbl'/>.</returns>
     public static EDecimal FromDouble(double dbl) {
       int[] value = Extras.DoubleToIntegers(dbl);
       var floatExponent = (int)((value[1] >> 20) & 0x7ff);
@@ -702,8 +703,7 @@ namespace PeterO.Numbers {
     /// <param name='bigfloat'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;bigfloat&#x22; is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bigfloat'/> is null.</exception>
     public static EDecimal FromEFloat(EFloat bigfloat) {
       if (bigfloat == null) {
         throw new ArgumentNullException(nameof(bigfloat));
@@ -769,8 +769,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Creates an arbitrary-precision decimal number from a
     /// 32-bit signed integer.</summary>
-    /// <param name='valueSmaller'>The parameter <paramref
-    /// name='valueSmaller'/> is a 32-bit signed integer.</param>
+    /// <param name='valueSmaller'>The parameter <paramref name='valueSmaller'/> is a 32-bit signed integer.</param>
     /// <returns>An arbitrary-precision decimal number with the exponent
     /// set to 0.</returns>
     public static EDecimal FromInt32(int valueSmaller) {
@@ -792,8 +791,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Creates an arbitrary-precision decimal number from a
     /// 64-bit signed integer.</summary>
-    /// <param name='valueSmall'>The parameter <paramref
-    /// name='valueSmall'/> is a 64-bit signed integer.</param>
+    /// <param name='valueSmall'>The parameter <paramref name='valueSmall'/> is a 64-bit signed integer.</param>
     /// <returns>An arbitrary-precision decimal number with the exponent
     /// set to 0.</returns>
     public static EDecimal FromInt64(long valueSmall) {
@@ -824,17 +822,17 @@ namespace PeterO.Numbers {
     /// first. Remember, though, that the exact value of a 32-bit binary
     /// floating-point number is not always the value that results when
     /// passing a literal decimal number (for example, calling
-    /// <c>ExtendedDecimal.FromSingle(0.1f)</c> ), since not all decimal
+    /// <c>ExtendedDecimal.FromSingle(0.1f)</c>), since not all decimal
     /// numbers can be converted to exact binary numbers (in the example
     /// given, the resulting arbitrary-precision decimal will be the the
     /// value of the closest "float" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from an arbitrary-precision
     /// decimal number, use FromString instead in most cases (for example:
-    /// <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
+    /// <c>ExtendedDecimal.FromString("0.1")</c>).</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
-    /// as &#x22;flt&#x22;.</returns>
+    /// as <paramref name='flt'/>.</returns>
     public static EDecimal FromSingle(float flt) {
       int value = BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0);
       bool neg = (value >> 31) != 0;
@@ -900,8 +898,7 @@ namespace PeterO.Numbers {
     /// <param name='str'>A string that represents a number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='System.FormatException'>The parameter
-    /// &#x22;str&#x22; is not a correctly formatted number
+    /// <exception cref='System.FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
     /// string.</exception>
     public static EDecimal FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length, null);
@@ -919,8 +916,7 @@ namespace PeterO.Numbers {
     /// isn't needed.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;str&#x22; is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
     public static EDecimal FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length, ctx);
     }
@@ -932,22 +928,16 @@ namespace PeterO.Numbers {
     /// <param name='offset'>A zero-based index showing where the desired
     /// portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref
-    /// name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='System.FormatException'>The parameter
-    /// &#x22;str&#x22; is not a correctly formatted number
+    /// <exception cref='System.FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
     /// string.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;str&#x22; is null.</exception>
-    /// <exception cref='ArgumentException'>Either &#x22;offset&#x22; or
-    /// &#x22;length&#x22; is less than 0 or greater than
-    /// &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length
-    /// minus &#x22;offset&#x22; is less than
-    /// &#x22;length&#x22;.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='str'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
+    /// <exception cref='System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <paramref name='length'/>.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
     public static EDecimal FromString(
       string str,
       int offset,
@@ -955,13 +945,11 @@ namespace PeterO.Numbers {
       return FromString(str, offset, length, null);
     }
 
-    /// <summary>
-    /// <para>Creates an arbitrary-precision decimal number from a text
+    /// <summary><para>Creates an arbitrary-precision decimal number from a text
     /// string that represents a number.</para>
     /// <para>The format of the string generally consists of:</para>
     /// <list type=''>
-    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-", U +
-    /// 002D) (if the minus sign, the value is negative.)</item>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if the minus sign, the value is negative.)</item>
     /// <item>One or more digits, with a single optional decimal point
     /// after the first digit and before the last digit.</item>
     /// <item>Optionally, "E"/"e" followed by an optional (positive
@@ -973,7 +961,7 @@ namespace PeterO.Numbers {
     /// digits, all in any combination of upper and lower case.</para>
     /// <para>All characters mentioned above are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
-    /// be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is
     /// not allowed to contain white space characters, including
     /// spaces.</para></summary>
     /// <param name='str'>A text string, a portion of which represents a
@@ -981,8 +969,7 @@ namespace PeterO.Numbers {
     /// <param name='offset'>A zero-based index showing where the desired
     /// portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref
-    /// name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
@@ -991,19 +978,14 @@ namespace PeterO.Numbers {
     /// isn't needed.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;str&#x22; is null.</exception>
-    /// <exception cref='ArgumentException'>Either &#x22;offset&#x22; or
-    /// &#x22;length&#x22; is less than 0 or greater than &#x22;str&#x22;
-    /// 's length, or &#x22;str&#x22; 's length minus &#x22;offset&#x22; is
-    /// less than &#x22;length&#x22;.</exception>
-    /// <exception cref='ArgumentException'>Either &#x22;offset&#x22; or
-    /// &#x22;length&#x22; is less than 0 or greater than
-    /// &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length
-    /// minus &#x22;offset&#x22; is less than
-    /// &#x22;length&#x22;.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='str'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
+    /// <exception cref='System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <paramref name='length'/>.</exception>
+    /// <exception cref='System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <paramref name='length'/>.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
     public static EDecimal FromString(
       string str,
       int offset,
@@ -1515,11 +1497,11 @@ namespace PeterO.Numbers {
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
     /// operation (the flags are in addition to the pre-existing flags).
-    /// <i>This parameter can't be null, as &#x3c0; can never be
-    /// represented exactly.</i>.</param>
+    /// <i>This parameter can't be null, as π can never be represented
+    /// exactly.</i>.</param>
     /// <returns>The constant π rounded to the given precision. Signals
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
-    /// &#x22;ctx&#x22; is null or the precision is unlimited (the
+    /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     public static EDecimal PI(EContext ctx) {
       return GetMathValue(ctx).Pi(ctx);
@@ -1550,8 +1532,7 @@ namespace PeterO.Numbers {
     /// necessarily return a copy of this object.).</summary>
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;other&#x22; is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
     public EDecimal CopySign(EDecimal other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
@@ -1626,8 +1607,8 @@ namespace PeterO.Numbers {
     /// <param name='other'>An arbitrary-precision decimal number.</param>
     /// <returns>Less than 0 if this object's value is less than the other
     /// value, or greater than 0 if this object's value is greater than the
-    /// other value or if &#x22;other&#x22; is null, or 0 if both values
-    /// are equal.</returns>
+    /// other value or if <paramref name='other'/> is null, or 0 if both
+    /// values are equal.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public int CompareTo(EDecimal other) {
       return ExtendedMathValue.CompareTo(this, other);
     }
@@ -1637,12 +1618,10 @@ namespace PeterO.Numbers {
     /// <param name='other'>The other object to compare. Can be
     /// null.</param>
     /// <returns>Zero if the values are equal; a negative number if this
-    /// instance is less, or a positive number if this instance is greater.
+    /// instance is less; or a positive number if this instance is greater.
     /// Returns 0 if both values are NaN (even signaling NaN) and 1 if this
     /// value is NaN (even signaling NaN) and the other isn't, or if the
-    /// other value is null.</returns>
-    /// <exception cref='ArgumentException'>Doesn't satisfy this.IsFinite;
-    /// doesn't satisfy other.IsFinite.</exception>
+    /// other value is null.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public int CompareToBinary(EFloat other) {
       return CompareEDecimalToEFloat(this, other);
     }
@@ -1824,7 +1803,7 @@ namespace PeterO.Numbers {
     /// null.</param>
     /// <returns>Quiet NaN if this object or the other object is NaN, or 0
     /// if both objects have the same value, or -1 if this object is less
-    /// than the other value, or 1 if this object is greater.</returns>
+    /// than the other value, or a 1 if this object is greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public EDecimal CompareToSignal(
       EDecimal other,
       EContext ctx) {
@@ -1850,10 +1829,10 @@ namespace PeterO.Numbers {
     /// <returns>The number 0 if both objects have the same value (ignoring
     /// their signs), or -1 if this object is less than the other value
     /// (ignoring their signs), or 1 if this object is greater (ignoring
-    /// their signs).</returns>
+    /// their signs).<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public int CompareToTotalMagnitude(EDecimal other) {
       if (other == null) {
-        return -1;
+        return 1;
       }
       var valueIThis = 0;
       var valueIOther = 0;
@@ -1918,10 +1897,10 @@ namespace PeterO.Numbers {
     /// <returns>The number 0 if both objects have the same value, or -1 if
     /// this object is less than the other value, or 1 if this object is
     /// greater. Does not signal flags if either value is signaling
-    /// NaN.</returns>
+    /// NaN.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public int CompareToTotal(EDecimal other, EContext ctx) {
       if (other == null) {
-        return -1;
+        return 1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
         return this.CompareToTotal(other);
@@ -1960,7 +1939,7 @@ namespace PeterO.Numbers {
     /// their signs), or -1 if this object is less than the other value
     /// (ignoring their signs), or 1 if this object is greater (ignoring
     /// their signs). Does not signal flags if either value is signaling
-    /// NaN.</returns>
+    /// NaN.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public int CompareToTotalMagnitude(EDecimal other, EContext ctx) {
       if (other == null) {
         return -1;
@@ -1995,7 +1974,7 @@ namespace PeterO.Numbers {
     /// compare with this one.</param>
     /// <returns>The number 0 if both objects have the same value, or -1 if
     /// this object is less than the other value, or 1 if this object is
-    /// greater.</returns>
+    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public int CompareToTotal(EDecimal other) {
       if (other == null) {
         return -1;
@@ -2059,7 +2038,7 @@ namespace PeterO.Numbers {
     /// null.</param>
     /// <returns>Quiet NaN if this object or the other object is NaN, or 0
     /// if both objects have the same value, or -1 if this object is less
-    /// than the other value, or 1 if this object is greater.</returns>
+    /// than the other value, or 1 if this object is greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
     public EDecimal CompareToWithContext(
       EDecimal other,
       EContext ctx) {
@@ -2542,7 +2521,7 @@ namespace PeterO.Numbers {
     /// <returns>Exponential of this object. If this object's value is 1,
     /// returns an approximation to " e" within the given precision.
     /// Signals FlagInvalid and returns not-a-number (NaN) if the parameter
-    /// &#x22;ctx&#x22; is null or the precision is unlimited (the
+    /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     public EDecimal Exp(EContext ctx) {
       return GetMathValue(ctx).Exp(this, ctx);
@@ -2628,9 +2607,10 @@ namespace PeterO.Numbers {
     /// number with a real part equal to Ln of this object's absolute value
     /// and an imaginary part equal to pi, but the return value is still
     /// NaN.). Signals FlagInvalid and returns not-a-number (NaN) if the
-    /// parameter &#x22;ctx&#x22; is null or the precision is unlimited
-    /// (the context's Precision property is 0). Signals no flags and
-    /// returns negative infinity if this object's value is 0.</returns>
+    /// parameter <paramref name='ctx'/> is null or the precision is
+    /// unlimited (the context's Precision property is 0). Signals no flags
+    /// and returns negative infinity if this object's value is
+    /// 0.</returns>
     public EDecimal Log(EContext ctx) {
       return GetMathValue(ctx).Ln(this, ctx);
     }
@@ -2648,7 +2628,7 @@ namespace PeterO.Numbers {
     /// <returns>Ln(this object)/Ln(10). Signals the flag FlagInvalid and
     /// returns not-a-number (NaN) if this object is less than 0. Signals
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
-    /// &#x22;ctx&#x22; is null or the precision is unlimited (the
+    /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     public EDecimal Log10(EContext ctx) {
       return GetMathValue(ctx).Log10(this, ctx);
@@ -2660,8 +2640,7 @@ namespace PeterO.Numbers {
     /// decimal point to the left. If this number is negative, instead
     /// moves the decimal point to the right by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is decreased by
-    /// &#x22;places&#x22;, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
     public EDecimal MovePointLeft(int places) {
       return this.MovePointLeft((EInteger)places, null);
     }
@@ -2678,8 +2657,7 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is decreased by <paramref
-    /// name='places'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
     public EDecimal MovePointLeft(int places, EContext ctx) {
       return this.MovePointLeft((EInteger)places, ctx);
     }
@@ -2690,8 +2668,7 @@ namespace PeterO.Numbers {
     /// decimal point to the left. If this number is negative, instead
     /// moves the decimal point to the right by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is decreased by
-    /// &#x22;bigPlaces&#x22;, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
     public EDecimal MovePointLeft(EInteger bigPlaces) {
       return this.MovePointLeft(bigPlaces, null);
     }
@@ -2708,8 +2685,7 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is decreased by <paramref
-    /// name='bigPlaces'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
     public EDecimal MovePointLeft(
       EInteger bigPlaces,
       EContext ctx) {
@@ -2723,8 +2699,7 @@ namespace PeterO.Numbers {
     /// decimal point to the right. If this number is negative, instead
     /// moves the decimal point to the left by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is increased by
-    /// &#x22;places&#x22;, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
     public EDecimal MovePointRight(int places) {
       return this.MovePointRight((EInteger)places, null);
     }
@@ -2741,8 +2716,7 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is increased by <paramref
-    /// name='places'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
     public EDecimal MovePointRight(int places, EContext ctx) {
       return this.MovePointRight((EInteger)places, ctx);
     }
@@ -2753,8 +2727,7 @@ namespace PeterO.Numbers {
     /// decimal point to the right. If this number is negative, instead
     /// moves the decimal point to the left by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is increased by
-    /// &#x22;bigPlaces&#x22;, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
     public EDecimal MovePointRight(EInteger bigPlaces) {
       return this.MovePointRight(bigPlaces, null);
     }
@@ -2771,8 +2744,7 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is increased by <paramref
-    /// name='bigPlaces'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
     public EDecimal MovePointRight(
       EInteger bigPlaces,
       EContext ctx) {
@@ -2801,8 +2773,7 @@ namespace PeterO.Numbers {
     /// numbers.</summary>
     /// <param name='otherValue'>Another decimal number.</param>
     /// <returns>The product of the two decimal numbers.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='otherValue'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
     public EDecimal Multiply(EDecimal otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
@@ -2944,8 +2915,7 @@ namespace PeterO.Numbers {
     /// once, namely, after multiplying and subtracting.</param>
     /// <returns>The result thisValue * multiplicand -
     /// subtrahend.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;op&#x22; or &#x22;subtrahend&#x22; is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='op'/> or <paramref name='subtrahend'/> is null.</exception>
     public EDecimal MultiplyAndSubtract(
       EDecimal op,
       EDecimal subtrahend,
@@ -3009,8 +2979,8 @@ namespace PeterO.Numbers {
     /// <returns>Returns the largest value that's less than the given
     /// value. Returns negative infinity if the result is negative
     /// infinity. Signals FlagInvalid and returns not-a-number (NaN) if the
-    /// parameter &#x22;ctx&#x22; is null, the precision is 0, or
-    /// &#x22;ctx&#x22; has an unlimited exponent range.</returns>
+    /// parameter <paramref name='ctx'/> is null, the precision is 0, or
+    /// <paramref name='ctx'/> has an unlimited exponent range.</returns>
     public EDecimal NextMinus(EContext ctx) {
       return GetMathValue(ctx).NextMinus(this, ctx);
     }
@@ -3024,8 +2994,8 @@ namespace PeterO.Numbers {
     /// are in addition to the pre-existing flags).</param>
     /// <returns>Returns the smallest value that's greater than the given
     /// value.Signals FlagInvalid and returns not-a-number (NaN) if the
-    /// parameter &#x22;ctx&#x22; is null, the precision is 0, or
-    /// &#x22;ctx&#x22; has an unlimited exponent range.</returns>
+    /// parameter <paramref name='ctx'/> is null, the precision is 0, or
+    /// <paramref name='ctx'/> has an unlimited exponent range.</returns>
     public EDecimal NextPlus(EContext ctx) {
       return GetMathValue(ctx)
         .NextPlus(this, ctx);
@@ -3062,8 +3032,8 @@ namespace PeterO.Numbers {
     /// is unlimited and rounding isn't needed.</param>
     /// <returns>The closest value to this object's value, rounded to the
     /// specified precision. Returns the same value as this object if
-    /// &#x22;ctx&#x22; is null or the precision and exponent range are
-    /// unlimited.</returns>
+    /// <paramref name='ctx'/> is null or the precision and exponent range
+    /// are unlimited.</returns>
     public EDecimal Plus(EContext ctx) {
       return GetMathValue(ctx).Plus(this, ctx);
     }
@@ -3127,8 +3097,7 @@ namespace PeterO.Numbers {
         this.unsignedMantissa.ToEInteger().GetDigitCountAsEInteger();
     }
 
-    /// <summary>
-    ///  Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number with the
     /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of decimal places, since it can fail if the difference
@@ -3137,19 +3106,19 @@ namespace PeterO.Numbers {
     /// decimal places is desired, it's better to use the RoundToExponent
     /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    ///  This method can be used to implement
+    /// This method can be used to implement
     /// fixed-point decimal arithmetic, in which each decimal number has a
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the decimal point:</para>
-    /// <code> // After performing arithmetic operations, adjust // the number to 5 //
+    /// <code> // After performing arithmetic operations, adjust // the number to 5
+    /// //
     /// digits after the decimal point number = number.Quantize(
     /// EInteger.FromInt32(-5), // five digits after the decimal point
     /// EContext.ForPrecision(25) // 25-digit precision);</code>
     /// <para>A fixed-point decimal arithmetic in which no digits come
     /// after the decimal point (a desired exponent of 0) is considered an
-    /// "integer arithmetic".</para>
-    /// </summary>
+    /// "integer arithmetic".</para></summary>
     /// <param name='desiredExponent'>The desired exponent for the result.
     /// The exponent is the number of fractional digits in the result,
     /// expressed as a negative number. Can also be positive, which
@@ -3159,7 +3128,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    ///  of the context is true,
+    /// of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -3211,8 +3180,7 @@ namespace PeterO.Numbers {
       EContext.ForRounding(rounding));
     }
 
-    /// <summary>
-    ///  Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number with the
     /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of decimal places, since it can fail if the difference
@@ -3221,7 +3189,7 @@ namespace PeterO.Numbers {
     /// decimal places is desired, it's better to use the RoundToExponent
     /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    ///  This method can be used to implement
+    /// This method can be used to implement
     /// fixed-point decimal arithmetic, in which each decimal number has a
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
@@ -3233,8 +3201,7 @@ namespace PeterO.Numbers {
     /// precision*/);</code>
     /// <para>A fixed-point decimal arithmetic in which no digits come
     /// after the decimal point (a desired exponent of 0) is considered an
-    /// "integer arithmetic".</para>
-    /// </summary>
+    /// "integer arithmetic".</para></summary>
     /// <param name='desiredExponentInt'>The desired exponent for the
     /// result. The exponent is the number of fractional digits in the
     /// result, expressed as a negative number. Can also be positive, which
@@ -3244,7 +3211,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    ///  of the context is true,
+    /// of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -3816,8 +3783,8 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>The closest value to this object's value, rounded to the
     /// specified precision. Returns the same value as this object if
-    /// &#x22;ctx&#x22; is null or the precision and exponent range are
-    /// unlimited.</returns>
+    /// <paramref name='ctx'/> is null or the precision and exponent range
+    /// are unlimited.</returns>
     public EDecimal RoundToPrecision(EContext ctx) {
       return GetMathValue(ctx).RoundToPrecision(this, ctx);
     }
@@ -3861,10 +3828,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>A number whose exponent is increased by <paramref
-    /// name='bigPlaces'/>.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigPlaces'/> is null.</exception>
+    /// <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>.</returns>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bigPlaces'/> is null.</exception>
     public EDecimal ScaleByPowerOfTen(
       EInteger bigPlaces,
       EContext ctx) {
@@ -3898,7 +3863,7 @@ namespace PeterO.Numbers {
     /// NaN if this object is less than 0 (the square root would be a
     /// complex number, but the return value is still NaN). Signals
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
-    /// &#x22;ctx&#x22; is null or the precision is unlimited (the
+    /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     public EDecimal Sqrt(EContext ctx) {
       return GetMathValue(ctx).SquareRoot(this, ctx);
@@ -3917,7 +3882,7 @@ namespace PeterO.Numbers {
     /// NaN if this object is less than 0 (the square root would be a
     /// complex number, but the return value is still NaN). Signals
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
-    /// &#x22;ctx&#x22; is null or the precision is unlimited (the
+    /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     [Obsolete("Renamed to Sqrt.")]
     public EDecimal SquareRoot(EContext ctx) {
@@ -3944,8 +3909,7 @@ namespace PeterO.Numbers {
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter
-    /// &#x22;otherValue&#x22; is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
     public EDecimal Subtract(
       EDecimal otherValue,
       EContext ctx) {
@@ -4444,8 +4408,7 @@ namespace PeterO.Numbers {
     /// object.</param>
     /// <returns>An arbitrary-precision float floating-point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='ec'/> is null.</exception>
+    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ec'/> is null.</exception>
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;

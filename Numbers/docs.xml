@@ -930,7 +930,16 @@
     </param>
     <returns>Less than 0 if this object's value is less than the other value, or
       greater than 0 if this object's value is greater than the other value or
-      if &#x22;other&#x22; is null, or 0 if both values are equal.
+      if
+      <paramref name='other'/>
+       is null, or 0 if both values are equal.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)'>
@@ -938,13 +947,18 @@
     </summary>
     <param name='other'>The other object to compare. Can be null.
     </param>
-    <returns>Zero if the values are equal; a negative number if this instance is less,
+    <returns>Zero if the values are equal; a negative number if this instance is less;
       or a positive number if this instance is greater. Returns 0 if both values
       are NaN (even signaling NaN) and 1 if this value is NaN (even signaling
       NaN) and the other isn't, or if the other value is null.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
-    <exception cref='System.ArgumentException'>Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToSignal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Compares the mathematical values of this object and another object,
@@ -964,7 +978,14 @@
     </param>
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
-      1 if this object is greater.
+      a 1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal)'>
@@ -992,6 +1013,13 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -1025,6 +1053,13 @@
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater. Does not signal
       flags if either value is signaling NaN.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal)'>
@@ -1052,6 +1087,13 @@
     <returns>The number 0 if both objects have the same value (ignoring their signs),
       or -1 if this object is less than the other value (ignoring their signs),
       or 1 if this object is greater (ignoring their signs).
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -1086,6 +1128,13 @@
       or -1 if this object is less than the other value (ignoring their signs),
       or 1 if this object is greater (ignoring their signs). Does not signal
       flags if either value is signaling NaN.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -1107,6 +1156,13 @@
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
       1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Copy'>
@@ -1125,7 +1181,9 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;other&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='other'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
@@ -1138,7 +1196,11 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;mantissa&#x22; or &#x22;exponent&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='mantissa'/>
+       or
+      <paramref name='exponent'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)'>
@@ -1183,7 +1245,9 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;diag&#x22; is null or is less than 0.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='diag'/>
+       is null or is less than 0.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)'>
@@ -1271,10 +1335,6 @@
     </summary>
     <returns>The given arbitrary-precision decimal number minus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='bthis'/>
-       is null.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.DivRemNaturalScale(PeterO.Numbers.EDecimal)'>
     <summary>Calculates the quotient and remainder using the
@@ -1701,8 +1761,10 @@
     </param>
     <returns>Exponential of this object. If this object's value is 1, returns an
       approximation to " e" within the given precision. Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0).
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='P:PeterO.Numbers.EDecimal.Exponent'>
@@ -1767,7 +1829,8 @@
        is a 64-bit floating-point number.
     </param>
     <returns>An arbitrary-precision decimal number with the same value as
-      &#x22;dbl&#x22;.
+      <paramref name='dbl'/>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromEFloat(PeterO.Numbers.EFloat)'>
@@ -1778,7 +1841,9 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;bigfloat&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='bigfloat'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromEInteger(PeterO.Numbers.EInteger)'>
@@ -1856,7 +1921,8 @@
        is a 32-bit binary floating-point number.
     </param>
     <returns>An arbitrary-precision decimal number with the same value as
-      &#x22;flt&#x22;.
+      <paramref name='flt'/>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromString(System.String)'>
@@ -1869,7 +1935,9 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.FormatException'>The parameter &#x22;str&#x22; is not a correctly formatted number string.
+    <exception cref='System.FormatException'>The parameter
+      <paramref name='str'/>
+       is not a correctly formatted number string.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromString(System.String,PeterO.Numbers.EContext)'>
@@ -1888,7 +1956,9 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;str&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='str'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromString(System.String,System.Int32,System.Int32)'>
@@ -1911,17 +1981,27 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.FormatException'>The parameter &#x22;str&#x22; is not a correctly formatted number string.
-    </exception>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;str&#x22; is null.
-    </exception>
-    <exception cref='System.ArgumentException'>Either &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-      than &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length minus
-      &#x22;offset&#x22; is less than &#x22;length&#x22;.
+    <exception cref='System.FormatException'>The parameter
+      <paramref name='str'/>
+       is not a correctly formatted number string.
     </exception>
     <exception cref='System.ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
+    </exception>
+    <exception cref='System.ArgumentException'>Either
+      <paramref name='offset'/>
+       or
+      <paramref name='length'/>
+       is less than 0 or greater than
+      <paramref name='str'/>
+       's length, or
+      <paramref name='str'/>
+       's length minus
+      <paramref name='offset'/>
+       is less than
+      <paramref name='length'/>
+      .
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromString(System.String,System.Int32,System.Int32,PeterO.Numbers.EContext)'>
@@ -1974,19 +2054,23 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;str&#x22; is null.
-    </exception>
-    <exception cref='System.ArgumentException'>Either &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-      than &#x22;str&#x22; 's length, or &#x22;str&#x22; 's length minus
-      &#x22;offset&#x22; is less than &#x22;length&#x22;.
-    </exception>
-    <exception cref='System.ArgumentException'>Either &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-      than &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length minus
-      &#x22;offset&#x22; is less than &#x22;length&#x22;.
-    </exception>
     <exception cref='System.ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
+    </exception>
+    <exception cref='System.ArgumentException'>Either
+      <paramref name='offset'/>
+       or
+      <paramref name='length'/>
+       is less than 0 or greater than
+      <paramref name='str'/>
+       's length, or
+      <paramref name='str'/>
+       's length minus
+      <paramref name='offset'/>
+       is less than
+      <paramref name='length'/>
+      .
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.FromUInt16(System.UInt16)'>
@@ -2027,10 +2111,6 @@
     </summary>
     <returns>The given arbitrary-precision decimal number plus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='bthis'/>
-       is null.
-    </exception>
   </doc>
   <doc name='P:PeterO.Numbers.EDecimal.IsFinite'>
     <summary>Gets a value indicating whether this object is finite (not infinity or
@@ -2121,9 +2201,11 @@
       object is less than 0 (the result would be a complex number with a real
       part equal to Ln of this object's absolute value and an imaginary part
       equal to pi, but the return value is still NaN.). Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0). Signals no
-      flags and returns negative infinity if this object's value is 0.
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0). Signals no flags and returns negative infinity if this object's
+      value is 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Log10(PeterO.Numbers.EContext)'>
@@ -2144,8 +2226,10 @@
     </param>
     <returns>Ln(this object)/Ln(10). Signals the flag FlagInvalid and returns
       not-a-number (NaN) if this object is less than 0. Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0).
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='P:PeterO.Numbers.EDecimal.Mantissa'>
@@ -2273,8 +2357,9 @@
       this number is negative, instead moves the decimal point to the right by
       this number's absolute value.
     </param>
-    <returns>A number whose exponent is decreased by &#x22;bigPlaces&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is decreased by
+      <paramref name='bigPlaces'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
@@ -2304,8 +2389,9 @@
       this number is negative, instead moves the decimal point to the right by
       this number's absolute value.
     </param>
-    <returns>A number whose exponent is decreased by &#x22;places&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is decreased by
+      <paramref name='places'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MovePointLeft(System.Int32,PeterO.Numbers.EContext)'>
@@ -2335,8 +2421,9 @@
       this number is negative, instead moves the decimal point to the left by
       this number's absolute value.
     </param>
-    <returns>A number whose exponent is increased by &#x22;bigPlaces&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is increased by
+      <paramref name='bigPlaces'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
@@ -2366,8 +2453,9 @@
       this number is negative, instead moves the decimal point to the left by
       this number's absolute value.
     </param>
-    <returns>A number whose exponent is increased by &#x22;places&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is increased by
+      <paramref name='places'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MovePointRight(System.Int32,PeterO.Numbers.EContext)'>
@@ -2474,7 +2562,11 @@
     </param>
     <returns>The result thisValue * multiplicand - subtrahend.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;op&#x22; or &#x22;subtrahend&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='op'/>
+       or
+      <paramref name='subtrahend'/>
+       is null.
     </exception>
   </doc>
   <doc name='F:PeterO.Numbers.EDecimal.NaN'>
@@ -2525,8 +2617,11 @@
     </param>
     <returns>Returns the largest value that's less than the given value. Returns
       negative infinity if the result is negative infinity. Signals FlagInvalid
-      and returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null,
-      the precision is 0, or &#x22;ctx&#x22; has an unlimited exponent range.
+      and returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null, the precision is 0, or
+      <paramref name='ctx'/>
+       has an unlimited exponent range.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.NextPlus(PeterO.Numbers.EContext)'>
@@ -2539,8 +2634,10 @@
     </param>
     <returns>Returns the smallest value that's greater than the given value.Signals
       FlagInvalid and returns not-a-number (NaN) if the parameter
-      &#x22;ctx&#x22; is null, the precision is 0, or &#x22;ctx&#x22; has an
-      unlimited exponent range.
+      <paramref name='ctx'/>
+       is null, the precision is 0, or
+      <paramref name='ctx'/>
+       has an unlimited exponent range.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.NextToward(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -2576,14 +2673,15 @@
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
-        This parameter can't be null, as &#x3c0; can never be represented
-        exactly.
+        This parameter can't be null, as π can never be represented exactly.
       </i>
       .
     </param>
     <returns>The constant π rounded to the given precision. Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0).
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Plus(PeterO.Numbers.EContext)'>
@@ -2596,8 +2694,9 @@
       isn't needed.
     </param>
     <returns>The closest value to this object's value, rounded to the specified
-      precision. Returns the same value as this object if &#x22;ctx&#x22; is
-      null or the precision and exponent range are unlimited.
+      precision. Returns the same value as this object if
+      <paramref name='ctx'/>
+       is null or the precision and exponent range are unlimited.
     </returns>
   </doc>
   <doc name='F:PeterO.Numbers.EDecimal.PositiveInfinity'>
@@ -3238,8 +3337,9 @@
       null, in which case the precision is unlimited and no rounding is needed.
     </param>
     <returns>The closest value to this object's value, rounded to the specified
-      precision. Returns the same value as this object if &#x22;ctx&#x22; is
-      null or the precision and exponent range are unlimited.
+      precision. Returns the same value as this object if
+      <paramref name='ctx'/>
+       is null or the precision and exponent range are unlimited.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.ScaleByPowerOfTen(PeterO.Numbers.EInteger)'>
@@ -3321,8 +3421,10 @@
     <returns>The square root. Signals the flag FlagInvalid and returns NaN if this
       object is less than 0 (the square root would be a complex number, but the
       return value is still NaN). Signals FlagInvalid and returns not-a-number
-      (NaN) if the parameter &#x22;ctx&#x22; is null or the precision is
-      unlimited (the context's Precision property is 0).
+      (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.SquareRoot(PeterO.Numbers.EContext)'>
@@ -3342,8 +3444,10 @@
     <returns>The square root. Signals the flag FlagInvalid and returns NaN if this
       object is less than 0 (the square root would be a complex number, but the
       return value is still NaN). Signals FlagInvalid and returns not-a-number
-      (NaN) if the parameter &#x22;ctx&#x22; is null or the precision is
-      unlimited (the context's Precision property is 0).
+      (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Subtract(PeterO.Numbers.EDecimal)'>
@@ -3368,7 +3472,9 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;otherValue&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Subtract(System.Int32)'>
@@ -3787,13 +3893,11 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Decrement(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Subtracts one from an arbitrary-precision decimal number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision decimal number.
     </param>
-    <returns>An EDecimal object.
+    <returns>The given arbitrary-precision decimal number minus one.
     </returns>
     <exception cref='System.ArgumentNullException'>The parameter
       <paramref name='bthis'/>
@@ -4183,13 +4287,11 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.op_Increment(PeterO.Numbers.EDecimal)'>
-    <summary>Not documented yet.
+    <summary>Adds one to an arbitrary-precision decimal number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision decimal number.
     </param>
-    <returns>An EDecimal object.
+    <returns>The given arbitrary-precision decimal number plus one.
     </returns>
     <exception cref='System.ArgumentNullException'>The parameter
       <paramref name='bthis'/>
@@ -5083,14 +5185,11 @@
       <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
       before carrying out the operation. Can be null.
     </param>
-    <returns>The number 0 if both objects have the same value, or -1 if the first
-      object is less than the other value, or 1 if the first object is greater.
-      Does not signal flags if either value is signaling NaN.
+    <returns>The number 0 if both objects are null or equal, or -1 if the first object
+      is null or less than the other object, or 1 if the first object is greater
+      or the other object is null. Does not signal flags if either value is
+      signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='ed'/>
-       is null.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.CompareTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
     <summary>Compares the absolute values of two arbitrary-precision number objects,
@@ -5121,15 +5220,12 @@
       <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
       before carrying out the operation. Can be null.
     </param>
-    <returns>The number 0 if both objects have the same value (ignoring their signs),
-      or -1 if the first object is less than the other value (ignoring their
-      signs), or 1 if the first object is greater (ignoring their signs). Does
-      not signal flags if either value is signaling NaN.
+    <returns>The number 0 if both objects are null or equal (ignoring their signs), or
+      -1 if the first object is null or less than the other value (ignoring
+      their signs), or 1 if the first object is greater (ignoring their signs)
+      or the other object is null. Does not signal flags if either value is
+      signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='ed'/>
-       is null.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimals.Copy(PeterO.Numbers.EDecimal)'>
     <summary>Creates a copy of the given arbitrary-precision number object.
@@ -5875,6 +5971,8 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Add(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
     <param name='intValue'>The parameter
       <paramref name='intValue'/>
        is not documented yet.
@@ -6017,7 +6115,9 @@
     </param>
     <returns>Less than 0 if this object's value is less than the other value, or
       greater than 0 if this object's value is greater than the other value or
-      if &#x22;other&#x22; is null, or 0 if both values are equal.
+      if
+      <paramref name='other'/>
+       is null, or 0 if both values are equal.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -6039,6 +6139,13 @@
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
       1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)'>
@@ -6066,6 +6173,13 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -6099,6 +6213,13 @@
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater. Does not signal
       flags if either value is signaling NaN.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat)'>
@@ -6125,6 +6246,13 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -6159,6 +6287,13 @@
       or -1 if this object is less than the other value (ignoring their signs),
       or 1 if this object is greater (ignoring their signs). Does not signal
       flags if either value is signaling NaN.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -6180,6 +6315,13 @@
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
       1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Copy'>
@@ -6274,10 +6416,6 @@
     </summary>
     <returns>The given arbitrary-precision binary floating-point number minus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='bthis'/>
-       is null.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat)'>
     <summary>Calculates the quotient and remainder using the
@@ -6609,8 +6747,10 @@
     </param>
     <returns>Exponential of this object. If this object's value is 1, returns an
       approximation to " e" within the given precision. Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0).
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='P:PeterO.Numbers.EFloat.Exponent'>
@@ -6652,7 +6792,9 @@
       <paramref name='dbl'/>
        is a 64-bit floating-point number.
     </param>
-    <returns>A binary float with the same value as &#x22;dbl&#x22;.
+    <returns>A binary float with the same value as
+      <paramref name='dbl'/>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromEInteger(PeterO.Numbers.EInteger)'>
@@ -6714,7 +6856,9 @@
       <paramref name='flt'/>
        is a 32-bit binary floating-point number.
     </param>
-    <returns>A binary float with the same value as &#x22;flt&#x22;.
+    <returns>A binary float with the same value as
+      <paramref name='flt'/>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromString(System.String)'>
@@ -6786,9 +6930,19 @@
       <paramref name='str'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Either &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-      than &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length minus
-      &#x22;offset&#x22; is less than &#x22;length&#x22;.
+    <exception cref='System.ArgumentException'>Either
+      <paramref name='offset'/>
+       or
+      <paramref name='length'/>
+       is less than 0 or greater than
+      <paramref name='str'/>
+       's length, or
+      <paramref name='str'/>
+       's length minus
+      <paramref name='offset'/>
+       is less than
+      <paramref name='length'/>
+      .
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromString(System.String,System.Int32,System.Int32,PeterO.Numbers.EContext)'>
@@ -6860,9 +7014,19 @@
       <paramref name='length'/>
       .
     </exception>
-    <exception cref='System.ArgumentException'>Either &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-      than &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length minus
-      &#x22;offset&#x22; is less than &#x22;length&#x22;.
+    <exception cref='System.ArgumentException'>Either
+      <paramref name='offset'/>
+       or
+      <paramref name='length'/>
+       is less than 0 or greater than
+      <paramref name='str'/>
+       's length, or
+      <paramref name='str'/>
+       's length minus
+      <paramref name='offset'/>
+       is less than
+      <paramref name='length'/>
+      .
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.FromUInt16(System.UInt16)'>
@@ -6907,10 +7071,6 @@
     </summary>
     <returns>The given arbitrary-precision binary floating-point number plus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='bthis'/>
-       is null.
-    </exception>
   </doc>
   <doc name='P:PeterO.Numbers.EFloat.IsFinite'>
     <summary>Gets a value indicating whether this object is finite (not infinity or
@@ -7001,9 +7161,11 @@
       object is less than 0 (the result would be a complex number with a real
       part equal to Ln of this object's absolute value and an imaginary part
       equal to pi, but the return value is still NaN.). Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0). Signals no
-      flags and returns negative infinity if this object's value is 0.
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0). Signals no flags and returns negative infinity if this object's
+      value is 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Log10(PeterO.Numbers.EContext)'>
@@ -7024,8 +7186,10 @@
     </param>
     <returns>Ln(this object)/Ln(10). Signals the flag FlagInvalid and returns
       not-a-number (NaN) if this object is less than 0. Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0).
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='P:PeterO.Numbers.EFloat.Mantissa'>
@@ -7153,8 +7317,9 @@
       this number is negative, instead moves the radix point to the right by
       this number's absolute value.
     </param>
-    <returns>A number whose exponent is decreased by &#x22;bigPlaces&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is decreased by
+      <paramref name='bigPlaces'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
@@ -7184,8 +7349,9 @@
       this number is negative, instead moves the radix point to the right by
       this number's absolute value.
     </param>
-    <returns>A number whose exponent is decreased by &#x22;places&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is decreased by
+      <paramref name='places'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.MovePointLeft(System.Int32,PeterO.Numbers.EContext)'>
@@ -7215,8 +7381,9 @@
       this number is negative, instead moves the radix point to the left by this
       number's absolute value.
     </param>
-    <returns>A number whose exponent is increased by &#x22;bigPlaces&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is increased by
+      <paramref name='bigPlaces'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.MovePointRight(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
@@ -7246,8 +7413,9 @@
       this number is negative, instead moves the radix point to the left by this
       number's absolute value.
     </param>
-    <returns>A number whose exponent is increased by &#x22;places&#x22;, but not to
-      more than 0.
+    <returns>A number whose exponent is increased by
+      <paramref name='places'/>
+      , but not to more than 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.MovePointRight(System.Int32,PeterO.Numbers.EContext)'>
@@ -7414,8 +7582,11 @@
     </param>
     <returns>Returns the largest value that's less than the given value. Returns
       negative infinity if the result is negative infinity. Signals FlagInvalid
-      and returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null,
-      the precision is 0, or &#x22;ctx&#x22; has an unlimited exponent range.
+      and returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null, the precision is 0, or
+      <paramref name='ctx'/>
+       has an unlimited exponent range.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.NextPlus(PeterO.Numbers.EContext)'>
@@ -7428,8 +7599,10 @@
     </param>
     <returns>Returns the smallest value that's greater than the given value.Signals
       FlagInvalid and returns not-a-number (NaN) if the parameter
-      &#x22;ctx&#x22; is null, the precision is 0, or &#x22;ctx&#x22; has an
-      unlimited exponent range.
+      <paramref name='ctx'/>
+       is null, the precision is 0, or
+      <paramref name='ctx'/>
+       has an unlimited exponent range.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.NextToward(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -7465,14 +7638,15 @@
       <c>HasFlags</c> of the context is true, will also store the flags resulting from the
       operation (the flags are in addition to the pre-existing flags).
       <i>
-        This parameter can't be null, as &#x3c0; can never be represented
-        exactly.
+        This parameter can't be null, as π can never be represented exactly.
       </i>
       .
     </param>
     <returns>The constant π rounded to the given precision. Signals FlagInvalid and
-      returns not-a-number (NaN) if the parameter &#x22;ctx&#x22; is null or the
-      precision is unlimited (the context's Precision property is 0).
+      returns not-a-number (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Plus(PeterO.Numbers.EContext)'>
@@ -7485,8 +7659,9 @@
       isn't needed.
     </param>
     <returns>The closest value to this object's value, rounded to the specified
-      precision. Returns the same value as this object if &#x22;ctx&#x22; is
-      null or the precision and exponent range are unlimited.
+      precision. Returns the same value as this object if
+      <paramref name='ctx'/>
+       is null or the precision and exponent range are unlimited.
     </returns>
   </doc>
   <doc name='F:PeterO.Numbers.EFloat.PositiveInfinity'>
@@ -8003,8 +8178,9 @@
       null, in which case the precision is unlimited and no rounding is needed.
     </param>
     <returns>The closest value to this object's value, rounded to the specified
-      precision. Returns the same value as this object if &#x22;ctx&#x22; is
-      null or the precision and exponent range are unlimited.
+      precision. Returns the same value as this object if
+      <paramref name='ctx'/>
+       is null or the precision and exponent range are unlimited.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger)'>
@@ -8012,7 +8188,9 @@
     </summary>
     <param name='bigPlaces'>An arbitrary-precision integer.
     </param>
-    <returns>A number whose exponent is increased by &#x22;bigPlaces&#x22;.
+    <returns>A number whose exponent is increased by
+      <paramref name='bigPlaces'/>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.ScaleByPowerOfTwo(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)'>
@@ -8088,8 +8266,10 @@
     <returns>The square root. Signals the flag FlagInvalid and returns NaN if this
       object is less than 0 (the square root would be a complex number, but the
       return value is still NaN). Signals FlagInvalid and returns not-a-number
-      (NaN) if the parameter &#x22;ctx&#x22; is null or the precision is
-      unlimited (the context's Precision property is 0).
+      (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.SquareRoot(PeterO.Numbers.EContext)'>
@@ -8109,8 +8289,10 @@
     <returns>The square root. Signals the flag FlagInvalid and returns NaN if this
       object is less than 0 (the square root would be a complex number, but the
       return value is still NaN). Signals FlagInvalid and returns not-a-number
-      (NaN) if the parameter &#x22;ctx&#x22; is null or the precision is
-      unlimited (the context's Precision property is 0).
+      (NaN) if the parameter
+      <paramref name='ctx'/>
+       is null or the precision is unlimited (the context's Precision property
+      is 0).
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat)'>
@@ -8535,7 +8717,7 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Decrement(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
+    <summary>Subtracts one from an arbitrary-precision binary floating-point number.
     </summary>
     <param name='bthis'>The parameter
       <paramref name='bthis'/>
@@ -8938,7 +9120,7 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.op_Increment(PeterO.Numbers.EFloat)'>
-    <summary>Not documented yet.
+    <summary>Adds one to an arbitrary-precision binary floating-point number.
     </summary>
     <param name='bthis'>The parameter
       <paramref name='bthis'/>
@@ -9365,14 +9547,11 @@
       <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
       before carrying out the operation. Can be null.
     </param>
-    <returns>The number 0 if both objects have the same value, or -1 if the first
-      object is less than the other value, or 1 if the first object is greater.
-      Does not signal flags if either value is signaling NaN.
+    <returns>The number 0 if both objects are null or equal, or -1 if the first object
+      is null or less than the other object, or 1 if the first object is greater
+      or the other object is null. Does not signal flags if either value is
+      signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='ed'/>
-       is null.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.CompareTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
     <summary>Compares the absolute values of two arbitrary-precision number objects,
@@ -9403,15 +9582,12 @@
       <c>IsSimplified</c> of the context are true and only if an operand needed to be rounded
       before carrying out the operation. Can be null.
     </param>
-    <returns>The number 0 if both objects have the same value (ignoring their signs),
-      or -1 if the first object is less than the other value (ignoring their
-      signs), or 1 if the first object is greater (ignoring their signs). Does
-      not signal flags if either value is signaling NaN.
+    <returns>The number 0 if both objects are null or equal (ignoring their signs), or
+      -1 if the first object is null or less than the other object (ignoring
+      their signs), or 1 if the first object is greater (ignoring their signs)
+      or the other object is null. Does not signal flags if either value is
+      signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
-      <paramref name='ed'/>
-       is null.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloats.Copy(PeterO.Numbers.EFloat)'>
     <summary>Creates a copy of the given arbitrary-precision number object.
@@ -10076,6 +10252,8 @@
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Add(System.Int32)'>
+    <summary>Not documented yet.
+    </summary>
     <param name='intValue'>The parameter
       <paramref name='intValue'/>
        is not documented yet.
@@ -10196,6 +10374,13 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.CompareTo(System.Int32)'>
@@ -10939,7 +11124,9 @@
     </summary>
     <param name='powerSmall'>The exponent to raise this integer to.
     </param>
-    <returns>The result. Returns 1 if &#x22;powerSmall&#x22; is 0.
+    <returns>The result. Returns 1 if
+      <paramref name='powerSmall'/>
+       is 0.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)'>
@@ -10948,7 +11135,9 @@
     </summary>
     <param name='power'>The exponent to raise to.
     </param>
-    <returns>The result. Returns 1 if &#x22;power&#x22; is 0.
+    <returns>The result. Returns 1 if
+      <paramref name='power'/>
+       is 0.
     </returns>
     <exception cref='System.ArgumentException'>The parameter
       <paramref name='power'/>
@@ -11934,7 +12123,9 @@
     <returns>The sum of the two numbers. Returns not-a-number (NaN) if either operand
       is NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;otherValue&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)'>
@@ -11944,9 +12135,14 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
-    <exception cref='System.ArgumentException'>Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)'>
     <summary>Compares an arbitrary-precision binary float with this instance.
@@ -11955,9 +12151,14 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
-    <exception cref='System.ArgumentException'>Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToDecimal(PeterO.Numbers.EDecimal)'>
     <summary>Compares an arbitrary-precision decimal number with this instance.
@@ -11966,9 +12167,14 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
-    <exception cref='System.ArgumentException'>Doesn't satisfy this.IsFinite; doesn't satisfy other.IsFinite.
-    </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToTotal(PeterO.Numbers.ERational)'>
     <summary>Compares the values of this object and another object, imposing a total
@@ -11995,6 +12201,13 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToTotalMagnitude(PeterO.Numbers.ERational)'>
@@ -12021,6 +12234,13 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
+      <para>This implementation returns a positive number if "other" is null, to
+        conform to the .NET definition of CompareTo. This is the case even in
+        the Java version of this library, for consistency's sake, even though
+        implementations of
+        <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
+        rather than treating null as less or greater than any object.
+      </para>
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Copy'>
@@ -12037,7 +12257,9 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;other&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='other'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
@@ -12075,7 +12297,9 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter &#x22;diag&#x22; is less than 0.
+    <exception cref='System.ArgumentException'>The parameter
+      <paramref name='diag'/>
+       is less than 0.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CreateNaN(PeterO.Numbers.EInteger,System.Boolean,System.Boolean)'>
@@ -12093,9 +12317,13 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter &#x22;diag&#x22; is less than 0.
+    <exception cref='System.ArgumentException'>The parameter
+      <paramref name='diag'/>
+       is less than 0.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;diag&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='diag'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Decrement'>
@@ -12122,7 +12350,9 @@
     </param>
     <returns>The quotient of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;otherValue&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)'>
@@ -12191,7 +12421,9 @@
       <paramref name='flt'/>
        is a 64-bit floating-point number.
     </param>
-    <returns>A rational number with the same value as &#x22;flt&#x22;.
+    <returns>A rational number with the same value as
+      <paramref name='flt'/>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)'>
@@ -12201,7 +12433,9 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;ef&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ef'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)'>
@@ -12212,7 +12446,9 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;ef&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='ef'/>
+       is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromEInteger(PeterO.Numbers.EInteger)'>
@@ -12285,7 +12521,9 @@
       <paramref name='flt'/>
        is a 32-bit binary floating-point number.
     </param>
-    <returns>A rational number with the same value as &#x22;flt&#x22;.
+    <returns>A rational number with the same value as
+      <paramref name='flt'/>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromString(System.String)'>
@@ -12298,7 +12536,9 @@
     <returns>An arbitrary-precision rational number with the same value as the given
       string.
     </returns>
-    <exception cref='System.FormatException'>The parameter &#x22;str&#x22; is not a correctly formatted number string.
+    <exception cref='System.FormatException'>The parameter
+      <paramref name='str'/>
+       is not a correctly formatted number string.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromString(System.String,System.Int32,System.Int32)'>
@@ -12341,17 +12581,27 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.FormatException'>The parameter &#x22;str&#x22; is not a correctly formatted number string.
-    </exception>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;str&#x22; is null.
-    </exception>
-    <exception cref='System.ArgumentException'>Either &#x22;offset&#x22; or &#x22;length&#x22; is less than 0 or greater
-      than &#x22;str&#x22;&#x27;s length, or &#x22;str&#x22;&#x27;s length minus
-      &#x22;offset&#x22; is less than &#x22;length&#x22;.
+    <exception cref='System.FormatException'>The parameter
+      <paramref name='str'/>
+       is not a correctly formatted number string.
     </exception>
     <exception cref='System.ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
+    </exception>
+    <exception cref='System.ArgumentException'>Either
+      <paramref name='offset'/>
+       or
+      <paramref name='length'/>
+       is less than 0 or greater than
+      <paramref name='str'/>
+       's length, or
+      <paramref name='str'/>
+       's length minus
+      <paramref name='offset'/>
+       is less than
+      <paramref name='length'/>
+      .
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.FromUInt16(System.UInt16)'>
@@ -12479,7 +12729,9 @@
     </param>
     <returns>The product of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;otherValue&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
     </exception>
   </doc>
   <doc name='F:PeterO.Numbers.ERational.NaN'>
@@ -12525,7 +12777,9 @@
     </param>
     <returns>The remainder of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;otherValue&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
     </exception>
   </doc>
   <doc name='P:PeterO.Numbers.ERational.Sign'>
@@ -12545,7 +12799,9 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter &#x22;otherValue&#x22; is null.
+    <exception cref='System.ArgumentNullException'>The parameter
+      <paramref name='otherValue'/>
+       is null.
     </exception>
   </doc>
   <doc name='F:PeterO.Numbers.ERational.Ten'>
