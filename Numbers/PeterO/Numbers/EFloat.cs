@@ -293,7 +293,7 @@ namespace PeterO.Numbers {
     /// <param name='exponent'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter "mantissa
+    /// <exception cref='ArgumentNullException'>The parameter "mantissa
     /// (significand)" or <paramref name='exponent'/> is null.</exception>
     public static EFloat Create(
       EInteger mantissa,
@@ -319,7 +319,8 @@ namespace PeterO.Numbers {
     /// arbitrary-precision binary floating-point number, use that object's
     /// <c>UnsignedMantissa</c> property.</param>
     /// <returns>A quiet not-a-number.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref name='diag'/> is less than 0.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='diag'/> is less than 0.</exception>
     public static EFloat CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false, null);
     }
@@ -343,7 +344,8 @@ namespace PeterO.Numbers {
     /// is required to do so.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='diag'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='diag'/> is null.</exception>
     public static EFloat CreateNaN(
       EInteger diag,
       bool signaling,
@@ -387,7 +389,8 @@ namespace PeterO.Numbers {
     /// the floating point number to a string first.</summary>
     /// <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
     /// floating-point number.</param>
-    /// <returns>A binary float with the same value as <paramref name='dbl'/>.</returns>
+    /// <returns>A binary float with the same value as <paramref
+    /// name='dbl'/>.</returns>
     public static EFloat FromDouble(double dbl) {
       int[] value = Extras.DoubleToIntegers(dbl);
       var floatExponent = (int)((value[1] >> 20) & 0x7ff);
@@ -444,7 +447,8 @@ namespace PeterO.Numbers {
     /// the floating point number to a string first.</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
-    /// <returns>A binary float with the same value as <paramref name='flt'/>.</returns>
+    /// <returns>A binary float with the same value as <paramref
+    /// name='flt'/>.</returns>
     public static EFloat FromSingle(float flt) {
       int value = BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0);
       bool neg = (value >> 31) != 0;
@@ -510,7 +514,7 @@ namespace PeterO.Numbers {
     /// combination of upper and lower case.</para>
     /// <para>All characters mentioned above are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
-    /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is
+    /// be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is
     /// not allowed to contain white space characters, including
     /// spaces.</para></summary>
     /// <param name='str'>The parameter <paramref name='str'/> is a text
@@ -518,18 +522,23 @@ namespace PeterO.Numbers {
     /// <param name='offset'>A zero-based index showing where the desired
     /// portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref
+    /// name='str'/> 's length).</param>
     /// <param name='ctx'>The parameter <paramref name='ctx'/> is an
     /// EContext object.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
-    /// <exception cref='System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
     /// greater than <paramref name='str'/> 's length, or <paramref name='
     /// str'/> ' s length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
-    /// <exception cref='System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref
+    /// name='str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     public static EFloat FromString(
       string str,
@@ -569,7 +578,8 @@ namespace PeterO.Numbers {
     /// null.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
     public static EFloat FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length, ctx);
     }
@@ -582,16 +592,21 @@ namespace PeterO.Numbers {
     /// <param name='offset'>A zero-based index showing where the desired
     /// portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref
+    /// name='str'/> 's length).</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref=' T:System.ArgumentException'>Either <paramref name=' offset'/> or <paramref name=' length'/> is less than 0 or
+    /// <exception cref=' T:System.ArgumentException'>Either <paramref
+    /// name=' offset'/> or <paramref name=' length'/> is less than 0 or
     /// greater than <paramref name='str'/> 's length, or <paramref name='
     /// str'/> ' s length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
-    /// <exception cref='System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref
+    /// name='str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     public static EFloat FromString(string str, int offset, int length) {
       return FromString(str, offset, length, null);
@@ -799,7 +814,7 @@ namespace PeterO.Numbers {
     /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
-    /// .
+    ///  .
     /// </example>
     public EFloat Multiply(int intValue) {
       return this.Multiply(EFloat.FromInt32(intValue));
@@ -883,7 +898,14 @@ namespace PeterO.Numbers {
     /// null.</param>
     /// <returns>Quiet NaN if this object or the other object is NaN, or 0
     /// if both objects have the same value, or -1 if this object is less
-    /// than the other value, or 1 if this object is greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// than the other value, or 1 if this object is greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public EFloat CompareToSignal(
       EFloat other,
       EContext ctx) {
@@ -913,8 +935,14 @@ namespace PeterO.Numbers {
     /// carrying out the operation. Can be null.</param>
     /// <returns>The number 0 if both objects have the same value, or -1 if
     /// this object is less than the other value, or 1 if this object is
-    /// greater. Does not signal flags if either value is signaling
-    /// NaN.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// greater. Does not signal flags if either value is signaling NaN.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToTotal(EFloat other, EContext ctx) {
       if (other == null) {
         return 1;
@@ -956,7 +984,14 @@ namespace PeterO.Numbers {
     /// their signs), or -1 if this object is less than the other value
     /// (ignoring their signs), or 1 if this object is greater (ignoring
     /// their signs). Does not signal flags if either value is signaling
-    /// NaN.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// NaN.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToTotalMagnitude(EFloat other, EContext ctx) {
       if (other == null) {
         return 1;
@@ -991,7 +1026,14 @@ namespace PeterO.Numbers {
     /// with this one.</param>
     /// <returns>The number 0 if both objects have the same value, or -1 if
     /// this object is less than the other value, or 1 if this object is
-    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToTotal(EFloat other) {
       if (other == null) {
         return 1;
@@ -1058,7 +1100,14 @@ namespace PeterO.Numbers {
     /// with this one.</param>
     /// <returns>The number 0 if both objects have the same value, or -1 if
     /// this object is less than the other value, or 1 if this object is
-    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToTotalMagnitude(EFloat other) {
       if (other == null) {
         return 1;
@@ -1118,7 +1167,14 @@ namespace PeterO.Numbers {
     /// null.</param>
     /// <returns>Quiet NaN if this object or the other object is NaN, or 0
     /// if both objects have the same value, or -1 if this object is less
-    /// than the other value, or 1 if this object is greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// than the other value, or 1 if this object is greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public EFloat CompareToWithContext(
       EFloat other,
       EContext ctx) {
@@ -1133,7 +1189,8 @@ namespace PeterO.Numbers {
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='other'/> is null.</exception>
     public EFloat CopySign(EFloat other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
@@ -1629,7 +1686,8 @@ namespace PeterO.Numbers {
     /// radix point to the left. If this number is negative, instead moves
     /// the radix point to the right by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref
+    /// name='places'/>, but not to more than 0.</returns>
     public EFloat MovePointLeft(int places) {
       return this.MovePointLeft((EInteger)places, null);
     }
@@ -1646,7 +1704,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is decreased by <paramref name='places'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref
+    /// name='places'/>, but not to more than 0.</returns>
     public EFloat MovePointLeft(int places, EContext ctx) {
       return this.MovePointLeft((EInteger)places, ctx);
     }
@@ -1657,7 +1716,8 @@ namespace PeterO.Numbers {
     /// the radix point to the left. If this number is negative, instead
     /// moves the radix point to the right by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref
+    /// name='bigPlaces'/>, but not to more than 0.</returns>
     public EFloat MovePointLeft(EInteger bigPlaces) {
       return this.MovePointLeft(bigPlaces, null);
     }
@@ -1674,7 +1734,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is decreased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is decreased by <paramref
+    /// name='bigPlaces'/>, but not to more than 0.</returns>
     public EFloat MovePointLeft(
       EInteger bigPlaces,
       EContext ctx) {
@@ -1688,7 +1749,8 @@ namespace PeterO.Numbers {
     /// radix point to the right. If this number is negative, instead moves
     /// the radix point to the left by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref
+    /// name='places'/>, but not to more than 0.</returns>
     public EFloat MovePointRight(int places) {
       return this.MovePointRight((EInteger)places, null);
     }
@@ -1705,7 +1767,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is increased by <paramref name='places'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref
+    /// name='places'/>, but not to more than 0.</returns>
     public EFloat MovePointRight(int places, EContext ctx) {
       return this.MovePointRight((EInteger)places, ctx);
     }
@@ -1716,7 +1779,8 @@ namespace PeterO.Numbers {
     /// the radix point to the right. If this number is negative, instead
     /// moves the radix point to the left by this number's absolute
     /// value.</param>
-    /// <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref
+    /// name='bigPlaces'/>, but not to more than 0.</returns>
     public EFloat MovePointRight(EInteger bigPlaces) {
       return this.MovePointRight(bigPlaces, null);
     }
@@ -1733,7 +1797,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>, but not to more than 0.</returns>
+    /// <returns>A number whose exponent is increased by <paramref
+    /// name='bigPlaces'/>, but not to more than 0.</returns>
     public EFloat MovePointRight(
       EInteger bigPlaces,
       EContext ctx) {
@@ -1761,7 +1826,8 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>Another binary float.</param>
     /// <returns>The product of the two binary floating-point
     /// numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public EFloat Multiply(EFloat otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
@@ -1850,7 +1916,8 @@ namespace PeterO.Numbers {
     /// once, namely, after multiplying and subtracting.</param>
     /// <returns>The result thisValue * multiplicand -
     /// subtrahend.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='op'/> or <paramref name='subtrahend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='op'/> or <paramref name='subtrahend'/> is null.</exception>
     public EFloat MultiplyAndSubtract(
       EFloat op,
       EFloat subtrahend,
@@ -2029,7 +2096,8 @@ namespace PeterO.Numbers {
         this.unsignedMantissa.GetSignedBitLengthAsEInteger();
     }
 
-    /// <summary>Returns a binary float with the same value but a new
+    /// <summary>
+    ///  Returns a binary float with the same value but a new
     /// exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of binary digit places, since it can fail if the difference
@@ -2038,7 +2106,7 @@ namespace PeterO.Numbers {
     /// binary digit places is desired, it's better to use the
     /// RoundToExponent and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point binary arithmetic, in which each binary float has a
     /// fixed number of digits after the radix point. The following code
     /// example returns a fixed-point number with up to 20 digits before
@@ -2049,7 +2117,8 @@ namespace PeterO.Numbers {
     /// EContext.ForPrecision(25) // 25-digit precision);</code>
     /// <para>A fixed-point binary arithmetic in which no digits come after
     /// the radix point (a desired exponent of 0) is considered an "integer
-    /// arithmetic".</para></summary>
+    /// arithmetic".</para>
+    /// </summary>
     /// <param name='desiredExponent'>The desired exponent for the result.
     /// The exponent is the number of fractional digits in the result,
     /// expressed as a negative number. Can also be positive, which
@@ -2059,7 +2128,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -2076,7 +2145,8 @@ namespace PeterO.Numbers {
         ctx);
     }
 
-    /// <summary>Returns a binary float with the same value but a new
+    /// <summary>
+    ///  Returns a binary float with the same value but a new
     /// exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of binary digit places, since it can fail if the difference
@@ -2085,7 +2155,7 @@ namespace PeterO.Numbers {
     /// binary digit places is desired, it's better to use the
     /// RoundToExponent and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point binary arithmetic, in which each binary float has a
     /// fixed number of digits after the radix point. The following code
     /// example returns a fixed-point number with up to 20 digits before
@@ -2095,7 +2165,8 @@ namespace PeterO.Numbers {
     /// after the radix point EContext.ForPrecision(25) // 25-digit precision);</code>
     /// <para>A fixed-point binary arithmetic in which no digits come after
     /// the radix point (a desired exponent of 0) is considered an "integer
-    /// arithmetic".</para></summary>
+    /// arithmetic".</para>
+    /// </summary>
     /// <param name='desiredExponentInt'>The desired exponent for the
     /// result. The exponent is the number of fractional digits in the
     /// result, expressed as a negative number. Can also be positive, which
@@ -2105,7 +2176,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -2574,7 +2645,8 @@ namespace PeterO.Numbers {
     /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='bigPlaces'>An arbitrary-precision integer.</param>
-    /// <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>.</returns>
+    /// <returns>A number whose exponent is increased by <paramref
+    /// name='bigPlaces'/>.</returns>
     public EFloat ScaleByPowerOfTwo(EInteger bigPlaces) {
       return this.ScaleByPowerOfTwo(bigPlaces, null);
     }
@@ -2589,7 +2661,8 @@ namespace PeterO.Numbers {
     /// Can be null.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='bigPlaces'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigPlaces'/> is null.</exception>
     public EFloat ScaleByPowerOfTwo(
       EInteger bigPlaces,
       EContext ctx) {
@@ -2670,7 +2743,8 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public EFloat Subtract(
       EFloat otherValue,
       EContext ctx) {
@@ -3154,7 +3228,8 @@ namespace PeterO.Numbers {
     /// <param name='bigint'>An arbitrary-precision integer.</param>
     /// <param name='lastDigit'>The parameter <paramref name='lastDigit'/>
     /// is a 32-bit signed integer.</param>
-    /// <param name='olderDigits'>The parameter <paramref name='olderDigits'/> is a 32-bit signed integer.</param>
+    /// <param name='olderDigits'>The parameter <paramref
+    /// name='olderDigits'/> is a 32-bit signed integer.</param>
     /// <returns>An IShiftAccumulator object.</returns>
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
         EInteger bigint,

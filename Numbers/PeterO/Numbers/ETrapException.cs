@@ -13,9 +13,9 @@ namespace PeterO.Numbers {
     /// other classes common to this library, particularly EDecimal,
     /// EFloat, and ERational.).</summary>
 #if NET20 || NET40
-  [Serializable]
+[Serializable]
 #endif
-  public sealed class ETrapException : ArithmeticException {
+public sealed class ETrapException : ArithmeticException {
     private readonly Object result;
     private readonly EContext ctx;
 
@@ -80,10 +80,14 @@ namespace PeterO.Numbers {
     }
 
 #if NET20 || NET40
-    /// <xmlbegin id="882"/><summary>Initializes a new instance of the
+    /// <xmlbegin id='882'/>
+    /// <summary>Initializes a new instance of the
     /// <see cref='PeterO.Cbor.ETrapException'/> class. Uses the given
     /// serialization and streaming contexts.</summary>
-    ///
+    /// <param name='info'>A System.Runtime.Serialization.SerializationInfo
+    /// object.</param>
+    /// <param name='context'>A
+    /// System.Runtime.Serialization.StreamingContext object.</param>
       protected ETrapException(
         System.Runtime.Serialization.SerializationInfo info,
         System.Runtime.Serialization.StreamingContext context)

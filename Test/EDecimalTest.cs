@@ -943,49 +943,46 @@ namespace Test {
       AssertDecimalsEquivalent("5.912E+7", "59.12E6");
     }
 
-
 [Test]
-public void TestCompareToNull(){
- Assert.Greater(0,EInteger.Zero.CompareTo(null));
+public void TestCompareToNull() {
+ Assert.Greater(0, EInteger.Zero.CompareTo(null));
 
- Assert.Greater(0,EDecimal.Zero.CompareTo(null));
- Assert.Greater(0,EDecimal.Zero.CompareToBinary(null));
- Assert.Greater(0,EDecimal.Zero.CompareToSignal(null));
- Assert.Greater(0,EDecimal.Zero.CompareToTotal(null));
- Assert.Greater(0,EDecimal.Zero.CompareToTotalMagnitude(null));
- Assert.Greater(0,EDecimal.Zero.CompareToTotal(null,null));
- Assert.Greater(0,EDecimal.Zero.CompareToTotalMagnitude(null,null));
- Assert.Greater(0,EDecimal.Zero.CompareToWithContext(null,null));
+ Assert.Greater(0, EDecimal.Zero.CompareTo(null));
+ Assert.Greater(0, EDecimal.Zero.CompareToBinary(null));
+ Assert.Greater(0, EDecimal.Zero.CompareToSignal(null));
+ Assert.Greater(0, EDecimal.Zero.CompareToTotal(null));
+ Assert.Greater(0, EDecimal.Zero.CompareToTotalMagnitude(null));
+ Assert.Greater(0, EDecimal.Zero.CompareToTotal(null, null));
+ Assert.Greater(0, EDecimal.Zero.CompareToTotalMagnitude(null, null));
+ Assert.Greater(0, EDecimal.Zero.CompareToWithContext(null, null));
 
- Assert.Greater(0,EFloat.Zero.CompareTo(null));
- Assert.Greater(0,EFloat.Zero.CompareToSignal(null));
- Assert.Greater(0,EFloat.Zero.CompareToTotal(null));
- Assert.Greater(0,EFloat.Zero.CompareToTotalMagnitude(null));
- Assert.Greater(0,EFloat.Zero.CompareToTotal(null,null));
- Assert.Greater(0,EFloat.Zero.CompareToTotalMagnitude(null,null));
- Assert.Greater(0,EFloat.Zero.CompareToWithContext(null,null));
+ Assert.Greater(0, EFloat.Zero.CompareTo(null));
+ Assert.Greater(0, EFloat.Zero.CompareToSignal(null));
+ Assert.Greater(0, EFloat.Zero.CompareToTotal(null));
+ Assert.Greater(0, EFloat.Zero.CompareToTotalMagnitude(null));
+ Assert.Greater(0, EFloat.Zero.CompareToTotal(null, null));
+ Assert.Greater(0, EFloat.Zero.CompareToTotalMagnitude(null, null));
+ Assert.Greater(0, EFloat.Zero.CompareToWithContext(null, null));
 
- Assert.Greater(0,ERational.Zero.CompareTo(null));
- Assert.Greater(0,ERational.Zero.CompareToTotal(null));
- Assert.Greater(0,ERational.Zero.CompareToTotalMagnitude(null));
- Assert.Greater(0,ERational.Zero.CompareToBinary(null));
- Assert.Greater(0,ERational.Zero.CompareToDecimal(null));
+ Assert.Greater(0, ERational.Zero.CompareTo(null));
+ Assert.Greater(0, ERational.Zero.CompareToTotal(null));
+ Assert.Greater(0, ERational.Zero.CompareToTotalMagnitude(null));
+ Assert.Greater(0, ERational.Zero.CompareToBinary(null));
+ Assert.Greater(0, ERational.Zero.CompareToDecimal(null));
 
- Assert.Greater(0,EDecimals.CompareTotal(EDecimal.Zero,null));
- Assert.Greater(0,EDecimals.CompareTotalMagnitude(EDecimal.Zero,null));
- Assert.Less(0,EDecimals.CompareTotal(null,EDecimal.Zero));
- Assert.Less(0,EDecimals.CompareTotalMagnitude(null,EDecimal.Zero));
- Assert.AreEqual(0,EDecimals.CompareTotal(null,null));
- Assert.AreEqual(0,EDecimals.CompareTotalMagnitude(null,null));
- Assert.Greater(0,EFloats.CompareTotal(EFloat.Zero,null));
- Assert.Greater(0,EFloats.CompareTotalMagnitude(EFloat.Zero,null));
- Assert.Less(0,EFloats.CompareTotal(null,EFloat.Zero));
- Assert.Less(0,EFloats.CompareTotalMagnitude(null,EFloat.Zero));
- Assert.AreEqual(0,EFloats.CompareTotal(null,null));
- Assert.AreEqual(0,EFloats.CompareTotalMagnitude(null,null));
+ Assert.Greater(0, EDecimals.CompareTotal(EDecimal.Zero, null));
+ Assert.Greater(0, EDecimals.CompareTotalMagnitude(EDecimal.Zero, null));
+ Assert.Less(0, EDecimals.CompareTotal(null, EDecimal.Zero));
+ Assert.Less(0, EDecimals.CompareTotalMagnitude(null, EDecimal.Zero));
+ Assert.AreEqual(0, EDecimals.CompareTotal(null, null));
+ Assert.AreEqual(0, EDecimals.CompareTotalMagnitude(null, null));
+ Assert.Greater(0, EFloats.CompareTotal(EFloat.Zero, null));
+ Assert.Greater(0, EFloats.CompareTotalMagnitude(EFloat.Zero, null));
+ Assert.Less(0, EFloats.CompareTotal(null, EFloat.Zero));
+ Assert.Less(0, EFloats.CompareTotalMagnitude(null, EFloat.Zero));
+ Assert.AreEqual(0, EFloats.CompareTotal(null, null));
+ Assert.AreEqual(0, EFloats.CompareTotalMagnitude(null, null));
 }
-
-
 
     [Test]
     public void TestDivide() {

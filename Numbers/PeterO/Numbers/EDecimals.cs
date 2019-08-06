@@ -156,7 +156,8 @@ namespace PeterO.Numbers {
     /// follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
     /// "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 =
     /// "-Infinity", 8 = "NaN", 9 = "sNaN".</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref name='nc'/> is less than 0 or greater than 9.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='nc'/> is less than 0 or greater than 9.</exception>
     public static string NumberClassString(int nc) {
       if (nc < 0) {
         throw new ArgumentException("nc (" + nc +
@@ -183,7 +184,8 @@ namespace PeterO.Numbers {
     /// positive zero, 5 = negative zero, 6 = positive infinity, 7 =
     /// negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling
     /// NaN.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int NumberClass(EDecimal ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -228,7 +230,8 @@ namespace PeterO.Numbers {
     /// <returns>Either <c>true</c> if the given number is subnormal, or
     /// <c>false</c> otherwise. Returns <c>false</c> if the given context
     /// is null or HasExponentRange of the given context is <c>false</c>.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static bool IsSubnormal(EDecimal ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -266,7 +269,8 @@ namespace PeterO.Numbers {
     /// infinity if <paramref name='ed'/> is zero. Returns positive
     /// infinity if <paramref name='ed'/> is positive infinity or negative
     /// infinity.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal LogB(EDecimal ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -296,11 +300,13 @@ namespace PeterO.Numbers {
     /// point is moved the given number of places. Signals an invalid
     /// operation and returns not-a-number (NaN) if <paramref name='ed2'/>
     /// is infinity or NaN, has an Exponent property other than 0. Signals
-    /// an invalid operation and returns not-a-number (NaN) if <paramref name='ec'/> defines a limited precision and exponent range and if
+    /// an invalid operation and returns not-a-number (NaN) if <paramref
+    /// name='ec'/> defines a limited precision and exponent range and if
     /// <paramref name='ed2'/> 's absolute value is greater than twice the
     /// sum of the context's EMax property and its Precision
     /// property.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> or <paramref name='ed2'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EDecimal ScaleB(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -355,7 +361,8 @@ namespace PeterO.Numbers {
     /// negative, has an exponent other than 0, or has an absolute value
     /// that exceeds the maximum precision specified in the
     /// context.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> or <paramref name='ed2'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EDecimal Shift(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -434,7 +441,8 @@ namespace PeterO.Numbers {
     /// negative, has an exponent other than 0, or has an absolute value
     /// that exceeds the maximum precision specified in the
     /// context.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed2'/> or <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed2'/> or <paramref name='ed'/> is null.</exception>
     public static EDecimal Rotate(EDecimal ed, EDecimal ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -524,15 +532,13 @@ namespace PeterO.Numbers {
     /// context only if <c>HasFlags</c> and <c>IsSimplified</c> of the
     /// context are true and only if an operand needed to be rounded before
     /// carrying out the operation. Can be null.</param>
-    /// <returns>The number 0 if both objects are null or equal, or -1 if the first object is null or less than the other
-    /// object, or 1 if the first object is greater or the other object is null. Does not signal flags if either value is
-    /// signaling NaN.</returns>
+    /// <returns>The number 0 if both objects are null or equal, or -1 if
+    /// the first object is null or less than the other object, or 1 if the
+    /// first object is greater or the other object is null. Does not
+    /// signal flags if either value is signaling NaN.</returns>
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
-      if(ed==null){
-        return other==null ? 0 : -1;
-      }
-      if(other==null)return 1;
-      return ed.CompareToTotal(other, ec);
+      return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1:
+ed.CompareToTotal(other, ec));
     }
 
     /// <summary>Compares the absolute values of two arbitrary-precision
@@ -558,19 +564,16 @@ namespace PeterO.Numbers {
     /// context are true and only if an operand needed to be rounded before
     /// carrying out the operation. Can be null.</param>
     /// <returns>The number 0 if both objects are null or equal (ignoring
-    /// their signs), or -1 if the first object is null or less than the other
-    /// value (ignoring their signs), or 1 if the first object is greater
-    /// (ignoring their signs) or the other object is null. Does not signal flags if either value is
-    /// signaling NaN.</returns>
+    /// their signs), or -1 if the first object is null or less than the
+    /// other value (ignoring their signs), or 1 if the first object is
+    /// greater (ignoring their signs) or the other object is null. Does
+    /// not signal flags if either value is signaling NaN.</returns>
     public static int CompareTotalMagnitude(
       EDecimal ed,
       EDecimal other,
       EContext ec) {
-      if(ed==null){
-        return other==null ? 0 : -1;
-      }
-      if(other==null)return 1;
-      return ed.CompareToTotalMagnitude(other, ec);
+      return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1:
+ed.CompareToTotalMagnitude(other, ec));
     }
 
     /// <summary>Creates a copy of the given arbitrary-precision number
@@ -579,7 +582,8 @@ namespace PeterO.Numbers {
     /// copy.</param>
     /// <returns>A copy of the given arbitrary-precision number
     /// object.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal Copy(EDecimal ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -602,7 +606,8 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the given number object but with a nonnegative sign.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal CopyAbs(EDecimal ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -615,7 +620,8 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the sign
     /// reversed from the given number object.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EDecimal CopyNegate(EDecimal ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -633,7 +639,8 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ed'/> or <paramref name='other'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='other'/> is null.</exception>
     public static EDecimal CopySign(EDecimal ed, EDecimal other) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));

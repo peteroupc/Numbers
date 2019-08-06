@@ -432,7 +432,7 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 
 <b>Return Value:</b>
 
-Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
 
 <a id="Divide_int"></a>
 ### Divide

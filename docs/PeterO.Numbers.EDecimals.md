@@ -123,7 +123,7 @@ A copy of the parameter  <i>ed</i>
 
   * Negative numbers are less than positive numbers.
 
-       <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>ed</i>: The first arbitrary-precision number to compare.
 
@@ -133,13 +133,7 @@ A copy of the parameter  <i>ed</i>
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value, or -1 if the first object is less than the other value, or 1 if the first object is greater. Does not signal flags if either value is signaling NaN.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>ed</i>
- is null.
+The number 0 if both objects are null or equal, or -1 if the first object is null or less than the other object, or 1 if the first object is greater or the other object is null. Does not signal flags if either value is signaling NaN.
 
 <a id="CompareTotalMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### CompareTotalMagnitude
@@ -161,7 +155,7 @@ The parameter  <i>ed</i>
 
   * Infinity has a higher "absolute value" than any finite number.
 
-       <b>Parameters:</b>
+      <b>Parameters:</b>
 
  * <i>ed</i>: The first arbitrary-precision number to compare.
 
@@ -171,13 +165,7 @@ The parameter  <i>ed</i>
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value (ignoring their signs), or -1 if the first object is less than the other value (ignoring their signs), or 1 if the first object is greater (ignoring their signs). Does not signal flags if either value is signaling NaN.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>ed</i>
- is null.
+The number 0 if both objects are null or equal (ignoring their signs), or -1 if the first object is null or less than the other value (ignoring their signs), or 1 if the first object is greater (ignoring their signs) or the other object is null. Does not signal flags if either value is signaling NaN.
 
 <a id="Copy_PeterO_Numbers_EDecimal"></a>
 ### Copy

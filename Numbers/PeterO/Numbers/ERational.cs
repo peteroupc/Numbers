@@ -121,9 +121,10 @@ namespace PeterO.Numbers {
     /// <see cref='PeterO.Numbers.ERational'/>.</summary>
     /// <param name='numerator'>An arbitrary-precision integer.</param>
     /// <param name='denominator'>An arbitrary-precision integer.</param>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='numerator'/> or <paramref name='denominator'/> is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='numerator'/> or <paramref name='denominator'/> is
     /// null.</exception>
-    /// <exception cref='System.ArgumentException'>Denominator is
+    /// <exception cref='ArgumentException'>Denominator is
     /// zero.</exception>
     public ERational(EInteger numerator, EInteger denominator) {
       if (numerator == null) {
@@ -236,7 +237,7 @@ namespace PeterO.Numbers {
     /// <param name='numeratorSmall'>The numerator.</param>
     /// <param name='denominatorSmall'>The denominator.</param>
     /// <returns>An arbitrary-precision binary rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The denominator is
+    /// <exception cref='ArgumentException'>The denominator is
     /// zero.</exception>
     public static ERational Create(
       int numeratorSmall,
@@ -249,7 +250,7 @@ namespace PeterO.Numbers {
     /// <param name='numerator'>The numerator.</param>
     /// <param name='denominator'>The denominator.</param>
     /// <returns>An arbitrary-precision binary rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The denominator is
+    /// <exception cref='ArgumentException'>The denominator is
     /// zero.</exception>
     public static ERational Create(
       EInteger numerator,
@@ -265,7 +266,8 @@ namespace PeterO.Numbers {
     /// arbitrary-precision binary rational number, use that object's
     /// <c>UnsignedNumerator</c> property.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref name='diag'/> is less than 0.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='diag'/> is less than 0.</exception>
     public static ERational CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false);
     }
@@ -282,8 +284,10 @@ namespace PeterO.Numbers {
     /// <param name='negative'>Whether the return value is
     /// negative.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentException'>The parameter <paramref name='diag'/> is less than 0.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='diag'/> is null.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='diag'/> is less than 0.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='diag'/> is null.</exception>
     public static ERational CreateNaN(
       EInteger diag,
       bool signaling,
@@ -314,7 +318,8 @@ namespace PeterO.Numbers {
     /// the number to a string.</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 64-bit
     /// floating-point number.</param>
-    /// <returns>A rational number with the same value as <paramref name='flt'/>.</returns>
+    /// <returns>A rational number with the same value as <paramref
+    /// name='flt'/>.</returns>
     public static ERational FromDouble(double flt) {
       return FromEFloat(EFloat.FromDouble(flt));
     }
@@ -344,7 +349,8 @@ namespace PeterO.Numbers {
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// decimal number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ef'/> is null.</exception>
     public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
@@ -391,7 +397,8 @@ namespace PeterO.Numbers {
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ef'/> is null.</exception>
     public static ERational FromEFloat(EFloat ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
@@ -448,7 +455,8 @@ namespace PeterO.Numbers {
     /// by converting the number to a string.</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
-    /// <returns>A rational number with the same value as <paramref name='flt'/>.</returns>
+    /// <returns>A rational number with the same value as <paramref
+    /// name='flt'/>.</returns>
     public static ERational FromSingle(float flt) {
       return FromEFloat(EFloat.FromSingle(flt));
     }
@@ -459,13 +467,15 @@ namespace PeterO.Numbers {
     /// <param name='str'>A string that represents a number.</param>
     /// <returns>An arbitrary-precision rational number with the same value
     /// as the given string.</returns>
-    /// <exception cref='System.FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
+    /// <exception cref='System.FormatException'>The parameter <paramref
+    /// name='str'/> is not a correctly formatted number
     /// string.</exception>
     public static ERational FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length);
     }
 
-    /// <summary><para>Creates a rational number from a text string that represents
+    /// <summary>
+    /// <para>Creates a rational number from a text string that represents
     /// a number.</para>
     /// <para>The format of the string generally consists of:</para>
     /// <list type=''>
@@ -481,7 +491,7 @@ namespace PeterO.Numbers {
     /// digits, all in any combination of upper and lower case.</para>
     /// <para>All characters mentioned above are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
-    /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is
+    /// be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is
     /// not allowed to contain white space characters, including
     /// spaces.</para></summary>
     /// <param name='str'>A text string, a portion of which represents a
@@ -489,15 +499,21 @@ namespace PeterO.Numbers {
     /// <param name='offset'>A zero-based index showing where the desired
     /// portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref
+    /// name='str'/> 's length).</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
+    /// <exception cref='System.FormatException'>The parameter <paramref
+    /// name='str'/> is not a correctly formatted number
     /// string.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
-    /// <exception cref='System.ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref
+    /// name='str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
     public static ERational FromString(
       string str,
       int offset,
@@ -782,7 +798,14 @@ namespace PeterO.Numbers {
     /// compare with this one.</param>
     /// <returns>The number 0 if both objects have the same value, or -1 if
     /// this object is less than the other value, or 1 if this object is
-    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToTotalMagnitude(ERational other) {
       if (other == null) {
         return 1;
@@ -845,7 +868,14 @@ namespace PeterO.Numbers {
     /// compare with this one.</param>
     /// <returns>The number 0 if both objects have the same value, or -1 if
     /// this object is less than the other value, or 1 if this object is
-    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToTotal(ERational other) {
       if (other == null) {
         return 1;
@@ -913,7 +943,8 @@ namespace PeterO.Numbers {
     /// number.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
     /// either operand is NaN.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public ERational Add(ERational otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
@@ -951,8 +982,14 @@ namespace PeterO.Numbers {
     /// instance.</summary>
     /// <param name='other'>An arbitrary-precision rational number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
-    /// instance is less, or a positive number if this instance is
-    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// instance is less, or a positive number if this instance is greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareTo(ERational other) {
       if (other == null) {
         return 1;
@@ -1024,8 +1061,14 @@ namespace PeterO.Numbers {
     /// <param name='other'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
-    /// instance is less, or a positive number if this instance is
-    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// instance is less, or a positive number if this instance is greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToBinary(EFloat other) {
       if (other == null) {
         return 1;
@@ -1144,8 +1187,14 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// instance.</summary>
     /// <param name='other'>An arbitrary-precision decimal number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
-    /// instance is less, or a positive number if this instance is
-    /// greater.<para>This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo.  This is the case even in the Java version of this library, for consistency's sake, even though implementations of <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.</para></returns>
+    /// instance is less, or a positive number if this instance is greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
     public int CompareToDecimal(EDecimal other) {
       if (other == null) {
         return 1;
@@ -1266,7 +1315,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// number.</summary>
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='other'/> is null.</exception>
     public ERational CopySign(ERational other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
@@ -1283,7 +1333,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public ERational Divide(ERational otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
@@ -1432,7 +1483,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public ERational Multiply(ERational otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
@@ -1486,7 +1538,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public ERational Remainder(ERational otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
@@ -1540,7 +1593,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='System.ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='otherValue'/> is null.</exception>
     public ERational Subtract(ERational otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
