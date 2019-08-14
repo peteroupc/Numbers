@@ -457,8 +457,8 @@ namespace PeterO.Numbers {
     /// given in the string portion.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
-    /// <exception cref='System.FormatException'>The string portion is
-    /// empty or in an invalid format.</exception>
+    /// <exception cref='FormatException'>The string portion is empty or in
+    /// an invalid format.</exception>
     /// <exception cref='ArgumentException'>Doesn't satisfy (endIndex -
     /// index) % 4 == 0".</exception>
     public static EInteger FromRadixSubstring(
@@ -693,7 +693,7 @@ namespace PeterO.Numbers {
     /// spaces.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string.</returns>
-    /// <exception cref='System.FormatException'>The parameter <paramref
+    /// <exception cref='FormatException'>The parameter <paramref
     /// name='str'/> is in an invalid format.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
@@ -1130,9 +1130,9 @@ namespace PeterO.Numbers {
       return ((size > tempSize) ^ (sa <= 0)) ? 1 : -1;
     }
 
-    /// <summary>Not documented yet.</summary>
+    /// <summary>Adds this object and another object.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
-    /// not documented yet.</param>
+    /// a 32-bit signed integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
     public EInteger Add(int intValue) {
       if (intValue == 0) {
@@ -1214,8 +1214,8 @@ namespace PeterO.Numbers {
     /// are negative.</summary>
     /// <param name='intValue'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref='System.DivideByZeroException'>Attempted to divide
-    /// by zero.</exception>
+    /// <exception cref='DivideByZeroException'>Attempted to divide by
+    /// zero.</exception>
     public EInteger Divide(int intValue) {
       return this.Divide(EInteger.FromInt32(intValue));
     }
@@ -1229,8 +1229,8 @@ namespace PeterO.Numbers {
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='System.DivideByZeroException'>Attempted to divide
-    /// by zero.</exception>
+    /// <exception cref='DivideByZeroException'>Attempted to divide by
+    /// zero.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='intValue'/> is null.</exception>
     public EInteger Remainder(int intValue) {
@@ -1272,8 +1272,8 @@ namespace PeterO.Numbers {
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintDivisor'/> is null.</exception>
-    /// <exception cref='System.DivideByZeroException'>Attempted to divide
-    /// by zero.</exception>
+    /// <exception cref='DivideByZeroException'>Attempted to divide by
+    /// zero.</exception>
     public EInteger Divide(EInteger bigintDivisor) {
       if (bigintDivisor == null) {
         throw new ArgumentNullException(nameof(bigintDivisor));
@@ -2247,8 +2247,8 @@ namespace PeterO.Numbers {
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An array with two arbitrary-precision integers: the first
     /// is the quotient, and the second is the remainder.</returns>
-    /// <exception cref='System.DivideByZeroException'>The parameter
-    /// divisor is 0.</exception>
+    /// <exception cref='DivideByZeroException'>The parameter divisor is
+    /// 0.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger[] DivRem(EInteger divisor) {
@@ -2576,8 +2576,8 @@ WordsShiftRightOne(bu, buc);
     /// integer.</summary>
     /// <returns>The number of digits in the decimal form of this integer.
     /// Returns 1 if this number is 0.</returns>
-    /// <exception cref='System.OverflowException'>The return value would
-    /// exceed the range of a 32-bit signed integer.</exception>
+    /// <exception cref='OverflowException'>The return value would exceed
+    /// the range of a 32-bit signed integer.</exception>
     [Obsolete("This method may overflow. Use GetDigitCountAsEInteger instead.")]
     public int GetDigitCount() {
       long dc = this.GetDigitCountAsInt64();
@@ -2993,8 +2993,8 @@ WordsShiftRightOne(bu, buc);
     /// greater than 63.</summary>
     /// <returns>The number of bits in this object's value. Returns 0 if
     /// this object's value is 0 or negative 1.</returns>
-    /// <exception cref='System.OverflowException'>The return value would
-    /// exceed the range of a 32-bit signed integer.</exception>
+    /// <exception cref='OverflowException'>The return value would exceed
+    /// the range of a 32-bit signed integer.</exception>
     [Obsolete("This method may overflow. Use GetSignedBitLength" +
        "AsEInteger instead.")]
     public int GetSignedBitLength() {
@@ -3093,8 +3093,8 @@ WordsShiftRightOne(bu, buc);
     /// <returns>The number of bits in this object's value. Returns 0 if
     /// this object's value is 0, and returns 1 if the value is negative
     /// 1.</returns>
-    /// <exception cref='System.OverflowException'>The return value would
-    /// exceed the range of a 32-bit signed integer.</exception>
+    /// <exception cref='OverflowException'>The return value would exceed
+    /// the range of a 32-bit signed integer.</exception>
     [Obsolete("This method may overflow. Use GetUnsignedBitLength" +
        "AsEInteger instead.")]
     public int GetUnsignedBitLength() {
@@ -3459,8 +3459,8 @@ WordsShiftRightOne(bu, buc);
     /// object.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='System.DivideByZeroException'>Attempted to divide
-    /// by zero.</exception>
+    /// <exception cref='DivideByZeroException'>Attempted to divide by
+    /// zero.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger Remainder(EInteger divisor) {
@@ -8070,8 +8070,8 @@ WordsShiftRightOne(bu, buc);
     /// <summary>Converts this number's value to a byte (from 0 to 255) if
     /// it can fit in a byte (from 0 to 255).</summary>
     /// <returns>This number's value as a byte (from 0 to 255).</returns>
-    /// <exception cref='System.OverflowException'>This value is less than
-    /// 0 or greater than 255.</exception>
+    /// <exception cref='OverflowException'>This value is less than 0 or
+    /// greater than 255.</exception>
     public byte ToByteChecked() {
       int val = this.ToInt32Checked();
       if (val < 0 || val > 255) {
@@ -8104,8 +8104,8 @@ WordsShiftRightOne(bu, buc);
     /// <summary>Converts this number's value to a 16-bit signed integer if
     /// it can fit in a 16-bit signed integer.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is less than
-    /// -32768 or greater than 32767.</exception>
+    /// <exception cref='OverflowException'>This value is less than -32768
+    /// or greater than 32767.</exception>
     public short ToInt16Checked() {
       int val = this.ToInt32Checked();
       if (val < -32768 || val > 32767) {

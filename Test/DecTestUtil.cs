@@ -446,18 +446,18 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
           d3 = EDecimal.Max(d1, d2, ctx);
         } else if (op.Equals("minmag", StringComparison.Ordinal)) {
           d3 = EDecimal.MinMagnitude(d1, d2, ctx);
- } else if (op.Equals("maxmag", StringComparison.Ordinal)) {
-   d3 = EDecimal.MaxMagnitude(d1, d2, ctx);
- } else if (op.Equals("compare", StringComparison.Ordinal)) {
-   d3 = d1.CompareToWithContext(d2, ctx);
- } else if (op.Equals("comparetotal", StringComparison.Ordinal)) {
-   int id3 = d1.CompareToTotal(d2, ctx);
-   d3 = EDecimal.FromInt32(id3);
-   Assert.AreEqual(id3, EDecimals.CompareTotal(d1, d2, ctx), ln);
- } else if (op.Equals("comparetotmag", StringComparison.Ordinal)) {
-   int id3 = d1.CompareToTotalMagnitude(d2, ctx);
-   d3 = EDecimal.FromInt32(id3);
-   {
+        } else if (op.Equals("maxmag", StringComparison.Ordinal)) {
+          d3 = EDecimal.MaxMagnitude(d1, d2, ctx);
+        } else if (op.Equals("compare", StringComparison.Ordinal)) {
+          d3 = d1.CompareToWithContext(d2, ctx);
+        } else if (op.Equals("comparetotal", StringComparison.Ordinal)) {
+          int id3 = d1.CompareToTotal(d2, ctx);
+          d3 = EDecimal.FromInt32(id3);
+          Assert.AreEqual(id3, EDecimals.CompareTotal(d1, d2, ctx), ln);
+        } else if (op.Equals("comparetotmag", StringComparison.Ordinal)) {
+          int id3 = d1.CompareToTotalMagnitude(d2, ctx);
+          d3 = EDecimal.FromInt32(id3);
+          {
             object objectTemp = id3;
             object objectTemp2 = EDecimals.CompareTotalMagnitude(
               d1,
@@ -483,15 +483,15 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
           d3 = d1.RoundToIntegerNoRoundedFlag(ctx);
         } else if (op.Equals("tointegralx", StringComparison.Ordinal)) {
           d3 = d1.RoundToIntegerExact(ctx);
- } else if (op.Equals("divideint", StringComparison.Ordinal)) {
-   d3 = d1.DivideToIntegerZeroScale(d2, ctx);
- } else if (op.Equals("divide", StringComparison.Ordinal)) {
-   d3 = d1.Divide(d2, ctx);
- } else if (op.Equals("remainder", StringComparison.Ordinal)) {
-   d3 = d1.Remainder(d2, ctx);
- } else if (op.Equals("exp", StringComparison.Ordinal)) {
-   d3 = d1.Exp(ctx);
- } else if (op.Equals("ln", StringComparison.Ordinal)) {
+        } else if (op.Equals("divideint", StringComparison.Ordinal)) {
+          d3 = d1.DivideToIntegerZeroScale(d2, ctx);
+        } else if (op.Equals("divide", StringComparison.Ordinal)) {
+          d3 = d1.Divide(d2, ctx);
+        } else if (op.Equals("remainder", StringComparison.Ordinal)) {
+          d3 = d1.Remainder(d2, ctx);
+        } else if (op.Equals("exp", StringComparison.Ordinal)) {
+          d3 = d1.Exp(ctx);
+        } else if (op.Equals("ln", StringComparison.Ordinal)) {
           // NOTE: Gen. Decimal Arithmetic Spec.'s ln supports
           // only round-half-even mode, but EDecimal Log is not limited
           // to that rounding mode
@@ -518,26 +518,26 @@ op.Equals("remainderNear", StringComparison.Ordinal)) {
           d3 = d1.NextToward(d2, ctx);
         } else if (op.Equals("nextplus", StringComparison.Ordinal)) {
           d3 = d1.NextPlus(ctx);
- } else if (op.Equals("nextminus", StringComparison.Ordinal)) {
-   d3 = d1.NextMinus(ctx);
- } else if (op.Equals("copy", StringComparison.Ordinal)) {
-   d3 = d1;
-   Assert.AreEqual(d3, EDecimals.Copy(d1), "copy equiv");
- } else if (op.Equals("abs", StringComparison.Ordinal)) {
-   d3 = d1.Abs(ctx);
- } else if (op.Equals("reduce", StringComparison.Ordinal)) {
-   d3 = d1.Reduce(ctx);
- } else if (op.Equals("quantize", StringComparison.Ordinal)) {
-   d3 = d1.Quantize(d2, ctx);
+        } else if (op.Equals("nextminus", StringComparison.Ordinal)) {
+          d3 = d1.NextMinus(ctx);
+        } else if (op.Equals("copy", StringComparison.Ordinal)) {
+          d3 = d1;
+          Assert.AreEqual(d3, EDecimals.Copy(d1), "copy equiv");
+        } else if (op.Equals("abs", StringComparison.Ordinal)) {
+          d3 = d1.Abs(ctx);
+        } else if (op.Equals("reduce", StringComparison.Ordinal)) {
+          d3 = d1.Reduce(ctx);
+        } else if (op.Equals("quantize", StringComparison.Ordinal)) {
+          d3 = d1.Quantize(d2, ctx);
         } else if (op.Equals("add", StringComparison.Ordinal)) {
           d3 = d1.Add(d2, ctx);
- } else if (op.Equals("minus", StringComparison.Ordinal)) {
-   d3 = d1.Negate(ctx);
- } else if (op.Equals("apply", StringComparison.Ordinal)) {
-   d3 = d1.RoundToPrecision(ctx);
- } else if (op.Equals("plus", StringComparison.Ordinal)) {
-   d3 = d1.Plus(ctx);
- } else {
+        } else if (op.Equals("minus", StringComparison.Ordinal)) {
+          d3 = d1.Negate(ctx);
+        } else if (op.Equals("apply", StringComparison.Ordinal)) {
+          d3 = d1.RoundToPrecision(ctx);
+        } else if (op.Equals("plus", StringComparison.Ordinal)) {
+          d3 = d1.Plus(ctx);
+        } else {
           if (op.Equals("and", StringComparison.Ordinal)) {
             d3 = EDecimals.And(d1, d2, ctx);
           } else if (op.Equals("or", StringComparison.Ordinal)) {
@@ -548,20 +548,20 @@ op.Equals("remainderNear", StringComparison.Ordinal)) {
             d3 = EDecimals.Invert(d1, ctx);
           } else if (op.Equals("rescale", StringComparison.Ordinal)) {
             d3 = EDecimals.Rescale(d1, d2, ctx);
- } else if (op.Equals("shift", StringComparison.Ordinal)) {
-   d3 = EDecimals.Shift(d1, d2, ctx);
- } else if (op.Equals("rotate", StringComparison.Ordinal)) {
-   d3 = EDecimals.Rotate(d1, d2, ctx);
- } else if (op.Equals("iscanonical", StringComparison.Ordinal)) {
-   d3 = EDecimal.FromBoolean(EDecimals.IsCanonical(d1));
- } else if (op.Equals("isnan", StringComparison.Ordinal)) {
-   Assert.AreEqual(EDecimals.IsNaN(d1), d1.IsNaN());
-   d3 = EDecimal.FromBoolean(EDecimals.IsNaN(d1));
- } else if (op.Equals("issigned", StringComparison.Ordinal)) {
-   Assert.AreEqual(EDecimals.IsSigned(d1), d1.IsNegative);
-   d3 = EDecimal.FromBoolean(EDecimals.IsSigned(d1));
- } else if (op.Equals("isqnan", StringComparison.Ordinal)) {
-   Assert.AreEqual(EDecimals.IsQuietNaN(d1), d1.IsQuietNaN());
+          } else if (op.Equals("shift", StringComparison.Ordinal)) {
+            d3 = EDecimals.Shift(d1, d2, ctx);
+          } else if (op.Equals("rotate", StringComparison.Ordinal)) {
+            d3 = EDecimals.Rotate(d1, d2, ctx);
+          } else if (op.Equals("iscanonical", StringComparison.Ordinal)) {
+            d3 = EDecimal.FromBoolean(EDecimals.IsCanonical(d1));
+          } else if (op.Equals("isnan", StringComparison.Ordinal)) {
+            Assert.AreEqual(EDecimals.IsNaN(d1), d1.IsNaN());
+            d3 = EDecimal.FromBoolean(EDecimals.IsNaN(d1));
+          } else if (op.Equals("issigned", StringComparison.Ordinal)) {
+            Assert.AreEqual(EDecimals.IsSigned(d1), d1.IsNegative);
+            d3 = EDecimal.FromBoolean(EDecimals.IsSigned(d1));
+          } else if (op.Equals("isqnan", StringComparison.Ordinal)) {
+            Assert.AreEqual(EDecimals.IsQuietNaN(d1), d1.IsQuietNaN());
             d3 = EDecimal.FromBoolean(EDecimals.IsQuietNaN(d1));
           } else if (op.Equals("issnan", StringComparison.Ordinal)) {
             Assert.AreEqual(EDecimals.IsSignalingNaN(d1), d1.IsSignalingNaN());
@@ -578,15 +578,15 @@ op.Equals("remainderNear", StringComparison.Ordinal)) {
             d3 = EDecimal.FromBoolean(EDecimals.IsNormal(d1, ctx));
           } else if (op.Equals("iszero", StringComparison.Ordinal)) {
             Assert.AreEqual(EDecimals.IsZero(d1), d1.IsZero);
-   d3 = EDecimal.FromBoolean(EDecimals.IsZero(d1));
- } else if (op.Equals("logb", StringComparison.Ordinal)) {
-   d3 = EDecimals.LogB(d1, ctx);
- } else if (op.Equals("scaleb", StringComparison.Ordinal)) {
-   d3 = EDecimals.ScaleB(d1, d2, ctx);
- } else if (op.Equals("trim", StringComparison.Ordinal)) {
-   d3 = EDecimals.Trim(d1, ctx);
-          } else if (op.Equals("samequantum", StringComparison.Ordinal)) {
-            d3 = EDecimal.FromBoolean(EDecimals.SameQuantum(d1, d2));
+            d3 = EDecimal.FromBoolean(EDecimals.IsZero(d1));
+          } else if (op.Equals("logb", StringComparison.Ordinal)) {
+            d3 = EDecimals.LogB(d1, ctx);
+          } else if (op.Equals("scaleb", StringComparison.Ordinal)) {
+            d3 = EDecimals.ScaleB(d1, d2, ctx);
+          } else if (op.Equals("trim", StringComparison.Ordinal)) {
+            d3 = EDecimals.Trim(d1, ctx);
+ } else if (op.Equals("samequantum", StringComparison.Ordinal)) {
+   d3 = EDecimal.FromBoolean(EDecimals.SameQuantum(d1, d2));
  } else {
             Console.WriteLine("unknown op " + op);
             return;

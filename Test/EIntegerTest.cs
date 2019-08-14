@@ -3034,6 +3034,11 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
     public static void TestMultiplyDivideOne(
       EInteger bigintA,
       EInteger bigintB) {
+      if (bigintB == null) {
+        if (bigintB == null) {
+          Assert.Fail();
+        }
+      }
       // Test that A*B/A = B and A*B/B = A
       try {
         EInteger bigintRem;
@@ -3045,11 +3050,8 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
         EInteger bigintC = bigintA.Multiply(bigintB);
         {
           object objectTemp = bigintC;
-object objectTemp2 = if (bigintB == null) {
-            throw new ArgumentNullException(nameof(bigintB));
-          }
-          bigintB.Multiply(bigintA);
-TestCommon.CompareTestEqualAndConsistent(objectTemp, objectTemp2);
+          object objectTemp2 = bigintB.Multiply(bigintA);
+          TestCommon.CompareTestEqualAndConsistent(objectTemp, objectTemp2);
 }
         if (!bigintB.IsZero) {
           {

@@ -537,7 +537,7 @@ namespace PeterO.Numbers {
     /// first object is greater or the other object is null. Does not
     /// signal flags if either value is signaling NaN.</returns>
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
-      return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1:
+      return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
 ed.CompareToTotal(other, ec));
     }
 
@@ -572,7 +572,7 @@ ed.CompareToTotal(other, ec));
       EDecimal ed,
       EDecimal other,
       EContext ec) {
-      return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1:
+      return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
 ed.CompareToTotalMagnitude(other, ec));
     }
 

@@ -254,8 +254,8 @@ namespace PeterO.Numbers {
     /// <param name='bigValue'>The number to convert as an
     /// arbitrary-precision decimal.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.OverflowException'>This object's value is
-    /// infinity or not-a-number (NaN).</exception>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN).</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static explicit operator EInteger(EDecimal bigValue) {
@@ -326,7 +326,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// byte (from 0 to 255).</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 255.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -353,9 +353,9 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <returns>This number's value, truncated to an 8-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than -128 or
-    /// greater than 127.</exception>
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than -128 or greater
+    /// than 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteChecked() {
       if (!this.IsFinite) {
@@ -384,8 +384,8 @@ namespace PeterO.Numbers {
     /// it can fit in an 8-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as an 8-bit signed integer.</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than -128 or
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than -128 or
     /// greater than 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteIfExact() {
@@ -420,7 +420,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to an
     /// 8-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -128 or greater than 127.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -451,7 +451,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -32768 or greater than 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -478,8 +478,8 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <returns>This number's value, truncated to a 16-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than 0 or greater
     /// than 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16Checked() {
@@ -510,9 +510,9 @@ namespace PeterO.Numbers {
     /// different numerical value.</summary>
     /// <returns>This number's value as a 16-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than 0 or
-    /// greater than 65535.</exception>
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than 0 or greater
+    /// than 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16IfExact() {
       if (!this.IsFinite) {
@@ -549,7 +549,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit unsigned integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 65535.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -580,7 +580,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -2147483648 or greater than
     /// 2147483647.</exception>
@@ -608,8 +608,8 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than 0 or greater
     /// than 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32Checked() {
@@ -639,9 +639,9 @@ namespace PeterO.Numbers {
     /// it can fit in a 32-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than 0 or
-    /// greater than 4294967295.</exception>
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than 0 or greater
+    /// than 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32IfExact() {
       if (!this.IsFinite) {
@@ -678,7 +678,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 4294967295.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -709,7 +709,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
@@ -737,8 +737,8 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <returns>This number's value, truncated to a 64-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than 0 or greater
     /// than 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64Checked() {
@@ -769,9 +769,9 @@ namespace PeterO.Numbers {
     /// different numerical value.</summary>
     /// <returns>This number's value as a 64-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than 0 or
-    /// greater than 18446744073709551615.</exception>
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than 0 or greater
+    /// than 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64IfExact() {
       if (!this.IsFinite) {
@@ -807,7 +807,7 @@ namespace PeterO.Numbers {
     /// decimal number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit unsigned integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than
     /// 18446744073709551615.</exception>

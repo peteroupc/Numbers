@@ -207,8 +207,8 @@ namespace PeterO.Numbers {
     /// <summary>Converts this number's value to a 64-bit signed integer if
     /// it can fit in a 64-bit signed integer.</summary>
     /// <returns>This number's value as a 64-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is outside
-    /// the range of a 64-bit signed integer.</exception>
+    /// <exception cref='OverflowException'>This value is outside the range
+    /// of a 64-bit signed integer.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64Checked() {
       if (this.negative || this.wordCount > 4) {
@@ -505,7 +505,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a byte (from 0 to
     /// 255).</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than 255.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
@@ -538,8 +538,8 @@ namespace PeterO.Numbers {
     /// <summary>Converts this number's value to an 8-bit signed integer if
     /// it can fit in an 8-bit signed integer.</summary>
     /// <returns>This number's value as an 8-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is less than
-    /// -128 or greater than 127.</exception>
+    /// <exception cref='OverflowException'>This value is less than -128 or
+    /// greater than 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteChecked() {
       int val = this.ToInt32Checked();
@@ -578,7 +578,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as an 8-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than -128 or greater than 127.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
@@ -607,7 +607,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 16-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than -32768 or greater than
     /// 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -633,8 +633,8 @@ namespace PeterO.Numbers {
     /// if it can fit in a 16-bit unsigned integer.</summary>
     /// <returns>This number's value as a 16-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is less than
-    /// 0 or greater than 65535.</exception>
+    /// <exception cref='OverflowException'>This value is less than 0 or
+    /// greater than 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16Checked() {
       int val = this.ToInt32Checked();
@@ -674,7 +674,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 16-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than 65535.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
@@ -703,7 +703,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than -2147483648 or greater than
     /// 2147483647.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -728,8 +728,8 @@ namespace PeterO.Numbers {
     /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is less than
-    /// 0 or greater than 4294967295.</exception>
+    /// <exception cref='OverflowException'>This value is less than 0 or
+    /// greater than 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32Checked() {
       long val = this.ToInt64Checked();
@@ -768,7 +768,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than
     /// 4294967295.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -798,7 +798,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 64-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -827,7 +827,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 64-bit unsigned
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is less than 0 or greater than
     /// 18446744073709551615.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref

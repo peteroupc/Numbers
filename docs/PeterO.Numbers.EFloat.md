@@ -478,7 +478,10 @@ Less than 0 if this object's value is less than the other value, or greater than
 
 <b>Return Value:</b>
 
-Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToTotal_PeterO_Numbers_EFloat"></a>
 ### CompareToTotal
@@ -506,7 +509,10 @@ Quiet NaN if this object or the other object is NaN, or 0 if both objects have t
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareToTotal
@@ -537,7 +543,10 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. Does not signal flags if either value is signaling NaN.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. Does not signal flags if either value is signaling NaN. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToTotalMagnitude_PeterO_Numbers_EFloat"></a>
 ### CompareToTotalMagnitude
@@ -563,7 +572,10 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareToTotalMagnitude
@@ -594,7 +606,10 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value (ignoring their signs), or -1 if this object is less than the other value (ignoring their signs), or 1 if this object is greater (ignoring their signs). Does not signal flags if either value is signaling NaN.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+The number 0 if both objects have the same value (ignoring their signs), or -1 if this object is less than the other value (ignoring their signs), or 1 if this object is greater (ignoring their signs). Does not signal flags if either value is signaling NaN. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareToWithContext
@@ -615,7 +630,10 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
 
 <b>Return Value:</b>
 
-Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+Quiet NaN if this object or the other object is NaN, or 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="Copy"></a>
 ### Copy
@@ -1355,7 +1373,7 @@ Either  <i>offset</i>
 
  All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 
-          <b>Parameters:</b>
+         <b>Parameters:</b>
 
  * <i>str</i>: The parameter  <i>str</i>
  is a text string.
@@ -1386,15 +1404,6 @@ Either  <i>offset</i>
  is less than 0 or greater than  <i>str</i>
  's length, or  <i>             str</i>
  ' s length minus  <i>offset</i>
- is less than  <i>length</i>
-.
-
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>str</i>
- 's length, or  <i>str</i>
- 's length minus  <i>offset</i>
  is less than  <i>length</i>
 .
 
@@ -2158,8 +2167,7 @@ The parameter  <i>bthis</i>
 
      <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -2696,8 +2704,7 @@ The value of  <i>inputUInt16</i>
 
      <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 

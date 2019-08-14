@@ -467,7 +467,7 @@ namespace PeterO.Numbers {
     /// <param name='str'>A string that represents a number.</param>
     /// <returns>An arbitrary-precision rational number with the same value
     /// as the given string.</returns>
-    /// <exception cref='System.FormatException'>The parameter <paramref
+    /// <exception cref='FormatException'>The parameter <paramref
     /// name='str'/> is not a correctly formatted number
     /// string.</exception>
     public static ERational FromString(string str) {
@@ -502,7 +502,7 @@ namespace PeterO.Numbers {
     /// portion of <paramref name='str'/> (but not more than <paramref
     /// name='str'/> 's length).</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='System.FormatException'>The parameter <paramref
+    /// <exception cref='FormatException'>The parameter <paramref
     /// name='str'/> is not a correctly formatted number
     /// string.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -512,8 +512,6 @@ namespace PeterO.Numbers {
     /// greater than <paramref name='str'/> 's length, or <paramref
     /// name='str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='str'/> is null.</exception>
     public static ERational FromString(
       string str,
       int offset,
@@ -1653,8 +1651,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// fractional part in this value will be discarded when converting to
     /// an arbitrary-precision integer.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.OverflowException'>This object's value is
-    /// infinity or not-a-number (NaN).</exception>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN).</exception>
     public EInteger ToEInteger() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1665,8 +1663,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// checking whether the value is an exact integer.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.OverflowException'>This object's value is
-    /// infinity or not-a-number (NaN).</exception>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN).</exception>
     [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
       return this.ToEIntegerIfExact();
@@ -1675,8 +1673,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// checking whether the value is an exact integer.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='System.OverflowException'>This object's value is
-    /// infinity or not-a-number (NaN).</exception>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN).</exception>
     public EInteger ToEIntegerIfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -2019,8 +2017,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// integer.</summary>
     /// <returns>This number's value, truncated to a byte (from 0 to
     /// 255).</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than 0 or greater
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than 0 or greater
     /// than 255.</exception>
     public byte ToByteChecked() {
       if (!this.IsFinite) {
@@ -2042,9 +2040,9 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// it can fit in a byte (from 0 to 255) without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a byte (from 0 to 255).</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than 0 or
-    /// greater than 255.</exception>
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than 0 or greater
+    /// than 255.</exception>
     public byte ToByteIfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -2068,8 +2066,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// integer.</summary>
     /// <returns>This number's value, truncated to a 16-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than -32768 or
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than -32768 or
     /// greater than 32767.</exception>
     public short ToInt16Checked() {
       if (!this.IsFinite) {
@@ -2091,8 +2089,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// it can fit in a 16-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than -32768 or
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than -32768 or
     /// greater than 32767.</exception>
     public short ToInt16IfExact() {
       if (!this.IsFinite) {
@@ -2118,9 +2116,9 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// integer.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than -2147483648
-    /// or greater than 2147483647.</exception>
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than -2147483648 or
+    /// greater than 2147483647.</exception>
     public int ToInt32Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -2141,9 +2139,9 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// it can fit in a 32-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than
-    /// -2147483648 or greater than 2147483647.</exception>
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than -2147483648
+    /// or greater than 2147483647.</exception>
     public int ToInt32IfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -2175,8 +2173,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// integer.</summary>
     /// <returns>This number's value, truncated to a 64-bit signed
     /// integer.</returns>
-    /// <exception cref='System.OverflowException'>This value is infinity
-    /// or not-a-number, or the truncated integer is less than
+    /// <exception cref='OverflowException'>This value is infinity or
+    /// not-a-number, or the truncated integer is less than
     /// -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
     public long ToInt64Checked() {
@@ -2199,8 +2197,8 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
     /// it can fit in a 64-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 64-bit signed integer.</returns>
-    /// <exception cref='System.ArithmeticException'>This value is infinity
-    /// or not-a-number, is not an exact integer, or is less than
+    /// <exception cref='ArithmeticException'>This value is infinity or
+    /// not-a-number, is not an exact integer, or is less than
     /// -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
     public long ToInt64IfExact() {

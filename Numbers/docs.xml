@@ -198,7 +198,7 @@
       <c>false</c> . If this context allows unlimited precision, returns true for the
       exponent EMax and any exponent less than EMax.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='exponent'/>
        is null.
     </exception>
@@ -446,11 +446,11 @@
     </param>
     <returns>A context object for arbitrary-precision arithmetic settings.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='exponentMin'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>ExponentMin greater than exponentMax".
+    <exception cref='ArgumentException'>ExponentMin greater than exponentMax".
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EContext.WithBigPrecision(PeterO.Numbers.EInteger)'>
@@ -460,7 +460,7 @@
     </param>
     <returns>A context object for arbitrary-precision arithmetic settings.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigintPrecision'/>
        is null.
     </exception>
@@ -933,13 +933,15 @@
       if
       <paramref name='other'/>
        is null, or 0 if both values are equal.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)'>
@@ -951,13 +953,15 @@
       or a positive number if this instance is greater. Returns 0 if both values
       are NaN (even signaling NaN) and 1 if this value is NaN (even signaling
       NaN) and the other isn't, or if the other value is null.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToSignal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -979,13 +983,15 @@
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
       a 1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal)'>
@@ -1013,13 +1019,15 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -1053,13 +1061,15 @@
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater. Does not signal
       flags if either value is signaling NaN.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal)'>
@@ -1087,13 +1097,15 @@
     <returns>The number 0 if both objects have the same value (ignoring their signs),
       or -1 if this object is less than the other value (ignoring their signs),
       or 1 if this object is greater (ignoring their signs).
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToTotalMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -1128,13 +1140,15 @@
       or -1 if this object is less than the other value (ignoring their signs),
       or 1 if this object is greater (ignoring their signs). Does not signal
       flags if either value is signaling NaN.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -1156,13 +1170,15 @@
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
       1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.Copy'>
@@ -1181,7 +1197,7 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='other'/>
        is null.
     </exception>
@@ -1196,7 +1212,7 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='mantissa'/>
        or
       <paramref name='exponent'/>
@@ -1245,7 +1261,7 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='diag'/>
        is null or is less than 0.
     </exception>
@@ -1841,7 +1857,7 @@
     </param>
     <returns>An arbitrary-precision decimal number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigfloat'/>
        is null.
     </exception>
@@ -1935,7 +1951,7 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.FormatException'>The parameter
+    <exception cref='FormatException'>The parameter
       <paramref name='str'/>
        is not a correctly formatted number string.
     </exception>
@@ -1956,7 +1972,7 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
@@ -1981,15 +1997,15 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.FormatException'>The parameter
+    <exception cref='FormatException'>The parameter
       <paramref name='str'/>
        is not a correctly formatted number string.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Either
+    <exception cref='ArgumentException'>Either
       <paramref name='offset'/>
        or
       <paramref name='length'/>
@@ -2054,11 +2070,11 @@
     <returns>An arbitrary-precision decimal number with the same value as the given
       string.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Either
+    <exception cref='ArgumentException'>Either
       <paramref name='offset'/>
        or
       <paramref name='length'/>
@@ -2485,7 +2501,7 @@
     </param>
     <returns>The product of the two decimal numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -2562,7 +2578,7 @@
     </param>
     <returns>The result thisValue * multiplicand - subtrahend.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='op'/>
        or
       <paramref name='subtrahend'/>
@@ -3365,7 +3381,7 @@
       <paramref name='bigPlaces'/>
       .
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigPlaces'/>
        is null.
     </exception>
@@ -3472,7 +3488,7 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -3495,7 +3511,7 @@
     </summary>
     <returns>This number's value, truncated to a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 255.
     </exception>
   </doc>
@@ -3505,7 +3521,7 @@
     </summary>
     <returns>This number's value as a byte (from 0 to 255).
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 255.
     </exception>
   </doc>
@@ -3570,7 +3586,7 @@
     </param>
     <returns>An arbitrary-precision float floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ec'/>
        is null.
     </exception>
@@ -3582,7 +3598,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.ToEIntegerExact'>
@@ -3591,7 +3607,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.ToEIntegerIfExact'>
@@ -3600,7 +3616,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.ToEngineeringString'>
@@ -3625,7 +3641,7 @@
     </summary>
     <returns>This number's value, truncated to a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -32768 or greater than 32767.
     </exception>
   </doc>
@@ -3635,7 +3651,7 @@
     </summary>
     <returns>This number's value as a 16-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -32768 or greater than 32767.
     </exception>
   </doc>
@@ -3654,7 +3670,7 @@
     </summary>
     <returns>This number's value, truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -2147483648 or greater than 2147483647.
     </exception>
   </doc>
@@ -3664,7 +3680,7 @@
     </summary>
     <returns>This number's value as a 32-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -2147483648 or greater than 2147483647.
     </exception>
   </doc>
@@ -3683,7 +3699,7 @@
     </summary>
     <returns>This number's value, truncated to a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -9223372036854775808 or greater than 9223372036854775807.
     </exception>
   </doc>
@@ -3693,7 +3709,7 @@
     </summary>
     <returns>This number's value as a 64-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -9223372036854775808 or greater than 9223372036854775807.
     </exception>
   </doc>
@@ -3718,7 +3734,7 @@
     </summary>
     <returns>This number's value, truncated to an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -128 or greater than 127.
     </exception>
   </doc>
@@ -3728,7 +3744,7 @@
     </summary>
     <returns>This number's value as an 8-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -128 or greater than 127.
     </exception>
   </doc>
@@ -3774,7 +3790,7 @@
     </summary>
     <returns>This number's value, truncated to a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 65535.
     </exception>
   </doc>
@@ -3784,7 +3800,7 @@
     </summary>
     <returns>This number's value as a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 65535.
     </exception>
   </doc>
@@ -3803,7 +3819,7 @@
     </summary>
     <returns>This number's value, truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 4294967295.
     </exception>
   </doc>
@@ -3813,7 +3829,7 @@
     </summary>
     <returns>This number's value as a 32-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 4294967295.
     </exception>
   </doc>
@@ -3832,7 +3848,7 @@
     </summary>
     <returns>This number's value, truncated to a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 18446744073709551615.
     </exception>
   </doc>
@@ -3842,7 +3858,7 @@
     </summary>
     <returns>This number's value as a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 18446744073709551615.
     </exception>
   </doc>
@@ -3885,7 +3901,7 @@
     </param>
     <returns>The sum of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        or
       <paramref name='otherValue'/>
@@ -3899,7 +3915,7 @@
     </param>
     <returns>The given arbitrary-precision decimal number minus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -3917,7 +3933,7 @@
       dividend are 0. Returns NaN if the result can't be exact because it would
       have a nonterminating decimal expansion.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='dividend'/>
        is null.
     </exception>
@@ -3931,9 +3947,9 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -3948,12 +3964,12 @@
       <paramref name='input'/>
       , truncated to a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 255.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -3974,7 +3990,7 @@
       <c>decimal</c> under the Common Language Infrastructure (usually a.NET Framework
       decimal).
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -3998,7 +4014,7 @@
       can be positive infinity or negative infinity if this value exceeds the
       range of a 64-bit floating point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -4013,12 +4029,12 @@
       <paramref name='input'/>
       , truncated to a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -32768
       or greater than 32767.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -4033,12 +4049,12 @@
       <paramref name='input'/>
       , truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than
       -2147483648 or greater than 2147483647.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -4053,12 +4069,12 @@
       <paramref name='input'/>
       , truncated to a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than
       -9223372036854775808 or greater than 9223372036854775807.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -4073,12 +4089,12 @@
       <paramref name='input'/>
       , truncated to an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -128
       or greater than 127.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -4102,7 +4118,7 @@
       value can be positive infinity or negative infinity if this value exceeds
       the range of a 32-bit floating point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -4118,12 +4134,12 @@
       <paramref name='input'/>
       , truncated to a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 65535.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -4138,12 +4154,12 @@
       <paramref name='input'/>
       , truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 4294967295.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -4159,12 +4175,12 @@
       <paramref name='input'/>
       , truncated to a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 18446744073709551615.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -4293,7 +4309,7 @@
     </param>
     <returns>The given arbitrary-precision decimal number plus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -4308,7 +4324,7 @@
     </param>
     <returns>The result of the operation.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='dividend'/>
        is null.
     </exception>
@@ -4323,7 +4339,7 @@
     </param>
     <returns>The product of the two decimal numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='operand1'/>
        or
       <paramref name='operand2'/>
@@ -4340,7 +4356,7 @@
     </param>
     <returns>The difference of the two decimal numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        or
       <paramref name='subtrahend'/>
@@ -4357,7 +4373,7 @@
       returns negative zero. Returns signaling NaN if this value is signaling
       NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -4811,7 +4827,7 @@
       Returns positive infinity if "ed" is positive infinity or negative
       infinity.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -4831,7 +4847,7 @@
       = positive infinity, 7 = negative infinity, 8 = quiet not-a-number (NaN),
       9 = signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -4847,7 +4863,7 @@
       "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero",
       5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='nc'/>
        is less than 0 or greater than 9 .
     </exception>
@@ -5000,7 +5016,7 @@
       absolute value is greater than twice the sum of the context's EMax
       property and its Precision property.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>
@@ -5031,7 +5047,7 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>
@@ -5234,7 +5250,7 @@
     </param>
     <returns>A copy of the given arbitrary-precision number object.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -5249,7 +5265,7 @@
     <returns>An arbitrary-precision number object with the same value as the given
       number object but with a nonnegative sign.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -5263,7 +5279,7 @@
     <returns>An arbitrary-precision number object with the sign reversed from the given
       number object.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -5283,7 +5299,7 @@
       given number object but with a the same sign (positive or negative) as the
       second given number object.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='other'/>
@@ -5517,7 +5533,7 @@
       <c>false</c> if the given context is null or HasExponentRange of the given context is
       <c>false</c> .
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -5553,7 +5569,7 @@
       <paramref name='ed'/>
        is positive infinity or negative infinity.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -5573,7 +5589,7 @@
       = positive infinity, 7 = negative infinity, 8 = quiet not-a-number (NaN),
       9 = signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -5589,7 +5605,7 @@
       "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero",
       5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='nc'/>
        is less than 0 or greater than 9.
     </exception>
@@ -5705,7 +5721,7 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed2'/>
        or
       <paramref name='ed'/>
@@ -5752,7 +5768,7 @@
        's absolute value is greater than twice the sum of the context's EMax
       property and its Precision property.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>
@@ -5783,7 +5799,7 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>
@@ -6139,13 +6155,15 @@
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
       1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat)'>
@@ -6173,13 +6191,15 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -6213,13 +6233,15 @@
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater. Does not signal
       flags if either value is signaling NaN.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat)'>
@@ -6246,13 +6268,15 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToTotalMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -6287,13 +6311,15 @@
       or -1 if this object is less than the other value (ignoring their signs),
       or 1 if this object is greater (ignoring their signs). Does not signal
       flags if either value is signaling NaN.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)'>
@@ -6315,13 +6341,15 @@
     <returns>Quiet NaN if this object or the other object is NaN, or 0 if both objects
       have the same value, or -1 if this object is less than the other value, or
       1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.Copy'>
@@ -6340,7 +6368,7 @@
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='other'/>
        is null.
     </exception>
@@ -6354,7 +6382,7 @@
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "mantissa (significand)" or
+    <exception cref='ArgumentNullException'>The parameter "mantissa (significand)" or
       <paramref name='exponent'/>
        is null.
     </exception>
@@ -6380,7 +6408,7 @@
     </param>
     <returns>A quiet not-a-number.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='diag'/>
        is less than 0.
     </exception>
@@ -6406,7 +6434,7 @@
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='diag'/>
        is null.
     </exception>
@@ -6493,7 +6521,7 @@
     </param>
     <returns>The quotient of the two objects.
     </returns>
-    <exception cref='System.DivideByZeroException'>Attempted to divide by zero.
+    <exception cref='DivideByZeroException'>Attempted to divide by zero.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)'>
@@ -6885,7 +6913,7 @@
     <returns>The parsed number, converted to arbitrary-precision binary floating-point
       number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
@@ -6926,11 +6954,11 @@
       <paramref name='length'/>
       .
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Either
+    <exception cref='ArgumentException'>Either
       <paramref name='offset'/>
        or
       <paramref name='length'/>
@@ -6995,11 +7023,11 @@
     <returns>The parsed number, converted to arbitrary-precision binary floating-point
       number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Either
+    <exception cref='ArgumentException'>Either
       <paramref name='offset'/>
        or
       <paramref name='length'/>
@@ -7009,20 +7037,6 @@
       <paramref name='
             str'/>
        ' s length minus
-      <paramref name='offset'/>
-       is less than
-      <paramref name='length'/>
-      .
-    </exception>
-    <exception cref='System.ArgumentException'>Either
-      <paramref name='offset'/>
-       or
-      <paramref name='length'/>
-       is less than 0 or greater than
-      <paramref name='str'/>
-       's length, or
-      <paramref name='str'/>
-       's length minus
       <paramref name='offset'/>
        is less than
       <paramref name='length'/>
@@ -7445,7 +7459,7 @@
     </param>
     <returns>The product of the two binary floating-point numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -7527,7 +7541,7 @@
     </param>
     <returns>The result thisValue * multiplicand - subtrahend.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='op'/>
        or
       <paramref name='subtrahend'/>
@@ -8206,7 +8220,7 @@
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigPlaces'/>
        is null.
     </exception>
@@ -8317,7 +8331,7 @@
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -8343,7 +8357,7 @@
     </summary>
     <returns>This number's value, truncated to a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 255.
     </exception>
   </doc>
@@ -8353,7 +8367,7 @@
     </summary>
     <returns>This number's value as a byte (from 0 to 255).
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 255.
     </exception>
   </doc>
@@ -8385,7 +8399,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.ToEIntegerExact'>
@@ -8394,7 +8408,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.ToEIntegerIfExact'>
@@ -8403,7 +8417,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EFloat.ToEngineeringString'>
@@ -8425,7 +8439,7 @@
     </summary>
     <returns>This number's value, truncated to a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -32768 or greater than 32767.
     </exception>
   </doc>
@@ -8435,7 +8449,7 @@
     </summary>
     <returns>This number's value as a 16-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -32768 or greater than 32767.
     </exception>
   </doc>
@@ -8454,7 +8468,7 @@
     </summary>
     <returns>This number's value, truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -2147483648 or greater than 2147483647.
     </exception>
   </doc>
@@ -8464,7 +8478,7 @@
     </summary>
     <returns>This number's value as a 32-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -2147483648 or greater than 2147483647.
     </exception>
   </doc>
@@ -8483,7 +8497,7 @@
     </summary>
     <returns>This number's value, truncated to a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -9223372036854775808 or greater than 9223372036854775807.
     </exception>
   </doc>
@@ -8493,7 +8507,7 @@
     </summary>
     <returns>This number's value as a 64-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -9223372036854775808 or greater than 9223372036854775807.
     </exception>
   </doc>
@@ -8518,7 +8532,7 @@
     </summary>
     <returns>This number's value, truncated to an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -128 or greater than 127.
     </exception>
   </doc>
@@ -8528,7 +8542,7 @@
     </summary>
     <returns>This number's value as an 8-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -128 or greater than 127.
     </exception>
   </doc>
@@ -8598,7 +8612,7 @@
     </summary>
     <returns>This number's value, truncated to a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 65535.
     </exception>
   </doc>
@@ -8608,7 +8622,7 @@
     </summary>
     <returns>This number's value as a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 65535.
     </exception>
   </doc>
@@ -8627,7 +8641,7 @@
     </summary>
     <returns>This number's value, truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 4294967295.
     </exception>
   </doc>
@@ -8637,7 +8651,7 @@
     </summary>
     <returns>This number's value as a 32-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 4294967295.
     </exception>
   </doc>
@@ -8656,7 +8670,7 @@
     </summary>
     <returns>This number's value, truncated to a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 18446744073709551615.
     </exception>
   </doc>
@@ -8666,7 +8680,7 @@
     </summary>
     <returns>This number's value as a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 18446744073709551615.
     </exception>
   </doc>
@@ -8709,7 +8723,7 @@
     </param>
     <returns>The sum of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        or
       <paramref name='otherValue'/>
@@ -8719,13 +8733,11 @@
   <doc name='M:PeterO.Numbers.EFloat.op_Decrement(PeterO.Numbers.EFloat)'>
     <summary>Subtracts one from an arbitrary-precision binary floating-point number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -8743,7 +8755,7 @@
       dividend are 0. Returns NaN if the result can't be exact because it would
       have a nonterminating binary expansion.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='dividend'/>
        is null.
     </exception>
@@ -8758,9 +8770,9 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -8776,12 +8788,12 @@
       <paramref name='input'/>
       , truncated to a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 255.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -8805,7 +8817,7 @@
       can be positive infinity or negative infinity if this value exceeds the
       range of a 64-bit floating point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -8821,12 +8833,12 @@
       <paramref name='input'/>
       , truncated to a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -32768
       or greater than 32767.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -8842,12 +8854,12 @@
       <paramref name='input'/>
       , truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than
       -2147483648 or greater than 2147483647.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -8863,12 +8875,12 @@
       <paramref name='input'/>
       , truncated to a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than
       -9223372036854775808 or greater than 9223372036854775807.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -8884,12 +8896,12 @@
       <paramref name='input'/>
       , truncated to an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -128
       or greater than 127.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -8914,7 +8926,7 @@
       value can be positive infinity or negative infinity if this value exceeds
       the range of a 32-bit floating point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -8930,12 +8942,12 @@
       <paramref name='input'/>
       , truncated to a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 65535.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -8951,12 +8963,12 @@
       <paramref name='input'/>
       , truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 4294967295.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -8972,12 +8984,12 @@
       <paramref name='input'/>
       , truncated to a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 18446744073709551615.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -9122,13 +9134,11 @@
   <doc name='M:PeterO.Numbers.EFloat.op_Increment(PeterO.Numbers.EFloat)'>
     <summary>Adds one to an arbitrary-precision binary floating-point number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision binary floating-point number.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -9143,7 +9153,7 @@
     </param>
     <returns>The result of the operation.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='dividend'/>
        is null.
     </exception>
@@ -9158,7 +9168,7 @@
     </param>
     <returns>The product of the two binary floating-point numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='operand1'/>
        is null.
     </exception>
@@ -9172,7 +9182,7 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -9187,7 +9197,7 @@
       zero, returns negative zero. Returns signaling NaN if this value is
       signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -9309,7 +9319,7 @@
       Returns positive infinity if "ed" is positive infinity or negative
       infinity.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -9325,7 +9335,7 @@
       "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero",
       5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='nc'/>
        is less than 0 or greater than 9 .
     </exception>
@@ -9596,7 +9606,7 @@
     </param>
     <returns>A copy of the given arbitrary-precision number object.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -9611,7 +9621,7 @@
     <returns>An arbitrary-precision number object with the same value as the given
       number object but with a nonnegative sign.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -9625,7 +9635,7 @@
     <returns>An arbitrary-precision number object with the sign reversed from the given
       number object.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -9645,7 +9655,7 @@
       given number object but with a the same sign (positive or negative) as the
       second given number object.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='other'/>
@@ -9875,7 +9885,7 @@
       <c>false</c> if the given context is null or HasExponentRange of the given context is
       <c>false</c> .
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -9911,7 +9921,7 @@
       <paramref name='ed'/>
        is positive infinity or negative infinity.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -9931,7 +9941,7 @@
       = positive infinity, 7 = negative infinity, 8 = quiet not-a-number (NaN),
       9 = signaling NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -9947,7 +9957,7 @@
       "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero",
       5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='nc'/>
        is less than 0 or greater than 9.
     </exception>
@@ -10062,7 +10072,7 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed2'/>
        or
       <paramref name='ed'/>
@@ -10109,7 +10119,7 @@
        's absolute value is greater than twice the sum of the context's EMax
       property and its Precision property.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>
@@ -10142,7 +10152,7 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>
@@ -10246,17 +10256,17 @@
     </param>
     <returns>The sum of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigintAugend'/>
        is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Add(System.Int32)'>
-    <summary>Not documented yet.
+    <summary>Adds this object and another object.
     </summary>
     <param name='intValue'>The parameter
       <paramref name='intValue'/>
-       is not documented yet.
+       is a 32-bit signed integer.
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
@@ -10269,7 +10279,7 @@
     <returns>An arbitrary-precision integer in which each bit is set if the
       corresponding bits of this integer and the other integer are both set.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='other'/>
        is null.
     </exception>
@@ -10292,7 +10302,7 @@
     <returns>An arbitrary-precision integer in which each bit is set if the
       corresponding bits of the two integers are both set.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='a'/>
        or
       <paramref name='b'/>
@@ -10374,13 +10384,15 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.CompareTo(System.Int32)'>
@@ -10403,9 +10415,9 @@
     <returns>An array with two arbitrary-precision integers: the first is the quotient,
       and the second is the remainder.
     </returns>
-    <exception cref='System.DivideByZeroException'>The parameter divisor is 0.
+    <exception cref='DivideByZeroException'>The parameter divisor is 0.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='divisor'/>
        is null.
     </exception>
@@ -10423,7 +10435,7 @@
     <returns>An array of two arbitrary-precision integers: the first is the quotient,
       and the second is the remainder.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='dividend'/>
        or
       <paramref name='divisor'/>
@@ -10441,11 +10453,11 @@
     </param>
     <returns>The quotient of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigintDivisor'/>
        is null.
     </exception>
-    <exception cref='System.DivideByZeroException'>Attempted to divide by zero.
+    <exception cref='DivideByZeroException'>Attempted to divide by zero.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Divide(System.Int32)'>
@@ -10459,7 +10471,7 @@
     </param>
     <returns>The quotient of the two objects.
     </returns>
-    <exception cref='System.DivideByZeroException'>Attempted to divide by zero.
+    <exception cref='DivideByZeroException'>Attempted to divide by zero.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)'>
@@ -10544,7 +10556,7 @@
     </param>
     <returns>An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bytes'/>
        is null.
     </exception>
@@ -10588,7 +10600,7 @@
     </param>
     <returns>An arbitrary-precision integer with the same value as the given string.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
@@ -10615,13 +10627,13 @@
     <returns>An arbitrary-precision integer with the same value as given in the string
       portion.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
-    <exception cref='System.FormatException'>The string portion is empty or in an invalid format.
+    <exception cref='FormatException'>The string portion is empty or in an invalid format.
     </exception>
-    <exception cref='System.ArgumentException'>Doesn't satisfy (endIndex - index) % 4 == 0".
+    <exception cref='ArgumentException'>Doesn't satisfy (endIndex - index) % 4 == 0".
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.FromSByte(System.SByte)'>
@@ -10642,11 +10654,11 @@
     </param>
     <returns>An arbitrary-precision integer with the same value as given in the string.
     </returns>
-    <exception cref='System.FormatException'>The parameter
+    <exception cref='FormatException'>The parameter
       <paramref name='str'/>
        is in an invalid format.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
@@ -10667,7 +10679,7 @@
     <returns>An arbitrary-precision integer with the same value as given in the string
       portion.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='index'/>
        is less than 0,
       <paramref name='endIndex'/>
@@ -10677,7 +10689,7 @@
       <paramref name='index'/>
       .
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
@@ -10717,7 +10729,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigintSecond'/>
        is null.
     </exception>
@@ -10742,7 +10754,7 @@
     <returns>The number of digits in the decimal form of this integer. Returns 1 if
       this number is 0.
     </returns>
-    <exception cref='System.OverflowException'>The return value would exceed the range of a 32-bit signed integer.
+    <exception cref='OverflowException'>The return value would exceed the range of a 32-bit signed integer.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetDigitCountAsEInteger'>
@@ -10802,7 +10814,7 @@
        ) of this object' s value; otherwise,
       <c>false</c> .
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigIndex'/>
        is null.
     </exception>
@@ -10837,7 +10849,7 @@
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0 or negative 1.
     </returns>
-    <exception cref='System.OverflowException'>The return value would exceed the range of a 32-bit signed integer.
+    <exception cref='OverflowException'>The return value would exceed the range of a 32-bit signed integer.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger'>
@@ -10862,7 +10874,7 @@
     </param>
     <returns><c>true</c> if the given bit is set in this number's absolute value.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigIndex'/>
        is null.
     </exception>
@@ -10887,7 +10899,7 @@
     <returns>The number of bits in this object's value. Returns 0 if this object's
       value is 0, and returns 1 if the value is negative 1.
     </returns>
-    <exception cref='System.OverflowException'>The return value would exceed the range of a 32-bit signed integer.
+    <exception cref='OverflowException'>The return value would exceed the range of a 32-bit signed integer.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger'>
@@ -10935,11 +10947,11 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='divisor'/>
        is less than 0.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='divisor'/>
        is null.
     </exception>
@@ -10954,7 +10966,7 @@
     </param>
     <returns>The modulus remainder.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='smallDivisor'/>
        is less than 0.
     </exception>
@@ -10969,7 +10981,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='pow'/>
        or
       <paramref name='mod'/>
@@ -10994,7 +11006,7 @@
       <paramref name='mod'/>
       .
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigintValue'/>
        is null.
     </exception>
@@ -11007,7 +11019,7 @@
     </param>
     <returns>The product of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigintMult'/>
        is null.
     </exception>
@@ -11045,7 +11057,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='valueA'/>
        is null.
     </exception>
@@ -11063,11 +11075,11 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='second'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Doesn't satisfy biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
+    <exception cref='ArgumentException'>Doesn't satisfy biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
       CountWords(result).
     </exception>
     <remarks>
@@ -11088,7 +11100,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='first'/>
        or
       <paramref name='second'/>
@@ -11112,11 +11124,11 @@
       <paramref name='bigPower'/>
        is 0.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigPower'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>BigPower is negative.
+    <exception cref='ArgumentException'>BigPower is negative.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Pow(System.Int32)'>
@@ -11139,11 +11151,11 @@
       <paramref name='power'/>
        is 0.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='power'/>
        is less than 0.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='power'/>
        is null.
     </exception>
@@ -11159,9 +11171,9 @@
     </param>
     <returns>The remainder of the two numbers.
     </returns>
-    <exception cref='System.DivideByZeroException'>Attempted to divide by zero.
+    <exception cref='DivideByZeroException'>Attempted to divide by zero.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='divisor'/>
        is null.
     </exception>
@@ -11179,9 +11191,9 @@
     </param>
     <returns>The remainder of the two numbers.
     </returns>
-    <exception cref='System.DivideByZeroException'>Attempted to divide by zero.
+    <exception cref='DivideByZeroException'>Attempted to divide by zero.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='intValue'/>
        is null.
     </exception>
@@ -11197,7 +11209,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='eshift'/>
        is null.
     </exception>
@@ -11228,7 +11240,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='eshift'/>
        is null.
     </exception>
@@ -11279,7 +11291,7 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='subtrahend'/>
        is null.
     </exception>
@@ -11307,7 +11319,7 @@
     </summary>
     <returns>This number's value as a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>This value is less than 0 or greater than 255.
+    <exception cref='OverflowException'>This value is less than 0 or greater than 255.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ToByteUnchecked'>
@@ -11343,7 +11355,7 @@
     </summary>
     <returns>This number's value as a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is less than -32768 or greater than 32767.
+    <exception cref='OverflowException'>This value is less than -32768 or greater than 32767.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ToInt16Unchecked'>
@@ -11418,7 +11430,7 @@
     </summary>
     <returns>This number's value as an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is less than -128 or greater than 127.
+    <exception cref='OverflowException'>This value is less than -128 or greater than 127.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ToSByteUnchecked'>
@@ -11442,7 +11454,7 @@
     </summary>
     <returns>This number's value as a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is less than 0 or greater than 65535.
+    <exception cref='OverflowException'>This value is less than 0 or greater than 65535.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ToUInt16Unchecked'>
@@ -11458,7 +11470,7 @@
     </summary>
     <returns>This number's value as a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is less than 0 or greater than 4294967295.
+    <exception cref='OverflowException'>This value is less than 0 or greater than 4294967295.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ToUInt32Unchecked'>
@@ -11474,7 +11486,7 @@
     </summary>
     <returns>This number's value as a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is outside the range of a 64-bit signed integer.
+    <exception cref='OverflowException'>This value is outside the range of a 64-bit signed integer.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.ToUInt64Unchecked'>
@@ -11499,11 +11511,11 @@
     <returns>An arbitrary-precision integer in which each bit is set if the
       corresponding bit is set in one input integer but not in the other.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='other'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Doesn't satisfy smallerCount == CountWords(result).
+    <exception cref='ArgumentException'>Doesn't satisfy smallerCount == CountWords(result).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)'>
@@ -11523,7 +11535,7 @@
     <returns>An arbitrary-precision integer in which each bit is set if the
       corresponding bit is set in one input integer but not in the other.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='a'/>
        or
       <paramref name='b'/>
@@ -11545,7 +11557,7 @@
     </param>
     <returns>The sum of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -11561,7 +11573,7 @@
     </param>
     <returns>The result of the operation.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "a" or "b" is null.
+    <exception cref='ArgumentNullException'>The parameter "a" or "b" is null.
     </exception>
     <remarks>
       Each arbitrary-precision integer is treated as a two's-complement form
@@ -11583,7 +11595,7 @@
     </param>
     <returns>The result of the operation.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "first" or "second" is null.
+    <exception cref='ArgumentNullException'>The parameter "first" or "second" is null.
     </exception>
     <remarks>
       Each arbitrary-precision integer is treated as a two's-complement form
@@ -11601,7 +11613,7 @@
     </param>
     <returns>The given arbitrary-precision integer minus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -11616,7 +11628,7 @@
     </param>
     <returns>The quotient of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='dividend'/>
        is null.
     </exception>
@@ -11640,7 +11652,7 @@
     <returns>An arbitrary-precision integer in which each bit is set if it's set in one
       input integer but not the other.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='a'/>
        or
       <paramref name='b'/>
@@ -11657,11 +11669,11 @@
       <paramref name='input'/>
        as a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than 0 or greater than 255.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11676,11 +11688,11 @@
       <paramref name='input'/>
        as a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than -32768 or greater than 32767.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11695,11 +11707,11 @@
       <paramref name='input'/>
        as a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than -2147483648 or greater than 2147483647.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11714,11 +11726,11 @@
       <paramref name='input'/>
        as a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than -9223372036854775808 or greater than 9223372036854775807.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11733,11 +11745,11 @@
       <paramref name='input'/>
        as an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than -128 or greater than 127.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11752,11 +11764,11 @@
       <paramref name='input'/>
        as a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than 0 or greater than 65535.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11771,11 +11783,11 @@
       <paramref name='input'/>
        as a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than 0 or greater than 4294967295.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11790,11 +11802,11 @@
       <paramref name='input'/>
        as a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is less than 0 or greater than 18446744073709551615.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -11930,7 +11942,7 @@
     </param>
     <returns>The given arbitrary-precision integer plus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -11947,7 +11959,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -11994,7 +12006,7 @@
     </param>
     <returns>The remainder of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='dividend'/>
        is null.
     </exception>
@@ -12009,7 +12021,7 @@
     </param>
     <returns>The product of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='operand1'/>
        is null.
     </exception>
@@ -12021,7 +12033,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='thisValue'/>
        is null.
     </exception>
@@ -12037,7 +12049,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -12060,7 +12072,7 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -12072,7 +12084,7 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -12099,13 +12111,13 @@
     </param>
     <param name='denominator'>An arbitrary-precision integer.
     </param>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='numerator'/>
        or
       <paramref name='denominator'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Denominator is zero.
+    <exception cref='ArgumentException'>Denominator is zero.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Abs'>
@@ -12123,7 +12135,7 @@
     <returns>The sum of the two numbers. Returns not-a-number (NaN) if either operand
       is NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -12135,13 +12147,15 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)'>
@@ -12151,13 +12165,15 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToDecimal(PeterO.Numbers.EDecimal)'>
@@ -12167,13 +12183,15 @@
     </param>
     <returns>Zero if the values are equal; a negative number if this instance is less,
       or a positive number if this instance is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToTotal(PeterO.Numbers.ERational)'>
@@ -12201,13 +12219,15 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CompareToTotalMagnitude(PeterO.Numbers.ERational)'>
@@ -12234,13 +12254,15 @@
     </param>
     <returns>The number 0 if both objects have the same value, or -1 if this object is
       less than the other value, or 1 if this object is greater.
-      <para>This implementation returns a positive number if "other" is null, to
-        conform to the .NET definition of CompareTo. This is the case even in
-        the Java version of this library, for consistency's sake, even though
-        implementations of
+      <para>This implementation returns a positive number if
+        <paramref name='other'/>
+         is null, to conform to the.NET definition of CompareTo. This is the
+        case even in the Java version of this library, for consistency's sake,
+        even though implementations of
         <c>Comparable.compareTo()</c> in Java ought to throw an exception if they receive a null argument
         rather than treating null as less or greater than any object.
       </para>
+      .
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Copy'>
@@ -12257,7 +12279,7 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='other'/>
        is null.
     </exception>
@@ -12271,7 +12293,7 @@
     </param>
     <returns>An arbitrary-precision binary rational number.
     </returns>
-    <exception cref='System.ArgumentException'>The denominator is zero.
+    <exception cref='ArgumentException'>The denominator is zero.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Create(System.Int32,System.Int32)'>
@@ -12283,7 +12305,7 @@
     </param>
     <returns>An arbitrary-precision binary rational number.
     </returns>
-    <exception cref='System.ArgumentException'>The denominator is zero.
+    <exception cref='ArgumentException'>The denominator is zero.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CreateNaN(PeterO.Numbers.EInteger)'>
@@ -12297,7 +12319,7 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='diag'/>
        is less than 0.
     </exception>
@@ -12317,11 +12339,11 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentException'>The parameter
+    <exception cref='ArgumentException'>The parameter
       <paramref name='diag'/>
        is less than 0.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='diag'/>
        is null.
     </exception>
@@ -12331,7 +12353,7 @@
     </summary>
     <returns>The given arbitrary-precision rational number minus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -12350,7 +12372,7 @@
     </param>
     <returns>The quotient of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -12433,7 +12455,7 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ef'/>
        is null.
     </exception>
@@ -12446,7 +12468,7 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ef'/>
        is null.
     </exception>
@@ -12536,7 +12558,7 @@
     <returns>An arbitrary-precision rational number with the same value as the given
       string.
     </returns>
-    <exception cref='System.FormatException'>The parameter
+    <exception cref='FormatException'>The parameter
       <paramref name='str'/>
        is not a correctly formatted number string.
     </exception>
@@ -12581,15 +12603,15 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.FormatException'>The parameter
+    <exception cref='FormatException'>The parameter
       <paramref name='str'/>
        is not a correctly formatted number string.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='str'/>
        is null.
     </exception>
-    <exception cref='System.ArgumentException'>Either
+    <exception cref='ArgumentException'>Either
       <paramref name='offset'/>
        or
       <paramref name='length'/>
@@ -12643,7 +12665,7 @@
     </summary>
     <returns>The given arbitrary-precision rational number plus one.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -12729,7 +12751,7 @@
     </param>
     <returns>The product of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -12777,7 +12799,7 @@
     </param>
     <returns>The remainder of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -12799,7 +12821,7 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='otherValue'/>
        is null.
     </exception>
@@ -12814,7 +12836,7 @@
     </summary>
     <returns>This number's value, truncated to a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 255.
     </exception>
   </doc>
@@ -12824,7 +12846,7 @@
     </summary>
     <returns>This number's value as a byte (from 0 to 255).
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 255.
     </exception>
   </doc>
@@ -12944,7 +12966,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.ToEIntegerExact'>
@@ -12953,7 +12975,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.ToEIntegerIfExact'>
@@ -12962,7 +12984,7 @@
     </summary>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.ToExtendedDecimal'>
@@ -13051,7 +13073,7 @@
     </summary>
     <returns>This number's value, truncated to a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -32768 or greater than 32767.
     </exception>
   </doc>
@@ -13061,7 +13083,7 @@
     </summary>
     <returns>This number's value as a 16-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -32768 or greater than 32767.
     </exception>
   </doc>
@@ -13080,7 +13102,7 @@
     </summary>
     <returns>This number's value, truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -2147483648 or greater than 2147483647.
     </exception>
   </doc>
@@ -13090,7 +13112,7 @@
     </summary>
     <returns>This number's value as a 32-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -2147483648 or greater than 2147483647.
     </exception>
   </doc>
@@ -13109,7 +13131,7 @@
     </summary>
     <returns>This number's value, truncated to a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -9223372036854775808 or greater than 9223372036854775807.
     </exception>
   </doc>
@@ -13119,7 +13141,7 @@
     </summary>
     <returns>This number's value as a 64-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -9223372036854775808 or greater than 9223372036854775807.
     </exception>
   </doc>
@@ -13138,7 +13160,7 @@
     </summary>
     <returns>This number's value, truncated to an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than -128 or greater than 127.
     </exception>
   </doc>
@@ -13148,7 +13170,7 @@
     </summary>
     <returns>This number's value as an 8-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than -128 or greater than 127.
     </exception>
   </doc>
@@ -13185,7 +13207,7 @@
     </summary>
     <returns>This number's value, truncated to a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 65535.
     </exception>
   </doc>
@@ -13195,7 +13217,7 @@
     </summary>
     <returns>This number's value as a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 65535.
     </exception>
   </doc>
@@ -13214,7 +13236,7 @@
     </summary>
     <returns>This number's value, truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 4294967295.
     </exception>
   </doc>
@@ -13224,7 +13246,7 @@
     </summary>
     <returns>This number's value as a 32-bit signed integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 4294967295.
     </exception>
   </doc>
@@ -13243,7 +13265,7 @@
     </summary>
     <returns>This number's value, truncated to a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
+    <exception cref='OverflowException'>This value is infinity or not-a-number, or the truncated integer is less
       than 0 or greater than 18446744073709551615.
     </exception>
   </doc>
@@ -13253,7 +13275,7 @@
     </summary>
     <returns>This number's value as a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
+    <exception cref='ArithmeticException'>This value is infinity or not-a-number, is not an exact integer, or is
       less than 0 or greater than 18446744073709551615.
     </exception>
   </doc>
@@ -13287,19 +13309,17 @@
     <returns>The sum of the two numbers. Returns not-a-number (NaN) if either operand
       is NaN.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "otherValue" is null.
+    <exception cref='ArgumentNullException'>The parameter "otherValue" is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Decrement(PeterO.Numbers.ERational)'>
-    <summary>Not documented yet.
+    <summary>Subtracts one from an arbitrary-precision rational number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision rational number.
     </param>
     <returns>An arbitrary-precision binary rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -13314,7 +13334,7 @@
     </param>
     <returns>The quotient of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "otherValue" is null.
+    <exception cref='ArgumentNullException'>The parameter "otherValue" is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~PeterO.Numbers.EInteger'>
@@ -13326,9 +13346,9 @@
     </param>
     <returns>An arbitrary-precision integer.
     </returns>
-    <exception cref='System.OverflowException'>This object's value is infinity or not-a-number (NaN).
+    <exception cref='OverflowException'>This object's value is infinity or not-a-number (NaN).
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -13343,12 +13363,12 @@
       <paramref name='input'/>
       , truncated to a byte (from 0 to 255).
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 255.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13367,7 +13387,7 @@
       <c>decimal</c> under the Common Language Infrastructure (usually a.NET Framework
       decimal).
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='extendedNumber'/>
        is null.
     </exception>
@@ -13382,7 +13402,7 @@
       can be positive infinity or negative infinity if this value exceeds the
       range of a 64-bit floating point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -13397,12 +13417,12 @@
       <paramref name='input'/>
       , truncated to a 16-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -32768
       or greater than 32767.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13417,12 +13437,12 @@
       <paramref name='input'/>
       , truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than
       -2147483648 or greater than 2147483647.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13437,12 +13457,12 @@
       <paramref name='input'/>
       , truncated to a 64-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than
       -9223372036854775808 or greater than 9223372036854775807.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13457,12 +13477,12 @@
       <paramref name='input'/>
       , truncated to an 8-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than -128
       or greater than 127.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13477,7 +13497,7 @@
       value can be positive infinity or negative infinity if this value exceeds
       the range of a 32-bit floating point number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -13493,12 +13513,12 @@
       <paramref name='input'/>
       , truncated to a 16-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 65535.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13513,12 +13533,12 @@
       <paramref name='input'/>
       , truncated to a 32-bit signed integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 4294967295.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13534,12 +13554,12 @@
       <paramref name='input'/>
       , truncated to a 64-bit unsigned integer.
     </returns>
-    <exception cref='System.OverflowException'>The parameter
+    <exception cref='OverflowException'>The parameter
       <paramref name='input'/>
        is infinity or not-a-number, or the truncated integer is less than 0 or
       greater than 18446744073709551615.
     </exception>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='input'/>
        is null.
     </exception>
@@ -13707,15 +13727,13 @@
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Increment(PeterO.Numbers.ERational)'>
-    <summary>Not documented yet.
+    <summary>Adds one to an arbitrary-precision rational number.
     </summary>
-    <param name='bthis'>The parameter
-      <paramref name='bthis'/>
-       is not documented yet.
+    <param name='bthis'>An arbitrary-precision rational number.
     </param>
     <returns>An arbitrary-precision binary rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
        is null.
     </exception>
@@ -13730,7 +13748,7 @@
     </param>
     <returns>The remainder of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "otherValue" is null.
+    <exception cref='ArgumentNullException'>The parameter "otherValue" is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Multiply(PeterO.Numbers.ERational,PeterO.Numbers.ERational)'>
@@ -13743,7 +13761,7 @@
     </param>
     <returns>The product of the two numbers.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "otherValue" is null.
+    <exception cref='ArgumentNullException'>The parameter "otherValue" is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_Subtraction(PeterO.Numbers.ERational,PeterO.Numbers.ERational)'>
@@ -13755,7 +13773,7 @@
     </param>
     <returns>The difference of the two objects.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter "otherValue" is null.
+    <exception cref='ArgumentNullException'>The parameter "otherValue" is null.
     </exception>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.op_UnaryNegation(PeterO.Numbers.ERational)'>
@@ -13766,7 +13784,7 @@
     </param>
     <returns>An arbitrary-precision rational number.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='bigValue'/>
        is null.
     </exception>
@@ -14158,7 +14176,7 @@
       Returns positive infinity if "ed" is positive infinity or negative
       infinity.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        is null.
     </exception>
@@ -14306,7 +14324,7 @@
       absolute value is greater than twice the sum of the context's EMax
       property and its Precision property.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>
@@ -14339,7 +14357,7 @@
       absolute value that exceeds the maximum precision specified in the
       context.
     </returns>
-    <exception cref='System.ArgumentNullException'>The parameter
+    <exception cref='ArgumentNullException'>The parameter
       <paramref name='ed'/>
        or
       <paramref name='ed2'/>

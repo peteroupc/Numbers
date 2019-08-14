@@ -8,13 +8,13 @@ namespace Test {
     private readonly ResourceManager mgr;
 
     public AppResources(string name) {
-//#if NET20 || NET40
+// #if NET20 || NET40
       this.mgr = new ResourceManager(
           name,
           Assembly.GetExecutingAssembly());
-//#else
+// #else
 // this.mgr = new ResourceManager(typeof(AppResources));
-//#endif
+// #endif
     }
     public string GetString(string name) {
       return this.mgr.GetString(name,

@@ -63,11 +63,11 @@
 * <code>[Numerator](#Numerator)</code> - Gets this object's numerator.
 * <code>[public static readonly PeterO.Numbers.ERational One;](#One)</code> - The rational number one.
 * <code>[PeterO.Numbers.ERational operator +(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Addition)</code> - Adds two rational numbers.
-* <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Not documented yet.
+* <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator /(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Division)</code> - Divides an arbitrary-precision rational number by the value of another arbitrary-precision rational number object.
 * <code>[explicit operator ulong(PeterO.Numbers.ERational)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number.
 * <code>[implicit operator PeterO.Numbers.ERational(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision integer to an arbitrary-precision rational number.
-* <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Not documented yet.
+* <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Adds one to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator %(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Modulus)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator *(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Multiply)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator -(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Subtraction)</code> - Subtracts an arbitrary-precision rational number from this instance.
@@ -329,7 +329,10 @@ The parameter  <i>otherValue</i>
 
 <b>Return Value:</b>
 
-Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToBinary_PeterO_Numbers_EFloat"></a>
 ### CompareToBinary
@@ -345,7 +348,10 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 
 <b>Return Value:</b>
 
-Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToDecimal_PeterO_Numbers_EDecimal"></a>
 ### CompareToDecimal
@@ -361,7 +367,10 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 
 <b>Return Value:</b>
 
-Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToTotal_PeterO_Numbers_ERational"></a>
 ### CompareToTotal
@@ -389,7 +398,10 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="CompareToTotalMagnitude_PeterO_Numbers_ERational"></a>
 ### CompareToTotalMagnitude
@@ -415,7 +427,10 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater.This implementation returns a positive number if "other" is null, to conform to the .NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
 
 <a id="Copy"></a>
 ### Copy
@@ -913,7 +928,7 @@ The parameter  <i>str</i>
 
  All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 
-          <b>Parameters:</b>
+         <b>Parameters:</b>
 
  * <i>str</i>: A text string, a portion of which represents a number.
 
@@ -946,10 +961,6 @@ Either  <i>offset</i>
  's length minus  <i>offset</i>
  is less than  <i>length</i>
 .
-
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -1156,12 +1167,11 @@ The parameter "otherValue" is null.
     public static PeterO.Numbers.ERational operator --(
         PeterO.Numbers.ERational bthis);
 
- Not documented yet.
+ Subtracts one from an arbitrary-precision rational number.
 
      <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
@@ -1763,12 +1773,11 @@ The value of  <i>inputUInt16</i>
     public static PeterO.Numbers.ERational operator ++(
         PeterO.Numbers.ERational bthis);
 
- Not documented yet.
+ Adds one to an arbitrary-precision rational number.
 
      <b>Parameters:</b>
 
- * <i>bthis</i>: The parameter  <i>bthis</i>
- is not documented yet.
+ * <i>bthis</i>: An arbitrary-precision rational number.
 
 <b>Return Value:</b>
 

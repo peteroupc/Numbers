@@ -80,7 +80,6 @@ public sealed class ETrapException : ArithmeticException {
     }
 
 #if NET20 || NET40
-    /// <xmlbegin id='882'/>
     /// <summary>Initializes a new instance of the
     /// <see cref='PeterO.Cbor.ETrapException'/> class. Uses the given
     /// serialization and streaming contexts.</summary>
