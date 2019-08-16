@@ -585,9 +585,9 @@ op.Equals("remainderNear", StringComparison.Ordinal)) {
             d3 = EDecimals.ScaleB(d1, d2, ctx);
           } else if (op.Equals("trim", StringComparison.Ordinal)) {
             d3 = EDecimals.Trim(d1, ctx);
- } else if (op.Equals("samequantum", StringComparison.Ordinal)) {
-   d3 = EDecimal.FromBoolean(EDecimals.SameQuantum(d1, d2));
- } else {
+          } else if (op.Equals("samequantum", StringComparison.Ordinal)) {
+            d3 = EDecimal.FromBoolean(EDecimals.SameQuantum(d1, d2));
+          } else {
             Console.WriteLine("unknown op " + op);
             return;
           }
