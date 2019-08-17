@@ -914,7 +914,7 @@ The parameter  <i>str</i>
         int offset,
         int length);
 
- Creates a rational number from a text string that represents a number.
+  Creates a rational number from a text string that represents a number.
 
  The format of the string generally consists of:
 
@@ -926,7 +926,7 @@ The parameter  <i>str</i>
 
  The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 
- All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
+ All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is not allowed to contain white space characters, including spaces.
 
          <b>Parameters:</b>
 

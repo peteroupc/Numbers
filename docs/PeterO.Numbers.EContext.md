@@ -311,7 +311,7 @@ The lowest exponent possible when a converted number is expressed in scientific 
     public int Flags { get; set; }
 
  Gets or sets the flags that are set from converting numbers according to this arithmetic context. If  `HasFlags`  is false, this value will be 0. This value is a combination of bit fields. To retrieve a particular flag, use the AND operation on the return value of this method. For example:  `(this.Flags
-            &EContext.FlagInexact) !=0`  returns  `true`  if the Inexact flag is set.
+            &EContext.FlagInexact) != 0`  returns  `true`  if the Inexact flag is set.
 
    <b>Returns:</b>
 

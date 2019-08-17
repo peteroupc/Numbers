@@ -751,7 +751,8 @@ An arbitrary-precision number with the same value as this one but with certain t
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
- Performs a logical exclusive-OR (XOR) operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010=101010` .
+ Performs a logical exclusive-OR (XOR) operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010 =
+            101010` .
 
       <b>Parameters:</b>
 
