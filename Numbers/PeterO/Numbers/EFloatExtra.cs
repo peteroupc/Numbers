@@ -24,8 +24,7 @@ namespace PeterO.Numbers {
     /// the floating point number to a string first.</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
-    /// <returns>A binary float with the same value as <paramref
-    /// name='flt'/>.</returns>
+    /// <returns>A binary float with the same value as <paramref name='flt'/>.</returns>
     public static implicit operator EFloat(float flt) {
       return FromSingle(flt);
     }
@@ -36,8 +35,7 @@ namespace PeterO.Numbers {
     /// the floating point number to a string first.</summary>
     /// <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
     /// floating-point number.</param>
-    /// <returns>A binary float with the same value as <paramref
-    /// name='dbl'/>.</returns>
+    /// <returns>A binary float with the same value as <paramref name='dbl'/>.</returns>
     public static implicit operator EFloat(double dbl) {
       return FromDouble(dbl);
     }
@@ -58,8 +56,7 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>The second arbitrary-precision binary
     /// floating-point number.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> or <paramref name='otherValue'/> is
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> or <paramref name='otherValue'/> is
     /// null.</exception>
     public static EFloat operator +(EFloat bthis, EFloat otherValue) {
       if (bthis == null) {
@@ -73,8 +70,7 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>The first operand.</param>
     /// <param name='subtrahend'>The second operand.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EFloat operator -(
       EFloat bthis,
       EFloat subtrahend) {
@@ -98,8 +94,7 @@ namespace PeterO.Numbers {
     /// number.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EFloat operator ++(EFloat bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -121,8 +116,7 @@ namespace PeterO.Numbers {
     /// number.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static EFloat operator --(EFloat bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -137,8 +131,7 @@ namespace PeterO.Numbers {
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two binary floating-point
     /// numbers.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='operand1'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='operand1'/> is null.</exception>
     public static EFloat operator *(
       EFloat operand1,
       EFloat operand2) {
@@ -158,8 +151,7 @@ namespace PeterO.Numbers {
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating binary
     /// expansion.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
     public static EFloat operator /(
       EFloat dividend,
       EFloat divisor) {
@@ -175,8 +167,7 @@ namespace PeterO.Numbers {
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='dividend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
     public static EFloat operator %(
       EFloat dividend,
       EFloat divisor) {
@@ -193,8 +184,7 @@ namespace PeterO.Numbers {
     /// <returns>The negated form of the given number. If the given number
     /// is positive zero, returns negative zero. Returns signaling NaN if
     /// this value is signaling NaN.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static EFloat operator -(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -211,8 +201,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static explicit operator EInteger(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -237,8 +226,7 @@ namespace PeterO.Numbers {
     /// The return value can be positive infinity or negative infinity if
     /// this value exceeds the range of a 64-bit floating point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static explicit operator double(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -264,8 +252,7 @@ namespace PeterO.Numbers {
     /// value. The return value can be positive infinity or negative
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static explicit operator float(EFloat bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -281,11 +268,9 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// byte (from 0 to 255).</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 255.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator byte(EFloat input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -364,11 +349,9 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to an
     /// 8-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -128 or greater than 127.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator sbyte(EFloat input) {
       if (input == null) {
@@ -395,11 +378,9 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -32768 or greater than 32767.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator short(EFloat input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -479,11 +460,9 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 65535.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ushort(EFloat input) {
       if (input == null) {
@@ -510,12 +489,10 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -2147483648 or greater than
     /// 2147483647.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator int(EFloat input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -594,11 +571,9 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 4294967295.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator uint(EFloat input) {
       if (input == null) {
@@ -625,12 +600,10 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator long(EFloat input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -709,12 +682,10 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than
     /// 18446744073709551615.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ulong(EFloat input) {
       if (input == null) {
