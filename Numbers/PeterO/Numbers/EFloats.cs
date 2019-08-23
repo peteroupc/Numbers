@@ -146,7 +146,8 @@ namespace PeterO.Numbers {
     /// follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
     /// "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 =
     /// "-Infinity", 8 = "NaN", 9 = "sNaN".</returns>
-    /// <exception cref='ArgumentException'>The parameter <paramref name='nc'/> is less than 0 or greater than 9.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='nc'/> is less than 0 or greater than 9.</exception>
     public static string NumberClassString(int nc) {
       return EDecimals.NumberClassString(nc);
     }
@@ -165,7 +166,8 @@ namespace PeterO.Numbers {
     /// positive zero, 5 = negative zero, 6 = positive infinity, 7 =
     /// negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling
     /// NaN.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int NumberClass(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -210,7 +212,8 @@ namespace PeterO.Numbers {
     /// <returns>Either <c>true</c> if the given number is subnormal, or
     /// <c>false</c> otherwise. Returns <c>false</c> if the given context
     /// is null or HasExponentRange of the given context is <c>false</c>.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static bool IsSubnormal(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -248,7 +251,8 @@ namespace PeterO.Numbers {
     /// infinity if <paramref name='ed'/> is zero. Returns positive
     /// infinity if <paramref name='ed'/> is positive infinity or negative
     /// infinity.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat LogB(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -278,11 +282,13 @@ namespace PeterO.Numbers {
     /// point is moved the given number of places. Signals an invalid
     /// operation and returns not-a-number (NaN) if <paramref name='ed2'/>
     /// is infinity or NaN, has an Exponent property other than 0. Signals
-    /// an invalid operation and returns not-a-number (NaN) if <paramref name='ec'/> defines a limited precision and exponent range and if
+    /// an invalid operation and returns not-a-number (NaN) if <paramref
+    /// name='ec'/> defines a limited precision and exponent range and if
     /// <paramref name='ed2'/> 's absolute value is greater than twice the
     /// sum of the context's EMax property and its Precision
     /// property.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> or <paramref name='ed2'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EFloat ScaleB(EFloat ed, EFloat ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -336,7 +342,8 @@ namespace PeterO.Numbers {
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
     /// has an exponent other than 0, or has an absolute value that exceeds
     /// the maximum precision specified in the context.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> or <paramref name='ed2'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EFloat Shift(EFloat ed, EFloat ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -413,7 +420,8 @@ namespace PeterO.Numbers {
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
     /// has an exponent other than 0, or has an absolute value that exceeds
     /// the maximum precision specified in the context.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed2'/> or <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed2'/> or <paramref name='ed'/> is null.</exception>
     public static EFloat Rotate(EFloat ed, EFloat ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
         return Shift(ed, ed2, ec);
@@ -551,7 +559,8 @@ ed.CompareToTotalMagnitude(other, ec));
     /// copy.</param>
     /// <returns>A copy of the given arbitrary-precision number
     /// object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat Copy(EFloat ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -574,7 +583,8 @@ ed.CompareToTotalMagnitude(other, ec));
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the given number object but with a nonnegative sign.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat CopyAbs(EFloat ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -587,7 +597,8 @@ ed.CompareToTotalMagnitude(other, ec));
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the sign
     /// reversed from the given number object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat CopyNegate(EFloat ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -605,7 +616,8 @@ ed.CompareToTotalMagnitude(other, ec));
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> or <paramref name='other'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='other'/> is null.</exception>
     public static EFloat CopySign(EFloat ed, EFloat other) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -873,7 +885,8 @@ ed.CompareToTotalMagnitude(other, ec));
     /// include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
     /// logical exclusive-OR operation sets each digit of the result to 1
     /// if either corresponding digit of the logical operands, but not
-    /// both, is 1, and to 0 otherwise. For example, <c>01001 XOR 111010=101010</c>.</summary>
+    /// both, is 1, and to 0 otherwise. For example, <c>01001 XOR 111010 =
+    /// 101010</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical
     /// exclusive-OR operation.</param>
     /// <param name='ed2'>The second logical operand to the logical
@@ -886,7 +899,8 @@ ed.CompareToTotalMagnitude(other, ec));
     /// null.</param>
     /// <returns>The result of the logical exclusive-OR operation as a
     /// logical operand. Signals an invalid operation and returns
-    /// not-a-number (NaN) if <paramref name='ed1'/>, <paramref name='ed2'/>, or both are not logical operands.</returns>
+    /// not-a-number (NaN) if <paramref name='ed1'/>, <paramref
+    /// name='ed2'/>, or both are not logical operands.</returns>
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
