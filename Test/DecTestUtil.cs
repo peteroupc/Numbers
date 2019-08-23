@@ -20,8 +20,8 @@ namespace Test {
   RegexOptions.Compiled);
 
     /// <summary>Returns a string with the basic upper-case letters A to Z
-    /// (U + 0041 to U + 005A) converted to lower-case. Other characters
-    /// remain unchanged.</summary>
+    /// (U+0041 to U+005A) converted to lower-case. Other characters remain
+    /// unchanged.</summary>
     /// <param name='str'>The parameter <paramref name='str'/> is a text
     /// string.</param>
     /// <returns>The converted string, or null if <paramref name='str'/> is

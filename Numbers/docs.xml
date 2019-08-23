@@ -1184,7 +1184,7 @@
   <doc name='M:PeterO.Numbers.EDecimal.Copy'>
     <summary>Creates a copy of this arbitrary-precision binary number.
     </summary>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision decimal floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.CopySign(PeterO.Numbers.EDecimal)'>
@@ -1235,7 +1235,8 @@
     </summary>
     <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
       this object. If none is needed, should be zero. To get the diagnostic
-      information from another EDecimal object, use that object's
+      information from another arbitrary-precision decimal floating-point
+      number, use that object's
       <c>UnsignedMantissa</c> property.
     </param>
     <returns>A quiet not-a-number.
@@ -1246,7 +1247,8 @@
     </summary>
     <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
       this object. If none is needed, should be zero. To get the diagnostic
-      information from another EDecimal object, use that object's
+      information from another arbitrary-precision decimal floating-point
+      number, use that object's
       <c>UnsignedMantissa</c> property.
     </param>
     <param name='signaling'>Whether the return value will be signaling (true) or quiet (false).
@@ -1684,7 +1686,7 @@
     </summary>
     <param name='divisor'>The parameter
       <paramref name='divisor'/>
-       is an EDecimal object.
+       is an arbitrary-precision decimal floating-point number.
     </param>
     <param name='ctx'>The parameter
       <paramref name='ctx'/>
@@ -1984,7 +1986,7 @@
     </summary>
     <param name='str'>A string that represents a number.
     </param>
-    <param name='offset'>A zero-based index showing where the desired portion of
+    <param name='offset'>An index starting at 0 showing where the desired portion of
       <paramref name='str'/>
        begins.
     </param>
@@ -2051,7 +2053,7 @@
     </summary>
     <param name='str'>A text string, a portion of which represents a number.
     </param>
-    <param name='offset'>A zero-based index showing where the desired portion of
+    <param name='offset'>An index starting at 0 showing where the desired portion of
       <paramref name='str'/>
        begins.
     </param>
@@ -2538,7 +2540,7 @@
     </param>
     <param name='augend'>The value to add.
     </param>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision decimal floating-point number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)'>
@@ -5293,7 +5295,7 @@
     </param>
     <param name='other'>The parameter
       <paramref name='other'/>
-       is an EDecimal object.
+       is an arbitrary-precision decimal floating-point number.
     </param>
     <returns>An arbitrary-precision number object with the same value as the first
       given number object but with a the same sign (positive or negative) as the
@@ -5853,7 +5855,7 @@
       operand's most significant digits that exceed that precision are
       discarded. This parameter can be null.
     </param>
-    <returns>An EDecimal object.
+    <returns>An arbitrary-precision decimal floating-point number.
     </returns>
   </doc>
   <doc name='T:PeterO.Numbers.EFloat'>
@@ -5991,7 +5993,7 @@
     </summary>
     <param name='intValue'>The parameter
       <paramref name='intValue'/>
-       is not documented yet.
+       is a .Int32 object.
     </param>
     <returns>An arbitrary-precision binary floating-point number.
     </returns>
@@ -6927,7 +6929,7 @@
       <paramref name='str'/>
        is a text string.
     </param>
-    <param name='offset'>A zero-based index showing where the desired portion of
+    <param name='offset'>An index starting at 0 showing where the desired portion of
       <paramref name='str'/>
        begins.
     </param>
@@ -7006,7 +7008,7 @@
       <paramref name='str'/>
        is a text string.
     </param>
-    <param name='offset'>A zero-based index showing where the desired portion of
+    <param name='offset'>An index starting at 0 showing where the desired portion of
       <paramref name='str'/>
        begins.
     </param>
@@ -9649,7 +9651,7 @@
     </param>
     <param name='other'>The parameter
       <paramref name='other'/>
-       is an EDecimal object.
+       is an arbitrary-precision decimal floating-point number.
     </param>
     <returns>An arbitrary-precision number object with the same value as the first
       given number object but with a the same sign (positive or negative) as the
@@ -12124,7 +12126,7 @@
     <summary>Returns the absolute value of this rational number, that is, a number with
       the same value as this one but as a nonnegative number.
     </summary>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>An arbitrary-precision rational number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.Add(PeterO.Numbers.ERational)'>
@@ -12268,7 +12270,7 @@
   <doc name='M:PeterO.Numbers.ERational.Copy'>
     <summary>Creates a copy of this arbitrary-precision rational number.
     </summary>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>An arbitrary-precision rational number.
     </returns>
   </doc>
   <doc name='M:PeterO.Numbers.ERational.CopySign(PeterO.Numbers.ERational)'>
@@ -12291,7 +12293,7 @@
     </param>
     <param name='denominator'>The denominator.
     </param>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>An arbitrary-precision rational number.
     </returns>
     <exception cref='ArgumentException'>The denominator is zero.
     </exception>
@@ -12303,7 +12305,7 @@
     </param>
     <param name='denominatorSmall'>The denominator.
     </param>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>An arbitrary-precision rational number.
     </returns>
     <exception cref='ArgumentException'>The denominator is zero.
     </exception>
@@ -12313,8 +12315,8 @@
     </summary>
     <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
       this object. If none is needed, should be zero. To get the diagnostic
-      information from another arbitrary-precision binary rational number, use
-      that object's
+      information from another arbitrary-precision rational number, use that
+      object's
       <c>UnsignedNumerator</c> property.
     </param>
     <returns>An arbitrary-precision rational number.
@@ -12329,8 +12331,8 @@
     </summary>
     <param name='diag'>An integer, 0 or greater, to use as diagnostic information associated with
       this object. If none is needed, should be zero. To get the diagnostic
-      information from another arbitrary-precision binary rational number, use
-      that object's
+      information from another arbitrary-precision rational number, use that
+      object's
       <c>UnsignedNumerator</c> property.
     </param>
     <param name='signaling'>Whether the return value will be signaling (true) or quiet (false).
@@ -12591,7 +12593,7 @@
     </summary>
     <param name='str'>A text string, a portion of which represents a number.
     </param>
-    <param name='offset'>A zero-based index showing where the desired portion of
+    <param name='offset'>An index starting at 0 showing where the desired portion of
       <paramref name='str'/>
        begins.
     </param>
@@ -12764,7 +12766,7 @@
     <summary>Returns a rational number with the same value as this one but with the
       sign reversed.
     </summary>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>An arbitrary-precision rational number.
     </returns>
   </doc>
   <doc name='F:PeterO.Numbers.ERational.NegativeInfinity'>
@@ -13317,7 +13319,7 @@
     </summary>
     <param name='bthis'>An arbitrary-precision rational number.
     </param>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>An arbitrary-precision rational number.
     </returns>
     <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>
@@ -13731,7 +13733,7 @@
     </summary>
     <param name='bthis'>An arbitrary-precision rational number.
     </param>
-    <returns>An arbitrary-precision binary rational number.
+    <returns>An arbitrary-precision rational number.
     </returns>
     <exception cref='ArgumentNullException'>The parameter
       <paramref name='bthis'/>

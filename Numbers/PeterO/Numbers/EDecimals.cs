@@ -635,7 +635,7 @@ ed.CompareToTotalMagnitude(other, ec));
     /// <param name='ed'>An arbitrary-precision number object with the
     /// value the result will have.</param>
     /// <param name='other'>The parameter <paramref name='other'/> is an
-    /// EDecimal object.</param>
+    /// arbitrary-precision decimal floating-point number.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>
@@ -914,7 +914,8 @@ ed.CompareToTotalMagnitude(other, ec));
     /// specified in this context, the operand's most significant digits
     /// that exceed that precision are discarded. This parameter can be
     /// null.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <returns>An arbitrary-precision decimal floating-point
+    /// number.</returns>
     public static EDecimal Xor(EDecimal ed1, EDecimal ed2, EContext ec) {
       byte[] logi1 = FromLogical(ed1, ec, 10);
       if (logi1 == null) {

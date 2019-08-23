@@ -612,7 +612,7 @@ ed.CompareToTotalMagnitude(other, ec));
     /// <param name='ed'>An arbitrary-precision number object with the
     /// value the result will have.</param>
     /// <param name='other'>The parameter <paramref name='other'/> is an
-    /// EDecimal object.</param>
+    /// arbitrary-precision decimal floating-point number.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>

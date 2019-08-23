@@ -127,7 +127,7 @@ namespace PeterO.Numbers {
     /// <summary>Adds one to an arbitrary-precision rational
     /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
-    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static ERational operator ++(ERational bthis) {
@@ -150,7 +150,7 @@ namespace PeterO.Numbers {
     /// <summary>Subtracts one from an arbitrary-precision rational
     /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
-    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static ERational operator --(ERational bthis) {

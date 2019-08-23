@@ -152,7 +152,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Creates a copy of this arbitrary-precision rational
     /// number.</summary>
-    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public ERational Copy() {
       return new ERational(
         this.unsignedNumerator,
@@ -236,7 +236,7 @@ namespace PeterO.Numbers {
     /// denominator.</summary>
     /// <param name='numeratorSmall'>The numerator.</param>
     /// <param name='denominatorSmall'>The denominator.</param>
-    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentException'>The denominator is
     /// zero.</exception>
     public static ERational Create(
@@ -249,7 +249,7 @@ namespace PeterO.Numbers {
     /// denominator.</summary>
     /// <param name='numerator'>The numerator.</param>
     /// <param name='denominator'>The denominator.</param>
-    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentException'>The denominator is
     /// zero.</exception>
     public static ERational Create(
@@ -263,7 +263,7 @@ namespace PeterO.Numbers {
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
     /// be zero. To get the diagnostic information from another
-    /// arbitrary-precision binary rational number, use that object's
+    /// arbitrary-precision rational number, use that object's
     /// <c>UnsignedNumerator</c> property.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
@@ -277,7 +277,7 @@ namespace PeterO.Numbers {
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
     /// be zero. To get the diagnostic information from another
-    /// arbitrary-precision binary rational number, use that object's
+    /// arbitrary-precision rational number, use that object's
     /// <c>UnsignedNumerator</c> property.</param>
     /// <param name='signaling'>Whether the return value will be signaling
     /// (true) or quiet (false).</param>
@@ -491,13 +491,13 @@ namespace PeterO.Numbers {
     /// digits, all in any combination of upper and lower case.</para>
     /// <para>All characters mentioned above are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
-    /// be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is
-    /// not allowed to contain white space characters, including
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
+    /// allowed to contain white space characters, including
     /// spaces.</para></summary>
     /// <param name='str'>A text string, a portion of which represents a
     /// number.</param>
-    /// <param name='offset'>A zero-based index showing where the desired
-    /// portion of <paramref name='str'/> begins.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
     /// portion of <paramref name='str'/> (but not more than <paramref
     /// name='str'/> 's length).</param>
@@ -925,7 +925,7 @@ namespace PeterO.Numbers {
     /// <summary>Returns the absolute value of this rational number, that
     /// is, a number with the same value as this one but as a nonnegative
     /// number.</summary>
-    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public ERational Abs() {
       if (this.IsNegative) {
         return new ERational(
@@ -1522,7 +1522,7 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
 
     /// <summary>Returns a rational number with the same value as this one
     /// but with the sign reversed.</summary>
-    /// <returns>An arbitrary-precision binary rational number.</returns>
+    /// <returns>An arbitrary-precision rational number.</returns>
     public ERational Negate() {
       return new ERational(
         this.unsignedNumerator,

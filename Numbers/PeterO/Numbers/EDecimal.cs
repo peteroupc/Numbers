@@ -393,7 +393,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Creates a copy of this arbitrary-precision binary
     /// number.</summary>
-    /// <returns>An EDecimal object.</returns>
+    /// <returns>An arbitrary-precision decimal floating-point
+    /// number.</returns>
     public EDecimal Copy() {
       return new EDecimal(
   this.unsignedMantissa.Copy(),
@@ -534,8 +535,9 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
-    /// be zero. To get the diagnostic information from another EDecimal
-    /// object, use that object's <c>UnsignedMantissa</c> property.</param>
+    /// be zero. To get the diagnostic information from another
+    /// arbitrary-precision decimal floating-point number, use that
+    /// object's <c>UnsignedMantissa</c> property.</param>
     /// <returns>A quiet not-a-number.</returns>
     public static EDecimal CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false, null);
@@ -545,8 +547,9 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
-    /// be zero. To get the diagnostic information from another EDecimal
-    /// object, use that object's <c>UnsignedMantissa</c> property.</param>
+    /// be zero. To get the diagnostic information from another
+    /// arbitrary-precision decimal floating-point number, use that
+    /// object's <c>UnsignedMantissa</c> property.</param>
     /// <param name='signaling'>Whether the return value will be signaling
     /// (true) or quiet (false).</param>
     /// <param name='negative'>Whether the return value is
@@ -934,8 +937,8 @@ namespace PeterO.Numbers {
     /// string that represents a number. See <c>FromString(String, int,
     /// int, EContext)</c> for more information.</summary>
     /// <param name='str'>A string that represents a number.</param>
-    /// <param name='offset'>A zero-based index showing where the desired
-    /// portion of <paramref name='str'/> begins.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
     /// portion of <paramref name='str'/> (but not more than <paramref
     /// name='str'/> 's length).</param>
@@ -963,8 +966,8 @@ namespace PeterO.Numbers {
     /// string that represents a number.</para>
     /// <para>The format of the string generally consists of:</para>
     /// <list type=''>
-    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-", U +
-    /// 002D) (if the minus sign, the value is negative.)</item>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+    /// U+002D) (if the minus sign, the value is negative.)</item>
     /// <item>One or more digits, with a single optional decimal point
     /// after the first digit and before the last digit.</item>
     /// <item>Optionally, "E"/"e" followed by an optional (positive
@@ -976,13 +979,13 @@ namespace PeterO.Numbers {
     /// digits, all in any combination of upper and lower case.</para>
     /// <para>All characters mentioned above are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
-    /// be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is
-    /// not allowed to contain white space characters, including
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
+    /// allowed to contain white space characters, including
     /// spaces.</para></summary>
     /// <param name='str'>A text string, a portion of which represents a
     /// number.</param>
-    /// <param name='offset'>A zero-based index showing where the desired
-    /// portion of <paramref name='str'/> begins.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
     /// portion of <paramref name='str'/> (but not more than <paramref
     /// name='str'/> 's length).</param>
@@ -2496,7 +2499,7 @@ namespace PeterO.Numbers {
     /// the preferred exponent set to this value's exponent minus the
     /// divisor's exponent.</summary>
     /// <param name='divisor'>The parameter <paramref name='divisor'/> is
-    /// an EDecimal object.</param>
+    /// an arbitrary-precision decimal floating-point number.</param>
     /// <param name='ctx'>The parameter <paramref name='ctx'/> is an
     /// EContext object.</param>
     /// <returns>The integer part of the quotient of the two objects.
@@ -2954,7 +2957,8 @@ namespace PeterO.Numbers {
     /// decimal number.</summary>
     /// <param name='multiplicand'>The value to multiply.</param>
     /// <param name='augend'>The value to add.</param>
-    /// <returns>An EDecimal object.</returns>
+    /// <returns>An arbitrary-precision decimal floating-point
+    /// number.</returns>
     public EDecimal MultiplyAndAdd(
       EDecimal multiplicand,
       EDecimal augend) {
