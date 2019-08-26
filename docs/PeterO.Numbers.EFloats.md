@@ -247,7 +247,7 @@ Returns an arbitrary-precision number object with the same value as the first gi
  * <i>ed</i>: An arbitrary-precision number object with the value the result will have.
 
  * <i>other</i>: The parameter  <i>other</i>
- is an EDecimal object.
+ is an arbitrary-precision decimal floating-point number.
 
 <b>Return Value:</b>
 

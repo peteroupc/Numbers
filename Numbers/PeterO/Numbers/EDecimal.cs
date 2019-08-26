@@ -270,7 +270,7 @@ namespace PeterO.Numbers {
     /// <summary>A not-a-number value.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal NaN = CreateWithFlags(
       EInteger.Zero,
@@ -280,7 +280,7 @@ namespace PeterO.Numbers {
     /// <summary>Negative infinity, less than any other number.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal NegativeInfinity =
       CreateWithFlags(
@@ -291,7 +291,7 @@ namespace PeterO.Numbers {
     /// <summary>Represents the number negative zero.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal NegativeZero =
       CreateWithFlags(
@@ -302,7 +302,7 @@ namespace PeterO.Numbers {
     /// <summary>Represents the number 1.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal One =
       EDecimal.Create(EInteger.One, EInteger.Zero);
@@ -311,7 +311,7 @@ namespace PeterO.Numbers {
     /// number.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal PositiveInfinity =
       CreateWithFlags(
@@ -324,7 +324,7 @@ namespace PeterO.Numbers {
     /// arbitrary-precision decimal.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal SignalingNaN =
           CreateWithFlags(
@@ -335,16 +335,15 @@ namespace PeterO.Numbers {
     /// <summary>Represents the number 10.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
-
     public static readonly EDecimal Ten =
       EDecimal.Create((EInteger)10, EInteger.Zero);
 
     /// <summary>Represents the number 0.</summary>
 #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
-                "CA2104", Justification = "EDecimal is immutable")]
+    "CA2104", Justification = "EDecimal is immutable")]
 #endif
     public static readonly EDecimal Zero =
       EDecimal.Create(EInteger.Zero, EInteger.Zero);

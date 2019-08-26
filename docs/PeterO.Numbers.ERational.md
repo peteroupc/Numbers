@@ -291,7 +291,7 @@ Returns the absolute value of this rational number, that is, a number with the s
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+An arbitrary-precision rational number.
 
 <a id="Add_PeterO_Numbers_ERational"></a>
 ### Add
@@ -441,7 +441,7 @@ Creates a copy of this arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+An arbitrary-precision rational number.
 
 <a id="CopySign_PeterO_Numbers_ERational"></a>
 ### CopySign
@@ -482,7 +482,7 @@ Creates a rational number with the given numerator and denominator.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
@@ -506,7 +506,7 @@ Creates a rational number with the given numerator and denominator.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
@@ -523,7 +523,7 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary rational number, use that object's  `UnsignedNumerator`  property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision rational number, use that object's  `UnsignedNumerator`  property.
 
 <b>Return Value:</b>
 
@@ -547,7 +547,7 @@ Creates a not-a-number arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary rational number, use that object's  `UnsignedNumerator`  property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision rational number, use that object's  `UnsignedNumerator`  property.
 
  * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
 
@@ -926,13 +926,13 @@ The format of the string generally consists of:
 
 The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is not allowed to contain white space characters, including spaces.
+All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
  * <i>str</i>: A text string, a portion of which represents a number.
 
- * <i>offset</i>: A zero-based index showing where the desired portion of  <i>str</i>
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>str</i>
  begins.
 
  * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
@@ -1135,7 +1135,7 @@ Returns a rational number with the same value as this one but with the sign reve
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+An arbitrary-precision rational number.
 
 <a id="op_Addition"></a>
 ### Operator `+`
@@ -1175,7 +1175,7 @@ Subtracts one from an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 
@@ -1781,7 +1781,7 @@ Adds one to an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary rational number.
+An arbitrary-precision rational number.
 
 <b>Exceptions:</b>
 

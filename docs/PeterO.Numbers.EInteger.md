@@ -704,7 +704,7 @@ Converts a string to an arbitrary-precision integer in a given radix.
 
  * <i>str</i>: A string described by the FromRadixSubstring method.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U + 0030 to U + 0039) and then the basic letters A to Z (U + 0041 to U + 005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
 <b>Return Value:</b>
 
@@ -731,7 +731,7 @@ Converts a portion of a string to an arbitrary-precision integer in a given radi
 
  * <i>str</i>: A text string. The desired portion of the string must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U + 0030 to U + 0039) and then the basic letters A to Z (U + 0041 to U + 005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
  * <i>index</i>: The index of the string that starts the string portion.
 
@@ -779,7 +779,7 @@ Converts a string to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string. The string must contain only basic digits 0 to 9 (U + 0030 to U + 0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The string is not allowed to contain white space characters, including spaces.
+ * <i>str</i>: A text string. The string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The string is not allowed to contain white space characters, including spaces.
 
 <b>Return Value:</b>
 
@@ -807,7 +807,7 @@ Converts a portion of a string to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string. The desired portion of the string must contain only basic digits 0 to 9 (U + 0030 to U + 0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces.
+ * <i>str</i>: A text string. The desired portion of the string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces.
 
  * <i>index</i>: The index of the string that starts the string portion.
 
@@ -2558,7 +2558,7 @@ Generates a string representing the value of this object, in the given radix.
 
 <b>Return Value:</b>
 
-A string representing the value of this object. If this value is 0, returns "0". If negative, the string will begin with a minus sign ("-", U + 002D). Depending on the radix, the string will use the basic digits 0 to 9 (U + 0030 to U + 0039) and then the basic letters A to Z (U + 0041 to U + 005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
+A string representing the value of this object. If this value is 0, returns "0". If negative, the string will begin with a minus sign ("-", U+002D). Depending on the radix, the string will use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
 <a id="ToSByteChecked"></a>
 ### ToSByteChecked
@@ -2596,7 +2596,7 @@ Converts this object to a text string in base 10.
 
 <b>Return Value:</b>
 
-A string representation of this object. If negative, the string will begin with a minus sign ("-", U+002D). The string will use the basic digits 0 to 9 (U + 0030 to U + 0039).
+A string representation of this object. If negative, the string will begin with a minus sign ("-", U+002D). The string will use the basic digits 0 to 9 (U+0030 to U+0039).
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked

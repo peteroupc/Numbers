@@ -773,7 +773,7 @@ Creates a copy of this arbitrary-precision binary number.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+An arbitrary-precision decimal floating-point number.
 
 <a id="CopySign_PeterO_Numbers_EDecimal"></a>
 ### CopySign
@@ -852,7 +852,7 @@ Creates a not-a-number arbitrary-precision decimal number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's  `UnsignedMantissa`  property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision decimal floating-point number, use that object's  `UnsignedMantissa`  property.
 
 <b>Return Value:</b>
 
@@ -871,7 +871,7 @@ Creates a not-a-number arbitrary-precision decimal number.
 
 <b>Parameters:</b>
 
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another EDecimal object, use that object's  `UnsignedMantissa`  property.
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision decimal floating-point number, use that object's  `UnsignedMantissa`  property.
 
  * <i>signaling</i>: Whether the return value will be signaling (true) or quiet (false).
 
@@ -1209,7 +1209,7 @@ Divides this object by another object, and returns the integer part of the resul
 <b>Parameters:</b>
 
  * <i>divisor</i>: The parameter  <i>divisor</i>
- is an EDecimal object.
+ is an arbitrary-precision decimal floating-point number.
 
  * <i>ctx</i>: The parameter  <i>ctx</i>
  is an EContext object.
@@ -1586,7 +1586,7 @@ Creates an arbitrary-precision decimal number from a text string that represents
 
  * <i>str</i>: A string that represents a number.
 
- * <i>offset</i>: A zero-based index showing where the desired portion of  <i>str</i>
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>str</i>
  begins.
 
  * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
@@ -1629,7 +1629,7 @@ Creates an arbitrary-precision decimal number from a text string that represents
 
 The format of the string generally consists of:
 
- * An optional plus sign ("+" , U+002B) or minus sign ("-", U + 002D) (if the minus sign, the value is negative.)
+ * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if the minus sign, the value is negative.)
 
  * One or more digits, with a single optional decimal point after the first digit and before the last digit.
 
@@ -1637,13 +1637,13 @@ The format of the string generally consists of:
 
 The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U + 0030 to U + 0039). The string is not allowed to contain white space characters, including spaces.
+All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
  * <i>str</i>: A text string, a portion of which represents a number.
 
- * <i>offset</i>: A zero-based index showing where the desired portion of  <i>str</i>
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>str</i>
  begins.
 
  * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
@@ -2253,7 +2253,7 @@ Multiplies by one decimal number, and then adds another decimal number.
 
 <b>Return Value:</b>
 
-An EDecimal object.
+An arbitrary-precision decimal floating-point number.
 
 <a id="MultiplyAndAdd_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### MultiplyAndAdd

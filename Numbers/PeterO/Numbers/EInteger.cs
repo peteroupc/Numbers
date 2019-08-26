@@ -8033,7 +8033,7 @@ WordsShiftRightOne(bu, buc);
 #if DEBUG
           if (!(sqroot.Sign >= 0)) {
             throw new ArgumentException("doesn't satisfy sqroot.Sign>= 0");
-          }
+       }
 #endif
         }
         var retarr = new EInteger[2];
