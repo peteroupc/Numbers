@@ -87,6 +87,7 @@ public sealed class ETrapException : ArithmeticException {
     /// object.</param>
     /// <param name='context'>A
     /// System.Runtime.Serialization.StreamingContext object.</param>
+    ///
       protected ETrapException(
         System.Runtime.Serialization.SerializationInfo info,
         System.Runtime.Serialization.StreamingContext context)
