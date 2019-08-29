@@ -118,8 +118,7 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision rational number plus
     /// one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public ERational Increment() {
   return this + (ERational)1;
 }
@@ -128,8 +127,7 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static ERational operator ++(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -141,8 +139,7 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <returns>The given arbitrary-precision rational number minus
     /// one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public ERational Decrement() {
   return this.Subtract(1);
 }
@@ -151,8 +148,7 @@ namespace PeterO.Numbers {
     /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
     public static ERational operator --(ERational bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -217,8 +213,7 @@ namespace PeterO.Numbers {
     /// <param name='bigValue'>An arbitrary-precision rational number to
     /// negate.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static ERational operator -(ERational bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -256,8 +251,7 @@ namespace PeterO.Numbers {
     /// arbitrary-precision rational number.</param>
     /// <returns>A <c>decimal</c> under the Common Language Infrastructure
     /// (usually a.NET Framework decimal).</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='extendedNumber'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='extendedNumber'/> is null.</exception>
     public static explicit operator decimal(
       ERational extendedNumber) {
       if (extendedNumber == null) {
@@ -275,8 +269,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static explicit operator EInteger(ERational bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -293,8 +286,7 @@ namespace PeterO.Numbers {
     /// The return value can be positive infinity or negative infinity if
     /// this value exceeds the range of a 64-bit floating point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static explicit operator double(ERational bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -311,8 +303,7 @@ namespace PeterO.Numbers {
     /// value. The return value can be positive infinity or negative
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bigValue'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
     public static explicit operator float(ERational bigValue) {
       if (bigValue == null) {
         throw new ArgumentNullException(nameof(bigValue));
@@ -329,11 +320,9 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// byte (from 0 to 255).</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 255.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator byte(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -413,11 +402,9 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to an
     /// 8-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -128 or greater than 127.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator sbyte(ERational input) {
       if (input == null) {
@@ -444,11 +431,9 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -32768 or greater than 32767.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator short(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -529,11 +514,9 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 65535.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ushort(ERational input) {
       if (input == null) {
@@ -560,12 +543,10 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -2147483648 or greater than
     /// 2147483647.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator int(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -644,11 +625,9 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than 4294967295.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator uint(ERational input) {
       if (input == null) {
@@ -675,12 +654,10 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     public static explicit operator long(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -760,12 +737,10 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
+    /// <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
     /// integer is less than 0 or greater than
     /// 18446744073709551615.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='input'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
     [CLSCompliant(false)]
     public static explicit operator ulong(ERational input) {
       if (input == null) {
