@@ -264,7 +264,7 @@
             false, this value will be 0. This value is a combination of bit
             fields. To retrieve a particular flag, use the AND operation on the
             return value of this method. For example: <c>(this.Flags
-            &amp;EContext.FlagInexact) !=0</c> returns <c>true</c> if the
+            &amp;EContext.FlagInexact) != 0</c> returns <c>true</c> if the
             Inexact flag is set.</summary>
             <value>The flags that are set from converting numbers according to
             this arithmetic context. If <c>HasFlags</c> is false, this value
@@ -805,7 +805,8 @@
              </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
-            first or least significant first.</para></summary>
+            first or least significant first.</para>
+            </summary>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Abs">
@@ -2611,7 +2612,8 @@
             EInteger.FromInt32(-5), // five digits after the decimal point
             EContext.ForPrecision(25) // 25-digit precision);</code> <para>A fixed-point decimal arithmetic in which no digits come
             after the decimal point (a desired exponent of 0) is considered an
-            "integer arithmetic".</para></summary>
+            "integer arithmetic".</para>
+            </summary>
             <param name='desiredExponent'>The desired exponent for the result.
             The exponent is the number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
@@ -2653,7 +2655,8 @@
             after the decimal point */EContext.ForPrecision(25) /* 25-digit
             precision*/);</code> <para>A fixed-point decimal arithmetic in which no digits come
             after the decimal point (a desired exponent of 0) is considered an
-            "integer arithmetic".</para></summary>
+            "integer arithmetic".</para>
+            </summary>
             <param name='desiredExponentInt'>The desired exponent for the
             result. The exponent is the number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
@@ -7167,7 +7170,8 @@
             EInteger.FromInt32(-5), // five digits after the radix point
             EContext.ForPrecision(25) // 25-digit precision);</code> <para>A fixed-point binary arithmetic in which no digits come after
             the radix point (a desired exponent of 0) is considered an "integer
-            arithmetic".</para></summary>
+            arithmetic".</para>
+            </summary>
             <param name='desiredExponent'>The desired exponent for the result.
             The exponent is the number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
@@ -7206,7 +7210,8 @@
             digits after the radix point number = number.Quantize(-5, // five digits
             after the radix point EContext.ForPrecision(25) // 25-digit precision);</code> <para>A fixed-point binary arithmetic in which no digits come after
             the radix point (a desired exponent of 0) is considered an "integer
-            arithmetic".</para></summary>
+            arithmetic".</para>
+            </summary>
             <param name='desiredExponentInt'>The desired exponent for the
             result. The exponent is the number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
@@ -9348,7 +9353,8 @@
             include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
             logical exclusive-OR operation sets each digit of the result to 1
             if either corresponding digit of the logical operands, but not
-            both, is 1, and to 0 otherwise. For example, <c>01001 XOR 111010=101010</c>.</summary>
+            both, is 1, and to 0 otherwise. For example, <c>01001 XOR 111010 =
+            101010</c>.</summary>
             <param name='ed1'>The first logical operand to the logical
             exclusive-OR operation.</param>
             <param name='ed2'>The second logical operand to the logical
