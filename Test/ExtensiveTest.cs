@@ -417,7 +417,7 @@ namespace Test {
 
       public static BinaryNumber FromFloatWords(int[] words) {
         if (words == null) {
-          throw new ArgumentException("words");
+          throw new ArgumentNullException(nameof(words));
         }
         if (words.Length == 1) {
           var neg = (words[0] >> 31) != 0;

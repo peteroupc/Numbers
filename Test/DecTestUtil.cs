@@ -19,6 +19,42 @@ namespace Test {
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)",
   RegexOptions.Compiled);
 
+    public static string[] SplitAt(string str, string delimiter) {
+      if (delimiter == null) {
+        throw new ArgumentNullException(nameof(delimiter));
+      }
+      if (delimiter.Length == 0) {
+        throw new ArgumentException("delimiter is empty.");
+      }
+      if (String.IsNullOrEmpty(str)) {
+        return new[] { String.Empty };
+      }
+      var index = 0;
+      var first = true;
+      List<string> strings = null;
+      int delimLength = delimiter.Length;
+      while (true) {
+        int index2 = str.IndexOf(delimiter, index, StringComparison.Ordinal);
+        if (index2 < 0) {
+          if (first) {
+            var strret = new string[1];
+            strret[0] = str;
+            return strret;
+          }
+          strings = strings ?? new List<string>();
+          strings.Add(str.Substring(index));
+          break;
+        } else {
+          first = false;
+          string newstr = str.Substring(index, index2 - index);
+          strings = strings ?? new List<string>();
+          strings.Add(newstr);
+          index = index2 + delimLength;
+        }
+      }
+      return (string[])strings.ToArray();
+    }
+
     /// <summary>Returns a string with the basic upper-case letters A to Z
     /// (U+0041 to U+005A) converted to lower-case. Other characters remain
     /// unchanged.</summary>

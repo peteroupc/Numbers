@@ -858,39 +858,46 @@ namespace Test {
       EInteger ei;
       ei = EInteger.FromString("9223372036854775807");
       Assert.IsTrue(ei.CanFitInInt64(), ei.ToString());
-      Assert.AreEqual(
-        63,
-        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+        long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(63, numberTemp);
+}
       ei = EInteger.FromString("9223372036854775808");
       Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
-      Assert.AreEqual(
-        64,
-        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+        long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(64, numberTemp);
+}
       ei = EInteger.FromString("-9223372036854775807");
       Assert.IsTrue(ei.CanFitInInt64(), ei.ToString());
-      Assert.AreEqual(
-        63,
-        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+        long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(63, numberTemp);
+}
       ei = EInteger.FromString("-9223372036854775808");
       Assert.IsTrue(ei.CanFitInInt64(), ei.ToString());
-      Assert.AreEqual(
-        63,
-        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+        long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(63, numberTemp);
+}
       ei = EInteger.FromString("-9223372036854775809");
       Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
-      Assert.AreEqual(
-        64,
-        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+        long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(64, numberTemp);
+}
       ei = EInteger.FromString("-9223373136366403584");
       Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
-      Assert.AreEqual(
-        64,
-        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+        long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(64, numberTemp);
+}
       ei = EInteger.FromString("9223373136366403584");
       Assert.IsFalse(ei.CanFitInInt64(), ei.ToString());
-      Assert.AreEqual(
-        64,
-        ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+      {
+        long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+        Assert.AreEqual(64, numberTemp);
+}
       var strings = new string[] {
         "8000FFFFFFFF0000",
         "8000AAAAAAAA0000",
@@ -908,14 +915,16 @@ namespace Test {
       foreach (string str in strings) {
         ei = EInteger.FromRadixString(str, 16);
         Assert.IsFalse(ei.CanFitInInt64());
-        Assert.AreEqual(
-         64,
-         ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+        {
+          long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+          Assert.AreEqual(64, numberTemp);
+}
         ei = ei.Negate();
         Assert.IsFalse(ei.CanFitInInt64());
-        Assert.AreEqual(
-         64,
-         ei.GetSignedBitLengthAsEInteger().ToInt32Checked());
+        {
+          long numberTemp = ei.GetSignedBitLengthAsEInteger().ToInt32Checked();
+          Assert.AreEqual(64, numberTemp);
+}
       }
     }
 
@@ -1844,10 +1853,9 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
     public void TestGetDigitCount() {
       var r = new RandomGenerator();
       {
-        object objectTemp = 39;
-        object objectTemp2 = EInteger.FromString(
+        int integerTemp2 = EInteger.FromString(
           "101754295360222878437145684059582837272").GetDigitCount();
-        Assert.AreEqual(objectTemp, objectTemp2);
+        Assert.AreEqual(39, integerTemp2);
       }
       for (var i = 0; i < 1000; ++i) {
         EInteger bigintA = RandomBigInteger(r);
@@ -1925,14 +1933,22 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
           EInteger.FromInt64(valueBitLengths[i]).GetSignedBitLength(),
           TestCommon.LongToString(valueBitLengths[i]));
       }
-      Assert.AreEqual(31,
-  EInteger.FromInt64(-2147483647L).GetSignedBitLength());
-      Assert.AreEqual(31,
-  EInteger.FromInt64(-2147483648L).GetSignedBitLength());
-      Assert.AreEqual(32,
-  EInteger.FromInt64(-2147483649L).GetSignedBitLength());
-      Assert.AreEqual(32,
-  EInteger.FromInt64(-2147483650L).GetSignedBitLength());
+      {
+        long numberTemp = EInteger.FromInt64(-2147483647L).GetSignedBitLength();
+        Assert.AreEqual(31, numberTemp);
+}
+      {
+        long numberTemp = EInteger.FromInt64(-2147483648L).GetSignedBitLength();
+        Assert.AreEqual(31, numberTemp);
+}
+      {
+        long numberTemp = EInteger.FromInt64(-2147483649L).GetSignedBitLength();
+        Assert.AreEqual(32, numberTemp);
+}
+      {
+        long numberTemp = EInteger.FromInt64(-2147483650L).GetSignedBitLength();
+        Assert.AreEqual(32, numberTemp);
+}
       Assert.AreEqual(31, EInteger.FromInt64(2147483647L).GetSignedBitLength());
       Assert.AreEqual(32, EInteger.FromInt64(2147483648L).GetSignedBitLength());
       Assert.AreEqual(32, EInteger.FromInt64(2147483649L).GetSignedBitLength());
@@ -1941,20 +1957,30 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
       Assert.AreEqual(1, EInteger.FromInt64(1).GetSignedBitLength());
       Assert.AreEqual(2, EInteger.FromInt64(2).GetSignedBitLength());
       Assert.AreEqual(2, EInteger.FromInt64(2).GetSignedBitLength());
-      Assert.AreEqual(31,
-  EInteger.FromInt64(Int32.MaxValue).GetSignedBitLength());
-      Assert.AreEqual(31,
-  EInteger.FromInt64(Int32.MinValue).GetSignedBitLength());
+      {
+        long numberTemp =
+EInteger.FromInt64(Int32.MaxValue).GetSignedBitLength();
+Assert.AreEqual(31, numberTemp);
+}
+      {
+        long numberTemp =
+EInteger.FromInt64(Int32.MinValue).GetSignedBitLength();
+Assert.AreEqual(31, numberTemp);
+}
       Assert.AreEqual(16, EInteger.FromInt64(65535).GetSignedBitLength());
       Assert.AreEqual(16, EInteger.FromInt64(-65535).GetSignedBitLength());
       Assert.AreEqual(17, EInteger.FromInt64(65536).GetSignedBitLength());
       Assert.AreEqual(16, EInteger.FromInt64(-65536).GetSignedBitLength());
-      Assert.AreEqual(
-        65,
-        EInteger.FromString("19084941898444092059").GetSignedBitLength());
-      Assert.AreEqual(
-        65,
-        EInteger.FromString("-19084941898444092059").GetSignedBitLength());
+      {
+        long numberTemp =
+EInteger.FromString("19084941898444092059").GetSignedBitLength();
+Assert.AreEqual(65, numberTemp);
+}
+      {
+        long numberTemp =
+EInteger.FromString("-19084941898444092059").GetSignedBitLength();
+Assert.AreEqual(65, numberTemp);
+}
       Assert.AreEqual(0, EInteger.FromInt64(-1).GetSignedBitLength());
       Assert.AreEqual(1, EInteger.FromInt64(-2).GetSignedBitLength());
     }
@@ -1975,52 +2001,44 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
         }
       }
       {
-        object objectTemp = 31;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     -2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(31, integerTemp2);
 }
       {
-        object objectTemp = 31;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     -2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(31, integerTemp2);
 }
       {
-        object objectTemp = 32;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     -2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(32, integerTemp2);
 }
       {
-        object objectTemp = 32;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     -2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(32, integerTemp2);
 }
       {
-        object objectTemp = 31;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     2147483647L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(31, integerTemp2);
 }
       {
-        object objectTemp = 32;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     2147483648L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(32, integerTemp2);
 }
       {
-        object objectTemp = 32;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     2147483649L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(32, integerTemp2);
 }
       {
-        object objectTemp = 32;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     2147483650L).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(32, integerTemp2);
 }
       {
         long numberTemp =
@@ -2043,40 +2061,44 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
         Assert.AreEqual(2, numberTemp);
       }
       {
-        object objectTemp = 31;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     Int32.MaxValue).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(31, integerTemp2);
 }
       {
-        object objectTemp = 31;
-        object objectTemp2 = EInteger.FromInt64(
+        int integerTemp2 = EInteger.FromInt64(
     Int32.MinValue).GetSignedBitLengthAsEInteger().ToInt32Checked();
-    Assert.AreEqual(objectTemp, objectTemp2);
+    Assert.AreEqual(31, integerTemp2);
 }
-      Assert.AreEqual(
-  16,
-  EInteger.FromInt64(65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(
-  16,
-  EInteger.FromInt64(-65535).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(
-  17,
-  EInteger.FromInt64(65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
-      Assert.AreEqual(
-  16,
-  EInteger.FromInt64(-65536).GetSignedBitLengthAsEInteger().ToInt32Checked());
       {
-        object objectTemp = 65;
-        object objectTemp2 = EInteger.FromString("19084941898444092059")
+        long numberTemp =
+EInteger.FromInt64(65535).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(16, numberTemp);
+}
+      {
+        long numberTemp =
+EInteger.FromInt64(-65535).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(16, numberTemp);
+}
+      {
+        long numberTemp =
+EInteger.FromInt64(65536).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(17, numberTemp);
+}
+      {
+        long numberTemp =
+EInteger.FromInt64(-65536).GetSignedBitLengthAsEInteger().ToInt32Checked();
+Assert.AreEqual(16, numberTemp);
+}
+      {
+        int integerTemp2 = EInteger.FromString("19084941898444092059")
         .GetSignedBitLengthAsEInteger().ToInt32Checked();
-        Assert.AreEqual(objectTemp, objectTemp2);
+        Assert.AreEqual(65, integerTemp2);
       }
       {
-        object objectTemp = 65;
-        object objectTemp2 = EInteger.FromString("-19084941898444092059")
+        int integerTemp2 = EInteger.FromString("-19084941898444092059")
         .GetSignedBitLengthAsEInteger().ToInt32Checked();
-        Assert.AreEqual(objectTemp, objectTemp2);
+        Assert.AreEqual(65, integerTemp2);
       }
       {
         long numberTemp =
@@ -3034,28 +3056,21 @@ EInteger.FromString("244").Gcd(EInteger.One).ToString();
     public static void TestMultiplyDivideOne(
       EInteger bigintA,
       EInteger bigintB) {
-      if (bigintB == null) {
-        if (bigintB == null) {
-          Assert.Fail();
+        if (bigintA == null) {
+          throw new ArgumentNullException(nameof(bigintA));
         }
-      }
+        if (bigintB == null) {
+          throw new ArgumentNullException(nameof(bigintB));
+        }
       // Test that A*B/A = B and A*B/B = A
       try {
         EInteger bigintRem;
         EInteger bigintE;
         EInteger bigintD;
-        if (bigintA == null) {
-          throw new ArgumentNullException(nameof(bigintA));
-        }
         EInteger bigintC = bigintA.Multiply(bigintB);
-        {
-          object objectTemp = bigintC;
-object objectTemp2 = if (bigintB == null) {
-              throw new ArgumentNullException(nameof(bigintB));
-            }
-            bigintB.Multiply(bigintA);
-TestCommon.CompareTestEqualAndConsistent(objectTemp, objectTemp2);
-}
+        TestCommon.CompareTestEqualAndConsistent(
+   bigintC,
+   bigintB.Multiply(bigintA));
         if (!bigintB.IsZero) {
           {
             EInteger[] divrem = bigintC.DivRem(bigintB);
@@ -3173,9 +3188,6 @@ TestCommon.CompareTestEqualAndConsistent(objectTemp, objectTemp2);
         }
       } catch (Exception ex) {
     string testLine = "TestMultiplyDivideOne (\nEInteger.FromRadixString (\"" +
-           if (bigintA == null) {
-             throw new ArgumentNullException(nameof(bigintA));
-           }
            bigintA.ToRadixString(16) + "\",16),\nEInteger.FromRadixString(\"" +
                     bigintB.ToRadixString(16) + "\",16));";
                     Console.WriteLine(testLine);
