@@ -2001,7 +2001,7 @@ namespace PeterO.Numbers {
     /// or greater than any object.</para>.</returns>
     public int CompareToTotalMagnitude(EDecimal other, EContext ctx) {
       if (other == null) {
-        return -1;
+        return 1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
         return this.CompareToTotalMagnitude(other);

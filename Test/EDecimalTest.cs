@@ -945,43 +945,84 @@ namespace Test {
 
 [Test]
 public void TestCompareToNull() {
- Assert.Greater(0, EInteger.Zero.CompareTo(null));
+ Assert.Less(0, EInteger.Zero.CompareTo(null));
 
- Assert.Greater(0, EDecimal.Zero.CompareTo(null));
- Assert.Greater(0, EDecimal.Zero.CompareToBinary(null));
- Assert.Greater(0, EDecimal.Zero.CompareToSignal(null));
- Assert.Greater(0, EDecimal.Zero.CompareToTotal(null));
- Assert.Greater(0, EDecimal.Zero.CompareToTotalMagnitude(null));
- Assert.Greater(0, EDecimal.Zero.CompareToTotal(null, null));
- Assert.Greater(0, EDecimal.Zero.CompareToTotalMagnitude(null, null));
- Assert.Greater(0, EDecimal.Zero.CompareToWithContext(null, null));
+ Assert.Less(0, EDecimal.Zero.CompareTo(null));
+ Assert.Less(0, EDecimal.Zero.CompareToBinary(null));
+ Assert.Less(0, EDecimal.Zero.CompareToTotal(null, EContext.Unlimited));
+ Assert.Less(0, EDecimal.Zero.CompareToTotalMagnitude(null,
+  EContext.Unlimited));
+ Assert.Less(0, EDecimal.Zero.CompareToTotal(null, null));
+ Assert.Less(0, EDecimal.Zero.CompareToTotalMagnitude(null, null));
+ TestCommon.CompareTestGreater(
+    EDecimal.Zero.CompareToSignal(null, EContext.Unlimited),
+    EDecimal.Zero);
+ TestCommon.CompareTestGreater(
+    EDecimal.Zero.CompareToWithContext(null, null),
+    EDecimal.Zero);
 
- Assert.Greater(0, EFloat.Zero.CompareTo(null));
- Assert.Greater(0, EFloat.Zero.CompareToSignal(null));
- Assert.Greater(0, EFloat.Zero.CompareToTotal(null));
- Assert.Greater(0, EFloat.Zero.CompareToTotalMagnitude(null));
- Assert.Greater(0, EFloat.Zero.CompareToTotal(null, null));
- Assert.Greater(0, EFloat.Zero.CompareToTotalMagnitude(null, null));
- Assert.Greater(0, EFloat.Zero.CompareToWithContext(null, null));
+ Assert.Less(0, EFloat.Zero.CompareTo(null));
+ Assert.Less(0, EFloat.Zero.CompareToTotal(null, EContext.Unlimited));
+ Assert.Less(0, EFloat.Zero.CompareToTotalMagnitude(null, EContext.Unlimited));
+ Assert.Less(0, EFloat.Zero.CompareToTotal(null, null));
+ Assert.Less(0, EFloat.Zero.CompareToTotalMagnitude(null, null));
+ TestCommon.CompareTestGreater(
+    EFloat.Zero.CompareToSignal(null, EContext.Unlimited),
+    EFloat.Zero);
+ TestCommon.CompareTestGreater(
+    EFloat.Zero.CompareToWithContext(null, null),
+    EFloat.Zero);
 
- Assert.Greater(0, ERational.Zero.CompareTo(null));
- Assert.Greater(0, ERational.Zero.CompareToTotal(null));
- Assert.Greater(0, ERational.Zero.CompareToTotalMagnitude(null));
- Assert.Greater(0, ERational.Zero.CompareToBinary(null));
- Assert.Greater(0, ERational.Zero.CompareToDecimal(null));
+ Assert.Less(0, ERational.Zero.CompareTo(null));
+ Assert.Less(0, ERational.Zero.CompareToTotal(null));
+ Assert.Less(0, ERational.Zero.CompareToTotalMagnitude(null));
+ Assert.Less(0, ERational.Zero.CompareToBinary(null));
+ Assert.Less(0, ERational.Zero.CompareToDecimal(null));
 
- Assert.Greater(0, EDecimals.CompareTotal(EDecimal.Zero, null));
- Assert.Greater(0, EDecimals.CompareTotalMagnitude(EDecimal.Zero, null));
- Assert.Less(0, EDecimals.CompareTotal(null, EDecimal.Zero));
- Assert.Less(0, EDecimals.CompareTotalMagnitude(null, EDecimal.Zero));
- Assert.AreEqual(0, EDecimals.CompareTotal(null, null));
- Assert.AreEqual(0, EDecimals.CompareTotalMagnitude(null, null));
- Assert.Greater(0, EFloats.CompareTotal(EFloat.Zero, null));
- Assert.Greater(0, EFloats.CompareTotalMagnitude(EFloat.Zero, null));
- Assert.Less(0, EFloats.CompareTotal(null, EFloat.Zero));
- Assert.Less(0, EFloats.CompareTotalMagnitude(null, EFloat.Zero));
- Assert.AreEqual(0, EFloats.CompareTotal(null, null));
- Assert.AreEqual(0, EFloats.CompareTotalMagnitude(null, null));
+ {
+   object objectTemp = 0;
+object objectTemp2 = EDecimals.CompareTotal(EDecimal.Zero, null,
+  EContext.Unlimited);
+Assert.Less(objectTemp, objectTemp2);
+}
+ {
+   object objectTemp = 0;
+object objectTemp2 = EDecimals.CompareTotalMagnitude(EDecimal.Zero, null,
+  EContext.Unlimited);
+Assert.Less(objectTemp, objectTemp2);
+}
+ {
+   object objectTemp = 0;
+object objectTemp2 = EDecimals.CompareTotal(null, EDecimal.Zero,
+  EContext.Unlimited);
+Assert.Greater(objectTemp, objectTemp2);
+}
+ {
+   object objectTemp = 0;
+object objectTemp2 = EDecimals.CompareTotalMagnitude(null, EDecimal.Zero,
+  EContext.Unlimited);
+Assert.Greater(objectTemp, objectTemp2);
+}
+ Assert.AreEqual(0, EDecimals.CompareTotal(null, null, EContext.Unlimited));
+ {
+   object objectTemp = 0;
+object objectTemp2 = EDecimals.CompareTotalMagnitude(null, null,
+  EContext.Unlimited);
+Assert.AreEqual(objectTemp, objectTemp2);
+}
+ Assert.Less(0, EFloats.CompareTotal(EFloat.Zero, null, EContext.Unlimited));
+ Assert.Less(0, EFloats.CompareTotalMagnitude(EFloat.Zero, null,
+  EContext.Unlimited));
+ Assert.Greater(0, EFloats.CompareTotal(null, EFloat.Zero, EContext.Unlimited));
+ Assert.Greater(0, EFloats.CompareTotalMagnitude(null, EFloat.Zero,
+  EContext.Unlimited));
+ Assert.AreEqual(0, EFloats.CompareTotal(null, null, EContext.Unlimited));
+ {
+   object objectTemp = 0;
+object objectTemp2 = EFloats.CompareTotalMagnitude(null, null,
+  EContext.Unlimited);
+Assert.AreEqual(objectTemp, objectTemp2);
+}
 }
 
     [Test]
@@ -2360,10 +2401,10 @@ public void TestCompareToNull() {
     }
     [Test]
     public void TestIsPositiveInfinity() {
-      Assert.IsTrue(EDecimal.PositiveInfinity.IsInfinity());
-      Assert.IsFalse(EDecimal.NegativeInfinity.IsInfinity());
-      Assert.IsFalse(EDecimal.Zero.IsInfinity());
-      Assert.IsFalse(EDecimal.NaN.IsInfinity());
+      Assert.IsTrue(EDecimal.PositiveInfinity.IsPositiveInfinity());
+      Assert.IsFalse(EDecimal.NegativeInfinity.IsPositiveInfinity());
+      Assert.IsFalse(EDecimal.Zero.IsPositiveInfinity());
+      Assert.IsFalse(EDecimal.NaN.IsPositiveInfinity());
     }
     [Test]
     public void TestIsQuietNaN() {

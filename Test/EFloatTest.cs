@@ -1882,6 +1882,68 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
+    [Test]
+    public void TestInfinities() {
+      Assert.AreEqual(
+        EDecimal.PositiveInfinity,
+        EDecimal.FromSingle(Single.PositiveInfinity));
+      Assert.AreEqual(
+        EDecimal.NegativeInfinity,
+        EDecimal.FromSingle(Single.NegativeInfinity));
+
+      Assert.AreEqual(
+        EFloat.PositiveInfinity,
+        EFloat.FromDouble(Double.PositiveInfinity));
+      Assert.AreEqual(
+        EFloat.NegativeInfinity,
+        EFloat.FromDouble(Double.NegativeInfinity));
+      Assert.AreEqual(
+        EFloat.PositiveInfinity,
+        EFloat.FromSingle(Single.PositiveInfinity));
+      Assert.AreEqual(
+        EFloat.NegativeInfinity,
+        EFloat.FromSingle(Single.NegativeInfinity));
+
+      Assert.AreEqual(
+        ERational.PositiveInfinity,
+        ERational.FromDouble(Double.PositiveInfinity));
+      Assert.AreEqual(
+        ERational.NegativeInfinity,
+        ERational.FromDouble(Double.NegativeInfinity));
+      Assert.AreEqual(
+        ERational.PositiveInfinity,
+        ERational.FromSingle(Single.PositiveInfinity));
+      Assert.AreEqual(
+        ERational.NegativeInfinity,
+        ERational.FromSingle(Single.NegativeInfinity));
+
+      Assert.AreEqual(
+        ERational.PositiveInfinity,
+        ERational.FromEDecimal(EDecimal.PositiveInfinity));
+      Assert.AreEqual(
+        ERational.NegativeInfinity,
+        ERational.FromEDecimal(EDecimal.NegativeInfinity));
+      Assert.AreEqual(
+        ERational.PositiveInfinity,
+        ERational.FromEFloat(EFloat.PositiveInfinity));
+      Assert.AreEqual(
+        ERational.NegativeInfinity,
+        ERational.FromEFloat(EFloat.NegativeInfinity));
+      Assert.IsTrue(
+        Double.IsPositiveInfinity(
+          ERational.PositiveInfinity.ToDouble()));
+      Assert.IsTrue(
+        Double.IsNegativeInfinity(
+          ERational.NegativeInfinity.ToDouble()));
+      Assert.IsTrue(
+    Single.IsPositiveInfinity(
+      ERational.PositiveInfinity.ToSingle()));
+      Assert.IsTrue(
+    Single.IsNegativeInfinity(
+      ERational.NegativeInfinity.ToSingle()));
+    }
+
     [Test]
     public void TestToEngineeringString() {
       // not implemented yet
@@ -1903,7 +1965,10 @@ namespace Test {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EFloat dec = RandomObjects.RandomEFloat(fr);
-        ExtraTest.TestStringEqualRoundTrip(dec);
+        if (dec.IsFinite) {
+          EDecimal ed = EDecimal.FromString(dec.ToString());
+          Assert.AreEqual(0, ed.CompareToBinary(dec));
+        }
       }
     }
     [Test]
