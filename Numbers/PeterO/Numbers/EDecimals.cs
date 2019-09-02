@@ -148,9 +148,9 @@ namespace PeterO.Numbers {
       "NaN", "sNaN",
     };
 
-    /// <summary>Converts a number class identifier (ranging from 1 to 9)
-    /// to a text string. An arbitrary-precision number object can belong
-    /// in one of ten number classes.</summary>
+    /// <summary>Converts a number class identifier (ranging from 0 through
+    /// 9) to a text string. An arbitrary-precision number object can
+    /// belong in one of ten number classes.</summary>
     /// <param name='nc'>An integer identifying a number class.</param>
     /// <returns>A text string identifying the given number class as
     /// follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =

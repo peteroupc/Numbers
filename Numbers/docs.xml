@@ -5195,9 +5195,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.NumberClassString(System.Int32)">
 
-            <summary>Converts a number class identifier (ranging from 1 to 9)
-            to a text string. An arbitrary-precision number object can belong
-            in one of ten number classes.</summary>
+            <summary>Converts a number class identifier (ranging from 0 through
+            9) to a text string. An arbitrary-precision number object can
+            belong in one of ten number classes.</summary>
             <param name='nc'>An integer identifying a number class.</param>
             <returns>A text string identifying the given number class as
             follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
@@ -5542,7 +5542,7 @@
 
             <summary>Not documented yet.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
-            a.Int32 object.</param>
+            a 32-bit signed integer.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
@@ -9154,9 +9154,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.NumberClassString(System.Int32)">
 
-            <summary>Converts a number class identifier (ranging from 1 to 9)
-            to a text string. An arbitrary-precision number object can belong
-            in one of ten number classes.</summary>
+            <summary>Converts a number class identifier (ranging from 0 through
+            9) to a text string. An arbitrary-precision number object can
+            belong in one of ten number classes.</summary>
             <param name='nc'>An integer identifying a number class.</param>
             <returns>A text string identifying the given number class as
             follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =

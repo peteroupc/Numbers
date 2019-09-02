@@ -452,7 +452,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
          eint,
          EInteger.FromByte(enumber.ToByteIfExact()));
-       } else {
+          } else {
             try {
               enumber.ToByteIfExact();
               Assert.Fail("Should have failed");
@@ -535,7 +535,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt16(enumber.ToInt16IfExact()));
-         } else {
+          } else {
             try {
               enumber.ToInt16IfExact();
               Assert.Fail("Should have failed");
@@ -618,7 +618,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt32(enumber.ToInt32IfExact()));
-         } else {
+          } else {
             try {
               enumber.ToInt32IfExact();
               Assert.Fail("Should have failed");
@@ -702,7 +702,7 @@ namespace Test {
             TestCommon.AssertEqualsHashCode(
            eint,
            EInteger.FromInt64(enumber.ToInt64IfExact()));
-         } else {
+          } else {
             try {
               enumber.ToInt64IfExact();
               Assert.Fail("Should have failed");
@@ -943,118 +943,118 @@ namespace Test {
       AssertDecimalsEquivalent("5.912E+7", "59.12E6");
     }
 
-[Test]
-public void TestCompareToNull() {
- TestCommon.CompareTestLess(0, EInteger.Zero.CompareTo(null));
+    [Test]
+    public void TestCompareToNull() {
+      TestCommon.CompareTestLess(0, EInteger.Zero.CompareTo(null));
 
- TestCommon.CompareTestLess(0, EDecimal.Zero.CompareTo(null));
- TestCommon.CompareTestLess(0, EDecimal.Zero.CompareToBinary(null));
- {
-   int integerTemp2 = EDecimal.Zero.CompareToTotal(null,
-  EContext.Unlimited);
-  TestCommon.CompareTestLess(0, integerTemp2);
-}
- {
-   int integerTemp2 = EDecimal.Zero.CompareToTotalMagnitude(null,
-  EContext.Unlimited);
-  TestCommon.CompareTestLess(0, integerTemp2);
-}
- TestCommon.CompareTestLess(0, EDecimal.Zero.CompareToTotal(null, null));
- {
-   int integerTemp2 = EDecimal.Zero.CompareToTotalMagnitude(null,
-  null);
-  TestCommon.CompareTestLess(0, integerTemp2);
-}
- TestCommon.CompareTestGreater(
-    EDecimal.Zero.CompareToSignal(null, EContext.Unlimited),
-    EDecimal.Zero);
- TestCommon.CompareTestGreater(
-    EDecimal.Zero.CompareToWithContext(null, null),
-    EDecimal.Zero);
+      TestCommon.CompareTestLess(0, EDecimal.Zero.CompareTo(null));
+      TestCommon.CompareTestLess(0, EDecimal.Zero.CompareToBinary(null));
+      {
+        int integerTemp2 = EDecimal.Zero.CompareToTotal(null,
+       EContext.Unlimited);
+        TestCommon.CompareTestLess(0, integerTemp2);
+      }
+      {
+        int integerTemp2 = EDecimal.Zero.CompareToTotalMagnitude(null,
+       EContext.Unlimited);
+        TestCommon.CompareTestLess(0, integerTemp2);
+      }
+      TestCommon.CompareTestLess(0, EDecimal.Zero.CompareToTotal(null, null));
+      {
+        int integerTemp2 = EDecimal.Zero.CompareToTotalMagnitude(null,
+       null);
+        TestCommon.CompareTestLess(0, integerTemp2);
+      }
+      TestCommon.CompareTestGreater(
+         EDecimal.Zero.CompareToSignal(null, EContext.Unlimited),
+         EDecimal.Zero);
+      TestCommon.CompareTestGreater(
+         EDecimal.Zero.CompareToWithContext(null, null),
+         EDecimal.Zero);
 
- TestCommon.CompareTestLess(0, EFloat.Zero.CompareTo(null));
- {
-   int integerTemp2 = EFloat.Zero.CompareToTotal(null,
-  EContext.Unlimited);
-  TestCommon.CompareTestLess(0, integerTemp2);
-}
- {
-   int integerTemp2 = EFloat.Zero.CompareToTotalMagnitude(null,
-  EContext.Unlimited);
-  TestCommon.CompareTestLess(0, integerTemp2);
-}
- TestCommon.CompareTestLess(0, EFloat.Zero.CompareToTotal(null, null));
- TestCommon.CompareTestLess(0, EFloat.Zero.CompareToTotalMagnitude(null, null));
- TestCommon.CompareTestGreater(
-    EFloat.Zero.CompareToSignal(null, EContext.Unlimited),
-    EFloat.Zero);
- TestCommon.CompareTestGreater(
-    EFloat.Zero.CompareToWithContext(null, null),
-    EFloat.Zero);
+      TestCommon.CompareTestLess(0, EFloat.Zero.CompareTo(null));
+      {
+        int integerTemp2 = EFloat.Zero.CompareToTotal(null,
+       EContext.Unlimited);
+        TestCommon.CompareTestLess(0, integerTemp2);
+      }
+      {
+        int integerTemp2 = EFloat.Zero.CompareToTotalMagnitude(null,
+       EContext.Unlimited);
+        TestCommon.CompareTestLess(0, integerTemp2);
+      }
+      TestCommon.CompareTestLess(0, EFloat.Zero.CompareToTotal(null, null));
+      TestCommon.CompareTestLess(0, EFloat.Zero.CompareToTotalMagnitude(null, null));
+      TestCommon.CompareTestGreater(
+         EFloat.Zero.CompareToSignal(null, EContext.Unlimited),
+         EFloat.Zero);
+      TestCommon.CompareTestGreater(
+         EFloat.Zero.CompareToWithContext(null, null),
+         EFloat.Zero);
 
- TestCommon.CompareTestLess(0, ERational.Zero.CompareTo(null));
- TestCommon.CompareTestLess(0, ERational.Zero.CompareToTotal(null));
- TestCommon.CompareTestLess(0, ERational.Zero.CompareToTotalMagnitude(null));
- TestCommon.CompareTestLess(0, ERational.Zero.CompareToBinary(null));
- TestCommon.CompareTestLess(0, ERational.Zero.CompareToDecimal(null));
- {
-   int objectTemp2 = EDecimals.CompareTotal(EDecimal.Zero, null,
-  EContext.Unlimited);
-  TestCommon.CompareTestLess(0, objectTemp2);
-  }
- {
-   int objectTemp2 = EDecimals.CompareTotalMagnitude(EDecimal.Zero, null,
-  EContext.Unlimited);
-  TestCommon.CompareTestLess(0, objectTemp2);
-}
-{
-  int objectTemp2 = EDecimals.CompareTotal(null, EDecimal.Zero,
-  EContext.Unlimited);
-  TestCommon.CompareTestGreater(0, objectTemp2);
-}
- {
- int objectTemp2 = EDecimals.CompareTotalMagnitude(null, EDecimal.Zero,
-  EContext.Unlimited);
-  TestCommon.CompareTestGreater(0, objectTemp2);
-}
- Assert.AreEqual(0, EDecimals.CompareTotal(null, null, EContext.Unlimited));
- {
- int objectTemp2 = EDecimals.CompareTotalMagnitude(null, null,
-  EContext.Unlimited);
-  Assert.AreEqual(0, objectTemp2);
-}
- {
-   int integerTemp2 = EFloats.CompareTotal(EFloat.Zero, null,
-  EContext.Unlimited);
-  TestCommon.CompareTestLess(0, integerTemp2);
-}
- {
-   int integerTemp2 = EFloats.CompareTotalMagnitude(EFloat.Zero, null,
- EContext.Unlimited);
- TestCommon.CompareTestLess(0, integerTemp2);
-}
- {
-   int integerTemp2 = EFloats.CompareTotal(null, EFloat.Zero,
-  EContext.Unlimited);
-  TestCommon.CompareTestGreater(0, integerTemp2);
-}
- {
-   int integerTemp2 = EFloats.CompareTotalMagnitude(null,
-  EFloat.Zero,
-  EContext.Unlimited);
-  TestCommon.CompareTestGreater(0, integerTemp2);
-}
- Assert.AreEqual(0, EFloats.CompareTotal(null, null, EContext.Unlimited));
- {
-   int objectTemp2 = EFloats.CompareTotalMagnitude(null, null,
-  EContext.Unlimited);
-  Assert.AreEqual(0, objectTemp2);
-}
-}
+      TestCommon.CompareTestLess(0, ERational.Zero.CompareTo(null));
+      TestCommon.CompareTestLess(0, ERational.Zero.CompareToTotal(null));
+      TestCommon.CompareTestLess(0, ERational.Zero.CompareToTotalMagnitude(null));
+      TestCommon.CompareTestLess(0, ERational.Zero.CompareToBinary(null));
+      TestCommon.CompareTestLess(0, ERational.Zero.CompareToDecimal(null));
+      {
+        int objectTemp2 = EDecimals.CompareTotal(EDecimal.Zero, null,
+       EContext.Unlimited);
+        TestCommon.CompareTestLess(0, objectTemp2);
+      }
+      {
+        int objectTemp2 = EDecimals.CompareTotalMagnitude(EDecimal.Zero, null,
+       EContext.Unlimited);
+        TestCommon.CompareTestLess(0, objectTemp2);
+      }
+      {
+        int objectTemp2 = EDecimals.CompareTotal(null, EDecimal.Zero,
+        EContext.Unlimited);
+        TestCommon.CompareTestGreater(0, objectTemp2);
+      }
+      {
+        int objectTemp2 = EDecimals.CompareTotalMagnitude(null, EDecimal.Zero,
+         EContext.Unlimited);
+        TestCommon.CompareTestGreater(0, objectTemp2);
+      }
+      Assert.AreEqual(0, EDecimals.CompareTotal(null, null, EContext.Unlimited));
+      {
+        int objectTemp2 = EDecimals.CompareTotalMagnitude(null, null,
+         EContext.Unlimited);
+        Assert.AreEqual(0, objectTemp2);
+      }
+      {
+        int integerTemp2 = EFloats.CompareTotal(EFloat.Zero, null,
+       EContext.Unlimited);
+        TestCommon.CompareTestLess(0, integerTemp2);
+      }
+      {
+        int integerTemp2 = EFloats.CompareTotalMagnitude(EFloat.Zero, null,
+      EContext.Unlimited);
+        TestCommon.CompareTestLess(0, integerTemp2);
+      }
+      {
+        int integerTemp2 = EFloats.CompareTotal(null, EFloat.Zero,
+       EContext.Unlimited);
+        TestCommon.CompareTestGreater(0, integerTemp2);
+      }
+      {
+        int integerTemp2 = EFloats.CompareTotalMagnitude(null,
+       EFloat.Zero,
+       EContext.Unlimited);
+        TestCommon.CompareTestGreater(0, integerTemp2);
+      }
+      Assert.AreEqual(0, EFloats.CompareTotal(null, null, EContext.Unlimited));
+      {
+        int objectTemp2 = EFloats.CompareTotalMagnitude(null, null,
+       EContext.Unlimited);
+        Assert.AreEqual(0, objectTemp2);
+      }
+    }
 
     [Test]
     public void TestDivide() {
-    {
+      {
         string stringTemp = EDecimal.FromString(
         "1").Divide(EDecimal.FromInt32(8)).ToString();
         Assert.AreEqual(
@@ -2503,11 +2503,11 @@ public void TestCompareToNull() {
           TestCommon.CompareTestEqual(
        bigintB,
        EDecimal.Max(bigintA, bigintB));
-     } else if (cmp > 0) {
+        } else if (cmp > 0) {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Max(bigintA, bigintB));
-     } else {
+        } else {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Max(bigintA, bigintB));
@@ -2570,11 +2570,11 @@ public void TestCompareToNull() {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Min(bigintA, bigintB));
-     } else if (cmp > 0) {
+        } else if (cmp > 0) {
           TestCommon.CompareTestEqual(
        bigintB,
        EDecimal.Min(bigintA, bigintB));
-     } else {
+        } else {
           TestCommon.CompareTestEqual(
        bigintA,
        EDecimal.Min(bigintA, bigintB));
