@@ -102,13 +102,8 @@ namespace Test {
       if (String.IsNullOrEmpty(str)) {
         return 0;
       }
-      try {
-        return (str[0] == '+') ? TestCommon.StringToInt(str.Substring(1)) :
+      return (str[0] == '+') ? TestCommon.StringToInt(str.Substring(1)) :
           TestCommon.StringToInt(str);
-      } catch (Exception ex) {
-        Console.WriteLine(ex.StackTrace);
-        throw;
-      }
     }
 
     public static string ParseJSONString(string str) {
