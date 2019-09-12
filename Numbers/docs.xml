@@ -9538,6 +9538,14 @@
             greater.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Decrement">
+
+            <summary>Subtracts one from an arbitrary-precision
+            integer.</summary>
+            <returns>The given arbitrary-precision integer minus one.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)">
 
             <summary>Divides this object by another arbitrary-precision integer
@@ -9995,6 +10003,13 @@
             <returns>The number of bits in this object's value. Returns 0 if
             this object's value is 0, and returns 1 if the value is negative
             1.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Increment">
+
+            <summary>Adds one to an arbitrary-precision integer.</summary>
+            <returns>The given arbitrary-precision integer plus one.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.IsEven">
@@ -12631,16 +12646,46 @@
             EFloat, and ERational.).</summary>
 
 </doc>
+<doc name="M:PeterO.Numbers.ETrapException.#ctor">
+
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+
+</doc>
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)">
 
             <summary>Initializes a new instance of the
             <see cref='PeterO.Numbers.ETrapException'/>.</summary>
-            <param name='flag'>The parameter <paramref name='flag'/> is a
-            32-bit signed integer.</param>
-            <param name='ctx'>The parameter <paramref name='ctx'/> is an
-            EContext object.</param>
-            <param name='result'>The parameter <paramref name='result'/> is an
-            arbitrary object.</param>
+            <param name='flag'>The flag that specifies the kind of error
+            (EContext.FlagXXX). This will only be one flag, such as
+            <c>FlagInexact</c> or FlagSubnormal.</param>
+            <param name='ctx'>The arithmetic context used during the operation
+            that triggered the trap. Can be null.</param>
+            <param name='result'>The defined result of the operation that
+            caused the trap.</param>
+
+</doc>
+<doc name="M:PeterO.Numbers.ETrapException.#ctor(System.String)">
+
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+            <param name='message'>The parameter <paramref name='message'/> is a
+            text string.</param>
+
+</doc>
+<doc name="M:PeterO.Numbers.ETrapException.#ctor(System.String,System.Exception)">
+
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+            <param name='message'>The parameter <paramref name='message'/> is a
+            text string.</param>
+            <param name='innerException'>The parameter <paramref name='innerException'/> is an Exception object.</param>
 
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Context">

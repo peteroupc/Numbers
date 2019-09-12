@@ -984,7 +984,8 @@ namespace Test {
         TestCommon.CompareTestLess(0, integerTemp2);
       }
       TestCommon.CompareTestLess(0, EFloat.Zero.CompareToTotal(null, null));
-      TestCommon.CompareTestLess(0, EFloat.Zero.CompareToTotalMagnitude(null, null));
+      TestCommon.CompareTestLess(0,
+  EFloat.Zero.CompareToTotalMagnitude(null, null));
       TestCommon.CompareTestGreater(
          EFloat.Zero.CompareToSignal(null, EContext.Unlimited),
          EFloat.Zero);
@@ -994,7 +995,8 @@ namespace Test {
 
       TestCommon.CompareTestLess(0, ERational.Zero.CompareTo(null));
       TestCommon.CompareTestLess(0, ERational.Zero.CompareToTotal(null));
-      TestCommon.CompareTestLess(0, ERational.Zero.CompareToTotalMagnitude(null));
+      TestCommon.CompareTestLess(0,
+  ERational.Zero.CompareToTotalMagnitude(null));
       TestCommon.CompareTestLess(0, ERational.Zero.CompareToBinary(null));
       TestCommon.CompareTestLess(0, ERational.Zero.CompareToDecimal(null));
       {
@@ -1017,7 +1019,11 @@ namespace Test {
          EContext.Unlimited);
         TestCommon.CompareTestGreater(0, objectTemp2);
       }
-      Assert.AreEqual(0, EDecimals.CompareTotal(null, null, EContext.Unlimited));
+      {
+        int integerTemp2 = EDecimals.CompareTotal(null, null,
+  EContext.Unlimited);
+  Assert.AreEqual(objectTemp, objectTemp2);
+}
       {
         int objectTemp2 = EDecimals.CompareTotalMagnitude(null, null,
          EContext.Unlimited);

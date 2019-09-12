@@ -397,7 +397,7 @@ Not documented yet.
 <b>Parameters:</b>
 
  * <i>intValue</i>: The parameter  <i>intValue</i>
- is a.Int32 object.
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 

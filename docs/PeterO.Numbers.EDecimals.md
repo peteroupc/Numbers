@@ -28,7 +28,7 @@ A class that implements additional operations on arbitrary-precision decimal num
 * <code>[IsZero(PeterO.Numbers.EDecimal)](#IsZero_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is zero (positive zero or negative zero).
 * <code>[LogB(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#LogB_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns the base-10 exponent of an arbitrary-precision decimal number (when that number is expressed in scientific notation with one digit before the radix point).
 * <code>[NumberClass(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#NumberClass_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the number class for an arbitrary-precision decimal number object.
-* <code>[NumberClassString(int)](#NumberClassString_int)</code> - Converts a number class identifier (ranging from 1 to 9) to a text string.
+* <code>[NumberClassString(int)](#NumberClassString_int)</code> - Converts a number class identifier (ranging from 0 through 9) to a text string.
 * <code>[Or(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Or_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical OR operation on two decimal numbers in the form of logical operands.
 * <code>[Radix(PeterO.Numbers.EContext)](#Radix_PeterO_Numbers_EContext)</code> - Returns the number 10, the decimal radix.
 * <code>[Rescale(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rescale_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the given exponent, expressed as an arbitrary-precision decimal number.
@@ -530,7 +530,7 @@ The parameter  <i>ed</i>
     public static string NumberClassString(
         int nc);
 
-Converts a number class identifier (ranging from 1 to 9) to a text string. An arbitrary-precision number object can belong in one of ten number classes.
+Converts a number class identifier (ranging from 0 through 9) to a text string. An arbitrary-precision number object can belong in one of ten number classes.
 
 <b>Parameters:</b>
 

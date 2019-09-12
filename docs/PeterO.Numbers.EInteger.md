@@ -30,6 +30,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CanFitInInt64()](#CanFitInInt64)</code> - Returns whether this object's value can fit in a 64-bit signed integer.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares an arbitrary-precision integer with this instance.
 * <code>[CompareTo(PeterO.Numbers.EInteger)](#CompareTo_PeterO_Numbers_EInteger)</code> - Compares an arbitrary-precision integer with this instance.
+* <code>[Decrement()](#Decrement)</code> - Subtracts one from an arbitrary-precision integer.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Divide(PeterO.Numbers.EInteger)](#Divide_PeterO_Numbers_EInteger)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[DivRem(PeterO.Numbers.EInteger)](#DivRem_PeterO_Numbers_EInteger)</code> - Divides this object by another arbitrary-precision integer and returns the quotient and remainder.
@@ -65,6 +66,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetUnsignedBit(PeterO.Numbers.EInteger)](#GetUnsignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
+* <code>[Increment()](#Increment)</code> - Adds one to an arbitrary-precision integer.
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this value is 0.
@@ -436,6 +438,23 @@ Zero if the values are equal; a negative number if this instance is less, or a p
  is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
 
 .
+
+<a id="Decrement"></a>
+### Decrement
+
+    public PeterO.Numbers.EInteger Decrement();
+
+Subtracts one from an arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+The given arbitrary-precision integer minus one.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 <a id="Divide_int"></a>
 ### Divide
@@ -1117,6 +1136,23 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 <b>Return Value:</b>
 
 The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
+
+<a id="Increment"></a>
+### Increment
+
+    public PeterO.Numbers.EInteger Increment();
+
+Adds one to an arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+The given arbitrary-precision integer plus one.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bthis</i>
+ is null.
 
 <a id="Mod_int"></a>
 ### Mod

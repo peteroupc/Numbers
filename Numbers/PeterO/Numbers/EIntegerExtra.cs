@@ -57,10 +57,18 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Adds one to an arbitrary-precision integer.</summary>
-    /// <param name='bthis'>An arbitrary-precision integer.</param>
     /// <returns>The given arbitrary-precision integer plus one.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
+    public EInteger Increment() {
+       return this.Add(EInteger.One);
+    }
+
+  /// <summary>Adds one to an arbitrary-precision integer.</summary>
+  /// <param name='bthis'>An arbitrary-precision integer.</param>
+  /// <returns>The given arbitrary-precision integer plus one.</returns>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='bthis'/> is null.</exception>
     public static EInteger operator ++(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -70,10 +78,19 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts one from an arbitrary-precision
     /// integer.</summary>
-    /// <param name='bthis'>An arbitrary-precision integer.</param>
     /// <returns>The given arbitrary-precision integer minus one.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
+    public EInteger Decrement() {
+      return this.Subtract(EInteger.One);
+    }
+
+  /// <summary>Subtracts one from an arbitrary-precision
+  /// integer.</summary>
+  /// <param name='bthis'>An arbitrary-precision integer.</param>
+  /// <returns>The given arbitrary-precision integer minus one.</returns>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='bthis'/> is null.</exception>
     public static EInteger operator --(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));

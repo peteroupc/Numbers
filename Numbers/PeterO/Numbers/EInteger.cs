@@ -665,8 +665,8 @@ namespace PeterO.Numbers {
               int d = bigint[0] & 0xffff;
               if (d <= maxShortPlusOneMinusRadix) {
                 bigint[0] = unchecked((short)(d + digit));
-              } else if (Increment(bigint, 0, bigint.Length, (short)digit) !=
-                    0) {
+              } else if (IncrementWords(bigint, 0, bigint.Length,
+  (short)digit) != 0) {
                 bigint = GrowForCarry(bigint, (short)1);
               }
             }
@@ -863,7 +863,7 @@ namespace PeterO.Numbers {
             augendCount,
             addendCount - augendCount);
           if (carry != 0) {
-            carry = Increment(
+            carry = IncrementWords(
               sumreg,
               augendCount,
               addendCount - augendCount,
@@ -886,7 +886,7 @@ namespace PeterO.Numbers {
             addendCount,
             augendCount - addendCount);
           if (carry != 0) {
-            carry = Increment(
+            carry = IncrementWords(
               sumreg,
               addendCount,
               (int)(augendCount - addendCount),
@@ -974,7 +974,8 @@ namespace PeterO.Numbers {
           diffReg,
           words2Size,
           words1Size - words2Size);
-        Decrement(diffReg, words2Size, (int)(words1Size - words2Size), borrow);
+        DecrementWords(diffReg, words2Size, (int)(words1Size - words2Size),
+  borrow);
       } else {
         // words1 is less than words2
         borrow = (short)SubtractInternal(
@@ -991,7 +992,8 @@ namespace PeterO.Numbers {
           diffReg,
           words1Size,
           words2Size - words1Size);
-        Decrement(diffReg, words1Size, (int)(words2Size - words1Size), borrow);
+        DecrementWords(diffReg, words1Size, (int)(words2Size - words1Size),
+  borrow);
         diffNeg = true;
       }
       int count = CountWords(diffReg);
@@ -1498,7 +1500,7 @@ namespace PeterO.Numbers {
           b,
           posB + blockCount,
           blockCount);
-        Increment(tmp, blockCount * 5, blockCount, (short)c);
+        IncrementWords(tmp, blockCount * 5, blockCount, (short)c);
       }
       AsymmetricMultiply(
         tmp,
@@ -1518,8 +1520,8 @@ namespace PeterO.Numbers {
       if (c != 0) {
         while (true) {
           c = AddInternal(tmp, bc3, tmp, bc3, b, posB, blockCount * 2);
-          c = Increment(tmp, blockCount * 5, blockCount, (short)c);
-          Decrement(quot, posQuot, blockCount * 2, (short)1);
+          c = IncrementWords(tmp, blockCount * 5, blockCount, (short)c);
+          DecrementWords(quot, posQuot, blockCount * 2, (short)1);
           if (c != 0) {
             break;
           }
@@ -2226,7 +2228,7 @@ namespace PeterO.Numbers {
             workB,
             workPosB,
             countB);
-          c = Increment(workA, wpoffset + countB, 1, (short)c);
+          c = IncrementWords(workA, wpoffset + countB, 1, (short)c);
           // T(workA,workPosA,countA+1,"workA "+c);
           --quorem0;
         }
@@ -4080,7 +4082,7 @@ WordsShiftRightOne(bu, buc);
         0,
         subtrahendCount);
       if (borrow != 0) {
-        Decrement(
+        DecrementWords(
  words,
  subtrahendCount,
  (int)(wordCount - subtrahendCount),
@@ -5089,7 +5091,7 @@ WordsShiftRightOne(bu, buc);
               tempArr,
               tempStart + (words1Count << 1),
               words2Count - words1Count) != 0) {
-            Increment(
+            IncrementWords(
               resultArr,
               (int)(resultStart + words2Count),
               words1Count,
@@ -6561,7 +6563,7 @@ WordsShiftRightOne(bu, buc);
       return (int)n;
     }
 
-    private static int Decrement(
+    private static int DecrementWords(
       short[] words1,
       int words1Start,
       int n,
@@ -6801,7 +6803,7 @@ WordsShiftRightOne(bu, buc);
       return ret;
     }
 
-    private static int Increment(
+    private static int IncrementWords(
       short[] words1,
       int words1Start,
       int n,
@@ -6935,7 +6937,7 @@ WordsShiftRightOne(bu, buc);
           tempArr,
           tempStart,
           count);
-        Increment(
+        IncrementWords(
           resultArr,
           (int)(resultStart + count + count2),
           count2,
@@ -7332,9 +7334,9 @@ WordsShiftRightOne(bu, buc);
               count);
           }
           // Add carry
-          c3 += Increment(resultArr, resultMediumHigh, count2, (short)c2);
+          c3 += IncrementWords(resultArr, resultMediumHigh, count2, (short)c2);
           if (c3 != 0) {
-            Increment(resultArr, resultHigh, count2, (short)c3);
+            IncrementWords(resultArr, resultHigh, count2, (short)c3);
           }
         } else {
           // Count is odd, high part will be 1 shorter
@@ -7494,13 +7496,13 @@ WordsShiftRightOne(bu, buc);
               countLow << 1);
           }
           // Add carry
-          c3 += Increment(
+          c3 += IncrementWords(
             resultArr,
             resultStart + countMiddle,
             countLow,
             (short)c2);
           if (c3 != 0) {
-            Increment(
+            IncrementWords(
               resultArr,
               resultStart + countMiddle + countLow,
               countLow - 2,
@@ -7835,7 +7837,7 @@ WordsShiftRightOne(bu, buc);
     }
 
     private static void TwosComplement(short[] words1, int words1Start, int n) {
-      Decrement(words1, words1Start, n, (short)1);
+      DecrementWords(words1, words1Start, n, (short)1);
       for (var i = 0; i < n; ++i) {
         words1[words1Start + i] = unchecked((short)(~words1[words1Start + i]));
       }

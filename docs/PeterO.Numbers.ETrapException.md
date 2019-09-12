@@ -24,14 +24,54 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
 
 <b>Parameters:</b>
 
- * <i>flag</i>: The parameter  <i>flag</i>
- is a 32-bit signed integer.
+ * <i>flag</i>: The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact`  or FlagSubnormal.
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is an EContext object.
+ * <i>ctx</i>: The arithmetic context used during the operation that triggered the trap. Can be null.
 
- * <i>result</i>: The parameter  <i>result</i>
- is an arbitrary object.
+ * <i>result</i>: The defined result of the operation that caused the trap.
+
+<a id="Void_ctor_System_String"></a>
+### ETrapException Constructor
+
+    public ETrapException(
+        string message);
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
+
+<b>Parameters:</b>
+
+ * <i>message</i>: The parameter  <i>message</i>
+ is a text string.
+
+<a id="Void_ctor_System_String_System_Exception"></a>
+### ETrapException Constructor
+
+    public ETrapException(
+        string message,
+        System.Exception innerException);
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
+
+<b>Parameters:</b>
+
+ * <i>message</i>: The parameter  <i>message</i>
+ is a text string.
+
+ * <i>innerException</i>: The parameter  <i>innerException</i>
+ is an Exception object.
+
+<a id="Void_ctor"></a>
+### ETrapException Constructor
+
+    public ETrapException();
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
 <a id="Context"></a>
 ### Context
