@@ -32,20 +32,14 @@ public sealed class ETrapException : ArithmeticException {
     private readonly int error;
 
   /// <summary>Initializes a new instance of the
-  /// <see cref='ETrapException'/> class.</summary>
-  /// <summary>Initializes a new instance of the
-  /// <see cref='ETrapException'/> class.</summary>
-  ///
+  /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
   public ETrapException() : this(FlagToMessage(EContext.FlagInvalid)) {
       }
 
   /// <summary>Initializes a new instance of the
-  /// <see cref='ETrapException'/> class.</summary>
-  /// <summary>Initializes a new instance of the
-  /// <see cref='ETrapException'/> class.</summary>
+  /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
   /// <param name='message'>The parameter <paramref name='message'/> is a
   /// text string.</param>
-  ///
   public ETrapException(string message) : base(message) {
          this.error = EContext.FlagInvalid;
          this.ctx = null;
@@ -53,14 +47,11 @@ public sealed class ETrapException : ArithmeticException {
       }
 
   /// <summary>Initializes a new instance of the
-  /// <see cref='ETrapException'/> class.</summary>
-  /// <summary>Initializes a new instance of the
-  /// <see cref='ETrapException'/> class.</summary>
+  /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
   /// <param name='message'>The parameter <paramref name='message'/> is a
   /// text string.</param>
   /// <param name='innerException'>The parameter <paramref
   /// name='innerException'/> is an Exception object.</param>
-  ///
   public ETrapException(string message, Exception innerException)
         : base(message, innerException) {
          this.error = EContext.FlagInvalid;
@@ -125,7 +116,6 @@ public sealed class ETrapException : ArithmeticException {
     /// object.</param>
     /// <param name='context'>A
     /// System.Runtime.Serialization.StreamingContext object.</param>
-    ///
       protected ETrapException(
         System.Runtime.Serialization.SerializationInfo info,
         System.Runtime.Serialization.StreamingContext context)

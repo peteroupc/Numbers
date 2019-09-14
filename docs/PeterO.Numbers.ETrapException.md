@@ -38,8 +38,6 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
 
 Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
-Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
-
 <b>Parameters:</b>
 
  * <i>message</i>: The parameter  <i>message</i>
@@ -51,8 +49,6 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
     public ETrapException(
         string message,
         System.Exception innerException);
-
-Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
 Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
@@ -68,8 +64,6 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
 ### ETrapException Constructor
 
     public ETrapException();
-
-Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
 Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
