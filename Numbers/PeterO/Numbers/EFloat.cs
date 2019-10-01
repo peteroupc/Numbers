@@ -2106,10 +2106,10 @@ namespace PeterO.Numbers {
     /// fixed number of digits after the radix point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the radix point:</para>
-    /// <code> // After performing arithmetic operations, adjust // the number to 5 //
+    /// <code> &#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5 // &#x2a;&#x2f;&#x2a;&#x2f;
     /// digits after the radix point number = number.Quantize(
-    /// EInteger.FromInt32(-5), // five digits after the radix point
-    /// EContext.ForPrecision(25) // 25-digit precision);</code>
+    /// EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the radix point&#x2a;&#x2f;
+    /// EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code>
     /// <para>A fixed-point binary arithmetic in which no digits come after
     /// the radix point (a desired exponent of 0) is considered an "integer
     /// arithmetic".</para>
@@ -2155,9 +2155,9 @@ namespace PeterO.Numbers {
     /// fixed number of digits after the radix point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the radix point:</para>
-    /// <code> // After performing arithmetic operations, adjust // the number to 5
-    /// digits after the radix point number = number.Quantize(-5, // five digits
-    /// after the radix point EContext.ForPrecision(25) // 25-digit precision);</code>
+    /// <code> &#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5&#x2a;&#x2f;&#x2a;&#x2f;
+    /// digits after the radix point number = number.Quantize(-5, &#x2f;&#x2a; five digits&#x2a;&#x2f;
+    /// after the radix point EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code>
     /// <para>A fixed-point binary arithmetic in which no digits come after
     /// the radix point (a desired exponent of 0) is considered an "integer
     /// arithmetic".</para>

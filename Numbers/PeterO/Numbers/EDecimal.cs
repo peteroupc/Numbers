@@ -3196,11 +3196,11 @@ namespace PeterO.Numbers {
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the decimal point:</para>
-    /// <code> // After performing arithmetic operations, adjust // the number to 5
-    /// //
+    /// <code> &#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5&#x2a;&#x2f;&#x2a;&#x2f;
+    /// &#x2f;&#x2a;&#x2a;&#x2f;
     /// digits after the decimal point number = number.Quantize(
-    /// EInteger.FromInt32(-5), // five digits after the decimal point
-    /// EContext.ForPrecision(25) // 25-digit precision);</code>
+    /// EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the decimal point&#x2a;&#x2f;
+    /// EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code>
     /// <para>A fixed-point decimal arithmetic in which no digits come
     /// after the decimal point (a desired exponent of 0) is considered an
     /// "integer arithmetic".</para>

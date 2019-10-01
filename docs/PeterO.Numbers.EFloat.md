@@ -2920,13 +2920,13 @@ An arbitrary-precision integer.
         int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
- Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
-     // After performing arithmetic operations, adjust // the number to 5
-                digits after the radix point number = number.Quantize(-5, // five digits
-                after the radix point EContext.ForPrecision(25) // 25-digit precision);
+     /* After performing arithmetic operations, adjust // the number to 5*/
+                digits after the radix point number = number.Quantize(-5, /* five digits*/
+                after the radix point EContext.ForPrecision(25) /* 25-digit precision);*/
 
 A fixed-point binary arithmetic in which no digits come after the radix point (a desired exponent of 0) is considered an "integer arithmetic".
 
@@ -2968,14 +2968,14 @@ A binary float with the same value as this object but with the exponent changed.
         PeterO.Numbers.EInteger desiredExponent,
         PeterO.Numbers.EContext ctx);
 
- Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
-     // After performing arithmetic operations, adjust // the number to 5 //
+     /* After performing arithmetic operations, adjust // the number to 5 //*/
                 digits after the radix point number = number.Quantize(
-                EInteger.FromInt32(-5), // five digits after the radix point
-                EContext.ForPrecision(25) // 25-digit precision);
+                EInteger.FromInt32(-5), /* five digits after the radix point*/
+                EContext.ForPrecision(25) /* 25-digit precision);*/
 
 A fixed-point binary arithmetic in which no digits come after the radix point (a desired exponent of 0) is considered an "integer arithmetic".
 

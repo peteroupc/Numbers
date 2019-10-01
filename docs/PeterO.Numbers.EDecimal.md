@@ -3253,15 +3253,15 @@ An arbitrary-precision decimal number with the same value as this object but wit
         PeterO.Numbers.EInteger desiredExponent,
         PeterO.Numbers.EContext ctx);
 
- Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
 
-     // After performing arithmetic operations, adjust // the number to 5
-                //
+     /* After performing arithmetic operations, adjust // the number to 5*/
+                /**/
                 digits after the decimal point number = number.Quantize(
-                EInteger.FromInt32(-5), // five digits after the decimal point
-                EContext.ForPrecision(25) // 25-digit precision);
+                EInteger.FromInt32(-5), /* five digits after the decimal point*/
+                EContext.ForPrecision(25) /* 25-digit precision);*/
 
 A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic".
 
