@@ -56,14 +56,6 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <summary>Adds one to an arbitrary-precision integer.</summary>
-    /// <returns>The given arbitrary-precision integer plus one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
-    public EInteger Increment() {
-       return this.Add(EInteger.One);
-    }
-
   /// <summary>Adds one to an arbitrary-precision integer.</summary>
   /// <param name='bthis'>An arbitrary-precision integer.</param>
   /// <returns>The given arbitrary-precision integer plus one.</returns>
@@ -74,15 +66,6 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(bthis));
       }
       return bthis.Add(1);
-    }
-
-    /// <summary>Subtracts one from an arbitrary-precision
-    /// integer.</summary>
-    /// <returns>The given arbitrary-precision integer minus one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
-    public EInteger Decrement() {
-      return this.Subtract(EInteger.One);
     }
 
   /// <summary>Subtracts one from an arbitrary-precision
@@ -160,6 +143,10 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ShiftLeft.")]
     public static EInteger operator <<(EInteger bthis, int bitCount) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -201,6 +188,10 @@ namespace PeterO.Numbers {
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
     /// Thus, for negative values, the arbitrary-precision integer is
     /// sign-extended.</remarks>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ShiftRight.")]
     public static EInteger operator >>(EInteger bthis, int smallValue) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -313,6 +304,10 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='thisValue'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named Xor.")]
     public static EInteger operator ~(
     EInteger thisValue) {
       return Not(thisValue);
@@ -331,6 +326,10 @@ namespace PeterO.Numbers {
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named And.")]
     public static EInteger operator &(
       EInteger thisValue,
       EInteger otherValue) {
@@ -351,6 +350,10 @@ namespace PeterO.Numbers {
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named Or.")]
     public static EInteger operator |(
       EInteger thisValue,
       EInteger otherValue) {
@@ -526,6 +529,10 @@ namespace PeterO.Numbers {
     /// name='input'/> is less than 0 or greater than 255.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToByteChecked.")]
     public static explicit operator byte(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -600,6 +607,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToSByteChecked.")]
     public static explicit operator sbyte(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -629,6 +640,10 @@ namespace PeterO.Numbers {
     /// 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt16Checked.")]
     public static explicit operator short(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -696,6 +711,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt16Checked.")]
     public static explicit operator ushort(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -725,6 +744,10 @@ namespace PeterO.Numbers {
     /// 2147483647.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt32Checked.")]
     public static explicit operator int(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -791,6 +814,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt32Checked.")]
     public static explicit operator uint(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -820,6 +847,10 @@ namespace PeterO.Numbers {
     /// 9223372036854775807.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt64Checked.")]
     public static explicit operator long(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -850,6 +881,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt64Checked.")]
     public static explicit operator ulong(EInteger input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));

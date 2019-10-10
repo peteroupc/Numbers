@@ -120,10 +120,10 @@ namespace Test {
         EDecimal.PositiveInfinity,
         valueEdTmp);
       {
-object objectTemp = EDecimal.NegativeInfinity;
-object objectTemp2 = EDecimal.FromString(
+        object objectTemp = EDecimal.NegativeInfinity;
+        object objectTemp2 = EDecimal.FromString(
         "-9.3168444507547E+28").RoundToPrecision(EContext.CliDecimal);
-Assert.AreEqual(objectTemp, objectTemp2);
+        Assert.AreEqual(objectTemp, objectTemp2);
 }
       {
         string stringTemp =
@@ -137,16 +137,16 @@ Assert.AreEqual(objectTemp, objectTemp2);
           stringTemp);
       }
       {
-object objectTemp = EDecimal.PositiveInfinity;
-object objectTemp2 = EDecimal.FromString(
+        object objectTemp = EDecimal.PositiveInfinity;
+        object objectTemp2 = EDecimal.FromString(
   "96148154858060747311034406200").RoundToPrecision(EContext.CliDecimal);
-Assert.AreEqual(objectTemp, objectTemp2);
+  Assert.AreEqual(objectTemp, objectTemp2);
 }
       {
-object objectTemp = EDecimal.PositiveInfinity;
-object objectTemp2 = EDecimal.FromString(
+        object objectTemp = EDecimal.PositiveInfinity;
+        object objectTemp2 = EDecimal.FromString(
   "90246605365627217170000000000").RoundToPrecision(EContext.CliDecimal);
-Assert.AreEqual(objectTemp, objectTemp2);
+  Assert.AreEqual(objectTemp, objectTemp2);
 }
     }
 
@@ -197,8 +197,8 @@ Assert.AreEqual(objectTemp, objectTemp2);
     [Test]
     public void TestToString() {
       if (EContext.Unlimited.ToString() == null) {
- Assert.Fail();
- }
+        Assert.Fail();
+      }
     }
     [Test]
     public void TestTraps() {

@@ -57,7 +57,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*2^mantissa (significand).
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision binary floating-point number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision binary floating-point number.
-* <code>[Decrement()](#Decrement)</code> - Subtracts one from an arbitrary-precision binary floating-point number.
+* <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision binary floating-point number.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Divide(PeterO.Numbers.EFloat)](#Divide_PeterO_Numbers_EFloat)</code> - Divides this object by another binary float and returns the result.
 * <code>[Divide(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision binary float by another arbitrary-precision binary floating-point number.
@@ -95,7 +95,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 * <code>[GetHashCode()](#GetHashCode)</code> - Calculates this object's hash code.
-* <code>[Increment()](#Increment)</code> - Adds one to an arbitrary-precision binary floating-point number.
+* <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision binary floating-point number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object is positive or negative infinity.
 * <code>[IsNaN()](#IsNaN)</code> - Gets a value indicating whether this object is not a number (NaN).
@@ -291,7 +291,7 @@ Gets this object's exponent. This object's value will be an integer if the expon
 
 <b>Returns:</b>
 
-This object's exponent. This object' s value will be an integer if the exponent is positive or zero.
+This object's exponent. This object's value will be an integer if the exponent is positive or zero.
 
 <a id="IsFinite"></a>
 ### IsFinite
@@ -324,7 +324,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object' s value equals 0; otherwise,  `false` .
+ `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object's value equals 0; otherwise,  `false` .
 
 <a id="Mantissa"></a>
 ### Mantissa
@@ -335,7 +335,7 @@ Gets this object's unscaled value, or mantissa, and makes it negative if this ob
 
 <b>Returns:</b>
 
-This object' s unscaled value. Will be negative if this object's value is negative (including a negative NaN).
+This object's unscaled value. Will be negative if this object's value is negative (including a negative NaN).
 
 <a id="Sign"></a>
 ### Sign
@@ -770,7 +770,7 @@ The parameter  <i>diag</i>
 
     public PeterO.Numbers.EFloat Decrement();
 
-Subtracts one from an arbitrary-precision binary floating-point number.
+Returns one subtracted from this arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1335,7 +1335,7 @@ Either  <i> offset</i>
  or  <i> length</i>
  is less than 0 or greater than  <i>str</i>
  's length, or  <i>             str</i>
- ' s length minus  <i>offset</i>
+ 's length minus  <i>offset</i>
  is less than  <i>length</i>
 .
 
@@ -1403,7 +1403,7 @@ Either  <i>offset</i>
  or  <i>length</i>
  is less than 0 or greater than  <i>str</i>
  's length, or  <i>             str</i>
- ' s length minus  <i>offset</i>
+ 's length minus  <i>offset</i>
  is less than  <i>length</i>
 .
 
@@ -1497,7 +1497,7 @@ A 32-bit signed integer.
 
     public PeterO.Numbers.EFloat Increment();
 
-Adds one to an arbitrary-precision binary floating-point number.
+Returns one added to this arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -2171,7 +2171,8 @@ Subtracts one from an arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+The number given in  <i>bthis</i>
+ minus one.
 
 <b>Exceptions:</b>
 
@@ -2708,7 +2709,8 @@ Adds one to an arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+The number given in  <i>bthis</i>
+ plus one.
 
 <b>Exceptions:</b>
 
@@ -2920,11 +2922,11 @@ An arbitrary-precision integer.
         int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+ Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
-     /* After performing arithmetic operations, adjust // the number to 5*/
+     /* After performing arithmetic operations, adjust /* the number to 5*/*/
                 digits after the radix point number = number.Quantize(-5, /* five digits*/
                 after the radix point EContext.ForPrecision(25) /* 25-digit precision);*/
 
@@ -2968,11 +2970,11 @@ A binary float with the same value as this object but with the exponent changed.
         PeterO.Numbers.EInteger desiredExponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+ Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
-     /* After performing arithmetic operations, adjust // the number to 5 //*/
+     /* After performing arithmetic operations, adjust /* the number to 5 /* */*/*/
                 digits after the radix point number = number.Quantize(
                 EInteger.FromInt32(-5), /* five digits after the radix point*/
                 EContext.ForPrecision(25) /* 25-digit precision);*/
@@ -3073,7 +3075,7 @@ Finds the distance to the closest multiple of the given divisor, based on the re
 
  * If the remainder's absolute value is less than half of the divisor's absolute value, the result has the same sign as this object and will be the distance to the closest multiple.
 
- * If the remainder's absolute value is more than half of the divisor' s absolute value, the result has the opposite sign of this object and will be the distance to the closest multiple.
+ * If the remainder's absolute value is more than half of the divisor's absolute value, the result has the opposite sign of this object and will be the distance to the closest multiple.
 
  * If the remainder's absolute value is exactly half of the divisor's absolute value, the result has the opposite sign of this object if the quotient, rounded down, is odd, and has the same sign as this object if the quotient, rounded down, is even, and the result's absolute value is half of the divisor's absolute value.
 

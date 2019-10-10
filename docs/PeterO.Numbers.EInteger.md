@@ -30,7 +30,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CanFitInInt64()](#CanFitInInt64)</code> - Returns whether this object's value can fit in a 64-bit signed integer.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares an arbitrary-precision integer with this instance.
 * <code>[CompareTo(PeterO.Numbers.EInteger)](#CompareTo_PeterO_Numbers_EInteger)</code> - Compares an arbitrary-precision integer with this instance.
-* <code>[Decrement()](#Decrement)</code> - Subtracts one from an arbitrary-precision integer.
+* <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision integer.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Divide(PeterO.Numbers.EInteger)](#Divide_PeterO_Numbers_EInteger)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[DivRem(PeterO.Numbers.EInteger)](#DivRem_PeterO_Numbers_EInteger)</code> - Divides this object by another arbitrary-precision integer and returns the quotient and remainder.
@@ -66,7 +66,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetUnsignedBit(PeterO.Numbers.EInteger)](#GetUnsignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
-* <code>[Increment()](#Increment)</code> - Adds one to an arbitrary-precision integer.
+* <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision integer.
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this value is 0.
@@ -160,7 +160,7 @@ Gets a value indicating whether this object's value is a power of two, and great
 
 <b>Returns:</b>
 
- `true`  if this object' s value is a power of two, and greater than 0; otherwise,  `false` .
+ `true`  if this object's value is a power of two, and greater than 0; otherwise,  `false` .
 
 <a id="IsZero"></a>
 ### IsZero
@@ -193,7 +193,7 @@ Gets the sign of this object's value.
 
 <b>Returns:</b>
 
-The sign of this object' s value.
+The sign of this object's value.
 
 <a id="Ten"></a>
 ### Ten
@@ -335,7 +335,7 @@ A 32-bit signed integer.
 <b>Exceptions:</b>
 
  *  T:System.OverflowException:
-This object' s value is too big to fit a 32-bit signed integer.
+This object's value is too big to fit a 32-bit signed integer.
 
 <a id="AsInt32Unchecked"></a>
 ### AsInt32Unchecked
@@ -344,7 +344,7 @@ This object' s value is too big to fit a 32-bit signed integer.
 
 <b>Deprecated.</b> Renamed to ToInt32Unchecked.
 
-Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
@@ -366,7 +366,7 @@ A 64-bit signed integer.
 <b>Exceptions:</b>
 
  *  T:System.OverflowException:
-This object' s value is too big to fit a 64-bit signed integer.
+This object's value is too big to fit a 64-bit signed integer.
 
 <a id="AsInt64Unchecked"></a>
 ### AsInt64Unchecked
@@ -375,7 +375,7 @@ This object' s value is too big to fit a 64-bit signed integer.
 
 <b>Deprecated.</b> Renamed to ToInt64Unchecked.
 
-Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
@@ -444,17 +444,11 @@ Zero if the values are equal; a negative number if this instance is less, or a p
 
     public PeterO.Numbers.EInteger Decrement();
 
-Subtracts one from an arbitrary-precision integer.
+Returns one subtracted from this arbitrary-precision integer.
 
 <b>Return Value:</b>
 
 The given arbitrary-precision integer minus one.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
 
 <a id="Divide_int"></a>
 ### Divide
@@ -1009,7 +1003,7 @@ The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 o
     public bool GetSignedBit(
         int index);
 
-Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value.
+Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value.
 
 <b>Parameters:</b>
 
@@ -1017,7 +1011,7 @@ Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of n
 
 <b>Return Value:</b>
 
- `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value; otherwise,  `false` .
+ `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value; otherwise,  `false` .
 
 <a id="GetSignedBit_PeterO_Numbers_EInteger"></a>
 ### GetSignedBit
@@ -1025,7 +1019,7 @@ Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of n
     public bool GetSignedBit(
         PeterO.Numbers.EInteger bigIndex);
 
-Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value.
+Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value.
 
 <b>Parameters:</b>
 
@@ -1033,7 +1027,7 @@ Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of n
 
 <b>Return Value:</b>
 
- `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object' s value; otherwise,  `false` .
+ `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value; otherwise,  `false` .
 
 <b>Exceptions:</b>
 
@@ -1142,17 +1136,11 @@ The number of bits in this object's value. Returns 0 if this object's value is 0
 
     public PeterO.Numbers.EInteger Increment();
 
-Adds one to an arbitrary-precision integer.
+Returns one added to this arbitrary-precision integer.
 
 <b>Return Value:</b>
 
 The given arbitrary-precision integer plus one.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
 
 <a id="Mod_int"></a>
 ### Mod
@@ -2478,7 +2466,7 @@ This value is less than 0 or greater than 255.
     public byte[] ToBytes(
         bool littleEndian);
 
-Returns a byte array of this integer's value. The byte array will take the number's two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
+Returns a byte array of this integer's value. The byte array will take the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the fewest bytes necessary to store its value unambiguously. If this value is negative, the bits that appear beyond the most significant bit of the number will be all ones. The resulting byte array can be passed to the  `FromBytes()`  method (with the same byte order) to reconstruct this integer's value.
 
 <b>Parameters:</b>
 
@@ -2540,14 +2528,14 @@ A 32-bit signed integer.
 <b>Exceptions:</b>
 
  *  T:System.OverflowException:
-This object' s value is too big to fit a 32-bit signed integer.
+This object's value is too big to fit a 32-bit signed integer.
 
 <a id="ToInt32Unchecked"></a>
 ### ToInt32Unchecked
 
     public int ToInt32Unchecked();
 
-Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 
@@ -2567,14 +2555,14 @@ A 64-bit signed integer.
 <b>Exceptions:</b>
 
  *  T:System.OverflowException:
-This object' s value is too big to fit a 64-bit signed integer.
+This object's value is too big to fit a 64-bit signed integer.
 
 <a id="ToInt64Unchecked"></a>
 ### ToInt64Unchecked
 
     public long ToInt64Unchecked();
 
-Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
+Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
 
 <b>Return Value:</b>
 

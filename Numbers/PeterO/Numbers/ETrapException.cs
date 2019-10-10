@@ -31,32 +31,32 @@ public sealed class ETrapException : ArithmeticException {
 
     private readonly int error;
 
-  /// <summary>Initializes a new instance of the
-  /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
-  public ETrapException() : this(FlagToMessage(EContext.FlagInvalid)) {
-      }
+    /// <summary>Initializes a new instance of the
+    /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+    public ETrapException() : this(FlagToMessage(EContext.FlagInvalid)) {
+    }
 
-  /// <summary>Initializes a new instance of the
-  /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
-  /// <param name='message'>The parameter <paramref name='message'/> is a
-  /// text string.</param>
-  public ETrapException(string message) : base(message) {
+    /// <summary>Initializes a new instance of the
+    /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+    /// <param name='message'>The parameter <paramref name='message'/> is a
+    /// text string.</param>
+    public ETrapException(string message) : base(message) {
          this.error = EContext.FlagInvalid;
          this.ctx = null;
          this.result = null;
-      }
+         }
 
-  /// <summary>Initializes a new instance of the
-  /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
-  /// <param name='message'>The parameter <paramref name='message'/> is a
-  /// text string.</param>
-  /// <param name='innerException'>The parameter <paramref
-  /// name='innerException'/> is an Exception object.</param>
-  public ETrapException(string message, Exception innerException)
+     /// <summary>Initializes a new instance of the
+     /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+     /// <param name='message'>The parameter <paramref name='message'/> is a
+     /// text string.</param>
+     /// <param name='innerException'>The parameter <paramref
+     /// name='innerException'/> is an Exception object.</param>
+     public ETrapException(string message, Exception innerException)
         : base(message, innerException) {
          this.error = EContext.FlagInvalid;
          this.ctx = (this.ctx == null) ? null : this.ctx.Copy();
-         this.result = this.result;
+         this.result = null;
       }
 
     /// <summary>Gets the defined result of the operation that caused the

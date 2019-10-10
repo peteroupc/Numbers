@@ -214,7 +214,7 @@ Gets this object's denominator.
 
 <b>Returns:</b>
 
-This object' s denominator.
+This object's denominator.
 
 <a id="IsFinite"></a>
 ### IsFinite
@@ -247,7 +247,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object' s value equals 0; otherwise,  `false` .
+ `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object's value equals 0; otherwise,  `false` .
 
 <a id="Numerator"></a>
 ### Numerator
@@ -258,7 +258,7 @@ Gets this object's numerator.
 
 <b>Returns:</b>
 
-This object' s numerator. If this object is a not-a-number value, returns the diagnostic information (which will be negative if this object is negative).
+This object's numerator. If this object is a not-a-number value, returns the diagnostic information (which will be negative if this object is negative).
 
 <a id="Sign"></a>
 ### Sign
@@ -577,12 +577,6 @@ Subtracts one from an arbitrary-precision rational number.
 <b>Return Value:</b>
 
 The given arbitrary-precision rational number minus one.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
 
 <a id="Divide_PeterO_Numbers_ERational"></a>
 ### Divide
@@ -1032,12 +1026,6 @@ Adds one to an arbitrary-precision rational number.
 
 The given arbitrary-precision rational number plus one.
 
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bthis</i>
- is null.
-
 <a id="IsInfinity"></a>
 ### IsInfinity
 
@@ -1175,7 +1163,8 @@ Subtracts one from an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+The number given in  <i>bthis</i>
+ minus one.
 
 <b>Exceptions:</b>
 
@@ -1781,7 +1770,8 @@ Adds one to an arbitrary-precision rational number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number.
+The number given in  <i>bthis</i>
+ plus one.
 
 <b>Exceptions:</b>
 

@@ -151,7 +151,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Gets a value indicating whether this object's value is a
     /// power of two, and greater than 0.</summary>
-    /// <value><c>true</c> if this object' s value is a power of two, and
+    /// <value><c>true</c> if this object's value is a power of two, and
     /// greater than 0; otherwise, <c>false</c>.</value>
     public bool IsPowerOfTwo {
       get {
@@ -170,7 +170,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Gets the sign of this object's value.</summary>
-    /// <value>The sign of this object' s value.</value>
+    /// <value>The sign of this object's value.</value>
     public int Sign {
       get {
         return (this.wordCount == 0) ? 0 : (this.negative ? -1 : 1);
@@ -665,8 +665,11 @@ namespace PeterO.Numbers {
               int d = bigint[0] & 0xffff;
               if (d <= maxShortPlusOneMinusRadix) {
                 bigint[0] = unchecked((short)(d + digit));
-              } else if (IncrementWords(bigint, 0, bigint.Length,
-  (short)digit) != 0) {
+              } else if (IncrementWords(
+                 bigint,
+                 0,
+                 bigint.Length,
+                 (short)digit) != 0) {
                 bigint = GrowForCarry(bigint, (short)1);
               }
             }
@@ -974,8 +977,11 @@ namespace PeterO.Numbers {
           diffReg,
           words2Size,
           words1Size - words2Size);
-        DecrementWords(diffReg, words2Size, (int)(words1Size - words2Size),
-  borrow);
+        DecrementWords(
+          diffReg,
+          words2Size,
+          words1Size - words2Size,
+          borrow);
       } else {
         // words1 is less than words2
         borrow = (short)SubtractInternal(
@@ -992,8 +998,11 @@ namespace PeterO.Numbers {
           diffReg,
           words1Size,
           words2Size - words1Size);
-        DecrementWords(diffReg, words1Size, (int)(words2Size - words1Size),
-  borrow);
+        DecrementWords(
+          diffReg,
+          words1Size,
+          words2Size - words1Size,
+          borrow);
         diffNeg = true;
       }
       int count = CountWords(diffReg);
@@ -1007,7 +1016,7 @@ namespace PeterO.Numbers {
     /// <summary>Converts this object's value to a 32-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 32-bit signed integer.</returns>
-    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// <exception cref=' T:System.OverflowException'>This object's value
     /// is too big to fit a 32-bit signed integer.</exception>
     [Obsolete("Renamed to ToInt32Checked.")]
     public int AsInt32Checked() {
@@ -1016,7 +1025,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts this object's value to a 32-bit signed integer.
     /// If the value can't fit in a 32-bit integer, returns the lower 32
-    /// bits of this object's two' s-complement form (see
+    /// bits of this object's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
@@ -1029,7 +1038,7 @@ namespace PeterO.Numbers {
     /// <summary>Converts this object's value to a 64-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 64-bit signed integer.</returns>
-    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// <exception cref=' T:System.OverflowException'>This object's value
     /// is too big to fit a 64-bit signed integer.</exception>
     [Obsolete("Renamed to ToInt64Checked.")]
     public long AsInt64Checked() {
@@ -1038,7 +1047,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts this object's value to a 64-bit signed integer.
     /// If the value can't fit in a 64-bit integer, returns the lower 64
-    /// bits of this object's two' s-complement form (see
+    /// bits of this object's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
@@ -2842,14 +2851,14 @@ WordsShiftRightOne(bu, buc);
     /// <summary>Returns whether a bit is set in the two's-complement form
     /// (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-    /// this object' s value.</summary>
+    /// this object's value.</summary>
     /// <param name='bigIndex'>The index, starting at zero, of the bit to
     /// test, where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in the two'
     /// s-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-    /// this object' s value; otherwise, <c>false</c>.</returns>
+    /// this object's value; otherwise, <c>false</c>.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigIndex'/> is null.</exception>
     public bool GetSignedBit(EInteger bigIndex) {
@@ -2892,14 +2901,14 @@ WordsShiftRightOne(bu, buc);
     /// <summary>Returns whether a bit is set in the two's-complement form
     /// (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-    /// this object' s value.</summary>
+    /// this object's value.</summary>
     /// <param name='index'>The index, starting at 0, of the bit to test,
     /// where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in the two'
     /// s-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-    /// this object' s value; otherwise, <c>false</c>.</returns>
+    /// this object's value; otherwise, <c>false</c>.</returns>
     public bool GetSignedBit(int index) {
       if (index < 0) {
         throw new ArgumentOutOfRangeException(nameof(index));
@@ -4191,7 +4200,7 @@ WordsShiftRightOne(bu, buc);
     }
 
     /// <summary>Returns a byte array of this integer's value. The byte
-    /// array will take the number's two' s-complement form (see
+    /// array will take the number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
     /// using the fewest bytes necessary to store its value unambiguously.
     /// If this value is negative, the bits that appear beyond the most
@@ -4266,7 +4275,7 @@ WordsShiftRightOne(bu, buc);
     /// <summary>Converts this object's value to a 32-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 32-bit signed integer.</returns>
-    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// <exception cref=' T:System.OverflowException'>This object's value
     /// is too big to fit a 32-bit signed integer.</exception>
     public int ToInt32Checked() {
       int count = this.wordCount;
@@ -4288,7 +4297,7 @@ WordsShiftRightOne(bu, buc);
 
     /// <summary>Converts this object's value to a 32-bit signed integer.
     /// If the value can't fit in a 32-bit integer, returns the lower 32
-    /// bits of this object's two' s-complement form (see
+    /// bits of this object's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
@@ -4312,7 +4321,7 @@ WordsShiftRightOne(bu, buc);
     /// <summary>Converts this object's value to a 64-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 64-bit signed integer.</returns>
-    /// <exception cref=' T:System.OverflowException'>This object' s value
+    /// <exception cref=' T:System.OverflowException'>This object's value
     /// is too big to fit a 64-bit signed integer.</exception>
     public long ToInt64Checked() {
       int count = this.wordCount;
@@ -4335,7 +4344,7 @@ WordsShiftRightOne(bu, buc);
 
     /// <summary>Converts this object's value to a 64-bit signed integer.
     /// If the value can't fit in a 64-bit integer, returns the lower 64
-    /// bits of this object's two' s-complement form (see
+    /// bits of this object's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
@@ -8067,6 +8076,21 @@ WordsShiftRightOne(bu, buc);
         bigintX, bigintY,
       };
     }
+
+    /// <summary>Returns one added to this arbitrary-precision
+    /// integer.</summary>
+    /// <returns>The given arbitrary-precision integer plus one.</returns>
+    public EInteger Increment() {
+       return this.Add(EInteger.One);
+    }
+
+    /// <summary>Returns one subtracted from this arbitrary-precision
+    /// integer.</summary>
+    /// <returns>The given arbitrary-precision integer minus one.</returns>
+    public EInteger Decrement() {
+      return this.Subtract(EInteger.One);
+    }
+
     // Begin integer conversions
 
     /// <summary>Converts this number's value to a byte (from 0 to 255) if

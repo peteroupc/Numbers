@@ -504,7 +504,7 @@ namespace PeterO.Numbers {
 #if DEBUG
       if (this.frozen) {
         throw new InvalidOperationException();
-      }
+   }
 #endif
     }
     public int CompareTo(FastInteger val) {

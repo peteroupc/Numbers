@@ -414,12 +414,13 @@ namespace PeterO.Numbers {
             neg ? BigNumberFlags.FlagNegative : 0);
         }
       }
+      int flagneg = neg ? BigNumberFlags.FlagNegative : 0;
       return this.GetHelper().GetArithmeticSupport() ==
         BigNumberFlags.FiniteOnly ?
         default(T) : this.GetHelper().CreateNewWithFlags(
           EInteger.Zero,
-  EInteger.Zero,
-  ( neg ? BigNumberFlags.FlagNegative : 0) | BigNumberFlags.FlagInfinity);
+          EInteger.Zero,
+          flagneg | BigNumberFlags.FlagInfinity);
     }
 #pragma warning restore CS0618
 

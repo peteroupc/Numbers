@@ -116,18 +116,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Adds one to an arbitrary-precision rational
     /// number.</summary>
-    /// <returns>The given arbitrary-precision rational number plus
-    /// one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
-    public ERational Increment() {
-  return this + (ERational)1;
-}
-
-    /// <summary>Adds one to an arbitrary-precision rational
-    /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
-    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <returns>The number given in <paramref name='bthis'/> plus
+    /// one.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static ERational operator ++(ERational bthis) {
@@ -139,18 +130,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts one from an arbitrary-precision rational
     /// number.</summary>
-    /// <returns>The given arbitrary-precision rational number minus
-    /// one.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bthis'/> is null.</exception>
-    public ERational Decrement() {
-  return this.Subtract(1);
-}
-
-    /// <summary>Subtracts one from an arbitrary-precision rational
-    /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
-    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <returns>The number given in <paramref name='bthis'/> minus
+    /// one.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static ERational operator --(ERational bthis) {
@@ -334,6 +316,10 @@ namespace PeterO.Numbers {
     /// integer is less than 0 or greater than 255.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToByteChecked.")]
     public static explicit operator byte(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -419,6 +405,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToSByteChecked.")]
     public static explicit operator sbyte(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -449,6 +439,10 @@ namespace PeterO.Numbers {
     /// integer is less than -32768 or greater than 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt16Checked.")]
     public static explicit operator short(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -535,6 +529,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt16Checked.")]
     public static explicit operator ushort(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -566,6 +564,10 @@ namespace PeterO.Numbers {
     /// 2147483647.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt32Checked.")]
     public static explicit operator int(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -650,6 +652,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt32Checked.")]
     public static explicit operator uint(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -681,6 +687,10 @@ namespace PeterO.Numbers {
     /// 9223372036854775807.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt64Checked.")]
     public static explicit operator long(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -767,6 +777,10 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt64Checked.")]
     public static explicit operator ulong(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));

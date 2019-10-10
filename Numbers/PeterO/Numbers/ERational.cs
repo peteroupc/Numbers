@@ -161,7 +161,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Gets this object's denominator.</summary>
-    /// <value>This object' s denominator.</value>
+    /// <value>This object's denominator.</value>
     public EInteger Denominator {
       get {
         return this.denominator;
@@ -192,7 +192,7 @@ namespace PeterO.Numbers {
     /// <summary>Gets a value indicating whether this object's value equals
     /// 0.</summary>
     /// <value><c>true</c> if this object's value equals 0; otherwise,
-    /// <c>false</c>. <c>true</c> if this object' s value equals 0;
+    /// <c>false</c>. <c>true</c> if this object's value equals 0;
     /// otherwise, <c>false</c>.</value>
     public bool IsZero {
       get {
@@ -202,7 +202,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Gets this object's numerator.</summary>
-    /// <value>This object' s numerator. If this object is a not-a-number
+    /// <value>This object's numerator. If this object is a not-a-number
     /// value, returns the diagnostic information (which will be negative
     /// if this object is negative).</value>
     public EInteger Numerator {
@@ -1162,7 +1162,7 @@ namespace PeterO.Numbers {
 this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
                                .Subtract(1);
           if (bigDigitCount.CompareTo(other.Exponent) < 0) {
-            // Numerator's digit count minus 1 is less than the other' s
+            // Numerator's digit count minus 1 is less than the other's
             // exponent,
             // and other's exponent is positive, so this value's absolute
             // value is less
@@ -1289,7 +1289,7 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
                 this.UnsignedNumerator.GetDigitCountAsEInteger()
                  .Subtract(1);
           if (bigDigitCount.CompareTo(other.Exponent) < 0) {
-            // Numerator's digit count minus 1 is less than the other' s
+            // Numerator's digit count minus 1 is less than the other's
             // exponent,
             // and other's exponent is positive, so this value's absolute
             // value is less
@@ -2008,6 +2008,22 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
       }
       return (this.Numerator.IsZero && this.IsNegative) ? ("-0/" +
         this.Denominator) : (this.Numerator + "/" + this.Denominator);
+    }
+
+    /// <summary>Adds one to an arbitrary-precision rational
+    /// number.</summary>
+    /// <returns>The given arbitrary-precision rational number plus
+    /// one.</returns>
+    public ERational Increment() {
+      return this.Add(1);
+    }
+
+    /// <summary>Subtracts one from an arbitrary-precision rational
+    /// number.</summary>
+    /// <returns>The given arbitrary-precision rational number minus
+    /// one.</returns>
+    public ERational Decrement() {
+      return this.Subtract(1);
     }
 
     // Begin integer conversions

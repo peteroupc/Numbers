@@ -193,7 +193,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Gets this object's exponent. This object's value will be
     /// an integer if the exponent is positive or zero.</summary>
-    /// <value>This object's exponent. This object' s value will be an
+    /// <value>This object's exponent. This object's value will be an
     /// integer if the exponent is positive or zero.</value>
     public EInteger Exponent {
       get {
@@ -225,7 +225,7 @@ namespace PeterO.Numbers {
     /// <summary>Gets a value indicating whether this object's value equals
     /// 0.</summary>
     /// <value><c>true</c> if this object's value equals 0; otherwise,
-    /// <c>false</c>. <c>true</c> if this object' s value equals 0;
+    /// <c>false</c>. <c>true</c> if this object's value equals 0;
     /// otherwise, <c>false</c>.</value>
     public bool IsZero {
       get {
@@ -238,7 +238,7 @@ namespace PeterO.Numbers {
     /// it negative if this object is negative. If this value is
     /// not-a-number (NaN), that value's absolute value is the NaN's
     /// "payload" (diagnostic information).</summary>
-    /// <value>This object' s unscaled value. Will be negative if this
+    /// <value>This object's unscaled value. Will be negative if this
     /// object's value is negative (including a negative NaN).</value>
     public EInteger Mantissa {
       get {
@@ -533,7 +533,7 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentException'>Either <paramref
     /// name='offset'/> or <paramref name='length'/> is less than 0 or
     /// greater than <paramref name='str'/> 's length, or <paramref name='
-    /// str'/> ' s length minus <paramref name='offset'/> is less than
+    /// str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     public static EFloat FromString(
       string str,
@@ -594,7 +594,7 @@ namespace PeterO.Numbers {
     /// <exception cref=' T:System.ArgumentException'>Either <paramref
     /// name=' offset'/> or <paramref name=' length'/> is less than 0 or
     /// greater than <paramref name='str'/> 's length, or <paramref name='
-    /// str'/> ' s length minus <paramref name='offset'/> is less than
+    /// str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
@@ -2106,7 +2106,7 @@ namespace PeterO.Numbers {
     /// fixed number of digits after the radix point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the radix point:</para>
-    /// <code> &#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5 // &#x2a;&#x2f;&#x2a;&#x2f;
+    /// <code> &#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5 &#x2f;&#x2a; &#x2a;&#x2f;&#x2a;&#x2f;&#x2a;&#x2f;
     /// digits after the radix point number = number.Quantize(
     /// EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the radix point&#x2a;&#x2f;
     /// EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code>
@@ -2326,7 +2326,7 @@ namespace PeterO.Numbers {
     /// divisor's absolute value, the result has the same sign as this
     /// object and will be the distance to the closest multiple.</item>
     /// <item>If the remainder's absolute value is more than half of the
-    /// divisor' s absolute value, the result has the opposite sign of this
+    /// divisor's absolute value, the result has the opposite sign of this
     /// object and will be the distance to the closest multiple.</item>
     /// <item>If the remainder's absolute value is exactly half of the
     /// divisor's absolute value, the result has the opposite sign of this
@@ -3336,6 +3336,23 @@ namespace PeterO.Numbers {
         return FromInt64(val);
       }
     }
+
+    /// <summary>Returns one added to this arbitrary-precision binary
+    /// floating-point number.</summary>
+    /// <returns>The given arbitrary-precision binary floating-point number
+    /// plus one.</returns>
+    public EFloat Increment() {
+  return this.Add(1);
+}
+
+    /// <summary>Returns one subtracted from this arbitrary-precision
+    /// binary floating-point number.</summary>
+    /// <returns>The given arbitrary-precision binary floating-point number
+    /// minus one.</returns>
+    public EFloat Decrement() {
+  return this.Subtract(1);
+}
+
     // Begin integer conversions
 
     /// <summary>Converts this number's value to a byte (from 0 to 255) if

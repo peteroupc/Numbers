@@ -84,7 +84,7 @@ There are several other types of numbers that are mentioned in this class and el
 
  * 64-bit signed integer: -2 <sup>63</sup> to (2 <sup>63</sup> - 1).
 
-<b>Two's complement form</b> : In <i>two' s-complement form</i> , nonnegative numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one, and a negative number is stored in such form by decreasing its absolute value by 1 and swapping the bits of the resulting number.
+<b>Two's complement form</b> : In <i>two's-complement form</i> , nonnegative numbers have the highest (most significant) bit set to zero, and negative numbers have that bit (and all bits beyond) set to one, and a negative number is stored in such form by decreasing its absolute value by 1 and swapping the bits of the resulting number.
 
 <b>64-bit floating-point number</b> : A 64-bit binary floating-point number, in the form <i>significand</i> * 2 <sup><i>exponent</i></sup> . The significand is 53 bits long (Precision) and the exponent ranges from -1074 (EMin) to 971 (EMax). The number is stored in the following format (commonly called the IEEE 754 format):
 
@@ -152,7 +152,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*10^mantissa.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
-* <code>[Decrement()](#Decrement)</code> - Subtracts one from an arbitrary-precision decimal number.
+* <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision decimal number.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this object by an 32-bit signed integer and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this object by another decimal number and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number.
@@ -197,7 +197,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 * <code>[GetHashCode()](#GetHashCode)</code> - Calculates this object's hash code.
-* <code>[Increment()](#Increment)</code> - Adds one to an arbitrary-precision decimal number.
+* <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision decimal number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object is positive or negative infinity.
 * <code>[IsNaN()](#IsNaN)</code> - Gets a value indicating whether this object is not a number (NaN).
@@ -399,7 +399,7 @@ Gets this object's exponent. This object's value will be an integer if the expon
 
 <b>Returns:</b>
 
-This object's exponent. This object' s value will be an integer if the exponent is positive or zero.
+This object's exponent. This object's value will be an integer if the exponent is positive or zero.
 
 <a id="IsFinite"></a>
 ### IsFinite
@@ -432,7 +432,7 @@ Gets a value indicating whether this object's value equals 0.
 
 <b>Returns:</b>
 
- `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object' s value equals 0; otherwise,  `false` .
+ `true`  if this object's value equals 0; otherwise,  `false` .  `true`  if this object's value equals 0; otherwise,  `false` .
 
 <a id="Mantissa"></a>
 ### Mantissa
@@ -443,7 +443,7 @@ Gets this object's unscaled value, or mantissa, and makes it negative if this ob
 
 <b>Returns:</b>
 
-This object' s unscaled value. Will be negative if this object's value is negative (including a negative NaN).
+This object's unscaled value. Will be negative if this object's value is negative (including a negative NaN).
 
 <a id="Sign"></a>
 ### Sign
@@ -894,7 +894,7 @@ The parameter  <i>diag</i>
 
     public PeterO.Numbers.EDecimal Decrement();
 
-Subtracts one from an arbitrary-precision decimal number.
+Returns one subtracted from this arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -1761,7 +1761,7 @@ A 32-bit signed integer.
 
     public PeterO.Numbers.EDecimal Increment();
 
-Adds one to an arbitrary-precision decimal number.
+Returns one added to this arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -3253,11 +3253,11 @@ An arbitrary-precision decimal number with the same value as this object but wit
         PeterO.Numbers.EInteger desiredExponent,
         PeterO.Numbers.EContext ctx);
 
-Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+ Returns an arbitrary-precision decimal number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which each decimal number has a fixed number of digits after the decimal point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the decimal point:
 
-     /* After performing arithmetic operations, adjust // the number to 5*/
+     /* After performing arithmetic operations, adjust /* the number to 5*/*/
                 /**/
                 digits after the decimal point number = number.Quantize(
                 EInteger.FromInt32(-5), /* five digits after the decimal point*/
@@ -3358,7 +3358,7 @@ Finds the distance to the closest multiple of the given divisor, based on the re
 
  * If the remainder's absolute value is less than half of the divisor's absolute value, the result has the same sign as this object and will be the distance to the closest multiple.
 
- * If the remainder's absolute value is more than half of the divisor' s absolute value, the result has the opposite sign of this object and will be the distance to the closest multiple.
+ * If the remainder's absolute value is more than half of the divisor's absolute value, the result has the opposite sign of this object and will be the distance to the closest multiple.
 
  * If the remainder's absolute value is exactly half of the divisor's absolute value, the result has the opposite sign of this object if the quotient, rounded down, is odd, and has the same sign as this object if the quotient, rounded down, is even, and the result's absolute value is half of the divisor's absolute value.
 

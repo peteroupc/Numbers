@@ -1021,8 +1021,8 @@ namespace Test {
       }
       {
         int integerTemp2 = EDecimals.CompareTotal(null, null,
-  EContext.Unlimited);
-  Assert.AreEqual(objectTemp, objectTemp2);
+         EContext.Unlimited);
+         Assert.AreEqual(0, integerTemp2);
 }
       {
         int objectTemp2 = EDecimals.CompareTotalMagnitude(null, null,

@@ -188,7 +188,7 @@ namespace PeterO.Numbers {
     /// 1).</item>
     ///  </list>
     /// <para><b>Two's complement form</b>
-    ///  : In <i>two' s-complement
+    ///  : In <i>two's-complement
     /// form</i>
     ///  , nonnegative numbers have the highest (most significant)
     /// bit set to zero, and negative numbers have that bit (and all bits
@@ -403,7 +403,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Gets this object's exponent. This object's value will be
     /// an integer if the exponent is positive or zero.</summary>
-    /// <value>This object's exponent. This object' s value will be an
+    /// <value>This object's exponent. This object's value will be an
     /// integer if the exponent is positive or zero.</value>
     public EInteger Exponent {
       get {
@@ -435,7 +435,7 @@ namespace PeterO.Numbers {
     /// <summary>Gets a value indicating whether this object's value equals
     /// 0.</summary>
     /// <value><c>true</c> if this object's value equals 0; otherwise,
-    /// <c>false</c>. <c>true</c> if this object' s value equals 0;
+    /// <c>false</c>. <c>true</c> if this object's value equals 0;
     /// otherwise, <c>false</c>.</value>
     public bool IsZero {
       get {
@@ -448,7 +448,7 @@ namespace PeterO.Numbers {
     /// it negative if this object is negative. If this value is
     /// not-a-number (NaN), that value's absolute value is the NaN's
     /// "payload" (diagnostic information).</summary>
-    /// <value>This object' s unscaled value. Will be negative if this
+    /// <value>This object's unscaled value. Will be negative if this
     /// object's value is negative (including a negative NaN).</value>
     public EInteger Mantissa {
       get {
@@ -3471,7 +3471,7 @@ namespace PeterO.Numbers {
     /// divisor's absolute value, the result has the same sign as this
     /// object and will be the distance to the closest multiple.</item>
     /// <item>If the remainder's absolute value is more than half of the
-    /// divisor' s absolute value, the result has the opposite sign of this
+    /// divisor's absolute value, the result has the opposite sign of this
     /// object and will be the distance to the closest multiple.</item>
     /// <item>If the remainder's absolute value is exactly half of the
     /// divisor's absolute value, the result has the opposite sign of this
@@ -5215,6 +5215,22 @@ bigmantissa.GetUnsignedBitLengthAsEInteger();
         return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
       }
     }
+
+    /// <summary>Returns one added to this arbitrary-precision decimal
+    /// number.</summary>
+    /// <returns>The given arbitrary-precision decimal number plus
+    /// one.</returns>
+    public EDecimal Increment() {
+       return this.Add(1);
+    }
+
+    /// <summary>Returns one subtracted from this arbitrary-precision
+    /// decimal number.</summary>
+    /// <returns>The given arbitrary-precision decimal number minus
+    /// one.</returns>
+    public EDecimal Decrement() {
+  return this.Subtract(1);
+}
 
     // Begin integer conversions
 

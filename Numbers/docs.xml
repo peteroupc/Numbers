@@ -736,7 +736,7 @@
              -
             1).</item>
              </list>
-            <para><b>Two's complement form</b> : In <i>two' s-complement
+            <para><b>Two's complement form</b> : In <i>two's-complement
             form</i>
              , nonnegative numbers have the highest (most significant)
             bit set to zero, and negative numbers have that bit (and all bits
@@ -1232,8 +1232,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Decrement">
 
-            <summary>Subtracts one from an arbitrary-precision decimal
-            number.</summary>
+            <summary>Returns one subtracted from this arbitrary-precision
+            decimal number.</summary>
             <returns>The given arbitrary-precision decimal number minus
             one.</returns>
 
@@ -1661,7 +1661,7 @@
 
             <summary>Gets this object's exponent. This object's value will be
             an integer if the exponent is positive or zero.</summary>
-            <value>This object's exponent. This object' s value will be an
+            <value>This object's exponent. This object's value will be an
             integer if the exponent is positive or zero.</value>
 
 </doc>
@@ -1936,7 +1936,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Increment">
 
-            <summary>Adds one to an arbitrary-precision decimal
+            <summary>Returns one added to this arbitrary-precision decimal
             number.</summary>
             <returns>The given arbitrary-precision decimal number plus
             one.</returns>
@@ -2005,7 +2005,7 @@
 
             <summary>Gets a value indicating whether this object's value equals
             0.</summary>
-            <value><c>true</c> if this object's value equals 0; otherwise, <c>false</c>. <c>true</c> if this object' s value equals 0; otherwise, <c>false</c>.</value>
+            <value><c>true</c> if this object's value equals 0; otherwise, <c>false</c>. <c>true</c> if this object's value equals 0; otherwise, <c>false</c>.</value>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Log(PeterO.Numbers.EContext)">
@@ -2056,7 +2056,7 @@
             it negative if this object is negative. If this value is
             not-a-number (NaN), that value's absolute value is the NaN's
             "payload" (diagnostic information).</summary>
-            <value>This object' s unscaled value. Will be negative if this
+            <value>This object's unscaled value. Will be negative if this
             object's value is negative (including a negative NaN).</value>
 
 </doc>
@@ -2604,7 +2604,8 @@
             EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the decimal point&#x2a;&#x2f;
             EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code> <para>A fixed-point decimal arithmetic in which no digits come
             after the decimal point (a desired exponent of 0) is considered an
-            "integer arithmetic".</para></summary>
+            "integer arithmetic".</para>
+            </summary>
             <param name='desiredExponent'>The desired exponent for the result.
             The exponent is the number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
@@ -2769,7 +2770,7 @@
             divisor's absolute value, the result has the same sign as this
             object and will be the distance to the closest multiple.</item>
             <item>If the remainder's absolute value is more than half of the
-            divisor' s absolute value, the result has the opposite sign of this
+            divisor's absolute value, the result has the opposite sign of this
             object and will be the distance to the closest multiple.</item>
             <item>If the remainder's absolute value is exactly half of the
             divisor's absolute value, the result has the opposite sign of this
@@ -5194,8 +5195,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Decrement">
 
-            <summary>Subtracts one from an arbitrary-precision binary
-            floating-point number.</summary>
+            <summary>Returns one subtracted from this arbitrary-precision
+            binary floating-point number.</summary>
             <returns>The given arbitrary-precision binary floating-point number
             minus one.</returns>
 
@@ -5531,7 +5532,7 @@
 
             <summary>Gets this object's exponent. This object's value will be
             an integer if the exponent is positive or zero.</summary>
-            <value>This object's exponent. This object' s value will be an
+            <value>This object's exponent. This object's value will be an
             integer if the exponent is positive or zero.</value>
 
 </doc>
@@ -5666,7 +5667,7 @@
             number.</returns>
             <exception cref=' T:System.ArgumentException'>Either <paramref name=' offset'/> or <paramref name=' length'/> is less than 0 or
             greater than <paramref name='str'/> 's length, or <paramref name='
-            str'/> ' s length minus <paramref name='offset'/> is less than
+            str'/> 's length minus <paramref name='offset'/> is less than
             <paramref name='length'/>.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
@@ -5712,7 +5713,7 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='str'/> 's length, or <paramref name='
-            str'/> ' s length minus <paramref name='offset'/> is less than
+            str'/> 's length minus <paramref name='offset'/> is less than
             <paramref name='length'/>.</exception>
 
 </doc>
@@ -5755,8 +5756,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Increment">
 
-            <summary>Adds one to an arbitrary-precision binary floating-point
-            number.</summary>
+            <summary>Returns one added to this arbitrary-precision binary
+            floating-point number.</summary>
             <returns>The given arbitrary-precision binary floating-point number
             plus one.</returns>
 
@@ -5824,7 +5825,7 @@
 
             <summary>Gets a value indicating whether this object's value equals
             0.</summary>
-            <value><c>true</c> if this object's value equals 0; otherwise, <c>false</c>. <c>true</c> if this object' s value equals 0; otherwise, <c>false</c>.</value>
+            <value><c>true</c> if this object's value equals 0; otherwise, <c>false</c>. <c>true</c> if this object's value equals 0; otherwise, <c>false</c>.</value>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Log(PeterO.Numbers.EContext)">
@@ -5875,7 +5876,7 @@
             it negative if this object is negative. If this value is
             not-a-number (NaN), that value's absolute value is the NaN's
             "payload" (diagnostic information).</summary>
-            <value>This object' s unscaled value. Will be negative if this
+            <value>This object's unscaled value. Will be negative if this
             object's value is negative (including a negative NaN).</value>
 
 </doc>
@@ -6425,12 +6426,13 @@
             fixed number of digits after the radix point. The following code
             example returns a fixed-point number with up to 20 digits before
             and exactly 5 digits after the radix point:</para>
-            <code>&#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5 //&#x2a;&#x2f;&#x2a;&#x2f;
+            <code>&#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5 &#x2f;&#x2a; &#x2a;&#x2f;&#x2a;&#x2f;&#x2a;&#x2f;
             digits after the radix point number = number.Quantize(
             EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the radix point&#x2a;&#x2f;
             EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code> <para>A fixed-point binary arithmetic in which no digits come after
             the radix point (a desired exponent of 0) is considered an "integer
-            arithmetic".</para></summary>
+            arithmetic".</para>
+            </summary>
             <param name='desiredExponent'>The desired exponent for the result.
             The exponent is the number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
@@ -6469,7 +6471,8 @@
             digits after the radix point number = number.Quantize(-5, &#x2f;&#x2a; five digits&#x2a;&#x2f;
             after the radix point EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code> <para>A fixed-point binary arithmetic in which no digits come after
             the radix point (a desired exponent of 0) is considered an "integer
-            arithmetic".</para></summary>
+            arithmetic".</para>
+            </summary>
             <param name='desiredExponentInt'>The desired exponent for the
             result. The exponent is the number of fractional digits in the
             result, expressed as a negative number. Can also be positive, which
@@ -6566,7 +6569,7 @@
             divisor's absolute value, the result has the same sign as this
             object and will be the distance to the closest multiple.</item>
             <item>If the remainder's absolute value is more than half of the
-            divisor' s absolute value, the result has the opposite sign of this
+            divisor's absolute value, the result has the opposite sign of this
             object and will be the distance to the closest multiple.</item>
             <item>If the remainder's absolute value is exactly half of the
             divisor's absolute value, the result has the opposite sign of this
@@ -7413,8 +7416,8 @@
             floating-point number.</summary>
             <param name='bthis'>An arbitrary-precision binary floating-point
             number.</param>
-            <returns>An arbitrary-precision binary floating-point
-            number.</returns>
+            <returns>The number given in <paramref name='bthis'/> minus
+            one.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
@@ -7733,8 +7736,8 @@
             number.</summary>
             <param name='bthis'>An arbitrary-precision binary floating-point
             number.</param>
-            <returns>An arbitrary-precision binary floating-point
-            number.</returns>
+            <returns>The number given in <paramref name='bthis'/> plus
+            one.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
@@ -8458,7 +8461,7 @@
             <summary>Converts this object's value to a 32-bit signed integer,
             throwing an exception if it can't fit.</summary>
             <returns>A 32-bit signed integer.</returns>
-            <exception cref=' T:System.OverflowException'>This object' s value
+            <exception cref=' T:System.OverflowException'>This object's value
             is too big to fit a 32-bit signed integer.</exception>
 
 </doc>
@@ -8466,7 +8469,7 @@
 
             <summary>Converts this object's value to a 32-bit signed integer.
             If the value can't fit in a 32-bit integer, returns the lower 32
-            bits of this object's two' s-complement form (see
+            bits of this object's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
             which case the return value might have a different sign than this
             object's value).</summary>
@@ -8478,7 +8481,7 @@
             <summary>Converts this object's value to a 64-bit signed integer,
             throwing an exception if it can't fit.</summary>
             <returns>A 64-bit signed integer.</returns>
-            <exception cref=' T:System.OverflowException'>This object' s value
+            <exception cref=' T:System.OverflowException'>This object's value
             is too big to fit a 64-bit signed integer.</exception>
 
 </doc>
@@ -8486,7 +8489,7 @@
 
             <summary>Converts this object's value to a 64-bit signed integer.
             If the value can't fit in a 64-bit integer, returns the lower 64
-            bits of this object's two' s-complement form (see
+            bits of this object's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
             which case the return value might have a different sign than this
             object's value).</summary>
@@ -8537,10 +8540,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Decrement">
 
-            <summary>Subtracts one from an arbitrary-precision
+            <summary>Returns one subtracted from this arbitrary-precision
             integer.</summary>
             <returns>The given arbitrary-precision integer minus one.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)">
@@ -8894,14 +8896,14 @@
             <summary>Returns whether a bit is set in the two's-complement form
             (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-            this object' s value.</summary>
+            this object's value.</summary>
             <param name='bigIndex'>The index, starting at zero, of the bit to
             test, where 0 is the least significant bit, 1 is the next least
             significant bit, and so on.</param>
             <returns><c>true</c> if the given bit is set in the two'
             s-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-            this object' s value; otherwise, <c>false</c>.</returns>
+            this object's value; otherwise, <c>false</c>.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigIndex'/> is null.</exception>
 
 </doc>
@@ -8910,14 +8912,14 @@
             <summary>Returns whether a bit is set in the two's-complement form
             (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-            this object' s value.</summary>
+            this object's value.</summary>
             <param name='index'>The index, starting at 0, of the bit to test,
             where 0 is the least significant bit, 1 is the next least
             significant bit, and so on.</param>
             <returns><c>true</c> if the given bit is set in the two'
             s-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-            this object' s value; otherwise, <c>false</c>.</returns>
+            this object's value; otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetSignedBitLength">
@@ -9004,9 +9006,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
 
-            <summary>Adds one to an arbitrary-precision integer.</summary>
+            <summary>Returns one added to this arbitrary-precision
+            integer.</summary>
             <returns>The given arbitrary-precision integer plus one.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.IsEven">
@@ -9020,7 +9022,7 @@
 
             <summary>Gets a value indicating whether this object's value is a
             power of two, and greater than 0.</summary>
-            <value><c>true</c> if this object' s value is a power of two, and
+            <value><c>true</c> if this object's value is a power of two, and
             greater than 0; otherwise, <c>false</c>.</value>
 
 </doc>
@@ -9285,7 +9287,7 @@
 <doc name="P:PeterO.Numbers.EInteger.Sign">
 
             <summary>Gets the sign of this object's value.</summary>
-            <value>The sign of this object' s value.</value>
+            <value>The sign of this object's value.</value>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Sqrt">
@@ -9353,7 +9355,7 @@
 <doc name="M:PeterO.Numbers.EInteger.ToBytes(System.Boolean)">
 
             <summary>Returns a byte array of this integer's value. The byte
-            array will take the number's two' s-complement form (see
+            array will take the number's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
             using the fewest bytes necessary to store its value unambiguously.
             If this value is negative, the bits that appear beyond the most
@@ -9388,7 +9390,7 @@
             <summary>Converts this object's value to a 32-bit signed integer,
             throwing an exception if it can't fit.</summary>
             <returns>A 32-bit signed integer.</returns>
-            <exception cref=' T:System.OverflowException'>This object' s value
+            <exception cref=' T:System.OverflowException'>This object's value
             is too big to fit a 32-bit signed integer.</exception>
 
 </doc>
@@ -9396,7 +9398,7 @@
 
             <summary>Converts this object's value to a 32-bit signed integer.
             If the value can't fit in a 32-bit integer, returns the lower 32
-            bits of this object's two' s-complement form (see
+            bits of this object's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
             which case the return value might have a different sign than this
             object's value).</summary>
@@ -9408,7 +9410,7 @@
             <summary>Converts this object's value to a 64-bit signed integer,
             throwing an exception if it can't fit.</summary>
             <returns>A 64-bit signed integer.</returns>
-            <exception cref=' T:System.OverflowException'>This object' s value
+            <exception cref=' T:System.OverflowException'>This object's value
             is too big to fit a 64-bit signed integer.</exception>
 
 </doc>
@@ -9416,7 +9418,7 @@
 
             <summary>Converts this object's value to a 64-bit signed integer.
             If the value can't fit in a 64-bit integer, returns the lower 64
-            bits of this object's two' s-complement form (see
+            bits of this object's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
             which case the return value might have a different sign than this
             object's value).</summary>
@@ -10196,13 +10198,12 @@
             number.</summary>
             <returns>The given arbitrary-precision rational number minus
             one.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
 <doc name="P:PeterO.Numbers.ERational.Denominator">
 
             <summary>Gets this object's denominator.</summary>
-            <value>This object' s denominator.</value>
+            <value>This object's denominator.</value>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Divide(PeterO.Numbers.ERational)">
@@ -10469,7 +10470,6 @@
             number.</summary>
             <returns>The given arbitrary-precision rational number plus
             one.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
 <doc name="P:PeterO.Numbers.ERational.IsFinite">
@@ -10537,7 +10537,7 @@
 
             <summary>Gets a value indicating whether this object's value equals
             0.</summary>
-            <value><c>true</c> if this object's value equals 0; otherwise, <c>false</c>. <c>true</c> if this object' s value equals 0; otherwise, <c>false</c>.</value>
+            <value><c>true</c> if this object's value equals 0; otherwise, <c>false</c>. <c>true</c> if this object's value equals 0; otherwise, <c>false</c>.</value>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Multiply(PeterO.Numbers.ERational)">
@@ -10575,7 +10575,7 @@
 <doc name="P:PeterO.Numbers.ERational.Numerator">
 
             <summary>Gets this object's numerator.</summary>
-            <value>This object' s numerator. If this object is a not-a-number
+            <value>This object's numerator. If this object is a not-a-number
             value, returns the diagnostic information (which will be negative
             if this object is negative).</value>
 
@@ -11163,7 +11163,8 @@
             <summary>Subtracts one from an arbitrary-precision rational
             number.</summary>
             <param name='bthis'>An arbitrary-precision rational number.</param>
-            <returns>An arbitrary-precision rational number.</returns>
+            <returns>The number given in <paramref name='bthis'/> minus
+            one.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
@@ -11500,7 +11501,8 @@
             <summary>Adds one to an arbitrary-precision rational
             number.</summary>
             <param name='bthis'>An arbitrary-precision rational number.</param>
-            <returns>An arbitrary-precision rational number.</returns>
+            <returns>The number given in <paramref name='bthis'/> plus
+            one.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>

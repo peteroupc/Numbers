@@ -47,7 +47,7 @@ namespace PeterO.Numbers {
             "\n" + "*****kdl=" + this.knownBitLength;
           throw new InvalidOperationException(msg);
         }
-      }
+   }
 #endif
     }
 
@@ -81,7 +81,7 @@ namespace PeterO.Numbers {
           this.ShiftRight(preShift);
           this.VerifyKnownLength();
           return;
-          } else {
+        } else {
           // NOTE: For BitShiftAccumulator, truncating and shifting
           // are the same, unlike in DigitShiftAccumulator
           this.ShiftRight(bitDiff);
