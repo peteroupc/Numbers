@@ -1647,9 +1647,9 @@ this.UnsignedNumerator.GetSignedBitLengthAsEInteger()
         .ToDouble();
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer. Any
-    /// fractional part in this value will be discarded when converting to
-    /// an arbitrary-precision integer.</summary>
+    /// <summary>Converts this value to an arbitrary-precision integer by
+    /// dividing the numerator by the denominator and discarding the
+    /// fractional part of the result.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
