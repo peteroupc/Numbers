@@ -55,7 +55,7 @@
             default value is true, meaning that EMax and EMin refer to the
             adjusted exponent. Setting this value to false (using
             WithAdjustExponent) is useful for modeling floating point
-            representations with an integer mantissa (significand) and an
+            representations with an integer significand and an
             integer exponent, such as Java's BigDecimal.</summary>
             <value><c>true</c> if the EMax and EMin properties refer to the
             number's Exponent property adjusted to the number's precision, or
@@ -109,7 +109,7 @@
             Exponent property will not be higher than EMax + 1 - Precision. If
             a number's exponent is higher than that value, but not high enough
             to cause overflow, the exponent is clamped to that value and enough
-            zeros are added to the number's mantissa (significand) to account
+            zeros are added to the number's significand to account
             for the adjustment. If HasExponentRange is false, this value is
             always false.</summary>
             <value>If true, a converted number's Exponent property will not be
@@ -375,7 +375,7 @@
 
             <summary>Gets the maximum length of a converted number in digits,
             ignoring the radix point and exponent. For example, if precision is
-            3, a converted number's mantissa (significand) can range from 0 to
+            3, a converted number's significand can range from 0 to
             999 (up to three digits long). If 0, converted numbers can have any
             precision.
             <para>Not-a-number (NaN) values can carry an optional number, its
@@ -385,7 +385,7 @@
             namely the least significant digits, are copied.</para></summary>
             <value>The maximum length of a converted number in digits, ignoring
             the radix point and exponent. For example, if precision is 3, a
-            converted number's mantissa (significand) can range from 0 to 999
+            converted number's significand can range from 0 to 999
             (up to three digits long). If 0, converted numbers can have any
             precision.</value>
 
@@ -607,13 +607,12 @@
             lead to unintuitive results, as is shown in the description for the
             FromDouble() method of this class.</para>
             <para><b>About EDecimal instances</b> </para>
-            <para>Each instance of this class consists of an integer mantissa
-            (significand) and an integer exponent, both arbitrary-precision.
-            The value of the number equals mantissa (significand) *
+            <para>Each instance of this class consists of an integer significand and an integer exponent, both arbitrary-precision.
+            The value of the number equals significand *
             10^exponent.</para>
-            <para>The mantissa (significand) is the value of the digits that
+            <para>The significand is the value of the digits that
             make up a number, ignoring the decimal point and exponent. For
-            example, in the number 2356.78, the mantissa (significand) is
+            example, in the number 2356.78, the significand is
             235678. The exponent is where the "floating" decimal point of the
             number is located. A positive exponent means "move it to the
             right", and a negative exponent means "move it to the left." In the
@@ -621,7 +620,7 @@
             places and the decimal point is "moved to the left by 2."
             Therefore, in the arbitrary-precision decimal representation, this
             number would be stored as 235678 * 10^-2.</para>
-            <para>The mantissa (significand) and exponent format preserves
+            <para>The significand and exponent format preserves
             trailing zeros in the number's value. This may give rise to
             multiple ways to store the same value. For example, 1.00 and 1
             would be stored differently, even though they have the same value.
@@ -805,8 +804,7 @@
              </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
-            first or least significant first.</para>
-            </summary>
+            first or least significant first.</para></summary>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Abs">
@@ -1118,19 +1116,19 @@
 <doc name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
             <summary>Creates a number with the value
-            <c>exponent*10^mantissa</c>.</summary>
-            <param name='mantissa'>Desired value for the mantissa.</param>
+            <c>exponent*10^significand</c>.</summary>
+            <param name='significand'>Desired value for the significand.</param>
             <param name='exponent'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> or <paramref name='exponent'/> is
+            <exception cref='ArgumentNullException'>The parameter <paramref name='significand'/> or <paramref name='exponent'/> is
             null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)">
 
             <summary>Creates a number with the value
-            <c>exponent*10^mantissa</c>.</summary>
-            <param name='mantissaSmall'>Desired value for the mantissa.</param>
+            <c>exponent*10^significand</c>.</summary>
+            <param name='significandSmall'>Desired value for the significand.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
 
@@ -1173,7 +1171,7 @@
 <doc name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
             <summary>This is an internal method.</summary>
-            <param name='mantissa'>The parameter <paramref name='mantissa'/> is
+            <param name='significand'>The parameter <paramref name='significand'/> is
             an internal parameter.</param>
             <param name='exponent'>The parameter <paramref name='exponent'/> is
             an internal parameter.</param>
@@ -1618,18 +1616,18 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Equals(PeterO.Numbers.EDecimal)">
 
-            <summary>Determines whether this object's mantissa (significand),
+            <summary>Determines whether this object's significand,
             exponent, and properties are equal to those of another object.
             Not-a-number values are considered equal if the rest of their
             properties are equal.</summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
-            <returns><c>true</c> if this object's mantissa (significand) and
+            <returns><c>true</c> if this object's significand and
             exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Equals(System.Object)">
 
-            <summary>Determines whether this object's mantissa (significand),
+            <summary>Determines whether this object's significand,
             exponent, and properties are equal to those of another object and
             that other object is an arbitrary-precision decimal number.
             Not-a-number values are considered equal if the rest of their
@@ -2052,7 +2050,7 @@
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.Mantissa">
 
-            <summary>Gets this object's unscaled value, or mantissa, and makes
+            <summary>Gets this object's unscaled value, or significand, and makes
             it negative if this object is negative. If this value is
             not-a-number (NaN), that value's absolute value is the NaN's
             "payload" (diagnostic information).</summary>
@@ -2538,8 +2536,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Precision">
 
-            <summary>Finds the number of digits in this number's mantissa
-            (significand). Returns 1 if this value is 0, and 0 if this value is
+            <summary>Finds the number of digits in this number's significand. Returns 1 if this value is 0, and 0 if this value is
             infinity or not-a-number (NaN).</summary>
             <returns>An arbitrary-precision integer.</returns>
 
@@ -2561,8 +2558,7 @@
             which no digits come after the decimal point (a desired exponent of
             0) is considered an "integer arithmetic" .</para></summary>
             <param name='otherValue'>An arbitrary-precision decimal number
-            containing the desired exponent of the result. The mantissa
-            (significand) is ignored. The exponent is the number of fractional
+            containing the desired exponent of the result. The significand is ignored. The exponent is the number of fractional
             digits in the result, expressed as a negative number. Can also be
             positive, which eliminates lower-order places from the number. For
             example, -3 means round to the thousandth (10^-3, 0.0001), and 3
@@ -2696,8 +2692,7 @@
 <doc name="M:PeterO.Numbers.EDecimal.Reduce(PeterO.Numbers.EContext)">
 
             <summary>Returns an object with the same numerical value as this
-            one but with trailing zeros removed from its mantissa
-            (significand). For example, 1.00 becomes 1.
+            one but with trailing zeros removed from its significand. For example, 1.00 becomes 1.
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
             <param name='ctx'>An arithmetic context to control the precision,
@@ -2708,8 +2703,7 @@
             isn't needed.</param>
             <returns>This value with trailing zeros removed. Note that if the
             result has a very high exponent and the context says to clamp high
-            exponents, there may still be some trailing zeros in the mantissa
-            (significand).</returns>
+            exponents, there may still be some trailing zeros in the significand.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Remainder(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
@@ -3332,7 +3326,7 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned mantissa (significand), and the next-highest bit of the
+            unsigned significand, and the next-highest bit of the
             significand area is set if those bits are all zeros and this is a
             signaling NaN. Unfortunately, in the.NET implementation, the return
             value of this method may be a quiet NaN even if a signaling NaN
@@ -3561,7 +3555,7 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned mantissa (significand), and the next-highest bit of the
+            unsigned significand, and the next-highest bit of the
             significand area is set if those bits are all zeros and this is a
             signaling NaN. Unfortunately, in the.NET implementation, the return
             value of this method may be a quiet NaN even if a signaling NaN
@@ -3682,8 +3676,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Ulp">
 
-            <summary>Returns the unit in the last place. The mantissa
-            (significand) will be 1 and the exponent will be this number's
+            <summary>Returns the unit in the last place. The significand will be 1 and the exponent will be this number's
             exponent. Returns 1 with an exponent of 0 if this number is
             infinity or not-a-number (NaN).</summary>
             <returns>An arbitrary-precision decimal number.</returns>
@@ -3692,7 +3685,7 @@
 <doc name="P:PeterO.Numbers.EDecimal.UnsignedMantissa">
 
             <summary>Gets the absolute value of this object's unscaled value,
-            or mantissa. If this value is not-a-number (NaN), that value is the
+            or significand. If this value is not-a-number (NaN), that value is the
             NaN's "payload" (diagnostic information).</summary>
             <value>The absolute value of this object's unscaled value.</value>
 
@@ -3789,7 +3782,7 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned mantissa (significand), and the next-highest bit of the
+            unsigned significand, and the next-highest bit of the
             significand area is set if those bits are all zeros and this is a
             signaling NaN. Unfortunately, in the.NET implementation, the return
             value of this method may be a quiet NaN even if a signaling NaN
@@ -3869,7 +3862,7 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned mantissa (significand), and the next-highest bit of the
+            unsigned significand, and the next-highest bit of the
             significand area is set if those bits are all zeros and this is a
             signaling NaN. Unfortunately, in the.NET implementation, the return
             value of this method may be a quiet NaN even if a signaling NaN
@@ -4549,25 +4542,25 @@
 <doc name="M:PeterO.Numbers.EDecimals.Rotate(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
             <summary>Rotates the digits of an arbitrary-precision decimal
-            number's mantissa.</summary>
+            number's significand.</summary>
             <param name='ed'>An arbitrary-precision number containing the
-            mantissa to rotate. If this mantissa contains more digits than the
-            precision, the most-significant digits are chopped off the mantissa
+            significand to rotate. If this significand contains more digits than the
+            precision, the most-significant digits are chopped off the significand
             before the rotation begins.</param>
             <param name='ed2'>An arbitrary-precision number indicating the
-            number of digits to rotate the first operand's mantissa. Must be an
+            number of digits to rotate the first operand's significand. Must be an
             integer with an exponent of 0. If this parameter is positive, the
-            mantissa is shifted to the left by the given number of digits and
-            the most-significant digits shifted out of the mantissa become the
+            significand is shifted to the left by the given number of digits and
+            the most-significant digits shifted out of the significand become the
             least-significant digits instead. If this parameter is negative,
-            the mantissa is shifted to the right by the given number of digits
-            and the least-significant digits shifted out of the mantissa become
+            the significand is shifted to the right by the given number of digits
+            and the least-significant digits shifted out of the significand become
             the most-significant digits instead.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. If this parameter is null or specifies
             an unlimited precision, this method has the same behavior as
             <c>Shift</c>.</param>
-            <returns>An arbitrary-precision decimal number whose mantissa is
+            <returns>An arbitrary-precision decimal number whose significand is
             rotated the given number of digits. Signals an invalid operation
             and returns NaN (not-a-number) if <paramref name='ed2'/> is a
             signaling NaN or if <paramref name='ed2'/> is not an integer, is
@@ -4613,18 +4606,18 @@
 <doc name="M:PeterO.Numbers.EDecimals.Shift(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
             <summary>Shifts the digits of an arbitrary-precision decimal
-            number's mantissa.</summary>
+            number's significand.</summary>
             <param name='ed'>An arbitrary-precision number containing the
-            mantissa to shift.</param>
+            significand to shift.</param>
             <param name='ed2'>An arbitrary-precision number indicating the
-            number of digits to shift the first operand's mantissa. Must be an
+            number of digits to shift the first operand's significand. Must be an
             integer with an exponent of 0. If this parameter is positive, the
-            mantissa is shifted to the left by the given number of digits. If
-            this parameter is negative, the mantissa is shifted to the right by
+            significand is shifted to the left by the given number of digits. If
+            this parameter is negative, the significand is shifted to the right by
             the given number of digits.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. Can be null.</param>
-            <returns>An arbitrary-precision decimal number whose mantissa is
+            <returns>An arbitrary-precision decimal number whose significand is
             shifted the given number of digits. Signals an invalid operation
             and returns NaN (not-a-number) if <paramref name='ed2'/> is a
             signaling NaN or if <paramref name='ed2'/> is not an integer, is
@@ -4638,18 +4631,18 @@
 
             <summary>Returns an arbitrary-precision number with the same value
             as this one but with certain trailing zeros removed from its
-            mantissa. If the number's exponent is 0, it is returned unchanged
+            significand. If the number's exponent is 0, it is returned unchanged
             (but may be rounded depending on the arithmetic context); if that
             exponent is greater 0, its trailing zeros are removed from the
-            mantissa (then rounded if necessary); if that exponent is less than
-            0, its trailing zeros are removed from the mantissa until the
+            significand (then rounded if necessary); if that exponent is less than
+            0, its trailing zeros are removed from the significand until the
             exponent reaches 0 (then the number is rounded if
             necessary).</summary>
             <param name='ed1'>An arbitrary-precision number.</param>
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>An arbitrary-precision number with the same value as this
-            one but with certain trailing zeros removed from its mantissa. If
+            one but with certain trailing zeros removed from its significand. If
             <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
             generally returned unchanged.</returns>
 
@@ -4685,9 +4678,8 @@
             number. (The "E" stands for "extended", meaning that instances of
             this class can be values other than numbers proper, such as
             infinity and not-a-number.) Each number consists of an integer
-            mantissa (significand) and an integer exponent, both
-            arbitrary-precision. The value of the number equals mantissa
-            (significand) * 2^exponent. This class also supports values for
+            significand and an integer exponent, both
+            arbitrary-precision. The value of the number equals significand * 2^exponent. This class also supports values for
             negative zero, not-a-number (NaN) values, and infinity.
             <para>Passing a signaling NaN to any arithmetic operation shown
             here will signal the flag FlagInvalid and return a quiet NaN, even
@@ -4819,7 +4811,7 @@
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
             <summary>This is an internal method.</summary>
-            <param name='mantissa'>The parameter <paramref name='mantissa'/> is
+            <param name='significand'>The parameter <paramref name='significand'/> is
             an internal parameter.</param>
             <param name='exponent'>The parameter <paramref name='exponent'/> is
             an internal parameter.</param>
@@ -5136,21 +5128,18 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-            <summary>Creates a number with the value exponent*2^mantissa
-            (significand).</summary>
-            <param name='mantissa'>Desired value for the mantissa.</param>
+            <summary>Creates a number with the value exponent*2^significand.</summary>
+            <param name='significand'>Desired value for the significand.</param>
             <param name='exponent'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
-            <exception cref='ArgumentNullException'>The parameter "mantissa
-            (significand)" or <paramref name='exponent'/> is null.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='significand'/> or <paramref name='exponent'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)">
 
-            <summary>Creates a number with the value exponent*2^mantissa
-            (significand).</summary>
-            <param name='mantissaSmall'>Desired value for the mantissa.</param>
+            <summary>Creates a number with the value exponent*2^significand.</summary>
+            <param name='significandSmall'>Desired value for the significand.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
@@ -5478,19 +5467,19 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Equals(PeterO.Numbers.EFloat)">
 
-            <summary>Determines whether this object's mantissa (significand),
+            <summary>Determines whether this object's significand,
             exponent, and properties are equal to those of another object.
             Not-a-number values are considered equal if the rest of their
             properties are equal.</summary>
             <param name='other'>An arbitrary-precision binary floating-point
             number.</param>
-            <returns><c>true</c> if this object's mantissa (significand) and
+            <returns><c>true</c> if this object's significand and
             exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Equals(System.Object)">
 
-            <summary>Determines whether this object's mantissa (significand),
+            <summary>Determines whether this object's significand,
             exponent, and properties are equal to those of another object and
             that other object is an arbitrary-precision binary floating-point
             number. Not-a-number values are considered equal if the rest of
@@ -5502,11 +5491,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.EqualsInternal(PeterO.Numbers.EFloat)">
 
-            <summary>Determines whether this object's mantissa (significand)
+            <summary>Determines whether this object's significand
             and exponent are equal to those of another object.</summary>
             <param name='otherValue'>An arbitrary-precision binary
             floating-point number.</param>
-            <returns><c>true</c> if this object's mantissa (significand) and
+            <returns><c>true</c> if this object's significand and
             exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
 
 </doc>
@@ -5872,7 +5861,7 @@
 </doc>
 <doc name="P:PeterO.Numbers.EFloat.Mantissa">
 
-            <summary>Gets this object's unscaled value, or mantissa, and makes
+            <summary>Gets this object's unscaled value, or significand, and makes
             it negative if this object is negative. If this value is
             not-a-number (NaN), that value's absolute value is the NaN's
             "payload" (diagnostic information).</summary>
@@ -6370,8 +6359,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Precision">
 
-            <summary>Finds the number of digits in this number's mantissa
-            (significand). Returns 1 if this value is 0, and 0 if this value is
+            <summary>Finds the number of digits in this number's significand. Returns 1 if this value is 0, and 0 if this value is
             infinity or not-a-number (NaN).</summary>
             <returns>An arbitrary-precision integer.</returns>
 
@@ -6392,7 +6380,7 @@
             which no digits come after the radix point (a desired exponent of
             0) is considered an "integer arithmetic" .</para></summary>
             <param name='otherValue'>A binary float containing the desired
-            exponent of the result. The mantissa (significand) is ignored. The
+            exponent of the result. The significand is ignored. The
             exponent is the number of fractional digits in the result,
             expressed as a negative number. Can also be positive, which
             eliminates lower-order places from the number. For example, -3
@@ -6495,8 +6483,7 @@
 <doc name="M:PeterO.Numbers.EFloat.Reduce(PeterO.Numbers.EContext)">
 
             <summary>Returns an object with the same numerical value as this
-            one but with trailing zeros removed from its mantissa
-            (significand). For example, 1.00 becomes 1.
+            one but with trailing zeros removed from its significand. For example, 1.00 becomes 1.
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
             <param name='ctx'>An arithmetic context to control the precision,
@@ -6507,8 +6494,7 @@
             isn't needed.</param>
             <returns>This value with trailing zeros removed. Note that if the
             result has a very high exponent and the context says to clamp high
-            exponents, there may still be some trailing zeros in the mantissa
-            (significand).</returns>
+            exponents, there may still be some trailing zeros in the significand.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -7254,7 +7240,7 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned mantissa (significand), and the next-highest bit of the
+            unsigned significand, and the next-highest bit of the
             significand area is set if those bits are all zeros and this is a
             signaling NaN. Unfortunately, in the.NET implementation, the return
             value of this method may be a quiet NaN even if a signaling NaN
@@ -7376,8 +7362,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Ulp">
 
-            <summary>Returns the unit in the last place. The mantissa
-            (significand) will be 1 and the exponent will be this number's
+            <summary>Returns the unit in the last place. The significand will be 1 and the exponent will be this number's
             exponent. Returns 1 with an exponent of 0 if this number is
             infinity or not-a-number (NaN).</summary>
             <returns>An arbitrary-precision binary floating-point
@@ -7387,7 +7372,7 @@
 <doc name="P:PeterO.Numbers.EFloat.UnsignedMantissa">
 
             <summary>Gets the absolute value of this object's unscaled value,
-            or mantissa. If this value is not-a-number (NaN), that value is the
+            or significand. If this value is not-a-number (NaN), that value is the
             NaN's "payload" (diagnostic information).</summary>
             <value>The absolute value of this object's unscaled value.</value>
 
@@ -7472,7 +7457,7 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned mantissa (significand), and the next-highest bit of the
+            unsigned significand, and the next-highest bit of the
             significand area is set if those bits are all zeros and this is a
             signaling NaN. Unfortunately, in the.NET implementation, the return
             value of this method may be a quiet NaN even if a signaling NaN
@@ -7553,7 +7538,7 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned mantissa (significand), and the next-highest bit of the
+            unsigned significand, and the next-highest bit of the
             significand area is set if those bits are all zeros and this is a
             signaling NaN. Unfortunately, in the.NET implementation, the return
             value of this method may be a quiet NaN even if a signaling NaN
@@ -8241,25 +8226,25 @@
 <doc name="M:PeterO.Numbers.EFloats.Rotate(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
             <summary>Rotates the bits of an arbitrary-precision binary number's
-            mantissa.</summary>
+            significand.</summary>
             <param name='ed'>An arbitrary-precision number containing the
-            mantissa to rotate. If this mantissa contains more bits than the
+            significand to rotate. If this significand contains more bits than the
             precision, the most-significant bits are chopped off the
-            mantissa.</param>
+            significand.</param>
             <param name='ed2'>An arbitrary-precision number indicating the
-            number of bits to rotate the first operand's mantissa. Must be an
+            number of bits to rotate the first operand's significand. Must be an
             integer with an exponent of 0. If this parameter is positive, the
-            mantissa is shifted to the left by the given number of bits and the
-            most-significant bits shifted out of the mantissa become the
+            significand is shifted to the left by the given number of bits and the
+            most-significant bits shifted out of the significand become the
             least-significant bits instead. If this parameter is negative, the
             number is shifted by the given number of bits and the
-            least-significant bits shifted out of the mantissa become the
+            least-significant bits shifted out of the significand become the
             most-significant bits instead.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. If this parameter is null or specifies
             an unlimited precision, this method has the same behavior as
             <c>Shift</c>.</param>
-            <returns>An arbitrary-precision binary number whose mantissa is
+            <returns>An arbitrary-precision binary number whose significand is
             rotated the given number of bits. Signals an invalid operation and
             returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
             NaN or if <paramref name='ed2'/> is not an integer, is negative,
@@ -8304,18 +8289,18 @@
 <doc name="M:PeterO.Numbers.EFloats.Shift(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
             <summary>Shifts the bits of an arbitrary-precision binary floating
-            point number's mantissa.</summary>
+            point number's significand.</summary>
             <param name='ed'>An arbitrary-precision binary floating point
-            number containing the mantissa to shift.</param>
+            number containing the significand to shift.</param>
             <param name='ed2'>An arbitrary-precision number indicating the
-            number of bits to shift the first operand's mantissa. Must be an
+            number of bits to shift the first operand's significand. Must be an
             integer with an exponent of 0. If this parameter is positive, the
-            mantissa is shifted to the left by the given number of bits. If
-            this parameter is negative, the mantissa is shifted to the right by
+            significand is shifted to the left by the given number of bits. If
+            this parameter is negative, the significand is shifted to the right by
             the given number of bits.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. Can be null.</param>
-            <returns>An arbitrary-precision decimal number whose mantissa is
+            <returns>An arbitrary-precision decimal number whose significand is
             shifted the given number of bits. Signals an invalid operation and
             returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
             NaN or if <paramref name='ed2'/> is not an integer, is negative,
@@ -8328,18 +8313,18 @@
 
             <summary>Returns an arbitrary-precision number with the same value
             as this one but with certain trailing zeros removed from its
-            mantissa. If the number's exponent is 0, it is returned unchanged
+            significand. If the number's exponent is 0, it is returned unchanged
             (but may be rounded depending on the arithmetic context); if that
             exponent is greater 0, its trailing zeros are removed from the
-            mantissa (then rounded if necessary); if that exponent is less than
-            0, its trailing zeros are removed from the mantissa until the
+            significand (then rounded if necessary); if that exponent is less than
+            0, its trailing zeros are removed from the significand until the
             exponent reaches 0 (then the number is rounded if
             necessary).</summary>
             <param name='ed1'>An arbitrary-precision number.</param>
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>An arbitrary-precision number with the same value as this
-            one but with certain trailing zeros removed from its mantissa. If
+            one but with certain trailing zeros removed from its significand. If
             <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
             generally returned unchanged.</returns>
 
@@ -8833,14 +8818,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)">
 
-            <summary>Retrieves bits from this integer's two' s-complement
+            <summary>Retrieves bits from this integer's two's-complement
             form.</summary>
             <param name='index'>Zero-based index of the first bit to retrieve,
             where 0 is the least-significant bit of the number.</param>
             <param name='numberBits'>The number of bits to retrieve, starting
             with the first. Must be from 0 through 64.</param>
             <returns>A 64-bit signed integer containing the bits from this
-            integer's two' s-complement form. The least significant bit is the
+            integer's two's-complement form. The least significant bit is the
             first bit, and any unused bits are set to 0.</returns>
 
 </doc>
@@ -9516,7 +9501,7 @@
 <doc name="M:PeterO.Numbers.EInteger.ToUInt64Unchecked">
 
             <summary>Converts this number to a 64-bit signed integer, returning
-            the least-significant bits of this number's two' s-complement
+            the least-significant bits of this number's two's-complement
             form.</summary>
             <returns>This number, converted to a 64-bit signed
             integer.</returns>
@@ -10771,9 +10756,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToEInteger">
 
-            <summary>Converts this value to an arbitrary-precision integer. Any
-            fractional part in this value will be discarded when converting to
-            an arbitrary-precision integer.</summary>
+            <summary>Converts this value to an arbitrary-precision integer by
+            dividing the numerator by the denominator and discarding the
+            fractional part of the result.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>

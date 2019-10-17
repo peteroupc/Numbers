@@ -22,7 +22,7 @@ namespace PeterO.Numbers {
 
     private static EContext GetTrappableContext(EContext ctx) {
       return (ctx == null) ? null : ((ctx.Traps == 0) ? ctx :
-      ctx.WithBlankFlags());
+          ctx.WithBlankFlags());
     }
 
     private T TriggerTraps(
@@ -41,8 +41,8 @@ namespace PeterO.Numbers {
         return result;
       }
       int mutexConditions = traps & (~(
-        EContext.FlagClamped | EContext.FlagInexact | EContext.FlagRounded |
-          EContext.FlagSubnormal));
+            EContext.FlagClamped | EContext.FlagInexact | EContext.FlagRounded |
+            EContext.FlagSubnormal));
       if (mutexConditions != 0) {
         for (var i = 0; i < 32; ++i) {
           int flag = mutexConditions & (i << 1);
@@ -81,11 +81,11 @@ namespace PeterO.Numbers {
     private readonly IRadixMath<T> math;
 
     public TrappableRadixMath(IRadixMath<T> math) {
-#if DEBUG
+      #if DEBUG
       if (math == null) {
         throw new ArgumentNullException(nameof(math));
       }
-#endif
+      #endif
       this.math = math;
     }
 

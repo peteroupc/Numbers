@@ -8,7 +8,7 @@ namespace Test {
     private const string ValueDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private const string ValueDigitsLower =
-          "0123456789abcdefghijklmnopqrstuvwxyz";
+      "0123456789abcdefghijklmnopqrstuvwxyz";
 
     private String stringValue;
 
@@ -28,11 +28,11 @@ namespace Test {
 
     public static StringAndBigInt Generate(RandomGenerator rand, int radix) {
       if (radix < 2) {
-        throw new ArgumentException("radix (" + radix +
+        throw new ArgumentException("radix(" + radix +
           ") is less than 2");
       }
       if (radix > 36) {
-        throw new ArgumentException("radix (" + radix +
+        throw new ArgumentException("radix(" + radix +
           ") is more than 36");
       }
       EInteger bv = EInteger.Zero;
@@ -81,7 +81,7 @@ namespace Test {
           builder.Append(ValueDigitsLower[digit4]);
         }
         int digits = (((((digit * radix) + digit2) *
-          radix) + digit3) * radix) + digit4;
+                radix) + digit3) * radix) + digit4;
         bv *= radixpow4;
         var bigintTmp = (EInteger)digits;
         bv += bigintTmp;

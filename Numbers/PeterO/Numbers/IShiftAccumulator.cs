@@ -8,21 +8,31 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <summary>Common interface for classes that shift a number of digits
-    /// and record information on whether a non-zero digit was discarded
-    /// this way.</summary>
+  /// <summary>Common interface for classes that shift a number of digits
+  /// and record information on whether a non-zero digit was discarded
+  /// this way.</summary>
   internal interface IShiftAccumulator {
-    EInteger ShiftedInt { get; }
+    EInteger ShiftedInt {
+      get;
+    }
 
     FastInteger GetDigitLength();
 
-    int OlderDiscardedDigits { get; }
+    int OlderDiscardedDigits {
+      get;
+    }
 
-    int LastDiscardedDigit { get; }
+    int LastDiscardedDigit {
+      get;
+    }
 
-    FastInteger ShiftedIntFast { get; }
+    FastInteger ShiftedIntFast {
+      get;
+    }
 
-    FastInteger DiscardedDigitCount { get; }
+    FastInteger DiscardedDigitCount {
+      get;
+    }
 
     void TruncateOrShiftRight(FastInteger bits, bool truncate);
 

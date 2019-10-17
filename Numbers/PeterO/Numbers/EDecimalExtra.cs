@@ -22,14 +22,14 @@ namespace PeterO.Numbers {
       }
       decimal ret;
       System.Globalization.NumberStyles
-        ns = System.Globalization.NumberStyles.Number |
-          System.Globalization.NumberStyles.AllowExponent;
+      ns = System.Globalization.NumberStyles.Number |
+        System.Globalization.NumberStyles.AllowExponent;
       if (
-  Decimal.TryParse(
-  this.ToString(),
-  ns,
-  System.Globalization.CultureInfo.InvariantCulture,
-  out ret)) {
+        Decimal.TryParse (
+          this.ToString(),
+          ns,
+          System.Globalization.CultureInfo.InvariantCulture,
+          out ret)) {
         return ret;
       }
       throw new OverflowException("This object's value is out of range");
@@ -46,8 +46,8 @@ namespace PeterO.Numbers {
     public static EDecimal FromDecimal(decimal dec) {
       return
 
-  EDecimal.FromString(
-    dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        EDecimal.FromString (
+          dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
     /// <summary>Converts a boolean value (true or false) to an arbitrary
@@ -255,11 +255,11 @@ namespace PeterO.Numbers {
     /// floating point number's significand area for a quiet NaN, and
     /// clears it for a signaling NaN. Then the other bits of the
     /// significand area are set to the lowest bits of this object's
-    /// unsigned mantissa (significand), and the next-highest bit of the
-    /// significand area is set if those bits are all zeros and this is a
-    /// signaling NaN. Unfortunately, in the.NET implementation, the return
-    /// value of this method may be a quiet NaN even if a signaling NaN
-    /// would otherwise be generated.</para></summary>
+    /// unsigned significand, and the next-highest bit of the significand
+    /// area is set if those bits are all zeros and this is a signaling
+    /// NaN. Unfortunately, in the.NET implementation, the return value of
+    /// this method may be a quiet NaN even if a signaling NaN would
+    /// otherwise be generated.</para></summary>
     /// <param name='bigValue'>The value to convert to a 64-bit
     /// floating-point number.</param>
     /// <returns>The closest 64-bit floating-point number to this value.
@@ -281,11 +281,11 @@ namespace PeterO.Numbers {
     /// floating point number's significand area for a quiet NaN, and
     /// clears it for a signaling NaN. Then the other bits of the
     /// significand area are set to the lowest bits of this object's
-    /// unsigned mantissa (significand), and the next-highest bit of the
-    /// significand area is set if those bits are all zeros and this is a
-    /// signaling NaN. Unfortunately, in the.NET implementation, the return
-    /// value of this method may be a quiet NaN even if a signaling NaN
-    /// would otherwise be generated.</para></summary>
+    /// unsigned significand, and the next-highest bit of the significand
+    /// area is set if those bits are all zeros and this is a signaling
+    /// NaN. Unfortunately, in the.NET implementation, the return value of
+    /// this method may be a quiet NaN even if a signaling NaN would
+    /// otherwise be generated.</para></summary>
     /// <param name='bigValue'>The number to convert as an
     /// arbitrary-precision decimal number.</param>
     /// <returns>The closest 32-bit binary floating-point number to this

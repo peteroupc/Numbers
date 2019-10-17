@@ -5,7 +5,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
 at: http://peteroupc.github.io/
  */
- #if DEBUG
+#if DEBUG
 using System;
 using System.Reflection;
 
@@ -15,13 +15,13 @@ namespace PeterO {
       Type t,
       string name,
       Type[] parameters) {
-#if NET40 || NET20
-      return t.GetMethod(name, parameters);
-#else
+      #if NET40 || NET20
+      return t.GetMethod (name, parameters);
+      #else
 {
- return t?.GetRuntimeMethod(name, parameters);
-   }
-#endif
+        return t?.GetRuntimeMethod(name, parameters);
+      }
+      #endif
     }
 
     public static void Log(string str) {
@@ -29,9 +29,9 @@ namespace PeterO {
       var types = new[] { typeof(string) };
       var typeMethod = GetTypeMethod(type, "WriteLine", types);
       if (typeMethod != null) {
-       typeMethod.Invoke(
-        type,
-        new object[] { str });
+        typeMethod.Invoke (
+          type,
+          new object[] { str });
       }
     }
 

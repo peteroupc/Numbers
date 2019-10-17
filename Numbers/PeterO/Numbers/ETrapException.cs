@@ -8,10 +8,10 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <summary>Exception thrown for arithmetic trap errors. (The "E"
-    /// stands for "extended", and has this prefix to group it with the
-    /// other classes common to this library, particularly EDecimal,
-    /// EFloat, and ERational.).</summary>
+  /// <summary>Exception thrown for arithmetic trap errors. (The "E"
+  /// stands for "extended", and has this prefix to group it with the
+  /// other classes common to this library, particularly EDecimal,
+  /// EFloat, and ERational.).</summary>
 #if NET20 || NET40
 [Serializable]
 #endif
@@ -41,23 +41,23 @@ public sealed class ETrapException : ArithmeticException {
     /// <param name='message'>The parameter <paramref name='message'/> is a
     /// text string.</param>
     public ETrapException(string message) : base(message) {
-         this.error = EContext.FlagInvalid;
-         this.ctx = null;
-         this.result = null;
-         }
+      this.error = EContext.FlagInvalid;
+      this.ctx = null;
+      this.result = null;
+    }
 
-     /// <summary>Initializes a new instance of the
-     /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
-     /// <param name='message'>The parameter <paramref name='message'/> is a
-     /// text string.</param>
-     /// <param name='innerException'>The parameter <paramref
-     /// name='innerException'/> is an Exception object.</param>
-     public ETrapException(string message, Exception innerException)
-        : base(message, innerException) {
-         this.error = EContext.FlagInvalid;
-         this.ctx = (this.ctx == null) ? null : this.ctx.Copy();
-         this.result = null;
-      }
+    /// <summary>Initializes a new instance of the
+    /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+    /// <param name='message'>The parameter <paramref name='message'/> is a
+    /// text string.</param>
+    /// <param name='innerException'>The parameter <paramref
+    /// name='innerException'/> is an Exception object.</param>
+    public ETrapException(string message, Exception innerException)
+      : base(message, innerException) {
+      this.error = EContext.FlagInvalid;
+      this.ctx = (this.ctx == null) ? null : this.ctx.Copy();
+      this.result = null;
+    }
 
     /// <summary>Gets the defined result of the operation that caused the
     /// trap.</summary>
@@ -83,13 +83,13 @@ public sealed class ETrapException : ArithmeticException {
 
     private static string FlagToMessage(int flag) {
       return (flag == EContext.FlagClamped) ? "Clamped" : ((flag ==
-        EContext.FlagDivideByZero) ? "DivideByZero" : ((flag ==
-        EContext.FlagInexact) ? "Inexact" : ((flag ==
-        EContext.FlagInvalid) ? "Invalid" : ((flag ==
-        EContext.FlagOverflow) ? "Overflow" : ((flag ==
-        EContext.FlagRounded) ? "Rounded" : ((flag ==
-        EContext.FlagSubnormal) ? "Subnormal" : ((flag ==
-        EContext.FlagUnderflow) ? "Underflow" : "Trap")))))));
+            EContext.FlagDivideByZero) ? "DivideByZero" : ((flag ==
+              EContext.FlagInexact) ? "Inexact" : ((flag ==
+                EContext.FlagInvalid) ? "Invalid" : ((flag ==
+                  EContext.FlagOverflow) ? "Overflow" : ((flag ==
+                    EContext.FlagRounded) ? "Rounded" : ((flag ==
+                      EContext.FlagSubnormal) ? "Subnormal" : ((flag ==
+                        EContext.FlagUnderflow) ? "Underflow" : "Trap")))))));
     }
 
     /// <summary>Initializes a new instance of the
@@ -108,7 +108,7 @@ public sealed class ETrapException : ArithmeticException {
       this.result = result;
     }
 
-#if NET20 || NET40
+    #if NET20 || NET40
     /// <summary>Initializes a new instance of the
     /// <see cref='PeterO.Cbor.ETrapException'/> class. Uses the given
     /// serialization and streaming contexts.</summary>
@@ -116,11 +116,11 @@ public sealed class ETrapException : ArithmeticException {
     /// object.</param>
     /// <param name='context'>A
     /// System.Runtime.Serialization.StreamingContext object.</param>
-      protected ETrapException(
-        System.Runtime.Serialization.SerializationInfo info,
-        System.Runtime.Serialization.StreamingContext context)
-        : base(info, context) {
- }
-#endif
+    protected ETrapException(
+      System.Runtime.Serialization.SerializationInfo info,
+      System.Runtime.Serialization.StreamingContext context):
+      base (info, context) {
+    }
+    #endif
   }
 }

@@ -17,7 +17,7 @@ namespace Test {
   public class DecimalTest {
     internal static void PrintTime(System.Diagnostics.Stopwatch sw) {
       Console.WriteLine("Elapsed time: " + (sw.ElapsedMilliseconds / 1000.0) +
-                    " s");
+        " s");
     }
 
     [Test]
@@ -53,28 +53,28 @@ namespace Test {
         try {
           System.Globalization.NumberStyles numstyles =
             System.Globalization.NumberStyles.AllowExponent |
-System.Globalization.NumberStyles.Number;
-          d = Decimal.Parse(
-  ed.ToString(),
-  numstyles,
-  System.Globalization.CultureInfo.InvariantCulture);
-          EDecimal ed3 = EDecimal.FromString(
-  ed.ToString(),
-  EContext.CliDecimal);
+            System.Globalization.NumberStyles.Number;
+          d = Decimal.Parse (
+              ed.ToString(),
+              numstyles,
+              System.Globalization.CultureInfo.InvariantCulture);
+          EDecimal ed3 = EDecimal.FromString (
+              ed.ToString(),
+              EContext.CliDecimal);
           string msg = ed.ToString() + " (expanded: " +
             EDecimal.FromString(ed.ToString()) + ")";
-          TestCommon.CompareTestEqual(
+          TestCommon.CompareTestEqual (
             (EDecimal)d,
             ed3,
             msg);
         } catch (OverflowException ex) {
-          EDecimal ed2 = EDecimal.FromString(
-  ed.ToString(),
-  EContext.CliDecimal);
-          Assert.IsTrue(
-  ed2.IsInfinity(),
-  ed.ToString(),
-  ex.ToString());
+          EDecimal ed2 = EDecimal.FromString (
+              ed.ToString(),
+              EContext.CliDecimal);
+          Assert.IsTrue (
+            ed2.IsInfinity(),
+            ed.ToString(),
+            ex.ToString());
         }
       }
     }
@@ -117,8 +117,8 @@ System.Globalization.NumberStyles.Number;
         TestCommon.CompareTestEqual(d, (decimal)ed, ed.ToString());
         EDecimal ed2 =
 
-  EDecimal.FromString(
-    d.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          EDecimal.FromString (
+            d.ToString(System.Globalization.CultureInfo.InvariantCulture));
         TestCommon.CompareTestEqual(ed, ed2);
       }
     }
@@ -259,9 +259,9 @@ System.Globalization.NumberStyles.Number;
       if (testfiles.Length == 0) {
         return;
       }
-      string failingpath = Path.Combine(
-  Path.GetDirectoryName(testfiles[0]),
-  "failing.decTest");
+      string failingpath = Path.Combine (
+          Path.GetDirectoryName(testfiles[0]),
+          "failing.decTest");
       if (recordfailing && File.Exists(failingpath)) {
         return;
       }
@@ -271,7 +271,7 @@ System.Globalization.NumberStyles.Number;
       // <http://speleotrove.com/decimal/dectest.html>
       foreach (var f in testfiles) {
         if (!DecTestUtil.ToLowerCaseAscii(Path.GetFileName(f))
-           .Contains(recordfailing ? ".dectest" : "failing.dectest")) {
+          .Contains(recordfailing ? ".dectest" : "failing.dectest")) {
           continue;
         }
         Console.WriteLine(f);
@@ -308,7 +308,7 @@ System.Globalization.NumberStyles.Number;
                 }
                 foreach (var k in context.Keys) {
                   sb.Append(k).Append(": ").Append(context[k])
-                       .Append("\r\n");
+                  .Append("\r\n");
                 }
                 sb.Append(ln).Append("\r\n");
                 failedLines[ln] = true;

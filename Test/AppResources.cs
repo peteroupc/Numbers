@@ -8,17 +8,17 @@ namespace Test {
     private readonly ResourceManager mgr;
 
     public AppResources(string name) {
-// #if NET20 || NET40
-      this.mgr = new ResourceManager(
-          name,
-          Assembly.GetExecutingAssembly());
-// #else
-// this.mgr = new ResourceManager(typeof(AppResources));
-// #endif
+      // #if NET20 || NET40
+      this.mgr = new ResourceManager (
+        name,
+        Assembly.GetExecutingAssembly());
+      // #else
+      // this.mgr = new ResourceManager(typeof(AppResources));
+      // #endif
     }
     public string GetString(string name) {
       return this.mgr.GetString(name,
-  System.Globalization.CultureInfo.InvariantCulture);
+          System.Globalization.CultureInfo.InvariantCulture);
     }
   }
 }

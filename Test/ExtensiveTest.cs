@@ -24,31 +24,31 @@ namespace Test {
       if (expected == actual) {
         return;
       }
-      Assert.AreEqual(
-  (expected & EContext.FlagInexact) != 0,
-  (actual & EContext.FlagInexact) != 0,
-  "Inexact: " + str);
-      Assert.AreEqual(
-  (expected & EContext.FlagOverflow) != 0,
-  (actual & EContext.FlagOverflow) != 0,
-  "Overflow: " + str);
-      Assert.AreEqual(
-  (expected & EContext.FlagUnderflow) != 0,
-  (actual & EContext.FlagUnderflow) != 0,
-  "Underflow: " + str);
-      Assert.AreEqual(
-  (expected & EContext.FlagInvalid) != 0,
-  (actual & EContext.FlagInvalid) != 0,
-  "Invalid: " + str);
-      Assert.AreEqual(
-  (expected & EContext.FlagDivideByZero) != 0,
-  (actual & EContext.FlagDivideByZero) != 0,
-  "DivideByZero: " + str);
+      Assert.AreEqual (
+        (expected & EContext.FlagInexact) != 0,
+        (actual & EContext.FlagInexact) != 0,
+        "Inexact: " + str);
+      Assert.AreEqual (
+        (expected & EContext.FlagOverflow) != 0,
+        (actual & EContext.FlagOverflow) != 0,
+        "Overflow: " + str);
+      Assert.AreEqual (
+        (expected & EContext.FlagUnderflow) != 0,
+        (actual & EContext.FlagUnderflow) != 0,
+        "Underflow: " + str);
+      Assert.AreEqual (
+        (expected & EContext.FlagInvalid) != 0,
+        (actual & EContext.FlagInvalid) != 0,
+        "Invalid: " + str);
+      Assert.AreEqual (
+        (expected & EContext.FlagDivideByZero) != 0,
+        (actual & EContext.FlagDivideByZero) != 0,
+        "DivideByZero: " + str);
     }
 
     private static bool Contains(string str, string sub) {
       return (sub.Length == 1) ? (str.IndexOf(sub[0]) >= 0) :
-        (str.IndexOf(sub, StringComparison.Ordinal) >= 0);
+(str.IndexOf(sub, StringComparison.Ordinal) >= 0);
     }
 
     private static bool StartsWith(string str, string sub) {
@@ -82,7 +82,7 @@ namespace Test {
         ctx = ctx.WithRounding(ERounding.HalfEven);
       }
       if (round.Equals("h>", StringComparison.Ordinal) || round.Equals("=^",
-  StringComparison.Ordinal)) {
+          StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.HalfUp);
       }
       if (round.Equals("h<", StringComparison.Ordinal)) {
@@ -94,11 +94,14 @@ namespace Test {
     private static string ConvertOp(string s) {
       return s.Equals("S", StringComparison.Ordinal) ? "sNaN" :
 ((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#",
-  StringComparison.Ordinal)) ? "NaN" : s);
+
+              StringComparison.Ordinal)) ? "NaN" : s);
     }
 
     private interface IExtendedNumber : IComparable<IExtendedNumber> {
-      object Value { get; }
+      object Value {
+        get;
+      }
 
       IExtendedNumber Add(IExtendedNumber b, EContext ctx);
 
@@ -176,18 +179,20 @@ namespace Test {
         return Create(this.ed.Add(ToValue(b), ctx));
       }
 
-      public ExtensiveTest.IExtendedNumber
-        Subtract(ExtensiveTest.IExtendedNumber b, EContext ctx) {
+      public ExtensiveTest.IExtendedNumber Subtract(
+        ExtensiveTest.IExtendedNumber b,
+        EContext ctx) {
         return Create(this.ed.Subtract(ToValue(b), ctx));
       }
 
-      public ExtensiveTest.IExtendedNumber
-        Multiply(ExtensiveTest.IExtendedNumber b, EContext ctx) {
+      public ExtensiveTest.IExtendedNumber Multiply(
+        ExtensiveTest.IExtendedNumber b,
+        EContext ctx) {
         return Create(this.ed.Multiply(ToValue(b), ctx));
       }
 
-      public ExtensiveTest.IExtendedNumber
-        Divide(ExtensiveTest.IExtendedNumber b, EContext ctx) {
+      public ExtensiveTest.IExtendedNumber Divide(ExtensiveTest.IExtendedNumber
+        b, EContext ctx) {
         return Create(this.ed.Divide(ToValue(b), ctx));
       }
 
@@ -206,7 +211,8 @@ namespace Test {
         ExtensiveTest.IExtendedNumber b,
         ExtensiveTest.IExtendedNumber c,
         EContext ctx) {
-        return Create(this.ed.MultiplyAndSubtract(ToValue(b), ToValue(c), ctx));
+        return Create(this.ed.MultiplyAndSubtract(ToValue(b), ToValue(
+  c), ctx));
       }
 
       public bool IsQuietNaN() {
@@ -229,7 +235,7 @@ namespace Test {
         var dn = other as DecimalNumber;
         EDecimal dned = dn == null ? null : dn.ed;
         return (this.ed == null) ? ((dned == null) ? 0 : -1) : (dned == null ?
-          1 : this.ed.CompareTo(dned));
+            1 : this.ed.CompareTo(dned));
       }
     }
 
@@ -240,7 +246,7 @@ namespace Test {
         var dn = other as BinaryNumber;
         EFloat dned = dn == null ? null : dn.ef;
         return (this.ef == null) ? ((dned == null) ? 0 : -1) : (dned == null ?
-          1 : this.ef.CompareTo(dned));
+            1 : this.ef.CompareTo(dned));
       }
 
       public static BinaryNumber Create(EFloat dec) {
@@ -411,8 +417,8 @@ namespace Test {
           throw new FormatException(str);
         }
         // Console.WriteLine("mant=" + mantissa + " exp=" + exponent);
-        return Create(
-  EFloat.Create(mantissa, exponent));
+        return Create (
+            EFloat.Create(mantissa, exponent));
       }
 
       public static BinaryNumber FromFloatWords(int[] words) {
@@ -425,14 +431,14 @@ namespace Test {
           var mantissa = words[0] & 0x7fffff;
           if (exponent == 255) {
             return (mantissa == 0) ? Create(neg ? EFloat.NegativeInfinity :
-                       EFloat.PositiveInfinity) : (((mantissa &
-                   0x00400000) != 0) ? Create(EFloat.NaN) :
-     Create(EFloat.SignalingNaN));
+                EFloat.PositiveInfinity) : (((mantissa &
+                    0x00400000) != 0) ? Create(EFloat.NaN) :
+                Create(EFloat.SignalingNaN));
           }
           if (exponent == 0) {
             if (mantissa == 0) {
               return Create(neg ? EFloat.NegativeZero :
-                    EFloat.Zero);
+                  EFloat.Zero);
             }
             // subnormal
             exponent = -126;
@@ -446,10 +452,10 @@ namespace Test {
             bigmantissa = -bigmantissa;
           }
           exponent -= 23;
-          return Create(
-  EFloat.Create(
-  bigmantissa,
-  (EInteger)exponent));
+          return Create (
+              EFloat.Create (
+                bigmantissa,
+                (EInteger)exponent));
         }
         if (words.Length == 2) {
           var neg = (words[0] >> 31) != 0;
@@ -458,14 +464,15 @@ namespace Test {
           var mantissaNonzero = mantissa | words[1];
           if (exponent == 2047) {
             return (mantissaNonzero == 0) ? Create(neg ?
-  EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
-    (((mantissa & 0x00080000) != 0) ? Create(EFloat.NaN) :
-  Create(EFloat.SignalingNaN));
+                EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
+(((mantissa & 0x00080000) != 0) ? Create(EFloat.NaN) :
+
+                Create(EFloat.SignalingNaN));
           }
           if (exponent == 0) {
             if (mantissaNonzero == 0) {
               return Create(neg ? EFloat.NegativeZero :
-                    EFloat.Zero);
+                  EFloat.Zero);
             }
             // subnormal
             exponent = -1022;
@@ -486,10 +493,10 @@ namespace Test {
             bigmantissa = -bigmantissa;
           }
           exponent -= 52;
-          return Create(
-  EFloat.Create(
-  bigmantissa,
-  (EInteger)exponent));
+          return Create (
+              EFloat.Create (
+                bigmantissa,
+                (EInteger)exponent));
         }
         if (words.Length == 4) {
           var neg = (words[0] >> 31) != 0;
@@ -498,14 +505,15 @@ namespace Test {
           var mantissaNonzero = mantissa | words[3] | words[1] | words[2];
           if (exponent == 0x7fff) {
             return (mantissaNonzero == 0) ? Create(neg ?
-  EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
-    (((mantissa & 0x00008000) != 0) ? Create(EFloat.NaN) :
-  Create(EFloat.SignalingNaN));
+                EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
+(((mantissa & 0x00008000) != 0) ? Create(EFloat.NaN) :
+
+                Create(EFloat.SignalingNaN));
           }
           if (exponent == 0) {
             if (mantissaNonzero == 0) {
               return Create(neg ? EFloat.NegativeZero :
-                    EFloat.Zero);
+                  EFloat.Zero);
             }
             // subnormal
             exponent = -16382;
@@ -534,10 +542,10 @@ namespace Test {
             bigmantissa = -bigmantissa;
           }
           exponent -= 112;
-          return Create(
-  EFloat.Create(
-  bigmantissa,
-  (EInteger)exponent));
+          return Create (
+              EFloat.Create (
+                bigmantissa,
+                (EInteger)exponent));
         }
         throw new ArgumentException("words has a bad length");
       }
@@ -579,18 +587,20 @@ namespace Test {
         return Create(this.ef.Add(ToValue(b), ctx));
       }
 
-      public ExtensiveTest.IExtendedNumber
-        Subtract(ExtensiveTest.IExtendedNumber b, EContext ctx) {
+      public ExtensiveTest.IExtendedNumber Subtract(
+        ExtensiveTest.IExtendedNumber b,
+        EContext ctx) {
         return Create(this.ef.Subtract(ToValue(b), ctx));
       }
 
-      public ExtensiveTest.IExtendedNumber
-        Multiply(ExtensiveTest.IExtendedNumber b, EContext ctx) {
+      public ExtensiveTest.IExtendedNumber Multiply(
+        ExtensiveTest.IExtendedNumber b,
+        EContext ctx) {
         return Create(this.ef.Multiply(ToValue(b), ctx));
       }
 
-      public ExtensiveTest.IExtendedNumber
-        Divide(ExtensiveTest.IExtendedNumber b, EContext ctx) {
+      public ExtensiveTest.IExtendedNumber Divide(ExtensiveTest.IExtendedNumber
+        b, EContext ctx) {
         return Create(this.ef.Divide(ToValue(b), ctx));
       }
 
@@ -615,21 +625,22 @@ namespace Test {
         ExtensiveTest.IExtendedNumber b,
         ExtensiveTest.IExtendedNumber c,
         EContext ctx) {
-        return Create(this.ef.MultiplyAndSubtract(ToValue(b), ToValue(c), ctx));
+        return Create(this.ef.MultiplyAndSubtract(ToValue(b), ToValue(
+  c), ctx));
       }
 
       public bool IsNear(IExtendedNumber bn) {
         // ComparePrint(bn);
-        var ulpdiff = EFloat.Create(
-          (EInteger)2,
-          ToValue(this).Exponent);
-        return ToValue(this).Subtract(ToValue(bn)).Abs().CompareTo(ulpdiff) <=
-          0;
+        var ulpdiff = EFloat.Create (
+            (EInteger)2,
+            ToValue(this).Exponent);
+        return ToValue(this).Subtract(ToValue(bn)).Abs().CompareTo(
+  ulpdiff) <= 0;
       }
 
       public void ComparePrint(IExtendedNumber bn) {
         Console.WriteLine(String.Empty + ToValue(this).Mantissa + " man, " +
-                    ToValue(bn).Mantissa + " exp");
+          ToValue(bn).Mantissa + " exp");
       }
 
       public BinaryNumber RoundToIntegralExact(EContext ctx) {
@@ -872,7 +883,7 @@ namespace Test {
           return 0;
         }
         if (op2.IsInfinity() && op1.Abs(null).Equals(
-          BinaryNumber.FromString("1"))) {
+            BinaryNumber.FromString("1"))) {
           return 0;
         }
         expectedFlags &= ~EContext.FlagDivideByZero;
@@ -984,7 +995,7 @@ namespace Test {
             }
           } else {
             Console.WriteLine("op1=..." + op1 + " result=" + result +
-                " d3=...." + d3);
+              " d3=...." + d3);
             Assert.AreEqual(result, d3, ln);
           }
         }
@@ -1013,7 +1024,7 @@ namespace Test {
       } else if (op.Equals("fmod", StringComparison.Ordinal)) {
         IExtendedNumber d3 = op1.Remainder(op2, ctx);
         if ((ctx.Flags & EContext.FlagInvalid) != 0 &&
-            (expectedFlags & EContext.FlagInvalid) == 0) {
+          (expectedFlags & EContext.FlagInvalid) == 0) {
           // Skip since the quotient may be too high to fit an integer,
           // which triggers an invalid operation under the General
           // Decimal Arithmetic specification
@@ -1021,7 +1032,7 @@ namespace Test {
         }
         if (!result.Equals(d3)) {
           Console.WriteLine("op1=..." + op1 + "\nop2=..." + op2 + "\nresult=" +
-                result + "\nd3=...." + d3);
+            result + "\nd3=...." + d3);
           Assert.AreEqual(result, d3, ln);
         }
         if (op1.IsQuietNaN() && op2.IsSignalingNaN()) {
@@ -1087,8 +1098,8 @@ namespace Test {
       var offset = 0;
       var traps = String.Empty;
       if (Contains(chunks[2], "x") ||
-chunks[2].Equals("i", StringComparison.Ordinal) ||
-StartsWith(chunks[2], "o")) {
+        chunks[2].Equals("i", StringComparison.Ordinal) ||
+        StartsWith(chunks[2], "o")) {
         // traps
         ++offset;
         traps = chunks[2];
@@ -1177,7 +1188,7 @@ StartsWith(chunks[2], "o")) {
           // than in the General Decimal Arithmetic Specification
         } else {
           if ((expectedFlags & (EContext.FlagInexact |
-                                EContext.FlagInvalid)) == 0) {
+                EContext.FlagInvalid)) == 0) {
             d3 = op1.Add(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1195,7 +1206,7 @@ StartsWith(chunks[2], "o")) {
           // than in the General Decimal Arithmetic Specification
         } else {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-                0) {
+            0) {
             d3 = op1.Subtract(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1213,7 +1224,7 @@ StartsWith(chunks[2], "o")) {
           // than in the General Decimal Arithmetic Specification
         } else {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-                0) {
+            0) {
             d3 = op1.Multiply(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1231,7 +1242,7 @@ StartsWith(chunks[2], "o")) {
           // than in the General Decimal Arithmetic Specification
         } else {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-                0) {
+            0) {
             d3 = op1.Divide(op2, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1249,7 +1260,8 @@ StartsWith(chunks[2], "o")) {
           Assert.AreEqual(result, d3, ln);
         }
         if (binaryFP && (
-        (op1.IsQuietNaN() && (op2.IsSignalingNaN() || op3.IsSignalingNaN())) ||
+            (op1.IsQuietNaN() && (op2.IsSignalingNaN() ||
+op3.IsSignalingNaN())) ||
             (op2.IsQuietNaN() && op3.IsSignalingNaN()))) {
           // Don't check flags for binary test cases involving quiet
           // NaN followed by signaling NaN, as the semantics for
@@ -1257,7 +1269,7 @@ StartsWith(chunks[2], "o")) {
           // than in the General Decimal Arithmetic Specification
         } else {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-                0) {
+            0) {
             d3 = op1.MultiplyAndAdd(op2, op3, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1275,7 +1287,7 @@ StartsWith(chunks[2], "o")) {
           // than in the General Decimal Arithmetic Specification
         } else {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
-                0) {
+            0) {
             d3 = op1.MultiplyAndSubtract(op2, op3, null);
             Test.TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1290,14 +1302,14 @@ StartsWith(chunks[2], "o")) {
       try {
         var list = new List<string>(
           Directory.GetFiles(Path.GetDirectoryName(
-            System.Reflection.Assembly.GetExecutingAssembly().Location)));
+              System.Reflection.Assembly.GetExecutingAssembly().Location)));
         return list.ToArray();
       } catch (IOException) {
         return new string[0];
       }
     }
-
     [System.Diagnostics.Conditional("DEBUG")]
+
     public static void IgnoreIfDebug() {
       Assert.Ignore();
     }
@@ -1324,9 +1336,9 @@ StartsWith(chunks[2], "o")) {
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") &&
-!lowerF.Contains(".txt") &&
-!lowerF.Contains(".dectest") &&
-!lowerF.Contains(".fptest")) {
+          !lowerF.Contains(".txt") &&
+          !lowerF.Contains(".dectest") &&
+          !lowerF.Contains(".fptest")) {
           continue;
         }
         using (var w = new StreamReader(f)) {
@@ -1369,10 +1381,10 @@ StartsWith(chunks[2], "o")) {
       Console.WriteLine("Time: " + (sw.ElapsedMilliseconds / 1000.0) + " s");
       // Number processing time
       Console.WriteLine("ProcTime: " + (valueSwProcessing.ElapsedMilliseconds /
-        1000.0) + " s");
+          1000.0) + " s");
       // Ratio of number processing time to total running time
       Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
-        1.0 / sw.ElapsedMilliseconds) + "%");
+          1.0 / sw.ElapsedMilliseconds) + "%");
       if (failures > 0) {
         foreach (string err in errors) {
           Console.WriteLine(err);

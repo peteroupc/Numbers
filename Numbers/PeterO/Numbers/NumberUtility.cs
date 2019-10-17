@@ -135,7 +135,7 @@ namespace PeterO.Numbers {
 
     internal static bool HasBitSet(int[] arr, int bit) {
       return (bit >> 5) < arr.Length && (arr[bit >> 5] & (1 << (bit & 31))) !=
-      0;
+        0;
     }
 
     private sealed class PowerCache {
@@ -161,8 +161,8 @@ namespace PeterO.Numbers {
         lock (this.outputs) {
           for (var i = 0; i < this.size; ++i) {
             if (this.inputs[i].CompareTo(bi) <= 0 && (minValue == null ||
-            this.inputs[i].CompareTo(minValue) >= 0)) {
-   // DebugUtility.Log("Have cached power (" + inputs[i] + "," + bi + ") ");
+                this.inputs[i].CompareTo(minValue) >= 0)) {
+              // DebugUtility.Log("Have cached power (" + inputs[i] + "," + bi + ") ");
               ret = new EInteger[2];
               ret[0] = this.inputs[i];
               ret[1] = this.outputs[i];
@@ -179,9 +179,9 @@ namespace PeterO.Numbers {
         lock (this.outputs) {
           for (var i = 0; i < this.size; ++i) {
             if (this.inputsInts[i] >= 0 &&
-                this.inputsInts[i] <= precision && (integerMinValue == -1 ||
-            this.inputsInts[i] >= integerMinValue)) {
-   // DebugUtility.Log("Have cached power (" + inputs[i] + "," + bi + ") ");
+              this.inputsInts[i] <= precision && (integerMinValue == -1 ||
+                this.inputsInts[i] >= integerMinValue)) {
+              // DebugUtility.Log("Have cached power (" + inputs[i] + "," + bi + ") ");
               ret = new EInteger[2];
               ret[0] = this.inputs[i];
               ret[1] = this.outputs[i];
@@ -218,7 +218,7 @@ namespace PeterO.Numbers {
                   this.inputs[1] = tmp;
                   tmpi = this.inputsInts[i];
                   this.inputsInts[i] =
-                  this.inputsInts[1];
+                    this.inputsInts[1];
                   this.inputsInts[1] = tmpi;
                   tmp = this.outputs[i];
                   this.outputs[i] = this.outputs[1];
@@ -255,7 +255,7 @@ namespace PeterO.Numbers {
                   this.inputs[1] = tmp;
                   tmpi = this.inputsInts[i];
                   this.inputsInts[i] =
-                  this.inputsInts[1];
+                    this.inputsInts[1];
                   this.inputsInts[1] = tmpi;
                   tmp = this.outputs[i];
                   this.outputs[i] = this.outputs[1];
@@ -303,7 +303,7 @@ namespace PeterO.Numbers {
     NumberUtility.PowerCache();
 
     private static readonly PowerCache ValuePowerOfTenCache = new
-      NumberUtility.PowerCache();
+    NumberUtility.PowerCache();
 
     internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {
       int sign = diff.Sign;
@@ -326,7 +326,7 @@ namespace PeterO.Numbers {
         return bigpow;
       }
       EInteger[] otherPower =
-      ValuePowerOfFiveCache.FindCachedPowerOrSmaller(origdiff);
+        ValuePowerOfFiveCache.FindCachedPowerOrSmaller(origdiff);
       if (otherPower != null) {
         // DebugUtility.Log("Found cached power " +otherPower[0]+", "
         // +otherPower[1]);
@@ -346,8 +346,8 @@ namespace PeterO.Numbers {
           int icurexp = intcurexp.AsInt32();
           int halficurexp = icurexp / 2;
           bigpow = FindPowerOfFive(halficurexp);
-          bigpow = bigpow.Multiply(
-           FindPowerOfFive(icurexp - halficurexp));
+          bigpow = bigpow.Multiply (
+              FindPowerOfFive(icurexp - halficurexp));
           mantissa *= (EInteger)bigpow;
           break;
         }
@@ -364,7 +364,7 @@ namespace PeterO.Numbers {
     private static readonly EInteger ValueBigInt36 = (EInteger)36;
 
     internal static EInteger FindPowerOfTenFromBig(EInteger
-    bigintExponent) {
+      bigintExponent) {
       int sign = bigintExponent.Sign;
       if (sign < 0) {
         return EInteger.Zero;
@@ -403,7 +403,7 @@ namespace PeterO.Numbers {
     }
 
     private static readonly EInteger ValueFivePower40 =
-    ((EInteger)95367431640625L) * (EInteger)95367431640625L;
+      ((EInteger)95367431640625L) * (EInteger)95367431640625L;
 
     internal static EInteger FindPowerOfFive(int precision) {
       if (precision < 0) {
@@ -449,7 +449,7 @@ namespace PeterO.Numbers {
       bigpow = EInteger.Zero;
       while (true) {
         otherPower =
-        ValuePowerOfFiveCache.FindCachedPowerIntOrSmaller(precision);
+          ValuePowerOfFiveCache.FindCachedPowerIntOrSmaller(precision);
         if (otherPower != null) {
           EInteger otherPower0 = otherPower[0];
           EInteger otherPower1 = otherPower[1];
@@ -546,13 +546,13 @@ namespace PeterO.Numbers {
       bigpow = EInteger.Zero;
       while (true) {
         otherPower =
-        ValuePowerOfTenCache.FindCachedPowerOrSmaller((EInteger)precision);
+          ValuePowerOfTenCache.FindCachedPowerOrSmaller((EInteger)precision);
         if (otherPower != null) {
           EInteger otherPower0 = otherPower[0];
           EInteger otherPower1 = otherPower[1];
           // if (precision != otherPower0.ToInt32Checked()) {
-            // DebugUtility.Log("bigcachedpower miss {0} -> {1}"
-            // , precision, otherPower0);
+          // DebugUtility.Log("bigcachedpower miss {0} -> {1}"
+          // , precision, otherPower0);
           // }
           precision -= (int)otherPower0;
           if (first) {
@@ -617,7 +617,8 @@ namespace PeterO.Numbers {
       FastInteger idealExp) {
       #if DEBUG
       if (precision != null && digits == null) {
-throw new ArgumentException("doesn't satisfy precision==null || digits!=null");
+        throw new ArgumentException("doesn't satisfy precision==null ||" +
+"\u0020digits!=null");
       }
       #endif
       if (bigmant.IsZero) {
@@ -653,7 +654,8 @@ throw new ArgumentException("doesn't satisfy precision==null || digits!=null");
           {
             EInteger[] divrem = bigmant.DivRem(bigradix);
             bigquo = divrem[0];
-            bigrem = divrem[1]; }
+            bigrem = divrem[1];
+          }
           if (!bigrem.IsZero) {
             break;
           }

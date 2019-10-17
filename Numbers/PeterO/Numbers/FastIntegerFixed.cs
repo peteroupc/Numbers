@@ -20,7 +20,7 @@ namespace PeterO.Numbers {
       (EInteger)Int32.MinValue;
 
     private static readonly EInteger ValueNegativeInt32MinValue =
-    -(EInteger)ValueInt32MinValue;
+      -(EInteger)ValueInt32MinValue;
 
     internal FastIntegerFixed(int smallValue) : this(0, smallValue, null) {
     }
@@ -67,9 +67,9 @@ namespace PeterO.Numbers {
     internal static FastIntegerFixed FromLong(long longVal) {
       return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? new
         FastIntegerFixed((int)longVal) : new FastIntegerFixed(
-         2,
-         0,
-         EInteger.FromInt64(longVal));
+          2,
+          0,
+          EInteger.FromInt64(longVal));
     }
 
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
@@ -114,12 +114,14 @@ namespace PeterO.Numbers {
       if (this.integerMode == 0 && this.smallValue >= 0) {
         return this.smallValue % value;
       } else {
-      EInteger retval = this.ToEInteger().Remainder(EInteger.FromInt32(value));
-      return retval.ToInt32Checked();
+        EInteger retval = this.ToEInteger().Remainder(EInteger.FromInt32(
+  value));
+        return retval.ToInt32Checked();
       }
     }
 
-    public static FastIntegerFixed Add(FastIntegerFixed a, FastIntegerFixed b) {
+    public static FastIntegerFixed Add(FastIntegerFixed a,
+      FastIntegerFixed b) {
       if (a.integerMode == 0 && b.integerMode == 0) {
         if (a.smallValue == 0) {
           return b;
@@ -148,7 +150,7 @@ namespace PeterO.Numbers {
         if (
           (b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue) ||
           (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
-                          a.smallValue)) {
+            a.smallValue)) {
           return new FastIntegerFixed(a.smallValue - b.smallValue);
         }
       }
@@ -160,10 +162,10 @@ namespace PeterO.Numbers {
     public int CompareTo(FastIntegerFixed val) {
       switch ((this.integerMode << 2) | val.integerMode) {
         case (0 << 2) | 0: {
-            int vsv = val.smallValue;
-            return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
-                  1);
-          }
+          int vsv = val.smallValue;
+          return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
+              1);
+        }
         case (0 << 2) | 2:
           return this.ToEInteger().CompareTo(val.largeValue);
         case (2 << 2) | 0:
@@ -236,7 +238,8 @@ namespace PeterO.Numbers {
                 1);
           case 2:
             return this.largeValue.Sign;
-          default: return 0;
+          default:
+            return 0;
         }
       }
     }
@@ -260,7 +263,7 @@ namespace PeterO.Numbers {
           return true;
         case 2:
           return this.largeValue
-                     .CanFitInInt64();
+            .CanFitInInt64();
 
         default: throw new InvalidOperationException();
       }
@@ -272,7 +275,7 @@ namespace PeterO.Numbers {
           return (long)this.smallValue;
         case 2:
           return this.largeValue
-                     .ToInt64Unchecked();
+            .ToInt64Unchecked();
 
         default: throw new InvalidOperationException();
       }
@@ -282,7 +285,7 @@ namespace PeterO.Numbers {
       switch (this.integerMode) {
         case 0:
           return (val == this.smallValue) ? 0 : (this.smallValue < val ? -1 :
-          1);
+              1);
         case 2:
           return this.largeValue.CompareTo((EInteger)val);
         default: return 0;

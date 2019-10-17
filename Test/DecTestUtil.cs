@@ -7,7 +7,7 @@ using PeterO;
 using PeterO.Numbers;
 namespace Test {
   public static class DecTestUtil {
-    private static readonly Regex ValuePropertyLine = new Regex(
+    private static readonly Regex ValuePropertyLine = new Regex (
       "^(\\w+)\\:\\s*(\\S+)",
       RegexOptions.Compiled);
 
@@ -15,7 +15,7 @@ namespace Test {
       "^[\\'\\\"]|[\\'\\\"]$",
       RegexOptions.Compiled);
 
-    private static readonly Regex ValueTestLine = new Regex(
+    private static readonly Regex ValueTestLine = new Regex (
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)",
   RegexOptions.Compiled);
 
@@ -92,9 +92,9 @@ namespace Test {
     }
 
     private static TValue GetKeyOrDefault<TKey, TValue>(
-  IDictionary<TKey, TValue> dict,
-  TKey key,
-  TValue defaultValue) {
+      IDictionary<TKey, TValue> dict,
+      TKey key,
+      TValue defaultValue) {
       return (!dict.ContainsKey(key)) ? defaultValue : dict[key];
     }
 
@@ -103,7 +103,7 @@ namespace Test {
         return 0;
       }
       return (str[0] == '+') ? TestCommon.StringToInt(str.Substring(1)) :
-          TestCommon.StringToInt(str);
+        TestCommon.StringToInt(str);
     }
 
     public static string ParseJSONString(string str) {
@@ -159,89 +159,89 @@ namespace Test {
                 sb.Append('\t');
                 break;
               case 'u': { // Unicode escape
-                  c = 0;
-                  // Consists of 4 hex digits
-                  for (var i = 0; i < 4; ++i) {
-                    int ch = index >= str.Length ? -1 : str[index++];
-                    if (ch >= '0' && ch <= '9') {
-                      c <<= 4;
-                      c |= ch - '0';
-                    } else if (ch >= 'A' && ch <= 'F') {
-                      c <<= 4;
-                      c |= ch + 10 - 'A';
-                    } else if (ch >= 'a' && ch <= 'f') {
-                      c <<= 4;
-                      c |= ch + 10 - 'a';
-                    } else {
-                      return null;
-                    }
-                  }
-                  if ((c & 0xf800) != 0xd800) {
-                    // Non-surrogate
-                    sb.Append((char)c);
-                  } else if ((c & 0xfc00) == 0xd800) {
-                    int ch = index >= str.Length ? -1 : str[index++];
-                    if (ch != '\\' ||
-                       (index >= str.Length ? -1 : str[index++]) != 'u') {
-                      return null;
-                    }
-                    var c2 = 0;
-                    for (var i = 0; i < 4; ++i) {
-                      ch = index >= str.Length ? -1 : str[index++];
-                      if (ch >= '0' && ch <= '9') {
-                        c2 <<= 4;
-                        c2 |= ch - '0';
-                      } else if (ch >= 'A' && ch <= 'F') {
-                        c2 <<= 4;
-                        c2 |= ch + 10 - 'A';
-                      } else if (ch >= 'a' && ch <= 'f') {
-                        c2 <<= 4;
-                        c2 |= ch + 10 - 'a';
-                      } else {
-                        return null;
-                      }
-                    }
-                    if ((c2 & 0xfc00) != 0xdc00) {
-                      return null;
-                    } else {
-                      sb.Append((char)c);
-                      sb.Append((char)c2);
-                    }
+                c = 0;
+                // Consists of 4 hex digits
+                for (var i = 0; i < 4; ++i) {
+                  int ch = index >= str.Length ? -1 : str[index++];
+                  if (ch >= '0' && ch <= '9') {
+                    c <<= 4;
+                    c |= ch - '0';
+                  } else if (ch >= 'A' && ch <= 'F') {
+                    c <<= 4;
+                    c |= ch + 10 - 'A';
+                  } else if (ch >= 'a' && ch <= 'f') {
+                    c <<= 4;
+                    c |= ch + 10 - 'a';
                   } else {
                     return null;
                   }
-                  break;
                 }
-              default: {
-                  // NOTE: Includes surrogate code
-                  // units
+                if ((c & 0xf800) != 0xd800) {
+                  // Non-surrogate
+                  sb.Append((char)c);
+                } else if ((c & 0xfc00) == 0xd800) {
+                  int ch = index >= str.Length ? -1 : str[index++];
+                  if (ch != '\\' ||
+                    (index >= str.Length ? -1 : str[index++]) != 'u') {
+                    return null;
+                  }
+                  var c2 = 0;
+                  for (var i = 0; i < 4; ++i) {
+                    ch = index >= str.Length ? -1 : str[index++];
+                    if (ch >= '0' && ch <= '9') {
+                      c2 <<= 4;
+                      c2 |= ch - '0';
+                    } else if (ch >= 'A' && ch <= 'F') {
+                      c2 <<= 4;
+                      c2 |= ch + 10 - 'A';
+                    } else if (ch >= 'a' && ch <= 'f') {
+                      c2 <<= 4;
+                      c2 |= ch + 10 - 'a';
+                    } else {
+                      return null;
+                    }
+                  }
+                  if ((c2 & 0xfc00) != 0xdc00) {
+                    return null;
+                  } else {
+                    sb.Append((char)c);
+                    sb.Append((char)c2);
+                  }
+                } else {
                   return null;
                 }
+                break;
+              }
+              default: {
+                // NOTE: Includes surrogate code
+                // units
+                return null;
+              }
             }
             break;
           case 0x22: // double quote
             return sb.ToString();
           default: {
-              // NOTE: Assumes the character reader
-              // throws an error on finding illegal surrogate
-              // pairs in the string or invalid encoding
-              // in the stream
-              if ((c >> 16) == 0) {
-                sb.Append((char)c);
-              } else {
-                sb.Append((char)((((c - 0x10000) >> 10) & 0x3ff) | 0xd800));
-                sb.Append((char)(((c - 0x10000) & 0x3ff) | 0xdc00));
-              }
-              break;
+            // NOTE: Assumes the character reader
+            // throws an error on finding illegal surrogate
+            // pairs in the string or invalid encoding
+            // in the stream
+            if ((c >> 16) == 0) {
+              sb.Append((char)c);
+            } else {
+              sb.Append((char)((((c - 0x10000) >> 10) & 0x3ff) | 0xd800));
+              sb.Append((char)(((c - 0x10000) & 0x3ff) | 0xdc00));
             }
+            break;
+          }
         }
       }
       return null;
     }
 
-    public static void ParseDecTest(
-  string ln,
-  IDictionary<string, string> context) {
+    public static void ParseDecTest (
+      string ln,
+      IDictionary<string, string> context) {
       Match match;
       if (ln == null) {
         throw new ArgumentNullException(nameof(ln));
@@ -251,8 +251,8 @@ namespace Test {
       }
       match = (!ln.Contains(":")) ? null : ValuePropertyLine.Match(ln);
       if (match != null && match.Success) {
-        string paramName = ToLowerCaseAscii(
-           match.Groups[1].ToString());
+        string paramName = ToLowerCaseAscii (
+            match.Groups[1].ToString());
         if (context == null) {
           throw new ArgumentNullException(nameof(context));
         }
@@ -278,37 +278,36 @@ namespace Test {
           throw new ArgumentNullException(nameof(context));
         }
         bool extended = GetKeyOrDefault(context, "extended",
-  "1").Equals("1", StringComparison.Ordinal);
+            "1").Equals("1", StringComparison.Ordinal);
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1",
-  StringComparison.Ordinal);
+            StringComparison.Ordinal);
         int precision = 0, minexponent = 0, maxexponent = 0;
         EContext ctx = null;
         string rounding = null;
-        precision = StringToIntAllowPlus(
-  GetKeyOrDefault(context, "precision", "9"));
-        minexponent = StringToIntAllowPlus(
-  GetKeyOrDefault(context, "minexponent", "-9999"));
-        maxexponent = StringToIntAllowPlus(
-  GetKeyOrDefault(context, "maxexponent", "9999"));
+        precision = StringToIntAllowPlus (
+            GetKeyOrDefault(context, "precision", "9"));
+        minexponent = StringToIntAllowPlus (
+            GetKeyOrDefault(context, "minexponent", "-9999"));
+        maxexponent = StringToIntAllowPlus (
+            GetKeyOrDefault(context, "maxexponent", "9999"));
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
         if (input1.Contains("#") ||
-input2.Contains("#") ||
-input3.Contains("#") ||
-output.Contains("#")) {
+                 input2.Contains("#") ||
+                 input3.Contains("#") ||
+                 output.Contains("#")) {
           return;
         }
         if (!extended && (input1.Contains("sNaN") ||
-input2.Contains("sNaN") ||
-input3.Contains("sNaN") ||
-output.Contains("sNaN"))) {
+            input2.Contains("sNaN") || input3.Contains("sNaN") ||
+            output.Contains("sNaN"))) {
           Console.WriteLine(ln);
         }
         // Skip some tests that assume a maximum
         // supported precision of 999999999
         if (name.Equals("pow250", StringComparison.Ordinal) ||
-name.Equals("pow251", StringComparison.Ordinal) ||
-name.Equals("pow252", StringComparison.Ordinal)) {
+          name.Equals("pow251", StringComparison.Ordinal) ||
+          name.Equals("pow252", StringComparison.Ordinal)) {
           return;
         }
         // Assumes a maximum supported
@@ -322,9 +321,9 @@ name.Equals("pow252", StringComparison.Ordinal)) {
         // say to truncate that operand's coefficient before
         // the shift operation, unlike for the rotate operation.
         if (name.Equals("extr1651", StringComparison.Ordinal) ||
-name.Equals("extr1652", StringComparison.Ordinal) ||
-name.Equals("extr1653", StringComparison.Ordinal) ||
-name.Equals("extr1654", StringComparison.Ordinal)) {
+          name.Equals("extr1652", StringComparison.Ordinal) ||
+          name.Equals("extr1653", StringComparison.Ordinal) ||
+          name.Equals("extr1654", StringComparison.Ordinal)) {
           return;
         }
         // Skip these unofficial test cases, which misapply the
@@ -335,49 +334,49 @@ name.Equals("extr1654", StringComparison.Ordinal)) {
         // have neither a coefficient nor an exponent, so the
         // 'clamp' directive doesn't properly apply to NaNs
         if (name.Equals("covx5076", StringComparison.Ordinal) ||
-name.Equals("covx5082", StringComparison.Ordinal) ||
-name.Equals("covx5085", StringComparison.Ordinal) ||
-name.Equals("covx5086", StringComparison.Ordinal)) {
+          name.Equals("covx5082", StringComparison.Ordinal) ||
+          name.Equals("covx5085", StringComparison.Ordinal) ||
+          name.Equals("covx5086", StringComparison.Ordinal)) {
           return;
         }
         // Skip these unofficial test cases, which are incorrect
         // for expecting underflow on raising a huge
         // positive integer to its own power
         if (name.Equals("power_eq4", StringComparison.Ordinal) ||
-name.Equals("power_eq46", StringComparison.Ordinal) ||
-name.Equals("power_eq48", StringComparison.Ordinal) ||
-name.Equals("power_eq11", StringComparison.Ordinal) ||
-name.Equals("power_eq65", StringComparison.Ordinal) ||
-name.Equals("power_eq84", StringComparison.Ordinal) ||
-name.Equals("power_eq94", StringComparison.Ordinal)) {
+          name.Equals("power_eq46", StringComparison.Ordinal) ||
+          name.Equals("power_eq48", StringComparison.Ordinal) ||
+          name.Equals("power_eq11", StringComparison.Ordinal) ||
+          name.Equals("power_eq65", StringComparison.Ordinal) ||
+          name.Equals("power_eq84", StringComparison.Ordinal) ||
+          name.Equals("power_eq94", StringComparison.Ordinal)) {
           return;
         }
         // Skip some test cases that are incorrect
         // (all simplified arithmetic test cases)
         if (!extended) {
           if (
-  // result expected by test case is wrong by > 0.5 ULP
-  name.Equals("ln116", StringComparison.Ordinal) ||
-// assumes that the input will underflow to 0
-name.Equals("qua530", StringComparison.Ordinal) ||
-              // assumes that the input will underflow to 0
-              name.Equals("qua531", StringComparison.Ordinal) ||
-name.Equals("rpow068", StringComparison.Ordinal) ||
-name.Equals("rpow159", StringComparison.Ordinal) ||
-name.Equals("rpow217", StringComparison.Ordinal) ||
-name.Equals("rpow272", StringComparison.Ordinal) ||
-name.Equals("rpow324", StringComparison.Ordinal) ||
-name.Equals("rpow327", StringComparison.Ordinal) ||
-              // following cases incorrectly remove trailing zeros
-              name.Equals("sqtx2207", StringComparison.Ordinal) ||
-name.Equals("sqtx2231", StringComparison.Ordinal) ||
-name.Equals("sqtx2271", StringComparison.Ordinal) ||
-name.Equals("sqtx2327", StringComparison.Ordinal) ||
-name.Equals("sqtx2399", StringComparison.Ordinal) ||
-name.Equals("sqtx2487", StringComparison.Ordinal) ||
-name.Equals("sqtx2591", StringComparison.Ordinal) ||
-name.Equals("sqtx2711", StringComparison.Ordinal) ||
-name.Equals("sqtx2847", StringComparison.Ordinal)) {
+            // result expected by test case is wrong by > 0.5 ULP
+            name.Equals("ln116", StringComparison.Ordinal) ||
+            // assumes that the input will underflow to 0
+            name.Equals("qua530", StringComparison.Ordinal) ||
+            // assumes that the input will underflow to 0
+            name.Equals("qua531", StringComparison.Ordinal) ||
+            name.Equals("rpow068", StringComparison.Ordinal) ||
+            name.Equals("rpow159", StringComparison.Ordinal) ||
+            name.Equals("rpow217", StringComparison.Ordinal) ||
+            name.Equals("rpow272", StringComparison.Ordinal) ||
+            name.Equals("rpow324", StringComparison.Ordinal) ||
+            name.Equals("rpow327", StringComparison.Ordinal) ||
+            // following cases incorrectly remove trailing zeros
+            name.Equals("sqtx2207", StringComparison.Ordinal) ||
+            name.Equals("sqtx2231", StringComparison.Ordinal) ||
+            name.Equals("sqtx2271", StringComparison.Ordinal) ||
+            name.Equals("sqtx2327", StringComparison.Ordinal) ||
+            name.Equals("sqtx2399", StringComparison.Ordinal) ||
+            name.Equals("sqtx2487", StringComparison.Ordinal) ||
+            name.Equals("sqtx2591", StringComparison.Ordinal) ||
+            name.Equals("sqtx2711", StringComparison.Ordinal) ||
+            name.Equals("sqtx2847", StringComparison.Ordinal)) {
             return;
           }
         }
@@ -429,18 +428,18 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
         }
         ctx = ctx.WithBlankFlags();
         if (op.Length > 3 && op.Substring(op.Length - 3).Equals("_eq",
-  StringComparison.Ordinal)) {
+            StringComparison.Ordinal)) {
           // Binary operators with both operands the same
           input2 = input1;
           op = op.Substring(0, op.Length - 3);
         }
         EDecimal d1 = EDecimal.Zero, d2 = null, d2a = null;
         if (!op.Equals("toSci", StringComparison.Ordinal) &&
-!op.Equals("toEng", StringComparison.Ordinal) &&
-!op.Equals("tosci", StringComparison.Ordinal) &&
-!op.Equals("toeng", StringComparison.Ordinal) &&
-!op.Equals("class", StringComparison.Ordinal) &&
-!op.Equals("format", StringComparison.Ordinal)) {
+          !op.Equals("toEng", StringComparison.Ordinal) &&
+          !op.Equals("tosci", StringComparison.Ordinal) &&
+          !op.Equals("toeng", StringComparison.Ordinal) &&
+          !op.Equals("class", StringComparison.Ordinal) &&
+          !op.Equals("format", StringComparison.Ordinal)) {
           d1 = String.IsNullOrEmpty(input1) ? EDecimal.Zero :
             EDecimal.FromString(input1);
           d2 = String.IsNullOrEmpty(input2) ? null :
@@ -460,15 +459,15 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
         if (op.Equals("multiply", StringComparison.Ordinal)) {
           d3 = d1.Multiply(d2, ctx);
         } else if (op.Equals("toSci", StringComparison.Ordinal)) {
-// handled below
+          // handled below
         } else if (op.Equals("toEng", StringComparison.Ordinal)) {
-// handled below
+          // handled below
         } else if (op.Equals("tosci", StringComparison.Ordinal)) {
-// handled below
+          // handled below
         } else if (op.Equals("toeng", StringComparison.Ordinal)) {
-// handled below
+          // handled below
         } else if (op.Equals("class", StringComparison.Ordinal)) {
-// handled below
+          // handled below
         } else if (op.Equals("fma", StringComparison.Ordinal)) {
           d3 = d1.MultiplyAndAdd(d2, d2a, ctx);
         } else if (op.Equals("min", StringComparison.Ordinal)) {
@@ -543,7 +542,7 @@ name.Equals("sqtx2847", StringComparison.Ordinal)) {
         } else if (op.Equals("squareroot", StringComparison.Ordinal)) {
           d3 = d1.Sqrt(ctx);
         } else if (op.Equals("remaindernear", StringComparison.Ordinal) ||
-op.Equals("remainderNear", StringComparison.Ordinal)) {
+          op.Equals("remainderNear", StringComparison.Ordinal)) {
           d3 = d1.RemainderNear(d2, ctx);
         } else if (op.Equals("nexttoward", StringComparison.Ordinal)) {
           d3 = d1.NextToward(d2, ctx);
@@ -595,7 +594,8 @@ op.Equals("remainderNear", StringComparison.Ordinal)) {
             Assert.AreEqual(EDecimals.IsQuietNaN(d1), d1.IsQuietNaN());
             d3 = EDecimal.FromBoolean(EDecimals.IsQuietNaN(d1));
           } else if (op.Equals("issnan", StringComparison.Ordinal)) {
-            Assert.AreEqual(EDecimals.IsSignalingNaN(d1), d1.IsSignalingNaN());
+            Assert.AreEqual(EDecimals.IsSignalingNaN(d1),
+  d1.IsSignalingNaN());
             d3 = EDecimal.FromBoolean(EDecimals.IsSignalingNaN(d1));
           } else if (op.Equals("isfinite", StringComparison.Ordinal)) {
             Assert.AreEqual(EDecimals.IsFinite(d1), d1.IsFinite);
@@ -660,11 +660,11 @@ op.Equals("remainderNear", StringComparison.Ordinal)) {
         }
         if (op.Equals("class", StringComparison.Ordinal)) {
           d1 = EDecimal.FromString(input1);
-          string numclass = EDecimals.NumberClassString(
-                  EDecimals.NumberClass(d1, ctx));
+          string numclass = EDecimals.NumberClassString (
+              EDecimals.NumberClass(d1, ctx));
           Assert.AreEqual(output, numclass, input1);
         } else if (op.Equals("toSci", StringComparison.Ordinal) ||
-op.Equals("tosci", StringComparison.Ordinal)) {
+          op.Equals("tosci", StringComparison.Ordinal)) {
           try {
             d1 = EDecimal.FromString(input1, ctx);
             Assert.IsTrue(!conversionError, "Expected no conversion error");
@@ -676,7 +676,7 @@ op.Equals("tosci", StringComparison.Ordinal)) {
             Assert.IsTrue(conversionError, "Expected conversion error");
           }
         } else if (op.Equals("toEng", StringComparison.Ordinal) ||
-op.Equals("toeng", StringComparison.Ordinal)) {
+          op.Equals("toeng", StringComparison.Ordinal)) {
           try {
             d1 = EDecimal.FromString(input1, ctx);
             Assert.IsTrue(!conversionError, "Expected no conversion error");
@@ -693,15 +693,15 @@ op.Equals("toeng", StringComparison.Ordinal)) {
               Assert.Fail(name + ": d3 must be null");
             }
             if (output != null && !d3.ToString().Equals(output,
-  StringComparison.Ordinal)) {
+                StringComparison.Ordinal)) {
               EDecimal d4 = EDecimal.FromString(output);
               {
                 object objectTemp = output;
                 object objectTemp2 = d3.ToString();
                 string messageTemp = name + ": expected: [" +
-                d4.UnsignedMantissa + " " + d4.Exponent +
-                    "]\n" + "but was: [" + d3.UnsignedMantissa + " " +
-                    d3.Exponent + "]\n" + ln;
+                  d4.UnsignedMantissa + " " + d4.Exponent +
+                  "]\n" + "but was: [" + d3.UnsignedMantissa + " " +
+                  d3.Exponent + "]\n" + ln;
                 Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
               }
             }
@@ -713,10 +713,10 @@ op.Equals("toeng", StringComparison.Ordinal)) {
         // some of them have no flags in their
         // result.
         if (!name.Equals("pow118", StringComparison.Ordinal) &&
-!name.Equals("pow119", StringComparison.Ordinal) &&
-!name.Equals("pow120", StringComparison.Ordinal) &&
-!name.Equals("pow121", StringComparison.Ordinal) &&
-!name.Equals("pow122", StringComparison.Ordinal)) {
+          !name.Equals("pow119", StringComparison.Ordinal) &&
+          !name.Equals("pow120", StringComparison.Ordinal) &&
+          !name.Equals("pow121", StringComparison.Ordinal) &&
+          !name.Equals("pow122", StringComparison.Ordinal)) {
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       }
@@ -726,39 +726,39 @@ op.Equals("toeng", StringComparison.Ordinal)) {
       if (expected == actual) {
         return;
       }
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagInexact) != 0,
         (actual & EContext.FlagInexact) != 0,
         name + ": Inexact");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagRounded) != 0,
         (actual & EContext.FlagRounded) != 0,
         name + ": Rounded");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagSubnormal) != 0,
         (actual & EContext.FlagSubnormal) != 0,
         name + ": Subnormal");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagOverflow) != 0,
         (actual & EContext.FlagOverflow) != 0,
         name + ": Overflow");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagUnderflow) != 0,
         (actual & EContext.FlagUnderflow) != 0,
         name + ": Underflow");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagClamped) != 0,
         (actual & EContext.FlagClamped) != 0,
         name + ": Clamped");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagInvalid) != 0,
         (actual & EContext.FlagInvalid) != 0,
         name + ": Invalid");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagDivideByZero) != 0,
         (actual & EContext.FlagDivideByZero) != 0,
         name + ": DivideByZero");
-      Assert.AreEqual(
+      Assert.AreEqual (
         (expected & EContext.FlagLostDigits) != 0,
         (actual & EContext.FlagLostDigits) != 0,
         name + ": LostDigits");

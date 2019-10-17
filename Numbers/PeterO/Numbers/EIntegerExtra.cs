@@ -56,11 +56,11 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-  /// <summary>Adds one to an arbitrary-precision integer.</summary>
-  /// <param name='bthis'>An arbitrary-precision integer.</param>
-  /// <returns>The given arbitrary-precision integer plus one.</returns>
-  /// <exception cref='ArgumentNullException'>The parameter <paramref
-  /// name='bthis'/> is null.</exception>
+    /// <summary>Adds one to an arbitrary-precision integer.</summary>
+    /// <param name='bthis'>An arbitrary-precision integer.</param>
+    /// <returns>The given arbitrary-precision integer plus one.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EInteger operator ++(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -68,12 +68,12 @@ namespace PeterO.Numbers {
       return bthis.Add(1);
     }
 
-  /// <summary>Subtracts one from an arbitrary-precision
-  /// integer.</summary>
-  /// <param name='bthis'>An arbitrary-precision integer.</param>
-  /// <returns>The given arbitrary-precision integer minus one.</returns>
-  /// <exception cref='ArgumentNullException'>The parameter <paramref
-  /// name='bthis'/> is null.</exception>
+    /// <summary>Subtracts one from an arbitrary-precision
+    /// integer.</summary>
+    /// <param name='bthis'>An arbitrary-precision integer.</param>
+    /// <returns>The given arbitrary-precision integer minus one.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bthis'/> is null.</exception>
     public static EInteger operator --(EInteger bthis) {
       if (bthis == null) {
         throw new ArgumentNullException(nameof(bthis));
@@ -230,7 +230,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Converts this number to a 64-bit signed integer, returning
-    /// the least-significant bits of this number's two' s-complement
+    /// the least-significant bits of this number's two's-complement
     /// form.</summary>
     /// <returns>This number, converted to a 64-bit signed
     /// integer.</returns>
@@ -253,7 +253,7 @@ namespace PeterO.Numbers {
     /// <paramref name='otherValue'/> ; otherwise, <c>false</c>.</returns>
     public static bool operator <(EInteger thisValue, EInteger otherValue) {
       return (thisValue == null) ? (otherValue != null) :
-        (thisValue.CompareTo(otherValue) < 0);
+(thisValue.CompareTo(otherValue) < 0);
     }
 
     /// <summary>Determines whether an arbitrary-precision integer is up to
@@ -294,7 +294,7 @@ namespace PeterO.Numbers {
       EInteger thisValue,
       EInteger otherValue) {
       return (thisValue == null) ? (otherValue == null) :
-        (thisValue.CompareTo(otherValue) >= 0);
+(thisValue.CompareTo(otherValue) >= 0);
     }
 
     /// <summary>Returns an arbitrary-precision integer with every bit
@@ -308,8 +308,8 @@ namespace PeterO.Numbers {
       "Microsoft.Usage",
       "CA2225",
       Justification = "Class implements an alternate method named Xor.")]
-    public static EInteger operator ~(
-    EInteger thisValue) {
+    public static EInteger operator ~ (
+      EInteger thisValue) {
       return Not(thisValue);
     }
 
@@ -380,14 +380,14 @@ namespace PeterO.Numbers {
       return Xor(a, b);
     }
 
-    /// <summary>Retrieves bits from this integer's two' s-complement
+    /// <summary>Retrieves bits from this integer's two's-complement
     /// form.</summary>
     /// <param name='index'>Zero-based index of the first bit to retrieve,
     /// where 0 is the least-significant bit of the number.</param>
     /// <param name='numberBits'>The number of bits to retrieve, starting
     /// with the first. Must be from 0 through 64.</param>
     /// <returns>A 64-bit signed integer containing the bits from this
-    /// integer's two' s-complement form. The least significant bit is the
+    /// integer's two's-complement form. The least significant bit is the
     /// first bit, and any unused bits are set to 0.</returns>
     public long GetBits(int index, int numberBits) {
       if (numberBits < 0 || numberBits > 64) {

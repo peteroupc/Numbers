@@ -16,7 +16,7 @@ namespace PeterO.Numbers {
       internal static MutableNumber FromEInteger(EInteger bigintVal) {
         var mnum = new MutableNumber(0);
         if (bigintVal.Sign < 0) {
-          throw new ArgumentException("bigintVal's sign (" + bigintVal.Sign +
+          throw new ArgumentException("bigintVal's sign(" + bigintVal.Sign +
             ") is less than " + "0 ");
         }
         byte[] bytes = bigintVal.ToBytes(true);
@@ -50,7 +50,8 @@ namespace PeterO.Numbers {
 
       internal MutableNumber(int val) {
         if (val < 0) {
-          throw new ArgumentException("val (" + val + ") is less than " + "0 ");
+          throw new ArgumentException("val(" + val + ") is less than " +
+"0 ");
         }
         this.data = new int[4];
         this.wordCount = (val == 0) ? 0 : 1;
@@ -59,7 +60,8 @@ namespace PeterO.Numbers {
 
       internal MutableNumber SetInt(int val) {
         if (val < 0) {
-          throw new ArgumentException("val (" + val + ") is less than " + "0 ");
+          throw new ArgumentException("val(" + val + ") is less than " +
+"0 ");
         }
         this.wordCount = (val == 0) ? 0 : 1;
         this.data[0] = val;
@@ -87,7 +89,7 @@ namespace PeterO.Numbers {
 
       internal bool CanFitInInt32() {
         return this.wordCount == 0 || (this.wordCount == 1 && (this.data[0] >>
-        31) == 0);
+              31) == 0);
       }
 
       internal int ToInt32() {
@@ -119,7 +121,7 @@ namespace PeterO.Numbers {
       }
       internal MutableNumber Multiply(int multiplicand) {
         if (multiplicand < 0) {
-          throw new ArgumentException("multiplicand (" + multiplicand +
+          throw new ArgumentException("multiplicand(" + multiplicand +
             ") is less than " + "0 ");
         }
         if (multiplicand != 0) {
@@ -170,7 +172,7 @@ namespace PeterO.Numbers {
                 x1 = unchecked((int)(result2 | (result3 << 16)));
                 int x2 = unchecked(x0 + carry);
                 if (((x2 >> 31) == (x0 >> 31)) ? ((x2 & Int32.MaxValue) < (x0 &
-                Int32.MaxValue)) : ((x2 >> 31) == 0)) {
+                      Int32.MaxValue)) : ((x2 >> 31) == 0)) {
                   // Carry in addition
                   x1 = unchecked(x1 + 1);
                 }
@@ -220,7 +222,7 @@ namespace PeterO.Numbers {
                 x1 = unchecked((int)(result2 | (result3 << 16)));
                 int x2 = unchecked(x0 + carry);
                 if (((x2 >> 31) == (x0 >> 31)) ? ((x2 & Int32.MaxValue) < (x0 &
-                Int32.MaxValue)) : ((x2 >> 31) == 0)) {
+                      Int32.MaxValue)) : ((x2 >> 31) == 0)) {
                   // Carry in addition
                   x1 = unchecked(x1 + 1);
                 }
@@ -274,14 +276,14 @@ namespace PeterO.Numbers {
           return 0;
         }
         return (((this.data[0] >> 31) == (val >> 31)) ? ((this.data[0] &
-        Int32.MaxValue) < (val & Int32.MaxValue)) :
-                  ((this.data[0] >> 31) == 0)) ? -1 : 1;
+                Int32.MaxValue) < (val & Int32.MaxValue)) :
+            ((this.data[0] >> 31) == 0)) ? -1 : 1;
       }
 
       internal MutableNumber SubtractInt(int other) {
         if (other < 0) {
-          throw new ArgumentException("other (" + other + ") is less than " +
-                 "0 ");
+          throw new ArgumentException("other(" + other + ") is less than " +
+            "0 ");
         }
         if (other != 0) {
           unchecked {
@@ -298,14 +300,14 @@ namespace PeterO.Numbers {
             int a = this.data[0];
             u = a - other;
             borrow = ((((a >> 31) == (u >> 31)) ?
-                    ((a & Int32.MaxValue) < (u & Int32.MaxValue)) :
-                    ((a >> 31) == 0)) || (a == u && other != 0)) ? 1 : 0;
+                  ((a & Int32.MaxValue) < (u & Int32.MaxValue)) :
+                  ((a >> 31) == 0)) || (a == u && other != 0)) ? 1 : 0;
             this.data[0] = (int)u;
             if (borrow != 0) {
               for (int i = 1; i < this.wordCount; ++i) {
                 u = this.data[i] - borrow;
                 borrow = (((this.data[i] >> 31) == (u >> 31)) ?
-                ((this.data[i] & Int32.MaxValue) < (u & Int32.MaxValue)) :
+                    ((this.data[i] & Int32.MaxValue) < (u & Int32.MaxValue)) :
                     ((this.data[i] >> 31) == 0)) ? 1 : 0;
                 this.data[i] = (int)u;
               }
@@ -325,21 +327,21 @@ namespace PeterO.Numbers {
             // Console.WriteLine("" + this.data.Length + " " +
             // (other.data.Length));
             int neededSize = (this.wordCount > other.wordCount) ?
-            this.wordCount : other.wordCount;
+              this.wordCount : other.wordCount;
             if (this.data.Length < neededSize) {
               var newdata = new int[neededSize + 20];
               Array.Copy(this.data, 0, newdata, 0, this.data.Length);
               this.data = newdata;
             }
             neededSize = (this.wordCount < other.wordCount) ? this.wordCount :
-            other.wordCount;
+              other.wordCount;
             var u = 0;
             var borrow = 0;
             for (var i = 0; i < neededSize; ++i) {
               int a = this.data[i];
               u = (a - other.data[i]) - borrow;
               borrow = ((((a >> 31) == (u >> 31)) ? ((a & Int32.MaxValue) <
-              (u & Int32.MaxValue)) :
+                      (u & Int32.MaxValue)) :
                     ((a >> 31) == 0)) || (a == u && other.data[i] !=
                     0)) ? 1 : 0;
               this.data[i] = (int)u;
@@ -349,9 +351,9 @@ namespace PeterO.Numbers {
                 int a = this.data[i];
                 u = (a - other.data[i]) - borrow;
                 borrow = ((((a >> 31) == (u >> 31)) ? ((a & Int32.MaxValue) <
-                (u & Int32.MaxValue)) :
-                    ((a >> 31) == 0)) || (a == u && other.data[i] !=
-                    0)) ? 1 : 0;
+                        (u & Int32.MaxValue)) :
+                      ((a >> 31) == 0)) || (a == u && other.data[i] !=
+                      0)) ? 1 : 0;
                 this.data[i] = (int)u;
               }
             }
@@ -374,8 +376,8 @@ namespace PeterO.Numbers {
           int bn = other.data[valueN];
           // Unsigned less-than check
           if (((an >> 31) == (bn >> 31)) ?
-              ((an & Int32.MaxValue) < (bn & Int32.MaxValue)) :
-              ((an >> 31) == 0)) {
+            ((an & Int32.MaxValue) < (bn & Int32.MaxValue)) :
+            ((an >> 31) == 0)) {
             return -1;
           }
           if (an != bn) {
@@ -386,8 +388,8 @@ namespace PeterO.Numbers {
       }
       internal MutableNumber Add(int augend) {
         if (augend < 0) {
-          throw new ArgumentException("augend (" + augend + ") is less than " +
-                   "0 ");
+          throw new ArgumentException("augend(" + augend + ") is less than " +
+            "0 ");
         }
         unchecked {
           if (augend != 0) {
@@ -405,8 +407,8 @@ namespace PeterO.Numbers {
               int a = this.data[i];
               u = (a + augend) + carry;
               carry = ((((u >> 31) == (a >> 31)) ? ((u & Int32.MaxValue) < (a &
-              Int32.MaxValue)) :
-                      ((u >> 31) == 0)) || (u == a && augend != 0)) ? 1 : 0;
+                        Int32.MaxValue)) :
+                    ((u >> 31) == 0)) || (u == a && augend != 0)) ? 1 : 0;
               this.data[i] = u;
               if (carry == 0) {
                 return this;
@@ -446,7 +448,7 @@ namespace PeterO.Numbers {
       (EInteger)Int32.MaxValue;
 
     private static readonly EInteger ValueNegativeInt32MinValue =
-    -(EInteger)ValueInt32MinValue;
+      -(EInteger)ValueInt32MinValue;
 
     internal FastInteger(int value) {
       this.smallValue = value;
@@ -457,7 +459,7 @@ namespace PeterO.Numbers {
       fi.integerMode = this.integerMode;
       fi.largeValue = this.largeValue;
       fi.mnum = (this.mnum == null || this.integerMode != 1) ? null :
-      this.mnum.Copy();
+        this.mnum.Copy();
       return fi;
     }
 
@@ -466,7 +468,7 @@ namespace PeterO.Numbers {
       fi.integerMode = value.integerMode;
       fi.largeValue = value.largeValue;
       fi.mnum = (value.mnum == null || value.integerMode != 1) ? null :
-      value.mnum.Copy();
+        value.mnum.Copy();
       fi.frozen = true;
       return fi;
     }
@@ -501,19 +503,19 @@ namespace PeterO.Numbers {
     }
 
     private void CheckFrozen() {
-#if DEBUG
+      #if DEBUG
       if (this.frozen) {
         throw new InvalidOperationException();
-   }
-#endif
+      }
+      #endif
     }
     public int CompareTo(FastInteger val) {
       switch ((this.integerMode << 2) | val.integerMode) {
         case (0 << 2) | 0: {
-            int vsv = val.smallValue;
-            return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
+          int vsv = val.smallValue;
+          return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
               1);
-          }
+        }
         case (0 << 2) | 1:
           return -val.mnum.CompareToInt(this.smallValue);
         case (0 << 2) | 2:
@@ -549,8 +551,8 @@ namespace PeterO.Numbers {
     }
 
     internal static int[] GetLastWords(EInteger bigint, int numWords32Bit) {
-      return
-      MutableNumber.FromEInteger(bigint).GetLastWordsInternal(numWords32Bit);
+      return MutableNumber.FromEInteger(bigint).GetLastWordsInternal(
+  numWords32Bit);
     }
 
     internal FastInteger SetInt(int val) {
@@ -572,27 +574,27 @@ namespace PeterO.Numbers {
       } else {
         switch (this.integerMode) {
           case 0: {
-              long amult = ((long)val) * ((long)this.smallValue);
-              if (amult > Int32.MaxValue || amult < Int32.MinValue) {
-                // would overflow, convert to large
-                bool apos = this.smallValue > 0L;
-                bool bpos = val > 0L;
-                if (apos && bpos) {
-                  // if both operands are nonnegative
-                  // convert to mutable big integer
-                  this.integerMode = 1;
-                  this.mnum = MutableNumber.FromLong(amult);
-                } else {
-                  // if either operand is negative
-                  // convert to big integer
-                  this.integerMode = 2;
-                  this.largeValue = EInteger.FromInt64(amult);
-                }
+            long amult = ((long)val) * ((long)this.smallValue);
+            if (amult > Int32.MaxValue || amult < Int32.MinValue) {
+              // would overflow, convert to large
+              bool apos = this.smallValue > 0L;
+              bool bpos = val > 0L;
+              if (apos && bpos) {
+                // if both operands are nonnegative
+                // convert to mutable big integer
+                this.integerMode = 1;
+                this.mnum = MutableNumber.FromLong(amult);
               } else {
-                this.smallValue = unchecked((int)amult);
+                // if either operand is negative
+                // convert to big integer
+                this.integerMode = 2;
+                this.largeValue = EInteger.FromInt64(amult);
               }
-              break;
+            } else {
+              this.smallValue = unchecked((int)amult);
             }
+            break;
+          }
           case 1:
             if (val < 0) {
               this.integerMode = 2;
@@ -621,8 +623,8 @@ namespace PeterO.Numbers {
             // would overflow, convert to large
             this.integerMode = 1;
             this.mnum =
-            MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
-          } else {
+              MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
+            } else {
             this.smallValue = -this.smallValue;
           }
           break;
@@ -652,7 +654,7 @@ namespace PeterO.Numbers {
           if (val.integerMode == 0) {
             int vsv = val.smallValue;
             if ((vsv < 0 && Int32.MaxValue + vsv < this.smallValue) ||
-                (vsv > 0 && Int32.MinValue + vsv > this.smallValue)) {
+              (vsv > 0 && Int32.MinValue + vsv > this.smallValue)) {
               // would overflow, convert to large
               this.integerMode = 2;
               this.largeValue = (EInteger)this.smallValue;
@@ -701,7 +703,7 @@ namespace PeterO.Numbers {
       }
       if (this.integerMode == 0) {
         if ((val < 0 && Int32.MaxValue + val < this.smallValue) ||
-                (val > 0 && Int32.MinValue + val > this.smallValue)) {
+          (val > 0 && Int32.MinValue + val > this.smallValue)) {
           // would overflow, convert to large
           this.integerMode = 2;
           this.largeValue = (EInteger)this.smallValue;
@@ -722,9 +724,9 @@ namespace PeterO.Numbers {
       this.CheckFrozen();
       switch (this.integerMode) {
         case 0: {
-            return bigintVal.CanFitInInt32() ? this.AddInt((int)bigintVal) :
+          return bigintVal.CanFitInInt32() ? this.AddInt((int)bigintVal) :
             this.Add(FastInteger.FromBig(bigintVal));
-          }
+        }
         case 1:
           this.integerMode = 2;
           this.largeValue = this.mnum.ToEInteger();
@@ -773,8 +775,8 @@ namespace PeterO.Numbers {
         case 0:
           if (val.integerMode == 0) {
             if ((this.smallValue < 0 && (int)val.smallValue < Int32.MinValue
-            - this.smallValue) ||
-                (this.smallValue > 0 && (int)val.smallValue > Int32.MaxValue
+                - this.smallValue) ||
+              (this.smallValue > 0 && (int)val.smallValue > Int32.MaxValue
                 - this.smallValue)) {
               // would overflow
               if (val.smallValue >= 0) {
@@ -882,8 +884,8 @@ namespace PeterO.Numbers {
               // would overflow, convert to large
               this.integerMode = 1;
               this.mnum =
-              MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
-            } else {
+                MutableNumber.FromEInteger(ValueNegativeInt32MinValue);
+              } else {
               this.smallValue /= divisor;
             }
             break;
@@ -945,8 +947,8 @@ namespace PeterO.Numbers {
       switch (this.integerMode) {
         case 0:
           if ((this.smallValue < 0 && (int)val < Int32.MinValue -
-        this.smallValue) || (this.smallValue > 0 && (int)val >
-            Int32.MaxValue - this.smallValue)) {
+              this.smallValue) || (this.smallValue > 0 && (int)val >
+              Int32.MaxValue - this.smallValue)) {
             // would overflow
             if (val >= 0) {
               this.integerMode = 1;
@@ -1080,7 +1082,8 @@ namespace PeterO.Numbers {
             return this.mnum.Sign;
           case 2:
             return this.largeValue.Sign;
-          default: return 0;
+          default:
+            return 0;
         }
       }
     }
@@ -1104,7 +1107,7 @@ namespace PeterO.Numbers {
       switch (this.integerMode) {
         case 0:
           return (val == this.smallValue) ? 0 : (this.smallValue < val ? -1 :
-          1);
+              1);
         case 1:
           return this.mnum.ToEInteger().CompareTo((EInteger)val);
         case 2:

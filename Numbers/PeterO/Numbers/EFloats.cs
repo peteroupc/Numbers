@@ -1,8 +1,8 @@
 using System;
 
 namespace PeterO.Numbers {
-    /// <summary>A class that implements additional operations on
-    /// arbitrary-precision binary floating-point numbers.</summary>
+  /// <summary>A class that implements additional operations on
+  /// arbitrary-precision binary floating-point numbers.</summary>
   public static class EFloats {
     private const int BinaryRadix = 2;
 
@@ -221,7 +221,7 @@ namespace PeterO.Numbers {
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
           return ed.Exponent.Add(ed.Precision().Subtract(1)).CompareTo(
-             ec.EMin) < 0;
+              ec.EMin) < 0;
         } else {
           return ed.Exponent.CompareTo(ec.EMin) < 0;
         }
@@ -315,9 +315,9 @@ namespace PeterO.Numbers {
       if (scale.IsZero) {
         return ed.RoundToPrecision(ec);
       }
-      EFloat ret = EFloat.Create(
-         ed.UnsignedMantissa,
-         ed.Exponent.Add(scale));
+      EFloat ret = EFloat.Create (
+          ed.UnsignedMantissa,
+          ed.Exponent.Add(scale));
       if (ed.IsNegative) {
         ret = ret.Negate();
       }
@@ -325,18 +325,18 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Shifts the bits of an arbitrary-precision binary floating
-    /// point number's mantissa.</summary>
+    /// point number's significand.</summary>
     /// <param name='ed'>An arbitrary-precision binary floating point
-    /// number containing the mantissa to shift.</param>
+    /// number containing the significand to shift.</param>
     /// <param name='ed2'>An arbitrary-precision number indicating the
-    /// number of bits to shift the first operand's mantissa. Must be an
+    /// number of bits to shift the first operand's significand. Must be an
     /// integer with an exponent of 0. If this parameter is positive, the
-    /// mantissa is shifted to the left by the given number of bits. If
-    /// this parameter is negative, the mantissa is shifted to the right by
-    /// the given number of bits.</param>
+    /// significand is shifted to the left by the given number of bits. If
+    /// this parameter is negative, the significand is shifted to the right
+    /// by the given number of bits.</param>
     /// <param name='ec'>An arithmetic context to control the precision of
     /// arbitrary-precision numbers. Can be null.</param>
-    /// <returns>An arbitrary-precision decimal number whose mantissa is
+    /// <returns>An arbitrary-precision decimal number whose significand is
     /// shifted the given number of bits. Signals an invalid operation and
     /// returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
@@ -396,25 +396,25 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Rotates the bits of an arbitrary-precision binary number's
-    /// mantissa.</summary>
+    /// significand.</summary>
     /// <param name='ed'>An arbitrary-precision number containing the
-    /// mantissa to rotate. If this mantissa contains more bits than the
-    /// precision, the most-significant bits are chopped off the
-    /// mantissa.</param>
+    /// significand to rotate. If this significand contains more bits than
+    /// the precision, the most-significant bits are chopped off the
+    /// significand.</param>
     /// <param name='ed2'>An arbitrary-precision number indicating the
-    /// number of bits to rotate the first operand's mantissa. Must be an
-    /// integer with an exponent of 0. If this parameter is positive, the
-    /// mantissa is shifted to the left by the given number of bits and the
-    /// most-significant bits shifted out of the mantissa become the
-    /// least-significant bits instead. If this parameter is negative, the
-    /// number is shifted by the given number of bits and the
-    /// least-significant bits shifted out of the mantissa become the
+    /// number of bits to rotate the first operand's significand. Must be
+    /// an integer with an exponent of 0. If this parameter is positive,
+    /// the significand is shifted to the left by the given number of bits
+    /// and the most-significant bits shifted out of the significand become
+    /// the least-significant bits instead. If this parameter is negative,
+    /// the number is shifted by the given number of bits and the
+    /// least-significant bits shifted out of the significand become the
     /// most-significant bits instead.</param>
     /// <param name='ec'>An arithmetic context to control the precision of
     /// arbitrary-precision numbers. If this parameter is null or specifies
     /// an unlimited precision, this method has the same behavior as
     /// <c>Shift</c>.</param>
-    /// <returns>An arbitrary-precision binary number whose mantissa is
+    /// <returns>An arbitrary-precision binary number whose significand is
     /// rotated the given number of bits. Signals an invalid operation and
     /// returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
@@ -450,8 +450,8 @@ namespace PeterO.Numbers {
       }
       EInteger mant = ed.UnsignedMantissa;
       EInteger mantprec = ed.Precision();
-      if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(ec.Precision) >
-        0) {
+      if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(
+  ec.Precision) > 0) {
         mant = mant.Remainder(EInteger.One.ShiftLeft(ec.Precision));
         mantprec = ec.Precision;
       }
@@ -515,7 +515,7 @@ namespace PeterO.Numbers {
     /// signal flags if either value is signaling NaN.</returns>
     public static int CompareTotal(EFloat ed, EFloat other, EContext ec) {
       return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
-ed.CompareToTotal(other, ec));
+          ed.CompareToTotal(other, ec));
     }
 
     /// <summary>Compares the absolute values of two arbitrary-precision
@@ -550,7 +550,7 @@ ed.CompareToTotal(other, ec));
       EFloat other,
       EContext ec) {
       return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
-ed.CompareToTotalMagnitude(other, ec));
+          ed.CompareToTotalMagnitude(other, ec));
     }
 
     /// <summary>Creates a copy of the given arbitrary-precision number
@@ -656,26 +656,26 @@ ed.CompareToTotalMagnitude(other, ec));
       if (ed1.IsFinite && ed2.IsFinite) {
         return ed1.Exponent.Equals(ed2.Exponent);
       } else {
- return (ed1.IsNaN() && ed2.IsNaN()) || (ed1.IsInfinity() &&
-          ed2.IsInfinity());
+        return (ed1.IsNaN() && ed2.IsNaN()) || (ed1.IsInfinity() &&
+            ed2.IsInfinity());
       }
     }
 
     /// <summary>Returns an arbitrary-precision number with the same value
     /// as this one but with certain trailing zeros removed from its
-    /// mantissa. If the number's exponent is 0, it is returned unchanged
-    /// (but may be rounded depending on the arithmetic context); if that
-    /// exponent is greater 0, its trailing zeros are removed from the
-    /// mantissa (then rounded if necessary); if that exponent is less than
-    /// 0, its trailing zeros are removed from the mantissa until the
-    /// exponent reaches 0 (then the number is rounded if
+    /// significand. If the number's exponent is 0, it is returned
+    /// unchanged (but may be rounded depending on the arithmetic context);
+    /// if that exponent is greater 0, its trailing zeros are removed from
+    /// the significand (then rounded if necessary); if that exponent is
+    /// less than 0, its trailing zeros are removed from the significand
+    /// until the exponent reaches 0 (then the number is rounded if
     /// necessary).</summary>
     /// <param name='ed1'>An arbitrary-precision number.</param>
     /// <param name='ec'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. Can be null.</param>
     /// <returns>An arbitrary-precision number with the same value as this
-    /// one but with certain trailing zeros removed from its mantissa. If
-    /// <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
+    /// one but with certain trailing zeros removed from its significand.
+    /// If <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
     /// generally returned unchanged.</returns>
     public static EFloat Trim(EFloat ed1, EContext ec) {
       EFloat ed = ed1;
@@ -692,12 +692,12 @@ ed.CompareToTotalMagnitude(other, ec));
       if (ed.IsFinite) {
         if (ed.IsZero) {
           return (ed.IsNegative ? EFloat.NegativeZero :
-             EFloat.Zero).RoundToPrecision(ec);
-           } else if (ed.Exponent.Sign > 0) {
-             return ed.Reduce(ec);
-           } else if (ed.Exponent.Sign == 0) {
-             return ed.RoundToPrecision(ec);
-           } else {
+              EFloat.Zero).RoundToPrecision(ec);
+        } else if (ed.Exponent.Sign > 0) {
+          return ed.Reduce(ec);
+        } else if (ed.Exponent.Sign == 0) {
+          return ed.RoundToPrecision(ec);
+        } else {
           EInteger exp = ed.Exponent;
           EInteger mant = ed.UnsignedMantissa;
           bool neg = ed.IsNegative;
@@ -782,9 +782,9 @@ ed.CompareToTotalMagnitude(other, ec));
           return InvalidOperation(EFloat.NaN, ec);
         }
         EFloat rounded = scale.Quantize(0, tec);
-        return ed.Quantize(
-          EFloat.Create(EInteger.One, rounded.Mantissa),
-          ec);
+        return ed.Quantize (
+            EFloat.Create(EInteger.One, rounded.Mantissa),
+            ec);
       }
     }
 
@@ -826,10 +826,10 @@ ed.CompareToTotalMagnitude(other, ec));
       for (var i = 0; i < smaller.Length; ++i) {
         smaller[i] &= bigger[i];
       }
-      return EFloat.FromEInteger(
-  EDecimals.ToLogical(
-    smaller,
-    2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger (
+          EDecimals.ToLogical(
+            smaller,
+            2)).RoundToPrecision(ec);
     }
 
     /// <summary>Performs a logical NOT operation on a binary number in the
@@ -862,20 +862,20 @@ ed.CompareToTotalMagnitude(other, ec));
         return InvalidOperation(EFloat.NaN, ec);
       }
       byte[] bigger = ei.ToBytes(true);
-#if DEBUG
+      #if DEBUG
       if (smaller.Length > bigger.Length) {
-        throw new ArgumentException("smaller.Length (" + smaller.Length +
+        throw new ArgumentException("smaller.Length(" + smaller.Length +
           ") is not less or equal to " + bigger.Length);
       }
-#endif
+      #endif
 
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return EFloat.FromEInteger(
-  EDecimals.ToLogical(
-    bigger,
-    2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger (
+          EDecimals.ToLogical(
+            bigger,
+            2)).RoundToPrecision(ec);
     }
 
     /// <summary>Performs a logical exclusive-OR (XOR) operation on two
@@ -915,10 +915,10 @@ ed.CompareToTotalMagnitude(other, ec));
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return EFloat.FromEInteger(
-  EDecimals.ToLogical(
-    bigger,
-    2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger (
+          EDecimals.ToLogical(
+            bigger,
+            2)).RoundToPrecision(ec);
     }
 
     /// <summary>Performs a logical OR operation on two binary numbers in
@@ -957,10 +957,10 @@ ed.CompareToTotalMagnitude(other, ec));
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] |= smaller[i];
       }
-      return EFloat.FromEInteger(
-  EDecimals.ToLogical(
-    bigger,
-    2)).RoundToPrecision(ec);
+      return EFloat.FromEInteger (
+          EDecimals.ToLogical(
+            bigger,
+            2)).RoundToPrecision(ec);
     }
   }
 }

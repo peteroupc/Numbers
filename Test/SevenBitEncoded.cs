@@ -50,7 +50,7 @@ namespace Test {
     }
 
     private static EInteger Read7BitEncoded(Stream inputStream, EInteger
-maxValue) {
+      maxValue) {
       if (inputStream == null) {
         throw new ArgumentNullException(nameof(inputStream));
       }

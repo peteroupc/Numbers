@@ -8,23 +8,23 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    /// <summary>Contains parameters for controlling the precision,
-    /// rounding, and exponent range of arbitrary-precision numbers. (The
-    /// "E" stands for "extended", and has this prefix to group it with the
-    /// other classes common to this library, particularly EDecimal,
-    /// EFloat, and ERational.).
-    /// <para><b>Thread safety:</b> With one exception, instances of this
-    /// class are immutable and are safe to use among multiple threads. The
-    /// one exception involves the <c>Flags</c> property. If the context's
-    /// <c>HasFlags</c> property (a read-only property) is <c>true</c>,
-    /// the <c>Flags</c> property is mutable, thus making the context
-    /// mutable. This class doesn't synchronize access to such mutable
-    /// contexts, so applications should provide their own synchronization
-    /// if a context with the <c>HasFlags</c> property set to <c>true</c>
-    /// will be shared among multiple threads and at least one of those
-    /// threads needs to write the <c>Flags</c> property (which can happen,
-    /// for example, by passing the context to most methods of
-    /// <c>EDecimal</c> such as <c>Add</c> ).</para></summary>
+  /// <summary>Contains parameters for controlling the precision,
+  /// rounding, and exponent range of arbitrary-precision numbers. (The
+  /// "E" stands for "extended", and has this prefix to group it with the
+  /// other classes common to this library, particularly EDecimal,
+  /// EFloat, and ERational.).
+  /// <para><b>Thread safety:</b> With one exception, instances of this
+  /// class are immutable and are safe to use among multiple threads. The
+  /// one exception involves the <c>Flags</c> property. If the context's
+  /// <c>HasFlags</c> property (a read-only property) is <c>true</c>,
+  /// the <c>Flags</c> property is mutable, thus making the context
+  /// mutable. This class doesn't synchronize access to such mutable
+  /// contexts, so applications should provide their own synchronization
+  /// if a context with the <c>HasFlags</c> property set to <c>true</c>
+  /// will be shared among multiple threads and at least one of those
+  /// threads needs to write the <c>Flags</c> property (which can happen,
+  /// for example, by passing the context to most methods of
+  /// <c>EDecimal</c> such as <c>Add</c> ).</para></summary>
   public sealed class EContext {
     /// <summary>Signals that the exponent was adjusted to fit the exponent
     /// range.</summary>
@@ -67,39 +67,39 @@ namespace PeterO.Numbers {
     /// <summary>A basic arithmetic context, 9 digits precision, rounding
     /// mode half-up, unlimited exponent range. The default rounding mode
     /// is HalfUp.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Basic =
       EContext.ForPrecisionAndRounding(9, ERounding.HalfUp);
 
     /// <summary>An arithmetic context for Java's BigDecimal format. The
     /// default rounding mode is HalfUp.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext BigDecimalJava =
       new EContext(0, ERounding.HalfUp, 0, 0, true)
-      .WithExponentClamp(true).WithAdjustExponent(false)
-      .WithBigExponentRange(
-  EInteger.Zero - (EInteger)Int32.MaxValue,
-  EInteger.One + (EInteger)Int32.MaxValue);
+    .WithExponentClamp(true).WithAdjustExponent(false)
+    .WithBigExponentRange (
+      EInteger.Zero - (EInteger)Int32.MaxValue,
+      EInteger.One + (EInteger)Int32.MaxValue);
 
     /// <summary>An arithmetic context for the IEEE-754-2008 binary128
     /// format, 113 bits precision. The default rounding mode is
     /// HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Binary128 =
       EContext.ForPrecisionAndRounding(113, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-16382, 16383);
@@ -107,12 +107,12 @@ namespace PeterO.Numbers {
     /// <summary>An arithmetic context for the IEEE-754-2008 binary16
     /// format, 11 bits precision. The default rounding mode is
     /// HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Binary16 =
       EContext.ForPrecisionAndRounding(11, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-14, 15);
@@ -120,12 +120,12 @@ namespace PeterO.Numbers {
     /// <summary>An arithmetic context for the IEEE-754-2008 binary32
     /// format, 24 bits precision. The default rounding mode is
     /// HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Binary32 =
       EContext.ForPrecisionAndRounding(24, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-126, 127);
@@ -133,12 +133,12 @@ namespace PeterO.Numbers {
     /// <summary>An arithmetic context for the IEEE-754-2008 binary64
     /// format, 53 bits precision. The default rounding mode is
     /// HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Binary64 =
       EContext.ForPrecisionAndRounding(53, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-1022, 1023);
@@ -151,68 +151,68 @@ namespace PeterO.Numbers {
     /// Language Infrastructure", which defined this format as the .NET
     /// Framework decimal format in version 1, but leaves it unspecified in
     /// later versions.).</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext CliDecimal =
       new EContext(96, ERounding.HalfEven, 0, 28, true)
-      .WithPrecisionInBits(true);
+    .WithPrecisionInBits(true);
 
     /// <summary>An arithmetic context for the IEEE-754-2008 decimal128
     /// format. The default rounding mode is HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Decimal128 =
       new EContext(34, ERounding.HalfEven, -6143, 6144, true);
 
     /// <summary>An arithmetic context for the IEEE-754-2008 decimal32
     /// format. The default rounding mode is HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Decimal32 =
       new EContext(7, ERounding.HalfEven, -95, 96, true);
 
     /// <summary>An arithmetic context for the IEEE-754-2008 decimal64
     /// format. The default rounding mode is HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Decimal64 =
       new EContext(16, ERounding.HalfEven, -383, 384, true);
 
     /// <summary>No specific (theoretical) limit on precision. Rounding
     /// mode HalfUp.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext Unlimited =
       EContext.ForPrecision(0);
 
     /// <summary>No specific (theoretical) limit on precision. Rounding
     /// mode HalfEven.</summary>
-#if CODE_ANALYSIS
+    #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Security",
       "CA2104",
-    Justification = "This PrecisionContext is immutable")]
-#endif
+      Justification = "This PrecisionContext is immutable")]
+    #endif
     public static readonly EContext UnlimitedHalfEven =
       EContext.ForPrecision(0).WithRounding(ERounding.HalfEven);
 
@@ -239,11 +239,11 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(exponentMax));
       }
       if (bigintPrecision.Sign < 0) {
-        throw new ArgumentException("precision (" + bigintPrecision +
+        throw new ArgumentException("precision(" + bigintPrecision +
           ") is less than 0");
       }
       if (exponentMin.CompareTo(exponentMax) > 0) {
-        throw new ArgumentException("exponentMinSmall (" + exponentMin +
+        throw new ArgumentException("exponentMinSmall(" + exponentMin +
           ") is more than " + exponentMax);
       }
       this.adjustExponent = adjustExponent;
@@ -299,19 +299,19 @@ namespace PeterO.Numbers {
       ERounding rounding,
       int exponentMinSmall,
       int exponentMaxSmall,
-      bool clampNormalExponents) : this(
-      true,
-      EInteger.FromInt32(precision),
-      clampNormalExponents,
-      EInteger.FromInt32(exponentMaxSmall),
-      EInteger.FromInt32(exponentMinSmall),
-      0,
-      true,
-      false,
-      false,
-      rounding,
-      false,
-      0) {
+      bool clampNormalExponents) : this (
+          true,
+          EInteger.FromInt32(precision),
+          clampNormalExponents,
+          EInteger.FromInt32(exponentMaxSmall),
+          EInteger.FromInt32(exponentMinSmall),
+          0,
+          true,
+          false,
+          false,
+          rounding,
+          false,
+          0) {
     }
 
     /// <summary>Initializes a new instance of the
@@ -330,19 +330,19 @@ namespace PeterO.Numbers {
       ERounding rounding,
       EInteger exponentMin,
       EInteger exponentMax,
-      bool clampNormalExponents) : this(
-      true,
-      bigintPrecision,
-      clampNormalExponents,
-      exponentMax,
-      exponentMin,
-      0,
-      true,
-      false,
-      false,
-      rounding,
-      false,
-      0) {
+      bool clampNormalExponents) : this (
+          true,
+          bigintPrecision,
+          clampNormalExponents,
+          exponentMax,
+          exponentMin,
+          0,
+          true,
+          false,
+          false,
+          rounding,
+          false,
+          0) {
     }
 
     /// <summary>Gets a value indicating whether the EMax and EMin
@@ -351,8 +351,8 @@ namespace PeterO.Numbers {
     /// default value is true, meaning that EMax and EMin refer to the
     /// adjusted exponent. Setting this value to false (using
     /// WithAdjustExponent) is useful for modeling floating point
-    /// representations with an integer mantissa (significand) and an
-    /// integer exponent, such as Java's BigDecimal.</summary>
+    /// representations with an integer significand and an integer
+    /// exponent, such as Java's BigDecimal.</summary>
     /// <value><c>true</c> if the EMax and EMin properties refer to the
     /// number's Exponent property adjusted to the number's precision, or
     /// false if they refer to just the number's Exponent property.</value>
@@ -366,9 +366,9 @@ namespace PeterO.Numbers {
     /// Exponent property will not be higher than EMax + 1 - Precision. If
     /// a number's exponent is higher than that value, but not high enough
     /// to cause overflow, the exponent is clamped to that value and enough
-    /// zeros are added to the number's mantissa (significand) to account
-    /// for the adjustment. If HasExponentRange is false, this value is
-    /// always false.</summary>
+    /// zeros are added to the number's significand to account for the
+    /// adjustment. If HasExponentRange is false, this value is always
+    /// false.</summary>
     /// <value>If true, a converted number's Exponent property will not be
     /// higher than EMax + 1 - Precision.</value>
     public bool ClampNormalExponents {
@@ -513,9 +513,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Gets the maximum length of a converted number in digits,
     /// ignoring the radix point and exponent. For example, if precision is
-    /// 3, a converted number's mantissa (significand) can range from 0 to
-    /// 999 (up to three digits long). If 0, converted numbers can have any
-    /// precision.
+    /// 3, a converted number's significand can range from 0 to 999 (up to
+    /// three digits long). If 0, converted numbers can have any precision.
     /// <para>Not-a-number (NaN) values can carry an optional number, its
     /// payload, that serves as its "diagnostic information", In general,
     /// if an operation requires copying an NaN's payload, only up to as
@@ -523,8 +522,8 @@ namespace PeterO.Numbers {
     /// namely the least significant digits, are copied.</para></summary>
     /// <value>The maximum length of a converted number in digits, ignoring
     /// the radix point and exponent. For example, if precision is 3, a
-    /// converted number's mantissa (significand) can range from 0 to 999
-    /// (up to three digits long). If 0, converted numbers can have any
+    /// converted number's significand can range from 0 to 999 (up to three
+    /// digits long). If 0, converted numbers can have any
     /// precision.</value>
     public EInteger Precision {
       get {
@@ -688,7 +687,7 @@ namespace PeterO.Numbers {
           bigint -= EInteger.One;
         }
         return (bigint.CompareTo(this.EMin) >= 0) &&
-          (exponent.CompareTo(this.EMax) <= 0);
+(exponent.CompareTo(this.EMax) <= 0);
       }
     }
 
@@ -862,9 +861,9 @@ namespace PeterO.Numbers {
     public EContext WithExponentRange(
       int exponentMinSmall,
       int exponentMaxSmall) {
-      return this.WithBigExponentRange(
-        EInteger.FromInt32(exponentMinSmall),
-        EInteger.FromInt32(exponentMaxSmall));
+      return this.WithBigExponentRange (
+          EInteger.FromInt32(exponentMinSmall),
+          EInteger.FromInt32(exponentMaxSmall));
     }
 
     /// <summary>Copies this EContext with <c>HasFlags</c> set to false and

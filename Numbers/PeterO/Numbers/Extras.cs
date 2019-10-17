@@ -10,9 +10,9 @@ using System;
 namespace PeterO.Numbers {
   internal static class Extras {
     public static int[] DoubleToIntegers(double dbl) {
-      long value = BitConverter.ToInt64(
-  BitConverter.GetBytes((double)dbl),
-  0);
+      long value = BitConverter.ToInt64 (
+          BitConverter.GetBytes((double)dbl),
+          0);
       var ret = new int[2];
       ret[0] = unchecked((int)(value & 0xffffffffL));
       ret[1] = unchecked((int)((value >> 32) & 0xffffffffL));

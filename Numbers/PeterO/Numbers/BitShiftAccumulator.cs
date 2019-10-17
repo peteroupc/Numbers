@@ -8,8 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-  internal sealed class BitShiftAccumulator : IShiftAccumulator
-  {
+  internal sealed class BitShiftAccumulator : IShiftAccumulator {
     private const int SmallBitLength = 32;
     private int bitLeftmost;
 
@@ -39,7 +38,7 @@ namespace PeterO.Numbers {
       return FastInteger.CopyFrozen(this.knownBitLength);
     }
     private void VerifyKnownLength() {
-#if DEBUG
+      #if DEBUG
       if (this.knownBitLength != null) {
         if (this.knownBitLength.CompareTo(this.CalcKnownBitLength()) != 0) {
           string msg = "*****" +
@@ -47,8 +46,8 @@ namespace PeterO.Numbers {
             "\n" + "*****kdl=" + this.knownBitLength;
           throw new InvalidOperationException(msg);
         }
-   }
-#endif
+      }
+      #endif
     }
 
     public void ShiftToDigits(
@@ -56,7 +55,7 @@ namespace PeterO.Numbers {
       FastInteger preShift,
       bool truncate) {
       if (bits.Sign < 0) {
-        throw new ArgumentException("bits's sign (" + bits.Sign +
+        throw new ArgumentException("bits's sign(" + bits.Sign +
           ") is less than 0");
       }
       if (preShift != null && preShift.Sign > 0) {
@@ -76,17 +75,17 @@ namespace PeterO.Numbers {
           // DebugUtility.Log("bitDiff=" + bitDiff);
           int cmp = bitDiff.CompareTo(preShift);
           if (cmp <= 0) {
-          // NOTE: For BitShiftAccumulator, truncating and shifting
-          // are the same, unlike in DigitShiftAccumulator
-          this.ShiftRight(preShift);
-          this.VerifyKnownLength();
-          return;
-        } else {
-          // NOTE: For BitShiftAccumulator, truncating and shifting
-          // are the same, unlike in DigitShiftAccumulator
-          this.ShiftRight(bitDiff);
-          this.VerifyKnownLength();
-          return;
+            // NOTE: For BitShiftAccumulator, truncating and shifting
+            // are the same, unlike in DigitShiftAccumulator
+            this.ShiftRight(preShift);
+            this.VerifyKnownLength();
+            return;
+          } else {
+            // NOTE: For BitShiftAccumulator, truncating and shifting
+            // are the same, unlike in DigitShiftAccumulator
+            this.ShiftRight(bitDiff);
+            this.VerifyKnownLength();
+            return;
           }
         }
       }
@@ -114,7 +113,7 @@ namespace PeterO.Numbers {
     {
       get {
         return this.isSmall ? ((EInteger)this.shiftedSmall) :
-        this.shiftedBigInt;
+          this.shiftedBigInt;
       }
     }
 
@@ -122,7 +121,7 @@ namespace PeterO.Numbers {
     {
       get {
         return this.isSmall ? new FastInteger(this.shiftedSmall) :
-        FastInteger.FromBig(this.shiftedBigInt);
+          FastInteger.FromBig(this.shiftedBigInt);
       }
     }
 
@@ -141,7 +140,7 @@ namespace PeterO.Numbers {
       int lastDiscarded,
       int olderDiscarded) {
       if (bigint.Sign < 0) {
-        throw new ArgumentException("bigint's sign (" + bigint.Sign +
+        throw new ArgumentException("bigint's sign(" + bigint.Sign +
           ") is less than 0");
       }
       if (bigint.CanFitInInt32()) {
@@ -159,20 +158,20 @@ namespace PeterO.Numbers {
       int smallint,
       int lastDiscarded,
       int olderDiscarded) {
-        this.shiftedSmall = smallint;
-        if (this.shiftedSmall < 0) {
-          throw new ArgumentException("shiftedSmall (" + this.shiftedSmall +
-            ") is less than 0");
-        }
-        this.isSmall = true;
-        this.discardedBitCount = new FastInteger(0);
-        this.bitsAfterLeftmost = (olderDiscarded != 0) ? 1 : 0;
-        this.bitLeftmost = (lastDiscarded != 0) ? 1 : 0;
+      this.shiftedSmall = smallint;
+      if (this.shiftedSmall < 0) {
+        throw new ArgumentException("shiftedSmall(" + this.shiftedSmall +
+          ") is less than 0");
+      }
+      this.isSmall = true;
+      this.discardedBitCount = new FastInteger(0);
+      this.bitsAfterLeftmost = (olderDiscarded != 0) ? 1 : 0;
+      this.bitLeftmost = (lastDiscarded != 0) ? 1 : 0;
     }
 
     public static BitShiftAccumulator FromInt32(int smallNumber) {
       if (smallNumber < 0) {
-        throw new ArgumentException("smallNumber (" + smallNumber +
+        throw new ArgumentException("smallNumber(" + smallNumber +
           ") is less than 0");
       }
       var bsa = new BitShiftAccumulator(EInteger.Zero, 0, 0);
@@ -202,7 +201,7 @@ namespace PeterO.Numbers {
           this.ShiftRightInt(count);
           bi -= (EInteger)count;
           if (this.isSmall ? this.shiftedSmall == 0 :
-          this.shiftedBigInt.IsZero) {
+            this.shiftedBigInt.IsZero) {
             break;
           }
         }
@@ -286,7 +285,7 @@ namespace PeterO.Numbers {
         return new FastInteger(kb);
       }
       return this.shiftedBigInt.IsZero ? new FastInteger(1) :
-  FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
+        FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
     }
 
     private void ShiftBigToBits(int bits) {
@@ -311,7 +310,7 @@ namespace PeterO.Numbers {
           bs -= bits;
         } else {
           FastInteger bitShift =
-          this.knownBitLength.Copy().SubtractInt(bits);
+            this.knownBitLength.Copy().SubtractInt(bits);
           if (!bitShift.CanFitInInt32()) {
             this.ShiftRight(bitShift);
             return;
@@ -390,7 +389,7 @@ namespace PeterO.Numbers {
       this.bitsAfterLeftmost |= this.bitLeftmost;
       // Get the bottommost shift minus 1 bits
       this.bitsAfterLeftmost |= (shift > 1 && (this.shiftedSmall <<
-      (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
+            (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
       // Get the bit just above that bit
       this.bitLeftmost = (int)((this.shiftedSmall >> (shift - 1)) & 0x01);
       this.shiftedSmall >>= shift;
@@ -403,7 +402,7 @@ namespace PeterO.Numbers {
     }
     public void ShiftToDigitsInt(int bits) {
       if (bits < 0) {
-        throw new ArgumentException("bits (" + bits + ") is less than 0");
+        throw new ArgumentException("bits(" + bits + ") is less than 0");
       }
       if (this.isSmall) {
         this.ShiftSmallToBits(bits);
@@ -432,7 +431,7 @@ namespace PeterO.Numbers {
         this.bitsAfterLeftmost |= this.bitLeftmost;
         // Get the bottommost shift minus 1 bits
         this.bitsAfterLeftmost |= (shift > 1 && (this.shiftedSmall <<
-        (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
+              (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
         // Get the bit just above that bit
         this.bitLeftmost = (int)((this.shiftedSmall >> (shift - 1)) & 0x01);
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;

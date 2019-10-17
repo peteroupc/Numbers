@@ -16,10 +16,10 @@ Specifies the mode to use when "shortening" numbers that otherwise can't fit a g
 * <code>[public static PeterO.Numbers.ERounding HalfEven = 5;](#HalfEven)</code> - Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number that is even.
 * <code>[public static PeterO.Numbers.ERounding HalfUp = 3;](#HalfUp)</code> - Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number away from zero.
 * <code>[public static PeterO.Numbers.ERounding None = 0;](#None)</code> - Indicates that rounding will not be used.
-* <code>[public static PeterO.Numbers.ERounding Odd = 8;](#Odd)</code> - If there is a fractional part and the whole number part is even, the number is rounded to the closest representable odd number away from zero.
+* <code>[public static PeterO.Numbers.ERounding Odd = 8;](#Odd)</code> - <b>Deprecated:</b> Consider using ERounding.OddOrZeroFiveUp instead.
 * <code>[public static PeterO.Numbers.ERounding OddOrZeroFiveUp = 10;](#OddOrZeroFiveUp)</code> - For binary floating point numbers, this is the same as Odd.
 * <code>[public static PeterO.Numbers.ERounding Up = 1;](#Up)</code> - If there is a fractional part, the number is rounded to the closest representable number away from zero.
-* <code>[public static PeterO.Numbers.ERounding ZeroFiveUp = 9;](#ZeroFiveUp)</code> - If there is a fractional part and if the last digit before rounding is 0 or half the radix, the number is rounded to the closest representable number away from zero; otherwise the fractional part is discarded.
+* <code>[public static PeterO.Numbers.ERounding ZeroFiveUp = 9;](#ZeroFiveUp)</code> - <b>Deprecated:</b> Use ERounding.OddOrZeroFiveUp instead.
 
 <a id="Ceiling"></a>
 ### Ceiling

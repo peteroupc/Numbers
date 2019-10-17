@@ -8,24 +8,24 @@ namespace Test {
     [Test]
     public void TestConstructor() {
       try {
-        Assert.AreEqual(
+        Assert.AreEqual (
           null,
           new EContext(-1, ERounding.HalfEven, 0, 0, false));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        Assert.AreEqual(
+        Assert.AreEqual (
           null,
           new EContext(0, ERounding.HalfEven, 0, -1, false));
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -58,20 +58,22 @@ namespace Test {
     }
     [Test]
     public void TestExponentWithinRange() {
-  Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(EInteger.FromString(
-  "-9999999")));
+      Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(
+  EInteger.FromString (
+            "-9999999")));
 
-  Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(EInteger.FromString(
-  "9999999")));
-  try {
- EContext.Unlimited.ExponentWithinRange(null);
- Assert.Fail("Should have failed");
-} catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+      Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(
+  EInteger.FromString (
+            "9999999")));
+      try {
+        EContext.Unlimited.ExponentWithinRange(null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
     [Test]
     public void TestFlags() {
@@ -80,8 +82,8 @@ namespace Test {
         ctx.Flags = 5;
         Assert.Fail("Should have failed");
       } catch (InvalidOperationException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -97,8 +99,8 @@ namespace Test {
         ctx.Flags = 5;
         Assert.Fail("Should have failed");
       } catch (InvalidOperationException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -107,47 +109,48 @@ namespace Test {
     [Test]
     public void TestCliDecimal() {
       EDecimal valueEdTmp;
-      valueEdTmp = EDecimal.FromString(
-  "-79228162514264337593543950336")
-.RoundToPrecision(EContext.CliDecimal);
+      valueEdTmp = EDecimal.FromString (
+          "-79228162514264337593543950336")
+        .RoundToPrecision(EContext.CliDecimal);
       Assert.AreEqual(
         EDecimal.NegativeInfinity,
         valueEdTmp);
-      valueEdTmp = EDecimal.FromString(
-     "8.782580686213340724E+28")
-     .RoundToPrecision(EContext.CliDecimal);
+      valueEdTmp = EDecimal.FromString (
+          "8.782580686213340724E+28")
+        .RoundToPrecision(EContext.CliDecimal);
       Assert.AreEqual(
         EDecimal.PositiveInfinity,
         valueEdTmp);
       {
         object objectTemp = EDecimal.NegativeInfinity;
-        object objectTemp2 = EDecimal.FromString(
-        "-9.3168444507547E+28").RoundToPrecision(EContext.CliDecimal);
+        object objectTemp2 = EDecimal.FromString (
+            "-9.3168444507547E+28").RoundToPrecision(EContext.CliDecimal);
         Assert.AreEqual(objectTemp, objectTemp2);
-}
+      }
       {
         string stringTemp =
 
-          EDecimal.FromString(
-  "-9344285899206687626894794544.04982268810272216796875")
-.RoundToPrecision(EContext.CliDecimal)
-          .ToPlainString();
+          EDecimal.FromString (
+            "-9344285899206687626894794544.04982268810272216796875")
+          .RoundToPrecision(EContext.CliDecimal).ToPlainString();
         Assert.AreEqual(
           "-9344285899206687626894794544",
           stringTemp);
       }
       {
         object objectTemp = EDecimal.PositiveInfinity;
-        object objectTemp2 = EDecimal.FromString(
-  "96148154858060747311034406200").RoundToPrecision(EContext.CliDecimal);
-  Assert.AreEqual(objectTemp, objectTemp2);
-}
+        object objectTemp2 = EDecimal.FromString (
+            "96148154858060747311034406200").RoundToPrecision(
+  EContext.CliDecimal);
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
       {
         object objectTemp = EDecimal.PositiveInfinity;
-        object objectTemp2 = EDecimal.FromString(
-  "90246605365627217170000000000").RoundToPrecision(EContext.CliDecimal);
-  Assert.AreEqual(objectTemp, objectTemp2);
-}
+        object objectTemp2 = EDecimal.FromString (
+            "90246605365627217170000000000").RoundToPrecision(
+  EContext.CliDecimal);
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
     }
 
     [Test]
@@ -227,8 +230,8 @@ namespace Test {
         EContext.Unlimited.WithBigPrecision(EInteger.One.Negate());
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -247,8 +250,8 @@ namespace Test {
         EContext.Unlimited.WithExponentRange(1, 0);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -256,8 +259,8 @@ namespace Test {
         EContext.Unlimited.WithBigExponentRange(null, EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -265,8 +268,8 @@ namespace Test {
         EContext.Unlimited.WithBigExponentRange(EInteger.Zero, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -277,8 +280,8 @@ namespace Test {
           EInteger.Zero);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
@@ -293,8 +296,8 @@ namespace Test {
         EContext.Unlimited.WithPrecision(-1);
         Assert.Fail("Should have failed");
       } catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }

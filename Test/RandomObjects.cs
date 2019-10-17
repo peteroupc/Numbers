@@ -11,7 +11,7 @@ using PeterO;
 using PeterO.Numbers;
 
 namespace Test {
-    /// <summary>Description of RandomObjects.</summary>
+  /// <summary>Description of RandomObjects.</summary>
   public static class RandomObjects {
     public static byte[] RandomByteString(RandomGenerator rand) {
       if (rand == null) {
@@ -165,9 +165,9 @@ namespace Test {
         return sabi.BigIntValue;
       }
       if (selection < 50) {
-        StringAndBigInt sabi = StringAndBigInt.Generate(
-          r,
-          2 + r.UniformInt(35));
+        StringAndBigInt sabi = StringAndBigInt.Generate (
+            r,
+            2 + r.UniformInt(35));
         return sabi.BigIntValue;
       } else {
         int count = r.UniformInt(400) + 1;
@@ -195,9 +195,9 @@ namespace Test {
           return EFloat.NaN;
         }
       }
-      return EFloat.Create(
-  RandomEInteger(r),
-  (EInteger)(r.UniformInt(400) - 200));
+      return EFloat.Create (
+          RandomEInteger(r),
+          (EInteger)(r.UniformInt(400) - 200));
     }
 
     public static String RandomBigIntString(RandomGenerator r) {

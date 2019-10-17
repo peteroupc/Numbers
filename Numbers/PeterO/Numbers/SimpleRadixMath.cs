@@ -8,14 +8,14 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-    // <summary>Implements the simplified arithmetic in Appendix A of the
-    // General Decimal Arithmetic Specification. Unfortunately, it doesn't
-    // pass all the test cases, since some aspects of the spec are left
-    // open. For example: in which cases is the Clamped flag set? The test
-    // cases set the Clamped flag in only a handful of test cases, all
-    // within the <c>exp</c> operation.</summary>
-    // <typeparam name='T'>Data type for a numeric value in a particular
-    // radix.</typeparam>
+  // <summary>Implements the simplified arithmetic in Appendix A of the
+  // General Decimal Arithmetic Specification. Unfortunately, it doesn't
+  // pass all the test cases, since some aspects of the spec are left
+  // open. For example: in which cases is the Clamped flag set? The test
+  // cases set the Clamped flag in only a handful of test cases, all
+  // within the <c>exp</c> operation.</summary>
+  // <typeparam name='T'>Data type for a numeric value in a particular
+  // radix.</typeparam>
   internal sealed class SimpleRadixMath<T> : IRadixMath<T> {
     private readonly IRadixMath<T> wrapper;
 
@@ -29,7 +29,7 @@ namespace PeterO.Numbers {
 
     private T SignalInvalid(EContext ctx) {
       if (this.GetHelper().GetArithmeticSupport() ==
-          BigNumberFlags.FiniteOnly) {
+        BigNumberFlags.FiniteOnly) {
         throw new ArithmeticException("Invalid operation");
       }
       if (ctx != null && ctx.HasFlags) {
@@ -86,12 +86,12 @@ namespace PeterO.Numbers {
       }
       EInteger mant = this.GetHelper().GetMantissa(thisValue).Abs();
       if (mant.IsZero) {
-        return afterQuantize ? this.GetHelper().CreateNewWithFlags(
-          mant,
-          this.GetHelper().GetExponent(thisValue),
-          0) : this.wrapper.RoundToPrecision(
-          this.GetHelper().ValueOf(0),
-          ctxDest);
+        return afterQuantize ? this.GetHelper().CreateNewWithFlags (
+            mant,
+            this.GetHelper().GetExponent(thisValue),
+            0) : this.wrapper.RoundToPrecision (
+            this.GetHelper().ValueOf(0),
+            ctxDest);
       }
       if (afterQuantize) {
         return thisValue;
@@ -128,20 +128,20 @@ namespace PeterO.Numbers {
             null,
             null,
             null);
-          thisValue = this.GetHelper().CreateNewWithFlags(
-            mant,
-            fastExp.AsEInteger(),
-            thisFlags);
+          thisValue = this.GetHelper().CreateNewWithFlags (
+              mant,
+              fastExp.AsEInteger(),
+              thisFlags);
         }
       } else if (afterDivision && exp.Sign < 0) {
         FastInteger fastExp = FastInteger.FromBig(exp);
         int radix = this.GetHelper().GetRadix();
-        mant = NumberUtility.ReduceTrailingZeros(
-          mant, fastExp, radix, null, null, new FastInteger(0));
-        thisValue = this.GetHelper().CreateNewWithFlags(
-          mant,
-          fastExp.AsEInteger(),
-          thisFlags);
+        mant = NumberUtility.ReduceTrailingZeros (
+            mant, fastExp, radix, null, null, new FastInteger(0));
+        thisValue = this.GetHelper().CreateNewWithFlags (
+            mant,
+            fastExp.AsEInteger(),
+            thisFlags);
       }
       return thisValue;
     }
@@ -150,9 +150,9 @@ namespace PeterO.Numbers {
       EInteger mant = this.GetHelper().GetMantissa(thisValue).Abs();
       var mantChanged = false;
       if (!mant.IsZero && ctx != null && ctx.HasMaxPrecision) {
-        EInteger limit = this.GetHelper().MultiplyByRadixPower(
-          EInteger.One,
-          FastInteger.FromBig(ctx.Precision));
+        EInteger limit = this.GetHelper().MultiplyByRadixPower (
+            EInteger.One,
+            FastInteger.FromBig(ctx.Precision));
         if (mant.CompareTo(limit) >= 0) {
           mant %= (EInteger)limit;
           mantChanged = true;
@@ -180,9 +180,9 @@ namespace PeterO.Numbers {
       // Check this value then the other value for quiet NaN
       return ((thisFlags & BigNumberFlags.FlagQuietNaN) != 0) ?
         this.ReturnQuietNaN(thisValue, ctx) : (((otherFlags &
-                BigNumberFlags.FlagQuietNaN) != 0) ? this.ReturnQuietNaN(
-                  other,
-                  ctx) : default(T));
+              BigNumberFlags.FlagQuietNaN) != 0) ? this.ReturnQuietNaN(
+                other,
+                ctx) : default(T));
     }
 
     private T CheckNotANumber3(
@@ -206,11 +206,11 @@ namespace PeterO.Numbers {
       // Check this value then the other value for quiet NaN
       return ((thisFlags & BigNumberFlags.FlagQuietNaN) != 0) ?
         this.ReturnQuietNaN(thisValue, ctx) : (((otherFlags &
-                BigNumberFlags.FlagQuietNaN) != 0) ? this.ReturnQuietNaN(
-                  other,
-                  ctx) :
-                    (((other2Flags & BigNumberFlags.FlagQuietNaN) !=
-                0) ? this.ReturnQuietNaN(other, ctx) : default(T)));
+              BigNumberFlags.FlagQuietNaN) != 0) ? this.ReturnQuietNaN(
+                other,
+                ctx) :
+          (((other2Flags & BigNumberFlags.FlagQuietNaN) !=
+              0) ? this.ReturnQuietNaN(other, ctx) : default(T)));
     }
 
     private T SignalingNaNInvalid(T value, EContext ctx) {
@@ -253,7 +253,7 @@ namespace PeterO.Numbers {
       #if DEBUG
       if ((ctx2.Flags & EContext.FlagInvalid) != 0) {
         throw new
-          ArgumentException("doesn't satisfy (ctx2.Flags&FlagInvalid)==0");
+        ArgumentException("doesn't satisfy(ctx2.Flags&FlagInvalid)==0");
       }
       #endif
       if ((ctx2.Flags & EContext.FlagInexact) != 0) {
@@ -392,12 +392,12 @@ namespace PeterO.Numbers {
             EContext.FlagInexact | EContext.FlagRounded;
         }
         if (pc.HasMaxPrecision && pc.HasExponentRange &&
-            (roundingOnOverflow == ERounding.Down ||
-             roundingOnOverflow == ERounding.ZeroFiveUp ||
-             roundingOnOverflow == ERounding.OddOrZeroFiveUp ||
-             roundingOnOverflow == ERounding.Odd ||
-             (roundingOnOverflow == ERounding.Ceiling && neg) ||
-             (roundingOnOverflow == ERounding.Floor && !neg))) {
+          (roundingOnOverflow == ERounding.Down ||
+            roundingOnOverflow == ERounding.ZeroFiveUp ||
+            roundingOnOverflow == ERounding.OddOrZeroFiveUp ||
+            roundingOnOverflow == ERounding.Odd ||
+            (roundingOnOverflow == ERounding.Ceiling && neg) ||
+            (roundingOnOverflow == ERounding.Floor && !neg))) {
           // Set to the highest possible value for
           // the given precision
           EInteger overflowMant = EInteger.Zero;
@@ -408,10 +408,10 @@ namespace PeterO.Numbers {
           overflowMant -= EInteger.One;
           FastInteger clamp =
             FastInteger.FromBig(pc.EMax).Increment().Subtract(fastPrecision);
-          return this.GetHelper().CreateNewWithFlags(
-            overflowMant,
-            clamp.AsEInteger(),
-            neg ? BigNumberFlags.FlagNegative : 0);
+          return this.GetHelper().CreateNewWithFlags (
+              overflowMant,
+              clamp.AsEInteger(),
+              neg ? BigNumberFlags.FlagNegative : 0);
         }
       }
       int flagneg = neg ? BigNumberFlags.FlagNegative : 0;
@@ -735,7 +735,8 @@ namespace PeterO.Numbers {
       }
       EContext ctx2 = GetContextWithFlags(ctx);
       thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      thisValue = this.wrapper.RoundToExponentSimple(thisValue, expOther, ctx2);
+      thisValue = this.wrapper.RoundToExponentSimple(thisValue, expOther,
+  ctx2);
       return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     }
 
@@ -843,7 +844,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       if (this.GetHelper().GetSign(thisValue) == 0) {
-        return this.wrapper.RoundToPrecision(this.GetHelper().ValueOf(0), ctx);
+        return this.wrapper.RoundToPrecision(this.GetHelper().ValueOf(0),
+  ctx);
       }
       EContext ctx2 = GetContextWithFlags(ctx);
       thisValue = this.wrapper.RoundToPrecision(thisValue, ctx2);

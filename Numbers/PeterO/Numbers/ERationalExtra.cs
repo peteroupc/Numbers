@@ -221,9 +221,9 @@ namespace PeterO.Numbers {
       }
       try {
         EDecimal newDecimal = EDecimal.FromEInteger(extendedNumber.Numerator)
-          .Divide(
-  EDecimal.FromEInteger(extendedNumber.Denominator),
-  EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
+          .Divide (
+            EDecimal.FromEInteger(extendedNumber.Denominator),
+            EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
         return (decimal)newDecimal;
       } catch (ETrapException ex) {
         throw new OverflowException("This object's value is out of range", ex);
@@ -351,7 +351,7 @@ namespace PeterO.Numbers {
         throw new OverflowException("Value is infinity or NaN");
       }
       return this.IsZero ? ((sbyte)0) :
-                 this.ToEInteger().ToSByteChecked();
+        this.ToEInteger().ToSByteChecked();
     }
 
     /// <summary>Truncates this number's value to an integer and returns
@@ -474,7 +474,7 @@ namespace PeterO.Numbers {
         throw new OverflowException("Value is infinity or NaN");
       }
       return this.IsZero ?
-                 ((ushort)0) : this.ToEInteger().ToUInt16Checked();
+        ((ushort)0) : this.ToEInteger().ToUInt16Checked();
     }
 
     /// <summary>Truncates this number's value to an integer and returns
@@ -722,7 +722,7 @@ namespace PeterO.Numbers {
         throw new OverflowException("Value is infinity or NaN");
       }
       return this.IsZero ? 0UL :
-                 this.ToEInteger().ToUInt64Checked();
+        this.ToEInteger().ToUInt64Checked();
     }
 
     /// <summary>Truncates this number's value to an integer and returns
