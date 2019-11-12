@@ -735,8 +735,10 @@ namespace PeterO.Numbers {
       }
       EContext ctx2 = GetContextWithFlags(ctx);
       thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      thisValue = this.wrapper.RoundToExponentSimple(thisValue, expOther,
-  ctx2);
+      thisValue = this.wrapper.RoundToExponentSimple(
+        thisValue,
+        expOther,
+        ctx2);
       return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     }
 

@@ -277,8 +277,10 @@ namespace Test {
         if (context == null) {
           throw new ArgumentNullException(nameof(context));
         }
-        bool extended = GetKeyOrDefault(context, "extended",
-            "1").Equals("1", StringComparison.Ordinal);
+        bool extended = GetKeyOrDefault(
+          context,
+          "extended",
+          "1").Equals("1", StringComparison.Ordinal);
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1",
             StringComparison.Ordinal);
         int precision = 0, minexponent = 0, maxexponent = 0;

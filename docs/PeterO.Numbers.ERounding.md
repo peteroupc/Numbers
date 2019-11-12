@@ -2,9 +2,9 @@
 
     public sealed struct ERounding :
         System.Enum,
+        System.IComparable,
         System.IConvertible,
-        System.IFormattable,
-        System.IComparable
+        System.IFormattable
 
 Specifies the mode to use when "shortening" numbers that otherwise can't fit a given number of digits, so that the shortened number has about the same value. This "shortening" is known as rounding. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.).
 
@@ -75,6 +75,8 @@ Indicates that rounding will not be used. If rounding is required, the rounding 
 
     public static PeterO.Numbers.ERounding Odd = 8;
 
+<b>Deprecated.</b> Consider using ERounding.OddOrZeroFiveUp instead.
+
 If there is a fractional part and the whole number part is even, the number is rounded to the closest representable odd number away from zero.
 
 <a id="OddOrZeroFiveUp"></a>
@@ -95,5 +97,7 @@ If there is a fractional part, the number is rounded to the closest representabl
 ### ZeroFiveUp
 
     public static PeterO.Numbers.ERounding ZeroFiveUp = 9;
+
+<b>Deprecated.</b> Use ERounding.OddOrZeroFiveUp instead.
 
 If there is a fractional part and if the last digit before rounding is 0 or half the radix, the number is rounded to the closest representable number away from zero; otherwise the fractional part is discarded. In overflow, the fractional part is always discarded.

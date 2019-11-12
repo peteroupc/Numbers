@@ -655,34 +655,23 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      Assert.AreEqual (
+      var checklongs = new long[] {
         unchecked((long)0xfffffff200000000L),
-
-        EInteger.FromInt64 (
-          unchecked((long)0xfffffff200000000L)).ToInt64Checked());
-      Assert.AreEqual (
         unchecked((long)0xfffffff280000000L),
-
-        EInteger.FromInt64 (
-          unchecked((long)0xfffffff280000000L)).ToInt64Checked());
-      Assert.AreEqual (
+        unchecked((long)0xfffffff200000001L),
         unchecked((long)0xfffffff280000001L),
-
-        EInteger.FromInt64 (
-          unchecked((long)0xfffffff280000001L)).ToInt64Checked());
-      Assert.AreEqual (
+        unchecked((long)0xfffffff380000001L),
+        unchecked((long)0xfffffff382222222L),
+        unchecked((long)0x0000000380000001L),
+        unchecked((long)0x0000000382222222L),
         unchecked((long)0xfffffff27fffffffL),
-
-        EInteger.FromInt64 (
-          unchecked((long)0xfffffff27fffffffL)).ToInt64Checked());
-      Assert.AreEqual (
-        0x0000000380000001L,
-        EInteger.FromInt64(0x0000000380000001L).ToInt64Checked());
-      Assert.AreEqual (
-        0x0000000382222222L,
-        EInteger.FromInt64(0x0000000382222222L).ToInt64Checked());
-      Assert.AreEqual(-8L, EInteger.FromInt64(-8L).ToInt64Checked());
-      Assert.AreEqual(-32768L, EInteger.FromInt64(-32768L).ToInt64Checked());
+        -8, -32768,
+      };
+      foreach (long lng in checklongs) {
+        Assert.AreEqual(
+          lng,
+          EInteger.FromInt64(lng).ToInt64Checked());
+      }
       Assert.AreEqual (
         Int32.MinValue,
         EInteger.FromInt64(Int32.MinValue).ToInt64Checked());
@@ -2912,9 +2901,12 @@ namespace Test {
       EInteger ei2 = EInteger.FromString("710542735760100185871124267578125");
       {
         string stringTemp = ei1.Subtract(ei2).ToString();
-        Assert.AreEqual(
-          "5903310052234442839693218602919688229566475001774961128830909729003906250",
-          stringTemp);
+        {
+          object objectTemp =
+"5903310052234442839693218602919688229566475001774961128830909729003906250";
+          object objectTemp2 = stringTemp;
+          Assert.AreEqual(objectTemp, objectTemp2);
+}
       }
     }
     [Test]

@@ -94,7 +94,6 @@ namespace Test {
     private static string ConvertOp(string s) {
       return s.Equals("S", StringComparison.Ordinal) ? "sNaN" :
 ((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#",
-
               StringComparison.Ordinal)) ? "NaN" : s);
     }
 

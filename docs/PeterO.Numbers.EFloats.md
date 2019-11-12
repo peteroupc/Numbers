@@ -32,11 +32,11 @@ A class that implements additional operations on arbitrary-precision binary floa
 * <code>[Or(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Or_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Performs a logical OR operation on two binary numbers in the form of logical operands.
 * <code>[Radix(PeterO.Numbers.EContext)](#Radix_PeterO_Numbers_EContext)</code> - Returns the number 2, the binary radix.
 * <code>[Rescale(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Rescale_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision binary number with the same value as this object but with the given exponent, expressed as an arbitrary-precision binary number.
-* <code>[Rotate(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Rotate_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Rotates the bits of an arbitrary-precision binary number's mantissa.
+* <code>[Rotate(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Rotate_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Rotates the bits of an arbitrary-precision binary number's significand.
 * <code>[SameQuantum(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#SameQuantum_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).
 * <code>[ScaleB(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#ScaleB_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds an arbitrary-precision binary number whose binary point is moved a given number of places.
-* <code>[Shift(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Shift_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Shifts the bits of an arbitrary-precision binary floating point number's mantissa.
-* <code>[Trim(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Trim_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa.
+* <code>[Shift(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Shift_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Shifts the bits of an arbitrary-precision binary floating point number's significand.
+* <code>[Trim(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Trim_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its significand.
 * <code>[Xor(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Xor_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Performs a logical exclusive-OR (XOR) operation on two binary numbers in the form of logical operands.
 
 <a id="And_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
@@ -618,19 +618,19 @@ An arbitrary-precision binary number with the same value as this object but with
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
-Rotates the bits of an arbitrary-precision binary number's mantissa.
+Rotates the bits of an arbitrary-precision binary number's significand.
 
 <b>Parameters:</b>
 
- * <i>ed</i>: An arbitrary-precision number containing the mantissa to rotate. If this mantissa contains more bits than the precision, the most-significant bits are chopped off the mantissa.
+ * <i>ed</i>: An arbitrary-precision number containing the significand to rotate. If this significand contains more bits than the precision, the most-significant bits are chopped off the significand.
 
- * <i>ed2</i>: An arbitrary-precision number indicating the number of bits to rotate the first operand's mantissa. Must be an integer with an exponent of 0. If this parameter is positive, the mantissa is shifted to the left by the given number of bits and the most-significant bits shifted out of the mantissa become the least-significant bits instead. If this parameter is negative, the number is shifted by the given number of bits and the least-significant bits shifted out of the mantissa become the most-significant bits instead.
+ * <i>ed2</i>: An arbitrary-precision number indicating the number of bits to rotate the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the given number of bits and the most-significant bits shifted out of the significand become the least-significant bits instead. If this parameter is negative, the number is shifted by the given number of bits and the least-significant bits shifted out of the significand become the most-significant bits instead.
 
  * <i>ec</i>: An arithmetic context to control the precision of arbitrary-precision numbers. If this parameter is null or specifies an unlimited precision, this method has the same behavior as  `Shift` .
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary number whose mantissa is rotated the given number of bits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
+An arbitrary-precision binary number whose significand is rotated the given number of bits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
 
@@ -700,19 +700,19 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
-Shifts the bits of an arbitrary-precision binary floating point number's mantissa.
+Shifts the bits of an arbitrary-precision binary floating point number's significand.
 
 <b>Parameters:</b>
 
- * <i>ed</i>: An arbitrary-precision binary floating point number containing the mantissa to shift.
+ * <i>ed</i>: An arbitrary-precision binary floating point number containing the significand to shift.
 
- * <i>ed2</i>: An arbitrary-precision number indicating the number of bits to shift the first operand's mantissa. Must be an integer with an exponent of 0. If this parameter is positive, the mantissa is shifted to the left by the given number of bits. If this parameter is negative, the mantissa is shifted to the right by the given number of bits.
+ * <i>ed2</i>: An arbitrary-precision number indicating the number of bits to shift the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the given number of bits. If this parameter is negative, the significand is shifted to the right by the given number of bits.
 
  * <i>ec</i>: An arithmetic context to control the precision of arbitrary-precision numbers. Can be null.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number whose mantissa is shifted the given number of bits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
+An arbitrary-precision decimal number whose significand is shifted the given number of bits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
 
@@ -730,7 +730,7 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EFloat ed1,
         PeterO.Numbers.EContext ec);
 
-Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa. If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the mantissa (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the mantissa until the exponent reaches 0 (then the number is rounded if necessary).
+Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its significand. If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the significand (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the significand until the exponent reaches 0 (then the number is rounded if necessary).
 
 <b>Parameters:</b>
 
@@ -740,7 +740,7 @@ Returns an arbitrary-precision number with the same value as this one but with c
 
 <b>Return Value:</b>
 
-An arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa. If  <i>ed1</i>
+An arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its significand. If  <i>ed1</i>
  is not-a-number (NaN) or infinity, it is generally returned unchanged.
 
 <a id="Xor_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>

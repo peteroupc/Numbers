@@ -32,11 +32,11 @@ A class that implements additional operations on arbitrary-precision decimal num
 * <code>[Or(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Or_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical OR operation on two decimal numbers in the form of logical operands.
 * <code>[Radix(PeterO.Numbers.EContext)](#Radix_PeterO_Numbers_EContext)</code> - Returns the number 10, the decimal radix.
 * <code>[Rescale(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rescale_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the given exponent, expressed as an arbitrary-precision decimal number.
-* <code>[Rotate(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rotate_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Rotates the digits of an arbitrary-precision decimal number's mantissa.
+* <code>[Rotate(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rotate_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Rotates the digits of an arbitrary-precision decimal number's significand.
 * <code>[SameQuantum(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#SameQuantum_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).
 * <code>[ScaleB(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#ScaleB_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds an arbitrary-precision decimal number whose decimal point is moved a given number of places.
-* <code>[Shift(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Shift_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Shifts the digits of an arbitrary-precision decimal number's mantissa.
-* <code>[Trim(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Trim_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa.
+* <code>[Shift(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Shift_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Shifts the digits of an arbitrary-precision decimal number's significand.
+* <code>[Trim(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Trim_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its significand.
 * <code>[Xor(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Xor_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical exclusive-OR (XOR) operation on two decimal numbers in the form of logical operands.
 
 <a id="And_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
@@ -619,19 +619,19 @@ An arbitrary-precision decimal number with the same value as this object but wit
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Rotates the digits of an arbitrary-precision decimal number's mantissa.
+Rotates the digits of an arbitrary-precision decimal number's significand.
 
 <b>Parameters:</b>
 
- * <i>ed</i>: An arbitrary-precision number containing the mantissa to rotate. If this mantissa contains more digits than the precision, the most-significant digits are chopped off the mantissa before the rotation begins.
+ * <i>ed</i>: An arbitrary-precision number containing the significand to rotate. If this significand contains more digits than the precision, the most-significant digits are chopped off the significand before the rotation begins.
 
- * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to rotate the first operand's mantissa. Must be an integer with an exponent of 0. If this parameter is positive, the mantissa is shifted to the left by the given number of digits and the most-significant digits shifted out of the mantissa become the least-significant digits instead. If this parameter is negative, the mantissa is shifted to the right by the given number of digits and the least-significant digits shifted out of the mantissa become the most-significant digits instead.
+ * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to rotate the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the given number of digits and the most-significant digits shifted out of the significand become the least-significant digits instead. If this parameter is negative, the significand is shifted to the right by the given number of digits and the least-significant digits shifted out of the significand become the most-significant digits instead.
 
  * <i>ec</i>: An arithmetic context to control the precision of arbitrary-precision numbers. If this parameter is null or specifies an unlimited precision, this method has the same behavior as  `Shift` .
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number whose mantissa is rotated the given number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
+An arbitrary-precision decimal number whose significand is rotated the given number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
 
@@ -701,19 +701,19 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Shifts the digits of an arbitrary-precision decimal number's mantissa.
+Shifts the digits of an arbitrary-precision decimal number's significand.
 
 <b>Parameters:</b>
 
- * <i>ed</i>: An arbitrary-precision number containing the mantissa to shift.
+ * <i>ed</i>: An arbitrary-precision number containing the significand to shift.
 
- * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to shift the first operand's mantissa. Must be an integer with an exponent of 0. If this parameter is positive, the mantissa is shifted to the left by the given number of digits. If this parameter is negative, the mantissa is shifted to the right by the given number of digits.
+ * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to shift the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the given number of digits. If this parameter is negative, the significand is shifted to the right by the given number of digits.
 
  * <i>ec</i>: An arithmetic context to control the precision of arbitrary-precision numbers. Can be null.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number whose mantissa is shifted the given number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
+An arbitrary-precision decimal number whose significand is shifted the given number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
 
@@ -731,7 +731,7 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EDecimal ed1,
         PeterO.Numbers.EContext ec);
 
-Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa. If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the mantissa (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the mantissa until the exponent reaches 0 (then the number is rounded if necessary).
+Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its significand. If the number's exponent is 0, it is returned unchanged (but may be rounded depending on the arithmetic context); if that exponent is greater 0, its trailing zeros are removed from the significand (then rounded if necessary); if that exponent is less than 0, its trailing zeros are removed from the significand until the exponent reaches 0 (then the number is rounded if necessary).
 
 <b>Parameters:</b>
 
@@ -741,7 +741,7 @@ Returns an arbitrary-precision number with the same value as this one but with c
 
 <b>Return Value:</b>
 
-An arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa. If  <i>ed1</i>
+An arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its significand. If  <i>ed1</i>
  is not-a-number (NaN) or infinity, it is generally returned unchanged.
 
 <a id="Xor_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>

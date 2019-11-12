@@ -55,8 +55,8 @@
             default value is true, meaning that EMax and EMin refer to the
             adjusted exponent. Setting this value to false (using
             WithAdjustExponent) is useful for modeling floating point
-            representations with an integer significand and an
-            integer exponent, such as Java's BigDecimal.</summary>
+            representations with an integer significand and an integer
+            exponent, such as Java's BigDecimal.</summary>
             <value><c>true</c> if the EMax and EMin properties refer to the
             number's Exponent property adjusted to the number's precision, or
             false if they refer to just the number's Exponent property.</value>
@@ -109,9 +109,9 @@
             Exponent property will not be higher than EMax + 1 - Precision. If
             a number's exponent is higher than that value, but not high enough
             to cause overflow, the exponent is clamped to that value and enough
-            zeros are added to the number's significand to account
-            for the adjustment. If HasExponentRange is false, this value is
-            always false.</summary>
+            zeros are added to the number's significand to account for the
+            adjustment. If HasExponentRange is false, this value is always
+            false.</summary>
             <value>If true, a converted number's Exponent property will not be
             higher than EMax + 1 - Precision.</value>
 
@@ -375,9 +375,8 @@
 
             <summary>Gets the maximum length of a converted number in digits,
             ignoring the radix point and exponent. For example, if precision is
-            3, a converted number's significand can range from 0 to
-            999 (up to three digits long). If 0, converted numbers can have any
-            precision.
+            3, a converted number's significand can range from 0 to 999 (up to
+            three digits long). If 0, converted numbers can have any precision.
             <para>Not-a-number (NaN) values can carry an optional number, its
             payload, that serves as its "diagnostic information", In general,
             if an operation requires copying an NaN's payload, only up to as
@@ -385,8 +384,8 @@
             namely the least significant digits, are copied.</para></summary>
             <value>The maximum length of a converted number in digits, ignoring
             the radix point and exponent. For example, if precision is 3, a
-            converted number's significand can range from 0 to 999
-            (up to three digits long). If 0, converted numbers can have any
+            converted number's significand can range from 0 to 999 (up to three
+            digits long). If 0, converted numbers can have any
             precision.</value>
 
 </doc>
@@ -607,26 +606,25 @@
             lead to unintuitive results, as is shown in the description for the
             FromDouble() method of this class.</para>
             <para><b>About EDecimal instances</b> </para>
-            <para>Each instance of this class consists of an integer significand and an integer exponent, both arbitrary-precision.
-            The value of the number equals significand *
-            10^exponent.</para>
-            <para>The significand is the value of the digits that
-            make up a number, ignoring the decimal point and exponent. For
-            example, in the number 2356.78, the significand is
-            235678. The exponent is where the "floating" decimal point of the
-            number is located. A positive exponent means "move it to the
-            right", and a negative exponent means "move it to the left." In the
-            example 2, 356.78, the exponent is -2, since it has 2 decimal
-            places and the decimal point is "moved to the left by 2."
-            Therefore, in the arbitrary-precision decimal representation, this
-            number would be stored as 235678 * 10^-2.</para>
-            <para>The significand and exponent format preserves
-            trailing zeros in the number's value. This may give rise to
-            multiple ways to store the same value. For example, 1.00 and 1
-            would be stored differently, even though they have the same value.
-            In the first case, 100 * 10^-2 (100 with decimal point moved left
-            by 2), and in the second case, 1 * 10^0 (1 with decimal point moved
-            0).</para>
+            <para>Each instance of this class consists of an integer
+            significand and an integer exponent, both arbitrary-precision. The
+            value of the number equals significand * 10^exponent.</para>
+            <para>The significand is the value of the digits that make up a
+            number, ignoring the decimal point and exponent. For example, in
+            the number 2356.78, the significand is 235678. The exponent is
+            where the "floating" decimal point of the number is located. A
+            positive exponent means "move it to the right", and a negative
+            exponent means "move it to the left." In the example 2, 356.78, the
+            exponent is -2, since it has 2 decimal places and the decimal point
+            is "moved to the left by 2." Therefore, in the arbitrary-precision
+            decimal representation, this number would be stored as 235678 *
+            10^-2.</para>
+            <para>The significand and exponent format preserves trailing zeros
+            in the number's value. This may give rise to multiple ways to store
+            the same value. For example, 1.00 and 1 would be stored
+            differently, even though they have the same value. In the first
+            case, 100 * 10^-2 (100 with decimal point moved left by 2), and in
+            the second case, 1 * 10^0 (1 with decimal point moved 0).</para>
             <para>This class also supports values for negative zero,
             not-a-number (NaN) values, and infinity. <b>Negative zero</b> is
             generally used when a negative number is rounded to 0; it has the
@@ -804,7 +802,8 @@
              </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
-            first or least significant first.</para></summary>
+            first or least significant first.</para>
+            </summary>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Abs">
@@ -1128,7 +1127,7 @@
 
             <summary>Creates a number with the value
             <c>exponent*10^significand</c>.</summary>
-            <param name='significandSmall'>Desired value for the significand.</param>
+            <param name='mantissaSmall'>The parameter <paramref name='mantissaSmall'/> is a 32-bit signed integer.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
 
@@ -1171,8 +1170,7 @@
 <doc name="M:PeterO.Numbers.EDecimal.DecimalMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
             <summary>This is an internal method.</summary>
-            <param name='significand'>The parameter <paramref name='significand'/> is
-            an internal parameter.</param>
+            <param name='significand'>The parameter <paramref name='significand'/> is a Numbers.EInteger object.</param>
             <param name='exponent'>The parameter <paramref name='exponent'/> is
             an internal parameter.</param>
             <param name='flags'>The parameter <paramref name='flags'/> is an
@@ -1616,22 +1614,22 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Equals(PeterO.Numbers.EDecimal)">
 
-            <summary>Determines whether this object's significand,
-            exponent, and properties are equal to those of another object.
-            Not-a-number values are considered equal if the rest of their
-            properties are equal.</summary>
+            <summary>Determines whether this object's significand, exponent,
+            and properties are equal to those of another object. Not-a-number
+            values are considered equal if the rest of their properties are
+            equal.</summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
-            <returns><c>true</c> if this object's significand and
-            exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
+            <returns><c>true</c> if this object's significand and exponent are
+            equal to those of another object; otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Equals(System.Object)">
 
-            <summary>Determines whether this object's significand,
-            exponent, and properties are equal to those of another object and
-            that other object is an arbitrary-precision decimal number.
-            Not-a-number values are considered equal if the rest of their
-            properties are equal.</summary>
+            <summary>Determines whether this object's significand, exponent,
+            and properties are equal to those of another object and that other
+            object is an arbitrary-precision decimal number. Not-a-number
+            values are considered equal if the rest of their properties are
+            equal.</summary>
             <param name='obj'>The parameter <paramref name='obj'/> is an
             arbitrary object.</param>
             <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>
@@ -2050,8 +2048,8 @@
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.Mantissa">
 
-            <summary>Gets this object's unscaled value, or significand, and makes
-            it negative if this object is negative. If this value is
+            <summary>Gets this object's unscaled value, or significand, and
+            makes it negative if this object is negative. If this value is
             not-a-number (NaN), that value's absolute value is the NaN's
             "payload" (diagnostic information).</summary>
             <value>This object's unscaled value. Will be negative if this
@@ -2536,8 +2534,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Precision">
 
-            <summary>Finds the number of digits in this number's significand. Returns 1 if this value is 0, and 0 if this value is
-            infinity or not-a-number (NaN).</summary>
+            <summary>Finds the number of digits in this number's significand.
+            Returns 1 if this value is 0, and 0 if this value is infinity or
+            not-a-number (NaN).</summary>
             <returns>An arbitrary-precision integer.</returns>
 
 </doc>
@@ -2558,14 +2557,14 @@
             which no digits come after the decimal point (a desired exponent of
             0) is considered an "integer arithmetic" .</para></summary>
             <param name='otherValue'>An arbitrary-precision decimal number
-            containing the desired exponent of the result. The significand is ignored. The exponent is the number of fractional
-            digits in the result, expressed as a negative number. Can also be
-            positive, which eliminates lower-order places from the number. For
-            example, -3 means round to the thousandth (10^-3, 0.0001), and 3
-            means round to the thousands-place (10^3, 1000). A value of 0
-            rounds the number to an integer. The following examples for this
-            parameter express a desired exponent of 3: <c>10e3</c>,
-            <c>8888e3</c>, <c>4.56e5</c>.</param>
+            containing the desired exponent of the result. The significand is
+            ignored. The exponent is the number of fractional digits in the
+            result, expressed as a negative number. Can also be positive, which
+            eliminates lower-order places from the number. For example, -3
+            means round to the thousandth (10^-3, 0.0001), and 3 means round to
+            the thousands-place (10^3, 1000). A value of 0 rounds the number to
+            an integer. The following examples for this parameter express a
+            desired exponent of 3: <c>10e3</c>, <c>8888e3</c>, <c>4.56e5</c>.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
@@ -2594,11 +2593,14 @@
             fixed number of digits after the decimal point. The following code
             example returns a fixed-point number with up to 20 digits before
             and exactly 5 digits after the decimal point:</para>
-            <code>&#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5&#x2a;&#x2f;&#x2a;&#x2f;
+            <code>&#x2f;&#x2a; After performing arithmetic operations, adjust
+            &#x2f;&#x2a; the number to 5&#x2a;&#x2f;&#x2a;&#x2f;
             &#x2f;&#x2a;&#x2a;&#x2f;
             digits after the decimal point number = number.Quantize(
-            EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the decimal point&#x2a;&#x2f;
-            EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code> <para>A fixed-point decimal arithmetic in which no digits come
+            EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the decimal
+            point&#x2a;&#x2f;
+            EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit
+            precision);&#x2a;&#x2f;</code> <para>A fixed-point decimal arithmetic in which no digits come
             after the decimal point (a desired exponent of 0) is considered an
             "integer arithmetic".</para>
             </summary>
@@ -2692,7 +2694,8 @@
 <doc name="M:PeterO.Numbers.EDecimal.Reduce(PeterO.Numbers.EContext)">
 
             <summary>Returns an object with the same numerical value as this
-            one but with trailing zeros removed from its significand. For example, 1.00 becomes 1.
+            one but with trailing zeros removed from its significand. For
+            example, 1.00 becomes 1.
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
             <param name='ctx'>An arithmetic context to control the precision,
@@ -2703,7 +2706,8 @@
             isn't needed.</param>
             <returns>This value with trailing zeros removed. Note that if the
             result has a very high exponent and the context says to clamp high
-            exponents, there may still be some trailing zeros in the significand.</returns>
+            exponents, there may still be some trailing zeros in the
+            significand.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Remainder(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
@@ -3279,12 +3283,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToByteChecked">
 
             <summary>Converts this number's value to a byte (from 0 to 255) if
-            it can fit in a byte (from 0 to 255) after truncating to an
-            integer.</summary>
+            it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a byte (from 0 to
             255).</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 255.</exception>
 
 </doc>
@@ -3301,7 +3304,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToByteUnchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a byte
             (from 0 to 255).</summary>
             <returns>This number, converted to a byte (from 0 to 255). Returns
@@ -3326,11 +3329,11 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned significand, and the next-highest bit of the
-            significand area is set if those bits are all zeros and this is a
-            signaling NaN. Unfortunately, in the.NET implementation, the return
-            value of this method may be a quiet NaN even if a signaling NaN
-            would otherwise be generated.</para></summary>
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN. Unfortunately, in the.NET implementation, the return value of
+            this method may be a quiet NaN even if a signaling NaN would
+            otherwise be generated.</para></summary>
             <returns>The closest 64-bit floating-point number to this value.
             The return value can be positive infinity or negative infinity if
             this value exceeds the range of a 64-bit floating point
@@ -3413,12 +3416,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Checked">
 
             <summary>Converts this number's value to a 16-bit signed integer if
-            it can fit in a 16-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 16-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -32768 or
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or
             greater than 32767.</exception>
 
 </doc>
@@ -3435,7 +3437,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 16-bit
             signed integer.</summary>
             <returns>This number, converted to a 16-bit signed integer. Returns
@@ -3445,12 +3447,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Checked">
 
             <summary>Converts this number's value to a 32-bit signed integer if
-            it can fit in a 32-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 32-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -2147483648 or
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or
             greater than 2147483647.</exception>
 
 </doc>
@@ -3467,7 +3468,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt32Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 32-bit
             signed integer.</summary>
             <returns>This number, converted to a 32-bit signed integer. Returns
@@ -3477,12 +3478,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Checked">
 
             <summary>Converts this number's value to a 64-bit signed integer if
-            it can fit in a 64-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 64-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than
             -9223372036854775808 or greater than
             9223372036854775807.</exception>
 
@@ -3501,7 +3501,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt64Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 64-bit
             signed integer.</summary>
             <returns>This number, converted to a 64-bit signed integer. Returns
@@ -3518,12 +3518,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToSByteChecked">
 
             <summary>Converts this number's value to an 8-bit signed integer if
-            it can fit in an 8-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to an 8-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -128 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater
             than 127.</exception>
 
 </doc>
@@ -3540,7 +3539,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToSByteUnchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as an 8-bit
             signed integer.</summary>
             <returns>This number, converted to an 8-bit signed integer. Returns
@@ -3555,11 +3554,11 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned significand, and the next-highest bit of the
-            significand area is set if those bits are all zeros and this is a
-            signaling NaN. Unfortunately, in the.NET implementation, the return
-            value of this method may be a quiet NaN even if a signaling NaN
-            would otherwise be generated.</para></summary>
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN. Unfortunately, in the.NET implementation, the return value of
+            this method may be a quiet NaN even if a signaling NaN would
+            otherwise be generated.</para></summary>
             <returns>The closest 32-bit binary floating-point number to this
             value. The return value can be positive infinity or negative
             infinity if this value exceeds the range of a 32-bit floating point
@@ -3579,12 +3578,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt16Checked">
 
             <summary>Converts this number's value to a 16-bit unsigned integer
-            if it can fit in a 16-bit unsigned integer after truncating to an
-            integer.</summary>
+            if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 16-bit unsigned
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 65535.</exception>
 
 </doc>
@@ -3602,7 +3600,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt16Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 16-bit
             unsigned integer.</summary>
             <returns>This number, converted to a 16-bit unsigned integer.
@@ -3612,12 +3610,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt32Checked">
 
             <summary>Converts this number's value to a 32-bit signed integer if
-            it can fit in a 32-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 32-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 4294967295.</exception>
 
 </doc>
@@ -3634,7 +3631,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt32Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 32-bit
             signed integer.</summary>
             <returns>This number, converted to a 32-bit signed integer. Returns
@@ -3644,12 +3641,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt64Checked">
 
             <summary>Converts this number's value to a 64-bit unsigned integer
-            if it can fit in a 64-bit unsigned integer after truncating to an
-            integer.</summary>
+            if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 64-bit unsigned
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 18446744073709551615.</exception>
 
 </doc>
@@ -3667,7 +3663,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt64Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 64-bit
             unsigned integer.</summary>
             <returns>This number, converted to a 64-bit unsigned integer.
@@ -3676,17 +3672,18 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Ulp">
 
-            <summary>Returns the unit in the last place. The significand will be 1 and the exponent will be this number's
-            exponent. Returns 1 with an exponent of 0 if this number is
-            infinity or not-a-number (NaN).</summary>
+            <summary>Returns the unit in the last place. The significand will
+            be 1 and the exponent will be this number's exponent. Returns 1
+            with an exponent of 0 if this number is infinity or not-a-number
+            (NaN).</summary>
             <returns>An arbitrary-precision decimal number.</returns>
 
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.UnsignedMantissa">
 
             <summary>Gets the absolute value of this object's unscaled value,
-            or significand. If this value is not-a-number (NaN), that value is the
-            NaN's "payload" (diagnostic information).</summary>
+            or significand. If this value is not-a-number (NaN), that value is
+            the NaN's "payload" (diagnostic information).</summary>
             <value>The absolute value of this object's unscaled value.</value>
 
 </doc>
@@ -3751,13 +3748,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to a byte
             (from 0 to 255) if it can fit in a byte (from 0 to 255) after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             byte (from 0 to 255).</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 255.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 255.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -3782,11 +3778,11 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned significand, and the next-highest bit of the
-            significand area is set if those bits are all zeros and this is a
-            signaling NaN. Unfortunately, in the.NET implementation, the return
-            value of this method may be a quiet NaN even if a signaling NaN
-            would otherwise be generated.</para></summary>
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN. Unfortunately, in the.NET implementation, the return value of
+            this method may be a quiet NaN even if a signaling NaN would
+            otherwise be generated.</para></summary>
             <param name='bigValue'>The value to convert to a 64-bit
             floating-point number.</param>
             <returns>The closest 64-bit floating-point number to this value.
@@ -3800,13 +3796,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to a 16-bit
             signed integer if it can fit in a 16-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             16-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -32768 or greater than 32767.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -3814,13 +3809,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to a 32-bit
             signed integer if it can fit in a 32-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             32-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -2147483648 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or greater than
             2147483647.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -3829,13 +3823,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to a 64-bit
             signed integer if it can fit in a 64-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             64-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -9223372036854775808 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -9223372036854775808 or greater than
             9223372036854775807.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -3844,13 +3837,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to an 8-bit
             signed integer if it can fit in an 8-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to an
             8-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -128 or greater than 127.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater than 127.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -3862,11 +3854,11 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned significand, and the next-highest bit of the
-            significand area is set if those bits are all zeros and this is a
-            signaling NaN. Unfortunately, in the.NET implementation, the return
-            value of this method may be a quiet NaN even if a signaling NaN
-            would otherwise be generated.</para></summary>
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN. Unfortunately, in the.NET implementation, the return value of
+            this method may be a quiet NaN even if a signaling NaN would
+            otherwise be generated.</para></summary>
             <param name='bigValue'>The number to convert as an
             arbitrary-precision decimal number.</param>
             <returns>The closest 32-bit binary floating-point number to this
@@ -3880,13 +3872,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to a 16-bit
             unsigned integer if it can fit in a 16-bit unsigned integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             16-bit unsigned integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 65535.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 65535.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -3894,13 +3885,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to a 32-bit
             signed integer if it can fit in a 32-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             32-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 4294967295.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 4294967295.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -3908,13 +3898,12 @@
 
             <summary>Converts an arbitrary-precision decimal number to a 64-bit
             unsigned integer if it can fit in a 64-bit unsigned integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             decimal number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             64-bit unsigned integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than
             18446744073709551615.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -4544,18 +4533,19 @@
             <summary>Rotates the digits of an arbitrary-precision decimal
             number's significand.</summary>
             <param name='ed'>An arbitrary-precision number containing the
-            significand to rotate. If this significand contains more digits than the
-            precision, the most-significant digits are chopped off the significand
-            before the rotation begins.</param>
+            significand to rotate. If this significand contains more digits
+            than the precision, the most-significant digits are chopped off the
+            significand before the rotation begins.</param>
             <param name='ed2'>An arbitrary-precision number indicating the
-            number of digits to rotate the first operand's significand. Must be an
-            integer with an exponent of 0. If this parameter is positive, the
-            significand is shifted to the left by the given number of digits and
-            the most-significant digits shifted out of the significand become the
-            least-significant digits instead. If this parameter is negative,
-            the significand is shifted to the right by the given number of digits
-            and the least-significant digits shifted out of the significand become
-            the most-significant digits instead.</param>
+            number of digits to rotate the first operand's significand. Must be
+            an integer with an exponent of 0. If this parameter is positive,
+            the significand is shifted to the left by the given number of
+            digits and the most-significant digits shifted out of the
+            significand become the least-significant digits instead. If this
+            parameter is negative, the significand is shifted to the right by
+            the given number of digits and the least-significant digits shifted
+            out of the significand become the most-significant digits
+            instead.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. If this parameter is null or specifies
             an unlimited precision, this method has the same behavior as
@@ -4610,11 +4600,11 @@
             <param name='ed'>An arbitrary-precision number containing the
             significand to shift.</param>
             <param name='ed2'>An arbitrary-precision number indicating the
-            number of digits to shift the first operand's significand. Must be an
-            integer with an exponent of 0. If this parameter is positive, the
-            significand is shifted to the left by the given number of digits. If
-            this parameter is negative, the significand is shifted to the right by
-            the given number of digits.</param>
+            number of digits to shift the first operand's significand. Must be
+            an integer with an exponent of 0. If this parameter is positive,
+            the significand is shifted to the left by the given number of
+            digits. If this parameter is negative, the significand is shifted
+            to the right by the given number of digits.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. Can be null.</param>
             <returns>An arbitrary-precision decimal number whose significand is
@@ -4631,19 +4621,19 @@
 
             <summary>Returns an arbitrary-precision number with the same value
             as this one but with certain trailing zeros removed from its
-            significand. If the number's exponent is 0, it is returned unchanged
-            (but may be rounded depending on the arithmetic context); if that
-            exponent is greater 0, its trailing zeros are removed from the
-            significand (then rounded if necessary); if that exponent is less than
-            0, its trailing zeros are removed from the significand until the
-            exponent reaches 0 (then the number is rounded if
+            significand. If the number's exponent is 0, it is returned
+            unchanged (but may be rounded depending on the arithmetic context);
+            if that exponent is greater 0, its trailing zeros are removed from
+            the significand (then rounded if necessary); if that exponent is
+            less than 0, its trailing zeros are removed from the significand
+            until the exponent reaches 0 (then the number is rounded if
             necessary).</summary>
             <param name='ed1'>An arbitrary-precision number.</param>
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>An arbitrary-precision number with the same value as this
-            one but with certain trailing zeros removed from its significand. If
-            <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
+            one but with certain trailing zeros removed from its significand.
+            If <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
             generally returned unchanged.</returns>
 
 </doc>
@@ -4678,9 +4668,10 @@
             number. (The "E" stands for "extended", meaning that instances of
             this class can be values other than numbers proper, such as
             infinity and not-a-number.) Each number consists of an integer
-            significand and an integer exponent, both
-            arbitrary-precision. The value of the number equals significand * 2^exponent. This class also supports values for
-            negative zero, not-a-number (NaN) values, and infinity.
+            significand and an integer exponent, both arbitrary-precision. The
+            value of the number equals significand * 2^exponent. This class
+            also supports values for negative zero, not-a-number (NaN) values,
+            and infinity.
             <para>Passing a signaling NaN to any arithmetic operation shown
             here will signal the flag FlagInvalid and return a quiet NaN, even
             if another operand to that operation is a quiet NaN, unless noted
@@ -4811,8 +4802,7 @@
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
             <summary>This is an internal method.</summary>
-            <param name='significand'>The parameter <paramref name='significand'/> is
-            an internal parameter.</param>
+            <param name='significand'>The parameter <paramref name='significand'/> is a Numbers.EInteger object.</param>
             <param name='exponent'>The parameter <paramref name='exponent'/> is
             an internal parameter.</param>
             <param name='flags'>The parameter <paramref name='flags'/> is an
@@ -5128,18 +5118,21 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-            <summary>Creates a number with the value exponent*2^significand.</summary>
+            <summary>Creates a number with the value
+            exponent*2^significand.</summary>
             <param name='significand'>Desired value for the significand.</param>
             <param name='exponent'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='significand'/> or <paramref name='exponent'/> is null.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='significand'/> or <paramref name='exponent'/> is
+            null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)">
 
-            <summary>Creates a number with the value exponent*2^significand.</summary>
-            <param name='significandSmall'>Desired value for the significand.</param>
+            <summary>Creates a number with the value
+            exponent*2^significand.</summary>
+            <param name='mantissaSmall'>The parameter <paramref name='mantissaSmall'/> is a 32-bit signed integer.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
@@ -5467,23 +5460,23 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Equals(PeterO.Numbers.EFloat)">
 
-            <summary>Determines whether this object's significand,
-            exponent, and properties are equal to those of another object.
-            Not-a-number values are considered equal if the rest of their
-            properties are equal.</summary>
+            <summary>Determines whether this object's significand, exponent,
+            and properties are equal to those of another object. Not-a-number
+            values are considered equal if the rest of their properties are
+            equal.</summary>
             <param name='other'>An arbitrary-precision binary floating-point
             number.</param>
-            <returns><c>true</c> if this object's significand and
-            exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
+            <returns><c>true</c> if this object's significand and exponent are
+            equal to those of another object; otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Equals(System.Object)">
 
-            <summary>Determines whether this object's significand,
-            exponent, and properties are equal to those of another object and
-            that other object is an arbitrary-precision binary floating-point
-            number. Not-a-number values are considered equal if the rest of
-            their properties are equal.</summary>
+            <summary>Determines whether this object's significand, exponent,
+            and properties are equal to those of another object and that other
+            object is an arbitrary-precision binary floating-point number.
+            Not-a-number values are considered equal if the rest of their
+            properties are equal.</summary>
             <param name='obj'>The parameter <paramref name='obj'/> is an
             arbitrary object.</param>
             <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>
@@ -5491,12 +5484,12 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.EqualsInternal(PeterO.Numbers.EFloat)">
 
-            <summary>Determines whether this object's significand
-            and exponent are equal to those of another object.</summary>
+            <summary>Determines whether this object's significand and exponent
+            are equal to those of another object.</summary>
             <param name='otherValue'>An arbitrary-precision binary
             floating-point number.</param>
-            <returns><c>true</c> if this object's significand and
-            exponent are equal to those of another object; otherwise, <c>false</c>.</returns>
+            <returns><c>true</c> if this object's significand and exponent are
+            equal to those of another object; otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Exp(PeterO.Numbers.EContext)">
@@ -5861,8 +5854,8 @@
 </doc>
 <doc name="P:PeterO.Numbers.EFloat.Mantissa">
 
-            <summary>Gets this object's unscaled value, or significand, and makes
-            it negative if this object is negative. If this value is
+            <summary>Gets this object's unscaled value, or significand, and
+            makes it negative if this object is negative. If this value is
             not-a-number (NaN), that value's absolute value is the NaN's
             "payload" (diagnostic information).</summary>
             <value>This object's unscaled value. Will be negative if this
@@ -6359,8 +6352,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Precision">
 
-            <summary>Finds the number of digits in this number's significand. Returns 1 if this value is 0, and 0 if this value is
-            infinity or not-a-number (NaN).</summary>
+            <summary>Finds the number of digits in this number's significand.
+            Returns 1 if this value is 0, and 0 if this value is infinity or
+            not-a-number (NaN).</summary>
             <returns>An arbitrary-precision integer.</returns>
 
 </doc>
@@ -6380,13 +6374,13 @@
             which no digits come after the radix point (a desired exponent of
             0) is considered an "integer arithmetic" .</para></summary>
             <param name='otherValue'>A binary float containing the desired
-            exponent of the result. The significand is ignored. The
-            exponent is the number of fractional digits in the result,
-            expressed as a negative number. Can also be positive, which
-            eliminates lower-order places from the number. For example, -3
-            means round to the sixteenth (10b^-3, 0.0001b), and 3 means round
-            to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number
-            to an integer.</param>
+            exponent of the result. The significand is ignored. The exponent is
+            the number of fractional digits in the result, expressed as a
+            negative number. Can also be positive, which eliminates lower-order
+            places from the number. For example, -3 means round to the
+            sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place
+            (10b^3, 1000b). A value of 0 rounds the number to an
+            integer.</param>
             <param name='ctx'>An arithmetic context to control precision and
             rounding of the result. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
@@ -6483,7 +6477,8 @@
 <doc name="M:PeterO.Numbers.EFloat.Reduce(PeterO.Numbers.EContext)">
 
             <summary>Returns an object with the same numerical value as this
-            one but with trailing zeros removed from its significand. For example, 1.00 becomes 1.
+            one but with trailing zeros removed from its significand. For
+            example, 1.00 becomes 1.
             <para>If this object's value is 0, changes the exponent to
             0.</para></summary>
             <param name='ctx'>An arithmetic context to control the precision,
@@ -6494,7 +6489,8 @@
             isn't needed.</param>
             <returns>This value with trailing zeros removed. Note that if the
             result has a very high exponent and the context says to clamp high
-            exponents, there may still be some trailing zeros in the significand.</returns>
+            exponents, there may still be some trailing zeros in the
+            significand.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -6983,12 +6979,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToByteChecked">
 
             <summary>Converts this number's value to a byte (from 0 to 255) if
-            it can fit in a byte (from 0 to 255) after truncating to an
-            integer.</summary>
+            it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a byte (from 0 to
             255).</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 255.</exception>
 
 </doc>
@@ -7005,7 +7000,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToByteUnchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a byte
             (from 0 to 255).</summary>
             <returns>This number, converted to a byte (from 0 to 255). Returns
@@ -7074,12 +7069,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Checked">
 
             <summary>Converts this number's value to a 16-bit signed integer if
-            it can fit in a 16-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 16-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -32768 or
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or
             greater than 32767.</exception>
 
 </doc>
@@ -7096,7 +7090,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 16-bit
             signed integer.</summary>
             <returns>This number, converted to a 16-bit signed integer. Returns
@@ -7106,12 +7100,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToInt32Checked">
 
             <summary>Converts this number's value to a 32-bit signed integer if
-            it can fit in a 32-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 32-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -2147483648 or
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or
             greater than 2147483647.</exception>
 
 </doc>
@@ -7128,7 +7121,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt32Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 32-bit
             signed integer.</summary>
             <returns>This number, converted to a 32-bit signed integer. Returns
@@ -7138,12 +7131,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToInt64Checked">
 
             <summary>Converts this number's value to a 64-bit signed integer if
-            it can fit in a 64-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 64-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than
             -9223372036854775808 or greater than
             9223372036854775807.</exception>
 
@@ -7162,7 +7154,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt64Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 64-bit
             signed integer.</summary>
             <returns>This number, converted to a 64-bit signed integer. Returns
@@ -7179,12 +7171,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToSByteChecked">
 
             <summary>Converts this number's value to an 8-bit signed integer if
-            it can fit in an 8-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to an 8-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -128 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater
             than 127.</exception>
 
 </doc>
@@ -7201,7 +7192,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSByteUnchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as an 8-bit
             signed integer.</summary>
             <returns>This number, converted to an 8-bit signed integer. Returns
@@ -7240,11 +7231,11 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned significand, and the next-highest bit of the
-            significand area is set if those bits are all zeros and this is a
-            signaling NaN. Unfortunately, in the.NET implementation, the return
-            value of this method may be a quiet NaN even if a signaling NaN
-            would otherwise be generated.</para></summary>
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN. Unfortunately, in the.NET implementation, the return value of
+            this method may be a quiet NaN even if a signaling NaN would
+            otherwise be generated.</para></summary>
             <returns>The closest 32-bit binary floating-point number to this
             value. The return value can be positive infinity or negative
             infinity if this value exceeds the range of a 32-bit floating point
@@ -7265,12 +7256,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToUInt16Checked">
 
             <summary>Converts this number's value to a 16-bit unsigned integer
-            if it can fit in a 16-bit unsigned integer after truncating to an
-            integer.</summary>
+            if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 16-bit unsigned
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 65535.</exception>
 
 </doc>
@@ -7288,7 +7278,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt16Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 16-bit
             unsigned integer.</summary>
             <returns>This number, converted to a 16-bit unsigned integer.
@@ -7298,12 +7288,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToUInt32Checked">
 
             <summary>Converts this number's value to a 32-bit signed integer if
-            it can fit in a 32-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 32-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 4294967295.</exception>
 
 </doc>
@@ -7320,7 +7309,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt32Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 32-bit
             signed integer.</summary>
             <returns>This number, converted to a 32-bit signed integer. Returns
@@ -7330,12 +7319,11 @@
 <doc name="M:PeterO.Numbers.EFloat.ToUInt64Checked">
 
             <summary>Converts this number's value to a 64-bit unsigned integer
-            if it can fit in a 64-bit unsigned integer after truncating to an
-            integer.</summary>
+            if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 64-bit unsigned
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 18446744073709551615.</exception>
 
 </doc>
@@ -7353,7 +7341,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt64Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 64-bit
             unsigned integer.</summary>
             <returns>This number, converted to a 64-bit unsigned integer.
@@ -7362,9 +7350,10 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Ulp">
 
-            <summary>Returns the unit in the last place. The significand will be 1 and the exponent will be this number's
-            exponent. Returns 1 with an exponent of 0 if this number is
-            infinity or not-a-number (NaN).</summary>
+            <summary>Returns the unit in the last place. The significand will
+            be 1 and the exponent will be this number's exponent. Returns 1
+            with an exponent of 0 if this number is infinity or not-a-number
+            (NaN).</summary>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
@@ -7372,8 +7361,8 @@
 <doc name="P:PeterO.Numbers.EFloat.UnsignedMantissa">
 
             <summary>Gets the absolute value of this object's unscaled value,
-            or significand. If this value is not-a-number (NaN), that value is the
-            NaN's "payload" (diagnostic information).</summary>
+            or significand. If this value is not-a-number (NaN), that value is
+            the NaN's "payload" (diagnostic information).</summary>
             <value>The absolute value of this object's unscaled value.</value>
 
 </doc>
@@ -7439,13 +7428,12 @@
 
             <summary>Converts an arbitrary-precision binary float to a byte
             (from 0 to 255) if it can fit in a byte (from 0 to 255) after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             byte (from 0 to 255).</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 255.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 255.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -7457,11 +7445,11 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned significand, and the next-highest bit of the
-            significand area is set if those bits are all zeros and this is a
-            signaling NaN. Unfortunately, in the.NET implementation, the return
-            value of this method may be a quiet NaN even if a signaling NaN
-            would otherwise be generated.</para></summary>
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN. Unfortunately, in the.NET implementation, the return value of
+            this method may be a quiet NaN even if a signaling NaN would
+            otherwise be generated.</para></summary>
             <param name='bigValue'>The value to convert to a 64-bit
             floating-point number.</param>
             <returns>The closest 64-bit floating-point number to this value.
@@ -7475,13 +7463,12 @@
 
             <summary>Converts an arbitrary-precision binary float to a 16-bit
             signed integer if it can fit in a 16-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             16-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -32768 or greater than 32767.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -7489,13 +7476,12 @@
 
             <summary>Converts an arbitrary-precision binary float to a 32-bit
             signed integer if it can fit in a 32-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             32-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -2147483648 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or greater than
             2147483647.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -7504,13 +7490,12 @@
 
             <summary>Converts an arbitrary-precision binary float to a 64-bit
             signed integer if it can fit in a 64-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             64-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -9223372036854775808 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -9223372036854775808 or greater than
             9223372036854775807.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -7519,13 +7504,12 @@
 
             <summary>Converts an arbitrary-precision binary float to an 8-bit
             signed integer if it can fit in an 8-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to an
             8-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -128 or greater than 127.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater than 127.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -7538,11 +7522,11 @@
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
             significand area are set to the lowest bits of this object's
-            unsigned significand, and the next-highest bit of the
-            significand area is set if those bits are all zeros and this is a
-            signaling NaN. Unfortunately, in the.NET implementation, the return
-            value of this method may be a quiet NaN even if a signaling NaN
-            would otherwise be generated.</para></summary>
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN. Unfortunately, in the.NET implementation, the return value of
+            this method may be a quiet NaN even if a signaling NaN would
+            otherwise be generated.</para></summary>
             <param name='bigValue'>The number to convert as an
             arbitrary-precision binary floating-point number.</param>
             <returns>The closest 32-bit binary floating-point number to this
@@ -7556,13 +7540,12 @@
 
             <summary>Converts an arbitrary-precision binary float to a 16-bit
             unsigned integer if it can fit in a 16-bit unsigned integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             16-bit unsigned integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 65535.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 65535.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -7570,13 +7553,12 @@
 
             <summary>Converts an arbitrary-precision binary float to a 32-bit
             signed integer if it can fit in a 32-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             32-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 4294967295.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 4294967295.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -7584,13 +7566,12 @@
 
             <summary>Converts an arbitrary-precision binary float to a 64-bit
             unsigned integer if it can fit in a 64-bit unsigned integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             binary floating-point number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             64-bit unsigned integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than
             18446744073709551615.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -8228,16 +8209,16 @@
             <summary>Rotates the bits of an arbitrary-precision binary number's
             significand.</summary>
             <param name='ed'>An arbitrary-precision number containing the
-            significand to rotate. If this significand contains more bits than the
-            precision, the most-significant bits are chopped off the
+            significand to rotate. If this significand contains more bits than
+            the precision, the most-significant bits are chopped off the
             significand.</param>
             <param name='ed2'>An arbitrary-precision number indicating the
-            number of bits to rotate the first operand's significand. Must be an
-            integer with an exponent of 0. If this parameter is positive, the
-            significand is shifted to the left by the given number of bits and the
-            most-significant bits shifted out of the significand become the
-            least-significant bits instead. If this parameter is negative, the
-            number is shifted by the given number of bits and the
+            number of bits to rotate the first operand's significand. Must be
+            an integer with an exponent of 0. If this parameter is positive,
+            the significand is shifted to the left by the given number of bits
+            and the most-significant bits shifted out of the significand become
+            the least-significant bits instead. If this parameter is negative,
+            the number is shifted by the given number of bits and the
             least-significant bits shifted out of the significand become the
             most-significant bits instead.</param>
             <param name='ec'>An arithmetic context to control the precision of
@@ -8296,8 +8277,8 @@
             number of bits to shift the first operand's significand. Must be an
             integer with an exponent of 0. If this parameter is positive, the
             significand is shifted to the left by the given number of bits. If
-            this parameter is negative, the significand is shifted to the right by
-            the given number of bits.</param>
+            this parameter is negative, the significand is shifted to the right
+            by the given number of bits.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. Can be null.</param>
             <returns>An arbitrary-precision decimal number whose significand is
@@ -8313,19 +8294,19 @@
 
             <summary>Returns an arbitrary-precision number with the same value
             as this one but with certain trailing zeros removed from its
-            significand. If the number's exponent is 0, it is returned unchanged
-            (but may be rounded depending on the arithmetic context); if that
-            exponent is greater 0, its trailing zeros are removed from the
-            significand (then rounded if necessary); if that exponent is less than
-            0, its trailing zeros are removed from the significand until the
-            exponent reaches 0 (then the number is rounded if
+            significand. If the number's exponent is 0, it is returned
+            unchanged (but may be rounded depending on the arithmetic context);
+            if that exponent is greater 0, its trailing zeros are removed from
+            the significand (then rounded if necessary); if that exponent is
+            less than 0, its trailing zeros are removed from the significand
+            until the exponent reaches 0 (then the number is rounded if
             necessary).</summary>
             <param name='ed1'>An arbitrary-precision number.</param>
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>An arbitrary-precision number with the same value as this
-            one but with certain trailing zeros removed from its significand. If
-            <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
+            one but with certain trailing zeros removed from its significand.
+            If <paramref name='ed1'/> is not-a-number (NaN) or infinity, it is
             generally returned unchanged.</returns>
 
 </doc>
@@ -10616,12 +10597,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToByteChecked">
 
             <summary>Converts this number's value to a byte (from 0 to 255) if
-            it can fit in a byte (from 0 to 255) after truncating to an
-            integer.</summary>
+            it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a byte (from 0 to
             255).</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 255.</exception>
 
 </doc>
@@ -10638,7 +10618,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToByteUnchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a byte
             (from 0 to 255).</summary>
             <returns>This number, converted to a byte (from 0 to 255). Returns
@@ -10874,12 +10854,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToInt16Checked">
 
             <summary>Converts this number's value to a 16-bit signed integer if
-            it can fit in a 16-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 16-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -32768 or
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or
             greater than 32767.</exception>
 
 </doc>
@@ -10896,7 +10875,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 16-bit
             signed integer.</summary>
             <returns>This number, converted to a 16-bit signed integer. Returns
@@ -10906,12 +10885,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToInt32Checked">
 
             <summary>Converts this number's value to a 32-bit signed integer if
-            it can fit in a 32-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 32-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -2147483648 or
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or
             greater than 2147483647.</exception>
 
 </doc>
@@ -10928,7 +10906,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt32Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 32-bit
             signed integer.</summary>
             <returns>This number, converted to a 32-bit signed integer. Returns
@@ -10938,12 +10916,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToInt64Checked">
 
             <summary>Converts this number's value to a 64-bit signed integer if
-            it can fit in a 64-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 64-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than
             -9223372036854775808 or greater than
             9223372036854775807.</exception>
 
@@ -10962,7 +10939,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt64Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 64-bit
             signed integer.</summary>
             <returns>This number, converted to a 64-bit signed integer. Returns
@@ -10972,12 +10949,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToSByteChecked">
 
             <summary>Converts this number's value to an 8-bit signed integer if
-            it can fit in an 8-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to an 8-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than -128 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater
             than 127.</exception>
 
 </doc>
@@ -10994,7 +10970,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSByteUnchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as an 8-bit
             signed integer.</summary>
             <returns>This number, converted to an 8-bit signed integer. Returns
@@ -11024,12 +11000,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToUInt16Checked">
 
             <summary>Converts this number's value to a 16-bit unsigned integer
-            if it can fit in a 16-bit unsigned integer after truncating to an
-            integer.</summary>
+            if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 16-bit unsigned
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 65535.</exception>
 
 </doc>
@@ -11047,7 +11022,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt16Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 16-bit
             unsigned integer.</summary>
             <returns>This number, converted to a 16-bit unsigned integer.
@@ -11057,12 +11032,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToUInt32Checked">
 
             <summary>Converts this number's value to a 32-bit signed integer if
-            it can fit in a 32-bit signed integer after truncating to an
-            integer.</summary>
+            it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 32-bit signed
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 4294967295.</exception>
 
 </doc>
@@ -11079,7 +11053,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt32Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 32-bit
             signed integer.</summary>
             <returns>This number, converted to a 32-bit signed integer. Returns
@@ -11089,12 +11063,11 @@
 <doc name="M:PeterO.Numbers.ERational.ToUInt64Checked">
 
             <summary>Converts this number's value to a 64-bit unsigned integer
-            if it can fit in a 64-bit unsigned integer after truncating to an
-            integer.</summary>
+            if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.</summary>
             <returns>This number's value, truncated to a 64-bit unsigned
             integer.</returns>
             <exception cref='OverflowException'>This value is infinity or
-            not-a-number, or the truncated integer is less than 0 or greater
+            not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater
             than 18446744073709551615.</exception>
 
 </doc>
@@ -11112,7 +11085,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToUInt64Unchecked">
 
-            <summary>Truncates this number's value to an integer and returns
+            <summary>Converts this number's value to an integer by discarding its fractional part, and returns
             the least-significant bits of its two's-complement form as a 64-bit
             unsigned integer.</summary>
             <returns>This number, converted to a 64-bit unsigned integer.
@@ -11185,13 +11158,12 @@
 
             <summary>Converts an arbitrary-precision rational number to a byte
             (from 0 to 255) if it can fit in a byte (from 0 to 255) after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             byte (from 0 to 255).</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 255.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 255.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -11226,13 +11198,12 @@
 
             <summary>Converts an arbitrary-precision rational number to a
             16-bit signed integer if it can fit in a 16-bit signed integer
-            after truncating to an integer.</summary>
+            after converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             16-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -32768 or greater than 32767.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -11240,13 +11211,12 @@
 
             <summary>Converts an arbitrary-precision rational number to a
             32-bit signed integer if it can fit in a 32-bit signed integer
-            after truncating to an integer.</summary>
+            after converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             32-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -2147483648 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or greater than
             2147483647.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -11255,13 +11225,12 @@
 
             <summary>Converts an arbitrary-precision rational number to a
             64-bit signed integer if it can fit in a 64-bit signed integer
-            after truncating to an integer.</summary>
+            after converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             64-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -9223372036854775808 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -9223372036854775808 or greater than
             9223372036854775807.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
@@ -11270,13 +11239,12 @@
 
             <summary>Converts an arbitrary-precision rational number to an
             8-bit signed integer if it can fit in an 8-bit signed integer after
-            truncating to an integer.</summary>
+            converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to an
             8-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than -128 or greater than 127.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater than 127.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -11298,13 +11266,12 @@
 
             <summary>Converts an arbitrary-precision rational number to a
             16-bit unsigned integer if it can fit in a 16-bit unsigned integer
-            after truncating to an integer.</summary>
+            after converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             16-bit unsigned integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 65535.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 65535.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -11312,13 +11279,12 @@
 
             <summary>Converts an arbitrary-precision rational number to a
             32-bit signed integer if it can fit in a 32-bit signed integer
-            after truncating to an integer.</summary>
+            after converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             32-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than 4294967295.</exception>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 4294967295.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 
 </doc>
@@ -11326,13 +11292,12 @@
 
             <summary>Converts an arbitrary-precision rational number to a
             64-bit unsigned integer if it can fit in a 64-bit unsigned integer
-            after truncating to an integer.</summary>
+            after converting it to an integer by discarding its fractional part.</summary>
             <param name='input'>The number to convert as an arbitrary-precision
             rational number.</param>
             <returns>The value of <paramref name='input'/>, truncated to a
             64-bit unsigned integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the truncated
-            integer is less than 0 or greater than
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than
             18446744073709551615.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 

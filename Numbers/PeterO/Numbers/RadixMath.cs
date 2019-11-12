@@ -1193,8 +1193,10 @@ namespace PeterO.Numbers {
             } else {
               // DebugUtility.Log("LnInternal A " +(thisValue as
               // EDecimal)?.ToDouble());
-              thisValue = this.LnInternal(thisValue, ctxdiv.Precision,
-  ctxCopy);
+              thisValue = this.LnInternal(
+                thisValue,
+                ctxdiv.Precision,
+                ctxCopy);
             }
           }
           if (ctx.HasFlags) {
@@ -1291,8 +1293,10 @@ namespace PeterO.Numbers {
               thisValue = this.Divide(one, thisValue, ctxdiv);
               // DebugUtility.Log("LnInternal B " +(thisValue as
               // EDecimal)?.ToDouble());
-              thisValue = this.LnInternal(thisValue, ctxdiv.Precision,
-  ctxCopy);
+              thisValue = this.LnInternal(
+                thisValue,
+                ctxdiv.Precision,
+                ctxCopy);
               thisValue = this.NegateRaw(thisValue);
             }
           }
@@ -2105,7 +2109,7 @@ namespace PeterO.Numbers {
                 EInteger.Zero,
                 EInteger.Zero,
                 negflag),
-                ctx) : this.RoundToPrecision (
+              ctx) : this.RoundToPrecision (
               this.helper.CreateNewWithFlags(EInteger.One, EInteger.Zero, 0),
               ctx));
       }
@@ -2355,8 +2359,11 @@ namespace PeterO.Numbers {
     }
 
     public T Reduce(T thisValue, EContext ctx) {
-      return this.ReduceToPrecisionAndIdealExponent(thisValue, ctx, null,
-  null);
+      return this.ReduceToPrecisionAndIdealExponent(
+        thisValue,
+        ctx,
+        null,
+        null);
     }
 
     public T Remainder(
@@ -2382,10 +2389,12 @@ namespace PeterO.Numbers {
           this.NegateRaw(this.Multiply(ret, divisor, null)),
           ctx2);
       ret = this.EnsureSign (
-          ret,
-  (this.helper.GetFlags(thisValue) & BigNumberFlags.FlagNegative) != 0);
+        ret,
+        (this.helper.GetFlags(thisValue) & BigNumberFlags.FlagNegative) != 0);
 
-      TransferFlags(ctx, ctx2);
+      TransferFlags(
+        ctx,
+        ctx2);
       return ret;
     }
 
@@ -2425,10 +2434,12 @@ namespace PeterO.Numbers {
       if (this.helper.GetFlags(ret2) == 0 &&
         this.helper.GetMantissa(ret2).IsZero) {
         ret2 = this.EnsureSign (
-            ret2,
-  (this.helper.GetFlags(thisValue) & BigNumberFlags.FlagNegative) != 0);
+          ret2,
+          (this.helper.GetFlags(thisValue) & BigNumberFlags.FlagNegative) != 0);
       }
-      TransferFlags(ctx, ctx2);
+      TransferFlags(
+        ctx,
+        ctx2);
       return ret2;
     }
 
@@ -2509,7 +2520,9 @@ namespace PeterO.Numbers {
         } else {
           IShiftAccumulator accum =
             this.helper.CreateShiftAccumulatorWithDigits(bigmantissa, 0, 0);
-          accum.TruncateOrShiftRight(shift, false);
+          accum.TruncateOrShiftRight(
+            shift,
+            false);
           bigmantissa = accum.ShiftedInt;
           thisValue = this.helper.CreateNewWithFlags(
             bigmantissa,
@@ -3175,7 +3188,7 @@ namespace PeterO.Numbers {
                       op2MantAbs,
                       op2Exponent,
                       hoflags);
-                      FastInteger shift = digitLength2.Copy()
+                    FastInteger shift = digitLength2.Copy()
                         .Subtract(fastPrecision);
                     if (oneOpIsZero && ctx != null && ctx.HasFlags) {
                       ctx.Flags |= EContext.FlagRounded;
@@ -3960,7 +3973,7 @@ namespace PeterO.Numbers {
                 EInteger.Zero,
                 EInteger.Zero,
                 thisFlags),
-                ctx);
+              ctx);
         }
       }
       return default(T);
@@ -5023,7 +5036,9 @@ otherValue;
           // DebugUtility.Log("Less than ETiny");
           FastInteger expdiff = fastETiny.Copy().Subtract(exp);
           // DebugUtility.Log("<ETiny: " + (accum.ShiftedInt));
-          accum.TruncateOrShiftRight(expdiff, nonHalfRounding);
+          accum.TruncateOrShiftRight(
+            expdiff,
+            nonHalfRounding);
           // DebugUtility.Log("<ETiny2: " + (accum.ShiftedInt));
           FastInteger newmantissa = accum.ShiftedIntFast;
           bool nonZeroDiscardedDigits = (accum.LastDiscardedDigit |
@@ -5145,7 +5160,9 @@ otherValue;
             if (binaryPrec || newDigitLength.CompareTo(fastPrecision) > 0) {
               FastInteger neededShift =
                 newDigitLength.Copy().Subtract(fastPrecision);
-              accum.TruncateOrShiftRight(neededShift, nonHalfRounding);
+              accum.TruncateOrShiftRight(
+                neededShift,
+                nonHalfRounding);
               if (binaryPrec) {
                 // TODO: Make FastInteger.CompareTo(FastInteger)
                 while (bitLength.CompareTo(FastInteger.FromBig(
@@ -5307,7 +5324,9 @@ otherValue;
           mantissa,
           lastDiscarded,
           olderDiscarded);
-        accum.TruncateOrShiftRight(shift, false);
+        accum.TruncateOrShiftRight(
+          shift,
+          false);
         newmantissa = accum.ShiftedInt;
         if (accum.DiscardedDigitCount.Sign != 0 ||
           (accum.LastDiscardedDigit | accum.OlderDiscardedDigits) !=
@@ -5384,9 +5403,9 @@ otherValue;
         throw new DivideByZeroException("Division by zero");
       }
       return this.helper.CreateNewWithFlags (
-          EInteger.Zero,
-  EInteger.Zero,
-  BigNumberFlags.FlagInfinity | ( neg ? BigNumberFlags.FlagNegative : 0));
+        EInteger.Zero,
+        EInteger.Zero,
+        BigNumberFlags.FlagInfinity | (neg ? BigNumberFlags.FlagNegative : 0));
     }
 
     private T SignalingNaNInvalid(T value, EContext ctx) {
@@ -5465,8 +5484,8 @@ otherValue;
       return this.support == BigNumberFlags.FiniteOnly ? default(T) :
         this.helper.CreateNewWithFlags (
           EInteger.Zero,
-  EInteger.Zero,
-  ( neg ? BigNumberFlags.FlagNegative : 0) | BigNumberFlags.FlagInfinity);
+          EInteger.Zero,
+          (neg ? BigNumberFlags.FlagNegative : 0) | BigNumberFlags.FlagInfinity);
     }
 
     private T SquareRootHandleSpecial(T thisValue, EContext ctx) {

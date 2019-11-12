@@ -1,10 +1,10 @@
 ## PeterO.Numbers.EFloat
 
     public sealed class EFloat :
-        System.IEquatable,
-        System.IComparable
+        System.IComparable,
+        System.IEquatable
 
-Represents an arbitrary-precision binary floating-point number. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.) Each number consists of an integer mantissa (significand) and an integer exponent, both arbitrary-precision. The value of the number equals mantissa (significand) * 2^exponent. This class also supports values for negative zero, not-a-number (NaN) values, and infinity. Passing a signaling NaN to any arithmetic operation shown here will signal the flag FlagInvalid and return a quiet NaN, even if another operand to that operation is a quiet NaN, unless noted otherwise.
+Represents an arbitrary-precision binary floating-point number. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.) Each number consists of an integer significand and an integer exponent, both arbitrary-precision. The value of the number equals significand * 2^exponent. This class also supports values for negative zero, not-a-number (NaN) values, and infinity. Passing a signaling NaN to any arithmetic operation shown here will signal the flag FlagInvalid and return a quiet NaN, even if another operand to that operation is a quiet NaN, unless noted otherwise.
 
 Passing a quiet NaN to any arithmetic operation shown here will return a quiet NaN, unless noted otherwise.
 
@@ -53,8 +53,8 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CompareToWithContext(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
 * <code>[CopySign(PeterO.Numbers.EFloat)](#CopySign_PeterO_Numbers_EFloat)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
-* <code>[Create(int, int)](#Create_int_int)</code> - Creates a number with the value exponent*2^mantissa (significand).
-* <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*2^mantissa (significand).
+* <code>[Create(int, int)](#Create_int_int)</code> - Creates a number with the value exponent*2^significand.
+* <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*2^significand.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision binary floating-point number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision binary floating-point number.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision binary floating-point number.
@@ -73,9 +73,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[DivideToSameExponent(PeterO.Numbers.EFloat, PeterO.Numbers.ERounding)](#DivideToSameExponent_PeterO_Numbers_EFloat_PeterO_Numbers_ERounding)</code> - Divides this object by another binary float and returns a result with the same exponent as this object (the dividend).
 * <code>[DivRemNaturalScale(PeterO.Numbers.EFloat)](#DivRemNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 * <code>[DivRemNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivRemNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
-* <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision binary floating-point number.
-* <code>[Equals(PeterO.Numbers.EFloat)](#Equals_PeterO_Numbers_EFloat)</code> - Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object.
-* <code>[EqualsInternal(PeterO.Numbers.EFloat)](#EqualsInternal_PeterO_Numbers_EFloat)</code> - Determines whether this object's mantissa (significand) and exponent are equal to those of another object.
+* <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's significand, exponent, and properties are equal to those of another object and that other object is an arbitrary-precision binary floating-point number.
+* <code>[Equals(PeterO.Numbers.EFloat)](#Equals_PeterO_Numbers_EFloat)</code> - Determines whether this object's significand, exponent, and properties are equal to those of another object.
+* <code>[EqualsInternal(PeterO.Numbers.EFloat)](#EqualsInternal_PeterO_Numbers_EFloat)</code> - Determines whether this object's significand and exponent are equal to those of another object.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
 * <code>[Exponent](#Exponent)</code> - Gets this object's exponent.
 * <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (either true or false) to an arbitrary-precision binary float.
@@ -107,7 +107,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this object's value equals 0.
 * <code>[Log(PeterO.Numbers.EContext)](#Log_PeterO_Numbers_EContext)</code> - Finds the natural logarithm of this object, that is, the power (exponent) that e (the base of natural logarithms) must be raised to in order to equal this object's value.
 * <code>[Log10(PeterO.Numbers.EContext)](#Log10_PeterO_Numbers_EContext)</code> - Finds the base-10 logarithm of this object, that is, the power (exponent) that the number 10 must be raised to in order to equal this object's value.
-* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value, or mantissa, and makes it negative if this object is negative.
+* <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value, or significand, and makes it negative if this object is negative.
 * <code>[Max(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#Max_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Gets the greater value between two binary floating-point numbers.
 * <code>[Max(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Max_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Gets the greater value between two binary floating-point numbers.
 * <code>[MaxMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#MaxMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Gets the greater value between two values, ignoring their signs.
@@ -142,7 +142,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[PeterO.Numbers.EFloat operator +(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Addition)</code> - Adds two arbitrary-precision binary floating-point numbers and returns the result.
 * <code>[PeterO.Numbers.EFloat operator --(PeterO.Numbers.EFloat)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision binary floating-point number.
 * <code>[PeterO.Numbers.EFloat operator /(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Division)</code> - Divides one binary float by another and returns the result.
-* <code>[explicit operator ulong(PeterO.Numbers.EFloat)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number. Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Converts this value to its closest equivalent as a 64-bit floating-point number. Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer. Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer. Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer. Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer. Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer. Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer. Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer. Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
+* <code>[explicit operator ulong(PeterO.Numbers.EFloat)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number. Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Converts this value to its closest equivalent as a 64-bit floating-point number. Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[implicit operator PeterO.Numbers.EFloat(ulong)](#op_Implicit)</code> - Creates a binary float from a 32-bit floating-point number. Creates a binary float from a 64-bit floating-point number. Converts an arbitrary-precision integer to an arbitrary precision binary. Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number. Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number. Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 * <code>[PeterO.Numbers.EFloat operator ++(PeterO.Numbers.EFloat)](#op_Increment)</code> - Adds one to an arbitrary-precision binary floating-point number.
 * <code>[PeterO.Numbers.EFloat operator %(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision binary float by another.
@@ -155,11 +155,11 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Pow(int)](#Pow_int)</code> - Raises this object's value to the given exponent.
 * <code>[Pow(int, PeterO.Numbers.EContext)](#Pow_int_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
 * <code>[Pow(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Pow_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
-* <code>[Precision()](#Precision)</code> - Finds the number of digits in this number's mantissa (significand).
+* <code>[Precision()](#Precision)</code> - Finds the number of digits in this number's significand.
 * <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value but a new exponent.
 * <code>[Quantize(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but with the same exponent as another binary float.
 * <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value but a new exponent.
-* <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand).
+* <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its significand.
 * <code>[Remainder(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision binary floating-point numbers.
 * <code>[RemainderNaturalScale(PeterO.Numbers.EFloat)](#RemainderNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
@@ -187,9 +187,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Subtract(PeterO.Numbers.EFloat)](#Subtract_PeterO_Numbers_EFloat)</code> - Subtracts an arbitrary-precision binary float from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision binary float from this instance.
 * <code>[public static readonly PeterO.Numbers.EFloat Ten;](#Ten)</code> - Represents the number 10.
-* <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
+* <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
-* <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
+* <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to a 64-bit floating-point number.
 * <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this value to an arbitrary-precision decimal number.
 * <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer.
@@ -197,33 +197,33 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ToEIntegerIfExact()](#ToEIntegerIfExact)</code> - Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part.
 * <code>[ToEngineeringString()](#ToEngineeringString)</code> - Converts this value to an arbitrary-precision decimal number, then returns the value of that decimal's ToEngineeringString method.
 * <code>[ToExtendedDecimal()](#ToExtendedDecimal)</code> - <b>Deprecated:</b> Renamed to ToEDecimal.
-* <code>[ToInt16Checked()](#ToInt16Checked)</code> - Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
+* <code>[ToInt16Checked()](#ToInt16Checked)</code> - Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToInt16IfExact()](#ToInt16IfExact)</code> - Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer without rounding to a different numerical value.
-* <code>[ToInt16Unchecked()](#ToInt16Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
-* <code>[ToInt32Checked()](#ToInt32Checked)</code> - Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+* <code>[ToInt16Unchecked()](#ToInt16Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
+* <code>[ToInt32Checked()](#ToInt32Checked)</code> - Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToInt32IfExact()](#ToInt32IfExact)</code> - Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
-* <code>[ToInt32Unchecked()](#ToInt32Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
-* <code>[ToInt64Checked()](#ToInt64Checked)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
+* <code>[ToInt32Unchecked()](#ToInt32Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
+* <code>[ToInt64Checked()](#ToInt64Checked)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToInt64IfExact()](#ToInt64IfExact)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer without rounding to a different numerical value.
-* <code>[ToInt64Unchecked()](#ToInt64Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
+* <code>[ToInt64Unchecked()](#ToInt64Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
 * <code>[ToPlainString()](#ToPlainString)</code> - Converts this value to a string, but without exponential notation.
-* <code>[ToSByteChecked()](#ToSByteChecked)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
+* <code>[ToSByteChecked()](#ToSByteChecked)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
-* <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
+* <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToShortestString(PeterO.Numbers.EContext)](#ToShortestString_PeterO_Numbers_EContext)</code> - Returns a string representation of this number's value after rounding to the given precision (using the given arithmetic context).
 * <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as 32-bit floating-point number.
 * <code>[ToString()](#ToString)</code> - Converts this number's value to a text string.
-* <code>[ToUInt16Checked()](#ToUInt16Checked)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
+* <code>[ToUInt16Checked()](#ToUInt16Checked)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt16IfExact()](#ToUInt16IfExact)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
-* <code>[ToUInt16Unchecked()](#ToUInt16Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
-* <code>[ToUInt32Checked()](#ToUInt32Checked)</code> - Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+* <code>[ToUInt16Unchecked()](#ToUInt16Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
+* <code>[ToUInt32Checked()](#ToUInt32Checked)</code> - Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt32IfExact()](#ToUInt32IfExact)</code> - Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
-* <code>[ToUInt32Unchecked()](#ToUInt32Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
-* <code>[ToUInt64Checked()](#ToUInt64Checked)</code> - Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
+* <code>[ToUInt32Unchecked()](#ToUInt32Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
+* <code>[ToUInt64Checked()](#ToUInt64Checked)</code> - Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt64IfExact()](#ToUInt64IfExact)</code> - Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
-* <code>[ToUInt64Unchecked()](#ToUInt64Unchecked)</code> - Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
+* <code>[ToUInt64Unchecked()](#ToUInt64Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 * <code>[Ulp()](#Ulp)</code> - Returns the unit in the last place.
-* <code>[UnsignedMantissa](#UnsignedMantissa)</code> - Gets the absolute value of this object's unscaled value, or mantissa.
+* <code>[UnsignedMantissa](#UnsignedMantissa)</code> - Gets the absolute value of this object's unscaled value, or significand.
 * <code>[public static readonly PeterO.Numbers.EFloat Zero;](#Zero)</code> - Represents the number 0.
 
 <a id="NaN"></a>
@@ -331,7 +331,7 @@ Gets a value indicating whether this object's value equals 0.
 
     public PeterO.Numbers.EInteger Mantissa { get; }
 
-Gets this object's unscaled value, or mantissa, and makes it negative if this object is negative. If this value is not-a-number (NaN), that value's absolute value is the NaN's "payload" (diagnostic information).
+Gets this object's unscaled value, or significand, and makes it negative if this object is negative. If this value is not-a-number (NaN), that value's absolute value is the NaN's "payload" (diagnostic information).
 
 <b>Returns:</b>
 
@@ -353,7 +353,7 @@ This value's sign: -1 if negative; 1 if positive; 0 if zero.
 
     public PeterO.Numbers.EInteger UnsignedMantissa { get; }
 
-Gets the absolute value of this object's unscaled value, or mantissa. If this value is not-a-number (NaN), that value is the NaN's "payload" (diagnostic information).
+Gets the absolute value of this object's unscaled value, or significand. If this value is not-a-number (NaN), that value is the NaN's "payload" (diagnostic information).
 
 <b>Returns:</b>
 
@@ -675,11 +675,12 @@ The parameter  <i>other</i>
         int mantissaSmall,
         int exponentSmall);
 
-Creates a number with the value exponent*2^mantissa (significand).
+Creates a number with the value exponent*2^significand.
 
 <b>Parameters:</b>
 
- * <i>mantissaSmall</i>: Desired value for the mantissa.
+ * <i>mantissaSmall</i>: The parameter  <i>mantissaSmall</i>
+ is a 32-bit signed integer.
 
  * <i>exponentSmall</i>: Desired value for the exponent.
 
@@ -694,11 +695,11 @@ An arbitrary-precision binary floating-point number.
         PeterO.Numbers.EInteger mantissa,
         PeterO.Numbers.EInteger exponent);
 
-Creates a number with the value exponent*2^mantissa (significand).
+Creates a number with the value exponent*2^significand.
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: Desired value for the mantissa.
+ * <i>significand</i>: Desired value for the significand.
 
  * <i>exponent</i>: Desired value for the exponent.
 
@@ -709,7 +710,8 @@ An arbitrary-precision binary floating-point number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter "mantissa (significand)" or  <i>exponent</i>
+The parameter  <i>significand</i>
+ or  <i>exponent</i>
  is null.
 
 <a id="CreateNaN_PeterO_Numbers_EInteger"></a>
@@ -1076,7 +1078,7 @@ A 2 element array consisting of the quotient and remainder in that order.
     public override bool Equals(
         object obj);
 
-Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object and that other object is an arbitrary-precision binary floating-point number. Not-a-number values are considered equal if the rest of their properties are equal.
+Determines whether this object's significand, exponent, and properties are equal to those of another object and that other object is an arbitrary-precision binary floating-point number. Not-a-number values are considered equal if the rest of their properties are equal.
 
 <b>Parameters:</b>
 
@@ -1093,7 +1095,7 @@ Determines whether this object's mantissa (significand), exponent, and propertie
     public sealed bool Equals(
         PeterO.Numbers.EFloat other);
 
-Determines whether this object's mantissa (significand), exponent, and properties are equal to those of another object. Not-a-number values are considered equal if the rest of their properties are equal.
+Determines whether this object's significand, exponent, and properties are equal to those of another object. Not-a-number values are considered equal if the rest of their properties are equal.
 
 <b>Parameters:</b>
 
@@ -1101,7 +1103,7 @@ Determines whether this object's mantissa (significand), exponent, and propertie
 
 <b>Return Value:</b>
 
- `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise,  `false` .
+ `true`  if this object's significand and exponent are equal to those of another object; otherwise,  `false` .
 
 <a id="EqualsInternal_PeterO_Numbers_EFloat"></a>
 ### EqualsInternal
@@ -1109,7 +1111,7 @@ Determines whether this object's mantissa (significand), exponent, and propertie
     public bool EqualsInternal(
         PeterO.Numbers.EFloat otherValue);
 
-Determines whether this object's mantissa (significand) and exponent are equal to those of another object.
+Determines whether this object's significand and exponent are equal to those of another object.
 
 <b>Parameters:</b>
 
@@ -1117,7 +1119,7 @@ Determines whether this object's mantissa (significand) and exponent are equal t
 
 <b>Return Value:</b>
 
- `true`  if this object's mantissa (significand) and exponent are equal to those of another object; otherwise,  `false` .
+ `true`  if this object's significand and exponent are equal to those of another object; otherwise,  `false` .
 
 <a id="Exp_PeterO_Numbers_EContext"></a>
 ### Exp
@@ -2211,7 +2213,7 @@ The parameter  <i>dividend</i>
     public static explicit operator byte(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
+Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2226,7 +2228,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 255.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2238,7 +2240,7 @@ The parameter  <i>input</i>
     public static explicit operator double(
         PeterO.Numbers.EFloat bigValue);
 
-Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Parameters:</b>
 
@@ -2260,7 +2262,7 @@ The parameter  <i>bigValue</i>
     public static explicit operator float(
         PeterO.Numbers.EFloat bigValue);
 
-Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Parameters:</b>
 
@@ -2282,7 +2284,7 @@ The parameter  <i>bigValue</i>
     public static explicit operator int(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2297,7 +2299,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or greater than 2147483647.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2309,7 +2311,7 @@ The parameter  <i>input</i>
     public static explicit operator long(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
+Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2324,7 +2326,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -9223372036854775808 or greater than 9223372036854775807.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2378,7 +2380,7 @@ The parameter  <i>bigValue</i>
     public static explicit operator sbyte(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
+Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2393,7 +2395,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater than 127.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2405,7 +2407,7 @@ The parameter  <i>input</i>
     public static explicit operator short(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
+Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2420,7 +2422,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2432,7 +2434,7 @@ The parameter  <i>input</i>
     public static explicit operator uint(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2447,7 +2449,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 4294967295.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2459,7 +2461,7 @@ The parameter  <i>input</i>
     public static explicit operator ulong(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
+Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2474,7 +2476,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 18446744073709551615.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2486,7 +2488,7 @@ The parameter  <i>input</i>
     public static explicit operator ushort(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
+Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2501,7 +2503,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 65535.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2909,7 +2911,7 @@ This^exponent. Signals the flag FlagInvalid and returns NaN if this object and e
 
     public PeterO.Numbers.EInteger Precision();
 
-Finds the number of digits in this number's mantissa (significand). Returns 1 if this value is 0, and 0 if this value is infinity or not-a-number (NaN).
+Finds the number of digits in this number's significand. Returns 1 if this value is 0, and 0 if this value is infinity or not-a-number (NaN).
 
 <b>Return Value:</b>
 
@@ -2955,7 +2957,7 @@ Returns a binary float with the same value as this object but with the same expo
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: A binary float containing the desired exponent of the result. The mantissa (significand) is ignored. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
+ * <i>otherValue</i>: A binary float containing the desired exponent of the result. The significand is ignored. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
 
  * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
@@ -2997,7 +2999,7 @@ A binary float with the same value as this object but with the exponent changed.
     public PeterO.Numbers.EFloat Reduce(
         PeterO.Numbers.EContext ctx);
 
-Returns an object with the same numerical value as this one but with trailing zeros removed from its mantissa (significand). For example, 1.00 becomes 1. If this object's value is 0, changes the exponent to 0.
+Returns an object with the same numerical value as this one but with trailing zeros removed from its significand. For example, 1.00 becomes 1. If this object's value is 0, changes the exponent to 0.
 
 <b>Parameters:</b>
 
@@ -3005,7 +3007,7 @@ Returns an object with the same numerical value as this one but with trailing ze
 
 <b>Return Value:</b>
 
-This value with trailing zeros removed. Note that if the result has a very high exponent and the context says to clamp high exponents, there may still be some trailing zeros in the mantissa (significand).
+This value with trailing zeros removed. Note that if the result has a very high exponent and the context says to clamp high exponents, there may still be some trailing zeros in the significand.
 
 <a id="Remainder_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Remainder
@@ -3469,7 +3471,7 @@ The parameter  <i>otherValue</i>
 
     public byte ToByteChecked();
 
-Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after truncating to an integer.
+Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3478,7 +3480,7 @@ This number's value, truncated to a byte (from 0 to 255).
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 255.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 255.
 
 <a id="ToByteIfExact"></a>
 ### ToByteIfExact
@@ -3501,7 +3503,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public byte ToByteUnchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
 
 <b>Return Value:</b>
 
@@ -3608,7 +3610,7 @@ An arbitrary-precision decimal number.
 
     public short ToInt16Checked();
 
-Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after truncating to an integer.
+Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3617,7 +3619,7 @@ This number's value, truncated to a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than -32768 or greater than 32767.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.
 
 <a id="ToInt16IfExact"></a>
 ### ToInt16IfExact
@@ -3640,7 +3642,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public short ToInt16Unchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -3651,7 +3653,7 @@ This number, converted to a 16-bit signed integer. Returns 0 if this value is in
 
     public int ToInt32Checked();
 
-Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3660,7 +3662,7 @@ This number's value, truncated to a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than -2147483648 or greater than 2147483647.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -2147483648 or greater than 2147483647.
 
 <a id="ToInt32IfExact"></a>
 ### ToInt32IfExact
@@ -3683,7 +3685,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public int ToInt32Unchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -3694,7 +3696,7 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 
     public long ToInt64Checked();
 
-Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after truncating to an integer.
+Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3703,7 +3705,7 @@ This number's value, truncated to a 64-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than -9223372036854775808 or greater than 9223372036854775807.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -9223372036854775808 or greater than 9223372036854775807.
 
 <a id="ToInt64IfExact"></a>
 ### ToInt64IfExact
@@ -3726,7 +3728,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public long ToInt64Unchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -3748,7 +3750,7 @@ A text string.
 
     public sbyte ToSByteChecked();
 
-Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after truncating to an integer.
+Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3757,7 +3759,7 @@ This number's value, truncated to an 8-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than -128 or greater than 127.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -128 or greater than 127.
 
 <a id="ToSByteIfExact"></a>
 ### ToSByteIfExact
@@ -3780,7 +3782,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public sbyte ToSByteUnchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -3807,7 +3809,7 @@ Shortest decimal form of this number's value for the given arithmetic context. T
 
     public float ToSingle();
 
-Converts this value to its closest equivalent as 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned mantissa (significand), and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+Converts this value to its closest equivalent as 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Return Value:</b>
 
@@ -3829,7 +3831,7 @@ A string representation of this object. The value is converted to decimal and th
 
     public ushort ToUInt16Checked();
 
-Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after truncating to an integer.
+Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3838,7 +3840,7 @@ This number's value, truncated to a 16-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 65535.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 65535.
 
 <a id="ToUInt16IfExact"></a>
 ### ToUInt16IfExact
@@ -3861,7 +3863,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public ushort ToUInt16Unchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
 
 <b>Return Value:</b>
 
@@ -3872,7 +3874,7 @@ This number, converted to a 16-bit unsigned integer. Returns 0 if this value is 
 
     public uint ToUInt32Checked();
 
-Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after truncating to an integer.
+Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3881,7 +3883,7 @@ This number's value, truncated to a 32-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 4294967295.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 4294967295.
 
 <a id="ToUInt32IfExact"></a>
 ### ToUInt32IfExact
@@ -3904,7 +3906,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public uint ToUInt32Unchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -3915,7 +3917,7 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 
     public ulong ToUInt64Checked();
 
-Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after truncating to an integer.
+Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
 
@@ -3924,7 +3926,7 @@ This number's value, truncated to a 64-bit unsigned integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the truncated integer is less than 0 or greater than 18446744073709551615.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than 0 or greater than 18446744073709551615.
 
 <a id="ToUInt64IfExact"></a>
 ### ToUInt64IfExact
@@ -3947,7 +3949,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public ulong ToUInt64Unchecked();
 
-Truncates this number's value to an integer and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
+Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 
 <b>Return Value:</b>
 
@@ -3958,7 +3960,7 @@ This number, converted to a 64-bit unsigned integer. Returns 0 if this value is 
 
     public PeterO.Numbers.EFloat Ulp();
 
-Returns the unit in the last place. The mantissa (significand) will be 1 and the exponent will be this number's exponent. Returns 1 with an exponent of 0 if this number is infinity or not-a-number (NaN).
+Returns the unit in the last place. The significand will be 1 and the exponent will be this number's exponent. Returns 1 with an exponent of 0 if this number is infinity or not-a-number (NaN).
 
 <b>Return Value:</b>
 

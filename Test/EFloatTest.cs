@@ -1866,8 +1866,8 @@ enumber.CompareTo (
       }
       {
         EFloat objectTemp = EFloat.Create (
-  EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
-  EInteger.FromInt32(-1074));
+          EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
+          EInteger.FromInt32(-1074));
         TestToFloatRoundingOne(objectTemp, true);
       }
     }

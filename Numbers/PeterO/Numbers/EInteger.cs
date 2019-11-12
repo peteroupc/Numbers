@@ -3665,7 +3665,9 @@ minDigitEstimate;
       if (this.negative) {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
-      NotWords(valueXaReg, (int)valueXaReg.Length);
+      NotWords(
+        valueXaReg,
+        (int)valueXaReg.Length);
       if (this.negative) {
         TwosComplement(valueXaReg, 0, (int)valueXaReg.Length);
       }
@@ -7844,7 +7846,9 @@ bcount) +
       return (int)((u >> 31) & 1);
     }
 
-    private static void TwosComplement(short[] words1, int words1Start,
+    private static void TwosComplement(
+      short[] words1,
+      int words1Start,
       int n) {
       DecrementWords(words1, words1Start, n, (short)1);
       for (var i = 0; i < n; ++i) {

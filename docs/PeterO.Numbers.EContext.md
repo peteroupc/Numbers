@@ -266,7 +266,7 @@ No specific (theoretical) limit on precision. Rounding mode HalfEven.
 
     public bool AdjustExponent { get; }
 
-Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property. The default value is true, meaning that EMax and EMin refer to the adjusted exponent. Setting this value to false (using WithAdjustExponent) is useful for modeling floating point representations with an integer mantissa (significand) and an integer exponent, such as Java's BigDecimal.
+Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property. The default value is true, meaning that EMax and EMin refer to the adjusted exponent. Setting this value to false (using WithAdjustExponent) is useful for modeling floating point representations with an integer significand and an integer exponent, such as Java's BigDecimal.
 
 <b>Returns:</b>
 
@@ -277,7 +277,7 @@ Gets a value indicating whether the EMax and EMin properties refer to the number
 
     public bool ClampNormalExponents { get; }
 
-Gets a value indicating whether a converted number's Exponent property will not be higher than EMax + 1 - Precision. If a number's exponent is higher than that value, but not high enough to cause overflow, the exponent is clamped to that value and enough zeros are added to the number's mantissa (significand) to account for the adjustment. If HasExponentRange is false, this value is always false.
+Gets a value indicating whether a converted number's Exponent property will not be higher than EMax + 1 - Precision. If a number's exponent is higher than that value, but not high enough to cause overflow, the exponent is clamped to that value and enough zeros are added to the number's significand to account for the adjustment. If HasExponentRange is false, this value is always false.
 
 <b>Returns:</b>
 
@@ -389,11 +389,11 @@ Gets a value indicating whether to use a "simplified" arithmetic. In the simplif
 
     public PeterO.Numbers.EInteger Precision { get; }
 
-Gets the maximum length of a converted number in digits, ignoring the radix point and exponent. For example, if precision is 3, a converted number's mantissa (significand) can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision. Not-a-number (NaN) values can carry an optional number, its payload, that serves as its "diagnostic information", In general, if an operation requires copying an NaN's payload, only up to as many digits of that payload as the precision given in this context, namely the least significant digits, are copied.
+Gets the maximum length of a converted number in digits, ignoring the radix point and exponent. For example, if precision is 3, a converted number's significand can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision. Not-a-number (NaN) values can carry an optional number, its payload, that serves as its "diagnostic information", In general, if an operation requires copying an NaN's payload, only up to as many digits of that payload as the precision given in this context, namely the least significant digits, are copied.
 
 <b>Returns:</b>
 
-The maximum length of a converted number in digits, ignoring the radix point and exponent. For example, if precision is 3, a converted number's mantissa (significand) can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision.
+The maximum length of a converted number in digits, ignoring the radix point and exponent. For example, if precision is 3, a converted number's significand can range from 0 to 999 (up to three digits long). If 0, converted numbers can have any precision.
 
 <a id="Rounding"></a>
 ### Rounding

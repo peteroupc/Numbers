@@ -306,14 +306,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to a byte
     /// (from 0 to 255) if it can fit in a byte (from 0 to 255) after
-    /// truncating to an integer.</summary>
+    /// converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// byte (from 0 to 255).</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than 0 or greater than 255.</exception>
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than 0 or greater than 255.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -338,13 +340,14 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Converts this number's value to an 8-bit signed integer if
-    /// it can fit in an 8-bit signed integer after truncating to an
-    /// integer.</summary>
+    /// it can fit in an 8-bit signed integer after converting it to an
+    /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to an 8-bit signed
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than -128 or greater
-    /// than 127.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than -128 or greater than
+    /// 127.</exception>
     [CLSCompliant(false)]
     public sbyte ToSByteChecked() {
       if (!this.IsFinite) {
@@ -354,9 +357,9 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToSByteChecked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as an 8-bit
-    /// signed integer.</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as an 8-bit signed integer.</summary>
     /// <returns>This number, converted to an 8-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
@@ -394,14 +397,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to an
     /// 8-bit signed integer if it can fit in an 8-bit signed integer after
-    /// truncating to an integer.</summary>
+    /// converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to an
     /// 8-bit signed integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than -128 or greater than 127.</exception>
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than -128 or greater than 127.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
@@ -429,14 +434,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to a
     /// 16-bit signed integer if it can fit in a 16-bit signed integer
-    /// after truncating to an integer.</summary>
+    /// after converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit signed integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than -32768 or greater than 32767.</exception>
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than -32768 or greater than 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -461,13 +468,14 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Converts this number's value to a 16-bit unsigned integer
-    /// if it can fit in a 16-bit unsigned integer after truncating to an
-    /// integer.</summary>
+    /// if it can fit in a 16-bit unsigned integer after converting it to
+    /// an integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 16-bit unsigned
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than 0 or greater
-    /// than 65535.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than 0 or greater than
+    /// 65535.</exception>
     [CLSCompliant(false)]
     public ushort ToUInt16Checked() {
       if (!this.IsFinite) {
@@ -477,9 +485,9 @@ namespace PeterO.Numbers {
         ((ushort)0) : this.ToEInteger().ToUInt16Checked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as a 16-bit
-    /// unsigned integer.</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as a 16-bit unsigned integer.</summary>
     /// <returns>This number, converted to a 16-bit unsigned integer.
     /// Returns 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
@@ -518,14 +526,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to a
     /// 16-bit unsigned integer if it can fit in a 16-bit unsigned integer
-    /// after truncating to an integer.</summary>
+    /// after converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit unsigned integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than 0 or greater than 65535.</exception>
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than 0 or greater than 65535.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
@@ -553,15 +563,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to a
     /// 32-bit signed integer if it can fit in a 32-bit signed integer
-    /// after truncating to an integer.</summary>
+    /// after converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than -2147483648 or greater than
-    /// 2147483647.</exception>
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than -2147483648 or greater than 2147483647.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -586,13 +597,14 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Converts this number's value to a 32-bit signed integer if
-    /// it can fit in a 32-bit signed integer after truncating to an
-    /// integer.</summary>
+    /// it can fit in a 32-bit signed integer after converting it to an
+    /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than 0 or greater
-    /// than 4294967295.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than 0 or greater than
+    /// 4294967295.</exception>
     [CLSCompliant(false)]
     public uint ToUInt32Checked() {
       if (!this.IsFinite) {
@@ -601,9 +613,9 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0U : this.ToEInteger().ToUInt32Checked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as a 32-bit
-    /// signed integer.</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as a 32-bit signed integer.</summary>
     /// <returns>This number, converted to a 32-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
@@ -641,14 +653,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to a
     /// 32-bit signed integer if it can fit in a 32-bit signed integer
-    /// after truncating to an integer.</summary>
+    /// after converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than 0 or greater than 4294967295.</exception>
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than 0 or greater than 4294967295.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
@@ -676,14 +690,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to a
     /// 64-bit signed integer if it can fit in a 64-bit signed integer
-    /// after truncating to an integer.</summary>
+    /// after converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit signed integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than -9223372036854775808 or greater than
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
@@ -709,13 +725,14 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Converts this number's value to a 64-bit unsigned integer
-    /// if it can fit in a 64-bit unsigned integer after truncating to an
-    /// integer.</summary>
+    /// if it can fit in a 64-bit unsigned integer after converting it to
+    /// an integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 64-bit unsigned
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than 0 or greater
-    /// than 18446744073709551615.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than 0 or greater than
+    /// 18446744073709551615.</exception>
     [CLSCompliant(false)]
     public ulong ToUInt64Checked() {
       if (!this.IsFinite) {
@@ -725,9 +742,9 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToUInt64Checked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as a 64-bit
-    /// unsigned integer.</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as a 64-bit unsigned integer.</summary>
     /// <returns>This number, converted to a 64-bit unsigned integer.
     /// Returns 0 if this value is infinity or not-a-number.</returns>
     [CLSCompliant(false)]
@@ -765,15 +782,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts an arbitrary-precision rational number to a
     /// 64-bit unsigned integer if it can fit in a 64-bit unsigned integer
-    /// after truncating to an integer.</summary>
+    /// after converting it to an integer by discarding its fractional
+    /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit unsigned integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is infinity or not-a-number, or the truncated
-    /// integer is less than 0 or greater than
-    /// 18446744073709551615.</exception>
+    /// name='input'/> is infinity or not-a-number, or the number, once
+    /// converted to an integer by discarding its fractional part, is less
+    /// than 0 or greater than 18446744073709551615.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]

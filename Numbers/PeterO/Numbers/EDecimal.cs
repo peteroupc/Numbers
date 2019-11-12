@@ -479,8 +479,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Creates a number with the value
     /// <c>exponent*10^significand</c>.</summary>
-    /// <param name='mantissaSmall'>Not documented yet.</param>
-    /// <param name='exponentSmall'>Not documented yet.</param>
+    /// <param name='mantissaSmall'>The parameter <paramref
+    /// name='mantissaSmall'/> is a 32-bit signed integer.</param>
+    /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
     public static EDecimal Create(int mantissaSmall, int exponentSmall) {
       if (mantissaSmall == Int32.MinValue) {
@@ -3200,11 +3201,14 @@ BigNumberFlags.FlagSignalingNaN);
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
     /// and exactly 5 digits after the decimal point:</para>
-    /// <code> &#x2f;&#x2a; After performing arithmetic operations, adjust &#x2f;&#x2a; the number to 5&#x2a;&#x2f;&#x2a;&#x2f;
+    /// <code> &#x2f;&#x2a; After performing arithmetic operations, adjust
+    /// &#x2f;&#x2a; the number to 5&#x2a;&#x2f;&#x2a;&#x2f;
     /// &#x2f;&#x2a;&#x2a;&#x2f;
     /// digits after the decimal point number = number.Quantize(
-    /// EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the decimal point&#x2a;&#x2f;
-    /// EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit precision);&#x2a;&#x2f;</code>
+    /// EInteger.FromInt32(-5), &#x2f;&#x2a; five digits after the decimal
+    /// point&#x2a;&#x2f;
+    /// EContext.ForPrecision(25) &#x2f;&#x2a; 25-digit
+    /// precision);&#x2a;&#x2f;</code>
     /// <para>A fixed-point decimal arithmetic in which no digits come
     /// after the decimal point (a desired exponent of 0) is considered an
     /// "integer arithmetic".</para>
@@ -3460,10 +3464,8 @@ BigNumberFlags.FlagSignalingNaN);
       EDecimal divisor,
       EContext ctx) {
       return this.Subtract (
-          this.DivideToIntegerNaturalScale(
-            divisor,
-            null).Multiply(divisor, null),
-            ctx);
+        this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
+        ctx);
     }
 
     /// <summary>Finds the distance to the closest multiple of the given
@@ -4467,7 +4469,9 @@ BigNumberFlags.FlagSignalingNaN);
         FastInteger bigexponent = this.exponent.ToFastInteger().Negate();
         EInteger bigmantissa = this.unsignedMantissa.ToEInteger();
         var acc = new DigitShiftAccumulator(bigmantissa, 0, 0);
-        acc.TruncateOrShiftRight(bigexponent, true);
+        acc.TruncateOrShiftRight(
+          bigexponent,
+          true);
         if (exact && (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits !=
             0)) {
           // Some digits were discarded
@@ -5240,13 +5244,14 @@ BigNumberFlags.FlagSignalingNaN);
     // Begin integer conversions
 
     /// <summary>Converts this number's value to a byte (from 0 to 255) if
-    /// it can fit in a byte (from 0 to 255) after truncating to an
-    /// integer.</summary>
+    /// it can fit in a byte (from 0 to 255) after converting it to an
+    /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a byte (from 0 to
     /// 255).</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than 0 or greater
-    /// than 255.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than 0 or greater than
+    /// 255.</exception>
     public byte ToByteChecked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -5260,9 +5265,9 @@ BigNumberFlags.FlagSignalingNaN);
       return this.ToEInteger().ToByteChecked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as a byte
-    /// (from 0 to 255).</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as a byte (from 0 to 255).</summary>
     /// <returns>This number, converted to a byte (from 0 to 255). Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public byte ToByteUnchecked() {
@@ -5304,13 +5309,14 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
     /// <summary>Converts this number's value to a 16-bit signed integer if
-    /// it can fit in a 16-bit signed integer after truncating to an
-    /// integer.</summary>
+    /// it can fit in a 16-bit signed integer after converting it to an
+    /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 16-bit signed
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than -32768 or
-    /// greater than 32767.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than -32768 or greater than
+    /// 32767.</exception>
     public short ToInt16Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -5324,9 +5330,9 @@ BigNumberFlags.FlagSignalingNaN);
       return this.ToEInteger().ToInt16Checked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as a 16-bit
-    /// signed integer.</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as a 16-bit signed integer.</summary>
     /// <returns>This number, converted to a 16-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public short ToInt16Unchecked() {
@@ -5365,13 +5371,14 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
     /// <summary>Converts this number's value to a 32-bit signed integer if
-    /// it can fit in a 32-bit signed integer after truncating to an
-    /// integer.</summary>
+    /// it can fit in a 32-bit signed integer after converting it to an
+    /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than -2147483648 or
-    /// greater than 2147483647.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than -2147483648 or greater
+    /// than 2147483647.</exception>
     public int ToInt32Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -5385,9 +5392,9 @@ BigNumberFlags.FlagSignalingNaN);
       return this.ToEInteger().ToInt32Checked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as a 32-bit
-    /// signed integer.</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as a 32-bit signed integer.</summary>
     /// <returns>This number, converted to a 32-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public int ToInt32Unchecked() {
@@ -5415,14 +5422,14 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
     /// <summary>Converts this number's value to a 64-bit signed integer if
-    /// it can fit in a 64-bit signed integer after truncating to an
-    /// integer.</summary>
+    /// it can fit in a 64-bit signed integer after converting it to an
+    /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 64-bit signed
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
-    /// not-a-number, or the truncated integer is less than
-    /// -9223372036854775808 or greater than
-    /// 9223372036854775807.</exception>
+    /// not-a-number, or the number, once converted to an integer by
+    /// discarding its fractional part, is less than -9223372036854775808
+    /// or greater than 9223372036854775807.</exception>
     public long ToInt64Checked() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -5436,9 +5443,9 @@ BigNumberFlags.FlagSignalingNaN);
       return this.ToEInteger().ToInt64Checked();
     }
 
-    /// <summary>Truncates this number's value to an integer and returns
-    /// the least-significant bits of its two's-complement form as a 64-bit
-    /// signed integer.</summary>
+    /// <summary>Converts this number's value to an integer by discarding
+    /// its fractional part, and returns the least-significant bits of its
+    /// two's-complement form as a 64-bit signed integer.</summary>
     /// <returns>This number, converted to a 64-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public long ToInt64Unchecked() {
