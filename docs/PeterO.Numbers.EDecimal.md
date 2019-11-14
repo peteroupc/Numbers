@@ -256,6 +256,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[public static readonly PeterO.Numbers.EDecimal PositiveInfinity;](#PositiveInfinity)</code> - Positive infinity, greater than any other number.
 * <code>[Pow(int)](#Pow_int)</code> - Raises this object's value to the given exponent.
 * <code>[Pow(int, PeterO.Numbers.EContext)](#Pow_int_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
+* <code>[Pow(PeterO.Numbers.EDecimal)](#Pow_PeterO_Numbers_EDecimal)</code> - Raises this object's value to the given exponent, using unlimited precision.
 * <code>[Pow(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Pow_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
 * <code>[Precision()](#Precision)</code> - Finds the number of digits in this number's significand.
 * <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value but a new exponent.
@@ -828,9 +829,9 @@ Creates a number with the value  `exponent*10^significand` .
 
 <b>Parameters:</b>
 
- * <i>significand</i>: Desired value for the significand.
+ * <i>mantissa</i>: Not documented yet.
 
- * <i>exponent</i>: Desired value for the exponent.
+ * <i>exponent</i>: Not documented yet.
 
 <b>Return Value:</b>
 
@@ -3146,6 +3147,22 @@ Raises this object's value to the given exponent.
 <b>Return Value:</b>
 
 This^exponent. Signals the flag FlagInvalid and returns NaN if this object and exponent are both 0.
+
+<a id="Pow_PeterO_Numbers_EDecimal"></a>
+### Pow
+
+    public PeterO.Numbers.EDecimal Pow(
+        PeterO.Numbers.EDecimal exponent);
+
+Raises this object's value to the given exponent, using unlimited precision.
+
+<b>Parameters:</b>
+
+ * <i>exponent</i>: An arbitrary-precision decimal number expressing the exponent to raise this object's value to.
+
+<b>Return Value:</b>
+
+This^exponent. Returns not-a-number (NaN) if the exponent has a fractional part.
 
 <a id="Pow_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Pow

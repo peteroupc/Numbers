@@ -356,7 +356,7 @@ namespace Test {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
           }
-          Assert.AreEqual (
+          Assert.AreEqual(
             EInteger.Zero,
             EInteger.FromByte(enumber.ToByteUnchecked()));
           try {
@@ -377,7 +377,7 @@ namespace Test {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
           }
-          Assert.AreEqual (
+          Assert.AreEqual(
             EInteger.Zero,
             EInteger.FromInt16(enumber.ToInt16Unchecked()));
           try {
@@ -398,7 +398,7 @@ namespace Test {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
           }
-          Assert.AreEqual (
+          Assert.AreEqual(
             EInteger.Zero,
             EInteger.FromInt32(enumber.ToInt32Unchecked()));
           try {
@@ -419,7 +419,7 @@ namespace Test {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
           }
-          Assert.AreEqual (
+          Assert.AreEqual(
             EInteger.Zero,
             EInteger.FromInt64(enumber.ToInt64Unchecked()));
           try {
@@ -1231,16 +1231,16 @@ namespace Test {
     }
     [Test]
     public void TestExponent() {
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-7),
         EDecimal.FromString("1.265e-4").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-4),
         EDecimal.FromString("0.000E-1").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-16),
         EDecimal.FromString("0.57484848535648e-2").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-22),
         EDecimal.FromString("0.485448e-16").Exponent);
       {
@@ -1249,13 +1249,13 @@ namespace Test {
             "0.5657575351495151495649565150e+8").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-10),
         EDecimal.FromString("0e-10").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-17),
         EDecimal.FromString("0.504952e-11").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-13),
         EDecimal.FromString("0e-13").Exponent);
       {
@@ -1264,10 +1264,10 @@ namespace Test {
             "0.49495052535648555757515648e-17").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)7,
         EDecimal.FromString("0.485654575150e+19").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         EInteger.Zero,
         EDecimal.FromString("0.48515648e+8").Exponent);
       {
@@ -1276,22 +1276,22 @@ namespace Test {
             "0.49485251485649535552535451544956e-13").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-6),
         EDecimal.FromString("0.565754515152575448505257e+18").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)16,
         EDecimal.FromString("0e+16").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)6,
         EDecimal.FromString("0.5650e+10").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-5),
         EDecimal.FromString("0.49555554575756575556e+15").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-37),
         EDecimal.FromString("0.57494855545057534955e-17").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-25),
         EDecimal.FromString("0.4956504855525748575456e-3").Exponent);
       {
@@ -1306,10 +1306,10 @@ namespace Test {
             "0.484853575350494950575749545057e+8").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)11,
         EDecimal.FromString("0.52545451e+19").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-29),
         EDecimal.FromString("0.48485654495751485754e-9").Exponent);
       {
@@ -1324,10 +1324,10 @@ namespace Test {
             "0.485456485657545752495450554857e+15").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-37),
         EDecimal.FromString("0.485448525554495048e-19").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-29),
         EDecimal.FromString("0.494952485550514953565655e-5").Exponent);
       {
@@ -1342,7 +1342,7 @@ namespace Test {
             "0.5156524853575655535351554949525449e-3").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)3,
         EDecimal.FromString("0e+3").Exponent);
       {
@@ -1351,10 +1351,10 @@ namespace Test {
             "0.51505056554957575255555250e+18").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-14),
         EDecimal.FromString("0.5456e-10").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-36),
         EDecimal.FromString("0.494850515656505252555154e-12").Exponent);
       {
@@ -1375,13 +1375,13 @@ namespace Test {
             "0.494855545257545656515554495057e-10").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-18),
         EDecimal.FromString("0.5656504948515252555456e+4").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-17),
         EDecimal.FromString("0e-17").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-32),
         EDecimal.FromString("0.55535551515249535049495256e-6").Exponent);
       {
@@ -1390,16 +1390,16 @@ namespace Test {
             "0.4948534853564853565654514855e-3").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-38),
         EDecimal.FromString("0.5048485057535249555455e-16").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-16),
         EDecimal.FromString("0e-16").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)5,
         EDecimal.FromString("0.5354e+9").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         EInteger.One,
         EDecimal.FromString("0.54e+3").Exponent);
       {
@@ -1408,22 +1408,22 @@ namespace Test {
             "0.4849525755545751574853494948e-10").Exponent;
         Assert.AreEqual(bigintTemp, bigintTemp2);
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-33),
         EDecimal.FromString("0.52514853565252565251565548e-7").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-13),
         EDecimal.FromString("0.575151545652e-1").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-22),
         EDecimal.FromString("0.49515354514852e-8").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-24),
         EDecimal.FromString("0.54535357515356545554e-4").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-11),
         EDecimal.FromString("0.574848e-5").Exponent);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (EInteger)(-3),
         EDecimal.FromString("0.565055e+3").Exponent);
     }
@@ -2191,10 +2191,10 @@ namespace Test {
     }
     [Test]
     public void TestFromEFloat() {
-      Assert.AreEqual (
+      Assert.AreEqual(
         EDecimal.Zero,
         EDecimal.FromEFloat(EFloat.Zero));
-      Assert.AreEqual (
+      Assert.AreEqual(
         EDecimal.NegativeZero,
         EDecimal.FromEFloat(EFloat.NegativeZero));
       try {
@@ -2289,7 +2289,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       Assert.AreEqual(EDecimal.Zero, EDecimal.FromString("0"));
-      Assert.AreEqual (
+      Assert.AreEqual(
         EDecimal.Zero,
         EDecimal.FromString("0", null));
       try {
@@ -2950,16 +2950,29 @@ namespace Test {
     }
     [Test]
     public void TestPlus() {
-      Assert.AreEqual (
+      Assert.AreEqual(
         EDecimal.Zero,
         EDecimal.NegativeZero.Plus(EContext.Basic));
-      Assert.AreEqual (
+      Assert.AreEqual(
         EDecimal.Zero,
         EDecimal.NegativeZero.Plus(null));
     }
     [Test]
     public void TestPow() {
-      // not implemented yet
+EDecimal a = EDecimal.FromInt32(33000);
+EDecimal b = EDecimal.FromInt32(6);
+EDecimal result = EDecimal.FromString("1291467969000000000000000000");
+EDecimal powa = a.Pow(b);
+TestCommon.CompareTestEqual((EDecimal)result, (EDecimal)powa);
+var r = new RandomGenerator();
+for (var i = 0; i < 1000; ++i) {
+ a = EDecimal.FromInt32(r.UniformInt(1000000) + 1);
+ b = EDecimal.FromInt32(r.UniformInt(12) + 2);
+ EInteger ei = a.ToEInteger().Pow(b.ToEInteger());
+ result = EDecimal.FromEInteger(ei);
+ powa = a.Pow(b);
+ TestCommon.CompareTestEqual((EDecimal)result, (EDecimal)powa);
+}
     }
     [Test]
     public void TestQuantize() {
@@ -2980,7 +2993,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.24e-1")),
           remainder.ToString());
@@ -2993,7 +3006,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.42e-2")),
           remainder.ToString());
@@ -3006,7 +3019,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.4e-3")),
           remainder.ToString());
@@ -3019,7 +3032,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.36e-2")),
           remainder.ToString());
@@ -3032,7 +3045,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.2e-2")),
           remainder.ToString());
@@ -3045,7 +3058,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.3e-1")),
           remainder.ToString());
@@ -3058,7 +3071,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.12e-2")),
           remainder.ToString());
@@ -3071,7 +3084,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.6e-2")),
           remainder.ToString());
@@ -3084,7 +3097,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.35e-2")),
           remainder.ToString());
@@ -3097,7 +3110,7 @@ namespace Test {
         EDecimal remainder = dividend.RemainderNoRoundAfterDivide(
           divisor,
           EContext.CliDecimal);
-        Assert.AreEqual (
+        Assert.AreEqual(
           0,
           remainder.CompareTo(EDecimal.FromString("0.32e-1")),
           remainder.ToString());
@@ -3512,7 +3525,7 @@ namespace Test {
               edec.Abs(),
               DoubleUnderflowToZero,
               edecstr);
-            Assert.AreEqual (
+            Assert.AreEqual(
               edec.IsNegative,
               EDecimal.FromDouble(dbl).IsNegative,
               edecstr);
@@ -4244,10 +4257,10 @@ namespace Test {
     }
     [Test]
     public void TestToEFloat() {
-      Assert.AreEqual (
+      Assert.AreEqual(
         EFloat.Zero,
         EDecimal.Zero.ToEFloat());
-      Assert.AreEqual (
+      Assert.AreEqual(
         EFloat.NegativeZero,
         EDecimal.NegativeZero.ToEFloat());
       if (EFloat.Zero.ToSingle() != 0.0f) {
@@ -5041,7 +5054,7 @@ namespace Test {
               edec.Abs(),
               SingleUnderflowToZero,
               edecstr);
-            Assert.AreEqual (
+            Assert.AreEqual(
               edec.IsNegative,
               EDecimal.FromSingle(sng).IsNegative,
               edecstr);
@@ -5087,13 +5100,13 @@ namespace Test {
     [Test]
     public void TestToString() {
       for (var i = 0; i < ValueTestStrings.Length; i += 4) {
-        Assert.AreEqual (
+        Assert.AreEqual(
           ValueTestStrings[i + 1],
           EDecimal.FromString(ValueTestStrings[i]).ToString());
-        Assert.AreEqual (
+        Assert.AreEqual(
           ValueTestStrings[i + 2],
           EDecimal.FromString(ValueTestStrings[i]).ToEngineeringString());
-        Assert.AreEqual (
+        Assert.AreEqual(
           ValueTestStrings[i + 3],
           EDecimal.FromString(ValueTestStrings[i]).ToPlainString());
       }

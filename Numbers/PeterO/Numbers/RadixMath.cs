@@ -4449,7 +4449,10 @@ otherValue;
       error = error.Copy();
       error.AddInt(18);
       EInteger bigError = error.AsEInteger();
-      EContext ctxdiv = SetPrecisionIfLimited (
+      // if (ctx == null) {
+      // DebugUtility.Log("thisValue=" + thisValue + " powInt=" + (powIntBig));
+      // }
+      EContext ctxdiv = ctx == null ? ctx : SetPrecisionIfLimited(
           ctx,
           ctx.Precision + (EInteger)bigError)
         .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
@@ -4465,15 +4468,17 @@ otherValue;
       while (!powIntBig.IsZero) {
         if (!powIntBig.IsEven) {
           r = this.Multiply(r, thisValue, ctxdiv);
-          if ((ctxdiv.Flags & EContext.FlagOverflow) != 0) {
+          if (ctxdiv != null && (ctxdiv.Flags & EContext.FlagOverflow) != 0) {
             return this.SignalOverflow(ctx, retvalNeg);
           }
         }
         powIntBig >>= 1;
         if (!powIntBig.IsZero) {
-          ctxdiv.Flags = 0;
+          if (ctxdiv != null) {
+            ctxdiv.Flags = 0;
+          }
           T tmp = this.Multiply(thisValue, thisValue, ctxdiv);
-          if ((ctxdiv.Flags & EContext.FlagOverflow) != 0) {
+          if (ctxdiv != null && (ctxdiv.Flags & EContext.FlagOverflow) != 0) {
             // Avoid multiplying too huge numbers with
             // limited exponent range
             return this.SignalOverflow(ctx, retvalNeg);

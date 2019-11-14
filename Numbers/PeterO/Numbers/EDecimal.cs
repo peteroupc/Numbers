@@ -1641,8 +1641,8 @@ BigNumberFlags.FlagSignalingNaN);
       return ExtendedMathValue.CompareTo(this, other);
     }
 
-    /// <summary>Compares an arbitrary-precision binary float with this
-    /// instance.</summary>
+    /// <summary>Compares an arbitrary-precision binary floating-point
+    /// number with this instance.</summary>
     /// <param name='other'>The other object to compare. Can be
     /// null.</param>
     /// <returns>Zero if the values are equal; a negative number if this
@@ -3148,6 +3148,16 @@ BigNumberFlags.FlagSignalingNaN);
       return GetMathValue(ctx).Power(this, exponent, ctx);
     }
 
+    /// <summary>Raises this object's value to the given exponent, using
+    /// unlimited precision.</summary>
+    /// <param name='exponent'>An arbitrary-precision decimal number
+    /// expressing the exponent to raise this object's value to.</param>
+    /// <returns>This^exponent. Returns not-a-number (NaN) if the exponent
+    /// has a fractional part.</returns>
+    public EDecimal Pow(EDecimal exponent) {
+      return this.Pow(exponent, null);
+    }
+
     /// <summary>Raises this object's value to the given
     /// exponent.</summary>
     /// <param name='exponentSmall'>The exponent to raise this object's
@@ -4157,8 +4167,8 @@ BigNumberFlags.FlagSignalingNaN);
     /// <summary>Creates a binary floating-point number from this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
-    /// case the resulting binary float will be an approximation of this
-    /// decimal number's value.</summary>
+    /// case the resulting binary floating-point number will be an
+    /// approximation of this decimal number's value.</summary>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     [Obsolete("Renamed to ToEFloat.")]
@@ -4169,8 +4179,8 @@ BigNumberFlags.FlagSignalingNaN);
     /// <summary>Creates a binary floating-point number from this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
-    /// case the resulting binary float will be an approximation of this
-    /// decimal number's value.</summary>
+    /// case the resulting binary floating-point number will be an
+    /// approximation of this decimal number's value.</summary>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public EFloat ToEFloat() {
@@ -4505,8 +4515,8 @@ BigNumberFlags.FlagSignalingNaN);
     /// <summary>Creates a binary floating-point number from this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
-    /// case the resulting binary float will be an approximation of this
-    /// decimal number's value.</summary>
+    /// case the resulting binary floating-point number will be an
+    /// approximation of this decimal number's value.</summary>
     /// <param name='ec'>The parameter <paramref name='ec'/> is an EContext
     /// object.</param>
     /// <returns>An arbitrary-precision float floating-point

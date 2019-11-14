@@ -335,8 +335,8 @@ namespace PeterO.Numbers {
       return FromEDecimal(ef);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a rational
-    /// number.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a rational number.</summary>
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
@@ -393,8 +393,8 @@ namespace PeterO.Numbers {
       return ERational.Create(num, den);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a rational
-    /// number.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a rational number.</summary>
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
@@ -1054,8 +1054,8 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
-    /// <summary>Compares an arbitrary-precision binary float with this
-    /// instance.</summary>
+    /// <summary>Compares an arbitrary-precision binary floating-point
+    /// number with this instance.</summary>
     /// <param name='other'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
@@ -1830,7 +1830,8 @@ namespace PeterO.Numbers {
       return this.ToEDecimalExactIfPossible(ctx);
     }
 
-    /// <summary>Converts this rational number to a binary float.</summary>
+    /// <summary>Converts this rational number to a binary floating-point
+    /// number.</summary>
     /// <returns>The exact value of the rational number, or not-a-number
     /// (NaN) if the result can't be exact because it has a nonterminating
     /// binary expansion.</returns>
@@ -1838,8 +1839,8 @@ namespace PeterO.Numbers {
       return this.ToEFloat(null);
     }
 
-    /// <summary>Converts this rational number to a binary float and rounds
-    /// that result to the given precision.</summary>
+    /// <summary>Converts this rational number to a binary floating-point
+    /// number and rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
     /// of the context is true, will also store the flags resulting from
@@ -1869,9 +1870,9 @@ namespace PeterO.Numbers {
       return ef.Divide(EFloat.FromEInteger(this.Denominator), ctx);
     }
 
-    /// <summary>Converts this rational number to a binary float, but if
-    /// the result would have a nonterminating binary expansion, rounds
-    /// that result to the given precision.</summary>
+    /// <summary>Converts this rational number to a binary floating-point
+    /// number, but if the result would have a nonterminating binary
+    /// expansion, rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
     /// will be used only if the exact result would have a nonterminating
@@ -1916,7 +1917,8 @@ namespace PeterO.Numbers {
       return ed;
     }
 
-    /// <summary>Converts this rational number to a binary float.</summary>
+    /// <summary>Converts this rational number to a binary floating-point
+    /// number.</summary>
     /// <returns>The exact value of the rational number, or not-a-number
     /// (NaN) if the result can't be exact because it has a nonterminating
     /// binary expansion.</returns>
@@ -1925,8 +1927,8 @@ namespace PeterO.Numbers {
       return this.ToEFloat();
     }
 
-    /// <summary>Converts this rational number to a binary float and rounds
-    /// that result to the given precision.</summary>
+    /// <summary>Converts this rational number to a binary floating-point
+    /// number and rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
     /// of the context is true, will also store the flags resulting from
@@ -1942,9 +1944,9 @@ namespace PeterO.Numbers {
       return this.ToEFloat(ctx);
     }
 
-    /// <summary>Converts this rational number to a binary float, but if
-    /// the result would have a nonterminating binary expansion, rounds
-    /// that result to the given precision.</summary>
+    /// <summary>Converts this rational number to a binary floating-point
+    /// number, but if the result would have a nonterminating binary
+    /// expansion, rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
     /// will be used only if the exact result would have a nonterminating

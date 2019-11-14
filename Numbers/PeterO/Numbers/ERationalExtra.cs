@@ -35,8 +35,8 @@ namespace PeterO.Numbers {
       return FromEDecimal(eint);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to an
-    /// arbitrary-precision rational number.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to an arbitrary-precision rational number.</summary>
     /// <param name='eint'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>

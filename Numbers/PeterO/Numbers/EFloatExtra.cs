@@ -18,26 +18,28 @@ namespace PeterO.Numbers {
       return FromBoolean(boolValue);
     }
 
-    /// <summary>Creates a binary float from a 32-bit floating-point
-    /// number. This method computes the exact value of the floating point
-    /// number, not an approximation, as is often the case by converting
-    /// the floating point number to a string first.</summary>
+    /// <summary>Creates a binary floating-point number from a 32-bit
+    /// floating-point number. This method computes the exact value of the
+    /// floating point number, not an approximation, as is often the case
+    /// by converting the floating point number to a string
+    /// first.</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
-    /// <returns>A binary float with the same value as <paramref
-    /// name='flt'/>.</returns>
+    /// <returns>A binary floating-point number with the same value as
+    /// <paramref name='flt'/>.</returns>
     public static implicit operator EFloat(float flt) {
       return FromSingle(flt);
     }
 
-    /// <summary>Creates a binary float from a 64-bit floating-point
-    /// number. This method computes the exact value of the floating point
-    /// number, not an approximation, as is often the case by converting
-    /// the floating point number to a string first.</summary>
+    /// <summary>Creates a binary floating-point number from a 64-bit
+    /// floating-point number. This method computes the exact value of the
+    /// floating point number, not an approximation, as is often the case
+    /// by converting the floating point number to a string
+    /// first.</summary>
     /// <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
     /// floating-point number.</param>
-    /// <returns>A binary float with the same value as <paramref
-    /// name='dbl'/>.</returns>
+    /// <returns>A binary floating-point number with the same value as
+    /// <paramref name='dbl'/>.</returns>
     public static implicit operator EFloat(double dbl) {
       return FromDouble(dbl);
     }
@@ -45,8 +47,8 @@ namespace PeterO.Numbers {
     /// <summary>Converts an arbitrary-precision integer to an arbitrary
     /// precision binary.</summary>
     /// <param name='eint'>An arbitrary-precision integer.</param>
-    /// <returns>An arbitrary-precision binary float with the exponent set
-    /// to 0.</returns>
+    /// <returns>An arbitrary-precision binary floating-point number with
+    /// the exponent set to 0.</returns>
     public static implicit operator EFloat(EInteger eint) {
       return FromEInteger(eint);
     }
@@ -68,8 +70,8 @@ namespace PeterO.Numbers {
       return bthis.Add(otherValue);
     }
 
-    /// <summary>Subtracts one arbitrary-precision binary float from
-    /// another.</summary>
+    /// <summary>Subtracts one arbitrary-precision binary floating-point
+    /// number from another.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='subtrahend'>The second operand.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -132,8 +134,9 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <summary>Divides one binary float by another and returns the
-    /// result. When possible, the result will be exact.</summary>
+    /// <summary>Divides one binary floating-point number by another and
+    /// returns the result. When possible, the result will be
+    /// exact.</summary>
     /// <param name='dividend'>The number that will be divided by the
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
@@ -154,7 +157,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Finds the remainder when dividing one arbitrary-precision
-    /// binary float by another.</summary>
+    /// binary floating-point number by another.</summary>
     /// <param name='dividend'>The number that will be divided by the
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
@@ -186,10 +189,10 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a value to
-    /// an arbitrary-precision integer. Any fractional part in this value
-    /// will be discarded when converting to an arbitrary-precision
-    /// integer.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a value to an arbitrary-precision integer. Any fractional
+    /// part in this value will be discarded when converting to an
+    /// arbitrary-precision integer.</summary>
     /// <param name='bigValue'>The number to convert as an
     /// arbitrary-precision binary floating-point number.</param>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -230,9 +233,9 @@ namespace PeterO.Numbers {
       return bigValue.ToDouble();
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to its
-    /// closest equivalent as a 32-bit floating-point number. The half-even
-    /// rounding mode is used.
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to its closest equivalent as a 32-bit floating-point number.
+    /// The half-even rounding mode is used.
     /// <para>If this value is a NaN, sets the high bit of the 32-bit
     /// floating point number's significand area for a quiet NaN, and
     /// clears it for a signaling NaN. Then the other bits of the
@@ -258,9 +261,9 @@ namespace PeterO.Numbers {
     }
     // Begin integer conversions
 
-    /// <summary>Converts an arbitrary-precision binary float to a byte
-    /// (from 0 to 255) if it can fit in a byte (from 0 to 255) after
-    /// converting it to an integer by discarding its fractional
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a byte (from 0 to 255) if it can fit in a byte (from 0 to
+    /// 255) after converting it to an integer by discarding its fractional
     /// part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
@@ -348,10 +351,10 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to an 8-bit
-    /// signed integer if it can fit in an 8-bit signed integer after
-    /// converting it to an integer by discarding its fractional
-    /// part.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to an 8-bit signed integer if it can fit in an 8-bit signed
+    /// integer after converting it to an integer by discarding its
+    /// fractional part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to an
@@ -385,10 +388,10 @@ namespace PeterO.Numbers {
       return EFloat.FromSByte(inputSByte);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a 16-bit
-    /// signed integer if it can fit in a 16-bit signed integer after
-    /// converting it to an integer by discarding its fractional
-    /// part.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a 16-bit signed integer if it can fit in a 16-bit signed
+    /// integer after converting it to an integer by discarding its
+    /// fractional part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
@@ -476,10 +479,10 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a 16-bit
-    /// unsigned integer if it can fit in a 16-bit unsigned integer after
-    /// converting it to an integer by discarding its fractional
-    /// part.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a 16-bit unsigned integer if it can fit in a 16-bit
+    /// unsigned integer after converting it to an integer by discarding
+    /// its fractional part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
@@ -513,10 +516,10 @@ namespace PeterO.Numbers {
       return EFloat.FromUInt16(inputUInt16);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a 32-bit
-    /// signed integer if it can fit in a 32-bit signed integer after
-    /// converting it to an integer by discarding its fractional
-    /// part.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a 32-bit signed integer if it can fit in a 32-bit signed
+    /// integer after converting it to an integer by discarding its
+    /// fractional part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
@@ -603,10 +606,10 @@ namespace PeterO.Numbers {
       return FromInt64(val);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a 32-bit
-    /// signed integer if it can fit in a 32-bit signed integer after
-    /// converting it to an integer by discarding its fractional
-    /// part.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a 32-bit signed integer if it can fit in a 32-bit signed
+    /// integer after converting it to an integer by discarding its
+    /// fractional part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
@@ -640,10 +643,10 @@ namespace PeterO.Numbers {
       return EFloat.FromUInt32(inputUInt32);
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a 64-bit
-    /// signed integer if it can fit in a 64-bit signed integer after
-    /// converting it to an integer by discarding its fractional
-    /// part.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a 64-bit signed integer if it can fit in a 64-bit signed
+    /// integer after converting it to an integer by discarding its
+    /// fractional part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
@@ -731,10 +734,10 @@ namespace PeterO.Numbers {
       return FromEInteger(EInteger.FromUInt64(inputUInt64));
     }
 
-    /// <summary>Converts an arbitrary-precision binary float to a 64-bit
-    /// unsigned integer if it can fit in a 64-bit unsigned integer after
-    /// converting it to an integer by discarding its fractional
-    /// part.</summary>
+    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// number to a 64-bit unsigned integer if it can fit in a 64-bit
+    /// unsigned integer after converting it to an integer by discarding
+    /// its fractional part.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
