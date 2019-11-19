@@ -45,6 +45,8 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
 * <code>[FromRadixString(string, int)](#FromRadixString_string_int)</code> - Converts a string to an arbitrary-precision integer in a given radix.
 * <code>[FromRadixSubstring(string, int, int, int)](#FromRadixSubstring_string_int_int_int)</code> - Converts a portion of a string to an arbitrary-precision integer in a given radix.
+* <code>[FromRadixSubstringGeneral(string, int, int, int, bool)](#FromRadixSubstringGeneral_string_int_int_int_bool)</code> - Not documented yet.
+* <code>[FromRadixSubstringInner(string, int, int, int, bool)](#FromRadixSubstringInner_string_int_int_int_bool)</code> - Not documented yet.
 * <code>[FromSByte(sbyte)](#FromSByte_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision integer.
 * <code>[FromString(string)](#FromString_string)</code> - Converts a string to an arbitrary-precision integer.
 * <code>[FromSubstring(string, int, int)](#FromSubstring_string_int_int)</code> - Converts a portion of a string to an arbitrary-precision integer.
@@ -742,7 +744,7 @@ Converts a portion of a string to an arbitrary-precision integer in a given radi
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string. The desired portion of the string must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces.
+ * <i>str</i>: A text string. The desired portion of the string must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
  * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
@@ -763,8 +765,67 @@ The parameter  <i>str</i>
  * System.FormatException:
 The string portion is empty or in an invalid format.
 
- * System.ArgumentException:
-Doesn't satisfy (endIndex - index) % 4 == 0".
+<a id="FromRadixSubstringGeneral_string_int_int_int_bool"></a>
+### FromRadixSubstringGeneral
+
+    public static PeterO.Numbers.EInteger FromRadixSubstringGeneral(
+        string str,
+        int radix,
+        int index,
+        int endIndex,
+        bool negative);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: Not documented yet.
+
+ * <i>radix</i>: Not documented yet.
+
+ * <i>index</i>: Not documented yet.
+
+ * <i>endIndex</i>: Not documented yet.
+
+ * <i>negative</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+<a id="FromRadixSubstringInner_string_int_int_int_bool"></a>
+### FromRadixSubstringInner
+
+    public static PeterO.Numbers.EInteger FromRadixSubstringInner(
+        string str,
+        int radix,
+        int index,
+        int endIndex,
+        bool negative);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: Not documented yet.
+
+ * <i>radix</i>: Not documented yet.
+
+ * <i>index</i>: Not documented yet.
+
+ * <i>endIndex</i>: Not documented yet.
+
+ * <i>negative</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>str</i>
+ is null.
 
 <a id="FromSByte_sbyte"></a>
 ### FromSByte
@@ -794,7 +855,7 @@ Converts a string to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string. The string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The string is not allowed to contain white space characters, including spaces.
+ * <i>str</i>: A text string. The string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The string is not allowed to contain white space characters, including spaces. The string may start with any number of zeros.
 
 <b>Return Value:</b>
 
@@ -822,7 +883,7 @@ Converts a portion of a string to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string. The desired portion of the string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces.
+ * <i>str</i>: A text string. The desired portion of the string must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
  * <i>index</i>: The index of the string that starts the string portion.
 

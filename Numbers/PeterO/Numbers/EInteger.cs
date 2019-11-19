@@ -16,8 +16,6 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
-// TODO: Clarify whether FromString in this and other classes allows leading
-// zeros
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
   /// for "extended", and has this prefix to group it with the other
@@ -446,7 +444,8 @@ namespace PeterO.Numbers {
     /// must contain only characters allowed by the given radix, except
     /// that it may start with a minus sign ("-", U+002D) to indicate a
     /// negative number. The desired portion is not allowed to contain
-    /// white space characters, including spaces.</param>
+    /// white space characters, including spaces. The desired portion may
+    /// start with any number of zeros.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
     /// then the basic letters A to Z (U+0041 to U+005A). For example, 0-9
@@ -461,8 +460,6 @@ namespace PeterO.Numbers {
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The string portion is empty or in
     /// an invalid format.</exception>
-    /// <exception cref='ArgumentException'>Doesn't satisfy (endIndex -
-    /// index) % 4 == 0".</exception>
     public static EInteger FromRadixSubstring(
       string str,
       int radix,
@@ -550,7 +547,7 @@ namespace PeterO.Numbers {
         }
         #if DEBUG
         if ((endIndex - index) % 4 != 0) {
-          throw new ArgumentException (
+          throw new InvalidOperationException(
             "doesn't satisfy (endIndex - index) % 4 == 0");
         }
         #endif
@@ -643,13 +640,17 @@ namespace PeterO.Numbers {
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='str'>Not documented yet.</param>
-  /// <param name='radix'>Not documented yet.</param>
-  /// <param name='index'>Not documented yet.</param>
-  /// <param name='endIndex'>Not documented yet.</param>
-  /// <param name='negative'>Not documented yet.</param>
-  /// <returns/>
+  /// <param name='str'>The parameter <paramref name='str'/> is a text
+  /// string.</param>
+  /// <param name='radix'>The parameter <paramref name='radix'/> is a
+  /// 32-bit signed integer.</param>
+  /// <param name='index'>The parameter <paramref name='index'/> is a
+  /// 32-bit signed integer.</param>
+  /// <param name='endIndex'>The parameter <paramref name='endIndex'/> is
+  /// a 32-bit signed integer.</param>
+  /// <param name='negative'>The parameter <paramref name='negative'/> is
+  /// either <c>true</c> or <c>false</c>.</param>
+  /// <returns>The return value is not documented yet.</returns>
     public static EInteger FromRadixSubstringGeneral(
       string str,
       int radix,
@@ -684,13 +685,17 @@ midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='str'>Not documented yet.</param>
-  /// <param name='radix'>Not documented yet.</param>
-  /// <param name='index'>Not documented yet.</param>
-  /// <param name='endIndex'>Not documented yet.</param>
-  /// <param name='negative'>Not documented yet.</param>
-  /// <returns/>
+  /// <param name='str'>The parameter <paramref name='str'/> is a text
+  /// string.</param>
+  /// <param name='radix'>The parameter <paramref name='radix'/> is a
+  /// 32-bit signed integer.</param>
+  /// <param name='index'>The parameter <paramref name='index'/> is a
+  /// 32-bit signed integer.</param>
+  /// <param name='endIndex'>The parameter <paramref name='endIndex'/> is
+  /// a 32-bit signed integer.</param>
+  /// <param name='negative'>The parameter <paramref name='negative'/> is
+  /// either <c>true</c> or <c>false</c>.</param>
+  /// <returns>The return value is not documented yet.</returns>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='str'/> is null.</exception>
     public static EInteger FromRadixSubstringInner(
@@ -767,8 +772,8 @@ midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
     /// <param name='str'>A text string. The string must contain only basic
     /// digits 0 to 9 (U+0030 to U+0039), except that it may start with a
     /// minus sign ("-", U+002D) to indicate a negative number. The string
-    /// is not allowed to contain white space characters, including
-    /// spaces.</param>
+    /// is not allowed to contain white space characters, including spaces.
+    /// The string may start with any number of zeros.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
@@ -788,7 +793,8 @@ midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
     /// must contain only basic digits 0 to 9 (U+0030 to U+0039), except
     /// that it may start with a minus sign ("-", U+002D) to indicate a
     /// negative number. The desired portion is not allowed to contain
-    /// white space characters, including spaces.</param>
+    /// white space characters, including spaces. The desired portion may
+    /// start with any number of zeros.</param>
     /// <param name='index'>The index of the string that starts the string
     /// portion.</param>
     /// <param name='endIndex'>The index of the string that ends the string

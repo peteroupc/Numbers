@@ -916,9 +916,9 @@ The format of the string generally consists of:
 
  * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
 
- * The numerator in the form of one or more digits.
+ * The numerator in the form of one or more digits (these digits may begin with any number of zeros).
 
- * Optionally, "/" followed by the denominator in the form of one or more digits. If a denominator is not given, it's equal to 1.
+ * Optionally, "/" followed by the denominator in the form of one or more digits (these digits may begin with any number of zeros). If a denominator is not given, it's equal to 1.
 
 The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 

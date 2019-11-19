@@ -482,9 +482,11 @@ namespace PeterO.Numbers {
     /// <list type=''>
     /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
     /// U+002D) (if '-' , the value is negative.)</item>
-    /// <item>The numerator in the form of one or more digits.</item>
+    /// <item>The numerator in the form of one or more digits (these digits
+    /// may begin with any number of zeros).</item>
     /// <item>Optionally, "/" followed by the denominator in the form of
-    /// one or more digits. If a denominator is not given, it's equal to
+    /// one or more digits (these digits may begin with any number of
+    /// zeros). If a denominator is not given, it's equal to
     /// 1.</item></list>
     /// <para>The string can also be "-INF", "-Infinity", "Infinity",
     /// "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits,
@@ -550,6 +552,7 @@ namespace PeterO.Numbers {
         negative = str[0] == '-';
         ++tmpoffset;
       }
+      // TODO: Don't use FastIntegers here
       var numerInt = 0;
       FastInteger numer = null;
       var numerBuffer = 0;

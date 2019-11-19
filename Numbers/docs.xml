@@ -1860,14 +1860,14 @@
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if the minus sign, the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
-            after the first digit and before the last digit.</item>
+            after the first digit and before the last digit (these digits may begin with any number of zeros).</item>
             <item>Optionally, "E"/"e" followed by an optional (positive
             exponent) or "-" (negative exponent) and followed by one or more
-            digits specifying the exponent.</item></list>
+            digits specifying the exponent (these digits may begin with any number of zeros).</item></list>
             <para>The string can also be "-INF", "-Infinity", "Infinity",
-            "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits,
+            "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros),
             or signaling NaN ("sNaN" /"-sNaN") followed by any number of
-            digits, all in any combination of upper and lower case.</para>
+            digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
@@ -5722,14 +5722,13 @@
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if '-' , the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
-            after the first digit and before the last digit.</item>
+            after the first digit and before the last digit.  These digits may begin with any number of zeros.</item>
             <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
             (negative exponent) plus one or more digits specifying the
-            exponent.</item></list>
+            exponent (these digits may begin with any number of zeros).</item></list>
             <para>The string can also be "-INF", "-Infinity", "Infinity",
-            "INF", quiet NaN ("NaN") followed by any number of digits, or
-            signaling NaN ("sNaN") followed by any number of digits, all in any
-            combination of upper and lower case.</para>
+            "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or
+            signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
@@ -8808,7 +8807,7 @@
             must contain only characters allowed by the given radix, except
             that it may start with a minus sign ("-", U+002D) to indicate a
             negative number. The desired portion is not allowed to contain
-            white space characters, including spaces.</param>
+            white space characters, including spaces.  The desired portion may start with any number of zeros.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
             then the basic letters A to Z (U+0041 to U+005A). For example, 0-9
@@ -8822,9 +8821,24 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
             <exception cref='FormatException'>The string portion is empty or in
             an invalid format.</exception>
-            <exception cref='ArgumentException'>Doesn't satisfy (endIndex -
-            index) % 4 == 0".</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.FromRadixSubstringGeneral(System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">
+<param name='str'>The parameter <paramref name='str'/> is a text string.</param>
+            <param name='radix'>The parameter <paramref name='radix'/> is a 32-bit signed integer.</param>
+            <param name='index'>The parameter <paramref name='index'/> is a 32-bit signed integer.</param>
+            <param name='endIndex'>The parameter <paramref name='endIndex'/> is a 32-bit signed integer.</param>
+            <param name='negative'>The parameter <paramref name='negative'/> is either <c>true</c> or <c>false</c>.</param>
+            <returns>The return value is not documented yet.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.FromRadixSubstringInner(System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">
+<param name='str'>The parameter <paramref name='str'/> is a text string.</param>
+            <param name='radix'>The parameter <paramref name='radix'/> is a 32-bit signed integer.</param>
+            <param name='index'>The parameter <paramref name='index'/> is a 32-bit signed integer.</param>
+            <param name='endIndex'>The parameter <paramref name='endIndex'/> is a 32-bit signed integer.</param>
+            <param name='negative'>The parameter <paramref name='negative'/> is either <c>true</c> or <c>false</c>.</param>
+            <returns>The return value is not documented yet.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromSByte(System.SByte)">
 
@@ -8844,7 +8858,7 @@
             digits 0 to 9 (U+0030 to U+0039), except that it may start with a
             minus sign ("-", U+002D) to indicate a negative number. The string
             is not allowed to contain white space characters, including
-            spaces.</param>
+            spaces.  The string may start with any number of zeros.</param>
             <returns>An arbitrary-precision integer with the same value as
             given in the string.</returns>
             <exception cref='FormatException'>The parameter <paramref name='str'/> is in an invalid format.</exception>
@@ -8859,7 +8873,7 @@
             must contain only basic digits 0 to 9 (U+0030 to U+0039), except
             that it may start with a minus sign ("-", U+002D) to indicate a
             negative number. The desired portion is not allowed to contain
-            white space characters, including spaces.</param>
+            white space characters, including spaces.  The desired portion may start with any number of zeros.</param>
             <param name='index'>The index of the string that starts the string
             portion.</param>
             <param name='endIndex'>The index of the string that ends the string
@@ -10480,9 +10494,9 @@
             <list type=''>
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if '-' , the value is negative.)</item>
-            <item>The numerator in the form of one or more digits.</item>
+            <item>The numerator in the form of one or more digits (these digits may begin with any number of zeros).</item>
             <item>Optionally, "/" followed by the denominator in the form of
-            one or more digits. If a denominator is not given, it's equal to
+            one or more digits (these digits may begin with any number of zeros). If a denominator is not given, it's equal to
             1.</item></list>
             <para>The string can also be "-INF", "-Infinity", "Infinity",
             "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits,

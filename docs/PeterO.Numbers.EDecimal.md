@@ -829,10 +829,9 @@ Creates a number with the value  `exponent*10^significand` .
 
 <b>Parameters:</b>
 
- * <i>significand</i>: The parameter  <i>significand</i>
- is a Numbers.EInteger object.
+ * <i>mantissa</i>: Not documented yet.
 
- * <i>exponent</i>: Desired value for the exponent.
+ * <i>exponent</i>: Not documented yet.
 
 <b>Return Value:</b>
 
@@ -1636,11 +1635,11 @@ The format of the string generally consists of:
 
  * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if the minus sign, the value is negative.)
 
- * One or more digits, with a single optional decimal point after the first digit and before the last digit.
+ * One or more digits, with a single optional decimal point after the first digit and before the last digit (these digits may begin with any number of zeros).
 
- * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent.
+ * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
+The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all in any combination of case.
 
 All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 

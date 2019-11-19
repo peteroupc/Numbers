@@ -700,10 +700,9 @@ Creates a number with the value exponent*2^significand.
 
 <b>Parameters:</b>
 
- * <i>significand</i>: The parameter  <i>significand</i>
- is a Numbers.EInteger object.
+ * <i>mantissa</i>: Not documented yet.
 
- * <i>exponent</i>: Desired value for the exponent.
+ * <i>exponent</i>: Not documented yet.
 
 <b>Return Value:</b>
 
@@ -1371,11 +1370,11 @@ Creates a binary floating-point number from a text string that represents a numb
 
  * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
 
- * One or more digits, with a single optional decimal point after the first digit and before the last digit.
+ * One or more digits, with a single optional decimal point after the first digit and before the last digit. These digits may begin with any number of zeros.
 
- * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent.
+ * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits, or signaling NaN ("sNaN") followed by any number of digits, all in any combination of upper and lower case.
+The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all in any combination of case.
 
 All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 

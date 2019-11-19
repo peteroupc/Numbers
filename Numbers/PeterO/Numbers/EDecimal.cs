@@ -971,14 +971,19 @@ BigNumberFlags.FlagSignalingNaN);
     /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
     /// U+002D) (if the minus sign, the value is negative.)</item>
     /// <item>One or more digits, with a single optional decimal point
-    /// after the first digit and before the last digit.</item>
+    /// after the first digit and before the last digit (these digits may
+    /// begin with any number of zeros).</item>
     /// <item>Optionally, "E"/"e" followed by an optional (positive
     /// exponent) or "-" (negative exponent) and followed by one or more
-    /// digits specifying the exponent.</item></list>
+    /// digits specifying the exponent (these digits may begin with any
+    /// number of zeros).</item></list>
     /// <para>The string can also be "-INF", "-Infinity", "Infinity",
-    /// "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits,
-    /// or signaling NaN ("sNaN" /"-sNaN") followed by any number of
-    /// digits, all in any combination of upper and lower case.</para>
+    /// "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits
+    /// (these digits may begin with any number of zeros), or signaling NaN
+    /// ("sNaN" /"-sNaN") followed by any number of digits (these digits
+    /// may begin with any number of zeros), all where the letters can be
+    /// any combination of basic upper-case and/or basic lower-case
+    /// letters.</para>
     /// <para>All characters mentioned above are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
