@@ -111,11 +111,11 @@ namespace PeterO.Numbers {
           this.ReturnQuietNaN(
             value,
             ctx) : (((flags & BigNumberFlags.FlagNegative) != 0) ?
-            this.RoundToPrecision
-              this.helper.CreateNewWithFlags
-              this.helper.GetMantissa(value),
-              this.helper.GetExponent(value),
-              flags & ~BigNumberFlags.FlagNegative),
+            this.RoundToPrecision (
+              this.helper.CreateNewWithFlags (
+                this.helper.GetMantissa(value),
+                this.helper.GetExponent(value),
+                flags & ~BigNumberFlags.FlagNegative),
               ctx) : this.RoundToPrecision(
                 value,
                 ctx)));
@@ -1662,10 +1662,11 @@ namespace PeterO.Numbers {
       }
       flags ^= BigNumberFlags.FlagNegative;
       return this.RoundToPrecision (
-        this.helper.CreateNewWithFlags mant,
-        this.helper.GetExponent(value),
-        flags),
-        ctx);
+          this.helper.CreateNewWithFlags (
+  mant,
+  this.helper.GetExponent(value),
+  flags),
+  ctx);
     }
 
     public T NextMinus(T thisValue, EContext ctx) {
@@ -1823,10 +1824,10 @@ namespace PeterO.Numbers {
       int cmp = this.CompareTo(thisValue, otherValue);
       if (cmp == 0) {
         return this.RoundToPrecision (
-          this.EnsureSign
-          thisValue,
-          (otherFlags & BigNumberFlags.FlagNegative) != 0),
-          ctx.WithNoFlags());
+            this.EnsureSign (
+  thisValue,
+  (otherFlags & BigNumberFlags.FlagNegative) != 0),
+  ctx.WithNoFlags());
       } else {
         if ((thisFlags & BigNumberFlags.FlagInfinity) != 0) {
           if ((thisFlags & (BigNumberFlags.FlagInfinity |
@@ -2575,10 +2576,11 @@ namespace PeterO.Numbers {
       // DebugUtility.Log("curr=" + currentExp + " ideal=" + idealExp);
       if (this.helper.GetSign(thisValue) == 0) {
         ret = this.RoundToPrecision (
-          this.helper.CreateNewWithFlags EInteger.Zero,
-          idealExp,
-          this.helper.GetFlags(thisValue)),
-          ctxtmp);
+            this.helper.CreateNewWithFlags (
+              EInteger.Zero,
+              idealExp,
+              this.helper.GetFlags(thisValue)),
+            ctxtmp);
         if (ctx.HasFlags) {
           ctx.Flags |= ctxtmp.Flags;
         }
@@ -3630,11 +3632,11 @@ namespace PeterO.Numbers {
               BigNumberFlags.FlagNegative) ^ (this.helper.GetFlags(divisor) &
               BigNumberFlags.FlagNegative);
           retval =
-            this.RoundToPrecision
-              this.helper.CreateNewWithFlags
-              EInteger.Zero,
-              dividendExp - (EInteger)divisorExp,
-              newflags),
+            this.RoundToPrecision (
+              this.helper.CreateNewWithFlags (
+                EInteger.Zero,
+                dividendExp - (EInteger)divisorExp,
+                newflags),
               ctx);
         }
         return retval;
@@ -5480,7 +5482,7 @@ otherValue;
         }
       }
       return this.support == BigNumberFlags.FiniteOnly ? default(T) :
-        this.helper.CreateNewWithFlags
+        this.helper.CreateNewWithFlags(
           EInteger.Zero,
           EInteger.Zero,
           (neg ? BigNumberFlags.FlagNegative : 0) | BigNumberFlags.FlagInfinity);

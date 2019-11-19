@@ -1016,7 +1016,6 @@ BigNumberFlags.FlagSignalingNaN);
       int offset,
       int length,
       EContext ctx) {
-      // TODO: Optimize this method
       int tmpoffset = offset;
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
@@ -1051,7 +1050,7 @@ BigNumberFlags.FlagSignalingNaN);
         ++tmpoffset;
       }
       var mantInt = 0;
-      FastInteger mant = null;
+      EInteger mant = null;
       var mantBuffer = 0;
       var mantBufferMult = 1;
       var expBuffer = 0;
@@ -1060,7 +1059,8 @@ BigNumberFlags.FlagSignalingNaN);
       var haveDigits = false;
       var haveExponent = false;
       var newScaleInt = 0;
-      FastInteger newScale = null;
+      var digitStart = 0;
+      EInteger newScale = null;
       int i = tmpoffset;
       if (i + 8 == endStr) {
         if ((str[i] == 'I' || str[i] == 'i') &&
@@ -1111,30 +1111,12 @@ BigNumberFlags.FlagSignalingNaN);
               maxDigits.Decrement();
             }
           }
-          // TODO: Optimize this implementation for very long
-          // strings
+          digitStart = i;
           for (; i < endStr; ++i) {
             if (str[i] >= '0' && str[i] <= '9') {
               var thisdigit = (int)(str[i] - '0');
               haveDigits = haveDigits || thisdigit != 0;
-              if (mantInt > MaxSafeInt) {
-                if (mant == null) {
-                  mant = new FastInteger(mantInt);
-                  mantBuffer = thisdigit;
-                  mantBufferMult = 10;
-                } else {
-                  if (mantBufferMult >= 1000000000) {
-                    mant.Multiply(mantBufferMult).AddInt(mantBuffer);
-                    mantBuffer = thisdigit;
-                    mantBufferMult = 10;
-                  } else {
-                    // multiply by 10
-                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
-                mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                mantBuffer += thisdigit;
-                  }
-                }
-              } else {
+              if (mantInt <= MaxSafeInt) {
                 // multiply by 10
                 mantInt = (mantInt << 3) + (mantInt << 1);
                 mantInt += thisdigit;
@@ -1150,11 +1132,11 @@ BigNumberFlags.FlagSignalingNaN);
               throw new FormatException();
             }
           }
-          if (mant != null && (mantBufferMult != 1 || mantBuffer != 0)) {
-            mant.Multiply(mantBufferMult).AddInt(mantBuffer);
+          if (mantInt > MaxSafeInt) {
+            mant = EInteger.FromSubstring(str, digitStart, endStr);
           }
           EInteger bigmant = (mant == null) ? ((EInteger)mantInt) :
-            mant.AsEInteger();
+            mant;
           flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagQuietNaN;
           return CreateWithFlags (
@@ -1190,29 +1172,12 @@ BigNumberFlags.FlagSignalingNaN);
               maxDigits.Decrement();
             }
           }
+          digitStart = i;
           for (; i < endStr; ++i) {
             if (str[i] >= '0' && str[i] <= '9') {
               var thisdigit = (int)(str[i] - '0');
               haveDigits = haveDigits || thisdigit != 0;
-              if (mantInt > MaxSafeInt) {
-                if (mant == null) {
-                  mant = new FastInteger(mantInt);
-                  mantBuffer = thisdigit;
-                  mantBufferMult = 10;
-                } else {
-                  if (mantBufferMult >= 1000000000) {
-                    mant.Multiply(mantBufferMult).AddInt(mantBuffer);
-                    mantBuffer = thisdigit;
-                    mantBufferMult = 10;
-                  } else {
-                    // multiply by 10
-                    mantBufferMult = (mantBufferMult << 3) + (mantBufferMult <<
-                        1);
-                    mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                    mantBuffer += thisdigit;
-                  }
-                }
-              } else {
+              if (mantInt <= MaxSafeInt) {
                 // multiply by 10
                 mantInt = (mantInt << 3) + (mantInt << 1);
                 mantInt += thisdigit;
@@ -1228,13 +1193,13 @@ BigNumberFlags.FlagSignalingNaN);
               throw new FormatException();
             }
           }
-          if (mant != null && (mantBufferMult != 1 || mantBuffer != 0)) {
-            mant.Multiply(mantBufferMult).AddInt(mantBuffer);
+          if (mantInt > MaxSafeInt) {
+            mant = EInteger.FromSubstring(str, digitStart, endStr);
           }
           int flags3 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagSignalingNaN;
           EInteger bigmant = (mant == null) ? ((EInteger)mantInt) :
-            mant.AsEInteger();
+            mant;
           return CreateWithFlags(
             bigmant,
             EInteger.Zero,
@@ -1242,28 +1207,20 @@ BigNumberFlags.FlagSignalingNaN);
         }
       }
       // Ordinary number
+      digitStart = i;
+      int digitEnd = i;
+      int decimalDigitStart = i;
+      int decimalDigitEnd = i;
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
-          if (mantInt > MaxSafeInt) {
-            if (mant == null) {
-              mant = new FastInteger(mantInt);
-              mantBuffer = thisdigit;
-              mantBufferMult = 10;
-            } else {
-              if (mantBufferMult >= 1000000000) {
-                mant.Multiply(mantBufferMult).AddInt(mantBuffer);
-                mantBuffer = thisdigit;
-                mantBufferMult = 10;
-              } else {
-                // multiply mantBufferMult and mantBuffer each by 10
-                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
-                mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                mantBuffer += thisdigit;
-              }
-            }
+          if (haveDecimalPoint) {
+            decimalDigitEnd = i + 1;
           } else {
+ digitEnd = i + 1;
+}
+          if (mantInt <= MaxSafeInt) {
             // multiply by 10
             mantInt = (mantInt << 3) + (mantInt << 1);
             mantInt += thisdigit;
@@ -1271,8 +1228,8 @@ BigNumberFlags.FlagSignalingNaN);
           haveDigits = true;
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue) {
-              newScale = newScale ?? new FastInteger(newScaleInt);
-              newScale.Decrement();
+              newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+              newScale = newScale.Subtract(1);
             } else {
               --newScaleInt;
             }
@@ -1282,6 +1239,7 @@ BigNumberFlags.FlagSignalingNaN);
             throw new FormatException();
           }
           haveDecimalPoint = true;
+          decimalDigitStart = i + 1;
         } else if (ch == 'E' || ch == 'e') {
           haveExponent = true;
           ++i;
@@ -1293,11 +1251,20 @@ BigNumberFlags.FlagSignalingNaN);
       if (!haveDigits) {
         throw new FormatException();
       }
-      if (mant != null && (mantBufferMult != 1 || mantBuffer != 0)) {
-        mant.Multiply(mantBufferMult).AddInt(mantBuffer);
+      if (mantInt > MaxSafeInt) {
+        if (haveDecimalPoint) {
+          string decstr = str.Substring(digitStart, digitEnd - digitStart) +
+
+              str.Substring(
+                decimalDigitStart,
+                decimalDigitEnd - decimalDigitStart);
+          mant = EInteger.FromString(decstr);
+        } else {
+          mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+        }
       }
       if (haveExponent) {
-        FastInteger exp = null;
+        EInteger exp = null;
         var expInt = 0;
         tmpoffset = 1;
         haveDigits = false;
@@ -1310,29 +1277,13 @@ BigNumberFlags.FlagSignalingNaN);
           }
           ++i;
         }
+        digitStart = i;
         for (; i < endStr; ++i) {
           char ch = str[i];
           if (ch >= '0' && ch <= '9') {
             haveDigits = true;
             var thisdigit = (int)(ch - '0');
-            if (expInt > MaxSafeInt) {
-              if (exp == null) {
-                exp = new FastInteger(expInt);
-                expBuffer = thisdigit;
-                expBufferMult = 10;
-              } else {
-                if (expBufferMult >= 1000000000) {
-                  exp.Multiply(expBufferMult).AddInt(expBuffer);
-                  expBuffer = thisdigit;
-                  expBufferMult = 10;
-                } else {
-                  // multiply expBufferMult and expBuffer each by 10
-                  expBufferMult = (expBufferMult << 3) + (expBufferMult << 1);
-                  expBuffer = (expBuffer << 3) + (expBuffer << 1);
-                  expBuffer += thisdigit;
-                }
-              }
-            } else {
+            if (expInt <= MaxSafeInt) {
               expInt *= 10;
               expInt += thisdigit;
             }
@@ -1343,26 +1294,23 @@ BigNumberFlags.FlagSignalingNaN);
         if (!haveDigits) {
           throw new FormatException();
         }
-        if (exp != null && (expBufferMult != 1 || expBuffer != 0)) {
-          exp.Multiply(expBufferMult).AddInt(expBuffer);
+        if (expInt > MaxSafeInt) {
+          exp = EInteger.FromSubstring(str, digitStart, endStr);
         }
         if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp ==
           null) {
           newScaleInt = expInt;
         } else if (exp == null) {
-          newScale = newScale ?? new FastInteger(newScaleInt);
+          newScale = newScale ?? EInteger.FromInt32(newScaleInt);
           if (tmpoffset < 0) {
-            newScale.SubtractInt(expInt);
+            newScale = newScale.Subtract(expInt);
           } else if (expInt != 0) {
-            newScale.AddInt(expInt);
+            newScale = newScale.Add(expInt);
           }
         } else {
-          newScale = newScale ?? new FastInteger(newScaleInt);
-          if (tmpoffset < 0) {
-            newScale.Subtract(exp);
-          } else {
-            newScale.Add(exp);
-          }
+          newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+          newScale = (tmpoffset < 0) ? (newScale.Subtract(exp)) :
+(newScale.Add(exp));
         }
       }
       if (i != endStr) {
@@ -1371,7 +1319,7 @@ BigNumberFlags.FlagSignalingNaN);
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? new FastIntegerFixed(newScaleInt) :
-        FastIntegerFixed.FromFastInteger(newScale);
+        FastIntegerFixed.FromBig(newScale);
       int sign = negative ? -1 : 1;
       if (mant == null) {
         fastIntMant = new FastIntegerFixed(mantInt);
@@ -1379,13 +1327,13 @@ BigNumberFlags.FlagSignalingNaN);
           sign = 0;
         }
       } else if (mant.CanFitInInt32()) {
-        mantInt = mant.AsInt32();
+        mantInt = mant.ToInt32Checked();
         fastIntMant = new FastIntegerFixed(mantInt);
         if (mantInt == 0) {
           sign = 0;
         }
       } else {
-        fastIntMant = FastIntegerFixed.FromFastInteger(mant);
+        fastIntMant = FastIntegerFixed.FromBig(mant);
       }
       var ret = new EDecimal(
         fastIntMant,
@@ -1722,8 +1670,7 @@ BigNumberFlags.FlagSignalingNaN);
         if (absexp.CompareTo(bitCount) > 0) {
           // Float's absolute value is less than 1, so do a trial comparison
           // using exponent closer to 0
-          EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(
-  -1000));
+          EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(-1000));
           int trialcmp = CompareEDecimalToEFloat(ed, trial);
           if (ef.Sign < 0 && trialcmp < 0) {
             // if float and decimal are negative and
