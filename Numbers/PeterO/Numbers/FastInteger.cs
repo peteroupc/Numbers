@@ -509,6 +509,19 @@ namespace PeterO.Numbers {
       }
       #endif
     }
+
+    public int CompareTo(EInteger ei) {
+switch (this.integerMode) {
+ case 0:
+   return -ei.CompareTo(this.smallValue);
+ case 1:
+   return this.AsEInteger().CompareTo(ei);
+ case 2:
+   return this.largeValue.CompareTo(ei);
+ default: throw new InvalidOperationException();
+}
+    }
+
     public int CompareTo(FastInteger val) {
       switch ((this.integerMode << 2) | val.integerMode) {
         case (0 << 2) | 0: {
@@ -519,7 +532,7 @@ namespace PeterO.Numbers {
         case (0 << 2) | 1:
           return -val.mnum.CompareToInt(this.smallValue);
         case (0 << 2) | 2:
-          return this.AsEInteger().CompareTo(val.largeValue);
+          return -val.largeValue.CompareTo(this.smallValue);
         case (1 << 2) | 0:
           return this.mnum.CompareToInt(val.smallValue);
         case (1 << 2) | 1:

@@ -139,7 +139,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
 * <code>[CompareTo(PeterO.Numbers.EDecimal)](#CompareTo_PeterO_Numbers_EDecimal)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
-* <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary float with this instance.
+* <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary floating-point number with this instance.
 * <code>[CompareToSignal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
 * <code>[CompareToTotal(PeterO.Numbers.EDecimal)](#CompareToTotal_PeterO_Numbers_EDecimal)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
@@ -576,7 +576,7 @@ Less than 0 if this object's value is less than the other value, or greater than
     public int CompareToBinary(
         PeterO.Numbers.EFloat other);
 
-Compares an arbitrary-precision binary float with this instance.
+Compares an arbitrary-precision binary floating-point number with this instance.
 
 <b>Parameters:</b>
 
@@ -829,9 +829,10 @@ Creates a number with the value  `exponent*10^significand` .
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: Not documented yet.
+ * <i>significand</i>: The parameter  <i>significand</i>
+ is a Numbers.EInteger object.
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: Desired value for the exponent.
 
 <b>Return Value:</b>
 
@@ -1522,6 +1523,8 @@ An arbitrary-precision decimal number with the exponent set to 0.
     public static PeterO.Numbers.EDecimal FromSByte(
         sbyte inputSByte);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an 8-bit signed integer to an arbitrary-precision decimal number.
 
 <b>Parameters:</b>
@@ -1705,6 +1708,8 @@ The parameter  <i>str</i>
     public static PeterO.Numbers.EDecimal FromUInt16(
         ushort inputUInt16);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 16-bit unsigned integer to an arbitrary-precision decimal number.
 
 <b>Parameters:</b>
@@ -1721,6 +1726,8 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromUInt32(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 
 <b>Parameters:</b>
@@ -1736,6 +1743,8 @@ This number's value as an arbitrary-precision decimal number.
 
     public static PeterO.Numbers.EDecimal FromUInt64(
         ulong inputUInt64);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 
@@ -2661,6 +2670,8 @@ The parameter  <i>bigValue</i>
     public static explicit operator sbyte(
         PeterO.Numbers.EDecimal input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision decimal number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
@@ -2715,6 +2726,8 @@ The parameter  <i>input</i>
     public static explicit operator uint(
         PeterO.Numbers.EDecimal input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
@@ -2742,6 +2755,8 @@ The parameter  <i>input</i>
     public static explicit operator ulong(
         PeterO.Numbers.EDecimal input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision decimal number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
@@ -2768,6 +2783,8 @@ The parameter  <i>input</i>
 
     public static explicit operator ushort(
         PeterO.Numbers.EDecimal input);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts an arbitrary-precision decimal number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
@@ -2879,6 +2896,8 @@ An arbitrary-precision decimal number with the exponent set to 0.
     public static implicit operator PeterO.Numbers.EDecimal(
         sbyte inputSByte);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an 8-bit signed integer to an arbitrary-precision decimal number.
 
 <b>Parameters:</b>
@@ -2913,6 +2932,8 @@ The value of  <i>inputInt16</i>
     public static implicit operator PeterO.Numbers.EDecimal(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 
 <b>Parameters:</b>
@@ -2930,6 +2951,8 @@ The value of  <i>inputUInt32</i>
     public static implicit operator PeterO.Numbers.EDecimal(
         ulong inputUInt64);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 
 <b>Parameters:</b>
@@ -2946,6 +2969,8 @@ The value of  <i>inputUInt64</i>
 
     public static implicit operator PeterO.Numbers.EDecimal(
         ushort inputUInt16);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 16-bit unsigned integer to an arbitrary-precision decimal number.
 
@@ -3905,7 +3930,7 @@ The closest 64-bit floating-point number to this value. The return value can be 
     public PeterO.Numbers.EFloat ToEFloat(
         PeterO.Numbers.EContext ec);
 
-Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
+Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value.
 
 <b>Parameters:</b>
 
@@ -3927,7 +3952,7 @@ The parameter  <i>ec</i>
 
     public PeterO.Numbers.EFloat ToEFloat();
 
-Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
+Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value.
 
 <b>Return Value:</b>
 
@@ -4001,7 +4026,7 @@ A text string.
 
 <b>Deprecated.</b> Renamed to ToEFloat.
 
-Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value.
+Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value.
 
 <b>Return Value:</b>
 
@@ -4152,6 +4177,8 @@ A text string.
 
     public sbyte ToSByteChecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
@@ -4168,6 +4195,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public sbyte ToSByteIfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -4183,6 +4212,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 ### ToSByteUnchecked
 
     public sbyte ToSByteUnchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 
@@ -4217,6 +4248,8 @@ A string representation of this object. The text string will be in exponential n
 
     public ushort ToUInt16Checked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
@@ -4232,6 +4265,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 ### ToUInt16IfExact
 
     public ushort ToUInt16IfExact();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
 
@@ -4249,6 +4284,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public ushort ToUInt16Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
 
 <b>Return Value:</b>
@@ -4259,6 +4296,8 @@ This number, converted to a 16-bit unsigned integer. Returns 0 if this value is 
 ### ToUInt32Checked
 
     public uint ToUInt32Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
@@ -4276,6 +4315,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public uint ToUInt32IfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -4292,6 +4333,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public uint ToUInt32Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
 <b>Return Value:</b>
@@ -4302,6 +4345,8 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 ### ToUInt64Checked
 
     public ulong ToUInt64Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
@@ -4319,6 +4364,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public ulong ToUInt64IfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -4334,6 +4381,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 ### ToUInt64Unchecked
 
     public ulong ToUInt64Unchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 

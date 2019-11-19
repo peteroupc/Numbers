@@ -1056,6 +1056,41 @@ namespace Test {
         "340282366920861091030327650447175712768");
     }
 
+[Test]
+public void TestEIntegerSpeed() {
+  var sw = new System.Diagnostics.Stopwatch();
+  sw.Start();
+  string str = TestCommon.Repeat("7", 100000);
+  EInteger ei = EInteger.FromString(str);
+  sw.Stop();
+  Console.WriteLine(String.Empty + sw.ElapsedMilliseconds + " ms");
+}
+
+[Test]
+public void TestLongIntegerStrings() {
+  string str = TestCommon.Repeat("7", 10000);
+  for (var i = 8; i <= 36; ++i) {
+    EInteger ei = EInteger.FromRadixString(str, i);
+    Assert.AreEqual(str, ei.ToRadixString(i), "radix=" + i);
+  }
+  str = TestCommon.Repeat("7", 5000) +
+    TestCommon.Repeat("5", 5000);
+  for (var i = 8; i <= 36; ++i) {
+    EInteger ei = EInteger.FromRadixString(str, i);
+    Assert.AreEqual(str, ei.ToRadixString(i), "radix=" + i);
+  }
+  var sb = new StringBuilder();
+  var rg = new RandomGenerator();
+  for (var i = 0; i < 10000; ++i) {
+    sb.Append((char)(0x31 + rg.UniformInt(7)));
+  }
+  str = sb.ToString();
+  for (var i = 8; i <= 36; ++i) {
+    EInteger ei = EInteger.FromRadixString(str, i);
+    Assert.AreEqual(str, ei.ToRadixString(i), "radix=" + i);
+  }
+}
+
     [Test]
     public void TestDivRem() {
       try {

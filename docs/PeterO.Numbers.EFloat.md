@@ -8,15 +8,15 @@ Represents an arbitrary-precision binary floating-point number. (The "E" stands 
 
 Passing a quiet NaN to any arithmetic operation shown here will return a quiet NaN, unless noted otherwise.
 
-Unless noted otherwise, passing a null arbitrary-precision binary float argument to any method here will throw an exception.
+Unless noted otherwise, passing a null arbitrary-precision binary floating-point number argument to any method here will throw an exception.
 
 When an arithmetic operation signals the flag FlagInvalid, FlagOverflow, or FlagDivideByZero, it will not throw an exception too, unless the operation's trap is enabled in the arithmetic context (see EContext's Traps property).
 
-An arbitrary-precision binary float value can be serialized in one of the following ways:
+An arbitrary-precision binary floating-point number value can be serialized in one of the following ways:
 
- * By calling the toString() method. However, not all strings can be converted back to an arbitrary-precision binary float without loss, especially if the string has a fractional part.
+ * By calling the toString() method. However, not all strings can be converted back to an arbitrary-precision binary floating-point number without loss, especially if the string has a fractional part.
 
- * By calling the UnsignedMantissa, Exponent, and IsNegative properties, and calling the IsInfinity, IsQuietNaN, and IsSignalingNaN methods. The return values combined will uniquely identify a particular arbitrary-precision binary float value.
+ * By calling the UnsignedMantissa, Exponent, and IsNegative properties, and calling the IsInfinity, IsQuietNaN, and IsSignalingNaN methods. The return values combined will uniquely identify a particular arbitrary-precision binary floating-point number value.
 
 If an operation requires creating an intermediate value that might be too big to fit in memory (or might require more than 2 gigabytes of memory to store -- due to the current use of a 32-bit integer internally as a length), the operation may signal an invalid-operation flag and return not-a-number (NaN). In certain rare cases, the CompareTo method may throw OutOfMemoryException (called OutOfMemoryError in Java) in the same circumstances.
 
@@ -42,7 +42,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Abs()](#Abs)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Add(int)](#Add_int)</code> - Not documented yet.
-* <code>[Add(PeterO.Numbers.EFloat)](#Add_PeterO_Numbers_EFloat)</code> - Adds this object and another binary float and returns the result.
+* <code>[Add(PeterO.Numbers.EFloat)](#Add_PeterO_Numbers_EFloat)</code> - Adds this object and another binary floating-point number and returns the result.
 * <code>[Add(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
 * <code>[CompareTo(PeterO.Numbers.EFloat)](#CompareTo_PeterO_Numbers_EFloat)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToSignal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
@@ -59,8 +59,8 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision binary floating-point number.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision binary floating-point number.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
-* <code>[Divide(PeterO.Numbers.EFloat)](#Divide_PeterO_Numbers_EFloat)</code> - Divides this object by another binary float and returns the result.
-* <code>[Divide(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision binary float by another arbitrary-precision binary floating-point number.
+* <code>[Divide(PeterO.Numbers.EFloat)](#Divide_PeterO_Numbers_EFloat)</code> - Divides this object by another binary floating-point number and returns the result.
+* <code>[Divide(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number.
 * <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
 * <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
 * <code>[DivideToExponent(PeterO.Numbers.EFloat, long, PeterO.Numbers.EContext)](#DivideToExponent_PeterO_Numbers_EFloat_long_PeterO_Numbers_EContext)</code> - Divides two arbitrary-precision binary floating-point numbers, and gives a particular exponent to the result.
@@ -70,7 +70,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[DivideToIntegerNaturalScale(PeterO.Numbers.EFloat)](#DivideToIntegerNaturalScale_PeterO_Numbers_EFloat)</code> - Divides two arbitrary-precision binary floating-point numbers, and returns the integer part of the result, rounded down, with the preferred exponent set to this value's exponent minus the divisor's exponent.
 * <code>[DivideToIntegerNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivideToIntegerNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this object by another object, and returns the integer part of the result (which is initially rounded down), with the preferred exponent set to this value's exponent minus the divisor's exponent.
 * <code>[DivideToIntegerZeroScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivideToIntegerZeroScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this object by another object, and returns the integer part of the result, with the exponent set to 0.
-* <code>[DivideToSameExponent(PeterO.Numbers.EFloat, PeterO.Numbers.ERounding)](#DivideToSameExponent_PeterO_Numbers_EFloat_PeterO_Numbers_ERounding)</code> - Divides this object by another binary float and returns a result with the same exponent as this object (the dividend).
+* <code>[DivideToSameExponent(PeterO.Numbers.EFloat, PeterO.Numbers.ERounding)](#DivideToSameExponent_PeterO_Numbers_EFloat_PeterO_Numbers_ERounding)</code> - Divides this object by another binary floating-point number and returns a result with the same exponent as this object (the dividend).
 * <code>[DivRemNaturalScale(PeterO.Numbers.EFloat)](#DivRemNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 * <code>[DivRemNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivRemNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's significand, exponent, and properties are equal to those of another object and that other object is an arbitrary-precision binary floating-point number.
@@ -78,19 +78,19 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[EqualsInternal(PeterO.Numbers.EFloat)](#EqualsInternal_PeterO_Numbers_EFloat)</code> - Determines whether this object's significand and exponent are equal to those of another object.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
 * <code>[Exponent](#Exponent)</code> - Gets this object's exponent.
-* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (either true or false) to an arbitrary-precision binary float.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number.
-* <code>[FromDouble(double)](#FromDouble_double)</code> - Creates a binary float from a 64-bit floating-point number.
-* <code>[FromEInteger(PeterO.Numbers.EInteger)](#FromEInteger_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to the same value as a binary float.
+* <code>[FromDouble(double)](#FromDouble_double)</code> - Creates a binary floating-point number from a 64-bit floating-point number.
+* <code>[FromEInteger(PeterO.Numbers.EInteger)](#FromEInteger_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to the same value as a binary floating-point number.
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromInt32(int)](#FromInt32_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromSByte(sbyte)](#FromSByte_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
-* <code>[FromSingle(float)](#FromSingle_float)</code> - Creates a binary float from a 32-bit floating-point number.
-* <code>[FromString(string)](#FromString_string)</code> - Creates a binary float from a text string that represents a number, using an unlimited precision context.
-* <code>[FromString(string, int, int)](#FromString_string_int_int)</code> - Creates a binary float from a text string that represents a number.
-* <code>[FromString(string, int, int, PeterO.Numbers.EContext)](#FromString_string_int_int_PeterO_Numbers_EContext)</code> - Creates a binary float from a text string that represents a number.
-* <code>[FromString(string, PeterO.Numbers.EContext)](#FromString_string_PeterO_Numbers_EContext)</code> - Creates a binary float from a text string that represents a number.
+* <code>[FromSingle(float)](#FromSingle_float)</code> - Creates a binary floating-point number from a 32-bit floating-point number.
+* <code>[FromString(string)](#FromString_string)</code> - Creates a binary floating-point number from a text string that represents a number, using an unlimited precision context.
+* <code>[FromString(string, int, int)](#FromString_string_int_int)</code> - Creates a binary floating-point number from a text string that represents a number.
+* <code>[FromString(string, int, int, PeterO.Numbers.EContext)](#FromString_string_int_int_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from a text string that represents a number.
+* <code>[FromString(string, PeterO.Numbers.EContext)](#FromString_string_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from a text string that represents a number.
 * <code>[FromUInt16(ushort)](#FromUInt16_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
@@ -127,12 +127,12 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Multiply(PeterO.Numbers.EFloat)](#Multiply_PeterO_Numbers_EFloat)</code> - Multiplies two binary floating-point numbers.
 * <code>[Multiply(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Multiply_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Multiplies two binary floating-point numbers.
-* <code>[MultiplyAndAdd(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#MultiplyAndAdd_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Multiplies by one binary float, and then adds another binary float.
+* <code>[MultiplyAndAdd(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#MultiplyAndAdd_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Multiplies by one binary floating-point number, and then adds another binary floating-point number.
 * <code>[MultiplyAndAdd(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#MultiplyAndAdd_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Multiplies by one value, and then adds another value.
 * <code>[MultiplyAndSubtract(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#MultiplyAndSubtract_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Multiplies by one value, and then subtracts another value.
 * <code>[public static readonly PeterO.Numbers.EFloat NaN;](#NaN)</code> - A not-a-number value.
 * <code>[Negate()](#Negate)</code> - Gets an object with the same value as this one, but with the sign reversed.
-* <code>[Negate(PeterO.Numbers.EContext)](#Negate_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but with the sign reversed.
+* <code>[Negate(PeterO.Numbers.EContext)](#Negate_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but with the sign reversed.
 * <code>[public static readonly PeterO.Numbers.EFloat NegativeInfinity;](#NegativeInfinity)</code> - Negative infinity, less than any other number.
 * <code>[public static readonly PeterO.Numbers.EFloat NegativeZero;](#NegativeZero)</code> - Represents the number negative zero.
 * <code>[NextMinus(PeterO.Numbers.EContext)](#NextMinus_PeterO_Numbers_EContext)</code> - Finds the largest value that's smaller than the given value.
@@ -141,13 +141,13 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[public static readonly PeterO.Numbers.EFloat One;](#One)</code> - Represents the number 1.
 * <code>[PeterO.Numbers.EFloat operator +(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Addition)</code> - Adds two arbitrary-precision binary floating-point numbers and returns the result.
 * <code>[PeterO.Numbers.EFloat operator --(PeterO.Numbers.EFloat)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision binary floating-point number.
-* <code>[PeterO.Numbers.EFloat operator /(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Division)</code> - Divides one binary float by another and returns the result.
-* <code>[explicit operator ulong(PeterO.Numbers.EFloat)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number. Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Converts this value to its closest equivalent as a 64-bit floating-point number. Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
-* <code>[implicit operator PeterO.Numbers.EFloat(ulong)](#op_Implicit)</code> - Creates a binary float from a 32-bit floating-point number. Creates a binary float from a 64-bit floating-point number. Converts an arbitrary-precision integer to an arbitrary precision binary. Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number. Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number. Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
+* <code>[PeterO.Numbers.EFloat operator /(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Division)</code> - Divides one binary floating-point number by another and returns the result.
+* <code>[explicit operator ulong(PeterO.Numbers.EFloat)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number. Converts an arbitrary-precision binary floating-point number to a value to an arbitrary-precision integer. Converts this value to its closest equivalent as a 64-bit floating-point number. Converts an arbitrary-precision binary floating-point number to its closest equivalent as a 32-bit floating-point number. Converts an arbitrary-precision binary floating-point number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary floating-point number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary floating-point number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary floating-point number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary floating-point number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary floating-point number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary floating-point number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision binary floating-point number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
+* <code>[implicit operator PeterO.Numbers.EFloat(ulong)](#op_Implicit)</code> - Creates a binary floating-point number from a 32-bit floating-point number. Creates a binary floating-point number from a 64-bit floating-point number. Converts an arbitrary-precision integer to an arbitrary precision binary. Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number. Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number. Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number. Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 * <code>[PeterO.Numbers.EFloat operator ++(PeterO.Numbers.EFloat)](#op_Increment)</code> - Adds one to an arbitrary-precision binary floating-point number.
-* <code>[PeterO.Numbers.EFloat operator %(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision binary float by another.
+* <code>[PeterO.Numbers.EFloat operator %(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision binary floating-point number by another.
 * <code>[PeterO.Numbers.EFloat operator &#x2a;(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Multiply)</code> - Multiplies two binary floating-point numbers.
-* <code>[PeterO.Numbers.EFloat operator -(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Subtraction)</code> - Subtracts one arbitrary-precision binary float from another.
+* <code>[PeterO.Numbers.EFloat operator -(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#op_Subtraction)</code> - Subtracts one arbitrary-precision binary floating-point number from another.
 * <code>[PeterO.Numbers.EFloat operator -(PeterO.Numbers.EFloat)](#op_UnaryNegation)</code> - Gets an object with the same value as this one, but with the sign reversed.
 * <code>[PI(PeterO.Numbers.EContext)](#PI_PeterO_Numbers_EContext)</code> - Finds the constant π, the circumference of a circle divided by its diameter.
 * <code>[Plus(PeterO.Numbers.EContext)](#Plus_PeterO_Numbers_EContext)</code> - Rounds this object's value to a given precision, using the given rounding mode and range of exponent, and also converts negative zero to positive zero.
@@ -157,22 +157,22 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Pow(PeterO.Numbers.EFloat)](#Pow_PeterO_Numbers_EFloat)</code> - Raises this object's value to the given exponent, using unlimited precision.
 * <code>[Pow(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Pow_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
 * <code>[Precision()](#Precision)</code> - Finds the number of digits in this number's significand.
-* <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value but a new exponent.
-* <code>[Quantize(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but with the same exponent as another binary float.
-* <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value but a new exponent.
+* <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value but a new exponent.
+* <code>[Quantize(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but with the same exponent as another binary floating-point number.
+* <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value but a new exponent.
 * <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its significand.
 * <code>[Remainder(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision binary floating-point numbers.
 * <code>[RemainderNaturalScale(PeterO.Numbers.EFloat)](#RemainderNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNear(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNear_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the distance to the closest multiple of the given divisor, based on the result of dividing this object's value by another object's value.
 * <code>[RemainderNoRoundAfterDivide(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#RemainderNoRoundAfterDivide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision binary floating-point numbers.
-* <code>[RoundToExponent(int, PeterO.Numbers.EContext)](#RoundToExponent_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to a new exponent if necessary.
-* <code>[RoundToExponent(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to a new exponent if necessary.
-* <code>[RoundToExponentExact(int, PeterO.Numbers.EContext)](#RoundToExponentExact_int_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.
-* <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
+* <code>[RoundToExponent(int, PeterO.Numbers.EContext)](#RoundToExponent_int_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to a new exponent if necessary.
+* <code>[RoundToExponent(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to a new exponent if necessary.
+* <code>[RoundToExponentExact(int, PeterO.Numbers.EContext)](#RoundToExponentExact_int_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact.
+* <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact.
 * <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.ERounding)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding)</code> - Returns a binary number with the same value as this object but rounded to the given exponent.
-* <code>[RoundToIntegerExact(PeterO.Numbers.EContext)](#RoundToIntegerExact_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
-* <code>[RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext)</code> - Returns a binary float with the same value as this object but rounded to an integer, without adding the FlagInexact or FlagRounded flags.
+* <code>[RoundToIntegerExact(PeterO.Numbers.EContext)](#RoundToIntegerExact_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+* <code>[RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to an integer, without adding the FlagInexact or FlagRounded flags.
 * <code>[RoundToIntegralExact(PeterO.Numbers.EContext)](#RoundToIntegralExact_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to RoundToIntegerExact.
 * <code>[RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to RoundToIntegerNoRoundedFlag.
 * <code>[RoundToPrecision(PeterO.Numbers.EContext)](#RoundToPrecision_PeterO_Numbers_EContext)</code> - Rounds this object's value to a given precision, using the given rounding mode and range of exponent.
@@ -181,12 +181,12 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ScaleByPowerOfTwo(PeterO.Numbers.EInteger)](#ScaleByPowerOfTwo_PeterO_Numbers_EInteger)</code> - Returns a number similar to this number but with the scale adjusted.
 * <code>[ScaleByPowerOfTwo(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#ScaleByPowerOfTwo_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a number similar to this number but with its scale adjusted.
 * <code>[Sign](#Sign)</code> - Gets this value's sign: -1 if negative; 1 if positive; 0 if zero.
-* <code>[public static readonly PeterO.Numbers.EFloat SignalingNaN;](#SignalingNaN)</code> - A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision binary float.
+* <code>[public static readonly PeterO.Numbers.EFloat SignalingNaN;](#SignalingNaN)</code> - A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision binary floating-point number.
 * <code>[Sqrt(PeterO.Numbers.EContext)](#Sqrt_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to Sqrt.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
-* <code>[Subtract(PeterO.Numbers.EFloat)](#Subtract_PeterO_Numbers_EFloat)</code> - Subtracts an arbitrary-precision binary float from this instance and returns the result.
-* <code>[Subtract(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision binary float from this instance.
+* <code>[Subtract(PeterO.Numbers.EFloat)](#Subtract_PeterO_Numbers_EFloat)</code> - Subtracts an arbitrary-precision binary floating-point number from this instance and returns the result.
+* <code>[Subtract(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision binary floating-point number from this instance.
 * <code>[public static readonly PeterO.Numbers.EFloat Ten;](#Ten)</code> - Represents the number 10.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
@@ -267,7 +267,7 @@ Positive infinity, greater than any other number.
 
     public static readonly PeterO.Numbers.EFloat SignalingNaN;
 
-A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision binary float.
+A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision binary floating-point number.
 
 <a id="Ten"></a>
 ### Ten
@@ -410,7 +410,7 @@ An arbitrary-precision binary floating-point number.
     public PeterO.Numbers.EFloat Add(
         PeterO.Numbers.EFloat otherValue);
 
-Adds this object and another binary float and returns the result.
+Adds this object and another binary floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -506,7 +506,7 @@ Compares the values of this object and another object, imposing a total ordering
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision binary float to compare with this one.
+ * <i>other</i>: An arbitrary-precision binary floating-point number to compare with this one.
 
 <b>Return Value:</b>
 
@@ -538,7 +538,7 @@ Compares the values of this object and another object, imposing a total ordering
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision binary float to compare with this one.
+ * <i>other</i>: An arbitrary-precision binary floating-point number to compare with this one.
 
  * <i>ctx</i>: An arithmetic context. Flags will be set in this context only if  `HasFlags`  and  `IsSimplified`  of the context are true and only if an operand needed to be rounded before carrying out the operation. Can be null.
 
@@ -569,7 +569,7 @@ Compares the absolute values of this object and another object, imposing a total
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision binary float to compare with this one.
+ * <i>other</i>: An arbitrary-precision binary floating-point number to compare with this one.
 
 <b>Return Value:</b>
 
@@ -601,7 +601,7 @@ Compares the values of this object and another object, imposing a total ordering
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision binary float to compare with this one.
+ * <i>other</i>: An arbitrary-precision binary floating-point number to compare with this one.
 
  * <i>ctx</i>: An arithmetic context. Flags will be set in this context only if  `HasFlags`  and  `IsSimplified`  of the context are true and only if an operand needed to be rounded before carrying out the operation. Can be null.
 
@@ -700,9 +700,10 @@ Creates a number with the value exponent*2^significand.
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: Not documented yet.
+ * <i>significand</i>: The parameter  <i>significand</i>
+ is a Numbers.EInteger object.
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: Desired value for the exponent.
 
 <b>Return Value:</b>
 
@@ -806,7 +807,7 @@ Attempted to divide by zero.
     public PeterO.Numbers.EFloat Divide(
         PeterO.Numbers.EFloat divisor);
 
-Divides this object by another binary float and returns the result. When possible, the result will be exact.
+Divides this object by another binary floating-point number and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -823,7 +824,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.EContext ctx);
 
-Divides this arbitrary-precision binary float by another arbitrary-precision binary floating-point number. The preferred exponent for the result is this object's exponent minus the divisor's exponent.
+Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number. The preferred exponent for the result is this object's exponent minus the divisor's exponent.
 
 <b>Parameters:</b>
 
@@ -1026,7 +1027,7 @@ The integer part of the quotient of the two objects. The exponent will be set to
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.ERounding rounding);
 
-Divides this object by another binary float and returns a result with the same exponent as this object (the dividend).
+Divides this object by another binary floating-point number and returns a result with the same exponent as this object (the dividend).
 
 <b>Parameters:</b>
 
@@ -1145,7 +1146,7 @@ Exponential of this object. If this object's value is 1, returns an approximatio
     public static PeterO.Numbers.EFloat FromBoolean(
         bool boolValue);
 
-Converts a boolean value (either true or false) to an arbitrary-precision binary float.
+Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
 
@@ -1178,7 +1179,7 @@ This number's value as an arbitrary-precision binary floating-point number.
     public static PeterO.Numbers.EFloat FromDouble(
         double dbl);
 
-Creates a binary float from a 64-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
+Creates a binary floating-point number from a 64-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
 
 <b>Parameters:</b>
 
@@ -1187,7 +1188,7 @@ Creates a binary float from a 64-bit floating-point number. This method computes
 
 <b>Return Value:</b>
 
-A binary float with the same value as  <i>dbl</i>
+A binary floating-point number with the same value as  <i>dbl</i>
 .
 
 <a id="FromEInteger_PeterO_Numbers_EInteger"></a>
@@ -1196,7 +1197,7 @@ A binary float with the same value as  <i>dbl</i>
     public static PeterO.Numbers.EFloat FromEInteger(
         PeterO.Numbers.EInteger bigint);
 
-Converts an arbitrary-precision integer to the same value as a binary float.
+Converts an arbitrary-precision integer to the same value as a binary floating-point number.
 
 <b>Parameters:</b>
 
@@ -1260,6 +1261,8 @@ This number's value as an arbitrary-precision binary floating-point number.
     public static PeterO.Numbers.EFloat FromSByte(
         sbyte inputSByte);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
@@ -1276,7 +1279,7 @@ This number's value as an arbitrary-precision binary floating-point number.
     public static PeterO.Numbers.EFloat FromSingle(
         float flt);
 
-Creates a binary float from a 32-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
+Creates a binary floating-point number from a 32-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
 
 <b>Parameters:</b>
 
@@ -1285,7 +1288,7 @@ Creates a binary float from a 32-bit floating-point number. This method computes
 
 <b>Return Value:</b>
 
-A binary float with the same value as  <i>flt</i>
+A binary floating-point number with the same value as  <i>flt</i>
 .
 
 <a id="FromString_string"></a>
@@ -1294,11 +1297,12 @@ A binary float with the same value as  <i>flt</i>
     public static PeterO.Numbers.EFloat FromString(
         string str);
 
-Creates a binary float from a text string that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int, EContext)`  method.
+Creates a binary floating-point number from a text string that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int,
+            EContext)`  method.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string to convert to a binary float.
+ * <i>str</i>: A text string to convert to a binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1312,8 +1316,7 @@ The parsed number, converted to arbitrary-precision binary floating-point number
         int offset,
         int length);
 
-Creates a binary float from a text string that represents a number. For more information, see the  `FromString(String, int,
-            int, EContext)`  method.
+Creates a binary floating-point number from a text string that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
 
 <b>Parameters:</b>
 
@@ -1364,7 +1367,7 @@ Either  <i>offset</i>
         int length,
         PeterO.Numbers.EContext ctx);
 
-Creates a binary float from a text string that represents a number. Note that if the string contains a negative exponent, the resulting value might not be exact, in which case the resulting binary float will be an approximation of this decimal number's value. The format of the string generally consists of:
+Creates a binary floating-point number from a text string that represents a number. Note that if the string contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value. The format of the string generally consists of:
 
  * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
 
@@ -1417,12 +1420,11 @@ Either  <i>offset</i>
         string str,
         PeterO.Numbers.EContext ctx);
 
-Creates a binary float from a text string that represents a number. For more information, see the  `FromString(String, int,
-            int, EContext)`  method.
+Creates a binary floating-point number from a text string that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string to convert to a binary float.
+ * <i>str</i>: A text string to convert to a binary floating-point number.
 
  * <i>ctx</i>: An arithmetic context specifying the precision, rounding, and exponent range to apply to the parsed number. Can be null.
 
@@ -1442,6 +1444,8 @@ The parameter  <i>str</i>
     public static PeterO.Numbers.EFloat FromUInt16(
         ushort inputUInt16);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
@@ -1458,6 +1462,8 @@ This number's value as an arbitrary-precision binary floating-point number.
     public static PeterO.Numbers.EFloat FromUInt32(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
@@ -1473,6 +1479,8 @@ This number's value as an arbitrary-precision binary floating-point number.
 
     public static PeterO.Numbers.EFloat FromUInt64(
         ulong inputUInt64);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
@@ -1950,7 +1958,7 @@ Multiplies two binary floating-point numbers. The resulting scale will be the su
 
 <b>Parameters:</b>
 
- * <i>op</i>: Another binary float.
+ * <i>op</i>: Another binary floating-point number.
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
 
@@ -1968,7 +1976,7 @@ Multiplies two binary floating-point numbers. The resulting exponent will be the
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: Another binary float.
+ * <i>otherValue</i>: Another binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1987,7 +1995,7 @@ The parameter  <i>otherValue</i>
         PeterO.Numbers.EFloat multiplicand,
         PeterO.Numbers.EFloat augend);
 
-Multiplies by one binary float, and then adds another binary float.
+Multiplies by one binary floating-point number, and then adds another binary floating-point number.
 
 <b>Parameters:</b>
 
@@ -2056,7 +2064,7 @@ The parameter  <i>op</i>
     public PeterO.Numbers.EFloat Negate(
         PeterO.Numbers.EContext context);
 
-Returns a binary float with the same value as this object but with the sign reversed.
+Returns a binary floating-point number with the same value as this object but with the sign reversed.
 
 <b>Parameters:</b>
 
@@ -2124,7 +2132,7 @@ Finds the next value that is closer to the other object's value than this object
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: An arbitrary-precision binary float that the return value will approach.
+ * <i>otherValue</i>: An arbitrary-precision binary floating-point number that the return value will approach.
 
  * <i>ctx</i>: An arithmetic context object to control the precision and exponent range of the result. The rounding mode from this context is ignored. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags).
 
@@ -2190,7 +2198,7 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Divides one binary float by another and returns the result. When possible, the result will be exact.
+Divides one binary floating-point number by another and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -2214,7 +2222,7 @@ The parameter  <i>dividend</i>
     public static explicit operator byte(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
+Converts an arbitrary-precision binary floating-point number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2263,7 +2271,7 @@ The parameter  <i>bigValue</i>
     public static explicit operator float(
         PeterO.Numbers.EFloat bigValue);
 
-Converts an arbitrary-precision binary float to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+Converts an arbitrary-precision binary floating-point number to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Parameters:</b>
 
@@ -2285,7 +2293,7 @@ The parameter  <i>bigValue</i>
     public static explicit operator int(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
+Converts an arbitrary-precision binary floating-point number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2312,7 +2320,7 @@ The parameter  <i>input</i>
     public static explicit operator long(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
+Converts an arbitrary-precision binary floating-point number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2356,7 +2364,7 @@ The number 1 if  <i>boolValue</i>
     public static explicit operator PeterO.Numbers.EInteger(
         PeterO.Numbers.EFloat bigValue);
 
-Converts an arbitrary-precision binary float to a value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
+Converts an arbitrary-precision binary floating-point number to a value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 
@@ -2381,7 +2389,9 @@ The parameter  <i>bigValue</i>
     public static explicit operator sbyte(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
+<b>This API is not CLS-compliant.</b>
+
+Converts an arbitrary-precision binary floating-point number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2408,7 +2418,7 @@ The parameter  <i>input</i>
     public static explicit operator short(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
+Converts an arbitrary-precision binary floating-point number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2435,7 +2445,9 @@ The parameter  <i>input</i>
     public static explicit operator uint(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
+<b>This API is not CLS-compliant.</b>
+
+Converts an arbitrary-precision binary floating-point number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2462,7 +2474,9 @@ The parameter  <i>input</i>
     public static explicit operator ulong(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
+<b>This API is not CLS-compliant.</b>
+
+Converts an arbitrary-precision binary floating-point number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2489,7 +2503,9 @@ The parameter  <i>input</i>
     public static explicit operator ushort(
         PeterO.Numbers.EFloat input);
 
-Converts an arbitrary-precision binary float to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
+<b>This API is not CLS-compliant.</b>
+
+Converts an arbitrary-precision binary floating-point number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
 
@@ -2533,7 +2549,7 @@ The value of  <i>inputByte</i>
     public static implicit operator PeterO.Numbers.EFloat(
         double dbl);
 
-Creates a binary float from a 64-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
+Creates a binary floating-point number from a 64-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
 
 <b>Parameters:</b>
 
@@ -2542,7 +2558,7 @@ Creates a binary float from a 64-bit floating-point number. This method computes
 
 <b>Return Value:</b>
 
-A binary float with the same value as  <i>dbl</i>
+A binary floating-point number with the same value as  <i>dbl</i>
 .
 
 <a id="op_Implicit"></a>
@@ -2551,7 +2567,7 @@ A binary float with the same value as  <i>dbl</i>
     public static implicit operator PeterO.Numbers.EFloat(
         float flt);
 
-Creates a binary float from a 32-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
+Creates a binary floating-point number from a 32-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
 
 <b>Parameters:</b>
 
@@ -2560,7 +2576,7 @@ Creates a binary float from a 32-bit floating-point number. This method computes
 
 <b>Return Value:</b>
 
-A binary float with the same value as  <i>flt</i>
+A binary floating-point number with the same value as  <i>flt</i>
 .
 
 <a id="op_Implicit"></a>
@@ -2611,13 +2627,15 @@ Converts an arbitrary-precision integer to an arbitrary precision binary.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary float with the exponent set to 0.
+An arbitrary-precision binary floating-point number with the exponent set to 0.
 
 <a id="op_Implicit"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EFloat(
         sbyte inputSByte);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
 
@@ -2653,6 +2671,8 @@ The value of  <i>inputInt16</i>
     public static implicit operator PeterO.Numbers.EFloat(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
@@ -2670,6 +2690,8 @@ The value of  <i>inputUInt32</i>
     public static implicit operator PeterO.Numbers.EFloat(
         ulong inputUInt64);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
@@ -2686,6 +2708,8 @@ The value of  <i>inputUInt64</i>
 
     public static implicit operator PeterO.Numbers.EFloat(
         ushort inputUInt16);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
 
@@ -2728,7 +2752,7 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Finds the remainder when dividing one arbitrary-precision binary float by another.
+Finds the remainder when dividing one arbitrary-precision binary floating-point number by another.
 
 <b>Parameters:</b>
 
@@ -2778,7 +2802,7 @@ The parameter  <i>operand1</i>
         PeterO.Numbers.EFloat bthis,
         PeterO.Numbers.EFloat subtrahend);
 
-Subtracts one arbitrary-precision binary float from another.
+Subtracts one arbitrary-precision binary floating-point number from another.
 
 <b>Parameters:</b>
 
@@ -2897,7 +2921,7 @@ Raises this object's value to the given exponent, using unlimited precision.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: An arbitrary-precision binary float expressing the exponent to raise this object's value to.
+ * <i>exponent</i>: An arbitrary-precision binary floating-point number expressing the exponent to raise this object's value to.
 
 <b>Return Value:</b>
 
@@ -2914,7 +2938,7 @@ Raises this object's value to the given exponent.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: An arbitrary-precision binary float expressing the exponent to raise this object's value to.
+ * <i>exponent</i>: An arbitrary-precision binary floating-point number expressing the exponent to raise this object's value to.
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
 
@@ -2941,9 +2965,9 @@ An arbitrary-precision integer.
         int desiredExponentInt,
         PeterO.Numbers.EContext ctx);
 
- Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+ Returns a binary floating-point number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
+<b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary floating-point number has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
      /* After performing arithmetic operations, adjust /* the number to 5*/*/
                 digits after the radix point number = number.Quantize(-5, /* five digits*/
@@ -2959,7 +2983,7 @@ A fixed-point binary arithmetic in which no digits come after the radix point (a
 
 <b>Return Value:</b>
 
-A binary float with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if this object is infinity, if the rounded result can't fit the given precision, or if the context defines an exponent range and the given exponent is outside that range.
+A binary floating-point number with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if this object is infinity, if the rounded result can't fit the given precision, or if the context defines an exponent range and the given exponent is outside that range.
 
 <a id="Quantize_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Quantize
@@ -2968,19 +2992,19 @@ A binary float with the same value as this object but with the exponent changed.
         PeterO.Numbers.EFloat otherValue,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but with the same exponent as another binary float. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+Returns a binary floating-point number with the same value as this object but with the same exponent as another binary floating-point number. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which a fixed number of digits come after the radix point. A fixed-point binary arithmetic in which no digits come after the radix point (a desired exponent of 0) is considered an "integer arithmetic" .
 
 <b>Parameters:</b>
 
- * <i>otherValue</i>: A binary float containing the desired exponent of the result. The significand is ignored. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
+ * <i>otherValue</i>: A binary floating-point number containing the desired exponent of the result. The significand is ignored. The exponent is the number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the sixteenth (10b^-3, 0.0001b), and 3 means round to the sixteen-place (10b^3, 1000b). A value of 0 rounds the number to an integer.
 
  * <i>ctx</i>: An arithmetic context to control precision and rounding of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the default rounding mode is HalfEven.
 
 <b>Return Value:</b>
 
-A binary float with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding, or if the arithmetic context defines an exponent range and the given exponent is outside that range.
+A binary floating-point number with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding, or if the arithmetic context defines an exponent range and the given exponent is outside that range.
 
 <a id="Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### Quantize
@@ -2989,9 +3013,9 @@ A binary float with the same value as this object but with the exponent changed.
         PeterO.Numbers.EInteger desiredExponent,
         PeterO.Numbers.EContext ctx);
 
- Returns a binary float with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+ Returns a binary floating-point number with the same value but a new exponent. Note that this is not always the same as rounding to a given number of binary digit places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of binary digit places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
-<b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary float has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
+<b>Remark:</b> This method can be used to implement fixed-point binary arithmetic, in which each binary floating-point number has a fixed number of digits after the radix point. The following code example returns a fixed-point number with up to 20 digits before and exactly 5 digits after the radix point:
 
      /* After performing arithmetic operations, adjust /* the number to 5 /* */*/*/
                 digits after the radix point number = number.Quantize(
@@ -3008,7 +3032,7 @@ A fixed-point binary arithmetic in which no digits come after the radix point (a
 
 <b>Return Value:</b>
 
-A binary float with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if this object is infinity, if the rounded result can't fit the given precision, or if the context defines an exponent range and the given exponent is outside that range.
+A binary floating-point number with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if this object is infinity, if the rounded result can't fit the given precision, or if the context defines an exponent range and the given exponent is outside that range.
 
 <a id="Reduce_PeterO_Numbers_EContext"></a>
 ### Reduce
@@ -3137,7 +3161,7 @@ The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
+Returns a binary floating-point number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -3147,7 +3171,7 @@ Returns a binary float with the same value as this object but rounded to a new e
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
 
 <a id="RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### RoundToExponent
@@ -3156,7 +3180,7 @@ A binary float rounded to the closest value representable in the given precision
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
+Returns a binary floating-point number with the same value as this object but rounded to a new exponent if necessary. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -3166,7 +3190,7 @@ Returns a binary float with the same value as this object but rounded to a new e
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_int_PeterO_Numbers_EContext"></a>
 ### RoundToExponentExact
@@ -3175,7 +3199,7 @@ A binary float rounded to the closest value representable in the given precision
         int exponentSmall,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
+Returns a binary floating-point number with the same value as this object but rounded to the given exponent represented as a 32-bit signed integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -3185,7 +3209,7 @@ Returns a binary float with the same value as this object but rounded to the giv
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### RoundToExponentExact
@@ -3194,7 +3218,7 @@ A binary float rounded to the closest value representable in the given precision
         PeterO.Numbers.EInteger exponent,
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
+Returns a binary floating-point number with the same value as this object but rounded to the given exponent, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
@@ -3204,7 +3228,7 @@ Returns a binary float with the same value as this object but rounded to the giv
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding"></a>
 ### RoundToExponentExact
@@ -3231,7 +3255,7 @@ A binary number rounded to the closest value representable in the given precisio
     public PeterO.Numbers.EFloat RoundToIntegerExact(
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
+Returns a binary floating-point number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
 <b>Parameters:</b>
 
@@ -3239,7 +3263,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
 
 <a id="RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext"></a>
 ### RoundToIntegerNoRoundedFlag
@@ -3247,7 +3271,7 @@ A binary float rounded to the closest integer representable in the given precisi
     public PeterO.Numbers.EFloat RoundToIntegerNoRoundedFlag(
         PeterO.Numbers.EContext ctx);
 
-Returns a binary float with the same value as this object but rounded to an integer, without adding the  `FlagInexact`  or  `FlagRounded`  flags. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
+Returns a binary floating-point number with the same value as this object but rounded to an integer, without adding the  `FlagInexact`  or  `FlagRounded`  flags. The resulting number's Exponent property will not necessarily be 0; use the Quantize method instead to give the result an exponent of 0.
 
 <b>Parameters:</b>
 
@@ -3255,7 +3279,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
 
 <a id="RoundToIntegralExact_PeterO_Numbers_EContext"></a>
 ### RoundToIntegralExact
@@ -3265,7 +3289,7 @@ A binary float rounded to the closest integer representable in the given precisi
 
 <b>Deprecated.</b> Renamed to RoundToIntegerExact.
 
-Returns a binary float with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
+Returns a binary floating-point number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 
 <b>Parameters:</b>
 
@@ -3273,7 +3297,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
 
 <a id="RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext"></a>
 ### RoundToIntegralNoRoundedFlag
@@ -3283,7 +3307,7 @@ A binary float rounded to the closest integer representable in the given precisi
 
 <b>Deprecated.</b> Renamed to RoundToIntegerNoRoundedFlag.
 
-Returns a binary float with the same value as this object but rounded to an integer, without adding the  `FlagInexact`  or  `FlagRounded`  flags.
+Returns a binary floating-point number with the same value as this object but rounded to an integer, without adding the  `FlagInexact`  or  `FlagRounded`  flags.
 
 <b>Parameters:</b>
 
@@ -3291,7 +3315,7 @@ Returns a binary float with the same value as this object but rounded to an inte
 
 <b>Return Value:</b>
 
-A binary float rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
 
 <a id="RoundToPrecision_PeterO_Numbers_EContext"></a>
 ### RoundToPrecision
@@ -3448,7 +3472,7 @@ The difference of the two objects.
     public PeterO.Numbers.EFloat Subtract(
         PeterO.Numbers.EFloat otherValue);
 
-Subtracts an arbitrary-precision binary float from this instance and returns the result.
+Subtracts an arbitrary-precision binary floating-point number from this instance and returns the result.
 
 <b>Parameters:</b>
 
@@ -3465,7 +3489,7 @@ The difference of the two objects.
         PeterO.Numbers.EFloat otherValue,
         PeterO.Numbers.EContext ctx);
 
-Subtracts an arbitrary-precision binary float from this instance.
+Subtracts an arbitrary-precision binary floating-point number from this instance.
 
 <b>Parameters:</b>
 
@@ -3767,6 +3791,8 @@ A text string.
 
     public sbyte ToSByteChecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
@@ -3783,6 +3809,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public sbyte ToSByteIfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -3798,6 +3826,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 ### ToSByteUnchecked
 
     public sbyte ToSByteUnchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 
@@ -3848,6 +3878,8 @@ A string representation of this object. The value is converted to decimal and th
 
     public ushort ToUInt16Checked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
@@ -3863,6 +3895,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 ### ToUInt16IfExact
 
     public ushort ToUInt16IfExact();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
 
@@ -3880,6 +3914,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public ushort ToUInt16Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
 
 <b>Return Value:</b>
@@ -3890,6 +3926,8 @@ This number, converted to a 16-bit unsigned integer. Returns 0 if this value is 
 ### ToUInt32Checked
 
     public uint ToUInt32Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
@@ -3907,6 +3945,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public uint ToUInt32IfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -3923,6 +3963,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public uint ToUInt32Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
 <b>Return Value:</b>
@@ -3933,6 +3975,8 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 ### ToUInt64Checked
 
     public ulong ToUInt64Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
@@ -3950,6 +3994,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public ulong ToUInt64IfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -3965,6 +4011,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 ### ToUInt64Unchecked
 
     public ulong ToUInt64Unchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 

@@ -772,6 +772,8 @@ Doesn't satisfy (endIndex - index) % 4 == 0".
     public static PeterO.Numbers.EInteger FromSByte(
         sbyte inputSByte);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an 8-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
@@ -849,6 +851,8 @@ The parameter  <i>str</i>
     public static PeterO.Numbers.EInteger FromUInt16(
         ushort inputUInt16);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 16-bit unsigned integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
@@ -865,6 +869,8 @@ This number's value as an arbitrary-precision integer.
     public static PeterO.Numbers.EInteger FromUInt32(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
@@ -880,6 +886,8 @@ This number's value as an arbitrary-precision integer.
 
     public static PeterO.Numbers.EInteger FromUInt64(
         ulong ulongValue);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 
@@ -1588,6 +1596,8 @@ The value of  <i>boolValue</i>
     public static explicit operator sbyte(
         PeterO.Numbers.EInteger input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision integer to an 8-bit signed integer if it can fit in an 8-bit signed integer.
 
 <b>Parameters:</b>
@@ -1642,6 +1652,8 @@ The parameter  <i>input</i>
     public static explicit operator uint(
         PeterO.Numbers.EInteger input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer.
 
 <b>Parameters:</b>
@@ -1669,6 +1681,8 @@ The parameter  <i>input</i>
     public static explicit operator ulong(
         PeterO.Numbers.EInteger input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision integer to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer.
 
 <b>Parameters:</b>
@@ -1695,6 +1709,8 @@ The parameter  <i>input</i>
 
     public static explicit operator ushort(
         PeterO.Numbers.EInteger input);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts an arbitrary-precision integer to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer.
 
@@ -1816,6 +1832,8 @@ The value of  <i>inputInt64</i>
     public static implicit operator PeterO.Numbers.EInteger(
         sbyte inputSByte);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an 8-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
@@ -1850,6 +1868,8 @@ The value of  <i>inputInt16</i>
     public static implicit operator PeterO.Numbers.EInteger(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
@@ -1867,6 +1887,8 @@ The value of  <i>inputUInt32</i>
     public static implicit operator PeterO.Numbers.EInteger(
         ulong inputUInt64);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 
 <b>Parameters:</b>
@@ -1883,6 +1905,8 @@ The value of  <i>inputUInt64</i>
 
     public static implicit operator PeterO.Numbers.EInteger(
         ushort inputUInt16);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 16-bit unsigned integer to an arbitrary-precision integer.
 
@@ -2589,6 +2613,8 @@ A string representing the value of this object. If this value is 0, returns "0".
 
     public sbyte ToSByteChecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer.
 
 <b>Return Value:</b>
@@ -2604,6 +2630,8 @@ This value is less than -128 or greater than 127.
 ### ToSByteUnchecked
 
     public sbyte ToSByteUnchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number to an 8-bit signed integer, returning the least-significant bits of this number's two's-complement form.
 
@@ -2627,6 +2655,8 @@ A string representation of this object. If negative, the string will begin with 
 
     public ushort ToUInt16Checked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer.
 
 <b>Return Value:</b>
@@ -2643,6 +2673,8 @@ This value is less than 0 or greater than 65535.
 
     public ushort ToUInt16Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number to a 16-bit unsigned integer, returning the least-significant bits of this number's two's-complement form.
 
 <b>Return Value:</b>
@@ -2653,6 +2685,8 @@ This number, converted to a 16-bit unsigned integer.
 ### ToUInt32Checked
 
     public uint ToUInt32Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer.
 
@@ -2670,6 +2704,8 @@ This value is less than 0 or greater than 4294967295.
 
     public uint ToUInt32Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number to a 32-bit signed integer, returning the least-significant bits of this number's two's-complement form.
 
 <b>Return Value:</b>
@@ -2680,6 +2716,8 @@ This number, converted to a 32-bit signed integer.
 ### ToUInt64Checked
 
     public ulong ToUInt64Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer.
 
@@ -2696,6 +2734,8 @@ This value is outside the range of a 64-bit signed integer.
 ### ToUInt64Unchecked
 
     public ulong ToUInt64Unchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number to a 64-bit signed integer, returning the least-significant bits of this number's two's-complement form.
 

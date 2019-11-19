@@ -1011,6 +1011,7 @@ BigNumberFlags.FlagSignalingNaN);
       int offset,
       int length,
       EContext ctx) {
+      // TODO: Optimize this method
       int tmpoffset = offset;
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
@@ -1105,6 +1106,8 @@ BigNumberFlags.FlagSignalingNaN);
               maxDigits.Decrement();
             }
           }
+          // TODO: Optimize this implementation for very long
+          // strings
           for (; i < endStr; ++i) {
             if (str[i] >= '0' && str[i] <= '9') {
               var thisdigit = (int)(str[i] - '0');
@@ -1121,10 +1124,9 @@ BigNumberFlags.FlagSignalingNaN);
                     mantBufferMult = 10;
                   } else {
                     // multiply by 10
-                    mantBufferMult = (mantBufferMult << 3) + (mantBufferMult <<
-1);
-                    mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
-                    mantBuffer += thisdigit;
+                mantBufferMult = (mantBufferMult << 3) + (mantBufferMult << 1);
+                mantBuffer = (mantBuffer << 3) + (mantBuffer << 1);
+                mantBuffer += thisdigit;
                   }
                 }
               } else {

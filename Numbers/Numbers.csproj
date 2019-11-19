@@ -48,33 +48,13 @@ Version 1.4.0
 
   <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Debug|AnyCPU&apos; '>
     <DocumentationFile>bin\Debug\netstandard1.0\Numbers.xml</DocumentationFile>
-    <CustomCommands>
-      <CustomCommands>
-        <Command>
-          <type>Custom</type>
-          <name>Signing Workaround</name>
-          <command>sn -R bin/Debug/netstandard1.0/Numbers.dll PeterO.snk</command>
-          <workingdir>${ProjectDir}</workingdir>
-          <externalConsole>True</externalConsole>
-        </Command>
-      </CustomCommands>
-    </CustomCommands>
+
     <DebugType>full</DebugType>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Release|AnyCPU&apos; '>
     <DebugType/>
     <DocumentationFile>bin\Release\netstandard1.0\Numbers.xml</DocumentationFile>
-    <CustomCommands>
-      <CustomCommands>
-        <Command>
-          <type>Custom</type>
-          <name>Signing Workaround</name>
-          <command>sn -R bin/Release/netstandard1.0/Numbers.dll PeterO.snk</command>
-          <workingdir>${ProjectDir}</workingdir>
-          <externalConsole>True</externalConsole>
-        </Command>
-      </CustomCommands>
-    </CustomCommands>
+
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>
 

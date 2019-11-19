@@ -4949,9 +4949,8 @@ otherValue;
         fastPrecision = accum.GetDigitLength();
       }
       if (binaryPrec) {
-        // TODO: Make FastIntegerCompareTo(FastInteger)
-        while (bitLength.CompareTo(FastInteger.FromBig(
-              accum.ShiftedInt.GetUnsignedBitLengthAsEInteger())) < 0) {
+        while (bitLength.CompareTo(
+              accum.ShiftedInt.GetUnsignedBitLengthAsEInteger()) < 0) {
           accum.ShiftRightInt(1);
         }
       }
@@ -4973,10 +4972,9 @@ otherValue;
               ctx,
               "Result requires too much memory");
           }
-          // TODO: Avoid creating fast integer and make
-          // a FastInteger.CompareTo(EInteger)
-          if (bitLength.CompareTo(FastInteger.FromBig(
-                currMantissa.GetUnsignedBitLengthAsEInteger())) < 0) {
+
+          if (bitLength.CompareTo(
+                currMantissa.GetUnsignedBitLengthAsEInteger()) < 0) {
             // Mantissa too high, treat as overflow
             adjExponent.Increment();
           }
@@ -5169,9 +5167,8 @@ otherValue;
                 neededShift,
                 nonHalfRounding);
               if (binaryPrec) {
-                // TODO: Make FastInteger.CompareTo(FastInteger)
-                while (bitLength.CompareTo(FastInteger.FromBig(
-                      accum.ShiftedInt.GetUnsignedBitLengthAsEInteger())) < 0) {
+                while (bitLength.CompareTo(
+                      accum.ShiftedInt.GetUnsignedBitLengthAsEInteger()) < 0) {
                   accum.ShiftRightInt(1);
                 }
               }
@@ -5208,10 +5205,8 @@ otherValue;
               ctx,
               "Result requires too much memory");
           }
-          // TODO: Avoid creating fast integer and make
-          // a FastInteger.CompareTo(EInteger)
-          if (bitLength.CompareTo(FastInteger.FromBig(
-                currMantissa.GetUnsignedBitLengthAsEInteger())) < 0) {
+          if (bitLength.CompareTo(
+                currMantissa.GetUnsignedBitLengthAsEInteger()) < 0) {
             // Mantissa too high, treat as overflow
             adjExponent.Increment();
           }

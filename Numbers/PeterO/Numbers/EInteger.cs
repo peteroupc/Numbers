@@ -585,6 +585,11 @@ namespace PeterO.Numbers {
           bigint[currentDigit] = unchecked((short)word);
           --currentDigit;
         }
+        int count = CountWords(bigint);
+        return (count == 0) ? EInteger.Zero : new EInteger(
+          count,
+          bigint,
+          negative);
       } else if (radix == 2) {
         // Special case for binary radix
         int leftover = effectiveLength & 15;
@@ -627,13 +632,82 @@ namespace PeterO.Numbers {
           bigint[currentDigit] = unchecked((short)word);
           --currentDigit;
         }
+        int count = CountWords(bigint);
+        return (count == 0) ? EInteger.Zero : new EInteger(
+          count,
+          bigint,
+          negative);
       } else {
-        bigint = new short[4];
+        return FromRadixSubstringGeneral(str, radix, index, endIndex, negative);
+      }
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='str'>Not documented yet.</param>
+  /// <param name='radix'>Not documented yet.</param>
+  /// <param name='index'>Not documented yet.</param>
+  /// <param name='endIndex'>Not documented yet.</param>
+  /// <param name='negative'>Not documented yet.</param>
+  /// <returns/>
+    public static EInteger FromRadixSubstringGeneral(
+      string str,
+      int radix,
+      int index,
+      int endIndex,
+      bool negative) {
+      if (endIndex - index > 32) {
+        int midIndex = index + (endIndex - index) / 2;
+        EInteger eia = FromRadixSubstringGeneral(
+          str,
+          radix,
+          index,
+          midIndex,
+          false);
+        EInteger eib = FromRadixSubstringGeneral(
+          str,
+          radix,
+          midIndex,
+          endIndex,
+          false);
+        EInteger mult = null;
+        mult = (radix == 10) ? NumberUtility.FindPowerOfTen(endIndex -
+midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
+        eia = eia.Multiply(mult).Add(eib);
+        if (negative) {
+          eia = eia.Negate();
+        }
+        return eia;
+      } else {
+        return FromRadixSubstringInner(str, radix, index, endIndex, negative);
+      }
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='str'>Not documented yet.</param>
+  /// <param name='radix'>Not documented yet.</param>
+  /// <param name='index'>Not documented yet.</param>
+  /// <param name='endIndex'>Not documented yet.</param>
+  /// <param name='negative'>Not documented yet.</param>
+  /// <returns/>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='str'/> is null.</exception>
+    public static EInteger FromRadixSubstringInner(
+      string str,
+      int radix,
+      int index,
+      int endIndex,
+      bool negative) {
+        var bigint = new short[4];
         var haveSmallInt = true;
         int maxSafeInt = ValueMaxSafeInts[radix - 2];
         int maxShortPlusOneMinusRadix = 65536 - radix;
         var smallInt = 0;
         for (int i = index; i < endIndex; ++i) {
+          if (str == null) {
+            throw new ArgumentNullException(nameof(str));
+          }
           char c = str[i];
           int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= radix) {
@@ -681,12 +755,11 @@ namespace PeterO.Numbers {
           bigint[0] = unchecked((short)(smallInt & 0xffff));
           bigint[1] = unchecked((short)((smallInt >> 16) & 0xffff));
         }
-      }
-      int count = CountWords(bigint);
-      return (count == 0) ? EInteger.Zero : new EInteger(
-        count,
-        bigint,
-        negative);
+        int count = CountWords(bigint);
+        return (count == 0) ? EInteger.Zero : new EInteger(
+          count,
+          bigint,
+          negative);
     }
 
     /// <summary>Converts a string to an arbitrary-precision
@@ -1203,8 +1276,7 @@ namespace PeterO.Numbers {
     public EInteger Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ?
-this :
-          this.Add(-intValue));
+          this : this.Add(-intValue));
     }
 
     /// <summary>Multiplies this instance by the value of an
@@ -4585,6 +4657,7 @@ minDigitEstimate;
         return sb.ToString();
       } else {
         // Other radixes
+        // TODO: Optimize this part of the method using divide-and-conquer
         var tempReg = new short[this.wordCount];
         Array.Copy(this.words, tempReg, tempReg.Length);
         int numWordCount = tempReg.Length;

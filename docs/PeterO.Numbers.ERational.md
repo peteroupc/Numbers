@@ -10,7 +10,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
 * <code>[Add(PeterO.Numbers.ERational)](#Add_PeterO_Numbers_ERational)</code> - Adds two rational numbers.
 * <code>[CompareTo(PeterO.Numbers.ERational)](#CompareTo_PeterO_Numbers_ERational)</code> - Compares an arbitrary-precision rational number with this instance.
-* <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary float with this instance.
+* <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary floating-point number with this instance.
 * <code>[CompareToDecimal(PeterO.Numbers.EDecimal)](#CompareToDecimal_PeterO_Numbers_EDecimal)</code> - Compares an arbitrary-precision decimal number with this instance.
 * <code>[CompareToTotal(PeterO.Numbers.ERational)](#CompareToTotal_PeterO_Numbers_ERational)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.ERational)](#CompareToTotalMagnitude_PeterO_Numbers_ERational)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
@@ -30,7 +30,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[FromDecimal(decimal)](#FromDecimal_decimal)</code> - Converts a decimal under the Common Language Infrastructure (usually a.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Converts a 64-bit floating-point number to a rational number.
 * <code>[FromEDecimal(PeterO.Numbers.EDecimal)](#FromEDecimal_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a rational number.
-* <code>[FromEFloat(PeterO.Numbers.EFloat)](#FromEFloat_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary float to a rational number.
+* <code>[FromEFloat(PeterO.Numbers.EFloat)](#FromEFloat_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to a rational number.
 * <code>[FromEInteger(PeterO.Numbers.EInteger)](#FromEInteger_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a rational number.
 * <code>[FromExtendedDecimal(PeterO.Numbers.EDecimal)](#FromExtendedDecimal_PeterO_Numbers_EDecimal)</code> - <b>Deprecated:</b> Renamed to FromEDecimal.
 * <code>[FromExtendedFloat(PeterO.Numbers.EFloat)](#FromExtendedFloat_PeterO_Numbers_EFloat)</code> - <b>Deprecated:</b> Renamed to FromEFloat.
@@ -66,7 +66,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator /(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Division)</code> - Divides an arbitrary-precision rational number by the value of another arbitrary-precision rational number object.
 * <code>[explicit operator ulong(PeterO.Numbers.ERational)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number. Converts an arbitrary-precision rational number to a decimal under the Common Language Infrastructure (see T:PeterO. Converts an arbitrary-precision rational number to an arbitrary-precision integer. Converts an arbitrary-precision rational number to a 64-bit floating-point number. Converts an arbitrary-precision rational number to a 32-bit binary floating-point number. Converts an arbitrary-precision rational number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
-* <code>[implicit operator PeterO.Numbers.ERational(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision integer to an arbitrary-precision rational number. Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision rational number. Converts an arbitrary-precision binary float to an arbitrary-precision rational number. Converts a decimal under the Common Language Infrastructure (usually a. Converts a 32-bit binary floating-point number to a rational number. Converts a 64-bit floating-point number to an arbitrary-precision rational number. Converts a byte (from 0 to 255) to an arbitrary-precision rational number. Converts an 8-bit signed integer to an arbitrary-precision rational number. Converts a 16-bit signed integer to an arbitrary-precision rational number. Converts a 16-bit unsigned integer to an arbitrary-precision rational number. Converts a 32-bit signed integer to an arbitrary-precision rational number. Converts a 32-bit signed integer to an arbitrary-precision rational number. Converts a 64-bit signed integer to an arbitrary-precision rational number. Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision integer to an arbitrary-precision rational number. Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision rational number. Converts an arbitrary-precision binary floating-point number to an arbitrary-precision rational number. Converts a decimal under the Common Language Infrastructure (usually a. Converts a 32-bit binary floating-point number to a rational number. Converts a 64-bit floating-point number to an arbitrary-precision rational number. Converts a byte (from 0 to 255) to an arbitrary-precision rational number. Converts an 8-bit signed integer to an arbitrary-precision rational number. Converts a 16-bit signed integer to an arbitrary-precision rational number. Converts a 16-bit unsigned integer to an arbitrary-precision rational number. Converts a 32-bit signed integer to an arbitrary-precision rational number. Converts a 32-bit signed integer to an arbitrary-precision rational number. Converts a 64-bit signed integer to an arbitrary-precision rational number. Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Adds one to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator %(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Modulus)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator &#x2a;(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Multiply)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
@@ -86,9 +86,9 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this rational number to an arbitrary-precision decimal number.
 * <code>[ToEDecimal(PeterO.Numbers.EContext)](#ToEDecimal_PeterO_Numbers_EContext)</code> - Converts this rational number to an arbitrary-precision decimal number and rounds the result to the given precision.
 * <code>[ToEDecimalExactIfPossible(PeterO.Numbers.EContext)](#ToEDecimalExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to an arbitrary-precision decimal number, but if the result would have a nonterminating decimal expansion, rounds that result to the given precision.
-* <code>[ToEFloat()](#ToEFloat)</code> - Converts this rational number to a binary float.
-* <code>[ToEFloat(PeterO.Numbers.EContext)](#ToEFloat_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary float and rounds that result to the given precision.
-* <code>[ToEFloatExactIfPossible(PeterO.Numbers.EContext)](#ToEFloatExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary float, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
+* <code>[ToEFloat()](#ToEFloat)</code> - Converts this rational number to a binary floating-point number.
+* <code>[ToEFloat(PeterO.Numbers.EContext)](#ToEFloat_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary floating-point number and rounds that result to the given precision.
+* <code>[ToEFloatExactIfPossible(PeterO.Numbers.EContext)](#ToEFloatExactIfPossible_PeterO_Numbers_EContext)</code> - Converts this rational number to a binary floating-point number, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
 * <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer by dividing the numerator by the denominator and discarding the fractional part of the result.
 * <code>[ToEIntegerExact()](#ToEIntegerExact)</code> - <b>Deprecated:</b> Renamed to ToEIntegerIfExact.
 * <code>[ToEIntegerIfExact()](#ToEIntegerIfExact)</code> - Converts this value to an arbitrary-precision integer, checking whether the value is an exact integer.
@@ -340,7 +340,7 @@ Zero if the values are equal; a negative number if this instance is less, or a p
     public int CompareToBinary(
         PeterO.Numbers.EFloat other);
 
-Compares an arbitrary-precision binary float with this instance.
+Compares an arbitrary-precision binary floating-point number with this instance.
 
 <b>Parameters:</b>
 
@@ -728,7 +728,7 @@ The parameter  <i>ef</i>
     public static PeterO.Numbers.ERational FromEFloat(
         PeterO.Numbers.EFloat ef);
 
-Converts an arbitrary-precision binary float to a rational number.
+Converts an arbitrary-precision binary floating-point number to a rational number.
 
 <b>Parameters:</b>
 
@@ -786,7 +786,7 @@ An arbitrary-precision rational number.
 
 <b>Deprecated.</b> Renamed to FromEFloat.
 
-Converts an arbitrary-precision binary float to a rational number.
+Converts an arbitrary-precision binary floating-point number to a rational number.
 
 <b>Parameters:</b>
 
@@ -849,6 +849,8 @@ This number's value as an arbitrary-precision rational number.
 
     public static PeterO.Numbers.ERational FromSByte(
         sbyte inputSByte);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts an 8-bit signed integer to an arbitrary-precision rational number.
 
@@ -962,6 +964,8 @@ Either  <i>offset</i>
     public static PeterO.Numbers.ERational FromUInt16(
         ushort inputUInt16);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 16-bit unsigned integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
@@ -978,6 +982,8 @@ This number's value as an arbitrary-precision rational number.
     public static PeterO.Numbers.ERational FromUInt32(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
@@ -993,6 +999,8 @@ This number's value as an arbitrary-precision rational number.
 
     public static PeterO.Numbers.ERational FromUInt64(
         ulong inputUInt64);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
 
@@ -1391,6 +1399,8 @@ Converts a boolean value (true or false) to an arbitrary-precision rational numb
     public static explicit operator sbyte(
         PeterO.Numbers.ERational input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision rational number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
@@ -1445,6 +1455,8 @@ The parameter  <i>input</i>
     public static explicit operator uint(
         PeterO.Numbers.ERational input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
@@ -1472,6 +1484,8 @@ The parameter  <i>input</i>
     public static explicit operator ulong(
         PeterO.Numbers.ERational input);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts an arbitrary-precision rational number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Parameters:</b>
@@ -1498,6 +1512,8 @@ The parameter  <i>input</i>
 
     public static explicit operator ushort(
         PeterO.Numbers.ERational input);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts an arbitrary-precision rational number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
@@ -1645,7 +1661,7 @@ An arbitrary-precision rational number.
     public static implicit operator PeterO.Numbers.ERational(
         PeterO.Numbers.EFloat eint);
 
-Converts an arbitrary-precision binary float to an arbitrary-precision rational number.
+Converts an arbitrary-precision binary floating-point number to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
@@ -1676,6 +1692,8 @@ An arbitrary-precision rational number.
 
     public static implicit operator PeterO.Numbers.ERational(
         sbyte inputSByte);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts an 8-bit signed integer to an arbitrary-precision rational number.
 
@@ -1711,6 +1729,8 @@ The value of  <i>inputInt16</i>
     public static implicit operator PeterO.Numbers.ERational(
         uint inputUInt32);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 32-bit signed integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
@@ -1728,6 +1748,8 @@ The value of  <i>inputUInt32</i>
     public static implicit operator PeterO.Numbers.ERational(
         ulong inputUInt64);
 
+<b>This API is not CLS-compliant.</b>
+
 Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
@@ -1744,6 +1766,8 @@ The value of  <i>inputUInt64</i>
 
     public static implicit operator PeterO.Numbers.ERational(
         ushort inputUInt16);
+
+<b>This API is not CLS-compliant.</b>
 
 Converts a 16-bit unsigned integer to an arbitrary-precision rational number.
 
@@ -2031,7 +2055,7 @@ The exact value of the rational number if possible; otherwise, the rounded versi
     public PeterO.Numbers.EFloat ToEFloat(
         PeterO.Numbers.EContext ctx);
 
-Converts this rational number to a binary float and rounds that result to the given precision.
+Converts this rational number to a binary floating-point number and rounds that result to the given precision.
 
 <b>Parameters:</b>
 
@@ -2046,7 +2070,7 @@ The value of the rational number, rounded to the given precision. Returns not-a-
 
     public PeterO.Numbers.EFloat ToEFloat();
 
-Converts this rational number to a binary float.
+Converts this rational number to a binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -2058,7 +2082,7 @@ The exact value of the rational number, or not-a-number (NaN) if the result can'
     public PeterO.Numbers.EFloat ToEFloatExactIfPossible(
         PeterO.Numbers.EContext ctx);
 
-Converts this rational number to a binary float, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
+Converts this rational number to a binary floating-point number, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
 
 <b>Parameters:</b>
 
@@ -2175,7 +2199,7 @@ The exact value of the rational number if possible; otherwise, the rounded versi
 
 <b>Deprecated.</b> Renamed to ToEFloat.
 
-Converts this rational number to a binary float and rounds that result to the given precision.
+Converts this rational number to a binary floating-point number and rounds that result to the given precision.
 
 <b>Parameters:</b>
 
@@ -2192,7 +2216,7 @@ The value of the rational number, rounded to the given precision. Returns not-a-
 
 <b>Deprecated.</b> Renamed to ToEFloat.
 
-Converts this rational number to a binary float.
+Converts this rational number to a binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -2206,7 +2230,7 @@ The exact value of the rational number, or not-a-number (NaN) if the result can'
 
 <b>Deprecated.</b> Renamed to ToEFloatExactIfPossible.
 
-Converts this rational number to a binary float, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
+Converts this rational number to a binary floating-point number, but if the result would have a nonterminating binary expansion, rounds that result to the given precision.
 
 <b>Parameters:</b>
 
@@ -2350,6 +2374,8 @@ This number, converted to a 64-bit signed integer. Returns 0 if this value is in
 
     public sbyte ToSByteChecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
@@ -2366,6 +2392,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public sbyte ToSByteIfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -2381,6 +2409,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 ### ToSByteUnchecked
 
     public sbyte ToSByteUnchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 
@@ -2415,6 +2445,8 @@ A string representation of this object. If this object's value is infinity or no
 
     public ushort ToUInt16Checked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
 <b>Return Value:</b>
@@ -2430,6 +2462,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 ### ToUInt16IfExact
 
     public ushort ToUInt16IfExact();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
 
@@ -2447,6 +2481,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public ushort ToUInt16Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit unsigned integer.
 
 <b>Return Value:</b>
@@ -2457,6 +2493,8 @@ This number, converted to a 16-bit unsigned integer. Returns 0 if this value is 
 ### ToUInt32Checked
 
     public uint ToUInt32Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 
@@ -2474,6 +2512,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public uint ToUInt32IfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 32-bit signed integer if it can fit in a 32-bit signed integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -2490,6 +2530,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public uint ToUInt32Unchecked();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 32-bit signed integer.
 
 <b>Return Value:</b>
@@ -2500,6 +2542,8 @@ This number, converted to a 32-bit signed integer. Returns 0 if this value is in
 ### ToUInt64Checked
 
     public ulong ToUInt64Checked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 
@@ -2517,6 +2561,8 @@ This value is infinity or not-a-number, or the number, once converted to an inte
 
     public ulong ToUInt64IfExact();
 
+<b>This API is not CLS-compliant.</b>
+
 Converts this number's value to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer without rounding to a different numerical value.
 
 <b>Return Value:</b>
@@ -2532,6 +2578,8 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 ### ToUInt64Unchecked
 
     public ulong ToUInt64Unchecked();
+
+<b>This API is not CLS-compliant.</b>
 
 Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit unsigned integer.
 

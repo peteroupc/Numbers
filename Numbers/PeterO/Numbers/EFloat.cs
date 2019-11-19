@@ -550,6 +550,7 @@ BigNumberFlags.FlagSignalingNaN);
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
       }
+      // TODO: Optimize, taking into account the context
       return EDecimal.FromString (
           str,
           offset,
