@@ -552,17 +552,12 @@ namespace PeterO.Numbers {
         negative = str[0] == '-';
         ++tmpoffset;
       }
-      // TODO: Don't use FastIntegers here
       var numerInt = 0;
-      FastInteger numer = null;
-      var numerBuffer = 0;
-      var numerBufferMult = 1;
-      var denomBuffer = 0;
-      var denomBufferMult = 1;
+      EInteger numer = null;
       var haveDigits = false;
       var haveDenominator = false;
       var ndenomInt = 0;
-      FastInteger ndenom = null;
+      EInteger ndenom = null;
       int i = tmpoffset;
       if (i + 8 == endStr) {
         if ((str[i] == 'I' || str[i] == 'i') &&
@@ -582,6 +577,7 @@ namespace PeterO.Numbers {
           return negative ? NegativeInfinity : PositiveInfinity;
         }
       }
+      var numerStart = 0;
       if (i + 3 <= endStr) {
         // Quiet NaN
         if ((str[i] == 'N' || str[i] == 'n') && (str[i + 1] == 'A' || str[i +
@@ -590,27 +586,11 @@ namespace PeterO.Numbers {
             return (!negative) ? NaN : NaN.Negate();
           }
           i += 3;
+          numerStart = i;
           for (; i < endStr; ++i) {
             if (str[i] >= '0' && str[i] <= '9') {
               var thisdigit = (int)(str[i] - '0');
-              haveDigits = haveDigits || thisdigit != 0;
-              if (numerInt > MaxSafeInt) {
-                if (numer == null) {
-                  numer = new FastInteger(numerInt);
-                  numerBuffer = thisdigit;
-                  numerBufferMult = 10;
-                } else {
-                  if (numerBufferMult >= 1000000000) {
-                    numer.Multiply(numerBufferMult).AddInt(numerBuffer);
-                    numerBuffer = thisdigit;
-                    numerBufferMult = 10;
-                  } else {
-                    numerBufferMult *= 10;
-                    numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
-                    numerBuffer += thisdigit;
-                  }
-                }
-              } else {
+              if (numerInt <= MaxSafeInt) {
                 numerInt *= 10;
                 numerInt += thisdigit;
               }
@@ -618,12 +598,12 @@ namespace PeterO.Numbers {
               throw new FormatException();
             }
           }
-          if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
-            numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+          if (numerInt > MaxSafeInt) {
+            numer = EInteger.FromSubstring(str, numerStart, endStr);
+            return CreateNaN(numer, false, negative);
+          } else {
+            return CreateNaN(EInteger.FromInt32(numerInt), false, negative);
           }
-          EInteger bignumer = (numer == null) ? ((EInteger)numerInt) :
-            numer.AsEInteger();
-          return CreateNaN(bignumer, false, negative);
         }
       }
       if (i + 4 <= endStr) {
@@ -635,27 +615,12 @@ namespace PeterO.Numbers {
             return (!negative) ? SignalingNaN : SignalingNaN.Negate();
           }
           i += 4;
+          numerStart = i;
           for (; i < endStr; ++i) {
             if (str[i] >= '0' && str[i] <= '9') {
               var thisdigit = (int)(str[i] - '0');
               haveDigits = haveDigits || thisdigit != 0;
-              if (numerInt > MaxSafeInt) {
-                if (numer == null) {
-                  numer = new FastInteger(numerInt);
-                  numerBuffer = thisdigit;
-                  numerBufferMult = 10;
-                } else {
-                  if (numerBufferMult >= 1000000000) {
-                    numer.Multiply(numerBufferMult).AddInt(numerBuffer);
-                    numerBuffer = thisdigit;
-                    numerBufferMult = 10;
-                  } else {
-                    numerBufferMult *= 10;
-                    numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
-                    numerBuffer += thisdigit;
-                  }
-                }
-              } else {
+              if (numerInt <= MaxSafeInt) {
                 numerInt *= 10;
                 numerInt += thisdigit;
               }
@@ -663,42 +628,28 @@ namespace PeterO.Numbers {
               throw new FormatException();
             }
           }
-          if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
-            numer.Multiply(numerBufferMult).AddInt(numerBuffer);
-          }
           int flags3 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagSignalingNaN;
-          EInteger bignumer = (numer == null) ? ((EInteger)numerInt) :
-            numer.AsEInteger();
-          return new ERational(
-            bignumer,
+          if (numerInt > MaxSafeInt) {
+            numer = EInteger.FromSubstring(str, numerStart, endStr);
+            return new ERational(numer,
             EInteger.One,
             flags3);
+          } else {
+            return new ERational(EInteger.FromInt32(numerInt),
+            EInteger.One,
+            flags3);
+          }
         }
       }
       // Ordinary number
+      numerStart = i;
+      int numerEnd = i;
       for (; i < endStr; ++i) {
         if (str[i] >= '0' && str[i] <= '9') {
           var thisdigit = (int)(str[i] - '0');
-          if (numerInt > MaxSafeInt) {
-            if (numer == null) {
-              numer = new FastInteger(numerInt);
-              numerBuffer = thisdigit;
-              numerBufferMult = 10;
-            } else {
-              if (numerBufferMult >= 1000000000) {
-                numer.Multiply(numerBufferMult).AddInt(numerBuffer);
-                numerBuffer = thisdigit;
-                numerBufferMult = 10;
-              } else {
-                // multiply numerBufferMult and numerBuffer each by 10
-                numerBufferMult = (numerBufferMult << 3) + (numerBufferMult <<
-                    1);
-                numerBuffer = (numerBuffer << 3) + (numerBuffer << 1);
-                numerBuffer += thisdigit;
-              }
-            }
-          } else {
+          numerEnd = i + 1;
+          if (numerInt <= MaxSafeInt) {
             numerInt *= 10;
             numerInt += thisdigit;
           }
@@ -714,40 +665,24 @@ namespace PeterO.Numbers {
       if (!haveDigits) {
         throw new FormatException();
       }
-      if (numer != null && (numerBufferMult != 1 || numerBuffer != 0)) {
-        numer.Multiply(numerBufferMult).AddInt(numerBuffer);
+      if (numerInt > MaxSafeInt) {
+        numer = EInteger.FromSubstring(str, numerStart, numerEnd);
       }
       if (haveDenominator) {
-        FastInteger denom = null;
+        EInteger denom = null;
         var denomInt = 0;
         tmpoffset = 1;
         haveDigits = false;
         if (i == endStr) {
           throw new FormatException();
         }
+        numerStart = i;
         for (; i < endStr; ++i) {
           if (str[i] >= '0' && str[i] <= '9') {
             haveDigits = true;
             var thisdigit = (int)(str[i] - '0');
-            if (denomInt > MaxSafeInt) {
-              if (denom == null) {
-                denom = new FastInteger(denomInt);
-                denomBuffer = thisdigit;
-                denomBufferMult = 10;
-              } else {
-                if (denomBufferMult >= 1000000000) {
-                  denom.Multiply(denomBufferMult).AddInt(denomBuffer);
-                  denomBuffer = thisdigit;
-                  denomBufferMult = 10;
-                } else {
-                  // multiply denomBufferMult and denomBuffer each by 10
-                  denomBufferMult = (denomBufferMult << 3) + (denomBufferMult <<
-                      1);
-                  denomBuffer = (denomBuffer << 3) + (denomBuffer << 1);
-                  denomBuffer += thisdigit;
-                }
-              }
-            } else {
+            numerEnd = i + 1;
+            if (denomInt <= MaxSafeInt) {
               denomInt *= 10;
               denomInt += thisdigit;
             }
@@ -758,8 +693,8 @@ namespace PeterO.Numbers {
         if (!haveDigits) {
           throw new FormatException();
         }
-        if (denom != null && (denomBufferMult != 1 || denomBuffer != 0)) {
-          denom.Multiply(denomBufferMult).AddInt(denomBuffer);
+        if (denomInt > MaxSafeInt) {
+          denom = EInteger.FromSubstring(str, numerStart, numerEnd);
         }
         if (denom == null) {
           ndenomInt = denomInt;
@@ -772,12 +707,12 @@ namespace PeterO.Numbers {
       if (i != endStr) {
         throw new FormatException();
       }
-      if (ndenom == null ? (ndenomInt == 0) : ndenom.IsValueZero) {
+      if (ndenom == null ? (ndenomInt == 0) : ndenom.IsZero) {
         throw new FormatException();
       }
       ERational erat = Create (
-          numer == null ? (EInteger)numerInt : numer.AsEInteger(),
-          ndenom == null ? (EInteger)ndenomInt : ndenom.AsEInteger());
+          numer == null ? (EInteger)numerInt : numer,
+          ndenom == null ? (EInteger)ndenomInt : ndenom);
       return negative ? erat.Negate() : erat;
     }
 

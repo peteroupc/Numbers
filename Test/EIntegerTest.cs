@@ -1058,12 +1058,12 @@ namespace Test {
 
 [Test]
 public void TestEIntegerSpeed() {
-  var sw = new System.Diagnostics.Stopwatch();
-  sw.Start();
+  //var sw = new System.Diagnostics.Stopwatch();
+  //sw.Start();
   string str = TestCommon.Repeat("7", 100000);
   EInteger ei = EInteger.FromString(str);
-  sw.Stop();
-  Console.WriteLine(String.Empty + sw.ElapsedMilliseconds + " ms");
+  //sw.Stop();
+  //Console.WriteLine(String.Empty + sw.ElapsedMilliseconds + " ms");
 }
 
 [Test]
@@ -1561,6 +1561,71 @@ public void TestLongIntegerStrings() {
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
+[Test]
+public void TestFromStringInnerMinus() {
+  string str=TestCommon.Repeat("1",1000)+"-"+TestCommon.Repeat("2",999);
+  try {
+ EInteger.FromString(str);
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+  str=TestCommon.Repeat("1",999)+"-"+TestCommon.Repeat("2",1000);
+  try {
+ EInteger.FromString(str);
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+  str=TestCommon.Repeat("1",1001)+"-"+TestCommon.Repeat("2",998);
+  try {
+ EInteger.FromString(str);
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+  str="-"+TestCommon.Repeat("1",1000)+"-"+TestCommon.Repeat("2",999);
+  try {
+ EInteger.FromString(str);
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+  str="-"+TestCommon.Repeat("1",999)+"-"+TestCommon.Repeat("2",1000);
+  try {
+ EInteger.FromString(str);
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+  str="-"+TestCommon.Repeat("1",1001)+"-"+TestCommon.Repeat("2",998);
+  try {
+ EInteger.FromString(str);
+Assert.Fail("Should have failed");
+} catch (FormatException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+}
+
     [Test]
     public void TestFromSubstring() {
       try {

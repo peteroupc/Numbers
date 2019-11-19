@@ -639,19 +639,7 @@ namespace PeterO.Numbers {
       }
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='str'>The parameter <paramref name='str'/> is a text
-  /// string.</param>
-  /// <param name='radix'>The parameter <paramref name='radix'/> is a
-  /// 32-bit signed integer.</param>
-  /// <param name='index'>The parameter <paramref name='index'/> is a
-  /// 32-bit signed integer.</param>
-  /// <param name='endIndex'>The parameter <paramref name='endIndex'/> is
-  /// a 32-bit signed integer.</param>
-  /// <param name='negative'>The parameter <paramref name='negative'/> is
-  /// either <c>true</c> or <c>false</c>.</param>
-  /// <returns>The return value is not documented yet.</returns>
-    public static EInteger FromRadixSubstringGeneral(
+    private static EInteger FromRadixSubstringGeneral(
       string str,
       int radix,
       int index,
@@ -684,21 +672,7 @@ midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
       }
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='str'>The parameter <paramref name='str'/> is a text
-  /// string.</param>
-  /// <param name='radix'>The parameter <paramref name='radix'/> is a
-  /// 32-bit signed integer.</param>
-  /// <param name='index'>The parameter <paramref name='index'/> is a
-  /// 32-bit signed integer.</param>
-  /// <param name='endIndex'>The parameter <paramref name='endIndex'/> is
-  /// a 32-bit signed integer.</param>
-  /// <param name='negative'>The parameter <paramref name='negative'/> is
-  /// either <c>true</c> or <c>false</c>.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <exception cref='ArgumentNullException'>The parameter <paramref
-  /// name='str'/> is null.</exception>
-    public static EInteger FromRadixSubstringInner(
+    private static EInteger FromRadixSubstringInner(
       string str,
       int radix,
       int index,
