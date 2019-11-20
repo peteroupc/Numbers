@@ -44,12 +44,15 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Add(int)](#Add_int)</code> - Not documented yet.
 * <code>[Add(PeterO.Numbers.EFloat)](#Add_PeterO_Numbers_EFloat)</code> - Adds this object and another binary floating-point number and returns the result.
 * <code>[Add(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
+* <code>[CompareTo(int)](#CompareTo_int)</code> - Not documented yet.
 * <code>[CompareTo(PeterO.Numbers.EFloat)](#CompareTo_PeterO_Numbers_EFloat)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToSignal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
 * <code>[CompareToTotal(PeterO.Numbers.EFloat)](#CompareToTotal_PeterO_Numbers_EFloat)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
+* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Not documented yet.
+* <code>[CompareToValue(PeterO.Numbers.EFloat)](#CompareToValue_PeterO_Numbers_EFloat)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToWithContext(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
 * <code>[CopySign(PeterO.Numbers.EFloat)](#CopySign_PeterO_Numbers_EFloat)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
@@ -439,17 +442,31 @@ Finds the sum of this object and another object. The result's exponent is set to
 
 An arbitrary-precision binary floating-point number.
 
+<a id="CompareTo_int"></a>
+### CompareTo
+
+    public int CompareTo(
+        int intOther);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intOther</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="CompareTo_PeterO_Numbers_EFloat"></a>
 ### CompareTo
 
     public sealed int CompareTo(
         PeterO.Numbers.EFloat other);
 
-Compares the mathematical values of this object and another object, accepting NaN values. This method is not consistent with the Equals method because two different numbers with the same mathematical value, but different exponents, will compare as equal.
-
-In this method, negative zero and positive zero are considered equal.
-
-If this object or the other object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number, including infinity. Two different NaN values will be considered equal.
+Compares the mathematical values of this object and another object, accepting NaN values. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.
 
 <b>Parameters:</b>
 
@@ -612,6 +629,45 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
 
 .
 
+<a id="CompareToValue_int"></a>
+### CompareToValue
+
+    public int CompareToValue(
+        int intOther);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intOther</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
+<a id="CompareToValue_PeterO_Numbers_EFloat"></a>
+### CompareToValue
+
+    public int CompareToValue(
+        PeterO.Numbers.EFloat other);
+
+Compares the mathematical values of this object and another object, accepting NaN values. This method is not consistent with the Equals method because two different numbers with the same mathematical value, but different exponents, will compare as equal.
+
+In this method, negative zero and positive zero are considered equal.
+
+If this object or the other object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number, including infinity. Two different NaN values will be considered equal.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: An arbitrary-precision binary floating-point number.
+
+<b>Return Value:</b>
+
+Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value or if  <i>other</i>
+ is null, or 0 if both values are equal.
+
 <a id="CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareToWithContext
 
@@ -711,7 +767,7 @@ An arbitrary-precision binary floating-point number.
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>significand</i>
+The parameter  <i>mantissa</i>
  or  <i>exponent</i>
  is null.
 
@@ -1370,11 +1426,11 @@ Creates a binary floating-point number from a text string that represents a numb
 
  * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
 
- * One or more digits, with a single optional decimal point after the first digit and before the last digit. These digits may begin with any number of zeros.
+ * One or more digits, with a single optional decimal point (".", U+002E) before or after those digits or between two of them. These digits may begin with any number of zeros.
 
  * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all in any combination of case.
+The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.
 
 All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 

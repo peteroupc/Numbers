@@ -78,16 +78,13 @@ Initializes a new instance of the [PeterO.Numbers.EContext](PeterO.Numbers.ECont
  * <i>precision</i>: The parameter  <i>precision</i>
  is a 32-bit signed integer.
 
- * <i>rounding</i>: The parameter  <i>rounding</i>
- is an ERounding object.
+ * <i>rounding</i>: The value of the Rounding property.
 
- * <i>exponentMinSmall</i>: The parameter  <i>exponentMinSmall</i>
- is a 32-bit signed integer.
+ * <i>exponentMinSmall</i>: The value of the EMin property.
 
- * <i>exponentMaxSmall</i>: The parameter  <i>exponentMaxSmall</i>
- is a 32-bit signed integer.
+ * <i>exponentMaxSmall</i>: The value of the EMax property.
 
- * <i>clampNormalExponents</i>: Either  `true`  or  `false` .
+ * <i>clampNormalExponents</i>: The value of the ClampNormalExponents property.
 
 <a id="Void_ctor_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_Boolean"></a>
 ### EContext Constructor
@@ -356,7 +353,7 @@ Gets a value indicating whether this context has a mutable Flags field, one or m
 
     public bool HasMaxPrecision { get; }
 
-Gets a value indicating whether this context defines a maximum precision.
+Gets a value indicating whether this context defines a maximum precision. This is the same as whether this context's Precision property is zero.
 
 <b>Returns:</b>
 

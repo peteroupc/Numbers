@@ -965,8 +965,8 @@ BigNumberFlags.FlagSignalingNaN);
     /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
     /// U+002D) (if the minus sign, the value is negative.)</item>
     /// <item>One or more digits, with a single optional decimal point
-    /// (".", U+002E) before or after those digits or between two of them.  These digits may
-    /// begin with any number of zeros.</item>
+    /// (".", U+002E) before or after those digits or between two of them.
+    /// These digits may begin with any number of zeros.</item>
     /// <item>Optionally, "E"/"e" followed by an optional (positive
     /// exponent) or "-" (negative exponent) and followed by one or more
     /// digits specifying the exponent (these digits may begin with any
@@ -1200,15 +1200,17 @@ BigNumberFlags.FlagSignalingNaN);
       digitStart = i;
       int digitEnd = i;
       int decimalDigitStart = i;
-      int haveNonzeroDigit = 0;
-      int decimalPrec = 0;
+      var haveNonzeroDigit = false;
+      var decimalPrec = 0;
       int decimalDigitEnd = i;
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
-          haveNonzeroDigit|=(thisdigit!=0);
-          if(haveNonzeroDigit)decimalPrec+=1;
+          haveNonzeroDigit |= thisdigit != 0;
+          if (haveNonzeroDigit) {
+            ++decimalPrec;
+          }
           if (haveDecimalPoint) {
             decimalDigitEnd = i + 1;
           } else {
@@ -1234,6 +1236,7 @@ BigNumberFlags.FlagSignalingNaN);
           }
           haveDecimalPoint = true;
           decimalDigitStart = i + 1;
+          decimalDigitEnd = i + 1;
         } else if (ch == 'E' || ch == 'e') {
           haveExponent = true;
           ++i;

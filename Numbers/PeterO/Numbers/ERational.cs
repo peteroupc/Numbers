@@ -1998,7 +1998,7 @@ namespace PeterO.Numbers {
     /// <returns>The given arbitrary-precision rational number plus
     /// one.</returns>
     public ERational Increment() {
-      return this.Add(1);
+      return this.Add(FromInt32(1));
     }
 
     /// <summary>Subtracts one from an arbitrary-precision rational
@@ -2006,8 +2006,10 @@ namespace PeterO.Numbers {
     /// <returns>The given arbitrary-precision rational number minus
     /// one.</returns>
     public ERational Decrement() {
-      return this.Subtract(1);
+      return this.Subtract(FromInt32(1));
     }
+
+    // TODO: Add/Subtract/Multiply/Divide/Remainder methods
 
     // Begin integer conversions
 

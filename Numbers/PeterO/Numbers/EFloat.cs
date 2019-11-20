@@ -511,8 +511,8 @@ BigNumberFlags.FlagSignalingNaN);
     /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
     /// U+002D) (if '-' , the value is negative.)</item>
     /// <item>One or more digits, with a single optional decimal point
-    /// (".", U+002E) before or after those digits or between two of them. These digits may
-    /// begin with any number of zeros.</item>
+    /// (".", U+002E) before or after those digits or between two of them.
+    /// These digits may begin with any number of zeros.</item>
     /// <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
     /// (negative exponent) plus one or more digits specifying the exponent
     /// (these digits may begin with any number of zeros).</item></list>

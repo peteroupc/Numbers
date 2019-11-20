@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using NUnit.Framework;
 using PeterO;
 using PeterO.Numbers;
@@ -5227,6 +5228,54 @@ public static void TestStringContextOne(string str, EContext ec) {
   }
 }
 
+private static void AppendZeroFullDigits(StringBuilder sb, RandomGenerator
+rand, int count) {
+  for (var i = 0; i < count; ++i) {
+    if (rand.UniformInt(100) < 30) {
+      sb.Append('0');
+    } else {
+       int c = 0x30 + rand.UniformInt(10);
+       sb.Append((char)c);
+    }
+  }
+}
+
+private static void AppendDigits(StringBuilder sb, RandomGenerator rand, int
+prec, int point) {
+  string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+ if (rand.UniformInt(100) < 30) {
+   if (point >= 0) {
+        AppendZeroFullDigits(sb, rand, point);
+        sb.Append(".");
+        AppendZeroFullDigits(sb, rand, prec - point);
+      } else {
+        AppendZeroFullDigits(sb, rand, prec);
+      }
+ } else {
+    int digit = rand.UniformInt(10);
+    if (point >= 0) {
+        sb.Append(TestCommon.Repeat(digits[digit], point)).Append(".");
+        sb.Append(TestCommon.Repeat(digits[digit], prec - point));
+      } else {
+        sb.Append(TestCommon.Repeat(digits[digit], prec));
+      }
+ }
+}
+
+[Test]
+public void TestLeadingTrailingPoint() {
+  Assert.AreEqual(EDecimal.FromString("4"), EDecimal.FromString("4."));
+  Assert.AreEqual(EDecimal.FromString("0.4"), EDecimal.FromString(".4"));
+  Assert.AreEqual(EDecimal.FromString("4e+5"), EDecimal.FromString("4.e+5"));
+  Assert.AreEqual(EDecimal.FromString("99999999999"),
+  EDecimal.FromString("99999999999."));
+  Assert.AreEqual(EDecimal.FromString("0.99999999999"),
+  EDecimal.FromString(".99999999999"));
+  Assert.AreEqual(
+    EDecimal.FromString("99999999999e+5"),
+    EDecimal.FromString("99999999999.e+5"));
+}
+
 [Test]
 public void TestStringContext() {
   EContext[] econtexts = {
@@ -5275,8 +5324,8 @@ public void TestStringContext() {
     6100, 6200,
     740, 800,
   };
-  var rand = new RandomGenerator();
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+  var rand = new RandomGenerator();
   for (var i = 0; i < 3000; ++i) {
     int precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
     int exponent = exponents[rand.UniformInt(exponents.Length)];
@@ -5290,20 +5339,16 @@ if (point == 0) {
   point = -1;
 }
     }
-    int digit = rand.UniformInt(10);
-    var sb = new System.Text.StringBuilder();
-    if (point >= 0) {
-        sb.Append(TestCommon.Repeat(digits[digit], point)).Append(".");
-        sb.Append(TestCommon.Repeat(digits[digit], prec - point));
-      } else {
-        sb.Append(TestCommon.Repeat(digits[digit], prec));
-      }
+    var sb = new StringBuilder();
+     AppendDigits(sb, rand, prec, point);
       sb.Append(rand.UniformInt(2) == 0 ? "E+" : "E-");
       sb.Append(TestCommon.LongToString(exponent));
     for (var j = 0; j < econtexts.Length; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
-      //if(rand.UniformInt(100)<5) { ec=ec.WithSimplified(true); }
+      //if (rand.UniformInt(100)< 5) {
+   { ec = ec.WithSimplified(true);
+} }
       TestStringContextOne(sb.ToString(), ec);
     }
   }

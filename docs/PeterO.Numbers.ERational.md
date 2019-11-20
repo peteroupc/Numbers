@@ -9,11 +9,14 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
 * <code>[Add(PeterO.Numbers.ERational)](#Add_PeterO_Numbers_ERational)</code> - Adds two rational numbers.
-* <code>[CompareTo(PeterO.Numbers.ERational)](#CompareTo_PeterO_Numbers_ERational)</code> - Compares an arbitrary-precision rational number with this instance.
+* <code>[CompareTo(int)](#CompareTo_int)</code> - Not documented yet.
+* <code>[CompareTo(PeterO.Numbers.ERational)](#CompareTo_PeterO_Numbers_ERational)</code> - Compares the mathematical value of an arbitrary-precision rational number with that of this instance.
 * <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary floating-point number with this instance.
 * <code>[CompareToDecimal(PeterO.Numbers.EDecimal)](#CompareToDecimal_PeterO_Numbers_EDecimal)</code> - Compares an arbitrary-precision decimal number with this instance.
 * <code>[CompareToTotal(PeterO.Numbers.ERational)](#CompareToTotal_PeterO_Numbers_ERational)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.ERational)](#CompareToTotalMagnitude_PeterO_Numbers_ERational)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
+* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Not documented yet.
+* <code>[CompareToValue(PeterO.Numbers.ERational)](#CompareToValue_PeterO_Numbers_ERational)</code> - Compares the mathematical value of an arbitrary-precision rational number with that of this instance.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision rational number.
 * <code>[CopySign(PeterO.Numbers.ERational)](#CopySign_PeterO_Numbers_ERational)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 * <code>[Create(int, int)](#Create_int_int)</code> - Creates a rational number with the given numerator and denominator.
@@ -315,13 +318,31 @@ The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 The parameter  <i>otherValue</i>
  is null.
 
+<a id="CompareTo_int"></a>
+### CompareTo
+
+    public int CompareTo(
+        int intOther);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intOther</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="CompareTo_PeterO_Numbers_ERational"></a>
 ### CompareTo
 
     public sealed int CompareTo(
         PeterO.Numbers.ERational other);
 
-Compares an arbitrary-precision rational number with this instance.
+Compares the mathematical value of an arbitrary-precision rational number with that of this instance. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.
 
 <b>Parameters:</b>
 
@@ -340,7 +361,7 @@ Zero if the values are equal; a negative number if this instance is less, or a p
     public int CompareToBinary(
         PeterO.Numbers.EFloat other);
 
-Compares an arbitrary-precision binary floating-point number with this instance.
+Compares an arbitrary-precision binary floating-point number with this instance. In this method, NaN values are greater than any other ERational or EFloat value, and two NaN values (even if their payloads differ) are treated as equal by this method.
 
 <b>Parameters:</b>
 
@@ -428,6 +449,43 @@ Compares the absolute values of this object and another object, imposing a total
 <b>Return Value:</b>
 
 The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
+
+<a id="CompareToValue_int"></a>
+### CompareToValue
+
+    public int CompareToValue(
+        int intOther);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intOther</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
+<a id="CompareToValue_PeterO_Numbers_ERational"></a>
+### CompareToValue
+
+    public int CompareToValue(
+        PeterO.Numbers.ERational other);
+
+Compares the mathematical value of an arbitrary-precision rational number with that of this instance. In this method, NaN values are greater than any other ERational value, and two NaN values (even if their payloads differ) are treated as equal by this method. This method is not consistent with the Equals method.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: An arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater. This implementation returns a positive number if  <i>other</i>
  is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
 
 .

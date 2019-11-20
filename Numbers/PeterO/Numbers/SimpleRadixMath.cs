@@ -842,7 +842,7 @@ namespace PeterO.Numbers {
 
     public T SignalOverflow(EContext ctx, bool neg) {
       EContext ctx2 = GetContextWithFlags(ctx);
-      T thisValue = SignalOverflow2(ctx2, neg);
+      T thisValue = this.SignalOverflow2(ctx2, neg);
       return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     }
 

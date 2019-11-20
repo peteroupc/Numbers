@@ -59,4 +59,4 @@ Version 1.4.0
   <ItemGroup>
 
   <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.1.118'/><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='2.9.7'/></ItemGroup>
-<PropertyGroup/><PropertyGroup/>   </Project>
+<PropertyGroup/><PropertyGroup/>      </Project>

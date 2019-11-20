@@ -45,8 +45,6 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
 * <code>[FromRadixString(string, int)](#FromRadixString_string_int)</code> - Converts a string to an arbitrary-precision integer in a given radix.
 * <code>[FromRadixSubstring(string, int, int, int)](#FromRadixSubstring_string_int_int_int)</code> - Converts a portion of a string to an arbitrary-precision integer in a given radix.
-* <code>[FromRadixSubstringGeneral(string, int, int, int, bool)](#FromRadixSubstringGeneral_string_int_int_int_bool)</code> - Not documented yet.
-* <code>[FromRadixSubstringInner(string, int, int, int, bool)](#FromRadixSubstringInner_string_int_int_int_bool)</code> - Not documented yet.
 * <code>[FromSByte(sbyte)](#FromSByte_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision integer.
 * <code>[FromString(string)](#FromString_string)</code> - Converts a string to an arbitrary-precision integer.
 * <code>[FromSubstring(string, int, int)](#FromSubstring_string_int_int)</code> - Converts a portion of a string to an arbitrary-precision integer.
@@ -764,68 +762,6 @@ The parameter  <i>str</i>
 
  * System.FormatException:
 The string portion is empty or in an invalid format.
-
-<a id="FromRadixSubstringGeneral_string_int_int_int_bool"></a>
-### FromRadixSubstringGeneral
-
-    public static PeterO.Numbers.EInteger FromRadixSubstringGeneral(
-        string str,
-        int radix,
-        int index,
-        int endIndex,
-        bool negative);
-
-Not documented yet.
-
-Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>str</i>: Not documented yet.
-
- * <i>radix</i>: Not documented yet.
-
- * <i>index</i>: Not documented yet.
-
- * <i>endIndex</i>: Not documented yet.
-
- * <i>negative</i>: Not documented yet.
-
-<b>Return Value:</b>
-
-<a id="FromRadixSubstringInner_string_int_int_int_bool"></a>
-### FromRadixSubstringInner
-
-    public static PeterO.Numbers.EInteger FromRadixSubstringInner(
-        string str,
-        int radix,
-        int index,
-        int endIndex,
-        bool negative);
-
-Not documented yet.
-
-Not documented yet.
-
-<b>Parameters:</b>
-
- * <i>str</i>: Not documented yet.
-
- * <i>radix</i>: Not documented yet.
-
- * <i>index</i>: Not documented yet.
-
- * <i>endIndex</i>: Not documented yet.
-
- * <i>negative</i>: Not documented yet.
-
-<b>Return Value:</b>
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
 
 <a id="FromSByte_sbyte"></a>
 ### FromSByte

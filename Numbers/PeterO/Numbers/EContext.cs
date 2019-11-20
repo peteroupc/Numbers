@@ -702,7 +702,8 @@ namespace PeterO.Numbers {
         ", HasExponentRange=" + this.hasExponentRange + ", BigintPrecision=" +
         this.bigintPrecision + ", Rounding=" + this.rounding +
         ", ClampNormalExponents=" + this.clampNormalExponents + ", Flags=" +
-        this.flags + ", HasFlags=" + this.hasFlags + ", IsSimplified=" + this.simplified + 
+        this.flags + ", HasFlags=" + this.hasFlags + ", IsSimplified=" +
+this.simplified +
         "]";
     }
 

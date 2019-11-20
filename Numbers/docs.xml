@@ -39,12 +39,13 @@
             <see cref='PeterO.Numbers.EContext'/>.</summary>
             <param name='precision'>The parameter <paramref name='precision'/>
             is a 32-bit signed integer.</param>
-            <param name='rounding'>The parameter <paramref name='rounding'/> is
-            an ERounding object.</param>
-            <param name='exponentMinSmall'>The parameter <paramref name='exponentMinSmall'/> is a 32-bit signed integer.</param>
-            <param name='exponentMaxSmall'>The parameter <paramref name='exponentMaxSmall'/> is a 32-bit signed integer.</param>
-            <param name='clampNormalExponents'>Either <c>true</c> or
-            <c>false</c>.</param>
+            <param name='rounding'>The value of the Rounding property.</param>
+            <param name='exponentMinSmall'>The value of the EMin
+            property.</param>
+            <param name='exponentMaxSmall'>The value of the EMax
+            property.</param>
+            <param name='clampNormalExponents'>The value of the
+            ClampNormalExponents property.</param>
 
 </doc>
 <doc name="P:PeterO.Numbers.EContext.AdjustExponent">
@@ -340,7 +341,8 @@
 <doc name="P:PeterO.Numbers.EContext.HasMaxPrecision">
 
             <summary>Gets a value indicating whether this context defines a
-            maximum precision.</summary>
+            maximum precision. This is the same as whether this context's
+            Precision property is zero.</summary>
             <value><c>true</c> if this context defines a maximum precision; otherwise, <c>false</c>.</value>
 
 </doc>
@@ -867,16 +869,11 @@
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)">
 
             <summary>Compares the mathematical values of this object and
-            another object, accepting NaN values.
-            <para>This method is not consistent with the Equals method because
-            two different numbers with the same mathematical value, but
-            different exponents, will compare as equal.</para>
-            <para>In this method, negative zero and positive zero are
-            considered equal.</para>
-            <para>If this object or the other object is a quiet NaN or
-            signaling NaN, this method will not trigger an error. Instead, NaN
-            will compare greater than any other number, including infinity. Two
-            different NaN values will be considered equal.</para></summary>
+            another object, accepting NaN values. This method currently uses
+            the rules given in the CompareToValue method, so that it it is not
+            consistent with the Equals method, but it may change in a future
+            version to use the rules for the CompareToTotal method
+            instead.</summary>
             <param name='other'>An arbitrary-precision decimal number.</param>
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
@@ -889,6 +886,10 @@
             if they receive a null argument rather than treating null as less
             or greater than any object.</para>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareTo(System.Int32)">
+<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)">
 
@@ -1065,6 +1066,34 @@
             if they receive a null argument rather than treating null as less
             or greater than any object.</para>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareToValue(PeterO.Numbers.EDecimal)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values.
+            <para>This method is not consistent with the Equals method because
+            two different numbers with the same mathematical value, but
+            different exponents, will compare as equal.</para>
+            <para>In this method, negative zero and positive zero are
+            considered equal.</para>
+            <para>If this object or the other object is a quiet NaN or
+            signaling NaN, this method will not trigger an error. Instead, NaN
+            will compare greater than any other number, including infinity. Two
+            different NaN values will be considered equal.</para></summary>
+            <param name='other'>An arbitrary-precision decimal number.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value or if <paramref name='other'/> is null, or 0 if both
+            values are equal.
+            <para>This implementation returns a positive number if <paramref name='other'/> is null, to conform to the.NET definition of
+            CompareTo. This is the case even in the Java version of this
+            library, for consistency's sake, even though implementations of
+            <c>Comparable.compareTo()</c> in Java ought to throw an exception
+            if they receive a null argument rather than treating null as less
+            or greater than any object.</para>.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareToValue(System.Int32)">
+<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
@@ -1860,14 +1889,19 @@
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if the minus sign, the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
-            after the first digit and before the last digit (these digits may begin with any number of zeros).</item>
+            (".", U+002E) before or after those digits or between two of them.  These digits may
+            begin with any number of zeros.</item>
             <item>Optionally, "E"/"e" followed by an optional (positive
             exponent) or "-" (negative exponent) and followed by one or more
-            digits specifying the exponent (these digits may begin with any number of zeros).</item></list>
+            digits specifying the exponent (these digits may begin with any
+            number of zeros).</item></list>
             <para>The string can also be "-INF", "-Infinity", "Infinity",
-            "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros),
-            or signaling NaN ("sNaN" /"-sNaN") followed by any number of
-            digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.</para>
+            "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits
+            (these digits may begin with any number of zeros), or signaling NaN
+            ("sNaN" /"-sNaN") followed by any number of digits (these digits
+            may begin with any number of zeros), all where the letters can be
+            any combination of basic upper-case and/or basic lower-case
+            letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
@@ -4940,16 +4974,11 @@
 <doc name="M:PeterO.Numbers.EFloat.CompareTo(PeterO.Numbers.EFloat)">
 
             <summary>Compares the mathematical values of this object and
-            another object, accepting NaN values.
-            <para>This method is not consistent with the Equals method because
-            two different numbers with the same mathematical value, but
-            different exponents, will compare as equal.</para>
-            <para>In this method, negative zero and positive zero are
-            considered equal.</para>
-            <para>If this object or the other object is a quiet NaN or
-            signaling NaN, this method will not trigger an error. Instead, NaN
-            will compare greater than any other number, including infinity. Two
-            different NaN values will be considered equal.</para></summary>
+            another object, accepting NaN values. This method currently uses
+            the rules given in the CompareToValue method, so that it it is not
+            consistent with the Equals method, but it may change in a future
+            version to use the rules for the CompareToTotal method
+            instead.</summary>
             <param name='other'>An arbitrary-precision binary floating-point
             number.</param>
             <returns>Less than 0 if this object's value is less than the other
@@ -4957,6 +4986,10 @@
             other value or if <paramref name='other'/> is null, or 0 if both
             values are equal.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareTo(System.Int32)">
+<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5114,6 +5147,29 @@
             if they receive a null argument rather than treating null as less
             or greater than any object.</para>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareToValue(PeterO.Numbers.EFloat)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values.
+            <para>This method is not consistent with the Equals method because
+            two different numbers with the same mathematical value, but
+            different exponents, will compare as equal.</para>
+            <para>In this method, negative zero and positive zero are
+            considered equal.</para>
+            <para>If this object or the other object is a quiet NaN or
+            signaling NaN, this method will not trigger an error. Instead, NaN
+            will compare greater than any other number, including infinity. Two
+            different NaN values will be considered equal.</para></summary>
+            <param name='other'>An arbitrary-precision binary floating-point
+            number.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value or if <paramref name='other'/> is null, or 0 if both
+            values are equal.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareToValue(System.Int32)">
+<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5722,13 +5778,18 @@
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if '-' , the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
-            after the first digit and before the last digit.  These digits may begin with any number of zeros.</item>
+            (".", U+002E) before or after those digits or between two of them. These digits may
+            begin with any number of zeros.</item>
             <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
-            (negative exponent) plus one or more digits specifying the
-            exponent (these digits may begin with any number of zeros).</item></list>
+            (negative exponent) plus one or more digits specifying the exponent
+            (these digits may begin with any number of zeros).</item></list>
             <para>The string can also be "-INF", "-Infinity", "Infinity",
-            "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or
-            signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.</para>
+            "INF", quiet NaN ("NaN") followed by any number of digits (these
+            digits may begin with any number of zeros), or signaling NaN
+            ("sNaN") followed by any number of digits (these digits may begin
+            with any number of zeros), all where the letters can be any
+            combination of basic upper-case and/or basic lower-case
+            letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
@@ -8807,7 +8868,8 @@
             must contain only characters allowed by the given radix, except
             that it may start with a minus sign ("-", U+002D) to indicate a
             negative number. The desired portion is not allowed to contain
-            white space characters, including spaces.  The desired portion may start with any number of zeros.</param>
+            white space characters, including spaces. The desired portion may
+            start with any number of zeros.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
             then the basic letters A to Z (U+0041 to U+005A). For example, 0-9
@@ -8857,8 +8919,8 @@
             <param name='str'>A text string. The string must contain only basic
             digits 0 to 9 (U+0030 to U+0039), except that it may start with a
             minus sign ("-", U+002D) to indicate a negative number. The string
-            is not allowed to contain white space characters, including
-            spaces.  The string may start with any number of zeros.</param>
+            is not allowed to contain white space characters, including spaces.
+            The string may start with any number of zeros.</param>
             <returns>An arbitrary-precision integer with the same value as
             given in the string.</returns>
             <exception cref='FormatException'>The parameter <paramref name='str'/> is in an invalid format.</exception>
@@ -8873,7 +8935,8 @@
             must contain only basic digits 0 to 9 (U+0030 to U+0039), except
             that it may start with a minus sign ("-", U+002D) to indicate a
             negative number. The desired portion is not allowed to contain
-            white space characters, including spaces.  The desired portion may start with any number of zeros.</param>
+            white space characters, including spaces. The desired portion may
+            start with any number of zeros.</param>
             <param name='index'>The index of the string that starts the string
             portion.</param>
             <param name='endIndex'>The index of the string that ends the string
@@ -10114,8 +10177,12 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)">
 
-            <summary>Compares an arbitrary-precision rational number with this
-            instance.</summary>
+            <summary>Compares the mathematical value of an arbitrary-precision
+            rational number with that of this instance. This method currently
+            uses the rules given in the CompareToValue method, so that it it is
+            not consistent with the Equals method, but it may change in a
+            future version to use the rules for the CompareToTotal method
+            instead.</summary>
             <param name='other'>An arbitrary-precision rational number.</param>
             <returns>Zero if the values are equal; a negative number if this
             instance is less, or a positive number if this instance is greater.
@@ -10127,10 +10194,17 @@
             or greater than any object.</para>.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.CompareTo(System.Int32)">
+<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)">
 
             <summary>Compares an arbitrary-precision binary floating-point
-            number with this instance.</summary>
+            number with this instance. In this method, NaN values are greater
+            than any other ERational or EFloat value, and two NaN values (even
+            if their payloads differ) are treated as equal by this
+            method.</summary>
             <param name='other'>An arbitrary-precision binary floating-point
             number.</param>
             <returns>Zero if the values are equal; a negative number if this
@@ -10216,6 +10290,27 @@
             if they receive a null argument rather than treating null as less
             or greater than any object.</para>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.CompareToValue(PeterO.Numbers.ERational)">
+<summary>Compares the mathematical value of an arbitrary-precision
+            rational number with that of this instance. In this method, NaN
+            values are greater than any other ERational value, and two NaN
+            values (even if their payloads differ) are treated as equal by this
+            method. This method is not consistent with the Equals
+            method.</summary>
+            <param name='other'>An arbitrary-precision rational number.</param>
+            <returns>Zero if the values are equal; a negative number if this
+            instance is less, or a positive number if this instance is greater.
+            <para>This implementation returns a positive number if <paramref name='other'/> is null, to conform to the.NET definition of
+            CompareTo. This is the case even in the Java version of this
+            library, for consistency's sake, even though implementations of
+            <c>Comparable.compareTo()</c> in Java ought to throw an exception
+            if they receive a null argument rather than treating null as less
+            or greater than any object.</para>.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.ERational.CompareToValue(System.Int32)">
+<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Copy">
 
@@ -10494,9 +10589,11 @@
             <list type=''>
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if '-' , the value is negative.)</item>
-            <item>The numerator in the form of one or more digits (these digits may begin with any number of zeros).</item>
+            <item>The numerator in the form of one or more digits (these digits
+            may begin with any number of zeros).</item>
             <item>Optionally, "/" followed by the denominator in the form of
-            one or more digits (these digits may begin with any number of zeros). If a denominator is not given, it's equal to
+            one or more digits (these digits may begin with any number of
+            zeros). If a denominator is not given, it's equal to
             1.</item></list>
             <para>The string can also be "-INF", "-Infinity", "Infinity",
             "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits,

@@ -262,9 +262,6 @@ namespace Test {
       string failingpath = Path.Combine (
           Path.GetDirectoryName(testfiles[0]),
           "failing.decTest");
-      if (recordfailing && File.Exists(failingpath)) {
-        return;
-      }
       var failedLines = new Dictionary<string, bool>();
       var sb = new System.Text.StringBuilder();
       // Reads decimal test files described in:
@@ -295,7 +292,7 @@ namespace Test {
             // Console.WriteLine(ln);
             try {
               DecTestUtil.ParseDecTest(ln, context);
-            } catch (Exception) {
+            } catch (Exception ex) {
               if (!failedLines.ContainsKey(ln)) {
                 if (!context.ContainsKey("rounding")) {
                   context["rounding"] = "half_even";
@@ -310,6 +307,10 @@ namespace Test {
                   sb.Append(k).Append(": ").Append(context[k])
                   .Append("\r\n");
                 }
+                sb.Append("# " + ex.GetType().FullName).Append("\r\n");
+                sb.Append("# " + ex.Message).Append("\r\n");
+                sb.Append("# " +
+ex.StackTrace.Replace("\r","").Replace("\n","\n# ")).Append("\r\n");
                 sb.Append(ln).Append("\r\n");
                 failedLines[ln] = true;
               }
