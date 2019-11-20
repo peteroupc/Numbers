@@ -1266,7 +1266,7 @@ midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
     /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
-    /// .
+    ///  .
     /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
@@ -4445,16 +4445,16 @@ minDigitEstimate;
       return ivv;
     }
 
-    // Estimated number of base-N digits, divided by 8 (or estimated 
-    // number of half-digits divided by 16) contained in each 16-bit 
-    // word of an EInteger.  Used in divide-and-conquer to guess
+    // Estimated number of base-N digits, divided by 8 (or estimated
+    // number of half-digits divided by 16) contained in each 16-bit
+    // word of an EInteger. Used in divide-and-conquer to guess
     // the power-of-base needed to split an EInteger by roughly half.
     // Calculated from: ln(65536)*(16/2)/ln(base)
     private static int[] EstimatedHalfDigitCountPerWord = {
       0, 0,
-      128, 80, 64, 55, 49, 45, 42, 40, 38, 37, 35, 34, 33, 
-      32, 32, 31, 30, 30, 29, 29, 28, 28, 27, 27, 27, 26, 
-      26, 26, 26, 25, 25, 25, 25, 24, 24
+      128, 80, 64, 55, 49, 45, 42, 40, 38, 37, 35, 34, 33,
+      32, 32, 31, 30, 30, 29, 29, 28, 28, 27, 27, 27, 26,
+      26, 26, 26, 25, 25, 25, 25, 24, 24,
     };
 
     private void ToRadixStringGeneral(
@@ -4470,10 +4470,11 @@ minDigitEstimate;
       if (this.wordCount >= 100) {
         var rightBuilder = new StringBuilder();
         int digits = (EstimatedHalfDigitCountPerWord[radix] *
-            wordCount) / 16;
+            this.wordCount) / 16;
         EInteger pow = EInteger.FromInt32(radix).Pow(digits);
         EInteger[] divrem = this.DivRem(pow);
-        DebugUtility.Log("divrem wc={0} wc={1}",divrem[0].wordCount, divrem[1].wordCount);
+        // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
+        //divrem[1].wordCount));
         divrem[0].ToRadixStringGeneral(outputSB, radix);
         divrem[1].ToRadixStringGeneral(rightBuilder, radix);
         for (i = rightBuilder.Length; i < digits; ++i) {
@@ -4482,12 +4483,12 @@ minDigitEstimate;
         outputSB.Append(rightBuilder.ToString());
         return;
       }
-        var tempReg = new short[this.wordCount];
-        Array.Copy(this.words, tempReg, tempReg.Length);
-        int numWordCount = tempReg.Length;
-        while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
-          --numWordCount;
-        }
+      var tempReg = new short[this.wordCount];
+      Array.Copy(this.words, tempReg, tempReg.Length);
+    int numWordCount = tempReg.Length;
+    while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
+      --numWordCount;
+    }
         i = 0;
         var s = new char[(numWordCount << 4) + 1];
         while (numWordCount != 0) {
@@ -4533,7 +4534,6 @@ minDigitEstimate;
         ReverseChars(s, 0, i);
       outputSB.Append(s, 0, i);
     }
-
 
     private void ToRadixStringDecimal(
       StringBuilder outputSB,

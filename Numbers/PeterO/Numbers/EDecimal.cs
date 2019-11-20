@@ -1208,8 +1208,8 @@ BigNumberFlags.FlagSignalingNaN);
           if (haveDecimalPoint) {
             decimalDigitEnd = i + 1;
           } else {
- digitEnd = i + 1;
-}
+            digitEnd = i + 1;
+          }
           if (mantInt <= MaxSafeInt) {
             // multiply by 10
             mantInt = (mantInt << 3) + (mantInt << 1);
@@ -1241,18 +1241,6 @@ BigNumberFlags.FlagSignalingNaN);
       if (!haveDigits) {
         throw new FormatException();
       }
-      if (mantInt > MaxSafeInt) {
-        if (haveDecimalPoint) {
-          string decstr = str.Substring(digitStart, digitEnd - digitStart) +
-
-              str.Substring(
-                decimalDigitStart,
-                decimalDigitEnd - decimalDigitStart);
-          mant = EInteger.FromString(decstr);
-        } else {
-          mant = EInteger.FromSubstring(str, digitStart, digitEnd);
-        }
-      }
       if (haveExponent) {
         EInteger exp = null;
         var expInt = 0;
@@ -1267,7 +1255,7 @@ BigNumberFlags.FlagSignalingNaN);
           }
           ++i;
         }
-        digitStart = i;
+        int expDigitStart = i;
         for (; i < endStr; ++i) {
           char ch = str[i];
           if (ch >= '0' && ch <= '9') {
@@ -1284,8 +1272,12 @@ BigNumberFlags.FlagSignalingNaN);
         if (!haveDigits) {
           throw new FormatException();
         }
+        if (i != endStr) {
+          throw new FormatException();
+        }
+        // Parse exponent if it's "big"
         if (expInt > MaxSafeInt) {
-          exp = EInteger.FromSubstring(str, digitStart, endStr);
+          exp = EInteger.FromSubstring(str, expDigitStart, endStr);
         }
         if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp ==
           null) {
@@ -1299,12 +1291,23 @@ BigNumberFlags.FlagSignalingNaN);
           }
         } else {
           newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-          newScale = (tmpoffset < 0) ? (newScale.Subtract(exp)) :
-(newScale.Add(exp));
+          newScale = (tmpoffset < 0) ? newScale.Subtract(exp) :
+               newScale.Add(exp);
         }
-      }
-      if (i != endStr) {
+      } else if (i != endStr) {
         throw new FormatException();
+      }
+      // Parse significand if it's "big"
+      if (mantInt > MaxSafeInt) {
+        if (haveDecimalPoint) {
+          string decstr = str.Substring(digitStart, digitEnd - digitStart) +
+              str.Substring(
+                decimalDigitStart,
+                decimalDigitEnd - decimalDigitStart);
+          mant = EInteger.FromString(decstr);
+        } else {
+          mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+        }
       }
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
@@ -1560,7 +1563,11 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
     /// <summary>Compares the mathematical values of this object and
-    /// another object, accepting NaN values. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.</summary>
+    /// another object, accepting NaN values. This method currently uses
+    /// the rules given in the CompareToValue method, so that it it is not
+    /// consistent with the Equals method, but it may change in a future
+    /// version to use the rules for the CompareToTotal method
+    /// instead.</summary>
     /// <param name='other'>An arbitrary-precision decimal number.</param>
     /// <returns>Less than 0 if this object's value is less than the other
     /// value, or greater than 0 if this object's value is greater than the
@@ -1574,17 +1581,24 @@ BigNumberFlags.FlagSignalingNaN);
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
     public int CompareTo(EDecimal other) {
-      return CompareToValue(other);
+      return this.CompareToValue(other);
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='intOther'>Not documented yet.</param>
+  /// <returns/>
     public int CompareTo(int intOther) {
-      return CompareToValue(EDecimal.FromInt32(intOther));
+      return this.CompareToValue(EDecimal.FromInt32(intOther));
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='intOther'>Not documented yet.</param>
+  /// <returns/>
     public int CompareToValue(int intOther) {
-      return CompareToValue(EDecimal.FromInt32(intOther));
+      return this.CompareToValue(EDecimal.FromInt32(intOther));
     }
-
 
     /// <summary>Compares the mathematical values of this object and
     /// another object, accepting NaN values.

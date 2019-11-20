@@ -1307,8 +1307,8 @@ op3.IsSignalingNaN())) ||
         return new string[0];
       }
     }
-    [System.Diagnostics.Conditional("DEBUG")]
 
+    [System.Diagnostics.Conditional("DEBUG")]
     public static void IgnoreIfDebug() {
       Assert.Ignore();
     }

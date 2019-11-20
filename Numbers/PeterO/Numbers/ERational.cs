@@ -914,8 +914,12 @@ namespace PeterO.Numbers {
       return ERational.Create(ad, bd);
     }
 
-    /// <summary>Compares the mathematical value of an arbitrary-precision rational number with that of this
-    /// instance. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.</summary>
+    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// rational number with that of this instance. This method currently
+    /// uses the rules given in the CompareToValue method, so that it it is
+    /// not consistent with the Equals method, but it may change in a
+    /// future version to use the rules for the CompareToTotal method
+    /// instead.</summary>
     /// <param name='other'>An arbitrary-precision rational number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
     /// instance is less, or a positive number if this instance is greater.
@@ -927,11 +931,15 @@ namespace PeterO.Numbers {
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
     public int CompareTo(ERational other) {
-       return CompareToValue(other);
+       return this.CompareToValue(other);
     }
 
-    /// <summary>Compares the mathematical value of an arbitrary-precision rational number with that of this
-    /// instance.  In this method, NaN values are greater than any other ERational value, and two NaN values (even if their payloads differ) are treated as equal by this method.  This method is not consistent with the Equals method.</summary>
+    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// rational number with that of this instance. In this method, NaN
+    /// values are greater than any other ERational value, and two NaN
+    /// values (even if their payloads differ) are treated as equal by this
+    /// method. This method is not consistent with the Equals
+    /// method.</summary>
     /// <param name='other'>An arbitrary-precision rational number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
     /// instance is less, or a positive number if this instance is greater.
@@ -1008,18 +1016,27 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
-
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='intOther'>Not documented yet.</param>
+  /// <returns/>
     public int CompareTo(int intOther) {
-      return CompareToValue(ERational.FromInt32(intOther));
+      return this.CompareToValue(ERational.FromInt32(intOther));
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='intOther'>Not documented yet.</param>
+  /// <returns/>
     public int CompareToValue(int intOther) {
-      return CompareToValue(ERational.FromInt32(intOther));
+      return this.CompareToValue(ERational.FromInt32(intOther));
     }
-
 
     /// <summary>Compares an arbitrary-precision binary floating-point
-    /// number with this instance.   In this method, NaN values are greater than any other ERational or EFloat value, and two NaN values (even if their payloads differ) are treated as equal by this method.</summary>
+    /// number with this instance. In this method, NaN values are greater
+    /// than any other ERational or EFloat value, and two NaN values (even
+    /// if their payloads differ) are treated as equal by this
+    /// method.</summary>
     /// <param name='other'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>Zero if the values are equal; a negative number if this

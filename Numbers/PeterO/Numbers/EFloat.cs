@@ -869,7 +869,11 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
     /// <summary>Compares the mathematical values of this object and
-    /// another object, accepting NaN values. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.</summary>
+    /// another object, accepting NaN values. This method currently uses
+    /// the rules given in the CompareToValue method, so that it it is not
+    /// consistent with the Equals method, but it may change in a future
+    /// version to use the rules for the CompareToTotal method
+    /// instead.</summary>
     /// <param name='other'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>Less than 0 if this object's value is less than the other
@@ -879,7 +883,6 @@ BigNumberFlags.FlagSignalingNaN);
     public int CompareTo(EFloat other) {
       return MathValue.CompareTo(this, other);
     }
-
 
     /// <summary>Compares the mathematical values of this object and
     /// another object, accepting NaN values.
@@ -902,12 +905,20 @@ BigNumberFlags.FlagSignalingNaN);
       return MathValue.CompareTo(this, other);
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='intOther'>Not documented yet.</param>
+  /// <returns/>
     public int CompareTo(int intOther) {
-      return CompareToValue(EFloat.FromInt32(intOther));
+      return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='intOther'>Not documented yet.</param>
+  /// <returns/>
     public int CompareToValue(int intOther) {
-      return CompareToValue(EFloat.FromInt32(intOther));
+      return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
     /// <summary>Compares the mathematical values of this object and

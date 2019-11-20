@@ -286,14 +286,13 @@ namespace PeterO.Numbers {
     /// <see cref='PeterO.Numbers.EContext'/>.</summary>
     /// <param name='precision'>The parameter <paramref name='precision'/>
     /// is a 32-bit signed integer.</param>
-    /// <param name='rounding'>The parameter <paramref name='rounding'/> is
-    /// an ERounding object.</param>
-    /// <param name='exponentMinSmall'>The parameter <paramref
-    /// name='exponentMinSmall'/> is a 32-bit signed integer.</param>
-    /// <param name='exponentMaxSmall'>The parameter <paramref
-    /// name='exponentMaxSmall'/> is a 32-bit signed integer.</param>
-    /// <param name='clampNormalExponents'>Either <c>true</c> or
-    /// <c>false</c>.</param>
+    /// <param name='rounding'>The value of the Rounding property.</param>
+    /// <param name='exponentMinSmall'>The value of the EMin
+    /// property.</param>
+    /// <param name='exponentMaxSmall'>The value of the EMax
+    /// property.</param>
+    /// <param name='clampNormalExponents'>The value of the
+    /// ClampNormalExponents property.</param>
     public EContext(
       int precision,
       ERounding rounding,
@@ -678,13 +677,12 @@ namespace PeterO.Numbers {
       if (this.bigintPrecision.IsZero) {
         // Only check EMax, since with an unlimited
         // precision, any exponent less than EMin will exceed EMin if
-        // the mantissa is the right size
+        // the significand is the right size
         return exponent.CompareTo(this.EMax) <= 0;
       } else {
         EInteger bigint = exponent;
         if (this.adjustExponent) {
-          bigint += (EInteger)this.bigintPrecision;
-          bigint -= EInteger.One;
+          bigint = bigint.Add(this.bigintPrecision).Subtract(1);
         }
         return (bigint.CompareTo(this.EMin) >= 0) &&
 (exponent.CompareTo(this.EMax) <= 0);
