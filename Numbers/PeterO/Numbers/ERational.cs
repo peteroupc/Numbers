@@ -914,8 +914,8 @@ namespace PeterO.Numbers {
       return ERational.Create(ad, bd);
     }
 
-    /// <summary>Compares an arbitrary-precision rational number with this
-    /// instance.</summary>
+    /// <summary>Compares the mathematical value of an arbitrary-precision rational number with that of this
+    /// instance. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.</summary>
     /// <param name='other'>An arbitrary-precision rational number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
     /// instance is less, or a positive number if this instance is greater.
@@ -927,6 +927,22 @@ namespace PeterO.Numbers {
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
     public int CompareTo(ERational other) {
+       return CompareToValue(other);
+    }
+
+    /// <summary>Compares the mathematical value of an arbitrary-precision rational number with that of this
+    /// instance.  In this method, NaN values are greater than any other ERational value, and two NaN values (even if their payloads differ) are treated as equal by this method.  This method is not consistent with the Equals method.</summary>
+    /// <param name='other'>An arbitrary-precision rational number.</param>
+    /// <returns>Zero if the values are equal; a negative number if this
+    /// instance is less, or a positive number if this instance is greater.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
+    public int CompareToValue(ERational other) {
       if (other == null) {
         return 1;
       }
@@ -992,8 +1008,18 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
+
+    public int CompareTo(int intOther) {
+      return CompareToValue(ERational.FromInt32(intOther));
+    }
+
+    public int CompareToValue(int intOther) {
+      return CompareToValue(ERational.FromInt32(intOther));
+    }
+
+
     /// <summary>Compares an arbitrary-precision binary floating-point
-    /// number with this instance.</summary>
+    /// number with this instance.   In this method, NaN values are greater than any other ERational or EFloat value, and two NaN values (even if their payloads differ) are treated as equal by this method.</summary>
     /// <param name='other'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>Zero if the values are equal; a negative number if this

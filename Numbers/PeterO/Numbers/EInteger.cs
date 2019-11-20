@@ -4473,6 +4473,7 @@ minDigitEstimate;
             wordCount) / 16;
         EInteger pow = EInteger.FromInt32(radix).Pow(digits);
         EInteger[] divrem = this.DivRem(pow);
+        DebugUtility.Log("divrem wc={0} wc={1}",divrem[0].wordCount, divrem[1].wordCount);
         divrem[0].ToRadixStringGeneral(outputSB, radix);
         divrem[1].ToRadixStringGeneral(rightBuilder, radix);
         for (i = rightBuilder.Length; i < digits; ++i) {
@@ -4726,9 +4727,6 @@ minDigitEstimate;
         return sb.ToString();
       } else {
         // Other radixes
-        if (this.HasSmallValue()) {
-          return this.SmallValueToString();
-        }
         var sb = new StringBuilder();
         if (this.negative) {
           sb.Append('-');

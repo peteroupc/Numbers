@@ -3113,6 +3113,7 @@ throw new InvalidOperationException(String.Empty, ex);
     }
 
     [Test]
+    [Timeout(100000)]
     public void TestToString() {
       var bi = (EInteger)3;
       AssertBigIntegersEqual("3", bi);

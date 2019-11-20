@@ -8,12 +8,6 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
-// TODO: Add CompareTo(int) to EDecimal/EFloat/ERational in
-// next minor/major version
-// TODO: Add CompareToValue which implements current
-// version of CompareTo; replace CompareTo with
-// CompareToTotal in next major version; do this for EDecimal,
-  // EFloat, and ERational
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
@@ -1566,6 +1560,33 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
     /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.</summary>
+    /// <param name='other'>An arbitrary-precision decimal number.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value or if <paramref name='other'/> is null, or 0 if both
+    /// values are equal.
+    /// <para>This implementation returns a positive number if <paramref
+    /// name='other'/> is null, to conform to the.NET definition of
+    /// CompareTo. This is the case even in the Java version of this
+    /// library, for consistency's sake, even though implementations of
+    /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
+    /// if they receive a null argument rather than treating null as less
+    /// or greater than any object.</para>.</returns>
+    public int CompareTo(EDecimal other) {
+      return CompareToValue(other);
+    }
+
+    public int CompareTo(int intOther) {
+      return CompareToValue(EDecimal.FromInt32(intOther));
+    }
+
+    public int CompareToValue(int intOther) {
+      return CompareToValue(EDecimal.FromInt32(intOther));
+    }
+
+
+    /// <summary>Compares the mathematical values of this object and
     /// another object, accepting NaN values.
     /// <para>This method is not consistent with the Equals method because
     /// two different numbers with the same mathematical value, but
@@ -1588,7 +1609,7 @@ BigNumberFlags.FlagSignalingNaN);
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareTo(EDecimal other) {
+    public int CompareToValue(EDecimal other) {
       return ExtendedMathValue.CompareTo(this, other);
     }
 
