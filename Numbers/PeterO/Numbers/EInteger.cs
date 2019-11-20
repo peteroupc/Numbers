@@ -1266,7 +1266,7 @@ midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
     /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
-    ///  .
+    /// .
     /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
@@ -4445,12 +4445,101 @@ minDigitEstimate;
       return ivv;
     }
 
+    // Estimated number of base-N digits, divided by 8 (or estimated 
+    // number of half-digits divided by 16) contained in each 16-bit 
+    // word of an EInteger.  Used in divide-and-conquer to guess
+    // the power-of-base needed to split an EInteger by roughly half.
+    // Calculated from: ln(65536)*(16/2)/ln(base)
+    private static int[] EstimatedHalfDigitCountPerWord = {
+      0, 0,
+      128, 80, 64, 55, 49, 45, 42, 40, 38, 37, 35, 34, 33, 
+      32, 32, 31, 30, 30, 29, 29, 28, 28, 27, 27, 27, 26, 
+      26, 26, 26, 25, 25, 25, 25, 24, 24
+    };
+
+    private void ToRadixStringGeneral(
+      StringBuilder outputSB,
+      int radix) {
+      #if DEBUG
+      if (this.negative) {
+        throw new InvalidOperationException("doesn't satisfy !this.negative");
+      }
+      #endif
+
+      var i = 0;
+      if (this.wordCount >= 100) {
+        var rightBuilder = new StringBuilder();
+        int digits = (EstimatedHalfDigitCountPerWord[radix] *
+            wordCount) / 16;
+        EInteger pow = EInteger.FromInt32(radix).Pow(digits);
+        EInteger[] divrem = this.DivRem(pow);
+        divrem[0].ToRadixStringGeneral(outputSB, radix);
+        divrem[1].ToRadixStringGeneral(rightBuilder, radix);
+        for (i = rightBuilder.Length; i < digits; ++i) {
+          outputSB.Append('0');
+        }
+        outputSB.Append(rightBuilder.ToString());
+        return;
+      }
+        var tempReg = new short[this.wordCount];
+        Array.Copy(this.words, tempReg, tempReg.Length);
+        int numWordCount = tempReg.Length;
+        while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
+          --numWordCount;
+        }
+        i = 0;
+        var s = new char[(numWordCount << 4) + 1];
+        while (numWordCount != 0) {
+          if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 0x7fff) {
+            int rest = tempReg[0];
+            while (rest != 0) {
+              int newrest = rest / radix;
+              s[i++] = Digits[rest - (newrest * radix)];
+              rest = newrest;
+            }
+            break;
+          }
+          if (numWordCount == 2 && tempReg[1] > 0 && tempReg[1] <= 0x7fff) {
+            int rest = ((int)tempReg[0]) & 0xffff;
+            rest |= (((int)tempReg[1]) & 0xffff) << 16;
+            while (rest != 0) {
+              int newrest = rest / radix;
+              s[i++] = Digits[rest - (newrest * radix)];
+              rest = newrest;
+            }
+            break;
+          } else {
+            int wci = numWordCount;
+            short remainderShort = 0;
+            int quo, rem;
+            // Divide by radix
+            while ((wci--) > 0) {
+              int currentDividend = unchecked((int)((((int)tempReg[wci]) &
+                      0xffff) | ((int)remainderShort << 16)));
+              quo = currentDividend / radix;
+              tempReg[wci] = unchecked((short)quo);
+              rem = currentDividend - (radix * quo);
+              remainderShort = unchecked((short)rem);
+            }
+            int remainderSmall = remainderShort;
+            // Recalculate word count
+            while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
+              --numWordCount;
+            }
+            s[i++] = Digits[remainderSmall];
+          }
+        }
+        ReverseChars(s, 0, i);
+      outputSB.Append(s, 0, i);
+    }
+
+
     private void ToRadixStringDecimal(
       StringBuilder outputSB,
       bool optimize) {
       #if DEBUG
       if (this.negative) {
-        throw new ArgumentException("doesn't satisfy !this.negative");
+        throw new InvalidOperationException("doesn't satisfy !this.negative");
       }
       #endif
 
@@ -4637,65 +4726,15 @@ minDigitEstimate;
         return sb.ToString();
       } else {
         // Other radixes
-        // TODO: Optimize this part of the method using divide-and-conquer
-        var tempReg = new short[this.wordCount];
-        Array.Copy(this.words, tempReg, tempReg.Length);
-        int numWordCount = tempReg.Length;
-        while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
-          --numWordCount;
+        if (this.HasSmallValue()) {
+          return this.SmallValueToString();
         }
-        var i = 0;
-        var s = new char[(numWordCount << 4) + 1];
-        while (numWordCount != 0) {
-          if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 0x7fff) {
-            int rest = tempReg[0];
-            while (rest != 0) {
-              int newrest = rest / radix;
-              s[i++] = Digits[rest - (newrest * radix)];
-              rest = newrest;
-            }
-            break;
-          }
-          if (numWordCount == 2 && tempReg[1] > 0 && tempReg[1] <= 0x7fff) {
-            int rest = ((int)tempReg[0]) & 0xffff;
-            rest |= (((int)tempReg[1]) & 0xffff) << 16;
-            while (rest != 0) {
-              int newrest = rest / radix;
-              s[i++] = Digits[rest - (newrest * radix)];
-              rest = newrest;
-            }
-            break;
-          } else {
-            int wci = numWordCount;
-            short remainderShort = 0;
-            int quo, rem;
-            // Divide by radix
-            while ((wci--) > 0) {
-              int currentDividend = unchecked((int)((((int)tempReg[wci]) &
-                      0xffff) | ((int)remainderShort << 16)));
-              quo = currentDividend / radix;
-              tempReg[wci] = unchecked((short)quo);
-              rem = currentDividend - (radix * quo);
-              remainderShort = unchecked((short)rem);
-            }
-            int remainderSmall = remainderShort;
-            // Recalculate word count
-            while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
-              --numWordCount;
-            }
-            s[i++] = Digits[remainderSmall];
-          }
-        }
-        ReverseChars(s, 0, i);
+        var sb = new StringBuilder();
         if (this.negative) {
-          var sb = new System.Text.StringBuilder(i + 1);
           sb.Append('-');
-          for (var j = 0; j < i; ++j) {
-            sb.Append(s[j]);
-          }
-          return sb.ToString();
         }
-        return new String(s, 0, i);
+        this.Abs().ToRadixStringGeneral(sb, radix);
+        return sb.ToString();
       }
     }
 

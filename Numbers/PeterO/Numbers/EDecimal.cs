@@ -510,7 +510,7 @@ namespace PeterO.Numbers {
     /// <param name='exponent'>Not documented yet.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='significand'/> or <paramref name='exponent'/> is
+    /// name='mantissa'/> or <paramref name='exponent'/> is
     /// null.</exception>
     public static EDecimal Create(
       EInteger mantissa,
@@ -1051,10 +1051,6 @@ BigNumberFlags.FlagSignalingNaN);
       }
       var mantInt = 0;
       EInteger mant = null;
-      var mantBuffer = 0;
-      var mantBufferMult = 1;
-      var expBuffer = 0;
-      var expBufferMult = 1;
       var haveDecimalPoint = false;
       var haveDigits = false;
       var haveExponent = false;

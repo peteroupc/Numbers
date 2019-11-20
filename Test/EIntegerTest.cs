@@ -375,6 +375,9 @@ namespace Test {
       if (selection < 50) {
         count = r.UniformInt(15) + 1;
       }
+      if (selection < 3) {
+        count = r.UniformInt(250) + 1;
+      }
       var bytes = new byte[count];
       for (var i = 0; i < count; ++i) {
         bytes[i] = (byte)((int)r.UniformInt(256));

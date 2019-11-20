@@ -295,7 +295,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='significand'/> or <paramref name='exponent'/> is
+    /// name='mantissa'/> or <paramref name='exponent'/> is
     /// null.</exception>
     public static EFloat Create(
       EInteger mantissa,
