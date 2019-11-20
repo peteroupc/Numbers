@@ -4474,7 +4474,7 @@ minDigitEstimate;
         EInteger pow = EInteger.FromInt32(radix).Pow(digits);
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
-        //divrem[1].wordCount));
+        // divrem[1].wordCount));
         divrem[0].ToRadixStringGeneral(outputSB, radix);
         divrem[1].ToRadixStringGeneral(rightBuilder, radix);
         for (i = rightBuilder.Length; i < digits; ++i) {
@@ -4489,10 +4489,10 @@ minDigitEstimate;
     while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
       --numWordCount;
     }
-        i = 0;
-        var s = new char[(numWordCount << 4) + 1];
-        while (numWordCount != 0) {
-          if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 0x7fff) {
+    i = 0;
+    var s = new char[(numWordCount << 4) + 1];
+    while (numWordCount != 0) {
+      if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 0x7fff) {
             int rest = tempReg[0];
             while (rest != 0) {
               int newrest = rest / radix;

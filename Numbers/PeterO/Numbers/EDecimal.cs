@@ -1241,21 +1241,23 @@ BigNumberFlags.FlagSignalingNaN);
       if (!haveDigits) {
         throw new FormatException();
       }
+      EDecimal ret = null;
+      EInteger exp = null;
+      var expInt = 0;
+      var expoffset = 1;
+      var expDigitStart = -1;
       if (haveExponent) {
-        EInteger exp = null;
-        var expInt = 0;
-        tmpoffset = 1;
         haveDigits = false;
         if (i == endStr) {
           throw new FormatException();
         }
         if (str[i] == '+' || str[i] == '-') {
           if (str[i] == '-') {
-            tmpoffset = -1;
+            expoffset = -1;
           }
           ++i;
         }
-        int expDigitStart = i;
+        expDigitStart = i;
         for (; i < endStr; ++i) {
           char ch = str[i];
           if (ch >= '0' && ch <= '9') {
@@ -1272,33 +1274,52 @@ BigNumberFlags.FlagSignalingNaN);
         if (!haveDigits) {
           throw new FormatException();
         }
-        if (i != endStr) {
-          throw new FormatException();
-        }
-        // Parse exponent if it's "big"
-        if (expInt > MaxSafeInt) {
-          exp = EInteger.FromSubstring(str, expDigitStart, endStr);
-        }
-        if (tmpoffset >= 0 && newScaleInt == 0 && newScale == null && exp ==
-          null) {
-          newScaleInt = expInt;
-        } else if (exp == null) {
-          newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-          if (tmpoffset < 0) {
-            newScale = newScale.Subtract(expInt);
-          } else if (expInt != 0) {
-            newScale = newScale.Add(expInt);
-          }
-        } else {
-          newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-          newScale = (tmpoffset < 0) ? newScale.Subtract(exp) :
-               newScale.Add(exp);
-        }
-      } else if (i != endStr) {
+      }
+      if (i != endStr) {
         throw new FormatException();
+      }
+      // Calculate newScale if exponent is "small"
+      if (haveExponent && expInt <= MaxSafeInt) {
+        if (expoffset >= 0 && newScaleInt == 0 && newScale == null) {
+          newScaleInt = expInt;
+        } else {
+            newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+            if (expoffset < 0) {
+              newScale = newScale.Subtract(expInt);
+            } else if (expInt != 0) {
+              newScale = newScale.Add(expInt);
+            }
+          }
       }
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {
+        int digitPrecision = digitEnd - digitStart;
+        if (haveDecimalPoint) {
+          digitPrecision += decimalDigitEnd - decimalDigitStart;
+        }
+        if (expInt <= MaxSafeInt && ctx != null) {
+          EInteger ns = newScale ?? EInteger.FromInt32(newScaleInt);
+          int expwithin = ExponentWithinRange(
+            ctx,
+            EInteger.FromInt32(digitPrecision),
+            ns);
+        if (expwithin == 1 && !ctx.HasFlagsOrTraps) {
+  // Exponent indicates overflow
+  // TODO: Handle overflows more comprehensively by
+  // adding SignalOverflow method to IRadixMath and using
+  // that method instead
+  // DebugUtility.Log("overflow detected " + digitPrecision + " " + (ns));
+  if (ctx.Rounding == ERounding.HalfEven || ctx.Rounding == ERounding.HalfUp) {
+   ret = negative ? EDecimal.NegativeInfinity : EDecimal.PositiveInfinity;
+   ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+   return ret;
+  }
+}
+// TODO: Check underflow here
+        } else if (ctx != null) {
+// TODO: Perhaps check whether ExponentWithinRange will trigger
+// overflow if an exponent close to MaxSafeInt is passed.
+}
         if (haveDecimalPoint) {
           string decstr = str.Substring(digitStart, digitEnd - digitStart) +
               str.Substring(
@@ -1308,6 +1329,15 @@ BigNumberFlags.FlagSignalingNaN);
         } else {
           mant = EInteger.FromSubstring(str, digitStart, digitEnd);
         }
+      }
+      if (haveExponent && expInt > MaxSafeInt) {
+        // Parse exponent if it's "big"
+// TODO: Avoid parsing big exponents if significand is "small"
+// (by checking for overflow or underflow)
+          exp = EInteger.FromSubstring(str, expDigitStart, endStr);
+          newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+          newScale = (expoffset < 0) ? newScale.Subtract(exp) :
+               newScale.Add(exp);
       }
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
@@ -1328,7 +1358,7 @@ BigNumberFlags.FlagSignalingNaN);
       } else {
         fastIntMant = FastIntegerFixed.FromBig(mant);
       }
-      var ret = new EDecimal(
+      ret = new EDecimal(
         fastIntMant,
         fastIntScale,
         negative ? BigNumberFlags.FlagNegative : 0);
@@ -1337,6 +1367,53 @@ BigNumberFlags.FlagSignalingNaN);
       }
       return ret;
     }
+
+// 1 = Overflow, 2 = Underflow, 0 = None
+private static int ExponentWithinRange(
+  EContext ec,
+  EInteger precision,
+  EInteger exponent) {
+ if (exponent == null) {
+   throw new ArgumentNullException(nameof(exponent));
+ }
+ if (precision == null) {
+   throw new ArgumentNullException(nameof(precision));
+ }
+ if (!(precision.Sign >= 0)) {
+   throw new ArgumentException("doesn't satisfy precision.Sign>= 0");
+ }
+ // "Precision" is the number of digits in a number starting with
+ // the first nonzero digit
+ if (ec == null || !ec.HasExponentRange) {
+   return 0;
+ }
+ if (ec.AdjustExponent) {
+   // If precision is in bits, this is too difficult to determine,
+   // so ignore precision
+   if (ec.IsPrecisionInBits) {
+     if (exponent.CompareTo(ec.EMax) > 0) {
+        return 2; // Underflow
+     }
+   } else {
+     EInteger adjExponent = exponent.Add(precision).Subtract(1);
+     if (adjExponent.CompareTo(ec.EMax) > 0) {
+       return 1; // Overflow
+     }
+     if (adjExponent.CompareTo(ec.EMin) < 0) {
+       return 2; // Underflow
+     }
+   }
+ } else {
+    // Exponent range is independent of precision
+   if (exponent.CompareTo(ec.EMax) > 0) {
+     return 1; // Overflow
+   }
+   if (exponent.CompareTo(ec.EMin) < 0) {
+     return 2; // Underflow
+   }
+ }
+ return 0;
+}
 
     /// <summary>Gets the greater value between two decimal
     /// numbers.</summary>
@@ -1587,7 +1664,7 @@ BigNumberFlags.FlagSignalingNaN);
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='intOther'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(EDecimal.FromInt32(intOther));
     }
@@ -1595,7 +1672,7 @@ BigNumberFlags.FlagSignalingNaN);
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='intOther'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EDecimal.FromInt32(intOther));
     }

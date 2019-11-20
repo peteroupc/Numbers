@@ -1019,7 +1019,7 @@ namespace PeterO.Numbers {
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='intOther'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }
@@ -1027,7 +1027,7 @@ namespace PeterO.Numbers {
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='intOther'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }

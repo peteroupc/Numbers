@@ -5213,5 +5213,99 @@ for (var i = 0; i < 1000; ++i) {
             k.Subtract(precision - 1)),
           EContext.ForPrecisionAndRounding(5, ERounding.Up)).Abs();
     }
+
+// Test potential cases where FromString is implemented
+// to take context into account when building the EDecimal
+public static void TestStringContextOne(string str, EContext ec) {
+  EDecimal ed = EDecimal.FromString(str).RoundToPrecision(ec);
+  EDecimal ed2 = EDecimal.FromString(str, ec);
+  if (!ed.Equals(ed2)) {
+    if (ec == null) {
+      throw new ArgumentNullException(nameof(ec));
+    }
+    TestCommon.AssertEquals(ed, ed2, ec.ToString());
+  }
+}
+
+[Test]
+public void TestStringContext() {
+  EContext[] econtexts = {
+    EContext.Basic,
+    EContext.Basic.WithExponentRange(-95, 96),
+    EContext.Basic.WithAdjustExponent(false),
+    EContext.Decimal32,
+    EContext.Decimal32.WithAdjustExponent(false),
+    EContext.Decimal32.WithExponentClamp(true),
+    EContext.Decimal32.WithExponentClamp(true).WithAdjustExponent(false),
+    EContext.Decimal64,
+    EContext.Decimal64.WithAdjustExponent(false),
+    EContext.Decimal64,
+    EContext.Decimal64.WithAdjustExponent(false),
+    EContext.Unlimited.WithExponentRange(-64, 64),
+  };
+  ERounding[] roundings = {
+    ERounding.Down, ERounding.Up,
+    ERounding.OddOrZeroFiveUp, ERounding.HalfUp,
+    ERounding.HalfDown, ERounding.HalfEven,
+    ERounding.Ceiling, ERounding.Floor,
+  };
+  int[] exponents = {
+    94, 95, 96, 97,
+    384, 383, 385,
+    6144, 6200, 6143,
+    10000, 0, 1, 2, 3, 4, 5, 10, 20, 40, 60,
+    70, 80, 90,
+  };
+  int[] precisionRanges = {
+    1, 20,
+    1, 20,
+    1, 20,
+    1, 20,
+    1, 20,
+    1, 20,
+    1, 20,
+    90, 120,
+    90, 120,
+    90, 120,
+    370, 400,
+    370, 400,
+    370, 400,
+    1000, 1500,
+    1000, 1500,
+    6100, 6200,
+    740, 800,
+  };
+  var rand = new RandomGenerator();
+  string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+  for (var i = 0; i < 1000; ++i) {
+    int precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
+    int exponent = exponents[rand.UniformInt(exponents.Length)];
+    int prec = precisionRanges[precRange] +
+         rand.UniformInt(1 + (precisionRanges[precRange + 1] -
+precisionRanges[precRange]));
+    var point = -1;
+    if (rand.UniformInt(2) == 0) {
+       point = rand.UniformInt(prec);
+if (point == 0) {
+  point = -1;
+}
+    }
+    int digit = rand.UniformInt(10);
+    var sb = new System.Text.StringBuilder();
+    if (point >= 0) {
+        sb.Append(TestCommon.Repeat(digits[digit], point)).Append(".");
+        sb.Append(TestCommon.Repeat(digits[digit], prec - point));
+      } else {
+        sb.Append(TestCommon.Repeat(digits[digit], prec));
+      }
+      sb.Append(rand.UniformInt(2) == 0 ? "E+" : "E-");
+      sb.Append(TestCommon.LongToString(exponent));
+    for (var j = 0; j < econtexts.Length; ++j) {
+      ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
+      EContext ec = econtexts[j].WithRounding(rounding);
+      TestStringContextOne(sb.ToString(), ec);
+    }
+  }
+}
   }
 }

@@ -908,7 +908,7 @@ BigNumberFlags.FlagSignalingNaN);
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='intOther'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }
@@ -916,7 +916,7 @@ BigNumberFlags.FlagSignalingNaN);
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='intOther'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }

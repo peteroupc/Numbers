@@ -466,7 +466,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Gets a value indicating whether this context defines a
-    /// maximum precision.</summary>
+    /// maximum precision. This is the same as whether this context's
+    /// Precision property is zero.</summary>
     /// <value><c>true</c> if this context defines a maximum precision;
     /// otherwise, <c>false</c>.</value>
     public bool HasMaxPrecision {
@@ -678,6 +679,8 @@ namespace PeterO.Numbers {
         // Only check EMax, since with an unlimited
         // precision, any exponent less than EMin will exceed EMin if
         // the significand is the right size
+        // TODO: In next major version, perhaps correct this to check
+        // EMin here as well if AdjustExponent is true
         return exponent.CompareTo(this.EMax) <= 0;
       } else {
         EInteger bigint = exponent;
