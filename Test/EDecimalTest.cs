@@ -5277,7 +5277,7 @@ public void TestStringContext() {
   };
   var rand = new RandomGenerator();
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-  for (var i = 0; i < 1000; ++i) {
+  for (var i = 0; i < 3000; ++i) {
     int precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
     int exponent = exponents[rand.UniformInt(exponents.Length)];
     int prec = precisionRanges[precRange] +
@@ -5303,6 +5303,7 @@ if (point == 0) {
     for (var j = 0; j < econtexts.Length; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
+      //if(rand.UniformInt(100)<5) { ec=ec.WithSimplified(true); }
       TestStringContextOne(sb.ToString(), ec);
     }
   }

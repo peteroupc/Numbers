@@ -71,6 +71,8 @@ namespace PeterO.Numbers {
 
     T RoundAfterConversion(T thisValue, EContext ctx);
 
+    T SignalOverflow(EContext ctx, bool neg);
+
     T Quantize(T thisValue, T otherValue, EContext ctx);
 
     T RoundToExponentExact(

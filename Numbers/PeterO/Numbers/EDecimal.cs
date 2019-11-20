@@ -965,8 +965,8 @@ BigNumberFlags.FlagSignalingNaN);
     /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
     /// U+002D) (if the minus sign, the value is negative.)</item>
     /// <item>One or more digits, with a single optional decimal point
-    /// after the first digit and before the last digit (these digits may
-    /// begin with any number of zeros).</item>
+    /// (".", U+002E) before or after those digits or between two of them.  These digits may
+    /// begin with any number of zeros.</item>
     /// <item>Optionally, "E"/"e" followed by an optional (positive
     /// exponent) or "-" (negative exponent) and followed by one or more
     /// digits specifying the exponent (these digits may begin with any
@@ -1200,11 +1200,15 @@ BigNumberFlags.FlagSignalingNaN);
       digitStart = i;
       int digitEnd = i;
       int decimalDigitStart = i;
+      int haveNonzeroDigit = 0;
+      int decimalPrec = 0;
       int decimalDigitEnd = i;
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
+          haveNonzeroDigit|=(thisdigit!=0);
+          if(haveNonzeroDigit)decimalPrec+=1;
           if (haveDecimalPoint) {
             decimalDigitEnd = i + 1;
           } else {
@@ -1293,33 +1297,21 @@ BigNumberFlags.FlagSignalingNaN);
       }
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {
-        int digitPrecision = digitEnd - digitStart;
-        if (haveDecimalPoint) {
-          digitPrecision += decimalDigitEnd - decimalDigitStart;
-        }
         if (expInt <= MaxSafeInt && ctx != null) {
           EInteger ns = newScale ?? EInteger.FromInt32(newScaleInt);
           int expwithin = ExponentWithinRange(
             ctx,
-            EInteger.FromInt32(digitPrecision),
+            EInteger.FromInt32(decimalPrec),
             ns);
-        if (expwithin == 1 && !ctx.HasFlagsOrTraps) {
-  // Exponent indicates overflow
-  // TODO: Handle overflows more comprehensively by
-  // adding SignalOverflow method to IRadixMath and using
-  // that method instead
-  // DebugUtility.Log("overflow detected " + digitPrecision + " " + (ns));
-  if (ctx.Rounding == ERounding.HalfEven || ctx.Rounding == ERounding.HalfUp) {
-   ret = negative ? EDecimal.NegativeInfinity : EDecimal.PositiveInfinity;
-   ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
-   return ret;
-  }
-}
-// TODO: Check underflow here
+          if (expwithin == 1) {
+            // Exponent indicates overflow
+            return GetMathValue(ctx).SignalOverflow(ctx, negative);
+          }
+          // TODO: Check underflow here
         } else if (ctx != null) {
-// TODO: Perhaps check whether ExponentWithinRange will trigger
-// overflow if an exponent close to MaxSafeInt is passed.
-}
+          // TODO: Perhaps check whether ExponentWithinRange will trigger
+          // overflow if an exponent close to MaxSafeInt is passed.
+        }
         if (haveDecimalPoint) {
           string decstr = str.Substring(digitStart, digitEnd - digitStart) +
               str.Substring(
@@ -1755,10 +1747,10 @@ private static int ExponentWithinRange(
       // have the same sign
       #if DEBUG
       if (!ed.IsFinite) {
-        throw new ArgumentException("doesn't satisfy this.IsFinite");
+        throw new InvalidOperationException("doesn't satisfy this.IsFinite");
       }
       if (!ef.IsFinite) {
-        throw new ArgumentException("doesn't satisfy other.IsFinite");
+        throw new InvalidOperationException("doesn't satisfy other.IsFinite");
       }
       #endif
       if (ef.Exponent.CompareTo((EInteger)(-1000)) < 0) {

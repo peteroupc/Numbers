@@ -5441,7 +5441,7 @@ otherValue;
         BigNumberFlags.FlagQuietNaN);
     }
 
-    private T SignalOverflow(EContext ctx, bool neg) {
+    public T SignalOverflow(EContext ctx, bool neg) {
       if (ctx != null) {
         ERounding roundingOnOverflow = ctx.Rounding;
         if (ctx.HasFlags) {

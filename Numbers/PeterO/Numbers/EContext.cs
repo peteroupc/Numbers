@@ -702,7 +702,8 @@ namespace PeterO.Numbers {
         ", HasExponentRange=" + this.hasExponentRange + ", BigintPrecision=" +
         this.bigintPrecision + ", Rounding=" + this.rounding +
         ", ClampNormalExponents=" + this.clampNormalExponents + ", Flags=" +
-        this.flags + ", HasFlags=" + this.hasFlags + "]";
+        this.flags + ", HasFlags=" + this.hasFlags + ", IsSimplified=" + this.simplified + 
+        "]";
     }
 
     /// <summary>Gets a value indicating whether this context has a mutable

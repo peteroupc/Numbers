@@ -353,6 +353,12 @@ namespace PeterO.Numbers {
       return this.TriggerTraps(result, tctx, ctx);
     }
 
+    public T SignalOverflow(EContext ctx, bool neg) {
+      EContext tctx = GetTrappableContext(ctx);
+      T result = this.math.SignalOverflow(tctx, neg);
+      return this.TriggerTraps(result, tctx, ctx);
+    }
+
     public T AddEx(
       T thisValue,
       T other,

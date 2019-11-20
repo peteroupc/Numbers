@@ -202,6 +202,12 @@ namespace PeterO.Numbers {
         this.simp.RoundAfterConversion(thisValue, ctx);
     }
 
+    public T SignalOverflow(EContext ctx, bool neg) {
+      return (ctx == null || !ctx.IsSimplified) ?
+        this.ext.SignalOverflow(ctx, neg) :
+        this.simp.SignalOverflow(ctx, neg);
+    }
+
     public T Quantize(T thisValue, T otherValue, EContext ctx) {
       return (ctx == null || !ctx.IsSimplified) ?
         this.ext.Quantize(thisValue, otherValue, ctx) :

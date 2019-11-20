@@ -840,6 +840,12 @@ namespace PeterO.Numbers {
       return this.wrapper.CompareTo(thisValue, otherValue);
     }
 
+    public T SignalOverflow(EContext ctx, bool neg) {
+      EContext ctx2 = GetContextWithFlags(ctx);
+      T thisValue = SignalOverflow2(ctx2, neg);
+      return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
+    }
+
     public T RoundAfterConversion(T thisValue, EContext ctx) {
       T ret = this.CheckNotANumber1(thisValue, ctx);
       if ((object)ret != (object)default(T)) {
