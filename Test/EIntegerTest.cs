@@ -1597,7 +1597,7 @@ public void TestFromStringInnerMinus() {
  Assert.Fail(ex.ToString());
  throw new InvalidOperationException(String.Empty, ex);
 }
-  str = "-"+TestCommon.Repeat("1", 1000) + "-" + TestCommon.Repeat("2", 999);
+  str = "-" + TestCommon.Repeat("1", 1000) + "-" + TestCommon.Repeat("2", 999);
   try {
  EInteger.FromString(str);
  Assert.Fail("Should have failed");
@@ -1607,7 +1607,7 @@ public void TestFromStringInnerMinus() {
  Assert.Fail(ex.ToString());
  throw new InvalidOperationException(String.Empty, ex);
 }
-  str = "-"+TestCommon.Repeat("1", 999) + "-" + TestCommon.Repeat("2", 1000);
+  str = "-" + TestCommon.Repeat("1", 999) + "-" + TestCommon.Repeat("2", 1000);
   try {
  EInteger.FromString(str);
  Assert.Fail("Should have failed");
@@ -1617,7 +1617,7 @@ public void TestFromStringInnerMinus() {
  Assert.Fail(ex.ToString());
  throw new InvalidOperationException(String.Empty, ex);
 }
-  str = "-"+TestCommon.Repeat("1", 1001) + "-" + TestCommon.Repeat("2", 998);
+  str = "-" + TestCommon.Repeat("1", 1001) + "-" + TestCommon.Repeat("2", 998);
   try {
  EInteger.FromString(str);
  Assert.Fail("Should have failed");

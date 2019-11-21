@@ -5215,21 +5215,102 @@ for (var i = 0; i < 1000; ++i) {
           EContext.ForPrecisionAndRounding(5, ERounding.Up)).Abs();
     }
 
+[Test]
+public void TestStringContextSpecific1() {
+string str = "60277096704082E-96";
+string expected = "6.027709E-83";
+EContext
+ec = EContext.Basic.WithExponentClamp(
+  true).WithAdjustExponent(
+  false).WithRounding(
+  ERounding.Down).WithExponentRange(-95, 96).WithPrecision(7);
+TestStringContextOne(str, ec);
+string actualstr = EDecimal.FromString(str).RoundToPrecision(ec).ToString();
+Assert.AreEqual(expected, actualstr);
+actualstr = EDecimal.FromString(str, ec).ToString();
+Assert.AreEqual(expected, actualstr);
+}
+
+[Test]
+public void TestStringContextSpecific2() {
+string str = "8.888888888888E-214748365";
+string expected = "1E-103";
+EContext
+ec = EContext.Basic.WithExponentClamp(
+  false).WithAdjustExponent(
+  true).WithRounding(
+  ERounding.OddOrZeroFiveUp).WithExponentRange(-95, 96).WithPrecision(9);
+TestStringContextOne(str, ec);
+string actualstr = EDecimal.FromString(str).RoundToPrecision(ec).ToString();
+Assert.AreEqual(expected, actualstr);
+actualstr = EDecimal.FromString(str, ec).ToString();
+Assert.AreEqual(expected, actualstr);
+}
+
+[Test]
+public void TestStringContextSpecific3() {
+string str = "10991.709233660650E-90";
+string expected = "1.099171E-86";
+EContext
+ec = EContext.Basic.WithExponentClamp(
+  true).WithAdjustExponent(
+  false).WithRounding(
+  ERounding.Up).WithExponentRange(-95, 96).WithPrecision(7);
+TestStringContextOne(str, ec);
+string actualstr = EDecimal.FromString(str).RoundToPrecision(ec).ToString();
+Assert.AreEqual(expected, actualstr);
+actualstr = EDecimal.FromString(str, ec).ToString();
+Assert.AreEqual(expected, actualstr);
+}
+
+[Test]
+public void TestStringContextSpecific4() {
+EContext
+ec = EContext.Basic.WithExponentClamp(
+  true).WithAdjustExponent(
+  true).WithRounding(
+  ERounding.Floor).WithExponentRange(-95, 96).WithPrecision(7);
+TestStringContextOne("66666666666666666E+40", ec);
+TestStringContextOne("6666666666666666.6E+40", ec);
+TestStringContextOne("666666666666666.66E+40", ec);
+TestStringContextOne("66666666666666.666E+40", ec);
+TestStringContextOne("6.6666666666666666E+40", ec);
+TestStringContextOne("66.666666666666666E+40", ec);
+TestStringContextOne("666.66666666666666E+40", ec);
+}
+
+// private static readonly System.Diagnostics.Stopwatch swUnopt = new
+// System.Diagnostics.Stopwatch();
+// private static readonly System.Diagnostics.Stopwatch swOpt = new
+// System.Diagnostics.Stopwatch();
+
 // Test potential cases where FromString is implemented
 // to take context into account when building the EDecimal
 public static void TestStringContextOne(string str, EContext ec) {
-  EDecimal ed = EDecimal.FromString(str).RoundToPrecision(ec);
-  EDecimal ed2 = EDecimal.FromString(str, ec);
+  EDecimal ed, ed2;
+  // swUnopt.Start();
+  ed = EDecimal.FromString(str).RoundToPrecision(ec);
+  // swUnopt.Stop();
+  // swOpt.Start();
+  ed2 = EDecimal.FromString(str, ec);
+  // swOpt.Stop();
   if (!ed.Equals(ed2)) {
     if (ec == null) {
       throw new ArgumentNullException(nameof(ec));
     }
-    TestCommon.AssertEquals(ed, ed2, ec.ToString());
+    if (str == null) {
+      throw new ArgumentNullException(nameof(str));
+    }
+    string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
+      (str.Length > 200 ? "..." : String.Empty);
+    TestCommon.AssertEquals(ed, ed2, bstr +"\n" + ec.ToString());
   }
 }
 
-private static void AppendZeroFullDigits(StringBuilder sb, RandomGenerator
-rand, int count) {
+private static void AppendZeroFullDigits(
+  StringBuilder sb,
+  RandomGenerator rand,
+  int count) {
   for (var i = 0; i < count; ++i) {
     if (rand.UniformInt(100) < 30) {
       sb.Append('0');
@@ -5240,11 +5321,14 @@ rand, int count) {
   }
 }
 
-private static void AppendDigits(StringBuilder sb, RandomGenerator rand, int
-prec, int point) {
+private static void AppendDigits(
+  StringBuilder sb,
+  RandomGenerator rand,
+  int prec,
+  int point) {
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
- if (rand.UniformInt(100) < 30) {
-   if (point >= 0) {
+  if (rand.UniformInt(100) < 30) {
+    if (point >= 0) {
         AppendZeroFullDigits(sb, rand, point);
         sb.Append(".");
         AppendZeroFullDigits(sb, rand, prec - point);
@@ -5267,8 +5351,9 @@ public void TestLeadingTrailingPoint() {
   Assert.AreEqual(EDecimal.FromString("4"), EDecimal.FromString("4."));
   Assert.AreEqual(EDecimal.FromString("0.4"), EDecimal.FromString(".4"));
   Assert.AreEqual(EDecimal.FromString("4e+5"), EDecimal.FromString("4.e+5"));
-  Assert.AreEqual(EDecimal.FromString("99999999999"),
-  EDecimal.FromString("99999999999."));
+  Assert.AreEqual(
+    EDecimal.FromString("99999999999"),
+    EDecimal.FromString("99999999999."));
   Assert.AreEqual(EDecimal.FromString("0.99999999999"),
   EDecimal.FromString(".99999999999"));
   Assert.AreEqual(
@@ -5304,6 +5389,8 @@ public void TestStringContext() {
     6144, 6200, 6143,
     10000, 0, 1, 2, 3, 4, 5, 10, 20, 40, 60,
     70, 80, 90,
+    214748362, 214748363, 214748364, 214748365,
+    Int32.MaxValue,
   };
   int[] precisionRanges = {
     1, 20,
@@ -5331,24 +5418,28 @@ public void TestStringContext() {
     int exponent = exponents[rand.UniformInt(exponents.Length)];
     int prec = precisionRanges[precRange] +
          rand.UniformInt(1 + (precisionRanges[precRange + 1] -
-precisionRanges[precRange]));
+         precisionRanges[precRange]));
     var point = -1;
     if (rand.UniformInt(2) == 0) {
        point = rand.UniformInt(prec);
-if (point == 0) {
-  point = -1;
-}
+       if (point == 0) {
+         point = -1;
+       }
     }
     var sb = new StringBuilder();
-     AppendDigits(sb, rand, prec, point);
-      sb.Append(rand.UniformInt(2) == 0 ? "E+" : "E-");
-      sb.Append(TestCommon.LongToString(exponent));
+    AppendDigits(sb, rand, prec, point);
+  sb.Append(rand.UniformInt(2) == 0 ? "E+" : "E-");
+  sb.Append(TestCommon.LongToString(exponent));
     for (var j = 0; j < econtexts.Length; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
       TestStringContextOne(sb.ToString(), ec);
     }
   }
+  /*
+  Console.WriteLine("context-unaware: {0} ms\ncontext-aware: {1}
+ms",swUnopt.ElapsedMilliseconds,swOpt.ElapsedMilliseconds);
+  */
 }
   }
 }

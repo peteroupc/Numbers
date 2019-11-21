@@ -1203,33 +1203,57 @@ BigNumberFlags.FlagSignalingNaN);
       var haveNonzeroDigit = false;
       var decimalPrec = 0;
       int decimalDigitEnd = i;
+      // NOTE: Also check HasFlagsOrTraps here because
+      // it's burdensome to determine which flags have
+      // to be set when applying the optimization here
+      bool roundDown = ctx != null && ctx.HasMaxPrecision &&
+          !ctx.IsPrecisionInBits && (ctx.Rounding == ERounding.Down ||
+           (negative && ctx.Rounding == ERounding.Ceiling) ||
+           (!negative && ctx.Rounding == ERounding.Floor)) &&
+           !ctx.HasFlagsOrTraps;
+      var exceedsPrecision = false;
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
           haveNonzeroDigit |= thisdigit != 0;
-          if (haveNonzeroDigit) {
-            ++decimalPrec;
-          }
-          if (haveDecimalPoint) {
-            decimalDigitEnd = i + 1;
-          } else {
-            digitEnd = i + 1;
-          }
-          if (mantInt <= MaxSafeInt) {
-            // multiply by 10
-            mantInt = (mantInt << 3) + (mantInt << 1);
-            mantInt += thisdigit;
-          }
           haveDigits = true;
-          if (haveDecimalPoint) {
-            if (newScaleInt == Int32.MinValue) {
-              newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-              newScale = newScale.Subtract(1);
+          if (ctx == null) {
+            throw new ArgumentNullException(nameof(ctx));
+          }
+          if (roundDown && ctx.Precision.CompareTo(decimalPrec) <= 0) {
+            exceedsPrecision = true;
+            if (newScaleInt == Int32.MinValue || newScaleInt ==
+Int32.MaxValue) {
+                newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+                newScale = newScale.Add(1);
+              } else {
+                ++newScaleInt;
+              }
+          } else {
+            if (haveNonzeroDigit) {
+              ++decimalPrec;
+            }
+            if (haveDecimalPoint) {
+              decimalDigitEnd = i + 1;
             } else {
-              --newScaleInt;
+              digitEnd = i + 1;
+            }
+            if (mantInt <= MaxSafeInt) {
+              // multiply by 10
+              mantInt = (mantInt << 3) + (mantInt << 1);
+              mantInt += thisdigit;
             }
           }
+          if (haveDecimalPoint) {
+            if (newScaleInt == Int32.MinValue || newScaleInt ==
+Int32.MaxValue) {
+                newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+                newScale = newScale.Subtract(1);
+              } else {
+                --newScaleInt;
+              }
+            }
         } else if (ch == '.') {
           if (haveDecimalPoint) {
             throw new FormatException();
@@ -1300,20 +1324,35 @@ BigNumberFlags.FlagSignalingNaN);
       }
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {
+        EInteger ns;
         if (expInt <= MaxSafeInt && ctx != null) {
-          EInteger ns = newScale ?? EInteger.FromInt32(newScaleInt);
-          int expwithin = ExponentWithinRange(
+          ns = newScale ?? EInteger.FromInt32(newScaleInt);
+        } else {
+          // Trial exponent of MaxSafeInt; in case of overflow or
+          // underflow, the real exponent will also overflow or underflow
+          if (expoffset >= 0 && newScaleInt == 0 && newScale == null) {
+            ns = EInteger.FromInt32(MaxSafeInt);
+          } else {
+            ns = newScale ?? EInteger.FromInt32(newScaleInt);
+            ns = (expoffset < 0) ? (ns.Subtract(MaxSafeInt)) :
+(ns.Add(MaxSafeInt));
+          }
+        }
+        int expwithin = CheckOverflowUnderflow(
             ctx,
             EInteger.FromInt32(decimalPrec),
             ns);
-          if (expwithin == 1) {
+        if (expwithin == 1) {
             // Exponent indicates overflow
             return GetMathValue(ctx).SignalOverflow(ctx, negative);
-          }
-          // TODO: Check underflow here
-        } else if (ctx != null) {
-          // TODO: Perhaps check whether ExponentWithinRange will trigger
-          // overflow if an exponent close to MaxSafeInt is passed.
+        }
+        if (expwithin == 2) {
+            // Exponent indicates underflow to zero
+            ret = new EDecimal(
+              new FastIntegerFixed(1),
+              FastIntegerFixed.FromBig(ns),
+              negative ? BigNumberFlags.FlagNegative : 0);
+            return GetMathValue(ctx).RoundAfterConversion(ret, ctx);
         }
         if (haveDecimalPoint) {
           string decstr = str.Substring(digitStart, digitEnd - digitStart) +
@@ -1364,10 +1403,11 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
 // 1 = Overflow, 2 = Underflow, 0 = None
-private static int ExponentWithinRange(
+private static int CheckOverflowUnderflow(
   EContext ec,
   EInteger precision,
   EInteger exponent) {
+// NOTE: Not guaranteed to catch all overflows or underflows.
  if (exponent == null) {
    throw new ArgumentNullException(nameof(exponent));
  }
@@ -1394,8 +1434,12 @@ private static int ExponentWithinRange(
      if (adjExponent.CompareTo(ec.EMax) > 0) {
        return 1; // Overflow
      }
-     if (adjExponent.CompareTo(ec.EMin) < 0) {
-       return 2; // Underflow
+     if (ec.HasMaxPrecision) {
+       EInteger etiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+       if (adjExponent.CompareTo(etiny) < 0) {
+         // DebugUtility.Log("adjexp=" + adjExponent + " exp=" + (exponent));
+         return 2; // Underflow to zero
+       }
      }
    }
  } else {
@@ -1403,9 +1447,14 @@ private static int ExponentWithinRange(
    if (exponent.CompareTo(ec.EMax) > 0) {
      return 1; // Overflow
    }
-   if (exponent.CompareTo(ec.EMin) < 0) {
-     return 2; // Underflow
-   }
+   if (ec.HasMaxPrecision) {
+     EInteger adjExponent = exponent.Add(precision).Subtract(1);
+     EInteger etiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+     if (adjExponent.CompareTo(etiny) < 0) {
+         // DebugUtility.Log("adjexp=" + adjExponent + " exp=" + (exponent));
+         return 2; // Underflow to zero
+       }
+     }
  }
  return 0;
 }

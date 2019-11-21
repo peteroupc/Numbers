@@ -310,7 +310,7 @@ namespace Test {
                 sb.Append("# " + ex.GetType().FullName).Append("\r\n");
                 sb.Append("# " + ex.Message).Append("\r\n");
                 sb.Append("# " +
-ex.StackTrace.Replace("\r","").Replace("\n","\n# ")).Append("\r\n");
+ex.StackTrace.Replace("\r", String.Empty).Replace("\n", "\n# ")).Append("\r\n");
                 sb.Append(ln).Append("\r\n");
                 failedLines[ln] = true;
               }

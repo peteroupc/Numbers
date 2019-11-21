@@ -621,7 +621,7 @@ namespace Test {
           } else if (op.Equals("samequantum", StringComparison.Ordinal)) {
             d3 = EDecimal.FromBoolean(EDecimals.SameQuantum(d1, d2));
           } else {
-            Console.WriteLine("unknown op " + op);
+            // Console.WriteLine("unknown op " + op);
             return;
           }
         }
