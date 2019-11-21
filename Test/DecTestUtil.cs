@@ -728,39 +728,39 @@ namespace Test {
       if (expected == actual) {
         return;
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagInexact) != 0,
         (actual & EContext.FlagInexact) != 0,
         name + ": Inexact");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagRounded) != 0,
         (actual & EContext.FlagRounded) != 0,
         name + ": Rounded");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagSubnormal) != 0,
         (actual & EContext.FlagSubnormal) != 0,
         name + ": Subnormal");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagOverflow) != 0,
         (actual & EContext.FlagOverflow) != 0,
         name + ": Overflow");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagUnderflow) != 0,
         (actual & EContext.FlagUnderflow) != 0,
         name + ": Underflow");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagClamped) != 0,
         (actual & EContext.FlagClamped) != 0,
         name + ": Clamped");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagInvalid) != 0,
         (actual & EContext.FlagInvalid) != 0,
         name + ": Invalid");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagDivideByZero) != 0,
         (actual & EContext.FlagDivideByZero) != 0,
         name + ": DivideByZero");
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagLostDigits) != 0,
         (actual & EContext.FlagLostDigits) != 0,
         name + ": LostDigits");

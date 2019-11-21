@@ -1371,7 +1371,7 @@ namespace PeterO.Numbers {
           other != null) && (
           Object.Equals(
             this.unsignedNumerator,
-            other.unsignedNumerator) && Object.Equals (
+            other.unsignedNumerator) && Object.Equals(
             this.denominator,
             other.denominator) && this.flags == other.flags);
     }

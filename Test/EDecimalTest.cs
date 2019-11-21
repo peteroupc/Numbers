@@ -5346,9 +5346,6 @@ if (point == 0) {
     for (var j = 0; j < econtexts.Length; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
-      //if (rand.UniformInt(100)< 5) {
-   { ec = ec.WithSimplified(true);
-} }
       TestStringContextOne(sb.ToString(), ec);
     }
   }
