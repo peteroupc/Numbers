@@ -2012,40 +2012,40 @@ namespace PeterO.Numbers {
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='v'>Not documented yet.</param>
-  /// <returns/>
- public ERational Add(int v) {
+  /// <returns>The return value is not documented yet.</returns>
+  public ERational Add(int v) {
  return this.Add(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='v'>Not documented yet.</param>
-  /// <returns/>
- public ERational Subtract(int v) {
+  /// <returns>The return value is not documented yet.</returns>
+  public ERational Subtract(int v) {
  return this.Subtract(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='v'>Not documented yet.</param>
-  /// <returns/>
- public ERational Multiply(int v) {
+  /// <returns>The return value is not documented yet.</returns>
+  public ERational Multiply(int v) {
  return this.Multiply(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='v'>Not documented yet.</param>
-  /// <returns/>
- public ERational Divide(int v) {
+  /// <returns>The return value is not documented yet.</returns>
+  public ERational Divide(int v) {
  return this.Divide(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='v'>Not documented yet.</param>
-  /// <returns/>
- public ERational Remainder(int v) {
+  /// <returns>The return value is not documented yet.</returns>
+  public ERational Remainder(int v) {
  return this.Remainder(FromInt32(v));
 }
 

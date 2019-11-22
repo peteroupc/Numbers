@@ -5279,21 +5279,30 @@ TestStringContextOne("66.666666666666666E+40", ec);
 TestStringContextOne("666.66666666666666E+40", ec);
 }
 
-// private static readonly System.Diagnostics.Stopwatch swUnopt = new
-// System.Diagnostics.Stopwatch();
-// private static readonly System.Diagnostics.Stopwatch swOpt = new
-// System.Diagnostics.Stopwatch();
+ // private static readonly System.Diagnostics.Stopwatch swUnopt = new
+ // System.Diagnostics.Stopwatch();
+ // private static readonly System.Diagnostics.Stopwatch swOpt2 = new
+ // System.Diagnostics.Stopwatch();
 
 // Test potential cases where FromString is implemented
 // to take context into account when building the EDecimal
 public static void TestStringContextOne(string str, EContext ec) {
   EDecimal ed, ed2;
-  // swUnopt.Start();
+ // swUnopt.Restart();
   ed = EDecimal.FromString(str).RoundToPrecision(ec);
-  // swUnopt.Stop();
-  // swOpt.Start();
+ // swUnopt.Stop();
+  // swOpt2.Restart();
   ed2 = EDecimal.FromString(str, ec);
-  // swOpt.Stop();
+   /*
+   swOpt2.Stop();
+   if (swUnopt.ElapsedMilliseconds>100 &&
+      swUnopt.ElapsedMilliseconds/4 <= swOpt2.ElapsedMilliseconds) {
+    string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
+      (str.Length > 200 ? "..." : String.Empty);
+    Console.WriteLine(bstr +"\n" + ec.ToString() +"\nunopt="+
+         swUnopt.ElapsedMilliseconds+" ms; opt="+swOpt2.ElapsedMilliseconds);
+   }
+   */
   if (!ed.Equals(ed2)) {
     if (ec == null) {
       throw new ArgumentNullException(nameof(ec));
@@ -5303,7 +5312,7 @@ public static void TestStringContextOne(string str, EContext ec) {
     }
     string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
       (str.Length > 200 ? "..." : String.Empty);
-    TestCommon.AssertEquals(ed, ed2, bstr +"\n" + ec.ToString());
+    TestCommon.AssertEquals(ed, ed2, bstr + "\n" + ec.ToString());
   }
 }
 
@@ -5319,6 +5328,18 @@ private static void AppendZeroFullDigits(
        sb.Append((char)c);
     }
   }
+}
+
+private static void AppendNines(
+  StringBuilder sb,
+  int prec,
+  int point) {
+    if (point >= 0) {
+        sb.Append(TestCommon.Repeat("9", point)).Append(".");
+        sb.Append(TestCommon.Repeat("9", prec - point));
+      } else {
+        sb.Append(TestCommon.Repeat("9", prec));
+      }
 }
 
 private static void AppendDigits(
@@ -5362,6 +5383,28 @@ public void TestLeadingTrailingPoint() {
 }
 
 [Test]
+public void TestStringContextSpecific5() {
+  var sb = new StringBuilder();
+  var ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
+    .WithAdjustExponent(true).WithExponentRange(-95, 96)
+    .WithRounding(ERounding.HalfUp);
+  AppendNines(sb, 400, 283);
+  sb.Append("E-384");
+  TestStringContextOne(sb.ToString(), ec);
+}
+
+[Test]
+public void TestStringContextSpecific6() {
+  var sb = new StringBuilder();
+  var ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
+    .WithAdjustExponent(true).WithExponentRange(-95, 96)
+    .WithRounding(ERounding.HalfUp);
+  AppendNines(sb, 400, 284);
+  sb.Append("E-385");
+  TestStringContextOne(sb.ToString(), ec);
+}
+
+[Test]
 public void TestStringContext() {
   EContext[] econtexts = {
     EContext.Basic,
@@ -5371,6 +5414,10 @@ public void TestStringContext() {
     EContext.Decimal32.WithAdjustExponent(false),
     EContext.Decimal32.WithExponentClamp(true),
     EContext.Decimal32.WithExponentClamp(true).WithAdjustExponent(false),
+    EContext.BigDecimalJava,
+    EContext.BigDecimalJava.WithAdjustExponent(true),
+    EContext.BigDecimalJava.WithExponentClamp(true),
+    EContext.BigDecimalJava.WithExponentClamp(true).WithAdjustExponent(false),
     EContext.Decimal64,
     EContext.Decimal64.WithAdjustExponent(false),
     EContext.Decimal64,
@@ -5390,9 +5437,11 @@ public void TestStringContext() {
     10000, 0, 1, 2, 3, 4, 5, 10, 20, 40, 60,
     70, 80, 90,
     214748362, 214748363, 214748364, 214748365,
-    Int32.MaxValue,
+    Int32.MaxValue, Int32.MaxValue - 1,
   };
   int[] precisionRanges = {
+    1, 7,
+    1, 7,
     1, 20,
     1, 20,
     1, 20,
@@ -5413,12 +5462,20 @@ public void TestStringContext() {
   };
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   var rand = new RandomGenerator();
-  for (var i = 0; i < 3000; ++i) {
+  for (var i = 0; i < 2000; ++i) {
+    if (i % 1000 == 0) {
+      Console.WriteLine(i);
+    }
     int precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
     int exponent = exponents[rand.UniformInt(exponents.Length)];
     int prec = precisionRanges[precRange] +
          rand.UniformInt(1 + (precisionRanges[precRange + 1] -
          precisionRanges[precRange]));
+    precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
+    int eprec = precisionRanges[precRange] +
+         rand.UniformInt(1 + (precisionRanges[precRange + 1] -
+         precisionRanges[precRange]));
+    eprec *= 10;
     var point = -1;
     if (rand.UniformInt(2) == 0) {
        point = rand.UniformInt(prec);
@@ -5429,17 +5486,25 @@ public void TestStringContext() {
     var sb = new StringBuilder();
     AppendDigits(sb, rand, prec, point);
   sb.Append(rand.UniformInt(2) == 0 ? "E+" : "E-");
-  sb.Append(TestCommon.LongToString(exponent));
+  if (rand.UniformInt(100) < 10) {
+    AppendDigits(sb, rand, eprec, -1);
+  } else {
+     sb.Append(TestCommon.LongToString(exponent));
+   }
     for (var j = 0; j < econtexts.Length; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
-      TestStringContextOne(sb.ToString(), ec);
+      string sbs = sb.ToString();
+      try {
+      TestStringContextOne(sbs, ec);
+} catch (Exception ex) {
+     int spos = Math.Max(0, sbs.Length - 20);
+     Console.WriteLine("prec=" + prec + " point=" + point + " end=" +
+sbs.Substring(spos, sbs.Length - spos));
+     Console.WriteLine(ex.Message);
+}
     }
   }
-  /*
-  Console.WriteLine("context-unaware: {0} ms\ncontext-aware: {1}
-ms",swUnopt.ElapsedMilliseconds,swOpt.ElapsedMilliseconds);
-  */
 }
   }
 }

@@ -8,7 +8,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
-* <code>[Add(int)](#Add_int)</code> -
+* <code>[Add(int)](#Add_int)</code> - Not documented yet.
 * <code>[Add(PeterO.Numbers.ERational)](#Add_PeterO_Numbers_ERational)</code> - Adds two rational numbers.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Not documented yet.
 * <code>[CompareTo(PeterO.Numbers.ERational)](#CompareTo_PeterO_Numbers_ERational)</code> - Compares the mathematical value of an arbitrary-precision rational number with that of this instance.
@@ -26,7 +26,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool)</code> - Creates a not-a-number arbitrary-precision rational number.
 * <code>[Decrement()](#Decrement)</code> - Subtracts one from an arbitrary-precision rational number.
 * <code>[Denominator](#Denominator)</code> - Gets this object's denominator.
-* <code>[Divide(int)](#Divide_int)</code> -
+* <code>[Divide(int)](#Divide_int)</code> - Not documented yet.
 * <code>[Divide(PeterO.Numbers.ERational)](#Divide_PeterO_Numbers_ERational)</code> - Divides this instance by the value of an arbitrary-precision rational number object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object and that other object is an arbitrary-precision rational number.
 * <code>[Equals(PeterO.Numbers.ERational)](#Equals_PeterO_Numbers_ERational)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object.
@@ -60,7 +60,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[IsQuietNaN()](#IsQuietNaN)</code> - Returns whether this object is a quiet not-a-number value.
 * <code>[IsSignalingNaN()](#IsSignalingNaN)</code> - Returns whether this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class).
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this object's value equals 0.
-* <code>[Multiply(int)](#Multiply_int)</code> -
+* <code>[Multiply(int)](#Multiply_int)</code> - Not documented yet.
 * <code>[Multiply(PeterO.Numbers.ERational)](#Multiply_PeterO_Numbers_ERational)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
 * <code>[public static readonly PeterO.Numbers.ERational NaN;](#NaN)</code> - A not-a-number value.
 * <code>[Negate()](#Negate)</code> - Returns a rational number with the same value as this one but with the sign reversed.
@@ -79,11 +79,11 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[PeterO.Numbers.ERational operator -(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Subtraction)</code> - Subtracts an arbitrary-precision rational number from this instance.
 * <code>[PeterO.Numbers.ERational operator -(PeterO.Numbers.ERational)](#op_UnaryNegation)</code> - Returns an arbitrary-precision rational number with the same value as the given one but with its sign reversed.
 * <code>[public static readonly PeterO.Numbers.ERational PositiveInfinity;](#PositiveInfinity)</code> - Positive infinity, greater than any other number.
-* <code>[Remainder(int)](#Remainder_int)</code> -
+* <code>[Remainder(int)](#Remainder_int)</code> - Not documented yet.
 * <code>[Remainder(PeterO.Numbers.ERational)](#Remainder_PeterO_Numbers_ERational)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 * <code>[Sign](#Sign)</code> - Gets the sign of this rational number.
 * <code>[public static readonly PeterO.Numbers.ERational SignalingNaN;](#SignalingNaN)</code> - A signaling not-a-number value.
-* <code>[Subtract(int)](#Subtract_int)</code> -
+* <code>[Subtract(int)](#Subtract_int)</code> - Not documented yet.
 * <code>[Subtract(PeterO.Numbers.ERational)](#Subtract_PeterO_Numbers_ERational)</code> - Subtracts an arbitrary-precision rational number from this instance.
 * <code>[public static readonly PeterO.Numbers.ERational Ten;](#Ten)</code> - The rational number ten.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
@@ -300,6 +300,24 @@ Returns the absolute value of this rational number, that is, a number with the s
 <b>Return Value:</b>
 
 An arbitrary-precision rational number.
+
+<a id="Add_int"></a>
+### Add
+
+    public PeterO.Numbers.ERational Add(
+        int v);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>v</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="Add_PeterO_Numbers_ERational"></a>
 ### Add
@@ -640,6 +658,24 @@ Subtracts one from an arbitrary-precision rational number.
 <b>Return Value:</b>
 
 The given arbitrary-precision rational number minus one.
+
+<a id="Divide_int"></a>
+### Divide
+
+    public PeterO.Numbers.ERational Divide(
+        int v);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>v</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="Divide_PeterO_Numbers_ERational"></a>
 ### Divide
@@ -1162,6 +1198,24 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 <b>Return Value:</b>
 
  `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise,  `false` .
+
+<a id="Multiply_int"></a>
+### Multiply
+
+    public PeterO.Numbers.ERational Multiply(
+        int v);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>v</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="Multiply_PeterO_Numbers_ERational"></a>
 ### Multiply
@@ -1960,6 +2014,24 @@ An arbitrary-precision rational number.
 The parameter  <i>bigValue</i>
  is null.
 
+<a id="Remainder_int"></a>
+### Remainder
+
+    public PeterO.Numbers.ERational Remainder(
+        int v);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>v</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="Remainder_PeterO_Numbers_ERational"></a>
 ### Remainder
 
@@ -1981,6 +2053,24 @@ The remainder of the two numbers.
  * System.ArgumentNullException:
 The parameter  <i>otherValue</i>
  is null.
+
+<a id="Subtract_int"></a>
+### Subtract
+
+    public PeterO.Numbers.ERational Subtract(
+        int v);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>v</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="Subtract_PeterO_Numbers_ERational"></a>
 ### Subtract
