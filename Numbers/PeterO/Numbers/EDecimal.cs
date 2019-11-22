@@ -610,8 +610,7 @@ namespace PeterO.Numbers {
     /// numbers can be converted to exact binary numbers (in the example
     /// given, the resulting arbitrary-precision decimal will be the value
     /// of the closest "double" to 0.1, not 0.1 exactly). To create an
-    /// arbitrary-precision decimal number from an arbitrary-precision
-    /// decimal number, use FromString instead in most cases (for example:
+    /// arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:
     /// <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
     /// <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
     /// floating-point number.</param>
@@ -831,8 +830,7 @@ namespace PeterO.Numbers {
     /// numbers can be converted to exact binary numbers (in the example
     /// given, the resulting arbitrary-precision decimal will be the the
     /// value of the closest "float" to 0.1, not 0.1 exactly). To create an
-    /// arbitrary-precision decimal number from an arbitrary-precision
-    /// decimal number, use FromString instead in most cases (for example:
+    /// arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:
     /// <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
@@ -900,7 +898,7 @@ BigNumberFlags.FlagSignalingNaN);
 
     /// <summary>Creates an arbitrary-precision decimal number from a text
     /// string that represents a number. See <c>FromString(String, int,
-    /// int, EContext)</c> for more information.</summary>
+    /// int, EContext)</c> for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling <c>RoundToPrecision</c> on that EDecimal, especially if the context specifies a precision limit and exponent range.</summary>
     /// <param name='str'>A string that represents a number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
@@ -920,7 +918,7 @@ BigNumberFlags.FlagSignalingNaN);
     /// the context is true, will also store the flags resulting from the
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
-    /// isn't needed.</param>
+    /// isn't needed. Note that providing a context is often much faster than creating the EDecimal without a context then calling <c>RoundToPrecision</c> on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -931,7 +929,7 @@ BigNumberFlags.FlagSignalingNaN);
 
     /// <summary>Creates an arbitrary-precision decimal number from a text
     /// string that represents a number. See <c>FromString(String, int,
-    /// int, EContext)</c> for more information.</summary>
+    /// int, EContext)</c> for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling <c>RoundToPrecision</c> on that EDecimal, especially if the context specifies a precision limit and exponent range.</summary>
     /// <param name='str'>A string that represents a number.</param>
     /// <param name='offset'>An index starting at 0 showing where the
     /// desired portion of <paramref name='str'/> begins.</param>
@@ -995,7 +993,7 @@ BigNumberFlags.FlagSignalingNaN);
     /// the context is true, will also store the flags resulting from the
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
-    /// isn't needed.</param>
+    /// isn't needed.  Note that providing a context is often much faster than creating the EDecimal without a context then calling <c>RoundToPrecision</c> on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -1211,6 +1209,17 @@ BigNumberFlags.FlagSignalingNaN);
            (negative && ctx.Rounding == ERounding.Ceiling) ||
            (!negative && ctx.Rounding == ERounding.Floor)) &&
            !ctx.HasFlagsOrTraps;
+      bool roundHalf = ctx != null && ctx.HasMaxPrecision &&
+          !ctx.IsPrecisionInBits && (ctx.Rounding == ERounding.HalfUp ||
+           (ctx.Rounding == ERounding.HalfDown) ||
+           (ctx.Rounding == ERounding.HalfEven)) &&
+           !ctx.HasFlagsOrTraps;
+      // bool roundUp = ctx != null && ctx.HasMaxPrecision &&
+      //    !ctx.IsPrecisionInBits && (ctx.Rounding == ERounding.Up ||
+      //     (!negative && ctx.Rounding == ERounding.Ceiling) ||
+      //     (negative && ctx.Rounding == ERounding.Floor)) &&
+      //     !ctx.HasFlagsOrTraps;
+      bool haveIgnoredDigit = false;
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
@@ -1218,8 +1227,28 @@ BigNumberFlags.FlagSignalingNaN);
           haveNonzeroDigit |= thisdigit != 0;
           haveDigits = true;
           if (roundDown && ctx != null &&
-              ctx.Precision.CompareTo(decimalPrec) <= 0) {
+              (haveIgnoredDigit || ctx.Precision.CompareTo(decimalPrec) <= 0)) {
+            // "Ignored" digit
+            haveIgnoredDigit=true;
             if (newScaleInt == Int32.MinValue ||
+                newScaleInt == Int32.MaxValue) {
+                newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+                newScale = newScale.Add(1);
+              } else {
+                ++newScaleInt;
+              }
+          } else if (roundHalf && ctx != null &&
+              (haveIgnoredDigit || ctx.Precision.CompareTo(decimalPrec) <= 0)) {
+            if (!haveIgnoredDigit) {
+              if (thisDigit < 5) {
+                haveIgnoredDigit = true;
+              } else {
+                roundHalf = false;
+              }
+            }
+          }
+          if (haveIgnoredDigit) {
+              if (newScaleInt == Int32.MinValue ||
                 newScaleInt == Int32.MaxValue) {
                 newScale = newScale ?? EInteger.FromInt32(newScaleInt);
                 newScale = newScale.Add(1);
@@ -1244,12 +1273,12 @@ BigNumberFlags.FlagSignalingNaN);
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue ||
                 newScaleInt == Int32.MaxValue) {
-                newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-                newScale = newScale.Subtract(1);
-              } else {
-                --newScaleInt;
-              }
+              newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+              newScale = newScale.Subtract(1);
+            } else {
+              --newScaleInt;
             }
+          }
         } else if (ch == '.') {
           if (haveDecimalPoint) {
             throw new FormatException();
