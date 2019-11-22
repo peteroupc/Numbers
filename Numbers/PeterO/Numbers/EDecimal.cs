@@ -1326,26 +1326,31 @@ BigNumberFlags.FlagSignalingNaN);
       }
       if (mantInt > MaxSafeInt || (haveExponent && expInt > MaxSafeInt)) {
         EInteger ns;
-        // TODO: Try bigger value for MaxSafeInt, in case exponent limit is
-        // Int32.MaxValue
         if (expInt <= MaxSafeInt && ctx != null) {
           ns = newScale ?? EInteger.FromInt32(newScaleInt);
         } else {
-          // Trial exponent of MaxSafeInt; in case of overflow or
+          EInteger trialExponent = EInteger.FromInt32(MaxSafeInt);
+          if (expPrec > 25) {
+            // Exponent has many significant digits; use a bigger trial exponent
+            trialExponent = EInteger.FromInt64(Int64.MaxValue);
+          }
+          // Trial exponent; in case of overflow or
           // underflow, the real exponent will also overflow or underflow
           if (expoffset >= 0 && newScaleInt == 0 && newScale == null) {
-            ns = EInteger.FromInt32(MaxSafeInt);
+            ns = trialExponent;
           } else {
             ns = newScale ?? EInteger.FromInt32(newScaleInt);
-            ns = (expoffset < 0) ? ns.Subtract(MaxSafeInt) :
-                ns.Add(MaxSafeInt);
+            ns = (expoffset < 0) ? ns.Subtract(trialExponent) :
+                ns.Add(trialExponent);
           }
         }
+        EInteger eiDecPrec = EInteger.FromInt32(decimalPrec);
         int expwithin = CheckOverflowUnderflow(
             ctx,
-            EInteger.FromInt32(decimalPrec),
+            eiDecPrec,
             ns);
-        if (mantInt == 0 && (expwithin == 1 || expwithin == 2)) {
+        if (mantInt == 0 && (expwithin == 1 || expwithin == 2 ||
+             expwithin == 3)) {
               // Significand is zero
               ret = new EDecimal(
                 new FastIntegerFixed(0),
@@ -1357,13 +1362,26 @@ BigNumberFlags.FlagSignalingNaN);
               // Exponent indicates overflow
               return GetMathValue(ctx).SignalOverflow(ctx, negative);
         }
-        if (expwithin == 2) {
+        if (expwithin == 2 || (expwithin == 3 && mantInt < MaxSafeInt)) {
             // Exponent indicates underflow to zero
+            ret = new EDecimal(
+              new FastIntegerFixed(expwithin == 3 ? mantInt : 1),
+              FastIntegerFixed.FromBig(ns),
+              negative ? BigNumberFlags.FlagNegative : 0);
+            return GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+          } else if (expwithin == 3 && (ctx == null || ctx.Traps == 0)) {
+            // Exponent indicates underflow to zero, adjust exponent
             ret = new EDecimal(
               new FastIntegerFixed(1),
               FastIntegerFixed.FromBig(ns),
               negative ? BigNumberFlags.FlagNegative : 0);
-            return GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+            ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+            ns = ret.Exponent.Subtract(eiDecPrec.Subtract(1));
+            ret = new EDecimal(
+              ret.unsignedMantissa.Copy(),
+              FastIntegerFixed.FromBig(ns),
+              ret.flags);
+            return ret;
         }
       }
       // Parse significand if it's "big"
@@ -1414,7 +1432,8 @@ BigNumberFlags.FlagSignalingNaN);
       return ret;
     }
 
-// 1 = Overflow, 2 = Underflow, 0 = None
+// 1 = Overflow; 2 = Underflow, adjust significand to 1; 0 = None;
+// 3 = Underflow, adjust significant to have precision
 private static int CheckOverflowUnderflow(
   EContext ec,
   EInteger precision,
@@ -1449,10 +1468,18 @@ private static int CheckOverflowUnderflow(
      if (ec.HasMaxPrecision) {
        EInteger etiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
        etiny = etiny.Subtract(1); // Buffer in case of rounding
+       //DebugUtility.Log("adj: adjexp=" + adjExponent + " exp=" + exponent + "
+       //etiny="+etiny);
        if (adjExponent.CompareTo(etiny) < 0) {
-         // DebugUtility.Log("adjexp=" + adjExponent + " exp=" + exponent + "
-         // etiny="+etiny);
          return 2; // Underflow to zero
+       }
+     } else {
+       EInteger etiny = ec.EMin.Subtract(precision.Subtract(1));
+       etiny = etiny.Subtract(1); // Buffer in case of rounding
+       //DebugUtility.Log("adj: adjexp=" + adjExponent + " exp=" + exponent + "
+       //etiny="+etiny);
+       if (adjExponent.CompareTo(etiny) < 0) {
+         return 3; // Underflow to zero
        }
      }
    }
@@ -1461,16 +1488,18 @@ private static int CheckOverflowUnderflow(
    if (exponent.CompareTo(ec.EMax) > 0) {
      return 1; // Overflow
    }
-   if (ec.HasMaxPrecision && !ec.IsPrecisionInBits) {
+   if (/*ec.HasMaxPrecision &&*/ !ec.IsPrecisionInBits) {
      EInteger adjExponent = exponent.Add(precision).Subtract(1);
-     EInteger etiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+     EInteger etiny = ec.HasMaxPrecision ?
+           ec.EMin.Subtract(ec.Precision.Subtract(1)) :
+           ec.EMin.Subtract(precision.Subtract(1));
      etiny = etiny.Subtract(1); // Buffer in case of rounding
+     //DebugUtility.Log("noadj: adjexp=" + adjExponent + " exp=" + exponent + "
+     //etiny="+etiny);
      if (adjExponent.CompareTo(etiny) < 0) {
-        // DebugUtility.Log("adjexp=" + adjExponent + " exp=" + exponent + "
-        // etiny="+etiny);
          return 2; // Underflow to zero
-       }
      }
+   }
  }
  return 0;
 }

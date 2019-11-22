@@ -5248,6 +5248,17 @@ Assert.AreEqual(expected, actualstr);
 }
 
 [Test]
+public void TestStringContextSpecific7() {
+EContext ec = EContext.Unlimited.WithExponentClamp(
+  true).WithAdjustExponent(
+  true).WithRounding(
+  ERounding.Floor).WithExponentRange(-9999999, 9999999);
+string str = TestCommon.Repeat("7", 1000) + "E-" +
+   TestCommon.Repeat("7", 1000);
+TestStringContextOne(str, ec);
+}
+
+[Test]
 public void TestStringContextSpecific3() {
 string str = "10991.709233660650E-90";
 string expected = "1.099171E-86";
@@ -5279,27 +5290,45 @@ TestStringContextOne("66.666666666666666E+40", ec);
 TestStringContextOne("666.66666666666666E+40", ec);
 }
 
- // private static readonly System.Diagnostics.Stopwatch swUnopt = new
- // System.Diagnostics.Stopwatch();
- // private static readonly System.Diagnostics.Stopwatch swOpt2 = new
- // System.Diagnostics.Stopwatch();
+/*
+ private static readonly System.Diagnostics.Stopwatch swUnopt = new
+ System.Diagnostics.Stopwatch();
+ private static readonly System.Diagnostics.Stopwatch swOpt2 = new
+ System.Diagnostics.Stopwatch();
+ private static long unoptTime = 0;
+ private static long optTime = 0;
 
+ public void TearDown() {
+   Console.WriteLine("unoptTime = " + unoptTime + " ms");
+   Console.WriteLine("optTime = " + optTime + " ms");
+ }
+*/
 // Test potential cases where FromString is implemented
 // to take context into account when building the EDecimal
 public static void TestStringContextOne(string str, EContext ec) {
   EDecimal ed, ed2;
- // swUnopt.Restart();
+  /*
+   swUnopt.Restart();
+  */
   ed = EDecimal.FromString(str).RoundToPrecision(ec);
- // swUnopt.Stop();
-  // swOpt2.Restart();
+  /*
+   swUnopt.Stop();
+   swOpt2.Restart();
+  */
   ed2 = EDecimal.FromString(str, ec);
    /*
    swOpt2.Stop();
+   unoptTime+=swUnopt.ElapsedMilliseconds;
+   optTime+=swOpt2.ElapsedMilliseconds;
    if (swUnopt.ElapsedMilliseconds>100 &&
       swUnopt.ElapsedMilliseconds/4 <= swOpt2.ElapsedMilliseconds) {
     string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
       (str.Length > 200 ? "..." : String.Empty);
-    Console.WriteLine(bstr +"\n" + ec.ToString() +"\nunopt="+
+    string edstr = ed.ToString();
+    edstr = edstr.Substring(0, Math.Min(edstr.Length, 200)) +
+      (edstr.Length > 200 ? "..." : String.Empty);
+    Console.WriteLine(bstr +"\nresult=" + edstr + "\n" + ec.ToString()
++"\nunopt="+
          swUnopt.ElapsedMilliseconds+" ms; opt="+swOpt2.ElapsedMilliseconds);
    }
    */
@@ -5385,7 +5414,7 @@ public void TestLeadingTrailingPoint() {
 [Test]
 public void TestStringContextSpecific5() {
   var sb = new StringBuilder();
-  var ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
+  EContext ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
     .WithAdjustExponent(true).WithExponentRange(-95, 96)
     .WithRounding(ERounding.HalfUp);
   AppendNines(sb, 400, 283);
@@ -5396,7 +5425,7 @@ public void TestStringContextSpecific5() {
 [Test]
 public void TestStringContextSpecific6() {
   var sb = new StringBuilder();
-  var ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
+  EContext ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
     .WithAdjustExponent(true).WithExponentRange(-95, 96)
     .WithRounding(ERounding.HalfUp);
   AppendNines(sb, 400, 284);
@@ -5462,7 +5491,7 @@ public void TestStringContext() {
   };
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   var rand = new RandomGenerator();
-  for (var i = 0; i < 2000; ++i) {
+  for (var i = 0; i < 4000; ++i) {
     if (i % 1000 == 0) {
       Console.WriteLine(i);
     }
@@ -5475,7 +5504,6 @@ public void TestStringContext() {
     int eprec = precisionRanges[precRange] +
          rand.UniformInt(1 + (precisionRanges[precRange + 1] -
          precisionRanges[precRange]));
-    eprec *= 10;
     var point = -1;
     if (rand.UniformInt(2) == 0) {
        point = rand.UniformInt(prec);
