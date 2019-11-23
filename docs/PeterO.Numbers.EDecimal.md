@@ -1457,7 +1457,7 @@ An arbitrary-precision decimal floating-point number.
     public static PeterO.Numbers.EDecimal FromDouble(
         double dbl);
 
-Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromDouble(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from an arbitrary-precision decimal number, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
+Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromDouble(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
 
 <b>Parameters:</b>
 
@@ -1599,7 +1599,7 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromSingle(
         float flt);
 
-Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromSingle(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from an arbitrary-precision decimal number, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
+Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromSingle(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
 
 <b>Parameters:</b>
 
@@ -1618,7 +1618,7 @@ An arbitrary-precision decimal number with the same value as  <i>flt</i>
         string str);
 
 Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
-            int, EContext)`  for more information.
+            int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Parameters:</b>
 
@@ -1643,7 +1643,7 @@ The parameter  <i>str</i>
         int length);
 
 Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
-            int, EContext)`  for more information.
+            int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Parameters:</b>
 
@@ -1713,7 +1713,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
  (but not more than  <i>str</i>
  's length).
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed. Note that providing a context is often much faster than creating the EDecimal without a context then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Return Value:</b>
 
@@ -1748,7 +1748,7 @@ Creates an arbitrary-precision decimal number from a text string that represents
 
  * <i>str</i>: A string that represents a number.
 
- * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed. Note that providing a context is often much faster than creating the EDecimal without a context then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Return Value:</b>
 

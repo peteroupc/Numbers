@@ -18,6 +18,8 @@ namespace PeterO.Numbers {
 
     FastInteger GetDigitLength();
 
+    FastInteger OverestimateDigitLength();
+
     int OlderDiscardedDigits {
       get;
     }

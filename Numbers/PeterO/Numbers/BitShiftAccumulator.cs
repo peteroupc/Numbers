@@ -37,6 +37,11 @@ namespace PeterO.Numbers {
       this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
       return FastInteger.CopyFrozen(this.knownBitLength);
     }
+
+    public FastInteger OverestimateDigitLength() {
+       return this.GetDigitLength();
+    }
+
     private void VerifyKnownLength() {
       #if DEBUG
       if (this.knownBitLength != null) {

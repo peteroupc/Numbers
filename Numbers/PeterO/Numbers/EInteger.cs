@@ -639,6 +639,10 @@ namespace PeterO.Numbers {
       }
     }
 
+// private static System.Diagnostics.Stopwatch swPow = new
+// System.Diagnostics.Stopwatch();
+// private static System.Diagnostics.Stopwatch swMulAdd = new
+// System.Diagnostics.Stopwatch();
     private static EInteger FromRadixSubstringGeneral(
       string str,
       int radix,
@@ -660,9 +664,16 @@ namespace PeterO.Numbers {
           endIndex,
           false);
         EInteger mult = null;
-        mult = (radix == 10) ? NumberUtility.FindPowerOfTen(endIndex -
-midIndex) : EInteger.FromInt32(radix).Pow(endIndex - midIndex);
+        // swPow.Restart();
+        mult = (radix == 10) ? NumberUtility.FindPowerOfTen(
+             endIndex - midIndex) :
+           EInteger.FromInt32(radix).Pow(endIndex - midIndex);
+        // swPow.Stop();swMulAdd.Restart();
         eia = eia.Multiply(mult).Add(eib);
+        // swMulAdd.Stop();
+        // DebugUtility.Log("index={0} {1} {2} [pow={3}] [pow={4} ms, muladd={5} ms]",
+        // index, midIndex, endIndex, endIndex-midIndex, swPow.ElapsedMilliseconds,
+        // swMulAdd.ElapsedMilliseconds);
         if (negative) {
           eia = eia.Negate();
         }
@@ -2718,6 +2729,9 @@ countB +
       int currentCount = this.wordCount;
       long retval;
       retval = 0L;
+      // TODO: In version 1.5 or later, optimize this for the
+      // case of big numbers close to 10^N, perhaps using
+      // underestimated digit counts, or using divide-and-conquer
       while (currentCount != 0) {
         if (currentCount == 1 || (currentCount == 2 && tempReg[1] == 0)) {
           int rest = ((int)tempReg[0]) & 0xffff;

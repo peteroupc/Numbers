@@ -4817,10 +4817,13 @@ otherValue;
             mantabs,
             lastDiscarded,
             olderDiscarded);
-          FastInteger digitCount = accum.GetDigitLength();
-          // DebugUtility.Log("digitCount=" + digitCount + ", " +
+          FastInteger estDigitCount = accum.OverestimateDigitLength();
+          // NOTE: Overestimating the digit count will catch most,
+          // but not all, numbers that fit fastPrecision, and will not
+          // catch any numbers that don't fit fastPrecision
+          // DebugUtility.Log("estDigitCount=" + estDigitCount + ", " +
           // fastPrecision);
-          if (digitCount.CompareTo(fastPrecision) <= 0) {
+          if (estDigitCount.CompareTo(fastPrecision) <= 0) {
             if (!this.RoundGivenAccum (
                 accum,
                 ctx.Rounding,
@@ -4856,6 +4859,7 @@ otherValue;
               }
               var stillWithinPrecision = false;
               mantabs = mantabs.Increment();
+              FastInteger digitCount = accum.GetDigitLength();
               int precisionCmp = digitCount.CompareTo(fastPrecision);
               if (precisionCmp < 0 ||
                 (precisionCmp == 0 && (this.thisRadix & 1) == 0 &&

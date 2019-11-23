@@ -5290,28 +5290,38 @@ TestStringContextOne("66.666666666666666E+40", ec);
 TestStringContextOne("666.66666666666666E+40", ec);
 }
 
+ private static long unoptTime = 0;
+ private static long unoptRoundTime = 0;
+ private static long optTime = 0;
 /*
  private static readonly System.Diagnostics.Stopwatch swUnopt = new
  System.Diagnostics.Stopwatch();
+ private static readonly System.Diagnostics.Stopwatch swUnoptRound = new
+ System.Diagnostics.Stopwatch();
  private static readonly System.Diagnostics.Stopwatch swOpt2 = new
  System.Diagnostics.Stopwatch();
- private static long unoptTime = 0;
- private static long optTime = 0;
-
- public void TearDown() {
-   Console.WriteLine("unoptTime = " + unoptTime + " ms");
-   Console.WriteLine("optTime = " + optTime + " ms");
+ */
+ public static void TearDown() {
+   if (unoptTime > 0) {
+     Console.WriteLine("unoptTime = " + unoptTime + " ms");
+     Console.WriteLine("unoptRoundTime = " + unoptRoundTime + " ms");
+     Console.WriteLine("optTime = " + optTime + " ms");
+     unoptTime = 0;
+     unoptRoundTime = 0;
+     optTime = 0;
+   }
  }
-*/
+
 // Test potential cases where FromString is implemented
 // to take context into account when building the EDecimal
 public static void TestStringContextOne(string str, EContext ec) {
   EDecimal ed, ed2;
+  // swUnopt.Restart();
+  ed = EDecimal.FromString(str);
+  // swUnoptRound.Restart();
+  ed = ed.RoundToPrecision(ec);
   /*
-   swUnopt.Restart();
-  */
-  ed = EDecimal.FromString(str).RoundToPrecision(ec);
-  /*
+   swUnoptRound.Stop();
    swUnopt.Stop();
    swOpt2.Restart();
   */
@@ -5319,6 +5329,7 @@ public static void TestStringContextOne(string str, EContext ec) {
    /*
    swOpt2.Stop();
    unoptTime+=swUnopt.ElapsedMilliseconds;
+   unoptRoundTime+=swUnoptRound.ElapsedMilliseconds;
    optTime+=swOpt2.ElapsedMilliseconds;
    if (swUnopt.ElapsedMilliseconds>100 &&
       swUnopt.ElapsedMilliseconds/4 <= swOpt2.ElapsedMilliseconds) {
@@ -5528,11 +5539,10 @@ public void TestStringContext() {
 } catch (Exception ex) {
      int spos = Math.Max(0, sbs.Length - 20);
      Console.WriteLine("prec=" + prec + " point=" + point + " end=" +
-sbs.Substring(spos, sbs.Length - spos));
-     Console.WriteLine(ex.Message);
-}
+(sbs.Substring(spos, sbs.Length - spos))); Console.WriteLine(ex.Message); }
     }
   }
+  TearDown();
 }
   }
 }

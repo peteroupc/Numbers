@@ -124,6 +124,53 @@ namespace PeterO.Numbers {
       return this.knownDigitLength;
     }
 
+    public FastInteger OverestimateDigitLength() {
+      // If digit length is known, return it
+if (this.knownDigitLength != null) {
+  return this.knownDigitLength;
+}
+      if (this.isSmall) {
+        // Can easily be calculated without estimation
+        return this.GetDigitLength();
+      } else {
+        EInteger sbi = this.shiftedBigInt;
+        EInteger bigBitLength = sbi.GetUnsignedBitLengthAsEInteger();
+        if (bigBitLength.CompareTo(2135) <= 0) {
+          // May overestimate by 1
+          return new FastInteger(1 + ((bigBitLength.ToInt32Checked() *
+                631305) >> 21));
+        } else {
+          // Bit length is big enough that dividing it by 3 will not
+          // underestimate the true base-10 digit length.
+          return FastInteger.FromBig(bigBitLength.Divide(3));
+        }
+      }
+    }
+
+    private FastInteger UnderestimateDigitLength() {
+      // If digit length is known, return it
+if (this.knownDigitLength != null) {
+  return this.knownDigitLength;
+}
+      if (this.isSmall) {
+        // Can easily be calculated without estimation
+        return this.GetDigitLength();
+      } else {
+        EInteger sbi = this.shiftedBigInt;
+        EInteger bigBitLength = sbi.GetUnsignedBitLengthAsEInteger();
+        if (bigBitLength.CompareTo(2135) <= 0) {
+          int ov = 1 + ((bigBitLength.ToInt32Checked() *
+                631305) >> 21);
+          return new FastInteger(ov - 2);
+        } else {
+          // Bit length is big enough that multiplying it by 100 and dividing by 335
+          // will not
+          // overestimate the true base-10 digit length.
+          return FastInteger.FromBig(bigBitLength.Multiply(100).Divide(335));
+        }
+      }
+    }
+
     public void ShiftRight(FastInteger fastint) {
       if (fastint == null) {
         throw new ArgumentNullException(nameof(fastint));
@@ -266,6 +313,16 @@ namespace PeterO.Numbers {
       return ret;
     }
 
+    private static EInteger DivideByPowerOfTen(EInteger ei, int pow) {
+      // if (pow > 100) {
+      // int mid = pow / 2;
+      // ei = DivideByPowerOfTen(ei, pow - mid);
+      // return DivideByPowerOfTen(ei, mid);
+      // } else {
+          return ei.Divide(NumberUtility.FindPowerOfTen(pow));
+      // }
+    }
+
     private static int LongDigitLength(long value) {
       #if DEBUG
       if (!(value >= 0)) {
@@ -336,9 +393,12 @@ namespace PeterO.Numbers {
         this.knownDigitLength = new FastInteger(1);
         return;
       }
+      if (digits > 50) {
+  DebugUtility.Log("ShiftRightBig(" + digits + ")");
+}
       if (truncate) {
-        EInteger bigquo;
-        if (digits > 50) {
+  EInteger bigquo;
+  if (digits > 50) {
           // To avoid having to calculate a very big power of 10,
           // check the digit count to see if doing so can be avoided
           EInteger bigBitLength =
@@ -526,6 +586,7 @@ namespace PeterO.Numbers {
         this.knownDigitLength = new FastInteger(1);
         return;
       }
+
       if (digits >= 2 && digits <= 8) {
         if (shiftedLong >= ValueTenPowers[digits]) {
           long bigPower = ValueTenPowers[digits];
@@ -624,14 +685,17 @@ namespace PeterO.Numbers {
           return;
         }
       }
+// DebugUtility.Log("ShiftToDigitsBig(" + digits + ")");
+// var sw = new System.Diagnostics.Stopwatch();sw.Restart();
       string str;
-      this.knownDigitLength = this.knownDigitLength ??
-        this.CalcKnownDigitLength();
-      if (this.knownDigitLength.CompareToInt(digits) <= 0) {
+      bool haveKnownDigitLength = this.knownDigitLength != null;
+      FastInteger estDigitLength = this.UnderestimateDigitLength();
+      if (estDigitLength.CompareToInt(digits) <= 0) {
         return;
       }
-      FastInteger digitDiff = this.knownDigitLength.Copy().SubtractInt(digits);
-      if (truncate && digitDiff.CanFitInInt32()) {
+      FastInteger digitDiff = estDigitLength.Copy().SubtractInt(digits);
+      if (truncate && digitDiff.CanFitInInt32() && haveKnownDigitLength) {
+        // DebugUtility.Log("d=" + sw.ElapsedMilliseconds + " ms");
         this.TruncateOrShiftRight(digitDiff, truncate);
         return;
       }
@@ -646,8 +710,13 @@ namespace PeterO.Numbers {
         this.shiftedBigInt = bigquo;
         this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
         this.discardedBitCount.Add(digitDiff);
-        this.UpdateKnownLength(digitDiff);
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
+        if (!haveKnownDigitLength) {
+          this.GetDigitLength();
+          this.ShiftToDigitsBig(digits, truncate);
+        } else {
+          this.UpdateKnownLength(digitDiff);
+        }
         return;
       }
       if (digitDiff.CompareToInt(9) <= 0) {
@@ -672,10 +741,16 @@ namespace PeterO.Numbers {
         this.shiftedBigInt = bigquo;
         this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
         this.discardedBitCount.Add(digitDiff);
-        this.UpdateKnownLength(digitDiff);
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
+        if (!haveKnownDigitLength) {
+          this.GetDigitLength();
+          this.ShiftToDigitsBig(digits, truncate);
+        } else {
+          this.UpdateKnownLength(digitDiff);
+        }
         return;
       }
+// DebugUtility.Log("e1=" + sw.ElapsedMilliseconds + " ms");
       if (digitDiff.CanFitInInt32()) {
         #if DEBUG
         if (!(digitDiff.CompareToInt(2) > 0)) {
@@ -686,14 +761,21 @@ namespace PeterO.Numbers {
         EInteger bigrem = null;
         EInteger bigquo;
         EInteger[] divrem;
+        EInteger radixPower;
+        int power = digitDiff.AsInt32() - 1;
         if (!this.shiftedBigInt.IsEven || this.bitsAfterLeftmost != 0) {
-          EInteger radixPower =
-            NumberUtility.FindPowerOfTen(digitDiff.AsInt32() - 1);
+// DebugUtility.Log("f=" + sw.ElapsedMilliseconds + " ms [pow=" + power + "]");
+        bigquo = this.shiftedBigInt;
+// DebugUtility.Log("fa=" + sw.ElapsedMilliseconds + " ms [" + (//
+          // (!this.shiftedBigInt.IsEven || this.bitsAfterLeftmost != 0)) + "]");
           this.bitsAfterLeftmost |= 1;
-          bigquo = this.shiftedBigInt.Divide(radixPower);
+          bigquo = DivideByPowerOfTen(bigquo, power);
+// DebugUtility.Log("faa=" + sw.ElapsedMilliseconds + " ms");
         } else {
-          EInteger radixPower =
-            NumberUtility.FindPowerOfTen(digitDiff.AsInt32() - 1);
+// DebugUtility.Log("fb=" + sw.ElapsedMilliseconds + " ms [pow=" + power + "]");
+        radixPower = NumberUtility.FindPowerOfTen(power);
+// DebugUtility.Log("fc=" + sw.ElapsedMilliseconds + " ms [" + (//
+          // (!this.shiftedBigInt.IsEven || this.bitsAfterLeftmost != 0)) + "]");
           divrem = this.shiftedBigInt.DivRem(radixPower);
           bigquo = divrem[0];
           bigrem = divrem[1];
@@ -702,6 +784,7 @@ namespace PeterO.Numbers {
             this.bitsAfterLeftmost |= 1;
           }
         }
+// DebugUtility.Log("g=" + sw.ElapsedMilliseconds + " ms");
         EInteger bigquo2;
         divrem = bigquo.DivRem(ValueTen);
         bigquo2 = divrem[0];
@@ -710,10 +793,17 @@ namespace PeterO.Numbers {
         this.shiftedBigInt = bigquo2;
         this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
         this.discardedBitCount.Add(digitDiff);
-        this.UpdateKnownLength(digitDiff);
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
+// DebugUtility.Log("h=" + sw.ElapsedMilliseconds + " ms");
+        if (!haveKnownDigitLength) {
+          this.GetDigitLength();
+          this.ShiftToDigitsBig(digits, truncate);
+        } else {
+          this.UpdateKnownLength(digitDiff);
+        }
         return;
       }
+// DebugUtility.Log("e2=" + sw.ElapsedMilliseconds + " ms");
       str = this.shiftedBigInt.ToString();
       // NOTE: Will be 1 if the value is 0
       int digitLength = str.Length;
