@@ -239,6 +239,18 @@ namespace Test {
       return null;
     }
 
+    public static void ParseDecTests(
+      string lines) {
+      if ((lines) == null) {
+        throw new ArgumentNullException(nameof(lines));
+      }
+      string[] linearray=SplitAt(lines, "\n");
+      var context = new Dictionary<string, string>();
+      foreach (var ln in linearray) {
+        ParseDecTest(ln, context);
+      }
+    }
+
     public static void ParseDecTest (
       string ln,
       IDictionary<string, string> context) {
@@ -394,10 +406,10 @@ namespace Test {
           .WithExponentClamp(clamp).WithExponentRange(
             minexponent,
             maxexponent);
-        rounding = GetKeyOrDefault(
+        rounding = ToLowerCaseAscii(GetKeyOrDefault(
           context,
           "rounding",
-          "half_even");
+          "half_even"));
         if (rounding.Equals("half_up", StringComparison.Ordinal)) {
           ctx = ctx.WithRounding(ERounding.HalfUp);
         }
@@ -429,6 +441,7 @@ namespace Test {
           ctx = ctx.WithSimplified(true);
         }
         ctx = ctx.WithBlankFlags();
+        op = ToLowerCaseAscii(op);
         if (op.Length > 3 && op.Substring(op.Length - 3).Equals("_eq",
             StringComparison.Ordinal)) {
           // Binary operators with both operands the same
@@ -436,9 +449,7 @@ namespace Test {
           op = op.Substring(0, op.Length - 3);
         }
         EDecimal d1 = EDecimal.Zero, d2 = null, d2a = null;
-        if (!op.Equals("toSci", StringComparison.Ordinal) &&
-          !op.Equals("toEng", StringComparison.Ordinal) &&
-          !op.Equals("tosci", StringComparison.Ordinal) &&
+        if (!op.Equals("tosci", StringComparison.Ordinal) &&
           !op.Equals("toeng", StringComparison.Ordinal) &&
           !op.Equals("class", StringComparison.Ordinal) &&
           !op.Equals("format", StringComparison.Ordinal)) {
@@ -460,10 +471,6 @@ namespace Test {
         }
         if (op.Equals("multiply", StringComparison.Ordinal)) {
           d3 = d1.Multiply(d2, ctx);
-        } else if (op.Equals("toSci", StringComparison.Ordinal)) {
-          // handled below
-        } else if (op.Equals("toEng", StringComparison.Ordinal)) {
-          // handled below
         } else if (op.Equals("tosci", StringComparison.Ordinal)) {
           // handled below
         } else if (op.Equals("toeng", StringComparison.Ordinal)) {
@@ -625,35 +632,36 @@ namespace Test {
             return;
           }
         }
-        bool invalid = flags.Contains("Division_impossible") ||
-          flags.Contains("Division_undefined") ||
-          flags.Contains("Invalid_operation");
-        bool divzero = flags.Contains("Division_by_zero");
+        flags = ToLowerCaseAscii(flags);
+        bool invalid = flags.Contains("division_impossible") ||
+          flags.Contains("division_undefined") ||
+          flags.Contains("invalid_operation");
+        bool divzero = flags.Contains("division_by_zero");
         var expectedFlags = 0;
-        if (flags.Contains("Inexact") || flags.Contains("inexact")) {
+        if (flags.Contains("inexact")) {
           expectedFlags |= EContext.FlagInexact;
         }
-        if (flags.Contains("Subnormal")) {
+        if (flags.Contains("subnormal")) {
           expectedFlags |= EContext.FlagSubnormal;
         }
-        if (flags.Contains("Rounded") || flags.Contains("rounded")) {
+        if (flags.Contains("rounded")) {
           expectedFlags |= EContext.FlagRounded;
         }
-        if (flags.Contains("Underflow")) {
+        if (flags.Contains("underflow")) {
           expectedFlags |= EContext.FlagUnderflow;
         }
-        if (flags.Contains("Overflow")) {
+        if (flags.Contains("overflow")) {
           expectedFlags |= EContext.FlagOverflow;
         }
-        if (flags.Contains("Clamped")) {
+        if (flags.Contains("clamped")) {
           if (extended || clamp) {
             expectedFlags |= EContext.FlagClamped;
           }
         }
-        if (flags.Contains("Lost_digits")) {
+        if (flags.Contains("lost_digits")) {
           expectedFlags |= EContext.FlagLostDigits;
         }
-        bool conversionError = flags.Contains("Conversion_syntax");
+        bool conversionError = flags.Contains("conversion_syntax");
         if (invalid) {
           expectedFlags |= EContext.FlagInvalid;
         }
@@ -722,6 +730,79 @@ namespace Test {
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
       }
+    }
+
+    public static string ContextToDecTestForm(EContext ec) {
+      string roundingstr="half_even";
+if (ec.Rounding == ERounding.Ceiling) {
+        roundingstr="ceiling";
+      }
+if (ec.Rounding == ERounding.Floor) {
+        roundingstr="floor";
+      }
+if (ec.Rounding == ERounding.Up) {
+        roundingstr="up";
+      }
+if (ec.Rounding == ERounding.Down) {
+        roundingstr="down";
+      }
+if (ec.Rounding == ERounding.HalfEven) {
+        roundingstr="half_even";
+      }
+if (ec.Rounding == ERounding.HalfUp) {
+        roundingstr="half_up";
+      }
+if (ec.Rounding == ERounding.HalfDown) {
+        roundingstr="half_down";
+      }
+if (ec.Rounding == ERounding.OddOrZeroFiveUp) {
+        roundingstr="05up";
+      }
+      return "\nprecision: "+(ec.Precision.Sign == 0 ? "9999999" :
+ec.Precision.ToString())+
+        "\nrounding: "+roundingstr+
+        "\nmaxexponent: "+(ec.EMax.Sign == 0 ? "999999999999999" :
+ec.EMax.ToString()) +
+        "\nminexponent: "+(ec.EMin.Sign == 0 ? "-999999999999999" :
+ec.EMin.ToString()) +
+        "\n# adjustexp: "+(ec.AdjustExponent ? "1" : "0") +
+        "\nextended: 1\nclamp: "+(ec.ClampNormalExponents ? "1" : "0") +
+        "\n";
+    }
+
+    public static string FlagsToString(int flags) {
+if (flags == 0) {
+  return String.Empty;
+}
+      var sb = new System.Text.StringBuilder();
+if ((flags&EContext.FlagInexact) != 0) {
+        sb.Append(" Inexact");
+      }
+if ((flags&EContext.FlagRounded) != 0) {
+        sb.Append(" Rounded");
+      }
+if ((flags&EContext.FlagSubnormal) != 0) {
+        sb.Append(" Subnormal");
+      }
+if ((flags&EContext.FlagOverflow) != 0) {
+        sb.Append(" Overflow");
+      }
+if ((flags&EContext.FlagUnderflow) != 0) {
+        sb.Append(" Underflow");
+      }
+if ((flags&EContext.FlagClamped) != 0) {
+        sb.Append(" Clamped");
+      }
+if ((flags&EContext.FlagInvalid) != 0) {
+        sb.Append(" Invalid");
+      }
+if ((flags&EContext.FlagDivideByZero) != 0) {
+        sb.Append(" Divide_by_zero");
+      }
+if ((flags&EContext.FlagLostDigits) != 0) {
+        sb.Append(" Lost_digits");
+      }
+      return sb.ToString();
     }
 
     public static void AssertFlags(int expected, int actual, string name) {

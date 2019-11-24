@@ -393,9 +393,9 @@ if (this.knownDigitLength != null) {
         this.knownDigitLength = new FastInteger(1);
         return;
       }
-      if (digits > 50) {
-  DebugUtility.Log("ShiftRightBig(" + digits + ")");
-}
+// if (digits > 50) {
+//  DebugUtility.Log("ShiftRightBig(" + digits + ")");
+//}
       if (truncate) {
   EInteger bigquo;
   if (digits > 50) {
@@ -688,15 +688,38 @@ if (this.knownDigitLength != null) {
 // DebugUtility.Log("ShiftToDigitsBig(" + digits + ")");
 // var sw = new System.Diagnostics.Stopwatch();sw.Restart();
       string str;
-      bool haveKnownDigitLength = this.knownDigitLength != null;
       FastInteger estDigitLength = this.UnderestimateDigitLength();
+      bool haveKnownDigitLength = this.knownDigitLength != null;
+#if DEBUG
+// if (this.CalcKnownDigitLength().CompareTo(estDigitLength) < 0) {
+ // throw new InvalidOperationException();
+// }
+#endif
       if (estDigitLength.CompareToInt(digits) <= 0) {
+        if (!haveKnownDigitLength) {
+          this.GetDigitLength();
+          this.ShiftToDigitsBig(digits, truncate);
+        }
+#if DEBUG
+if (this.knownDigitLength.CompareToInt(digits) > 0) {
+  throw new InvalidOperationException();
+}
+#endif
         return;
       }
       FastInteger digitDiff = estDigitLength.Copy().SubtractInt(digits);
-      if (truncate && digitDiff.CanFitInInt32() && haveKnownDigitLength) {
+      if (truncate && digitDiff.CanFitInInt32()) {
         // DebugUtility.Log("d=" + sw.ElapsedMilliseconds + " ms");
         this.TruncateOrShiftRight(digitDiff, truncate);
+        if (!haveKnownDigitLength) {
+          this.GetDigitLength();
+          this.ShiftToDigitsBig(digits, truncate);
+        }
+#if DEBUG
+if (this.knownDigitLength.CompareToInt(digits) > 0) {
+  throw new InvalidOperationException();
+}
+#endif
         return;
       }
       if (digitDiff.CompareToInt(1) == 0) {
@@ -717,6 +740,11 @@ if (this.knownDigitLength != null) {
         } else {
           this.UpdateKnownLength(digitDiff);
         }
+#if DEBUG
+if (this.knownDigitLength.CompareToInt(digits) > 0) {
+  throw new InvalidOperationException();
+}
+#endif
         return;
       }
       if (digitDiff.CompareToInt(9) <= 0) {
@@ -748,6 +776,11 @@ if (this.knownDigitLength != null) {
         } else {
           this.UpdateKnownLength(digitDiff);
         }
+#if DEBUG
+if (this.knownDigitLength.CompareToInt(digits) > 0) {
+  throw new InvalidOperationException();
+}
+#endif
         return;
       }
 // DebugUtility.Log("e1=" + sw.ElapsedMilliseconds + " ms");
@@ -801,6 +834,11 @@ if (this.knownDigitLength != null) {
         } else {
           this.UpdateKnownLength(digitDiff);
         }
+#if DEBUG
+if (this.knownDigitLength.CompareToInt(digits) > 0) {
+  throw new InvalidOperationException();
+}
+#endif
         return;
       }
 // DebugUtility.Log("e2=" + sw.ElapsedMilliseconds + " ms");
@@ -837,6 +875,11 @@ if (this.knownDigitLength != null) {
         }
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
       }
+#if DEBUG
+if (this.knownDigitLength.CompareToInt(digits) > 0) {
+  throw new InvalidOperationException();
+}
+#endif
     }
 
     private void ShiftToDigitsSmall(int digits) {

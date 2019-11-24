@@ -968,8 +968,8 @@ BigNumberFlags.FlagSignalingNaN);
       return FromString(str, offset, length, null);
     }
 
-private static readonly System.Diagnostics.Stopwatch swRound = new
-System.Diagnostics.Stopwatch();
+//private static readonly System.Diagnostics.Stopwatch swRound = new
+//System.Diagnostics.Stopwatch();
 
     /// <summary>
     /// <para>Creates an arbitrary-precision decimal number from a text
@@ -1238,41 +1238,55 @@ System.Diagnostics.Stopwatch();
            (!negative && ctx.Rounding == ERounding.Ceiling) ||
            (negative && ctx.Rounding == ERounding.Floor)) &&
            !ctx.HasFlagsOrTraps;
+      roundHalf = false;
+      roundUp = false;
       var haveIgnoredDigit = false;
       var lastdigit = -1;
-      var roundHalfToUp = false;
+      var beyondPrecision = false;
+      var ignoreNextDigit = false;
       var zerorun = 0;
+      //DebugUtility.Log("round half=" + (// roundHalf) +
+      // " up=" + roundUp + " down=" + roundDown +
+      // " maxprec=" + (ctx != null && ctx.HasMaxPrecision));
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
           haveNonzeroDigit |= thisdigit != 0;
           haveDigits = true;
+          beyondPrecision |= (ctx != null &&
+              ctx.HasMaxPrecision && !ctx.IsPrecisionInBits &&
+              ctx.Precision.CompareTo(decimalPrec) <= 0);
           if (ctx != null) {
-            if (roundDown &&
-                (haveIgnoredDigit || ctx.Precision.CompareTo(decimalPrec) <=
-0)) {
+            if (ignoreNextDigit) {
+              haveIgnoredDigit = true;
+              ignoreNextDigit = false;
+            }
+            if (roundDown && (haveIgnoredDigit || beyondPrecision)) {
               // "Ignored" digit
               haveIgnoredDigit = true;
-            } else if (roundUp &&
-                (haveIgnoredDigit || ctx.Precision.CompareTo(decimalPrec) <=
-0)) {
+            } else if (roundUp && (haveIgnoredDigit || beyondPrecision)) {
               if (!haveIgnoredDigit) {
+                //DebugUtility.Log("Ignoring digit " + thisdigit + " [rounding=" +
+                //(//ctx.Rounding) + "]");
                 if (thisdigit > 0) {
-                  haveIgnoredDigit = true;
+                  ignoreNextDigit = true;
                 } else {
                   roundUp = false;
                 }
               }
-            } else if (roundHalf &&
-                (haveIgnoredDigit || ctx.Precision.CompareTo(decimalPrec) <=
-0)) {
+            } else if (roundHalf && (haveIgnoredDigit || beyondPrecision)) {
               if (!haveIgnoredDigit) {
-                if (thisdigit < 5) {
+                DebugUtility.Log("Ignoring digit {0}" +
+"\u0020[rounding={1}]",thisdigit, ctx.Rounding);
+                if (thisdigit < 5 || (thisdigit == 5 &&
+ctx.Rounding == ERounding.HalfDown)) {
                   haveIgnoredDigit = true;
-                } else if (thisdigit > 5) {
+                } else if (thisdigit > 5 || (thisdigit == 5 &&
+ctx.Rounding == ERounding.HalfUp)) {
                   roundHalf = false;
-                  roundHalfToUp = true;
+                  roundUp = true;
+                  ignoreNextDigit = true;
                 } else {
                   roundHalf = false;
                 }
@@ -1280,6 +1294,7 @@ System.Diagnostics.Stopwatch();
             }
           }
           if (haveIgnoredDigit) {
+            zerorun = 0;
             if (newScaleInt == Int32.MinValue ||
                 newScaleInt == Int32.MaxValue) {
                 newScale = newScale ?? EInteger.FromInt32(newScaleInt);
@@ -1289,7 +1304,7 @@ System.Diagnostics.Stopwatch();
               }
           } else {
             lastdigit = thisdigit;
-            if (thisdigit == 0) {
+            if (beyondPrecision && thisdigit == 0) {
               ++zerorun;
             } else {
  zerorun = 0;
@@ -1335,42 +1350,73 @@ System.Diagnostics.Stopwatch();
       if (!haveDigits) {
         throw new FormatException();
       }
-      if (zerorun > 0 && lastdigit == 0) {
+//DebugUtility.Log("zerorun=" + zerorun + " roundup=" + (roundUp));
+      if (zerorun > 0 && lastdigit == 0 && (ctx == null ||
+!ctx.HasFlagsOrTraps)) {
+//DebugUtility.Log("zerorun={0} prec={1} [whole={2}, dec={3}]
+//str={4}",zerorun,decimalPrec,
+  //
+// digitEnd-digitStart, decimalDigitEnd-decimalDigitStart, str.Substring(
+  // 0,
+  Math.Min(20, // str.Length)));
         decimalPrec -= zerorun;
-        if (haveDecimalPoint) {
-          int decdigits = decimalDigitEnd - decimalDigitStart;
-          decimalDigitEnd -= Math.Min(decdigits, zerorun);
-          int remain = zerorun - Math.Min(decdigits, zerorun);
-          digitEnd -= remain;
-        } else {
-          digitEnd -= zerorun;
+        var nondec = 0;
+        // NOTE: This check is apparently needed for correctness
+        if (!ctx.HasMaxPrecision ||
+          decimalPrec - ctx.Precision.ToInt32Checked() > 1) {
+          if (haveDecimalPoint) {
+            int decdigits = decimalDigitEnd - decimalDigitStart;
+            nondec = Math.Min(decdigits, zerorun);
+            decimalDigitEnd -= nondec;
+            int remain = zerorun - nondec;
+            digitEnd -= remain;
+            // DebugUtility.Log("remain={0} nondec={1}
+            //newScale={2}",remain,nondec,newScaleInt);
+            nondec = zerorun;
+          } else {
+            digitEnd -= zerorun;
+            nondec = zerorun;
+          }
+          if (newScaleInt > Int32.MinValue + nondec &&
+            newScaleInt < Int32.MaxValue - nondec) {
+            newScaleInt += nondec;
+          } else {
+            newScale = newScale ?? EInteger.FromInt32(newScaleInt);
+            newScale = newScale.Add(nondec);
+          }
         }
-        if (newScaleInt < Int32.MaxValue - zerorun) {
-          newScaleInt += zerorun;
-        } else {
-          newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-          newScale = newScale.Add(zerorun);
-        }
+//DebugUtility.Log("-->zerorun={0} prec={1} [whole={2}, dec={3}]
+//str={4}",zerorun,decimalPrec,
+  // digitEnd-digitStart, decimalDigitEnd-decimalDigitStart, str);
       }
-      if ((roundHalfToUp || roundUp) && ctx != null &&
-          ctx.Precision.CompareTo(decimalPrec) < 0) {
+//if (ctx != null) {
+//DebugUtility.Log("roundup [prec=" + decimalPrec + ", ctxprec=" +
+//(//ctx.Precision) + ", str=" + (// str.Substring(0, Math.Min(20,
+  //str.Length))) + "] " + (ctx.Rounding));
+//}
+      if (roundUp && ctx != null && ctx.Precision.CompareTo(decimalPrec) < 0) {
         int precdiff = decimalPrec - ctx.Precision.ToInt32Checked();
+//DebugUtility.Log("precdiff = " + precdiff + " [prec=" + (//decimalPrec) + ",
+  //ctxprec=" + ctx.Precision + "]");
         if (precdiff > 1) {
            int precchop = precdiff - 1;
            decimalPrec -= precchop;
+           int nondec = precchop;
+//DebugUtility.Log("precchop=" + (precchop));
            if (haveDecimalPoint) {
           int decdigits = decimalDigitEnd - decimalDigitStart;
-          decimalDigitEnd -= Math.Min(decdigits, precchop);
-          int remain = precchop - Math.Min(decdigits, precchop);
+// DebugUtility.Log("decdigits=" + decdigits + " decprecchop=" + (decdigits));
+          decimalDigitEnd -= nondec;
+          int remain = precchop - nondec;
           digitEnd -= remain;
         } else {
           digitEnd -= precchop;
         }
-        if (newScaleInt < Int32.MaxValue - precchop) {
-          newScaleInt += precchop;
+        if (newScaleInt < Int32.MaxValue - nondec) {
+          newScaleInt += nondec;
         } else {
           newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-          newScale = newScale.Add(precchop);
+          newScale = newScale.Add(nondec);
         }
         }
       }

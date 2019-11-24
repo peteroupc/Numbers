@@ -305,6 +305,17 @@ namespace PeterO.Numbers {
     private static readonly PowerCache ValuePowerOfTenCache = new
     NumberUtility.PowerCache();
 
+    public static EInteger FindPowerOfTen(long diffLong) {
+if (diffLong < 0) {
+  return EInteger.Zero;
+}
+if (diffLong == 0) {
+  return EInteger.One;
+}
+return (diffLong <= Int32.MaxValue) ? (FindPowerOfTen((int)diffLong)) :
+(FindPowerOfTenFromBig(EInteger.FromInt64(diffLong)));
+    }
+
     internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {
       int sign = diff.Sign;
       if (sign < 0) {

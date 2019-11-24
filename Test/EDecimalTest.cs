@@ -5275,6 +5275,24 @@ Assert.AreEqual(expected, actualstr);
 }
 
 [Test]
+public void TestStringContextSpecific4a() {
+EContext ec = EContext.Basic.WithExponentClamp(
+  true).WithAdjustExponent(
+  true).WithRounding(
+  ERounding.HalfUp).WithExponentRange(-95, 96).WithPrecision(7);
+TestStringContextOne("806840.80E+60", ec);
+}
+
+[Test]
+public void TestStringContextSpecific4b() {
+EContext ec = EContext.Basic.WithExponentClamp(
+  true).WithAdjustExponent(
+  false).WithRounding(
+  ERounding.Ceiling).WithExponentRange(-95, 96).WithPrecision(7);
+TestStringContextOne("900.01740E-90", ec);
+}
+
+[Test]
 public void TestStringContextSpecific4() {
 EContext
 ec = EContext.Basic.WithExponentClamp(
@@ -5316,6 +5334,7 @@ TestStringContextOne("666.66666666666666E+40", ec);
 // to take context into account when building the EDecimal
 public static void TestStringContextOne(string str, EContext ec) {
   EDecimal ed, ed2;
+  //Console.Write("TestStringContextOne ---- ec=" + (ec));
   // swUnopt.Restart();
   ed = EDecimal.FromString(str);
   // swUnoptRound.Restart();
@@ -5350,9 +5369,25 @@ public static void TestStringContextOne(string str, EContext ec) {
     if (str == null) {
       throw new ArgumentNullException(nameof(str));
     }
-    string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
-      (str.Length > 200 ? "..." : String.Empty);
-    TestCommon.AssertEquals(ed, ed2, bstr + "\n" + ec.ToString());
+    string bstr = String.Empty;
+    if (ec.HasMaxPrecision) {
+      EContext ecf = ec.WithBlankFlags();
+      EDecimal.FromString(str).RoundToPrecision(ecf);
+      bstr+="# "+ecf.Precision+" / "+ec.Precision+"\r\n";
+      bstr+=DecTestUtil.ContextToDecTestForm(ecf);
+      bstr+="untitled toSci " + str + " --> " + ed.ToString() +
+DecTestUtil.FlagsToString(ecf.Flags) + "\n";
+      str = ed2.ToString();
+      bstr+="# exponent: actual " + ed2.Exponent + ", expected " +
+ed.Exponent + "\n";
+      bstr+="# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
+         (str.Length > 200 ? "..." : String.Empty);
+       } else {
+      bstr+="# " + str.Substring(0, Math.Min(str.Length, 200)) +
+         (str.Length > 200 ? "..." : String.Empty);
+      bstr+="\n# " +ec.ToString();
+    }
+    throw new InvalidOperationException(bstr);
   }
 }
 
@@ -5445,7 +5480,21 @@ public void TestStringContextSpecific6() {
 }
 
 [Test]
+public void TestRescaleInvalid() {
+var context = new Dictionary<string, string>();
+context["precision"]="9";
+context["rounding"]="half_up";
+context["maxexponent"]="96";
+context["minexponent"]="-96";
+DecTestUtil.ParseDecTest("rr rescale 12345678.9 -2 -> NaN" +
+" Invalid_operation", context);
+DecTestUtil.ParseDecTest("rr quantize 12345678.9 0e-2 -> NaN" +
+" Invalid_operation", context);
+}
+
+[Test]
 public void TestStringContext() {
+  int failures = 0;
   EContext[] econtexts = {
     EContext.Basic,
     EContext.Basic.WithExponentRange(-95, 96),
@@ -5502,10 +5551,7 @@ public void TestStringContext() {
   };
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   var rand = new RandomGenerator();
-  for (var i = 0; i < 4000; ++i) {
-    if (i % 1000 == 0) {
-      Console.WriteLine(i);
-    }
+  for (var i = 0; i < 5000 && failures < 100; ++i) {
     int precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
     int exponent = exponents[rand.UniformInt(exponents.Length)];
     int prec = precisionRanges[precRange] +
@@ -5530,16 +5576,16 @@ public void TestStringContext() {
   } else {
      sb.Append(TestCommon.LongToString(exponent));
    }
-    for (var j = 0; j < econtexts.Length; ++j) {
+    for (var j = 0; j < econtexts.Length && failures < 100; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
       string sbs = sb.ToString();
       try {
       TestStringContextOne(sbs, ec);
-} catch (Exception ex) {
+} catch (InvalidOperationException ex) {
+     ++failures;
      int spos = Math.Max(0, sbs.Length - 20);
-     Console.WriteLine("prec=" + prec + " point=" + point + " end=" +
-(sbs.Substring(spos, sbs.Length - spos))); Console.WriteLine(ex.Message); }
+     Console.WriteLine(ex.Message); }
     }
   }
   TearDown();

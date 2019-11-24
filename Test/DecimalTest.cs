@@ -248,6 +248,7 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(20000)]
     public void TestParser() {
       TestParserEx(false);
       TestParserEx(true);
@@ -267,6 +268,9 @@ namespace Test {
       // Reads decimal test files described in:
       // <http://speleotrove.com/decimal/dectest.html>
       foreach (var f in testfiles) {
+        if (failures >= 100) {
+          break;
+        }
         if (!DecTestUtil.ToLowerCaseAscii(Path.GetFileName(f))
           .Contains(recordfailing ? ".dectest" : "failing.dectest")) {
           continue;
@@ -275,24 +279,14 @@ namespace Test {
         var context = new Dictionary<string, string>();
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
+if (failures >= 100) {
+  break;
+}
             string ln = w.ReadLine();
-            // if (!ln.Contains(" 0E") && !ln.Contains(" -0E")) {
-            // continue;
-            // }
-            // if (!ln.Contains("plus") &&
-            // !ln.Contains("minus") &&
-            // !ln.Contains("subtr") &&
-            // !ln.Contains("fma") &&
-            // !ln.Contains("add")) {
-            // continue;
-            // }
-            // if (ln.Contains("#")) {
-            // continue;
-            // }
-            // Console.WriteLine(ln);
             try {
-              DecTestUtil.ParseDecTest(ln, context);
+             DecTestUtil.ParseDecTest(ln, context);
             } catch (Exception ex) {
+              Console.WriteLine(ln);
               if (!failedLines.ContainsKey(ln)) {
                 if (!context.ContainsKey("rounding")) {
                   context["rounding"] = "half_even";
@@ -308,9 +302,13 @@ namespace Test {
                   .Append("\r\n");
                 }
                 sb.Append("# " + ex.GetType().FullName).Append("\r\n");
-                sb.Append("# " + ex.Message).Append("\r\n");
                 sb.Append("# " +
-ex.StackTrace.Replace("\r", String.Empty).Replace("\n", "\n# ")).Append("\r\n");
+                   ex.Message.Replace("\r", String.Empty).Replace("\n", "\n# "))
+                   .Append("\r\n");
+                sb.Append("# " +
+                   ex.StackTrace.Replace("\r", String.Empty).Replace("\n",
+  "\n# "))
+                   .Append("\r\n");
                 sb.Append(ln).Append("\r\n");
                 failedLines[ln] = true;
               }

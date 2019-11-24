@@ -2663,19 +2663,28 @@ countB +
     }
 
     private long GetDigitCountAsInt64() {
-      if (this.IsZero) {
+      EInteger ei = this;
+      long retval;
+      if (ei.IsZero) {
         return 1;
       }
-      if (this.HasSmallValue()) {
-        long value = this.ToInt64Checked();
+      retval = 0L;
+      while (true) {
+        if (ei.HasSmallValue()) {
+          long value = ei.ToInt64Checked();
+          if (value == 0) {
+             // Treat zero after division as having no digits
+             break;
+          }
         if (value == Int64.MinValue) {
-          return 19;
+            retval+=19;
+          break;
         }
         if (value < 0) {
           value = -value;
         }
         if (value >= 1000000000L) {
-          return (value >= 1000000000000000000L) ? 19 : ((value >=
+          retval += (value >= 1000000000000000000L) ? 19 : ((value >=
                 100000000000000000L) ? 18 : ((value >= 10000000000000000L) ?
                 17 : ((value >= 1000000000000000L) ? 16 :
                   ((value >= 100000000000000L) ? 15 : ((value
@@ -2685,54 +2694,66 @@ countB +
                             11 : ((value >= 1000000000L) ? 10 : 9)))))))));
         } else {
           var v2 = (int)value;
-          return (v2 >= 100000000) ? 9 : ((v2 >= 10000000) ? 8 : ((v2 >=
+          retval += (v2 >= 100000000) ? 9 : ((v2 >= 10000000) ? 8 : ((v2 >=
                   1000000) ? 7 : ((v2 >= 100000) ? 6 : ((v2
                       >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
                         3 : ((v2 >= 10) ? 2 : 1)))))));
         }
+        break;
       }
       // NOTE: Bitlength accurate for wordCount<1000000 here, only as
       // an approximation
-      int bitlen = (this.wordCount < 1000000) ?
-        this.GetUnsignedBitLengthAsEInteger().ToInt32Checked() :
+      int bitlen = (ei.wordCount < 1000000) ?
+        ei.GetUnsignedBitLengthAsEInteger().ToInt32Checked() :
         Int32.MaxValue;
+      var maxDigits = 0;
+      var minDigits = 0;
       if (bitlen <= 2135) {
         // (x*631305) >> 21 is an approximation
         // to trunc(x*log10(2)) that is correct up
         // to x = 2135; the multiplication would require
         // up to 31 bits in all cases up to 2135
         // (cases up to 63 are already handled above)
-        int minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
-        int maxDigits = 1 + ((bitlen * 631305) >> 21);
+        minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
+        maxDigits = 1 + ((bitlen * 631305) >> 21);
         if (minDigits == maxDigits) {
           // Number of digits is the same for
           // all numbers with this bit length
-          return minDigits;
+          retval+=minDigits;
+          break;
         }
-        return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-  minDigits)) >= 0 ? maxDigits : minDigits;
-        } else if (bitlen <= 6432162) {
+      } else if (bitlen <= 6432162) {
         // Much more accurate approximation
-        int minDigits = ApproxLogTenOfTwo(bitlen - 1);
-        int maxDigits = ApproxLogTenOfTwo(bitlen);
+        minDigits = ApproxLogTenOfTwo(bitlen - 1);
+        maxDigits = ApproxLogTenOfTwo(bitlen);
         if (minDigits == maxDigits) {
           // Number of digits is the same for
           // all numbers with this bit length
-          return 1 + minDigits;
-        }
-        if (bitlen < 50000) {
-          return this.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits +
-                1)) >= 0 ? maxDigits + 1 : minDigits + 1;
+          retval+= 1 + minDigits;
+          break;
         }
       }
+      if (ei.wordCount >= 100) {
+        long digits = ei.wordCount * 3;
+        EInteger pow = NumberUtility.FindPowerOfTen(digits);
+        EInteger div = ei.Divide(pow);
+        retval += digits;
+        ei = div;
+        continue;
+      }
+      if (bitlen <= 2135) {
+        retval+= ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
+            minDigits)) >= 0 ? maxDigits : minDigits;
+        break;
+      } else if (bitlen < 50000) {
+        retval+= ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits +
+                1)) >= 0 ? maxDigits + 1 : minDigits + 1;
+        break;
+      }
       short[] tempReg = null;
-      int currentCount = this.wordCount;
-      long retval;
-      retval = 0L;
-      // TODO: In version 1.5 or later, optimize this for the
-      // case of big numbers close to 10^N, perhaps using
-      // underestimated digit counts, or using divide-and-conquer
-      while (currentCount != 0) {
+      int currentCount = ei.wordCount;
+      bool done = false;
+      while (!done && currentCount != 0) {
         if (currentCount == 1 || (currentCount == 2 && tempReg[1] == 0)) {
           int rest = ((int)tempReg[0]) & 0xffff;
           if (rest >= 10000) {
@@ -2778,9 +2799,9 @@ countB +
           short remainderShort = 0;
           int quo, rem;
           var firstdigit = false;
-          short[] dividend = tempReg ?? this.words;
+          short[] dividend = tempReg ?? ei.words;
           // Divide by 10000
-          while ((wci--) > 0) {
+          while (!done && (wci--) > 0) {
             int curValue = ((int)dividend[wci]) & 0xffff;
             int currentDividend = unchecked((int)(curValue |
                   ((int)remainderShort << 16)));
@@ -2800,39 +2821,44 @@ countB +
                 // to x = 2135; the multiplication would require
                 // up to 31 bits in all cases up to 2135
                 // (cases up to 64 are already handled above)
-                int minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
-                int maxDigits = 1 + ((bitlen * 631305) >> 21);
+                minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
+                maxDigits = 1 + ((bitlen * 631305) >> 21);
                 if (minDigits == maxDigits) {
                   // Number of digits is the same for
                   // all numbers with this bit length
                   // NOTE: The 4 is the number of digits just
                   // taken out of the number, and "i" is the
                   // number of previously known digits
-                  return retval + minDigits + 4;
+                  retval+= minDigits + 4;
+                  done = true;
+                  break;
                 }
                 if (minDigits > 1) {
                   int maxDigitEstimate = maxDigits + 4;
                   int minDigitEstimate = minDigits + 4;
-                  return
-                    this.Abs().CompareTo(NumberUtility.FindPowerOfTen(
+                  retval+=ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
   minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
 minDigitEstimate;
+                  done = true;
+                  break;
                 }
               } else if (bitlen <= 6432162) {
                 // Much more accurate approximation
-                int minDigits = ApproxLogTenOfTwo(bitlen - 1);
-                int maxDigits = ApproxLogTenOfTwo(bitlen);
+                minDigits = ApproxLogTenOfTwo(bitlen - 1);
+                maxDigits = ApproxLogTenOfTwo(bitlen);
                 if (minDigits == maxDigits) {
                   // Number of digits is the same for
                   // all numbers with this bit length
-                  return retval + 1 + minDigits + 4;
+                  retval+= 1 + minDigits + 4;
+                  done = true;
+                  break;
                 }
               }
             }
             if (tempReg == null) {
               if (quo != 0) {
-                tempReg = new short[this.wordCount];
-                Array.Copy(this.words, tempReg, tempReg.Length);
+                tempReg = new short[ei.wordCount];
+                Array.Copy(ei.words, tempReg, tempReg.Length);
                 // Use the calculated word count during division;
                 // zeros that may have occurred in division
                 // are not incorporated in the tempReg
@@ -2851,6 +2877,7 @@ minDigitEstimate;
           }
           retval += 4;
         }
+      }
       }
       return retval;
     }
@@ -4483,7 +4510,7 @@ minDigitEstimate;
       var i = 0;
       if (this.wordCount >= 100) {
         var rightBuilder = new StringBuilder();
-        int digits = (EstimatedHalfDigitCountPerWord[radix] *
+        long digits = ((long)EstimatedHalfDigitCountPerWord[radix] *
             this.wordCount) / 16;
         EInteger pow = EInteger.FromInt32(radix).Pow(digits);
         EInteger[] divrem = this.DivRem(pow);
@@ -4561,7 +4588,7 @@ minDigitEstimate;
       var i = 0;
       if (this.wordCount >= 100 && optimize) {
         var rightBuilder = new StringBuilder();
-        int digits = this.wordCount * 3;
+        long digits = this.wordCount * 3;
         EInteger pow = NumberUtility.FindPowerOfTen(digits);
         // DebugUtility.Log("---divrem " + (this.wordCount));
         EInteger[] divrem = this.DivRem(pow);

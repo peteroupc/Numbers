@@ -4821,8 +4821,8 @@ otherValue;
           // NOTE: Overestimating the digit count will catch most,
           // but not all, numbers that fit fastPrecision, and will not
           // catch any numbers that don't fit fastPrecision
-          // DebugUtility.Log("estDigitCount=" + estDigitCount + ", " +
-          // fastPrecision);
+          //DebugUtility.Log("estDigitCount=" + estDigitCount + ", " +
+          //fastPrecision);
           if (estDigitCount.CompareTo(fastPrecision) <= 0) {
             if (!this.RoundGivenAccum (
                 accum,
