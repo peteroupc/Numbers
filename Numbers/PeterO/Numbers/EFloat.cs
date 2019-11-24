@@ -541,6 +541,9 @@ BigNumberFlags.FlagSignalingNaN);
     /// floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
+    /// <exception cref='FormatException'>The portion given of <paramref
+    /// name='str'/> is not a correctly formatted number
+    /// string.</exception>
     /// <exception cref='ArgumentException'>Either <paramref
     /// name='offset'/> or <paramref name='length'/> is less than 0 or
     /// greater than <paramref name='str'/> 's length, or <paramref name='
@@ -554,13 +557,251 @@ BigNumberFlags.FlagSignalingNaN);
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
       }
-      // TODO: Optimize, taking into account the context
+      if (offset < 0) {
+        throw new ArgumentException("offset (" + offset + ") is not greater" +
+"\u0020or equal to 0");
+      }
+      if (offset > str.Length) {
+        throw new ArgumentException("offset (" + offset + ") is not less or" +
+"\u0020equal to " + str.Length);
+      }
+      if (length < 0) {
+        throw new ArgumentException(+" (" + length + ") is not greater or" +
+"\u0020equal to 0");
+      }
+      if (length > str.Length) {
+        throw new ArgumentException(+" (" + length + ") is not less or" +
+"\u0020equal to " + str.Length);
+      }
+      if (str.Length - offset < length) {
+        throw new ArgumentException("str's length minus " + offset + " (" +
+(str.Length - offset) + ") is not greater or equal to " + length);
+      }
+      if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
+         !ctx.IsSimplified && !ctx.HasFlagsOrTraps &&
+         ctx.AdjustExponent == EContext.Binary64.AdjustExponent &&
+         ctx.ClampNormalExponents == EContext.Binary64.ClampNormalExponents &&
+         ctx.Rounding == EContext.Binary64.Rounding &&
+         ctx.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
+         ctx.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
+         ctx.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
+        int tmpoffset = offset;
+        int endpos = offset + length;
+        if (length == 0) {
+          throw new FormatException();
+        }
+if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
+          ++tmpoffset;
+        }
+        if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
+           str[tmpoffset] <= '9') || str[tmpoffset] == '.')) {
+          EFloat ef = DoubleEFloatFromString(str, offset, length, ctx);
+          if (ef != null) {
+            return ef;
+          }
+        }
+      }
       return EDecimal.FromString (
           str,
           offset,
           length,
           EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
-        .ToEFloat(ctx);
+          .ToEFloat(ctx);
+    }
+
+    private static EFloat DoubleEFloatFromString(
+      string str,
+      int offset,
+      int length,
+      EContext ctx) {
+      int tmpoffset = offset;
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      if (length == 0) {
+        throw new FormatException();
+      }
+      int endStr = tmpoffset + length;
+      EInteger mant = null;
+      var negative = false;
+      var haveDecimalPoint = false;
+      var haveDigits = false;
+      var haveExponent = false;
+      var newScaleInt = 0;
+      var digitStart = 0;
+      EInteger newScale = null;
+      int i = tmpoffset;
+      long mantissaLong = 0L;
+      // Ordinary number
+      digitStart = i;
+      int digitEnd = i;
+      int decimalDigitStart = i;
+      var haveNonzeroDigit = false;
+      var zeroMantissa = false;
+      var decimalPrec = 0;
+      int decimalDigitEnd = i;
+      var lastdigit = -1;
+      var beyondPrecision = false;
+      var ignoreNextDigit = false;
+      var zerorun = 0;
+      if (str[i] == '+' || str[i] == '-') {
+        if (str[i] == '-') {
+          negative = true;
+        }
+        ++i;
+      }
+      for (; i < endStr; ++i) {
+        char ch = str[i];
+        if (ch >= '0' && ch <= '9') {
+          var thisdigit = (int)(ch - '0');
+          haveNonzeroDigit |= thisdigit != 0;
+          haveDigits = true;
+          {
+            lastdigit = thisdigit;
+            if (haveNonzeroDigit) {
+              ++decimalPrec;
+            }
+            if (haveDecimalPoint) {
+              decimalDigitEnd = i + 1;
+            } else {
+              digitEnd = i + 1;
+            }
+            if (mantissaLong <= 922337203685477580L) {
+              mantissaLong *= 10;
+              mantissaLong += thisdigit;
+            } else {
+              mantissaLong = Int64.MaxValue;
+            }
+          }
+          if (haveDecimalPoint) {
+            // NOTE: Absolute value will not be more than
+            // the string portion's length, so will fit comfortably
+            // in an 'int'.
+            --newScaleInt;
+          }
+        } else if (ch == '.') {
+          if (haveDecimalPoint) {
+            throw new FormatException();
+          }
+          haveDecimalPoint = true;
+          decimalDigitStart = i + 1;
+          decimalDigitEnd = i + 1;
+        } else if (ch == 'E' || ch == 'e') {
+          haveExponent = true;
+          ++i;
+          break;
+        } else {
+          throw new FormatException();
+        }
+      }
+      if (!haveDigits) {
+        throw new FormatException();
+      }
+      EDecimal ret = null;
+      EInteger exp = null;
+      var expInt = 0;
+      var expoffset = 1;
+      var expDigitStart = -1;
+      var expPrec = 0;
+      zeroMantissa = haveNonzeroDigit;
+      haveNonzeroDigit = false;
+      if (haveExponent) {
+        haveDigits = false;
+        if (i == endStr) {
+          throw new FormatException();
+        }
+        if (str[i] == '+' || str[i] == '-') {
+          if (str[i] == '-') {
+            expoffset = -1;
+          }
+          ++i;
+        }
+        expDigitStart = i;
+        for (; i < endStr; ++i) {
+          char ch = str[i];
+          if (ch >= '0' && ch <= '9') {
+            haveDigits = true;
+            var thisdigit = (int)(ch - '0');
+            haveNonzeroDigit |= thisdigit != 0;
+            if (haveNonzeroDigit) {
+              ++expPrec;
+            }
+            if (expInt <= 214748364) {
+              expInt *= 10;
+              expInt += thisdigit;
+            } else {
+              expInt = Int32.MaxValue;
+            }
+          } else {
+            throw new FormatException();
+          }
+        }
+        if (!haveDigits) {
+          throw new FormatException();
+        }
+        expInt *= expoffset;
+        if (expPrec > 12 && (ctx == null || !ctx.HasFlagsOrTraps)) {
+          // Exponent that can't be compensated by digit
+          // length without remaining higher than Int32.MaxValue
+          if (expoffset < 0) {
+            return negative ? EFloat.NegativeZero : EFloat.Zero;
+          } else {
+           return negative ? EFloat.NegativeInfinity : EFloat.PositiveInfinity;
+          }
+        }
+      }
+      if (i != endStr) {
+        throw new FormatException();
+      }
+      if (expInt != Int32.MaxValue && expInt > -Int32.MaxValue &&
+          mantissaLong != Int64.MaxValue && (ctx == null ||
+!ctx.HasFlagsOrTraps)) {
+        if (mantissaLong == 0) {
+          return negative ? EFloat.NegativeZero : EFloat.Zero;
+        }
+        var finalexp = (long)expInt + (long)newScaleInt;
+        long ml = mantissaLong;
+        if (finalexp >= -22 && finalexp <= 44) {
+          var iexp = (int)finalexp;
+          while (ml <= 900719925474099L && iexp > 22) {
+            ml *= 10;
+            --iexp;
+          }
+          int iabsexp = Math.Abs(iexp);
+          if (ml < 9007199254740992L && iabsexp <= 22) {
+            EFloat efn =
+EFloat.FromEInteger(NumberUtility.FindPowerOfTen(iabsexp));
+if (negative) {
+  ml = -ml;
+}
+            EFloat efml = EFloat.Create(ml, 0);
+            if (iexp < 0) {
+              return efml.Divide(efn, ctx);
+            } else {
+ return efml.Multiply(efn, ctx);
+}
+          }
+        }
+        long adjexp = finalexp - (decimalPrec - 1);
+        if (adjexp < -326) {
+          return negative ? EFloat.NegativeZero : EFloat.Zero;
+        } else if (adjexp > 309) {
+          return negative ? EFloat.NegativeInfinity : EFloat.PositiveInfinity;
+        }
+        if (negative) {
+          mantissaLong = -mantissaLong;
+        }
+        long absfinalexp = Math.Abs(finalexp);
+        EFloat ef1 = EFloat.Create(mantissaLong, 0);
+        EFloat ef2 =
+EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
+if (finalexp < 0) {
+  return ef1.Divide(ef2, ctx);
+} else {
+ return ef1.Multiply(ef2, ctx);
+}
+      }
+      return null;
     }
 
     /// <summary>Creates a binary floating-point number from a text string
@@ -571,6 +812,11 @@ BigNumberFlags.FlagSignalingNaN);
     /// floating-point number.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
+    /// <exception cref='FormatException'>The portion given of <paramref
+    /// name='str'/> is not a correctly formatted number
+    /// string.</exception>
     public static EFloat FromString(string str) {
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
@@ -906,16 +1152,16 @@ BigNumberFlags.FlagSignalingNaN);
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>Not documented yet.</param>
+  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+  /// a 32-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>Not documented yet.</param>
+  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+  /// a 32-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));

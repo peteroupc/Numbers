@@ -1017,16 +1017,16 @@ namespace PeterO.Numbers {
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>Not documented yet.</param>
+  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+  /// a 32-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>Not documented yet.</param>
+  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+  /// a 32-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(ERational.FromInt32(intOther));
@@ -2010,40 +2010,40 @@ namespace PeterO.Numbers {
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>Not documented yet.</param>
+  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+  /// signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
   public ERational Add(int v) {
  return this.Add(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>Not documented yet.</param>
+  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+  /// signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
   public ERational Subtract(int v) {
  return this.Subtract(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>Not documented yet.</param>
+  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+  /// signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
   public ERational Multiply(int v) {
  return this.Multiply(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>Not documented yet.</param>
+  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+  /// signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
   public ERational Divide(int v) {
  return this.Divide(FromInt32(v));
   }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>Not documented yet.</param>
+  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+  /// signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
   public ERational Remainder(int v) {
  return this.Remainder(FromInt32(v));

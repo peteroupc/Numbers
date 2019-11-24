@@ -312,8 +312,8 @@ if (diffLong < 0) {
 if (diffLong == 0) {
   return EInteger.One;
 }
-return (diffLong <= Int32.MaxValue) ? (FindPowerOfTen((int)diffLong)) :
-(FindPowerOfTenFromBig(EInteger.FromInt64(diffLong)));
+return (diffLong <= Int32.MaxValue) ? FindPowerOfTen((int)diffLong) :
+FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
     }
 
     internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {

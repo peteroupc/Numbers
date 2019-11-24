@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using PeterO;
@@ -106,7 +107,7 @@ namespace Test {
         "7.00468923842476447758037175245551511770928808756622205663208" +
         "4784688080253355047487262563521426272927783429622650146484375";
 
-      EDecimal a = EDecimal.FromString (
+      EDecimal a = EDecimal.FromString(
           str2561);
       EDecimal b = EDecimal.FromString("5");
       TestCommon.CompareTestLess(b, a);
@@ -166,35 +167,35 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "1").Divide(EFloat.FromInt32(8)).ToString();
         Assert.AreEqual(
           "0.125",
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "10").Divide(EFloat.FromInt32(80)).ToString();
         Assert.AreEqual(
           "0.125",
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "10000").Divide(EFloat.FromInt32(80000)).ToString();
         Assert.AreEqual(
           "0.125",
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "1000").Divide(EFloat.FromInt32(8)).ToString();
         Assert.AreEqual(
           "125",
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "1").Divide(EFloat.FromInt32(256)).ToString();
         Assert.AreEqual(
           "0.00390625",
@@ -260,6 +261,60 @@ namespace Test {
     [Test]
     public void TestExponent() {
       // not implemented yet
+    }
+
+    public static string RandomDecimalString(RandomGenerator rand, int
+digitsBefore) {
+      var sb = new System.Text.StringBuilder();
+      for (var i = 0; i < digitsBefore; ++i) {
+        sb.Append((char)(0x30 + rand.UniformInt(10)));
+      }
+      sb.Append('.');
+      for (var i = 0; i < digitsBefore; ++i) {
+        sb.Append((char)(0x30 + rand.UniformInt(10)));
+        sb.Append((char)(0x30 + rand.UniformInt(10)));
+      }
+      return sb.ToString();
+    }
+
+    [Test]
+public void TestDigitStringsOne(string str) {
+  TestCommon.CompareTestEqual(
+      EDecimal.FromString(str).ToEFloat(EContext.Binary64),
+      EFloat.FromString(str, EContext.Binary64),
+      str);
+}
+
+    [Test]
+    public void TestRandomDigitStrings() {
+TestDigitStringsOne("9.5");
+TestDigitStringsOne("0.1");
+TestDigitStringsOne("664.07742299");
+TestDigitStringsOne("7062.66606310");
+TestDigitStringsOne("0664.07742299");
+var rand = new RandomGenerator();
+var strings = new List<string>();
+for (var i = 0; i < 10000; ++i) {
+  strings.Add(RandomDecimalString(rand, 4));
+}
+var eflist1 = new List<EFloat>();
+var eflist2 = new List<EFloat>();
+EContext ec = EContext.Binary64;
+var sw = new System.Diagnostics.Stopwatch();
+sw.Restart();
+for (var i = 0;i<strings.Count; ++i) {
+  eflist1.Add(EDecimal.FromString(strings[i]).ToEFloat(ec));
+}
+long em = sw.ElapsedMilliseconds;
+sw.Restart();
+for (var i = 0;i<strings.Count; ++i) {
+  eflist2.Add(EFloat.FromString(strings[i], ec));
+}
+long em2 = sw.ElapsedMilliseconds;
+Console.WriteLine("EFloat FS={0} ms\nDouble FS={1} ms",em,em2);
+for (var i = 0;i<strings.Count; ++i) {
+  TestCommon.CompareTestEqual(eflist1[i], eflist2[i], strings[i]);
+}
     }
 
     [Test]
@@ -531,7 +586,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "Infinity",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -542,7 +597,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "-Infinity",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -553,7 +608,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "NaN",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -564,7 +619,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "sNaN",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -575,7 +630,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "Infinity",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -586,7 +641,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "-Infinity",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -597,7 +652,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "NaN",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -608,7 +663,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString (
+        EFloat.FromString(
           "sNaN",
           EContext.Unlimited.WithSimplified(true));
         Assert.Fail("Should have failed");
@@ -1168,7 +1223,8 @@ namespace Test {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
       }
-      return ef.ToDouble() + " [" + ef.Mantissa.Abs().ToRadixString(2) +
+      return ef.ToDouble() + " or " + ef.ToShortestString(EContext.Binary64) +
+        " [" + ef.Mantissa.Abs().ToRadixString(2) +
         "," + ef.Exponent + "]";
     }
 
@@ -1242,6 +1298,48 @@ namespace Test {
           OutputEF(input);
         Assert.Fail(msg);
       }
+    }
+
+    private static void TestStringToDoubleOne(string str) {
+      EDecimal ed = EDecimal.FromString(str);
+      EFloat ef = EFloat.FromString(str, EContext.Binary64);
+      if (ef.Sign == 0) {
+        // TODO
+        Assert.IsTrue(ed.IsNegative == ef.IsNegative);
+      } else if (ef.IsInfinity()) {
+        // TODO
+      } else if (ef.IsNaN()) {
+        string msg="str="+str+"\nef="+OutputEF(ef);
+        Assert.Fail(msg);
+      } else {
+        long mant = ef.Abs().Mantissa.ToInt64Checked();
+        int exp = ef.Exponent.ToInt32Checked();
+        while (mant < (1 << 53) && exp > -1074) {
+          --exp;
+          mant <<= 1;
+        }
+        EFloat ulp = EFloat.Create(1, exp);
+        EFloat half = EFloat.Create(1, exp).Divide(2);
+        EFloat ulpef = EFloat.FromInt64(mant).Multiply(ulp);
+        EFloat efe = ulpef.Subtract(ef);
+        if (efe.CompareTo(half)>0) {
+          string msg="str="+str+"\nef="+OutputEF(ef)+
+            "\nmant="+mant+"\nexp="+exp;
+          Assert.Fail(msg);
+        }
+      }
+    }
+
+    [Test]
+    public void TestStringToDouble() {
+       var rg = new RandomGenerator();
+       TestStringToDoubleOne("9.5");
+       TestStringToDoubleOne("0.1");
+       for (var i = 0; i < 100; ++i) {
+         for (var j = 1;j <= 10; ++j) {
+           TestStringToDoubleOne(RandomDecimalString(rg, j));
+         }
+       }
     }
 
     private static EFloat quarter = EFloat.FromString("0.25");
@@ -1334,7 +1432,7 @@ namespace Test {
           stringTemp);
       }
       {
-        string stringTemp = EFloat.NegativeZero.ToShortestString (
+        string stringTemp = EFloat.NegativeZero.ToShortestString(
             EContext.Binary32);
         Assert.AreEqual(
           "-0",
@@ -1348,35 +1446,45 @@ namespace Test {
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "100").ToShortestString(EContext.Binary64);
         Assert.AreEqual(
           "100",
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "1000").ToShortestString(EContext.Binary64);
         Assert.AreEqual(
           "1000",
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "1000000").ToShortestString(EContext.Binary64);
         Assert.AreEqual(
           "1000000",
           stringTemp);
+      stringTemp = EFloat.FromString(
+            "9.5").ToShortestString(EContext.Binary64);
+        Assert.AreEqual(
+          "9.5",
+          stringTemp);
+        stringTemp = EFloat.FromString(
+            "0.1").ToShortestString(EContext.Binary64);
+        Assert.AreEqual(
+          "0.1",
+          stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "10000000").ToShortestString(EContext.Binary64);
         Assert.AreEqual(
           "1E+7",
           stringTemp);
       }
       {
-        string stringTemp = EFloat.FromString (
+        string stringTemp = EFloat.FromString(
             "10000000000").ToShortestString(EContext.Binary64);
         Assert.AreEqual(
           "1E+10",

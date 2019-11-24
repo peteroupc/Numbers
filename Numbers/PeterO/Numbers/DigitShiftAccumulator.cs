@@ -394,8 +394,8 @@ if (this.knownDigitLength != null) {
         return;
       }
 // if (digits > 50) {
-//  DebugUtility.Log("ShiftRightBig(" + digits + ")");
-//}
+// DebugUtility.Log("ShiftRightBig(" + digits + ")");
+// }
       if (truncate) {
   EInteger bigquo;
   if (digits > 50) {

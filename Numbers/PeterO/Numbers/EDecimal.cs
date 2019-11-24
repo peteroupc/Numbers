@@ -606,7 +606,7 @@ namespace PeterO.Numbers {
     /// first. Remember, though, that the exact value of a 64-bit binary
     /// floating-point number is not always the value that results when
     /// passing a literal decimal number (for example, calling
-    /// <c>ExtendedDecimal.FromDouble(0.1f)</c> ), since not all decimal
+    /// <c>ExtendedDecimal.FromDouble(0.1)</c> ), since not all decimal
     /// numbers can be converted to exact binary numbers (in the example
     /// given, the resulting arbitrary-precision decimal will be the value
     /// of the closest "double" to 0.1, not 0.1 exactly). To create an
@@ -968,8 +968,8 @@ BigNumberFlags.FlagSignalingNaN);
       return FromString(str, offset, length, null);
     }
 
-//private static readonly System.Diagnostics.Stopwatch swRound = new
-//System.Diagnostics.Stopwatch();
+// private static readonly System.Diagnostics.Stopwatch swRound = new
+// System.Diagnostics.Stopwatch();
 
     /// <summary>
     /// <para>Creates an arbitrary-precision decimal number from a text
@@ -1238,14 +1238,12 @@ BigNumberFlags.FlagSignalingNaN);
            (!negative && ctx.Rounding == ERounding.Ceiling) ||
            (negative && ctx.Rounding == ERounding.Floor)) &&
            !ctx.HasFlagsOrTraps;
-      roundHalf = false;
-      roundUp = false;
       var haveIgnoredDigit = false;
       var lastdigit = -1;
       var beyondPrecision = false;
       var ignoreNextDigit = false;
       var zerorun = 0;
-      //DebugUtility.Log("round half=" + (// roundHalf) +
+      // DebugUtility.Log("round half=" + (// roundHalf) +
       // " up=" + roundUp + " down=" + roundDown +
       // " maxprec=" + (ctx != null && ctx.HasMaxPrecision));
       for (; i < endStr; ++i) {
@@ -1254,8 +1252,8 @@ BigNumberFlags.FlagSignalingNaN);
           var thisdigit = (int)(ch - '0');
           haveNonzeroDigit |= thisdigit != 0;
           haveDigits = true;
-          beyondPrecision |= (ctx != null &&
-              ctx.HasMaxPrecision && !ctx.IsPrecisionInBits &&
+          beyondPrecision |= (ctx != null && ctx.HasMaxPrecision &&
+!ctx.IsPrecisionInBits &&
               ctx.Precision.CompareTo(decimalPrec) <= 0);
           if (ctx != null) {
             if (ignoreNextDigit) {
@@ -1267,8 +1265,8 @@ BigNumberFlags.FlagSignalingNaN);
               haveIgnoredDigit = true;
             } else if (roundUp && (haveIgnoredDigit || beyondPrecision)) {
               if (!haveIgnoredDigit) {
-                //DebugUtility.Log("Ignoring digit " + thisdigit + " [rounding=" +
-                //(//ctx.Rounding) + "]");
+                // DebugUtility.Log("Ignoring digit " + thisdigit + " [rounding=" +
+                // (// ctx.Rounding) + "]");
                 if (thisdigit > 0) {
                   ignoreNextDigit = true;
                 } else {
@@ -1277,10 +1275,9 @@ BigNumberFlags.FlagSignalingNaN);
               }
             } else if (roundHalf && (haveIgnoredDigit || beyondPrecision)) {
               if (!haveIgnoredDigit) {
-                DebugUtility.Log("Ignoring digit {0}" +
-"\u0020[rounding={1}]",thisdigit, ctx.Rounding);
-                if (thisdigit < 5 || (thisdigit == 5 &&
-ctx.Rounding == ERounding.HalfDown)) {
+                // DebugUtility.Log("Ignoring digit {0}" +
+                // "\u0020[rounding={1}]",thisdigit, ctx.Rounding);
+                if (thisdigit < 5) {
                   haveIgnoredDigit = true;
                 } else if (thisdigit > 5 || (thisdigit == 5 &&
 ctx.Rounding == ERounding.HalfUp)) {
@@ -1350,12 +1347,16 @@ ctx.Rounding == ERounding.HalfUp)) {
       if (!haveDigits) {
         throw new FormatException();
       }
-//DebugUtility.Log("zerorun=" + zerorun + " roundup=" + (roundUp));
-      if (zerorun > 0 && lastdigit == 0 && (ctx == null ||
+// DebugUtility.Log("zerorun=" + zerorun + " roundup=" + (roundUp));
+      // TODO: reenable eventually
+      if (false && zerorun > 0 && lastdigit == 0 && (ctx == null ||
 !ctx.HasFlagsOrTraps)) {
         decimalPrec -= zerorun;
         var nondec = 0;
         // NOTE: This check is apparently needed for correctness
+        if (ctx == null) {
+          throw new ArgumentNullException(nameof(ctx));
+        }
         if (!ctx.HasMaxPrecision ||
           decimalPrec - ctx.Precision.ToInt32Checked() > 1) {
           if (haveDecimalPoint) {
@@ -1365,7 +1366,7 @@ ctx.Rounding == ERounding.HalfUp)) {
             int remain = zerorun - nondec;
             digitEnd -= remain;
             // DebugUtility.Log("remain={0} nondec={1}
-            //newScale={2}",remain,nondec,newScaleInt);
+            // newScale={2}",remain,nondec,newScaleInt);
             nondec = zerorun;
           } else {
             digitEnd -= zerorun;
@@ -1379,24 +1380,24 @@ ctx.Rounding == ERounding.HalfUp)) {
             newScale = newScale.Add(nondec);
           }
         }
-//DebugUtility.Log("-->zerorun={0} prec={1} [whole={2}, dec={3}]
-//str={4}",zerorun,decimalPrec,
+// DebugUtility.Log("-->zerorun={0} prec={1} [whole={2}, dec={3}]
+// str={4}",zerorun,decimalPrec,
   // digitEnd-digitStart, decimalDigitEnd-decimalDigitStart, str);
       }
-//if (ctx != null) {
-//DebugUtility.Log("roundup [prec=" + decimalPrec + ", ctxprec=" +
-//(//ctx.Precision) + ", str=" + (// str.Substring(0, Math.Min(20,
-  //str.Length))) + "] " + (ctx.Rounding));
-//}
+// if (ctx != null) {
+// DebugUtility.Log("roundup [prec=" + decimalPrec + ", ctxprec=" +
+// (// ctx.Precision) + ", str=" + (// str.Substring(0, Math.Min(20,
+  // str.Length))) + "] " + (ctx.Rounding));
+// }
       if (roundUp && ctx != null && ctx.Precision.CompareTo(decimalPrec) < 0) {
         int precdiff = decimalPrec - ctx.Precision.ToInt32Checked();
-//DebugUtility.Log("precdiff = " + precdiff + " [prec=" + (//decimalPrec) + ",
-  //ctxprec=" + ctx.Precision + "]");
+// DebugUtility.Log("precdiff = " + precdiff + " [prec=" + (// decimalPrec) + ",
+  // ctxprec=" + ctx.Precision + "]");
         if (precdiff > 1) {
            int precchop = precdiff - 1;
            decimalPrec -= precchop;
            int nondec = precchop;
-//DebugUtility.Log("precchop=" + (precchop));
+// DebugUtility.Log("precchop=" + (precchop));
            if (haveDecimalPoint) {
           int decdigits = decimalDigitEnd - decimalDigitStart;
 // DebugUtility.Log("decdigits=" + decdigits + " decprecchop=" + (decdigits));
@@ -1897,16 +1898,16 @@ private static int CheckOverflowUnderflow(
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>Not documented yet.</param>
+  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+  /// a 32-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(EDecimal.FromInt32(intOther));
     }
 
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>Not documented yet.</param>
+  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+  /// a 32-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EDecimal.FromInt32(intOther));

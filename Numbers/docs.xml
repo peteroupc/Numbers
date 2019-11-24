@@ -888,8 +888,10 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(System.Int32)">
-<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+
+            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)">
 
@@ -1068,7 +1070,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToValue(PeterO.Numbers.EDecimal)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values.
             <para>This method is not consistent with the Equals method because
             two different numbers with the same mathematical value, but
@@ -1090,10 +1093,13 @@
             <c>Comparable.compareTo()</c> in Java ought to throw an exception
             if they receive a null argument rather than treating null as less
             or greater than any object.</para>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToValue(System.Int32)">
-<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+
+            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
@@ -1148,7 +1154,7 @@
             <param name='significand'>The parameter <paramref name='significand'/> is a Numbers.EInteger object.</param>
             <param name='exponent'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='significand'/> or <paramref name='exponent'/> is
+            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> or <paramref name='exponent'/> is
             null.</exception>
 
 </doc>
@@ -1730,12 +1736,12 @@
             first. Remember, though, that the exact value of a 64-bit binary
             floating-point number is not always the value that results when
             passing a literal decimal number (for example, calling
-            <c>ExtendedDecimal.FromDouble(0.1f)</c> ), since not all decimal
+            <c>ExtendedDecimal.FromDouble(0.1)</c> ), since not all decimal
             numbers can be converted to exact binary numbers (in the example
             given, the resulting arbitrary-precision decimal will be the value
             of the closest "double" to 0.1, not 0.1 exactly). To create an
-            arbitrary-precision decimal number from an arbitrary-precision
-            decimal number, use FromString instead in most cases (for example:
+            arbitrary-precision decimal number from a decimal value, use
+            FromString instead in most cases (for example:
             <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
             <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
             floating-point number.</param>
@@ -1822,8 +1828,8 @@
             numbers can be converted to exact binary numbers (in the example
             given, the resulting arbitrary-precision decimal will be the the
             value of the closest "float" to 0.1, not 0.1 exactly). To create an
-            arbitrary-precision decimal number from an arbitrary-precision
-            decimal number, use FromString instead in most cases (for example:
+            arbitrary-precision decimal number from a decimal value, use
+            FromString instead in most cases (for example:
             <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
             <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
             binary floating-point number.</param>
@@ -1835,7 +1841,11 @@
 
             <summary>Creates an arbitrary-precision decimal number from a text
             string that represents a number. See <c>FromString(String, int,
-            int, EContext)</c> for more information.</summary>
+            int, EContext)</c> for more information. Note that calling the
+            overload that takes an EContext is often much faster than creating
+            the EDecimal then calling <c>RoundToPrecision</c> on that EDecimal,
+            especially if the context specifies a precision limit and exponent
+            range.</summary>
             <param name='str'>A string that represents a number.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as the given string.</returns>
@@ -1854,7 +1864,10 @@
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
-            isn't needed.</param>
+            isn't needed. Note that providing a context is often much faster
+            than creating the EDecimal without a context then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as the given string.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
@@ -1864,7 +1877,11 @@
 
             <summary>Creates an arbitrary-precision decimal number from a text
             string that represents a number. See <c>FromString(String, int,
-            int, EContext)</c> for more information.</summary>
+            int, EContext)</c> for more information. Note that calling the
+            overload that takes an EContext is often much faster than creating
+            the EDecimal then calling <c>RoundToPrecision</c> on that EDecimal,
+            especially if the context specifies a precision limit and exponent
+            range.</summary>
             <param name='str'>A string that represents a number.</param>
             <param name='offset'>An index starting at 0 showing where the
             desired portion of <paramref name='str'/> begins.</param>
@@ -1889,8 +1906,8 @@
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if the minus sign, the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
-            (".", U+002E) before or after those digits or between two of them.  These digits may
-            begin with any number of zeros.</item>
+            (".", U+002E) before or after those digits or between two of them.
+            These digits may begin with any number of zeros.</item>
             <item>Optionally, "E"/"e" followed by an optional (positive
             exponent) or "-" (negative exponent) and followed by one or more
             digits specifying the exponent (these digits may begin with any
@@ -1918,7 +1935,10 @@
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
-            isn't needed.</param>
+            isn't needed. Note that providing a context is often much faster
+            than creating the EDecimal without a context then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as the given string.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
@@ -4988,8 +5008,10 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareTo(System.Int32)">
-<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+
+            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5149,7 +5171,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToValue(PeterO.Numbers.EFloat)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values.
             <para>This method is not consistent with the Equals method because
             two different numbers with the same mathematical value, but
@@ -5166,10 +5189,13 @@
             value, or greater than 0 if this object's value is greater than the
             other value or if <paramref name='other'/> is null, or 0 if both
             values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToValue(System.Int32)">
-<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+
+            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5223,11 +5249,11 @@
 
             <summary>Creates a number with the value
             exponent*2^significand.</summary>
-            <param name='significand'>The parameter <paramref name='significand'/> is a Numbers.EInteger object.</param>
-            <param name='exponent'>Desired value for the exponent.</param>
+            <param name='significand'>The value of the significand.</param>
+            <param name='exponent'>The value of the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='significand'/> or <paramref name='exponent'/> is
+            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> or <paramref name='exponent'/> is
             null.</exception>
 
 </doc>
@@ -5726,6 +5752,8 @@
             floating-point number.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
+            <exception cref='FormatException'>The portion given of <paramref name='str'/> is not a correctly formatted number string.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)">
@@ -5778,8 +5806,8 @@
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
             U+002D) (if '-' , the value is negative.)</item>
             <item>One or more digits, with a single optional decimal point
-            (".", U+002E) before or after those digits or between two of them. These digits may
-            begin with any number of zeros.</item>
+            (".", U+002E) before or after those digits or between two of them.
+            These digits may begin with any number of zeros.</item>
             <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
             (negative exponent) plus one or more digits specifying the exponent
             (these digits may begin with any number of zeros).</item></list>
@@ -5806,6 +5834,7 @@
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
+            <exception cref='FormatException'>The portion given of <paramref name='str'/> is not a correctly formatted number string.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='str'/> 's length, or <paramref name='
             str'/> 's length minus <paramref name='offset'/> is less than
@@ -10175,6 +10204,10 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.Add(System.Int32)">
+<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)">
 
             <summary>Compares the mathematical value of an arbitrary-precision
@@ -10195,8 +10228,10 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(System.Int32)">
-<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+
+            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)">
 
@@ -10292,7 +10327,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToValue(PeterO.Numbers.ERational)">
-<summary>Compares the mathematical value of an arbitrary-precision
+
+            <summary>Compares the mathematical value of an arbitrary-precision
             rational number with that of this instance. In this method, NaN
             values are greater than any other ERational value, and two NaN
             values (even if their payloads differ) are treated as equal by this
@@ -10307,10 +10343,13 @@
             <c>Comparable.compareTo()</c> in Java ought to throw an exception
             if they receive a null argument rather than treating null as less
             or greater than any object.</para>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToValue(System.Int32)">
-<param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+
+            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Copy">
 
@@ -10405,6 +10444,10 @@
             <returns>The quotient of the two objects.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.Divide(System.Int32)">
+<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)">
 
@@ -10742,6 +10785,10 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.Multiply(System.Int32)">
+<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="F:PeterO.Numbers.ERational.NaN">
 
             <summary>A not-a-number value.</summary>
@@ -10794,6 +10841,10 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.Remainder(System.Int32)">
+<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="P:PeterO.Numbers.ERational.Sign">
 
             <summary>Gets the sign of this rational number.</summary>
@@ -10814,6 +10865,10 @@
             <returns>The difference of the two objects.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.Subtract(System.Int32)">
+<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.ERational.Ten">
 

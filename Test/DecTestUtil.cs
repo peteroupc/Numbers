@@ -241,19 +241,32 @@ namespace Test {
 
     public static void ParseDecTests(
       string lines) {
+       ParseDecTests(lines, true);
+    }
+
+    public static void ParseDecTests(
+      string lines,
+      bool checkFlags) {
       if ((lines) == null) {
         throw new ArgumentNullException(nameof(lines));
       }
       string[] linearray=SplitAt(lines, "\n");
       var context = new Dictionary<string, string>();
       foreach (var ln in linearray) {
-        ParseDecTest(ln, context);
+        ParseDecTest(ln, context, checkFlags);
       }
     }
 
     public static void ParseDecTest (
       string ln,
       IDictionary<string, string> context) {
+      ParseDecTest(ln, context, true);
+    }
+
+    public static void ParseDecTest (
+      string ln,
+      IDictionary<string, string> context,
+      bool checkFlags) {
       Match match;
       if (ln == null) {
         throw new ArgumentNullException(nameof(ln));
@@ -440,7 +453,9 @@ namespace Test {
         if (!extended) {
           ctx = ctx.WithSimplified(true);
         }
-        ctx = ctx.WithBlankFlags();
+        if (checkFlags) {
+          ctx = ctx.WithBlankFlags();
+        }
         op = ToLowerCaseAscii(op);
         if (op.Length > 3 && op.Substring(op.Length - 3).Equals("_eq",
             StringComparison.Ordinal)) {
@@ -722,7 +737,7 @@ namespace Test {
         // extended arithmetic counterparts for at least
         // some of them have no flags in their
         // result.
-        if (!name.Equals("pow118", StringComparison.Ordinal) &&
+        if (checkFlags && !name.Equals("pow118", StringComparison.Ordinal) &&
           !name.Equals("pow119", StringComparison.Ordinal) &&
           !name.Equals("pow120", StringComparison.Ordinal) &&
           !name.Equals("pow121", StringComparison.Ordinal) &&

@@ -5375,7 +5375,7 @@ public static void TestStringContextOne(string str, EContext ec) {
       EDecimal.FromString(str).RoundToPrecision(ecf);
       bstr+="# "+ecf.Precision+" / "+ec.Precision+"\r\n";
       bstr+=DecTestUtil.ContextToDecTestForm(ecf);
-      bstr+="untitled toSci " + str + " --> " + ed.ToString() +
+      bstr+="untitled toSci " + str + " -> " + ed.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";
       str = ed2.ToString();
       bstr+="# exponent: actual " + ed2.Exponent + ", expected " +
@@ -5480,21 +5480,43 @@ public void TestStringContextSpecific6() {
 }
 
 [Test]
+public void TestStringContextSpecificMore() {
+DecTestUtil.ParseDecTests(
+  "precision: 7\nrounding: half_down\nmaxexponent: 96\nminexponent: -95\nextended: 1\nclamp: 1\nuntitled toSci 555555555555555555E-94 -> 5.555556E-77 Inexact Rounded",
+  false);
+{
+  string stringTemp = "precision: 7\nrounding: half_even\nmaxexponent:
+96\nminexponent: -95\nextended: 1\n#adjustexp: 0\nclamp: 1\nuntitled toSci
+487565.00310E-96 -> 4.8757E-91 Inexact Rounded Subnormal Underflow";
+  string stringTemp2 = false;
+  DecTestUtil.ParseDecTests(stringTemp, stringTemp2);
+}
+}
+
+[Test]
 public void TestRescaleInvalid() {
 var context = new Dictionary<string, string>();
 context["precision"]="9";
 context["rounding"]="half_up";
 context["maxexponent"]="96";
 context["minexponent"]="-96";
-DecTestUtil.ParseDecTest("rr rescale 12345678.9 -2 -> NaN" +
-" Invalid_operation", context);
-DecTestUtil.ParseDecTest("rr quantize 12345678.9 0e-2 -> NaN" +
-" Invalid_operation", context);
+{
+object objectTemp = "rr rescale 12345678.9 -2 -> NaN" +
+" Invalid_operation";
+object objectTemp2 = context;
+DecTestUtil.ParseDecTest(objectTemp, objectTemp2);
+}
+{
+  string stringTemp = "rr quantize 12345678.9 0e-2 -> NaN" +
+" Invalid_operation";
+  string stringTemp2 = context;
+  DecTestUtil.ParseDecTest(stringTemp, stringTemp2);
+}
 }
 
 [Test]
 public void TestStringContext() {
-  int failures = 0;
+  var failures = 0;
   EContext[] econtexts = {
     EContext.Basic,
     EContext.Basic.WithExponentRange(-95, 96),
@@ -5589,6 +5611,9 @@ public void TestStringContext() {
     }
   }
   TearDown();
+if (failures>0) {
+    Assert.Fail("Failures: " + (failures));
+  }
 }
   }
 }

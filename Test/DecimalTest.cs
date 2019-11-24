@@ -248,7 +248,6 @@ namespace Test {
     }
 
     [Test]
-    [Timeout(20000)]
     public void TestParser() {
       TestParserEx(false);
       TestParserEx(true);
@@ -307,8 +306,7 @@ if (failures >= 100) {
                    .Append("\r\n");
                 sb.Append("# " +
                    ex.StackTrace.Replace("\r", String.Empty).Replace("\n",
-  "\n# "))
-                   .Append("\r\n");
+  "\n# ")) .Append("\r\n");
                 sb.Append(ln).Append("\r\n");
                 failedLines[ln] = true;
               }

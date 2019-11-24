@@ -756,9 +756,9 @@ Creates a number with the value exponent*2^significand.
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: Not documented yet.
+ * <i>mantissa</i>: The value of the significand.
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: The value of the exponent.
 
 <b>Return Value:</b>
 
@@ -1363,6 +1363,16 @@ Creates a binary floating-point number from a text string that represents a numb
 
 The parsed number, converted to arbitrary-precision binary floating-point number.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>str</i>
+ is null.
+
+ * System.FormatException:
+The portion given of  <i>str</i>
+ is not a correctly formatted number string.
+
 <a id="FromString_string_int_int"></a>
 ### FromString
 
@@ -1458,6 +1468,10 @@ The parsed number, converted to arbitrary-precision binary floating-point number
  * System.ArgumentNullException:
 The parameter  <i>str</i>
  is null.
+
+ * System.FormatException:
+The portion given of  <i>str</i>
+ is not a correctly formatted number string.
 
  * System.ArgumentException:
 Either  <i>offset</i>

@@ -2676,9 +2676,9 @@ countB +
              // Treat zero after division as having no digits
              break;
           }
-        if (value == Int64.MinValue) {
-            retval+=19;
-          break;
+          if (value == Int64.MinValue) {
+            retval += 19;
+            break;
         }
         if (value < 0) {
           value = -value;
@@ -2706,9 +2706,9 @@ countB +
       int bitlen = (ei.wordCount < 1000000) ?
         ei.GetUnsignedBitLengthAsEInteger().ToInt32Checked() :
         Int32.MaxValue;
-      var maxDigits = 0;
-      var minDigits = 0;
-      if (bitlen <= 2135) {
+        var maxDigits = 0;
+        var minDigits = 0;
+        if (bitlen <= 2135) {
         // (x*631305) >> 21 is an approximation
         // to trunc(x*log10(2)) that is correct up
         // to x = 2135; the multiplication would require
@@ -2719,7 +2719,7 @@ countB +
         if (minDigits == maxDigits) {
           // Number of digits is the same for
           // all numbers with this bit length
-          retval+=minDigits;
+          retval += minDigits;
           break;
         }
       } else if (bitlen <= 6432162) {
@@ -2729,7 +2729,7 @@ countB +
         if (minDigits == maxDigits) {
           // Number of digits is the same for
           // all numbers with this bit length
-          retval+= 1 + minDigits;
+          retval += 1 + minDigits;
           break;
         }
       }
@@ -2742,17 +2742,17 @@ countB +
         continue;
       }
       if (bitlen <= 2135) {
-        retval+= ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
+        retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
             minDigits)) >= 0 ? maxDigits : minDigits;
         break;
       } else if (bitlen < 50000) {
-        retval+= ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits +
+        retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(minDigits +
                 1)) >= 0 ? maxDigits + 1 : minDigits + 1;
         break;
       }
       short[] tempReg = null;
       int currentCount = ei.wordCount;
-      bool done = false;
+      var done = false;
       while (!done && currentCount != 0) {
         if (currentCount == 1 || (currentCount == 2 && tempReg[1] == 0)) {
           int rest = ((int)tempReg[0]) & 0xffff;
@@ -2829,14 +2829,14 @@ countB +
                   // NOTE: The 4 is the number of digits just
                   // taken out of the number, and "i" is the
                   // number of previously known digits
-                  retval+= minDigits + 4;
+                  retval += minDigits + 4;
                   done = true;
                   break;
                 }
                 if (minDigits > 1) {
                   int maxDigitEstimate = maxDigits + 4;
                   int minDigitEstimate = minDigits + 4;
-                  retval+=ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
+                  retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
   minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
 minDigitEstimate;
                   done = true;
@@ -2849,7 +2849,7 @@ minDigitEstimate;
                 if (minDigits == maxDigits) {
                   // Number of digits is the same for
                   // all numbers with this bit length
-                  retval+= 1 + minDigits + 4;
+                  retval += 1 + minDigits + 4;
                   done = true;
                   break;
                 }
