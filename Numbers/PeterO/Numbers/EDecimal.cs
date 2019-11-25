@@ -1353,12 +1353,6 @@ ctx.Rounding == ERounding.HalfUp)) {
 //DebugUtility.Log("zerorun=" + zerorun + " roundup=" + (roundUp));
       if (zerorun > 0 && lastdigit == 0 && (ctx == null ||
 !ctx.HasFlagsOrTraps)) {
-//DebugUtility.Log("zerorun={0} prec={1} [whole={2}, dec={3}]
-//str={4}",zerorun,decimalPrec,
-  //
-// digitEnd-digitStart, decimalDigitEnd-decimalDigitStart, str.Substring(
-  // 0,
-  Math.Min(20, // str.Length)));
         decimalPrec -= zerorun;
         var nondec = 0;
         // NOTE: This check is apparently needed for correctness
