@@ -566,11 +566,11 @@ BigNumberFlags.FlagSignalingNaN);
 "\u0020equal to " + str.Length);
       }
       if (length < 0) {
-        throw new ArgumentException(+" (" + length + ") is not greater or" +
+        throw new ArgumentException("length (" + length + ") is not greater or" +
 "\u0020equal to 0");
       }
       if (length > str.Length) {
-        throw new ArgumentException(+" (" + length + ") is not less or" +
+        throw new ArgumentException("length (" + length + ") is not less or" +
 "\u0020equal to " + str.Length);
       }
       if (str.Length - offset < length) {

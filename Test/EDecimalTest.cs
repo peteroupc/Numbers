@@ -5485,11 +5485,11 @@ DecTestUtil.ParseDecTests(
   "precision: 7\nrounding: half_down\nmaxexponent: 96\nminexponent: -95\nextended: 1\nclamp: 1\nuntitled toSci 555555555555555555E-94 -> 5.555556E-77 Inexact Rounded",
   false);
 {
-  string stringTemp = "precision: 7\nrounding: half_even\nmaxexponent:
-96\nminexponent: -95\nextended: 1\n#adjustexp: 0\nclamp: 1\nuntitled toSci
-487565.00310E-96 -> 4.8757E-91 Inexact Rounded Subnormal Underflow";
-  string stringTemp2 = false;
-  DecTestUtil.ParseDecTests(stringTemp, stringTemp2);
+  string stringTemp = "precision: 7\nrounding: half_even\nmaxexponent:" +
+" 96\nminexponent: -95\nextended: 1\n#adjustexp: 0\nclamp: 1\n" +
+"untitled toSci" +
+" 487565.00310E-96 -> 4.8757E-91 Inexact Rounded Subnormal Underflow";
+  DecTestUtil.ParseDecTests(stringTemp, false);
 }
 }
 
@@ -5501,16 +5501,14 @@ context["rounding"]="half_up";
 context["maxexponent"]="96";
 context["minexponent"]="-96";
 {
-object objectTemp = "rr rescale 12345678.9 -2 -> NaN" +
+string objectTemp = "rr rescale 12345678.9 -2 -> NaN" +
 " Invalid_operation";
-object objectTemp2 = context;
-DecTestUtil.ParseDecTest(objectTemp, objectTemp2);
+DecTestUtil.ParseDecTest(objectTemp, context);
 }
 {
   string stringTemp = "rr quantize 12345678.9 0e-2 -> NaN" +
 " Invalid_operation";
-  string stringTemp2 = context;
-  DecTestUtil.ParseDecTest(stringTemp, stringTemp2);
+  DecTestUtil.ParseDecTest(stringTemp, context);
 }
 }
 
