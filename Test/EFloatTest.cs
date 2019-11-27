@@ -1222,7 +1222,7 @@ for (var i = 0;i<strings.Count; ++i) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
       }
-      return ef.ToDouble() + " or " + ef.ToShortestString(EContext.Binary64) +
+      return ef.ToDouble() +
         " [" + ef.Mantissa.Abs().ToRadixString(2) +
         "," + ef.Exponent + "]";
     }
@@ -1299,8 +1299,77 @@ for (var i = 0;i<strings.Count; ++i) {
       }
     }
 
+private static void TestStringEFloatPrecisionOne(string str) {
+ EFloat ef1=EDecimal.FromString(str).ToEFloat(EContext.Binary32);
+ EFloat ef2=EFloat.FromString(str, EContext.Binary32);
+ Console.WriteLine(OutputEF(ef1));
+ Console.WriteLine(OutputEF(ef2));
+ TestCommon.CompareTestLess(ef1.Mantissa.ToInt32Checked(), 1<<24);
+ TestCommon.CompareTestLess(ef2.Mantissa.ToInt32Checked(), 1<<24);
+}
+
+[Test]
+public void TestStringEFloatPrecision() {
+ TestStringEFloatPrecisionOne("43260094.4962653487189790");
+}
+
+
+    private static void TestStringToSingleOne(string str) {
+      EDecimal ed = EDecimal.FromString(str);
+      if(ed.IsInfinity() || ed.IsNaN()) {
+        // Expected string to represent a finite number
+        Assert.Fail(str);
+      }
+      EFloat ef = EFloat.FromString(str, EContext.Binary32);
+      if (ef.Sign == 0) {
+        Assert.IsTrue(ed.IsNegative == ef.IsNegative);
+        EDecimal half = EDecimal.FromInt32(2).Pow(-149).Divide(2);
+        if (ed.Abs().CompareTo(half)>0) {
+          string msg="str="+str+"\nef="+OutputEF(ef);
+          Assert.Fail(msg);
+        }
+      } else if (ef.IsInfinity()) {
+        EDecimal half = EDecimal.FromEInteger(
+             EInteger.FromInt32((1<<25)-1).ShiftLeft(103));
+        if (ed.Abs().CompareTo(half)<0) {
+          string msg="str="+str+"\nef="+OutputEF(ef);
+          Assert.Fail(msg);
+        }
+      } else if (ef.IsNaN()) {
+        string msg="str="+str+"\nef="+OutputEF(ef);
+        Assert.Fail(msg);
+      } else {
+        Assert.IsTrue(ed.IsNegative == ef.IsNegative);
+        long mant = ef.Abs().Mantissa.ToInt64Checked();
+        int exp = ef.Exponent.ToInt32Checked();
+        while (mant < (1 << 23) && exp > -149) {
+          --exp;
+          mant <<= 1;
+        }
+        while (mant >= (1 >> 24) && (mant&1) == 0) {
+          exp++;
+          mant >>= 1;
+        }
+        Assert.IsTrue(mant<(1<<24));
+        EDecimal ulp = EDecimal.FromInt32(2).Pow(exp);
+        EDecimal half = EDecimal.FromInt32(2).Pow(exp).Divide(2);
+        EDecimal ulped = EDecimal.FromInt64(mant).Multiply(ulp);
+        EDecimal efe = ulped.Subtract(ed.Abs());
+        if (efe.CompareTo(half)>0) {
+          string msg="str="+str+"\nef="+OutputEF(ef)+
+            "\nmant="+mant+"\nexp="+exp+"\nulped="+ulped+
+            "\nhalf="+half+"\nefe="+efe;
+          Assert.Fail(msg);
+        }
+      }
+    }
+
     private static void TestStringToDoubleOne(string str) {
       EDecimal ed = EDecimal.FromString(str);
+      if(ed.IsInfinity() || ed.IsNaN()) {
+        // Expected string to represent a finite number
+        Assert.Fail(str);
+      }
       EFloat ef = EFloat.FromString(str, EContext.Binary64);
       if (ef.Sign == 0) {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
@@ -1310,7 +1379,12 @@ for (var i = 0;i<strings.Count; ++i) {
           Assert.Fail(msg);
         }
       } else if (ef.IsInfinity()) {
-        // TODO
+        EDecimal half = EDecimal.FromEInteger(
+             EInteger.FromInt64((1L<<54)-1).ShiftLeft(970));
+        if (ed.Abs().CompareTo(half)<0) {
+          string msg="str="+str+"\nef="+OutputEF(ef);
+          Assert.Fail(msg);
+        }
       } else if (ef.IsNaN()) {
         string msg="str="+str+"\nef="+OutputEF(ef);
         Assert.Fail(msg);
@@ -1318,10 +1392,15 @@ for (var i = 0;i<strings.Count; ++i) {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
         long mant = ef.Abs().Mantissa.ToInt64Checked();
         int exp = ef.Exponent.ToInt32Checked();
-        while (mant < (1 << 53) && exp > -1074) {
+        while (mant < (1L << 52) && exp > -1074) {
           --exp;
           mant <<= 1;
         }
+        while (mant >= (1L >> 53) && (mant&1) == 0) {
+          exp++;
+          mant >>= 1;
+        }
+        Assert.IsTrue(mant<(1L<<53));
         EDecimal ulp = EDecimal.FromInt32(2).Pow(exp);
         EDecimal half = EDecimal.FromInt32(2).Pow(exp).Divide(2);
         EDecimal ulped = EDecimal.FromInt64(mant).Multiply(ulp);
@@ -1334,10 +1413,15 @@ for (var i = 0;i<strings.Count; ++i) {
       }
     }
 
+private static void TestStringToDoubleSingleOne(string str) {
+ TestStringToDoubleOne(str);
+ TestStringToSingleOne(str);
+}
+
 [Test]
 public void TestStringToDoubleSubnormal() {
   string str="-2.3369664830896376E-303";
-  TestStringToDoubleOne(str);
+  TestStringToDoubleSingleOne(str);
   double efd = EFloat.FromString(str).ToDouble();
   Assert.IsTrue(Math.Abs(efd) > 0.0);
 }
@@ -1356,7 +1440,7 @@ for(var i=0; i<=1000; i++) {
 }
 for(var i=0;i<s1.Count;i++) {
 for(var j=0;j<s2.Count;j++) {
- TestStringToDoubleOne(s2[j]+"e"+s1[i]);
+ TestStringToDoubleSingleOne(s2[j]+"e"+s1[i]);
 }
 }
 }
@@ -1365,20 +1449,23 @@ for(var j=0;j<s2.Count;j++) {
 [Test]
 public void TestIntStringToDouble() {
 for(var i=0;i<1000000;i++) {
- TestStringToDoubleOne(TestCommon.IntToString(i));
- TestStringToDoubleOne(TestCommon.IntToString(i) + ".0");
- TestStringToDoubleOne(TestCommon.IntToString(i) + ".000");
+ TestStringToDoubleSingleOne(TestCommon.IntToString(i));
+ TestStringToDoubleSingleOne(TestCommon.IntToString(i) + ".0");
+ TestStringToDoubleSingleOne(TestCommon.IntToString(i) + ".000");
 }
 }
+
 
     [Test]
     public void TestStringToDouble() {
        var rg = new RandomGenerator();
-       TestStringToDoubleOne("9.5");
-       TestStringToDoubleOne("0.1");
+       TestStringToDoubleSingleOne("9.5");
+       TestStringToDoubleSingleOne("0.1");
+       TestStringToDoubleSingleOne("43260094.4962653487189790");
+       TestStringToDoubleSingleOne("215e7");
        for (var i = 0; i < 100; ++i) {
          for (var j = 1;j <= 10; ++j) {
-           TestStringToDoubleOne(RandomDecimalString(rg, j));
+           TestStringToDoubleSingleOne(RandomDecimalString(rg, j));
          }
        }
     }
@@ -2154,6 +2241,9 @@ enumber.CompareTo (
       }
       d = bf.ToDouble();
       Assert.AreEqual((double)oldd, d);
+      if (bf.IsFinite) {
+        TestStringToDoubleOne(bf.ToString());
+      }
     }
 
     private static void TestEFloatSingleCore(float d, string s) {
@@ -2164,6 +2254,9 @@ enumber.CompareTo (
       }
       d = bf.ToSingle();
       Assert.AreEqual((float)oldd, d);
+      if (bf.IsFinite) {
+        TestStringToSingleOne(bf.ToString());
+      }
     }
   }
 }

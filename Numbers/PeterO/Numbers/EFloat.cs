@@ -621,14 +621,12 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
         throw new FormatException();
       }
       int endStr = tmpoffset + length;
-      EInteger mant = null;
       var negative = false;
       var haveDecimalPoint = false;
       var haveDigits = false;
       var haveExponent = false;
       var newScaleInt = 0;
       var digitStart = 0;
-      EInteger newScale = null;
       int i = tmpoffset;
       long mantissaLong = 0L;
       // Ordinary number
@@ -640,9 +638,6 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
       var decimalPrec = 0;
       int decimalDigitEnd = i;
       var lastdigit = -1;
-      var beyondPrecision = false;
-      var ignoreNextDigit = false;
-      var zerorun = 0;
       if (str[i] == '+' || str[i] == '-') {
         if (str[i] == '-') {
           negative = true;
@@ -696,8 +691,6 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
       if (!haveDigits) {
         throw new FormatException();
       }
-      EDecimal ret = null;
-      EInteger exp = null;
       var expInt = 0;
       var expoffset = 1;
       var expDigitStart = -1;
@@ -767,7 +760,10 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
             --iexp;
           }
           int iabsexp = Math.Abs(iexp);
-          if (ml < 9007199254740992L && iabsexp <= 22) {
+          if (ml < 9007199254740992L && iabsexp == 0) {
+            return EFloat.FromInt64(negative ?
+               -mantissaLong : mantissaLong).RoundToPrecision(ctx);
+          } else if (ml < 9007199254740992L && iabsexp <= 22) {
             EFloat efn =
 EFloat.FromEInteger(NumberUtility.FindPowerOfTen(iabsexp));
 if (negative) {
