@@ -277,7 +277,6 @@ digitsBefore) {
       return sb.ToString();
     }
 
-    [Test]
 public void TestDigitStringsOne(string str) {
   TestCommon.CompareTestEqual(
       EDecimal.FromString(str).ToEFloat(EContext.Binary64),
@@ -1304,24 +1303,29 @@ for (var i = 0;i<strings.Count; ++i) {
       EDecimal ed = EDecimal.FromString(str);
       EFloat ef = EFloat.FromString(str, EContext.Binary64);
       if (ef.Sign == 0) {
-        // TODO
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
+        EDecimal half = EDecimal.FromInt32(2).Pow(-1074).Divide(2);
+        if (ed.Abs().CompareTo(half)>0) {
+          string msg="str="+str+"\nef="+OutputEF(ef);
+          Assert.Fail(msg);
+        }
       } else if (ef.IsInfinity()) {
         // TODO
       } else if (ef.IsNaN()) {
         string msg="str="+str+"\nef="+OutputEF(ef);
         Assert.Fail(msg);
       } else {
+        Assert.IsTrue(ed.IsNegative == ef.IsNegative);
         long mant = ef.Abs().Mantissa.ToInt64Checked();
         int exp = ef.Exponent.ToInt32Checked();
         while (mant < (1 << 53) && exp > -1074) {
           --exp;
           mant <<= 1;
         }
-        EFloat ulp = EFloat.Create(1, exp);
-        EFloat half = EFloat.Create(1, exp).Divide(2);
-        EFloat ulpef = EFloat.FromInt64(mant).Multiply(ulp);
-        EFloat efe = ulpef.Subtract(ef);
+        EDecimal ulp = EDecimal.FromInt32(2).Pow(exp);
+        EDecimal half = EDecimal.FromInt32(2).Pow(exp).Divide(2);
+        EDecimal ulped = EDecimal.FromInt64(mant).Multiply(ulp);
+        EDecimal efe = ulped.Subtract(ed.Abs());
         if (efe.CompareTo(half)>0) {
           string msg="str="+str+"\nef="+OutputEF(ef)+
             "\nmant="+mant+"\nexp="+exp;
@@ -1329,6 +1333,43 @@ for (var i = 0;i<strings.Count; ++i) {
         }
       }
     }
+
+[Test]
+public void TestStringToDoubleSubnormal() {
+  string str="-2.3369664830896376E-303";
+  TestStringToDoubleOne(str);
+  double efd = EFloat.FromString(str).ToDouble();
+  Assert.IsTrue(Math.Abs(efd) > 0.0);
+}
+
+
+
+[Test]
+public void TestStringToDoubleExp() {
+var s1=new List<string>();
+var s2=new List<string>();
+for(var i=-304; i<=304; i++) {
+ s1.Add(TestCommon.IntToString(i));
+}
+for(var i=0; i<=1000; i++) {
+ s2.Add(TestCommon.IntToString(i));
+}
+for(var i=0;i<s1.Count;i++) {
+for(var j=0;j<s2.Count;j++) {
+ TestStringToDoubleOne(s2[j]+"e"+s1[i]);
+}
+}
+}
+
+
+[Test]
+public void TestIntStringToDouble() {
+for(var i=0;i<1000000;i++) {
+ TestStringToDoubleOne(TestCommon.IntToString(i));
+ TestStringToDoubleOne(TestCommon.IntToString(i) + ".0");
+ TestStringToDoubleOne(TestCommon.IntToString(i) + ".000");
+}
+}
 
     [Test]
     public void TestStringToDouble() {

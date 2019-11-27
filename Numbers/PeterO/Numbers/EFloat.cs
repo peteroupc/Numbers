@@ -543,8 +543,7 @@ BigNumberFlags.FlagSignalingNaN);
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The portion given of <paramref
     /// name='str'/> is not a correctly formatted number
-    /// string.</exception>
-    /// <exception cref='ArgumentException'>Either <paramref
+    /// string; or either <paramref
     /// name='offset'/> or <paramref name='length'/> is less than 0 or
     /// greater than <paramref name='str'/> 's length, or <paramref name='
     /// str'/> 's length minus <paramref name='offset'/> is less than
@@ -558,23 +557,23 @@ BigNumberFlags.FlagSignalingNaN);
         throw new ArgumentNullException(nameof(str));
       }
       if (offset < 0) {
-        throw new ArgumentException("offset (" + offset + ") is not greater" +
+        throw new FormatException("offset (" + offset + ") is not greater" +
 "\u0020or equal to 0");
       }
       if (offset > str.Length) {
-        throw new ArgumentException("offset (" + offset + ") is not less or" +
+        throw new FormatException("offset (" + offset + ") is not less or" +
 "\u0020equal to " + str.Length);
       }
       if (length < 0) {
-        throw new ArgumentException("length (" + length + ") is not greater or" +
+        throw new FormatException("length (" + length + ") is not greater or" +
 "\u0020equal to 0");
       }
       if (length > str.Length) {
-        throw new ArgumentException("length (" + length + ") is not less or" +
+        throw new FormatException("length (" + length + ") is not less or" +
 "\u0020equal to " + str.Length);
       }
       if (str.Length - offset < length) {
-        throw new ArgumentException("str's length minus " + offset + " (" +
+        throw new FormatException("str's length minus " + offset + " (" +
 (str.Length - offset) + ") is not greater or equal to " + length);
       }
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
@@ -774,15 +773,15 @@ EFloat.FromEInteger(NumberUtility.FindPowerOfTen(iabsexp));
 if (negative) {
   ml = -ml;
 }
-            EFloat efml = EFloat.Create(ml, 0);
+            EFloat efml = EFloat.FromInt64(ml);
             if (iexp < 0) {
               return efml.Divide(efn, ctx);
             } else {
- return efml.Multiply(efn, ctx);
-}
+              return efml.Multiply(efn, ctx);
+            }
           }
         }
-        long adjexp = finalexp - (decimalPrec - 1);
+        long adjexp = finalexp + (decimalPrec - 1);
         if (adjexp < -326) {
           return negative ? EFloat.NegativeZero : EFloat.Zero;
         } else if (adjexp > 309) {
@@ -798,7 +797,7 @@ EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
 if (finalexp < 0) {
   return ef1.Divide(ef2, ctx);
 } else {
- return ef1.Multiply(ef2, ctx);
+  return ef1.Multiply(ef2, ctx);
 }
       }
       return null;

@@ -1277,8 +1277,8 @@ BigNumberFlags.FlagSignalingNaN);
               if (!haveIgnoredDigit) {
                 // DebugUtility.Log("Ignoring digit {0}" +
                 // "\u0020[rounding={1}]",thisdigit, ctx.Rounding);
-                if (thisdigit < 5) {
-                  haveIgnoredDigit = true;
+                if (thisdigit >= 1 && thisdigit < 5) {
+                  ignoreNextDigit = true;
                 } else if (thisdigit > 5 || (thisdigit == 5 &&
 ctx.Rounding == ERounding.HalfUp)) {
                   roundHalf = false;
@@ -1347,18 +1347,19 @@ ctx.Rounding == ERounding.HalfUp)) {
       if (!haveDigits) {
         throw new FormatException();
       }
-// DebugUtility.Log("zerorun=" + zerorun + " roundup=" + (roundUp));
-      // TODO: reenable eventually
-      if (false && zerorun > 0 && lastdigit == 0 && (ctx == null ||
+/*
+if(ctx!=null){
+ DebugUtility.Log("zerorun=" + zerorun + " roundup=" + roundUp +
+ ", haveIgnored="+haveIgnoredDigit +", decimalPrec=" + decimalPrec +
+", ctx="+ctx);
+}*/
+      if (zerorun > 0 && lastdigit == 0 && (ctx == null ||
 !ctx.HasFlagsOrTraps)) {
         decimalPrec -= zerorun;
         var nondec = 0;
         // NOTE: This check is apparently needed for correctness
-        if (ctx == null) {
-          throw new ArgumentNullException(nameof(ctx));
-        }
-        if (!ctx.HasMaxPrecision ||
-          decimalPrec - ctx.Precision.ToInt32Checked() > 1) {
+        if (ctx==null && (!ctx.HasMaxPrecision ||
+          decimalPrec - ctx.Precision.ToInt32Checked() > zerorun)) {
           if (haveDecimalPoint) {
             int decdigits = decimalDigitEnd - decimalDigitStart;
             nondec = Math.Min(decdigits, zerorun);

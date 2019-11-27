@@ -559,7 +559,7 @@ namespace Test {
           d3 = d1.Log10(ctx);
         } else if (op.Equals("power", StringComparison.Ordinal)) {
           if (d2a != null) {
-            Console.WriteLine("Three-op power not yet supported");
+            //Console.WriteLine("Three-op power not yet supported");
             return;
           }
           d3 = d1.Pow(d2, ctx);

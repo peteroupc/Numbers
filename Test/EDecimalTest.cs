@@ -5484,13 +5484,10 @@ public void TestStringContextSpecificMore() {
 DecTestUtil.ParseDecTests(
   "precision: 7\nrounding: half_down\nmaxexponent: 96\nminexponent: -95\nextended: 1\nclamp: 1\nuntitled toSci 555555555555555555E-94 -> 5.555556E-77 Inexact Rounded",
   false);
-{
-  string stringTemp = "precision: 7\nrounding: half_even\nmaxexponent:" +
-" 96\nminexponent: -95\nextended: 1\n#adjustexp: 0\nclamp: 1\n" +
-"untitled toSci" +
-" 487565.00310E-96 -> 4.8757E-91 Inexact Rounded Subnormal Underflow";
-  DecTestUtil.ParseDecTests(stringTemp, false);
-}
+  EContext ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
+    .WithAdjustExponent(false).WithExponentRange(-95, 96)
+    .WithRounding(ERounding.HalfEven);
+  TestStringContextOne("487565.00310E-96", ec);
 }
 
 [Test]
