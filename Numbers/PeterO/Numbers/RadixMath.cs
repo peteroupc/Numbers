@@ -92,7 +92,7 @@ namespace PeterO.Numbers {
     private readonly int thisRadix;
 
     // Conservative maximum base-10 radix power for
-    // TryMultiplyByRadix Power; derived from
+    // TryMultiplyByRadixPower; derived from
     // Int32.MaxValue*8/3 (8 is the number of bits in a byte;
     // 3 is a conservative estimate of log(10)/log(2).)
     private static EInteger valueMaxDigits = (EInteger)5726623058L;
@@ -2086,6 +2086,10 @@ namespace PeterO.Numbers {
       }
       if ((!isPowIntegral || powSign < 0) && (ctx == null ||
           !ctx.HasMaxPrecision)) {
+        // TODO: In next major version, support the case when:
+        // - ctx is null or has unlimited precision, and
+        // - thisValue is greater than 0.
+        // This case is trivial: divide 1 by thisValue^abs(pow).
         const string ValueOutputMessage =
           "ctx is null or has unlimited precision, " +
           "and pow's exponent is not an integer or is negative";
@@ -3800,9 +3804,10 @@ namespace PeterO.Numbers {
               mantissaDivisor,
               ctx);
             if (digitStatus == null) {
+              // NOTE: Can only happen for ERounding.None
               return this.SignalInvalidWithMessage(
                 ctx,
-                "Rounding was required");
+                "Rounding was required (8)");
             }
             FastInteger natexp = naturalExponent.Copy().Subtract(shift);
             EContext ctxcopy = ctx.WithBlankFlags();
@@ -3901,7 +3906,7 @@ namespace PeterO.Numbers {
             if (rounding == ERounding.None) {
               return this.SignalInvalidWithMessage(
                 ctx,
-                "Rounding was required");
+                "Rounding was required (0)");
             }
             lastDiscarded = 1;
             olderDiscarded = 1;
@@ -5050,11 +5055,13 @@ otherValue;
           FastInteger newmantissa = accum.ShiftedIntFast;
           bool nonZeroDiscardedDigits = (accum.LastDiscardedDigit |
               accum.OlderDiscardedDigits) != 0;
+          // if (rounding == ERounding.None) {
           // DebugUtility.Log("<nzdd= " + nonZeroDiscardedDigits);
+          // }
           if (nonZeroDiscardedDigits && rounding == ERounding.None) {
             return this.SignalInvalidWithMessage(
               ctx,
-              "Rounding was required");
+              "Rounding was required (1)");
           }
           if (accum.DiscardedDigitCount.Sign != 0 || nonZeroDiscardedDigits) {
             if (ctx.HasFlags) {
@@ -5137,14 +5144,16 @@ otherValue;
         if (!bigmantissa.IsValueZero) {
           flags |= EContext.FlagRounded;
           if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required");
+            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
+"\u0020(2)");
           }
         }
         bigmantissa = FastIntegerFixed.FromFastInteger(accum.ShiftedIntFast);
         if ((accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0) {
           flags |= EContext.FlagInexact | EContext.FlagRounded;
           if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required");
+            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
+"\u0020(3)");
           }
         }
         if (this.RoundGivenAccum(accum, rounding, neg)) {
@@ -5298,7 +5307,8 @@ otherValue;
           // Rounding mode doesn't care about
           // whether remainder is exactly half
           if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required");
+            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
+"\u0020(4)");
           }
           lastDiscarded = 1;
           olderDiscarded = 1;
@@ -5310,7 +5320,8 @@ otherValue;
         if ((lastDiscarded | olderDiscarded) != 0) {
           flags |= EContext.FlagInexact | EContext.FlagRounded;
           if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required");
+            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
+"\u0020(5)");
           }
           FastInteger fastNewMantissa = FastInteger.FromBig(newmantissa);
           if (
@@ -5343,7 +5354,7 @@ otherValue;
             if (rounding == ERounding.None) {
               return this.SignalInvalidWithMessage(
                 ctx,
-                "Rounding was required");
+                "Rounding was required (6)");
             }
           }
           if (this.RoundGivenAccum(accum, rounding, neg)) {
@@ -5439,6 +5450,12 @@ otherValue;
       if (this.support == BigNumberFlags.FiniteOnly) {
         throw new ArithmeticException(str);
       }
+      // TODO: Temporary
+      if (str.IndexOf("Rounding was") < 0) {
+        throw new ArithmeticException(str);
+      } else {
+       // DebugUtility.Log(str);
+      }
       return this.helper.CreateNewWithFlags(
         EInteger.Zero,
         EInteger.Zero,
@@ -5453,7 +5470,8 @@ otherValue;
             EContext.FlagInexact | EContext.FlagRounded;
         }
         if (roundingOnOverflow == ERounding.None) {
-          return this.SignalInvalidWithMessage(ctx, "Rounding was required");
+          return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
+"\u0020(7)");
         }
         if (ctx.HasMaxPrecision && ctx.HasExponentRange &&
           (roundingOnOverflow == ERounding.Down ||

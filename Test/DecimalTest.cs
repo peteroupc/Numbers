@@ -306,7 +306,7 @@ if (failures >= 100) {
                    .Append("\r\n");
                 sb.Append("# " +
                    ex.StackTrace.Replace("\r", String.Empty).Replace("\n",
-  "\n# ")) .Append("\r\n");
+  "\n# ")).Append("\r\n");
                 sb.Append(ln).Append("\r\n");
                 failedLines[ln] = true;
               }

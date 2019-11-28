@@ -549,8 +549,8 @@ BigNumberFlags.FlagSignalingNaN);
     /// name='str'/> is not a correctly formatted number string; or either
     /// <paramref name='offset'/> or <paramref name='length'/> is less than
     /// 0 or greater than <paramref name='str'/> 's length, or <paramref
-    /// name=' str'/> 's length minus <paramref name='offset'/> is less
-    /// than <paramref name='length'/>.</exception>
+    /// name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <paramref name='length'/>.</exception>
     public static EFloat FromString(
       string str,
       int offset,
@@ -580,20 +580,15 @@ BigNumberFlags.FlagSignalingNaN);
 (str.Length - offset) + ") is not greater or equal to " + length);
       }
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
-         !ctx.IsSimplified && !ctx.HasFlagsOrTraps &&
-         ctx.AdjustExponent == EContext.Binary64.AdjustExponent &&
-         ctx.ClampNormalExponents == EContext.Binary64.ClampNormalExponents &&
-         ctx.Rounding == EContext.Binary64.Rounding &&
-         ctx.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
+         !ctx.IsSimplified && ctx.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
          ctx.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
          ctx.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
-        // TODO: Use for all rounding modes
         int tmpoffset = offset;
         int endpos = offset + length;
         if (length == 0) {
           throw new FormatException();
         }
-if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
+        if (str[tmpoffset] == '-' || str[tmpoffset]=='+') {
           ++tmpoffset;
         }
         if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
@@ -610,6 +605,33 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
           length,
           EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
           .ToEFloat(ctx);
+    }
+
+    private static EFloat SignalUnderflow(EContext ec, bool negative, bool
+zeroSignificand) {
+            EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+            eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
+                         // trigger underflow
+            EFloat ret = EFloat.Create(
+              zeroSignificand ? EInteger.Zero : EInteger.One,
+              eTiny);
+            if (negative) {
+              ret = ret.Negate();
+            }
+            return ret.RoundToPrecision(ec);
+    }
+
+    private static EFloat SignalOverflow(EContext ec, bool negative, bool
+zeroSignificand) {
+       if (zeroSignificand) {
+            EFloat ret = EFloat.Create(EInteger.Zero, ec.EMax);
+            if (negative) {
+              ret = ret.Negate();
+            }
+            return ret.RoundToPrecision(ec);
+          } else {
+            return MathValue.SignalOverflow(ec, negative);
+       }
     }
 
     private static EFloat DoubleEFloatFromString(
@@ -638,7 +660,6 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
       int digitEnd = i;
       int decimalDigitStart = i;
       var haveNonzeroDigit = false;
-      var zeroMantissa = false;
       var decimalPrec = 0;
       int decimalDigitEnd = i;
       var nonzeroBeyondMax = false;
@@ -654,7 +675,7 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
           haveDigits = true;
-          if (decimalPrec>768) {
+          if (decimalPrec > 768) {
             // 768 is maximum precision of a decimal
             // half-ULP in double format
             if (thisdigit != 0) {
@@ -709,7 +730,7 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
       var expoffset = 1;
       var expDigitStart = -1;
       var expPrec = 0;
-      zeroMantissa = haveNonzeroDigit;
+      bool zeroMantissa = !haveNonzeroDigit;
       haveNonzeroDigit = false;
       EFloat ef1, ef2;
       if (haveExponent) {
@@ -747,13 +768,13 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
           throw new FormatException();
         }
         expInt *= expoffset;
-        if (expPrec > 12 && (ctx == null || !ctx.HasFlagsOrTraps)) {
+        if (expPrec > 12) {
           // Exponent that can't be compensated by digit
           // length without remaining higher than Int32.MaxValue
           if (expoffset < 0) {
-            return negative ? EFloat.NegativeZero : EFloat.Zero;
+            return SignalUnderflow(ctx, negative, zeroMantissa);
           } else {
-           return negative ? EFloat.NegativeInfinity : EFloat.PositiveInfinity;
+            return SignalOverflow(ctx, negative, zeroMantissa);
           }
         }
       }
@@ -764,7 +785,11 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
           mantissaLong != Int64.MaxValue && (ctx == null ||
 !ctx.HasFlagsOrTraps)) {
         if (mantissaLong == 0) {
-          return negative ? EFloat.NegativeZero : EFloat.Zero;
+          EFloat ef = EFloat.Create(EInteger.Zero, EInteger.FromInt32(expInt));
+          if (negative) {
+            ef = ef.Negate();
+          }
+          return ef.RoundToPrecision(ctx);
         }
         var finalexp = (long)expInt + (long)newScaleInt;
         long ml = mantissaLong;
@@ -794,9 +819,9 @@ if (negative) {
         }
         long adjexp = finalexp + (decimalPrec - 1);
         if (adjexp < -326) {
-          return negative ? EFloat.NegativeZero : EFloat.Zero;
+          return SignalUnderflow(ctx, negative, zeroMantissa);
         } else if (adjexp > 309) {
-          return negative ? EFloat.NegativeInfinity : EFloat.PositiveInfinity;
+          return SignalOverflow(ctx, negative, zeroMantissa);
         }
         if (negative) {
           mantissaLong = -mantissaLong;
@@ -811,10 +836,25 @@ if (finalexp < 0) {
   return ef1.Multiply(ef2, ctx);
 }
       }
-EInteger mant = null;
+      EInteger mant = null;
+      EInteger exp = (!haveExponent) ? EInteger.Zero :
+   EInteger.FromSubstring(str, expDigitStart, endStr);
+ if (expoffset < 0) {
+   exp = exp.Negate();
+ }
+exp = exp.Add(newScaleInt);
+if (nonzeroBeyondMax) {
+  exp = exp.Subtract(1);
+}
+EInteger adjExpUpper = exp.Add(decimalPrec).Subtract(1);
+if (adjExpUpper.CompareTo(-326) < 0) {
+  return SignalUnderflow(ctx, negative, zeroMantissa);
+} else if (exp.CompareTo(309) > 0) {
+  return SignalOverflow(ctx, negative, zeroMantissa);
+}
 if (decimalDigitStart != decimalDigitEnd) {
- string tmpstr = str.Substring(digitStart, digitEnd-digitStart)+
-    str.Substring(decimalDigitStart, decimalDigitEnd-decimalDigitStart);
+ string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
+    str.Substring(decimalDigitStart, decimalDigitEnd - decimalDigitStart);
  mant = EInteger.FromString(tmpstr);
 } else {
  mant = EInteger.FromSubstring(str, digitStart, digitEnd);
@@ -824,15 +864,6 @@ if (nonzeroBeyondMax) {
 }
 if (negative) {
   mant = mant.Negate();
-}
-EInteger exp = (!haveExponent) ? EInteger.Zero :
-   EInteger.FromSubstring(str, expDigitStart, endStr);
-if (expoffset< 0) {
-  exp = exp.Negate();
-}
-exp = exp.Add(newScaleInt);
-if (nonzeroBeyondMax) {
-  exp = exp.Subtract(1);
 }
 EInteger absexp = exp.Abs();
 ef1 = EFloat.Create(mant, 0);

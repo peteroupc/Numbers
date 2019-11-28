@@ -40,12 +40,13 @@ namespace PeterO.Numbers {
       if (traps == 0) {
         return result;
       }
+      // TODO: Give ETrapException access to all traps
       int mutexConditions = traps & (~(
             EContext.FlagClamped | EContext.FlagInexact | EContext.FlagRounded |
             EContext.FlagSubnormal));
       if (mutexConditions != 0) {
         for (var i = 0; i < 32; ++i) {
-          int flag = mutexConditions & (i << 1);
+          int flag = mutexConditions & (1 << i);
           if (flag != 0) {
             ThrowTrapException(flag, dst, result);
           }

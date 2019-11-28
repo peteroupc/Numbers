@@ -247,10 +247,10 @@ namespace Test {
     public static void ParseDecTests(
       string lines,
       bool checkFlags) {
-      if ((lines) == null) {
+      if (lines == null) {
         throw new ArgumentNullException(nameof(lines));
       }
-      string[] linearray=SplitAt(lines, "\n");
+      string[] linearray = SplitAt(lines, "\n");
       var context = new Dictionary<string, string>();
       foreach (var ln in linearray) {
         ParseDecTest(ln, context, checkFlags);
@@ -559,7 +559,7 @@ namespace Test {
           d3 = d1.Log10(ctx);
         } else if (op.Equals("power", StringComparison.Ordinal)) {
           if (d2a != null) {
-            //Console.WriteLine("Three-op power not yet supported");
+            // Console.WriteLine("Three-op power not yet supported");
             return;
           }
           d3 = d1.Pow(d2, ctx);
@@ -748,40 +748,43 @@ namespace Test {
     }
 
     public static string ContextToDecTestForm(EContext ec) {
-      string roundingstr="half_even";
-if (ec.Rounding == ERounding.Ceiling) {
-        roundingstr="ceiling";
+      string roundingstr = "half_even";
+      if (ec == null) {
+        throw new ArgumentNullException(nameof(ec));
       }
-if (ec.Rounding == ERounding.Floor) {
-        roundingstr="floor";
+      if (ec.Rounding == ERounding.Ceiling) {
+        roundingstr = "ceiling";
       }
-if (ec.Rounding == ERounding.Up) {
-        roundingstr="up";
+      if (ec.Rounding == ERounding.Floor) {
+        roundingstr = "floor";
       }
-if (ec.Rounding == ERounding.Down) {
-        roundingstr="down";
+      if (ec.Rounding == ERounding.Up) {
+        roundingstr = "up";
       }
-if (ec.Rounding == ERounding.HalfEven) {
-        roundingstr="half_even";
+      if (ec.Rounding == ERounding.Down) {
+        roundingstr = "down";
       }
-if (ec.Rounding == ERounding.HalfUp) {
-        roundingstr="half_up";
+      if (ec.Rounding == ERounding.HalfEven) {
+        roundingstr = "half_even";
       }
-if (ec.Rounding == ERounding.HalfDown) {
-        roundingstr="half_down";
+      if (ec.Rounding == ERounding.HalfUp) {
+        roundingstr = "half_up";
       }
-if (ec.Rounding == ERounding.OddOrZeroFiveUp) {
-        roundingstr="05up";
+      if (ec.Rounding == ERounding.HalfDown) {
+        roundingstr = "half_down";
       }
-      return "\nprecision: "+(ec.Precision.Sign == 0 ? "9999999" :
-ec.Precision.ToString())+
-        "\nrounding: "+roundingstr+
-        "\nmaxexponent: "+(ec.EMax.Sign == 0 ? "999999999999999" :
+      if (ec.Rounding == ERounding.OddOrZeroFiveUp) {
+        roundingstr = "05up";
+      }
+      return "\nprecision: " + (ec.Precision.Sign == 0 ? "9999999" :
+ec.Precision.ToString()) +
+        "\nrounding: "+roundingstr +
+        "\nmaxexponent: " + (ec.EMax.Sign == 0 ? "999999999999999" :
 ec.EMax.ToString()) +
-        "\nminexponent: "+(ec.EMin.Sign == 0 ? "-999999999999999" :
+        "\nminexponent: " + (ec.EMin.Sign == 0 ? "-999999999999999" :
 ec.EMin.ToString()) +
-        "\n# adjustexp: "+(ec.AdjustExponent ? "1" : "0") +
-        "\nextended: 1\nclamp: "+(ec.ClampNormalExponents ? "1" : "0") +
+        "\n# adjustexp: " +(ec.AdjustExponent ? "1" : "0") +
+        "\nextended: 1\nclamp: " +(ec.ClampNormalExponents ? "1" : "0") +
         "\n";
     }
 
@@ -790,31 +793,31 @@ if (flags == 0) {
   return String.Empty;
 }
       var sb = new System.Text.StringBuilder();
-if ((flags&EContext.FlagInexact) != 0) {
+if ((flags & EContext.FlagInexact) != 0) {
         sb.Append(" Inexact");
       }
-if ((flags&EContext.FlagRounded) != 0) {
+if ((flags & EContext.FlagRounded) != 0) {
         sb.Append(" Rounded");
       }
-if ((flags&EContext.FlagSubnormal) != 0) {
+if ((flags & EContext.FlagSubnormal) != 0) {
         sb.Append(" Subnormal");
       }
-if ((flags&EContext.FlagOverflow) != 0) {
+if ((flags & EContext.FlagOverflow) != 0) {
         sb.Append(" Overflow");
       }
-if ((flags&EContext.FlagUnderflow) != 0) {
+if ((flags & EContext.FlagUnderflow) != 0) {
         sb.Append(" Underflow");
       }
-if ((flags&EContext.FlagClamped) != 0) {
+if ((flags & EContext.FlagClamped) != 0) {
         sb.Append(" Clamped");
       }
-if ((flags&EContext.FlagInvalid) != 0) {
+if ((flags & EContext.FlagInvalid) != 0) {
         sb.Append(" Invalid");
       }
-if ((flags&EContext.FlagDivideByZero) != 0) {
+if ((flags & EContext.FlagDivideByZero) != 0) {
         sb.Append(" Divide_by_zero");
       }
-if ((flags&EContext.FlagLostDigits) != 0) {
+if ((flags & EContext.FlagLostDigits) != 0) {
         sb.Append(" Lost_digits");
       }
       return sb.ToString();

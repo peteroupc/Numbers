@@ -1358,6 +1358,9 @@ if (ctx != null) {
         decimalPrec -= zerorun;
         var nondec = 0;
         // NOTE: This check is apparently needed for correctness
+        if (ctx == null) {
+          throw new ArgumentNullException(nameof(ctx));
+        }
         if (ctx == null && (!ctx.HasMaxPrecision ||
           decimalPrec - ctx.Precision.ToInt32Checked() > zerorun)) {
           if (haveDecimalPoint) {
@@ -4834,8 +4837,8 @@ private static int CheckOverflowUnderflow(
         return ei.GetDigitCountAsEInteger();
       } else if (bi.CompareTo(2135) <= 0) {
         int ov = 1 + ((bi.ToInt32Checked() * 631305) >> 21);
-       return EInteger.FromInt32(ov - 2);
-     } else {
+        return EInteger.FromInt32(ov - 2);
+      } else {
        // Bit length is big enough that multiplying it by 100 and dividing by 335
        // will not
        // overestimate the true base-10 digit length.
@@ -4880,30 +4883,30 @@ private static int CheckOverflowUnderflow(
         return this.WithThisSign(EFloat.FromEInteger(bigintMant))
           .RoundToPrecision(ec);
       }
-      if (bigintExp.Abs().CompareTo(50) >= 0 && ec != null &&
-         ec.HasMaxPrecision && ec.HasExponentRange &&
-         !ec.IsSimplified &&
-         // !ec.HasFlagsOrTraps &&
-         ec.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
+      if (ec != null && ec.HasMaxPrecision && ec.HasExponentRange &&
+         !ec.IsSimplified && ec.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
          ec.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
          ec.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
           // Quick check for overflow or underflow
           EInteger adjexpLowerBound = bigintExp;
           EInteger adjexpUpperBound = bigintExp.Add(
              DigitCountUpperBound(bigintMant.Abs()).Subtract(1));
-          // DebugUtility.Log("adjexp " + adjexpLowerBound + " " + (adjexpUpperBound));
           if (adjexpUpperBound.CompareTo(-326) < 0) {
             // Underflow to zero
             EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
             eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
                          // trigger underflow
             EFloat ret = EFloat.Create(EInteger.One, eTiny);
-if (this.IsNegative) {
-  ret = ret.Negate();
-}
+            if (this.IsNegative) {
+              ret = ret.Negate();
+            }
             return ret.RoundToPrecision(ec);
-          } else if (adjexpLowerBound.CompareTo(309) < 0) {
+          } else if (adjexpLowerBound.CompareTo(309) > 0) {
             return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
+          }
+          EInteger digitsLowerBound = DigitCountLowerBound(bigintMant.Abs());
+          if (digitsLowerBound.CompareTo(800) > 0) {
+            return EFloat.FromString(this.ToString(), ec);
           }
       }
       if (bigintExp.Sign > 0) {
@@ -4937,7 +4940,7 @@ if (this.IsNegative) {
           bigmantissa = -(EInteger)bigmantissa;
         }
         EInteger negscale = -scale;
-        //DebugUtility.Log("scale=" + scale + " mantissaPrecision=" +
+        // DebugUtility.Log("scale=" + scale + " mantissaPrecision=" +
         // bigmantissa.GetDigitCountAsEInteger());
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
         EInteger desiredHigh;
@@ -4966,7 +4969,6 @@ if (this.IsNegative) {
         }
         // NOTE: Precision raised by 2 to accommodate rounding
         // to odd
-        // TODO: Improve performance of this part of code in 1.4 or later
         EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision.Add(2) :
           ec.Precision;
         desiredHigh = EInteger.One.ShiftLeft(valueEcPrec);

@@ -5311,14 +5311,14 @@ TestStringContextOne("666.66666666666666E+40", ec);
  private static long unoptTime = 0;
  private static long unoptRoundTime = 0;
  private static long optTime = 0;
-///*
+
  private static readonly System.Diagnostics.Stopwatch swUnopt = new
  System.Diagnostics.Stopwatch();
  private static readonly System.Diagnostics.Stopwatch swUnoptRound = new
  System.Diagnostics.Stopwatch();
  private static readonly System.Diagnostics.Stopwatch swOpt2 = new
  System.Diagnostics.Stopwatch();
- //*/
+ // */
  public static void TearDown() {
    if (unoptTime > 0) {
      Console.WriteLine("unoptTime = " + unoptTime + " ms");
@@ -5330,13 +5330,84 @@ TestStringContextOne("666.66666666666666E+40", ec);
    }
  }
 
+[Test]
+public void TestZerosRoundingNone() {
+  EContext ec = EContext.Unlimited.WithPrecision(11).WithExponentRange(15,
+  -14).WithRounding(
+  ERounding.None).WithAdjustExponent(
+  false).WithExponentClamp(
+  true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
+  string str = "0E+5936";
+  try {
+ EFloat.FromString(str, ec);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+}
+
+[Test]
+public void TestZerosRoundingNone4() {
+  EContext ec = EContext.Unlimited.WithPrecision(11).WithExponentRange(15,
+  -14).WithRounding(
+  ERounding.Ceiling).WithAdjustExponent(
+  true).WithExponentClamp(
+  true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
+  string str = "049E+20";
+  try {
+ EFloat.FromString(str, ec);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+}
+
+[Test]
+public void TestZerosRoundingNone3() {
+  EContext ec = EContext.Unlimited.WithPrecision(11).WithExponentRange(15,
+  -14).WithRounding(
+  ERounding.None).WithAdjustExponent(
+  false).WithExponentClamp(
+  true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
+  string str = "0.0000E+59398886";
+  try {
+ EFloat.FromString(str, ec);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+}
+
+[Test]
+public void TestZerosRoundingNone2() {
+  EContext ec = EContext.Unlimited.WithPrecision(16).WithExponentRange(384,
+  -383).WithRounding(
+  ERounding.None).WithAdjustExponent(
+  false).WithExponentClamp(
+  true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
+  string str = "10611050504843980E-1";
+  try {
+ EFloat.FromString(str, ec);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+}
+
 // Test potential cases where FromString is implemented
 // to take context into account when building the EDecimal
 public static void TestStringContextOne(string str, EContext ec) {
+if (ec == null) {
+  throw new ArgumentNullException(nameof(ec));
+}
+  EContext noneRounding = ec.WithRounding(
+  ERounding.None).WithTraps(EContext.FlagInvalid);
+  EContext downRounding = ec.WithRounding(ERounding.Down);
   EDecimal ed, ed2;
-  //Console.Write("TestStringContextOne ---- ec=" + (ec));
+  // Console.Write("TestStringContextOne ---- ec=" + (ec));
   // swUnopt.Restart();
   ed = EDecimal.FromString(str);
+  EDecimal edorig = ed;
   // swUnoptRound.Restart();
   ed = ed.RoundToPrecision(ec);
   /*
@@ -5357,11 +5428,42 @@ public static void TestStringContextOne(string str, EContext ec) {
     string edstr = ed.ToString();
     edstr = edstr.Substring(0, Math.Min(edstr.Length, 200)) +
       (edstr.Length > 200 ? "..." : String.Empty);
-    Console.WriteLine(bstr +"\nresult=" + edstr + "\n" + ec.ToString()
+    Console.WriteLine(bstr +"\nresult=" + edstr + "\n" + ECString(ec)
 +"\nunopt="+
          swUnopt.ElapsedMilliseconds+" ms; opt="+swOpt2.ElapsedMilliseconds);
    }
    */
+
+   EDecimal ef3 = EDecimal.NaN;
+   try {
+      ef3 = EDecimal.FromString(str, noneRounding);
+   } catch (ETrapException) {
+   // NOTE: Intentionally empty
+   }
+   EDecimal edef2=(
+     ec.Rounding == ERounding.Down ? ed2 : EDecimal.FromString(str,
+  downRounding));
+   if ((ef3 != null && !ef3.IsNaN()) && edorig != null &&
+edorig.CompareTo(edef2) != 0) {
+      Console.WriteLine("# ERounding.None fails to detect rounding was" +
+"\u0020necessary");
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
+  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+      Console.WriteLine("# ef3 = " + ef3.ToString());
+    } else if ((ef3 == null || ef3.IsNaN()) && edorig != null &&
+edorig.CompareTo(edef2) == 0) {
+      Console.WriteLine("# ERounding.None fails to detect rounding was" +
+"\u0020unnecessary");
+      Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
+  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+      Console.WriteLine("# ed = " + edorig);
+      Console.WriteLine("# edef2 = " + edef2);
+      Console.WriteLine("# ef3 = " + ef3.ToString());
+   }
+
   if (!ed.Equals(ed2)) {
     if (ec == null) {
       throw new ArgumentNullException(nameof(ec));
@@ -5373,66 +5475,116 @@ public static void TestStringContextOne(string str, EContext ec) {
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr+="# "+ecf.Precision+" / "+ec.Precision+"\r\n";
-      bstr+=DecTestUtil.ContextToDecTestForm(ecf);
-      bstr+="untitled toSci " + str + " -> " + ed.ToString() +
+      bstr += "# "+ecf.Precision+" / "+ec.Precision+"\r\n";
+      bstr += DecTestUtil.ContextToDecTestForm(ecf);
+      bstr += "untitled toSci " + str + " -> " + ed.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";
       str = ed2.ToString();
-      bstr+="# exponent: actual " + ed2.Exponent + ", expected " +
+      bstr += "# exponent: actual " + ed2.Exponent + ", expected " +
 ed.Exponent + "\n";
-      bstr+="# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
+      bstr += "# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
          (str.Length > 200 ? "..." : String.Empty);
        } else {
-      bstr+="# " + str.Substring(0, Math.Min(str.Length, 200)) +
+      bstr += "# " + str.Substring(0, Math.Min(str.Length, 200)) +
          (str.Length > 200 ? "..." : String.Empty);
-      bstr+="\n# " +ec.ToString();
+      bstr += "\n# " +ECString(ec);
     }
     throw new InvalidOperationException(bstr);
   }
 }
 
-    public static void Timeout(int duration, Action action, string msg) {
-  action(); return;
-    }
+public static string ECString(EContext ec) {
+  var sb = new System.Text.StringBuilder()
+    .Append("EContext.Unlimited");
+  if (ec == null) {
+    throw new ArgumentNullException(nameof(ec));
+  }
+  if (ec.HasMaxPrecision) {
+    sb.Append(".WithPrecision("+ec.Precision.ToString() +")");
+  }
+  if (ec.HasExponentRange) {
+    sb.Append(".WithExponentRange("+ec.EMax.ToString() +"," +
+"\u0020 "+ec.EMin.ToString() +")");
+  }
+  sb.Append(".WithRounding(ERounding."+ec.Rounding+")");
+  sb.Append(".WithAdjustExponent("+(ec.AdjustExponent ? "true" : "false") +")");
+  sb.Append(".WithExponentClamp(" + (ec.ClampNormalExponents ? "true" :
+"false") + ")");
+  sb.Append(".WithSimplified("+(ec.IsSimplified ? "true" : "false") +")");
+  if (ec.HasFlags) {
+    sb.Append(".WithBlankFlags()");
+  }
+  return sb.ToString();
+}
 
 // Test potential cases where FromString is implemented
-// to take context into account when building the EDecimal
+// to take context into account when building the EFloat
 public static void TestStringContextOneEFloat(string str, EContext ec) {
   EFloat ef = null, ef2 = null;
-  //Console.Write("TestStringContextOne ---- ec=" + (ec));
+  // Console.WriteLine("TestStringContextOne ---- ec=" + (ec));
   swUnopt.Restart();
-  Timeout(3000,()=>{ ef = EDecimal.FromString(str).ToEFloat(ec); },
-   "unopt" + str.Substring(0, Math.Min(str.Length, 200)) +
-      (str.Length > 200 ? "..." : String.Empty));
-
-  // swUnoptRound.Stop();
-   swUnopt.Stop();
-
-   string tomsg="opt "+str.Substring(0, Math.Min(str.Length, 200)) +
-      (str.Length > 200 ? "..." : String.Empty)+" "+ec.ToString();
-   swOpt2.Restart();
-  //*/
-  Timeout(3000, ()=> { ef2 = EFloat.FromString(str, ec); }, tomsg);
-
-   swOpt2.Stop();
-if (ef == null || ef2 == null) {
-  return;
+  EDecimal ed = null;
+if (ec == null) {
+  throw new ArgumentNullException(nameof(ec));
 }
-   unoptTime+=swUnopt.ElapsedMilliseconds;
-   unoptRoundTime+=swUnoptRound.ElapsedMilliseconds;
-   optTime+=swOpt2.ElapsedMilliseconds;
-   if (false && swUnopt.ElapsedMilliseconds>100 &&
-      swUnopt.ElapsedMilliseconds/4 <= swOpt2.ElapsedMilliseconds) {
+  EContext noneRounding = ec.WithRounding(
+  ERounding.None).WithTraps(EContext.FlagInvalid);
+  EContext downRounding = ec.WithRounding(ERounding.Down);
+  ed = EDecimal.FromString(str);
+  ef = ed.ToEFloat(ec);
+  // swUnoptRound.Stop();
+  swUnopt.Stop();
+  swOpt2.Restart();
+  // */
+  ef2 = EFloat.FromString(str, ec);
+  swOpt2.Stop();
+  EFloat ef3 = EFloat.NaN;
+  try {
+      ef3 = EFloat.FromString(str, noneRounding);
+   } catch (ETrapException) {
+   // NOTE: Intentionally empty
+   }
+   EDecimal edef2 =(ec.Rounding == ERounding.Down ?
+      ef2 : EFloat.FromString(str, downRounding)).ToEDecimal();
+    if (
+        (ef3 != null && !ef3.IsNaN()) && ed != null && ed.CompareTo(edef2)!=
+0) {
+      Console.WriteLine("# ERounding.None fails to detect rounding was" +
+"\u0020necessary");
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
+  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+      Console.WriteLine("# ef3 = " + ef3.ToString());
+    } else if ((ef3 == null || ef3.IsNaN()) && ed != null &&
+ed.CompareTo(edef2) == 0) {
+      Console.WriteLine("# ERounding.None fails to detect rounding was" +
+"\u0020unnecessary");
+      Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
+  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+      Console.WriteLine("# ed = " + ed);
+      Console.WriteLine("# edef2 = " + edef2);
+      Console.WriteLine("# ef3 = " + ef3.ToString());
+   }
+   if (ef == null || ef2 == null) {
+     return;
+   }
+   unoptTime += swUnopt.ElapsedMilliseconds;
+   unoptRoundTime += swUnoptRound.ElapsedMilliseconds;
+   optTime += swOpt2.ElapsedMilliseconds;
+   if (false && swUnopt.ElapsedMilliseconds > 100 &&
+      swUnopt.ElapsedMilliseconds / 4 <= swOpt2.ElapsedMilliseconds) {
     string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
       (str.Length > 200 ? "..." : String.Empty);
     string edstr = ef.ToString();
     edstr = edstr.Substring(0, Math.Min(edstr.Length, 200)) +
       (edstr.Length > 200 ? "..." : String.Empty);
-    Console.WriteLine(bstr +"\nresult=" + edstr + "\n" + ec.ToString()
-+"\nunopt="+
-         swUnopt.ElapsedMilliseconds+" ms; opt="+swOpt2.ElapsedMilliseconds);
+    Console.WriteLine(bstr + "\nresult=" + edstr + "\n" + ECString(ec)
++"\nunopt=" +
+         swUnopt.ElapsedMilliseconds+" ms; opt=" +swOpt2.ElapsedMilliseconds);
    }
-   //*/
+   // */
   if (ef.CompareTo(ef2) != 0) {
     if (ec == null) {
       throw new ArgumentNullException(nameof(ec));
@@ -5444,19 +5596,19 @@ if (ef == null || ef2 == null) {
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr+="# "+ecf.Precision+" / "+ec.Precision+"\r\n";
-      bstr+=DecTestUtil.ContextToDecTestForm(ecf);
-      bstr+="untitled toSci " + str + " -> " + ef.ToString() +
+      bstr += "# "+ecf.Precision+" / "+ec.Precision+"\r\n";
+      bstr += DecTestUtil.ContextToDecTestForm(ecf);
+      bstr += "untitled toSci " + str + " -> " + ef.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";
       str = ef2.ToString();
-      bstr+="# exponent: actual " + ef2.Exponent + ", expected " +
+      bstr += "# exponent: actual " + ef2.Exponent + ", expected " +
 ef.Exponent + "\n";
-      bstr+="# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
+      bstr += "# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
          (str.Length > 200 ? "..." : String.Empty);
        } else {
-      bstr+="# " + str.Substring(0, Math.Min(str.Length, 200)) +
+      bstr += "# " + str.Substring(0, Math.Min(str.Length, 200)) +
          (str.Length > 200 ? "..." : String.Empty);
-      bstr+="\n# " +ec.ToString();
+      bstr += "\n# " +ECString(ec);
     }
     throw new InvalidOperationException(bstr);
   }
@@ -5573,10 +5725,10 @@ DecTestUtil.ParseDecTests(
 [Test]
 public void TestRescaleInvalid() {
 var context = new Dictionary<string, string>();
-context["precision"]="9";
-context["rounding"]="half_up";
-context["maxexponent"]="96";
-context["minexponent"]="-96";
+context["precision"] = "9";
+context["rounding"] = "half_up";
+context["maxexponent"] = "96";
+context["minexponent"] = "-96";
 {
 string objectTemp = "rr rescale 12345678.9 -2 -> NaN" +
 " Invalid_operation";
@@ -5592,9 +5744,9 @@ DecTestUtil.ParseDecTest(objectTemp, context);
 [Test]
 public void TestStringContext() {
  Console.WriteLine("TestStringContextEFloat");
-TestStringContextEFloat();
+ TestStringContextEFloat();
  Console.WriteLine("TestStringContextEDecimal");
-TestStringContextEDecimal();
+ TestStringContextEDecimal();
 }
 
 public static void TestStringContextEDecimal() {
@@ -5632,7 +5784,7 @@ public static void TestStringContextEFloat() {
     EContext.Binary16.WithAdjustExponent(false),
     EContext.Binary16.WithExponentClamp(true),
     EContext.Binary16.WithExponentClamp(true).WithAdjustExponent(false),
-    //EContext.Unlimited.WithExponentRange(-64, 64),
+    // EContext.Unlimited.WithExponentRange(-64, 64),
   };
   TestStringContextCore(econtexts, true);
 }
@@ -5678,7 +5830,7 @@ public static void TestStringContextCore(EContext[] econtexts, bool efloat) {
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   var rand = new RandomGenerator();
   for (var i = 0; i < 1000; ++i) {
-    if (i%10 == 0) {
+    if (i % 10 == 0) {
       Console.WriteLine(i);
     }
     int precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
@@ -5705,15 +5857,18 @@ public static void TestStringContextCore(EContext[] econtexts, bool efloat) {
   } else {
      sb.Append(TestCommon.LongToString(exponent));
    }
+    if (econtexts == null) {
+     throw new ArgumentNullException(nameof(econtexts));
+   }
     for (var j = 0; j < econtexts.Length; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
       string sbs = sb.ToString();
-try {
+      try {
       if (efloat) {
         TestStringContextOneEFloat(sbs, ec);
       }
-    TestStringContextOne(sbs, ec);
+      TestStringContextOne(sbs, ec);
 } catch (InvalidOperationException ex) {
 }
     }
