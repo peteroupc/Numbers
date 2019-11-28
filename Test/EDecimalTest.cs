@@ -5401,8 +5401,8 @@ public static void TestStringContextOneEFloat(string str, EContext ec) {
   EFloat ef = null, ef2 = null;
   //Console.Write("TestStringContextOne ---- ec=" + (ec));
   swUnopt.Restart();
-  Timeout(3000,()=>{ ef = EDecimal.FromString(str).ToEFloat(ec); },"unopt
-"+str.Substring(0, Math.Min(str.Length, 200)) +
+  Timeout(3000,()=>{ ef = EDecimal.FromString(str).ToEFloat(ec); },
+   "unopt" + str.Substring(0, Math.Min(str.Length, 200)) +
       (str.Length > 200 ? "..." : String.Empty));
 
   // swUnoptRound.Stop();
