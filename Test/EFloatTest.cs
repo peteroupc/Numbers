@@ -1300,12 +1300,12 @@ for (var i = 0;i<strings.Count; ++i) {
     }
 
 private static void TestStringEFloatPrecisionOne(string str) {
- EFloat ef1=EDecimal.FromString(str).ToEFloat(EContext.Binary32);
- EFloat ef2=EFloat.FromString(str, EContext.Binary32);
+ EFloat ef1 = EDecimal.FromString(str).ToEFloat(EContext.Binary32);
+ EFloat ef2 = EFloat.FromString(str, EContext.Binary32);
  Console.WriteLine(OutputEF(ef1));
  Console.WriteLine(OutputEF(ef2));
- TestCommon.CompareTestLess(ef1.Mantissa.ToInt32Checked(), 1<<24);
- TestCommon.CompareTestLess(ef2.Mantissa.ToInt32Checked(), 1<<24);
+ TestCommon.CompareTestLess(ef1.Mantissa.ToInt32Checked(), 1 << 24);
+ TestCommon.CompareTestLess(ef2.Mantissa.ToInt32Checked(), 1 << 24);
 }
 
 [Test]
@@ -1313,10 +1313,9 @@ public void TestStringEFloatPrecision() {
  TestStringEFloatPrecisionOne("43260094.4962653487189790");
 }
 
-
     private static void TestStringToSingleOne(string str) {
       EDecimal ed = EDecimal.FromString(str);
-      if(ed.IsInfinity() || ed.IsNaN()) {
+      if (ed.IsInfinity() || ed.IsNaN()) {
         // Expected string to represent a finite number
         Assert.Fail(str);
       }
@@ -1330,8 +1329,8 @@ public void TestStringEFloatPrecision() {
         }
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
-             EInteger.FromInt32((1<<25)-1).ShiftLeft(103));
-        if (ed.Abs().CompareTo(half)<0) {
+             EInteger.FromInt32((1 << 25)-1).ShiftLeft(103));
+        if (ed.Abs().CompareTo(half)< 0) {
           string msg="str="+str+"\nef="+OutputEF(ef);
           Assert.Fail(msg);
         }
@@ -1346,11 +1345,11 @@ public void TestStringEFloatPrecision() {
           --exp;
           mant <<= 1;
         }
-        while (mant >= (1 >> 24) && (mant&1) == 0) {
-          exp++;
+        while (mant >= (1 >> 24) && (mant & 1) == 0) {
+          ++exp;
           mant >>= 1;
         }
-        Assert.IsTrue(mant<(1<<24));
+        Assert.IsTrue(mant<(1 << 24));
         EDecimal ulp = EDecimal.FromInt32(2).Pow(exp);
         EDecimal half = EDecimal.FromInt32(2).Pow(exp).Divide(2);
         EDecimal ulped = EDecimal.FromInt64(mant).Multiply(ulp);
@@ -1366,7 +1365,7 @@ public void TestStringEFloatPrecision() {
 
     private static void TestStringToDoubleOne(string str) {
       EDecimal ed = EDecimal.FromString(str);
-      if(ed.IsInfinity() || ed.IsNaN()) {
+      if (ed.IsInfinity() || ed.IsNaN()) {
         // Expected string to represent a finite number
         Assert.Fail(str);
       }
@@ -1380,8 +1379,8 @@ public void TestStringEFloatPrecision() {
         }
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
-             EInteger.FromInt64((1L<<54)-1).ShiftLeft(970));
-        if (ed.Abs().CompareTo(half)<0) {
+             EInteger.FromInt64((1L << 54)-1).ShiftLeft(970));
+        if (ed.Abs().CompareTo(half)< 0) {
           string msg="str="+str+"\nef="+OutputEF(ef);
           Assert.Fail(msg);
         }
@@ -1396,11 +1395,11 @@ public void TestStringEFloatPrecision() {
           --exp;
           mant <<= 1;
         }
-        while (mant >= (1L >> 53) && (mant&1) == 0) {
-          exp++;
+        while (mant >= (1L >> 53) && (mant & 1) == 0) {
+          ++exp;
           mant >>= 1;
         }
-        Assert.IsTrue(mant<(1L<<53));
+        Assert.IsTrue(mant<(1L << 53));
         EDecimal ulp = EDecimal.FromInt32(2).Pow(exp);
         EDecimal half = EDecimal.FromInt32(2).Pow(exp).Divide(2);
         EDecimal ulped = EDecimal.FromInt64(mant).Multiply(ulp);
@@ -1426,35 +1425,50 @@ public void TestStringToDoubleSubnormal() {
   Assert.IsTrue(Math.Abs(efd) > 0.0);
 }
 
-
+[Test]
+public void TestStringToDoubleManyDigits() {
+var rand = new RandomGenerator();
+for (var i = 0; i < 1000; ++i) {
+ var sb = new System.Text.StringBuilder();
+ int pointIndex = rand.UniformInt(1000);
+ for (var j = 0; j < 1000; ++j) {
+   if (j == pointIndex) {
+     sb.Append('.');
+   }
+   sb.Append((char)(0x30 + rand.UniformInt(10)));
+ }
+ string str = sb.ToString();
+ TestStringToDoubleSingleOne(str);
+ TestStringToDoubleSingleOne(str + "e" +
+    TestCommon.IntToString(rand.UniformInt(100) - 50));
+}
+}
 
 [Test]
 public void TestStringToDoubleExp() {
-var s1=new List<string>();
-var s2=new List<string>();
-for(var i=-304; i<=304; i++) {
- s1.Add(TestCommon.IntToString(i));
+var s1 = new List<string>();
+var s2 = new List<string>();
+for (var i=-304; i <= 304; ++i) {
+  s1.Add(TestCommon.IntToString(i));
 }
-for(var i=0; i<=1000; i++) {
- s2.Add(TestCommon.IntToString(i));
+for (var i = 0; i <= 1000; ++i) {
+  s2.Add(TestCommon.IntToString(i));
 }
-for(var i=0;i<s1.Count;i++) {
-for(var j=0;j<s2.Count;j++) {
+for (var i = 0;i<s1.Count; ++i) {
+  for (var j = 0;j<s2.Count; ++j) {
  TestStringToDoubleSingleOne(s2[j]+"e"+s1[i]);
 }
 }
 }
 
-
 [Test]
 public void TestIntStringToDouble() {
-for(var i=0;i<1000000;i++) {
+for (var i = 0; i < 1000000; ++i) {
  TestStringToDoubleSingleOne(TestCommon.IntToString(i));
  TestStringToDoubleSingleOne(TestCommon.IntToString(i) + ".0");
  TestStringToDoubleSingleOne(TestCommon.IntToString(i) + ".000");
 }
 }
-
 
     [Test]
     public void TestStringToDouble() {

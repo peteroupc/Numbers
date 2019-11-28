@@ -167,6 +167,10 @@ namespace PeterO.Numbers {
     TrappableRadixMath<EFloat>(
       new ExtendedOrSimpleRadixMath<EFloat>(new BinaryMathHelper()));
 
+    internal static IRadixMath<EFloat> GetMathValue() {
+      return MathValue;
+    }
+
     private readonly EInteger exponent;
     private readonly int flags;
     private readonly EInteger unsignedMantissa;
@@ -535,19 +539,18 @@ BigNumberFlags.FlagSignalingNaN);
     /// <param name='length'>The length, in code units, of the desired
     /// portion of <paramref name='str'/> (but not more than <paramref
     /// name='str'/> 's length).</param>
-    /// <param name='ctx'>The parameter <paramref name='ctx'/> is an
-    /// EContext object.</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. Can be null.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The portion given of <paramref
-    /// name='str'/> is not a correctly formatted number
-    /// string; or either <paramref
-    /// name='offset'/> or <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref name='
-    /// str'/> 's length minus <paramref name='offset'/> is less than
-    /// <paramref name='length'/>.</exception>
+    /// name='str'/> is not a correctly formatted number string; or either
+    /// <paramref name='offset'/> or <paramref name='length'/> is less than
+    /// 0 or greater than <paramref name='str'/> 's length, or <paramref
+    /// name=' str'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
     public static EFloat FromString(
       string str,
       int offset,
@@ -584,6 +587,7 @@ BigNumberFlags.FlagSignalingNaN);
          ctx.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
          ctx.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
          ctx.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
+        // TODO: Use for all rounding modes
         int tmpoffset = offset;
         int endpos = offset + length;
         if (length == 0) {
@@ -637,6 +641,7 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
       var zeroMantissa = false;
       var decimalPrec = 0;
       int decimalDigitEnd = i;
+      var nonzeroBeyondMax = false;
       var lastdigit = -1;
       if (str[i] == '+' || str[i] == '-') {
         if (str[i] == '-') {
@@ -648,8 +653,17 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
-          haveNonzeroDigit |= thisdigit != 0;
           haveDigits = true;
+          if (decimalPrec>768) {
+            // 768 is maximum precision of a decimal
+            // half-ULP in double format
+            if (thisdigit != 0) {
+              haveNonzeroDigit = true;
+              nonzeroBeyondMax = true;
+            }
+            continue;
+          }
+          haveNonzeroDigit |= thisdigit != 0;
           {
             lastdigit = thisdigit;
             if (haveNonzeroDigit) {
@@ -697,6 +711,7 @@ if (str[tmpoffset] =='-' || str[tmpoffset]=='+') {
       var expPrec = 0;
       zeroMantissa = haveNonzeroDigit;
       haveNonzeroDigit = false;
+      EFloat ef1, ef2;
       if (haveExponent) {
         haveDigits = false;
         if (i == endStr) {
@@ -787,8 +802,8 @@ if (negative) {
           mantissaLong = -mantissaLong;
         }
         long absfinalexp = Math.Abs(finalexp);
-        EFloat ef1 = EFloat.Create(mantissaLong, 0);
-        EFloat ef2 =
+        ef1 = EFloat.Create(mantissaLong, 0);
+        ef2 =
 EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
 if (finalexp < 0) {
   return ef1.Divide(ef2, ctx);
@@ -796,7 +811,37 @@ if (finalexp < 0) {
   return ef1.Multiply(ef2, ctx);
 }
       }
-      return null;
+EInteger mant = null;
+if (decimalDigitStart != decimalDigitEnd) {
+ string tmpstr = str.Substring(digitStart, digitEnd-digitStart)+
+    str.Substring(decimalDigitStart, decimalDigitEnd-decimalDigitStart);
+ mant = EInteger.FromString(tmpstr);
+} else {
+ mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+}
+if (nonzeroBeyondMax) {
+  mant = mant.Multiply(10).Add(1);
+}
+if (negative) {
+  mant = mant.Negate();
+}
+EInteger exp = (!haveExponent) ? EInteger.Zero :
+   EInteger.FromSubstring(str, expDigitStart, endStr);
+if (expoffset< 0) {
+  exp = exp.Negate();
+}
+exp = exp.Add(newScaleInt);
+if (nonzeroBeyondMax) {
+  exp = exp.Subtract(1);
+}
+EInteger absexp = exp.Abs();
+ef1 = EFloat.Create(mant, 0);
+ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
+if (exp.Sign < 0) {
+  return ef1.Divide(ef2, ctx);
+} else {
+  return ef1.Multiply(ef2, ctx);
+}
     }
 
     /// <summary>Creates a binary floating-point number from a text string

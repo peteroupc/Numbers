@@ -1348,7 +1348,7 @@ ctx.Rounding == ERounding.HalfUp)) {
         throw new FormatException();
       }
 /*
-if(ctx!=null){
+if (ctx != null) {
  DebugUtility.Log("zerorun=" + zerorun + " roundup=" + roundUp +
  ", haveIgnored="+haveIgnoredDigit +", decimalPrec=" + decimalPrec +
 ", ctx="+ctx);
@@ -1358,7 +1358,7 @@ if(ctx!=null){
         decimalPrec -= zerorun;
         var nondec = 0;
         // NOTE: This check is apparently needed for correctness
-        if (ctx==null && (!ctx.HasMaxPrecision ||
+        if (ctx == null && (!ctx.HasMaxPrecision ||
           decimalPrec - ctx.Precision.ToInt32Checked() > zerorun)) {
           if (haveDecimalPoint) {
             int decdigits = decimalDigitEnd - decimalDigitStart;
@@ -4811,13 +4811,45 @@ private static int CheckOverflowUnderflow(
       return this.IsNegative ? ef.Negate() : ef;
     }
 
+    private static EInteger DigitCountUpperBound(EInteger ei) {
+      EInteger bi = ei.GetUnsignedBitLengthAsEInteger();
+      if (bi.CompareTo(33) < 0) {
+        // Can easily be calculated without estimation
+        return ei.GetDigitCountAsEInteger();
+      } else if (bi.CompareTo(2135) <= 0) {
+       // May overestimate by 1
+       return EInteger.FromInt32(1 + ((bi.ToInt32Checked() *
+            631305) >> 21));
+      } else {
+        // Bit length is big enough that dividing it by 3 will not
+        // underestimate the true base-10 digit length.
+        return ei.Divide(3);
+      }
+    }
+
+    private static EInteger DigitCountLowerBound(EInteger ei) {
+      EInteger bi = ei.GetUnsignedBitLengthAsEInteger();
+      if (bi.CompareTo(33) < 0) {
+        // Can easily be calculated without estimation
+        return ei.GetDigitCountAsEInteger();
+      } else if (bi.CompareTo(2135) <= 0) {
+        int ov = 1 + ((bi.ToInt32Checked() * 631305) >> 21);
+       return EInteger.FromInt32(ov - 2);
+     } else {
+       // Bit length is big enough that multiplying it by 100 and dividing by 335
+       // will not
+       // overestimate the true base-10 digit length.
+        return ei.Multiply(100).Divide(335);
+      }
+    }
+
     /// <summary>Creates a binary floating-point number from this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
     /// case the resulting binary floating-point number will be an
     /// approximation of this decimal number's value.</summary>
-    /// <param name='ec'>The parameter <paramref name='ec'/> is an EContext
-    /// object.</param>
+    /// <param name='ec'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. Can be null.</param>
     /// <returns>An arbitrary-precision float floating-point
     /// number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -4847,6 +4879,32 @@ private static int CheckOverflowUnderflow(
         // DebugUtility.Log("Integer");
         return this.WithThisSign(EFloat.FromEInteger(bigintMant))
           .RoundToPrecision(ec);
+      }
+      if (bigintExp.Abs().CompareTo(50) >= 0 && ec != null &&
+         ec.HasMaxPrecision && ec.HasExponentRange &&
+         !ec.IsSimplified &&
+         // !ec.HasFlagsOrTraps &&
+         ec.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
+         ec.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
+         ec.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
+          // Quick check for overflow or underflow
+          EInteger adjexpLowerBound = bigintExp;
+          EInteger adjexpUpperBound = bigintExp.Add(
+             DigitCountUpperBound(bigintMant.Abs()).Subtract(1));
+          // DebugUtility.Log("adjexp " + adjexpLowerBound + " " + (adjexpUpperBound));
+          if (adjexpUpperBound.CompareTo(-326) < 0) {
+            // Underflow to zero
+            EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+            eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
+                         // trigger underflow
+            EFloat ret = EFloat.Create(EInteger.One, eTiny);
+if (this.IsNegative) {
+  ret = ret.Negate();
+}
+            return ret.RoundToPrecision(ec);
+          } else if (adjexpLowerBound.CompareTo(309) < 0) {
+            return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
+          }
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
@@ -4879,7 +4937,8 @@ private static int CheckOverflowUnderflow(
           bigmantissa = -(EInteger)bigmantissa;
         }
         EInteger negscale = -scale;
-        // DebugUtility.Log("" + negscale);
+        //DebugUtility.Log("scale=" + scale + " mantissaPrecision=" +
+        // bigmantissa.GetDigitCountAsEInteger());
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
         EInteger desiredHigh;
         EInteger desiredLow;

@@ -5311,14 +5311,14 @@ TestStringContextOne("666.66666666666666E+40", ec);
  private static long unoptTime = 0;
  private static long unoptRoundTime = 0;
  private static long optTime = 0;
-/*
+///*
  private static readonly System.Diagnostics.Stopwatch swUnopt = new
  System.Diagnostics.Stopwatch();
  private static readonly System.Diagnostics.Stopwatch swUnoptRound = new
  System.Diagnostics.Stopwatch();
  private static readonly System.Diagnostics.Stopwatch swOpt2 = new
  System.Diagnostics.Stopwatch();
- */
+ //*/
  public static void TearDown() {
    if (unoptTime > 0) {
      Console.WriteLine("unoptTime = " + unoptTime + " ms");
@@ -5380,6 +5380,77 @@ DecTestUtil.FlagsToString(ecf.Flags) + "\n";
       str = ed2.ToString();
       bstr+="# exponent: actual " + ed2.Exponent + ", expected " +
 ed.Exponent + "\n";
+      bstr+="# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
+         (str.Length > 200 ? "..." : String.Empty);
+       } else {
+      bstr+="# " + str.Substring(0, Math.Min(str.Length, 200)) +
+         (str.Length > 200 ? "..." : String.Empty);
+      bstr+="\n# " +ec.ToString();
+    }
+    throw new InvalidOperationException(bstr);
+  }
+}
+
+    public static void Timeout(int duration, Action action, string msg) {
+  action(); return;
+    }
+
+// Test potential cases where FromString is implemented
+// to take context into account when building the EDecimal
+public static void TestStringContextOneEFloat(string str, EContext ec) {
+  EFloat ef = null, ef2 = null;
+  //Console.Write("TestStringContextOne ---- ec=" + (ec));
+  swUnopt.Restart();
+  Timeout(3000,()=>{ ef = EDecimal.FromString(str).ToEFloat(ec); },"unopt
+"+str.Substring(0, Math.Min(str.Length, 200)) +
+      (str.Length > 200 ? "..." : String.Empty));
+
+  // swUnoptRound.Stop();
+   swUnopt.Stop();
+
+   string tomsg="opt "+str.Substring(0, Math.Min(str.Length, 200)) +
+      (str.Length > 200 ? "..." : String.Empty)+" "+ec.ToString();
+   swOpt2.Restart();
+  //*/
+  Timeout(3000, ()=> { ef2 = EFloat.FromString(str, ec); }, tomsg);
+
+   swOpt2.Stop();
+if (ef == null || ef2 == null) {
+  return;
+}
+   unoptTime+=swUnopt.ElapsedMilliseconds;
+   unoptRoundTime+=swUnoptRound.ElapsedMilliseconds;
+   optTime+=swOpt2.ElapsedMilliseconds;
+   if (false && swUnopt.ElapsedMilliseconds>100 &&
+      swUnopt.ElapsedMilliseconds/4 <= swOpt2.ElapsedMilliseconds) {
+    string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
+      (str.Length > 200 ? "..." : String.Empty);
+    string edstr = ef.ToString();
+    edstr = edstr.Substring(0, Math.Min(edstr.Length, 200)) +
+      (edstr.Length > 200 ? "..." : String.Empty);
+    Console.WriteLine(bstr +"\nresult=" + edstr + "\n" + ec.ToString()
++"\nunopt="+
+         swUnopt.ElapsedMilliseconds+" ms; opt="+swOpt2.ElapsedMilliseconds);
+   }
+   //*/
+  if (ef.CompareTo(ef2) != 0) {
+    if (ec == null) {
+      throw new ArgumentNullException(nameof(ec));
+    }
+    if (str == null) {
+      throw new ArgumentNullException(nameof(str));
+    }
+    string bstr = String.Empty;
+    if (ec.HasMaxPrecision) {
+      EContext ecf = ec.WithBlankFlags();
+      EDecimal.FromString(str).RoundToPrecision(ecf);
+      bstr+="# "+ecf.Precision+" / "+ec.Precision+"\r\n";
+      bstr+=DecTestUtil.ContextToDecTestForm(ecf);
+      bstr+="untitled toSci " + str + " -> " + ef.ToString() +
+DecTestUtil.FlagsToString(ecf.Flags) + "\n";
+      str = ef2.ToString();
+      bstr+="# exponent: actual " + ef2.Exponent + ", expected " +
+ef.Exponent + "\n";
       bstr+="# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
          (str.Length > 200 ? "..." : String.Empty);
        } else {
@@ -5458,6 +5529,15 @@ public void TestLeadingTrailingPoint() {
 }
 
 [Test]
+public void TestStringContextSpecificEFloat1() {
+  var sb = new StringBuilder();
+  EContext ec = EContext.Basic.WithPrecision(53).WithExponentClamp(true)
+    .WithAdjustExponent(true).WithExponentRange(-1022, 1023)
+    .WithRounding(ERounding.Up);
+  TestStringContextOne("73007936310086.7E-383", ec);
+}
+
+[Test]
 public void TestStringContextSpecific5() {
   var sb = new StringBuilder();
   EContext ec = EContext.Basic.WithPrecision(7).WithExponentClamp(true)
@@ -5511,7 +5591,13 @@ DecTestUtil.ParseDecTest(objectTemp, context);
 
 [Test]
 public void TestStringContext() {
-  var failures = 0;
+ Console.WriteLine("TestStringContextEFloat");
+TestStringContextEFloat();
+ Console.WriteLine("TestStringContextEDecimal");
+TestStringContextEDecimal();
+}
+
+public static void TestStringContextEDecimal() {
   EContext[] econtexts = {
     EContext.Basic,
     EContext.Basic.WithExponentRange(-95, 96),
@@ -5530,6 +5616,29 @@ public void TestStringContext() {
     EContext.Decimal64.WithAdjustExponent(false),
     EContext.Unlimited.WithExponentRange(-64, 64),
   };
+  TestStringContextCore(econtexts, false);
+}
+
+public static void TestStringContextEFloat() {
+  EContext[] econtexts = {
+    EContext.Binary64,
+    EContext.Binary64.WithExponentRange(-95, 96),
+    EContext.Binary64.WithAdjustExponent(false),
+    EContext.Binary32,
+    EContext.Binary32.WithAdjustExponent(false),
+    EContext.Binary32.WithExponentClamp(true),
+    EContext.Binary32.WithExponentClamp(true).WithAdjustExponent(false),
+    EContext.Binary16,
+    EContext.Binary16.WithAdjustExponent(false),
+    EContext.Binary16.WithExponentClamp(true),
+    EContext.Binary16.WithExponentClamp(true).WithAdjustExponent(false),
+    //EContext.Unlimited.WithExponentRange(-64, 64),
+  };
+  TestStringContextCore(econtexts, true);
+}
+
+// TODO: Add tests for None rounding mode
+public static void TestStringContextCore(EContext[] econtexts, bool efloat) {
   ERounding[] roundings = {
     ERounding.Down, ERounding.Up,
     ERounding.OddOrZeroFiveUp, ERounding.HalfUp,
@@ -5568,7 +5677,10 @@ public void TestStringContext() {
   };
   string[] digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   var rand = new RandomGenerator();
-  for (var i = 0; i < 5000 && failures < 100; ++i) {
+  for (var i = 0; i < 1000; ++i) {
+    if (i%10 == 0) {
+      Console.WriteLine(i);
+    }
     int precRange = rand.UniformInt(precisionRanges.Length / 2) * 2;
     int exponent = exponents[rand.UniformInt(exponents.Length)];
     int prec = precisionRanges[precRange] +
@@ -5593,22 +5705,20 @@ public void TestStringContext() {
   } else {
      sb.Append(TestCommon.LongToString(exponent));
    }
-    for (var j = 0; j < econtexts.Length && failures < 100; ++j) {
+    for (var j = 0; j < econtexts.Length; ++j) {
       ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
       EContext ec = econtexts[j].WithRounding(rounding);
       string sbs = sb.ToString();
-      try {
-      TestStringContextOne(sbs, ec);
+try {
+      if (efloat) {
+        TestStringContextOneEFloat(sbs, ec);
+      }
+    TestStringContextOne(sbs, ec);
 } catch (InvalidOperationException ex) {
-     ++failures;
-     int spos = Math.Max(0, sbs.Length - 20);
-     Console.WriteLine(ex.Message); }
+}
     }
   }
   TearDown();
-if (failures>0) {
-    Assert.Fail("Failures: " + (failures));
-  }
 }
   }
 }
