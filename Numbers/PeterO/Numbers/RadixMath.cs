@@ -5143,10 +5143,6 @@ otherValue;
       if (doRounding) {
         if (!bigmantissa.IsValueZero) {
           flags |= EContext.FlagRounded;
-          if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
-"\u0020(2)");
-          }
         }
         bigmantissa = FastIntegerFixed.FromFastInteger(accum.ShiftedIntFast);
         if ((accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0) {
@@ -5450,12 +5446,11 @@ otherValue;
       if (this.support == BigNumberFlags.FiniteOnly) {
         throw new ArithmeticException(str);
       }
-      // TODO: Temporary
-      if (str.IndexOf("Rounding was") < 0) {
-        throw new ArithmeticException(str);
-      } else {
-       // DebugUtility.Log(str);
-      }
+      // if (str.IndexOf("Rounding was") < 0) {
+      // throw new ArithmeticException(str);
+      // } else {
+      // DebugUtility.Log(str);
+      // }
       return this.helper.CreateNewWithFlags(
         EInteger.Zero,
         EInteger.Zero,

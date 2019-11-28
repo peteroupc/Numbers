@@ -539,8 +539,7 @@ BigNumberFlags.FlagSignalingNaN);
     /// <param name='length'>The length, in code units, of the desired
     /// portion of <paramref name='str'/> (but not more than <paramref
     /// name='str'/> 's length).</param>
-    /// <param name='ctx'>An arithmetic context to control the precision,
-    /// rounding, and exponent range of the result. Can be null.</param>
+    /// <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -588,7 +587,7 @@ BigNumberFlags.FlagSignalingNaN);
         if (length == 0) {
           throw new FormatException();
         }
-        if (str[tmpoffset] == '-' || str[tmpoffset]=='+') {
+        if (str[tmpoffset] == '-' || str[tmpoffset] =='+') {
           ++tmpoffset;
         }
         if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
@@ -842,10 +841,10 @@ if (finalexp < 0) {
  if (expoffset < 0) {
    exp = exp.Negate();
  }
-exp = exp.Add(newScaleInt);
-if (nonzeroBeyondMax) {
-  exp = exp.Subtract(1);
-}
+ exp = exp.Add(newScaleInt);
+ if (nonzeroBeyondMax) {
+   exp = exp.Subtract(1);
+ }
 EInteger adjExpUpper = exp.Add(decimalPrec).Subtract(1);
 if (adjExpUpper.CompareTo(-326) < 0) {
   return SignalUnderflow(ctx, negative, zeroMantissa);
@@ -897,9 +896,7 @@ if (exp.Sign < 0) {
     /// <c>FromString(String, int, int, EContext)</c> method.</summary>
     /// <param name='str'>A text string to convert to a binary
     /// floating-point number.</param>
-    /// <param name='ctx'>An arithmetic context specifying the precision,
-    /// rounding, and exponent range to apply to the parsed number. Can be
-    /// null.</param>
+    /// <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -3291,9 +3288,10 @@ if (exp.Sign < 0) {
     /// <summary>Returns a string representation of this number's value
     /// after rounding to the given precision (using the given arithmetic
     /// context). If the number after rounding is neither infinity nor
-    /// not-a-number (NaN), returns the shortest decimal form (in terms of
-    /// nonzero decimal digits) of this number's value that results in the
-    /// rounded number after the decimal form is converted to binary
+    /// not-a-number (NaN), returns the shortest decimal form of this
+    /// number's value (in terms of decimal digits starting with the first
+    /// nonzero digit and ending with the last nonzero digit) that results
+    /// in the rounded number after the decimal form is converted to binary
     /// floating-point format (using the given arithmetic
     /// context).</summary>
     /// <param name='ctx'>An arithmetic context to control precision (in
@@ -3305,9 +3303,11 @@ if (exp.Sign < 0) {
     /// ToString() method.</param>
     /// <returns>Shortest decimal form of this number's value for the given
     /// arithmetic context. The text string will be in exponential notation
-    /// if the number's first nonzero decimal digit is more than five
-    /// digits after the decimal point, or if the number's exponent is
-    /// greater than 0 and its value is 10, 000, 000 or greater.</returns>
+    /// (expressed as a number 1 or greater, but less than 10, times a
+    /// power of 10) if the number's first nonzero decimal digit is more
+    /// than five digits after the decimal point, or if the number's
+    /// exponent is greater than 0 and its value is 10, 000, 000 or
+    /// greater.</returns>
     public string ToShortestString(EContext ctx) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return this.ToString();
@@ -3364,9 +3364,15 @@ if (exp.Sign < 0) {
         EDecimal nextDec = dec.RoundToPrecision(nextCtx);
         EFloat newFloat = nextDec.ToEFloat(ctx2);
         if (newFloat.CompareTo(valueEfRnd) == 0) {
-          if (mantissaIsPowerOfTwo) {
+          if (mantissaIsPowerOfTwo && eprecision.Sign > 0) {
             nextPrecision = eprecision;
             nextCtx = ctx2.WithBigPrecision(nextPrecision);
+            #if DEBUG
+            if (!nextCtx.HasMaxPrecision) {
+              throw new InvalidOperationException("mant="+this.Mantissa + 
+"," + "\u0020 exp=" + this.Exponent);
+            }
+            #endif
             EDecimal nextDec2 = dec.RoundToPrecision(nextCtx);
             nextDec2 = nextDec2.NextPlus(nextCtx);
             newFloat = nextDec2.ToEFloat(ctx2);
@@ -3472,10 +3478,11 @@ if (exp.Sign < 0) {
     /// <summary>Converts this number's value to a text string.</summary>
     /// <returns>A string representation of this object. The value is
     /// converted to decimal and the decimal form of this number's value is
-    /// returned. The text string will be in exponential notation if the
-    /// converted number's scale is positive or if the number's first
-    /// nonzero decimal digit is more than five digits after the decimal
-    /// point.</returns>
+    /// returned. The text string will be in exponential notation
+    /// (expressed as a number 1 or greater, but less than 10, times a
+    /// power of 10) if the converted number's scale is positive or if the
+    /// number's first nonzero decimal digit is more than five digits after
+    /// the decimal point.</returns>
     public override string ToString() {
       return EDecimal.FromEFloat(this).ToString();
     }

@@ -778,13 +778,13 @@ namespace Test {
       }
       return "\nprecision: " + (ec.Precision.Sign == 0 ? "9999999" :
 ec.Precision.ToString()) +
-        "\nrounding: "+roundingstr +
+        "\nrounding: " + roundingstr +
         "\nmaxexponent: " + (ec.EMax.Sign == 0 ? "999999999999999" :
 ec.EMax.ToString()) +
         "\nminexponent: " + (ec.EMin.Sign == 0 ? "-999999999999999" :
 ec.EMin.ToString()) +
-        "\n# adjustexp: " +(ec.AdjustExponent ? "1" : "0") +
-        "\nextended: 1\nclamp: " +(ec.ClampNormalExponents ? "1" : "0") +
+        "\n# adjustexp: " + (ec.AdjustExponent ? "1" : "0") +
+        "\nextended: 1\nclamp: " + (ec.ClampNormalExponents ? "1" : "0") +
         "\n";
     }
 

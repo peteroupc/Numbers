@@ -5441,9 +5441,9 @@ if (ec == null) {
    // NOTE: Intentionally empty
    }
    EDecimal edef2=(
-     ec.Rounding == ERounding.Down ? ed2 : EDecimal.FromString(str,
+      ec.Rounding == ERounding.Down ? ed2 : EDecimal.FromString(str,
   downRounding));
-   if ((ef3 != null && !ef3.IsNaN()) && edorig != null &&
+  if ((ef3 != null && !ef3.IsNaN()) && edorig != null &&
 edorig.CompareTo(edef2) != 0) {
       Console.WriteLine("# ERounding.None fails to detect rounding was" +
 "\u0020necessary");
@@ -5451,14 +5451,19 @@ edorig.CompareTo(edef2) != 0) {
         throw new ArgumentNullException(nameof(str));
       }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+ECString(ec));
       Console.WriteLine("# ef3 = " + ef3.ToString());
     } else if ((ef3 == null || ef3.IsNaN()) && edorig != null &&
 edorig.CompareTo(edef2) == 0) {
       Console.WriteLine("# ERounding.None fails to detect rounding was" +
 "\u0020unnecessary");
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+ECString(ec));
       Console.WriteLine("# ed = " + edorig);
       Console.WriteLine("# edef2 = " + edef2);
       Console.WriteLine("# ef3 = " + ef3.ToString());
@@ -5475,7 +5480,7 @@ edorig.CompareTo(edef2) == 0) {
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr += "# "+ecf.Precision+" / "+ec.Precision+"\r\n";
+      bstr += "# "+ecf.Precision+" / "+ec.Precision + "\r\n";
       bstr += DecTestUtil.ContextToDecTestForm(ecf);
       bstr += "untitled toSci " + str + " -> " + ed.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";
@@ -5487,7 +5492,7 @@ ed.Exponent + "\n";
        } else {
       bstr += "# " + str.Substring(0, Math.Min(str.Length, 200)) +
          (str.Length > 200 ? "..." : String.Empty);
-      bstr += "\n# " +ECString(ec);
+      bstr += "\n# " + ECString(ec);
     }
     throw new InvalidOperationException(bstr);
   }
@@ -5500,19 +5505,23 @@ public static string ECString(EContext ec) {
     throw new ArgumentNullException(nameof(ec));
   }
   if (ec.HasMaxPrecision) {
-    sb.Append(".WithPrecision("+ec.Precision.ToString() +")");
+    sb.Append(".WithPrecision(" +ec.Precision.ToString() + ")");
   }
   if (ec.HasExponentRange) {
-    sb.Append(".WithExponentRange("+ec.EMax.ToString() +"," +
-"\u0020 "+ec.EMin.ToString() +")");
+    sb.Append(".WithExponentRange(" + ec.EMax.ToString() + "," +
+"\u0020" + ec.EMin.ToString() + ")");
   }
-  sb.Append(".WithRounding(ERounding."+ec.Rounding+")");
-  sb.Append(".WithAdjustExponent("+(ec.AdjustExponent ? "true" : "false") +")");
+  sb.Append(".WithRounding(ERounding."+ec.Rounding + ")");
+  sb.Append(".WithAdjustExponent(" +(ec.AdjustExponent ? "true" : "false") +
+")");
   sb.Append(".WithExponentClamp(" + (ec.ClampNormalExponents ? "true" :
 "false") + ")");
-  sb.Append(".WithSimplified("+(ec.IsSimplified ? "true" : "false") +")");
+  sb.Append(".WithSimplified(" +(ec.IsSimplified ? "true" : "false") + ")");
   if (ec.HasFlags) {
     sb.Append(".WithBlankFlags()");
+  }
+  if (ec.Traps != 0) {
+    sb.Append(".WithTraps(" + TestCommon.IntToString(ec.Traps) + ")");
   }
   return sb.ToString();
 }
@@ -5524,9 +5533,9 @@ public static void TestStringContextOneEFloat(string str, EContext ec) {
   // Console.WriteLine("TestStringContextOne ---- ec=" + (ec));
   swUnopt.Restart();
   EDecimal ed = null;
-if (ec == null) {
-  throw new ArgumentNullException(nameof(ec));
-}
+  if (ec == null) {
+    throw new ArgumentNullException(nameof(ec));
+  }
   EContext noneRounding = ec.WithRounding(
   ERounding.None).WithTraps(EContext.FlagInvalid);
   EContext downRounding = ec.WithRounding(ERounding.Down);
@@ -5544,10 +5553,10 @@ if (ec == null) {
    } catch (ETrapException) {
    // NOTE: Intentionally empty
    }
-   EDecimal edef2 =(ec.Rounding == ERounding.Down ?
+   EDecimal edef2 = (ec.Rounding == ERounding.Down ?
       ef2 : EFloat.FromString(str, downRounding)).ToEDecimal();
     if (
-        (ef3 != null && !ef3.IsNaN()) && ed != null && ed.CompareTo(edef2)!=
+        (ef3 != null && !ef3.IsNaN()) && ed != null && ed.CompareTo(edef2) !=
 0) {
       Console.WriteLine("# ERounding.None fails to detect rounding was" +
 "\u0020necessary");
@@ -5555,14 +5564,19 @@ if (ec == null) {
         throw new ArgumentNullException(nameof(str));
       }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+ECString(ec));
       Console.WriteLine("# ef3 = " + ef3.ToString());
     } else if ((ef3 == null || ef3.IsNaN()) && ed != null &&
 ed.CompareTo(edef2) == 0) {
       Console.WriteLine("# ERounding.None fails to detect rounding was" +
 "\u0020unnecessary");
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty)+"\n# ec = " +ECString(ec));
+  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+ECString(ec));
       Console.WriteLine("# ed = " + ed);
       Console.WriteLine("# edef2 = " + edef2);
       Console.WriteLine("# ef3 = " + ef3.ToString());
@@ -5580,9 +5594,9 @@ ed.CompareTo(edef2) == 0) {
     string edstr = ef.ToString();
     edstr = edstr.Substring(0, Math.Min(edstr.Length, 200)) +
       (edstr.Length > 200 ? "..." : String.Empty);
-    Console.WriteLine(bstr + "\nresult=" + edstr + "\n" + ECString(ec)
-+"\nunopt=" +
-         swUnopt.ElapsedMilliseconds+" ms; opt=" +swOpt2.ElapsedMilliseconds);
+    Console.WriteLine(bstr + "\nresult=" + edstr + "\n" + ECString(ec)+
+"\nunopt=" +
+         swUnopt.ElapsedMilliseconds +" ms; opt=" + swOpt2.ElapsedMilliseconds);
    }
    // */
   if (ef.CompareTo(ef2) != 0) {
@@ -5596,7 +5610,7 @@ ed.CompareTo(edef2) == 0) {
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr += "# "+ecf.Precision+" / "+ec.Precision+"\r\n";
+      bstr += "# "+ecf.Precision+" / "+ec.Precision + "\r\n";
       bstr += DecTestUtil.ContextToDecTestForm(ecf);
       bstr += "untitled toSci " + str + " -> " + ef.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";
@@ -5608,7 +5622,7 @@ ef.Exponent + "\n";
        } else {
       bstr += "# " + str.Substring(0, Math.Min(str.Length, 200)) +
          (str.Length > 200 ? "..." : String.Empty);
-      bstr += "\n# " +ECString(ec);
+      bstr += "\n# " + ECString(ec);
     }
     throw new InvalidOperationException(bstr);
   }
