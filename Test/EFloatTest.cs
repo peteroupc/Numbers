@@ -305,18 +305,18 @@ for (var i = 0; i < 10000; ++i) {
 var eflist1 = new List<EFloat>();
 var eflist2 = new List<EFloat>();
 EContext ec = EContext.Binary64;
-var sw = new System.Diagnostics.Stopwatch();
-sw.Restart();
+// var sw = new System.Diagnostics.Stopwatch();
+// sw.Restart();
 for (var i = 0; i < strings.Count; ++i) {
   eflist1.Add(EDecimal.FromString(strings[i]).ToEFloat(ec));
 }
-long em = sw.ElapsedMilliseconds;
-sw.Restart();
+// long em = sw.ElapsedMilliseconds;
+// sw.Restart();
 for (var i = 0; i < strings.Count; ++i) {
   eflist2.Add(EFloat.FromString(strings[i], ec));
 }
-long em2 = sw.ElapsedMilliseconds;
-Console.WriteLine("EFloat FS={0} ms\nDouble FS={1} ms", em, em2);
+// long em2 = sw.ElapsedMilliseconds;
+// Console.WriteLine("EFloat FS={0} ms\nDouble FS={1} ms", em, em2);
 for (var i = 0; i < strings.Count; ++i) {
   TestCommon.CompareTestEqual(eflist1[i], eflist2[i], strings[i]);
 }
@@ -1339,24 +1339,24 @@ public void TestStringEFloatPrecision() {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
         ERational half = PowerOfTwo(-149).Divide(2);
         if (half.CompareToDecimal(ed.Abs()) < 0) {
-          string msg = "str="+str +"\nef=" + OutputEF(ef);
+          string msg = "str=" +str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
         }
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
              EInteger.FromInt32((1 << 25) - 1).ShiftLeft(103));
         if (ed.Abs().CompareTo(half) < 0) {
-          string msg = "str="+str +"\nef=" + OutputEF(ef);
+          string msg = "str=" +str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
         }
       } else if (ef.IsNaN()) {
-        string msg = "str="+str +"\nef=" + OutputEF(ef);
+        string msg = "str=" +str + "\nef=" + OutputEF(ef);
         Assert.Fail(msg);
       } else {
         if (ed.IsNegative != ef.IsNegative) {
            Assert.IsTrue(
              ed.IsNegative == ef.IsNegative,
-             ed+"\nef="+ef+"\nstr=" + str);
+             ed+"\nef="+ef + "\nstr=" + str);
         }
         long mant = ef.Abs().Mantissa.ToInt64Checked();
         int exp = ef.Exponent.ToInt32Checked();
@@ -1375,9 +1375,9 @@ public void TestStringEFloatPrecision() {
         ERational efe = ulped.Subtract(ERational.FromEDecimal(ed).Abs());
         Assert.IsTrue(!efe.IsNaN());
         if (half.CompareTo(efe) < 0) {
-          string msg = "str="+str+"\nef=" + OutputEF(ef) +
-            "\nmant="+mant+"\nexp="+exp + "\nulped=" + ulped +
-            "\nhalf=" +half + "\nefe=" + efe;
+          string msg = "str="+str + "\nef=" + OutputEF(ef) +
+            "\nmant="+mant+"\nexp=" + exp + "\nulped=" + ulped +
+            "\nhalf=" + half + "\nefe=" + efe;
           Assert.Fail(msg);
         }
       }
@@ -1396,18 +1396,18 @@ public void TestStringEFloatPrecision() {
             EInteger.One,
             EInteger.FromInt32(2).Pow(1074)).Divide(2);
         if (half.CompareToDecimal(ed.Abs()) < 0) {
-          string msg = "str="+str +"\nef=" + OutputEF(ef);
+          string msg = "str=" +str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
         }
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
              EInteger.FromInt64((1L << 54) - 1).ShiftLeft(970));
         if (ed.Abs().CompareTo(half) < 0) {
-          string msg = "str="+str +"\nef=" + OutputEF(ef);
+          string msg = "str=" +str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
         }
       } else if (ef.IsNaN()) {
-        string msg = "str="+str +"\nef=" + OutputEF(ef);
+        string msg = "str=" +str + "\nef=" + OutputEF(ef);
         Assert.Fail(msg);
       } else {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
@@ -1428,8 +1428,8 @@ public void TestStringEFloatPrecision() {
         ERational efe = ulped.Subtract(ERational.FromEDecimal(ed).Abs());
         Assert.IsTrue(!efe.IsNaN());
         if (half.CompareTo(efe) < 0) {
-          string msg = "str="+str+"\nef=" + OutputEF(ef) +
-            "\nmant=" +mant + "\nexp=" + exp;
+          string msg = "str="+str + "\nef=" + OutputEF(ef) +
+            "\nmant=" + mant + "\nexp=" + exp;
           Assert.Fail(msg);
         }
       }

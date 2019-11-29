@@ -300,13 +300,13 @@ namespace PeterO.Numbers {
         return ed.Add(ed2, ec);
       }
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       EInteger scale = ed2.Mantissa;
       if (ec != null && ec.HasMaxPrecision && ec.HasExponentRange) {
         EInteger exp = ec.EMax.Add(ec.Precision).Multiply(2);
         if (scale.Abs().CompareTo(exp.Abs()) > 0) {
-          return InvalidOperation(EFloat.NaN, ec);
+          return InvalidOperation(ec);
         }
       }
       if (ed.IsInfinity()) {
@@ -355,12 +355,12 @@ namespace PeterO.Numbers {
         return ed.Add(ed2, ec);
       }
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       EInteger shift = ed2.Mantissa;
       if (ec != null) {
         if (shift.Abs().CompareTo(ec.Precision) > 0) {
-          return InvalidOperation(EFloat.NaN, ec);
+          return InvalidOperation(ec);
         }
       }
       if (ed.IsInfinity()) {
@@ -436,11 +436,11 @@ namespace PeterO.Numbers {
         return ed.Add(ed2, ec);
       }
       if (!ed2.IsFinite || ed2.Exponent.Sign != 0) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       EInteger shift = ed2.Mantissa;
       if (shift.Abs().CompareTo(ec.Precision) > 0) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       if (ed.IsInfinity()) {
         // NOTE: Must check for validity of second
@@ -628,16 +628,8 @@ namespace PeterO.Numbers {
       return ed.IsNegative == other.IsNegative ? Copy(ed) : CopyNegate(ed);
     }
 
-    private static EFloat InvalidOperation(EFloat ed, EContext ec) {
-      if (ec != null) {
-        if (ec.HasFlags) {
-          ec.Flags |= EContext.FlagInvalid;
-        }
-        if ((ec.Traps & EContext.FlagInvalid) != 0) {
-          throw new ETrapException(EContext.FlagInvalid, ec, ed);
-        }
-      }
-      return ed;
+    private static EFloat InvalidOperation(EContext ec) {
+      return EFloat.SignalingNaN.Plus(ec);
     }
 
     /// <summary>Returns whether two arbitrary-precision numbers have the
@@ -680,7 +672,7 @@ namespace PeterO.Numbers {
     public static EFloat Trim(EFloat ed1, EContext ec) {
       EFloat ed = ed1;
       if (ed1 == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       if (ed.IsSignalingNaN()) {
         return EFloat.CreateNaN(
@@ -763,7 +755,7 @@ namespace PeterO.Numbers {
     /// range.</returns>
     public static EFloat Rescale(EFloat ed, EFloat scale, EContext ec) {
       if (ed == null || scale == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       if (!scale.IsFinite) {
         return ed.Quantize(scale, ec);
@@ -779,7 +771,7 @@ namespace PeterO.Numbers {
             // appropriate error conditions
             scale = scale.RoundToPrecision(ec);
           }
-          return InvalidOperation(EFloat.NaN, ec);
+          return InvalidOperation(ec);
         }
         EFloat rounded = scale.Quantize(0, tec);
         return ed.Quantize (
@@ -815,11 +807,11 @@ namespace PeterO.Numbers {
     public static EFloat And(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       byte[] logi2 = EDecimals.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       byte[] smaller = logi1.Length < logi2.Length ? logi1 : logi2;
       byte[] bigger = logi1.Length < logi2.Length ? logi2 : logi1;
@@ -854,12 +846,12 @@ namespace PeterO.Numbers {
     /// (NaN) if <paramref name='ed1'/> is not a logical operand.</returns>
     public static EFloat Invert(EFloat ed1, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       EInteger ei = EInteger.One.ShiftLeft(ec.Precision).Subtract(1);
       byte[] smaller = EDecimals.FromLogical(ed1, ec, 2);
       if (smaller == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       byte[] bigger = ei.ToBytes(true);
       #if DEBUG
@@ -904,11 +896,11 @@ namespace PeterO.Numbers {
     public static EFloat Xor(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       byte[] logi2 = EDecimals.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       byte[] smaller = logi1.Length < logi2.Length ? logi1 : logi2;
       byte[] bigger = logi1.Length < logi2.Length ? logi2 : logi1;
@@ -946,11 +938,11 @@ namespace PeterO.Numbers {
     public static EFloat Or(EFloat ed1, EFloat ed2, EContext ec) {
       byte[] logi1 = EDecimals.FromLogical(ed1, ec, 2);
       if (logi1 == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       byte[] logi2 = EDecimals.FromLogical(ed2, ec, 2);
       if (logi2 == null) {
-        return InvalidOperation(EFloat.NaN, ec);
+        return InvalidOperation(ec);
       }
       byte[] smaller = logi1.Length < logi2.Length ? logi1 : logi2;
       byte[] bigger = logi1.Length < logi2.Length ? logi2 : logi1;

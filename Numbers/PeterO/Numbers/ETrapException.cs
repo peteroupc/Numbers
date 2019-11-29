@@ -31,6 +31,8 @@ public sealed class ETrapException : ArithmeticException {
 
     private readonly int error;
 
+    private readonly int errors;
+
     /// <summary>Initializes a new instance of the
     /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
     public ETrapException() : this(FlagToMessage(EContext.FlagInvalid)) {
@@ -41,6 +43,7 @@ public sealed class ETrapException : ArithmeticException {
     /// <param name='message'>The parameter <paramref name='message'/> is a
     /// text string.</param>
     public ETrapException(string message) : base(message) {
+      this.error = EContext.FlagInvalid;
       this.error = EContext.FlagInvalid;
       this.ctx = null;
       this.result = null;
@@ -54,6 +57,7 @@ public sealed class ETrapException : ArithmeticException {
     /// name='innerException'/> is an Exception object.</param>
     public ETrapException(string message, Exception innerException)
       : base(message, innerException) {
+      this.error = EContext.FlagInvalid;
       this.error = EContext.FlagInvalid;
       this.ctx = (this.ctx == null) ? null : this.ctx.Copy();
       this.result = null;
@@ -69,20 +73,51 @@ public sealed class ETrapException : ArithmeticException {
       }
     }
 
-    /// <summary>Gets the flag that specifies the kind of error
-    /// (EContext.FlagXXX). This will only be one flag, such as
-    /// <c>FlagInexact</c> or FlagSubnormal.</summary>
-    /// <value>The flag that specifies the kind of error
-    /// (EContext.FlagXXX). This will only be one flag, such as.
-    /// <c>FlagInexact</c> or FlagSubnormal.</value>
+    /// <summary>Gets the flag that specifies the primary kind of error in
+    /// one or more operations (EContext.FlagXXX). This will only be one
+    /// flag, such as <c>FlagInexact</c> or FlagSubnormal.</summary>
+    /// <value>The flag that specifies the primary kind of error in one or
+    /// more operations.</value>
     public int Error {
       get {
         return this.error;
       }
     }
 
-    private static string FlagToMessage(int flag) {
-      return (flag == EContext.FlagClamped) ? "Clamped" : ((flag ==
+    /// <summary>Specifies the flags that were signaled as the result of
+    /// one or more operations. This includes the flag specified in the
+    /// "flag" parameter, but can include other flags. For instance, if
+    /// "flag" is <c>EContext.FlagInexact</c>, this parameter might be
+    /// <c>EContext.FlagInexact | EContext.FlagRounded</c>.</summary>
+    /// <summary>Gets a value not documented yet.</summary>
+    /// <summary>Gets a value not documented yet.</summary>
+    /// <value>The flags that specifies the errors in one or more
+    /// operations.</value>
+    public int Errors {
+      get {
+        return this.errors;
+      }
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='flag'>Not documented yet.</param>
+  /// <returns/>
+    public bool HasError(int flag) {
+       return (this.Error & flag) == flag;
+    }
+
+    private static string FlagToMessage(int flags) {
+      var sb = new System.Text.StringBuilder();
+      var first = true;
+      for (var i = 0; i < 32; ++i) {
+        int flag = 1 << i;
+        if ((flags & flag) != 0) {
+          if (!first) {
+            sb.Append(", ");
+          }
+          first = false;
+          string str = (flag == EContext.FlagClamped) ? "Clamped" : ((flag ==
             EContext.FlagDivideByZero) ? "DivideByZero" : ((flag ==
               EContext.FlagInexact) ? "Inexact" : ((flag ==
                 EContext.FlagInvalid) ? "Invalid" : ((flag ==
@@ -90,32 +125,54 @@ public sealed class ETrapException : ArithmeticException {
                     EContext.FlagRounded) ? "Rounded" : ((flag ==
                       EContext.FlagSubnormal) ? "Subnormal" : ((flag ==
                         EContext.FlagUnderflow) ? "Underflow" : "Trap")))))));
+          sb.Append(str);
+         }
+       }
+       return sb.ToString();
     }
 
     /// <summary>Initializes a new instance of the
     /// <see cref='PeterO.Numbers.ETrapException'/>.</summary>
-    /// <param name='flag'>The flag that specifies the kind of error
-    /// (EContext.FlagXXX). This will only be one flag, such as
-    /// <c>FlagInexact</c> or FlagSubnormal.</param>
+    /// <param name='flag'>The flag that specifies the kind of error from
+    /// one or more operations (EContext.FlagXXX). This will only be one
+    /// flag, such as <c>FlagInexact</c> or FlagSubnormal.</param>
     /// <param name='ctx'>The arithmetic context used during the operation
     /// that triggered the trap. Can be null.</param>
     /// <param name='result'>The defined result of the operation that
     /// caused the trap.</param>
     public ETrapException(int flag, EContext ctx, Object result)
-      : base(FlagToMessage(flag)) {
+      : this(flag, flag, ctx, result) {
+    }
+
+    /// <summary>Initializes a new instance of the
+    /// <see cref='PeterO.Numbers.ETrapException'/>.</summary>
+    /// <param name='flags'>Specifies the flags that were signaled as the
+    /// result of one or more operations. This includes the flag specified
+    /// in the "flag" parameter, but can include other flags. For instance,
+    /// if "flag" is <c>EContext.FlagInexact</c>, this parameter might be
+    /// <c>EContext.FlagInexact | EContext.FlagRounded</c>.</param>
+    /// <param name='flag'>Specifies the flag that specifies the primary
+    /// kind of error from one or more operations (EContext.FlagXXX). This
+    /// will only be one flag, such as <c>FlagInexact</c> or
+    /// FlagSubnormal.</param>
+    /// <param name='ctx'>The arithmetic context used during the operation
+    /// that triggered the trap. Can be null.</param>
+    /// <param name='result'>The defined result of the operation that
+    /// caused the trap.</param>
+    /// <exception cref='ArgumentException'>"flags" doesn't include all the
+    /// flags in the "flag" parameter.</exception>
+    public ETrapException(int flags, int flag, EContext ctx, Object result)
+      : base(FlagToMessage(flags)) {
+if ((flags & flag) != flag) {
+  throw new ArgumentException();
+}
       this.error = flag;
+      this.errors = flags;
       this.ctx = (ctx == null) ? null : ctx.Copy();
       this.result = result;
     }
 
     #if NET20 || NET40
-    /// <summary>Initializes a new instance of the
-    /// <see cref='PeterO.Cbor.ETrapException'/> class. Uses the given
-    /// serialization and streaming contexts.</summary>
-    /// <param name='info'>A System.Runtime.Serialization.SerializationInfo
-    /// object.</param>
-    /// <param name='context'>A
-    /// System.Runtime.Serialization.StreamingContext object.</param>
     private ETrapException(
       System.Runtime.Serialization.SerializationInfo info,
       System.Runtime.Serialization.StreamingContext context):

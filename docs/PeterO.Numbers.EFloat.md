@@ -754,10 +754,9 @@ Creates a number with the value exponent*2^significand.
 
 <b>Parameters:</b>
 
- * <i>significand</i>: The parameter  <i>significand</i>
- is a Numbers.EInteger object.
+ * <i>mantissa</i>: Not documented yet.
 
- * <i>exponent</i>: The value of the exponent.
+ * <i>exponent</i>: Not documented yet.
 
 <b>Return Value:</b>
 

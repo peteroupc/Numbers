@@ -14,10 +14,11 @@ namespace PeterO.Numbers {
   // radix.</typeparam>
   internal class TrappableRadixMath<T> : IRadixMath<T> {
     private static void ThrowTrapException(
+      int flags,
       int flag,
       EContext ctx,
       object result) {
-      throw new ETrapException(flag, ctx, result);
+      throw new ETrapException(flags, flag, ctx, result);
     }
 
     private static EContext GetTrappableContext(EContext ctx) {
@@ -40,7 +41,6 @@ namespace PeterO.Numbers {
       if (traps == 0) {
         return result;
       }
-      // TODO: Give ETrapException access to all traps
       int mutexConditions = traps & (~(
             EContext.FlagClamped | EContext.FlagInexact | EContext.FlagRounded |
             EContext.FlagSubnormal));
@@ -48,30 +48,34 @@ namespace PeterO.Numbers {
         for (var i = 0; i < 32; ++i) {
           int flag = mutexConditions & (1 << i);
           if (flag != 0) {
-            ThrowTrapException(flag, dst, result);
+            ThrowTrapException(traps, flag, dst, result);
           }
         }
       }
       if ((traps & EContext.FlagSubnormal) != 0) {
         ThrowTrapException(
+          traps,
           traps & EContext.FlagSubnormal,
           dst,
           result);
       }
       if ((traps & EContext.FlagInexact) != 0) {
         ThrowTrapException(
+          traps,
           traps & EContext.FlagInexact,
           dst,
           result);
       }
       if ((traps & EContext.FlagRounded) != 0) {
         ThrowTrapException(
+          traps,
           traps & EContext.FlagRounded,
           dst,
           result);
       }
       if ((traps & EContext.FlagClamped) != 0) {
         ThrowTrapException(
+          traps,
           traps & EContext.FlagClamped,
           dst,
           result);

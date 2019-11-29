@@ -5311,15 +5311,15 @@ TestStringContextOne("666.66666666666666E+40", ec);
  private static long unoptTime = 0;
  private static long unoptRoundTime = 0;
  private static long optTime = 0;
-
+/*
  private static readonly System.Diagnostics.Stopwatch swUnopt = new
  System.Diagnostics.Stopwatch();
  private static readonly System.Diagnostics.Stopwatch swUnoptRound = new
  System.Diagnostics.Stopwatch();
  private static readonly System.Diagnostics.Stopwatch swOpt2 = new
  System.Diagnostics.Stopwatch();
- // */
- public static void TearDown() {
+  */
+  public static void TearDown() {
    if (unoptTime > 0) {
      Console.WriteLine("unoptTime = " + unoptTime + " ms");
      Console.WriteLine("unoptRoundTime = " + unoptRoundTime + " ms");
@@ -5464,7 +5464,7 @@ ECString(ec));
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr += "# "+ecf.Precision+" / " + ec.Precision + "\r\n";
+      bstr += "# "+ecf.Precision + " / " + ec.Precision + "\r\n";
       bstr += DecTestUtil.ContextToDecTestForm(ecf);
       bstr += "untitled toSci " + str + " -> " + ed.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";
@@ -5515,7 +5515,7 @@ public static string ECString(EContext ec) {
 public static void TestStringContextOneEFloat(string str, EContext ec) {
   EFloat ef = null, ef2 = null;
   // Console.WriteLine("TestStringContextOne ---- ec=" + (ec));
-  swUnopt.Restart();
+  // swUnopt.Restart();
   EDecimal ed = null;
   if (ec == null) {
     throw new ArgumentNullException(nameof(ec));
@@ -5526,11 +5526,10 @@ public static void TestStringContextOneEFloat(string str, EContext ec) {
   ed = EDecimal.FromString(str);
   ef = ed.ToEFloat(ec);
   // swUnoptRound.Stop();
-  swUnopt.Stop();
-  swOpt2.Restart();
-  // */
+  // swUnopt.Stop();
+  // swOpt2.Restart();
   ef2 = EFloat.FromString(str, ec);
-  swOpt2.Stop();
+  // swOpt2.Stop();
   EFloat ef3 = EFloat.NaN;
   try {
       ef3 = EFloat.FromString(str, noneRounding);
@@ -5568,6 +5567,7 @@ ECString(ec));
    if (ef == null || ef2 == null) {
      return;
    }
+   /*
    unoptTime += swUnopt.ElapsedMilliseconds;
    unoptRoundTime += swUnoptRound.ElapsedMilliseconds;
    optTime += swOpt2.ElapsedMilliseconds;
@@ -5583,7 +5583,7 @@ ECString(ec));
          swUnopt.ElapsedMilliseconds + " ms; opt=" +
 swOpt2.ElapsedMilliseconds);
    }
-   // */
+    */
   if (ef.CompareTo(ef2) != 0) {
     if (ec == null) {
       throw new ArgumentNullException(nameof(ec));
@@ -5595,7 +5595,7 @@ swOpt2.ElapsedMilliseconds);
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr += "# "+ecf.Precision+" / " + ec.Precision + "\r\n";
+      bstr += "# "+ecf.Precision + " / " + ec.Precision + "\r\n";
       bstr += DecTestUtil.ContextToDecTestForm(ecf);
       bstr += "untitled toSci " + str + " -> " + ef.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";

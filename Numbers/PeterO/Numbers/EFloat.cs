@@ -667,7 +667,7 @@ zeroSignificand) {
         if (str[i] == '-') {
           negative = true;
         }
-       ++i;
+        ++i;
       }
       digitStart = i;
       int digitEnd = i;
@@ -859,7 +859,7 @@ if (finalexp < 0) {
  } else if (exp.CompareTo(309) > 0) {
    return SignalOverflow(ctx, negative, zeroMantissa);
  }
-if (decimalDigitStart != decimalDigitEnd) {
+ if (decimalDigitStart != decimalDigitEnd) {
  string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
     str.Substring(decimalDigitStart, decimalDigitEnd - decimalDigitStart);
  mant = EInteger.FromString(tmpstr);
