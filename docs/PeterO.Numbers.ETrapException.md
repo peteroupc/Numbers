@@ -9,7 +9,9 @@ Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and
 
 ### Member Summary
 * <code>[Context](#Context)</code> - Gets the arithmetic context used during the operation that triggered the trap.
-* <code>[Error](#Error)</code> - Gets the flag that specifies the kind of error (EContext.
+* <code>[Error](#Error)</code> - Gets the flag that specifies the primary kind of error in one or more operations (EContext.
+* <code>[Errors](#Errors)</code> - Specifies the flags that were signaled as the result of one or more operations.
+* <code>[HasError(int)](#HasError_int)</code> - Not documented yet.
 * <code>[Result](#Result)</code> - Gets the defined result of the operation that caused the trap.
 
 <a id="Void_ctor_Int32_PeterO_Numbers_EContext_System_Object"></a>
@@ -24,11 +26,39 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
 
 <b>Parameters:</b>
 
- * <i>flag</i>: The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact`  or FlagSubnormal.
+ * <i>flag</i>: The flag that specifies the kind of error from one or more operations (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact`  or FlagSubnormal.
 
  * <i>ctx</i>: The arithmetic context used during the operation that triggered the trap. Can be null.
 
  * <i>result</i>: The defined result of the operation that caused the trap.
+
+<a id="Void_ctor_Int32_Int32_PeterO_Numbers_EContext_System_Object"></a>
+### ETrapException Constructor
+
+    public ETrapException(
+        int flags,
+        int flag,
+        PeterO.Numbers.EContext ctx,
+        object result);
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md).
+
+<b>Parameters:</b>
+
+ * <i>flags</i>: Specifies the flags that were signaled as the result of one or more operations. This includes the flag specified in the "flag" parameter, but can include other flags. For instance, if "flag" is  `EContext.FlagInexact` , this parameter might be  `EContext.FlagInexact | EContext.FlagRounded` .
+
+ * <i>flag</i>: Specifies the flag that specifies the primary kind of error from one or more operations (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact`  or FlagSubnormal.
+
+ * <i>ctx</i>: The arithmetic context used during the operation that triggered the trap. Can be null.
+
+ * <i>result</i>: The defined result of the operation that caused the trap.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The parameter  <i>flags</i>
+ doesn't include all the flags in the  <i>flag</i>
+ parameter.
 
 <a id="Void_ctor_System_String"></a>
 ### ETrapException Constructor
@@ -83,11 +113,30 @@ The arithmetic context used during the operation that triggered the trap. May be
 
     public int Error { get; }
 
-Gets the flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact`  or FlagSubnormal.
+Gets the flag that specifies the primary kind of error in one or more operations (EContext.FlagXXX). This will only be one flag, such as  `FlagInexact`  or FlagSubnormal.
 
 <b>Returns:</b>
 
-The flag that specifies the kind of error (EContext.FlagXXX). This will only be one flag, such as.  `FlagInexact`  or FlagSubnormal.
+The flag that specifies the primary kind of error in one or more operations.
+
+<a id="Errors"></a>
+### Errors
+
+    public int Errors { get; }
+
+Specifies the flags that were signaled as the result of one or more operations. This includes the flag specified in the "flag" parameter, but can include other flags. For instance, if "flag" is  `EContext.FlagInexact` , this parameter might be  `EContext.FlagInexact | EContext.FlagRounded` .
+
+Gets a value not documented yet.
+
+Gets a value not documented yet.
+
+Gets a value not documented yet.
+
+Gets a value not documented yet.
+
+<b>Returns:</b>
+
+The flags that specifies the errors in one or more operations.
 
 <a id="Result"></a>
 ### Result
@@ -99,3 +148,20 @@ Gets the defined result of the operation that caused the trap.
 <b>Returns:</b>
 
 The defined result of the operation that caused the trap.
+
+<a id="HasError_int"></a>
+### HasError
+
+    public bool HasError(
+        int flag);
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>flag</i>: The parameter  <i>flag</i>
+ is a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.

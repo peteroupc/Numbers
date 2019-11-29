@@ -24,9 +24,9 @@ namespace PeterO.Numbers {
 
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational NaN = new ERational(
       EInteger.Zero,
       EInteger.One,
@@ -34,9 +34,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Negative infinity, less than any other number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational NegativeInfinity =
       new ERational(
         EInteger.Zero,
@@ -45,25 +45,25 @@ namespace PeterO.Numbers {
 
     /// <summary>A rational number for negative zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational NegativeZero =
       new ERational(EInteger.Zero, EInteger.One, BigNumberFlags.FlagNegative);
 
     /// <summary>The rational number one.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational One = FromEInteger(EInteger.One);
 
     /// <summary>Positive infinity, greater than any other
     /// number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational PositiveInfinity =
       new ERational(
         EInteger.Zero,
@@ -72,9 +72,9 @@ namespace PeterO.Numbers {
 
     /// <summary>A signaling not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational SignalingNaN =
       new ERational(
         EInteger.Zero,
@@ -83,16 +83,16 @@ namespace PeterO.Numbers {
 
     /// <summary>The rational number ten.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational Ten = FromEInteger((EInteger)10);
 
     /// <summary>A rational number for zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "ERational is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "ERational is immutable")]
     public static readonly ERational Zero = FromEInteger(EInteger.Zero);
 
     private readonly EInteger denominator;
@@ -155,9 +155,9 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision rational number.</returns>
     public ERational Copy() {
       return new ERational(
-        this.unsignedNumerator,
-        this.denominator,
-        this.flags);
+          this.unsignedNumerator,
+          this.denominator,
+          this.flags);
     }
 
     /// <summary>Gets this object's denominator.</summary>
@@ -298,8 +298,7 @@ namespace PeterO.Numbers {
       if (diag.Sign < 0) {
         throw new
         ArgumentException("Diagnostic information must be 0 or greater," +
-"\u0020 was: " +
-          diag);
+          "\u0020 was: " + diag);
       }
       if (diag.IsZero && !negative) {
         return signaling ? SignalingNaN : NaN;
@@ -633,12 +632,12 @@ namespace PeterO.Numbers {
           if (numerInt > MaxSafeInt) {
             numer = EInteger.FromSubstring(str, numerStart, endStr);
             return new ERational(numer,
-            EInteger.One,
-            flags3);
+                EInteger.One,
+                flags3);
           } else {
             return new ERational(EInteger.FromInt32(numerInt),
-            EInteger.One,
-            flags3);
+                EInteger.One,
+                flags3);
           }
         }
       }
@@ -710,7 +709,7 @@ namespace PeterO.Numbers {
       if (ndenom == null ? (ndenomInt == 0) : ndenom.IsZero) {
         throw new FormatException();
       }
-      ERational erat = Create (
+      ERational erat = Create(
           numer == null ? (EInteger)numerInt : numer,
           ndenom == null ? (EInteger)ndenomInt : ndenom);
       return negative ? erat.Negate() : erat;
@@ -769,7 +768,7 @@ namespace PeterO.Numbers {
         return -1;
       }
       if (valueIThis >= 2) {
-        cmp = this.unsignedNumerator.CompareTo (
+        cmp = this.unsignedNumerator.CompareTo(
             other.unsignedNumerator);
         return cmp;
       } else if (valueIThis == 1) {
@@ -777,7 +776,7 @@ namespace PeterO.Numbers {
       } else {
         cmp = this.Abs().CompareTo(other.Abs());
         if (cmp == 0) {
-          cmp = this.denominator.CompareTo (
+          cmp = this.denominator.CompareTo(
               other.denominator);
           return cmp;
         }
@@ -844,7 +843,7 @@ namespace PeterO.Numbers {
         return neg1 ? 1 : -1;
       }
       if (valueIThis >= 2) {
-        cmp = this.unsignedNumerator.CompareTo (
+        cmp = this.unsignedNumerator.CompareTo(
             other.unsignedNumerator);
         return neg1 ? -cmp : cmp;
       } else if (valueIThis == 1) {
@@ -852,7 +851,7 @@ namespace PeterO.Numbers {
       } else {
         cmp = this.CompareTo(other);
         if (cmp == 0) {
-          cmp = this.denominator.CompareTo (
+          cmp = this.denominator.CompareTo(
               other.denominator);
           return neg1 ? -cmp : cmp;
         }
@@ -867,9 +866,9 @@ namespace PeterO.Numbers {
     public ERational Abs() {
       if (this.IsNegative) {
         return new ERational(
-          this.unsignedNumerator,
-          this.denominator,
-          this.flags & ~BigNumberFlags.FlagNegative);
+            this.unsignedNumerator,
+            this.denominator,
+            this.flags & ~BigNumberFlags.FlagNegative);
       }
       return this;
     }
@@ -890,9 +889,9 @@ namespace PeterO.Numbers {
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-          otherValue.unsignedNumerator,
-          false,
-          otherValue.IsNegative);
+            otherValue.unsignedNumerator,
+            false,
+            otherValue.IsNegative);
       }
       if (this.IsQuietNaN()) {
         return this;
@@ -931,7 +930,7 @@ namespace PeterO.Numbers {
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
     public int CompareTo(ERational other) {
-       return this.CompareToValue(other);
+      return this.CompareToValue(other);
     }
 
     /// <summary>Compares the mathematical value of an arbitrary-precision
@@ -1016,18 +1015,32 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
-  /// a 32-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// rational number with that of this instance. This method currently
+    /// uses the rules given in the CompareToValue method, so that it it is
+    /// not consistent with the Equals method, but it may change in a
+    /// future version to use the rules for the CompareToTotal method
+    /// instead.</summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>Zero if the values are equal; a negative number if this
+    /// instance is less, or a positive number if this instance is
+    /// greater.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
-  /// a 32-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// rational number with that of this instance. In this method, NaN
+    /// values are greater than any other ERational value, and two NaN
+    /// values (even if their payloads differ) are treated as equal by this
+    /// method. This method is not consistent with the Equals
+    /// method.</summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>Zero if the values are equal; a negative number if this
+    /// instance is less, or a positive number if this instance is
+    /// greater.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }
@@ -1323,9 +1336,9 @@ namespace PeterO.Numbers {
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-          otherValue.unsignedNumerator,
-          false,
-          otherValue.IsNegative);
+            otherValue.unsignedNumerator,
+            false,
+            otherValue.IsNegative);
       }
       if (this.IsQuietNaN()) {
         return this;
@@ -1350,7 +1363,7 @@ namespace PeterO.Numbers {
       }
       EInteger ad = this.Numerator * (EInteger)otherValue.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
-      return new ERational (
+      return new ERational(
           ad.Abs(),
           bc.Abs(),
           resultNeg ? BigNumberFlags.FlagNegative : 0);
@@ -1364,7 +1377,9 @@ namespace PeterO.Numbers {
     /// <param name='obj'>The parameter <paramref name='obj'/> is an
     /// arbitrary object.</param>
     /// <returns><c>true</c> if the objects are equal; otherwise,
-    /// <c>false</c>.</returns>
+    /// <c>false</c>. In this method, two objects are not equal if they
+    /// don't have the same type or if one is null and the other
+    /// isn't.</returns>
     public override bool Equals(object obj) {
       var other = obj as ERational;
       return (
@@ -1473,9 +1488,9 @@ namespace PeterO.Numbers {
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-          otherValue.unsignedNumerator,
-          false,
-          otherValue.IsNegative);
+            otherValue.unsignedNumerator,
+            false,
+            otherValue.IsNegative);
       }
       if (this.IsQuietNaN()) {
         return this;
@@ -1495,7 +1510,7 @@ namespace PeterO.Numbers {
       EInteger ac = this.Numerator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       return ac.IsZero ? (resultNeg ? NegativeZero : Zero) :
-        new ERational (
+        new ERational(
           ac.Abs(),
           bd.Abs(),
           resultNeg ? BigNumberFlags.FlagNegative : 0);
@@ -1506,9 +1521,9 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision rational number.</returns>
     public ERational Negate() {
       return new ERational(
-        this.unsignedNumerator,
-        this.denominator,
-        this.flags ^ BigNumberFlags.FlagNegative);
+          this.unsignedNumerator,
+          this.denominator,
+          this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <summary>Finds the remainder that results when this instance is
@@ -1528,9 +1543,9 @@ namespace PeterO.Numbers {
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-          otherValue.unsignedNumerator,
-          false,
-          otherValue.IsNegative);
+            otherValue.unsignedNumerator,
+            false,
+            otherValue.IsNegative);
       }
       if (this.IsQuietNaN()) {
         return this;
@@ -1561,7 +1576,7 @@ namespace PeterO.Numbers {
       bc = thisDen * (EInteger)tnum;
       tden *= (EInteger)thisDen;
       ad -= (EInteger)bc;
-      return new ERational (
+      return new ERational(
           ad.Abs(),
           tden.Abs(),
           resultNeg ? BigNumberFlags.FlagNegative : 0);
@@ -1583,9 +1598,9 @@ namespace PeterO.Numbers {
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-          otherValue.unsignedNumerator,
-          false,
-          otherValue.IsNegative);
+            otherValue.unsignedNumerator,
+            false,
+            otherValue.IsNegative);
       }
       if (this.IsQuietNaN()) {
         return this;
@@ -1697,7 +1712,7 @@ namespace PeterO.Numbers {
     /// expansion.</returns>
     public EDecimal ToEDecimal(EContext ctx) {
       if (this.IsNaN()) {
-        return EDecimal.CreateNaN (
+        return EDecimal.CreateNaN(
             this.unsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
@@ -1736,7 +1751,7 @@ namespace PeterO.Numbers {
         return this.ToEDecimal(null);
       }
       if (this.IsNaN()) {
-        return EDecimal.CreateNaN (
+        return EDecimal.CreateNaN(
             this.unsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
@@ -1834,7 +1849,7 @@ namespace PeterO.Numbers {
     /// expansion.</returns>
     public EFloat ToEFloat(EContext ctx) {
       if (this.IsNaN()) {
-        return EFloat.CreateNaN (
+        return EFloat.CreateNaN(
             this.unsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
@@ -1871,7 +1886,7 @@ namespace PeterO.Numbers {
         return this.ToEFloat(null);
       }
       if (this.IsNaN()) {
-        return EFloat.CreateNaN (
+        return EFloat.CreateNaN(
             this.unsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
@@ -2009,45 +2024,52 @@ namespace PeterO.Numbers {
       return this.Subtract(FromInt32(1));
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
-  /// signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  public ERational Add(int v) {
- return this.Add(FromInt32(v));
-  }
+    /// <summary>Returns the sum of a rational number and a 32-bit signed
+    /// integer.</summary>
+    /// <param name='v'>A 32-bit signed integer.</param>
+    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+    /// this object is NaN.</returns>
+    public ERational Add(int v) {
+      return this.Add(FromInt32(v));
+    }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
-  /// signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  public ERational Subtract(int v) {
- return this.Subtract(FromInt32(v));
-  }
+    /// <summary>Returns the result of subtracting a 32-bit signed integer
+    /// from this instance.</summary>
+    /// <param name='v'/>
+    /// <returns>The difference of the two objects.</returns>
+    public ERational Subtract(int v) {
+      return this.Subtract(FromInt32(v));
+    }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
-  /// signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  public ERational Multiply(int v) {
- return this.Multiply(FromInt32(v));
-  }
+    /// <summary>Returns the value of this instance multiplied by a 32-bit
+    /// signed integer.</summary>
+    /// <param name='v'/>
+    /// <returns>The product of the two numbers.</returns>
+    public ERational Multiply(int v) {
+      return this.Multiply(FromInt32(v));
+    }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
-  /// signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  public ERational Divide(int v) {
- return this.Divide(FromInt32(v));
-  }
+    /// <summary>Divides this instance by the value of an
+    /// arbitrary-precision rational number object.</summary>
+    /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+    /// signed integer.</param>
+    /// <returns>The quotient of the two objects.</returns>
+    /// <exception cref='ArithmeticException'>The parameter <paramref
+    /// name='v'/> is zero.</exception>
+    public ERational Divide(int v) {
+      return this.Divide(FromInt32(v));
+    }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
-  /// signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  public ERational Remainder(int v) {
- return this.Remainder(FromInt32(v));
-}
+    /// <summary>Finds the remainder that results when this instance is
+    /// divided by the value of an arbitrary-precision rational
+    /// number.</summary>
+    /// <param name='v'>The divisor.</param>
+    /// <returns>The remainder of the two numbers.</returns>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='v'/> is zero.</exception>
+    public ERational Remainder(int v) {
+      return this.Remainder(FromInt32(v));
+    }
 
     // Begin integer conversions
 

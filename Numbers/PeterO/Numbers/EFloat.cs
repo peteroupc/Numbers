@@ -88,78 +88,78 @@ namespace PeterO.Numbers {
 
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat NaN = CreateWithFlags(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagQuietNaN);
+        EInteger.Zero,
+        EInteger.Zero,
+        BigNumberFlags.FlagQuietNaN);
 
     /// <summary>Negative infinity, less than any other number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat NegativeInfinity = CreateWithFlags(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
+        EInteger.Zero,
+        EInteger.Zero,
+        BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
 
     /// <summary>Represents the number negative zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat NegativeZero = CreateWithFlags(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagNegative);
+        EInteger.Zero,
+        EInteger.Zero,
+        BigNumberFlags.FlagNegative);
 
     /// <summary>Represents the number 1.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat One =
       EFloat.Create(EInteger.One, EInteger.Zero);
 
     /// <summary>Positive infinity, greater than any other
     /// number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat PositiveInfinity = CreateWithFlags(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagInfinity);
+        EInteger.Zero,
+        EInteger.Zero,
+        BigNumberFlags.FlagInfinity);
 
     /// <summary>A not-a-number value that signals an invalid operation
     /// flag when it's passed as an argument to any arithmetic operation in
     /// arbitrary-precision binary floating-point number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat SignalingNaN = CreateWithFlags(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagSignalingNaN);
+        EInteger.Zero,
+        EInteger.Zero,
+        BigNumberFlags.FlagSignalingNaN);
 
     /// <summary>Represents the number 10.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat Ten =
       EFloat.Create((EInteger)10, EInteger.Zero);
 
     /// <summary>Represents the number 0.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "EFloat is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "EFloat is immutable")]
     public static readonly EFloat Zero =
       EFloat.Create(EInteger.Zero, EInteger.Zero);
     //----------------------------------------------------------------
@@ -294,8 +294,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Creates a number with the value
     /// exponent*2^significand.</summary>
-    /// <param name='mantissa'>Not documented yet.</param>
-    /// <param name='exponent'>Not documented yet.</param>
+    /// <param name='mantissa'>The parameter <paramref name='mantissa'/> is
+    /// a Numbers.EInteger object.</param>
+    /// <param name='exponent'>The value of the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -311,7 +312,7 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(exponent));
       }
       int sign = mantissa.Sign;
-      return new EFloat (
+      return new EFloat(
           sign < 0 ? (-(EInteger)mantissa) : mantissa,
           exponent,
           (sign < 0) ? BigNumberFlags.FlagNegative : 0);
@@ -363,8 +364,7 @@ namespace PeterO.Numbers {
       if (diag.Sign < 0) {
         throw new
         ArgumentException("Diagnostic information must be 0 or greater," +
-"\u0020 was: " +
-          diag);
+          "\u0020 was: " + diag);
       }
       if (diag.IsZero && !negative) {
         return signaling ? SignalingNaN : NaN;
@@ -376,9 +376,9 @@ namespace PeterO.Numbers {
       if (ctx != null && ctx.HasMaxPrecision) {
         flags |= BigNumberFlags.FlagQuietNaN;
         EFloat ef = CreateWithFlags(
-          diag,
-          EInteger.Zero,
-          flags).RoundToPrecision(ctx);
+            diag,
+            EInteger.Zero,
+            flags).RoundToPrecision(ctx);
         int newFlags = ef.flags;
         newFlags &= ~BigNumberFlags.FlagQuietNaN;
         newFlags |= signaling ? BigNumberFlags.FlagSignalingNaN :
@@ -417,8 +417,8 @@ namespace PeterO.Numbers {
         }
         value[0] = (neg ? BigNumberFlags.FlagNegative : 0) |
           (quiet ? BigNumberFlags.FlagQuietNaN :
-BigNumberFlags.FlagSignalingNaN);
-        return CreateWithFlags (
+            BigNumberFlags.FlagSignalingNaN);
+        return CreateWithFlags(
             EInteger.FromInt64(lvalue),
             EInteger.Zero,
             value[0]);
@@ -431,12 +431,12 @@ BigNumberFlags.FlagSignalingNaN);
       }
       if ((value[1] | value[0]) != 0) {
         floatExponent += NumberUtility.ShiftAwayTrailingZerosTwoElements(
-  value);
+            value);
       } else {
         return neg ? EFloat.NegativeZero : EFloat.Zero;
       }
       lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
-      return CreateWithFlags (
+      return CreateWithFlags(
           EInteger.FromInt64(lvalue),
           (EInteger)(floatExponent - 1075),
           neg ? BigNumberFlags.FlagNegative : 0);
@@ -480,9 +480,9 @@ BigNumberFlags.FlagSignalingNaN);
           return quiet ? NaN : SignalingNaN;
         }
         return CreateWithFlags(
-          bigmant,
-          EInteger.Zero,
-          value);
+            bigmant,
+            EInteger.Zero,
+            value);
       }
       if (floatExponent == 0) {
         ++floatExponent;
@@ -500,7 +500,7 @@ BigNumberFlags.FlagSignalingNaN);
         valueFpMantissa = -valueFpMantissa;
       }
       bigmant = (EInteger)valueFpMantissa;
-      return EFloat.Create (
+      return EFloat.Create(
           bigmant,
           (EInteger)(floatExponent - 150));
     }
@@ -567,29 +567,29 @@ BigNumberFlags.FlagSignalingNaN);
         throw new ArgumentNullException(nameof(str));
       }
       if (offset < 0) {
-        throw new FormatException("offset (" + offset + ") is not greater" +
-"\u0020or equal to 0");
+        throw new FormatException("offset(" + offset + ") is not greater" +
+          "\u0020or equal to 0");
       }
       if (offset > str.Length) {
-        throw new FormatException("offset (" + offset + ") is not less or" +
-"\u0020equal to " + str.Length);
+        throw new FormatException("offset(" + offset + ") is not less or" +
+          "\u0020equal to " + str.Length);
       }
       if (length < 0) {
-        throw new FormatException("length (" + length + ") is not greater or" +
-"\u0020equal to 0");
+        throw new FormatException("length(" + length + ") is not greater or" +
+          "\u0020equal to 0");
       }
       if (length > str.Length) {
-        throw new FormatException("length (" + length + ") is not less or" +
-"\u0020equal to " + str.Length);
+        throw new FormatException("length(" + length + ") is not less or" +
+          "\u0020equal to " + str.Length);
       }
       if (str.Length - offset < length) {
-        throw new FormatException("str's length minus " + offset + " (" +
-(str.Length - offset) + ") is not greater or equal to " + length);
+        throw new FormatException("str's length minus " + offset + "(" +
+          (str.Length - offset) + ") is not greater or equal to " + length);
       }
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
-         !ctx.IsSimplified && ctx.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
-         ctx.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
-         ctx.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
+        !ctx.IsSimplified && ctx.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
+        ctx.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
+        ctx.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
         int tmpoffset = offset;
         int endpos = offset + length;
         if (length == 0) {
@@ -599,46 +599,46 @@ BigNumberFlags.FlagSignalingNaN);
           ++tmpoffset;
         }
         if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
-           str[tmpoffset] <= '9') || str[tmpoffset] == '.')) {
+              str[tmpoffset] <= '9') || str[tmpoffset] == '.')) {
           EFloat ef = DoubleEFloatFromString(str, offset, length, ctx);
           if (ef != null) {
             return ef;
           }
         }
       }
-      return EDecimal.FromString (
+      return EDecimal.FromString(
           str,
           offset,
           length,
           EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
-          .ToEFloat(ctx);
+        .ToEFloat(ctx);
     }
 
     private static EFloat SignalUnderflow(EContext ec, bool negative, bool
-zeroSignificand) {
-            EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
-            eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
-                         // trigger underflow
-            EFloat ret = EFloat.Create(
-              zeroSignificand ? EInteger.Zero : EInteger.One,
-              eTiny);
-            if (negative) {
-              ret = ret.Negate();
-            }
-            return ret.RoundToPrecision(ec);
+      zeroSignificand) {
+      EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+      eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
+      // trigger underflow
+      EFloat ret = EFloat.Create(
+          zeroSignificand ? EInteger.Zero : EInteger.One,
+          eTiny);
+      if (negative) {
+        ret = ret.Negate();
+      }
+      return ret.RoundToPrecision(ec);
     }
 
     private static EFloat SignalOverflow(EContext ec, bool negative, bool
-zeroSignificand) {
-       if (zeroSignificand) {
-            EFloat ret = EFloat.Create(EInteger.Zero, ec.EMax);
-            if (negative) {
-              ret = ret.Negate();
-            }
-            return ret.RoundToPrecision(ec);
-          } else {
-            return MathValue.SignalOverflow(ec, negative);
-       }
+      zeroSignificand) {
+      if (zeroSignificand) {
+        EFloat ret = EFloat.Create(EInteger.Zero, ec.EMax);
+        if (negative) {
+          ret = ret.Negate();
+        }
+        return ret.RoundToPrecision(ec);
+      } else {
+        return MathValue.SignalOverflow(ec, negative);
+      }
     }
 
     private static EFloat DoubleEFloatFromString(
@@ -789,10 +789,11 @@ zeroSignificand) {
         throw new FormatException();
       }
       if (expInt != Int32.MaxValue && expInt > -Int32.MaxValue &&
-          mantissaLong != Int64.MaxValue && (ctx == null ||
-!ctx.HasFlagsOrTraps)) {
+        mantissaLong != Int64.MaxValue && (ctx == null ||
+          !ctx.HasFlagsOrTraps)) {
         if (mantissaLong == 0) {
-          EFloat ef = EFloat.Create(EInteger.Zero, EInteger.FromInt32(expInt));
+          EFloat ef = EFloat.Create(EInteger.Zero, EInteger.FromInt32(
+  expInt));
           if (negative) {
             ef = ef.Negate();
           }
@@ -809,13 +810,13 @@ zeroSignificand) {
           int iabsexp = Math.Abs(iexp);
           if (ml < 9007199254740992L && iabsexp == 0) {
             return EFloat.FromInt64(negative ?
-               -mantissaLong : mantissaLong).RoundToPrecision(ctx);
+                -mantissaLong : mantissaLong).RoundToPrecision(ctx);
           } else if (ml < 9007199254740992L && iabsexp <= 22) {
             EFloat efn =
-EFloat.FromEInteger(NumberUtility.FindPowerOfTen(iabsexp));
-if (negative) {
-  ml = -ml;
-}
+              EFloat.FromEInteger(NumberUtility.FindPowerOfTen(iabsexp));
+            if (negative) {
+              ml = -ml;
+            }
             EFloat efml = EFloat.FromInt64(ml);
             if (iexp < 0) {
               return efml.Divide(efn, ctx);
@@ -835,54 +836,54 @@ if (negative) {
         }
         long absfinalexp = Math.Abs(finalexp);
         ef1 = EFloat.Create(mantissaLong, 0);
-        ef2 =
-EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
-if (finalexp < 0) {
-  return ef1.Divide(ef2, ctx);
-} else {
-  return ef1.Multiply(ef2, ctx);
-}
+        ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
+        if (finalexp < 0) {
+          return ef1.Divide(ef2, ctx);
+        } else {
+          return ef1.Multiply(ef2, ctx);
+        }
       }
       EInteger mant = null;
       EInteger exp = (!haveExponent) ? EInteger.Zero :
-   EInteger.FromSubstring(str, expDigitStart, endStr);
- if (expoffset < 0) {
-   exp = exp.Negate();
- }
- exp = exp.Add(newScaleInt);
- if (nonzeroBeyondMax) {
-   exp = exp.Subtract(1);
- }
- EInteger adjExpUpper = exp.Add(decimalPrec).Subtract(1);
- if (adjExpUpper.CompareTo(-326) < 0) {
-   return SignalUnderflow(ctx, negative, zeroMantissa);
- } else if (exp.CompareTo(309) > 0) {
-   return SignalOverflow(ctx, negative, zeroMantissa);
- }
- if (decimalDigitStart != decimalDigitEnd) {
- string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
-    str.Substring(decimalDigitStart, decimalDigitEnd - decimalDigitStart);
- mant = EInteger.FromString(tmpstr);
-} else {
- mant = EInteger.FromSubstring(str, digitStart, digitEnd);
-}
-if (nonzeroBeyondMax) {
-  mant = mant.Multiply(10).Add(1);
-}
-if (negative) {
-  mant = mant.Negate();
-}
-// DebugUtility.Log("c " + ((mant.Sign<0 && negative) || (mant.Sign>= 0
-// && !negative)) + " mant=" + (mant));
-EInteger absexp = exp.Abs();
-ef1 = EFloat.Create(mant, 0);
-ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
-// DebugUtility.Log("c ef1=" + ef1 + " ef2=" + (ef2));
-if (exp.Sign < 0) {
-  return ef1.Divide(ef2, ctx);
-} else {
-  return ef1.Multiply(ef2, ctx);
-}
+        EInteger.FromSubstring(str, expDigitStart, endStr);
+      if (expoffset < 0) {
+        exp = exp.Negate();
+      }
+      exp = exp.Add(newScaleInt);
+      if (nonzeroBeyondMax) {
+        exp = exp.Subtract(1);
+      }
+      EInteger adjExpUpper = exp.Add(decimalPrec).Subtract(1);
+      if (adjExpUpper.CompareTo(-326) < 0) {
+        return SignalUnderflow(ctx, negative, zeroMantissa);
+      } else if (exp.CompareTo(309) > 0) {
+        return SignalOverflow(ctx, negative, zeroMantissa);
+      }
+      if (decimalDigitStart != decimalDigitEnd) {
+        string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
+          str.Substring(decimalDigitStart, decimalDigitEnd -
+decimalDigitStart);
+        mant = EInteger.FromString(tmpstr);
+      } else {
+        mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+      }
+      if (nonzeroBeyondMax) {
+        mant = mant.Multiply(10).Add(1);
+      }
+      if (negative) {
+        mant = mant.Negate();
+      }
+      // DebugUtility.Log("c " + ((mant.Sign<0 && negative) || (mant.Sign>= 0
+      // && !negative)) + " mant=" + (mant));
+      EInteger absexp = exp.Abs();
+      ef1 = EFloat.Create(mant, 0);
+      ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
+      // DebugUtility.Log("c ef1=" + ef1 + " ef2=" + (ef2));
+      if (exp.Sign < 0) {
+        return ef1.Divide(ef2, ctx);
+      } else {
+        return ef1.Multiply(ef2, ctx);
+      }
     }
 
     /// <summary>Creates a binary floating-point number from a text string
@@ -1128,11 +1129,11 @@ if (exp.Sign < 0) {
       return MathValue.Abs(this, context);
     }
 
-    /// <summary>Not documented yet.</summary>
+    /// <summary>Adds this object and another number and returns the
+    /// result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The sum of the two objects.</returns>
     public EFloat Add(int intValue) {
       return this.Add(EFloat.FromInt32(intValue));
     }
@@ -1238,18 +1239,36 @@ if (exp.Sign < 0) {
       return MathValue.CompareTo(this, other);
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
-  /// a 32-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values. This method currently uses
+    /// the rules given in the CompareToValue method, so that it it is not
+    /// consistent with the Equals method, but it may change in a future
+    /// version to use the rules for the CompareToTotal method
+    /// instead.</summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 32-bit signed integer.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value, or 0 if both values are equal.</returns>
     public int CompareTo(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intOther'>The parameter <paramref name='intOther'/> is
-  /// a 32-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values.
+    /// <para>This method is not consistent with the Equals method because
+    /// two different numbers with the same mathematical value, but
+    /// different exponents, will compare as equal.</para>
+    /// <para>In this method, negative zero and positive zero are
+    /// considered equal.</para>
+    /// <para>If this object is a quiet NaN or signaling NaN, this method
+    /// will not trigger an error. Instead, NaN will compare greater than
+    /// any other number.</para></summary>
+    /// <param name='intOther'/>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value or if <paramref name='other'/> is null, or 0 if both
+    /// values are equal.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }
@@ -1438,7 +1457,7 @@ if (exp.Sign < 0) {
         return neg1 ? 1 : -1;
       }
       if (valueIThis >= 2) {
-        cmp = this.unsignedMantissa.CompareTo (
+        cmp = this.unsignedMantissa.CompareTo(
             other.unsignedMantissa);
         return neg1 ? -cmp : cmp;
       } else if (valueIThis == 1) {
@@ -1446,7 +1465,7 @@ if (exp.Sign < 0) {
       } else {
         cmp = this.CompareTo(other);
         if (cmp == 0) {
-          cmp = this.exponent.CompareTo (
+          cmp = this.exponent.CompareTo(
               other.exponent);
           return neg1 ? -cmp : cmp;
         }
@@ -1507,7 +1526,7 @@ if (exp.Sign < 0) {
         return -1;
       }
       if (valueIThis >= 2) {
-        cmp = this.unsignedMantissa.CompareTo (
+        cmp = this.unsignedMantissa.CompareTo(
             other.unsignedMantissa);
         return cmp;
       } else if (valueIThis == 1) {
@@ -1515,7 +1534,7 @@ if (exp.Sign < 0) {
       } else {
         cmp = this.Abs().CompareTo(other.Abs());
         if (cmp == 0) {
-          cmp = this.exponent.CompareTo (
+          cmp = this.exponent.CompareTo(
               other.exponent);
           return cmp;
         }
@@ -1584,7 +1603,7 @@ if (exp.Sign < 0) {
     /// result can't be exact because it would have a nonterminating binary
     /// expansion.</returns>
     public EFloat Divide(EFloat divisor) {
-      return this.Divide (
+      return this.Divide(
           divisor,
           EContext.ForRounding(ERounding.None));
     }
@@ -1678,7 +1697,7 @@ if (exp.Sign < 0) {
       EFloat divisor,
       long desiredExponentSmall,
       EContext ctx) {
-      return this.DivideToExponent (
+      return this.DivideToExponent(
           divisor,
           EInteger.FromInt64(desiredExponentSmall),
           ctx);
@@ -1704,7 +1723,7 @@ if (exp.Sign < 0) {
       EFloat divisor,
       long desiredExponentSmall,
       ERounding rounding) {
-      return this.DivideToExponent (
+      return this.DivideToExponent(
           divisor,
           EInteger.FromInt64(desiredExponentSmall),
           EContext.ForRounding(rounding));
@@ -1762,7 +1781,7 @@ if (exp.Sign < 0) {
       EFloat divisor,
       EInteger desiredExponent,
       ERounding rounding) {
-      return this.DivideToExponent (
+      return this.DivideToExponent(
           divisor,
           desiredExponent,
           EContext.ForRounding(rounding));
@@ -1777,9 +1796,9 @@ if (exp.Sign < 0) {
     /// Signals FlagDivideByZero and returns infinity if the divisor is 0
     /// and the dividend is nonzero. Signals FlagInvalid and returns
     /// not-a-number (NaN) if the divisor and the dividend are 0.</returns>
-    public EFloat DivideToIntegerNaturalScale (
+    public EFloat DivideToIntegerNaturalScale(
       EFloat divisor) {
-      return this.DivideToIntegerNaturalScale (
+      return this.DivideToIntegerNaturalScale(
           divisor,
           EContext.ForRounding(ERounding.Down));
     }
@@ -1842,7 +1861,7 @@ if (exp.Sign < 0) {
     public EFloat DivideToSameExponent(
       EFloat divisor,
       ERounding rounding) {
-      return this.DivideToExponent (
+      return this.DivideToExponent(
           divisor,
           this.exponent,
           EContext.ForRounding(rounding));
@@ -1879,7 +1898,7 @@ if (exp.Sign < 0) {
       EContext ctx) {
       var result = new EFloat[2];
       result[0] = this.DivideToIntegerNaturalScale(divisor, null);
-      result[1] = this.Subtract (
+      result[1] = this.Subtract(
           result[0].Multiply(divisor, null),
           ctx);
       result[0] = result[0].RoundToPrecision(ctx);
@@ -1906,7 +1925,9 @@ if (exp.Sign < 0) {
     /// <param name='obj'>The parameter <paramref name='obj'/> is an
     /// arbitrary object.</param>
     /// <returns><c>true</c> if the objects are equal; otherwise,
-    /// <c>false</c>.</returns>
+    /// <c>false</c>. In this method, two objects are not equal if they
+    /// don't have the same type or if one is null and the other
+    /// isn't.</returns>
     public override bool Equals(object obj) {
       return this.EqualsInternal(obj as EFloat);
     }
@@ -2181,14 +2202,14 @@ if (exp.Sign < 0) {
       if (bigExp.Sign > 0) {
         EInteger mant = this.unsignedMantissa.ShiftLeft(bigExp);
         return CreateWithFlags(
-          mant,
-          EInteger.Zero,
-          this.flags).RoundToPrecision(ctx);
+            mant,
+            EInteger.Zero,
+            this.flags).RoundToPrecision(ctx);
       }
       return CreateWithFlags(
-        this.unsignedMantissa,
-        bigExp,
-        this.flags).RoundToPrecision(ctx);
+          this.unsignedMantissa,
+          bigExp,
+          this.flags).RoundToPrecision(ctx);
     }
 
     /// <summary>Multiplies two binary floating-point numbers. The
@@ -2214,7 +2235,7 @@ if (exp.Sign < 0) {
           long longA = ((long)integerA) * ((long)integerB);
           return CreateWithFlags((EInteger)longA, exp, newflags);
         } else {
-          EInteger eintA = this.unsignedMantissa.Multiply (
+          EInteger eintA = this.unsignedMantissa.Multiply(
               otherValue.unsignedMantissa);
           return CreateWithFlags(eintA, exp, newflags);
         }
@@ -2304,9 +2325,9 @@ if (exp.Sign < 0) {
       if ((subtrahend.flags & BigNumberFlags.FlagNaN) == 0) {
         int newflags = subtrahend.flags ^ BigNumberFlags.FlagNegative;
         negated = CreateWithFlags(
-          subtrahend.unsignedMantissa,
-          subtrahend.exponent,
-          newflags);
+            subtrahend.unsignedMantissa,
+            subtrahend.exponent,
+            newflags);
       }
       return MathValue.MultiplyAndAdd(this, op, negated, ctx);
     }
@@ -2321,9 +2342,9 @@ if (exp.Sign < 0) {
     /// necessarily return a copy of this object.).</returns>
     public EFloat Negate() {
       return new EFloat(
-        this.unsignedMantissa,
-        this.exponent,
-        this.flags ^ BigNumberFlags.FlagNegative);
+          this.unsignedMantissa,
+          this.exponent,
+          this.flags ^ BigNumberFlags.FlagNegative);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -2525,7 +2546,7 @@ if (exp.Sign < 0) {
     public EFloat Quantize(
       EInteger desiredExponent,
       EContext ctx) {
-      return this.Quantize (
+      return this.Quantize(
           EFloat.Create(EInteger.One, desiredExponent),
           ctx);
     }
@@ -2574,7 +2595,7 @@ if (exp.Sign < 0) {
     public EFloat Quantize(
       int desiredExponentInt,
       EContext ctx) {
-      return this.Quantize (
+      return this.Quantize(
           EFloat.Create(EInteger.One, (EInteger)desiredExponentInt),
           ctx);
     }
@@ -2680,7 +2701,7 @@ if (exp.Sign < 0) {
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public EFloat RemainderNaturalScale (
+    public EFloat RemainderNaturalScale(
       EFloat divisor) {
       return this.RemainderNaturalScale(divisor, null);
     }
@@ -2704,7 +2725,7 @@ if (exp.Sign < 0) {
     public EFloat RemainderNaturalScale(
       EFloat divisor,
       EContext ctx) {
-      return this.Subtract (
+      return this.Subtract(
         this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
         ctx);
     }
@@ -2862,7 +2883,7 @@ if (exp.Sign < 0) {
     public EFloat RoundToExponentExact(
       EInteger exponent,
       ERounding rounding) {
-      return MathValue.RoundToExponentExact (
+      return MathValue.RoundToExponentExact(
           this,
           exponent,
           EContext.Unlimited.WithRounding(rounding));
@@ -3069,9 +3090,9 @@ if (exp.Sign < 0) {
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       return CreateWithFlags(
-        this.unsignedMantissa,
-        bigExp,
-        this.flags).RoundToPrecision(ctx);
+          this.unsignedMantissa,
+          bigExp,
+          this.flags).RoundToPrecision(ctx);
     }
 
     /// <summary>Finds the square root of this object's value.</summary>
@@ -3146,9 +3167,9 @@ if (exp.Sign < 0) {
       if ((otherValue.flags & BigNumberFlags.FlagNaN) == 0) {
         int newflags = otherValue.flags ^ BigNumberFlags.FlagNegative;
         negated = CreateWithFlags(
-          otherValue.unsignedMantissa,
-          otherValue.exponent,
-          newflags);
+            otherValue.unsignedMantissa,
+            otherValue.exponent,
+            newflags);
       }
       return this.Add(negated, ctx);
     }
@@ -3332,7 +3353,7 @@ if (exp.Sign < 0) {
         return this.ToString();
       }
       if (this.IsNaN()) {
-        return CreateNaN (
+        return CreateNaN(
             this.UnsignedMantissa,
             this.IsSignalingNaN(),
             this.IsNegative,
@@ -3389,7 +3410,7 @@ if (exp.Sign < 0) {
             #if DEBUG
             if (!nextCtx.HasMaxPrecision) {
               throw new InvalidOperationException("mant=" + this.Mantissa +
-"," + "\u0020 exp=" + this.Exponent);
+                "," + "\u0020 exp=" + this.Exponent);
             }
             #endif
             EDecimal nextDec2 = dec.RoundToPrecision(nextCtx);
@@ -3489,7 +3510,7 @@ if (exp.Sign < 0) {
       if (this.IsNegative) {
         smallmantissa |= 1 << 31;
       }
-      return BitConverter.ToSingle (
+      return BitConverter.ToSingle(
           BitConverter.GetBytes((int)smallmantissa),
           0);
     }
@@ -3528,7 +3549,7 @@ if (exp.Sign < 0) {
         throw new ArgumentNullException(nameof(exponent));
       }
       int sign = mantissa == null ? 0 : mantissa.Sign;
-      return new EFloat (
+      return new EFloat(
           sign < 0 ? (-(EInteger)mantissa) : mantissa,
           exponent,
           flags);
@@ -3647,12 +3668,12 @@ if (exp.Sign < 0) {
         int lastDigit,
         int olderDigits) {
         if (fastInt.CanFitInInt32()) {
-          return new BitShiftAccumulator (
+          return new BitShiftAccumulator(
               fastInt.AsInt32(),
               lastDigit,
               olderDigits);
         } else {
-          return new BitShiftAccumulator (
+          return new BitShiftAccumulator(
               fastInt.ToEInteger(),
               lastDigit,
               olderDigits);
@@ -3705,9 +3726,12 @@ if (exp.Sign < 0) {
       }
 
       /// <summary>This is an internal method.</summary>
-      /// <param name='mantissa'>Not documented yet.</param>
-      /// <param name='exponent'>Not documented yet.</param>
-      /// <param name='flags'>Not documented yet.</param>
+      /// <param name='mantissa'>The parameter <paramref name='mantissa'/> is
+      /// a Numbers.EInteger object.</param>
+      /// <param name='exponent'>The parameter <paramref name='exponent'/> is
+      /// an internal parameter.</param>
+      /// <param name='flags'>The parameter <paramref name='flags'/> is an
+      /// internal parameter.</param>
       /// <returns>An arbitrary-precision binary floating-point
       /// number.</returns>
       public EFloat CreateNewWithFlags(
@@ -3721,7 +3745,7 @@ if (exp.Sign < 0) {
         FastIntegerFixed fmantissa,
         FastIntegerFixed fexponent,
         int flags) {
-        return CreateWithFlags (
+        return CreateWithFlags(
             fmantissa.ToEInteger(),
             fexponent.ToEInteger(),
             flags);

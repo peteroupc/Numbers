@@ -12,10 +12,10 @@ namespace PeterO.Numbers {
   /// stands for "extended", and has this prefix to group it with the
   /// other classes common to this library, particularly EDecimal,
   /// EFloat, and ERational.).</summary>
-#if NET20 || NET40
-[Serializable]
-#endif
-public sealed class ETrapException : ArithmeticException {
+  #if NET20 || NET40
+  [Serializable]
+  #endif
+  public sealed class ETrapException : ArithmeticException {
     private readonly Object result;
     private readonly EContext ctx;
 
@@ -44,7 +44,7 @@ public sealed class ETrapException : ArithmeticException {
     /// text string.</param>
     public ETrapException(string message) : base(message) {
       this.error = EContext.FlagInvalid;
-      this.error = EContext.FlagInvalid;
+      this.errors = EContext.FlagInvalid;
       this.ctx = null;
       this.result = null;
     }
@@ -58,7 +58,7 @@ public sealed class ETrapException : ArithmeticException {
     public ETrapException(string message, Exception innerException)
       : base(message, innerException) {
       this.error = EContext.FlagInvalid;
-      this.error = EContext.FlagInvalid;
+      this.errors = EContext.FlagInvalid;
       this.ctx = (this.ctx == null) ? null : this.ctx.Copy();
       this.result = null;
     }
@@ -99,12 +99,16 @@ public sealed class ETrapException : ArithmeticException {
       }
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='flag'>Not documented yet.</param>
-  /// <returns/>
+    /// <summary>Returns whether this trap exception specifies all the
+    /// flags given. (Flags are signaled in a trap exception as the result
+    /// of one or more operations involving arbitrary-precision numbers,
+    /// such as multiplication of two EDecimals.).</summary>
+    /// <param name='flag'>A combination of one or more flags, such as
+    /// <c>EContext.FlagInexact | EContext.FlagRounded</c>.</param>
+    /// <returns>True if this exception pertains to all of the flags given
+    /// in "flag"; otherwise, false.</returns>
     public bool HasError(int flag) {
-       return (this.Error & flag) == flag;
+      return (this.Error & flag) == flag;
     }
 
     private static string FlagToMessage(int flags) {
@@ -118,17 +122,18 @@ public sealed class ETrapException : ArithmeticException {
           }
           first = false;
           string str = (flag == EContext.FlagClamped) ? "Clamped" : ((flag ==
-            EContext.FlagDivideByZero) ? "DivideByZero" : ((flag ==
-              EContext.FlagInexact) ? "Inexact" : ((flag ==
-                EContext.FlagInvalid) ? "Invalid" : ((flag ==
-                  EContext.FlagOverflow) ? "Overflow" : ((flag ==
-                    EContext.FlagRounded) ? "Rounded" : ((flag ==
-                      EContext.FlagSubnormal) ? "Subnormal" : ((flag ==
-                        EContext.FlagUnderflow) ? "Underflow" : "Trap")))))));
+                EContext.FlagDivideByZero) ? "DivideByZero" : ((flag ==
+                  EContext.FlagInexact) ? "Inexact" : ((flag ==
+                    EContext.FlagInvalid) ? "Invalid" : ((flag ==
+                      EContext.FlagOverflow) ? "Overflow" : ((flag ==
+                        EContext.FlagRounded) ? "Rounded" : ((flag ==
+                          EContext.FlagSubnormal) ? "Subnormal" : ((flag ==
+                            EContext.FlagUnderflow) ? "Underflow" :
+"Trap")))))));
           sb.Append(str);
-         }
-       }
-       return sb.ToString();
+        }
+      }
+      return sb.ToString();
     }
 
     /// <summary>Initializes a new instance of the
@@ -159,13 +164,14 @@ public sealed class ETrapException : ArithmeticException {
     /// that triggered the trap. Can be null.</param>
     /// <param name='result'>The defined result of the operation that
     /// caused the trap.</param>
-    /// <exception cref='ArgumentException'>"flags" doesn't include all the
-    /// flags in the "flag" parameter.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='flags'/> doesn't include all the flags in the <paramref
+    /// name='flag'/> parameter.</exception>
     public ETrapException(int flags, int flag, EContext ctx, Object result)
       : base(FlagToMessage(flags)) {
-if ((flags & flag) != flag) {
-  throw new ArgumentException();
-}
+      if ((flags & flag) != flag) {
+        throw new ArgumentException();
+      }
       this.error = flag;
       this.errors = flags;
       this.ctx = (ctx == null) ? null : ctx.Copy();

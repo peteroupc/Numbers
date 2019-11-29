@@ -24,23 +24,23 @@ namespace Test {
       if (expected == actual) {
         return;
       }
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagInexact) != 0,
         (actual & EContext.FlagInexact) != 0,
         "Inexact: " + str);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagOverflow) != 0,
         (actual & EContext.FlagOverflow) != 0,
         "Overflow: " + str);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagUnderflow) != 0,
         (actual & EContext.FlagUnderflow) != 0,
         "Underflow: " + str);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagInvalid) != 0,
         (actual & EContext.FlagInvalid) != 0,
         "Invalid: " + str);
-      Assert.AreEqual (
+      Assert.AreEqual(
         (expected & EContext.FlagDivideByZero) != 0,
         (actual & EContext.FlagDivideByZero) != 0,
         "DivideByZero: " + str);
@@ -416,7 +416,7 @@ namespace Test {
           throw new FormatException(str);
         }
         // Console.WriteLine("mant=" + mantissa + " exp=" + exponent);
-        return Create (
+        return Create(
             EFloat.Create(mantissa, exponent));
       }
 
@@ -451,8 +451,8 @@ namespace Test {
             bigmantissa = -bigmantissa;
           }
           exponent -= 23;
-          return Create (
-              EFloat.Create (
+          return Create(
+              EFloat.Create(
                 bigmantissa,
                 (EInteger)exponent));
         }
@@ -492,8 +492,8 @@ namespace Test {
             bigmantissa = -bigmantissa;
           }
           exponent -= 52;
-          return Create (
-              EFloat.Create (
+          return Create(
+              EFloat.Create(
                 bigmantissa,
                 (EInteger)exponent));
         }
@@ -541,8 +541,8 @@ namespace Test {
             bigmantissa = -bigmantissa;
           }
           exponent -= 112;
-          return Create (
-              EFloat.Create (
+          return Create(
+              EFloat.Create(
                 bigmantissa,
                 (EInteger)exponent));
         }
@@ -630,7 +630,7 @@ namespace Test {
 
       public bool IsNear(IExtendedNumber bn) {
         // ComparePrint(bn);
-        var ulpdiff = EFloat.Create (
+        var ulpdiff = EFloat.Create(
             (EInteger)2,
             ToValue(this).Exponent);
         return ToValue(this).Subtract(ToValue(bn)).Abs().CompareTo(

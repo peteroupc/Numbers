@@ -7,7 +7,7 @@ using PeterO;
 using PeterO.Numbers;
 namespace Test {
   public static class DecTestUtil {
-    private static readonly Regex ValuePropertyLine = new Regex (
+    private static readonly Regex ValuePropertyLine = new Regex(
       "^(\\w+)\\:\\s*(\\S+)",
       RegexOptions.Compiled);
 
@@ -15,7 +15,7 @@ namespace Test {
       "^[\\'\\\"]|[\\'\\\"]$",
       RegexOptions.Compiled);
 
-    private static readonly Regex ValueTestLine = new Regex (
+    private static readonly Regex ValueTestLine = new Regex(
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)",
   RegexOptions.Compiled);
 
@@ -241,7 +241,7 @@ namespace Test {
 
     public static void ParseDecTests(
       string lines) {
-       ParseDecTests(lines, true);
+      ParseDecTests(lines, true);
     }
 
     public static void ParseDecTests(
@@ -257,13 +257,13 @@ namespace Test {
       }
     }
 
-    public static void ParseDecTest (
+    public static void ParseDecTest(
       string ln,
       IDictionary<string, string> context) {
       ParseDecTest(ln, context, true);
     }
 
-    public static void ParseDecTest (
+    public static void ParseDecTest(
       string ln,
       IDictionary<string, string> context,
       bool checkFlags) {
@@ -276,7 +276,7 @@ namespace Test {
       }
       match = (!ln.Contains(":")) ? null : ValuePropertyLine.Match(ln);
       if (match != null && match.Success) {
-        string paramName = ToLowerCaseAscii (
+        string paramName = ToLowerCaseAscii(
             match.Groups[1].ToString());
         if (context == null) {
           throw new ArgumentNullException(nameof(context));
@@ -303,19 +303,19 @@ namespace Test {
           throw new ArgumentNullException(nameof(context));
         }
         bool extended = GetKeyOrDefault(
-          context,
-          "extended",
-          "1").Equals("1", StringComparison.Ordinal);
+            context,
+            "extended",
+            "1").Equals("1", StringComparison.Ordinal);
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1",
             StringComparison.Ordinal);
         int precision = 0, minexponent = 0, maxexponent = 0;
         EContext ctx = null;
         string rounding = null;
-        precision = StringToIntAllowPlus (
+        precision = StringToIntAllowPlus(
             GetKeyOrDefault(context, "precision", "9"));
-        minexponent = StringToIntAllowPlus (
+        minexponent = StringToIntAllowPlus(
             GetKeyOrDefault(context, "minexponent", "-9999"));
-        maxexponent = StringToIntAllowPlus (
+        maxexponent = StringToIntAllowPlus(
             GetKeyOrDefault(context, "maxexponent", "9999"));
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
@@ -420,9 +420,9 @@ namespace Test {
             minexponent,
             maxexponent);
         rounding = ToLowerCaseAscii(GetKeyOrDefault(
-          context,
-          "rounding",
-          "half_even"));
+              context,
+              "rounding",
+              "half_even"));
         if (rounding.Equals("half_up", StringComparison.Ordinal)) {
           ctx = ctx.WithRounding(ERounding.HalfUp);
         }
@@ -514,9 +514,9 @@ namespace Test {
           {
             object objectTemp = id3;
             object objectTemp2 = EDecimals.CompareTotalMagnitude(
-              d1,
-              d2,
-              ctx);
+                d1,
+                d2,
+                ctx);
             string messageTemp = ln;
             Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
           }
@@ -619,7 +619,7 @@ namespace Test {
             d3 = EDecimal.FromBoolean(EDecimals.IsQuietNaN(d1));
           } else if (op.Equals("issnan", StringComparison.Ordinal)) {
             Assert.AreEqual(EDecimals.IsSignalingNaN(d1),
-  d1.IsSignalingNaN());
+              d1.IsSignalingNaN());
             d3 = EDecimal.FromBoolean(EDecimals.IsSignalingNaN(d1));
           } else if (op.Equals("isfinite", StringComparison.Ordinal)) {
             Assert.AreEqual(EDecimals.IsFinite(d1), d1.IsFinite);
@@ -685,7 +685,7 @@ namespace Test {
         }
         if (op.Equals("class", StringComparison.Ordinal)) {
           d1 = EDecimal.FromString(input1);
-          string numclass = EDecimals.NumberClassString (
+          string numclass = EDecimals.NumberClassString(
               EDecimals.NumberClass(d1, ctx));
           Assert.AreEqual(output, numclass, input1);
         } else if (op.Equals("toSci", StringComparison.Ordinal) ||
@@ -777,47 +777,46 @@ namespace Test {
         roundingstr = "05up";
       }
       return "\nprecision: " + (ec.Precision.Sign == 0 ? "9999999" :
-ec.Precision.ToString()) +
-        "\nrounding: " + roundingstr +
+          ec.Precision.ToString()) + "\nrounding: " + roundingstr +
         "\nmaxexponent: " + (ec.EMax.Sign == 0 ? "999999999999999" :
-ec.EMax.ToString()) +
+          ec.EMax.ToString()) +
         "\nminexponent: " + (ec.EMin.Sign == 0 ? "-999999999999999" :
-ec.EMin.ToString()) +
+          ec.EMin.ToString()) +
         "\n# adjustexp: " + (ec.AdjustExponent ? "1" : "0") +
         "\nextended: 1\nclamp: " + (ec.ClampNormalExponents ? "1" : "0") +
         "\n";
     }
 
     public static string FlagsToString(int flags) {
-if (flags == 0) {
-  return String.Empty;
-}
+      if (flags == 0) {
+        return String.Empty;
+      }
       var sb = new System.Text.StringBuilder();
-if ((flags & EContext.FlagInexact) != 0) {
+      if ((flags & EContext.FlagInexact) != 0) {
         sb.Append(" Inexact");
       }
-if ((flags & EContext.FlagRounded) != 0) {
+      if ((flags & EContext.FlagRounded) != 0) {
         sb.Append(" Rounded");
       }
-if ((flags & EContext.FlagSubnormal) != 0) {
+      if ((flags & EContext.FlagSubnormal) != 0) {
         sb.Append(" Subnormal");
       }
-if ((flags & EContext.FlagOverflow) != 0) {
+      if ((flags & EContext.FlagOverflow) != 0) {
         sb.Append(" Overflow");
       }
-if ((flags & EContext.FlagUnderflow) != 0) {
+      if ((flags & EContext.FlagUnderflow) != 0) {
         sb.Append(" Underflow");
       }
-if ((flags & EContext.FlagClamped) != 0) {
+      if ((flags & EContext.FlagClamped) != 0) {
         sb.Append(" Clamped");
       }
-if ((flags & EContext.FlagInvalid) != 0) {
+      if ((flags & EContext.FlagInvalid) != 0) {
         sb.Append(" Invalid");
       }
-if ((flags & EContext.FlagDivideByZero) != 0) {
+      if ((flags & EContext.FlagDivideByZero) != 0) {
         sb.Append(" Divide_by_zero");
       }
-if ((flags & EContext.FlagLostDigits) != 0) {
+      if ((flags & EContext.FlagLostDigits) != 0) {
         sb.Append(" Lost_digits");
       }
       return sb.ToString();

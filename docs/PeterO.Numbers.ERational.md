@@ -10,13 +10,13 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
 * <code>[Add(int)](#Add_int)</code> - Not documented yet.
 * <code>[Add(PeterO.Numbers.ERational)](#Add_PeterO_Numbers_ERational)</code> - Adds two rational numbers.
-* <code>[CompareTo(int)](#CompareTo_int)</code> - Not documented yet.
+* <code>[CompareTo(int)](#CompareTo_int)</code> - Compares the mathematical value of an arbitrary-precision rational number with that of this instance.
 * <code>[CompareTo(PeterO.Numbers.ERational)](#CompareTo_PeterO_Numbers_ERational)</code> - Compares the mathematical value of an arbitrary-precision rational number with that of this instance.
 * <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary floating-point number with this instance.
 * <code>[CompareToDecimal(PeterO.Numbers.EDecimal)](#CompareToDecimal_PeterO_Numbers_EDecimal)</code> - Compares an arbitrary-precision decimal number with this instance.
 * <code>[CompareToTotal(PeterO.Numbers.ERational)](#CompareToTotal_PeterO_Numbers_ERational)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.ERational)](#CompareToTotalMagnitude_PeterO_Numbers_ERational)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
-* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Not documented yet.
+* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Compares the mathematical value of an arbitrary-precision rational number with that of this instance.
 * <code>[CompareToValue(PeterO.Numbers.ERational)](#CompareToValue_PeterO_Numbers_ERational)</code> - Compares the mathematical value of an arbitrary-precision rational number with that of this instance.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision rational number.
 * <code>[CopySign(PeterO.Numbers.ERational)](#CopySign_PeterO_Numbers_ERational)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
@@ -26,10 +26,23 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool)</code> - Creates a not-a-number arbitrary-precision rational number.
 * <code>[Decrement()](#Decrement)</code> - Subtracts one from an arbitrary-precision rational number.
 * <code>[Denominator](#Denominator)</code> - Gets this object's denominator.
-* <code>[Divide(int)](#Divide_int)</code> - Not documented yet.
+* <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision rational number object.
 * <code>[Divide(PeterO.Numbers.ERational)](#Divide_PeterO_Numbers_ERational)</code> - Divides this instance by the value of an arbitrary-precision rational number object.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object and that other object is an arbitrary-precision rational number.
 * <code>[Equals(PeterO.Numbers.ERational)](#Equals_PeterO_Numbers_ERational)</code> - Determines whether this object's numerator, denominator, and properties are equal to those of another object.
+* <code>[explicit operator byte(PeterO.Numbers.ERational)](#explicit_operator_byte_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator decimal(PeterO.Numbers.ERational)](#explicit_operator_decimal_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a decimal under the Common Language Infrastructure (see T:PeterO.
+* <code>[explicit operator double(PeterO.Numbers.ERational)](#explicit_operator_double_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 64-bit floating-point number.
+* <code>[explicit operator float(PeterO.Numbers.ERational)](#explicit_operator_float_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 32-bit binary floating-point number.
+* <code>[explicit operator int(PeterO.Numbers.ERational)](#explicit_operator_int_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator long(PeterO.Numbers.ERational)](#explicit_operator_long_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator PeterO.Numbers.EInteger(PeterO.Numbers.ERational)](#explicit_operator_PeterO_Numbers_EInteger_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to an arbitrary-precision integer.
+* <code>[explicit operator PeterO.Numbers.ERational(bool)](#explicit_operator_PeterO_Numbers_ERational_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number.
+* <code>[explicit operator sbyte(PeterO.Numbers.ERational)](#explicit_operator_sbyte_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator short(PeterO.Numbers.ERational)](#explicit_operator_short_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator uint(PeterO.Numbers.ERational)](#explicit_operator_uint_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator ulong(PeterO.Numbers.ERational)](#explicit_operator_ulong_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator ushort(PeterO.Numbers.ERational)](#explicit_operator_ushort_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
 * <code>[FromDecimal(decimal)](#FromDecimal_decimal)</code> - Converts a decimal under the Common Language Infrastructure (usually a.
@@ -50,6 +63,20 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision rational number.
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
 * <code>[GetHashCode()](#GetHashCode)</code> - Returns the hash code for this instance.
+* <code>[implicit operator PeterO.Numbers.ERational(byte)](#implicit_operator_PeterO_Numbers_ERational_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(decimal)](#implicit_operator_PeterO_Numbers_ERational_decimal)</code> - Converts a decimal under the Common Language Infrastructure (usually a.
+* <code>[implicit operator PeterO.Numbers.ERational(double)](#implicit_operator_PeterO_Numbers_ERational_double)</code> - Converts a 64-bit floating-point number to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(float)](#implicit_operator_PeterO_Numbers_ERational_float)</code> - Converts a 32-bit binary floating-point number to a rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(int)](#implicit_operator_PeterO_Numbers_ERational_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(long)](#implicit_operator_PeterO_Numbers_ERational_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(PeterO.Numbers.EDecimal)](#implicit_operator_PeterO_Numbers_ERational_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(PeterO.Numbers.EFloat)](#implicit_operator_PeterO_Numbers_ERational_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(PeterO.Numbers.EInteger)](#implicit_operator_PeterO_Numbers_ERational_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(sbyte)](#implicit_operator_PeterO_Numbers_ERational_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(short)](#implicit_operator_PeterO_Numbers_ERational_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(uint)](#implicit_operator_PeterO_Numbers_ERational_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(ulong)](#implicit_operator_PeterO_Numbers_ERational_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
+* <code>[implicit operator PeterO.Numbers.ERational(ushort)](#implicit_operator_PeterO_Numbers_ERational_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision rational number.
 * <code>[Increment()](#Increment)</code> - Adds one to an arbitrary-precision rational number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object's value is infinity.
@@ -71,8 +98,6 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[PeterO.Numbers.ERational operator +(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Addition)</code> - Adds two rational numbers.
 * <code>[PeterO.Numbers.ERational operator --(PeterO.Numbers.ERational)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator /(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Division)</code> - Divides an arbitrary-precision rational number by the value of another arbitrary-precision rational number object.
-* <code>[explicit operator ulong(PeterO.Numbers.ERational)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number. Converts an arbitrary-precision rational number to a decimal under the Common Language Infrastructure (see T:PeterO. Converts an arbitrary-precision rational number to an arbitrary-precision integer. Converts an arbitrary-precision rational number to a 64-bit floating-point number. Converts an arbitrary-precision rational number to a 32-bit binary floating-point number. Converts an arbitrary-precision rational number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision rational number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
-* <code>[implicit operator PeterO.Numbers.ERational(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision integer to an arbitrary-precision rational number. Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision rational number. Converts an arbitrary-precision binary floating-point number to an arbitrary-precision rational number. Converts a decimal under the Common Language Infrastructure (usually a. Converts a 32-bit binary floating-point number to a rational number. Converts a 64-bit floating-point number to an arbitrary-precision rational number. Converts a byte (from 0 to 255) to an arbitrary-precision rational number. Converts an 8-bit signed integer to an arbitrary-precision rational number. Converts a 16-bit signed integer to an arbitrary-precision rational number. Converts a 16-bit unsigned integer to an arbitrary-precision rational number. Converts a 32-bit signed integer to an arbitrary-precision rational number. Converts a 32-bit signed integer to an arbitrary-precision rational number. Converts a 64-bit signed integer to an arbitrary-precision rational number. Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator ++(PeterO.Numbers.ERational)](#op_Increment)</code> - Adds one to an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator %(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Modulus)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision rational number.
 * <code>[PeterO.Numbers.ERational operator &#x2a;(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#op_Multiply)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
@@ -346,16 +371,15 @@ The parameter  <i>otherValue</i>
     public int CompareTo(
         int intOther);
 
-Not documented yet.
+Compares the mathematical value of an arbitrary-precision rational number with that of this instance. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.
 
 <b>Parameters:</b>
 
- * <i>intOther</i>: The parameter  <i>intOther</i>
- is a 32-bit signed integer.
+ * <i>intOther</i>:
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
 <a id="CompareTo_PeterO_Numbers_ERational"></a>
 ### CompareTo
@@ -480,16 +504,15 @@ The number 0 if both objects have the same value, or -1 if this object is less t
     public int CompareToValue(
         int intOther);
 
-Not documented yet.
+Compares the mathematical value of an arbitrary-precision rational number with that of this instance. In this method, NaN values are greater than any other ERational value, and two NaN values (even if their payloads differ) are treated as equal by this method. This method is not consistent with the Equals method.
 
 <b>Parameters:</b>
 
- * <i>intOther</i>: The parameter  <i>intOther</i>
- is a 32-bit signed integer.
+ * <i>intOther</i>:
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
 <a id="CompareToValue_PeterO_Numbers_ERational"></a>
 ### CompareToValue
@@ -662,16 +685,20 @@ The given arbitrary-precision rational number minus one.
     public PeterO.Numbers.ERational Divide(
         int v);
 
-Not documented yet.
+Divides this instance by the value of an arbitrary-precision rational number object.
 
 <b>Parameters:</b>
 
- * <i>v</i>: The parameter  <i>v</i>
- is a 32-bit signed integer.
+ * <i>v</i>:
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The quotient of the two objects.
+
+<b>Exceptions:</b>
+
+ * System.ArithmeticException:
+"v" is zero.
 
 <a id="Divide_PeterO_Numbers_ERational"></a>
 ### Divide
@@ -710,7 +737,7 @@ Determines whether this object's numerator, denominator, and properties are equa
 
 <b>Return Value:</b>
 
- `true`  if the objects are equal; otherwise,  `false` .
+ `true`  if the objects are equal; otherwise,  `false` . In this method, two objects are not equal if they don't have the same type or if one is null and the other isn't.
 
 <a id="Equals_PeterO_Numbers_ERational"></a>
 ### Equals
@@ -1316,7 +1343,7 @@ The quotient of the two objects.
  * System.ArgumentNullException:
 The parameter "otherValue" is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_byte_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator byte(
@@ -1343,7 +1370,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_decimal_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator decimal(
@@ -1365,7 +1392,7 @@ A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework 
 The parameter  <i>extendedNumber</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_double_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator double(
@@ -1387,7 +1414,7 @@ The closest 64-bit floating-point number to this value. The return value can be 
 The parameter  <i>bigValue</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_float_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator float(
@@ -1409,7 +1436,7 @@ The closest 32-bit binary floating-point number to this value. The return value 
 The parameter  <i>bigValue</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_int_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator int(
@@ -1436,7 +1463,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_long_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator long(
@@ -1463,7 +1490,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_PeterO_Numbers_EInteger_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator PeterO.Numbers.EInteger(
@@ -1488,7 +1515,7 @@ This object's value is infinity or not-a-number (NaN).
 The parameter  <i>bigValue</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_PeterO_Numbers_ERational_bool"></a>
 ### Explicit Operator
 
     public static explicit operator PeterO.Numbers.ERational(
@@ -1505,7 +1532,7 @@ Converts a boolean value (true or false) to an arbitrary-precision rational numb
 1 if  <i>boolValue</i>
  is true; otherwise, 0.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_sbyte_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator sbyte(
@@ -1534,7 +1561,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_short_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator short(
@@ -1561,7 +1588,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_uint_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator uint(
@@ -1590,7 +1617,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_ulong_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator ulong(
@@ -1619,7 +1646,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_ushort_PeterO_Numbers_ERational"></a>
 ### Explicit Operator
 
     public static explicit operator ushort(
@@ -1648,7 +1675,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_byte"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1665,7 +1692,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
 The value of  <i>inputByte</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_decimal"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1681,7 +1708,7 @@ Converts a  `decimal`  under the Common Language Infrastructure (usually a.NET F
 
 An arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_double"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1698,7 +1725,7 @@ Converts a 64-bit floating-point number to an arbitrary-precision rational numbe
 
 An arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_float"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1716,7 +1743,7 @@ Converts a 32-bit binary floating-point number to a rational number.
 The value of  <i>eint</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_int"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1733,7 +1760,7 @@ Converts a 32-bit signed integer to an arbitrary-precision rational number.
 The value of  <i>inputInt32</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_long"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1750,7 +1777,7 @@ Converts a 64-bit signed integer to an arbitrary-precision rational number.
 The value of  <i>inputInt64</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_PeterO_Numbers_EDecimal"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1767,7 +1794,7 @@ Converts an arbitrary-precision decimal floating-point number to an arbitrary-pr
 
 An arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_PeterO_Numbers_EFloat"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1783,7 +1810,7 @@ Converts an arbitrary-precision binary floating-point number to an arbitrary-pre
 
 An arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_PeterO_Numbers_EInteger"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1799,7 +1826,7 @@ Converts an arbitrary-precision integer to an arbitrary-precision rational numbe
 
 An arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_sbyte"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1818,7 +1845,7 @@ Converts an 8-bit signed integer to an arbitrary-precision rational number.
 The value of  <i>inputSByte</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_short"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1835,7 +1862,7 @@ Converts a 16-bit signed integer to an arbitrary-precision rational number.
 The value of  <i>inputInt16</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_uint"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1854,7 +1881,7 @@ Converts a 32-bit signed integer to an arbitrary-precision rational number.
 The value of  <i>inputUInt32</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_ulong"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(
@@ -1873,7 +1900,7 @@ Converts a 64-bit unsigned integer to an arbitrary-precision rational number.
 The value of  <i>inputUInt64</i>
  as an arbitrary-precision rational number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_ERational_ushort"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.ERational(

@@ -7,7 +7,7 @@ using System;
 
 namespace PeterO {
   /// <summary>Description of Runner.</summary>
-  public class Runner {
+  public static class Runner {
     public static void Main() {
     }
   }

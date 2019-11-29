@@ -333,7 +333,7 @@ namespace PeterO.Numbers {
       if (scale.IsZero) {
         return ed.RoundToPrecision(ec);
       }
-      EDecimal ret = EDecimal.Create (
+      EDecimal ret = EDecimal.Create(
           ed.UnsignedMantissa,
           ed.Exponent.Add(scale));
       if (ed.IsNegative) {
@@ -474,7 +474,7 @@ namespace PeterO.Numbers {
       EInteger mantprec = ed.Precision();
       if (ec != null && ec.HasMaxPrecision &&
         mantprec.CompareTo(ec.Precision) > 0) {
-        mant = mant.Remainder (
+        mant = mant.Remainder(
             EInteger.FromInt32(DecimalRadix).Pow(ec.Precision));
         mantprec = ec.Precision;
       }
@@ -795,7 +795,7 @@ namespace PeterO.Numbers {
           return InvalidOperation(ec);
         }
         EDecimal rounded = scale.Quantize(0, tec);
-        return ed.Quantize (
+        return ed.Quantize(
             EDecimal.Create(EInteger.One, rounded.Mantissa),
             ec);
       }

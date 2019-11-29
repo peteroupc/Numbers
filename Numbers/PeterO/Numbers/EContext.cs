@@ -87,7 +87,7 @@ namespace PeterO.Numbers {
     public static readonly EContext BigDecimalJava =
       new EContext(0, ERounding.HalfUp, 0, 0, true)
     .WithExponentClamp(true).WithAdjustExponent(false)
-    .WithBigExponentRange (
+    .WithBigExponentRange(
       EInteger.Zero - (EInteger)Int32.MaxValue,
       EInteger.One + (EInteger)Int32.MaxValue);
 
@@ -298,7 +298,7 @@ namespace PeterO.Numbers {
       ERounding rounding,
       int exponentMinSmall,
       int exponentMaxSmall,
-      bool clampNormalExponents) : this (
+      bool clampNormalExponents) : this(
           true,
           EInteger.FromInt32(precision),
           clampNormalExponents,
@@ -329,7 +329,7 @@ namespace PeterO.Numbers {
       ERounding rounding,
       EInteger exponentMin,
       EInteger exponentMax,
-      bool clampNormalExponents) : this (
+      bool clampNormalExponents) : this(
           true,
           bigintPrecision,
           clampNormalExponents,
@@ -865,7 +865,7 @@ this.simplified +
     public EContext WithExponentRange(
       int exponentMinSmall,
       int exponentMaxSmall) {
-      return this.WithBigExponentRange (
+      return this.WithBigExponentRange(
           EInteger.FromInt32(exponentMinSmall),
           EInteger.FromInt32(exponentMaxSmall));
     }

@@ -37,6 +37,15 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Use the DivRem instance method instead.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
 * <code>[Equals(PeterO.Numbers.EInteger)](#Equals_PeterO_Numbers_EInteger)</code> - Determines whether this object and another object are equal.
+* <code>[explicit operator byte(PeterO.Numbers.EInteger)](#explicit_operator_byte_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255).
+* <code>[explicit operator int(PeterO.Numbers.EInteger)](#explicit_operator_int_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer.
+* <code>[explicit operator long(PeterO.Numbers.EInteger)](#explicit_operator_long_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 64-bit signed integer if it can fit in a 64-bit signed integer.
+* <code>[explicit operator PeterO.Numbers.EInteger(bool)](#explicit_operator_PeterO_Numbers_EInteger_bool)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
+* <code>[explicit operator sbyte(PeterO.Numbers.EInteger)](#explicit_operator_sbyte_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to an 8-bit signed integer if it can fit in an 8-bit signed integer.
+* <code>[explicit operator short(PeterO.Numbers.EInteger)](#explicit_operator_short_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 16-bit signed integer if it can fit in a 16-bit signed integer.
+* <code>[explicit operator uint(PeterO.Numbers.EInteger)](#explicit_operator_uint_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer.
+* <code>[explicit operator ulong(PeterO.Numbers.EInteger)](#explicit_operator_ulong_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer.
+* <code>[explicit operator ushort(PeterO.Numbers.EInteger)](#explicit_operator_ushort_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer.
 * <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision integer.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[FromBytes(byte[], bool)](#FromBytes_byte_bool)</code> - Initializes an arbitrary-precision integer from an array of bytes.
@@ -66,6 +75,14 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetUnsignedBit(PeterO.Numbers.EInteger)](#GetUnsignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
+* <code>[implicit operator PeterO.Numbers.EInteger(byte)](#implicit_operator_PeterO_Numbers_EInteger_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
+* <code>[implicit operator PeterO.Numbers.EInteger(int)](#implicit_operator_PeterO_Numbers_EInteger_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
+* <code>[implicit operator PeterO.Numbers.EInteger(long)](#implicit_operator_PeterO_Numbers_EInteger_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
+* <code>[implicit operator PeterO.Numbers.EInteger(sbyte)](#implicit_operator_PeterO_Numbers_EInteger_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision integer.
+* <code>[implicit operator PeterO.Numbers.EInteger(short)](#implicit_operator_PeterO_Numbers_EInteger_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision integer.
+* <code>[implicit operator PeterO.Numbers.EInteger(uint)](#implicit_operator_PeterO_Numbers_EInteger_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
+* <code>[implicit operator PeterO.Numbers.EInteger(ulong)](#implicit_operator_PeterO_Numbers_EInteger_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision integer.
+* <code>[implicit operator PeterO.Numbers.EInteger(ushort)](#implicit_operator_PeterO_Numbers_EInteger_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision integer.
 * <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision integer.
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
@@ -86,10 +103,8 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[PeterO.Numbers.EInteger operator --(PeterO.Numbers.EInteger)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision integer.
 * <code>[PeterO.Numbers.EInteger operator /(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_Division)</code> - Divides an arbitrary-precision integer by the value of an arbitrary-precision integer object.
 * <code>[PeterO.Numbers.EInteger operator ^(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_ExclusiveOr)</code> - Finds the exclusive "or" of two arbitrary-precision integer objects.
-* <code>[explicit operator ulong(PeterO.Numbers.EInteger)](#op_Explicit)</code> - Converts an arbitrary-precision integer to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255). Converts a byte (from 0 to 255) to an arbitrary-precision integer. Converts an arbitrary-precision integer to an 8-bit signed integer if it can fit in an 8-bit signed integer. Converts an arbitrary-precision integer to a 16-bit signed integer if it can fit in a 16-bit signed integer. Converts an arbitrary-precision integer to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer. Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer. Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer. Converts an arbitrary-precision integer to a 64-bit signed integer if it can fit in a 64-bit signed integer. Converts an arbitrary-precision integer to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer.
 * <code>[bool operator &gt;(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_GreaterThan)</code> - Determines whether an arbitrary-precision integer is greater than another arbitrary-precision integer.
 * <code>[bool operator &gt;=(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_GreaterThanOrEqual)</code> - Determines whether an arbitrary-precision integer value is greater than another arbitrary-precision integer.
-* <code>[implicit operator PeterO.Numbers.EInteger(ulong)](#op_Implicit)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer. Converts an 8-bit signed integer to an arbitrary-precision integer. Converts a 16-bit signed integer to an arbitrary-precision integer. Converts a 16-bit unsigned integer to an arbitrary-precision integer. Converts a 32-bit signed integer to an arbitrary-precision integer. Converts a 32-bit signed integer to an arbitrary-precision integer. Converts a 64-bit signed integer to an arbitrary-precision integer. Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 * <code>[PeterO.Numbers.EInteger operator ++(PeterO.Numbers.EInteger)](#op_Increment)</code> - Adds one to an arbitrary-precision integer.
 * <code>[PeterO.Numbers.EInteger operator &lt;&lt;(PeterO.Numbers.EInteger, int)](#op_LeftShift)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
 * <code>[bool operator &lt;(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_LessThan)</code> - Determines whether an arbitrary-precision integer is less than another arbitrary-precision integer.
@@ -1489,7 +1504,7 @@ The parameter  <i>a</i>
  or  <i>b</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_byte_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator byte(
@@ -1516,7 +1531,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_int_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator int(
@@ -1543,7 +1558,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_long_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator long(
@@ -1570,7 +1585,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_PeterO_Numbers_EInteger_bool"></a>
 ### Explicit Operator
 
     public static explicit operator PeterO.Numbers.EInteger(
@@ -1587,7 +1602,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 The value of  <i>boolValue</i>
  as an arbitrary-precision integer.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_sbyte_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator sbyte(
@@ -1616,7 +1631,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_short_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator short(
@@ -1643,7 +1658,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_uint_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator uint(
@@ -1672,7 +1687,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_ulong_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator ulong(
@@ -1701,7 +1716,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_ushort_PeterO_Numbers_EInteger"></a>
 ### Explicit Operator
 
     public static explicit operator ushort(
@@ -1772,7 +1787,7 @@ Determines whether an arbitrary-precision integer value is greater than another 
  is at least  <i>otherValue</i>
  ; otherwise,  `false` .
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_byte"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(
@@ -1789,7 +1804,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 The value of  <i>inputByte</i>
  as an arbitrary-precision integer.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_int"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(
@@ -1806,7 +1821,7 @@ Converts a 32-bit signed integer to an arbitrary-precision integer.
 The value of  <i>inputInt32</i>
  as an arbitrary-precision integer.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_long"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(
@@ -1823,7 +1838,7 @@ Converts a 64-bit signed integer to an arbitrary-precision integer.
 The value of  <i>inputInt64</i>
  as an arbitrary-precision integer.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_sbyte"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(
@@ -1842,7 +1857,7 @@ Converts an 8-bit signed integer to an arbitrary-precision integer.
 The value of  <i>inputSByte</i>
  as an arbitrary-precision integer.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_short"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(
@@ -1859,7 +1874,7 @@ Converts a 16-bit signed integer to an arbitrary-precision integer.
 The value of  <i>inputInt16</i>
  as an arbitrary-precision integer.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_uint"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(
@@ -1878,7 +1893,7 @@ Converts a 32-bit signed integer to an arbitrary-precision integer.
 The value of  <i>inputUInt32</i>
  as an arbitrary-precision integer.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_ulong"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(
@@ -1897,7 +1912,7 @@ Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 The value of  <i>inputUInt64</i>
  as an arbitrary-precision integer.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EInteger_ushort"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EInteger(

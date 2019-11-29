@@ -54,24 +54,24 @@ namespace Test {
           System.Globalization.NumberStyles numstyles =
             System.Globalization.NumberStyles.AllowExponent |
             System.Globalization.NumberStyles.Number;
-          d = Decimal.Parse (
+          d = Decimal.Parse(
               ed.ToString(),
               numstyles,
               System.Globalization.CultureInfo.InvariantCulture);
-          EDecimal ed3 = EDecimal.FromString (
+          EDecimal ed3 = EDecimal.FromString(
               ed.ToString(),
               EContext.CliDecimal);
           string msg = ed.ToString() + " (expanded: " +
             EDecimal.FromString(ed.ToString()) + ")";
-          TestCommon.CompareTestEqual (
+          TestCommon.CompareTestEqual(
             (EDecimal)d,
             ed3,
             msg);
         } catch (OverflowException ex) {
-          EDecimal ed2 = EDecimal.FromString (
+          EDecimal ed2 = EDecimal.FromString(
               ed.ToString(),
               EContext.CliDecimal);
-          Assert.IsTrue (
+          Assert.IsTrue(
             ed2.IsInfinity(),
             ed.ToString(),
             ex.ToString());
@@ -117,7 +117,7 @@ namespace Test {
         TestCommon.CompareTestEqual(d, (decimal)ed, ed.ToString());
         EDecimal ed2 =
 
-          EDecimal.FromString (
+          EDecimal.FromString(
             d.ToString(System.Globalization.CultureInfo.InvariantCulture));
         TestCommon.CompareTestEqual(ed, ed2);
       }
@@ -259,7 +259,7 @@ namespace Test {
       if (testfiles.Length == 0) {
         return;
       }
-      string failingpath = Path.Combine (
+      string failingpath = Path.Combine(
           Path.GetDirectoryName(testfiles[0]),
           "failing.decTest");
       var failedLines = new Dictionary<string, bool>();
@@ -278,12 +278,12 @@ namespace Test {
         var context = new Dictionary<string, string>();
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
-if (failures >= 100) {
-  break;
-}
+            if (failures >= 100) {
+              break;
+            }
             string ln = w.ReadLine();
             try {
-             DecTestUtil.ParseDecTest(ln, context);
+              DecTestUtil.ParseDecTest(ln, context);
             } catch (Exception ex) {
               Console.WriteLine(ln);
               if (!failedLines.ContainsKey(ln)) {
@@ -302,11 +302,11 @@ if (failures >= 100) {
                 }
                 sb.Append("# " + ex.GetType().FullName).Append("\r\n");
                 sb.Append("# " +
-                   ex.Message.Replace("\r", String.Empty).Replace("\n", "\n# "))
-                   .Append("\r\n");
-                sb.Append("# " +
-                   ex.StackTrace.Replace("\r", String.Empty).Replace("\n",
+                  ex.Message.Replace("\r", String.Empty).Replace("\n",
   "\n# ")).Append("\r\n");
+                sb.Append("# " +
+                  ex.StackTrace.Replace("\r", String.Empty).Replace("\n",
+                    "\n# ")).Append("\r\n");
                 sb.Append(ln).Append("\r\n");
                 failedLines[ln] = true;
               }

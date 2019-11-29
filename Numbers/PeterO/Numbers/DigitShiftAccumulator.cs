@@ -126,9 +126,9 @@ namespace PeterO.Numbers {
 
     public FastInteger OverestimateDigitLength() {
       // If digit length is known, return it
-if (this.knownDigitLength != null) {
-  return this.knownDigitLength;
-}
+      if (this.knownDigitLength != null) {
+        return this.knownDigitLength;
+      }
       if (this.isSmall) {
         // Can easily be calculated without estimation
         return this.GetDigitLength();
@@ -138,7 +138,7 @@ if (this.knownDigitLength != null) {
         if (bigBitLength.CompareTo(2135) <= 0) {
           // May overestimate by 1
           return new FastInteger(1 + ((bigBitLength.ToInt32Checked() *
-                631305) >> 21));
+                  631305) >> 21));
         } else {
           // Bit length is big enough that dividing it by 3 will not
           // underestimate the true base-10 digit length.
@@ -149,9 +149,9 @@ if (this.knownDigitLength != null) {
 
     private FastInteger UnderestimateDigitLength() {
       // If digit length is known, return it
-if (this.knownDigitLength != null) {
-  return this.knownDigitLength;
-}
+      if (this.knownDigitLength != null) {
+        return this.knownDigitLength;
+      }
       if (this.isSmall) {
         // Can easily be calculated without estimation
         return this.GetDigitLength();
@@ -319,7 +319,7 @@ if (this.knownDigitLength != null) {
       // ei = DivideByPowerOfTen(ei, pow - mid);
       // return DivideByPowerOfTen(ei, mid);
       // } else {
-          return ei.Divide(NumberUtility.FindPowerOfTen(pow));
+      return ei.Divide(NumberUtility.FindPowerOfTen(pow));
       // }
     }
 
@@ -393,12 +393,12 @@ if (this.knownDigitLength != null) {
         this.knownDigitLength = new FastInteger(1);
         return;
       }
-// if (digits > 50) {
-// DebugUtility.Log("ShiftRightBig(" + digits + ")");
-// }
+      // if (digits > 50) {
+      // DebugUtility.Log("ShiftRightBig(" + digits + ")");
+      // }
       if (truncate) {
-  EInteger bigquo;
-  if (digits > 50) {
+        EInteger bigquo;
+        if (digits > 50) {
           // To avoid having to calculate a very big power of 10,
           // check the digit count to see if doing so can be avoided
           EInteger bigBitLength =
@@ -436,13 +436,13 @@ if (this.knownDigitLength != null) {
           }
         }
         if (this.shiftedBigInt.IsEven && this.bitLeftmost == 0) {
-          EInteger[] quorem = this.shiftedBigInt.DivRem (
+          EInteger[] quorem = this.shiftedBigInt.DivRem(
               NumberUtility.FindPowerOfTen(digits));
           bigquo = quorem[0];
           this.bitLeftmost |= quorem[1].IsZero ? 0 : 1;
         } else {
           this.bitLeftmost = 1;
-          bigquo = this.shiftedBigInt.Divide (
+          bigquo = this.shiftedBigInt.Divide(
               NumberUtility.FindPowerOfTen(digits));
         }
         this.bitsAfterLeftmost |= this.bitLeftmost;
@@ -592,7 +592,7 @@ if (this.knownDigitLength != null) {
           long bigPower = ValueTenPowers[digits];
           long smallPower = ValueTenPowers[digits - 1];
           this.discardedBitCount = this.discardedBitCount ?? new FastInteger(
-  0);
+              0);
           this.discardedBitCount.AddInt(digits);
           long div = shiftedLong / bigPower;
           long rem = shiftedLong - (div * bigPower);
@@ -639,7 +639,7 @@ if (this.knownDigitLength != null) {
           return;
         }
       }
-      this.knownDigitLength = new FastInteger (
+      this.knownDigitLength = new FastInteger(
         LongDigitLength(shiftedLong));
       if (this.discardedBitCount != null) {
         this.discardedBitCount.AddInt(digits);
@@ -685,26 +685,26 @@ if (this.knownDigitLength != null) {
           return;
         }
       }
-// DebugUtility.Log("ShiftToDigitsBig(" + digits + ")");
-// var sw = new System.Diagnostics.Stopwatch();sw.Restart();
+      // DebugUtility.Log("ShiftToDigitsBig(" + digits + ")");
+      // var sw = new System.Diagnostics.Stopwatch();sw.Restart();
       string str;
       FastInteger estDigitLength = this.UnderestimateDigitLength();
       bool haveKnownDigitLength = this.knownDigitLength != null;
-#if DEBUG
-// if (this.CalcKnownDigitLength().CompareTo(estDigitLength) < 0) {
- // throw new InvalidOperationException();
-// }
-#endif
+      #if DEBUG
+      // if (this.CalcKnownDigitLength().CompareTo(estDigitLength) < 0) {
+      // throw new InvalidOperationException();
+      // }
+      #endif
       if (estDigitLength.CompareToInt(digits) <= 0) {
         if (!haveKnownDigitLength) {
           this.GetDigitLength();
           this.ShiftToDigitsBig(digits, truncate);
         }
-#if DEBUG
-if (this.knownDigitLength.CompareToInt(digits) > 0) {
-  throw new InvalidOperationException();
-}
-#endif
+        #if DEBUG
+        if (this.knownDigitLength.CompareToInt(digits) > 0) {
+          throw new InvalidOperationException();
+        }
+        #endif
         return;
       }
       FastInteger digitDiff = estDigitLength.Copy().SubtractInt(digits);
@@ -715,11 +715,11 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
           this.GetDigitLength();
           this.ShiftToDigitsBig(digits, truncate);
         }
-#if DEBUG
-if (this.knownDigitLength.CompareToInt(digits) > 0) {
-  throw new InvalidOperationException();
-}
-#endif
+        #if DEBUG
+        if (this.knownDigitLength.CompareToInt(digits) > 0) {
+          throw new InvalidOperationException();
+        }
+        #endif
         return;
       }
       if (digitDiff.CompareToInt(1) == 0) {
@@ -740,11 +740,11 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
         } else {
           this.UpdateKnownLength(digitDiff);
         }
-#if DEBUG
-if (this.knownDigitLength.CompareToInt(digits) > 0) {
-  throw new InvalidOperationException();
-}
-#endif
+        #if DEBUG
+        if (this.knownDigitLength.CompareToInt(digits) > 0) {
+          throw new InvalidOperationException();
+        }
+        #endif
         return;
       }
       if (digitDiff.CompareToInt(9) <= 0) {
@@ -776,18 +776,18 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
         } else {
           this.UpdateKnownLength(digitDiff);
         }
-#if DEBUG
-if (this.knownDigitLength.CompareToInt(digits) > 0) {
-  throw new InvalidOperationException();
-}
-#endif
+        #if DEBUG
+        if (this.knownDigitLength.CompareToInt(digits) > 0) {
+          throw new InvalidOperationException();
+        }
+        #endif
         return;
       }
-// DebugUtility.Log("e1=" + sw.ElapsedMilliseconds + " ms");
+      // DebugUtility.Log("e1=" + sw.ElapsedMilliseconds + " ms");
       if (digitDiff.CanFitInInt32()) {
         #if DEBUG
         if (!(digitDiff.CompareToInt(2) > 0)) {
-          throw new ArgumentException (
+          throw new ArgumentException(
             "doesn't satisfy digitDiff.CompareToInt(2)>0");
         }
         #endif
@@ -797,17 +797,19 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
         EInteger radixPower;
         int power = digitDiff.AsInt32() - 1;
         if (!this.shiftedBigInt.IsEven || this.bitsAfterLeftmost != 0) {
-// DebugUtility.Log("f=" + sw.ElapsedMilliseconds + " ms [pow=" + power + "]");
-        bigquo = this.shiftedBigInt;
-// DebugUtility.Log("fa=" + sw.ElapsedMilliseconds + " ms [" + (//
+          // DebugUtility.Log("f=" + sw.ElapsedMilliseconds + " ms [pow=" + power +
+          // "]");
+          bigquo = this.shiftedBigInt;
+          // DebugUtility.Log("fa=" + sw.ElapsedMilliseconds + " ms [" + (//
           // (!this.shiftedBigInt.IsEven || this.bitsAfterLeftmost != 0)) + "]");
           this.bitsAfterLeftmost |= 1;
           bigquo = DivideByPowerOfTen(bigquo, power);
-// DebugUtility.Log("faa=" + sw.ElapsedMilliseconds + " ms");
+          // DebugUtility.Log("faa=" + sw.ElapsedMilliseconds + " ms");
         } else {
-// DebugUtility.Log("fb=" + sw.ElapsedMilliseconds + " ms [pow=" + power + "]");
-        radixPower = NumberUtility.FindPowerOfTen(power);
-// DebugUtility.Log("fc=" + sw.ElapsedMilliseconds + " ms [" + (//
+          // DebugUtility.Log("fb=" + sw.ElapsedMilliseconds + " ms [pow=" + power +
+          // "]");
+          radixPower = NumberUtility.FindPowerOfTen(power);
+          // DebugUtility.Log("fc=" + sw.ElapsedMilliseconds + " ms [" + (//
           // (!this.shiftedBigInt.IsEven || this.bitsAfterLeftmost != 0)) + "]");
           divrem = this.shiftedBigInt.DivRem(radixPower);
           bigquo = divrem[0];
@@ -817,7 +819,7 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
             this.bitsAfterLeftmost |= 1;
           }
         }
-// DebugUtility.Log("g=" + sw.ElapsedMilliseconds + " ms");
+        // DebugUtility.Log("g=" + sw.ElapsedMilliseconds + " ms");
         EInteger bigquo2;
         divrem = bigquo.DivRem(ValueTen);
         bigquo2 = divrem[0];
@@ -827,21 +829,21 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
         this.discardedBitCount = this.discardedBitCount ?? new FastInteger(0);
         this.discardedBitCount.Add(digitDiff);
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
-// DebugUtility.Log("h=" + sw.ElapsedMilliseconds + " ms");
+        // DebugUtility.Log("h=" + sw.ElapsedMilliseconds + " ms");
         if (!haveKnownDigitLength) {
           this.GetDigitLength();
           this.ShiftToDigitsBig(digits, truncate);
         } else {
           this.UpdateKnownLength(digitDiff);
         }
-#if DEBUG
-if (this.knownDigitLength.CompareToInt(digits) > 0) {
-  throw new InvalidOperationException();
-}
-#endif
+        #if DEBUG
+        if (this.knownDigitLength.CompareToInt(digits) > 0) {
+          throw new InvalidOperationException();
+        }
+        #endif
         return;
       }
-// DebugUtility.Log("e2=" + sw.ElapsedMilliseconds + " ms");
+      // DebugUtility.Log("e2=" + sw.ElapsedMilliseconds + " ms");
       str = this.shiftedBigInt.ToString();
       // NOTE: Will be 1 if the value is 0
       int digitLength = str.Length;
@@ -875,11 +877,11 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
         }
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;
       }
-#if DEBUG
-if (this.knownDigitLength.CompareToInt(digits) > 0) {
-  throw new InvalidOperationException();
-}
-#endif
+      #if DEBUG
+      if (this.knownDigitLength.CompareToInt(digits) > 0) {
+        throw new InvalidOperationException();
+      }
+      #endif
     }
 
     private void ShiftToDigitsSmall(int digits) {
@@ -887,10 +889,8 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
       int v2 = this.shiftedSmall;
       kb = (v2 >= 1000000000) ? 10 : ((v2 >= 100000000) ? 9 : ((v2 >=
               10000000) ? 8 : ((v2 >= 1000000) ? 7 : ((v2 >= 100000) ? 6 :
-((v2 >=
-                    10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ? 3 : ((v2
->= 10) ? 2 :
-                        1))))))));
+                ((v2 >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ? 3 : ((v2
+                >= 10) ? 2 : 1))))))));
       this.knownDigitLength = new FastInteger(kb);
       if (kb > digits) {
         var digitShift = (int)(kb - digits);
@@ -982,7 +982,7 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
           int bigPower = ValueTenPowers[digits];
           int smallPower = ValueTenPowers[digits - 1];
           this.discardedBitCount = this.discardedBitCount ?? new FastInteger(
-  0);
+              0);
           this.discardedBitCount.AddInt(digits);
           int div = this.shiftedSmall / bigPower;
           int rem = this.shiftedSmall - (div * bigPower);
@@ -1024,10 +1024,8 @@ if (this.knownDigitLength.CompareToInt(digits) > 0) {
       int v2 = this.shiftedSmall;
       int kb = (v2 >= 1000000000) ? 10 : ((v2 >= 100000000) ? 9 : ((v2 >=
               10000000) ? 8 : ((v2 >= 1000000) ? 7 : ((v2 >= 100000) ? 6 :
-((v2 >=
-                    10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ? 3 : ((v2
->= 10) ? 2 :
-                        1))))))));
+                ((v2 >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ? 3 : ((v2
+                >= 10) ? 2 : 1))))))));
       this.knownDigitLength = new FastInteger(kb);
       if (this.discardedBitCount != null) {
         this.discardedBitCount.AddInt(digits);

@@ -315,7 +315,7 @@ namespace PeterO.Numbers {
       if (scale.IsZero) {
         return ed.RoundToPrecision(ec);
       }
-      EFloat ret = EFloat.Create (
+      EFloat ret = EFloat.Create(
           ed.UnsignedMantissa,
           ed.Exponent.Add(scale));
       if (ed.IsNegative) {
@@ -774,7 +774,7 @@ namespace PeterO.Numbers {
           return InvalidOperation(ec);
         }
         EFloat rounded = scale.Quantize(0, tec);
-        return ed.Quantize (
+        return ed.Quantize(
             EFloat.Create(EInteger.One, rounded.Mantissa),
             ec);
       }
@@ -818,7 +818,7 @@ namespace PeterO.Numbers {
       for (var i = 0; i < smaller.Length; ++i) {
         smaller[i] &= bigger[i];
       }
-      return EFloat.FromEInteger (
+      return EFloat.FromEInteger(
           EDecimals.ToLogical(
             smaller,
             2)).RoundToPrecision(ec);
@@ -864,7 +864,7 @@ namespace PeterO.Numbers {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return EFloat.FromEInteger (
+      return EFloat.FromEInteger(
           EDecimals.ToLogical(
             bigger,
             2)).RoundToPrecision(ec);
@@ -907,7 +907,7 @@ namespace PeterO.Numbers {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] ^= smaller[i];
       }
-      return EFloat.FromEInteger (
+      return EFloat.FromEInteger(
           EDecimals.ToLogical(
             bigger,
             2)).RoundToPrecision(ec);
@@ -949,7 +949,7 @@ namespace PeterO.Numbers {
       for (var i = 0; i < smaller.Length; ++i) {
         bigger[i] |= smaller[i];
       }
-      return EFloat.FromEInteger (
+      return EFloat.FromEInteger(
           EDecimals.ToLogical(
             bigger,
             2)).RoundToPrecision(ec);

@@ -138,7 +138,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Add(int)](#Add_int)</code> - Adds this object and an 32-bit signed integer and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
-* <code>[CompareTo(int)](#CompareTo_int)</code> - Not documented yet.
+* <code>[CompareTo(int)](#CompareTo_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareTo(PeterO.Numbers.EDecimal)](#CompareTo_PeterO_Numbers_EDecimal)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary floating-point number with this instance.
 * <code>[CompareToSignal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
@@ -146,7 +146,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[CompareToTotal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EDecimal)](#CompareToTotalMagnitude_PeterO_Numbers_EDecimal)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToTotalMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
-* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Not documented yet.
+* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToValue(PeterO.Numbers.EDecimal)](#CompareToValue_PeterO_Numbers_EDecimal)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToWithContext(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
@@ -179,6 +179,19 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's significand, exponent, and properties are equal to those of another object and that other object is an arbitrary-precision decimal number.
 * <code>[Equals(PeterO.Numbers.EDecimal)](#Equals_PeterO_Numbers_EDecimal)</code> - Determines whether this object's significand, exponent, and properties are equal to those of another object.
 * <code>[Exp(PeterO.Numbers.EContext)](#Exp_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value.
+* <code>[explicit operator byte(PeterO.Numbers.EDecimal)](#explicit_operator_byte_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator decimal(PeterO.Numbers.EDecimal)](#explicit_operator_decimal_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal's value to a decimal under the Common Language Infrastructure (see T:PeterO.
+* <code>[explicit operator double(PeterO.Numbers.EDecimal)](#explicit_operator_double_PeterO_Numbers_EDecimal)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number.
+* <code>[explicit operator float(PeterO.Numbers.EDecimal)](#explicit_operator_float_PeterO_Numbers_EDecimal)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number.
+* <code>[explicit operator int(PeterO.Numbers.EDecimal)](#explicit_operator_int_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator long(PeterO.Numbers.EDecimal)](#explicit_operator_long_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator PeterO.Numbers.EDecimal(bool)](#explicit_operator_PeterO_Numbers_EDecimal_bool)</code> - Converts a boolean value (true or false) to an arbitrary precision decimal.
+* <code>[explicit operator PeterO.Numbers.EInteger(PeterO.Numbers.EDecimal)](#explicit_operator_PeterO_Numbers_EInteger_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision integer.
+* <code>[explicit operator sbyte(PeterO.Numbers.EDecimal)](#explicit_operator_sbyte_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator short(PeterO.Numbers.EDecimal)](#explicit_operator_short_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator uint(PeterO.Numbers.EDecimal)](#explicit_operator_uint_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator ulong(PeterO.Numbers.EDecimal)](#explicit_operator_ulong_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
+* <code>[explicit operator ushort(PeterO.Numbers.EDecimal)](#explicit_operator_ushort_PeterO_Numbers_EDecimal)</code> - Converts an arbitrary-precision decimal number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[Exponent](#Exponent)</code> - Gets this object's exponent.
 * <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision decimal number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
@@ -200,6 +213,16 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 * <code>[GetHashCode()](#GetHashCode)</code> - Calculates this object's hash code.
+* <code>[implicit operator PeterO.Numbers.EDecimal(byte)](#implicit_operator_PeterO_Numbers_EDecimal_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
+* <code>[implicit operator PeterO.Numbers.EDecimal(decimal)](#implicit_operator_PeterO_Numbers_EDecimal_decimal)</code> - Converts an arbitrary-precision decimal number to a decimal under the Common Language Infrastructure (see T:PeterO.
+* <code>[implicit operator PeterO.Numbers.EDecimal(int)](#implicit_operator_PeterO_Numbers_EDecimal_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision decimal number.
+* <code>[implicit operator PeterO.Numbers.EDecimal(long)](#implicit_operator_PeterO_Numbers_EDecimal_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision decimal number.
+* <code>[implicit operator PeterO.Numbers.EDecimal(PeterO.Numbers.EInteger)](#implicit_operator_PeterO_Numbers_EDecimal_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to an arbitrary precision decimal.
+* <code>[implicit operator PeterO.Numbers.EDecimal(sbyte)](#implicit_operator_PeterO_Numbers_EDecimal_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision decimal number.
+* <code>[implicit operator PeterO.Numbers.EDecimal(short)](#implicit_operator_PeterO_Numbers_EDecimal_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision decimal number.
+* <code>[implicit operator PeterO.Numbers.EDecimal(uint)](#implicit_operator_PeterO_Numbers_EDecimal_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision decimal number.
+* <code>[implicit operator PeterO.Numbers.EDecimal(ulong)](#implicit_operator_PeterO_Numbers_EDecimal_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
+* <code>[implicit operator PeterO.Numbers.EDecimal(ushort)](#implicit_operator_PeterO_Numbers_EDecimal_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision decimal number.
 * <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision decimal number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object is positive or negative infinity.
@@ -247,8 +270,6 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[PeterO.Numbers.EDecimal operator +(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Addition)</code> - Adds two arbitrary-precision decimal floating-point numbers and returns the result.
 * <code>[PeterO.Numbers.EDecimal operator --(PeterO.Numbers.EDecimal)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision decimal number.
 * <code>[PeterO.Numbers.EDecimal operator /(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Division)</code> - Divides this object by another decimal number and returns the result.
-* <code>[explicit operator ulong(PeterO.Numbers.EDecimal)](#op_Explicit)</code> - Converts a boolean value (true or false) to an arbitrary precision decimal. Converts an arbitrary-precision decimal's value to a decimal under the Common Language Infrastructure (see T:PeterO. Converts an arbitrary-precision decimal floating-point number to an arbitrary-precision integer. Converts this value to its closest equivalent as a 64-bit floating-point number. Converts this value to its closest equivalent as a 32-bit floating-point number. Converts an arbitrary-precision decimal number to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision decimal number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision decimal number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision decimal number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision decimal number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision decimal number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part. Converts an arbitrary-precision decimal number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
-* <code>[implicit operator PeterO.Numbers.EDecimal(ulong)](#op_Implicit)</code> - Converts an arbitrary-precision decimal number to a decimal under the Common Language Infrastructure (see T:PeterO. Converts an arbitrary-precision integer to an arbitrary precision decimal. Converts a byte (from 0 to 255) to an arbitrary-precision decimal number. Converts an 8-bit signed integer to an arbitrary-precision decimal number. Converts a 16-bit signed integer to an arbitrary-precision decimal number. Converts a 16-bit unsigned integer to an arbitrary-precision decimal number. Converts a 32-bit signed integer to an arbitrary-precision decimal number. Converts a 32-bit signed integer to an arbitrary-precision decimal number. Converts a 64-bit signed integer to an arbitrary-precision decimal number. Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 * <code>[PeterO.Numbers.EDecimal operator ++(PeterO.Numbers.EDecimal)](#op_Increment)</code> - Adds one to an arbitrary-precision decimal number.
 * <code>[PeterO.Numbers.EDecimal operator %(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision decimal number by another.
 * <code>[PeterO.Numbers.EDecimal operator &#x2a;(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Multiply)</code> - Multiplies two decimal numbers.
@@ -555,16 +576,15 @@ The sum of thisValue and the other object.
     public int CompareTo(
         int intOther);
 
-Not documented yet.
+Compares the mathematical values of this object and another object, accepting NaN values. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.
 
 <b>Parameters:</b>
 
- * <i>intOther</i>: The parameter  <i>intOther</i>
- is a 32-bit signed integer.
+ * <i>intOther</i>:
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value, or 0 if both values are equal.
 
 <a id="CompareTo_PeterO_Numbers_EDecimal"></a>
 ### CompareTo
@@ -763,16 +783,19 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
     public int CompareToValue(
         int intOther);
 
-Not documented yet.
+Compares the mathematical values of this object and another object, accepting NaN values. This method is not consistent with the Equals method because two different numbers with the same mathematical value, but different exponents, will compare as equal.
+
+In this method, negative zero and positive zero are considered equal.
+
+If this object or the other object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number, including infinity. Two different NaN values will be considered equal.
 
 <b>Parameters:</b>
 
- * <i>intOther</i>: The parameter  <i>intOther</i>
- is a 32-bit signed integer.
+ * <i>intOther</i>:
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value, or 0 if both values are equal.
 
 <a id="CompareToValue_PeterO_Numbers_EDecimal"></a>
 ### CompareToValue
@@ -886,9 +909,10 @@ Creates a number with the value  `exponent*10^significand` .
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: Not documented yet.
+ * <i>mantissa</i>: The parameter  <i>mantissa</i>
+ is a Numbers.EInteger object.
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: Desired value for the exponent.
 
 <b>Return Value:</b>
 
@@ -1365,7 +1389,7 @@ Determines whether this object's significand, exponent, and properties are equal
 
 <b>Return Value:</b>
 
- `true`  if the objects are equal; otherwise,  `false` .
+ `true`  if the objects are equal; otherwise,  `false` . In this method, two objects are not equal if they don't have the same type or if one is null and the other isn't.
 
 <a id="Equals_PeterO_Numbers_EDecimal"></a>
 ### Equals
@@ -2530,7 +2554,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
 The parameter  <i>dividend</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_byte_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator byte(
@@ -2557,7 +2581,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_decimal_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator decimal(
@@ -2580,7 +2604,7 @@ A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework 
 The parameter  <i>bigValue</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_double_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator double(
@@ -2602,7 +2626,7 @@ The closest 64-bit floating-point number to this value. The return value can be 
 The parameter  <i>bigValue</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_float_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator float(
@@ -2624,7 +2648,7 @@ The closest 32-bit binary floating-point number to this value. The return value 
 The parameter  <i>bigValue</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_int_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator int(
@@ -2651,7 +2675,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_long_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator long(
@@ -2678,7 +2702,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_PeterO_Numbers_EDecimal_bool"></a>
 ### Explicit Operator
 
     public static explicit operator PeterO.Numbers.EDecimal(
@@ -2695,7 +2719,7 @@ Converts a boolean value (true or false) to an arbitrary precision decimal.
 The number 1 if  <i>boolValue</i>
  is true; otherwise, 0.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_PeterO_Numbers_EInteger_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator PeterO.Numbers.EInteger(
@@ -2720,7 +2744,7 @@ This object's value is infinity or not-a-number (NaN).
 The parameter  <i>bigValue</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_sbyte_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator sbyte(
@@ -2749,7 +2773,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_short_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator short(
@@ -2776,7 +2800,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_uint_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator uint(
@@ -2805,7 +2829,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_ulong_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator ulong(
@@ -2834,7 +2858,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Explicit"></a>
+<a id="explicit_operator_ushort_PeterO_Numbers_EDecimal"></a>
 ### Explicit Operator
 
     public static explicit operator ushort(
@@ -2863,7 +2887,7 @@ The parameter  <i>input</i>
 The parameter  <i>input</i>
  is null.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_byte"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -2880,7 +2904,7 @@ Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
 The value of  <i>inputByte</i>
  as an arbitrary-precision decimal number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_decimal"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -2896,7 +2920,7 @@ Converts an arbitrary-precision decimal number to a  `decimal`  under the Common
 
 A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework decimal).
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_int"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -2913,7 +2937,7 @@ Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 The value of  <i>inputInt32</i>
  as an arbitrary-precision decimal number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_long"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -2930,7 +2954,7 @@ Converts a 64-bit signed integer to an arbitrary-precision decimal number.
 The value of  <i>inputInt64</i>
  as an arbitrary-precision decimal number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_PeterO_Numbers_EInteger"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -2946,7 +2970,7 @@ Converts an arbitrary-precision integer to an arbitrary precision decimal.
 
 An arbitrary-precision decimal number with the exponent set to 0.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_sbyte"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -2965,7 +2989,7 @@ Converts an 8-bit signed integer to an arbitrary-precision decimal number.
 The value of  <i>inputSByte</i>
  as an arbitrary-precision decimal number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_short"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -2982,7 +3006,7 @@ Converts a 16-bit signed integer to an arbitrary-precision decimal number.
 The value of  <i>inputInt16</i>
  as an arbitrary-precision decimal number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_uint"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -3001,7 +3025,7 @@ Converts a 32-bit signed integer to an arbitrary-precision decimal number.
 The value of  <i>inputUInt32</i>
  as an arbitrary-precision decimal number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_ulong"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
@@ -3020,7 +3044,7 @@ Converts a 64-bit unsigned integer to an arbitrary-precision decimal number.
 The value of  <i>inputUInt64</i>
  as an arbitrary-precision decimal number.
 
-<a id="op_Implicit"></a>
+<a id="implicit_operator_PeterO_Numbers_EDecimal_ushort"></a>
 ### Implicit Operator
 
     public static implicit operator PeterO.Numbers.EDecimal(
