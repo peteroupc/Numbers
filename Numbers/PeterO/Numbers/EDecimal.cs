@@ -1253,8 +1253,7 @@ BigNumberFlags.FlagSignalingNaN);
           haveNonzeroDigit |= thisdigit != 0;
           haveDigits = true;
           beyondPrecision |= (ctx != null && ctx.HasMaxPrecision &&
-!ctx.IsPrecisionInBits &&
-              ctx.Precision.CompareTo(decimalPrec) <= 0);
+!ctx.IsPrecisionInBits && ctx.Precision.CompareTo(decimalPrec) <= 0);
           if (ctx != null) {
             if (ignoreNextDigit) {
               haveIgnoredDigit = true;
@@ -4826,7 +4825,7 @@ private static int CheckOverflowUnderflow(
       } else {
         // Bit length is big enough that dividing it by 3 will not
         // underestimate the true base-10 digit length.
-        return ei.Divide(3);
+        return bi.Divide(3);
       }
     }
 
@@ -4842,7 +4841,7 @@ private static int CheckOverflowUnderflow(
        // Bit length is big enough that multiplying it by 100 and dividing by 335
        // will not
        // overestimate the true base-10 digit length.
-        return ei.Multiply(100).Divide(335);
+        return bi.Multiply(100).Divide(335);
       }
     }
 
@@ -4896,10 +4895,9 @@ private static int CheckOverflowUnderflow(
             EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
             eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
                          // trigger underflow
-            EFloat ret = EFloat.Create(EInteger.One, eTiny);
-            if (this.IsNegative) {
-              ret = ret.Negate();
-            }
+            EFloat ret = EFloat.Create(EInteger.FromInt32(
+               this.IsNegative ? -1 : 1),
+               eTiny);
             return ret.RoundToPrecision(ec);
           } else if (adjexpLowerBound.CompareTo(309) > 0) {
             return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
@@ -5095,12 +5093,12 @@ private static int CheckOverflowUnderflow(
         if (!quorem[1].IsZero && quorem[0].IsEven) {
           quorem[0] = quorem[0].Add(EInteger.One);
         }
-        EFloat efret = this.WithThisSign (
-            EFloat.Create (
+        EFloat efret = this.WithThisSign(
+            EFloat.Create(
               quorem[0],
               adjust.AsEInteger()));
         // DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " +
-        // (// efret.Exponent));
+        // efret.Exponent);
         efret = efret.RoundToPrecision(ec);
         if (ec == null) {
           throw new ArgumentNullException(nameof(ec));

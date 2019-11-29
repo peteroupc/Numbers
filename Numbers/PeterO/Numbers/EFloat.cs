@@ -539,7 +539,15 @@ BigNumberFlags.FlagSignalingNaN);
     /// <param name='length'>The length, in code units, of the desired
     /// portion of <paramref name='str'/> (but not more than <paramref
     /// name='str'/> 's length).</param>
-    /// <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If HasFlags of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Note that
+    /// providing a context is often much faster than creating an EDecimal
+    /// without a context then calling ToEFloat on that EDecimal,
+    /// especially if the context specifies a precision limit and exponent
+    /// range.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -587,7 +595,7 @@ BigNumberFlags.FlagSignalingNaN);
         if (length == 0) {
           throw new FormatException();
         }
-        if (str[tmpoffset] == '-' || str[tmpoffset] =='+') {
+        if (str[tmpoffset] == '-' || str[tmpoffset] == '+') {
           ++tmpoffset;
         }
         if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
@@ -655,6 +663,12 @@ zeroSignificand) {
       int i = tmpoffset;
       long mantissaLong = 0L;
       // Ordinary number
+      if (str[i] == '+' || str[i] == '-') {
+        if (str[i] == '-') {
+          negative = true;
+        }
+       ++i;
+      }
       digitStart = i;
       int digitEnd = i;
       int decimalDigitStart = i;
@@ -663,12 +677,6 @@ zeroSignificand) {
       int decimalDigitEnd = i;
       var nonzeroBeyondMax = false;
       var lastdigit = -1;
-      if (str[i] == '+' || str[i] == '-') {
-        if (str[i] == '-') {
-          negative = true;
-        }
-        ++i;
-      }
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
@@ -845,12 +853,12 @@ if (finalexp < 0) {
  if (nonzeroBeyondMax) {
    exp = exp.Subtract(1);
  }
-EInteger adjExpUpper = exp.Add(decimalPrec).Subtract(1);
-if (adjExpUpper.CompareTo(-326) < 0) {
-  return SignalUnderflow(ctx, negative, zeroMantissa);
-} else if (exp.CompareTo(309) > 0) {
-  return SignalOverflow(ctx, negative, zeroMantissa);
-}
+ EInteger adjExpUpper = exp.Add(decimalPrec).Subtract(1);
+ if (adjExpUpper.CompareTo(-326) < 0) {
+   return SignalUnderflow(ctx, negative, zeroMantissa);
+ } else if (exp.CompareTo(309) > 0) {
+   return SignalOverflow(ctx, negative, zeroMantissa);
+ }
 if (decimalDigitStart != decimalDigitEnd) {
  string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
     str.Substring(decimalDigitStart, decimalDigitEnd - decimalDigitStart);
@@ -864,9 +872,12 @@ if (nonzeroBeyondMax) {
 if (negative) {
   mant = mant.Negate();
 }
+// DebugUtility.Log("c " + ((mant.Sign<0 && negative) || (mant.Sign>= 0
+// && !negative)) + " mant=" + (mant));
 EInteger absexp = exp.Abs();
 ef1 = EFloat.Create(mant, 0);
 ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
+// DebugUtility.Log("c ef1=" + ef1 + " ef2=" + (ef2));
 if (exp.Sign < 0) {
   return ef1.Divide(ef2, ctx);
 } else {
@@ -896,7 +907,15 @@ if (exp.Sign < 0) {
     /// <c>FromString(String, int, int, EContext)</c> method.</summary>
     /// <param name='str'>A text string to convert to a binary
     /// floating-point number.</param>
-    /// <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If HasFlags of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Note that
+    /// providing a context is often much faster than creating an EDecimal
+    /// without a context then calling ToEFloat on that EDecimal,
+    /// especially if the context specifies a precision limit and exponent
+    /// range.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -3185,9 +3204,7 @@ if (exp.Sign < 0) {
       } else if (mant.IsZero) {
         return 0.0;
       }
-      // DebugUtility.Log("-->" + (//
-      // thisValue.unsignedMantissa.ToRadixString(2)) + ", " + (//
-      // thisValue.exponent));
+      // DebugUtility.Log("todouble -->" + this);
       EInteger bitLength = mant.GetUnsignedBitLengthAsEInteger();
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
@@ -3216,6 +3233,8 @@ if (exp.Sign < 0) {
       if (this.IsNegative) {
         mantissaBits[1] |= unchecked((int)(1 << 31));
       }
+      // DebugUtility.Log("todouble ret -->" +
+      // Extras.IntegersToDouble(mantissaBits));
       return Extras.IntegersToDouble(mantissaBits);
     }
 
@@ -3369,7 +3388,7 @@ if (exp.Sign < 0) {
             nextCtx = ctx2.WithBigPrecision(nextPrecision);
             #if DEBUG
             if (!nextCtx.HasMaxPrecision) {
-              throw new InvalidOperationException("mant="+this.Mantissa + 
+              throw new InvalidOperationException("mant=" + this.Mantissa +
 "," + "\u0020 exp=" + this.Exponent);
             }
             #endif

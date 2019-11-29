@@ -309,11 +309,10 @@ An arbitrary-precision rational number.
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>v</i>: Not documented yet.
+ * <i>v</i>: The parameter  <i>v</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -349,11 +348,10 @@ The parameter  <i>otherValue</i>
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>intOther</i>: Not documented yet.
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -484,11 +482,10 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>intOther</i>: Not documented yet.
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -667,11 +664,10 @@ The given arbitrary-precision rational number minus one.
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>v</i>: Not documented yet.
+ * <i>v</i>: The parameter  <i>v</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1207,11 +1203,10 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>v</i>: Not documented yet.
+ * <i>v</i>: The parameter  <i>v</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -2022,11 +2017,10 @@ The parameter  <i>bigValue</i>
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>v</i>: Not documented yet.
+ * <i>v</i>: The parameter  <i>v</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -2062,11 +2056,10 @@ The parameter  <i>otherValue</i>
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>v</i>: Not documented yet.
+ * <i>v</i>: The parameter  <i>v</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 

@@ -889,7 +889,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(System.Int32)">
 
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <summary>Not documented yet.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
 
 </doc>
@@ -1097,7 +1099,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToValue(System.Int32)">
 
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <summary>Not documented yet.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
 
 </doc>
@@ -3424,8 +3428,8 @@
             negative exponent, the resulting value might not be exact, in which
             case the resulting binary floating-point number will be an
             approximation of this decimal number's value.</summary>
-            <param name='ec'>The parameter <paramref name='ec'/> is an EContext
-            object.</param>
+            <param name='ec'>An arithmetic context to control the precision,
+            rounding, and exponent range of the result. Can be null.</param>
             <returns>An arbitrary-precision float floating-point
             number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ec'/> is null.</exception>
@@ -5009,7 +5013,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareTo(System.Int32)">
 
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <summary>Not documented yet.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
 
 </doc>
@@ -5193,7 +5199,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToValue(System.Int32)">
 
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <summary>Not documented yet.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
 
 </doc>
@@ -5249,7 +5257,7 @@
 
             <summary>Creates a number with the value
             exponent*2^significand.</summary>
-            <param name='significand'>The value of the significand.</param>
+            <param name='significand'>The parameter <paramref name='significand'/> is a Numbers.EInteger object.</param>
             <param name='exponent'>The value of the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
@@ -5753,7 +5761,8 @@
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
-            <exception cref='FormatException'>The portion given of <paramref name='str'/> is not a correctly formatted number string.</exception>
+            <exception cref='FormatException'>The portion given of <paramref name='str'/> is not a correctly formatted number
+            string.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String,PeterO.Numbers.EContext)">
@@ -5763,9 +5772,7 @@
             <c>FromString(String, int, int, EContext)</c> method.</summary>
             <param name='str'>A text string to convert to a binary
             floating-point number.</param>
-            <param name='ctx'>An arithmetic context specifying the precision,
-            rounding, and exponent range to apply to the parsed number. Can be
-            null.</param>
+            <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
@@ -5829,15 +5836,13 @@
             desired portion of <paramref name='str'/> begins.</param>
             <param name='length'>The length, in code units, of the desired
             portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
-            <param name='ctx'>The parameter <paramref name='ctx'/> is an
-            EContext object.</param>
+            <param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
-            <exception cref='FormatException'>The portion given of <paramref name='str'/> is not a correctly formatted number string.</exception>
-            <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-            greater than <paramref name='str'/> 's length, or <paramref name='
-            str'/> 's length minus <paramref name='offset'/> is less than
+            <exception cref='FormatException'>The portion given of <paramref name='str'/> is not a correctly formatted number string; or either
+            <paramref name='offset'/> or <paramref name='length'/> is less than
+            0 or greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
             <paramref name='length'/>.</exception>
 
 </doc>
@@ -7375,9 +7380,10 @@
             <summary>Returns a string representation of this number's value
             after rounding to the given precision (using the given arithmetic
             context). If the number after rounding is neither infinity nor
-            not-a-number (NaN), returns the shortest decimal form (in terms of
-            nonzero decimal digits) of this number's value that results in the
-            rounded number after the decimal form is converted to binary
+            not-a-number (NaN), returns the shortest decimal form of this
+            number's value (in terms of decimal digits starting with the first
+            nonzero digit and ending with the last nonzero digit) that results
+            in the rounded number after the decimal form is converted to binary
             floating-point format (using the given arithmetic
             context).</summary>
             <param name='ctx'>An arithmetic context to control precision (in
@@ -7389,9 +7395,11 @@
             ToString() method.</param>
             <returns>Shortest decimal form of this number's value for the given
             arithmetic context. The text string will be in exponential notation
-            if the number's first nonzero decimal digit is more than five
-            digits after the decimal point, or if the number's exponent is
-            greater than 0 and its value is 10, 000, 000 or greater.</returns>
+            (expressed as a number 1 or greater, but less than 10, times a
+            power of 10) if the number's first nonzero decimal digit is more
+            than five digits after the decimal point, or if the number's
+            exponent is greater than 0 and its value is 10, 000, 000 or
+            greater.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSingle">
@@ -7418,10 +7426,11 @@
             <summary>Converts this number's value to a text string.</summary>
             <returns>A string representation of this object. The value is
             converted to decimal and the decimal form of this number's value is
-            returned. The text string will be in exponential notation if the
-            converted number's scale is positive or if the number's first
-            nonzero decimal digit is more than five digits after the decimal
-            point.</returns>
+            returned. The text string will be in exponential notation
+            (expressed as a number 1 or greater, but less than 10, times a
+            power of 10) if the converted number's scale is positive or if the
+            number's first nonzero decimal digit is more than five digits after
+            the decimal point.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt16Checked">
@@ -10205,8 +10214,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Add(System.Int32)">
-<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+
+            <summary>Not documented yet.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)">
 
@@ -10229,7 +10242,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(System.Int32)">
 
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <summary>Not documented yet.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
 
 </doc>
@@ -10347,7 +10362,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToValue(System.Int32)">
 
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <summary>Not documented yet.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>The return value is not documented yet.</returns>
 
 </doc>
@@ -10446,8 +10463,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Divide(System.Int32)">
-<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+
+            <summary>Not documented yet.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)">
 
@@ -10786,8 +10807,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Multiply(System.Int32)">
-<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+
+            <summary>Not documented yet.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.ERational.NaN">
 
@@ -10842,8 +10867,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Remainder(System.Int32)">
-<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+
+            <summary>Not documented yet.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="P:PeterO.Numbers.ERational.Sign">
 
@@ -10867,8 +10896,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Subtract(System.Int32)">
-<param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+
+            <summary>Not documented yet.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.ERational.Ten">
 

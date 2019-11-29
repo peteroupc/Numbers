@@ -450,11 +450,10 @@ An arbitrary-precision binary floating-point number.
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>intOther</i>: Not documented yet.
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -637,11 +636,10 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>intOther</i>: Not documented yet.
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -756,7 +754,8 @@ Creates a number with the value exponent*2^significand.
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: The value of the significand.
+ * <i>significand</i>: The parameter  <i>significand</i>
+ is a Numbers.EInteger object.
 
  * <i>exponent</i>: The value of the exponent.
 
@@ -1456,8 +1455,7 @@ All characters mentioned above are the corresponding characters in the Basic Lat
  (but not more than  <i>str</i>
  's length).
 
- * <i>ctx</i>: The parameter  <i>ctx</i>
- is an EContext object.
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Return Value:</b>
 
@@ -1471,13 +1469,10 @@ The parameter  <i>str</i>
 
  * System.FormatException:
 The portion given of  <i>str</i>
- is not a correctly formatted number string.
-
- * System.ArgumentException:
-Either  <i>offset</i>
+ is not a correctly formatted number string; or either  <i>offset</i>
  or  <i>length</i>
  is less than 0 or greater than  <i>str</i>
- 's length, or  <i>             str</i>
+ 's length, or  <i>str</i>
  's length minus  <i>offset</i>
  is less than  <i>length</i>
 .
@@ -1495,7 +1490,7 @@ Creates a binary floating-point number from a text string that represents a numb
 
  * <i>str</i>: A text string to convert to a binary floating-point number.
 
- * <i>ctx</i>: An arithmetic context specifying the precision, rounding, and exponent range to apply to the parsed number. Can be null.
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Return Value:</b>
 
@@ -3910,7 +3905,7 @@ This number, converted to an 8-bit signed integer. Returns 0 if this value is in
     public string ToShortestString(
         PeterO.Numbers.EContext ctx);
 
-Returns a string representation of this number's value after rounding to the given precision (using the given arithmetic context). If the number after rounding is neither infinity nor not-a-number (NaN), returns the shortest decimal form (in terms of nonzero decimal digits) of this number's value that results in the rounded number after the decimal form is converted to binary floating-point format (using the given arithmetic context).
+Returns a string representation of this number's value after rounding to the given precision (using the given arithmetic context). If the number after rounding is neither infinity nor not-a-number (NaN), returns the shortest decimal form of this number's value (in terms of decimal digits starting with the first nonzero digit and ending with the last nonzero digit) that results in the rounded number after the decimal form is converted to binary floating-point format (using the given arithmetic context).
 
 <b>Parameters:</b>
 
@@ -3918,7 +3913,7 @@ Returns a string representation of this number's value after rounding to the giv
 
 <b>Return Value:</b>
 
-Shortest decimal form of this number's value for the given arithmetic context. The text string will be in exponential notation if the number's first nonzero decimal digit is more than five digits after the decimal point, or if the number's exponent is greater than 0 and its value is 10, 000, 000 or greater.
+Shortest decimal form of this number's value for the given arithmetic context. The text string will be in exponential notation (expressed as a number 1 or greater, but less than 10, times a power of 10) if the number's first nonzero decimal digit is more than five digits after the decimal point, or if the number's exponent is greater than 0 and its value is 10, 000, 000 or greater.
 
 <a id="ToSingle"></a>
 ### ToSingle
@@ -3940,7 +3935,7 @@ Converts this number's value to a text string.
 
 <b>Return Value:</b>
 
-A string representation of this object. The value is converted to decimal and the decimal form of this number's value is returned. The text string will be in exponential notation if the converted number's scale is positive or if the number's first nonzero decimal digit is more than five digits after the decimal point.
+A string representation of this object. The value is converted to decimal and the decimal form of this number's value is returned. The text string will be in exponential notation (expressed as a number 1 or greater, but less than 10, times a power of 10) if the converted number's scale is positive or if the number's first nonzero decimal digit is more than five digits after the decimal point.
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked

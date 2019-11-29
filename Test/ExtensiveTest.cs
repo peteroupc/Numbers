@@ -1314,7 +1314,6 @@ op3.IsSignalingNaN())) ||
     }
 
     [Test]
-    [Timeout(10000)]
     public void TestParser() {
       IgnoreIfDebug();
       long failures = 0;

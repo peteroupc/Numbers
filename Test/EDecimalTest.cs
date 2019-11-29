@@ -5332,8 +5332,8 @@ TestStringContextOne("666.66666666666666E+40", ec);
 
 [Test]
 public void TestZerosRoundingNone() {
-  EContext ec = EContext.Unlimited.WithPrecision(11).WithExponentRange(15,
-  -14).WithRounding(
+  EContext ec =
+EContext.Unlimited.WithPrecision(11).WithExponentRange(-14, 15).WithRounding(
   ERounding.None).WithAdjustExponent(
   false).WithExponentClamp(
   true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
@@ -5348,8 +5348,8 @@ throw new InvalidOperationException(String.Empty, ex);
 
 [Test]
 public void TestZerosRoundingNone4() {
-  EContext ec = EContext.Unlimited.WithPrecision(11).WithExponentRange(15,
-  -14).WithRounding(
+  EContext ec =
+EContext.Unlimited.WithPrecision(11).WithExponentRange(-14, 15).WithRounding(
   ERounding.Ceiling).WithAdjustExponent(
   true).WithExponentClamp(
   true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
@@ -5364,28 +5364,12 @@ throw new InvalidOperationException(String.Empty, ex);
 
 [Test]
 public void TestZerosRoundingNone3() {
-  EContext ec = EContext.Unlimited.WithPrecision(11).WithExponentRange(15,
-  -14).WithRounding(
+  EContext ec =
+EContext.Unlimited.WithPrecision(11).WithExponentRange(-14, 15).WithRounding(
   ERounding.None).WithAdjustExponent(
   false).WithExponentClamp(
   true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
   string str = "0.0000E+59398886";
-  try {
- EFloat.FromString(str, ec);
-} catch (Exception ex) {
-Assert.Fail(ex.ToString());
-throw new InvalidOperationException(String.Empty, ex);
-}
-}
-
-[Test]
-public void TestZerosRoundingNone2() {
-  EContext ec = EContext.Unlimited.WithPrecision(16).WithExponentRange(384,
-  -383).WithRounding(
-  ERounding.None).WithAdjustExponent(
-  false).WithExponentClamp(
-  true).WithSimplified(false).WithTraps(EContext.FlagInvalid);
-  string str = "10611050504843980E-1";
   try {
  EFloat.FromString(str, ec);
 } catch (Exception ex) {
@@ -5451,7 +5435,7 @@ edorig.CompareTo(edef2) != 0) {
         throw new ArgumentNullException(nameof(str));
       }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+  200)) + (str.Length > 200 ? "..." : String.Empty) + "\n# ec = " +
 ECString(ec));
       Console.WriteLine("# ef3 = " + ef3.ToString());
     } else if ((ef3 == null || ef3.IsNaN()) && edorig != null &&
@@ -5462,7 +5446,7 @@ edorig.CompareTo(edef2) == 0) {
         throw new ArgumentNullException(nameof(str));
       }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+  200)) + (str.Length > 200 ? "..." : String.Empty) + "\n# ec = " +
 ECString(ec));
       Console.WriteLine("# ed = " + edorig);
       Console.WriteLine("# edef2 = " + edef2);
@@ -5480,7 +5464,7 @@ ECString(ec));
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr += "# "+ecf.Precision+" / "+ec.Precision + "\r\n";
+      bstr += "# "+ecf.Precision+" / " + ec.Precision + "\r\n";
       bstr += DecTestUtil.ContextToDecTestForm(ecf);
       bstr += "untitled toSci " + str + " -> " + ed.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";
@@ -5505,18 +5489,18 @@ public static string ECString(EContext ec) {
     throw new ArgumentNullException(nameof(ec));
   }
   if (ec.HasMaxPrecision) {
-    sb.Append(".WithPrecision(" +ec.Precision.ToString() + ")");
+    sb.Append(".WithPrecision(" + ec.Precision.ToString() + ")");
   }
   if (ec.HasExponentRange) {
-    sb.Append(".WithExponentRange(" + ec.EMax.ToString() + "," +
-"\u0020" + ec.EMin.ToString() + ")");
+    sb.Append(".WithExponentRange(" + ec.EMin.ToString() + "," +
+"\u0020" + ec.EMax.ToString() + ")");
   }
-  sb.Append(".WithRounding(ERounding."+ec.Rounding + ")");
-  sb.Append(".WithAdjustExponent(" +(ec.AdjustExponent ? "true" : "false") +
+  sb.Append(".WithRounding(ERounding." + ec.Rounding + ")");
+  sb.Append(".WithAdjustExponent(" + (ec.AdjustExponent ? "true" : "false") +
 ")");
   sb.Append(".WithExponentClamp(" + (ec.ClampNormalExponents ? "true" :
 "false") + ")");
-  sb.Append(".WithSimplified(" +(ec.IsSimplified ? "true" : "false") + ")");
+  sb.Append(".WithSimplified(" + (ec.IsSimplified ? "true" : "false") + ")");
   if (ec.HasFlags) {
     sb.Append(".WithBlankFlags()");
   }
@@ -5564,7 +5548,7 @@ public static void TestStringContextOneEFloat(string str, EContext ec) {
         throw new ArgumentNullException(nameof(str));
       }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+  200)) + (str.Length > 200 ? "..." : String.Empty) + "\n# ec = " +
 ECString(ec));
       Console.WriteLine("# ef3 = " + ef3.ToString());
     } else if ((ef3 == null || ef3.IsNaN()) && ed != null &&
@@ -5575,7 +5559,7 @@ ed.CompareTo(edef2) == 0) {
         throw new ArgumentNullException(nameof(str));
       }
       Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
-  200)) + (str.Length > 200 ? "..." : String.Empty) +"\n# ec = " +
+  200)) + (str.Length > 200 ? "..." : String.Empty) + "\n# ec = " +
 ECString(ec));
       Console.WriteLine("# ed = " + ed);
       Console.WriteLine("# edef2 = " + edef2);
@@ -5594,9 +5578,10 @@ ECString(ec));
     string edstr = ef.ToString();
     edstr = edstr.Substring(0, Math.Min(edstr.Length, 200)) +
       (edstr.Length > 200 ? "..." : String.Empty);
-    Console.WriteLine(bstr + "\nresult=" + edstr + "\n" + ECString(ec)+
+    Console.WriteLine(bstr + "\nresult=" + edstr + "\n" + ECString(ec) +
 "\nunopt=" +
-         swUnopt.ElapsedMilliseconds +" ms; opt=" + swOpt2.ElapsedMilliseconds);
+         swUnopt.ElapsedMilliseconds + " ms; opt=" +
+swOpt2.ElapsedMilliseconds);
    }
    // */
   if (ef.CompareTo(ef2) != 0) {
@@ -5610,7 +5595,7 @@ ECString(ec));
     if (ec.HasMaxPrecision) {
       EContext ecf = ec.WithBlankFlags();
       EDecimal.FromString(str).RoundToPrecision(ecf);
-      bstr += "# "+ecf.Precision+" / "+ec.Precision + "\r\n";
+      bstr += "# "+ecf.Precision+" / " + ec.Precision + "\r\n";
       bstr += DecTestUtil.ContextToDecTestForm(ecf);
       bstr += "untitled toSci " + str + " -> " + ef.ToString() +
 DecTestUtil.FlagsToString(ecf.Flags) + "\n";

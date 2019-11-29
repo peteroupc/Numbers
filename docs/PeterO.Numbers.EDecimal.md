@@ -557,11 +557,10 @@ The sum of thisValue and the other object.
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>intOther</i>: Not documented yet.
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -766,11 +765,10 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>intOther</i>: Not documented yet.
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -888,9 +886,10 @@ Creates a number with the value  `exponent*10^significand` .
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: Not documented yet.
+ * <i>significand</i>: The parameter  <i>significand</i>
+ is a Numbers.EInteger object.
 
- * <i>exponent</i>: Not documented yet.
+ * <i>exponent</i>: Desired value for the exponent.
 
 <b>Return Value:</b>
 
@@ -3992,8 +3991,7 @@ Creates a binary floating-point number from this object's value. Note that if th
 
 <b>Parameters:</b>
 
- * <i>ec</i>: The parameter  <i>ec</i>
- is an EContext object.
+ * <i>ec</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. Can be null.
 
 <b>Return Value:</b>
 
