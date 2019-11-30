@@ -51,7 +51,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CompareToTotal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values.
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
-* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Not documented yet.
+* <code>[CompareToValue(int)](#CompareToValue_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToValue(PeterO.Numbers.EFloat)](#CompareToValue_PeterO_Numbers_EFloat)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToWithContext(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
@@ -421,7 +421,8 @@ Adds this object and another number and returns the result.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>:
+ * <i>intValue</i>: The parameter  <i>intValue</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -472,7 +473,8 @@ Compares the mathematical values of this object and another object, accepting Na
 
 <b>Parameters:</b>
 
- * <i>intOther</i>:
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -653,7 +655,11 @@ The number 0 if both objects have the same value (ignoring their signs), or -1 i
     public int CompareToValue(
         int intOther);
 
-Not documented yet.
+Compares the mathematical values of this object and another object, accepting NaN values. This method is not consistent with the Equals method because two different numbers with the same mathematical value, but different exponents, will compare as equal.
+
+In this method, negative zero and positive zero are considered equal.
+
+If this object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number.
 
 <b>Parameters:</b>
 
@@ -662,7 +668,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value, or 0 if both values are equal.
 
 <a id="CompareToValue_PeterO_Numbers_EFloat"></a>
 ### CompareToValue

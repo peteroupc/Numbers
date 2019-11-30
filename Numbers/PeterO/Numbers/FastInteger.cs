@@ -502,14 +502,6 @@ namespace PeterO.Numbers {
       }
     }
 
-    private void CheckFrozen() {
-      #if DEBUG
-      if (this.frozen) {
-        throw new InvalidOperationException();
-      }
-      #endif
-    }
-
     public int CompareTo(EInteger ei) {
 switch (this.integerMode) {
  case 0:
@@ -569,7 +561,11 @@ switch (this.integerMode) {
     }
 
     internal FastInteger SetInt(int val) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       this.smallValue = val;
       this.integerMode = 0;
       return this;
@@ -580,7 +576,11 @@ switch (this.integerMode) {
     /// internal value.</param>
     /// <returns>A FastInteger object.</returns>
     internal FastInteger Multiply(int val) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       if (val == 0) {
         this.smallValue = 0;
         this.integerMode = 0;
@@ -629,7 +629,11 @@ switch (this.integerMode) {
     /// <summary>This is an internal API.</summary>
     /// <returns>A FastInteger object.</returns>
     internal FastInteger Negate() {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       switch (this.integerMode) {
         case 0:
           if (this.smallValue == Int32.MinValue) {
@@ -660,7 +664,11 @@ switch (this.integerMode) {
     /// internal value.</param>
     /// <returns>A FastInteger object.</returns>
     internal FastInteger Subtract(FastInteger val) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       EInteger valValue;
       switch (this.integerMode) {
         case 0:
@@ -710,7 +718,11 @@ switch (this.integerMode) {
     /// internal value.</param>
     /// <returns>A FastInteger object.</returns>
     internal FastInteger SubtractInt(int val) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       if (val == Int32.MinValue) {
         return this.AddBig(ValueNegativeInt32MinValue);
       }
@@ -734,7 +746,11 @@ switch (this.integerMode) {
     /// is an internal value.</param>
     /// <returns>A FastInteger object.</returns>
     internal FastInteger AddBig(EInteger bigintVal) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       switch (this.integerMode) {
         case 0: {
           return bigintVal.CanFitInInt32() ? this.AddInt((int)bigintVal) :
@@ -759,7 +775,11 @@ switch (this.integerMode) {
     /// is an internal value.</param>
     /// <returns>A FastInteger object.</returns>
     internal FastInteger SubtractBig(EInteger bigintVal) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       if (this.integerMode == 2) {
         this.largeValue -= (EInteger)bigintVal;
         return this;
@@ -782,7 +802,11 @@ switch (this.integerMode) {
     }
 
     internal FastInteger Add(FastInteger val) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       EInteger valValue;
       switch (this.integerMode) {
         case 0:
@@ -833,7 +857,11 @@ switch (this.integerMode) {
     internal FastInteger Remainder(int divisor) {
       // Mod operator will always result in a
       // number that fits an int for int divisors
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       if (divisor != 0) {
         switch (this.integerMode) {
           case 0:
@@ -860,7 +888,11 @@ switch (this.integerMode) {
     }
 
     internal FastInteger Increment() {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       if (this.integerMode == 0) {
         if (this.smallValue != Int32.MaxValue) {
           ++this.smallValue;
@@ -874,7 +906,11 @@ switch (this.integerMode) {
     }
 
     internal FastInteger Decrement() {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       if (this.integerMode == 0) {
         if (this.smallValue != Int32.MinValue) {
           --this.smallValue;
@@ -889,7 +925,11 @@ switch (this.integerMode) {
     }
 
     internal FastInteger Divide(int divisor) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       if (divisor != 0) {
         switch (this.integerMode) {
           case 0:
@@ -955,7 +995,11 @@ switch (this.integerMode) {
     }
 
     internal FastInteger AddInt(int val) {
-      this.CheckFrozen();
+      #if DEBUG
+      if (this.frozen) {
+        throw new InvalidOperationException();
+      }
+      #endif
       EInteger valValue;
       switch (this.integerMode) {
         case 0:

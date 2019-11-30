@@ -106,7 +106,7 @@ namespace PeterO.Numbers {
     /// <param name='flag'>A combination of one or more flags, such as
     /// <c>EContext.FlagInexact | EContext.FlagRounded</c>.</param>
     /// <returns>True if this exception pertains to all of the flags given
-    /// in "flag"; otherwise, false.</returns>
+    /// in <paramref name='flag'/> ; otherwise, false.</returns>
     public bool HasError(int flag) {
       return (this.Error & flag) == flag;
     }
@@ -137,7 +137,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='PeterO.Numbers.ETrapException'/>.</summary>
+    /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
     /// <param name='flag'>The flag that specifies the kind of error from
     /// one or more operations (EContext.FlagXXX). This will only be one
     /// flag, such as <c>FlagInexact</c> or FlagSubnormal.</param>
@@ -150,7 +150,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='PeterO.Numbers.ETrapException'/>.</summary>
+    /// <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
     /// <param name='flags'>Specifies the flags that were signaled as the
     /// result of one or more operations. This includes the flag specified
     /// in the "flag" parameter, but can include other flags. For instance,
@@ -170,7 +170,7 @@ namespace PeterO.Numbers {
     public ETrapException(int flags, int flag, EContext ctx, Object result)
       : base(FlagToMessage(flags)) {
       if ((flags & flag) != flag) {
-        throw new ArgumentException();
+        throw new ArgumentException("flags doesn't include flag");
       }
       this.error = flag;
       this.errors = flags;

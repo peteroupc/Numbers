@@ -283,9 +283,9 @@ namespace PeterO.Numbers {
     private int flags;
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='PeterO.Numbers.EContext'/>.</summary>
-    /// <param name='precision'>The parameter <paramref name='precision'/>
-    /// is a 32-bit signed integer.</param>
+    /// <see cref='PeterO.Numbers.EContext'/> class.</summary>
+    /// <param name='precision'>The value of the Precision
+    /// property.</param>
     /// <param name='rounding'>The value of the Rounding property.</param>
     /// <param name='exponentMinSmall'>The value of the EMin
     /// property.</param>
@@ -315,15 +315,13 @@ namespace PeterO.Numbers {
 
     /// <summary>Initializes a new instance of the
     /// <see cref='PeterO.Numbers.EContext'/> class,.</summary>
-    /// <param name='bigintPrecision'>An arbitrary-precision
-    /// integer.</param>
-    /// <param name='rounding'>The parameter <paramref name='rounding'/> is
-    /// an ERounding object.</param>
-    /// <param name='exponentMin'>An arbitrary-precision integer.</param>
-    /// <param name='exponentMax'>An arbitrary-precision integer.
-    /// (3).</param>
-    /// <param name='clampNormalExponents'>Either <c>true</c> or
-    /// <c>false</c>.</param>
+    /// <param name='bigintPrecision'>The value of the Precision
+    /// property.</param>
+    /// <param name='rounding'>The value of the Rounding property.</param>
+    /// <param name='exponentMin'>The value of the EMin property.</param>
+    /// <param name='exponentMax'>The value of the EMax property.</param>
+    /// <param name='clampNormalExponents'>The value of the
+    /// ClampNormalExponents property.</param>
     public EContext(
       EInteger bigintPrecision,
       ERounding rounding,

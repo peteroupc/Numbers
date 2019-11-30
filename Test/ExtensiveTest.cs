@@ -210,8 +210,11 @@ namespace Test {
         ExtensiveTest.IExtendedNumber b,
         ExtensiveTest.IExtendedNumber c,
         EContext ctx) {
-        return Create(this.ed.MultiplyAndSubtract(ToValue(b), ToValue(
-  c), ctx));
+        var ms = this.ed.MultiplyAndSubtract(
+            ToValue(b),
+            ToValue(c),
+            ctx);
+        return Create(ms);
       }
 
       public bool IsQuietNaN() {
@@ -624,8 +627,8 @@ namespace Test {
         ExtensiveTest.IExtendedNumber b,
         ExtensiveTest.IExtendedNumber c,
         EContext ctx) {
-        return Create(this.ef.MultiplyAndSubtract(ToValue(b), ToValue(
-  c), ctx));
+        var ms = this.ef.MultiplyAndSubtract(ToValue(b), ToValue(c), ctx);
+        return Create(ms);
       }
 
       public bool IsNear(IExtendedNumber bn) {

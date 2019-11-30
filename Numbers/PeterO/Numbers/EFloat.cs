@@ -682,32 +682,35 @@ namespace PeterO.Numbers {
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
           haveDigits = true;
+          haveNonzeroDigit |= thisdigit != 0;
           if (decimalPrec > 768) {
             // 768 is maximum precision of a decimal
             // half-ULP in double format
             if (thisdigit != 0) {
-              haveNonzeroDigit = true;
               nonzeroBeyondMax = true;
+            }
+            if (!haveDecimalPoint) {
+              // NOTE: Absolute value will not be more than
+              // the string portion's length, so will fit comfortably
+              // in an 'int'.
+              ++newScaleInt;
             }
             continue;
           }
-          haveNonzeroDigit |= thisdigit != 0;
-          {
-            lastdigit = thisdigit;
-            if (haveNonzeroDigit) {
-              ++decimalPrec;
-            }
-            if (haveDecimalPoint) {
-              decimalDigitEnd = i + 1;
-            } else {
-              digitEnd = i + 1;
-            }
-            if (mantissaLong <= 922337203685477580L) {
-              mantissaLong *= 10;
-              mantissaLong += thisdigit;
-            } else {
-              mantissaLong = Int64.MaxValue;
-            }
+          lastdigit = thisdigit;
+          if (haveNonzeroDigit) {
+            ++decimalPrec;
+          }
+          if (haveDecimalPoint) {
+            decimalDigitEnd = i + 1;
+          } else {
+            digitEnd = i + 1;
+          }
+          if (mantissaLong <= 922337203685477580L) {
+            mantissaLong *= 10;
+            mantissaLong += thisdigit;
+          } else {
+            mantissaLong = Int64.MaxValue;
           }
           if (haveDecimalPoint) {
             // NOTE: Absolute value will not be more than
@@ -792,8 +795,9 @@ namespace PeterO.Numbers {
         mantissaLong != Int64.MaxValue && (ctx == null ||
           !ctx.HasFlagsOrTraps)) {
         if (mantissaLong == 0) {
-          EFloat ef = EFloat.Create(EInteger.Zero, EInteger.FromInt32(
-  expInt));
+          EFloat ef = EFloat.Create(
+            EInteger.Zero,
+            EInteger.FromInt32(expInt));
           if (negative) {
             ef = ef.Negate();
           }
@@ -825,10 +829,11 @@ namespace PeterO.Numbers {
             }
           }
         }
-        long adjexp = finalexp + (decimalPrec - 1);
-        if (adjexp < -326) {
+        long adjexpUpperBound = finalexp + (decimalPrec - 1);
+        long adjexpLowerBound = finalexp;
+        if (adjexpUpperBound < -326) {
           return SignalUnderflow(ctx, negative, zeroMantissa);
-        } else if (adjexp > 309) {
+        } else if (adjexpLowerBound > 309) {
           return SignalOverflow(ctx, negative, zeroMantissa);
         }
         if (negative) {
@@ -853,10 +858,12 @@ namespace PeterO.Numbers {
       if (nonzeroBeyondMax) {
         exp = exp.Subtract(1);
       }
-      EInteger adjExpUpper = exp.Add(decimalPrec).Subtract(1);
-      if (adjExpUpper.CompareTo(-326) < 0) {
+      EInteger adjExpUpperBound = exp.Add(decimalPrec).Subtract(1);
+      EInteger adjExpLowerBound = exp;
+      // DebugUtility.Log("exp=" + adjExpLowerBound + "~" + (adjExpUpperBound));
+      if (adjExpUpperBound.CompareTo(-326) < 0) {
         return SignalUnderflow(ctx, negative, zeroMantissa);
-      } else if (exp.CompareTo(309) > 0) {
+      } else if (adjExpLowerBound.CompareTo(309) > 0) {
         return SignalOverflow(ctx, negative, zeroMantissa);
       }
       if (decimalDigitStart != decimalDigitEnd) {
@@ -1264,11 +1271,11 @@ decimalDigitStart);
     /// <para>If this object is a quiet NaN or signaling NaN, this method
     /// will not trigger an error. Instead, NaN will compare greater than
     /// any other number.</para></summary>
-    /// <param name='intOther'/>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 32-bit signed integer.</param>
     /// <returns>Less than 0 if this object's value is less than the other
     /// value, or greater than 0 if this object's value is greater than the
-    /// other value or if <paramref name='other'/> is null, or 0 if both
-    /// values are equal.</returns>
+    /// other value, or 0 if both values are equal.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }

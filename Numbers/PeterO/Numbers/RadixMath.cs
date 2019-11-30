@@ -1068,7 +1068,9 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("fracpart0=" + fracpart);
         ctxdiv = SetPrecisionIfLimited(ctxdiv, ctxdiv.Precision + guardDigits)
           .WithBlankFlags();
-        fracpart = this.Add(one, this.Divide(fracpart, intpart, ctxdiv),
+        fracpart = this.Add(
+            one,
+            this.Divide(fracpart, intpart, ctxdiv),
             null);
         ctxdiv.Flags = 0;
         // DebugUtility.Log("fracpart1=" + fracpart);
@@ -3808,8 +3810,8 @@ this.RoundToPrecision(b, ctx)));
             if (digitStatus == null) {
               // NOTE: Can only happen for ERounding.None
               return this.SignalInvalidWithMessage(
-                  ctx,
-                  "Rounding was required (8)");
+                ctx,
+                "Rounding was required");
             }
             FastInteger natexp = naturalExponent.Copy().Subtract(shift);
             EContext ctxcopy = ctx.WithBlankFlags();
@@ -3906,9 +3908,9 @@ this.RoundToPrecision(b, ctx)));
             }
           } else {
             if (rounding == ERounding.None) {
-              return this.SignalInvalidWithMessage(
-                  ctx,
-                  "Rounding was required (0)");
+            return this.SignalInvalidWithMessage(
+              ctx,
+              "Rounding was required");
             }
             lastDiscarded = 1;
             olderDiscarded = 1;
@@ -5062,8 +5064,8 @@ this.RoundToPrecision(b, ctx)));
           // }
           if (nonZeroDiscardedDigits && rounding == ERounding.None) {
             return this.SignalInvalidWithMessage(
-                ctx,
-                "Rounding was required (1)");
+              ctx,
+              "Rounding was required");
           }
           if (accum.DiscardedDigitCount.Sign != 0 || nonZeroDiscardedDigits) {
             if (ctx.HasFlags) {
@@ -5150,8 +5152,9 @@ this.RoundToPrecision(b, ctx)));
         if ((accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0) {
           flags |= EContext.FlagInexact | EContext.FlagRounded;
           if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
-                "\u0020(3)");
+            return this.SignalInvalidWithMessage(
+              ctx,
+              "Rounding was required");
           }
         }
         if (this.RoundGivenAccum(accum, rounding, neg)) {
@@ -5305,8 +5308,9 @@ this.RoundToPrecision(b, ctx)));
           // Rounding mode doesn't care about
           // whether remainder is exactly half
           if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
-                "\u0020(4)");
+            return this.SignalInvalidWithMessage(
+              ctx,
+              "Rounding was required");
           }
           lastDiscarded = 1;
           olderDiscarded = 1;
@@ -5318,8 +5322,9 @@ this.RoundToPrecision(b, ctx)));
         if ((lastDiscarded | olderDiscarded) != 0) {
           flags |= EContext.FlagInexact | EContext.FlagRounded;
           if (rounding == ERounding.None) {
-            return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
-                "\u0020(5)");
+            return this.SignalInvalidWithMessage(
+              ctx,
+              "Rounding was required");
           }
           FastInteger fastNewMantissa = FastInteger.FromBig(newmantissa);
           if (
@@ -5350,9 +5355,9 @@ this.RoundToPrecision(b, ctx)));
           if ((accum.LastDiscardedDigit | accum.OlderDiscardedDigits) != 0) {
             flags |= EContext.FlagInexact | EContext.FlagRounded;
             if (rounding == ERounding.None) {
-              return this.SignalInvalidWithMessage(
-                  ctx,
-                  "Rounding was required (6)");
+            return this.SignalInvalidWithMessage(
+              ctx,
+              "Rounding was required");
             }
           }
           if (this.RoundGivenAccum(accum, rounding, neg)) {
@@ -5467,8 +5472,9 @@ this.RoundToPrecision(b, ctx)));
             EContext.FlagInexact | EContext.FlagRounded;
         }
         if (roundingOnOverflow == ERounding.None) {
-          return this.SignalInvalidWithMessage(ctx, "Rounding was required" +
-              "\u0020(7)");
+            return this.SignalInvalidWithMessage(
+              ctx,
+              "Rounding was required");
         }
         if (ctx.HasMaxPrecision && ctx.HasExponentRange &&
           (roundingOnOverflow == ERounding.Down ||

@@ -118,9 +118,11 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Initializes a new instance of the
-    /// <see cref='PeterO.Numbers.ERational'/>.</summary>
-    /// <param name='numerator'>An arbitrary-precision integer.</param>
-    /// <param name='denominator'>An arbitrary-precision integer.</param>
+    /// <see cref='PeterO.Numbers.ERational'/> class.</summary>
+    /// <param name='numerator'>An arbitrary-precision integer serving as
+    /// the numerator.</param>
+    /// <param name='denominator'>An arbitrary-precision integer serving as
+    /// the denominator.</param>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='numerator'/> or <paramref name='denominator'/> is
     /// null.</exception>
@@ -2035,7 +2037,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns the result of subtracting a 32-bit signed integer
     /// from this instance.</summary>
-    /// <param name='v'/>
+    /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+    /// signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
     public ERational Subtract(int v) {
       return this.Subtract(FromInt32(v));
@@ -2043,7 +2046,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns the value of this instance multiplied by a 32-bit
     /// signed integer.</summary>
-    /// <param name='v'/>
+    /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+    /// signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
     public ERational Multiply(int v) {
       return this.Multiply(FromInt32(v));

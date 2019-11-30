@@ -11,7 +11,7 @@ Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and
 * <code>[Context](#Context)</code> - Gets the arithmetic context used during the operation that triggered the trap.
 * <code>[Error](#Error)</code> - Gets the flag that specifies the primary kind of error in one or more operations (EContext.
 * <code>[Errors](#Errors)</code> - Specifies the flags that were signaled as the result of one or more operations.
-* <code>[HasError(int)](#HasError_int)</code> - Not documented yet.
+* <code>[HasError(int)](#HasError_int)</code> - Returns whether this trap exception specifies all the flags given.
 * <code>[Result](#Result)</code> - Gets the defined result of the operation that caused the trap.
 
 <a id="Void_ctor_Int32_PeterO_Numbers_EContext_System_Object"></a>
@@ -22,7 +22,7 @@ Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and
         PeterO.Numbers.EContext ctx,
         object result);
 
-Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md).
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
 <b>Parameters:</b>
 
@@ -41,7 +41,7 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
         PeterO.Numbers.EContext ctx,
         object result);
 
-Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md).
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
 
 <b>Parameters:</b>
 
@@ -126,14 +126,6 @@ The flag that specifies the primary kind of error in one or more operations.
 
 Specifies the flags that were signaled as the result of one or more operations. This includes the flag specified in the "flag" parameter, but can include other flags. For instance, if "flag" is  `EContext.FlagInexact` , this parameter might be  `EContext.FlagInexact | EContext.FlagRounded` .
 
-Gets a value not documented yet.
-
-Gets a value not documented yet.
-
-Gets a value not documented yet.
-
-Gets a value not documented yet.
-
 <b>Returns:</b>
 
 The flags that specifies the errors in one or more operations.
@@ -155,13 +147,13 @@ The defined result of the operation that caused the trap.
     public bool HasError(
         int flag);
 
-Not documented yet.
+Returns whether this trap exception specifies all the flags given. (Flags are signaled in a trap exception as the result of one or more operations involving arbitrary-precision numbers, such as multiplication of two EDecimals.).
 
 <b>Parameters:</b>
 
- * <i>flag</i>: The parameter  <i>flag</i>
- is a 32-bit signed integer.
+ * <i>flag</i>: A combination of one or more flags, such as  `EContext.FlagInexact | EContext.FlagRounded` .
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+True if this exception pertains to all of the flags given in  <i>flag</i>
+; otherwise, false.

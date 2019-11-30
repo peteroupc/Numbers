@@ -655,7 +655,7 @@ namespace PeterO.Numbers {
       int endIndex,
       bool negative) {
       if (endIndex - index > 32) {
-        int midIndex = index + (endIndex - index) / 2;
+        int midIndex = index + ((endIndex - index) / 2);
         EInteger eia = FromRadixSubstringGeneral(
             str,
             radix,
@@ -4494,7 +4494,7 @@ maxDigitEstimate : retval +
     // word of an EInteger. Used in divide-and-conquer to guess
     // the power-of-base needed to split an EInteger by roughly half.
     // Calculated from: ln(65536)*(16/2)/ln(base)
-    private static int[] EstimatedHalfDigitCountPerWord = {
+    private static int[] estimatedHalfDigitCountPerWord = {
       0, 0,
       128, 80, 64, 55, 49, 45, 42, 40, 38, 37, 35, 34, 33,
       32, 32, 31, 30, 30, 29, 29, 28, 28, 27, 27, 27, 26,
@@ -4513,7 +4513,7 @@ maxDigitEstimate : retval +
       var i = 0;
       if (this.wordCount >= 100) {
         var rightBuilder = new StringBuilder();
-        long digits = ((long)EstimatedHalfDigitCountPerWord[radix] *
+        long digits = ((long)estimatedHalfDigitCountPerWord[radix] *
             this.wordCount) / 16;
         EInteger pow = EInteger.FromInt32(radix).Pow(digits);
         EInteger[] divrem = this.DivRem(pow);

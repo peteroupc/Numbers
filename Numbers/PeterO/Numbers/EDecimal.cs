@@ -70,9 +70,9 @@ namespace PeterO.Numbers {
   ///  is generally used to signal
   /// errors.</para>
   /// <para>This class implements the General Decimal Arithmetic
-  /// Specification version 1.70 (except part of chapter 6):
+  /// Specification version 1.70 except part of chapter 6(
   /// <c>http://speleotrove.com/decimal/decarith.html</c>
-  ///  </para>
+  ///  ).</para>
   /// <para><b>Errors and Exceptions</b>
   /// </para>
   /// <para>Passing a signaling NaN to any arithmetic operation shown
@@ -1062,12 +1062,8 @@ namespace PeterO.Numbers {
       }
       var mantInt = 0;
       EInteger mant = null;
-      var haveDecimalPoint = false;
       var haveDigits = false;
-      var haveExponent = false;
-      var newScaleInt = 0;
       var digitStart = 0;
-      EInteger newScale = null;
       int i = tmpoffset;
       if (i + 8 == endStr) {
         if ((str[i] == 'I' || str[i] == 'i') &&
@@ -1213,6 +1209,23 @@ namespace PeterO.Numbers {
               flags3);
         }
       }
+      return ParseOrdinaryNumber(str, i, endStr, negative, ctx);
+    }
+
+    private static EDecimal ParseOrdinaryNumber(
+      string str,
+      int i,
+      int endStr,
+      bool negative,
+      EContext ctx) {
+      var mantInt = 0;
+      EInteger mant = null;
+      var haveDecimalPoint = false;
+      var haveExponent = false;
+      var newScaleInt = 0;
+      var haveDigits = false;
+      var digitStart = 0;
+      EInteger newScale = null;
       // Ordinary number
       digitStart = i;
       int digitEnd = i;
@@ -1263,30 +1276,22 @@ namespace PeterO.Numbers {
             if (roundDown && (haveIgnoredDigit || beyondPrecision)) {
               // "Ignored" digit
               haveIgnoredDigit = true;
-            } else if (roundUp && (haveIgnoredDigit || beyondPrecision)) {
-              if (!haveIgnoredDigit) {
-                // DebugUtility.Log("Ignoring digit " + thisdigit + " [rounding=" +
-                // (// ctx.Rounding) + "]");
-                if (thisdigit > 0) {
-                  ignoreNextDigit = true;
-                } else {
-                  roundUp = false;
-                }
+            } else if (roundUp && beyondPrecision && !haveIgnoredDigit) {
+              if (thisdigit > 0) {
+                ignoreNextDigit = true;
+              } else {
+                roundUp = false;
               }
-            } else if (roundHalf && (haveIgnoredDigit || beyondPrecision)) {
-              if (!haveIgnoredDigit) {
-                // DebugUtility.Log("Ignoring digit {0}" +
-                // "\u0020[rounding={1}]",thisdigit, ctx.Rounding);
-                if (thisdigit >= 1 && thisdigit < 5) {
-                  ignoreNextDigit = true;
-                } else if (thisdigit > 5 || (thisdigit == 5 &&
-                    ctx.Rounding == ERounding.HalfUp)) {
-                  roundHalf = false;
-                  roundUp = true;
-                  ignoreNextDigit = true;
-                } else {
-                  roundHalf = false;
-                }
+            } else if (roundHalf && beyondPrecision && !haveIgnoredDigit) {
+              if (thisdigit >= 1 && thisdigit < 5) {
+                ignoreNextDigit = true;
+              } else if (thisdigit > 5 || (thisdigit == 5 &&
+                  ctx.Rounding == ERounding.HalfUp)) {
+                roundHalf = false;
+                roundUp = true;
+                ignoreNextDigit = true;
+              } else {
+                roundHalf = false;
               }
             }
           }
@@ -1358,10 +1363,7 @@ namespace PeterO.Numbers {
         decimalPrec -= zerorun;
         var nondec = 0;
         // NOTE: This check is apparently needed for correctness
-        if (ctx == null) {
-          throw new ArgumentNullException(nameof(ctx));
-        }
-        if (ctx == null && (!ctx.HasMaxPrecision ||
+        if (ctx == null || (!ctx.HasMaxPrecision ||
             decimalPrec - ctx.Precision.ToInt32Checked() > zerorun)) {
           if (haveDecimalPoint) {
             int decdigits = decimalDigitEnd - decimalDigitStart;
@@ -4926,7 +4928,8 @@ namespace PeterO.Numbers {
         }
         EInteger digitsLowerBound = DigitCountLowerBound(bigintMant.Abs());
         if (digitsLowerBound.CompareTo(800) > 0) {
-          return EFloat.FromString(this.ToString(), ec);
+          string estr = this.ToString();
+          return EFloat.FromString(estr, ec);
         }
       }
       if (bigintExp.Sign > 0) {

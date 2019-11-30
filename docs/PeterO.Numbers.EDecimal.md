@@ -20,7 +20,7 @@ The significand and exponent format preserves trailing zeros in the number's val
 
 This class also supports values for negative zero, not-a-number (NaN) values, and infinity. <b>Negative zero</b> is generally used when a negative number is rounded to 0; it has the same mathematical value as positive zero. <b>Infinity</b> is generally used when a non-zero number is divided by zero, or when a very high or very low number can't be represented in a given exponent range. <b>Not-a-number</b> is generally used to signal errors.
 
-This class implements the General Decimal Arithmetic Specification version 1.70 (except part of chapter 6):  `http://speleotrove.com/decimal/decarith.html`
+This class implements the General Decimal Arithmetic Specification version 1.70 except part of chapter 6 ( `http://speleotrove.com/decimal/decarith.html` ).
 
 <b>Errors and Exceptions</b>
 
@@ -580,7 +580,8 @@ Compares the mathematical values of this object and another object, accepting Na
 
 <b>Parameters:</b>
 
- * <i>intOther</i>:
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -791,7 +792,8 @@ If this object or the other object is a quiet NaN or signaling NaN, this method 
 
 <b>Parameters:</b>
 
- * <i>intOther</i>:
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 

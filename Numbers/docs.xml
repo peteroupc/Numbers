@@ -23,22 +23,20 @@
 
             <summary>Initializes a new instance of the
             <see cref='PeterO.Numbers.EContext'/> class,.</summary>
-            <param name='bigintPrecision'>An arbitrary-precision
-            integer.</param>
-            <param name='rounding'>The parameter <paramref name='rounding'/> is
-            an ERounding object.</param>
-            <param name='exponentMin'>An arbitrary-precision integer.</param>
-            <param name='exponentMax'>An arbitrary-precision integer.</param>
-            <param name='clampNormalExponents'>Either <c>true</c> or
-            <c>false</c>.</param>
+            <param name='bigintPrecision'>The value of the Precision property.</param>
+            <param name='rounding'>The value of the Rounding property.</param>
+            <param name='exponentMin'>The value of the EMin
+            property.</param>
+            <param name='exponentMax'>The value of the EMax
+            property.</param>
+            <param name='clampNormalExponents'>The value of the
+            ClampNormalExponents property.</param>
 
 </doc>
 <doc name="M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)">
 
-            <summary>Initializes a new instance of the
-            <see cref='PeterO.Numbers.EContext'/>.</summary>
-            <param name='precision'>The parameter <paramref name='precision'/>
-            is a 32-bit signed integer.</param>
+            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.EContext'/> class.</summary>
+            <param name='precision'>The value of the Precision property.</param>
             <param name='rounding'>The value of the Rounding property.</param>
             <param name='exponentMinSmall'>The value of the EMin
             property.</param>
@@ -636,8 +634,9 @@
             exponent range. <b>Not-a-number</b> is generally used to signal
             errors.</para>
             <para>This class implements the General Decimal Arithmetic
-            Specification version 1.70 (except part of chapter 6):
-            <c>http://speleotrove.com/decimal/decarith.html</c> </para>
+            Specification version 1.70 except part of chapter 6
+            (<c>http://speleotrove.com/decimal/decarith.html</c>).
+             </para>
             <para><b>Errors and Exceptions</b> </para>
             <para>Passing a signaling NaN to any arithmetic operation shown
             here will signal the flag FlagInvalid and return a quiet NaN, even
@@ -895,11 +894,11 @@
             consistent with the Equals method, but it may change in a future
             version to use the rules for the CompareToTotal method
             instead.</summary>
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
-            other value, or 0 if both
-            values are equal.</returns>
+            other value, or 0 if both values are equal.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)">
@@ -1117,11 +1116,11 @@
             signaling NaN, this method will not trigger an error. Instead, NaN
             will compare greater than any other number, including infinity. Two
             different NaN values will be considered equal.</para></summary>
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
-            other value, or 0 if both
-            values are equal.</returns>
+            other value, or 0 if both values are equal.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
@@ -4922,7 +4921,8 @@
 
             <summary>Adds this object and another number and returns the
             result.</summary>
-            <param name='intValue'>The parameter <paramref name='intValue'/> is a 32-bit signed integer.</param>
+            <param name='intValue'>The parameter <paramref name='intValue'/> is
+            a 32-bit signed integer.</param>
             <returns>The sum of the two objects.</returns>
 
 </doc>
@@ -5042,11 +5042,11 @@
             consistent with the Equals method, but it may change in a future
             version to use the rules for the CompareToTotal method
             instead.</summary>
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
-            other value, or 0 if both
-            values are equal.</returns>
+            other value, or 0 if both values are equal.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -5228,21 +5228,22 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToValue(System.Int32)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values.
             <para>This method is not consistent with the Equals method because
             two different numbers with the same mathematical value, but
             different exponents, will compare as equal.</para>
             <para>In this method, negative zero and positive zero are
             considered equal.</para>
-            <para>If this object is a quiet NaN or
-            signaling NaN, this method will not trigger an error. Instead, NaN
-            will compare greater than any other number.</para></summary>
-            <param name='other'>A 32-bit signed integer to compare with this object.  If this is 0, it is treated as positive zero for the purposes of the comparison.</param>
+            <para>If this object is a quiet NaN or signaling NaN, this method
+            will not trigger an error. Instead, NaN will compare greater than
+            any other number.</para></summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
-            other value or if <paramref name='other'/> is null, or 0 if both
-            values are equal.</returns>
+            other value, or 0 if both values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -10226,10 +10227,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-            <summary>Initializes a new instance of the
-            <see cref='PeterO.Numbers.ERational'/>.</summary>
-            <param name='numerator'>An arbitrary-precision integer.</param>
-            <param name='denominator'>An arbitrary-precision integer.</param>
+            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.ERational'/> class.</summary>
+            <param name='numerator'>An arbitrary-precision integer serving as the numerator.</param>
+            <param name='denominator'>An arbitrary-precision integer serving as the denominator.</param>
             <exception cref='ArgumentNullException'>The parameter <paramref name='numerator'/> or <paramref name='denominator'/> is
             null.</exception>
             <exception cref='ArgumentException'>Denominator is
@@ -10255,10 +10255,13 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Add(System.Int32)">
-<summary>Returns the sum of a rational number and a 32-bit signed integer.</summary>
+
+            <summary>Returns the sum of a rational number and a 32-bit signed
+            integer.</summary>
             <param name='v'>A 32-bit signed integer.</param>
             <returns>The sum of the two numbers. Returns not-a-number (NaN) if
             this object is NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)">
 
@@ -10287,10 +10290,11 @@
             not consistent with the Equals method, but it may change in a
             future version to use the rules for the CompareToTotal method
             instead.</summary>
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>Zero if the values are equal; a negative number if this
-            instance is less, or a positive number if this instance is greater.
-            </returns>
+            instance is less, or a positive number if this instance is
+            greater.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)">
@@ -10413,9 +10417,11 @@
             values (even if their payloads differ) are treated as equal by this
             method. This method is not consistent with the Equals
             method.</summary>
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>Zero if the values are equal; a negative number if this
-            instance is less, or a positive number if this instance is greater.</returns>
+            instance is less, or a positive number if this instance is
+            greater.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Copy">
@@ -10516,7 +10522,8 @@
 
             <summary>Divides this instance by the value of an
             arbitrary-precision rational number object.</summary>
-            <param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The quotient of the two objects.</returns>
             <exception cref='ArithmeticException'>The parameter <paramref name='v'/> is zero.</exception>
 
@@ -10860,9 +10867,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Multiply(System.Int32)">
-<summary>Returns the value of this instance multiplied by a 32-bit signed integer.</summary>
-            <param name='otherValue'>A 32-bit signed integer.</param>
+
+            <summary>Returns the value of this instance multiplied by a 32-bit
+            signed integer.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
             <returns>The product of the two numbers.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.ERational.NaN">
 
@@ -10917,12 +10927,14 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Remainder(System.Int32)">
-<summary>Finds the remainder that results when this instance is
+
+            <summary>Finds the remainder that results when this instance is
             divided by the value of an arbitrary-precision rational
             number.</summary>
             <param name='v'>The divisor.</param>
             <returns>The remainder of the two numbers.</returns>
             <exception cref='ArgumentException'>The parameter <paramref name='v'/> is zero.</exception>
+
 </doc>
 <doc name="P:PeterO.Numbers.ERational.Sign">
 
@@ -10946,10 +10958,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Subtract(System.Int32)">
-<summary>Returns the result of subtracting a 32-bit signed integer from this
-            instance.</summary>
-            <param name='otherValue'>A 32-bit signed integer.</param>
+
+            <summary>Returns the result of subtracting a 32-bit signed integer
+            from this instance.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
             <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.ERational.Ten">
 
@@ -12004,8 +12018,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)">
 
-            <summary>Initializes a new instance of the
-            <see cref='PeterO.Numbers.ETrapException'/>.</summary>
+            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
             <param name='flag'>The flag that specifies the kind of error from
             one or more operations (EContext.FlagXXX). This will only be one
             flag, such as <c>FlagInexact</c> or FlagSubnormal.</param>
@@ -12017,8 +12030,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,System.Int32,PeterO.Numbers.EContext,System.Object)">
 
-            <summary>Initializes a new instance of the
-            <see cref='PeterO.Numbers.ETrapException'/>.</summary>
+            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
             <param name='flags'>Specifies the flags that were signaled as the
             result of one or more operations. This includes the flag specified
             in the "flag" parameter, but can include other flags. For instance,
@@ -12076,15 +12088,21 @@
             "flag" parameter, but can include other flags. For instance, if
             "flag" is <c>EContext.FlagInexact</c>, this parameter might be
             <c>EContext.FlagInexact | EContext.FlagRounded</c>.</summary>
-
             <value>The flags that specifies the errors in one or more
             operations.</value>
 
 </doc>
 <doc name="M:PeterO.Numbers.ETrapException.HasError(System.Int32)">
-<summary>Returns whether this trap exception specifies all the flags given.  (Flags are signaled in a trap exception as the result of one or more operations involving arbitrary-precision numbers, such as multiplication of two EDecimals.)</summary>
-            <param name='flag'>A combination of one or more flags, such as <c>EContext.FlagInexact | EContext.FlagRounded</c>.</param>
-            <returns><c>true</c> if this exception pertains to all of the flags given in "flag"; otherwise, <c>false</c>.</returns>
+
+            <summary>Returns whether this trap exception specifies all the
+            flags given. (Flags are signaled in a trap exception as the result
+            of one or more operations involving arbitrary-precision numbers,
+            such as multiplication of two EDecimals.).</summary>
+            <param name='flag'>A combination of one or more flags, such as
+            <c>EContext.FlagInexact | EContext.FlagRounded</c>.</param>
+            <returns><c>true</c> if this exception pertains to all of the flags given
+            in <paramref name='flag'/>; otherwise, <c>false</c>.</returns>
+
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Result">
 
