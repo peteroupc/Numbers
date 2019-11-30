@@ -1254,7 +1254,7 @@ namespace PeterO.Numbers {
           haveDigits = true;
           beyondPrecision |= ctx != null && ctx.HasMaxPrecision &&
             !ctx.IsPrecisionInBits && ctx.Precision.CompareTo(decimalPrec)
-<= 0;
+            <= 0;
           if (ctx != null) {
             if (ignoreNextDigit) {
               haveIgnoredDigit = true;

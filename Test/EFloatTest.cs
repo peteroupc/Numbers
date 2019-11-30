@@ -292,11 +292,11 @@ digitsBefore) {
 
     [Test]
     public void TestRandomDigitStrings() {
-      this.TestDigitStringsOne("9.5");
-      this.TestDigitStringsOne("0.1");
-      this.TestDigitStringsOne("664.07742299");
-      this.TestDigitStringsOne("7062.66606310");
-      this.TestDigitStringsOne("0664.07742299");
+      TestDigitStringsOne("9.5");
+      TestDigitStringsOne("0.1");
+      TestDigitStringsOne("664.07742299");
+      TestDigitStringsOne("7062.66606310");
+      TestDigitStringsOne("0664.07742299");
       var rand = new RandomGenerator();
       var strings = new List<string>();
       for (var i = 0; i < 10000; ++i) {
@@ -1675,7 +1675,7 @@ subnormal) {
       }
       var fr = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
-        EFloat efa = this.RandomDoubleEFloat(fr);
+        EFloat efa = RandomDoubleEFloat(fr);
         string shortestStr = efa.ToShortestString(EContext.Binary64);
         EFloat shortest = EFloat.FromString(
           shortestStr,
@@ -1695,7 +1695,7 @@ subnormal) {
     public void TestToSingleRounding() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {
-        EFloat efa = this.RandomSingleEFloat(fr, i >= 250);
+        EFloat efa = RandomSingleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, false);
       }
     }
@@ -2133,7 +2133,7 @@ enumber.CompareTo(
     public void TestToDoubleRounding() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {
-        EFloat efa = this.RandomDoubleEFloat(fr, i >= 250);
+        EFloat efa = RandomDoubleEFloat(fr, i >= 250);
         TestToFloatRoundingOne(efa, true);
       }
       TestToFloatRoundingOne(EFloat.Create(0, -1074), true);
