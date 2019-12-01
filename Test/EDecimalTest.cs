@@ -5727,6 +5727,17 @@ namespace Test {
     }
 
     [Test]
+    public void TestStringContextSpecific6a() {
+      var sb = new StringBuilder();
+      EContext ec = EContext.Basic.WithPrecision(11).WithExponentClamp(true)
+        .WithAdjustExponent(true).WithExponentRange(-14, 15)
+        .WithRounding(ERounding.HalfDown);
+      string str =
+  "00726010602910507435000059115940090202200019076401000797770037005004100060.0201983258000005067E-96";
+      TestStringContextOne(str, ec);
+    }
+
+    [Test]
     public void TestStringContextSpecificMore() {
       {
         string str = "precision: 7\nrounding: half_down\nmaxexponent: " +

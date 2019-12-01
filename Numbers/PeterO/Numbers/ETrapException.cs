@@ -91,6 +91,8 @@ namespace PeterO.Numbers {
     /// <c>EContext.FlagInexact | EContext.FlagRounded</c>.</summary>
     /// <summary>Gets a value not documented yet.</summary>
     /// <summary>Gets a value not documented yet.</summary>
+    /// <summary>Gets a value not documented yet.</summary>
+    /// <summary>Gets a value not documented yet.</summary>
     /// <value>The flags that specifies the errors in one or more
     /// operations.</value>
     public int Errors {

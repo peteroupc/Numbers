@@ -1209,7 +1209,254 @@ namespace PeterO.Numbers {
               flags3);
         }
       }
-      return ParseOrdinaryNumber(str, i, endStr, negative, ctx);
+      if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
+        !ctx.IsSimplified) {
+        return ParseOrdinaryNumberLimitedPrecision(
+          str,
+          i,
+          endStr,
+          negative,
+          ctx);
+      } else {
+        return ParseOrdinaryNumber(str, i, endStr, negative, ctx);
+      }
+    }
+
+    private static EDecimal SignalUnderflow(EContext ec, bool negative, bool
+      zeroSignificand) {
+      EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+      eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
+      // trigger underflow
+      EDecimal ret = EDecimal.Create(
+          zeroSignificand ? EInteger.Zero : EInteger.One,
+          eTiny);
+      if (negative) {
+        ret = ret.Negate();
+      }
+      return ret.RoundToPrecision(ec);
+    }
+
+    private static EDecimal SignalOverflow(EContext ec, bool negative, bool
+      zeroSignificand) {
+      if (zeroSignificand) {
+        EDecimal ret = EDecimal.Create(EInteger.Zero, ec.EMax);
+        if (negative) {
+          ret = ret.Negate();
+        }
+        return ret.RoundToPrecision(ec);
+      } else {
+        return GetMathValue(ec).SignalOverflow(ec, negative);
+      }
+    }
+
+    private static EDecimal ParseOrdinaryNumberLimitedPrecision(
+      string str,
+      int offset,
+      int endStr,
+      bool negative,
+      EContext ctx) {
+      int tmpoffset = offset;
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      if (ctx == null || !ctx.HasMaxPrecision) {
+        throw new InvalidOperationException();
+      }
+      var haveDecimalPoint = false;
+      var haveDigits = false;
+      var haveExponent = false;
+      var newScaleInt = 0;
+      int i = tmpoffset;
+      long mantissaLong = 0L;
+      // Ordinary number
+      int digitStart = i;
+      int digitEnd = i;
+      int decimalDigitStart = i;
+      var haveNonzeroDigit = false;
+      var decimalPrec = 0;
+      int decimalDigitEnd = i;
+      var nonzeroBeyondMax = false;
+      var beyondMax = false;
+      var lastdigit = -1;
+      for (; i < endStr; ++i) {
+        char ch = str[i];
+        if (ch >= '0' && ch <= '9') {
+          var thisdigit = (int)(ch - '0');
+          haveDigits = true;
+          haveNonzeroDigit |= thisdigit != 0;
+          if (beyondMax || (ctx.Precision.Add(2).CompareTo(decimalPrec) < 0 &&
+             mantissaLong == Int64.MaxValue)) {
+            // Well beyond maximum precision, significand is
+            // max or bigger
+            beyondMax = true;
+            if (thisdigit != 0) {
+              nonzeroBeyondMax = true;
+            }
+            if (!haveDecimalPoint) {
+              // NOTE: Absolute value will not be more than
+              // the string portion's length, so will fit comfortably
+              // in an 'int'.
+              ++newScaleInt;
+            }
+            continue;
+          }
+          lastdigit = thisdigit;
+          if (haveNonzeroDigit) {
+            ++decimalPrec;
+          }
+          if (haveDecimalPoint) {
+            decimalDigitEnd = i + 1;
+          } else {
+            digitEnd = i + 1;
+          }
+          if (mantissaLong <= 922337203685477580L) {
+            mantissaLong *= 10;
+            mantissaLong += thisdigit;
+          } else {
+            mantissaLong = Int64.MaxValue;
+          }
+          if (haveDecimalPoint) {
+            // NOTE: Absolute value will not be more than
+            // the string portion's length, so will fit comfortably
+            // in an 'int'.
+            --newScaleInt;
+          }
+        } else if (ch == '.') {
+          if (haveDecimalPoint) {
+            throw new FormatException();
+          }
+          haveDecimalPoint = true;
+          decimalDigitStart = i + 1;
+          decimalDigitEnd = i + 1;
+        } else if (ch == 'E' || ch == 'e') {
+          haveExponent = true;
+          ++i;
+          break;
+        } else {
+          throw new FormatException();
+        }
+      }
+      if (!haveDigits) {
+        throw new FormatException();
+      }
+      var expInt = 0;
+      var expoffset = 1;
+      var expDigitStart = -1;
+      var expPrec = 0;
+      bool zeroMantissa = !haveNonzeroDigit;
+      haveNonzeroDigit = false;
+      if (haveExponent) {
+        haveDigits = false;
+        if (i == endStr) {
+          throw new FormatException();
+        }
+        if (str[i] == '+' || str[i] == '-') {
+          if (str[i] == '-') {
+            expoffset = -1;
+          }
+          ++i;
+        }
+        expDigitStart = i;
+        for (; i < endStr; ++i) {
+          char ch = str[i];
+          if (ch >= '0' && ch <= '9') {
+            haveDigits = true;
+            var thisdigit = (int)(ch - '0');
+            haveNonzeroDigit |= thisdigit != 0;
+            if (haveNonzeroDigit) {
+              ++expPrec;
+            }
+            if (expInt <= 214748364) {
+              expInt *= 10;
+              expInt += thisdigit;
+            } else {
+              expInt = Int32.MaxValue;
+            }
+          } else {
+            throw new FormatException();
+          }
+        }
+        if (!haveDigits) {
+          throw new FormatException();
+        }
+        expInt *= expoffset;
+        if (expPrec > 12) {
+          // Exponent that can't be compensated by digit
+          // length without remaining higher than Int32.MaxValue
+          if (expoffset < 0) {
+            return SignalUnderflow(ctx, negative, zeroMantissa);
+          } else {
+            return SignalOverflow(ctx, negative, zeroMantissa);
+          }
+        }
+      }
+      if (i != endStr) {
+        throw new FormatException();
+      }
+      if (expInt != Int32.MaxValue && expInt > -Int32.MaxValue &&
+        mantissaLong != Int64.MaxValue) {
+        // Low precision, low exponent
+        var finalexp = (long)expInt + (long)newScaleInt;
+        if (negative) {
+          mantissaLong = -mantissaLong;
+        }
+        EDecimal eret = EDecimal.Create(
+            EInteger.FromInt64(mantissaLong),
+            EInteger.FromInt64(finalexp));
+          if (negative && zeroMantissa) {
+            eret = eret.Negate();
+          }
+        return eret.RoundToPrecision(ctx);
+      }
+      EInteger mant = null;
+      EInteger exp = (!haveExponent) ? EInteger.Zero :
+        EInteger.FromSubstring(str, expDigitStart, endStr);
+      if (expoffset < 0) {
+        exp = exp.Negate();
+      }
+      exp = exp.Add(newScaleInt);
+      if (nonzeroBeyondMax) {
+        exp = exp.Subtract(1);
+        ++decimalPrec;
+      }
+      if (ctx.HasExponentRange) {
+        EInteger adjExpUpperBound = exp.Add(decimalPrec).Subtract(1);
+        EInteger adjExpLowerBound = exp;
+        EInteger eTiny = ctx.EMin.Subtract(ctx.Precision.Subtract(1));
+        eTiny = eTiny.Subtract(1);
+        // DebugUtility.Log("exp=" + adjExpLowerBound + "~" +
+        // adjExpUpperBound + ", emin={0} emax={1}", ctx.EMin, ctx.EMax);
+        if (adjExpUpperBound.CompareTo(eTiny) < 0) {
+          return SignalUnderflow(ctx, negative, zeroMantissa);
+        } else if (adjExpLowerBound.CompareTo(ctx.EMax) > 0) {
+          return SignalOverflow(ctx, negative, zeroMantissa);
+        }
+      }
+      if (zeroMantissa) {
+        EDecimal ef = EDecimal.Create(
+          EInteger.Zero,
+          exp);
+        if (negative) {
+          ef = ef.Negate();
+        }
+        return ef.RoundToPrecision(ctx);
+      } else if (decimalDigitStart != decimalDigitEnd) {
+        string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
+          str.Substring(
+             decimalDigitStart,
+             decimalDigitEnd - decimalDigitStart);
+        mant = EInteger.FromString(tmpstr);
+      } else {
+        mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+      }
+      if (nonzeroBeyondMax) {
+        mant = mant.Multiply(10).Add(1);
+      }
+      if (negative) {
+        mant = mant.Negate();
+      }
+      return EDecimal.Create(mant, exp)
+        .RoundToPrecision(ctx);
     }
 
     private static EDecimal ParseOrdinaryNumber(

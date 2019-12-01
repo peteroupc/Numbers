@@ -857,6 +857,7 @@ namespace PeterO.Numbers {
       exp = exp.Add(newScaleInt);
       if (nonzeroBeyondMax) {
         exp = exp.Subtract(1);
+        ++decimalPrec;
       }
       EInteger adjExpUpperBound = exp.Add(decimalPrec).Subtract(1);
       EInteger adjExpLowerBound = exp;
@@ -866,10 +867,19 @@ namespace PeterO.Numbers {
       } else if (adjExpLowerBound.CompareTo(309) > 0) {
         return SignalOverflow(ctx, negative, zeroMantissa);
       }
-      if (decimalDigitStart != decimalDigitEnd) {
+      if (zeroMantissa) {
+        EFloat ef = EFloat.Create(
+          EInteger.Zero,
+          exp);
+        if (negative) {
+          ef = ef.Negate();
+        }
+        return ef.RoundToPrecision(ctx);
+      } else if (decimalDigitStart != decimalDigitEnd) {
         string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
-          str.Substring(decimalDigitStart, decimalDigitEnd -
-decimalDigitStart);
+          str.Substring(
+             decimalDigitStart,
+             decimalDigitEnd - decimalDigitStart);
         mant = EInteger.FromString(tmpstr);
       } else {
         mant = EInteger.FromSubstring(str, digitStart, digitEnd);

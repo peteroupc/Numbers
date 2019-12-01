@@ -126,6 +126,10 @@ The flag that specifies the primary kind of error in one or more operations.
 
 Specifies the flags that were signaled as the result of one or more operations. This includes the flag specified in the "flag" parameter, but can include other flags. For instance, if "flag" is  `EContext.FlagInexact` , this parameter might be  `EContext.FlagInexact | EContext.FlagRounded` .
 
+Gets a value not documented yet.
+
+Gets a value not documented yet.
+
 <b>Returns:</b>
 
 The flags that specifies the errors in one or more operations.
@@ -156,4 +160,4 @@ Returns whether this trap exception specifies all the flags given. (Flags are si
 <b>Return Value:</b>
 
 True if this exception pertains to all of the flags given in  <i>flag</i>
-; otherwise, false.
+ ; otherwise, false.
