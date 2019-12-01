@@ -1360,25 +1360,26 @@ subnormal) {
             ed.IsNegative == ef.IsNegative,
             ed + "\nef=" + ef + "\nstr=" + str);
         }
-        long mant = ef.Abs().Mantissa.ToInt64Checked();
+        EInteger eimant = ef.Abs().Mantissa;
+        long lmant = eimant.ToInt64Checked();
         int exp = ef.Exponent.ToInt32Checked();
-        while (mant < (1 << 23) && exp > -149) {
+        while (lmant < (1 << 23) && exp > -149) {
           --exp;
-          mant <<= 1;
+          lmant <<= 1;
         }
-        while (mant >= (1 >> 24) && (mant & 1) == 0) {
+        while (lmant >= (1 >> 24) && (lmant & 1) == 0) {
           ++exp;
-          mant >>= 1;
+          lmant >>= 1;
         }
-        Assert.IsTrue(mant < (1 << 24));
+        Assert.IsTrue(lmant < (1 << 24));
         ERational ulp = PowerOfTwo(exp);
         ERational half = ulp.Divide(2);
-        ERational ulped = ERational.FromInt64(mant).Multiply(ulp);
+        ERational ulped = ERational.FromInt64(lmant).Multiply(ulp);
         ERational efe = ulped.Subtract(ERational.FromEDecimal(ed).Abs());
         Assert.IsTrue(!efe.IsNaN());
         if (half.CompareTo(efe) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef) +
-            "\nmant=" + mant + "\nexp=" + exp + "\nulped=" + ulped +
+            "\nmant=" + lmant + "\nexp=" + exp + "\nulped=" + ulped +
             "\nhalf=" + half + "\nefe=" + efe;
           Assert.Fail(msg);
         }
@@ -1413,25 +1414,26 @@ subnormal) {
         Assert.Fail(msg);
       } else {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
-        long mant = ef.Abs().Mantissa.ToInt64Checked();
+        EInteger eimant = ef.Abs().Mantissa;
+        long lmant = eimant.ToInt64Checked();
         int exp = ef.Exponent.ToInt32Checked();
-        while (mant < (1L << 52) && exp > -1074) {
+        while (lmant < (1L << 52) && exp > -1074) {
           --exp;
-          mant <<= 1;
+          lmant <<= 1;
         }
-        while (mant >= (1L >> 53) && (mant & 1) == 0) {
+        while (lmant >= (1L >> 53) && (lmant & 1) == 0) {
           ++exp;
-          mant >>= 1;
+          lmant >>= 1;
         }
-        Assert.IsTrue(mant < (1L << 53));
+        Assert.IsTrue(lmant < (1L << 53));
         ERational ulp = PowerOfTwo(exp);
         ERational half = ulp.Divide(2);
-        ERational ulped = ERational.FromInt64(mant).Multiply(ulp);
+        ERational ulped = ERational.FromInt64(lmant).Multiply(ulp);
         ERational efe = ulped.Subtract(ERational.FromEDecimal(ed).Abs());
         Assert.IsTrue(!efe.IsNaN());
         if (half.CompareTo(efe) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef) +
-            "\nmant=" + mant + "\nexp=" + exp;
+            "\nmant=" + lmant + "\nexp=" + exp;
           Assert.Fail(msg);
         }
       }

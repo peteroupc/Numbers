@@ -45,6 +45,10 @@ namespace PeterO.Numbers {
   /// <para>Applications should instead use dedicated security libraries
   /// to handle big numbers in security-sensitive
   /// algorithms.</para></summary>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1036",
+        Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -2817,8 +2821,9 @@ namespace PeterO.Numbers {
                 // new quotient
                 // NOTE: Bitlength accurate for wci<1000000 here, only as
                 // an approximation
-                bitlen = (wci < 1000000) ? GetUnsignedBitLengthEx(quo, wci +
-1) :
+                bitlen = (wci < 1000000) ? GetUnsignedBitLengthEx(
+                  quo,
+                  wci + 1) :
                   Int32.MaxValue;
                 if (bitlen <= 2135) {
                   // (x*631305) >> 21 is an approximation
@@ -4515,7 +4520,8 @@ maxDigitEstimate : retval +
         var rightBuilder = new StringBuilder();
         long digits = ((long)estimatedHalfDigitCountPerWord[radix] *
             this.wordCount) / 16;
-        EInteger pow = EInteger.FromInt32(radix).Pow(digits);
+        EInteger pow = EInteger.FromInt32(radix).Pow(
+            EInteger.FromInt64(digits));
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
         // divrem[1].wordCount));

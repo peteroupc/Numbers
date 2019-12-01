@@ -10,7 +10,7 @@ Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and
 ### Member Summary
 * <code>[Context](#Context)</code> - Gets the arithmetic context used during the operation that triggered the trap.
 * <code>[Error](#Error)</code> - Gets the flag that specifies the primary kind of error in one or more operations (EContext.
-* <code>[Errors](#Errors)</code> - Specifies the flags that were signaled as the result of one or more operations.
+* <code>[Errors](#Errors)</code> - Gets the flags that were signaled as the result of one or more operations.
 * <code>[HasError(int)](#HasError_int)</code> - Returns whether this trap exception specifies all the flags given.
 * <code>[Result](#Result)</code> - Gets the defined result of the operation that caused the trap.
 
@@ -124,15 +124,11 @@ The flag that specifies the primary kind of error in one or more operations.
 
     public int Errors { get; }
 
-Specifies the flags that were signaled as the result of one or more operations. This includes the flag specified in the "flag" parameter, but can include other flags. For instance, if "flag" is  `EContext.FlagInexact` , this parameter might be  `EContext.FlagInexact | EContext.FlagRounded` .
-
-Gets a value not documented yet.
-
-Gets a value not documented yet.
+Gets the flags that were signaled as the result of one or more operations. This includes the flag specified in the "flag" parameter, but can include other flags. For instance, if "flag" is  `EContext.FlagInexact` , this parameter might be  `EContext.FlagInexact | EContext.FlagRounded` .
 
 <b>Returns:</b>
 
-The flags that specifies the errors in one or more operations.
+The flags that specify the errors in one or more operations.
 
 <a id="Result"></a>
 ### Result

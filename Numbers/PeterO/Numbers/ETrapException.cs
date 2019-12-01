@@ -84,16 +84,12 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Specifies the flags that were signaled as the result of
-    /// one or more operations. This includes the flag specified in the
-    /// "flag" parameter, but can include other flags. For instance, if
-    /// "flag" is <c>EContext.FlagInexact</c>, this parameter might be
+    /// <summary>Gets the flags that were signaled as the result of one or
+    /// more operations. This includes the flag specified in the "flag"
+    /// parameter, but can include other flags. For instance, if "flag" is
+    /// <c>EContext.FlagInexact</c>, this parameter might be
     /// <c>EContext.FlagInexact | EContext.FlagRounded</c>.</summary>
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <summary>Gets a value not documented yet.</summary>
-    /// <value>The flags that specifies the errors in one or more
+    /// <value>The flags that specify the errors in one or more
     /// operations.</value>
     public int Errors {
       get {

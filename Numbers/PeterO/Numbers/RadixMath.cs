@@ -4232,7 +4232,9 @@ this.RoundToPrecision(b, ctx)));
           ctx,
           workingPrecision + (EInteger)6)
         .WithRounding(ERounding.OddOrZeroFiveUp);
-      T z = this.Add(this.NegateRaw(thisValue), this.helper.ValueOf(1),
+      T z = this.Add(
+          this.NegateRaw(thisValue),
+          this.helper.ValueOf(1),
           null);
       T zpow = this.Multiply(z, z, ctxdiv);
       T guess = this.NegateRaw(z);

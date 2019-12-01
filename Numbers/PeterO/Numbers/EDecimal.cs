@@ -255,6 +255,10 @@ namespace PeterO.Numbers {
   /// order of each bit of each element, that is, either most significant
   /// first or least significant first.</para>
   /// </summary>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1036",
+        Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class EDecimal : IComparable<EDecimal>,
     IEquatable<EDecimal> {
     //----------------------------------------------------------------
@@ -343,12 +347,12 @@ namespace PeterO.Numbers {
     private const int MaxSafeInt = 214748363;
 
     private static readonly IRadixMath<EDecimal> ExtendedMathValue = new
-    RadixMath<EDecimal>(new DecimalMathHelper());
+RadixMath<EDecimal>(new DecimalMathHelper());
     private static readonly FastIntegerFixed FastIntZero = new
-    FastIntegerFixed(0);
+FastIntegerFixed(0);
     //----------------------------------------------------------------
     private static readonly IRadixMath<EDecimal> MathValue = new
-    TrappableRadixMath<EDecimal>(
+TrappableRadixMath<EDecimal>(
       new ExtendedOrSimpleRadixMath<EDecimal>(new
         DecimalMathHelper()));
 
@@ -565,8 +569,8 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(diag));
       }
       if (diag.Sign < 0) {
-        throw new
-        ArgumentException("Diagnostic information must be 0 or greater," +
+        throw new ArgumentException("Diagnostic information must be 0 or" +
+"\u0020greater," +
           "\u0020 was: " + diag);
       }
       if (diag.IsZero && !negative) {
@@ -788,8 +792,10 @@ namespace PeterO.Numbers {
             FastIntZero,
             BigNumberFlags.FlagNegative);
       } else {
-        return new EDecimal(new FastIntegerFixed(valueSmaller),
-            FastIntZero, 0);
+        return new EDecimal(
+            new FastIntegerFixed(valueSmaller),
+            FastIntZero,
+            0);
       }
     }
 
@@ -1212,11 +1218,11 @@ namespace PeterO.Numbers {
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
         !ctx.IsSimplified) {
         return ParseOrdinaryNumberLimitedPrecision(
-          str,
-          i,
-          endStr,
-          negative,
-          ctx);
+            str,
+            i,
+            endStr,
+            negative,
+            ctx);
       } else {
         return ParseOrdinaryNumber(str, i, endStr, negative, ctx);
       }
@@ -1285,7 +1291,7 @@ namespace PeterO.Numbers {
           haveDigits = true;
           haveNonzeroDigit |= thisdigit != 0;
           if (beyondMax || (ctx.Precision.Add(2).CompareTo(decimalPrec) < 0 &&
-             mantissaLong == Int64.MaxValue)) {
+              mantissaLong == Int64.MaxValue)) {
             // Well beyond maximum precision, significand is
             // max or bigger
             beyondMax = true;
@@ -1296,7 +1302,7 @@ namespace PeterO.Numbers {
               // NOTE: Absolute value will not be more than
               // the string portion's length, so will fit comfortably
               // in an 'int'.
-              ++newScaleInt;
+              newScaleInt = checked(newScaleInt + 1);
             }
             continue;
           }
@@ -1319,7 +1325,7 @@ namespace PeterO.Numbers {
             // NOTE: Absolute value will not be more than
             // the string portion's length, so will fit comfortably
             // in an 'int'.
-            --newScaleInt;
+            newScaleInt = checked(newScaleInt - 1);
           }
         } else if (ch == '.') {
           if (haveDecimalPoint) {
@@ -1403,9 +1409,9 @@ namespace PeterO.Numbers {
         EDecimal eret = EDecimal.Create(
             EInteger.FromInt64(mantissaLong),
             EInteger.FromInt64(finalexp));
-          if (negative && zeroMantissa) {
-            eret = eret.Negate();
-          }
+        if (negative && zeroMantissa) {
+          eret = eret.Negate();
+        }
         return eret.RoundToPrecision(ctx);
       }
       EInteger mant = null;
@@ -1434,8 +1440,8 @@ namespace PeterO.Numbers {
       }
       if (zeroMantissa) {
         EDecimal ef = EDecimal.Create(
-          EInteger.Zero,
-          exp);
+            EInteger.Zero,
+            exp);
         if (negative) {
           ef = ef.Negate();
         }
@@ -1443,8 +1449,8 @@ namespace PeterO.Numbers {
       } else if (decimalDigitStart != decimalDigitEnd) {
         string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
           str.Substring(
-             decimalDigitStart,
-             decimalDigitEnd - decimalDigitStart);
+            decimalDigitStart,
+            decimalDigitEnd - decimalDigitStart);
         mant = EInteger.FromString(tmpstr);
       } else {
         mant = EInteger.FromSubstring(str, digitStart, digitEnd);
@@ -2288,7 +2294,7 @@ namespace PeterO.Numbers {
           // Float's absolute value is less than 1, so do a trial comparison
           // using exponent closer to 0
           EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(
-  -1000));
+                -1000));
           int trialcmp = CompareEDecimalToEFloat(ed, trial);
           if (ef.Sign < 0 && trialcmp < 0) {
             // if float and decimal are negative and
@@ -3088,7 +3094,9 @@ namespace PeterO.Numbers {
     public EDecimal DivideToIntegerNaturalScale(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx).DivideToIntegerNaturalScale(this, divisor,
+      return GetMathValue(ctx).DivideToIntegerNaturalScale(
+          this,
+          divisor,
           ctx);
     }
 
@@ -5153,10 +5161,11 @@ namespace PeterO.Numbers {
         return this.WithThisSign(EFloat.FromEInteger(bigintMant))
           .RoundToPrecision(ec);
       }
+      EContext b64 = EContext.Binary64;
       if (ec != null && ec.HasMaxPrecision && ec.HasExponentRange &&
-        !ec.IsSimplified && ec.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
-        ec.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
-        ec.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
+        !ec.IsSimplified && ec.EMax.CompareTo(b64.EMax) <= 0 &&
+        ec.EMin.CompareTo(b64.EMin) >= 0 &&
+        ec.Precision.CompareTo(b64.Precision) <= 0) {
         // Quick check for overflow or underflow
         EInteger adjexpLowerBound = bigintExp;
         EInteger adjexpUpperBound = bigintExp.Add(
@@ -5533,8 +5542,8 @@ namespace PeterO.Numbers {
                 "\u0020decimalPoint.CanFitInInt32()");
             }
             if (decimalPoint.AsInt32() != 0) {
-              throw new
-              ArgumentException("doesn't satisfy decimalPoint.AsInt32() == 0");
+              throw new ArgumentException("doesn't satisfy" +
+"\u0020decimalPoint.AsInt32() == 0");
             }
             #endif
 

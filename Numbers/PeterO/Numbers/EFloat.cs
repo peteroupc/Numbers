@@ -82,6 +82,10 @@ namespace PeterO.Numbers {
   /// <para>Applications should instead use dedicated security libraries
   /// to handle big numbers in security-sensitive
   /// algorithms.</para></summary>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1036",
+        Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class EFloat : IComparable<EFloat>,
     IEquatable<EFloat> {
     //----------------------------------------------------------------
@@ -586,10 +590,11 @@ namespace PeterO.Numbers {
         throw new FormatException("str's length minus " + offset + "(" +
           (str.Length - offset) + ") is not greater or equal to " + length);
       }
+      EContext b64 = EContext.Binary64;
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
-        !ctx.IsSimplified && ctx.EMax.CompareTo(EContext.Binary64.EMax) <= 0 &&
-        ctx.EMin.CompareTo(EContext.Binary64.EMin) >= 0 &&
-        ctx.Precision.CompareTo(EContext.Binary64.Precision) <= 0) {
+        !ctx.IsSimplified && ctx.EMax.CompareTo(b64.EMax) <= 0 &&
+        ctx.EMin.CompareTo(b64.EMin) >= 0 &&
+        ctx.Precision.CompareTo(b64.Precision) <= 0) {
         int tmpoffset = offset;
         int endpos = offset + length;
         if (length == 0) {
@@ -693,7 +698,7 @@ namespace PeterO.Numbers {
               // NOTE: Absolute value will not be more than
               // the string portion's length, so will fit comfortably
               // in an 'int'.
-              ++newScaleInt;
+              newScaleInt = checked(newScaleInt + 1);
             }
             continue;
           }
@@ -716,7 +721,7 @@ namespace PeterO.Numbers {
             // NOTE: Absolute value will not be more than
             // the string portion's length, so will fit comfortably
             // in an 'int'.
-            --newScaleInt;
+            newScaleInt = checked(newScaleInt - 1);
           }
         } else if (ch == '.') {
           if (haveDecimalPoint) {
@@ -840,7 +845,7 @@ namespace PeterO.Numbers {
           mantissaLong = -mantissaLong;
         }
         long absfinalexp = Math.Abs(finalexp);
-        ef1 = EFloat.Create(mantissaLong, 0);
+        ef1 = EFloat.Create(EInteger.FromInt64(mantissaLong), EInteger.Zero);
         ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
         if (finalexp < 0) {
           return ef1.Divide(ef2, ctx);
@@ -893,7 +898,7 @@ namespace PeterO.Numbers {
       // DebugUtility.Log("c " + ((mant.Sign<0 && negative) || (mant.Sign>= 0
       // && !negative)) + " mant=" + (mant));
       EInteger absexp = exp.Abs();
-      ef1 = EFloat.Create(mant, 0);
+      ef1 = EFloat.Create(mant, EInteger.Zero);
       ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
       // DebugUtility.Log("c ef1=" + ef1 + " ef2=" + (ef2));
       if (exp.Sign < 0) {

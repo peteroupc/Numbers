@@ -18,6 +18,10 @@ namespace PeterO.Numbers {
   /// interchangeable, so they should not be compared using the "=="
   /// operator (which might only check if each side of the operator is
   /// the same instance).</para></summary>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1036",
+        Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class ERational : IComparable<ERational>,
     IEquatable<ERational> {
     private const int MaxSafeInt = 214748363;

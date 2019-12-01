@@ -252,8 +252,8 @@ namespace Test {
       }
       string[] linearray = SplitAt(lines, "\n");
       var context = new Dictionary<string, string>();
-      foreach (var ln in linearray) {
-        ParseDecTest(ln, context, checkFlags);
+      foreach (string str in linearray) {
+        ParseDecTest(str, context, checkFlags);
       }
     }
 

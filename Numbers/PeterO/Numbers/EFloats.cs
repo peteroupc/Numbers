@@ -50,7 +50,15 @@ namespace PeterO.Numbers {
     /// all EDecimal objects are in a canonical form.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Always <c>true</c>.</returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+      "Microsoft.Usage",
+      "CA1801",
+      Justification = "Parameter 'ed' is deliberately unused.")]
     public static bool IsCanonical(EFloat ed) {
+      // Deliberately unused because all objects are in a canonical
+      // form regardless of their value. Removing the parameter
+      // or renaming it to be a "discard" parameter would be a
+      // breaking change, though.
       return true;
     }
 
