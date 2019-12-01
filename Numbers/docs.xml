@@ -23,20 +23,21 @@
 
             <summary>Initializes a new instance of the
             <see cref='PeterO.Numbers.EContext'/> class,.</summary>
-            <param name='bigintPrecision'>The value of the Precision property.</param>
+            <param name='bigintPrecision'>The value of the Precision
+            property.</param>
             <param name='rounding'>The value of the Rounding property.</param>
-            <param name='exponentMin'>The value of the EMin
-            property.</param>
-            <param name='exponentMax'>The value of the EMax
-            property.</param>
+            <param name='exponentMin'>The value of the EMin property.</param>
+            <param name='exponentMax'>The value of the EMax property.</param>
             <param name='clampNormalExponents'>The value of the
             ClampNormalExponents property.</param>
 
 </doc>
 <doc name="M:PeterO.Numbers.EContext.#ctor(System.Int32,PeterO.Numbers.ERounding,System.Int32,System.Int32,System.Boolean)">
 
-            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.EContext'/> class.</summary>
-            <param name='precision'>The value of the Precision property.</param>
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.EContext'/> class.</summary>
+            <param name='precision'>The value of the Precision
+            property.</param>
             <param name='rounding'>The value of the Rounding property.</param>
             <param name='exponentMinSmall'>The value of the EMin
             property.</param>
@@ -634,9 +635,8 @@
             exponent range. <b>Not-a-number</b> is generally used to signal
             errors.</para>
             <para>This class implements the General Decimal Arithmetic
-            Specification version 1.70 except part of chapter 6
-            (<c>http://speleotrove.com/decimal/decarith.html</c>).
-             </para>
+            Specification version 1.70 except part of chapter 6(
+            <c>http://speleotrove.com/decimal/decarith.html</c> ).</para>
             <para><b>Errors and Exceptions</b> </para>
             <para>Passing a signaling NaN to any arithmetic operation shown
             here will signal the flag FlagInvalid and return a quiet NaN, even
@@ -5239,7 +5239,8 @@
             <para>If this object is a quiet NaN or signaling NaN, this method
             will not trigger an error. Instead, NaN will compare greater than
             any other number.</para></summary>
-            <param name='intOther'>The parameter <paramref name='intOther'/> is a 32-bit signed integer.</param>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 32-bit signed integer.</param>
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
@@ -10227,9 +10228,12 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.#ctor(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.ERational'/> class.</summary>
-            <param name='numerator'>An arbitrary-precision integer serving as the numerator.</param>
-            <param name='denominator'>An arbitrary-precision integer serving as the denominator.</param>
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ERational'/> class.</summary>
+            <param name='numerator'>An arbitrary-precision integer serving as
+            the numerator.</param>
+            <param name='denominator'>An arbitrary-precision integer serving as
+            the denominator.</param>
             <exception cref='ArgumentNullException'>The parameter <paramref name='numerator'/> or <paramref name='denominator'/> is
             null.</exception>
             <exception cref='ArgumentException'>Denominator is
@@ -10870,7 +10874,8 @@
 
             <summary>Returns the value of this instance multiplied by a 32-bit
             signed integer.</summary>
-            <param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The product of the two numbers.</returns>
 
 </doc>
@@ -10961,7 +10966,8 @@
 
             <summary>Returns the result of subtracting a 32-bit signed integer
             from this instance.</summary>
-            <param name='v'>The parameter <paramref name='v'/> is a 32-bit signed integer.</param>
+            <param name='v'>The parameter <paramref name='v'/> is a 32-bit
+            signed integer.</param>
             <returns>The difference of the two objects.</returns>
 
 </doc>
@@ -12018,7 +12024,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,PeterO.Numbers.EContext,System.Object)">
 
-            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
             <param name='flag'>The flag that specifies the kind of error from
             one or more operations (EContext.FlagXXX). This will only be one
             flag, such as <c>FlagInexact</c> or FlagSubnormal.</param>
@@ -12030,7 +12037,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.ETrapException.#ctor(System.Int32,System.Int32,PeterO.Numbers.EContext,System.Object)">
 
-            <summary>Initializes a new instance of the <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
+            <summary>Initializes a new instance of the
+            <see cref='PeterO.Numbers.ETrapException'/> class.</summary>
             <param name='flags'>Specifies the flags that were signaled as the
             result of one or more operations. This includes the flag specified
             in the "flag" parameter, but can include other flags. For instance,
@@ -12083,12 +12091,12 @@
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Errors">
 
-            <summary>Specifies the flags that were signaled as the result of
-            one or more operations. This includes the flag specified in the
-            "flag" parameter, but can include other flags. For instance, if
-            "flag" is <c>EContext.FlagInexact</c>, this parameter might be
+            <summary>Gets the flags that were signaled as the result of one or
+            more operations. This includes the flag specified in the "flag"
+            parameter, but can include other flags. For instance, if "flag" is
+            <c>EContext.FlagInexact</c>, this parameter might be
             <c>EContext.FlagInexact | EContext.FlagRounded</c>.</summary>
-            <value>The flags that specifies the errors in one or more
+            <value>The flags that specify the errors in one or more
             operations.</value>
 
 </doc>
@@ -12101,7 +12109,7 @@
             <param name='flag'>A combination of one or more flags, such as
             <c>EContext.FlagInexact | EContext.FlagRounded</c>.</param>
             <returns><c>true</c> if this exception pertains to all of the flags given
-            in <paramref name='flag'/>; otherwise, <c>false</c>.</returns>
+            in <paramref name='flag'/> ; otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="P:PeterO.Numbers.ETrapException.Result">

@@ -295,6 +295,11 @@ namespace Test {
         string input3 = match.Groups[5].ToString();
         string output = match.Groups[6].ToString();
         string flags = match.Groups[7].ToString();
+        input1 = input1 ?? String.Empty;
+        input2 = input2 ?? String.Empty;
+        input3 = input3 ?? String.Empty;
+        output = output ?? String.Empty;
+        flags = flags ?? String.Empty;
         input1 = ValueQuotes.Replace(input1, String.Empty);
         input2 = ValueQuotes.Replace(input2, String.Empty);
         input3 = ValueQuotes.Replace(input3, String.Empty);

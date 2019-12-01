@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.4.3</Version>
+    <Version>1.5.0</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
-    <Copyright>Written by Peter O. in 2017-2019.  Any copyright is released to the Public Domain.</Copyright>
+    <Copyright>Written by Peter O. in 2019.  Any copyright is released to the Public Domain.</Copyright>
     <Authors>Peter Occil</Authors>
     <PackageId>PeterO.Numbers</PackageId>
     <Title>Arbitrary-Precision Number Library</Title>
@@ -14,31 +14,17 @@
     <PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
-Version 1.4.3
+Version 1.5.0
 
-- Fix accuracy issue with Log, especially where 1 &lt; x &lt; 1.07
-- Remove StyleCop.Analyzers, which is used only in development, as dependency in .NET version
-
-Version 1.4.2
-
-- Bug fix in the EInteger.CanFitInInt64 method
-
-Version 1.4.1
-
-- Added EDecimals and EFloats classes to .NET 2.0 and .NET 4.0 versions; those classes were inadvertently omitted there
-
-Version 1.4.0
-
-- Added EDecimals and EFloats class that implements more methods for arbitrary-precision decimal and binary numbers
-- Increment and decrement operators added to EInteger, EDecimal, EFloat, and ERational classes
-- Allowed EDecimal values in (-1, 0) to EDecimal's *Checked methods, to conform to documentation.
-- Added WithNoFlagsOrTraps method and HasFlagsOrTraps property to EContext
-- Add Mod(int), Pow(int), and FromBoolean methods to EInteger
-- Add And, Not, Xor, and Or methods to EInteger.cs
-- Add Copy method to EDecimal, EFloat, and ERational
-- Add CompareToTotalMagnitude overload to EDecimal, EFloat, and ERational
-- Deprecated Odd and ZeroFiveUp rounding modes
-- Bug fixes and performance improvements
+- Major performance improvements in certain number parsing and generating methods, including the FromString methods of EInteger, EDecimal, EFloat, and ERational, and the ToEFloat method of EDecimal, especially where they take an arithmetic context (EContext) that specifies a limited precision and exponent range.
+- There were also performance improvements in digit count calculation and in rounding many-digit-long numbers.
+- Add int overloads to EDecimal.Pow and EFloat.Pow.
+- Add int overloads to several ERational methods.
+- Add CompareTo overloads and CompareToValue (which implements current CompareTo) in EDecimal, EFloat, and ERational.  In a future version, CompareTo's behavior might change to CompareToTotal in each of these classes.  Also certain CompareTo* methods now have consistent behavior when they receive a null argument.
+- ETrapException now has an Errors property that holds all errors that occur at the same time as the primary error.
+- Fixed edge cases when ToShortestString might return an incorrect result.
+- Fixed bug when some ETrapExceptions aren't thrown as they should.
+- Other bug fixes.
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
     <SignAssembly>true</SignAssembly>
