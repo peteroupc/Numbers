@@ -1252,19 +1252,21 @@ subnormal) {
       if (Double.IsInfinity(expectedDouble)) {
         return;
       }
-      string str = input.ToString();
       if (input.ToDouble() != expectedDouble) {
-        string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
+        string msg = "\ninputDouble\nexpectedDbl " + OutputDouble(expectedDouble) +
           ",\ngot----- " + OutputDouble(input.ToDouble()) +
           "\nsrc-----=" + OutputEF(src) + "\nexpected=" +
           OutputEF(expected) + "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
-      double inputDouble = EDecimal.FromString(str).ToDouble();
+      string str = input.ToString();
+      double inputDouble = EFloat.FromString(str, EContext.Binary64).ToDouble();
       if (inputDouble != expectedDouble) {
-        string msg = "\nexpectedDbl " + OutputDouble(expectedDouble) +
+        string msg = "\ninputString\nexpectedDbl " + OutputDouble(expectedDouble) +
           ",\ngot----- " + OutputDouble(inputDouble) +
-          "\nsrc-----=" + OutputEF(src) + "\nexpected=" +
+          "\nsrc-----=" + OutputEF(src) +
+          "\nstr------=" + str +
+          "\nexpected=" +
           OutputEF(expected) + "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
@@ -1296,7 +1298,7 @@ subnormal) {
           OutputEF(input);
         Assert.Fail(msg);
       }
-      float inputSingle = EDecimal.FromString(str).ToSingle();
+      float inputSingle = EFloat.FromString(str, EContext.Binary32).ToSingle();
       if (inputSingle != expectedSingle) {
         string msg = "\nexpectedDbl " + OutputSingle(expectedSingle) +
           ",\ngot----- " +
