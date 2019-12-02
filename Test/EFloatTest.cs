@@ -1253,7 +1253,8 @@ subnormal) {
         return;
       }
       if (input.ToDouble() != expectedDouble) {
-        string msg = "\ninputDouble\nexpectedDbl " + OutputDouble(expectedDouble) +
+        string msg = "\ninputDouble\nexpectedDbl " +
+OutputDouble(expectedDouble) +
           ",\ngot----- " + OutputDouble(input.ToDouble()) +
           "\nsrc-----=" + OutputEF(src) + "\nexpected=" +
           OutputEF(expected) + "\ninput---=" + OutputEF(input);
@@ -1262,12 +1263,11 @@ subnormal) {
       string str = input.ToString();
       double inputDouble = EFloat.FromString(str, EContext.Binary64).ToDouble();
       if (inputDouble != expectedDouble) {
-        string msg = "\ninputString\nexpectedDbl " + OutputDouble(expectedDouble) +
+        string msg = "\ninputString\nexpectedDbl " +
+OutputDouble(expectedDouble) +
           ",\ngot----- " + OutputDouble(inputDouble) +
-          "\nsrc-----=" + OutputEF(src) +
-          "\nstr------=" + str +
-          "\nexpected=" +
-          OutputEF(expected) + "\ninput---=" + OutputEF(input);
+          "\nsrc-----=" + OutputEF(src) + "\nstr------=" + str +
+          "\nexpected=" + OutputEF(expected) + "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
     }
