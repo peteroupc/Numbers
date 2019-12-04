@@ -10,7 +10,7 @@ using System.Text;
 
 namespace PeterO.Numbers {
   /// <summary>
-  ///  Represents an arbitrary-precision decimal
+  /// Represents an arbitrary-precision decimal
   /// floating-point number. (The "E" stands for "extended",
   /// meaning that instances of this class can be values
   /// other than numbers proper, such as infinity and
@@ -28,9 +28,9 @@ namespace PeterO.Numbers {
   /// price by a premium rate, then rounding, should result in a decimal
   /// amount of money).</para>
   /// <para>On the other hand, most implementations of <c>float</c>
-  ///  and
+  /// and
   /// <c>double</c>
-  ///  , including in C# and Java, store numbers in a binary
+  /// , including in C# and Java, store numbers in a binary
   /// (base-2) floating-point format and use binary floating-point
   /// arithmetic. Many decimal numbers can't be represented exactly in
   /// binary floating-point format (regardless of its length). Applying
@@ -60,19 +60,19 @@ namespace PeterO.Numbers {
   /// the second case, 1 * 10^0 (1 with decimal point moved 0).</para>
   /// <para>This class also supports values for negative zero,
   /// not-a-number (NaN) values, and infinity. <b>Negative zero</b>
-  ///  is
+  /// is
   /// generally used when a negative number is rounded to 0; it has the
   /// same mathematical value as positive zero. <b>Infinity</b>
-  ///  is
+  /// is
   /// generally used when a non-zero number is divided by zero, or when a
   /// very high or very low number can't be represented in a given
   /// exponent range. <b>Not-a-number</b>
-  ///  is generally used to signal
+  /// is generally used to signal
   /// errors.</para>
   /// <para>This class implements the General Decimal Arithmetic
   /// Specification version 1.70 except part of chapter 6(
   /// <c>http://speleotrove.com/decimal/decarith.html</c>
-  ///  ).</para>
+  ///).</para>
   /// <para><b>Errors and Exceptions</b>
   /// </para>
   /// <para>Passing a signaling NaN to any arithmetic operation shown
@@ -103,7 +103,7 @@ namespace PeterO.Numbers {
   /// <list><item>By calling the toString() method, which will always
   /// return distinct strings for distinct arbitrary-precision decimal
   /// values.</item>
-  ///  <item>By calling the UnsignedMantissa, Exponent, and
+  /// <item>By calling the UnsignedMantissa, Exponent, and
   /// IsNegative properties, and calling the IsInfinity, IsQuietNaN, and
   /// IsSignalingNaN methods. The return values combined will uniquely
   /// identify a particular arbitrary-precision decimal value.</item>
@@ -131,18 +131,18 @@ namespace PeterO.Numbers {
   /// algorithms using the methods in this class, for several
   /// reasons:</para>
   /// <list><item><c>EDecimal</c>
-  ///  objects are immutable, so they can't be
+  /// objects are immutable, so they can't be
   /// modified, and the memory they occupy is not guaranteed to be
   /// cleared in a timely fashion due to garbage collection. This is
   /// relevant for applications that use many-digit-long numbers as
   /// secret parameters.</item>
-  ///  <item>The methods in this class
+  /// <item>The methods in this class
   /// (especially those that involve arithmetic) are not guaranteed to be
   /// "constant-time" (non-data-dependent) for all relevant inputs.
   /// Certain attacks that involve encrypted communications have
   /// exploited the timing and other aspects of such communications to
   /// derive keying material or cleartext indirectly.</item>
-  ///  </list>
+  /// </list>
   /// <para>Applications should instead use dedicated security libraries
   /// to handle big numbers in security-sensitive algorithms.</para>
   /// <para><b>Forms of numbers</b>
@@ -151,48 +151,48 @@ namespace PeterO.Numbers {
   /// in this class and elsewhere in this documentation. For reference,
   /// they are specified here.</para>
   /// <para><b>Unsigned integer</b>
-  ///  : An integer that's always 0 or
+  /// : An integer that's always 0 or
   /// greater, with the following maximum values:</para>
   /// <list><item>8-bit unsigned integer, or <i>byte</i>
-  ///  : 255.</item>
+  /// : 255.</item>
   /// <item>16-bit unsigned integer: 65535.</item>
-  ///  <item>32-bit unsigned
+  /// <item>32-bit unsigned
   /// integer: (2 <sup>32</sup>
-  ///  -1).</item>
-  ///  <item>64-bit unsigned
+  /// -1).</item>
+  /// <item>64-bit unsigned
   /// integer: (2 <sup>64</sup>
-  ///  -1).</item>
-  ///  </list>
+  /// -1).</item>
+  /// </list>
   /// <para><b>Signed integer</b>
-  ///  : An integer in <i>two's-complement
+  /// : An integer in <i>two's-complement
   /// form</i>
-  ///  , with the following ranges:</para>
+  /// , with the following ranges:</para>
   /// <list><item>8-bit signed integer: -128 to 127.</item>
-  ///  <item>16-bit
+  /// <item>16-bit
   /// signed integer: -32768 to 32767.</item>
-  ///  <item>32-bit signed
+  /// <item>32-bit signed
   /// integer: -2 <sup>31</sup>
-  ///  to (2 <sup>31</sup>
-  ///  - 1).</item>
+  /// to (2 <sup>31</sup>
+  /// - 1).</item>
   /// <item>64-bit signed integer: -2 <sup>63</sup>
-  ///  to (2 <sup>63</sup>
-  ///  -
+  /// to (2 <sup>63</sup>
+  /// -
   /// 1).</item>
-  ///  </list>
+  /// </list>
   /// <para><b>Two's complement form</b>
-  ///  : In <i>two's-complement
+  /// : In <i>two's-complement
   /// form</i>
-  ///  , nonnegative numbers have the highest (most significant)
+  /// , nonnegative numbers have the highest (most significant)
   /// bit set to zero, and negative numbers have that bit (and all bits
   /// beyond) set to one, and a negative number is stored in such form by
   /// decreasing its absolute value by 1 and swapping the bits of the
   /// resulting number.</para>
   /// <para><b>64-bit floating-point number</b>
-  ///  : A 64-bit binary
+  /// : A 64-bit binary
   /// floating-point number, in the form <i>significand</i>
-  ///  * 2
+  /// * 2
   /// <sup><i>exponent</i>
-  ///  </sup>
+  /// </sup>
   /// . The significand is 53 bits long
   /// (Precision) and the exponent ranges from -1074 (EMin) to 971
   /// (EMax). The number is stored in the following format (commonly
@@ -200,57 +200,57 @@ namespace PeterO.Numbers {
   /// <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code>
   /// <list><item>A. Low 52 bits (Precision minus 1 bits): Lowest bits of
   /// the significand.</item>
-  ///  <item>B. Next 11 bits: Exponent area:
+  /// <item>B. Next 11 bits: Exponent area:
   /// <list><item>If all bits are ones, this value is infinity (positive
   /// or negative depending on the C bit) if all bits in area A are
   /// zeros, or not-a-number (NaN) otherwise.</item>
-  ///  <item>If all bits
+  /// <item>If all bits
   /// are zeros, this is a subnormal number. The exponent is EMin and the
   /// highest bit of the significand is zero.</item>
-  ///  <item>If any other
+  /// <item>If any other
   /// number, the exponent is this value reduced by 1, then raised by
   /// EMin, and the highest bit of the significand is one.</item>
-  ///  </list>
+  /// </list>
   /// </item>
-  ///  <item>C. Highest bit: If one, this is a negative
+  /// <item>C. Highest bit: If one, this is a negative
   /// number.</item>
-  ///  </list>
+  /// </list>
   /// <para>The elements described above are in the same order as the
   /// order of each bit of each element, that is, either most significant
   /// first or least significant first.</para>
   /// <para><b>32-bit binary floating-point number</b>
-  ///  : A 32-bit binary
+  /// : A 32-bit binary
   /// number which is stored similarly to a <i>64-bit floating-point
   /// number</i>
-  ///  , except that:</para>
+  /// , except that:</para>
   /// <list><item>Precision is 24 bits.</item>
-  ///  <item>EMin is -149.</item>
+  /// <item>EMin is -149.</item>
   /// <item>EMax is 104.</item>
-  ///  <item>A. The low 23 bits (Precision minus
+  /// <item>A. The low 23 bits (Precision minus
   /// 1 bits) are the lowest bits of the significand.</item>
-  ///  <item>B. The
+  /// <item>B. The
   /// next 8 bits are the exponent area.</item>
-  ///  <item>C. If the highest
+  /// <item>C. If the highest
   /// bit is one, this is a negative number.</item>
-  ///  </list>
+  /// </list>
   /// <para><b>.NET Framework decimal</b>
-  ///  : A 128-bit decimal
+  /// : A 128-bit decimal
   /// floating-point number, in the form <i>significand</i>
-  ///  * 10 <sup>-
+  /// * 10 <sup>-
   /// <i>scale</i>
-  ///  </sup>
-  ///  , where the scale ranges from 0 to 28. The
+  /// </sup>
+  /// , where the scale ranges from 0 to 28. The
   /// number is stored in the following format:</para>
   /// <list><item>Low 96 bits are the significand, as a 96-bit unsigned
   /// integer (all 96-bit values are allowed, up to (2 <sup>96</sup>
   /// -1)).</item>
-  ///  <item>Next 16 bits are unused.</item>
-  ///  <item>Next 8
+  /// <item>Next 16 bits are unused.</item>
+  /// <item>Next 8
   /// bits are the scale, stored as an 8-bit unsigned integer.</item>
   /// <item>Next 7 bits are unused.</item>
-  ///  <item>If the highest bit is
+  /// <item>If the highest bit is
   /// one, it's a negative number.</item>
-  ///  </list>
+  /// </list>
   /// <para>The elements described above are in the same order as the
   /// order of each bit of each element, that is, either most significant
   /// first or least significant first.</para>
@@ -273,7 +273,8 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagQuietNaN);
 
-    /// <summary>Negative infinity, less than any other number.</summary>
+    /// <summary>Negative infinity, less than any other
+    /// number.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage ("Microsoft.Security",
         "CA2104", Justification = "EDecimal is immutable")]
@@ -315,7 +316,8 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagInfinity);
 
-    /// <summary>A not-a-number value that signals an invalid operation
+    /// <summary>A not-a-number value that signals an invalid
+    /// operation
     /// flag when it's passed as an argument to any arithmetic operation in
     /// arbitrary-precision decimal.</summary>
     #if CODE_ANALYSIS
@@ -386,7 +388,8 @@ TrappableRadixMath<EDecimal>(
       this.flags = flags;
     }
 
-    /// <summary>Creates a copy of this arbitrary-precision binary
+    /// <summary>Creates a copy of this arbitrary-precision
+    /// binary
     /// number.</summary>
     /// <returns>An arbitrary-precision decimal floating-point
     /// number.</returns>
@@ -397,7 +400,8 @@ TrappableRadixMath<EDecimal>(
           this.flags);
     }
 
-    /// <summary>Gets this object's exponent. This object's value will be
+    /// <summary>Gets this object's exponent. This object's
+    /// value will be
     /// an integer if the exponent is positive or zero.</summary>
     /// <value>This object's exponent. This object's value will be an
     /// integer if the exponent is positive or zero.</value>
@@ -407,7 +411,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Gets a value indicating whether this object is finite (not
+    /// <summary>Gets a value indicating whether this object is
+    /// finite (not
     /// infinity or NaN).</summary>
     /// <value><c>true</c> if this object is finite (not infinity or NaN);
     /// otherwise, <c>false</c>.</value>
@@ -418,7 +423,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Gets a value indicating whether this object is negative,
+    /// <summary>Gets a value indicating whether this object is
+    /// negative,
     /// including negative zero.</summary>
     /// <value><c>true</c> if this object is negative, including negative
     /// zero; otherwise, <c>false</c>.</value>
@@ -428,7 +434,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Gets a value indicating whether this object's value equals
+    /// <summary>Gets a value indicating whether this object's
+    /// value equals
     /// 0.</summary>
     /// <value><c>true</c> if this object's value equals 0; otherwise,
     /// <c>false</c>. <c>true</c> if this object's value equals 0;
@@ -440,7 +447,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Gets this object's unscaled value, or significand, and
+    /// <summary>Gets this object's unscaled value, or
+    /// significand, and
     /// makes it negative if this object is negative. If this value is
     /// not-a-number (NaN), that value's absolute value is the NaN's
     /// "payload" (diagnostic information).</summary>
@@ -453,7 +461,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Gets this value's sign: -1 if negative; 1 if positive; 0
+    /// <summary>Gets this value's sign: -1 if negative; 1 if
+    /// positive; 0
     /// if zero.</summary>
     /// <value>This value's sign: -1 if negative; 1 if positive; 0 if
     /// zero.</value>
@@ -465,7 +474,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Gets the absolute value of this object's unscaled value,
+    /// <summary>Gets the absolute value of this object's
+    /// unscaled value,
     /// or significand. If this value is not-a-number (NaN), that value is
     /// the NaN's "payload" (diagnostic information).</summary>
     /// <value>The absolute value of this object's unscaled value.</value>
@@ -508,7 +518,7 @@ TrappableRadixMath<EDecimal>(
     /// a Numbers.EInteger object.</param>
     /// <param name='exponent'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='mantissa'/> or <paramref name='exponent'/> is
     /// null.</exception>
     public static EDecimal Create(
@@ -528,7 +538,8 @@ TrappableRadixMath<EDecimal>(
           (sign < 0) ? BigNumberFlags.FlagNegative : 0);
     }
 
-    /// <summary>Creates a not-a-number arbitrary-precision decimal
+    /// <summary>Creates a not-a-number arbitrary-precision
+    /// decimal
     /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
@@ -540,7 +551,8 @@ TrappableRadixMath<EDecimal>(
       return CreateNaN(diag, false, false, null);
     }
 
-    /// <summary>Creates a not-a-number arbitrary-precision decimal
+    /// <summary>Creates a not-a-number arbitrary-precision
+    /// decimal
     /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
@@ -558,7 +570,7 @@ TrappableRadixMath<EDecimal>(
     /// which happens if diagnostic information needs to be truncated and
     /// too much memory is required to do so.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='diag'/> is null or is less than 0.</exception>
     public static EDecimal CreateNaN(
       EInteger diag,
@@ -603,20 +615,21 @@ TrappableRadixMath<EDecimal>(
           flags);
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from a
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from a
     /// 64-bit binary floating-point number. This method computes the exact
     /// value of the floating point number, not an approximation, as is
     /// often the case by converting the floating point number to a string
     /// first. Remember, though, that the exact value of a 64-bit binary
     /// floating-point number is not always the value that results when
     /// passing a literal decimal number (for example, calling
-    /// <c>ExtendedDecimal.FromDouble(0.1)</c> ), since not all decimal
+    /// <c>ExtendedDecimal.FromDouble(0.1)</c>), since not all decimal
     /// numbers can be converted to exact binary numbers (in the example
     /// given, the resulting arbitrary-precision decimal will be the value
     /// of the closest "double" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from a decimal value, use
     /// FromString instead in most cases (for example:
-    /// <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
+    /// <c>ExtendedDecimal.FromString("0.1")</c>).</summary>
     /// <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
     /// floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
@@ -684,7 +697,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Converts an arbitrary-precision integer to an arbitrary
+    /// <summary>Converts an arbitrary-precision integer to an
+    /// arbitrary
     /// precision decimal.</summary>
     /// <param name='bigint'>An arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision decimal number with the exponent
@@ -693,7 +707,8 @@ TrappableRadixMath<EDecimal>(
       return EDecimal.Create(bigint, EInteger.Zero);
     }
 
-    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// <summary>Converts an arbitrary-precision binary
+    /// floating-point
     /// number to an arbitrary precision decimal.</summary>
     /// <param name='ef'>An arbitrary-precision binary floating-point
     /// number.</param>
@@ -703,12 +718,13 @@ TrappableRadixMath<EDecimal>(
       return FromEFloat(ef);
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from an
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from an
     /// arbitrary-precision binary floating-point number.</summary>
     /// <param name='bigfloat'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='bigfloat'/> is null.</exception>
     public static EDecimal FromEFloat(EFloat bigfloat) {
       if (bigfloat == null) {
@@ -773,7 +789,8 @@ TrappableRadixMath<EDecimal>(
       return boolValue ? EDecimal.One : EDecimal.Zero;
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from a
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from a
     /// 32-bit signed integer.</summary>
     /// <param name='valueSmaller'>The parameter <paramref
     /// name='valueSmaller'/> is a 32-bit signed integer.</param>
@@ -799,7 +816,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from a
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from a
     /// 64-bit signed integer.</summary>
     /// <param name='valueSmall'>The parameter <paramref
     /// name='valueSmall'/> is a 64-bit signed integer.</param>
@@ -826,20 +844,21 @@ TrappableRadixMath<EDecimal>(
       return EDecimal.Create(bigint, EInteger.Zero);
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from a
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from a
     /// 32-bit binary floating-point number. This method computes the exact
     /// value of the floating point number, not an approximation, as is
     /// often the case by converting the floating point number to a string
     /// first. Remember, though, that the exact value of a 32-bit binary
     /// floating-point number is not always the value that results when
     /// passing a literal decimal number (for example, calling
-    /// <c>ExtendedDecimal.FromSingle(0.1f)</c> ), since not all decimal
+    /// <c>ExtendedDecimal.FromSingle(0.1f)</c>), since not all decimal
     /// numbers can be converted to exact binary numbers (in the example
     /// given, the resulting arbitrary-precision decimal will be the the
     /// value of the closest "float" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from a decimal value, use
     /// FromString instead in most cases (for example:
-    /// <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
+    /// <c>ExtendedDecimal.FromString("0.1")</c>).</summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
@@ -904,7 +923,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from a text
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from a text
     /// string that represents a number. See <c>FromString(String, int,
     /// int, EContext)</c> for more information. Note that calling the
     /// overload that takes an EContext is often much faster than creating
@@ -921,7 +941,8 @@ TrappableRadixMath<EDecimal>(
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from a text
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from a text
     /// string that represents a number. See <c>FromString(String, int,
     /// int, EContext)</c> for more information.</summary>
     /// <param name='str'>A string that represents a number.</param>
@@ -936,13 +957,14 @@ TrappableRadixMath<EDecimal>(
     /// specifies a precision limit and exponent range.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EDecimal FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length, ctx);
     }
 
-    /// <summary>Creates an arbitrary-precision decimal number from a text
+    /// <summary>Creates an arbitrary-precision decimal number
+    /// from a text
     /// string that represents a number. See <c>FromString(String, int,
     /// int, EContext)</c> for more information. Note that calling the
     /// overload that takes an EContext is often much faster than creating
@@ -953,19 +975,19 @@ TrappableRadixMath<EDecimal>(
     /// <param name='offset'>An index starting at 0 showing where the
     /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref
-    /// name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/>
+    /// 's length).</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='FormatException'>The parameter <paramref
-    /// name='str'/> is not a correctly formatted number
+    /// <exception cref='FormatException'>The parameter <paramref name='str'/> is
+    /// not a correctly formatted number
     /// string.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='str'/> is null.</exception>
-    /// <exception cref='ArgumentException'>Either <paramref
-    /// name='offset'/> or <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref
-    /// name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <exception cref="ArgumentException">Either <paramref name='offset'/> or
+    /// <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's
+    /// length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     public static EDecimal FromString(
       string str,
@@ -1008,8 +1030,8 @@ TrappableRadixMath<EDecimal>(
     /// <param name='offset'>An index starting at 0 showing where the
     /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref
-    /// name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/>
+    /// 's length).</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
@@ -1021,12 +1043,12 @@ TrappableRadixMath<EDecimal>(
     /// specifies a precision limit and exponent range.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given string.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='str'/> is null.</exception>
-    /// <exception cref='ArgumentException'>Either <paramref
-    /// name='offset'/> or <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref
-    /// name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <exception cref="ArgumentException">Either <paramref name='offset'/> or
+    /// <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's
+    /// length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     public static EDecimal FromString(
       string str,
@@ -1941,7 +1963,8 @@ TrappableRadixMath<EDecimal>(
       return Max(first, second, null);
     }
 
-    /// <summary>Gets the greater value between two values, ignoring their
+    /// <summary>Gets the greater value between two values,
+    /// ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Max.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -1960,7 +1983,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).MaxMagnitude(first, second, ctx);
     }
 
-    /// <summary>Gets the greater value between two values, ignoring their
+    /// <summary>Gets the greater value between two values,
+    /// ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Max.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -2001,7 +2025,8 @@ TrappableRadixMath<EDecimal>(
       return Min(first, second, null);
     }
 
-    /// <summary>Gets the lesser value between two values, ignoring their
+    /// <summary>Gets the lesser value between two values,
+    /// ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Min.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -2020,7 +2045,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).MinMagnitude(first, second, ctx);
     }
 
-    /// <summary>Gets the lesser value between two values, ignoring their
+    /// <summary>Gets the lesser value between two values,
+    /// ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Min.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -2032,7 +2058,8 @@ TrappableRadixMath<EDecimal>(
       return MinMagnitude(first, second, null);
     }
 
-    /// <summary>Finds the constant π, the circumference of a circle
+    /// <summary>Finds the constant π, the circumference of a
+    /// circle
     /// divided by its diameter.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -2048,7 +2075,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Pi(ctx);
     }
 
-    /// <summary>Finds the absolute value of this object (if it's negative,
+    /// <summary>Finds the absolute value of this object (if
+    /// it's negative,
     /// it becomes positive).</summary>
     /// <returns>An arbitrary-precision decimal number. Returns signaling
     /// NaN if this value is signaling NaN. (In this sense, this method is
@@ -2066,14 +2094,15 @@ TrappableRadixMath<EDecimal>(
       return this;
     }
 
-    /// <summary>Returns a number with the same value as this one, but
+    /// <summary>Returns a number with the same value as this
+    /// one, but
     /// copying the sign (positive or negative) of another number. (This
     /// method is similar to the "copy-sign" operation in the General
     /// Decimal Arithmetic Specification, except this method does not
     /// necessarily return a copy of this object.).</summary>
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='other'/> is null.</exception>
     public EDecimal CopySign(EDecimal other) {
       if (other == null) {
@@ -2086,7 +2115,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Finds the absolute value of this object (if it's negative,
+    /// <summary>Finds the absolute value of this object (if
+    /// it's negative,
     /// it becomes positive).</summary>
     /// <param name='context'>An arithmetic context to control the
     /// precision, rounding, and exponent range of the result. If
@@ -2101,7 +2131,8 @@ TrappableRadixMath<EDecimal>(
           ExtendedMathValue : MathValue).Abs(this, context);
     }
 
-    /// <summary>Adds this object and another decimal number and returns
+    /// <summary>Adds this object and another decimal number and
+    /// returns
     /// the result.</summary>
     /// <param name='otherValue'>An arbitrary-precision decimal
     /// number.</param>
@@ -2118,7 +2149,8 @@ TrappableRadixMath<EDecimal>(
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Finds the sum of this object and another object. The
+    /// <summary>Finds the sum of this object and another
+    /// object. The
     /// result's exponent is set to the lower of the exponents of the two
     /// operands.</summary>
     /// <param name='otherValue'>The number to add to.</param>
@@ -2135,7 +2167,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Add(this, otherValue, ctx);
     }
 
-    /// <summary>Compares the mathematical values of this object and
+    /// <summary>Compares the mathematical values of this object
+    /// and
     /// another object, accepting NaN values. This method currently uses
     /// the rules given in the CompareToValue method, so that it it is not
     /// consistent with the Equals method, but it may change in a future
@@ -2157,7 +2190,8 @@ TrappableRadixMath<EDecimal>(
       return this.CompareToValue(other);
     }
 
-    /// <summary>Compares the mathematical values of this object and
+    /// <summary>Compares the mathematical values of this object
+    /// and
     /// another object, accepting NaN values. This method currently uses
     /// the rules given in the CompareToValue method, so that it it is not
     /// consistent with the Equals method, but it may change in a future
@@ -2172,7 +2206,8 @@ TrappableRadixMath<EDecimal>(
       return this.CompareToValue(EDecimal.FromInt32(intOther));
     }
 
-    /// <summary>Compares the mathematical values of this object and
+    /// <summary>Compares the mathematical values of this object
+    /// and
     /// another object, accepting NaN values.
     /// <para>This method is not consistent with the Equals method because
     /// two different numbers with the same mathematical value, but
@@ -2192,7 +2227,8 @@ TrappableRadixMath<EDecimal>(
       return this.CompareToValue(EDecimal.FromInt32(intOther));
     }
 
-    /// <summary>Compares the mathematical values of this object and
+    /// <summary>Compares the mathematical values of this object
+    /// and
     /// another object, accepting NaN values.
     /// <para>This method is not consistent with the Equals method because
     /// two different numbers with the same mathematical value, but
@@ -2219,7 +2255,8 @@ TrappableRadixMath<EDecimal>(
       return ExtendedMathValue.CompareTo(this, other);
     }
 
-    /// <summary>Compares an arbitrary-precision binary floating-point
+    /// <summary>Compares an arbitrary-precision binary
+    /// floating-point
     /// number with this instance.</summary>
     /// <param name='other'>The other object to compare. Can be
     /// null.</param>
@@ -2402,7 +2439,8 @@ TrappableRadixMath<EDecimal>(
       return ed.CompareTo(otherDec);
     }
 
-    /// <summary>Compares the mathematical values of this object and
+    /// <summary>Compares the mathematical values of this object
+    /// and
     /// another object, treating quiet NaN as signaling.
     /// <para>In this method, negative zero and positive zero are
     /// considered equal.</para>
@@ -2431,7 +2469,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).CompareToWithContext(this, other, true, ctx);
     }
 
-    /// <summary>Compares the absolute values of this object and another
+    /// <summary>Compares the absolute values of this object and
+    /// another
     /// object, imposing a total ordering on all possible values (ignoring
     /// their signs). In this method:
     /// <list>
@@ -2501,7 +2540,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Compares the values of this object and another object,
+    /// <summary>Compares the values of this object and another
+    /// object,
     /// imposing a total ordering on all possible values. In this method:
     /// <list>
     /// <item>For objects with the same value, the one with the higher
@@ -2547,7 +2587,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Compares the values of this object and another object,
+    /// <summary>Compares the values of this object and another
+    /// object,
     /// imposing a total ordering on all possible values (ignoring their
     /// signs). In this method:
     /// <list>
@@ -2596,7 +2637,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Compares the values of this object and another object,
+    /// <summary>Compares the values of this object and another
+    /// object,
     /// imposing a total ordering on all possible values. In this method:
     /// <list>
     /// <item>For objects with the same value, the one with the higher
@@ -2671,7 +2713,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Compares the mathematical values of this object and
+    /// <summary>Compares the mathematical values of this object
+    /// and
     /// another object.
     /// <para>In this method, negative zero and positive zero are
     /// considered equal.</para>
@@ -2700,7 +2743,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).CompareToWithContext(this, other, false, ctx);
     }
 
-    /// <summary>Divides this object by another decimal number and returns
+    /// <summary>Divides this object by another decimal number
+    /// and returns
     /// the result. When possible, the result will be exact.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
@@ -2714,7 +2758,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(ERounding.None));
     }
 
-    /// <summary>Divides this arbitrary-precision decimal number by another
+    /// <summary>Divides this arbitrary-precision decimal number
+    /// by another
     /// arbitrary-precision decimal number. The preferred exponent for the
     /// result is this object's exponent minus the divisor's
     /// exponent.</summary>
@@ -2812,7 +2857,8 @@ TrappableRadixMath<EDecimal>(
       return result;
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='desiredExponentSmall'>The desired exponent. A negative
@@ -2848,7 +2894,8 @@ TrappableRadixMath<EDecimal>(
           ctx);
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent (expressed as a 32-bit signed integer) to the
     /// result, using the half-even rounding mode.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -2885,7 +2932,8 @@ TrappableRadixMath<EDecimal>(
           ctx);
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='desiredExponentSmall'>The desired exponent. A negative
@@ -2911,7 +2959,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent (expressed as a 32-bit signed integer) to the
     /// result, using the half-even rounding mode.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -2938,7 +2987,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='exponent'>The desired exponent. A negative number
@@ -2971,7 +3021,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).DivideToExponent(this, divisor, exponent, ctx);
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent to the result, using the half-even rounding
     /// mode.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -2990,7 +3041,8 @@ TrappableRadixMath<EDecimal>(
       return this.DivideToExponent(divisor, exponent, ERounding.HalfEven);
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent (expressed as a 64-bit signed integer) to the
     /// result, using the half-even rounding mode.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -3012,7 +3064,8 @@ TrappableRadixMath<EDecimal>(
           ERounding.HalfEven);
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent (expressed as a 32-bit signed integer) to the
     /// result, using the half-even rounding mode.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -3034,7 +3087,8 @@ TrappableRadixMath<EDecimal>(
           ERounding.HalfEven);
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and gives
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and gives
     /// a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='desiredExponent'>The desired exponent. A negative
@@ -3059,7 +3113,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Divides two arbitrary-precision decimal numbers, and
+    /// <summary>Divides two arbitrary-precision decimal
+    /// numbers, and
     /// returns the integer part of the result, rounded down, with the
     /// preferred exponent set to this value's exponent minus the divisor's
     /// exponent.</summary>
@@ -3075,7 +3130,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(ERounding.Down));
     }
 
-    /// <summary>Divides this object by another object, and returns the
+    /// <summary>Divides this object by another object, and
+    /// returns the
     /// integer part of the result (which is initially rounded down), with
     /// the preferred exponent set to this value's exponent minus the
     /// divisor's exponent.</summary>
@@ -3100,7 +3156,8 @@ TrappableRadixMath<EDecimal>(
           ctx);
     }
 
-    /// <summary>Divides this object by another object, and returns the
+    /// <summary>Divides this object by another object, and
+    /// returns the
     /// integer part of the result, with the exponent set to 0.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -3121,7 +3178,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).DivideToIntegerZeroScale(this, divisor, ctx);
     }
 
-    /// <summary>Divides this object by another decimal number and returns
+    /// <summary>Divides this object by another decimal number
+    /// and returns
     /// a result with the same exponent as this object (the
     /// dividend).</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -3142,7 +3200,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Determines whether this object's significand, exponent,
+    /// <summary>Determines whether this object's significand,
+    /// exponent,
     /// and properties are equal to those of another object. Not-a-number
     /// values are considered equal if the rest of their properties are
     /// equal.</summary>
@@ -3153,7 +3212,8 @@ TrappableRadixMath<EDecimal>(
       return this.EqualsInternal(other);
     }
 
-    /// <summary>Determines whether this object's significand, exponent,
+    /// <summary>Determines whether this object's significand,
+    /// exponent,
     /// and properties are equal to those of another object and that other
     /// object is an arbitrary-precision decimal number. Not-a-number
     /// values are considered equal if the rest of their properties are
@@ -3168,7 +3228,8 @@ TrappableRadixMath<EDecimal>(
       return this.EqualsInternal(obj as EDecimal);
     }
 
-    /// <summary>Finds e (the base of natural logarithms) raised to the
+    /// <summary>Finds e (the base of natural logarithms) raised
+    /// to the
     /// power of this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -3186,7 +3247,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Exp(this, ctx);
     }
 
-    /// <summary>Calculates this object's hash code. No application or
+    /// <summary>Calculates this object's hash code. No
+    /// application or
     /// process IDs are used in the hash code calculation.</summary>
     /// <returns>A 32-bit signed integer.</returns>
     public override int GetHashCode() {
@@ -3199,7 +3261,8 @@ TrappableRadixMath<EDecimal>(
       return hashCode;
     }
 
-    /// <summary>Gets a value indicating whether this object is positive or
+    /// <summary>Gets a value indicating whether this object is
+    /// positive or
     /// negative infinity.</summary>
     /// <returns><c>true</c> if this object is positive or negative
     /// infinity; otherwise, <c>false</c>.</returns>
@@ -3207,7 +3270,8 @@ TrappableRadixMath<EDecimal>(
       return (this.flags & BigNumberFlags.FlagInfinity) != 0;
     }
 
-    /// <summary>Gets a value indicating whether this object is not a
+    /// <summary>Gets a value indicating whether this object is
+    /// not a
     /// number (NaN).</summary>
     /// <returns><c>true</c> if this object is not a number (NaN);
     /// otherwise, <c>false</c>.</returns>
@@ -3235,7 +3299,8 @@ TrappableRadixMath<EDecimal>(
             BigNumberFlags.FlagNegative)) == BigNumberFlags.FlagInfinity;
     }
 
-    /// <summary>Gets a value indicating whether this object is a quiet
+    /// <summary>Gets a value indicating whether this object is
+    /// a quiet
     /// not-a-number value.</summary>
     /// <returns><c>true</c> if this object is a quiet not-a-number value;
     /// otherwise, <c>false</c>.</returns>
@@ -3243,7 +3308,8 @@ TrappableRadixMath<EDecimal>(
       return (this.flags & BigNumberFlags.FlagQuietNaN) != 0;
     }
 
-    /// <summary>Gets a value indicating whether this object is a signaling
+    /// <summary>Gets a value indicating whether this object is
+    /// a signaling
     /// not-a-number value.</summary>
     /// <returns><c>true</c> if this object is a signaling not-a-number
     /// value; otherwise, <c>false</c>.</returns>
@@ -3251,7 +3317,8 @@ TrappableRadixMath<EDecimal>(
       return (this.flags & BigNumberFlags.FlagSignalingNaN) != 0;
     }
 
-    /// <summary>Finds the natural logarithm of this object, that is, the
+    /// <summary>Finds the natural logarithm of this object,
+    /// that is, the
     /// power (exponent) that e (the base of natural logarithms) must be
     /// raised to in order to equal this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -3274,7 +3341,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Ln(this, ctx);
     }
 
-    /// <summary>Finds the base-10 logarithm of this object, that is, the
+    /// <summary>Finds the base-10 logarithm of this object,
+    /// that is, the
     /// power (exponent) that the number 10 must be raised to in order to
     /// equal this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -3293,7 +3361,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Log10(this, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the left.</summary>
     /// <param name='places'>The number of decimal places to move the
     /// decimal point to the left. If this number is negative, instead
@@ -3305,7 +3374,8 @@ TrappableRadixMath<EDecimal>(
       return this.MovePointLeft((EInteger)places, null);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the left.</summary>
     /// <param name='places'>The number of decimal places to move the
     /// decimal point to the left. If this number is negative, instead
@@ -3323,7 +3393,8 @@ TrappableRadixMath<EDecimal>(
       return this.MovePointLeft((EInteger)places, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the left.</summary>
     /// <param name='bigPlaces'>The number of decimal places to move the
     /// decimal point to the left. If this number is negative, instead
@@ -3335,7 +3406,8 @@ TrappableRadixMath<EDecimal>(
       return this.MovePointLeft(bigPlaces, null);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the left.</summary>
     /// <param name='bigPlaces'>The number of decimal places to move the
     /// decimal point to the left. If this number is negative, instead
@@ -3356,7 +3428,8 @@ TrappableRadixMath<EDecimal>(
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the right.</summary>
     /// <param name='places'>The number of decimal places to move the
     /// decimal point to the right. If this number is negative, instead
@@ -3368,7 +3441,8 @@ TrappableRadixMath<EDecimal>(
       return this.MovePointRight((EInteger)places, null);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the right.</summary>
     /// <param name='places'>The number of decimal places to move the
     /// decimal point to the right. If this number is negative, instead
@@ -3386,7 +3460,8 @@ TrappableRadixMath<EDecimal>(
       return this.MovePointRight((EInteger)places, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the right.</summary>
     /// <param name='bigPlaces'>The number of decimal places to move the
     /// decimal point to the right. If this number is negative, instead
@@ -3398,7 +3473,8 @@ TrappableRadixMath<EDecimal>(
       return this.MovePointRight(bigPlaces, null);
     }
 
-    /// <summary>Returns a number similar to this number but with the
+    /// <summary>Returns a number similar to this number but
+    /// with the
     /// decimal point moved to the right.</summary>
     /// <param name='bigPlaces'>The number of decimal places to move the
     /// decimal point to the right. If this number is negative, instead
@@ -3435,12 +3511,13 @@ TrappableRadixMath<EDecimal>(
           this.flags).RoundToPrecision(ctx);
     }
 
-    /// <summary>Multiplies two decimal numbers. The resulting exponent
+    /// <summary>Multiplies two decimal numbers. The resulting
+    /// exponent
     /// will be the sum of the exponents of the two decimal
     /// numbers.</summary>
     /// <param name='otherValue'>Another decimal number.</param>
     /// <returns>The product of the two decimal numbers.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EDecimal Multiply(EDecimal otherValue) {
       if (otherValue == null) {
@@ -3479,7 +3556,8 @@ TrappableRadixMath<EDecimal>(
       return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Multiplies two decimal numbers. The resulting scale will
+    /// <summary>Multiplies two decimal numbers. The resulting
+    /// scale will
     /// be the sum of the scales of the two decimal numbers. The result's
     /// sign is positive if both operands have the same sign, and negative
     /// if they have different signs.</summary>
@@ -3495,7 +3573,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Multiply(this, op, ctx);
     }
 
-    /// <summary>Adds this object and an 32-bit signed integer and returns
+    /// <summary>Adds this object and an 32-bit signed integer
+    /// and returns
     /// the result.</summary>
     /// <param name='intValue'>A 32-bit signed integer to add to this
     /// object.</param>
@@ -3504,7 +3583,8 @@ TrappableRadixMath<EDecimal>(
       return this.Add(EDecimal.FromInt32(intValue));
     }
 
-    /// <summary>Subtracts a 32-bit signed integer from this object and
+    /// <summary>Subtracts a 32-bit signed integer from this
+    /// object and
     /// returns the result.</summary>
     /// <param name='intValue'>A 32-bit signed integer to subtract from
     /// this object.</param>
@@ -3514,7 +3594,8 @@ TrappableRadixMath<EDecimal>(
         this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
     }
 
-    /// <summary>Multiplies this object by the given 32-bit signed integer.
+    /// <summary>Multiplies this object by the given 32-bit
+    /// signed integer.
     /// The resulting exponent will be the sum of the exponents of the two
     /// numbers.</summary>
     /// <param name='intValue'>A 32-bit signed integer to multiply this
@@ -3524,7 +3605,8 @@ TrappableRadixMath<EDecimal>(
       return this.Multiply(EDecimal.FromInt32(intValue));
     }
 
-    /// <summary>Divides this object by an 32-bit signed integer and
+    /// <summary>Divides this object by an 32-bit signed
+    /// integer and
     /// returns the result. When possible, the result will be
     /// exact.</summary>
     /// <param name='intValue'>A 32-bit signed integer, the divisor, to
@@ -3538,7 +3620,8 @@ TrappableRadixMath<EDecimal>(
       return this.Divide(EDecimal.FromInt32(intValue));
     }
 
-    /// <summary>Multiplies by one decimal number, and then adds another
+    /// <summary>Multiplies by one decimal number, and then
+    /// adds another
     /// decimal number.</summary>
     /// <param name='multiplicand'>The value to multiply.</param>
     /// <param name='augend'>The value to add.</param>
@@ -3570,7 +3653,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).MultiplyAndAdd(this, op, augend, ctx);
     }
 
-    /// <summary>Multiplies by one value, and then subtracts another
+    /// <summary>Multiplies by one value, and then subtracts
+    /// another
     /// value.</summary>
     /// <param name='op'>The value to multiply.</param>
     /// <param name='subtrahend'>The value to subtract.</param>
@@ -3584,8 +3668,8 @@ TrappableRadixMath<EDecimal>(
     /// once, namely, after multiplying and subtracting.</param>
     /// <returns>The result thisValue * multiplicand -
     /// subtrahend.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='op'/> or <paramref name='subtrahend'/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The parameter <paramref name='op'/>
+    /// or <paramref name='subtrahend'/> is null.</exception>
     public EDecimal MultiplyAndSubtract(
       EDecimal op,
       EDecimal subtrahend,
@@ -3608,7 +3692,8 @@ TrappableRadixMath<EDecimal>(
         .MultiplyAndAdd(this, op, negated, ctx);
     }
 
-    /// <summary>Gets an object with the same value as this one, but with
+    /// <summary>Gets an object with the same value as this
+    /// one, but with
     /// the sign reversed.</summary>
     /// <returns>An arbitrary-precision decimal number. If this value is
     /// positive zero, returns negative zero. Returns signaling NaN if this
@@ -3623,7 +3708,8 @@ TrappableRadixMath<EDecimal>(
           this.flags ^ BigNumberFlags.FlagNegative);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but with the sign reversed.</summary>
     /// <param name='context'>An arithmetic context to control the
     /// precision, rounding, and exponent range of the result. If
@@ -3639,7 +3725,8 @@ TrappableRadixMath<EDecimal>(
           ExtendedMathValue : MathValue).Negate(this, context);
     }
 
-    /// <summary>Finds the largest value that's smaller than the given
+    /// <summary>Finds the largest value that's smaller than
+    /// the given
     /// value.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision and exponent range of the result. The rounding mode from
@@ -3655,7 +3742,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).NextMinus(this, ctx);
     }
 
-    /// <summary>Finds the smallest value that's greater than the given
+    /// <summary>Finds the smallest value that's greater than
+    /// the given
     /// value.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision and exponent range of the result. The rounding mode from
@@ -3670,7 +3758,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).NextPlus(this, ctx);
     }
 
-    /// <summary>Finds the next value that is closer to the other object's
+    /// <summary>Finds the next value that is closer to the
+    /// other object's
     /// value than this object's value. Returns a copy of this value with
     /// the same sign as the other value if both values are
     /// equal.</summary>
@@ -3693,7 +3782,8 @@ TrappableRadixMath<EDecimal>(
         .NextToward(this, otherValue, ctx);
     }
 
-    /// <summary>Rounds this object's value to a given precision, using the
+    /// <summary>Rounds this object's value to a given
+    /// precision, using the
     /// given rounding mode and range of exponent, and also converts
     /// negative zero to positive zero.</summary>
     /// <param name='ctx'>A context for controlling the precision, rounding
@@ -3728,7 +3818,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Power(this, exponent, ctx);
     }
 
-    /// <summary>Raises this object's value to the given exponent, using
+    /// <summary>Raises this object's value to the given
+    /// exponent, using
     /// unlimited precision.</summary>
     /// <param name='exponent'>An arbitrary-precision decimal number
     /// expressing the exponent to raise this object's value to.</param>
@@ -3764,7 +3855,8 @@ TrappableRadixMath<EDecimal>(
       return this.Pow(EDecimal.FromInt64(exponentSmall), null);
     }
 
-    /// <summary>Finds the number of digits in this number's significand.
+    /// <summary>Finds the number of digits in this number's
+    /// significand.
     /// Returns 1 if this value is 0, and 0 if this value is infinity or
     /// not-a-number (NaN).</summary>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -3777,7 +3869,7 @@ TrappableRadixMath<EDecimal>(
     }
 
     /// <summary>
-    ///  Returns an arbitrary-precision decimal number with the
+    /// Returns an arbitrary-precision decimal number with the
     /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of decimal places, since it can fail if the difference
@@ -3786,7 +3878,7 @@ TrappableRadixMath<EDecimal>(
     /// decimal places is desired, it's better to use the RoundToExponent
     /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    ///  This method can be used to implement
+    /// This method can be used to implement
     /// fixed-point decimal arithmetic, in which each decimal number has a
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
@@ -3812,7 +3904,7 @@ TrappableRadixMath<EDecimal>(
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    ///  of the context is true,
+    /// of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -3830,7 +3922,8 @@ TrappableRadixMath<EDecimal>(
           ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this one but a new exponent.
     /// <para><b>Remark:</b> This method can be used to implement
     /// fixed-point decimal arithmetic, in which a fixed number of digits
@@ -3865,7 +3958,7 @@ TrappableRadixMath<EDecimal>(
     }
 
     /// <summary>
-    ///  Returns an arbitrary-precision decimal number with the
+    /// Returns an arbitrary-precision decimal number with the
     /// same value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of decimal places, since it can fail if the difference
@@ -3874,7 +3967,7 @@ TrappableRadixMath<EDecimal>(
     /// decimal places is desired, it's better to use the RoundToExponent
     /// and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    ///  This method can be used to implement
+    /// This method can be used to implement
     /// fixed-point decimal arithmetic, in which each decimal number has a
     /// fixed number of digits after the decimal point. The following code
     /// example returns a fixed-point number with up to 20 digits before
@@ -3897,7 +3990,7 @@ TrappableRadixMath<EDecimal>(
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    ///  of the context is true,
+    /// of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -3925,7 +4018,8 @@ TrappableRadixMath<EDecimal>(
           ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but with the same exponent as another
     /// decimal number.
     /// <para>Note that this is not always the same as rounding to a given
@@ -3965,7 +4059,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Quantize(this, otherValue, ctx);
     }
 
-    /// <summary>Returns an object with the same numerical value as this
+    /// <summary>Returns an object with the same numerical
+    /// value as this
     /// one but with trailing zeros removed from its significand. For
     /// example, 1.00 becomes 1.
     /// <para>If this object's value is 0, changes the exponent to
@@ -3984,7 +4079,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Reduce(this, ctx);
     }
 
-    /// <summary>Finds the remainder that results when dividing two
+    /// <summary>Finds the remainder that results when dividing
+    /// two
     /// arbitrary-precision decimal numbers. The remainder is the value
     /// that remains when the absolute value of this object is divided by
     /// the absolute value of the other object; the remainder has the same
@@ -4005,7 +4101,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Remainder(this, divisor, ctx, true);
     }
 
-    /// <summary>Finds the remainder that results when dividing two
+    /// <summary>Finds the remainder that results when dividing
+    /// two
     /// arbitrary-precision decimal numbers, except the intermediate
     /// division is not adjusted to fit the precision of the given
     /// arithmetic context. The value of this object is divided by the
@@ -4027,7 +4124,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).Remainder(this, divisor, ctx, false);
     }
 
-    /// <summary>Calculates the remainder of a number by the formula
+    /// <summary>Calculates the remainder of a number by the
+    /// formula
     /// <c>"this" - (("this" / "divisor") * "divisor")</c>.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
@@ -4035,7 +4133,8 @@ TrappableRadixMath<EDecimal>(
       return this.RemainderNaturalScale(divisor, null);
     }
 
-    /// <summary>Calculates the remainder of a number by the formula "this"
+    /// <summary>Calculates the remainder of a number by the
+    /// formula "this"
     /// - (("this" / "divisor") * "divisor").</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -4058,7 +4157,8 @@ TrappableRadixMath<EDecimal>(
         ctx);
     }
 
-    /// <summary>Finds the distance to the closest multiple of the given
+    /// <summary>Finds the distance to the closest multiple of
+    /// the given
     /// divisor, based on the result of dividing this object's value by
     /// another object's value.
     /// <list type=''>
@@ -4096,7 +4196,8 @@ TrappableRadixMath<EDecimal>(
         .RemainderNear(this, divisor, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to a new exponent if
     /// necessary. The resulting number's Exponent property will not
     /// necessarily be the given exponent; use the Quantize method instead
@@ -4129,7 +4230,8 @@ TrappableRadixMath<EDecimal>(
         .RoundToExponentSimple(this, exponent, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to a new exponent if
     /// necessary, using the HalfEven rounding mode. The resulting number's
     /// Exponent property will not necessarily be the given exponent; use
@@ -4151,7 +4253,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(ERounding.HalfEven));
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to a new exponent if
     /// necessary, using the given rounding mode. The resulting number's
     /// Exponent property will not necessarily be the given exponent; use
@@ -4176,7 +4279,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to a new exponent if
     /// necessary, using the HalfEven rounding mode. The resulting number's
     /// Exponent property will not necessarily be the given exponent; use
@@ -4196,7 +4300,8 @@ TrappableRadixMath<EDecimal>(
       return this.RoundToExponent(exponentSmall, ERounding.HalfEven);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to a new exponent if
     /// necessary. The resulting number's Exponent property will not
     /// necessarily be the given exponent; use the Quantize method instead
@@ -4238,7 +4343,8 @@ TrappableRadixMath<EDecimal>(
       return this.RoundToExponent((EInteger)exponentSmall, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to a new exponent if
     /// necessary. The resulting number's Exponent property will not
     /// necessarily be the given exponent; use the Quantize method instead
@@ -4268,7 +4374,8 @@ TrappableRadixMath<EDecimal>(
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to the given exponent
     /// represented as an arbitrary-precision integer, and signals an
     /// inexact flag if the result would be inexact. The resulting number's
@@ -4303,7 +4410,8 @@ TrappableRadixMath<EDecimal>(
         .RoundToExponentExact(this, exponent, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to the given exponent
     /// represented as a 32-bit signed integer, and signals an inexact flag
     /// if the result would be inexact. The resulting number's Exponent
@@ -4337,7 +4445,8 @@ TrappableRadixMath<EDecimal>(
       return this.RoundToExponentExact((EInteger)exponentSmall, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to the given exponent
     /// represented as a 32-bit signed integer, and signals an inexact flag
     /// if the result would be inexact. The resulting number's Exponent
@@ -4363,7 +4472,8 @@ TrappableRadixMath<EDecimal>(
           EContext.Unlimited.WithRounding(rounding));
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to an integer, and signals an
     /// inexact flag if the result would be inexact. The resulting number's
     /// Exponent property will not necessarily be 0; use the Quantize
@@ -4386,7 +4496,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to an integer, without adding
     /// the <c>FlagInexact</c> or <c>FlagRounded</c> flags. The resulting
     /// number's Exponent property will not necessarily be 0; use the
@@ -4412,7 +4523,8 @@ TrappableRadixMath<EDecimal>(
         .RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to an integer, and signals an
     /// inexact flag if the result would be inexact.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -4434,7 +4546,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Returns an arbitrary-precision decimal number with the
+    /// <summary>Returns an arbitrary-precision decimal number
+    /// with the
     /// same value as this object but rounded to an integer, without adding
     /// the <c>FlagInexact</c> or <c>FlagRounded</c> flags.</summary>
     /// <param name='ctx'>An arithmetic context to control precision and
@@ -4458,7 +4571,8 @@ TrappableRadixMath<EDecimal>(
         .RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Rounds this object's value to a given precision, using the
+    /// <summary>Rounds this object's value to a given
+    /// precision, using the
     /// given rounding mode and range of exponent.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4474,7 +4588,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).RoundToPrecision(this, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but with the scale
+    /// <summary>Returns a number similar to this number but
+    /// with the scale
     /// adjusted.</summary>
     /// <param name='places'>The power of 10 to scale by.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
@@ -4482,7 +4597,8 @@ TrappableRadixMath<EDecimal>(
       return this.ScaleByPowerOfTen((EInteger)places, null);
     }
 
-    /// <summary>Returns a number similar to this number but with the scale
+    /// <summary>Returns a number similar to this number but
+    /// with the scale
     /// adjusted.</summary>
     /// <param name='places'>The power of 10 to scale by.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -4496,7 +4612,8 @@ TrappableRadixMath<EDecimal>(
       return this.ScaleByPowerOfTen((EInteger)places, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but with the scale
+    /// <summary>Returns a number similar to this number but
+    /// with the scale
     /// adjusted.</summary>
     /// <param name='bigPlaces'>The power of 10 to scale by.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
@@ -4504,7 +4621,8 @@ TrappableRadixMath<EDecimal>(
       return this.ScaleByPowerOfTen(bigPlaces, null);
     }
 
-    /// <summary>Returns a number similar to this number but with its scale
+    /// <summary>Returns a number similar to this number but
+    /// with its scale
     /// adjusted.</summary>
     /// <param name='bigPlaces'>The power of 10 to scale by.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -4515,7 +4633,7 @@ TrappableRadixMath<EDecimal>(
     /// rounding is needed.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='bigPlaces'/>.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='bigPlaces'/> is null.</exception>
     public EDecimal ScaleByPowerOfTen(
       EInteger bigPlaces,
@@ -4537,7 +4655,8 @@ TrappableRadixMath<EDecimal>(
           this.flags).RoundToPrecision(ctx);
     }
 
-    /// <summary>Finds the square root of this object's value.</summary>
+    /// <summary>Finds the square root of this object's
+    /// value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
@@ -4556,7 +4675,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).SquareRoot(this, ctx);
     }
 
-    /// <summary>Finds the square root of this object's value.</summary>
+    /// <summary>Finds the square root of this object's
+    /// value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
@@ -4576,7 +4696,8 @@ TrappableRadixMath<EDecimal>(
       return GetMathValue(ctx).SquareRoot(this, ctx);
     }
 
-    /// <summary>Subtracts an arbitrary-precision decimal number from this
+    /// <summary>Subtracts an arbitrary-precision decimal
+    /// number from this
     /// instance and returns the result.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
@@ -4585,7 +4706,8 @@ TrappableRadixMath<EDecimal>(
       return this.Subtract(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Subtracts an arbitrary-precision decimal number from this
+    /// <summary>Subtracts an arbitrary-precision decimal
+    /// number from this
     /// instance.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
@@ -4596,7 +4718,7 @@ TrappableRadixMath<EDecimal>(
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EDecimal Subtract(
       EDecimal otherValue,
@@ -4628,7 +4750,8 @@ TrappableRadixMath<EDecimal>(
       1e5f, 1e6f, 1e7f, 1e8f, 1e9f, 1e10f,
     };
 
-    /// <summary>Converts this value to its closest equivalent as a 64-bit
+    /// <summary>Converts this value to its closest equivalent
+    /// as a 64-bit
     /// floating-point number. The half-even rounding mode is used.
     /// <para>If this value is a NaN, sets the high bit of the 64-bit
     /// floating point number's significand area for a quiet NaN, and
@@ -4706,7 +4829,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEFloat(EContext.Binary64).ToDouble();
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer. Any
+    /// <summary>Converts this value to an arbitrary-precision
+    /// integer. Any
     /// fractional part in this value will be discarded when converting to
     /// an arbitrary-precision integer.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -4716,7 +4840,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEIntegerInternal(false);
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer,
+    /// <summary>Converts this value to an arbitrary-precision
+    /// integer,
     /// checking whether the fractional part of the value would be
     /// lost.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -4727,7 +4852,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEIntegerInternal(true);
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer,
+    /// <summary>Converts this value to an arbitrary-precision
+    /// integer,
     /// checking whether the fractional part of the value would be
     /// lost.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -4737,14 +4863,16 @@ TrappableRadixMath<EDecimal>(
       return this.ToEIntegerInternal(true);
     }
 
-    /// <summary>Same as ToString(), except that when an exponent is used
+    /// <summary>Same as ToString(), except that when an
+    /// exponent is used
     /// it will be a multiple of 3.</summary>
     /// <returns>A text string.</returns>
     public string ToEngineeringString() {
       return this.ToStringInternal(1);
     }
 
-    /// <summary>Creates a binary floating-point number from this object's
+    /// <summary>Creates a binary floating-point number from
+    /// this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
     /// case the resulting binary floating-point number will be an
@@ -4756,7 +4884,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEFloat(EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Creates a binary floating-point number from this object's
+    /// <summary>Creates a binary floating-point number from
+    /// this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
     /// case the resulting binary floating-point number will be an
@@ -4767,14 +4896,16 @@ TrappableRadixMath<EDecimal>(
       return this.ToEFloat(EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Converts this value to a string, but without using
+    /// <summary>Converts this value to a string, but without
+    /// using
     /// exponential notation.</summary>
     /// <returns>A text string.</returns>
     public string ToPlainString() {
       return this.ToStringInternal(2);
     }
 
-    /// <summary>Converts this value to its closest equivalent as a 32-bit
+    /// <summary>Converts this value to its closest equivalent
+    /// as a 32-bit
     /// floating-point number. The half-even rounding mode is used.
     /// <para>If this value is a NaN, sets the high bit of the 32-bit
     /// floating point number's significand area for a quiet NaN, and
@@ -4848,7 +4979,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEFloat(EContext.Binary32).ToSingle();
     }
 
-    /// <summary>Converts this value to a string. Returns a value
+    /// <summary>Converts this value to a string. Returns a
+    /// value
     /// compatible with this class's FromString method.</summary>
     /// <returns>A string representation of this object. The text string
     /// will be in exponential notation if the exponent is greater than 0
@@ -4858,7 +4990,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToStringInternal(0);
     }
 
-    /// <summary>Returns the unit in the last place. The significand will
+    /// <summary>Returns the unit in the last place. The
+    /// significand will
     /// be 1 and the exponent will be this number's exponent. Returns 1
     /// with an exponent of 0 if this number is infinity or not-a-number
     /// (NaN).</summary>
@@ -5124,7 +5257,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Creates a binary floating-point number from this object's
+    /// <summary>Creates a binary floating-point number from
+    /// this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
     /// case the resulting binary floating-point number will be an
@@ -5133,8 +5267,8 @@ TrappableRadixMath<EDecimal>(
     /// rounding, and exponent range of the result. Can be null.</param>
     /// <returns>An arbitrary-precision float floating-point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='ec'/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The parameter <paramref name='ec'/>
+    /// is null.</exception>
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
@@ -5877,7 +6011,8 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Returns one added to this arbitrary-precision decimal
+    /// <summary>Returns one added to this arbitrary-precision
+    /// decimal
     /// number.</summary>
     /// <returns>The given arbitrary-precision decimal number plus
     /// one.</returns>
@@ -5885,7 +6020,8 @@ TrappableRadixMath<EDecimal>(
       return this.Add(1);
     }
 
-    /// <summary>Returns one subtracted from this arbitrary-precision
+    /// <summary>Returns one subtracted from this
+    /// arbitrary-precision
     /// decimal number.</summary>
     /// <returns>The given arbitrary-precision decimal number minus
     /// one.</returns>
@@ -5895,7 +6031,8 @@ TrappableRadixMath<EDecimal>(
 
     // Begin integer conversions
 
-    /// <summary>Converts this number's value to a byte (from 0 to 255) if
+    /// <summary>Converts this number's value to a byte (from 0
+    /// to 255) if
     /// it can fit in a byte (from 0 to 255) after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a byte (from 0 to
@@ -5917,7 +6054,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEInteger().ToByteChecked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a byte (from 0 to 255).</summary>
     /// <returns>This number, converted to a byte (from 0 to 255). Returns
@@ -5926,7 +6064,8 @@ TrappableRadixMath<EDecimal>(
       return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
     }
 
-    /// <summary>Converts this number's value to a byte (from 0 to 255) if
+    /// <summary>Converts this number's value to a byte (from 0
+    /// to 255) if
     /// it can fit in a byte (from 0 to 255) without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a byte (from 0 to 255).</returns>
@@ -5949,7 +6088,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEIntegerIfExact().ToByteChecked();
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an
+    /// arbitrary-precision
     /// decimal number.</summary>
     /// <param name='inputByte'>The number to convert as a byte (from 0 to
     /// 255).</param>
@@ -5960,7 +6100,8 @@ TrappableRadixMath<EDecimal>(
       return FromInt32(val);
     }
 
-    /// <summary>Converts this number's value to a 16-bit signed integer if
+    /// <summary>Converts this number's value to a 16-bit
+    /// signed integer if
     /// it can fit in a 16-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 16-bit signed
@@ -5982,7 +6123,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEInteger().ToInt16Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 16-bit signed integer.</summary>
     /// <returns>This number, converted to a 16-bit signed integer. Returns
@@ -5991,7 +6133,8 @@ TrappableRadixMath<EDecimal>(
       return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
     }
 
-    /// <summary>Converts this number's value to a 16-bit signed integer if
+    /// <summary>Converts this number's value to a 16-bit
+    /// signed integer if
     /// it can fit in a 16-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
@@ -6011,7 +6154,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEIntegerIfExact().ToInt16Checked();
     }
 
-    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
+    /// <summary>Converts a 16-bit signed integer to an
+    /// arbitrary-precision
     /// decimal number.</summary>
     /// <param name='inputInt16'>The number to convert as a 16-bit signed
     /// integer.</param>
@@ -6022,7 +6166,8 @@ TrappableRadixMath<EDecimal>(
       return FromInt32(val);
     }
 
-    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// <summary>Converts this number's value to a 32-bit
+    /// signed integer if
     /// it can fit in a 32-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
@@ -6044,7 +6189,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEInteger().ToInt32Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 32-bit signed integer.</summary>
     /// <returns>This number, converted to a 32-bit signed integer. Returns
@@ -6053,7 +6199,8 @@ TrappableRadixMath<EDecimal>(
       return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
     }
 
-    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// <summary>Converts this number's value to a 32-bit
+    /// signed integer if
     /// it can fit in a 32-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
@@ -6073,7 +6220,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEIntegerIfExact().ToInt32Checked();
     }
 
-    /// <summary>Converts this number's value to a 64-bit signed integer if
+    /// <summary>Converts this number's value to a 64-bit
+    /// signed integer if
     /// it can fit in a 64-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 64-bit signed
@@ -6095,7 +6243,8 @@ TrappableRadixMath<EDecimal>(
       return this.ToEInteger().ToInt64Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 64-bit signed integer.</summary>
     /// <returns>This number, converted to a 64-bit signed integer. Returns
@@ -6104,7 +6253,8 @@ TrappableRadixMath<EDecimal>(
       return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : 0L;
     }
 
-    /// <summary>Converts this number's value to a 64-bit signed integer if
+    /// <summary>Converts this number's value to a 64-bit
+    /// signed integer if
     /// it can fit in a 64-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 64-bit signed integer.</returns>

@@ -8,7 +8,8 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-  /// <summary>Contains parameters for controlling the precision,
+  /// <summary>Contains parameters for controlling the
+  /// precision,
   /// rounding, and exponent range of arbitrary-precision numbers. (The
   /// "E" stands for "extended", and has this prefix to group it with the
   /// other classes common to this library, particularly EDecimal,
@@ -24,16 +25,19 @@ namespace PeterO.Numbers {
   /// will be shared among multiple threads and at least one of those
   /// threads needs to write the <c>Flags</c> property (which can happen,
   /// for example, by passing the context to most methods of
-  /// <c>EDecimal</c> such as <c>Add</c> ).</para></summary>
+  /// <c>EDecimal</c> such as <c>Add</c>).</para></summary>
   public sealed class EContext {
-    /// <summary>Signals that the exponent was adjusted to fit the exponent
+    /// <summary>Signals that the exponent was adjusted to fit
+    /// the exponent
     /// range.</summary>
     public const int FlagClamped = 32;
 
-    /// <summary>Signals a division of a nonzero number by zero.</summary>
+    /// <summary>Signals a division of a nonzero number by
+    /// zero.</summary>
     public const int FlagDivideByZero = 128;
 
-    /// <summary>Signals that the result was rounded to a different
+    /// <summary>Signals that the result was rounded to a
+    /// different
     /// mathematical value, but as close as possible to the
     /// original.</summary>
     public const int FlagInexact = 1;
@@ -41,30 +45,36 @@ namespace PeterO.Numbers {
     /// <summary>Signals an invalid operation.</summary>
     public const int FlagInvalid = 64;
 
-    /// <summary>Signals that an operand was rounded to a different
+    /// <summary>Signals that an operand was rounded to a
+    /// different
     /// mathematical value before an operation.</summary>
     public const int FlagLostDigits = 256;
 
-    /// <summary>Signals that the result is non-zero and the exponent is
+    /// <summary>Signals that the result is non-zero and the
+    /// exponent is
     /// higher than the highest exponent allowed.</summary>
     public const int FlagOverflow = 16;
 
-    /// <summary>Signals that the result was rounded to fit the precision;
+    /// <summary>Signals that the result was rounded to fit the
+    /// precision;
     /// either the value or the exponent may have changed from the
     /// original.</summary>
     public const int FlagRounded = 2;
 
-    /// <summary>Signals that the result's exponent, before rounding, is
+    /// <summary>Signals that the result's exponent, before
+    /// rounding, is
     /// lower than the lowest exponent allowed.</summary>
     public const int FlagSubnormal = 4;
 
-    /// <summary>Signals that the result's exponent, before rounding, is
+    /// <summary>Signals that the result's exponent, before
+    /// rounding, is
     /// lower than the lowest exponent allowed, and the result was rounded
     /// to a different mathematical value, but as close as possible to the
     /// original.</summary>
     public const int FlagUnderflow = 8;
 
-    /// <summary>A basic arithmetic context, 9 digits precision, rounding
+    /// <summary>A basic arithmetic context, 9 digits
+    /// precision, rounding
     /// mode half-up, unlimited exponent range. The default rounding mode
     /// is HalfUp.</summary>
     #if CODE_ANALYSIS
@@ -76,7 +86,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Basic =
       EContext.ForPrecisionAndRounding(9, ERounding.HalfUp);
 
-    /// <summary>An arithmetic context for Java's BigDecimal format. The
+    /// <summary>An arithmetic context for Java's BigDecimal
+    /// format. The
     /// default rounding mode is HalfUp.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -91,7 +102,8 @@ namespace PeterO.Numbers {
       EInteger.Zero - (EInteger)Int32.MaxValue,
       EInteger.One + (EInteger)Int32.MaxValue);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary128
+    /// <summary>An arithmetic context for the IEEE-754-2008
+    /// binary128
     /// format, 113 bits precision. The default rounding mode is
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
@@ -104,7 +116,8 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(113, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-16382, 16383);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary16
+    /// <summary>An arithmetic context for the IEEE-754-2008
+    /// binary16
     /// format, 11 bits precision. The default rounding mode is
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
@@ -117,7 +130,8 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(11, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-14, 15);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary32
+    /// <summary>An arithmetic context for the IEEE-754-2008
+    /// binary32
     /// format, 24 bits precision. The default rounding mode is
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
@@ -130,7 +144,8 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(24, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-126, 127);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 binary64
+    /// <summary>An arithmetic context for the IEEE-754-2008
+    /// binary64
     /// format, 53 bits precision. The default rounding mode is
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
@@ -143,9 +158,10 @@ namespace PeterO.Numbers {
       EContext.ForPrecisionAndRounding(53, ERounding.HalfEven)
       .WithExponentClamp(true).WithExponentRange(-1022, 1023);
 
-    /// <summary>An arithmetic context for the.NET Framework decimal format
+    /// <summary>An arithmetic context for the.NET Framework
+    /// decimal format
     /// (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ), 96
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>), 96
     /// bits precision, and a valid exponent range of -28 to 0. The default
     /// rounding mode is HalfEven. (The <c>"Cli"</c> stands for "Common
     /// Language Infrastructure", which defined this format as the .NET
@@ -161,7 +177,8 @@ namespace PeterO.Numbers {
       new EContext(96, ERounding.HalfEven, 0, 28, true)
     .WithPrecisionInBits(true);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 decimal128
+    /// <summary>An arithmetic context for the IEEE-754-2008
+    /// decimal128
     /// format. The default rounding mode is HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -172,7 +189,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal128 =
       new EContext(34, ERounding.HalfEven, -6143, 6144, true);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 decimal32
+    /// <summary>An arithmetic context for the IEEE-754-2008
+    /// decimal32
     /// format. The default rounding mode is HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -183,7 +201,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal32 =
       new EContext(7, ERounding.HalfEven, -95, 96, true);
 
-    /// <summary>An arithmetic context for the IEEE-754-2008 decimal64
+    /// <summary>An arithmetic context for the IEEE-754-2008
+    /// decimal64
     /// format. The default rounding mode is HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -194,7 +213,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Decimal64 =
       new EContext(16, ERounding.HalfEven, -383, 384, true);
 
-    /// <summary>No specific (theoretical) limit on precision. Rounding
+    /// <summary>No specific (theoretical) limit on precision.
+    /// Rounding
     /// mode HalfUp.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -205,7 +225,8 @@ namespace PeterO.Numbers {
     public static readonly EContext Unlimited =
       EContext.ForPrecision(0);
 
-    /// <summary>No specific (theoretical) limit on precision. Rounding
+    /// <summary>No specific (theoretical) limit on precision.
+    /// Rounding
     /// mode HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -342,7 +363,8 @@ namespace PeterO.Numbers {
           0) {
     }
 
-    /// <summary>Gets a value indicating whether the EMax and EMin
+    /// <summary>Gets a value indicating whether the EMax and
+    /// EMin
     /// properties refer to the number's Exponent property adjusted to the
     /// number's precision, or just the number's Exponent property. The
     /// default value is true, meaning that EMax and EMin refer to the
@@ -359,7 +381,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether a converted number's
+    /// <summary>Gets a value indicating whether a converted
+    /// number's
     /// Exponent property will not be higher than EMax + 1 - Precision. If
     /// a number's exponent is higher than that value, but not high enough
     /// to cause overflow, the exponent is clamped to that value and enough
@@ -374,7 +397,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the highest exponent possible when a converted number
+    /// <summary>Gets the highest exponent possible when a
+    /// converted number
     /// is expressed in scientific notation with one nonzero digit before
     /// the radix point. For example, with a precision of 3 and an EMax of
     /// 100, the maximum value possible is 9.99E + 100. (This is not the
@@ -392,7 +416,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the lowest exponent possible when a converted number
+    /// <summary>Gets the lowest exponent possible when a
+    /// converted number
     /// is expressed in scientific notation with one nonzero digit before
     /// the radix point. For example, with a precision of 3 and an EMin of
     /// -100, the next value that comes after 0 is 0.001E-100. (If
@@ -412,7 +437,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets or sets the flags that are set from converting
+    /// <summary>Gets or sets the flags that are set from
+    /// converting
     /// numbers according to this arithmetic context. If <c>HasFlags</c> is
     /// false, this value will be 0. This value is a combination of bit
     /// fields. To retrieve a particular flag, use the AND operation on the
@@ -438,7 +464,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this context defines a
+    /// <summary>Gets a value indicating whether this context
+    /// defines a
     /// minimum and maximum exponent. If false, converted exponents can
     /// have any exponent and operations can't cause overflow or
     /// underflow.</summary>
@@ -453,7 +480,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this context has a mutable
+    /// <summary>Gets a value indicating whether this context
+    /// has a mutable
     /// Flags field.</summary>
     /// <value><c>true</c> if this context has a mutable Flags field;
     /// otherwise, <c>false</c>.</value>
@@ -463,7 +491,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this context defines a
+    /// <summary>Gets a value indicating whether this context
+    /// defines a
     /// maximum precision. This is the same as whether this context's
     /// Precision property is zero.</summary>
     /// <value><c>true</c> if this context defines a maximum precision;
@@ -474,7 +503,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this context's Precision
+    /// <summary>Gets a value indicating whether this context's
+    /// Precision
     /// property is in bits, rather than digits. The default is
     /// false.</summary>
     /// <value><c>true</c> if this context's Precision property is in bits,
@@ -488,19 +518,20 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether to use a "simplified"
+    /// <summary>Gets a value indicating whether to use a
+    /// "simplified"
     /// arithmetic. In the simplified arithmetic, infinity, not-a-number,
     /// and subnormal numbers are not allowed, and negative zero is treated
     /// the same as positive zero. For further details, see
     /// <a
-    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
+    /// href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
     /// .</summary>
     /// <value><c>true</c> if to use a "simplified" arithmetic; otherwise,
     /// <c>false</c> In the simplified arithmetic, infinity, not-a-number,
     /// and subnormal numbers are not allowed, and negative zero is treated
     /// the same as positive zero. For further details, see
     /// <a
-    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
+    /// href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
     /// . <c>true</c> if a "simplified" arithmetic will be used; otherwise,
     /// <c>false</c>.</value>
     public bool IsSimplified {
@@ -509,7 +540,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the maximum length of a converted number in digits,
+    /// <summary>Gets the maximum length of a converted number
+    /// in digits,
     /// ignoring the radix point and exponent. For example, if precision is
     /// 3, a converted number's significand can range from 0 to 999 (up to
     /// three digits long). If 0, converted numbers can have any precision.
@@ -529,7 +561,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the desired rounding mode when converting numbers
+    /// <summary>Gets the desired rounding mode when converting
+    /// numbers
     /// that can't be represented in the given precision and exponent
     /// range.</summary>
     /// <value>The desired rounding mode when converting numbers that can't
@@ -540,7 +573,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the traps that are set for each flag in the context.
+    /// <summary>Gets the traps that are set for each flag in
+    /// the context.
     /// Whenever a flag is signaled, even if <c>HasFlags</c> is false, and
     /// the flag's trap is enabled, the operation will throw a
     /// TrapException.
@@ -564,7 +598,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Creates a new arithmetic context using the given maximum
+    /// <summary>Creates a new arithmetic context using the
+    /// given maximum
     /// number of digits, an unlimited exponent range, and the HalfUp
     /// rounding mode.</summary>
     /// <param name='precision'>Maximum number of digits
@@ -580,7 +615,8 @@ namespace PeterO.Numbers {
         false).WithUnlimitedExponents();
     }
 
-    /// <summary>Creates a new EContext object initialized with an
+    /// <summary>Creates a new EContext object initialized with
+    /// an
     /// unlimited exponent range, and the given rounding mode and maximum
     /// precision.</summary>
     /// <param name='precision'>Maximum number of digits
@@ -614,7 +650,8 @@ namespace PeterO.Numbers {
       0,
       false).WithUnlimitedExponents();
 
-    /// <summary>Creates a new EContext object initialized with an
+    /// <summary>Creates a new EContext object initialized with
+    /// an
     /// unlimited precision, an unlimited exponent range, and the given
     /// rounding mode.</summary>
     /// <param name='rounding'>The rounding mode for the new precision
@@ -636,7 +673,8 @@ namespace PeterO.Numbers {
         false).WithUnlimitedExponents();
     }
 
-    /// <summary>Initializes a new EContext that is a copy of another
+    /// <summary>Initializes a new EContext that is a copy of
+    /// another
     /// EContext.</summary>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
@@ -656,7 +694,8 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <summary>Determines whether a number can have the given Exponent
+    /// <summary>Determines whether a number can have the given
+    /// Exponent
     /// property under this arithmetic context.</summary>
     /// <param name='exponent'>An arbitrary-precision integer indicating
     /// the desired exponent.</param>
@@ -664,7 +703,7 @@ namespace PeterO.Numbers {
     /// property under this arithmetic context; otherwise, <c>false</c>.
     /// If this context allows unlimited precision, returns true for the
     /// exponent EMax and any exponent less than EMax.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='exponent'/> is null.</exception>
     public bool ExponentWithinRange(EInteger exponent) {
       if (exponent == null) {
@@ -690,9 +729,10 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a string representation of this object. Note that the
-    /// string's format is not intended to be parsed and may change at any
-    /// time.</summary>
+    /// <summary>Returns this object in a text form intended to be read by humans.
+    /// The value returned by this method is not intended to be parsed by computer
+    /// programs, and the exact text of the value may change at any time between
+    /// versions of this library.</summary>
     /// <returns>A string representation of this object.</returns>
     public override string ToString() {
       return "[PrecisionContext ExponentMax=" + this.exponentMax +
@@ -706,7 +746,8 @@ this.simplified +
         "]";
     }
 
-    /// <summary>Gets a value indicating whether this context has a mutable
+    /// <summary>Gets a value indicating whether this context
+    /// has a mutable
     /// Flags field, one or more trap enablers, or both.</summary>
     /// <value><c>true</c> if this context has a mutable Flags field, one
     /// or more trap enablers, or both; otherwise, <c>false</c>.</value>
@@ -716,7 +757,8 @@ this.simplified +
       }
     }
 
-    /// <summary>Copies this EContext and sets the copy's "AdjustExponent"
+    /// <summary>Copies this EContext and sets the copy's
+    /// "AdjustExponent"
     /// property to the given value.</summary>
     /// <param name='adjustExponent'>The new value of the "AdjustExponent"
     /// property for the copy.</param>
@@ -738,15 +780,16 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this arithmetic context and sets the copy's
+    /// <summary>Copies this arithmetic context and sets the
+    /// copy's
     /// exponent range.</summary>
     /// <param name='exponentMin'>Desired minimum exponent (EMin).</param>
     /// <param name='exponentMax'>Desired maximum exponent (EMax).</param>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='exponentMin'/> is null.</exception>
-    /// <exception cref='ArgumentException'>ExponentMin greater than
+    /// <exception cref="ArgumentException">ExponentMin greater than
     /// exponentMax".</exception>
     public EContext WithBigExponentRange(
       EInteger exponentMin,
@@ -766,7 +809,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this EContext with <c>HasFlags</c> set to false, a
+    /// <summary>Copies this EContext with <c>HasFlags</c> set
+    /// to false, a
     /// Traps value of 0, and a Flags value of 0.</summary>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
@@ -786,13 +830,14 @@ this.simplified +
         0);
     }
 
-    /// <summary>Copies this EContext and gives it a particular precision
+    /// <summary>Copies this EContext and gives it a particular
+    /// precision
     /// value.</summary>
     /// <param name='bigintPrecision'>Desired precision. 0 means unlimited
     /// precision.</param>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='bigintPrecision'/> is null.</exception>
     public EContext WithBigPrecision(EInteger bigintPrecision) {
       return new EContext(
@@ -810,7 +855,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this EContext with <c>HasFlags</c> set to true and
+    /// <summary>Copies this EContext with <c>HasFlags</c> set
+    /// to true and
     /// a Flags value of 0.</summary>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
@@ -830,7 +876,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this arithmetic context and sets the copy's
+    /// <summary>Copies this arithmetic context and sets the
+    /// copy's
     /// "ClampNormalExponents" flag to the given value.</summary>
     /// <param name='clamp'>The desired value of the "ClampNormalExponents"
     /// flag.</param>
@@ -852,7 +899,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this arithmetic context and sets the copy's
+    /// <summary>Copies this arithmetic context and sets the
+    /// copy's
     /// exponent range.</summary>
     /// <param name='exponentMinSmall'>Desired minimum exponent
     /// (EMin).</param>
@@ -868,7 +916,8 @@ this.simplified +
           EInteger.FromInt32(exponentMaxSmall));
     }
 
-    /// <summary>Copies this EContext with <c>HasFlags</c> set to false and
+    /// <summary>Copies this EContext with <c>HasFlags</c> set
+    /// to false and
     /// a Flags value of 0.</summary>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>
@@ -888,7 +937,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this EContext and gives it a particular precision
+    /// <summary>Copies this EContext and gives it a particular
+    /// precision
     /// value.</summary>
     /// <param name='precision'>Desired precision. 0 means unlimited
     /// precision.</param>
@@ -920,7 +970,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this EContext with the specified rounding
+    /// <summary>Copies this EContext with the specified
+    /// rounding
     /// mode.</summary>
     /// <param name='rounding'>Desired value of the Rounding
     /// property.</param>
@@ -942,7 +993,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this EContext and sets the copy's "IsSimplified"
+    /// <summary>Copies this EContext and sets the copy's
+    /// "IsSimplified"
     /// property to the given value.</summary>
     /// <param name='simplified'>Desired value of the IsSimplified
     /// property.</param>
@@ -964,7 +1016,8 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this EContext with Traps set to the given value.
+    /// <summary>Copies this EContext with Traps set to the
+    /// given value.
     /// (Also sets HasFlags on the copy to <c>True</c>, but this may
     /// change in version 2.0 of this library.).</summary>
     /// <param name='traps'>Flags representing the traps to enable. See the
@@ -989,7 +1042,8 @@ this.simplified +
         traps);
     }
 
-    /// <summary>Copies this EContext with an unlimited exponent
+    /// <summary>Copies this EContext with an unlimited
+    /// exponent
     /// range.</summary>
     /// <returns>A context object for arbitrary-precision arithmetic
     /// settings.</returns>

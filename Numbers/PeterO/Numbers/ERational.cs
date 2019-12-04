@@ -8,7 +8,8 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-  /// <summary>Represents an arbitrary-precision rational number. This
+  /// <summary>Represents an arbitrary-precision rational
+  /// number. This
   /// class can't be inherited. (The "E" stands for "extended", meaning
   /// that instances of this class can be values other than numbers
   /// proper, such as infinity and not-a-number.)
@@ -36,7 +37,8 @@ namespace PeterO.Numbers {
       EInteger.One,
       BigNumberFlags.FlagQuietNaN);
 
-    /// <summary>Negative infinity, less than any other number.</summary>
+    /// <summary>Negative infinity, less than any other
+    /// number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
         "CA2104",
@@ -127,10 +129,10 @@ namespace PeterO.Numbers {
     /// the numerator.</param>
     /// <param name='denominator'>An arbitrary-precision integer serving as
     /// the denominator.</param>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='numerator'/> or <paramref name='denominator'/> is
     /// null.</exception>
-    /// <exception cref='ArgumentException'>Denominator is
+    /// <exception cref="ArgumentException">Denominator is
     /// zero.</exception>
     public ERational(EInteger numerator, EInteger denominator) {
       if (numerator == null) {
@@ -156,7 +158,8 @@ namespace PeterO.Numbers {
       this.denominator = denominator;
     }
 
-    /// <summary>Creates a copy of this arbitrary-precision rational
+    /// <summary>Creates a copy of this arbitrary-precision
+    /// rational
     /// number.</summary>
     /// <returns>An arbitrary-precision rational number.</returns>
     public ERational Copy() {
@@ -174,7 +177,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this object is finite (not
+    /// <summary>Gets a value indicating whether this object is
+    /// finite (not
     /// infinity or NaN).</summary>
     /// <value><c>true</c> if this object is finite (not infinity or NaN);
     /// otherwise, <c>false</c>.</value>
@@ -184,7 +188,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this object's value is
+    /// <summary>Gets a value indicating whether this object's
+    /// value is
     /// negative (including negative zero).</summary>
     /// <value><c>true</c> if this object's value is negative (including
     /// negative zero); otherwise, <c>false</c>. <c>true</c> if this
@@ -195,7 +200,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this object's value equals
+    /// <summary>Gets a value indicating whether this object's
+    /// value equals
     /// 0.</summary>
     /// <value><c>true</c> if this object's value equals 0; otherwise,
     /// <c>false</c>. <c>true</c> if this object's value equals 0;
@@ -218,7 +224,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the sign of this rational number.</summary>
+    /// <summary>Gets the sign of this rational
+    /// number.</summary>
     /// <value>The sign of this rational number.</value>
     public int Sign {
       get {
@@ -238,12 +245,13 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Creates a rational number with the given numerator and
+    /// <summary>Creates a rational number with the given
+    /// numerator and
     /// denominator.</summary>
     /// <param name='numeratorSmall'>The numerator.</param>
     /// <param name='denominatorSmall'>The denominator.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentException'>The denominator is
+    /// <exception cref="ArgumentException">The denominator is
     /// zero.</exception>
     public static ERational Create(
       int numeratorSmall,
@@ -251,12 +259,13 @@ namespace PeterO.Numbers {
       return Create((EInteger)numeratorSmall, (EInteger)denominatorSmall);
     }
 
-    /// <summary>Creates a rational number with the given numerator and
+    /// <summary>Creates a rational number with the given
+    /// numerator and
     /// denominator.</summary>
     /// <param name='numerator'>The numerator.</param>
     /// <param name='denominator'>The denominator.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentException'>The denominator is
+    /// <exception cref="ArgumentException">The denominator is
     /// zero.</exception>
     public static ERational Create(
       EInteger numerator,
@@ -264,7 +273,8 @@ namespace PeterO.Numbers {
       return new ERational(numerator, denominator);
     }
 
-    /// <summary>Creates a not-a-number arbitrary-precision rational
+    /// <summary>Creates a not-a-number arbitrary-precision
+    /// rational
     /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
@@ -272,13 +282,14 @@ namespace PeterO.Numbers {
     /// arbitrary-precision rational number, use that object's
     /// <c>UnsignedNumerator</c> property.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentException'>The parameter <paramref
-    /// name='diag'/> is less than 0.</exception>
+    /// <exception cref="ArgumentException">The parameter <paramref name='diag'/>
+    /// is less than 0.</exception>
     public static ERational CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false);
     }
 
-    /// <summary>Creates a not-a-number arbitrary-precision rational
+    /// <summary>Creates a not-a-number arbitrary-precision
+    /// rational
     /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
@@ -290,9 +301,9 @@ namespace PeterO.Numbers {
     /// <param name='negative'>Whether the return value is
     /// negative.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentException'>The parameter <paramref
-    /// name='diag'/> is less than 0.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentException">The parameter <paramref name='diag'/>
+    /// is less than 0.</exception>
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='diag'/> is null.</exception>
     public static ERational CreateNaN(
       EInteger diag,
@@ -318,7 +329,8 @@ namespace PeterO.Numbers {
       return new ERational(diag, EInteger.One, flags);
     }
 
-    /// <summary>Converts a 64-bit floating-point number to a rational
+    /// <summary>Converts a 64-bit floating-point number to a
+    /// rational
     /// number. This method computes the exact value of the floating point
     /// number, not an approximation, as is often the case by converting
     /// the number to a string.</summary>
@@ -330,7 +342,8 @@ namespace PeterO.Numbers {
       return FromEFloat(EFloat.FromDouble(flt));
     }
 
-    /// <summary>Converts an arbitrary-precision decimal number to a
+    /// <summary>Converts an arbitrary-precision decimal number
+    /// to a
     /// rational number.</summary>
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// decimal number.</param>
@@ -340,7 +353,8 @@ namespace PeterO.Numbers {
       return FromEDecimal(ef);
     }
 
-    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// <summary>Converts an arbitrary-precision binary
+    /// floating-point
     /// number to a rational number.</summary>
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
@@ -350,13 +364,14 @@ namespace PeterO.Numbers {
       return FromEFloat(ef);
     }
 
-    /// <summary>Converts an arbitrary-precision decimal number to a
+    /// <summary>Converts an arbitrary-precision decimal number
+    /// to a
     /// rational number.</summary>
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// decimal number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='ef'/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The parameter <paramref name='ef'/>
+    /// is null.</exception>
     public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
@@ -398,13 +413,14 @@ namespace PeterO.Numbers {
       return ERational.Create(num, den);
     }
 
-    /// <summary>Converts an arbitrary-precision binary floating-point
+    /// <summary>Converts an arbitrary-precision binary
+    /// floating-point
     /// number to a rational number.</summary>
     /// <param name='ef'>The number to convert as an arbitrary-precision
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='ef'/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The parameter <paramref name='ef'/>
+    /// is null.</exception>
     public static ERational FromEFloat(EFloat ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
@@ -445,7 +461,8 @@ namespace PeterO.Numbers {
       return ERational.Create(num, den);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to a rational
+    /// <summary>Converts an arbitrary-precision integer to a
+    /// rational
     /// number.</summary>
     /// <param name='bigint'>The number to convert as an
     /// arbitrary-precision integer.</param>
@@ -455,7 +472,8 @@ namespace PeterO.Numbers {
       return ERational.Create(bigint, EInteger.One);
     }
 
-    /// <summary>Converts a 32-bit binary floating-point number to a
+    /// <summary>Converts a 32-bit binary floating-point number
+    /// to a
     /// rational number. This method computes the exact value of the
     /// floating point number, not an approximation, as is often the case
     /// by converting the number to a string.</summary>
@@ -467,7 +485,8 @@ namespace PeterO.Numbers {
       return FromEFloat(EFloat.FromSingle(flt));
     }
 
-    /// <summary>Creates a rational number from a text string that
+    /// <summary>Creates a rational number from a text string
+    /// that
     /// represents a number. See <c>FromString(String, int, int)</c> for
     /// more information.</summary>
     /// <param name='str'>A string that represents a number.</param>
@@ -507,18 +526,18 @@ namespace PeterO.Numbers {
     /// <param name='offset'>An index starting at 0 showing where the
     /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref
-    /// name='str'/> 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/>
+    /// 's length).</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='FormatException'>The parameter <paramref
-    /// name='str'/> is not a correctly formatted number
+    /// <exception cref='FormatException'>The parameter <paramref name='str'/> is
+    /// not a correctly formatted number
     /// string.</exception>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='str'/> is null.</exception>
-    /// <exception cref='ArgumentException'>Either <paramref
-    /// name='offset'/> or <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref
-    /// name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <exception cref="ArgumentException">Either <paramref name='offset'/> or
+    /// <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's
+    /// length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     public static ERational FromString(
       string str,
@@ -721,7 +740,8 @@ namespace PeterO.Numbers {
       return negative ? erat.Negate() : erat;
     }
 
-    /// <summary>Compares the absolute values of this object and another
+    /// <summary>Compares the absolute values of this object
+    /// and another
     /// object, imposing a total ordering on all possible values (ignoring
     /// their signs). In this method:
     /// <list>
@@ -790,7 +810,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Compares the values of this object and another object,
+    /// <summary>Compares the values of this object and another
+    /// object,
     /// imposing a total ordering on all possible values. In this method:
     /// <list>
     /// <item>For objects with the same value, the one with the higher
@@ -865,7 +886,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Returns the absolute value of this rational number, that
+    /// <summary>Returns the absolute value of this rational
+    /// number, that
     /// is, a number with the same value as this one but as a nonnegative
     /// number.</summary>
     /// <returns>An arbitrary-precision rational number.</returns>
@@ -884,7 +906,7 @@ namespace PeterO.Numbers {
     /// number.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
     /// either operand is NaN.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Add(ERational otherValue) {
       if (otherValue == null) {
@@ -919,7 +941,8 @@ namespace PeterO.Numbers {
       return ERational.Create(ad, bd);
     }
 
-    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// <summary>Compares the mathematical value of an
+    /// arbitrary-precision
     /// rational number with that of this instance. This method currently
     /// uses the rules given in the CompareToValue method, so that it it is
     /// not consistent with the Equals method, but it may change in a
@@ -939,7 +962,8 @@ namespace PeterO.Numbers {
       return this.CompareToValue(other);
     }
 
-    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// <summary>Compares the mathematical value of an
+    /// arbitrary-precision
     /// rational number with that of this instance. In this method, NaN
     /// values are greater than any other ERational value, and two NaN
     /// values (even if their payloads differ) are treated as equal by this
@@ -1021,7 +1045,8 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
-    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// <summary>Compares the mathematical value of an
+    /// arbitrary-precision
     /// rational number with that of this instance. This method currently
     /// uses the rules given in the CompareToValue method, so that it it is
     /// not consistent with the Equals method, but it may change in a
@@ -1036,7 +1061,8 @@ namespace PeterO.Numbers {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }
 
-    /// <summary>Compares the mathematical value of an arbitrary-precision
+    /// <summary>Compares the mathematical value of an
+    /// arbitrary-precision
     /// rational number with that of this instance. In this method, NaN
     /// values are greater than any other ERational value, and two NaN
     /// values (even if their payloads differ) are treated as equal by this
@@ -1051,7 +1077,8 @@ namespace PeterO.Numbers {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }
 
-    /// <summary>Compares an arbitrary-precision binary floating-point
+    /// <summary>Compares an arbitrary-precision binary
+    /// floating-point
     /// number with this instance. In this method, NaN values are greater
     /// than any other ERational or EFloat value, and two NaN values (even
     /// if their payloads differ) are treated as equal by this
@@ -1181,7 +1208,8 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
-    /// <summary>Compares an arbitrary-precision decimal number with this
+    /// <summary>Compares an arbitrary-precision decimal number
+    /// with this
     /// instance.</summary>
     /// <param name='other'>An arbitrary-precision decimal number.</param>
     /// <returns>Zero if the values are equal; a negative number if this
@@ -1308,12 +1336,13 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
-    /// <summary>Returns a number with the same value as this one, but
+    /// <summary>Returns a number with the same value as this
+    /// one, but
     /// copying the sign (positive or negative) of another
     /// number.</summary>
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='other'/> is null.</exception>
     public ERational CopySign(ERational other) {
       if (other == null) {
@@ -1331,7 +1360,7 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Divide(ERational otherValue) {
       if (otherValue == null) {
@@ -1375,7 +1404,8 @@ namespace PeterO.Numbers {
           resultNeg ? BigNumberFlags.FlagNegative : 0);
     }
 
-    /// <summary>Determines whether this object's numerator, denominator,
+    /// <summary>Determines whether this object's numerator,
+    /// denominator,
     /// and properties are equal to those of another object and that other
     /// object is an arbitrary-precision rational number. Not-a-number
     /// values are considered equal if the rest of their properties are
@@ -1397,7 +1427,8 @@ namespace PeterO.Numbers {
             other.denominator) && this.flags == other.flags);
     }
 
-    /// <summary>Determines whether this object's numerator, denominator,
+    /// <summary>Determines whether this object's numerator,
+    /// denominator,
     /// and properties are equal to those of another object. Not-a-number
     /// values are considered equal if the rest of their properties are
     /// equal.</summary>
@@ -1408,7 +1439,8 @@ namespace PeterO.Numbers {
       return this.Equals((object)other);
     }
 
-    /// <summary>Returns the hash code for this instance. No application or
+    /// <summary>Returns the hash code for this instance. No
+    /// application or
     /// process IDs are used in the hash code calculation.</summary>
     /// <returns>A 32-bit signed integer.</returns>
     public override int GetHashCode() {
@@ -1425,7 +1457,8 @@ namespace PeterO.Numbers {
       return hashCode;
     }
 
-    /// <summary>Gets a value indicating whether this object's value is
+    /// <summary>Gets a value indicating whether this object's
+    /// value is
     /// infinity.</summary>
     /// <returns><c>true</c> if this object's value is infinity; otherwise,
     /// <c>false</c>.</returns>
@@ -1460,7 +1493,8 @@ namespace PeterO.Numbers {
             BigNumberFlags.FlagNegative)) == BigNumberFlags.FlagInfinity;
     }
 
-    /// <summary>Returns whether this object is a quiet not-a-number
+    /// <summary>Returns whether this object is a quiet
+    /// not-a-number
     /// value.</summary>
     /// <returns><c>true</c> if this object is a quiet not-a-number value;
     /// otherwise, <c>false</c>.</returns>
@@ -1468,7 +1502,8 @@ namespace PeterO.Numbers {
       return (this.flags & BigNumberFlags.FlagQuietNaN) != 0;
     }
 
-    /// <summary>Returns whether this object is a signaling not-a-number
+    /// <summary>Returns whether this object is a signaling
+    /// not-a-number
     /// value (which causes an error if the value is passed to any
     /// arithmetic operation in this class).</summary>
     /// <returns><c>true</c> if this object is a signaling not-a-number
@@ -1483,7 +1518,7 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Multiply(ERational otherValue) {
       if (otherValue == null) {
@@ -1522,7 +1557,8 @@ namespace PeterO.Numbers {
           resultNeg ? BigNumberFlags.FlagNegative : 0);
     }
 
-    /// <summary>Returns a rational number with the same value as this one
+    /// <summary>Returns a rational number with the same value
+    /// as this one
     /// but with the sign reversed.</summary>
     /// <returns>An arbitrary-precision rational number.</returns>
     public ERational Negate() {
@@ -1532,13 +1568,14 @@ namespace PeterO.Numbers {
           this.flags ^ BigNumberFlags.FlagNegative);
     }
 
-    /// <summary>Finds the remainder that results when this instance is
+    /// <summary>Finds the remainder that results when this
+    /// instance is
     /// divided by the value of an arbitrary-precision rational
     /// number.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Remainder(ERational otherValue) {
       if (otherValue == null) {
@@ -1588,12 +1625,13 @@ namespace PeterO.Numbers {
           resultNeg ? BigNumberFlags.FlagNegative : 0);
     }
 
-    /// <summary>Subtracts an arbitrary-precision rational number from this
+    /// <summary>Subtracts an arbitrary-precision rational
+    /// number from this
     /// instance.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// <exception cref="ArgumentNullException">The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Subtract(ERational otherValue) {
       if (otherValue == null) {
@@ -1631,7 +1669,8 @@ namespace PeterO.Numbers {
       return ERational.Create(ad, bd);
     }
 
-    /// <summary>Converts this value to a 64-bit floating-point number. The
+    /// <summary>Converts this value to a 64-bit floating-point
+    /// number. The
     /// half-even rounding mode is used.</summary>
     /// <returns>The closest 64-bit floating-point number to this value.
     /// The return value can be positive infinity or negative infinity if
@@ -1649,7 +1688,8 @@ namespace PeterO.Numbers {
         .ToDouble();
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer by
+    /// <summary>Converts this value to an arbitrary-precision
+    /// integer by
     /// dividing the numerator by the denominator and discarding the
     /// fractional part of the result.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -1662,7 +1702,8 @@ namespace PeterO.Numbers {
       return this.Numerator / (EInteger)this.denominator;
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer,
+    /// <summary>Converts this value to an arbitrary-precision
+    /// integer,
     /// checking whether the value is an exact integer.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
@@ -1672,7 +1713,8 @@ namespace PeterO.Numbers {
       return this.ToEIntegerIfExact();
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer,
+    /// <summary>Converts this value to an arbitrary-precision
+    /// integer,
     /// checking whether the value is an exact integer.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
@@ -1694,7 +1736,8 @@ namespace PeterO.Numbers {
       return quo;
     }
 
-    /// <summary>Converts this rational number to an arbitrary-precision
+    /// <summary>Converts this rational number to an
+    /// arbitrary-precision
     /// decimal number.</summary>
     /// <returns>The exact value of the rational number, or not-a-number
     /// (NaN) if the result can't be exact because it has a nonterminating
@@ -1703,7 +1746,8 @@ namespace PeterO.Numbers {
       return this.ToEDecimal(null);
     }
 
-    /// <summary>Converts this rational number to an arbitrary-precision
+    /// <summary>Converts this rational number to an
+    /// arbitrary-precision
     /// decimal number and rounds the result to the given
     /// precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -1735,7 +1779,8 @@ namespace PeterO.Numbers {
       return ef.Divide(EDecimal.FromEInteger(this.Denominator), ctx);
     }
 
-    /// <summary>Converts this rational number to an arbitrary-precision
+    /// <summary>Converts this rational number to an
+    /// arbitrary-precision
     /// decimal number, but if the result would have a nonterminating
     /// decimal expansion, rounds that result to the given
     /// precision.</summary>
@@ -1783,7 +1828,8 @@ namespace PeterO.Numbers {
       return ed;
     }
 
-    /// <summary>Converts this rational number to an arbitrary-precision
+    /// <summary>Converts this rational number to an
+    /// arbitrary-precision
     /// decimal number.</summary>
     /// <returns>The exact value of the rational number, or not-a-number
     /// (NaN) if the result can't be exact because it has a nonterminating
@@ -1793,7 +1839,8 @@ namespace PeterO.Numbers {
       return this.ToEDecimal();
     }
 
-    /// <summary>Converts this rational number to an arbitrary-precision
+    /// <summary>Converts this rational number to an
+    /// arbitrary-precision
     /// decimal number and rounds the result to the given
     /// precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -1811,7 +1858,8 @@ namespace PeterO.Numbers {
       return this.ToEDecimal(ctx);
     }
 
-    /// <summary>Converts this rational number to an arbitrary-precision
+    /// <summary>Converts this rational number to an
+    /// arbitrary-precision
     /// decimal number, but if the result would have a nonterminating
     /// decimal expansion, rounds that result to the given
     /// precision.</summary>
@@ -1832,7 +1880,8 @@ namespace PeterO.Numbers {
       return this.ToEDecimalExactIfPossible(ctx);
     }
 
-    /// <summary>Converts this rational number to a binary floating-point
+    /// <summary>Converts this rational number to a binary
+    /// floating-point
     /// number.</summary>
     /// <returns>The exact value of the rational number, or not-a-number
     /// (NaN) if the result can't be exact because it has a nonterminating
@@ -1841,7 +1890,8 @@ namespace PeterO.Numbers {
       return this.ToEFloat(null);
     }
 
-    /// <summary>Converts this rational number to a binary floating-point
+    /// <summary>Converts this rational number to a binary
+    /// floating-point
     /// number and rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
@@ -1872,7 +1922,8 @@ namespace PeterO.Numbers {
       return ef.Divide(EFloat.FromEInteger(this.Denominator), ctx);
     }
 
-    /// <summary>Converts this rational number to a binary floating-point
+    /// <summary>Converts this rational number to a binary
+    /// floating-point
     /// number, but if the result would have a nonterminating binary
     /// expansion, rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -1919,7 +1970,8 @@ namespace PeterO.Numbers {
       return ed;
     }
 
-    /// <summary>Converts this rational number to a binary floating-point
+    /// <summary>Converts this rational number to a binary
+    /// floating-point
     /// number.</summary>
     /// <returns>The exact value of the rational number, or not-a-number
     /// (NaN) if the result can't be exact because it has a nonterminating
@@ -1929,7 +1981,8 @@ namespace PeterO.Numbers {
       return this.ToEFloat();
     }
 
-    /// <summary>Converts this rational number to a binary floating-point
+    /// <summary>Converts this rational number to a binary
+    /// floating-point
     /// number and rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
@@ -1946,7 +1999,8 @@ namespace PeterO.Numbers {
       return this.ToEFloat(ctx);
     }
 
-    /// <summary>Converts this rational number to a binary floating-point
+    /// <summary>Converts this rational number to a binary
+    /// floating-point
     /// number, but if the result would have a nonterminating binary
     /// expansion, rounds that result to the given precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -1966,7 +2020,8 @@ namespace PeterO.Numbers {
       return this.ToEFloatExactIfPossible(ctx);
     }
 
-    /// <summary>Converts this value to a 32-bit binary floating-point
+    /// <summary>Converts this value to a 32-bit binary
+    /// floating-point
     /// number. The half-even rounding mode is used.</summary>
     /// <returns>The closest 32-bit binary floating-point number to this
     /// value. The return value can be positive infinity or negative
@@ -1984,7 +2039,8 @@ namespace PeterO.Numbers {
         .ToSingle();
     }
 
-    /// <summary>Converts this object to a text string.</summary>
+    /// <summary>Converts this object to a text
+    /// string.</summary>
     /// <returns>A string representation of this object. If this object's
     /// value is infinity or not-a-number, the result is the analogous
     /// return value of the <c>EDecimal.ToString</c> method. Otherwise, the
@@ -2022,7 +2078,8 @@ namespace PeterO.Numbers {
       return this.Add(FromInt32(1));
     }
 
-    /// <summary>Subtracts one from an arbitrary-precision rational
+    /// <summary>Subtracts one from an arbitrary-precision
+    /// rational
     /// number.</summary>
     /// <returns>The given arbitrary-precision rational number minus
     /// one.</returns>
@@ -2030,7 +2087,8 @@ namespace PeterO.Numbers {
       return this.Subtract(FromInt32(1));
     }
 
-    /// <summary>Returns the sum of a rational number and a 32-bit signed
+    /// <summary>Returns the sum of a rational number and a
+    /// 32-bit signed
     /// integer.</summary>
     /// <param name='v'>A 32-bit signed integer.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
@@ -2039,7 +2097,8 @@ namespace PeterO.Numbers {
       return this.Add(FromInt32(v));
     }
 
-    /// <summary>Returns the result of subtracting a 32-bit signed integer
+    /// <summary>Returns the result of subtracting a 32-bit
+    /// signed integer
     /// from this instance.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
@@ -2048,7 +2107,8 @@ namespace PeterO.Numbers {
       return this.Subtract(FromInt32(v));
     }
 
-    /// <summary>Returns the value of this instance multiplied by a 32-bit
+    /// <summary>Returns the value of this instance multiplied
+    /// by a 32-bit
     /// signed integer.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
@@ -2068,20 +2128,22 @@ namespace PeterO.Numbers {
       return this.Divide(FromInt32(v));
     }
 
-    /// <summary>Finds the remainder that results when this instance is
+    /// <summary>Finds the remainder that results when this
+    /// instance is
     /// divided by the value of an arbitrary-precision rational
     /// number.</summary>
     /// <param name='v'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref='ArgumentException'>The parameter <paramref
-    /// name='v'/> is zero.</exception>
+    /// <exception cref="ArgumentException">The parameter <paramref name='v'/> is
+    /// zero.</exception>
     public ERational Remainder(int v) {
       return this.Remainder(FromInt32(v));
     }
 
     // Begin integer conversions
 
-    /// <summary>Converts this number's value to a byte (from 0 to 255) if
+    /// <summary>Converts this number's value to a byte (from 0
+    /// to 255) if
     /// it can fit in a byte (from 0 to 255) after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a byte (from 0 to
@@ -2097,7 +2159,8 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((byte)0) : this.ToEInteger().ToByteChecked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a byte (from 0 to 255).</summary>
     /// <returns>This number, converted to a byte (from 0 to 255). Returns
@@ -2106,7 +2169,8 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
     }
 
-    /// <summary>Converts this number's value to a byte (from 0 to 255) if
+    /// <summary>Converts this number's value to a byte (from 0
+    /// to 255) if
     /// it can fit in a byte (from 0 to 255) without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a byte (from 0 to 255).</returns>
@@ -2120,7 +2184,8 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((byte)0) : this.ToEIntegerIfExact().ToByteChecked();
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an
+    /// arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputByte'>The number to convert as a byte (from 0 to
     /// 255).</param>
@@ -2131,7 +2196,8 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts this number's value to a 16-bit signed integer if
+    /// <summary>Converts this number's value to a 16-bit
+    /// signed integer if
     /// it can fit in a 16-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 16-bit signed
@@ -2147,7 +2213,8 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((short)0) : this.ToEInteger().ToInt16Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 16-bit signed integer.</summary>
     /// <returns>This number, converted to a 16-bit signed integer. Returns
@@ -2156,7 +2223,8 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
     }
 
-    /// <summary>Converts this number's value to a 16-bit signed integer if
+    /// <summary>Converts this number's value to a 16-bit
+    /// signed integer if
     /// it can fit in a 16-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
@@ -2171,7 +2239,8 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToInt16Checked();
     }
 
-    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
+    /// <summary>Converts a 16-bit signed integer to an
+    /// arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputInt16'>The number to convert as a 16-bit signed
     /// integer.</param>
@@ -2182,7 +2251,8 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// <summary>Converts this number's value to a 32-bit
+    /// signed integer if
     /// it can fit in a 32-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
@@ -2198,7 +2268,8 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 32-bit signed integer.</summary>
     /// <returns>This number, converted to a 32-bit signed integer. Returns
@@ -2207,7 +2278,8 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
     }
 
-    /// <summary>Converts this number's value to a 32-bit signed integer if
+    /// <summary>Converts this number's value to a 32-bit
+    /// signed integer if
     /// it can fit in a 32-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
@@ -2230,7 +2302,8 @@ namespace PeterO.Numbers {
       return FromInt32(boolValue ? 1 : 0);
     }
 
-    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an
+    /// arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -2240,7 +2313,8 @@ namespace PeterO.Numbers {
       return FromEInteger(EInteger.FromInt32(inputInt32));
     }
 
-    /// <summary>Converts this number's value to a 64-bit signed integer if
+    /// <summary>Converts this number's value to a 64-bit
+    /// signed integer if
     /// it can fit in a 64-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 64-bit signed
@@ -2256,7 +2330,8 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0L : this.ToEInteger().ToInt64Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by discarding
+    /// <summary>Converts this number's value to an integer by
+    /// discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 64-bit signed integer.</summary>
     /// <returns>This number, converted to a 64-bit signed integer. Returns
@@ -2265,7 +2340,8 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : 0L;
     }
 
-    /// <summary>Converts this number's value to a 64-bit signed integer if
+    /// <summary>Converts this number's value to a 64-bit
+    /// signed integer if
     /// it can fit in a 64-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 64-bit signed integer.</returns>
@@ -2280,7 +2356,8 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0L : this.ToEIntegerIfExact().ToInt64Checked();
     }
 
-    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
+    /// <summary>Converts a 64-bit signed integer to an
+    /// arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputInt64'>The number to convert as a 64-bit signed
     /// integer.</param>
