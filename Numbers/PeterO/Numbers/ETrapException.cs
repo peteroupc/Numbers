@@ -8,19 +8,18 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-  /// <summary>Exception thrown for arithmetic trap errors.
-  /// (The "E"
+  /// <summary>Exception thrown for arithmetic trap errors. (The "E"
   /// stands for "extended", and has this prefix to group it with the
   /// other classes common to this library, particularly EDecimal,
-  /// EFloat, and ERational.).<para>This library may throw exceptions of this
-  /// type in certain cases, notably when errors occur, and may supply messages
-  ///to
-  /// those exceptions (accessible through the <c>Message</c> property in.NET or
-  /// the <c>getMessage()</c> method in Java). These messages are intended to be
-  /// read by humans to help diagnose the error (or other cause of the
-  ///exception);
-  /// they are not intended to be parsed by computer programs, and the exact text
-  /// of the messages may change at any time between versions of this
+  /// EFloat, and ERational.).
+  /// <para>This library may throw exceptions of this type in certain
+  /// cases, notably when errors occur, and may supply messages to those
+  /// exceptions (the message can be accessed through the <c>Message</c>
+  /// property in.NET or the <c>getMessage()</c> method in Java). These
+  /// messages are intended to be read by humans to help diagnose the
+  /// error (or other cause of the exception); they are not intended to
+  /// be parsed by computer programs, and the exact text of the messages
+  /// may change at any time between versions of this
   /// library.</para></summary>
   #if NET20 || NET40
   [Serializable]
@@ -29,8 +28,7 @@ namespace PeterO.Numbers {
     private readonly Object result;
     private readonly EContext ctx;
 
-    /// <summary>Gets the arithmetic context used during the
-    /// operation that
+    /// <summary>Gets the arithmetic context used during the operation that
     /// triggered the trap. May be null.</summary>
     /// <value>The arithmetic context used during the operation that
     /// triggered the trap. May be null.</value>
@@ -74,8 +72,7 @@ namespace PeterO.Numbers {
       this.result = null;
     }
 
-    /// <summary>Gets the defined result of the operation that
-    /// caused the
+    /// <summary>Gets the defined result of the operation that caused the
     /// trap.</summary>
     /// <value>The defined result of the operation that caused the
     /// trap.</value>
@@ -85,8 +82,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the flag that specifies the primary kind
-    /// of error in
+    /// <summary>Gets the flag that specifies the primary kind of error in
     /// one or more operations (EContext.FlagXXX). This will only be one
     /// flag, such as <c>FlagInexact</c> or FlagSubnormal.</summary>
     /// <value>The flag that specifies the primary kind of error in one or
@@ -97,8 +93,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the flags that were signaled as the
-    /// result of one or
+    /// <summary>Gets the flags that were signaled as the result of one or
     /// more operations. This includes the flag specified in the "flag"
     /// parameter, but can include other flags. For instance, if "flag" is
     /// <c>EContext.FlagInexact</c>, this parameter might be
@@ -111,8 +106,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Returns whether this trap exception specifies
-    /// all the
+    /// <summary>Returns whether this trap exception specifies all the
     /// flags given. (Flags are signaled in a trap exception as the result
     /// of one or more operations involving arbitrary-precision numbers,
     /// such as multiplication of two EDecimals.).</summary>
@@ -177,9 +171,9 @@ namespace PeterO.Numbers {
     /// that triggered the trap. Can be null.</param>
     /// <param name='result'>The defined result of the operation that
     /// caused the trap.</param>
-    /// <exception cref="ArgumentException">The parameter <paramref name='flags'/>
-    /// doesn't include all the flags in the <paramref name='flag'/>
-    /// parameter.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='flags'/> doesn't include all the flags in the <paramref
+    /// name='flag'/> parameter.</exception>
     public ETrapException(int flags, int flag, EContext ctx, Object result)
       : base(FlagToMessage(flags)) {
       if ((flags & flag) != flag) {

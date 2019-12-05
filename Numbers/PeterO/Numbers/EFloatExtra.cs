@@ -18,8 +18,7 @@ namespace PeterO.Numbers {
       return FromBoolean(boolValue);
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// 32-bit
+    /// <summary>Creates a binary floating-point number from a 32-bit
     /// floating-point number. This method computes the exact value of the
     /// floating point number, not an approximation, as is often the case
     /// by converting the floating point number to a string
@@ -32,8 +31,7 @@ namespace PeterO.Numbers {
       return FromSingle(flt);
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// 64-bit
+    /// <summary>Creates a binary floating-point number from a 64-bit
     /// floating-point number. This method computes the exact value of the
     /// floating point number, not an approximation, as is often the case
     /// by converting the floating point number to a string
@@ -46,8 +44,7 @@ namespace PeterO.Numbers {
       return FromDouble(dbl);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to an
-    /// arbitrary
+    /// <summary>Converts an arbitrary-precision integer to an arbitrary
     /// precision binary.</summary>
     /// <param name='eint'>An arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision binary floating-point number with
@@ -56,15 +53,14 @@ namespace PeterO.Numbers {
       return FromEInteger(eint);
     }
 
-    /// <summary>Adds two arbitrary-precision binary
-    /// floating-point numbers
+    /// <summary>Adds two arbitrary-precision binary floating-point numbers
     /// and returns the result.</summary>
     /// <param name='bthis'>The first arbitrary-precision binary
     /// floating-point number.</param>
     /// <param name='otherValue'>The second arbitrary-precision binary
     /// floating-point number.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> or <paramref name='otherValue'/> is
     /// null.</exception>
     public static EFloat operator +(EFloat bthis, EFloat otherValue) {
@@ -74,13 +70,12 @@ namespace PeterO.Numbers {
       return bthis.Add(otherValue);
     }
 
-    /// <summary>Subtracts one arbitrary-precision binary
-    /// floating-point
+    /// <summary>Subtracts one arbitrary-precision binary floating-point
     /// number from another.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='subtrahend'>The second operand.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EFloat operator -(
       EFloat bthis,
@@ -91,14 +86,13 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <summary>Adds one to an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Adds one to an arbitrary-precision binary floating-point
     /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>The number given in <paramref name='bthis'/> plus
     /// one.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EFloat operator ++(EFloat bthis) {
       if (bthis == null) {
@@ -107,14 +101,13 @@ namespace PeterO.Numbers {
       return bthis.Add(1);
     }
 
-    /// <summary>Subtracts one from an arbitrary-precision
-    /// binary
+    /// <summary>Subtracts one from an arbitrary-precision binary
     /// floating-point number.</summary>
     /// <param name='bthis'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>The number given in <paramref name='bthis'/> minus
     /// one.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EFloat operator --(EFloat bthis) {
       if (bthis == null) {
@@ -123,15 +116,14 @@ namespace PeterO.Numbers {
       return bthis.Subtract(1);
     }
 
-    /// <summary>Multiplies two binary floating-point numbers.
-    /// The
+    /// <summary>Multiplies two binary floating-point numbers. The
     /// resulting exponent will be the sum of the exponents of the two
     /// binary floating-point numbers.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two binary floating-point
     /// numbers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='operand1'/> is null.</exception>
     public static EFloat operator *(
       EFloat operand1,
@@ -142,8 +134,7 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <summary>Divides one binary floating-point number by
-    /// another and
+    /// <summary>Divides one binary floating-point number by another and
     /// returns the result. When possible, the result will be
     /// exact.</summary>
     /// <param name='dividend'>The number that will be divided by the
@@ -154,7 +145,7 @@ namespace PeterO.Numbers {
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating binary
     /// expansion.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EFloat operator /(
       EFloat dividend,
@@ -165,14 +156,13 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <summary>Finds the remainder when dividing one
-    /// arbitrary-precision
+    /// <summary>Finds the remainder when dividing one arbitrary-precision
     /// binary floating-point number by another.</summary>
     /// <param name='dividend'>The number that will be divided by the
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EFloat operator %(
       EFloat dividend,
@@ -183,15 +173,14 @@ namespace PeterO.Numbers {
       return dividend.Remainder(divisor, null);
     }
 
-    /// <summary>Gets an object with the same value as this
-    /// one, but with
+    /// <summary>Gets an object with the same value as this one, but with
     /// the sign reversed.</summary>
     /// <param name='bigValue'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <returns>The negated form of the given number. If the given number
     /// is positive zero, returns negative zero. Returns signaling NaN if
     /// this value is signaling NaN.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static EFloat operator -(EFloat bigValue) {
       if (bigValue == null) {
@@ -200,8 +189,7 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a value to an arbitrary-precision integer. Any fractional
     /// part in this value will be discarded when converting to an
     /// arbitrary-precision integer.</summary>
@@ -210,7 +198,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static explicit operator EInteger(EFloat bigValue) {
       if (bigValue == null) {
@@ -219,8 +207,7 @@ namespace PeterO.Numbers {
       return bigValue.ToEInteger();
     }
 
-    /// <summary>Converts this value to its closest equivalent
-    /// as a 64-bit
+    /// <summary>Converts this value to its closest equivalent as a 64-bit
     /// floating-point number. The half-even rounding mode is used.
     /// <para>If this value is a NaN, sets the high bit of the 64-bit
     /// floating point number's significand area for a quiet NaN, and
@@ -237,7 +224,7 @@ namespace PeterO.Numbers {
     /// The return value can be positive infinity or negative infinity if
     /// this value exceeds the range of a 64-bit floating point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static explicit operator double(EFloat bigValue) {
       if (bigValue == null) {
@@ -246,8 +233,7 @@ namespace PeterO.Numbers {
       return bigValue.ToDouble();
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to its closest equivalent as a 32-bit floating-point number.
     /// The half-even rounding mode is used.
     /// <para>If this value is a NaN, sets the high bit of the 32-bit
@@ -265,7 +251,7 @@ namespace PeterO.Numbers {
     /// value. The return value can be positive infinity or negative
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static explicit operator float(EFloat bigValue) {
       if (bigValue == null) {
@@ -275,8 +261,7 @@ namespace PeterO.Numbers {
     }
     // Begin integer conversions
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a byte (from 0 to 255) if it can fit in a byte (from 0 to
     /// 255) after converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -284,11 +269,11 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// byte (from 0 to 255).</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 255.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -301,8 +286,7 @@ namespace PeterO.Numbers {
       return input.ToByteChecked();
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an
-    /// arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputByte'>The number to convert as a byte (from 0 to
     /// 255).</param>
@@ -312,8 +296,7 @@ namespace PeterO.Numbers {
       return EFloat.FromByte(inputByte);
     }
 
-    /// <summary>Converts this number's value to an 8-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to an 8-bit signed integer if
     /// it can fit in an 8-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to an 8-bit signed
@@ -330,8 +313,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((sbyte)0) : this.ToEInteger().ToSByteChecked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as an 8-bit signed integer.</summary>
     /// <returns>This number, converted to an 8-bit signed integer. Returns
@@ -341,8 +323,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
     }
 
-    /// <summary>Converts this number's value to an 8-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to an 8-bit signed integer if
     /// it can fit in an 8-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as an 8-bit signed integer.</returns>
@@ -358,8 +339,7 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToSByteChecked();
     }
 
-    /// <summary>Converts an 8-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputSByte'>The number to convert as an 8-bit signed
     /// integer.</param>
@@ -371,8 +351,7 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to an 8-bit signed integer if it can fit in an 8-bit signed
     /// integer after converting it to an integer by discarding its
     /// fractional part.</summary>
@@ -380,11 +359,11 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to an
     /// 8-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -128 or greater than 127.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -398,8 +377,7 @@ namespace PeterO.Numbers {
       return input.ToSByteChecked();
     }
 
-    /// <summary>Converts an 8-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputSByte'>The number to convert as an 8-bit signed
     /// integer.</param>
@@ -410,8 +388,7 @@ namespace PeterO.Numbers {
       return EFloat.FromSByte(inputSByte);
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a 16-bit signed integer if it can fit in a 16-bit signed
     /// integer after converting it to an integer by discarding its
     /// fractional part.</summary>
@@ -419,11 +396,11 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -32768 or greater than 32767.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -436,8 +413,7 @@ namespace PeterO.Numbers {
       return input.ToInt16Checked();
     }
 
-    /// <summary>Converts a 16-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputInt16'>The number to convert as a 16-bit signed
     /// integer.</param>
@@ -447,8 +423,7 @@ namespace PeterO.Numbers {
       return EFloat.FromInt16(inputInt16);
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
     /// if it can fit in a 16-bit unsigned integer after converting it to
     /// an integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 16-bit unsigned
@@ -465,8 +440,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((ushort)0) : this.ToEInteger().ToUInt16Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 16-bit unsigned integer.</summary>
     /// <returns>This number, converted to a 16-bit unsigned integer.
@@ -476,8 +450,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
     /// if it can fit in a 16-bit unsigned integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 16-bit unsigned
@@ -506,8 +479,7 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a 16-bit unsigned integer if it can fit in a 16-bit
     /// unsigned integer after converting it to an integer by discarding
     /// its fractional part.</summary>
@@ -515,11 +487,11 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 65535.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -544,8 +516,7 @@ namespace PeterO.Numbers {
       return EFloat.FromUInt16(inputUInt16);
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a 32-bit signed integer if it can fit in a 32-bit signed
     /// integer after converting it to an integer by discarding its
     /// fractional part.</summary>
@@ -553,11 +524,11 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -2147483648 or greater than 2147483647.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -570,8 +541,7 @@ namespace PeterO.Numbers {
       return input.ToInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -581,8 +551,7 @@ namespace PeterO.Numbers {
       return EFloat.FromInt32(inputInt32);
     }
 
-    /// <summary>Converts this number's value to a 32-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
@@ -599,8 +568,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0U : this.ToEInteger().ToUInt32Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 32-bit signed integer.</summary>
     /// <returns>This number, converted to a 32-bit signed integer. Returns
@@ -610,8 +578,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
     }
 
-    /// <summary>Converts this number's value to a 32-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
@@ -627,8 +594,7 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToUInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputUInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -640,8 +606,7 @@ namespace PeterO.Numbers {
       return FromInt64(val);
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a 32-bit signed integer if it can fit in a 32-bit signed
     /// integer after converting it to an integer by discarding its
     /// fractional part.</summary>
@@ -649,11 +614,11 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 4294967295.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -667,8 +632,7 @@ namespace PeterO.Numbers {
       return input.ToUInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputUInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -679,8 +643,7 @@ namespace PeterO.Numbers {
       return EFloat.FromUInt32(inputUInt32);
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a 64-bit signed integer if it can fit in a 64-bit signed
     /// integer after converting it to an integer by discarding its
     /// fractional part.</summary>
@@ -688,12 +651,12 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -706,8 +669,7 @@ namespace PeterO.Numbers {
       return input.ToInt64Checked();
     }
 
-    /// <summary>Converts a 64-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputInt64'>The number to convert as a 64-bit signed
     /// integer.</param>
@@ -717,8 +679,7 @@ namespace PeterO.Numbers {
       return EFloat.FromInt64(inputInt64);
     }
 
-    /// <summary>Converts this number's value to a 64-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
     /// if it can fit in a 64-bit unsigned integer after converting it to
     /// an integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 64-bit unsigned
@@ -735,8 +696,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0UL : this.ToEInteger().ToUInt64Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 64-bit unsigned integer.</summary>
     /// <returns>This number, converted to a 64-bit unsigned integer.
@@ -746,8 +706,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
     }
 
-    /// <summary>Converts this number's value to a 64-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
     /// if it can fit in a 64-bit unsigned integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 64-bit unsigned
@@ -775,8 +734,7 @@ namespace PeterO.Numbers {
       return FromEInteger(EInteger.FromUInt64(inputUInt64));
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to a 64-bit unsigned integer if it can fit in a 64-bit
     /// unsigned integer after converting it to an integer by discarding
     /// its fractional part.</summary>
@@ -784,11 +742,11 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 18446744073709551615.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

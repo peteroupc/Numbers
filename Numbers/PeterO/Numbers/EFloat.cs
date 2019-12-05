@@ -8,8 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 namespace PeterO.Numbers {
-  /// <summary>Represents an arbitrary-precision binary
-  /// floating-point
+  /// <summary>Represents an arbitrary-precision binary floating-point
   /// number. (The "E" stands for "extended", meaning that instances of
   /// this class can be values other than numbers proper, such as
   /// infinity and not-a-number.) Each number consists of an integer
@@ -101,8 +100,7 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagQuietNaN);
 
-    /// <summary>Negative infinity, less than any other
-    /// number.</summary>
+    /// <summary>Negative infinity, less than any other number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
         "CA2104",
@@ -141,8 +139,7 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         BigNumberFlags.FlagInfinity);
 
-    /// <summary>A not-a-number value that signals an invalid
-    /// operation
+    /// <summary>A not-a-number value that signals an invalid operation
     /// flag when it's passed as an argument to any arithmetic operation in
     /// arbitrary-precision binary floating-point number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -202,8 +199,7 @@ namespace PeterO.Numbers {
       this.flags = flags;
     }
 
-    /// <summary>Gets this object's exponent. This object's
-    /// value will be
+    /// <summary>Gets this object's exponent. This object's value will be
     /// an integer if the exponent is positive or zero.</summary>
     /// <value>This object's exponent. This object's value will be an
     /// integer if the exponent is positive or zero.</value>
@@ -213,8 +209,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this object is
-    /// finite (not
+    /// <summary>Gets a value indicating whether this object is finite (not
     /// infinity or NaN).</summary>
     /// <value><c>true</c> if this object is finite (not infinity or NaN);
     /// otherwise, <c>false</c>.</value>
@@ -225,8 +220,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this object is
-    /// negative,
+    /// <summary>Gets a value indicating whether this object is negative,
     /// including negative zero.</summary>
     /// <value><c>true</c> if this object is negative, including negative
     /// zero; otherwise, <c>false</c>.</value>
@@ -236,8 +230,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this object's
-    /// value equals
+    /// <summary>Gets a value indicating whether this object's value equals
     /// 0.</summary>
     /// <value><c>true</c> if this object's value equals 0; otherwise,
     /// <c>false</c>. <c>true</c> if this object's value equals 0;
@@ -249,8 +242,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets this object's unscaled value, or
-    /// significand, and
+    /// <summary>Gets this object's unscaled value, or significand, and
     /// makes it negative if this object is negative. If this value is
     /// not-a-number (NaN), that value's absolute value is the NaN's
     /// "payload" (diagnostic information).</summary>
@@ -263,8 +255,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets this value's sign: -1 if negative; 1 if
-    /// positive; 0
+    /// <summary>Gets this value's sign: -1 if negative; 1 if positive; 0
     /// if zero.</summary>
     /// <value>This value's sign: -1 if negative; 1 if positive; 0 if
     /// zero.</value>
@@ -276,8 +267,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the absolute value of this object's
-    /// unscaled value,
+    /// <summary>Gets the absolute value of this object's unscaled value,
     /// or significand. If this value is not-a-number (NaN), that value is
     /// the NaN's "payload" (diagnostic information).</summary>
     /// <value>The absolute value of this object's unscaled value.</value>
@@ -287,8 +277,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Creates a copy of this arbitrary-precision
-    /// binary
+    /// <summary>Creates a copy of this arbitrary-precision binary
     /// number.</summary>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
@@ -314,7 +303,7 @@ namespace PeterO.Numbers {
     /// <param name='exponent'>The value of the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='mantissa'/> or <paramref name='exponent'/> is
     /// null.</exception>
     public static EFloat Create(
@@ -333,8 +322,7 @@ namespace PeterO.Numbers {
           (sign < 0) ? BigNumberFlags.FlagNegative : 0);
     }
 
-    /// <summary>Creates a not-a-number arbitrary-precision
-    /// binary
+    /// <summary>Creates a not-a-number arbitrary-precision binary
     /// floating-point number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
@@ -342,14 +330,13 @@ namespace PeterO.Numbers {
     /// arbitrary-precision binary floating-point number, use that object's
     /// <c>UnsignedMantissa</c> property.</param>
     /// <returns>A quiet not-a-number.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref name='diag'/>
-    /// is less than 0.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='diag'/> is less than 0.</exception>
     public static EFloat CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false, null);
     }
 
-    /// <summary>Creates a not-a-number arbitrary-precision
-    /// binary
+    /// <summary>Creates a not-a-number arbitrary-precision binary
     /// floating-point number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
@@ -368,7 +355,7 @@ namespace PeterO.Numbers {
     /// is required to do so.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='diag'/> is null.</exception>
     public static EFloat CreateNaN(
       EInteger diag,
@@ -407,8 +394,7 @@ namespace PeterO.Numbers {
       return CreateWithFlags(diag, EInteger.Zero, flags);
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// 64-bit
+    /// <summary>Creates a binary floating-point number from a 64-bit
     /// floating-point number. This method computes the exact value of the
     /// floating point number, not an approximation, as is often the case
     /// by converting the floating point number to a string
@@ -460,8 +446,7 @@ namespace PeterO.Numbers {
           neg ? BigNumberFlags.FlagNegative : 0);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to the
-    /// same value
+    /// <summary>Converts an arbitrary-precision integer to the same value
     /// as a binary floating-point number.</summary>
     /// <param name='bigint'>An arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision binary floating-point
@@ -470,8 +455,7 @@ namespace PeterO.Numbers {
       return EFloat.Create(bigint, EInteger.Zero);
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// 32-bit
+    /// <summary>Creates a binary floating-point number from a 32-bit
     /// floating-point number. This method computes the exact value of the
     /// floating point number, not an approximation, as is often the case
     /// by converting the floating point number to a string
@@ -525,8 +509,7 @@ namespace PeterO.Numbers {
           (EInteger)(floatExponent - 150));
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// text string
+    /// <summary>Creates a binary floating-point number from a text string
     /// that represents a number. Note that if the string contains a
     /// negative exponent, the resulting value might not be exact, in which
     /// case the resulting binary floating-point number will be an
@@ -558,8 +541,8 @@ namespace PeterO.Numbers {
     /// <param name='offset'>An index starting at 0 showing where the
     /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/>
-    /// 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref
+    /// name='str'/> 's length).</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If HasFlags of the
     /// context is true, will also store the flags resulting from the
@@ -571,7 +554,7 @@ namespace PeterO.Numbers {
     /// range.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The portion given of <paramref
     /// name='str'/> is not a correctly formatted number string; or either
@@ -925,8 +908,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// text string
+    /// <summary>Creates a binary floating-point number from a text string
     /// that represents a number, using an unlimited precision context. For
     /// more information, see the <c>FromString(String, int, int,
     /// EContext)</c> method.</summary>
@@ -934,7 +916,7 @@ namespace PeterO.Numbers {
     /// floating-point number.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The portion given of <paramref
     /// name='str'/> is not a correctly formatted number
@@ -943,8 +925,7 @@ namespace PeterO.Numbers {
       return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// text string
+    /// <summary>Creates a binary floating-point number from a text string
     /// that represents a number. For more information, see the
     /// <c>FromString(String, int, int, EContext)</c> method.</summary>
     /// <param name='str'>A text string to convert to a binary
@@ -960,14 +941,13 @@ namespace PeterO.Numbers {
     /// range.</param>
     /// <returns>The parsed number, converted to arbitrary-precision binary
     /// floating-point number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EFloat FromString(string str, EContext ctx) {
       return FromString(str, 0, str == null ? 0 : str.Length, ctx);
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// text string
+    /// <summary>Creates a binary floating-point number from a text string
     /// that represents a number. For more information, see the
     /// <c>FromString(String, int, int, EContext)</c> method.</summary>
     /// <param name='str'>The parameter <paramref name='str'/> is a text
@@ -975,28 +955,27 @@ namespace PeterO.Numbers {
     /// <param name='offset'>An index starting at 0 showing where the
     /// desired portion of <paramref name='str'/> begins.</param>
     /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref name='str'/>
-    /// 's length).</param>
+    /// portion of <paramref name='str'/> (but not more than <paramref
+    /// name='str'/> 's length).</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref=' T:System.ArgumentException'>Either <paramref name='
-    /// offset'/> or <paramref name=' length'/> is less than 0 or
+    /// <exception cref=' T:System.ArgumentException'>Either <paramref
+    /// name=' offset'/> or <paramref name=' length'/> is less than 0 or
     /// greater than <paramref name='str'/> 's length, or <paramref name='
     /// str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
-    /// <exception cref="ArgumentException">Either <paramref name='offset'/> or
-    /// <paramref name='length'/> is less than 0 or
-    /// greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's
-    /// length minus <paramref name='offset'/> is less than
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='str'/> 's length, or <paramref
+    /// name='str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
     public static EFloat FromString(string str, int offset, int length) {
       return FromString(str, offset, length, null);
     }
 
-    /// <summary>Gets the greater value between two binary
-    /// floating-point
+    /// <summary>Gets the greater value between two binary floating-point
     /// numbers.</summary>
     /// <param name='first'>The first value to compare.</param>
     /// <param name='second'>The second value to compare.</param>
@@ -1014,8 +993,7 @@ namespace PeterO.Numbers {
       return MathValue.Max(first, second, ctx);
     }
 
-    /// <summary>Gets the greater value between two binary
-    /// floating-point
+    /// <summary>Gets the greater value between two binary floating-point
     /// numbers.</summary>
     /// <param name='first'>An arbitrary-precision binary floating-point
     /// number.</param>
@@ -1029,8 +1007,7 @@ namespace PeterO.Numbers {
       return Max(first, second, null);
     }
 
-    /// <summary>Gets the greater value between two values,
-    /// ignoring their
+    /// <summary>Gets the greater value between two values, ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Max.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -1050,8 +1027,7 @@ namespace PeterO.Numbers {
       return MathValue.MaxMagnitude(first, second, ctx);
     }
 
-    /// <summary>Gets the greater value between two values,
-    /// ignoring their
+    /// <summary>Gets the greater value between two values, ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Max.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -1064,8 +1040,7 @@ namespace PeterO.Numbers {
       return MaxMagnitude(first, second, null);
     }
 
-    /// <summary>Gets the lesser value between two binary
-    /// floating-point
+    /// <summary>Gets the lesser value between two binary floating-point
     /// numbers.</summary>
     /// <param name='first'>The first value to compare.</param>
     /// <param name='second'>The second value to compare.</param>
@@ -1083,8 +1058,7 @@ namespace PeterO.Numbers {
       return MathValue.Min(first, second, ctx);
     }
 
-    /// <summary>Gets the lesser value between two binary
-    /// floating-point
+    /// <summary>Gets the lesser value between two binary floating-point
     /// numbers.</summary>
     /// <param name='first'>The first value to compare.</param>
     /// <param name='second'>The second value to compare.</param>
@@ -1096,8 +1070,7 @@ namespace PeterO.Numbers {
       return Min(first, second, null);
     }
 
-    /// <summary>Gets the lesser value between two values,
-    /// ignoring their
+    /// <summary>Gets the lesser value between two values, ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Min.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -1117,8 +1090,7 @@ namespace PeterO.Numbers {
       return MathValue.MinMagnitude(first, second, ctx);
     }
 
-    /// <summary>Gets the lesser value between two values,
-    /// ignoring their
+    /// <summary>Gets the lesser value between two values, ignoring their
     /// signs. If the absolute values are equal, has the same effect as
     /// Min.</summary>
     /// <param name='first'>The first value to compare.</param>
@@ -1131,8 +1103,7 @@ namespace PeterO.Numbers {
       return MinMagnitude(first, second, null);
     }
 
-    /// <summary>Finds the constant π, the circumference of a
-    /// circle
+    /// <summary>Finds the constant π, the circumference of a circle
     /// divided by its diameter.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -1148,8 +1119,7 @@ namespace PeterO.Numbers {
       return MathValue.Pi(ctx);
     }
 
-    /// <summary>Finds the absolute value of this object (if
-    /// it's negative,
+    /// <summary>Finds the absolute value of this object (if it's negative,
     /// it becomes positive).</summary>
     /// <returns>An arbitrary-precision binary floating-point number.
     /// Returns signaling NaN if this value is signaling NaN. (In this
@@ -1167,8 +1137,7 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <summary>Finds the absolute value of this object (if
-    /// it's negative,
+    /// <summary>Finds the absolute value of this object (if it's negative,
     /// it becomes positive).</summary>
     /// <param name='context'>An arithmetic context to control the
     /// precision, rounding, and exponent range of the result. If
@@ -1182,8 +1151,7 @@ namespace PeterO.Numbers {
       return MathValue.Abs(this, context);
     }
 
-    /// <summary>Adds this object and another number and
-    /// returns the
+    /// <summary>Adds this object and another number and returns the
     /// result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
@@ -1192,8 +1160,7 @@ namespace PeterO.Numbers {
       return this.Add(EFloat.FromInt32(intValue));
     }
 
-    /// <summary>Subtracts an arbitrary-precision integer from
-    /// this
+    /// <summary>Subtracts an arbitrary-precision integer from this
     /// arbitrary-precision integer.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
@@ -1210,7 +1177,7 @@ namespace PeterO.Numbers {
     /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
-    /// .
+    ///  .
     /// </example>
     public EFloat Multiply(int intValue) {
       return this.Multiply(EFloat.FromInt32(intValue));
@@ -1230,8 +1197,7 @@ namespace PeterO.Numbers {
       return this.Divide(EFloat.FromInt32(intValue));
     }
 
-    /// <summary>Adds this object and another binary
-    /// floating-point number
+    /// <summary>Adds this object and another binary floating-point number
     /// and returns the result.</summary>
     /// <param name='otherValue'>An arbitrary-precision binary
     /// floating-point number.</param>
@@ -1240,8 +1206,7 @@ namespace PeterO.Numbers {
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Finds the sum of this object and another
-    /// object. The
+    /// <summary>Finds the sum of this object and another object. The
     /// result's exponent is set to the lower of the exponents of the two
     /// operands.</summary>
     /// <param name='otherValue'>The number to add to.</param>
@@ -1259,8 +1224,7 @@ namespace PeterO.Numbers {
       return MathValue.Add(this, otherValue, ctx);
     }
 
-    /// <summary>Compares the mathematical values of this
-    /// object and
+    /// <summary>Compares the mathematical values of this object and
     /// another object, accepting NaN values. This method currently uses
     /// the rules given in the CompareToValue method, so that it it is not
     /// consistent with the Equals method, but it may change in a future
@@ -1276,8 +1240,7 @@ namespace PeterO.Numbers {
       return MathValue.CompareTo(this, other);
     }
 
-    /// <summary>Compares the mathematical values of this
-    /// object and
+    /// <summary>Compares the mathematical values of this object and
     /// another object, accepting NaN values.
     /// <para>This method is not consistent with the Equals method because
     /// two different numbers with the same mathematical value, but
@@ -1298,8 +1261,7 @@ namespace PeterO.Numbers {
       return MathValue.CompareTo(this, other);
     }
 
-    /// <summary>Compares the mathematical values of this
-    /// object and
+    /// <summary>Compares the mathematical values of this object and
     /// another object, accepting NaN values. This method currently uses
     /// the rules given in the CompareToValue method, so that it it is not
     /// consistent with the Equals method, but it may change in a future
@@ -1314,8 +1276,7 @@ namespace PeterO.Numbers {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
-    /// <summary>Compares the mathematical values of this
-    /// object and
+    /// <summary>Compares the mathematical values of this object and
     /// another object, accepting NaN values.
     /// <para>This method is not consistent with the Equals method because
     /// two different numbers with the same mathematical value, but
@@ -1334,8 +1295,7 @@ namespace PeterO.Numbers {
       return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
-    /// <summary>Compares the mathematical values of this
-    /// object and
+    /// <summary>Compares the mathematical values of this object and
     /// another object, treating quiet NaN as signaling.
     /// <para>In this method, negative zero and positive zero are
     /// considered equal.</para>
@@ -1365,8 +1325,7 @@ namespace PeterO.Numbers {
       return MathValue.CompareToWithContext(this, other, true, ctx);
     }
 
-    /// <summary>Compares the values of this object and another
-    /// object,
+    /// <summary>Compares the values of this object and another object,
     /// imposing a total ordering on all possible values. In this method:
     /// <list>
     /// <item>For objects with the same value, the one with the higher
@@ -1412,8 +1371,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Compares the values of this object and another
-    /// object,
+    /// <summary>Compares the values of this object and another object,
     /// imposing a total ordering on all possible values (ignoring their
     /// signs). In this method:
     /// <list>
@@ -1462,8 +1420,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Compares the values of this object and another
-    /// object,
+    /// <summary>Compares the values of this object and another object,
     /// imposing a total ordering on all possible values. In this method:
     /// <list>
     /// <item>For objects with the same value, the one with the higher
@@ -1538,8 +1495,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Compares the absolute values of this object
-    /// and another
+    /// <summary>Compares the absolute values of this object and another
     /// object, imposing a total ordering on all possible values (ignoring
     /// their signs). In this method:
     /// <list>
@@ -1608,8 +1564,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Compares the mathematical values of this
-    /// object and
+    /// <summary>Compares the mathematical values of this object and
     /// another object.
     /// <para>In this method, negative zero and positive zero are
     /// considered equal.</para>
@@ -1639,8 +1594,7 @@ namespace PeterO.Numbers {
       return MathValue.CompareToWithContext(this, other, false, ctx);
     }
 
-    /// <summary>Returns a number with the same value as this
-    /// one, but
+    /// <summary>Returns a number with the same value as this one, but
     /// copying the sign (positive or negative) of another number. (This
     /// method is similar to the "copy-sign" operation in the General
     /// Decimal Arithmetic Specification, except this method does not
@@ -1648,7 +1602,7 @@ namespace PeterO.Numbers {
     /// <param name='other'>A number whose sign will be copied.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
     public EFloat CopySign(EFloat other) {
       if (other == null) {
@@ -1661,8 +1615,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Divides this object by another binary
-    /// floating-point
+    /// <summary>Divides this object by another binary floating-point
     /// number and returns the result. When possible, the result will be
     /// exact.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -1677,8 +1630,7 @@ namespace PeterO.Numbers {
           EContext.ForRounding(ERounding.None));
     }
 
-    /// <summary>Divides this arbitrary-precision binary
-    /// floating-point
+    /// <summary>Divides this arbitrary-precision binary floating-point
     /// number by another arbitrary-precision binary floating-point number.
     /// The preferred exponent for the result is this object's exponent
     /// minus the divisor's exponent.</summary>
@@ -1702,8 +1654,7 @@ namespace PeterO.Numbers {
       return MathValue.Divide(this, divisor, ctx);
     }
 
-    /// <summary>Calculates the quotient and remainder using
-    /// the
+    /// <summary>Calculates the quotient and remainder using the
     /// DivideToIntegerNaturalScale and the formula in
     /// RemainderNaturalScale.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -1715,8 +1666,7 @@ namespace PeterO.Numbers {
       return this.DivRemNaturalScale(divisor, null);
     }
 
-    /// <summary>Calculates the quotient and remainder using
-    /// the
+    /// <summary>Calculates the quotient and remainder using the
     /// DivideToIntegerNaturalScale and the formula in
     /// RemainderNaturalScale.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -1739,8 +1689,7 @@ namespace PeterO.Numbers {
       return this.DivRemNaturalScale(divisor, ctx);
     }
 
-    /// <summary>Divides two arbitrary-precision binary
-    /// floating-point
+    /// <summary>Divides two arbitrary-precision binary floating-point
     /// numbers, and gives a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='desiredExponentSmall'>The desired exponent. A negative
@@ -1776,8 +1725,7 @@ namespace PeterO.Numbers {
           ctx);
     }
 
-    /// <summary>Divides two arbitrary-precision binary
-    /// floating-point
+    /// <summary>Divides two arbitrary-precision binary floating-point
     /// numbers, and gives a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='desiredExponentSmall'>The desired exponent. A negative
@@ -1803,8 +1751,7 @@ namespace PeterO.Numbers {
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Divides two arbitrary-precision binary
-    /// floating-point
+    /// <summary>Divides two arbitrary-precision binary floating-point
     /// numbers, and gives a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='exponent'>The desired exponent. A negative number
@@ -1837,8 +1784,7 @@ namespace PeterO.Numbers {
       return MathValue.DivideToExponent(this, divisor, exponent, ctx);
     }
 
-    /// <summary>Divides two arbitrary-precision binary
-    /// floating-point
+    /// <summary>Divides two arbitrary-precision binary floating-point
     /// numbers, and gives a particular exponent to the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='desiredExponent'>The desired exponent. A negative
@@ -1863,8 +1809,7 @@ namespace PeterO.Numbers {
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Divides two arbitrary-precision binary
-    /// floating-point
+    /// <summary>Divides two arbitrary-precision binary floating-point
     /// numbers, and returns the integer part of the result, rounded down,
     /// with the preferred exponent set to this value's exponent minus the
     /// divisor's exponent.</summary>
@@ -1880,8 +1825,7 @@ namespace PeterO.Numbers {
           EContext.ForRounding(ERounding.Down));
     }
 
-    /// <summary>Divides this object by another object, and
-    /// returns the
+    /// <summary>Divides this object by another object, and returns the
     /// integer part of the result (which is initially rounded down), with
     /// the preferred exponent set to this value's exponent minus the
     /// divisor's exponent.</summary>
@@ -1903,8 +1847,7 @@ namespace PeterO.Numbers {
       return MathValue.DivideToIntegerNaturalScale(this, divisor, ctx);
     }
 
-    /// <summary>Divides this object by another object, and
-    /// returns the
+    /// <summary>Divides this object by another object, and returns the
     /// integer part of the result, with the exponent set to 0.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -1925,8 +1868,7 @@ namespace PeterO.Numbers {
       return MathValue.DivideToIntegerZeroScale(this, divisor, ctx);
     }
 
-    /// <summary>Divides this object by another binary
-    /// floating-point
+    /// <summary>Divides this object by another binary floating-point
     /// number and returns a result with the same exponent as this object
     /// (the dividend).</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -1947,8 +1889,7 @@ namespace PeterO.Numbers {
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Calculates the quotient and remainder using
-    /// the
+    /// <summary>Calculates the quotient and remainder using the
     /// DivideToIntegerNaturalScale and the formula in
     /// RemainderNaturalScale.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -1958,8 +1899,7 @@ namespace PeterO.Numbers {
       return this.DivRemNaturalScale(divisor, null);
     }
 
-    /// <summary>Calculates the quotient and remainder using
-    /// the
+    /// <summary>Calculates the quotient and remainder using the
     /// DivideToIntegerNaturalScale and the formula in
     /// RemainderNaturalScale.</summary>
     /// <param name='divisor'>The number to divide by.</param>
@@ -1987,8 +1927,7 @@ namespace PeterO.Numbers {
       return result;
     }
 
-    /// <summary>Determines whether this object's significand,
-    /// exponent,
+    /// <summary>Determines whether this object's significand, exponent,
     /// and properties are equal to those of another object. Not-a-number
     /// values are considered equal if the rest of their properties are
     /// equal.</summary>
@@ -2000,8 +1939,7 @@ namespace PeterO.Numbers {
       return this.EqualsInternal(other);
     }
 
-    /// <summary>Determines whether this object's significand,
-    /// exponent,
+    /// <summary>Determines whether this object's significand, exponent,
     /// and properties are equal to those of another object and that other
     /// object is an arbitrary-precision binary floating-point number.
     /// Not-a-number values are considered equal if the rest of their
@@ -2016,8 +1954,7 @@ namespace PeterO.Numbers {
       return this.EqualsInternal(obj as EFloat);
     }
 
-    /// <summary>Determines whether this object's significand
-    /// and exponent
+    /// <summary>Determines whether this object's significand and exponent
     /// are equal to those of another object.</summary>
     /// <param name='otherValue'>An arbitrary-precision binary
     /// floating-point number.</param>
@@ -2032,8 +1969,7 @@ namespace PeterO.Numbers {
         this.flags == otherValue.flags;
     }
 
-    /// <summary>Finds e (the base of natural logarithms)
-    /// raised to the
+    /// <summary>Finds e (the base of natural logarithms) raised to the
     /// power of this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -2051,8 +1987,7 @@ namespace PeterO.Numbers {
       return MathValue.Exp(this, ctx);
     }
 
-    /// <summary>Calculates this object's hash code. No
-    /// application or
+    /// <summary>Calculates this object's hash code. No application or
     /// process IDs are used in the hash code calculation.</summary>
     /// <returns>A 32-bit signed integer.</returns>
     public override int GetHashCode() {
@@ -2065,8 +2000,7 @@ namespace PeterO.Numbers {
       return hashCode;
     }
 
-    /// <summary>Gets a value indicating whether this object is
-    /// positive or
+    /// <summary>Gets a value indicating whether this object is positive or
     /// negative infinity.</summary>
     /// <returns><c>true</c> if this object is positive or negative
     /// infinity; otherwise, <c>false</c>.</returns>
@@ -2074,8 +2008,7 @@ namespace PeterO.Numbers {
       return (this.flags & BigNumberFlags.FlagInfinity) != 0;
     }
 
-    /// <summary>Gets a value indicating whether this object is
-    /// not a
+    /// <summary>Gets a value indicating whether this object is not a
     /// number (NaN).</summary>
     /// <returns><c>true</c> if this object is not a number (NaN);
     /// otherwise, <c>false</c>.</returns>
@@ -2103,8 +2036,7 @@ namespace PeterO.Numbers {
             BigNumberFlags.FlagNegative)) == BigNumberFlags.FlagInfinity;
     }
 
-    /// <summary>Gets a value indicating whether this object is
-    /// a quiet
+    /// <summary>Gets a value indicating whether this object is a quiet
     /// not-a-number value.</summary>
     /// <returns><c>true</c> if this object is a quiet not-a-number value;
     /// otherwise, <c>false</c>.</returns>
@@ -2112,8 +2044,7 @@ namespace PeterO.Numbers {
       return (this.flags & BigNumberFlags.FlagQuietNaN) != 0;
     }
 
-    /// <summary>Gets a value indicating whether this object is
-    /// a signaling
+    /// <summary>Gets a value indicating whether this object is a signaling
     /// not-a-number value.</summary>
     /// <returns><c>true</c> if this object is a signaling not-a-number
     /// value; otherwise, <c>false</c>.</returns>
@@ -2121,8 +2052,7 @@ namespace PeterO.Numbers {
       return (this.flags & BigNumberFlags.FlagSignalingNaN) != 0;
     }
 
-    /// <summary>Finds the natural logarithm of this object,
-    /// that is, the
+    /// <summary>Finds the natural logarithm of this object, that is, the
     /// power (exponent) that e (the base of natural logarithms) must be
     /// raised to in order to equal this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -2145,8 +2075,7 @@ namespace PeterO.Numbers {
       return MathValue.Ln(this, ctx);
     }
 
-    /// <summary>Finds the base-10 logarithm of this object,
-    /// that is, the
+    /// <summary>Finds the base-10 logarithm of this object, that is, the
     /// power (exponent) that the number 10 must be raised to in order to
     /// equal this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -2165,8 +2094,7 @@ namespace PeterO.Numbers {
       return MathValue.Log10(this, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the left.</summary>
     /// <param name='places'>The number of binary digit places to move the
     /// radix point to the left. If this number is negative, instead moves
@@ -2178,8 +2106,7 @@ namespace PeterO.Numbers {
       return this.MovePointLeft((EInteger)places, null);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the left.</summary>
     /// <param name='places'>The number of binary digit places to move the
     /// radix point to the left. If this number is negative, instead moves
@@ -2197,8 +2124,7 @@ namespace PeterO.Numbers {
       return this.MovePointLeft((EInteger)places, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the left.</summary>
     /// <param name='bigPlaces'>The number of binary digit places to move
     /// the radix point to the left. If this number is negative, instead
@@ -2210,8 +2136,7 @@ namespace PeterO.Numbers {
       return this.MovePointLeft(bigPlaces, null);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the left.</summary>
     /// <param name='bigPlaces'>The number of binary digit places to move
     /// the radix point to the left. If this number is negative, instead
@@ -2232,8 +2157,7 @@ namespace PeterO.Numbers {
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the right.</summary>
     /// <param name='places'>The number of binary digit places to move the
     /// radix point to the right. If this number is negative, instead moves
@@ -2245,8 +2169,7 @@ namespace PeterO.Numbers {
       return this.MovePointRight((EInteger)places, null);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the right.</summary>
     /// <param name='places'>The number of binary digit places to move the
     /// radix point to the right. If this number is negative, instead moves
@@ -2264,8 +2187,7 @@ namespace PeterO.Numbers {
       return this.MovePointRight((EInteger)places, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the right.</summary>
     /// <param name='bigPlaces'>The number of binary digit places to move
     /// the radix point to the right. If this number is negative, instead
@@ -2277,8 +2199,7 @@ namespace PeterO.Numbers {
       return this.MovePointRight(bigPlaces, null);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the radix
+    /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the right.</summary>
     /// <param name='bigPlaces'>The number of binary digit places to move
     /// the radix point to the right. If this number is negative, instead
@@ -2313,15 +2234,14 @@ namespace PeterO.Numbers {
           this.flags).RoundToPrecision(ctx);
     }
 
-    /// <summary>Multiplies two binary floating-point numbers.
-    /// The
+    /// <summary>Multiplies two binary floating-point numbers. The
     /// resulting exponent will be the sum of the exponents of the two
     /// binary floating-point numbers.</summary>
     /// <param name='otherValue'>Another binary floating-point
     /// number.</param>
     /// <returns>The product of the two binary floating-point
     /// numbers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EFloat Multiply(EFloat otherValue) {
       if (otherValue == null) {
@@ -2345,8 +2265,7 @@ namespace PeterO.Numbers {
       return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Multiplies two binary floating-point numbers.
-    /// The
+    /// <summary>Multiplies two binary floating-point numbers. The
     /// resulting scale will be the sum of the scales of the two binary
     /// floating-point numbers. The result's sign is positive if both
     /// operands have the same sign, and negative if they have different
@@ -2366,8 +2285,7 @@ namespace PeterO.Numbers {
       return MathValue.Multiply(this, op, ctx);
     }
 
-    /// <summary>Multiplies by one binary floating-point
-    /// number, and then
+    /// <summary>Multiplies by one binary floating-point number, and then
     /// adds another binary floating-point number.</summary>
     /// <param name='multiplicand'>The value to multiply.</param>
     /// <param name='augend'>The value to add.</param>
@@ -2399,8 +2317,7 @@ namespace PeterO.Numbers {
       return MathValue.MultiplyAndAdd(this, op, augend, ctx);
     }
 
-    /// <summary>Multiplies by one value, and then subtracts
-    /// another
+    /// <summary>Multiplies by one value, and then subtracts another
     /// value.</summary>
     /// <param name='op'>The value to multiply.</param>
     /// <param name='subtrahend'>The value to subtract.</param>
@@ -2414,8 +2331,8 @@ namespace PeterO.Numbers {
     /// once, namely, after multiplying and subtracting.</param>
     /// <returns>The result thisValue * multiplicand -
     /// subtrahend.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='op'/>
-    /// or <paramref name='subtrahend'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='op'/> or <paramref name='subtrahend'/> is null.</exception>
     public EFloat MultiplyAndSubtract(
       EFloat op,
       EFloat subtrahend,
@@ -2437,8 +2354,7 @@ namespace PeterO.Numbers {
       return MathValue.MultiplyAndAdd(this, op, negated, ctx);
     }
 
-    /// <summary>Gets an object with the same value as this
-    /// one, but with
+    /// <summary>Gets an object with the same value as this one, but with
     /// the sign reversed.</summary>
     /// <returns>An arbitrary-precision binary floating-point number. If
     /// this value is positive zero, returns negative zero. Returns
@@ -2453,8 +2369,7 @@ namespace PeterO.Numbers {
           this.flags ^ BigNumberFlags.FlagNegative);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but with the sign reversed.</summary>
     /// <param name='context'>An arithmetic context to control the
     /// precision, rounding, and exponent range of the result. If
@@ -2470,8 +2385,7 @@ namespace PeterO.Numbers {
       return MathValue.Negate(this, context);
     }
 
-    /// <summary>Finds the largest value that's smaller than
-    /// the given
+    /// <summary>Finds the largest value that's smaller than the given
     /// value.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision and exponent range of the result. The rounding mode from
@@ -2487,8 +2401,7 @@ namespace PeterO.Numbers {
       return MathValue.NextMinus(this, ctx);
     }
 
-    /// <summary>Finds the smallest value that's greater than
-    /// the given
+    /// <summary>Finds the smallest value that's greater than the given
     /// value.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision and exponent range of the result. The rounding mode from
@@ -2503,8 +2416,7 @@ namespace PeterO.Numbers {
       return MathValue.NextPlus(this, ctx);
     }
 
-    /// <summary>Finds the next value that is closer to the
-    /// other object's
+    /// <summary>Finds the next value that is closer to the other object's
     /// value than this object's value. Returns a copy of this value with
     /// the same sign as the other value if both values are
     /// equal.</summary>
@@ -2526,8 +2438,7 @@ namespace PeterO.Numbers {
       return MathValue.NextToward(this, otherValue, ctx);
     }
 
-    /// <summary>Rounds this object's value to a given
-    /// precision, using the
+    /// <summary>Rounds this object's value to a given precision, using the
     /// given rounding mode and range of exponent, and also converts
     /// negative zero to positive zero.</summary>
     /// <param name='ctx'>A context for controlling the precision, rounding
@@ -2541,8 +2452,7 @@ namespace PeterO.Numbers {
       return MathValue.Plus(this, ctx);
     }
 
-    /// <summary>Raises this object's value to the given
-    /// exponent, using
+    /// <summary>Raises this object's value to the given exponent, using
     /// unlimited precision.</summary>
     /// <param name='exponent'>An arbitrary-precision binary floating-point
     /// number expressing the exponent to raise this object's value
@@ -2601,8 +2511,7 @@ namespace PeterO.Numbers {
       return this.Pow(EFloat.FromInt64(exponentSmall), null);
     }
 
-    /// <summary>Finds the number of digits in this number's
-    /// significand.
+    /// <summary>Finds the number of digits in this number's significand.
     /// Returns 1 if this value is 0, and 0 if this value is infinity or
     /// not-a-number (NaN).</summary>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -2615,7 +2524,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>
-    /// Returns a binary floating-point number with the same
+    ///  Returns a binary floating-point number with the same
     /// value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of binary digit places, since it can fail if the difference
@@ -2624,7 +2533,7 @@ namespace PeterO.Numbers {
     /// binary digit places is desired, it's better to use the
     /// RoundToExponent and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point binary arithmetic, in which each binary floating-point
     /// number has a fixed number of digits after the radix point. The
     /// following code example returns a fixed-point number with up to 20
@@ -2650,7 +2559,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -2669,7 +2578,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>
-    /// Returns a binary floating-point number with the same
+    ///  Returns a binary floating-point number with the same
     /// value but a new exponent.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of binary digit places, since it can fail if the difference
@@ -2678,7 +2587,7 @@ namespace PeterO.Numbers {
     /// binary digit places is desired, it's better to use the
     /// RoundToExponent and RoundToIntegral methods instead.</para>
     /// <para><b>Remark:</b>
-    /// This method can be used to implement
+    ///  This method can be used to implement
     /// fixed-point binary arithmetic, in which each binary floating-point
     /// number has a fixed number of digits after the radix point. The
     /// following code example returns a fixed-point number with up to 20
@@ -2702,7 +2611,7 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <param name='ctx'>An arithmetic context to control precision and
     /// rounding of the result. If <c>HasFlags</c>
-    /// of the context is true,
+    ///  of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags). Can be null, in which
     /// case the default rounding mode is HalfEven.</param>
@@ -2720,8 +2629,7 @@ namespace PeterO.Numbers {
           ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but with the same exponent as another binary
     /// floating-point number.
     /// <para>Note that this is not always the same as rounding to a given
@@ -2760,8 +2668,7 @@ namespace PeterO.Numbers {
       return MathValue.Quantize(this, otherValue, ctx);
     }
 
-    /// <summary>Returns an object with the same numerical
-    /// value as this
+    /// <summary>Returns an object with the same numerical value as this
     /// one but with trailing zeros removed from its significand. For
     /// example, 1.00 becomes 1.
     /// <para>If this object's value is 0, changes the exponent to
@@ -2780,8 +2687,7 @@ namespace PeterO.Numbers {
       return MathValue.Reduce(this, ctx);
     }
 
-    /// <summary>Finds the remainder that results when dividing
-    /// two
+    /// <summary>Finds the remainder that results when dividing two
     /// arbitrary-precision binary floating-point numbers. The remainder is
     /// the value that remains when the absolute value of this object is
     /// divided by the absolute value of the other object; the remainder
@@ -2800,8 +2706,7 @@ namespace PeterO.Numbers {
       return MathValue.Remainder(this, divisor, ctx, true);
     }
 
-    /// <summary>Finds the remainder that results when dividing
-    /// two
+    /// <summary>Finds the remainder that results when dividing two
     /// arbitrary-precision binary floating-point numbers. The remainder is
     /// the value that remains when the absolute value of this object is
     /// divided by the absolute value of the other object; the remainder
@@ -2820,8 +2725,7 @@ namespace PeterO.Numbers {
       return MathValue.Remainder(this, divisor, ctx, false);
     }
 
-    /// <summary>Calculates the remainder of a number by the
-    /// formula
+    /// <summary>Calculates the remainder of a number by the formula
     /// <c>"this" - (("this" / "divisor") * "divisor")</c>.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An arbitrary-precision binary floating-point
@@ -2831,8 +2735,7 @@ namespace PeterO.Numbers {
       return this.RemainderNaturalScale(divisor, null);
     }
 
-    /// <summary>Calculates the remainder of a number by the
-    /// formula "this"
+    /// <summary>Calculates the remainder of a number by the formula "this"
     /// - (("this" / "divisor") * "divisor").</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context object to control the
@@ -2856,8 +2759,7 @@ namespace PeterO.Numbers {
         ctx);
     }
 
-    /// <summary>Finds the distance to the closest multiple of
-    /// the given
+    /// <summary>Finds the distance to the closest multiple of the given
     /// divisor, based on the result of dividing this object's value by
     /// another object's value.
     /// <list type=''>
@@ -2894,8 +2796,7 @@ namespace PeterO.Numbers {
       return MathValue.RemainderNear(this, divisor, ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to a new exponent if necessary. The
     /// resulting number's Exponent property will not necessarily be the
     /// given exponent; use the Quantize method instead to give the result
@@ -2927,8 +2828,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToExponentSimple(this, exponent, ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to a new exponent if necessary. The
     /// resulting number's Exponent property will not necessarily be the
     /// given exponent; use the Quantize method instead to give the result
@@ -2960,8 +2860,7 @@ namespace PeterO.Numbers {
       return this.RoundToExponent((EInteger)exponentSmall, ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to the given exponent, and signals an
     /// inexact flag if the result would be inexact. The resulting number's
     /// Exponent property will not necessarily be the given exponent; use
@@ -2994,8 +2893,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToExponentExact(this, exponent, ctx);
     }
 
-    /// <summary>Returns a binary number with the same value as
-    /// this object
+    /// <summary>Returns a binary number with the same value as this object
     /// but rounded to the given exponent. The resulting number's Exponent
     /// property will not necessarily be the given exponent; use the
     /// Quantize method instead to give the result a particular
@@ -3020,8 +2918,7 @@ namespace PeterO.Numbers {
           EContext.Unlimited.WithRounding(rounding));
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to the given exponent represented as a
     /// 32-bit signed integer, and signals an inexact flag if the result
     /// would be inexact. The resulting number's Exponent property will not
@@ -3054,8 +2951,7 @@ namespace PeterO.Numbers {
       return this.RoundToExponentExact((EInteger)exponentSmall, ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to an integer, and signals an inexact
     /// flag if the result would be inexact. The resulting number's
     /// Exponent property will not necessarily be 0; use the Quantize
@@ -3077,8 +2973,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to an integer, without adding the
     /// <c>FlagInexact</c> or <c>FlagRounded</c> flags. The resulting
     /// number's Exponent property will not necessarily be 0; use the
@@ -3103,8 +2998,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to an integer, and signals an inexact
     /// flag if the result would be inexact.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -3125,8 +3019,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Returns a binary floating-point number with
-    /// the same value
+    /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to an integer, without adding the
     /// <c>FlagInexact</c> or <c>FlagRounded</c> flags.</summary>
     /// <param name='ctx'>An arithmetic context to control precision and
@@ -3149,8 +3042,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Rounds this object's value to a given
-    /// precision, using the
+    /// <summary>Rounds this object's value to a given precision, using the
     /// given rounding mode and range of exponent.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -3166,8 +3058,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToPrecision(this, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the scale
+    /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='places'>The parameter <paramref name='places'/> is a
     /// 32-bit signed integer.</param>
@@ -3177,8 +3068,7 @@ namespace PeterO.Numbers {
       return this.ScaleByPowerOfTwo((EInteger)places, null);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the scale
+    /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='places'>The parameter <paramref name='places'/> is a
     /// 32-bit signed integer.</param>
@@ -3193,8 +3083,7 @@ namespace PeterO.Numbers {
       return this.ScaleByPowerOfTwo((EInteger)places, ctx);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with the scale
+    /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='bigPlaces'>An arbitrary-precision integer.</param>
     /// <returns>A number whose exponent is increased by <paramref
@@ -3203,8 +3092,7 @@ namespace PeterO.Numbers {
       return this.ScaleByPowerOfTwo(bigPlaces, null);
     }
 
-    /// <summary>Returns a number similar to this number but
-    /// with its scale
+    /// <summary>Returns a number similar to this number but with its scale
     /// adjusted.</summary>
     /// <param name='bigPlaces'>An arbitrary-precision integer.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -3214,7 +3102,7 @@ namespace PeterO.Numbers {
     /// Can be null.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigPlaces'/> is null.</exception>
     public EFloat ScaleByPowerOfTwo(
       EInteger bigPlaces,
@@ -3236,8 +3124,7 @@ namespace PeterO.Numbers {
           this.flags).RoundToPrecision(ctx);
     }
 
-    /// <summary>Finds the square root of this object's
-    /// value.</summary>
+    /// <summary>Finds the square root of this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
@@ -3256,8 +3143,7 @@ namespace PeterO.Numbers {
       return MathValue.SquareRoot(this, ctx);
     }
 
-    /// <summary>Finds the square root of this object's
-    /// value.</summary>
+    /// <summary>Finds the square root of this object's value.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
@@ -3277,8 +3163,7 @@ namespace PeterO.Numbers {
       return MathValue.SquareRoot(this, ctx);
     }
 
-    /// <summary>Subtracts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Subtracts an arbitrary-precision binary floating-point
     /// number from this instance and returns the result.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
@@ -3287,8 +3172,7 @@ namespace PeterO.Numbers {
       return this.Subtract(otherValue, null);
     }
 
-    /// <summary>Subtracts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Subtracts an arbitrary-precision binary floating-point
     /// number from this instance.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
@@ -3300,7 +3184,7 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EFloat Subtract(
       EFloat otherValue,
@@ -3404,8 +3288,7 @@ namespace PeterO.Numbers {
       return Extras.IntegersToDouble(mantissaBits);
     }
 
-    /// <summary>Converts this value to an arbitrary-precision
-    /// decimal
+    /// <summary>Converts this value to an arbitrary-precision decimal
     /// number.</summary>
     /// <returns>This number, converted to an arbitrary-precision decimal
     /// number.</returns>
@@ -3413,8 +3296,7 @@ namespace PeterO.Numbers {
       return EDecimal.FromEFloat(this);
     }
 
-    /// <summary>Converts this value to an arbitrary-precision
-    /// integer. Any
+    /// <summary>Converts this value to an arbitrary-precision integer. Any
     /// fractional part of this value will be discarded when converting to
     /// an arbitrary-precision integer.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -3424,8 +3306,7 @@ namespace PeterO.Numbers {
       return this.ToEIntegerInternal(false);
     }
 
-    /// <summary>Converts this value to an arbitrary-precision
-    /// integer,
+    /// <summary>Converts this value to an arbitrary-precision integer,
     /// checking whether the value contains a fractional part.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
@@ -3435,8 +3316,7 @@ namespace PeterO.Numbers {
       return this.ToEIntegerInternal(true);
     }
 
-    /// <summary>Converts this value to an arbitrary-precision
-    /// integer,
+    /// <summary>Converts this value to an arbitrary-precision integer,
     /// checking whether the value contains a fractional part.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
@@ -3445,8 +3325,7 @@ namespace PeterO.Numbers {
       return this.ToEIntegerInternal(true);
     }
 
-    /// <summary>Converts this value to an arbitrary-precision
-    /// decimal
+    /// <summary>Converts this value to an arbitrary-precision decimal
     /// number, then returns the value of that decimal's
     /// ToEngineeringString method.</summary>
     /// <returns>A text string.</returns>
@@ -3454,8 +3333,7 @@ namespace PeterO.Numbers {
       return this.ToEDecimal().ToEngineeringString();
     }
 
-    /// <summary>Converts this value to an arbitrary-precision
-    /// decimal
+    /// <summary>Converts this value to an arbitrary-precision decimal
     /// number.</summary>
     /// <returns>An arbitrary-precision decimal number.</returns>
     [Obsolete("Renamed to ToEDecimal.")]
@@ -3463,8 +3341,7 @@ namespace PeterO.Numbers {
       return EDecimal.FromEFloat(this);
     }
 
-    /// <summary>Converts this value to a string, but without
-    /// exponential
+    /// <summary>Converts this value to a string, but without exponential
     /// notation.</summary>
     /// <returns>A text string.</returns>
     public string ToPlainString() {
@@ -3477,8 +3354,7 @@ namespace PeterO.Numbers {
         "," + this.Exponent + "]";
     }
 
-    /// <summary>Returns a string representation of this
-    /// number's value
+    /// <summary>Returns a string representation of this number's value
     /// after rounding to the given precision (using the given arithmetic
     /// context). If the number after rounding is neither infinity nor
     /// not-a-number (NaN), returns the shortest decimal form of this
@@ -3581,8 +3457,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Converts this value to its closest equivalent
-    /// as 32-bit
+    /// <summary>Converts this value to its closest equivalent as 32-bit
     /// floating-point number. The half-even rounding mode is used.
     /// <para>If this value is a NaN, sets the high bit of the 32-bit
     /// floating point number's significand area for a quiet NaN, and
@@ -3669,8 +3544,7 @@ namespace PeterO.Numbers {
           0);
     }
 
-    /// <summary>Converts this number's value to a text
-    /// string.</summary>
+    /// <summary>Converts this number's value to a text string.</summary>
     /// <returns>A string representation of this object. The value is
     /// converted to decimal and the decimal form of this number's value is
     /// returned. The text string will be in exponential notation
@@ -3682,8 +3556,7 @@ namespace PeterO.Numbers {
       return EDecimal.FromEFloat(this).ToString();
     }
 
-    /// <summary>Returns the unit in the last place. The
-    /// significand will
+    /// <summary>Returns the unit in the last place. The significand will
     /// be 1 and the exponent will be this number's exponent. Returns 1
     /// with an exponent of 0 if this number is infinity or not-a-number
     /// (NaN).</summary>
@@ -3923,8 +3796,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Returns one added to this arbitrary-precision
-    /// binary
+    /// <summary>Returns one added to this arbitrary-precision binary
     /// floating-point number.</summary>
     /// <returns>The given arbitrary-precision binary floating-point number
     /// plus one.</returns>
@@ -3932,8 +3804,7 @@ namespace PeterO.Numbers {
       return this.Add(1);
     }
 
-    /// <summary>Returns one subtracted from this
-    /// arbitrary-precision
+    /// <summary>Returns one subtracted from this arbitrary-precision
     /// binary floating-point number.</summary>
     /// <returns>The given arbitrary-precision binary floating-point number
     /// minus one.</returns>
@@ -3943,8 +3814,7 @@ namespace PeterO.Numbers {
 
     // Begin integer conversions
 
-    /// <summary>Converts this number's value to a byte (from 0
-    /// to 255) if
+    /// <summary>Converts this number's value to a byte (from 0 to 255) if
     /// it can fit in a byte (from 0 to 255) after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a byte (from 0 to
@@ -3961,8 +3831,7 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToByteChecked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a byte (from 0 to 255).</summary>
     /// <returns>This number, converted to a byte (from 0 to 255). Returns
@@ -3971,8 +3840,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
     }
 
-    /// <summary>Converts this number's value to a byte (from 0
-    /// to 255) if
+    /// <summary>Converts this number's value to a byte (from 0 to 255) if
     /// it can fit in a byte (from 0 to 255) without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a byte (from 0 to 255).</returns>
@@ -3986,8 +3854,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((byte)0) : this.ToEIntegerIfExact().ToByteChecked();
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an
-    /// arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputByte'>The number to convert as a byte (from 0 to
     /// 255).</param>
@@ -3998,8 +3865,7 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 16-bit signed integer if
     /// it can fit in a 16-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 16-bit signed
@@ -4016,8 +3882,7 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToInt16Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 16-bit signed integer.</summary>
     /// <returns>This number, converted to a 16-bit signed integer. Returns
@@ -4026,8 +3891,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 16-bit signed integer if
     /// it can fit in a 16-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
@@ -4042,8 +3906,7 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToInt16Checked();
     }
 
-    /// <summary>Converts a 16-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputInt16'>The number to convert as a 16-bit signed
     /// integer.</param>
@@ -4054,8 +3917,7 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts this number's value to a 32-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
@@ -4072,8 +3934,7 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToInt32Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 32-bit signed integer.</summary>
     /// <returns>This number, converted to a 32-bit signed integer. Returns
@@ -4082,8 +3943,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
     }
 
-    /// <summary>Converts this number's value to a 32-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
@@ -4097,8 +3957,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
     }
 
-    /// <summary>Converts a boolean value (either true or
-    /// false) to an
+    /// <summary>Converts a boolean value (either true or false) to an
     /// arbitrary-precision binary floating-point number.</summary>
     /// <param name='boolValue'>Either true or false.</param>
     /// <returns>The number 1 if <paramref name='boolValue'/> is true,
@@ -4107,8 +3966,7 @@ namespace PeterO.Numbers {
       return boolValue ? EFloat.One : EFloat.Zero;
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -4118,8 +3976,7 @@ namespace PeterO.Numbers {
       return FromEInteger(EInteger.FromInt32(inputInt32));
     }
 
-    /// <summary>Converts this number's value to a 64-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 64-bit signed integer if
     /// it can fit in a 64-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 64-bit signed
@@ -4136,8 +3993,7 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToInt64Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 64-bit signed integer.</summary>
     /// <returns>This number, converted to a 64-bit signed integer. Returns
@@ -4146,8 +4002,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : 0L;
     }
 
-    /// <summary>Converts this number's value to a 64-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 64-bit signed integer if
     /// it can fit in a 64-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 64-bit signed integer.</returns>
@@ -4162,8 +4017,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0L : this.ToEIntegerIfExact().ToInt64Checked();
     }
 
-    /// <summary>Converts a 64-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
     /// binary floating-point number.</summary>
     /// <param name='inputInt64'>The number to convert as a 64-bit signed
     /// integer.</param>

@@ -1,14 +1,12 @@
 using System;
 
 namespace PeterO.Numbers {
-  /// <summary>A class that implements additional operations
-  /// on
+  /// <summary>A class that implements additional operations on
   /// arbitrary-precision binary floating-point numbers.</summary>
   public static class EFloats {
     private const int BinaryRadix = 2;
 
-    /// <summary>Returns the number 2, the binary
-    /// radix.</summary>
+    /// <summary>Returns the number 2, the binary radix.</summary>
     /// <param name='ec'>Specifies an arithmetic context for rounding the
     /// number 2. Can be null.</param>
     /// <returns>The number 2, or the closest representable number to 2 in
@@ -17,8 +15,7 @@ namespace PeterO.Numbers {
       return EFloat.FromInt32(BinaryRadix).RoundToPrecision(ec);
     }
 
-    /// <summary>Creates a binary floating-point number from a
-    /// 32-bit
+    /// <summary>Creates a binary floating-point number from a 32-bit
     /// signed integer.</summary>
     /// <param name='i32'>The parameter <paramref name='i32'/> is a 32-bit
     /// signed integer.</param>
@@ -33,8 +30,7 @@ namespace PeterO.Numbers {
       return EFloat.FromInt32(i32).RoundToPrecision(ec);
     }
 
-    /// <summary>Converts a boolean value (either true or
-    /// false) to an
+    /// <summary>Converts a boolean value (either true or false) to an
     /// arbitrary-precision binary floating-point number.</summary>
     /// <param name='b'>Either true or false.</param>
     /// <param name='ec'>A context used for rounding the result. Can be
@@ -49,8 +45,7 @@ namespace PeterO.Numbers {
       return EFloat.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is in a canonical form. For the current version of EDecimal,
     /// all EDecimal objects are in a canonical form.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
@@ -67,8 +62,7 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is neither null nor infinity nor not-a-number
     /// (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
@@ -79,8 +73,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsFinite;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is positive or negative infinity.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Either <c>true</c> if the given arbitrary-precision number
@@ -90,8 +83,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsInfinity();
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is a not-a-number (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -129,8 +121,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsFinite && !ed.IsZero && !IsSubnormal(ed, ec);
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is a quiet not-a-number (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -138,8 +129,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsQuietNaN();
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is negative (including negative infinity, negative
     /// not-a-number [NaN], or negative zero).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
@@ -148,8 +138,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsNegative;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is a signaling not-a-number (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -157,8 +146,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsSignalingNaN();
     }
 
-    /// <summary>Converts a number class identifier (ranging
-    /// from 0 through
+    /// <summary>Converts a number class identifier (ranging from 0 through
     /// 9) to a text string. An arbitrary-precision number object can
     /// belong in one of ten number classes.</summary>
     /// <param name='nc'>An integer identifying a number class.</param>
@@ -166,14 +154,13 @@ namespace PeterO.Numbers {
     /// follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
     /// "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 =
     /// "-Infinity", 8 = "NaN", 9 = "sNaN".</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref name='nc'/> is
-    /// less than 0 or greater than 9.</exception>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='nc'/> is less than 0 or greater than 9.</exception>
     public static string NumberClassString(int nc) {
       return EDecimals.NumberClassString(nc);
     }
 
-    /// <summary>Finds the number class for an
-    /// arbitrary-precision decimal
+    /// <summary>Finds the number class for an arbitrary-precision decimal
     /// number object.</summary>
     /// <param name='ed'>An arbitrary-precision decimal number
     /// object.</param>
@@ -187,8 +174,8 @@ namespace PeterO.Numbers {
     /// positive zero, 5 = negative zero, 6 = positive infinity, 7 =
     /// negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling
     /// NaN.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static int NumberClass(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -233,8 +220,8 @@ namespace PeterO.Numbers {
     /// <returns>Either <c>true</c> if the given number is subnormal, or
     /// <c>false</c> otherwise. Returns <c>false</c> if the given context
     /// is null or HasExponentRange of the given context is <c>false</c>.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static bool IsSubnormal(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -250,8 +237,7 @@ namespace PeterO.Numbers {
       return false;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision
-    /// number
+    /// <summary>Returns whether the given arbitrary-precision number
     /// object is zero (positive zero or negative zero).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns><c>true</c> if the given number has a value of zero
@@ -260,12 +246,10 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsZero;
     }
 
-    /// <summary>Returns the base-2 exponent of an
-    /// arbitrary-precision
+    /// <summary>Returns the base-2 exponent of an arbitrary-precision
     /// binary number (when that number is expressed in scientific notation
     /// with one nonzero digit before the radix point). For example,
-    /// returns 3 for the numbers <c>1.11b * 2^3</c> and <c>111 *
-    /// 2^1</c>.</summary>
+    /// returns 3 for the numbers <c>1.11b * 2^3</c> and <c>111 * 2^1</c>.</summary>
     /// <param name='ed'>An arbitrary-precision binary number.</param>
     /// <param name='ec'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. Can be null.</param>
@@ -275,8 +259,8 @@ namespace PeterO.Numbers {
     /// infinity if <paramref name='ed'/> is zero. Returns positive
     /// infinity if <paramref name='ed'/> is positive infinity or negative
     /// infinity.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat LogB(EFloat ed, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -294,8 +278,7 @@ namespace PeterO.Numbers {
       return EFloat.FromEInteger(ei).RoundToPrecision(ec);
     }
 
-    /// <summary>Finds an arbitrary-precision binary number
-    /// whose binary
+    /// <summary>Finds an arbitrary-precision binary number whose binary
     /// point is moved a given number of places.</summary>
     /// <param name='ed'>An arbitrary-precision binary number.</param>
     /// <param name='ed2'>The number of binary places to move the binary
@@ -312,8 +295,8 @@ namespace PeterO.Numbers {
     /// <paramref name='ed2'/> 's absolute value is greater than twice the
     /// sum of the context's EMax property and its Precision
     /// property.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// or <paramref name='ed2'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EFloat ScaleB(EFloat ed, EFloat ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -349,8 +332,7 @@ namespace PeterO.Numbers {
       return ret.RoundToPrecision(ec);
     }
 
-    /// <summary>Shifts the bits of an arbitrary-precision
-    /// binary floating
+    /// <summary>Shifts the bits of an arbitrary-precision binary floating
     /// point number's significand.</summary>
     /// <param name='ed'>An arbitrary-precision binary floating point
     /// number containing the significand to shift.</param>
@@ -368,8 +350,8 @@ namespace PeterO.Numbers {
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
     /// has an exponent other than 0, or has an absolute value that exceeds
     /// the maximum precision specified in the context.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// or <paramref name='ed2'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='ed2'/> is null.</exception>
     public static EFloat Shift(EFloat ed, EFloat ed2, EContext ec) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -421,8 +403,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Rotates the bits of an arbitrary-precision
-    /// binary number's
+    /// <summary>Rotates the bits of an arbitrary-precision binary number's
     /// significand.</summary>
     /// <param name='ed'>An arbitrary-precision number containing the
     /// significand to rotate. If this significand contains more bits than
@@ -447,7 +428,7 @@ namespace PeterO.Numbers {
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
     /// has an exponent other than 0, or has an absolute value that exceeds
     /// the maximum precision specified in the context.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ed2'/> or <paramref name='ed'/> is null.</exception>
     public static EFloat Rotate(EFloat ed, EFloat ed2, EContext ec) {
       if (ec == null || !ec.HasMaxPrecision) {
@@ -512,8 +493,7 @@ namespace PeterO.Numbers {
       return ed.IsNegative ? ret.Negate() : ret;
     }
 
-    /// <summary>Compares the values of one arbitrary-precision
-    /// number
+    /// <summary>Compares the values of one arbitrary-precision number
     /// object and another object, imposing a total ordering on all
     /// possible values. In this method:
     /// <list>
@@ -546,8 +526,7 @@ namespace PeterO.Numbers {
           ed.CompareToTotal(other, ec));
     }
 
-    /// <summary>Compares the absolute values of two
-    /// arbitrary-precision
+    /// <summary>Compares the absolute values of two arbitrary-precision
     /// number objects, imposing a total ordering on all possible values
     /// (ignoring their signs). In this method:
     /// <list>
@@ -582,15 +561,14 @@ namespace PeterO.Numbers {
           ed.CompareToTotalMagnitude(other, ec));
     }
 
-    /// <summary>Creates a copy of the given
-    /// arbitrary-precision number
+    /// <summary>Creates a copy of the given arbitrary-precision number
     /// object.</summary>
     /// <param name='ed'>An arbitrary-precision number object to
     /// copy.</param>
     /// <returns>A copy of the given arbitrary-precision number
     /// object.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat Copy(EFloat ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -607,15 +585,14 @@ namespace PeterO.Numbers {
       return Copy(ed);
     }
 
-    /// <summary>Returns an arbitrary-precision number object
-    /// with the same
+    /// <summary>Returns an arbitrary-precision number object with the same
     /// value as the given number object but with a nonnegative sign (that
     /// is, the given number object's absolute value).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the given number object but with a nonnegative sign.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat CopyAbs(EFloat ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -623,14 +600,13 @@ namespace PeterO.Numbers {
       return Copy(ed.Abs());
     }
 
-    /// <summary>Returns an arbitrary-precision number object
-    /// with the sign
+    /// <summary>Returns an arbitrary-precision number object with the sign
     /// reversed from the given number object.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the sign
     /// reversed from the given number object.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> is null.</exception>
     public static EFloat CopyNegate(EFloat ed) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -638,8 +614,7 @@ namespace PeterO.Numbers {
       return Copy(ed.Negate());
     }
 
-    /// <summary>Returns an arbitrary-precision number object
-    /// with the same
+    /// <summary>Returns an arbitrary-precision number object with the same
     /// value as the first given number object but with a the same sign
     /// (positive or negative) as the second given number object.</summary>
     /// <param name='ed'>An arbitrary-precision number object with the
@@ -649,8 +624,8 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='ed'/>
-    /// or <paramref name='other'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ed'/> or <paramref name='other'/> is null.</exception>
     public static EFloat CopySign(EFloat ed, EFloat other) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
@@ -665,8 +640,7 @@ namespace PeterO.Numbers {
       return EFloat.SignalingNaN.Plus(ec);
     }
 
-    /// <summary>Returns whether two arbitrary-precision
-    /// numbers have the
+    /// <summary>Returns whether two arbitrary-precision numbers have the
     /// same exponent, they both are not-a-number (NaN), or they both are
     /// infinity (positive and/or negative).</summary>
     /// <param name='ed1'>The first arbitrary-precision number.</param>
@@ -687,8 +661,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Returns an arbitrary-precision number with the
-    /// same value
+    /// <summary>Returns an arbitrary-precision number with the same value
     /// as this one but with certain trailing zeros removed from its
     /// significand. If the number's exponent is 0, it is returned
     /// unchanged (but may be rounded depending on the arithmetic context);
@@ -754,8 +727,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Returns an arbitrary-precision binary number
-    /// with the same
+    /// <summary>Returns an arbitrary-precision binary number with the same
     /// value as this object but with the given exponent, expressed as an
     /// arbitrary-precision binary number.
     /// <para>Note that this is not always the same as rounding to a given
@@ -818,12 +790,11 @@ namespace PeterO.Numbers {
 
     // Logical Operations
 
-    /// <summary>Performs a logical AND operation on two binary
-    /// numbers in
+    /// <summary>Performs a logical AND operation on two binary numbers in
     /// the form of
     /// <i>logical operands</i>. A <c>logical operand</c> is a
     /// non-negative base-2 number with an Exponent property of 0 (examples
-    /// include the base-2 numbers <c>01001</c> and <c>111001</c>). The
+    /// include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
     /// logical AND operation sets each bit of the result to 1 if the
     /// corresponding bits of each logical operand are both 1, and to 0
     /// otherwise. For example, <c>01001 AND 111010=01000</c>.</summary>
@@ -861,12 +832,11 @@ namespace PeterO.Numbers {
             2)).RoundToPrecision(ec);
     }
 
-    /// <summary>Performs a logical NOT operation on a binary
-    /// number in the
+    /// <summary>Performs a logical NOT operation on a binary number in the
     /// form of a
     /// <i>logical operand</i>. A <c>logical operand</c> is a non-negative
     /// base-2 number with an Exponent property of 0 (examples include
-    /// <c>01001</c> and <c>111001</c>). The logical NOT operation sets
+    /// <c>01001</c> and <c>111001</c> ). The logical NOT operation sets
     /// each bit of the result to 1 if the corresponding bit is 0, and to 0
     /// otherwise; it can set no more bits than the maximum precision,
     /// however. For example, if the maximum precision is 8 bits, then
@@ -908,12 +878,11 @@ namespace PeterO.Numbers {
             2)).RoundToPrecision(ec);
     }
 
-    /// <summary>Performs a logical exclusive-OR (XOR)
-    /// operation on two
+    /// <summary>Performs a logical exclusive-OR (XOR) operation on two
     /// binary numbers in the form of
     /// <i>logical operands</i>. A <c>logical operand</c> is a
     /// non-negative base-2 number with an Exponent property of 0 (examples
-    /// include the base-2 numbers <c>01001</c> and <c>111001</c>). The
+    /// include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
     /// logical exclusive-OR operation sets each digit of the result to 1
     /// if either corresponding digit of the logical operands, but not
     /// both, is 1, and to 0 otherwise. For example, <c>01001 XOR 111010 =
@@ -952,12 +921,11 @@ namespace PeterO.Numbers {
             2)).RoundToPrecision(ec);
     }
 
-    /// <summary>Performs a logical OR operation on two binary
-    /// numbers in
+    /// <summary>Performs a logical OR operation on two binary numbers in
     /// the form of
     /// <i>logical operands</i>. A <c>logical operand</c> is a
     /// non-negative base-2 number with an Exponent property of 0 (examples
-    /// include the base-2 numbers <c>01001</c> and <c>111001</c>). The
+    /// include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
     /// logical OR operation sets each bit of the result to 1 if either or
     /// both of the corresponding bits of each logical operand are 1, and
     /// to 0 otherwise. For example, <c>01001 OR 111010=111011</c>.</summary>

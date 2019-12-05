@@ -25,13 +25,12 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Adds two arbitrary-precision integer objects
-    /// and returns
+    /// <summary>Adds two arbitrary-precision integer objects and returns
     /// the result.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='augend'>The second operand.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EInteger operator +(EInteger bthis, EInteger augend) {
       if (bthis == null) {
@@ -46,7 +45,7 @@ namespace PeterO.Numbers {
     /// <param name='subtrahend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EInteger operator -(
       EInteger bthis,
@@ -57,11 +56,10 @@ namespace PeterO.Numbers {
       return bthis.Subtract(subtrahend);
     }
 
-    /// <summary>Adds one to an arbitrary-precision
-    /// integer.</summary>
+    /// <summary>Adds one to an arbitrary-precision integer.</summary>
     /// <param name='bthis'>An arbitrary-precision integer.</param>
     /// <returns>The given arbitrary-precision integer plus one.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EInteger operator ++(EInteger bthis) {
       if (bthis == null) {
@@ -74,7 +72,7 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <param name='bthis'>An arbitrary-precision integer.</param>
     /// <returns>The given arbitrary-precision integer minus one.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EInteger operator --(EInteger bthis) {
       if (bthis == null) {
@@ -83,13 +81,12 @@ namespace PeterO.Numbers {
       return bthis.Subtract(1);
     }
 
-    /// <summary>Multiplies an arbitrary-precision integer by
-    /// the value of
+    /// <summary>Multiplies an arbitrary-precision integer by the value of
     /// an arbitrary-precision integer.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='operand1'/> is null.</exception>
     public static EInteger operator *(
       EInteger operand1,
@@ -100,14 +97,13 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <summary>Divides an arbitrary-precision integer by the
-    /// value of an
+    /// <summary>Divides an arbitrary-precision integer by the value of an
     /// arbitrary-precision integer object.</summary>
     /// <param name='dividend'>The number that will be divided by the
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EInteger operator /(
       EInteger dividend,
@@ -124,7 +120,7 @@ namespace PeterO.Numbers {
     /// <param name='dividend'>The first operand.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EInteger operator %(
       EInteger dividend,
@@ -135,8 +131,7 @@ namespace PeterO.Numbers {
       return dividend.Remainder(divisor);
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// the bits
+    /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the left by a number of bits. A value of 1 doubles this
     /// value, a value of 2 multiplies it by 4, a value of 3 by 8, a value
     /// of 4 by 16, and so on.</summary>
@@ -146,7 +141,7 @@ namespace PeterO.Numbers {
     /// negative, in which case this is the same as shiftRight with the
     /// absolute value of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -159,17 +154,16 @@ namespace PeterO.Numbers {
       return bthis.ShiftLeft(bitCount);
     }
 
-    /// <summary>Calculates the remainder when an
-    /// arbitrary-precision
+    /// <summary>Calculates the remainder when an arbitrary-precision
     /// integer raised to a certain power is divided by another
     /// arbitrary-precision integer.</summary>
     /// <param name='bigintValue'>The starting operand.</param>
     /// <param name='pow'>The power to raise this integer by.</param>
     /// <param name='mod'>The integer to divide the raised number
     /// by.</param>
-    /// <returns>The value (<paramref name='bigintValue'/> ^ <paramref
-    /// name='pow'/>)% <paramref name='mod'/>.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <returns>The value ( <paramref name='bigintValue'/> ^ <paramref
+    /// name='pow'/> )% <paramref name='mod'/>.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintValue'/> is null.</exception>
     public static EInteger ModPow(
       EInteger bigintValue,
@@ -181,18 +175,17 @@ namespace PeterO.Numbers {
       return bigintValue.ModPow(pow, mod);
     }
 
-    /// <summary>Shifts the bits of an arbitrary-precision
-    /// integer to the
+    /// <summary>Shifts the bits of an arbitrary-precision integer to the
     /// right.</summary>
     /// <param name='bthis'>Another arbitrary-precision integer.</param>
-    /// <param name='smallValue'>The parameter <paramref name='smallValue'/> is a
-    /// 32-bit signed integer.</param>
+    /// <param name='smallValue'>The parameter <paramref
+    /// name='smallValue'/> is a 32-bit signed integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     /// <remarks>For this operation, the arbitrary-precision integer is
     /// treated as a two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>).
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
     /// Thus, for negative values, the arbitrary-precision integer is
     /// sign-extended.</remarks>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -206,12 +199,11 @@ namespace PeterO.Numbers {
       return bthis.ShiftRight(smallValue);
     }
 
-    /// <summary>Negates an arbitrary-precision
-    /// integer.</summary>
+    /// <summary>Negates an arbitrary-precision integer.</summary>
     /// <param name='bigValue'>An arbitrary-precision integer to
     /// negate.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static EInteger operator -(EInteger bigValue) {
       if (bigValue == null) {
@@ -220,8 +212,7 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <summary>Converts this number's value to a 64-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 64-bit signed integer if
     /// it can fit in a 64-bit signed integer.</summary>
     /// <returns>This number's value as a 64-bit signed integer.</returns>
     /// <exception cref='OverflowException'>This value is outside the range
@@ -238,8 +229,7 @@ namespace PeterO.Numbers {
       return unchecked((ulong)ret);
     }
 
-    /// <summary>Converts this number to a 64-bit signed
-    /// integer, returning
+    /// <summary>Converts this number to a 64-bit signed integer, returning
     /// the least-significant bits of this number's two's-complement
     /// form.</summary>
     /// <returns>This number, converted to a 64-bit signed
@@ -253,8 +243,7 @@ namespace PeterO.Numbers {
       return unchecked((ulong)ret);
     }
 
-    /// <summary>Determines whether an arbitrary-precision
-    /// integer is less
+    /// <summary>Determines whether an arbitrary-precision integer is less
     /// than another arbitrary-precision integer.</summary>
     /// <param name='thisValue'>The first arbitrary-precision
     /// integer.</param>
@@ -267,8 +256,7 @@ namespace PeterO.Numbers {
 (thisValue.CompareTo(otherValue) < 0);
     }
 
-    /// <summary>Determines whether an arbitrary-precision
-    /// integer is up to
+    /// <summary>Determines whether an arbitrary-precision integer is up to
     /// another arbitrary-precision integer.</summary>
     /// <param name='thisValue'>The first arbitrary-precision
     /// integer.</param>
@@ -282,8 +270,7 @@ namespace PeterO.Numbers {
       return (thisValue == null) || (thisValue.CompareTo(otherValue) <= 0);
     }
 
-    /// <summary>Determines whether an arbitrary-precision
-    /// integer is
+    /// <summary>Determines whether an arbitrary-precision integer is
     /// greater than another arbitrary-precision integer.</summary>
     /// <param name='thisValue'>The first arbitrary-precision
     /// integer.</param>
@@ -295,8 +282,7 @@ namespace PeterO.Numbers {
       return (thisValue != null) && (thisValue.CompareTo(otherValue) > 0);
     }
 
-    /// <summary>Determines whether an arbitrary-precision
-    /// integer value is
+    /// <summary>Determines whether an arbitrary-precision integer value is
     /// greater than another arbitrary-precision integer.</summary>
     /// <param name='thisValue'>The first arbitrary-precision
     /// integer.</param>
@@ -311,13 +297,12 @@ namespace PeterO.Numbers {
 (thisValue.CompareTo(otherValue) >= 0);
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// every bit
+    /// <summary>Returns an arbitrary-precision integer with every bit
     /// flipped.</summary>
     /// <param name='thisValue'>The operand as an arbitrary-precision
     /// integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='thisValue'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -328,19 +313,18 @@ namespace PeterO.Numbers {
       return Not(thisValue);
     }
 
-    /// <summary>Does an AND operation between two
-    /// arbitrary-precision
+    /// <summary>Does an AND operation between two arbitrary-precision
     /// integer values. For each bit of the result, that bit is 1 if the
     /// corresponding bits of the two operands are both 1, or is 0
     /// otherwise.</summary>
     /// <param name='thisValue'>The first operand.</param>
     /// <param name='otherValue'>The second operand.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref="ArgumentNullException">The parameter "a" or "b" is
+    /// <exception cref='ArgumentNullException'>The parameter "a" or "b" is
     /// null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -352,8 +336,7 @@ namespace PeterO.Numbers {
       return And(thisValue, otherValue);
     }
 
-    /// <summary>Does an OR operation between two
-    /// arbitrary-precision
+    /// <summary>Does an OR operation between two arbitrary-precision
     /// integer instances. For each bit of the result, that bit is 1 if
     /// either or both of the corresponding bits of the two operands are 1,
     /// or is 0 otherwise.</summary>
@@ -361,11 +344,11 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The result of the operation.</returns>
-    /// <exception cref="ArgumentNullException">The parameter "first" or
+    /// <exception cref='ArgumentNullException'>The parameter "first" or
     /// "second" is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -377,29 +360,27 @@ namespace PeterO.Numbers {
       return Or(thisValue, otherValue);
     }
 
-    /// <summary>Finds the exclusive "or" of two
-    /// arbitrary-precision
+    /// <summary>Finds the exclusive "or" of two arbitrary-precision
     /// integer objects. For each bit of the result, that bit is 1 if
     /// either of the corresponding bits of the two operands, but not both,
     /// is 1, or is 0 otherwise.
     /// <para>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</para></summary>
     /// <param name='a'>The first arbitrary-precision integer.</param>
     /// <param name='b'>The second arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// it's set in one input integer but not the other.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='a'/>
-    /// or <paramref name='b'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='a'/> or <paramref name='b'/> is null.</exception>
     public static EInteger operator ^(
       EInteger a,
       EInteger b) {
       return Xor(a, b);
     }
 
-    /// <summary>Retrieves bits from this integer's
-    /// two's-complement
+    /// <summary>Retrieves bits from this integer's two's-complement
     /// form.</summary>
     /// <param name='index'>Zero-based index of the first bit to retrieve,
     /// where 0 is the least-significant bit of the number.</param>
@@ -419,8 +400,7 @@ namespace PeterO.Numbers {
       return v;
     }
 
-    /// <summary>Divides one arbitrary-precision integer by
-    /// another, and
+    /// <summary>Divides one arbitrary-precision integer by another, and
     /// returns the quotient and sets an output parameter to the
     /// remainder.</summary>
     /// <param name='dividend'>The arbitrary-precision integer to be
@@ -430,7 +410,7 @@ namespace PeterO.Numbers {
     /// <param name='remainder'>An arbitrary-precision integer.</param>
     /// <returns>An array of two arbitrary-precision integers: the first is
     /// the quotient, and the second is the remainder.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> or <paramref name='divisor'/> is
     /// null.</exception>
     [Obsolete("Use the DivRem instance method instead.")]
@@ -449,8 +429,7 @@ namespace PeterO.Numbers {
       return result[0];
     }
 
-    /// <summary>Determines whether this object and another
-    /// object are
+    /// <summary>Determines whether this object and another object are
     /// equal.</summary>
     /// <param name='other'>Another arbitrary-precision integer.</param>
     /// <returns><c>true</c> if this object and another object are equal;
@@ -459,13 +438,12 @@ namespace PeterO.Numbers {
       return (other != null) && (this.CompareTo(other) == 0);
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// every bit
+    /// <summary>Returns an arbitrary-precision integer with every bit
     /// flipped.</summary>
     /// <param name='valueA'>The operand as an arbitrary-precision
     /// integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='valueA'/> is null.</exception>
     public static EInteger Not(EInteger valueA) {
       if (valueA == null) {
@@ -474,18 +452,17 @@ namespace PeterO.Numbers {
       return valueA.Not();
     }
 
-    /// <summary>Does an AND operation between two
-    /// arbitrary-precision
+    /// <summary>Does an AND operation between two arbitrary-precision
     /// integer values.</summary>
     /// <param name='a'>The first arbitrary-precision integer.</param>
     /// <param name='b'>The second arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bits of the two integers are both set.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='a'/>
-    /// or <paramref name='b'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='a'/> or <paramref name='b'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public static EInteger And(EInteger a, EInteger b) {
       if (a == null) {
@@ -497,17 +474,16 @@ namespace PeterO.Numbers {
       return a.And(b);
     }
 
-    /// <summary>Does an OR operation between two
-    /// arbitrary-precision
+    /// <summary>Does an OR operation between two arbitrary-precision
     /// integer instances.</summary>
     /// <param name='first'>The first operand.</param>
     /// <param name='second'>The second operand.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='first'/> or <paramref name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public static EInteger Or(EInteger first, EInteger second) {
       if (first == null) {
@@ -519,20 +495,19 @@ namespace PeterO.Numbers {
       return first.Or(second);
     }
 
-    /// <summary>Finds the exclusive "or" of two
-    /// arbitrary-precision
+    /// <summary>Finds the exclusive "or" of two arbitrary-precision
     /// integer objects.
     /// <para>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</para></summary>
     /// <param name='a'>The first arbitrary-precision integer.</param>
     /// <param name='b'>The second arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bit is set in one input integer but not in the
     /// other.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref name='a'/>
-    /// or <paramref name='b'/> is null.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='a'/> or <paramref name='b'/> is null.</exception>
     public static EInteger Xor(EInteger a, EInteger b) {
       if (a == null) {
         throw new ArgumentNullException(nameof(a));
@@ -544,16 +519,15 @@ namespace PeterO.Numbers {
     }
     // Begin integer conversions
 
-    /// <summary>Converts an arbitrary-precision integer to a
-    /// byte (from 0
+    /// <summary>Converts an arbitrary-precision integer to a byte (from 0
     /// to 255) if it can fit in a byte (from 0 to 255).</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a byte (from 0 to
     /// 255).</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than 0 or greater than 255.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than 0 or greater than 255.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -566,8 +540,7 @@ namespace PeterO.Numbers {
       return input.ToByteChecked();
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an
-    /// arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
     /// integer.</summary>
     /// <param name='boolValue'>Either <c>true</c> or <c>false</c>.</param>
     /// <returns>The value of <paramref name='boolValue'/> as an
@@ -576,8 +549,7 @@ namespace PeterO.Numbers {
       return EInteger.FromBoolean(boolValue);
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an
-    /// arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputByte'>The number to convert as a byte (from 0 to
     /// 255).</param>
@@ -587,8 +559,7 @@ namespace PeterO.Numbers {
       return EInteger.FromByte(inputByte);
     }
 
-    /// <summary>Converts this number's value to an 8-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to an 8-bit signed integer if
     /// it can fit in an 8-bit signed integer.</summary>
     /// <returns>This number's value as an 8-bit signed integer.</returns>
     /// <exception cref='OverflowException'>This value is less than -128 or
@@ -602,8 +573,7 @@ namespace PeterO.Numbers {
       return unchecked((sbyte)(val & 0xff));
     }
 
-    /// <summary>Converts this number to an 8-bit signed
-    /// integer, returning
+    /// <summary>Converts this number to an 8-bit signed integer, returning
     /// the least-significant bits of this number's two's-complement
     /// form.</summary>
     /// <returns>This number, converted to an 8-bit signed
@@ -614,8 +584,7 @@ namespace PeterO.Numbers {
       return unchecked((sbyte)(val & 0xff));
     }
 
-    /// <summary>Converts an 8-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputSByte'>The number to convert as an 8-bit signed
     /// integer.</param>
@@ -627,16 +596,15 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to an
-    /// 8-bit signed
+    /// <summary>Converts an arbitrary-precision integer to an 8-bit signed
     /// integer if it can fit in an 8-bit signed integer.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as an 8-bit signed
     /// integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than -128 or greater than 127.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than -128 or greater than 127.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -650,8 +618,7 @@ namespace PeterO.Numbers {
       return input.ToSByteChecked();
     }
 
-    /// <summary>Converts an 8-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputSByte'>The number to convert as an 8-bit signed
     /// integer.</param>
@@ -662,17 +629,16 @@ namespace PeterO.Numbers {
       return EInteger.FromSByte(inputSByte);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to a
-    /// 16-bit signed
+    /// <summary>Converts an arbitrary-precision integer to a 16-bit signed
     /// integer if it can fit in a 16-bit signed integer.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 16-bit signed
     /// integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than -32768 or greater than
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than -32768 or greater than
     /// 32767.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -685,8 +651,7 @@ namespace PeterO.Numbers {
       return input.ToInt16Checked();
     }
 
-    /// <summary>Converts a 16-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputInt16'>The number to convert as a 16-bit signed
     /// integer.</param>
@@ -696,8 +661,7 @@ namespace PeterO.Numbers {
       return EInteger.FromInt16(inputInt16);
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
     /// if it can fit in a 16-bit unsigned integer.</summary>
     /// <returns>This number's value as a 16-bit unsigned
     /// integer.</returns>
@@ -712,8 +676,7 @@ namespace PeterO.Numbers {
       return unchecked((ushort)(val & 0xffff));
     }
 
-    /// <summary>Converts this number to a 16-bit unsigned
-    /// integer,
+    /// <summary>Converts this number to a 16-bit unsigned integer,
     /// returning the least-significant bits of this number's
     /// two's-complement form.</summary>
     /// <returns>This number, converted to a 16-bit unsigned
@@ -736,17 +699,16 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to a
-    /// 16-bit
+    /// <summary>Converts an arbitrary-precision integer to a 16-bit
     /// unsigned integer if it can fit in a 16-bit unsigned
     /// integer.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 16-bit unsigned
     /// integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than 0 or greater than 65535.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than 0 or greater than 65535.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -771,17 +733,16 @@ namespace PeterO.Numbers {
       return EInteger.FromUInt16(inputUInt16);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to a
-    /// 32-bit signed
+    /// <summary>Converts an arbitrary-precision integer to a 32-bit signed
     /// integer if it can fit in a 32-bit signed integer.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than -2147483648 or greater than
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than -2147483648 or greater than
     /// 2147483647.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -794,8 +755,7 @@ namespace PeterO.Numbers {
       return input.ToInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -805,8 +765,7 @@ namespace PeterO.Numbers {
       return EInteger.FromInt32(inputInt32);
     }
 
-    /// <summary>Converts this number's value to a 32-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
     /// <exception cref='OverflowException'>This value is less than 0 or
@@ -820,8 +779,7 @@ namespace PeterO.Numbers {
       return unchecked((uint)(val & 0xffffffffL));
     }
 
-    /// <summary>Converts this number to a 32-bit signed
-    /// integer, returning
+    /// <summary>Converts this number to a 32-bit signed integer, returning
     /// the least-significant bits of this number's two's-complement
     /// form.</summary>
     /// <returns>This number, converted to a 32-bit signed
@@ -832,8 +790,7 @@ namespace PeterO.Numbers {
       return unchecked((uint)(val & 0xffffffffL));
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputUInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -845,17 +802,16 @@ namespace PeterO.Numbers {
       return FromInt64(val);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to a
-    /// 32-bit signed
+    /// <summary>Converts an arbitrary-precision integer to a 32-bit signed
     /// integer if it can fit in a 32-bit signed integer.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 32-bit signed
     /// integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than 0 or greater than
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than 0 or greater than
     /// 4294967295.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -869,8 +825,7 @@ namespace PeterO.Numbers {
       return input.ToUInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputUInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -881,17 +836,16 @@ namespace PeterO.Numbers {
       return EInteger.FromUInt32(inputUInt32);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to a
-    /// 64-bit signed
+    /// <summary>Converts an arbitrary-precision integer to a 64-bit signed
     /// integer if it can fit in a 64-bit signed integer.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 64-bit signed
     /// integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than -9223372036854775808 or greater than
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -904,8 +858,7 @@ namespace PeterO.Numbers {
       return input.ToInt64Checked();
     }
 
-    /// <summary>Converts a 64-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputInt64'>The number to convert as a 64-bit signed
     /// integer.</param>
@@ -915,18 +868,17 @@ namespace PeterO.Numbers {
       return EInteger.FromInt64(inputInt64);
     }
 
-    /// <summary>Converts an arbitrary-precision integer to a
-    /// 64-bit
+    /// <summary>Converts an arbitrary-precision integer to a 64-bit
     /// unsigned integer if it can fit in a 64-bit unsigned
     /// integer.</summary>
     /// <param name='input'>The number to convert as an arbitrary-precision
     /// integer.</param>
     /// <returns>The value of <paramref name='input'/> as a 64-bit unsigned
     /// integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is less than 0 or greater than
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is less than 0 or greater than
     /// 18446744073709551615.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

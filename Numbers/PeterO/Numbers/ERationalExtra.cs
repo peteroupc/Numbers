@@ -26,8 +26,7 @@ namespace PeterO.Numbers {
       return FromEInteger(eint);
     }
 
-    /// <summary>Converts an arbitrary-precision decimal
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision decimal floating-point
     /// number to an arbitrary-precision rational number.</summary>
     /// <param name='eint'>The parameter <paramref name='eint'/> is an
     /// arbitrary-precision decimal floating-point number.</param>
@@ -36,8 +35,7 @@ namespace PeterO.Numbers {
       return FromEDecimal(eint);
     }
 
-    /// <summary>Converts an arbitrary-precision binary
-    /// floating-point
+    /// <summary>Converts an arbitrary-precision binary floating-point
     /// number to an arbitrary-precision rational number.</summary>
     /// <param name='eint'>An arbitrary-precision binary floating-point
     /// number.</param>
@@ -46,8 +44,7 @@ namespace PeterO.Numbers {
       return FromEFloat(eint);
     }
 
-    /// <summary>Converts a <c>decimal</c> under the Common
-    /// Language
+    /// <summary>Converts a <c>decimal</c> under the Common Language
     /// Infrastructure (usually a.NET Framework decimal) to a rational
     /// number.</summary>
     /// <param name='eint'>The number to convert as a <c>decimal</c> under
@@ -58,8 +55,7 @@ namespace PeterO.Numbers {
       return FromEDecimal(EDecimal.FromDecimal(eint));
     }
 
-    /// <summary>Converts a <c>decimal</c> under the Common
-    /// Language
+    /// <summary>Converts a <c>decimal</c> under the Common Language
     /// Infrastructure (usually a.NET Framework decimal). to an
     /// arbitrary-precision rational number.</summary>
     /// <param name='eint'>A <c>decimal</c> under the Common Language
@@ -69,8 +65,7 @@ namespace PeterO.Numbers {
       return FromDecimal(eint);
     }
 
-    /// <summary>Converts a 32-bit binary floating-point number
-    /// to a
+    /// <summary>Converts a 32-bit binary floating-point number to a
     /// rational number.</summary>
     /// <param name='eint'>The parameter <paramref name='eint'/> is a
     /// 32-bit binary floating-point number.</param>
@@ -94,7 +89,7 @@ namespace PeterO.Numbers {
     /// <param name='augend'>The second operand.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
     /// either operand is NaN.</returns>
-    /// <exception cref="ArgumentNullException">The parameter "otherValue"
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator +(ERational bthis, ERational augend) {
       if (bthis == null) {
@@ -103,13 +98,12 @@ namespace PeterO.Numbers {
       return bthis.Add(augend);
     }
 
-    /// <summary>Subtracts an arbitrary-precision rational
-    /// number from this
+    /// <summary>Subtracts an arbitrary-precision rational number from this
     /// instance.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='subtrahend'>The second operand.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter "otherValue"
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator -(
       ERational bthis,
@@ -125,7 +119,7 @@ namespace PeterO.Numbers {
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
     /// <returns>The number given in <paramref name='bthis'/> plus
     /// one.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static ERational operator ++(ERational bthis) {
       if (bthis == null) {
@@ -134,13 +128,12 @@ namespace PeterO.Numbers {
       return bthis.Add(1);
     }
 
-    /// <summary>Subtracts one from an arbitrary-precision
-    /// rational
+    /// <summary>Subtracts one from an arbitrary-precision rational
     /// number.</summary>
     /// <param name='bthis'>An arbitrary-precision rational number.</param>
     /// <returns>The number given in <paramref name='bthis'/> minus
     /// one.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static ERational operator --(ERational bthis) {
       if (bthis == null) {
@@ -154,7 +147,7 @@ namespace PeterO.Numbers {
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter "otherValue"
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator *(
       ERational operand1,
@@ -165,8 +158,7 @@ namespace PeterO.Numbers {
       return operand1.Multiply(operand2);
     }
 
-    /// <summary>Divides an arbitrary-precision rational number
-    /// by the
+    /// <summary>Divides an arbitrary-precision rational number by the
     /// value of another arbitrary-precision rational number
     /// object.</summary>
     /// <param name='dividend'>An arbitrary-precision rational number
@@ -174,7 +166,7 @@ namespace PeterO.Numbers {
     /// <param name='divisor'>An arbitrary-precision rational number
     /// serving as the divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter "otherValue"
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator /(
       ERational dividend,
@@ -185,14 +177,13 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <summary>Finds the remainder that results when this
-    /// instance is
+    /// <summary>Finds the remainder that results when this instance is
     /// divided by the value of an arbitrary-precision rational
     /// number.</summary>
     /// <param name='dividend'>The dividend.</param>
     /// <param name='divisor'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter "otherValue"
+    /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator %(
       ERational dividend,
@@ -203,13 +194,12 @@ namespace PeterO.Numbers {
       return dividend.Remainder(divisor);
     }
 
-    /// <summary>Returns an arbitrary-precision rational number
-    /// with the
+    /// <summary>Returns an arbitrary-precision rational number with the
     /// same value as the given one but with its sign reversed.</summary>
     /// <param name='bigValue'>An arbitrary-precision rational number to
     /// negate.</param>
     /// <returns>An arbitrary-precision rational number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static ERational operator -(ERational bigValue) {
       if (bigValue == null) {
@@ -218,8 +208,7 @@ namespace PeterO.Numbers {
       return bigValue.Negate();
     }
 
-    /// <summary>Converts this value to a <c>decimal</c> under
-    /// the Common
+    /// <summary>Converts this value to a <c>decimal</c> under the Common
     /// Language Infrastructure (usually a.NET Framework decimal).
     /// Currently, converts this value to the precision and range of a.NET
     /// Framework decimal.</summary>
@@ -241,16 +230,15 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// <c>decimal</c> under the Common Language Infrastructure (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
-    ///).</summary>
+    /// ).</summary>
     /// <param name='extendedNumber'>The number to convert as an
     /// arbitrary-precision rational number.</param>
     /// <returns>A <c>decimal</c> under the Common Language Infrastructure
     /// (usually a.NET Framework decimal).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='extendedNumber'/> is null.</exception>
     public static explicit operator decimal(
       ERational extendedNumber) {
@@ -260,8 +248,7 @@ namespace PeterO.Numbers {
       return extendedNumber.ToDecimal();
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to an
+    /// <summary>Converts an arbitrary-precision rational number to an
     /// arbitrary-precision integer. Any fractional part in the value will
     /// be discarded when converting to an arbitrary-precision
     /// integer.</summary>
@@ -270,7 +257,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static explicit operator EInteger(ERational bigValue) {
       if (bigValue == null) {
@@ -279,8 +266,7 @@ namespace PeterO.Numbers {
       return bigValue.ToEInteger();
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 64-bit floating-point number. The half-even rounding mode is
     /// used.</summary>
     /// <param name='bigValue'>The number to convert as an
@@ -289,7 +275,7 @@ namespace PeterO.Numbers {
     /// The return value can be positive infinity or negative infinity if
     /// this value exceeds the range of a 64-bit floating point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static explicit operator double(ERational bigValue) {
       if (bigValue == null) {
@@ -298,8 +284,7 @@ namespace PeterO.Numbers {
       return bigValue.ToDouble();
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 32-bit binary floating-point number. The half-even rounding mode is
     /// used.</summary>
     /// <param name='bigValue'>The number to convert as an
@@ -308,7 +293,7 @@ namespace PeterO.Numbers {
     /// value. The return value can be positive infinity or negative
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static explicit operator float(ERational bigValue) {
       if (bigValue == null) {
@@ -319,8 +304,7 @@ namespace PeterO.Numbers {
 
     // Begin integer conversions
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a byte
+    /// <summary>Converts an arbitrary-precision rational number to a byte
     /// (from 0 to 255) if it can fit in a byte (from 0 to 255) after
     /// converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -328,11 +312,11 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// byte (from 0 to 255).</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 255.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -345,8 +329,7 @@ namespace PeterO.Numbers {
       return input.ToByteChecked();
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an
-    /// arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputByte'>The number to convert as a byte (from 0 to
     /// 255).</param>
@@ -356,8 +339,7 @@ namespace PeterO.Numbers {
       return ERational.FromByte(inputByte);
     }
 
-    /// <summary>Converts this number's value to an 8-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to an 8-bit signed integer if
     /// it can fit in an 8-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to an 8-bit signed
@@ -375,8 +357,7 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToSByteChecked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as an 8-bit signed integer.</summary>
     /// <returns>This number, converted to an 8-bit signed integer. Returns
@@ -386,8 +367,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToSByteUnchecked() : (sbyte)0;
     }
 
-    /// <summary>Converts this number's value to an 8-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to an 8-bit signed integer if
     /// it can fit in an 8-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as an 8-bit signed integer.</returns>
@@ -403,8 +383,7 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToSByteChecked();
     }
 
-    /// <summary>Converts an 8-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputSByte'>The number to convert as an 8-bit signed
     /// integer.</param>
@@ -416,8 +395,7 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to an
+    /// <summary>Converts an arbitrary-precision rational number to an
     /// 8-bit signed integer if it can fit in an 8-bit signed integer after
     /// converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -425,11 +403,11 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to an
     /// 8-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -128 or greater than 127.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -443,8 +421,7 @@ namespace PeterO.Numbers {
       return input.ToSByteChecked();
     }
 
-    /// <summary>Converts an 8-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts an 8-bit signed integer to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputSByte'>The number to convert as an 8-bit signed
     /// integer.</param>
@@ -455,8 +432,7 @@ namespace PeterO.Numbers {
       return ERational.FromSByte(inputSByte);
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 16-bit signed integer if it can fit in a 16-bit signed integer
     /// after converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -464,11 +440,11 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -32768 or greater than 32767.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -481,8 +457,7 @@ namespace PeterO.Numbers {
       return input.ToInt16Checked();
     }
 
-    /// <summary>Converts a 16-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputInt16'>The number to convert as a 16-bit signed
     /// integer.</param>
@@ -492,8 +467,7 @@ namespace PeterO.Numbers {
       return ERational.FromInt16(inputInt16);
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
     /// if it can fit in a 16-bit unsigned integer after converting it to
     /// an integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 16-bit unsigned
@@ -511,8 +485,7 @@ namespace PeterO.Numbers {
         ((ushort)0) : this.ToEInteger().ToUInt16Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 16-bit unsigned integer.</summary>
     /// <returns>This number, converted to a 16-bit unsigned integer.
@@ -522,8 +495,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToUInt16Unchecked() : (ushort)0;
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 16-bit unsigned integer
     /// if it can fit in a 16-bit unsigned integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 16-bit unsigned
@@ -552,8 +524,7 @@ namespace PeterO.Numbers {
       return FromInt32(val);
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 16-bit unsigned integer if it can fit in a 16-bit unsigned integer
     /// after converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -561,11 +532,11 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 16-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 65535.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -590,8 +561,7 @@ namespace PeterO.Numbers {
       return ERational.FromUInt16(inputUInt16);
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 32-bit signed integer if it can fit in a 32-bit signed integer
     /// after converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -599,11 +569,11 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -2147483648 or greater than 2147483647.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -616,8 +586,7 @@ namespace PeterO.Numbers {
       return input.ToInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -627,8 +596,7 @@ namespace PeterO.Numbers {
       return ERational.FromInt32(inputInt32);
     }
 
-    /// <summary>Converts this number's value to a 32-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer after converting it to an
     /// integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 32-bit signed
@@ -645,8 +613,7 @@ namespace PeterO.Numbers {
       return this.IsZero ? 0U : this.ToEInteger().ToUInt32Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 32-bit signed integer.</summary>
     /// <returns>This number, converted to a 32-bit signed integer. Returns
@@ -656,8 +623,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToUInt32Unchecked() : 0U;
     }
 
-    /// <summary>Converts this number's value to a 32-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 32-bit signed integer if
     /// it can fit in a 32-bit signed integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 32-bit signed integer.</returns>
@@ -673,8 +639,7 @@ namespace PeterO.Numbers {
         this.ToEIntegerIfExact().ToUInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputUInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -686,8 +651,7 @@ namespace PeterO.Numbers {
       return FromInt64(val);
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 32-bit signed integer if it can fit in a 32-bit signed integer
     /// after converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -695,11 +659,11 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 32-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 4294967295.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -713,8 +677,7 @@ namespace PeterO.Numbers {
       return input.ToUInt32Checked();
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputUInt32'>The number to convert as a 32-bit signed
     /// integer.</param>
@@ -725,8 +688,7 @@ namespace PeterO.Numbers {
       return ERational.FromUInt32(inputUInt32);
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 64-bit signed integer if it can fit in a 64-bit signed integer
     /// after converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -734,12 +696,12 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit signed integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than -9223372036854775808 or greater than
     /// 9223372036854775807.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Usage",
@@ -752,8 +714,7 @@ namespace PeterO.Numbers {
       return input.ToInt64Checked();
     }
 
-    /// <summary>Converts a 64-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
     /// rational number.</summary>
     /// <param name='inputInt64'>The number to convert as a 64-bit signed
     /// integer.</param>
@@ -763,8 +724,7 @@ namespace PeterO.Numbers {
       return ERational.FromInt64(inputInt64);
     }
 
-    /// <summary>Converts this number's value to a 64-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
     /// if it can fit in a 64-bit unsigned integer after converting it to
     /// an integer by discarding its fractional part.</summary>
     /// <returns>This number's value, truncated to a 64-bit unsigned
@@ -782,8 +742,7 @@ namespace PeterO.Numbers {
         this.ToEInteger().ToUInt64Checked();
     }
 
-    /// <summary>Converts this number's value to an integer by
-    /// discarding
+    /// <summary>Converts this number's value to an integer by discarding
     /// its fractional part, and returns the least-significant bits of its
     /// two's-complement form as a 64-bit unsigned integer.</summary>
     /// <returns>This number, converted to a 64-bit unsigned integer.
@@ -793,8 +752,7 @@ namespace PeterO.Numbers {
       return this.IsFinite ? this.ToEInteger().ToUInt64Unchecked() : 0UL;
     }
 
-    /// <summary>Converts this number's value to a 64-bit
-    /// unsigned integer
+    /// <summary>Converts this number's value to a 64-bit unsigned integer
     /// if it can fit in a 64-bit unsigned integer without rounding to a
     /// different numerical value.</summary>
     /// <returns>This number's value as a 64-bit unsigned
@@ -822,8 +780,7 @@ namespace PeterO.Numbers {
       return FromEInteger(EInteger.FromUInt64(inputUInt64));
     }
 
-    /// <summary>Converts an arbitrary-precision rational
-    /// number to a
+    /// <summary>Converts an arbitrary-precision rational number to a
     /// 64-bit unsigned integer if it can fit in a 64-bit unsigned integer
     /// after converting it to an integer by discarding its fractional
     /// part.</summary>
@@ -831,11 +788,11 @@ namespace PeterO.Numbers {
     /// rational number.</param>
     /// <returns>The value of <paramref name='input'/>, truncated to a
     /// 64-bit unsigned integer.</returns>
-    /// <exception cref='OverflowException'>The parameter <paramref name='input'/>
-    /// is infinity or not-a-number, or the number, once
+    /// <exception cref='OverflowException'>The parameter <paramref
+    /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
     /// than 0 or greater than 18446744073709551615.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

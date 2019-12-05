@@ -23,8 +23,7 @@ using System.Text;
 // to return MaxValue on overflow
 // TODO: Add GetLowBitAsInt64/GetDigitCountAsInt64
 namespace PeterO.Numbers {
-  /// <summary>Represents an arbitrary-precision integer.
-  /// (The "E" stands
+  /// <summary>Represents an arbitrary-precision integer. (The "E" stands
   /// for "extended", and has this prefix to group it with the other
   /// classes common to this library, particularly EDecimal, EFloat, and
   /// ERational.)
@@ -160,8 +159,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this object's
-    /// value is a
+    /// <summary>Gets a value indicating whether this object's value is a
     /// power of two, and greater than 0.</summary>
     /// <value><c>true</c> if this object's value is a power of two, and
     /// greater than 0; otherwise, <c>false</c>.</value>
@@ -173,8 +171,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets a value indicating whether this value is
-    /// 0.</summary>
+    /// <summary>Gets a value indicating whether this value is 0.</summary>
     /// <value><c>true</c> if this value is 0; otherwise, <c>false</c>.</value>
     public bool IsZero {
       get {
@@ -182,8 +179,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Gets the sign of this object's
-    /// value.</summary>
+    /// <summary>Gets the sign of this object's value.</summary>
     /// <value>The sign of this object's value.</value>
     public int Sign {
       get {
@@ -207,12 +203,11 @@ namespace PeterO.Numbers {
         new EInteger(newwordCount, words, false);
     }
 
-    /// <summary>Initializes an arbitrary-precision integer
-    /// from an array
+    /// <summary>Initializes an arbitrary-precision integer from an array
     /// of bytes.</summary>
     /// <param name='bytes'>A byte array consisting of the two's-complement
     /// form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// the arbitrary-precision integer to create. The byte array is
     /// encoded using the following rules:
     /// <list>
@@ -240,7 +235,7 @@ namespace PeterO.Numbers {
     /// order is big-endian, or most-significant-byte first.</param>
     /// <returns>An arbitrary-precision integer. Returns 0 if the byte
     /// array's length is 0.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
@@ -317,8 +312,7 @@ namespace PeterO.Numbers {
       return boolValue ? ValueOne : ValueZero;
     }
 
-    /// <summary>Converts a 32-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 32-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
@@ -365,8 +359,7 @@ namespace PeterO.Numbers {
       return new EInteger(retwordcount, retreg, retnegative);
     }
 
-    /// <summary>Converts a 64-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='longerValue'>The parameter <paramref
     /// name='longerValue'/> is a 64-bit signed integer.</param>
@@ -436,8 +429,7 @@ namespace PeterO.Numbers {
       return new EInteger(retwordcount, retreg, retnegative);
     }
 
-    /// <summary>Converts a string to an arbitrary-precision
-    /// integer in a
+    /// <summary>Converts a string to an arbitrary-precision integer in a
     /// given radix.</summary>
     /// <param name='str'>A string described by the FromRadixSubstring
     /// method.</param>
@@ -447,7 +439,7 @@ namespace PeterO.Numbers {
     /// in radix 10, and 0-9, then A-F in radix 16.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given string.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EInteger FromRadixString(string str, int radix) {
       if (str == null) {
@@ -456,8 +448,7 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, radix, 0, str.Length);
     }
 
-    /// <summary>Converts a portion of a string to an
-    /// arbitrary-precision
+    /// <summary>Converts a portion of a string to an arbitrary-precision
     /// integer in a given radix.</summary>
     /// <param name='str'>A text string. The desired portion of the string
     /// must contain only characters allowed by the given radix, except
@@ -475,7 +466,7 @@ namespace PeterO.Numbers {
     /// portion. The length will be index + endIndex - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string portion.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The string portion is empty or in
     /// an invalid format.</exception>
@@ -785,9 +776,9 @@ namespace PeterO.Numbers {
     /// The string may start with any number of zeros.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string.</returns>
-    /// <exception cref='FormatException'>The parameter <paramref name='str'/> is
-    /// in an invalid format.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='FormatException'>The parameter <paramref
+    /// name='str'/> is in an invalid format.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EInteger FromString(string str) {
       if (str == null) {
@@ -796,8 +787,7 @@ namespace PeterO.Numbers {
       return FromRadixSubstring(str, 10, 0, str.Length);
     }
 
-    /// <summary>Converts a portion of a string to an
-    /// arbitrary-precision
+    /// <summary>Converts a portion of a string to an arbitrary-precision
     /// integer.</summary>
     /// <param name='str'>A text string. The desired portion of the string
     /// must contain only basic digits 0 to 9 (U+0030 to U+0039), except
@@ -811,11 +801,12 @@ namespace PeterO.Numbers {
     /// portion. The length will be index + endIndex - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string portion.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref name='index'/>
-    /// is less than 0, <paramref name='endIndex'/> is less
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='index'/> is less than 0, <paramref name='endIndex'/> is less
     /// than 0, or either is greater than the string's length, or <paramref
-    /// name='endIndex'/> is less than <paramref name='index'/>.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// name='endIndex'/> is less than <paramref
+    /// name='index'/>.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EInteger FromSubstring(
       string str,
@@ -839,7 +830,7 @@ namespace PeterO.Numbers {
     /// <param name='bigintAugend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintAugend'/> is null.</exception>
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
@@ -1103,8 +1094,7 @@ namespace PeterO.Numbers {
       return new EInteger(count, diffReg, diffNeg);
     }
 
-    /// <summary>Converts this object's value to a 32-bit
-    /// signed integer,
+    /// <summary>Converts this object's value to a 32-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 32-bit signed integer.</returns>
     /// <exception cref=' T:System.OverflowException'>This object's value
@@ -1114,11 +1104,10 @@ namespace PeterO.Numbers {
       return this.ToInt32Checked();
     }
 
-    /// <summary>Converts this object's value to a 32-bit
-    /// signed integer.
+    /// <summary>Converts this object's value to a 32-bit signed integer.
     /// If the value can't fit in a 32-bit integer, returns the lower 32
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 32-bit signed integer.</returns>
@@ -1127,8 +1116,7 @@ namespace PeterO.Numbers {
       return this.ToInt32Unchecked();
     }
 
-    /// <summary>Converts this object's value to a 64-bit
-    /// signed integer,
+    /// <summary>Converts this object's value to a 64-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 64-bit signed integer.</returns>
     /// <exception cref=' T:System.OverflowException'>This object's value
@@ -1138,11 +1126,10 @@ namespace PeterO.Numbers {
       return this.ToInt64Checked();
     }
 
-    /// <summary>Converts this object's value to a 64-bit
-    /// signed integer.
+    /// <summary>Converts this object's value to a 64-bit signed integer.
     /// If the value can't fit in a 64-bit integer, returns the lower 64
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 64-bit signed integer.</returns>
@@ -1151,8 +1138,7 @@ namespace PeterO.Numbers {
       return this.ToInt64Unchecked();
     }
 
-    /// <summary>Returns whether this object's value can fit in
-    /// a 32-bit
+    /// <summary>Returns whether this object's value can fit in a 32-bit
     /// signed integer.</summary>
     /// <returns><c>true</c> if this object's value is from -2147483648
     /// through 2147483647; otherwise, <c>false</c>.</returns>
@@ -1168,8 +1154,7 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <summary>Returns whether this object's value can fit in
-    /// a 64-bit
+    /// <summary>Returns whether this object's value can fit in a 64-bit
     /// signed integer.</summary>
     /// <returns><c>true</c> if this object's value is from
     /// -9223372036854775808 through 9223372036854775807; otherwise,
@@ -1187,8 +1172,7 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <summary>Compares an arbitrary-precision integer with
-    /// this
+    /// <summary>Compares an arbitrary-precision integer with this
     /// instance.</summary>
     /// <param name='other'>The integer to compare to this value.</param>
     /// <returns>Zero if the values are equal; a negative number if this
@@ -1290,8 +1274,7 @@ namespace PeterO.Numbers {
       return this.Add(EInteger.FromInt32(intValue));
     }
 
-    /// <summary>Subtracts an arbitrary-precision integer from
-    /// this
+    /// <summary>Subtracts an arbitrary-precision integer from this
     /// arbitrary-precision integer.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
@@ -1309,7 +1292,7 @@ namespace PeterO.Numbers {
     /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
-    /// .
+    ///  .
     /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
@@ -1329,8 +1312,7 @@ namespace PeterO.Numbers {
       return this.Divide(EInteger.FromInt32(intValue));
     }
 
-    /// <summary>Finds the remainder that results when this
-    /// instance is
+    /// <summary>Finds the remainder that results when this instance is
     /// divided by the value of an arbitrary-precision integer. The
     /// remainder is the value that remains when the absolute value of this
     /// object is divided by the absolute value of the other object; the
@@ -1341,14 +1323,13 @@ namespace PeterO.Numbers {
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='intValue'/> is null.</exception>
     public EInteger Remainder(int intValue) {
       return this.Remainder(EInteger.FromInt32(intValue));
     }
 
-    /// <summary>Compares an arbitrary-precision integer with
-    /// this
+    /// <summary>Compares an arbitrary-precision integer with this
     /// instance.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
@@ -1381,7 +1362,7 @@ namespace PeterO.Numbers {
     /// are negative.</summary>
     /// <param name='bigintDivisor'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintDivisor'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
@@ -2350,15 +2331,14 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Divides this object by another
-    /// arbitrary-precision integer
+    /// <summary>Divides this object by another arbitrary-precision integer
     /// and returns the quotient and remainder.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An array with two arbitrary-precision integers: the first
     /// is the quotient, and the second is the remainder.</returns>
     /// <exception cref='DivideByZeroException'>The parameter divisor is
     /// 0.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
@@ -2476,8 +2456,7 @@ namespace PeterO.Numbers {
       return new[] { bigquo2, bigrem };
     }
 
-    /// <summary>Determines whether this object and another
-    /// object are
+    /// <summary>Determines whether this object and another object are
     /// equal and have the same type.</summary>
     /// <param name='obj'>The parameter <paramref name='obj'/> is an
     /// arbitrary object.</param>
@@ -2552,14 +2531,13 @@ namespace PeterO.Numbers {
       return eret;
     }
 
-    /// <summary>Returns the greatest common divisor of this
-    /// integer and
+    /// <summary>Returns the greatest common divisor of this integer and
     /// the given integer. The greatest common divisor (GCD) is also known
     /// as the greatest common factor (GCF).</summary>
     /// <param name='bigintSecond'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintSecond'/> is null.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
@@ -2672,8 +2650,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Returns the number of decimal digits used by
-    /// this integer,
+    /// <summary>Returns the number of decimal digits used by this integer,
     /// in the form of an arbitrary-precision integer.</summary>
     /// <returns>The number of digits in the decimal form of this integer.
     /// Returns 1 if this number is 0.</returns>
@@ -2683,8 +2660,7 @@ namespace PeterO.Numbers {
       return EInteger.FromInt64(this.GetDigitCountAsInt64());
     }
 
-    /// <summary>Returns the number of decimal digits used by
-    /// this
+    /// <summary>Returns the number of decimal digits used by this
     /// integer.</summary>
     /// <returns>The number of digits in the decimal form of this integer.
     /// Returns 1 if this number is 0.</returns>
@@ -2923,8 +2899,7 @@ maxDigitEstimate : retval +
       return retval;
     }
 
-    /// <summary>Returns the hash code for this instance. No
-    /// application or
+    /// <summary>Returns the hash code for this instance. No application or
     /// process IDs are used in the hash code calculation.</summary>
     /// <returns>A 32-bit signed integer.</returns>
     public override int GetHashCode() {
@@ -2940,12 +2915,11 @@ maxDigitEstimate : retval +
       return hashCodeValue;
     }
 
-    /// <summary>Gets the lowest set bit in this number's
-    /// absolute value.
+    /// <summary>Gets the lowest set bit in this number's absolute value.
     /// (This will also be the lowest set bit in the number's
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
-    ///).).</summary>
+    /// ).).</summary>
     /// <returns>The lowest bit set in the number, starting at 0. Returns
     /// -1 if this value is 0.</returns>
     [Obsolete("This method may overflow. Use GetLowBitAsEInteger instead.")]
@@ -2953,12 +2927,11 @@ maxDigitEstimate : retval +
       return this.GetLowBitAsEInteger().ToInt32Checked();
     }
 
-    /// <summary>Gets the lowest set bit in this number's
-    /// absolute value,
+    /// <summary>Gets the lowest set bit in this number's absolute value,
     /// in the form of an arbitrary-precision integer. (This will also be
     /// the lowest set bit in the number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
-    ///).).</summary>
+    /// ).).</summary>
     /// <returns>The lowest bit set in the number, starting at 0. Returns
     /// -1 if this value is 0 or odd.</returns>
     public EInteger GetLowBitAsEInteger() {
@@ -2988,19 +2961,18 @@ maxDigitEstimate : retval +
       return EInteger.FromInt32(-1);
     }
 
-    /// <summary>Returns whether a bit is set in the
-    /// two's-complement form
+    /// <summary>Returns whether a bit is set in the two's-complement form
     /// (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value.</summary>
     /// <param name='bigIndex'>The index, starting at zero, of the bit to
     /// test, where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in the two'
     /// s-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value; otherwise, <c>false</c>.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigIndex'/> is null.</exception>
     public bool GetSignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
@@ -3039,17 +3011,16 @@ maxDigitEstimate : retval +
       }
     }
 
-    /// <summary>Returns whether a bit is set in the
-    /// two's-complement form
+    /// <summary>Returns whether a bit is set in the two's-complement form
     /// (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value.</summary>
     /// <param name='index'>The index, starting at 0, of the bit to test,
     /// where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in the two'
     /// s-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value; otherwise, <c>false</c>.</returns>
     public bool GetSignedBit(int index) {
       if (index < 0) {
@@ -3080,8 +3051,7 @@ maxDigitEstimate : retval +
       return this.GetUnsignedBit(index);
     }
 
-    /// <summary>Finds the minimum number of bits needed to
-    /// represent this
+    /// <summary>Finds the minimum number of bits needed to represent this
     /// object's value, except for its sign, in the form of an
     /// arbitrary-precision integer. If the value is negative, finds the
     /// number of bits in the value equal to this object's absolute value
@@ -3137,8 +3107,7 @@ maxDigitEstimate : retval +
       return EInteger.Zero;
     }
 
-    /// <summary>Finds the minimum number of bits needed to
-    /// represent this
+    /// <summary>Finds the minimum number of bits needed to represent this
     /// object's value, except for its sign. If the value is negative,
     /// finds the number of bits in the value equal to this object's
     /// absolute value minus 1. For example, all integers in the interval
@@ -3156,15 +3125,14 @@ maxDigitEstimate : retval +
       return this.GetSignedBitLengthAsEInteger().ToInt32Checked();
     }
 
-    /// <summary>Returns whether a bit is set in this number's
-    /// absolute
+    /// <summary>Returns whether a bit is set in this number's absolute
     /// value.</summary>
     /// <param name='bigIndex'>The index, starting at zero, of the bit to
     /// test, where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in this number's
     /// absolute value.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigIndex'/> is null.</exception>
     public bool GetUnsignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
@@ -3185,8 +3153,7 @@ maxDigitEstimate : retval +
       return (bool)(((this.words[index] >> (int)indexmod) & 1) != 0);
     }
 
-    /// <summary>Returns whether a bit is set in this number's
-    /// absolute
+    /// <summary>Returns whether a bit is set in this number's absolute
     /// value.</summary>
     /// <param name='index'>The index, starting at 0, of the bit to test,
     /// where 0 is the least significant bit, 1 is the next least
@@ -3201,8 +3168,7 @@ maxDigitEstimate : retval +
         ((bool)(((this.words[index >> 4] >> (int)(index & 15)) & 1) != 0));
     }
 
-    /// <summary>Finds the minimum number of bits needed to
-    /// represent this
+    /// <summary>Finds the minimum number of bits needed to represent this
     /// number's absolute value. For example, all integers in the interval
     /// [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or
     /// less, and all other integers have an unsigned bit length of greater
@@ -3242,8 +3208,7 @@ maxDigitEstimate : retval +
       return EInteger.Zero;
     }
 
-    /// <summary>Finds the minimum number of bits needed to
-    /// represent this
+    /// <summary>Finds the minimum number of bits needed to represent this
     /// number's absolute value. For example, all integers in the interval
     /// [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or
     /// less, and all other integers have an unsigned bit length of greater
@@ -3260,17 +3225,16 @@ maxDigitEstimate : retval +
       return this.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
     }
 
-    /// <summary>Finds the modulus remainder that results when
-    /// this
+    /// <summary>Finds the modulus remainder that results when this
     /// instance is divided by the value of an arbitrary-precision integer.
     /// The modulus remainder is the same as the normal remainder if the
     /// normal remainder is positive, and equals divisor plus normal
     /// remainder if the normal remainder is negative.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='divisor'/> is less than 0.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
@@ -3286,15 +3250,14 @@ maxDigitEstimate : retval +
       return remainderEInt;
     }
 
-    /// <summary>Finds the modulus remainder that results when
-    /// this
+    /// <summary>Finds the modulus remainder that results when this
     /// instance is divided by the value of another integer. The modulus
     /// remainder is the same as the normal remainder if the normal
     /// remainder is positive, and equals divisor plus normal remainder if
     /// the normal remainder is negative.</summary>
     /// <param name='smallDivisor'>The divisor of the modulus.</param>
     /// <returns>The modulus remainder.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='smallDivisor'/> is less than 0.</exception>
     public EInteger Mod(int smallDivisor) {
       if (smallDivisor < 0) {
@@ -3307,15 +3270,14 @@ maxDigitEstimate : retval +
       return remainderEInt;
     }
 
-    /// <summary>Calculates the remainder when this
-    /// arbitrary-precision
+    /// <summary>Calculates the remainder when this arbitrary-precision
     /// integer raised to a certain power is divided by another
     /// arbitrary-precision integer.</summary>
     /// <param name='pow'>The power to raise this integer by.</param>
     /// <param name='mod'>The integer to divide the raised number
     /// by.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='pow'/> or <paramref name='mod'/> is null.</exception>
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
@@ -3349,7 +3311,7 @@ maxDigitEstimate : retval +
     /// <param name='bigintMult'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The product of the two numbers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintMult'/> is null.</exception>
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
@@ -3485,9 +3447,9 @@ maxDigitEstimate : retval +
     /// to.</param>
     /// <returns>The result. Returns 1 if <paramref name='bigPower'/> is
     /// 0.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigPower'/> is null.</exception>
-    /// <exception cref="ArgumentException">BigPower is
+    /// <exception cref='ArgumentException'>BigPower is
     /// negative.</exception>
     public EInteger Pow(EInteger bigPower) {
       if (bigPower == null) {
@@ -3569,15 +3531,14 @@ maxDigitEstimate : retval +
       return r;
     }
 
-    /// <summary>Raises an arbitrary-precision integer to a
-    /// power, which is
+    /// <summary>Raises an arbitrary-precision integer to a power, which is
     /// given as another arbitrary-precision integer.</summary>
     /// <param name='power'>The exponent to raise to.</param>
     /// <returns>The result. Returns 1 if <paramref name='power'/> is
     /// 0.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref name='power'/>
-    /// is less than 0.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='power'/> is less than 0.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='power'/> is null.</exception>
     public EInteger PowBigIntVar(EInteger power) {
       if (power == null) {
@@ -3614,8 +3575,7 @@ maxDigitEstimate : retval +
       return r;
     }
 
-    /// <summary>Finds the remainder that results when this
-    /// instance is
+    /// <summary>Finds the remainder that results when this instance is
     /// divided by the value of an arbitrary-precision integer. The
     /// remainder is the value that remains when the absolute value of this
     /// object is divided by the absolute value of the other object; the
@@ -3625,7 +3585,7 @@ maxDigitEstimate : retval +
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
@@ -3674,18 +3634,17 @@ maxDigitEstimate : retval +
       return new EInteger(count, remainderReg, this.negative);
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// the bits
+    /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the right. For this operation, the arbitrary-precision
     /// integer is treated as a two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>).
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
     /// Thus, for negative values, the arbitrary-precision integer is
     /// sign-extended.</summary>
     /// <param name='eshift'>The number of bits to shift. Can be negative,
     /// in which case this is the same as shiftLeft with the absolute value
     /// of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='eshift'/> is null.</exception>
     public EInteger ShiftRight(EInteger eshift) {
       if (eshift == null) {
@@ -3703,8 +3662,7 @@ maxDigitEstimate : retval +
       return ret.ShiftRight(valueETempShift.ToInt32Checked());
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// the bits
+    /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the left by a number of bits given as an
     /// arbitrary-precision integer. A value of 1 doubles this value, a
     /// value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by
@@ -3713,7 +3671,7 @@ maxDigitEstimate : retval +
     /// in which case this is the same as shiftRight with the absolute
     /// value of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='eshift'/> is null.</exception>
     public EInteger ShiftLeft(EInteger eshift) {
       if (eshift == null) {
@@ -3731,8 +3689,7 @@ maxDigitEstimate : retval +
       return ret.ShiftLeft(valueETempShift.ToInt32Checked());
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// the bits
+    /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the left by a number of bits. A value of 1 doubles this
     /// value, a value of 2 multiplies it by 4, a value of 3 by 8, a value
     /// of 4 by 16, and so on.</summary>
@@ -3800,8 +3757,7 @@ maxDigitEstimate : retval +
       }
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// every bit
+    /// <summary>Returns an arbitrary-precision integer with every bit
     /// flipped from this one.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     public EInteger Not() {
@@ -3828,18 +3784,17 @@ maxDigitEstimate : retval +
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <summary>Does an AND operation between two
-    /// arbitrary-precision
+    /// <summary>Does an AND operation between two arbitrary-precision
     /// integer values.</summary>
     /// <param name='other'>An arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bits of this integer and the other integer are
     /// both set.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public EInteger And(EInteger other) {
       if (other == null) {
@@ -3894,20 +3849,19 @@ maxDigitEstimate : retval +
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <summary>Does an OR operation between two
-    /// arbitrary-precision
+    /// <summary>Does an OR operation between two arbitrary-precision
     /// integer instances.</summary>
     /// <param name='second'>The second operand.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
-    /// <exception cref="ArgumentException">Doesn't satisfy
-    /// biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
-    /// CountWords(result).</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
+    /// <exception cref='ArgumentException'>doesn't satisfy
+    /// biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
+    /// CountWords(result)</exception>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
@@ -3979,21 +3933,18 @@ maxDigitEstimate : retval +
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <summary>Finds the exclusive "or" of two
-    /// arbitrary-precision
+    /// <summary>Finds the exclusive "or" of two arbitrary-precision
     /// integer objects.
     /// <para>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</para></summary>
     /// <param name='other'>An arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bit is set in one input integer but not in the
     /// other.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
-    /// <exception cref="ArgumentException">Doesn't satisfy smallerCount ==
-    /// CountWords(result).</exception>
     public EInteger Xor(EInteger other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
@@ -4265,11 +4216,10 @@ maxDigitEstimate : retval +
       return wordCount;
     }
 
-    /// <summary>Returns an arbitrary-precision integer with
-    /// the bits
+    /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the right. For this operation, the arbitrary-precision
     /// integer is treated as a two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>).
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
     /// Thus, for negative values, the arbitrary-precision integer is
     /// sign-extended.</summary>
     /// <param name='numberBits'>The number of bits to shift. Can be
@@ -4328,8 +4278,7 @@ maxDigitEstimate : retval +
       return new EInteger(retWordCount, ret, this.negative);
     }
 
-    /// <summary>Finds the square root of this instance's
-    /// value, rounded
+    /// <summary>Finds the square root of this instance's value, rounded
     /// down.</summary>
     /// <returns>The square root of this object's value. Returns 0 if this
     /// value is 0 or less.</returns>
@@ -4338,8 +4287,7 @@ maxDigitEstimate : retval +
       return srrem[0];
     }
 
-    /// <summary>Calculates the square root and the
-    /// remainder.</summary>
+    /// <summary>Calculates the square root and the remainder.</summary>
     /// <returns>An array of two arbitrary-precision integers: the first
     /// integer is the square root, and the second is the difference
     /// between this value and the square of the first integer. Returns two
@@ -4349,13 +4297,12 @@ maxDigitEstimate : retval +
       return this.SqrtRemInternal(true);
     }
 
-    /// <summary>Subtracts an arbitrary-precision integer from
-    /// this
+    /// <summary>Subtracts an arbitrary-precision integer from this
     /// arbitrary-precision integer.</summary>
     /// <param name='subtrahend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='subtrahend'/> is null.</exception>
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
@@ -4365,10 +4312,9 @@ maxDigitEstimate : retval +
 ((subtrahend.wordCount == 0) ? this : this.Add(subtrahend.Negate()));
     }
 
-    /// <summary>Returns a byte array of this integer's value.
-    /// The byte
+    /// <summary>Returns a byte array of this integer's value. The byte
     /// array will take the number's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>),
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
     /// using the fewest bytes necessary to store its value unambiguously.
     /// If this value is negative, the bits that appear beyond the most
     /// significant bit of the number will be all ones. The resulting byte
@@ -4439,8 +4385,7 @@ maxDigitEstimate : retval +
       }
     }
 
-    /// <summary>Converts this object's value to a 32-bit
-    /// signed integer,
+    /// <summary>Converts this object's value to a 32-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 32-bit signed integer.</returns>
     /// <exception cref=' T:System.OverflowException'>This object's value
@@ -4463,11 +4408,10 @@ maxDigitEstimate : retval +
       return this.ToInt32Unchecked();
     }
 
-    /// <summary>Converts this object's value to a 32-bit
-    /// signed integer.
+    /// <summary>Converts this object's value to a 32-bit signed integer.
     /// If the value can't fit in a 32-bit integer, returns the lower 32
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 32-bit signed integer.</returns>
@@ -4487,8 +4431,7 @@ maxDigitEstimate : retval +
       return intRetValue;
     }
 
-    /// <summary>Converts this object's value to a 64-bit
-    /// signed integer,
+    /// <summary>Converts this object's value to a 64-bit signed integer,
     /// throwing an exception if it can't fit.</summary>
     /// <returns>A 64-bit signed integer.</returns>
     /// <exception cref=' T:System.OverflowException'>This object's value
@@ -4512,11 +4455,10 @@ maxDigitEstimate : retval +
       return this.ToInt64Unchecked();
     }
 
-    /// <summary>Converts this object's value to a 64-bit
-    /// signed integer.
+    /// <summary>Converts this object's value to a 64-bit signed integer.
     /// If the value can't fit in a 64-bit integer, returns the lower 64
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 64-bit signed integer.</returns>
@@ -4755,8 +4697,7 @@ maxDigitEstimate : retval +
       return sb.ToString();
     }
 
-    /// <summary>Generates a string representing the value of
-    /// this object,
+    /// <summary>Generates a string representing the value of this object,
     /// in the given radix.</summary>
     /// <param name='radix'>A radix from 2 through 36. For example, to
     /// generate a hexadecimal (base-16) string, specify 16. To generate a
@@ -8289,8 +8230,7 @@ maxDigitEstimate : retval +
       return this.Add(EInteger.One);
     }
 
-    /// <summary>Returns one subtracted from this
-    /// arbitrary-precision
+    /// <summary>Returns one subtracted from this arbitrary-precision
     /// integer.</summary>
     /// <returns>The given arbitrary-precision integer minus one.</returns>
     public EInteger Decrement() {
@@ -8299,8 +8239,7 @@ maxDigitEstimate : retval +
 
     // Begin integer conversions
 
-    /// <summary>Converts this number's value to a byte (from 0
-    /// to 255) if
+    /// <summary>Converts this number's value to a byte (from 0 to 255) if
     /// it can fit in a byte (from 0 to 255).</summary>
     /// <returns>This number's value as a byte (from 0 to 255).</returns>
     /// <exception cref='OverflowException'>This value is less than 0 or
@@ -8313,8 +8252,7 @@ maxDigitEstimate : retval +
       return unchecked((byte)(val & 0xff));
     }
 
-    /// <summary>Converts this number to a byte (from 0 to
-    /// 255), returning
+    /// <summary>Converts this number to a byte (from 0 to 255), returning
     /// the least-significant bits of this number's two's-complement
     /// form.</summary>
     /// <returns>This number, converted to a byte (from 0 to
@@ -8324,8 +8262,7 @@ maxDigitEstimate : retval +
       return unchecked((byte)(val & 0xff));
     }
 
-    /// <summary>Converts a byte (from 0 to 255) to an
-    /// arbitrary-precision
+    /// <summary>Converts a byte (from 0 to 255) to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputByte'>The number to convert as a byte (from 0 to
     /// 255).</param>
@@ -8336,8 +8273,7 @@ maxDigitEstimate : retval +
       return FromInt32(val);
     }
 
-    /// <summary>Converts this number's value to a 16-bit
-    /// signed integer if
+    /// <summary>Converts this number's value to a 16-bit signed integer if
     /// it can fit in a 16-bit signed integer.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='OverflowException'>This value is less than -32768
@@ -8350,8 +8286,7 @@ maxDigitEstimate : retval +
       return unchecked((short)(val & 0xffff));
     }
 
-    /// <summary>Converts this number to a 16-bit signed
-    /// integer, returning
+    /// <summary>Converts this number to a 16-bit signed integer, returning
     /// the least-significant bits of this number's two's-complement
     /// form.</summary>
     /// <returns>This number, converted to a 16-bit signed
@@ -8361,8 +8296,7 @@ maxDigitEstimate : retval +
       return unchecked((short)(val & 0xffff));
     }
 
-    /// <summary>Converts a 16-bit signed integer to an
-    /// arbitrary-precision
+    /// <summary>Converts a 16-bit signed integer to an arbitrary-precision
     /// integer.</summary>
     /// <param name='inputInt16'>The number to convert as a 16-bit signed
     /// integer.</param>
