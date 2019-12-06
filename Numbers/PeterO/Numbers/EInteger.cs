@@ -52,9 +52,9 @@ namespace PeterO.Numbers {
   /// to handle big numbers in security-sensitive
   /// algorithms.</para></summary>
   [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Design",
-        "CA1036",
-        Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
+      "Microsoft.Design",
+      "CA1036",
+      Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class EInteger : IComparable<EInteger>,
     IEquatable<EInteger> {
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -104,47 +104,52 @@ namespace PeterO.Numbers {
     private readonly int wordCount;
     private readonly short[] words;
 
-    private static int CacheFirst = -24;
-    private static int CacheLast = 128;
+    private const int CacheFirst = -24;
+    private const int CacheLast = 128;
     private static readonly EInteger[] Cache = EIntegerCache(CacheFirst,
-  CacheLast);
+        CacheLast);
 
     private static EInteger[] EIntegerCache(int first, int last) {
-#if DEBUG
-if ((first) < -65535) {
-  throw new ArgumentException("first (" + first + ") is not greater or equal" +
-"\u0020to " + (-65535));
-}
-if (first > 65535) {
-  throw new ArgumentException("first (" + first + ") is not less or equal to" +
-"\u002065535");
-}
-if ((last) < -65535) {
-  throw new ArgumentException("last (" + last + ") is not greater or equal" +
-"\u0020to " + (-65535));
-}
-if (last > 65535) {
-  throw new ArgumentException("last (" + last + ") is not less or equal to
-65535");
-}
-#endif
+      #if DEBUG
+      if (first < -65535) {
+        throw new ArgumentException("first (" + first + ") is not greater" +
+"\u0020or equal" +
+          "\u0020to " + (-65535));
+      }
+      if (first > 65535) {
+        throw new ArgumentException("first (" + first + ") is not less or" +
+"\u0020equal to" +
+          "\u002065535");
+      }
+      if (last < -65535) {
+        throw new ArgumentException("last (" + last + ") is not greater or" +
+"\u0020equal" +
+          "\u0020to " + (-65535));
+      }
+      if (last > 65535) {
+        throw new ArgumentException("last (" + last + ") is not less or" +
+"\u0020equal to" +
+          "65535");
+      }
+      #endif
 
-EInteger[] cache = new EInteger[(last - first) + 1];
-for (var i = first; i <= last; ++i) {
-  if (i == 0) {
-    cache[i - first] = ValueZero;
-  }
- elseif (i == 1) {
-   cache[i - first] = ValueOne;
- }
- elseif (i == 10) {
-   cache[i - first] = ValueTen;
- } else {
- cache[i - first] = new EInteger(1, new short[] { unchecked((short)i) }, i <
-0);
-}
-}
-return cache;
+      var cache = new EInteger[(last - first) + 1];
+      for (var i = first; i <= last; ++i) {
+        if (i == 0) {
+          cache[i - first] = ValueZero;
+        } else if (i == 1) {
+          cache[i - first] = ValueOne;
+        } else if (i == 10) {
+          cache[i - first] = ValueTen;
+        } else {
+          int iabs = Math.Abs(i);
+          cache[i - first] = new EInteger(1, new short[] {
+            unchecked,
+            ((short)iabs)
+          }, i < 0);
+        }
+      }
+      return cache;
     }
 
     private EInteger(int wordCount, short[] reg, bool negative) {
@@ -576,7 +581,7 @@ return cache;
           for (int i = 0; i < leftover; ++i) {
             extraWord <<= 4;
             char c = str[index + i];
-            int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+            int digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
             if (digit >= 16) {
               throw new FormatException("Illegal character found");
             }
@@ -594,27 +599,27 @@ return cache;
         #endif
         while (index < endIndex) {
           char c = str[index + 3];
-          int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          int digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
           int word = digit;
           c = str[index + 2];
-          digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
 
           word |= digit << 4;
           c = str[index + 1];
-          digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
 
           word |= digit << 8;
           c = str[index];
-          digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
@@ -677,11 +682,11 @@ return cache;
             negative);
       } else {
         return FromRadixSubstringGeneral(
-          str,
-          radix,
-          index,
-          endIndex,
-          negative);
+            str,
+            radix,
+            index,
+            endIndex,
+            negative);
       }
     }
 
@@ -745,7 +750,7 @@ return cache;
           throw new ArgumentNullException(nameof(str));
         }
         char c = str[i];
-        int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+        int digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
         if (digit >= radix) {
           throw new FormatException("Illegal character found");
         }
@@ -854,7 +859,7 @@ return cache;
     /// <returns>This object's value with the sign removed.</returns>
     public EInteger Abs() {
       return (this.wordCount == 0 || !this.negative) ? this : new
-        EInteger(this.wordCount, this.words, false);
+EInteger(this.wordCount, this.words, false);
     }
 
     /// <summary>Adds this object and another object.</summary>
@@ -1264,53 +1269,60 @@ return cache;
       if (this.wordCount == 0) {
         return EInteger.FromInt32(intValue);
       }
-      if (this.wordCount == 1 && intValue < 65535 && intValue >= -65535) {
+      if (this.wordCount == 1 && intValue >= -0x7ffe0000 && intValue <
+0x7ffe0000) {
         short[] sumreg;
-        if (intValue > 0 && !this.negative) {
-          int intSum = (((int)this.words[0]) & 0xffff) + intValue;
-if (intSum >= CacheFirst && intSum <= CacheLast) {
-  return Cache[intSum - CacheFirst];
-}
+        int intSum = this.negative ?
+          intValue - (((int)this.words[0]) & 0xffff) :
+          intValue + (((int)this.words[0]) & 0xffff);
+        if (intSum >= CacheFirst && intSum <= CacheLast) {
+          return Cache[intSum - CacheFirst];
+        } else if ((intSum >> 16) == 0) {
+          sumreg = new short[1];
+          sumreg[0] = unchecked((short)intSum);
+          return new EInteger(
+              1,
+              sumreg,
+              false);
+        } else if (intSum > 0) {
           sumreg = new short[2];
           sumreg[0] = unchecked((short)intSum);
           sumreg[1] = unchecked((short)(intSum >> 16));
           return new EInteger(
-              ((intSum >> 16) == 0) ? 1 : 2,
+              2,
               sumreg,
-              this.negative);
-        } else if (intValue < 0 && this.negative) {
-          int intSum = (((int)this.words[0]) & 0xffff) - intValue;
-          sumreg = new short[2];
-          sumreg[0] = unchecked((short)intSum);
-          sumreg[1] = unchecked((short)(intSum >> 16));
-          return new EInteger(
-              ((intSum >> 16) == 0) ? 1 : 2,
-              sumreg,
-              this.negative);
-        } else {
-          int a = ((int)this.words[0]) & 0xffff;
-          int b = Math.Abs(intValue);
-          if (a > b) {
-            a -= b;
-            int na = (this.negative) ? -a : a;
-if (na >= CacheFirst && na <= CacheLast) {
-  return Cache[na - CacheFirst];
-}
-            sumreg = new short[2];
-            sumreg[0] = unchecked((short)a);
-            return new EInteger(1, sumreg, this.negative);
-          } else if (a == b) {
-            return EInteger.Zero;
-          } else {
-            b -= a;
-            int na = (this.negative) ? -b : b;
-if (na >= CacheFirst && na <= CacheLast) {
-  return Cache[na - CacheFirst];
-}
-            sumreg = new short[2];
-            sumreg[0] = unchecked((short)b);
-            return new EInteger(1, sumreg, !this.negative);
+              false);
+        } else if (intSum > -65536) {
+#if DEBUG
+          if (intSum >= 0) {
+            throw new ArgumentException("intSum (" + intSum + ") is not less" +
+"\u0020than 0");
           }
+#endif
+
+          sumreg = new short[1];
+          intSum = -intSum;
+          sumreg[0] = unchecked((short)intSum);
+          return new EInteger(
+              1,
+              sumreg,
+              true);
+        } else {
+#if DEBUG
+          if (intSum >= 0) {
+            throw new ArgumentException("intSum (" + intSum + ") is not less" +
+"\u0020than 0");
+          }
+#endif
+
+          sumreg = new short[2];
+          intSum = -intSum;
+          sumreg[0] = unchecked((short)intSum);
+          sumreg[1] = unchecked((short)(intSum >> 16));
+          return new EInteger(
+              2,
+              sumreg,
+              true);
         }
       }
       return this.Add(EInteger.FromInt32(intValue));
@@ -1323,7 +1335,7 @@ if (na >= CacheFirst && na <= CacheLast) {
     /// <returns>The difference of the two objects.</returns>
     public EInteger Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
-        this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ?
+        this.Subtract(EInteger.FromInt32(intValue)) :((intValue == 0) ?
           this : this.Add(-intValue));
     }
 
@@ -1976,7 +1988,7 @@ if (na >= CacheFirst && na <= CacheLast) {
           0,
           blocksB);
         if (quot != null) {
-          size = Math.Min(blocksB, quot.Length - (i * blocksB));
+          size = Math.Min(blocksB, quot.Length -(i * blocksB));
           // DebugUtility.Log("quot len=" + quot.Length + ",bb=" + blocksB +
           // ",size=" + size + " [" + countA + "," + countB + "]");
           if (size > 0) {
@@ -2492,9 +2504,9 @@ if (na >= CacheFirst && na <= CacheLast) {
       bigRemainderreg = ShortenArray(bigRemainderreg, remCount);
       quotientreg = ShortenArray(quotientreg, quoCount);
       EInteger bigrem = (remCount == 0) ? EInteger.Zero : new
-        EInteger(remCount, bigRemainderreg, this.negative);
+EInteger(remCount, bigRemainderreg, this.negative);
       EInteger bigquo2 = (quoCount == 0) ? EInteger.Zero : new
-        EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
+EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
       return new[] { bigquo2, bigrem };
     }
 
@@ -2647,7 +2659,7 @@ if (na >= CacheFirst && na <= CacheLast) {
             buc = WordsShiftRightOne(bu, buc);
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
-            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x0f) == 0) ?
+            buc =(Math.Abs(buc - bvc) > 1 &&(bu[0] & 0x0f) == 0) ?
               WordsShiftRightFour(bu, buc) : WordsShiftRightOne(bu, buc);
             } else if (!eu && ev) {
             if ((bv[0] & 0xff) == 0 && Math.Abs(buc - bvc) > 1) {
@@ -2661,7 +2673,7 @@ if (na >= CacheFirst && na <= CacheLast) {
             }
           } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
             buc = WordsSubtract(bu, buc, bv, bvc);
-            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x02) == 0) ?
+            buc =(Math.Abs(buc - bvc) > 1 &&(bu[0] & 0x02) == 0) ?
               WordsShiftRightTwo(bu, buc) : WordsShiftRightOne(bu, buc);
             } else {
             short[] butmp = bv;
@@ -2745,8 +2757,7 @@ if (na >= CacheFirst && na <= CacheLast) {
                     ((value >= 100000000000000L) ? 15 : ((value
                           >= 10000000000000L) ?
                         14 : ((value >= 1000000000000L) ? 13 : ((value
-                              >= 100000000000L) ? 12 : ((value >=
-10000000000L) ?
+                >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
                               11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
@@ -2803,7 +2814,7 @@ if (na >= CacheFirst && na <= CacheLast) {
           break;
         } else if (bitlen < 50000) {
           retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-  minDigits + 1)) >= 0 ? maxDigits + 1 : minDigits + 1;
+                minDigits + 1)) >= 0 ? maxDigits + 1 : minDigits + 1;
           break;
         }
         short[] tempReg = null;
@@ -2870,8 +2881,8 @@ if (na >= CacheFirst && na <= CacheLast) {
                 // NOTE: Bitlength accurate for wci<1000000 here, only as
                 // an approximation
                 bitlen = (wci < 1000000) ? GetUnsignedBitLengthEx(
-                  quo,
-                  wci + 1) :
+                    quo,
+                    wci + 1) :
                   Int32.MaxValue;
                 if (bitlen <= 2135) {
                   // (x*631305) >> 21 is an approximation
@@ -2895,8 +2906,7 @@ if (na >= CacheFirst && na <= CacheLast) {
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                          minDigitEstimate)) >= 0 ? retval +
-maxDigitEstimate : retval +
+                minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
                       minDigitEstimate;
                     done = true;
                     break;
@@ -2989,12 +2999,14 @@ maxDigitEstimate : retval +
                         12) & 0xffff) != 0) ? 3 : ((((c << 11) &
                         0xffff) != 0) ? 4 : ((((c << 10) & 0xffff) != 0) ? 5 :
                       ((((c << 9) & 0xffff) != 0) ? 6 : ((((c <<
-                8) & 0xffff) != 0) ? 7 : ((((c << 7) & 0xffff) !=
+                                8) & 0xffff) != 0) ? 7 : ((((c << 7) &
+0xffff) !=
                               0) ? 8 : ((((c << 6) & 0xffff) != 0) ? 9 :
-                ((((c << 5) & 0xffff) != 0) ? 10 : ((((c <<
+                              ((((c << 5) & 0xffff) != 0) ? 10 : ((((c <<
                                         4) & 0xffff) != 0) ? 11 : ((((c << 3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
-                0xffff) != 0) ? 13 : ((((c << 1) & 0xffff) !=
+                                          0xffff) != 0) ? 13 : ((((c << 1) &
+0xffff) !=
                                           0) ? 14 : 15))))))))))))));
           return EInteger.FromInt64(retSetBitLong).Add(
               EInteger.FromInt32(rsb));
@@ -3338,11 +3350,11 @@ maxDigitEstimate : retval +
       EInteger eiv = this;
       while (!pow.IsZero) {
         if (!pow.IsEven) {
-          r = (r * (EInteger)eiv).Mod(mod);
+          r =(r *(EInteger)eiv).Mod(mod);
         }
         pow >>= 1;
         if (!pow.IsZero) {
-          eiv = (eiv * (EInteger)eiv).Mod(mod);
+          eiv =(eiv *(EInteger)eiv).Mod(mod);
         }
       }
       return r;
@@ -3524,7 +3536,7 @@ maxDigitEstimate : retval +
         bp = bp.Subtract(Int32.MaxValue);
       }
       int lastp = bp.ToInt32Checked();
-      ret = (lastp == Int32.MaxValue) ? ret.Multiply(rmax) :
+      ret =(lastp == Int32.MaxValue) ? ret.Multiply(rmax) :
         ret.Multiply(this.Pow(lastp));
       return ret;
     }
@@ -3823,7 +3835,7 @@ maxDigitEstimate : retval +
       valueXaNegative = !this.negative;
       valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
+EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
     /// <summary>Does an AND operation between two arbitrary-precision
@@ -3857,7 +3869,7 @@ maxDigitEstimate : retval +
         }
         smallerCount = CountWords(result);
         return (smallerCount == 0) ? EInteger.Zero : new
-          EInteger(smallerCount, result, false);
+EInteger(smallerCount, result, false);
       }
       var valueXaNegative = false;
       var valueXaWordCount = 0;
@@ -3888,7 +3900,7 @@ maxDigitEstimate : retval +
       }
       valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
+EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
     /// <summary>Does an OR operation between two arbitrary-precision
@@ -3936,8 +3948,8 @@ maxDigitEstimate : retval +
           throw new ArgumentException("doesn't satisfy biggerCount>0");
         }
         if (!(biggerCount == CountWords(result))) {
-          throw new
-          ArgumentException("doesn't satisfy biggerCount==CountWords(result)");
+          throw new ArgumentException("doesn't satisfy
+biggerCount==CountWords(result)");
         }
         #endif
 
@@ -3972,7 +3984,7 @@ maxDigitEstimate : retval +
       }
       valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
+EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
     /// <summary>Finds the exclusive "or" of two arbitrary-precision
@@ -4058,7 +4070,7 @@ maxDigitEstimate : retval +
       }
       valueXaWordCount = CountWords(valueXaReg);
       return (valueXaWordCount == 0) ? EInteger.Zero : new
-        EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
+EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
     private short[] Copy() {
@@ -4712,13 +4724,13 @@ maxDigitEstimate : retval +
           // accurate approximation to rest/10 up to 16388,
           // and rest can go up to 9999
           int newrest = (remainderSmall * 3277) >> 15;
-          s[i++] = Digits[(int)(remainderSmall - (newrest * 10))];
+          s[i++] = Digits[(int)(remainderSmall -(newrest * 10))];
           remainderSmall = newrest;
           newrest = (remainderSmall * 3277) >> 15;
-          s[i++] = Digits[(int)(remainderSmall - (newrest * 10))];
+          s[i++] = Digits[(int)(remainderSmall -(newrest * 10))];
           remainderSmall = newrest;
           newrest = (remainderSmall * 3277) >> 15;
-          s[i++] = Digits[(int)(remainderSmall - (newrest * 10))];
+          s[i++] = Digits[(int)(remainderSmall -(newrest * 10))];
           remainderSmall = newrest;
           s[i++] = Digits[remainderSmall];
         }
@@ -8095,13 +8107,13 @@ maxDigitEstimate : retval +
         }
         while (intvalue > 43698) {
           int intdivvalue = intvalue / 10;
-          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
+          char digit = Digits[(int)(intvalue -(intdivvalue * 10))];
           chars[count--] = digit;
           intvalue = intdivvalue;
         }
         while (intvalue > 9) {
           int intdivvalue = (intvalue * 26215) >> 18;
-          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
+          char digit = Digits[(int)(intvalue -(intdivvalue * 10))];
           chars[count--] = digit;
           intvalue = intdivvalue;
         }
@@ -8122,7 +8134,7 @@ maxDigitEstimate : retval +
         }
         while (value > 9) {
           long divvalue = value / 10;
-          char digit = Digits[(int)(value - (divvalue * 10))];
+          char digit = Digits[(int)(value -(divvalue * 10))];
           chars[count--] = digit;
           value = divvalue;
         }

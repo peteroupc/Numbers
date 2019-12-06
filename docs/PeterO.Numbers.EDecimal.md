@@ -151,7 +151,8 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[CompareToWithContext(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
 * <code>[CopySign(PeterO.Numbers.EDecimal)](#CopySign_PeterO_Numbers_EDecimal)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
-* <code>[Create(int, int)](#Create_int_int)</code> - Creates a number with the value exponent*10^significand.
+* <code>[Create(int, int)](#Create_int_int)</code> - Returns a number with the value exponent*10^significand.
+* <code>[Create(long, long)](#Create_long_long)</code> - Creates a number with the value exponent*10^significand.
 * <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*10^significand.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
@@ -887,18 +888,43 @@ The parameter  <i>other</i>
         int mantissaSmall,
         int exponentSmall);
 
-Creates a number with the value  `exponent*10^significand` .
+Returns a number with the value  `exponent*10^significand` .
 
 <b>Parameters:</b>
 
- * <i>mantissaSmall</i>: The parameter  <i>mantissaSmall</i>
- is a 32-bit signed integer.
+ * <i>mantissaSmall</i>: Desired value for the significand.
 
  * <i>exponentSmall</i>: Desired value for the exponent.
 
 <b>Return Value:</b>
 
 An arbitrary-precision decimal number.
+
+<a id="Create_long_long"></a>
+### Create
+
+    public static PeterO.Numbers.EDecimal Create(
+        long mantissaLong,
+        long exponentLong);
+
+Creates a number with the value  `exponent*10^significand` .
+
+<b>Parameters:</b>
+
+ * <i>mantissaLong</i>: Desired value for the significand.
+
+ * <i>exponentLong</i>: Desired value for the exponent.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>mantissaLong</i>
+ or  <i>exponentLong</i>
+ is null.
 
 <a id="Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Create
@@ -911,8 +937,7 @@ Creates a number with the value  `exponent*10^significand` .
 
 <b>Parameters:</b>
 
- * <i>mantissa</i>: The parameter  <i>mantissa</i>
- is a Numbers.EInteger object.
+ * <i>mantissa</i>: Desired value for the significand.
 
  * <i>exponent</i>: Desired value for the exponent.
 

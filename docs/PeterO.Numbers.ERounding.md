@@ -68,7 +68,7 @@ Rounded to the nearest number; if the fractional part is exactly half, the numbe
 
     public static PeterO.Numbers.ERounding None = 0;
 
-Indicates that rounding will not be used. If rounding is required, the rounding operation will report an error.
+Indicates that rounding will not be used. If rounding to an inexact value is required, the rounding operation will report an error.
 
 <a id="Odd"></a>
 ### Odd

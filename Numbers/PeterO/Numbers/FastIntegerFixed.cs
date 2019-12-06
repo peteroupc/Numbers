@@ -12,10 +12,16 @@ namespace PeterO.Numbers {
     // TODO: Implement cache similar to EInteger here
     private readonly int smallValue; // if integerMode is 0
     private readonly EInteger largeValue; // if integerMode is 2
-    private readonly int integerMode;
+    private readonly byte integerMode;
 
-    public static readonly FastIntegerFixed Zero = new FastIntegerFixed(0);
-    public static readonly FastIntegerFixed One = new FastIntegerFixed(1);
+    public static readonly FastIntegerFixed Zero = new FastIntegerFixed(
+      0,
+      0,
+      null);
+    public static readonly FastIntegerFixed One = new FastIntegerFixed(
+      0,
+      1,
+      null);
 
     private static readonly EInteger ValueInt32MinValue =
       (EInteger)Int32.MinValue;
@@ -23,12 +29,47 @@ namespace PeterO.Numbers {
     private static readonly EInteger ValueNegativeInt32MinValue =
       -(EInteger)ValueInt32MinValue;
 
-    // TODO: Obsolete this and replace with factory method
-    internal FastIntegerFixed(int smallValue) : this(0, smallValue, null) {
+    private const int CacheFirst = -24;
+    private const int CacheLast = 128;
+    private static readonly FastIntegerFixed[] Cache =
+FastIntegerFixedCache(CacheFirst,
+  CacheLast);
+
+    private static FastIntegerFixed[] FastIntegerFixedCache(int first, int
+last) {
+#if DEBUG
+if (first < -65535) {
+  throw new ArgumentException("first (" + first + ") is not greater or equal" +
+"\u0020to " + (-65535));
+}
+if (first > 65535) {
+  throw new ArgumentException("first (" + first + ") is not less or equal to" +
+"\u002065535");
+}
+if (last < -65535) {
+  throw new ArgumentException("last (" + last + ") is not greater or equal" +
+"\u0020to " + (-65535));
+}
+if (last > 65535) {
+  throw new ArgumentException("last (" + last + ") is not less or equal to" +
+"65535");
+}
+#endif
+FastIntegerFixed[] cache = new FastIntegerFixed[(last - first) + 1];
+for (var i = first; i <= last; ++i) {
+  if (i == 0) {
+    cache[i - first] = Zero;
+  } else if (i == 1) {
+    cache[i - first] = One;
+  } else {
+ cache[i - first] = new FastIntegerFixed(0, i, null);
+}
+}
+return cache;
     }
 
-    internal FastIntegerFixed(
-      int integerMode,
+    private FastIntegerFixed(
+      byte integerMode,
       int smallValue,
       EInteger largeValue) {
       this.integerMode = integerMode;
@@ -66,17 +107,22 @@ namespace PeterO.Numbers {
       return hash;
     }
 
+    internal static FastIntegerFixed FromInt32(int intVal) {
+return (intVal >= CacheFirst && intVal <= CacheLast) ?
+Cache[intVal - CacheFirst] : (new FastIntegerFixed(0, intVal, null));
+    }
+
     internal static FastIntegerFixed FromLong(long longVal) {
-      return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? new
-        FastIntegerFixed((int)longVal) : new FastIntegerFixed(
+      return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ?
+FromInt32((int)longVal) : new FastIntegerFixed(
           2,
           0,
           EInteger.FromInt64(longVal));
     }
 
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
-      return bigintVal.CanFitInInt32() ? new
-        FastIntegerFixed(bigintVal.ToInt32Unchecked()) : new
+      return bigintVal.CanFitInInt32() ?
+FromInt32(bigintVal.ToInt32Unchecked()) : new
         FastIntegerFixed(2, 0, bigintVal);
     }
 
@@ -87,7 +133,7 @@ namespace PeterO.Numbers {
 
     public static FastIntegerFixed FromFastInteger(FastInteger fi) {
       if (fi.CanFitInInt32()) {
-        return new FastIntegerFixed(fi.AsInt32());
+        return FromInt32(fi.AsInt32());
       } else {
         return FastIntegerFixed.FromBig(fi.AsEInteger());
       }
@@ -103,7 +149,7 @@ namespace PeterO.Numbers {
 
     public FastIntegerFixed Increment() {
       if (this.integerMode == 0 && this.smallValue != Int32.MaxValue) {
-        return new FastIntegerFixed(this.smallValue + 1);
+        return FromInt32(this.smallValue + 1);
       } else {
         return Add(this, FastIntegerFixed.One);
       }
@@ -134,7 +180,7 @@ namespace PeterO.Numbers {
         if ((a.smallValue < 0 && b.smallValue >= Int32.MinValue -
             a.smallValue) || (a.smallValue > 0 && b.smallValue <=
             Int32.MaxValue - a.smallValue)) {
-          return new FastIntegerFixed(a.smallValue + b.smallValue);
+          return FromInt32(a.smallValue + b.smallValue);
         }
       }
       EInteger bigA = a.ToEInteger();
@@ -153,7 +199,7 @@ namespace PeterO.Numbers {
           (b.smallValue < 0 && Int32.MaxValue + b.smallValue >= a.smallValue) ||
           (b.smallValue > 0 && Int32.MinValue + b.smallValue <=
             a.smallValue)) {
-          return new FastIntegerFixed(a.smallValue - b.smallValue);
+          return FromInt32(a.smallValue - b.smallValue);
         }
       }
       EInteger bigA = a.ToEInteger();
@@ -180,7 +226,7 @@ namespace PeterO.Numbers {
     internal FastIntegerFixed Copy() {
       switch (this.integerMode) {
         case 0:
-          return new FastIntegerFixed(this.smallValue);
+          return FromInt32(this.smallValue);
         case 2:
           return FastIntegerFixed.FromBig(this.largeValue);
         default: throw new InvalidOperationException();
@@ -195,7 +241,7 @@ namespace PeterO.Numbers {
           if (this.smallValue == Int32.MinValue) {
             return FastIntegerFixed.FromBig(ValueNegativeInt32MinValue);
           } else {
-            return new FastIntegerFixed(-this.smallValue);
+            return FromInt32(-this.smallValue);
           }
         case 2:
           return FastIntegerFixed.FromBig(-(EInteger)this.largeValue);
