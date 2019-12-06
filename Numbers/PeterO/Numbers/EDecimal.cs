@@ -8,6 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
+// TODO: Add Create(long, long) to EDecimal/EFloat/ERational
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
@@ -1790,6 +1791,31 @@ TrappableRadixMath<EDecimal>(
             ret.flags);
           return ret;
         }
+      }
+      if (!haveExponent && haveDecimalPoint &&
+          (digitEnd - digitStart) + (decimalDigitEnd - decimalDigitStart) <=
+18) {
+          // No more than 18 digits
+          long lv = 0L;
+          int expo=-(decimalDigitEnd - decimalDigitStart);
+          for (var vi = digitStart; vi < digitEnd; ++vi) {
+            lv = checked(lv * 10 + (int)(str[vi] - '0'));
+          }
+          for (var vi = decimalDigitStart; vi < decimalDigitEnd; ++vi) {
+            lv = checked(lv * 10 + (int)(str[vi] - '0'));
+          }
+if (negative) {
+            lv = -lv;
+          }
+          if (!negative || lv != 0) {
+            ret = (lv >= Int32.MinValue && lv <= Int32.MaxValue) ?
+(EDecimal.Create((int)lv, expo)) : (EDecimal.Create(EInteger.FromInt64(lv),
+  EInteger.FromInt32(expo)));
+      if (ctx != null) {
+        ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+      }
+      return ret;
+          }
       }
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {

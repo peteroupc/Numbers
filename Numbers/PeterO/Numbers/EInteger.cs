@@ -104,6 +104,49 @@ namespace PeterO.Numbers {
     private readonly int wordCount;
     private readonly short[] words;
 
+    private static int CacheFirst = -24;
+    private static int CacheLast = 128;
+    private static readonly EInteger[] Cache = EIntegerCache(CacheFirst,
+  CacheLast);
+
+    private static EInteger[] EIntegerCache(int first, int last) {
+#if DEBUG
+if ((first) < -65535) {
+  throw new ArgumentException("first (" + first + ") is not greater or equal" +
+"\u0020to " + (-65535));
+}
+if (first > 65535) {
+  throw new ArgumentException("first (" + first + ") is not less or equal to" +
+"\u002065535");
+}
+if ((last) < -65535) {
+  throw new ArgumentException("last (" + last + ") is not greater or equal" +
+"\u0020to " + (-65535));
+}
+if (last > 65535) {
+  throw new ArgumentException("last (" + last + ") is not less or equal to
+65535");
+}
+#endif
+
+EInteger[] cache = new EInteger[(last - first) + 1];
+for (var i = first; i <= last; ++i) {
+  if (i == 0) {
+    cache[i - first] = ValueZero;
+  }
+ elseif (i == 1) {
+   cache[i - first] = ValueOne;
+ }
+ elseif (i == 10) {
+   cache[i - first] = ValueTen;
+ } else {
+ cache[i - first] = new EInteger(1, new short[] { unchecked((short)i) }, i <
+0);
+}
+}
+return cache;
+    }
+
     private EInteger(int wordCount, short[] reg, bool negative) {
       #if DEBUG
       if (wordCount > 0) {
@@ -319,14 +362,8 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer with the same value as the
     /// 64-bit number.</returns>
     public static EInteger FromInt32(int intValue) {
-      if (intValue == 0) {
-        return ValueZero;
-      }
-      if (intValue == 1) {
-        return ValueOne;
-      }
-      if (intValue == 10) {
-        return ValueTen;
+      if (intValue >= CacheFirst && intValue <= CacheLast) {
+        return Cache[intValue - CacheFirst];
       }
       short[] retreg;
       bool retnegative;
@@ -366,14 +403,8 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer with the same value as the
     /// 64-bit number.</returns>
     public static EInteger FromInt64(long longerValue) {
-      if (longerValue == 0) {
-        return ValueZero;
-      }
-      if (longerValue == 1) {
-        return ValueOne;
-      }
-      if (longerValue == 10) {
-        return ValueTen;
+      if (longerValue >= CacheFirst && longerValue <= CacheLast) {
+        return Cache[(int)(longerValue - CacheFirst)];
       }
       short[] retreg;
       bool retnegative;
@@ -1237,6 +1268,9 @@ namespace PeterO.Numbers {
         short[] sumreg;
         if (intValue > 0 && !this.negative) {
           int intSum = (((int)this.words[0]) & 0xffff) + intValue;
+if (intSum >= CacheFirst && intSum <= CacheLast) {
+  return Cache[intSum - CacheFirst];
+}
           sumreg = new short[2];
           sumreg[0] = unchecked((short)intSum);
           sumreg[1] = unchecked((short)(intSum >> 16));
@@ -1258,6 +1292,10 @@ namespace PeterO.Numbers {
           int b = Math.Abs(intValue);
           if (a > b) {
             a -= b;
+            int na = (this.negative) ? -a : a;
+if (na >= CacheFirst && na <= CacheLast) {
+  return Cache[na - CacheFirst];
+}
             sumreg = new short[2];
             sumreg[0] = unchecked((short)a);
             return new EInteger(1, sumreg, this.negative);
@@ -1265,6 +1303,10 @@ namespace PeterO.Numbers {
             return EInteger.Zero;
           } else {
             b -= a;
+            int na = (this.negative) ? -b : b;
+if (na >= CacheFirst && na <= CacheLast) {
+  return Cache[na - CacheFirst];
+}
             sumreg = new short[2];
             sumreg[0] = unchecked((short)b);
             return new EInteger(1, sumreg, !this.negative);
@@ -5101,7 +5143,7 @@ maxDigitEstimate : retval +
           0)) {
         switch (words1[words1Start]) {
           case 0:
-            // words1 is ValueZero, so result is 0
+            // words1 is zero, so result is 0
             Array.Clear((short[])resultArr, resultStart, words2Count + 2);
             return;
           case 1:
@@ -6580,7 +6622,7 @@ maxDigitEstimate : retval +
 
       unchecked {
         var carryPos = 0;
-        // Set carry to ValueZero
+        // Set carry to zero
         Array.Clear((short[])productArr, cstart, bcount);
         for (var i = 0; i < acount; i += bcount) {
           int diff = acount - i;
@@ -8111,7 +8153,7 @@ maxDigitEstimate : retval +
         int smallPowerBits =
           (thisValue.GetUnsignedBitLengthAsEInteger().ToInt32Checked() + 1)
           / 2;
-        // No need to check for ValueZero; already done above
+        // No need to check for zero; already done above
         var smallintX = 0;
         int smallintY = 1 << smallPowerBits;
         do {

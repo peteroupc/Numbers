@@ -1465,7 +1465,7 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromDecimal(
         decimal dec);
 
-Converts a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers") to an arbitrary-precision decimal.
+Converts a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) to an arbitrary-precision decimal.
 
 <b>Parameters:</b>
 
@@ -1481,7 +1481,7 @@ An arbitrary-precision decimal floating-point number.
     public static PeterO.Numbers.EDecimal FromDouble(
         double dbl);
 
-Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromDouble(0.1)` ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")` ).
+Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromDouble(0.1)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
 
 <b>Parameters:</b>
 
@@ -1623,7 +1623,7 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromSingle(
         float flt);
 
-Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromSingle(0.1f)` ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")` ).
+Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromSingle(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
 
 <b>Parameters:</b>
 
@@ -2589,7 +2589,7 @@ The parameter  <i>input</i>
     public static explicit operator decimal(
         PeterO.Numbers.EDecimal bigValue);
 
-Converts an arbitrary-precision decimal's value to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers"), using the half-even rounding mode.
+Converts an arbitrary-precision decimal's value to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the half-even rounding mode.
 
 <b>Parameters:</b>
 
@@ -2912,7 +2912,7 @@ The value of  <i>inputByte</i>
     public static implicit operator PeterO.Numbers.EDecimal(
         decimal dec);
 
-Converts an arbitrary-precision decimal number to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers"), using the half-even rounding mode.
+Converts an arbitrary-precision decimal number to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the half-even rounding mode.
 
 <b>Parameters:</b>
 
@@ -3989,7 +3989,7 @@ This number, converted to a byte (from 0 to 255). Returns 0 if this value is inf
 
     public decimal ToDecimal();
 
-Converts this value to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers"), using the half-even rounding mode.
+Converts this value to a  `decimal`  under the Common Language Infrastructure (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), using the half-even rounding mode.
 
 <b>Return Value:</b>
 

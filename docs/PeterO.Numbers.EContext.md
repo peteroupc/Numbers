@@ -2,7 +2,7 @@
 
     public sealed class EContext
 
-Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.). <b>Thread safety:</b> With one exception, instances of this class are immutable and are safe to use among multiple threads. The one exception involves the  `Flags`  property. If the context's  `HasFlags`  property (a read-only property) is  `true` , the  `Flags`  property is mutable, thus making the context mutable. This class doesn't synchronize access to such mutable contexts, so applications should provide their own synchronization if a context with the  `HasFlags`  property set to  `true`  will be shared among multiple threads and at least one of those threads needs to write the  `Flags`  property (which can happen, for example, by passing the context to most methods of  `EDecimal`  such as  `Add` ).
+Contains parameters for controlling the precision, rounding, and exponent range of arbitrary-precision numbers. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.). <b>Thread safety:</b> With one exception, instances of this class are immutable and are safe to use among multiple threads. The one exception involves the  `Flags`  property. If the context's  `HasFlags`  property (a read-only property) is  `true` , the  `Flags`  property is mutable, thus making the context mutable. This class doesn't synchronize access to such mutable contexts, so applications should provide their own synchronization if a context with the  `HasFlags`  property set to  `true`  will be shared among multiple threads and at least one of those threads needs to write the  `Flags`  property (which can happen, for example, by passing the context to most methods of  `EDecimal`  such as  `Add`  ).
 
 ### Member Summary
 * <code>[AdjustExponent](#AdjustExponent)</code> - Gets a value indicating whether the EMax and EMin properties refer to the number's Exponent property adjusted to the number's precision, or just the number's Exponent property.
@@ -156,7 +156,7 @@ An arithmetic context for the IEEE-754-2008 binary64 format, 53 bits precision. 
 
     public static readonly PeterO.Numbers.EContext CliDecimal;
 
-An arithmetic context for the.NET Framework decimal format (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers"), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven. (The  `"Cli"`  stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.).
+An arithmetic context for the.NET Framework decimal format (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ), 96 bits precision, and a valid exponent range of -28 to 0. The default rounding mode is HalfEven. (The  `"Cli"`  stands for "Common Language Infrastructure", which defined this format as the .NET Framework decimal format in version 1, but leaves it unspecified in later versions.).
 
 <a id="Decimal128"></a>
 ### Decimal128

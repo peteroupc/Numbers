@@ -1426,7 +1426,7 @@ An arbitrary-precision binary floating-point number.
 <b>Exceptions:</b>
 
  *  T:System.ArgumentException:
-Either  <i>             offset</i>
+Either  <i> offset</i>
  or  <i> length</i>
  is less than 0 or greater than  <i>str</i>
  's length, or  <i>             str</i>

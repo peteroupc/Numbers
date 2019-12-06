@@ -47,7 +47,7 @@ A class that implements additional operations on arbitrary-precision decimal num
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical AND operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999` ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010=01000` .
+Performs a logical AND operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999`  ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010=01000` .
 
 <b>Parameters:</b>
 
@@ -287,7 +287,7 @@ An arbitrary-precision decimal number with the closest representable value to th
         PeterO.Numbers.EDecimal ed1,
         PeterO.Numbers.EContext ec);
 
-Performs a logical NOT operation on an arbitrary-precision decimal number in the form of a <i>logical operand</i>. A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999` ). The logical NOT operation sets each digit of the result to 1 if the corresponding digit is 0, and to 0 otherwise; it can set no more digits than the maximum precision, however. For example, if the maximum precision is 8 digits, then  `NOT 111010=11000101` .
+Performs a logical NOT operation on an arbitrary-precision decimal number in the form of a <i>logical operand</i>. A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical NOT operation sets each digit of the result to 1 if the corresponding digit is 0, and to 0 otherwise; it can set no more digits than the maximum precision, however. For example, if the maximum precision is 8 digits, then  `NOT 111010=11000101` .
 
 <b>Parameters:</b>
 
@@ -554,7 +554,7 @@ The parameter  <i>nc</i>
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical OR operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999` ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example,  `01001 OR 111010=111011` .
+Performs a logical OR operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999`  ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example,  `01001 OR 111010=111011` .
 
 <b>Parameters:</b>
 
@@ -752,7 +752,7 @@ An arbitrary-precision number with the same value as this one but with certain t
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical exclusive-OR (XOR) operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999` ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010=101010` .
+Performs a logical exclusive-OR (XOR) operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010=101010` .
 
 <b>Parameters:</b>
 

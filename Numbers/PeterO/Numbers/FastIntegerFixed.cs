@@ -9,6 +9,7 @@ using System;
 
 namespace PeterO.Numbers {
   internal sealed class FastIntegerFixed : IComparable<FastIntegerFixed> {
+    // TODO: Implement cache similar to EInteger here
     private readonly int smallValue; // if integerMode is 0
     private readonly EInteger largeValue; // if integerMode is 2
     private readonly int integerMode;
@@ -22,6 +23,7 @@ namespace PeterO.Numbers {
     private static readonly EInteger ValueNegativeInt32MinValue =
       -(EInteger)ValueInt32MinValue;
 
+    // TODO: Obsolete this and replace with factory method
     internal FastIntegerFixed(int smallValue) : this(0, smallValue, null) {
     }
 
