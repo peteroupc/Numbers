@@ -1971,8 +1971,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
-  newScaleInt) :
-        FastIntegerFixed.FromBig(newScale);
+  newScaleInt) : FastIntegerFixed.FromBig(newScale);
       int sign = negative ? -1 : 1;
       if (mant == null) {
         fastIntMant = FastIntegerFixed.FromInt32(mantInt);
