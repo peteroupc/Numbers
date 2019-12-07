@@ -143,10 +143,10 @@ namespace PeterO.Numbers {
           cache[i - first] = ValueTen;
         } else {
           int iabs = Math.Abs(i);
-          cache[i - first] = new EInteger(1, new short[] {
-            unchecked,
-            ((short)iabs)
-          }, i < 0);
+          var words = new short[] {
+            unchecked((short)iabs)
+          };
+          cache[i - first] = new EInteger(1, words, i < 0);
         }
       }
       return cache;
