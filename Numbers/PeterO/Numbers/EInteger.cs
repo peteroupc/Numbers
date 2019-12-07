@@ -3948,8 +3948,8 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
           throw new ArgumentException("doesn't satisfy biggerCount>0");
         }
         if (!(biggerCount == CountWords(result))) {
-          throw new ArgumentException("doesn't satisfy
-biggerCount==CountWords(result)");
+          throw new ArgumentException("doesn't satisfy" +
+"\u0020biggerCount==CountWords(result)");
         }
         #endif
 
