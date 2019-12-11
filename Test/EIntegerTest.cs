@@ -1729,10 +1729,31 @@ namespace Test {
         Assert.AreEqual(
           "789",
           stringTemp);
+        stringTemp = EInteger.FromSubstring(
+            "xxxxxxx789",
+            7,
+            10).ToString();
+        Assert.AreEqual(
+          "789",
+          stringTemp);
+        stringTemp = EInteger.FromSubstring(
+            "xxxxxxx789xxx",
+            7,
+            10).ToString();
+        Assert.AreEqual(
+          "789",
+          stringTemp);
       }
       {
         string stringTemp = EInteger.FromSubstring(
             "0123456789",
+            6,
+            10).ToString();
+        Assert.AreEqual(
+          "6789",
+          stringTemp);
+        stringTemp = EInteger.FromSubstring(
+            "xyzxyz6789",
             6,
             10).ToString();
         Assert.AreEqual(

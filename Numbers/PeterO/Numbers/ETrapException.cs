@@ -162,7 +162,7 @@ namespace PeterO.Numbers {
     /// that triggered the trap. Can be null.</param>
     /// <param name='result'>The defined result of the operation that
     /// caused the trap.</param>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='flags'/> doesn't include all the flags in the <paramref
     /// name='flag'/> parameter.</exception>
     public ETrapException(int flags, int flag, EContext ctx, Object result)

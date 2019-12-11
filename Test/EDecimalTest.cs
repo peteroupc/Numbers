@@ -5525,22 +5525,25 @@ namespace Test {
     // Test potential cases where FromString is implemented
     // to take context into account when building the EFloat
     public static void TestStringContextOneEFloat(string str, EContext ec) {
+      if (ec == null) {
+        throw new ArgumentNullException(nameof(ec));
+      }
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
       EFloat ef = null, ef2 = null;
       // Console.WriteLine("TestStringContextOne ---- ec=" + (ec));
       // swUnopt.Restart();
       EDecimal ed = null;
-      if (ec == null) {
-        throw new ArgumentNullException(nameof(ec));
-      }
       EContext noneRounding = ec.WithRounding(
           ERounding.None).WithTraps(EContext.FlagInvalid);
       EContext downRounding = ec.WithRounding(ERounding.Down);
-      ed = EDecimal.FromString(str);
+      ed = EDecimal.FromString("xyzxyz" + str, 6, str.Length);
       ef = ed.ToEFloat(ec);
       // swUnoptRound.Stop();
       // swUnopt.Stop();
       // swOpt2.Restart();
-      ef2 = EFloat.FromString(str, ec);
+      ef2 = EFloat.FromString("xyzxyz" + str, 6, str.Length, ec);
       // swOpt2.Stop();
       EFloat ef3 = EFloat.NaN;
       try {
@@ -5733,8 +5736,58 @@ namespace Test {
         .WithAdjustExponent(true).WithExponentRange(-14, 15)
         .WithRounding(ERounding.HalfDown);
       string str =
+
   "00726010602910507435000059115940090202200019076401000797770037005004100060.0201983258000005067E-96";
       TestStringContextOne(str, ec);
+    }
+
+    [Test]
+    public void TestFromStringSubstring() {
+      string tstr =
+
+  "-3.00931381333368754713014659613049757554804012787921371662913692598770508705049030832574634419795955864174175076186656951904296875000E-49";
+      try {
+ EDecimal.FromString(
+   "xyzxyz" + tstr,
+   6,
+   tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.FromString("xyzxyz" + tstr, 6, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EDecimal.FromString(tstr, 0, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.FromString(tstr, 0, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EDecimal.FromString(
+   tstr + "xyzxyz",
+   0,
+   tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.FromString(tstr + "xyzxyz", 0, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
     }
 
     [Test]
@@ -5753,17 +5806,17 @@ namespace Test {
       }
       {
         EContext ec =
-EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+          EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
             1023).WithRounding(ERounding.Down).WithAdjustExponent(
             true).WithExponentClamp(true).WithSimplified(false);
         string str = String.Empty + TestCommon.Repeat("6", 4605) + "." +
-TestCommon.Repeat("6",
+          TestCommon.Repeat("6",
             1538) + "E-999";
         TestStringContextOneEFloat(str, ec);
       }
       {
         EContext ec =
-EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+          EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
             1023).WithRounding(ERounding.Ceiling).WithAdjustExponent(
             true).WithExponentClamp(true).WithSimplified(false);
         string str = String.Empty + TestCommon.Repeat("2", 6125) + "E-6143";
@@ -5771,7 +5824,7 @@ EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
       }
       {
         EContext ec =
-EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+          EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
             1023).WithRounding(ERounding.Down).WithAdjustExponent(
             true).WithExponentClamp(true).WithSimplified(false);
         string str = String.Empty + TestCommon.Repeat("2", 6165) + "E-6144";
@@ -5779,7 +5832,7 @@ EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
       }
       {
         EContext ec =
-EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+          EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
             1023).WithRounding(ERounding.HalfDown).WithAdjustExponent(
             true).WithExponentClamp(true).WithSimplified(false);
         string str =

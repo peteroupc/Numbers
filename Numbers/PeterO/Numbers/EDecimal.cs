@@ -1062,8 +1062,8 @@ TrappableRadixMath<EDecimal>(
       }
       var negative = false;
       int endStr = tmpoffset + length;
-      if (str[0] == '+' || str[0] == '-') {
-        negative = str[0] == '-';
+      if (str[tmpoffset] == '+' || str[tmpoffset] == '-') {
+        negative = str[tmpoffset] == '-';
         ++tmpoffset;
       }
       var mantInt = 0;
@@ -1477,10 +1477,9 @@ TrappableRadixMath<EDecimal>(
       var haveExponent = false;
       var newScaleInt = 0;
       var haveDigits = false;
-      var digitStart = 0;
       EInteger newScale = null;
       // Ordinary number
-      digitStart = i;
+      int digitStart = i;
       int digitEnd = i;
       int decimalDigitStart = i;
       var haveNonzeroDigit = false;

@@ -221,7 +221,7 @@ namespace PeterO.Numbers {
       }
       try {
         EDecimal newDecimal = EDecimal.FromEInteger(extendedNumber.Numerator)
-          .Divide (
+          .Divide(
             EDecimal.FromEInteger(extendedNumber.Denominator),
             EContext.CliDecimal.WithTraps(EContext.FlagOverflow));
         return (decimal)newDecimal;

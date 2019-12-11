@@ -553,8 +553,8 @@ namespace PeterO.Numbers {
       }
       var negative = false;
       int endStr = tmpoffset + length;
-      if (str[0] == '+' || str[0] == '-') {
-        negative = str[0] == '-';
+      if (str[tmpoffset] == '+' || str[tmpoffset] == '-') {
+        negative = str[tmpoffset] == '-';
         ++tmpoffset;
       }
       var numerInt = 0;

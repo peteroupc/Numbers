@@ -25,7 +25,7 @@ namespace PeterO.Numbers {
       ns = System.Globalization.NumberStyles.Number |
         System.Globalization.NumberStyles.AllowExponent;
       if (
-        Decimal.TryParse (
+        Decimal.TryParse(
           this.ToString(),
           ns,
           System.Globalization.CultureInfo.InvariantCulture,
@@ -46,7 +46,7 @@ namespace PeterO.Numbers {
     public static EDecimal FromDecimal(decimal dec) {
       return
 
-        EDecimal.FromString (
+        EDecimal.FromString(
           dec.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 
