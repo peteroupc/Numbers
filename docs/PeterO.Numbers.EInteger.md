@@ -2192,7 +2192,7 @@ The parameter  <i>second</i>
  is null.
 
  * System.ArgumentException:
-doesn't satisfy biggerCount&gt;0; doesn't satisfy biggerCount == CountWords(result)
+doesn't satisfy biggerCount&gt;0
 
 <a id="Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Or

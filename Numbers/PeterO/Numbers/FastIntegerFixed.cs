@@ -109,7 +109,7 @@ return cache;
 
     internal static FastIntegerFixed FromInt32(int intVal) {
 return (intVal >= CacheFirst && intVal <= CacheLast) ?
-Cache[intVal - CacheFirst] : (new FastIntegerFixed(0, intVal, null));
+Cache[intVal - CacheFirst] : new FastIntegerFixed(0, intVal, null);
     }
 
     internal static FastIntegerFixed FromLong(long longVal) {

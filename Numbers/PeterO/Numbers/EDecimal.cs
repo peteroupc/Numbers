@@ -1377,7 +1377,7 @@ TrappableRadixMath<EDecimal>(
           var thisdigit = (int)(ch - '0');
           haveDigits = true;
           haveNonzeroDigit |= thisdigit != 0;
-          if (beyondMax ||(precisionPlusTwo.CompareTo(decimalPrec) < 0 &&
+          if (beyondMax || (precisionPlusTwo.CompareTo(decimalPrec) < 0 &&
               mantissaLong == Int64.MaxValue)) {
             // Well beyond maximum precision, significand is
             // max or bigger
@@ -1571,11 +1571,11 @@ TrappableRadixMath<EDecimal>(
         // String portion is a single digit
         EDecimal cret;
         var si = (int)(str[i] - '0');
-        cret = (negative) ? ((si == 0) ? NegativeZero : Cache[-si -
+        cret = negative ? ((si == 0) ? NegativeZero : Cache[-si -
 CacheFirst]) : (Cache[si - CacheFirst]);
-        if (ctx != null) {
-          cret = GetMathValue(ctx).RoundAfterConversion(cret, ctx);
-        }
+if (ctx != null) {
+  cret = GetMathValue(ctx).RoundAfterConversion(cret, ctx);
+}
         return cret;
       }
       digitStart = i;
@@ -1867,7 +1867,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
             ns = trialExponent;
           } else {
             ns = newScale ?? EInteger.FromInt32(newScaleInt);
-            ns =(expoffset < 0) ? ns.Subtract(trialExponent) :
+            ns = (expoffset < 0) ? ns.Subtract(trialExponent) :
               ns.Add(trialExponent);
           }
         }
@@ -1965,7 +1965,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
         // Parse exponent if it's "big"
         exp = EInteger.FromSubstring(str, expDigitStart, endStr);
         newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-        newScale =(expoffset < 0) ? newScale.Subtract(exp) :
+        newScale = (expoffset < 0) ? newScale.Subtract(exp) :
           newScale.Add(exp);
       }
       FastIntegerFixed fastIntScale;
@@ -3509,7 +3509,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
     public EDecimal MovePointLeft(
       EInteger bigPlaces,
       EContext ctx) {
-      return(!this.IsFinite) ? this.RoundToPrecision(ctx) :
+      return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
         this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
 
@@ -5200,7 +5200,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
         EInteger bigexponent = this.Exponent;
         EInteger digitCount = this.UnsignedMantissa
           .GetDigitCountAsEInteger();
-        return(digitCount.CompareTo(bigexponent) <= 0) ? true :
+        return (digitCount.CompareTo(bigexponent) <= 0) ? true :
           false;
       }
     }
@@ -5272,7 +5272,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
         return ei.GetDigitCountAsEInteger();
       } else if (bi.CompareTo(2135) <= 0) {
         // May overestimate by 1
-        return EInteger.FromInt32(1 +((bi.ToInt32Checked() *
+        return EInteger.FromInt32(1 + ((bi.ToInt32Checked() *
                 631305) >> 21));
       } else {
         // Bit length is big enough that dividing it by 3 will not
@@ -5651,7 +5651,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
         FastInteger newExponent = adjustedExponent.Copy();
         bool adjExponentNegative = adjustedExponent.Sign < 0;
         int intphase = adjustedExponent.Copy().Abs().Remainder(3).AsInt32();
-        if (iszero &&(adjustedExponent.CompareTo(threshold) < 0 || scaleSign <
+        if (iszero && (adjustedExponent.CompareTo(threshold) < 0 || scaleSign <
             0)) {
           if (intphase == 1) {
             if (adjExponentNegative) {
@@ -5692,7 +5692,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
         }
         adjustedExponent = newExponent;
       }
-      if (mode == 2 ||(adjustedExponent.CompareTo(threshold) >= 0 &&
+      if (mode == 2 || (adjustedExponent.CompareTo(threshold) >= 0 &&
           scaleSign >= 0)) {
         if (scaleSign > 0) {
           FastInteger decimalPoint = thisExponent.Copy().Add(builderLength);
@@ -6046,7 +6046,7 @@ CacheFirst]) : (Cache[si - CacheFirst]);
       /// signed integer.</param>
       /// <returns>An arbitrary-precision decimal number.</returns>
       public EDecimal ValueOf(int val) {
-        return(val == 0) ? Zero :((val == 1) ? One : FromInt64(val));
+        return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
       }
     }
 

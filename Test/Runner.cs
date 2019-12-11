@@ -11,11 +11,6 @@ namespace PeterO {
   /// <summary>Description of Runner.</summary>
   public static class Runner {
     public static void Main() {
-  new Test.EDecimalTest().TestRoundToExponent();
-  new Test.EFloatTest().TestFPDoubles();
-  new Test.EFloatTest().TestToSingleRounding();
-  new Test.EFloatTest().TestToDoubleRounding();
-  new Test.DecimalTest().TestParser();
     }
   }
 }

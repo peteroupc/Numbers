@@ -144,7 +144,7 @@ namespace PeterO.Numbers {
         } else {
           int iabs = Math.Abs(i);
           var words = new short[] {
-            unchecked((short)iabs)
+            unchecked((short)iabs),
           };
           cache[i - first] = new EInteger(1, words, i < 0);
         }
@@ -581,7 +581,7 @@ namespace PeterO.Numbers {
           for (int i = 0; i < leftover; ++i) {
             extraWord <<= 4;
             char c = str[index + i];
-            int digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+            int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
             if (digit >= 16) {
               throw new FormatException("Illegal character found");
             }
@@ -599,27 +599,27 @@ namespace PeterO.Numbers {
         #endif
         while (index < endIndex) {
           char c = str[index + 3];
-          int digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
           int word = digit;
           c = str[index + 2];
-          digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
 
           word |= digit << 4;
           c = str[index + 1];
-          digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
 
           word |= digit << 8;
           c = str[index];
-          digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
@@ -740,17 +740,29 @@ namespace PeterO.Numbers {
       int index,
       int endIndex,
       bool negative) {
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      if (endIndex - index <= 18 && radix <= 10) {
+        long rv = 0;
+        for (int i = index; i < endIndex; ++i) {
+        char c = str[i];
+        int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+        if (digit >= radix) {
+          throw new FormatException("Illegal character found");
+        }
+        rv = (rv * radix) + digit;
+      }
+      return FromInt64(negative ? -rv : rv);
+      }
       var bigint = new short[4];
       var haveSmallInt = true;
       int maxSafeInt = ValueMaxSafeInts[radix - 2];
       int maxShortPlusOneMinusRadix = 65536 - radix;
       var smallInt = 0;
       for (int i = index; i < endIndex; ++i) {
-        if (str == null) {
-          throw new ArgumentNullException(nameof(str));
-        }
         char c = str[i];
-        int digit =(c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+        int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
         if (digit >= radix) {
           throw new FormatException("Illegal character found");
         }
@@ -1335,7 +1347,7 @@ EInteger(this.wordCount, this.words, false);
     /// <returns>The difference of the two objects.</returns>
     public EInteger Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
-        this.Subtract(EInteger.FromInt32(intValue)) :((intValue == 0) ?
+        this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ?
           this : this.Add(-intValue));
     }
 
@@ -1988,7 +2000,7 @@ EInteger(this.wordCount, this.words, false);
           0,
           blocksB);
         if (quot != null) {
-          size = Math.Min(blocksB, quot.Length -(i * blocksB));
+          size = Math.Min(blocksB, quot.Length - (i * blocksB));
           // DebugUtility.Log("quot len=" + quot.Length + ",bb=" + blocksB +
           // ",size=" + size + " [" + countA + "," + countB + "]");
           if (size > 0) {
@@ -2659,7 +2671,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
             buc = WordsShiftRightOne(bu, buc);
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
-            buc =(Math.Abs(buc - bvc) > 1 &&(bu[0] & 0x0f) == 0) ?
+            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x0f) == 0) ?
               WordsShiftRightFour(bu, buc) : WordsShiftRightOne(bu, buc);
             } else if (!eu && ev) {
             if ((bv[0] & 0xff) == 0 && Math.Abs(buc - bvc) > 1) {
@@ -2673,7 +2685,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
             }
           } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
             buc = WordsSubtract(bu, buc, bv, bvc);
-            buc =(Math.Abs(buc - bvc) > 1 &&(bu[0] & 0x02) == 0) ?
+            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x02) == 0) ?
               WordsShiftRightTwo(bu, buc) : WordsShiftRightOne(bu, buc);
             } else {
             short[] butmp = bv;
@@ -3350,11 +3362,11 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
       EInteger eiv = this;
       while (!pow.IsZero) {
         if (!pow.IsEven) {
-          r =(r *(EInteger)eiv).Mod(mod);
+          r = (r * (EInteger)eiv).Mod(mod);
         }
         pow >>= 1;
         if (!pow.IsZero) {
-          eiv =(eiv *(EInteger)eiv).Mod(mod);
+          eiv = (eiv * (EInteger)eiv).Mod(mod);
         }
       }
       return r;
@@ -3536,7 +3548,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
         bp = bp.Subtract(Int32.MaxValue);
       }
       int lastp = bp.ToInt32Checked();
-      ret =(lastp == Int32.MaxValue) ? ret.Multiply(rmax) :
+      ret = (lastp == Int32.MaxValue) ? ret.Multiply(rmax) :
         ret.Multiply(this.Pow(lastp));
       return ret;
     }
@@ -3909,13 +3921,12 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Doesn't satisfy
+    /// biggerCount&amp;gt;0.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
-    /// <exception cref='ArgumentException'>doesn't satisfy
-    /// biggerCount&amp;gt;0; doesn't satisfy biggerCount ==
-    /// CountWords(result)</exception>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
@@ -4724,13 +4735,13 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
           // accurate approximation to rest/10 up to 16388,
           // and rest can go up to 9999
           int newrest = (remainderSmall * 3277) >> 15;
-          s[i++] = Digits[(int)(remainderSmall -(newrest * 10))];
+          s[i++] = Digits[(int)(remainderSmall - (newrest * 10))];
           remainderSmall = newrest;
           newrest = (remainderSmall * 3277) >> 15;
-          s[i++] = Digits[(int)(remainderSmall -(newrest * 10))];
+          s[i++] = Digits[(int)(remainderSmall - (newrest * 10))];
           remainderSmall = newrest;
           newrest = (remainderSmall * 3277) >> 15;
-          s[i++] = Digits[(int)(remainderSmall -(newrest * 10))];
+          s[i++] = Digits[(int)(remainderSmall - (newrest * 10))];
           remainderSmall = newrest;
           s[i++] = Digits[remainderSmall];
         }
@@ -8107,13 +8118,13 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
         }
         while (intvalue > 43698) {
           int intdivvalue = intvalue / 10;
-          char digit = Digits[(int)(intvalue -(intdivvalue * 10))];
+          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
           chars[count--] = digit;
           intvalue = intdivvalue;
         }
         while (intvalue > 9) {
           int intdivvalue = (intvalue * 26215) >> 18;
-          char digit = Digits[(int)(intvalue -(intdivvalue * 10))];
+          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
           chars[count--] = digit;
           intvalue = intdivvalue;
         }
@@ -8134,7 +8145,7 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
         }
         while (value > 9) {
           long divvalue = value / 10;
-          char digit = Digits[(int)(value -(divvalue * 10))];
+          char digit = Digits[(int)(value - (divvalue * 10))];
           chars[count--] = digit;
           value = divvalue;
         }
