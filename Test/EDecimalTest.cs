@@ -5194,9 +5194,7 @@ namespace Test {
       inputED = inputED.RoundToExponent(
           exponent,
           EContext.ForRounding(rounding));
-      Assert.AreEqual(expected, inputED.ToString(),
-        "input=" + input + ", exponent=" + exponent +
-        ", rounding=" + rounding + " [ied=" + EDecimal.FromString(input));
+      Assert.AreEqual(expected, inputED.ToString());
     }
 
     public static EDecimal Ulps(EDecimal expected, EDecimal actual, int
@@ -5527,22 +5525,25 @@ namespace Test {
     // Test potential cases where FromString is implemented
     // to take context into account when building the EFloat
     public static void TestStringContextOneEFloat(string str, EContext ec) {
+      if (ec == null) {
+        throw new ArgumentNullException(nameof(ec));
+      }
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
       EFloat ef = null, ef2 = null;
       // Console.WriteLine("TestStringContextOne ---- ec=" + (ec));
       // swUnopt.Restart();
       EDecimal ed = null;
-      if (ec == null) {
-        throw new ArgumentNullException(nameof(ec));
-      }
       EContext noneRounding = ec.WithRounding(
           ERounding.None).WithTraps(EContext.FlagInvalid);
       EContext downRounding = ec.WithRounding(ERounding.Down);
-      ed = EDecimal.FromString(str);
+      ed = EDecimal.FromString("xyzxyz" + str, 6, str.Length);
       ef = ed.ToEFloat(ec);
       // swUnoptRound.Stop();
       // swUnopt.Stop();
       // swOpt2.Restart();
-      ef2 = EFloat.FromString(str, ec);
+      ef2 = EFloat.FromString("xyzxyz" + str, 6, str.Length, ec);
       // swOpt2.Stop();
       EFloat ef3 = EFloat.NaN;
       try {
@@ -5741,6 +5742,55 @@ namespace Test {
     }
 
     [Test]
+    public void TestFromStringSubstring() {
+      string tstr =
+
+  "-3.00931381333368754713014659613049757554804012787921371662913692598770508705049030832574634419795955864174175076186656951904296875000E-49";
+      try {
+ EDecimal.FromString(
+   "xyzxyz" + tstr,
+   6,
+   tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.FromString("xyzxyz" + tstr, 6, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EDecimal.FromString(tstr, 0, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.FromString(tstr, 0, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EDecimal.FromString(
+   tstr + "xyzxyz",
+   0,
+   tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EFloat.FromString(tstr + "xyzxyz", 0, tstr.Length);
+} catch (Exception ex) {
+Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+    }
+
+    [Test]
     public void TestStringContextSpecificMore() {
       {
         string str = "precision: 7\nrounding: half_down\nmaxexponent: " +
@@ -5753,16 +5803,6 @@ namespace Test {
           .WithAdjustExponent(false).WithExponentRange(-95, 96)
           .WithRounding(ERounding.HalfEven);
         TestStringContextOne("487565.00310E-96", ec);
-      }
-      {
-        EContext ec =
-EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
-            1023).WithRounding(ERounding.HalfUp).WithAdjustExponent(
-            true).WithExponentClamp(true).WithSimplified(false);
-        string str = String.Empty + TestCommon.Repeat("4", 38) + "." +
-TestCommon.Repeat("4",
-            57) + "E+4";
-        TestStringContextOneEFloat(str, ec);
       }
       {
         EContext ec =
