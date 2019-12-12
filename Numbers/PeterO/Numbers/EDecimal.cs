@@ -1573,9 +1573,9 @@ TrappableRadixMath<EDecimal>(
         var si = (int)(str[i] - '0');
         cret = negative ? ((si == 0) ? NegativeZero : Cache[-si -
 CacheFirst]) : (Cache[si - CacheFirst]);
-        if (ctx != null) {
-          cret = GetMathValue(ctx).RoundAfterConversion(cret, ctx);
-        }
+if (ctx != null) {
+  cret = GetMathValue(ctx).RoundAfterConversion(cret, ctx);
+}
         return cret;
       }
       digitStart = i;
