@@ -471,8 +471,11 @@ namespace PeterO.Numbers {
     /// method.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
-    /// then the basic letters A to Z (U+0041 to U+005A). For example, 0-9
-    /// in radix 10, and 0-9, then A-F in radix 16.</param>
+    /// then the basic upper-case letters A to Z (U+0041 to U+005A). For
+    /// example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a
+    /// basic upper-case letter A to Z is allowed in the string, the
+    /// corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+    /// instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given string.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -494,8 +497,11 @@ namespace PeterO.Numbers {
     /// start with any number of zeros.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
-    /// then the basic letters A to Z (U+0041 to U+005A). For example, 0-9
-    /// in radix 10, and 0-9, then A-F in radix 16.</param>
+    /// then the basic upper-case letters A to Z (U+0041 to U+005A). For
+    /// example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a
+    /// basic upper-case letter A to Z is allowed in the string, the
+    /// corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+    /// instead.</param>
     /// <param name='index'>The index of the string that starts the string
     /// portion.</param>
     /// <param name='endIndex'>The index of the string that ends the string
@@ -817,11 +823,12 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts a string to an arbitrary-precision
     /// integer.</summary>
-    /// <param name='str'>A text string. The string must contain only basic
-    /// digits 0 to 9 (U+0030 to U+0039), except that it may start with a
-    /// minus sign ("-", U+002D) to indicate a negative number. The string
-    /// is not allowed to contain white space characters, including spaces.
-    /// The string may start with any number of zeros.</param>
+    /// <param name='str'>A text string describing an integer in base-10
+    /// (decimal) form. The string must contain only basic digits 0 to 9
+    /// (U+0030 to U+0039), except that it may start with a minus sign
+    /// ("-", U+002D) to indicate a negative number. The string is not
+    /// allowed to contain white space characters, including spaces. The
+    /// string may start with any number of zeros.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
@@ -837,12 +844,13 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts a portion of a string to an arbitrary-precision
     /// integer.</summary>
-    /// <param name='str'>A text string. The desired portion of the string
-    /// must contain only basic digits 0 to 9 (U+0030 to U+0039), except
-    /// that it may start with a minus sign ("-", U+002D) to indicate a
-    /// negative number. The desired portion is not allowed to contain
-    /// white space characters, including spaces. The desired portion may
-    /// start with any number of zeros.</param>
+    /// <param name='str'>A text string, the desired portion of which
+    /// describes an integer in base-10 (decimal) form. The desired portion
+    /// of the string must contain only basic digits 0 to 9 (U+0030 to
+    /// U+0039), except that it may start with a minus sign ("-", U+002D)
+    /// to indicate a negative number. The desired portion is not allowed
+    /// to contain white space characters, including spaces. The desired
+    /// portion may start with any number of zeros.</param>
     /// <param name='index'>The index of the string that starts the string
     /// portion.</param>
     /// <param name='endIndex'>The index of the string that ends the string
@@ -4771,8 +4779,8 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     /// value is 0, returns "0". If negative, the string will begin with a
     /// minus sign ("-", U+002D). Depending on the radix, the string will
     /// use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic
-    /// letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10,
-    /// and 0-9, then A-F in radix 16.</returns>
+    /// upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in
+    /// radix 10, and 0-9, then A-F in radix 16.</returns>
     public string ToRadixString(int radix) {
       if (radix < 2) {
         throw new ArgumentException("radix(" + radix +
