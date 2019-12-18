@@ -132,9 +132,9 @@ namespace PeterO.Numbers {
           "65535");
       }
       #endif
-
+      var i = 0;
       var cache = new EInteger[(last - first) + 1];
-      for (var i = first; i <= last; ++i) {
+      for (i = first; i <= last; ++i) {
         if (i == 0) {
           cache[i - first] = ValueZero;
         } else if (i == 1) {

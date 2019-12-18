@@ -272,7 +272,7 @@ namespace PeterO.Numbers {
     public static readonly EDecimal NaN = CreateWithFlags(
         EInteger.Zero,
         EInteger.Zero,
-        BigNumberFlags.FlagQuietNaN);
+        (byte)BigNumberFlags.FlagQuietNaN);
 
     /// <summary>Negative infinity, less than any other number.</summary>
     #if CODE_ANALYSIS
@@ -304,7 +304,7 @@ namespace PeterO.Numbers {
     public static readonly EDecimal One = new EDecimal(
       FastIntegerFixed.FromInt32(1),
       FastIntegerFixed.Zero,
-      0);
+      (byte)0);
 
     /// <summary>Positive infinity, greater than any other
     /// number.</summary>
@@ -339,7 +339,7 @@ namespace PeterO.Numbers {
     public static readonly EDecimal Ten = new EDecimal(
       FastIntegerFixed.FromInt32(10),
       FastIntegerFixed.Zero,
-      0);
+      (byte)0);
 
     /// <summary>Represents the number 0.</summary>
     #if CODE_ANALYSIS
@@ -349,7 +349,7 @@ namespace PeterO.Numbers {
     public static readonly EDecimal Zero = new EDecimal(
       FastIntegerFixed.Zero,
       FastIntegerFixed.Zero,
-      0);
+      (byte)0);
 
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
@@ -381,7 +381,8 @@ namespace PeterO.Numbers {
       #endif
 
       var cache = new EDecimal[(last - first) + 1];
-      for (var i = first; i <= last; ++i) {
+      int i;
+      for (i = first; i <= last; ++i) {
         if (i == 0) {
           cache[i - first] = Zero;
         } else if (i == 1) {
@@ -548,17 +549,17 @@ TrappableRadixMath<EDecimal>(
         return new EDecimal(
             FastIntegerFixed.FromInt32(-mantissaSmall),
             FastIntegerFixed.FromInt32(exponentSmall),
-            BigNumberFlags.FlagNegative);
+            (byte)BigNumberFlags.FlagNegative);
       } else if (mantissaSmall == 0) {
         return new EDecimal(
             FastIntegerFixed.Zero,
             FastIntegerFixed.FromInt32(exponentSmall),
-            0);
+            (byte)0);
       } else {
         return new EDecimal(
             FastIntegerFixed.FromInt32(mantissaSmall),
             FastIntegerFixed.FromInt32(exponentSmall),
-            0);
+            (byte)0);
       }
     }
 
@@ -876,12 +877,12 @@ TrappableRadixMath<EDecimal>(
         return new EDecimal(
             FastIntegerFixed.FromInt32(valueSmaller).Negate(),
             FastIntegerFixed.Zero,
-            BigNumberFlags.FlagNegative);
+            (byte)BigNumberFlags.FlagNegative);
       } else {
         return new EDecimal(
             FastIntegerFixed.FromInt32(valueSmaller),
             FastIntegerFixed.Zero,
-            0);
+            (byte)0);
       }
     }
 
@@ -900,12 +901,12 @@ TrappableRadixMath<EDecimal>(
           return new EDecimal(
               FastIntegerFixed.FromInt32((int)valueSmall).Negate(),
               FastIntegerFixed.Zero,
-              BigNumberFlags.FlagNegative);
+              (byte)BigNumberFlags.FlagNegative);
         } else {
           return new EDecimal(
               FastIntegerFixed.FromInt32((int)valueSmall),
               FastIntegerFixed.Zero,
-              0);
+              (byte)0);
         }
       }
       var bigint = (EInteger)valueSmall;
@@ -1131,7 +1132,10 @@ TrappableRadixMath<EDecimal>(
         throw new FormatException("offset(" + tmpoffset + ") is more than " +
           str.Length);
       }
-      if (length < 0) {
+      if (length <= 0) {
+        if (length == 0) {
+          throw new FormatException("length is 0");
+        }
         throw new FormatException("length(" + length + ") is less than " +
           "0");
       }
@@ -1143,20 +1147,50 @@ TrappableRadixMath<EDecimal>(
         throw new FormatException("str's length minus " + tmpoffset + "(" +
           (str.Length - tmpoffset) + ") is less than " + length);
       }
-      if (length == 0) {
-        throw new FormatException();
-      }
       var negative = false;
       int endStr = tmpoffset + length;
-      if (str[tmpoffset] == '+' || str[tmpoffset] == '-') {
-        negative = str[tmpoffset] == '-';
+      if (str[tmpoffset] == '-') {
+        negative = true;
         ++tmpoffset;
+        if (tmpoffset >= endStr) {
+          throw new FormatException();
+        }
+      } else if (str[tmpoffset] == '+') {
+        ++tmpoffset;
+        if (tmpoffset >= endStr) {
+          throw new FormatException();
+        }
       }
+      int i = tmpoffset;
+      if (str[tmpoffset] < '0' || str[tmpoffset] > '9') {
+       EDecimal ed = ParseSpecialValue(str, i, endStr, negative, ctx);
+       if (ed != null) {
+         return ed;
+       }
+      }
+      if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
+        !ctx.IsSimplified) {
+        return ParseOrdinaryNumberLimitedPrecision(
+            str,
+            i,
+            endStr,
+            negative,
+            ctx);
+      } else {
+        return ParseOrdinaryNumber(str, i, endStr, negative, ctx);
+      }
+    }
+
+    private static EDecimal ParseSpecialValue(
+      string str,
+      int i,
+      int endStr,
+      bool negative,
+      EContext ctx) {
       var mantInt = 0;
       EInteger mant = null;
       var haveDigits = false;
       var digitStart = 0;
-      int i = tmpoffset;
       if (i + 8 == endStr) {
         if ((str[i] == 'I' || str[i] == 'i') &&
           (str[i + 1] == 'N' || str[i + 1] == 'n') &&
@@ -1300,17 +1334,6 @@ TrappableRadixMath<EDecimal>(
               EInteger.Zero,
               flags3);
         }
-      }
-      if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
-        !ctx.IsSimplified) {
-        return ParseOrdinaryNumberLimitedPrecision(
-            str,
-            i,
-            endStr,
-            negative,
-            ctx);
-      } else {
-        return ParseOrdinaryNumber(str, i, endStr, negative, ctx);
       }
     }
 
@@ -1918,7 +1941,8 @@ if (ctx != null) {
         // No more than 18 digits
         long lv = 0L;
         int expo = -(dde - decimalDigitStart);
-        for (var vi = digitStart; vi < de; ++vi) {
+        var vi = 0;
+        for (vi = digitStart; vi < de; ++vi) {
 #if DEBUG
           if (!(str[vi] >= '0' && str[vi] <= '9')) {
             throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
@@ -1928,7 +1952,7 @@ if (ctx != null) {
 
           lv = checked(lv * 10 + (int)(str[vi] - '0'));
         }
-        for (var vi = decimalDigitStart; vi < dde; ++vi) {
+        for (vi = decimalDigitStart; vi < dde; ++vi) {
 #if DEBUG
           if (!(str[vi] >= '0' && str[vi] <= '9')) {
             throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
@@ -2270,7 +2294,7 @@ if (ctx != null) {
         FastIntegerFixed result = FastIntegerFixed.Add(
             this.unsignedMantissa,
             otherValue.unsignedMantissa);
-        return new EDecimal(result, this.exponent, 0);
+        return new EDecimal(result, this.exponent, (byte)0);
       }
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
@@ -5081,8 +5105,9 @@ if (ctx != null) {
           builder.Append(c);
         }
         string sb2str = sb2.ToString();
-        var count2 = icount / RepeatDivideThreshold;
-        var rem = icount % RepeatDivideThreshold;
+        int rem, count2;
+        count2 = icount / RepeatDivideThreshold;
+        rem = icount % RepeatDivideThreshold;
         for (var i = 0; i < count2; ++i) {
           builder.Append(sb2str);
         }

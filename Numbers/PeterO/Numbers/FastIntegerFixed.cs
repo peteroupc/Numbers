@@ -15,11 +15,11 @@ namespace PeterO.Numbers {
     private readonly byte integerMode;
 
     public static readonly FastIntegerFixed Zero = new FastIntegerFixed(
-      0,
+      (byte)0,
       0,
       null);
     public static readonly FastIntegerFixed One = new FastIntegerFixed(
-      0,
+      (byte)0,
       1,
       null);
 
@@ -35,8 +35,9 @@ namespace PeterO.Numbers {
 FastIntegerFixedCache(CacheFirst,
   CacheLast);
 
-    private static FastIntegerFixed[] FastIntegerFixedCache(int first, int
-last) {
+    private static FastIntegerFixed[] FastIntegerFixedCache(
+      int first,
+      int last) {
 #if DEBUG
 if (first < -65535) {
   throw new ArgumentException("first (" + first + ") is not greater or equal" +
@@ -48,7 +49,7 @@ if (first > 65535) {
 }
 if (last < -65535) {
   throw new ArgumentException("last (" + last + ") is not greater or equal" +
-"\u0020to " + (-65535));
+"\u0020to -65535");
 }
 if (last > 65535) {
   throw new ArgumentException("last (" + last + ") is not less or equal to" +
@@ -56,13 +57,13 @@ if (last > 65535) {
 }
 #endif
 FastIntegerFixed[] cache = new FastIntegerFixed[(last - first) + 1];
-for (var i = first; i <= last; ++i) {
+for (int i = first; i <= last; ++i) {
   if (i == 0) {
     cache[i - first] = Zero;
   } else if (i == 1) {
     cache[i - first] = One;
   } else {
- cache[i - first] = new FastIntegerFixed(0, i, null);
+ cache[i - first] = new FastIntegerFixed((byte)0, i, null);
 }
 }
 return cache;
@@ -109,13 +110,14 @@ return cache;
 
     internal static FastIntegerFixed FromInt32(int intVal) {
 return (intVal >= CacheFirst && intVal <= CacheLast) ?
-Cache[intVal - CacheFirst] : new FastIntegerFixed(0, intVal, null);
+Cache[intVal - CacheFirst] :
+      new FastIntegerFixed((byte)0, intVal, null);
     }
 
     internal static FastIntegerFixed FromLong(long longVal) {
       return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ?
 FromInt32((int)longVal) : new FastIntegerFixed(
-          2,
+          (byte)2,
           0,
           EInteger.FromInt64(longVal));
     }
@@ -123,7 +125,7 @@ FromInt32((int)longVal) : new FastIntegerFixed(
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
       return bigintVal.CanFitInInt32() ?
 FromInt32(bigintVal.ToInt32Unchecked()) : new
-        FastIntegerFixed(2, 0, bigintVal);
+        FastIntegerFixed((byte)2, 0, bigintVal);
     }
 
     internal int AsInt32() {
