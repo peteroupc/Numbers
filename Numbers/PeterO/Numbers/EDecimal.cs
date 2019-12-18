@@ -1335,6 +1335,7 @@ TrappableRadixMath<EDecimal>(
               flags3);
         }
       }
+      return null;
     }
 
     private static EDecimal SignalUnderflow(EContext ec, bool negative, bool
