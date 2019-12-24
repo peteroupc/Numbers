@@ -3924,17 +3924,10 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
     /// <summary>Does an OR operation between two arbitrary-precision
-    /// integer instances.</summary>
-    /// <param name='second'>The second operand.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='second'/> is null.</exception>
-    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// integer instances.</summary><param name='second'>The second operand.</param><returns>An arbitrary-precision integer.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception><remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
-    /// <exception cref='ArgumentException'>doesn't satisfy
-    /// biggerCount&amp;gt;0</exception>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
