@@ -2775,6 +2775,23 @@ namespace Test {
       }
     }
 
+[Test]
+public void TestMultiplyDivideASpecific() {
+EInteger eia =
+EInteger.FromRadixString("8B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",16);
+EInteger eib = EInteger.FromRadixString("8B7BFFFFFFFFFFFF",16);
+EInteger eic =
+
+  EInteger.FromRadixString("4bffe40fffffffff7483ffffffffffffffffffffffff7484000000000001",
+  16);
+Assert.AreEqual(eic, eia.Multiply(eib));
+Assert.AreEqual(eic, eib.Multiply(eia));
+TestMultiplyDivideOne(eia, eib);
+TestMultiplyDivideOne(
+  EInteger.FromRadixString("A0C3FFFFFFFFFFFFFFFFFFFFFFFF",16),
+  EInteger.FromRadixString("A0C3FFFFFFFFFFFF",16));
+}
+
     [Test]
     public void TestMultiplyDivideA() {
       var r = new RandomGenerator();
@@ -3030,18 +3047,15 @@ namespace Test {
     [Test]
     public void TestSubtract() {
       EInteger ei1 =
-        EInteger.FromString(
-  "5903310052234442839693218602919688229567185544510721229016780853271484375");
-      EInteger ei2 = EInteger.FromString("710542735760100185871124267578125");
+        EInteger.FromRadixString(
+           "35755f086749e85ae75e683cae8be000000fada9c78600acc48a7995a57d7",
+           16);
+      EInteger ei2 =
+EInteger.FromRadixString("23084f676940b7915149bd08b30d", 16);
       {
-        string stringTemp = ei1.Subtract(ei2).ToString();
-        {
-          object objectTemp =
-
-  "5903310052234442839693218602919688229566475001774961128830909729003906250";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
-        }
+          string sobjectTemp =
+  "35755F086749E85AE75E683CAE8BDFFFFDDF28B350F1F533AF75DDC51A4CA";
+          Assert.AreEqual(sobjectTemp, ei1.Subtract(ei2).ToRadixString(16));
       }
     }
     [Test]
@@ -3254,7 +3268,10 @@ namespace Test {
             bigintD = divrem[0];
             bigintRem = divrem[1];
           }
-          TestCommon.CompareTestEqualAndConsistent(bigintD, bigintA);
+          if (!bigintD.Equals(bigintA)) {
+            TestCommon.CompareTestEqualAndConsistent(bigintD, bigintA,
+               "bigintC = " + bigintC);
+          }
           TestCommon.CompareTestEqual(EInteger.Zero, bigintRem);
           bigintE = bigintC.Divide(bigintB);
           // Testing that DivRem and division method return
@@ -3364,8 +3381,8 @@ namespace Test {
           TestCommon.CompareTestEqualAndConsistent(efloatA, efloatD);
         }
       } catch (Exception ex) {
-        string testLine = "TestMultiplyDivideOne (\nEInteger.FromRadixString" +
-          "\u0020(\"" + bigintA.ToRadixString(16) +
+        string testLine = "TestMultiplyDivideOne(\nEInteger.FromRadixString" +
+          "(\"" + bigintA.ToRadixString(16) +
           "\",16),\nEInteger.FromRadixString(\"" +
           bigintB.ToRadixString(16) + "\",16));";
         Console.WriteLine(testLine);

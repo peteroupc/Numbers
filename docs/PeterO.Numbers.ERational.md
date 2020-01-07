@@ -21,6 +21,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision rational number.
 * <code>[CopySign(PeterO.Numbers.ERational)](#CopySign_PeterO_Numbers_ERational)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 * <code>[Create(int, int)](#Create_int_int)</code> - Creates a rational number with the given numerator and denominator.
+* <code>[Create(long, long)](#Create_long_long)</code> - Creates a rational number with the given numerator and denominator.
 * <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a rational number with the given numerator and denominator.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision rational number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool)</code> - Creates a not-a-number arbitrary-precision rational number.
@@ -581,6 +582,30 @@ Creates a rational number with the given numerator and denominator.
  * <i>numeratorSmall</i>: The numerator.
 
  * <i>denominatorSmall</i>: The denominator.
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The denominator is zero.
+
+<a id="Create_long_long"></a>
+### Create
+
+    public static PeterO.Numbers.ERational Create(
+        long numeratorLong,
+        long denominatorLong);
+
+Creates a rational number with the given numerator and denominator.
+
+<b>Parameters:</b>
+
+ * <i>numeratorLong</i>: The numerator.
+
+ * <i>denominatorLong</i>: The denominator.
 
 <b>Return Value:</b>
 

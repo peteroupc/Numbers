@@ -5309,11 +5309,10 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-            <summary>Creates a number with the value
+            <summary>Returns a number with the value
             exponent*2^significand.</summary>
-            <param name='mantissa'>The parameter <paramref name='mantissa'/> is
-            a Numbers.EInteger object.</param>
-            <param name='exponent'>The value of the exponent.</param>
+            <param name='mantissa'>Desired value for the significand.</param>
+            <param name='exponent'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> or <paramref name='exponent'/> is
@@ -5322,13 +5321,23 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)">
 
-            <summary>Creates a number with the value
+            <summary>Returns a number with the value
             exponent*2^significand.</summary>
-            <param name='mantissaSmall'>The parameter <paramref name='mantissaSmall'/> is a 32-bit signed integer.</param>
+            <param name='mantissaSmall'>Desired value for the
+            significand.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.Create(System.Int64,System.Int64)">
+<summary>Returns a number with the value
+            exponent*2^significand.</summary>
+            <param name='mantissaLong'>Desired value for the
+            significand.</param>
+            <param name='exponentLong'>Desired value for the exponent.</param>
+            <returns>An arbitrary-precision binary floating-point
+            number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger)">
 
@@ -7458,28 +7467,32 @@
 <doc name="M:PeterO.Numbers.EFloat.ToShortestString(PeterO.Numbers.EContext)">
 
             <summary>Returns a string representation of this number's value
-            after rounding that value to the given precision (using the given arithmetic
-            context, such as <c>EContext.Binary64</c>). If the number after rounding is neither infinity nor
-            not-a-number (NaN), returns the shortest decimal form of this
-            number's value (in terms of decimal digits starting with the first
-            nonzero digit and ending with the last nonzero digit) that results
-            in the rounded number after the decimal form is converted to binary
-            floating-point format (using the given arithmetic
-            context).</summary><param name='ctx'>An arithmetic context to control precision (in
+            after rounding that value to the given precision (using the given
+            arithmetic context, such as <c>EContext.Binary64</c> ). If the
+            number after rounding is neither infinity nor not-a-number (NaN),
+            returns the shortest decimal form of this number's value (in terms
+            of decimal digits starting with the first nonzero digit and ending
+            with the last nonzero digit) that results in the rounded number
+            after the decimal form is converted to binary floating-point format
+            (using the given arithmetic context).</summary>
+            <param name='ctx'>An arithmetic context to control precision (in
             bits), rounding, and exponent range of the rounded number. If
             <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null. If this parameter is null or
             defines no maximum precision, returns the same value as the
-            ToString() method.</param><returns>Shortest decimal form of this number's value for the given
+            ToString() method.</param>
+            <returns>Shortest decimal form of this number's value for the given
             arithmetic context. The text string will be in exponential notation
             (expressed as a number 1 or greater, but less than 10, times a
             power of 10) if the number's first nonzero decimal digit is more
             than five digits after the decimal point, or if the number's
             exponent is greater than 0 and its value is 10, 000, 000 or
-            greater.</returns><example><para>The following example converts an EFloat number to its shortest round-tripping decimal form
-            using the same precision as the <c>double</c> type in Java and .NET:</para>
-            <code>String str = efloat.ToShortestString(EContext.Binary64); </code>.</example>
+            greater.</returns>
+            <example><para>The following example converts an EFloat number to its
+            shortest round-tripping decimal form using the same precision as
+            the <c>double</c> type in Java and.NET:</para>
+            <code>String str = efloat.ToShortestString(EContext.Binary64);</code>.</example>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSingle">
@@ -10489,6 +10502,15 @@
             <exception cref='ArgumentException'>The denominator is
             zero.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.Create(System.Int64,System.Int64)">
+<summary>Creates a rational number with the given numerator and
+            denominator.</summary>
+            <param name='numeratorLong'>The numerator.</param>
+            <param name='denominatorLong'>The denominator.</param>
+            <returns>An arbitrary-precision rational number.</returns>
+            <exception cref='ArgumentException'>The denominator is
+            zero.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CreateNaN(PeterO.Numbers.EInteger)">
 
