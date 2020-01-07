@@ -63,6 +63,9 @@ namespace PeterO.Numbers {
 
     private const int RecursionLimit = 10;
 
+    private const int CacheFirst = -24;
+    private const int CacheLast = 128;
+
     private const int ShortMask = 0xffff;
 
     private static readonly int[] ValueCharToDigit = {
@@ -104,8 +107,6 @@ namespace PeterO.Numbers {
     private readonly int wordCount;
     private readonly short[] words;
 
-    private const int CacheFirst = -24;
-    private const int CacheLast = 128;
     private static readonly EInteger[] Cache = EIntegerCache(CacheFirst,
         CacheLast);
 
@@ -113,23 +114,19 @@ namespace PeterO.Numbers {
       #if DEBUG
       if (first < -65535) {
         throw new ArgumentException("first (" + first + ") is not greater" +
-"\u0020or equal" +
-          "\u0020to " + (-65535));
+          "\u0020or equal" + "\u0020to " + (-65535));
       }
       if (first > 65535) {
         throw new ArgumentException("first (" + first + ") is not less or" +
-"\u0020equal to" +
-          "\u002065535");
+          "\u0020equal to" + "\u002065535");
       }
       if (last < -65535) {
         throw new ArgumentException("last (" + last + ") is not greater or" +
-"\u0020equal" +
-          "\u0020to " + (-65535));
+          "\u0020equal" + "\u0020to " + (-65535));
       }
       if (last > 65535) {
         throw new ArgumentException("last (" + last + ") is not less or" +
-"\u0020equal to" +
-          "65535");
+          "\u0020equal to" + "65535");
       }
       #endif
       var i = 0;
@@ -752,14 +749,14 @@ namespace PeterO.Numbers {
       if (endIndex - index <= 18 && radix <= 10) {
         long rv = 0;
         for (int i = index; i < endIndex; ++i) {
-        char c = str[i];
-        int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
-        if (digit >= radix) {
-          throw new FormatException("Illegal character found");
+          char c = str[i];
+          int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
+          if (digit >= radix) {
+            throw new FormatException("Illegal character found");
+          }
+          rv = (rv * radix) + digit;
         }
-        rv = (rv * radix) + digit;
-      }
-      return FromInt64(negative ? -rv : rv);
+        return FromInt64(negative ? -rv : rv);
       }
       var bigint = new short[4];
       var haveSmallInt = true;
@@ -1290,7 +1287,7 @@ EInteger(this.wordCount, this.words, false);
         return EInteger.FromInt32(intValue);
       }
       if (this.wordCount == 1 && intValue >= -0x7ffe0000 && intValue <
-0x7ffe0000) {
+        0x7ffe0000) {
         short[] sumreg;
         int intSum = this.negative ?
           intValue - (((int)this.words[0]) & 0xffff) :
@@ -1313,12 +1310,12 @@ EInteger(this.wordCount, this.words, false);
               sumreg,
               false);
         } else if (intSum > -65536) {
-#if DEBUG
+          #if DEBUG
           if (intSum >= 0) {
             throw new ArgumentException("intSum (" + intSum + ") is not less" +
-"\u0020than 0");
+              "\u0020than 0");
           }
-#endif
+          #endif
 
           sumreg = new short[1];
           intSum = -intSum;
@@ -1328,12 +1325,12 @@ EInteger(this.wordCount, this.words, false);
               sumreg,
               true);
         } else {
-#if DEBUG
+          #if DEBUG
           if (intSum >= 0) {
             throw new ArgumentException("intSum (" + intSum + ") is not less" +
-"\u0020than 0");
+              "\u0020than 0");
           }
-#endif
+          #endif
 
           sumreg = new short[2];
           intSum = -intSum;
@@ -2777,7 +2774,8 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     ((value >= 100000000000000L) ? 15 : ((value
                           >= 10000000000000L) ?
                         14 : ((value >= 1000000000000L) ? 13 : ((value
-                >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
+                              >= 100000000000L) ? 12 : ((value >=
+10000000000L) ?
                               11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
@@ -2926,7 +2924,8 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
+                          minDigitEstimate)) >= 0 ? retval +
+maxDigitEstimate : retval +
                       minDigitEstimate;
                     done = true;
                     break;
@@ -3019,14 +3018,12 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                         12) & 0xffff) != 0) ? 3 : ((((c << 11) &
                         0xffff) != 0) ? 4 : ((((c << 10) & 0xffff) != 0) ? 5 :
                       ((((c << 9) & 0xffff) != 0) ? 6 : ((((c <<
-                                8) & 0xffff) != 0) ? 7 : ((((c << 7) &
-0xffff) !=
+                8) & 0xffff) != 0) ? 7 : ((((c << 7) & 0xffff) !=
                               0) ? 8 : ((((c << 6) & 0xffff) != 0) ? 9 :
                               ((((c << 5) & 0xffff) != 0) ? 10 : ((((c <<
                                         4) & 0xffff) != 0) ? 11 : ((((c << 3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
-                                          0xffff) != 0) ? 13 : ((((c << 1) &
-0xffff) !=
+                0xffff) != 0) ? 13 : ((((c << 1) & 0xffff) !=
                                           0) ? 14 : 15))))))))))))));
           return EInteger.FromInt64(retSetBitLong).Add(
               EInteger.FromInt32(rsb));
@@ -3933,8 +3930,6 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
-    /// <exception cref='ArgumentException'>doesn't satisfy
-    /// biggerCount&amp;gt;0</exception>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
@@ -3964,11 +3959,12 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
           biggerCount - smallerCount);
         #if DEBUG
         if (!(biggerCount > 0)) {
-          throw new ArgumentException("doesn't satisfy biggerCount>0");
+          throw new InvalidOperationException(
+            "doesn't satisfy biggerCount>0");
         }
         if (!(biggerCount == CountWords(result))) {
-          throw new ArgumentException("doesn't satisfy" +
-"\u0020biggerCount==CountWords(result)");
+          throw new InvalidOperationException("doesn't satisfy" +
+            "\u0020biggerCount==CountWords(result)");
         }
         #endif
 

@@ -322,14 +322,24 @@ digitsBefore) {
       }
     }
 
+    public void TestEFloatDoubleCoreExact(double d, string s) {
+      Assert.AreEqual(s, EFloat.FromDouble(d).ToString());
+      TestEFloatDoubleCore(d, s);
+    }
+
+    public void TestEFloatSingleCoreExact(float d, string s) {
+      Assert.AreEqual(s, EFloat.FromSingle(d).ToString());
+      TestEFloatSingleCore(d, s);
+    }
+
     [Test]
     public void TestEFloatDouble() {
-      TestEFloatDoubleCore(3.5, "3.5");
-      TestEFloatDoubleCore(7, "7");
-      TestEFloatDoubleCore(1.75, "1.75");
-      TestEFloatDoubleCore(3.5, "3.5");
-      TestEFloatDoubleCore((double)Int32.MinValue, "-2147483648");
-      TestEFloatDoubleCore(
+      TestEFloatDoubleCoreExact(3.5, "3.5");
+      TestEFloatDoubleCoreExact(7, "7");
+      TestEFloatDoubleCoreExact(1.75, "1.75");
+      TestEFloatDoubleCoreExact(3.5, "3.5");
+      TestEFloatDoubleCoreExact((double)Int32.MinValue, "-2147483648");
+      TestEFloatDoubleCoreExact(
         (double)Int64.MinValue,
         "-9223372036854775808");
       var rand = new RandomGenerator();
@@ -2288,26 +2298,54 @@ enumber.CompareTo(
     private static void TestEFloatDoubleCore(double d, string s) {
       double oldd = d;
       EFloat bf = EFloat.FromDouble(d);
-      if (s != null) {
-        Assert.AreEqual(s, bf.ToString());
-      }
       d = bf.ToDouble();
-      Assert.AreEqual((double)oldd, d);
+      if (Double.IsNaN(oldd)) {
+        Assert.IsTrue(Double.IsNaN(d));
+      } else {
+        Assert.AreEqual((double)oldd, d);
+      }
+      if (s != null) {
+        EFloat bf2 = EFloat.FromString(s, EContext.Binary64);
+       d = bf.ToDouble();
+       if (Double.IsNaN(oldd)) {
+         Assert.IsTrue(Double.IsNaN(d));
+       } else {
+         Assert.AreEqual((double)oldd, d);
+       }
+      }
       if (bf.IsFinite) {
-        TestStringToDoubleOne(bf.ToString());
+        string s2 = bf.ToString();
+        TestStringToDoubleOne(s2);
+if (s != null && !s.Equals(s2)) {
+  TestStringToDoubleOne(s);
+}
       }
     }
 
     private static void TestEFloatSingleCore(float d, string s) {
       float oldd = d;
       EFloat bf = EFloat.FromSingle(d);
-      if (s != null) {
-        Assert.AreEqual(s, bf.ToString());
-      }
       d = bf.ToSingle();
-      Assert.AreEqual((float)oldd, d);
+      if (Single.IsNaN(oldd)) {
+        Assert.IsTrue(Single.IsNaN(d));
+      } else {
+        Assert.AreEqual((float)oldd, d);
+      }
+      if (s != null) {
+        EFloat bf2 = EFloat.FromString(s, EContext.Binary32);
+       d = bf.ToSingle();
+       if (Single.IsNaN(oldd)) {
+         Assert.IsTrue(Single.IsNaN(d));
+       } else {
+         Assert.AreEqual((double)oldd, d);
+       }
+      }
       if (bf.IsFinite) {
-        TestStringToSingleOne(bf.ToString());
+        string s2 = bf.ToString();
+        TestStringToSingleOne(s2);
+if (s != null && !s.Equals(s2)) {
+  TestStringToSingleOne(s);
+}
       }
     }
   }

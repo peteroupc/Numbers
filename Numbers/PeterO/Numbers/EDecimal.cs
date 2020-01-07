@@ -262,6 +262,9 @@ namespace PeterO.Numbers {
       Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class EDecimal : IComparable<EDecimal>,
     IEquatable<EDecimal> {
+    private const int RepeatDivideThreshold = 10000;
+    private const int MaxSafeInt = 214748363;
+
     //----------------------------------------------------------------
 
     /// <summary>A not-a-number value.</summary>
@@ -360,23 +363,19 @@ namespace PeterO.Numbers {
       #if DEBUG
       if (first < -65535) {
         throw new ArgumentException("first (" + first + ") is not greater" +
-"\u0020or equal" +
-          "\u0020to " + (-65535));
+          "\u0020or equal" + "\u0020to " + (-65535));
       }
       if (first > 65535) {
         throw new ArgumentException("first (" + first + ") is not less or" +
-"\u0020equal to" +
-          "\u002065535");
+          "\u0020equal to" + "\u002065535");
       }
       if (last < -65535) {
         throw new ArgumentException("last (" + last + ") is not greater or" +
-"\u0020equal" +
-          "\u0020to " + (-65535));
+          "\u0020equal" + "\u0020to " + (-65535));
       }
       if (last > 65535) {
         throw new ArgumentException("last (" + last + ") is not less or" +
-"\u0020equal to" +
-          "65535");
+          "\u0020equal to" + "65535");
       }
       #endif
 
@@ -398,8 +397,6 @@ namespace PeterO.Numbers {
       }
       return cache;
     }
-
-    private const int MaxSafeInt = 214748363;
 
     private static readonly IRadixMath<EDecimal> ExtendedMathValue = new
 RadixMath<EDecimal>(new DecimalMathHelper());
@@ -614,7 +611,8 @@ TrappableRadixMath<EDecimal>(
             FastIntegerFixed.FromLong(exponentLong),
             (byte)((mantissaLong < 0) ? BigNumberFlags.FlagNegative : 0));
       } else {
-        FastIntegerFixed fi = FastIntegerFixed.FromLong(Math.Abs(mantissaLong));
+        FastIntegerFixed fi = FastIntegerFixed.FromLong(Math.Abs(
+  mantissaLong));
         return new EDecimal(
             fi,
             FastIntegerFixed.FromLong(exponentLong),
@@ -1170,10 +1168,10 @@ TrappableRadixMath<EDecimal>(
       }
       int i = tmpoffset;
       if (str[tmpoffset] < '0' || str[tmpoffset] > '9') {
-       EDecimal ed = ParseSpecialValue(str, i, endStr, negative, ctx);
-       if (ed != null) {
-         return ed;
-       }
+        EDecimal ed = ParseSpecialValue(str, i, endStr, negative, ctx);
+        if (ed != null) {
+          return ed;
+        }
       }
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
         !ctx.IsSimplified) {
@@ -1600,12 +1598,11 @@ TrappableRadixMath<EDecimal>(
       if (endStr - i == 1) {
         char tch = str[i];
         if (tch >= '0' && tch <= '9') {
-        // String portion is a single digit
-        EDecimal cret;
-        var si = (int)(tch - '0');
-        cret = negative ? ((si == 0) ? NegativeZero : Cache[-si -
-           CacheFirst]) : (Cache[si - CacheFirst]);
-           return cret; }
+          // String portion is a single digit
+          var si = (int)(tch - '0');
+          return negative ? ((si == 0) ? NegativeZero :
+            Cache[-si - CacheFirst]) : Cache[si - CacheFirst];
+        }
       }
       digitStart = i;
       int digitEnd = i;
@@ -1613,14 +1610,7 @@ TrappableRadixMath<EDecimal>(
       var haveNonzeroDigit = false;
       var decimalPrec = 0;
       int decimalDigitEnd = i;
-      // NOTE: Also check HasFlagsOrTraps here because
-      // it's burdensome to determine which flags have
-      // to be set when applying the optimization here
-      var haveIgnoredDigit = false;
       var lastdigit = -1;
-      var beyondPrecision = false;
-      var ignoreNextDigit = false;
-      var zerorun = 0;
       var realDigitEnd = -1;
       var realDecimalEnd = -1;
       for (; i < endStr; ++i) {
@@ -1759,25 +1749,25 @@ TrappableRadixMath<EDecimal>(
         var vi = 0;
         for (vi = digitStart; vi < de; ++vi) {
           char chvi = str[vi];
-#if DEBUG
+          #if DEBUG
           if (!(chvi >= '0' && chvi <= '9')) {
             throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
-"\u0020chvi<= '9'");
+              "\u0020chvi<= '9'");
           }
-#endif
+          #endif
 
-          lv = checked(lv * 10 + (int)(chvi - '0'));
+          lv = checked((lv * 10) + (int)(chvi - '0'));
         }
         for (vi = decimalDigitStart; vi < dde; ++vi) {
           char chvi = str[vi];
-#if DEBUG
+          #if DEBUG
           if (!(chvi >= '0' && chvi <= '9')) {
             throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
-"\u0020chvi<= '9'");
+              "\u0020chvi<= '9'");
           }
-#endif
+          #endif
 
-          lv = checked(lv * 10 + (int)(chvi - '0'));
+          lv = checked((lv * 10) + (int)(chvi - '0'));
         }
         if (negative) {
           lv = -lv;
@@ -1809,7 +1799,7 @@ TrappableRadixMath<EDecimal>(
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
-  newScaleInt) : FastIntegerFixed.FromBig(newScale);
+          newScaleInt) : FastIntegerFixed.FromBig(newScale);
       if (mant == null) {
         fastIntMant = FastIntegerFixed.FromInt32(mantInt);
       } else if (mant.CanFitInInt32()) {
@@ -1831,9 +1821,9 @@ TrappableRadixMath<EDecimal>(
       int endStr,
       bool negative,
       EContext ctx) {
-if (ctx == null) {
-  return ParseOrdinaryNumberNoContext(str, i, endStr, negative);
-}
+      if (ctx == null) {
+        return ParseOrdinaryNumberNoContext(str, i, endStr, negative);
+      }
       // NOTE: Negative sign at beginning was omitted
       // from the string portion
       var mantInt = 0;
@@ -1848,15 +1838,15 @@ if (ctx == null) {
       if (endStr - i == 1) {
         char tch = str[i];
         if (tch >= '0' && tch <= '9') {
-        // String portion is a single digit
-        EDecimal cret;
-        var si = (int)(tch - '0');
-        cret = negative ? ((si == 0) ? NegativeZero : Cache[-si -
-           CacheFirst]) : (Cache[si - CacheFirst]);
-           if (ctx != null) {
-             cret = GetMathValue(ctx).RoundAfterConversion(cret, ctx);
-           }
-        return cret;
+          // String portion is a single digit
+          EDecimal cret;
+          var si = (int)(tch - '0');
+          cret = negative ? ((si == 0) ? NegativeZero : Cache[-si -
+                CacheFirst]) : Cache[si - CacheFirst];
+          if (ctx != null) {
+            cret = GetMathValue(ctx).RoundAfterConversion(cret, ctx);
+          }
+          return cret;
         }
       }
       digitStart = i;
@@ -1873,23 +1863,23 @@ if (ctx == null) {
           (negative && ctx.Rounding == ERounding.Ceiling) ||
           (!negative && ctx.Rounding == ERounding.Floor)) &&
         !ctx.HasFlagsOrTraps;
-        bool roundHalf = ctx != null && ctx.HasMaxPrecision &&
+      bool roundHalf = ctx != null && ctx.HasMaxPrecision &&
         !ctx.IsPrecisionInBits && (ctx.Rounding == ERounding.HalfUp ||
           (ctx.Rounding == ERounding.HalfDown) ||
           (ctx.Rounding == ERounding.HalfEven)) &&
         !ctx.HasFlagsOrTraps;
-        bool roundUp = ctx != null && ctx.HasMaxPrecision &&
+      bool roundUp = ctx != null && ctx.HasMaxPrecision &&
         !ctx.IsPrecisionInBits && (ctx.Rounding == ERounding.Up ||
           (!negative && ctx.Rounding == ERounding.Ceiling) ||
           (negative && ctx.Rounding == ERounding.Floor)) &&
         !ctx.HasFlagsOrTraps;
-        var haveIgnoredDigit = false;
-        var lastdigit = -1;
-        var beyondPrecision = false;
-        var ignoreNextDigit = false;
-        var zerorun = 0;
-        var realDigitEnd = -1;
-        var realDecimalEnd = -1;
+      var haveIgnoredDigit = false;
+      var lastdigit = -1;
+      var beyondPrecision = false;
+      var ignoreNextDigit = false;
+      var zerorun = 0;
+      var realDigitEnd = -1;
+      var realDecimalEnd = -1;
       // DebugUtility.Log("round half=" + (// roundHalf) +
       // " up=" + roundUp + " down=" + roundDown +
       // " maxprec=" + (ctx != null && ctx.HasMaxPrecision));
@@ -2196,24 +2186,24 @@ if (ctx == null) {
         int expo = -(dde - decimalDigitStart);
         var vi = 0;
         for (vi = digitStart; vi < de; ++vi) {
-#if DEBUG
+          #if DEBUG
           if (!(str[vi] >= '0' && str[vi] <= '9')) {
             throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
-"\u0020str[vi]<= '9'");
+              "\u0020str[vi]<= '9'");
           }
-#endif
+          #endif
 
-          lv = checked(lv * 10 + (int)(str[vi] - '0'));
+          lv = checked((lv * 10) + (int)(str[vi] - '0'));
         }
         for (vi = decimalDigitStart; vi < dde; ++vi) {
-#if DEBUG
+          #if DEBUG
           if (!(str[vi] >= '0' && str[vi] <= '9')) {
             throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
-"\u0020str[vi]<= '9'");
+              "\u0020str[vi]<= '9'");
           }
-#endif
+          #endif
 
-          lv = checked(lv * 10 + (int)(str[vi] - '0'));
+          lv = checked((lv * 10) + (int)(str[vi] - '0'));
         }
         if (negative) {
           lv = -lv;
@@ -2248,11 +2238,11 @@ if (ctx == null) {
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
-  newScaleInt) : FastIntegerFixed.FromBig(newScale);
-  if (mant == null) {
-    fastIntMant = FastIntegerFixed.FromInt32(mantInt);
-  } else if (mant.CanFitInInt32()) {
-    mantInt = mant.ToInt32Checked();
+          newScaleInt) : FastIntegerFixed.FromBig(newScale);
+      if (mant == null) {
+        fastIntMant = FastIntegerFixed.FromInt32(mantInt);
+      } else if (mant.CanFitInInt32()) {
+        mantInt = mant.ToInt32Checked();
         fastIntMant = FastIntegerFixed.FromInt32(mantInt);
       } else {
         fastIntMant = FastIntegerFixed.FromBig(mant);
@@ -5336,7 +5326,6 @@ if (ctx == null) {
           FastIntegerFixed.FromBig(exponent),
           (byte)flags);
     }
-    private const int RepeatDivideThreshold = 10000;
     private static bool AppendString(
       StringBuilder builder,
       char c,

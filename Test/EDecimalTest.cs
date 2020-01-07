@@ -5522,9 +5522,33 @@ namespace Test {
       return sb.ToString();
     }
 
+    public static void TestStringContextOneEFloat(string str, EContext ec) {
+      if (ec == null) {
+        throw new ArgumentNullException(nameof(ec));
+      }
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+       if(str.Length==0 || str[0]=='-') {
+         TestStringContextOneEFloatCore(str, ec);
+         return;       
+       }
+       string leadingZeros=TestCommon.Repeat('0', 800);
+       int[] counts={ 0, 1, 2, 4, 6, 8, 10, 50, 100, 200, 300, 400,
+          500, 600, 700, 800 };
+       for(var i=1; i < counts.Length; i++) {
+         // Parse a string with leading zeros (to test whether
+         // the 768-digit trick delivers a correctly rounded EFloat
+         // even if the string has leading zeros)
+         TestStringContextOneEFloatCore(
+           leadingZeros.Substring(0, counts[i]) + str,
+           ec);
+       }
+    }
+
     // Test potential cases where FromString is implemented
     // to take context into account when building the EFloat
-    public static void TestStringContextOneEFloat(string str, EContext ec) {
+    public static void TestStringContextOneEFloatCore(string str, EContext ec) {
       if (ec == null) {
         throw new ArgumentNullException(nameof(ec));
       }

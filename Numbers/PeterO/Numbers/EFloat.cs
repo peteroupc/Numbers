@@ -7,6 +7,10 @@ at: http://peteroupc.github.io/
  */
 using System;
 
+// TODO: Consider adding a logb (floor of log2) operation,
+// as well as a Log2 method here and in EDecimal
+// TODO: Consider adding byte[] equivalent of FromString
+// here and in EDecimal
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision binary floating-point
   /// number. (The "E" stands for "extended", meaning that instances of
@@ -3355,17 +3359,19 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Returns a string representation of this number's value
-    /// after rounding to the given precision (using the given arithmetic
-    /// context). If the number after rounding is neither infinity nor
-    /// not-a-number (NaN), returns the shortest decimal form of this
-    /// number's value (in terms of decimal digits starting with the first
-    /// nonzero digit and ending with the last nonzero digit) that results
-    /// in the rounded number after the decimal form is converted to binary
-    /// floating-point format (using the given arithmetic
-    /// context).</summary>
+    /// after rounding that value to the given precision (using the given
+    /// arithmetic context, such as <c>EContext.Binary64</c>
+    ///  ). If the
+    /// number after rounding is neither infinity nor not-a-number (NaN),
+    /// returns the shortest decimal form of this number's value (in terms
+    /// of decimal digits starting with the first nonzero digit and ending
+    /// with the last nonzero digit) that results in the rounded number
+    /// after the decimal form is converted to binary floating-point format
+    /// (using the given arithmetic context).</summary>
     /// <param name='ctx'>An arithmetic context to control precision (in
     /// bits), rounding, and exponent range of the rounded number. If
-    /// <c>HasFlags</c> of the context is true, will also store the flags
+    /// <c>HasFlags</c>
+    ///  of the context is true, will also store the flags
     /// resulting from the operation (the flags are in addition to the
     /// pre-existing flags). Can be null. If this parameter is null or
     /// defines no maximum precision, returns the same value as the
@@ -3377,6 +3383,13 @@ namespace PeterO.Numbers {
     /// than five digits after the decimal point, or if the number's
     /// exponent is greater than 0 and its value is 10, 000, 000 or
     /// greater.</returns>
+    /// <example>
+    /// <para>The following example converts an EFloat number to its
+    /// shortest round-tripping decimal form using the same precision as
+    /// the <c>double</c>
+    ///  type in Java and.NET:</para>
+    /// <code> String str = efloat.ToShortestString(EContext.Binary64); </code>
+    /// </example>
     public string ToShortestString(EContext ctx) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return this.ToString();
