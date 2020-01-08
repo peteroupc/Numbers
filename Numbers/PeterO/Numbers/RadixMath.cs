@@ -2809,21 +2809,53 @@ this.RoundToPrecision(b, ctx)));
       EInteger op2Mantissa,
       IRadixMathHelper<TMath> helper,
       bool reportOOM) {
+#if DEBUG
+if (op1Mantissa.IsZero) {
+  throw new InvalidOperationException();
+}
+if (op2Mantissa.IsZero) {
+  throw new InvalidOperationException();
+}
+      #endif
       FastInteger fastOp1Exp = FastInteger.FromBig(op1Exponent);
       FastInteger fastOp2Exp = FastInteger.FromBig(op2Exponent);
-
       FastInteger expdiff = fastOp1Exp.Copy().Subtract(fastOp2Exp).Abs();
       // Check if exponent difference is too big for
       // radix-power calculation to work quickly
-      if (expdiff.CompareToInt(100) >= 0) {
+      if (expdiff.CompareToInt(200) >= 0) {
         EInteger op1MantAbs = op1Mantissa;
         EInteger op2MantAbs = op2Mantissa;
-        FastInteger precision1 = helper.GetDigitLength(op1MantAbs);
-        FastInteger precision2 = helper.GetDigitLength(op2MantAbs);
+        FastInteger[] op1DigitBounds = DigitLengthBounds(helper, op1MantAbs);
+        FastInteger[] op2DigitBounds = DigitLengthBounds(helper, op2MantAbs);
+        FastInteger op2ExpUpperBound = fastOp2Exp.Copy().Add(op2DigitBounds[1]);
+        FastInteger op1ExpLowerBound = fastOp1Exp.Copy().Add(op1DigitBounds[0]);
+        if (op2ExpUpperBound.CompareTo(op1ExpLowerBound) < 0) {
+          // Operand 2's magnitude can't reach highest digit of operand 1,
+          // meaning operand 1 has a greater magnitude
+          return signA < 0 ? -1 : 1;
+        }
+        FastInteger op1ExpUpperBound = fastOp1Exp.Copy().Add(op1DigitBounds[1]);
+        FastInteger op2ExpLowerBound = fastOp2Exp.Copy().Add(op2DigitBounds[0]);
+        if (op1ExpUpperBound.CompareTo(op2ExpLowerBound) < 0) {
+          // Operand 1's magnitude can't reach highest digit of operand 2,
+          // meaning operand 2 has a greater magnitude
+          return signA < 0 ? 1 : -1;
+        }
+        // DebugUtility.Log("op1 digits=({0}, {1})," +
+        // "exp={2}",op1DigitBounds[0],op1DigitBounds[1],fastOp1Exp);
+        // DebugUtility.Log("op2 digits=({0}, {1})," +
+        // "exp={2}",op2DigitBounds[0],op2DigitBounds[1],fastOp2Exp);
+        FastInteger precision1 =
+op1DigitBounds[0].CompareTo(op1DigitBounds[1]) == 0 ?
+            op1DigitBounds[0] : helper.GetDigitLength(op1MantAbs);
+        FastInteger precision2 =
+op2DigitBounds[0].CompareTo(op2DigitBounds[1]) == 0 ?
+            op2DigitBounds[0] : helper.GetDigitLength(op2MantAbs);
         FastInteger exp1 = fastOp1Exp.Copy().Add(precision1).Decrement();
         FastInteger exp2 = fastOp2Exp.Copy().Add(precision2).Decrement();
         int adjcmp = exp1.CompareTo(exp2);
         if (adjcmp != 0) {
+          // DebugUtility.Log("cmp=" + ((signA < 0) ? -adjcmp : adjcmp));
           return (signA < 0) ? -adjcmp : adjcmp;
         }
         FastInteger maxPrecision = null;
@@ -2852,6 +2884,7 @@ this.RoundToPrecision(b, ctx)));
                 FastInteger newDiff = tmp.Copy().Subtract(fastOp2Exp).Abs();
                 if (newDiff.CompareTo(expdiff) < 0) {
                   // At this point, both operands have the same sign
+                  // DebugUtility.Log("cmp case 1=" + ((signA < 0) ? 1 : -1));
                   return (signA < 0) ? 1 : -1;
                 }
               }
@@ -2876,6 +2909,7 @@ this.RoundToPrecision(b, ctx)));
                 FastInteger newDiff = tmp.Copy().Subtract(fastOp1Exp).Abs();
                 if (newDiff.CompareTo(expdiff) < 0) {
                   // At this point, both operands have the same sign
+                  // DebugUtility.Log("cmp case 2=" + ((signA < 0) ? -1 : 1));
                   return (signA < 0) ? -1 : 1;
                 }
               }
@@ -2883,6 +2917,7 @@ this.RoundToPrecision(b, ctx)));
           }
           expcmp = op1Exponent.CompareTo((EInteger)op2Exponent);
         }
+        // DebugUtility.Log("must rescale, expcmp=" + (expcmp));
       }
       if (expcmp > 0) {
         // if ((op1Exponent-op2Exponent).Abs() > 10) {
@@ -3095,10 +3130,53 @@ this.RoundToPrecision(b, ctx)));
           negResult ? BigNumberFlags.FlagNegative : 0);
     }
 
-    private FastInteger OverestimateDigitLength(EInteger ei) {
-      if (this.thisRadix == 2) {
+    private static FastInteger[] DigitLengthBounds<THelper>(
+       IRadixMathHelper<THelper> helper,
+       EInteger ei) {
+      int radix = helper.GetRadix();
+      if (radix == 2) {
+        FastInteger fi =
+FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
+        return new FastInteger[] { fi, fi };
+      } else if (radix == 10) {
+        EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
+        if (bigBitLength.CompareTo(33) < 0) {
+          // Can easily be calculated without estimation
+          FastInteger fi = helper.GetDigitLength(ei);
+          return new FastInteger[] { fi, fi };
+        } else if (bigBitLength.CompareTo(2135) <= 0) {
+          int ov = 1 + ((bigBitLength.ToInt32Checked() * 631305) >> 21);
+          return new FastInteger[] {
+            new FastInteger(ov - 2), // lower bound
+            new FastInteger(ov), // upper bound
+          };
+        } else {
+          // Bit length is big enough that these bounds will
+          // overestimate the true base-10 digit length.
+          EInteger lowerBound = bigBitLength.Multiply(100).Divide(335);
+          EInteger upperBound = bigBitLength.Divide(3);
+          return new FastInteger[] {
+            FastInteger.FromBig(lowerBound), // lower bound
+            FastInteger.FromBig(upperBound), // upper bound
+          };
+        }
+      } else {
+        FastInteger fi = helper.GetDigitLength(ei);
+        return new FastInteger[] { fi, fi };
+      }
+    }
+
+    private FastInteger DigitLengthUpperBound(EInteger ei) {
+      return DigitLengthUpperBound(this.helper, ei);
+    }
+
+    private static FastInteger
+DigitLengthUpperBound<THelper>(IRadixMathHelper<THelper> helper, EInteger
+ei) {
+      int radix = helper.GetRadix();
+      if (radix == 2) {
         return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
-      } else if (this.thisRadix == 10) {
+      } else if (radix == 10) {
         EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
         if (bigBitLength.CompareTo(2135) <= 0) {
           // May overestimate by 1
@@ -3110,7 +3188,7 @@ this.RoundToPrecision(b, ctx)));
           return FastInteger.FromBig(bigBitLength.Divide(3));
         }
       } else {
-        return this.helper.GetDigitLength(ei);
+        return helper.GetDigitLength(ei);
       }
     }
     private static readonly FastInteger ValueFastIntegerTwo = new
@@ -3155,8 +3233,7 @@ this.RoundToPrecision(b, ctx)));
               // difference
               // _________________________111111111111|_
               // ___222222222222222|____________________
-              FastInteger digitLength1 =
-                this.OverestimateDigitLength(op1MantAbs);
+              FastInteger digitLength1 = this.DigitLengthUpperBound(op1MantAbs);
               if (fastOp1Exp.Copy().Add(digitLength1).AddInt(2)
                 .CompareTo(fastOp2Exp) < 0) {
                 // first operand's mantissa can't reach the
@@ -3265,10 +3342,9 @@ this.RoundToPrecision(b, ctx)));
               // difference
               // __111111111111|
               // ____________________222222222222222|
-              FastInteger digitLength2 =
-                this.OverestimateDigitLength(op2MantAbs);
+              FastInteger digitLength2 = this.DigitLengthUpperBound(op2MantAbs);
               // DebugUtility.Log("digitLength2 "
-              // +this.OverestimateDigitLength(op2MantAbs));
+              // +this.DigitLengthUpperBound(op2MantAbs));
               // DebugUtility.Log("actualDigitLength2 "
               // +op2MantAbs.GetDigitCountAsEInteger());
               if (fastOp2Exp.Copy().Add(digitLength2).AddInt(2)

@@ -334,12 +334,12 @@ digitsBefore) {
 
     [Test]
     public void TestEFloatDouble() {
-      TestEFloatDoubleCoreExact(3.5, "3.5");
-      TestEFloatDoubleCoreExact(7, "7");
-      TestEFloatDoubleCoreExact(1.75, "1.75");
-      TestEFloatDoubleCoreExact(3.5, "3.5");
-      TestEFloatDoubleCoreExact((double)Int32.MinValue, "-2147483648");
-      TestEFloatDoubleCoreExact(
+      this.TestEFloatDoubleCoreExact(3.5, "3.5");
+      this.TestEFloatDoubleCoreExact(7, "7");
+      this.TestEFloatDoubleCoreExact(1.75, "1.75");
+      this.TestEFloatDoubleCoreExact(3.5, "3.5");
+      this.TestEFloatDoubleCoreExact((double)Int32.MinValue, "-2147483648");
+      this.TestEFloatDoubleCoreExact(
         (double)Int64.MinValue,
         "-9223372036854775808");
       var rand = new RandomGenerator();
@@ -1486,17 +1486,17 @@ OutputDouble(expectedDouble) +
 
     [Test]
     public void TestStringToDoubleExp() {
-      var s1 = new List<string>();
-      var s2 = new List<string>();
+      var s1list = new List<string>();
+      var s2list = new List<string>();
       for (var i = -304; i <= 304; ++i) {
-        s1.Add(TestCommon.IntToString(i));
+        s1list.Add(TestCommon.IntToString(i));
       }
       for (var i = 0; i <= 1000; ++i) {
-        s2.Add(TestCommon.IntToString(i));
+        s2list.Add(TestCommon.IntToString(i));
       }
-      for (var i = 0; i < s1.Count; ++i) {
-        for (var j = 0; j < s2.Count; ++j) {
-          TestStringToDoubleSingleOne(s2[j] + "e" + s1[i]);
+      for (var i = 0; i < s1list.Count; ++i) {
+        for (var j = 0; j < s2list.Count; ++j) {
+          TestStringToDoubleSingleOne(s2list[j] + "e" + s1list[i]);
         }
       }
     }
@@ -2306,19 +2306,19 @@ enumber.CompareTo(
       }
       if (s != null) {
         EFloat bf2 = EFloat.FromString(s, EContext.Binary64);
-       d = bf.ToDouble();
-       if (Double.IsNaN(oldd)) {
-         Assert.IsTrue(Double.IsNaN(d));
-       } else {
+        d = bf.ToDouble();
+        if (Double.IsNaN(oldd)) {
+          Assert.IsTrue(Double.IsNaN(d));
+        } else {
          Assert.AreEqual((double)oldd, d);
        }
       }
       if (bf.IsFinite) {
         string s2 = bf.ToString();
         TestStringToDoubleOne(s2);
-if (s != null && !s.Equals(s2)) {
-  TestStringToDoubleOne(s);
-}
+      if (s != null && !s.Equals(s2, StringComparison.Ordinal)) {
+        TestStringToDoubleOne(s);
+      }
       }
     }
 
@@ -2333,19 +2333,19 @@ if (s != null && !s.Equals(s2)) {
       }
       if (s != null) {
         EFloat bf2 = EFloat.FromString(s, EContext.Binary32);
-       d = bf.ToSingle();
-       if (Single.IsNaN(oldd)) {
-         Assert.IsTrue(Single.IsNaN(d));
-       } else {
+        d = bf.ToSingle();
+        if (Single.IsNaN(oldd)) {
+          Assert.IsTrue(Single.IsNaN(d));
+        } else {
          Assert.AreEqual((double)oldd, d);
        }
       }
       if (bf.IsFinite) {
         string s2 = bf.ToString();
         TestStringToSingleOne(s2);
-if (s != null && !s.Equals(s2)) {
-  TestStringToSingleOne(s);
-}
+      if (s != null && !s.Equals(s2, StringComparison.Ordinal)) {
+        TestStringToSingleOne(s);
+      }
       }
     }
   }

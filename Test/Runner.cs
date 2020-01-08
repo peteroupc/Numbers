@@ -10,8 +10,9 @@ namespace PeterO {
   /// <summary>Description of Runner.</summary>
   public static class Runner {
     public static void Main() {
-      new Test.EDecimalTest().TestFromStringSubstring();
-      new Test.ERationalTest().TestFromString();
+      new Test.EDecimalTest().TestStringContext();
+      // new Test.EDecimalTest().TestFromStringSubstring();
+      // new Test.ERationalTest().TestFromString();
     }
   }
 }

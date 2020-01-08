@@ -8,7 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 // TODO: Consider adding a logb (floor of log2) operation,
-// as well as a Log2 method here and in EDecimal
+  // as well as a Log2 method here and in EDecimal
 // TODO: Consider adding byte[] equivalent of FromString
 // here and in EDecimal
 namespace PeterO.Numbers {
@@ -757,15 +757,16 @@ namespace PeterO.Numbers {
         if (i == endStr) {
           throw new FormatException();
         }
-        if (str[i] == '+' || str[i] == '-') {
-          if (str[i] == '-') {
+        char ch=str[i];
+        if (ch == '+' || ch == '-') {
+          if (ch == '-') {
             expoffset = -1;
           }
           ++i;
         }
         expDigitStart = i;
         for (; i < endStr; ++i) {
-          char ch = str[i];
+          ch = str[i];
           if (ch >= '0' && ch <= '9') {
             haveDigits = true;
             var thisdigit = (int)(ch - '0');

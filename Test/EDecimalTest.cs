@@ -5529,52 +5529,50 @@ namespace Test {
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
       }
-       if(str.Length==0 || str[0]=='-') {
-         TestStringContextOneEFloatCore(str, ec);
-         return;       
-       }
-       string leadingZeros=TestCommon.Repeat('0', 800);
-       int[] counts={ 0, 1, 2, 4, 6, 8, 10, 50, 100, 200, 300, 400,
-          500, 600, 700, 800 };
-       for(var i=1; i < counts.Length; i++) {
+      string leadingZeros = TestCommon.Repeat('0', 800);
+      int[] counts = {
+        0, 1, 2, 4, 6, 8, 10, 50, 100, 200, 300, 400,
+        500, 600, 700, 800,
+      };
+      EDecimal ed = EDecimal.FromString("xyzxyz" + str, 6, str.Length);
+      EFloat ef = ed.ToEFloat(ec);
+      for (var i = 1; i < counts.Length; ++i) {
          // Parse a string with leading zeros (to test whether
          // the 768-digit trick delivers a correctly rounded EFloat
          // even if the string has leading zeros)
          TestStringContextOneEFloatCore(
            leadingZeros.Substring(0, counts[i]) + str,
-           ec);
+           ec, ed, ef);
+         if (str.Length == 0 || str[0] == '-') {
+           break;
+         }
        }
     }
 
     // Test potential cases where FromString is implemented
     // to take context into account when building the EFloat
-    public static void TestStringContextOneEFloatCore(string str, EContext ec) {
+    public static void TestStringContextOneEFloatCore(
+      string str,
+      EContext ec,
+      EDecimal ed,
+      EFloat ef) {
       if (ec == null) {
         throw new ArgumentNullException(nameof(ec));
       }
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
       }
-      EFloat ef = null, ef2 = null;
-      // Console.WriteLine("TestStringContextOne ---- ec=" + (ec));
-      // swUnopt.Restart();
-      EDecimal ed = null;
+      EFloat ef2 = null;
       EContext noneRounding = ec.WithRounding(
-          ERounding.None).WithTraps(EContext.FlagInvalid);
+          ERounding.None); // .WithTraps(EContext.FlagInvalid);
       EContext downRounding = ec.WithRounding(ERounding.Down);
-      ed = EDecimal.FromString("xyzxyz" + str, 6, str.Length);
-      ef = ed.ToEFloat(ec);
-      // swUnoptRound.Stop();
-      // swUnopt.Stop();
-      // swOpt2.Restart();
       ef2 = EFloat.FromString("xyzxyz" + str, 6, str.Length, ec);
-      // swOpt2.Stop();
       EFloat ef3 = EFloat.NaN;
-      try {
-        ef3 = EFloat.FromString(str, noneRounding);
-      } catch (ETrapException) {
+      // try {
+      ef3 = EFloat.FromString(str, noneRounding);
+      // } catch (ETrapException) {
         // NOTE: Intentionally empty
-      }
+      // }
       EDecimal edef2 = (ec.Rounding == ERounding.Down ?
           ef2 : EFloat.FromString(str, downRounding)).ToEDecimal();
       if ((ef3 != null && !ef3.IsNaN()) && ed != null &&
