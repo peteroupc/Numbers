@@ -253,6 +253,19 @@ namespace PeterO.Numbers {
 
     /// <summary>Creates a rational number with the given numerator and
     /// denominator.</summary>
+    /// <param name='numeratorLong'>The numerator.</param>
+    /// <param name='denominatorLong'>The denominator.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <exception cref='ArgumentException'>The denominator is
+    /// zero.</exception>
+    public static ERational Create(
+      long numeratorLong,
+      long denominatorLong) {
+      return Create((EInteger)numeratorLong, (EInteger)denominatorLong);
+    }
+
+    /// <summary>Creates a rational number with the given numerator and
+    /// denominator.</summary>
     /// <param name='numerator'>The numerator.</param>
     /// <param name='denominator'>The denominator.</param>
     /// <returns>An arbitrary-precision rational number.</returns>

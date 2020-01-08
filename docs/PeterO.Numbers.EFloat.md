@@ -3937,9 +3937,9 @@ This number, converted to an 8-bit signed integer. Returns 0 if this value is in
     public string ToShortestString(
         PeterO.Numbers.EContext ctx);
 
-Returns a string representation of this number's value after rounding that value to the given precision (using the given arithmetic context, such as  `EContext.Binary64` ). If the number after rounding is neither infinity nor not-a-number (NaN), returns the shortest decimal form of this number's value (in terms of decimal digits starting with the first nonzero digit and ending with the last nonzero digit) that results in the rounded number after the decimal form is converted to binary floating-point format (using the given arithmetic context).
+Returns a string representation of this number's value after rounding that value to the given precision (using the given arithmetic context, such as  `EContext.Binary64`  ). If the number after rounding is neither infinity nor not-a-number (NaN), returns the shortest decimal form of this number's value (in terms of decimal digits starting with the first nonzero digit and ending with the last nonzero digit) that results in the rounded number after the decimal form is converted to binary floating-point format (using the given arithmetic context).
 
-The following example converts an EFloat number to its shortest round-tripping decimal form using the same precision as the  `double`  type in Java and .NET:
+The following example converts an EFloat number to its shortest round-tripping decimal form using the same precision as the  `double`  type in Java and.NET:
 
      String str = efloat.ToShortestString(EContext.Binary64);
 

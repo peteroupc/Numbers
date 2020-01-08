@@ -289,10 +289,10 @@ namespace PeterO.Numbers {
       return new EFloat(this.unsignedMantissa, this.exponent, this.flags);
     }
 
-    /// <summary>Creates a number with the value
+    /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
-    /// <param name='mantissaSmall'>The parameter <paramref
-    /// name='mantissaSmall'/> is a 32-bit signed integer.</param>
+    /// <param name='mantissaSmall'>Desired value for the
+    /// significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
@@ -300,11 +300,21 @@ namespace PeterO.Numbers {
       return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     }
 
-    /// <summary>Creates a number with the value
+    /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
-    /// <param name='mantissa'>The parameter <paramref name='mantissa'/> is
-    /// a Numbers.EInteger object.</param>
-    /// <param name='exponent'>The value of the exponent.</param>
+    /// <param name='mantissaLong'>Desired value for the
+    /// significand.</param>
+    /// <param name='exponentLong'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision binary floating-point
+    /// number.</returns>
+    public static EFloat Create(long mantissaLong, long exponentLong) {
+      return Create((EInteger)mantissaLong, (EInteger)exponentLong);
+    }
+
+    /// <summary>Returns a number with the value
+    /// exponent*2^significand.</summary>
+    /// <param name='mantissa'>Desired value for the significand.</param>
+    /// <param name='exponent'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -757,7 +767,7 @@ namespace PeterO.Numbers {
         if (i == endStr) {
           throw new FormatException();
         }
-        char ch=str[i];
+        char ch = str[i];
         if (ch == '+' || ch == '-') {
           if (ch == '-') {
             expoffset = -1;

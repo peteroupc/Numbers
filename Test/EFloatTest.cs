@@ -264,7 +264,7 @@ namespace Test {
     }
 
     public static string RandomDecimalString(RandomGenerator rand, int
-digitsBefore) {
+      digitsBefore) {
       var sb = new System.Text.StringBuilder();
       for (var i = 0; i < digitsBefore; ++i) {
         if (rand == null) {
@@ -285,9 +285,9 @@ digitsBefore) {
 
     public static void TestDigitStringsOne(string str) {
       TestCommon.CompareTestEqual(
-          EDecimal.FromString(str).ToEFloat(EContext.Binary64),
-          EFloat.FromString(str, EContext.Binary64),
-          str);
+        EDecimal.FromString(str).ToEFloat(EContext.Binary64),
+        EFloat.FromString(str, EContext.Binary64),
+        str);
     }
 
     [Test]
@@ -1151,7 +1151,7 @@ digitsBefore) {
     }
 
     public static EFloat RandomDoubleEFloat(RandomGenerator rnd, bool
-subnormal) {
+      subnormal) {
       var sb = new StringBuilder();
       if (rnd == null) {
         throw new ArgumentNullException(nameof(rnd));
@@ -1190,7 +1190,7 @@ subnormal) {
     }
 
     public static EFloat RandomSingleEFloat(RandomGenerator rnd, bool
-subnormal) {
+      subnormal) {
       var sb = new StringBuilder();
       if (rnd == null) {
         throw new ArgumentNullException(nameof(rnd));
@@ -1264,20 +1264,22 @@ subnormal) {
       }
       if (input.ToDouble() != expectedDouble) {
         string msg = "\ninputDouble\nexpectedDbl " +
-OutputDouble(expectedDouble) +
+          OutputDouble(expectedDouble) +
           ",\ngot----- " + OutputDouble(input.ToDouble()) +
           "\nsrc-----=" + OutputEF(src) + "\nexpected=" +
           OutputEF(expected) + "\ninput---=" + OutputEF(input);
         Assert.Fail(msg);
       }
       string str = input.ToString();
-      double inputDouble = EFloat.FromString(str, EContext.Binary64).ToDouble();
+      double inputDouble = EFloat.FromString(str,
+  EContext.Binary64).ToDouble();
       if (inputDouble != expectedDouble) {
         string msg = "\ninputString\nexpectedDbl " +
-OutputDouble(expectedDouble) +
+          OutputDouble(expectedDouble) +
           ",\ngot----- " + OutputDouble(inputDouble) +
           "\nsrc-----=" + OutputEF(src) + "\nstr------=" + str +
-          "\nexpected=" + OutputEF(expected) + "\ninput---=" + OutputEF(input);
+          "\nexpected=" + OutputEF(expected) + "\ninput---=" + OutputEF(
+  input);
         Assert.Fail(msg);
       }
     }
@@ -1358,7 +1360,7 @@ OutputDouble(expectedDouble) +
         }
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
-             EInteger.FromInt32((1 << 25) - 1).ShiftLeft(103));
+            EInteger.FromInt32((1 << 25) - 1).ShiftLeft(103));
         if (ed.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -1416,7 +1418,7 @@ OutputDouble(expectedDouble) +
         }
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
-             EInteger.FromInt64((1L << 54) - 1).ShiftLeft(970));
+            EInteger.FromInt64((1L << 54) - 1).ShiftLeft(970));
         if (ed.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -1480,7 +1482,7 @@ OutputDouble(expectedDouble) +
         string str = sb.ToString();
         TestStringToDoubleSingleOne(str);
         TestStringToDoubleSingleOne(str + "e" +
-           TestCommon.IntToString(rand.UniformInt(100) - 50));
+          TestCommon.IntToString(rand.UniformInt(100) - 50));
       }
     }
 
@@ -1580,8 +1582,8 @@ OutputDouble(expectedDouble) +
       string expected,
       string msg) {
       EContext ec = EContext.ForPrecisionAndRounding(
-        digits,
-        ERounding.HalfEven);
+          digits,
+          ERounding.HalfEven);
       string str = EFloat.FromString(input, EContext.Binary64)
         .ToEDecimal().RoundToPrecision(ec).ToString();
       TestCommon.CompareTestEqual(
@@ -1694,8 +1696,8 @@ OutputDouble(expectedDouble) +
         EFloat efa = RandomDoubleEFloat(fr);
         string shortestStr = efa.ToShortestString(EContext.Binary64);
         EFloat shortest = EFloat.FromString(
-          shortestStr,
-          EContext.Binary64);
+            shortestStr,
+            EContext.Binary64);
         if (!efa.Equals(shortest)) {
           string msg = "\n" + EFToString(efa) + "\n" + EFToString(shortest) +
             "\n" + shortestStr;
@@ -1900,7 +1902,7 @@ OutputDouble(expectedDouble) +
             EFloat.FromString("32767")) <= 0;
         isTruncated = enumber.ToEInteger().CompareTo(
             EInteger.FromString("-32768")) >= 0 &&
-enumber.ToEInteger().CompareTo(
+          enumber.ToEInteger().CompareTo(
             EInteger.FromString("32767")) <= 0;
         if (isNum) {
           TestCommon.AssertEquals(
@@ -2063,7 +2065,7 @@ enumber.ToEInteger().CompareTo(
         }
         isNum = enumber.CompareTo(
             EFloat.FromString("-9223372036854775808")) >= 0 &&
-enumber.CompareTo(
+          enumber.CompareTo(
             EFloat.FromString("9223372036854775807")) <= 0;
         isTruncated = enumber.ToEInteger().CompareTo(
             EInteger.FromString("-9223372036854775808")) >= 0 &&
@@ -2154,8 +2156,8 @@ enumber.CompareTo(
       }
       TestToFloatRoundingOne(EFloat.Create(0, -1074), true);
       EInteger mant = EInteger.FromRadixString(
-        "10000000000000000000000000000000000000000000000000000",
-        2);
+          "10000000000000000000000000000000000000000000000000000",
+          2);
       {
         EFloat objectTemp = EFloat.Create(
             mant,
@@ -2310,15 +2312,15 @@ enumber.CompareTo(
         if (Double.IsNaN(oldd)) {
           Assert.IsTrue(Double.IsNaN(d));
         } else {
-         Assert.AreEqual((double)oldd, d);
-       }
+          Assert.AreEqual((double)oldd, d);
+        }
       }
       if (bf.IsFinite) {
         string s2 = bf.ToString();
         TestStringToDoubleOne(s2);
-      if (s != null && !s.Equals(s2, StringComparison.Ordinal)) {
-        TestStringToDoubleOne(s);
-      }
+        if (s != null && !s.Equals(s2, StringComparison.Ordinal)) {
+          TestStringToDoubleOne(s);
+        }
       }
     }
 
@@ -2337,15 +2339,15 @@ enumber.CompareTo(
         if (Single.IsNaN(oldd)) {
           Assert.IsTrue(Single.IsNaN(d));
         } else {
-         Assert.AreEqual((double)oldd, d);
-       }
+          Assert.AreEqual((double)oldd, d);
+        }
       }
       if (bf.IsFinite) {
         string s2 = bf.ToString();
         TestStringToSingleOne(s2);
-      if (s != null && !s.Equals(s2, StringComparison.Ordinal)) {
-        TestStringToSingleOne(s);
-      }
+        if (s != null && !s.Equals(s2, StringComparison.Ordinal)) {
+          TestStringToSingleOne(s);
+        }
       }
     }
   }

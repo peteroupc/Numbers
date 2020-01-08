@@ -8,7 +8,6 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
-// TODO: Add Create(long, long) to EFloat/ERational
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
