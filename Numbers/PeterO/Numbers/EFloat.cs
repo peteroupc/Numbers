@@ -896,11 +896,18 @@ namespace PeterO.Numbers {
         }
         return ef.RoundToPrecision(ctx);
       } else if (decimalDigitStart != decimalDigitEnd) {
+if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
+          mant = EInteger.FromSubstring(
+            str,
+            decimalDigitStart,
+            decimalDigitEnd);
+} else {
         string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
           str.Substring(
              decimalDigitStart,
              decimalDigitEnd - decimalDigitStart);
         mant = EInteger.FromString(tmpstr);
+}
       } else {
         mant = EInteger.FromSubstring(str, digitStart, digitEnd);
       }

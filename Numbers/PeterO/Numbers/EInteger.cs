@@ -839,8 +839,8 @@ namespace PeterO.Numbers {
       int len = str.Length;
       if (len == 1) {
         char c = str[0];
-        if (c>= '0' && c<= '9') {
-          return FromInt32((int)(c-'0'));
+        if (c >= '0' && c <= '9') {
+          return FromInt32((int)(c - '0'));
         }
         throw new FormatException();
       }
@@ -3029,13 +3029,13 @@ maxDigitEstimate : retval +
                     14) & ShortMask) != 0) ? 1 : ((((c <<
                       13) & ShortMask) != 0) ? 2 : ((((c <<
                         12) & ShortMask) != 0) ? 3 : ((((c << 11) &
-                        0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0)?
+                        0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
 5 :
                       ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
                 8) & ShortMask) != 0) ? 7 : ((((c << 7) & ShortMask) !=
                               0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
                               ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
-                                        4) & ShortMask) != 0) ? 11 : ((((c<<
+                                        4) & ShortMask) != 0) ? 11 : ((((c <<
 3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
                 0xffff) != 0) ? 13 : ((((c << 1) & ShortMask) !=
@@ -5665,16 +5665,17 @@ ShortMask);
       int c;
       long d;
       unchecked {
-//DebugUtility.Log("ops={0:X4}{1:X4}{2:X4}{3:X4} {4:X4}{5:X4}{6:X4}{7:X4}",
-  //words1[astart + 3], words1[astart + 2], words1[astart + 1], words1[astart],
-  //words2[bstart + 3], words2[bstart + 2], words2[bstart + 1], words2[bstart]);
-        long a0 = (((long)words1[astart]) & 0xffffL);
+// DebugUtility.Log("ops={0:X4}{1:X4}{2:X4}{3:X4} {4:X4}{5:X4}{6:X4}{7:X4}",
+  // words1[astart + 3], words1[astart + 2], words1[astart + 1], words1[astart],
+  // words2[bstart + 3], words2[bstart + 2], words2[bstart + 1],
+  // words2[bstart]);
+        long a0 = ((long)words1[astart]) & 0xffffL;
         a0 |= (((long)words1[astart + 1]) & 0xffffL) << 16;
-        long a1 = (((long)words1[astart + 2]) & 0xffffL);
+        long a1 = ((long)words1[astart + 2]) & 0xffffL;
         a1 |= (((long)words1[astart + 3]) & 0xffffL) << 16;
-        long b0 = (((long)words2[bstart]) & 0xffffL);
+        long b0 = ((long)words2[bstart]) & 0xffffL;
         b0 |= (((long)words2[bstart + 1]) & 0xffffL) << 16;
-        long b1 = (((long)words2[bstart + 2]) & 0xffffL);
+        long b1 = ((long)words2[bstart + 2]) & 0xffffL;
         b1 |= (((long)words2[bstart + 3]) & 0xffffL) << 16;
         p = a0 * b0;
         d = (p >> 32) & 0xffffffffL;
@@ -5693,7 +5694,7 @@ ShortMask);
         result[rstart + 3] = (short)(p >> 16);
         p = a1 * b1;
         p += d;
-//DebugUtility.Log("opsx={0:X16} {1:X16}",a1,b1);
+// DebugUtility.Log("opsx={0:X16} {1:X16}",a1,b1);
         result[rstart + 4] = (short)p;
         result[rstart + 5] = (short)(p >> 16);
         result[rstart + 6] = (short)(p >> 32);
@@ -5714,22 +5715,22 @@ ShortMask);
         short c;
         int d;
         const int SMask = ShortMask;
-int a0=((int)words1[astart]) & SMask;
-int a1=((int)words1[astart + 1]) & SMask;
-int a2=((int)words1[astart + 2]) & SMask;
-int a3=((int)words1[astart + 3]) & SMask;
-int a4=((int)words1[astart + 4]) & SMask;
-int a5=((int)words1[astart + 5]) & SMask;
-int a6=((int)words1[astart + 6]) & SMask;
-int a7=((int)words1[astart + 7]) & SMask;
-int b0=((int)words2[bstart]) & SMask;
-int b1=((int)words2[bstart + 1]) & SMask;
-int b2=((int)words2[bstart + 2]) & SMask;
-int b3=((int)words2[bstart + 3]) & SMask;
-int b4=((int)words2[bstart + 4]) & SMask;
-int b5=((int)words2[bstart + 5]) & SMask;
-int b6=((int)words2[bstart + 6]) & SMask;
-int b7=((int)words2[bstart + 7]) & SMask;
+        int a0 = ((int)words1[astart]) & SMask;
+        int a1 = ((int)words1[astart + 1]) & SMask;
+        int a2 = ((int)words1[astart + 2]) & SMask;
+        int a3 = ((int)words1[astart + 3]) & SMask;
+        int a4 = ((int)words1[astart + 4]) & SMask;
+        int a5 = ((int)words1[astart + 5]) & SMask;
+        int a6 = ((int)words1[astart + 6]) & SMask;
+        int a7 = ((int)words1[astart + 7]) & SMask;
+        int b0 = ((int)words2[bstart]) & SMask;
+        int b1 = ((int)words2[bstart + 1]) & SMask;
+        int b2 = ((int)words2[bstart + 2]) & SMask;
+        int b3 = ((int)words2[bstart + 3]) & SMask;
+        int b4 = ((int)words2[bstart + 4]) & SMask;
+        int b5 = ((int)words2[bstart + 5]) & SMask;
+        int b6 = ((int)words2[bstart + 6]) & SMask;
+        int b7 = ((int)words2[bstart + 7]) & SMask;
         p = a0 * b0;
         c = (short)p;
         d = ((int)p >> 16) & SMask;
@@ -5747,15 +5748,15 @@ int b7=((int)words2[bstart + 7]) & SMask;
         result[rstart + 1] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a0 * b2);
+        p = a0 * b2;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a1 * b1);
+        p = a1 * b1;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a2 * b0);
+        p = a2 * b0;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
@@ -5766,26 +5767,26 @@ int b7=((int)words2[bstart + 7]) & SMask;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = a1*b2;
+        p = a1 * b2;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a2 * b1);
+        p = a2 * b1;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a3 * b0);
+        p = a3 * b0;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 3] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a0 * b4);
+        p = a0 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a1 * b3);
+        p = a1 * b3;
         p += ((int)c) & SMask;
         d += ((int)p >> 16) & SMask;
         p = (a2 * b2) + (p & ShortMask);
@@ -5797,224 +5798,224 @@ int b7=((int)words2[bstart + 7]) & SMask;
         result[rstart + 4] = (short)p;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a0 * b5);
+        p = a0 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a1 * b4);
+        p = a1 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a2 * b3);
+        p = a2 * b3;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a3 * b2);
+        p = a3 * b2;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a4 * b1);
+        p = a4 * b1;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a5 * b0);
+        p = a5 * b0;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 5] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a0 * b6);
+        p = a0 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a1 * b5);
+        p = a1 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a2 * b4);
+        p = a2 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a3 * b3);
+        p = a3 * b3;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a4 * b2);
+        p = a4 * b2;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a5 * b1);
+        p = a5 * b1;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a6 * b0);
+        p = a6 * b0;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 6] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a0 * b7);
+        p = a0 * b7;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a1 * b6);
+        p = a1 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a2 * b5);
+        p = a2 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a3 * b4);
+        p = a3 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a4 * b3);
+        p = a4 * b3;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a5 * b2);
+        p = a5 * b2;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a6 * b1);
+        p = a6 * b1;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a7 * b0);
+        p = a7 * b0;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 7] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a1 * b7);
+        p = a1 * b7;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a2 * b6);
+        p = a2 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a3 * b5);
+        p = a3 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a4 * b4);
+        p = a4 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a5 * b3);
+        p = a5 * b3;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a6 * b2);
+        p = a6 * b2;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a7 * b1);
+        p = a7 * b1;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 8] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a2 * b7);
+        p = a2 * b7;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a3 * b6);
+        p = a3 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a4 * b5);
+        p = a4 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a5 * b4);
+        p = a5 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a6 * b3);
+        p = a6 * b3;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a7 * b2);
+        p = a7 * b2;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 9] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a3 * b7);
+        p = a3 * b7;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a4 * b6);
+        p = a4 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a5 * b5);
+        p = a5 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a6 * b4);
+        p = a6 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a7 * b3);
+        p = a7 * b3;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 10] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a4 * b7);
+        p = a4 * b7;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a5 * b6);
+        p = a5 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a6 * b5);
+        p = a6 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a7 * b4);
+        p = a7 * b4;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 11] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a5 * b7);
+        p = a5 * b7;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a6 * b6);
+        p = a6 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a7 * b5);
+        p = a7 * b5;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 12] = c;
         c = (short)d;
         d = ((int)d >> 16) & SMask;
-        p = (a6 * b7);
+        p = a6 * b7;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
-        p = (a7 * b6);
+        p = a7 * b6;
         p += ((int)c) & SMask;
         c = (short)p;
         d += ((int)p >> 16) & SMask;
         result[rstart + 13] = c;
-        p = (a7 * b7);
+        p = a7 * b7;
         p += d;
         result[rstart + 14] = (short)p;
         result[rstart + 15] =
@@ -7680,10 +7681,10 @@ ShortMask)) {
       long carry = 0;
       long p;
       long valueBint;
-       unchecked {
+      unchecked {
       valueBint = ((int)words2[words2Start]) & ShortMask;
       valueBint |= (((long)words2[words2Start + 1]) & ShortMask) << 16;
-      for (int j = 0; j < count; j+=2) {
+      for (int j = 0; j < count; j += 2) {
           p = ((int)words1[words1Start + j]) & ShortMask;
           p |= (((long)words1[words1Start + j + 1]) & ShortMask) << 16;
           p *= valueBint + carry;
@@ -7693,12 +7694,12 @@ ShortMask)) {
       }
       resultArr[resultStart + count] = (short)carry;
       resultArr[resultStart + count + 1] = (short)(carry >> 16);
-      for (int i = 2; i < count; i+=2) {
+      for (int i = 2; i < count; i += 2) {
           resultPos = resultStart + i;
           carry = 0;
           valueBint = ((int)words2[words2Start + i]) & ShortMask;
           valueBint |= (((long)words2[words2Start + i + 1]) & ShortMask) << 16;
-          for (int j = 0; j < count; j+=2, resultPos+=2) {
+          for (int j = 0; j < count; j += 2, resultPos += 2) {
             p = ((int)words1[words1Start + j]) & ShortMask;
             p |= (((long)words1[words1Start + j + 1]) & ShortMask) << 16;
             p *= valueBint + carry;
@@ -7728,37 +7729,38 @@ ShortMask)) {
       long valueBint;
       unchecked {
       valueBint = ((int)words2[words2Start]) & ShortMask;
-      valueBint |= (count>1) ? (((long)words2[words2Start + 1]) & ShortMask)<<
+      valueBint |= (count > 1) ? (((long)words2[words2Start + 1]) &
+ShortMask) <<
 16 : 0;
-      for (int j = 0; j < count; j+=2) {
+      for (int j = 0; j < count; j += 2) {
           p = ((int)words1[words1Start + j]) & ShortMask;
-if (j + 1 < count) {
-  p |= (((long)words1[words1Start + j + 1]) & ShortMask);
-}
+          if (j + 1 < count) {
+            p |= ((long)words1[words1Start + j + 1]) & ShortMask;
+          }
           p *= valueBint + carry;
           resultArr[resultStart + j] = (short)p;
-if (j + 1 < count) {
-  resultArr[resultStart + j + 1] = (short)(p >> 16);
-}
+          if (j + 1 < count) {
+            resultArr[resultStart + j + 1] = (short)(p >> 16);
+          }
           carry = (p >> 32) & 0xffffffffL;
       }
       resultArr[resultStart + count] = (short)carry;
-if (count>1) {
-  resultArr[resultStart + count + 1] = (short)(carry >> 16);
-}
-      for (int i = 2; i < count; i+=2) {
+      if (count > 1) {
+        resultArr[resultStart + count + 1] = (short)(carry >> 16);
+      }
+      for (int i = 2; i < count; i += 2) {
           resultPos = resultStart + i;
           carry = 0;
           valueBint = ((int)words2[words2Start + i]) & ShortMask;
-if (i + 1<count) {
-            valueBint |= (((long)words2[words2Start + i + 1]) & ShortMask)<<
+          if (i + 1 < count) {
+            valueBint |= (((long)words2[words2Start + i + 1]) & ShortMask) <<
 16;
           }
-          for (int j = 0; j < count; j+=2, resultPos+=2) {
+          for (int j = 0; j < count; j += 2, resultPos += 2) {
             p = ((int)words1[words1Start + j]) & ShortMask;
-if (j + 1 < count) {
-  p |= (((long)words1[words1Start + j + 1]) & ShortMask) << 16;
-}
+            if (j + 1 < count) {
+              p |= (((long)words1[words1Start + j + 1]) & ShortMask) << 16;
+            }
             p *= valueBint + carry;
             p += ((int)resultArr[resultPos]) & ShortMask;
             if (j + 1 < count) {
@@ -7768,13 +7770,13 @@ if (j + 1 < count) {
               carry = (p >> 32) & 0xffffffffL;
             } else {
               resultArr[resultPos] = (short)p;
-              carry = (p >> 16);
+              carry = p >> 16;
             }
           }
           resultArr[resultStart + i + count] = (short)carry;
-if (i + 1<count) {
-  resultArr[resultStart + i + count + 1] = (short)(carry >> 16);
-}
+          if (i + 1 < count) {
+            resultArr[resultStart + i + count + 1] = (short)(carry >> 16);
+          }
         }
       }
     }
@@ -7818,20 +7820,29 @@ if (i + 1<count) {
       }
       #endif
       if (words1Count == words2Count && (words1Count & 1) == 0) {
-///*
+/*
        if ((words1Count & 1) == 0) {
-          SchoolbookMultiplySameLengthEven(resultArr, resultStart, words1,
-  words1Start, words2,
-             words2Start, words1Count);
+          SchoolbookMultiplySameLengthEven(
+            resultArr,
+            resultStart,
+            words1,
+            words1Start,
+            words2,
+            words2Start,
+            words1Count);
           return;
         } else {
-          SchoolbookMultiplySameLengthOdd(resultArr, resultStart, words1,
-  words1Start, words2,
-             words2Start, words1Count);
-         return;
+          SchoolbookMultiplySameLengthOdd(
+            resultArr,
+            resultStart,
+            words1,
+            words1Start,
+            words2,
+            words2Start,
+            words1Count);
+  return;
        }
-//*/
-      }
+ */ }
       int resultPos, carry, valueBint;
       if (words1Count < words2Count) {
         // words1 is shorter than words2, so put words2 on top

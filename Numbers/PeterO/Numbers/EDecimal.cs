@@ -535,13 +535,14 @@ TrappableRadixMath<EDecimal>(
         mantissaSmall <= CacheLast) {
         return Cache[mantissaSmall - CacheFirst];
       }
-      if (mantissaSmall == Int32.MinValue) {
-        FastIntegerFixed fi = FastIntegerFixed.FromLong(Int32.MinValue);
-        return new EDecimal(
+      if (mantissaSmall < 0) {
+        if (mantissaSmall == Int32.MinValue) {
+          FastIntegerFixed fi = FastIntegerFixed.FromLong(Int32.MinValue);
+          return new EDecimal(
             fi.Negate(),
             FastIntegerFixed.FromInt32(exponentSmall),
             (byte)BigNumberFlags.FlagNegative);
-      } else if (mantissaSmall < 0) {
+        }
         return new EDecimal(
             FastIntegerFixed.FromInt32(-mantissaSmall),
             FastIntegerFixed.FromInt32(exponentSmall),
@@ -611,7 +612,7 @@ TrappableRadixMath<EDecimal>(
             (byte)((mantissaLong < 0) ? BigNumberFlags.FlagNegative : 0));
       } else {
         FastIntegerFixed fi = FastIntegerFixed.FromLong(Math.Abs(
-  mantissaLong));
+            mantissaLong));
         return new EDecimal(
             fi,
             FastIntegerFixed.FromLong(exponentLong),
@@ -1608,6 +1609,7 @@ TrappableRadixMath<EDecimal>(
       int decimalDigitStart = i;
       var haveNonzeroDigit = false;
       var decimalPrec = 0;
+      var firstdigit = -1;
       int decimalDigitEnd = i;
       var lastdigit = -1;
       var realDigitEnd = -1;
@@ -1617,15 +1619,17 @@ TrappableRadixMath<EDecimal>(
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
           haveNonzeroDigit |= thisdigit != 0;
+          if (firstdigit < 0) {
+            firstdigit = thisdigit;
+          }
           haveDigits = true;
-          {
-            lastdigit = thisdigit;
-            if (haveNonzeroDigit) {
-              ++decimalPrec;
-            }
-            if (haveDecimalPoint) {
-              decimalDigitEnd = i + 1;
-            } else {
+          lastdigit = thisdigit;
+          if (haveNonzeroDigit) {
+            ++decimalPrec;
+          }
+          if (haveDecimalPoint) {
+            decimalDigitEnd = i + 1;
+          } else {
               digitEnd = i + 1;
             }
             if (mantInt <= MaxSafeInt) {
@@ -1633,7 +1637,6 @@ TrappableRadixMath<EDecimal>(
               mantInt *= 10;
               mantInt += thisdigit;
             }
-          }
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue ||
               newScaleInt == Int32.MaxValue) {
@@ -1745,6 +1748,9 @@ TrappableRadixMath<EDecimal>(
         // No more than 18 digits
         long lv = 0L;
         int expo = -(dde - decimalDigitStart);
+        if (mantInt <= MaxSafeInt) {
+          lv = mantInt;
+        } else {
         var vi = 0;
         for (vi = digitStart; vi < de; ++vi) {
           char chvi = str[vi];
@@ -1768,9 +1774,10 @@ TrappableRadixMath<EDecimal>(
 
           lv = checked((lv * 10) + (int)(chvi - '0'));
         }
+}
         if (negative) {
-          lv = -lv;
-        }
+  lv = -lv;
+}
         if (!negative || lv != 0) {
           ret = EDecimal.Create(lv, expo);
           return ret;
@@ -1779,11 +1786,18 @@ TrappableRadixMath<EDecimal>(
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {
         if (haveDecimalPoint) {
+if (digitEnd - digitStart == 1 && firstdigit == 0) {
+          mant = EInteger.FromSubstring(
+            str,
+            decimalDigitStart,
+            decimalDigitEnd);
+} else {
           string decstr = str.Substring(digitStart, digitEnd - digitStart) +
             str.Substring(
               decimalDigitStart,
               decimalDigitEnd - decimalDigitStart);
           mant = EInteger.FromString(decstr);
+}
         } else {
           mant = EInteger.FromSubstring(str, digitStart, digitEnd);
         }
@@ -2183,6 +2197,9 @@ TrappableRadixMath<EDecimal>(
         // No more than 18 digits
         long lv = 0L;
         int expo = -(dde - decimalDigitStart);
+        if (mantInt <= MaxSafeInt) {
+          lv = mantInt;
+        } else {
         var vi = 0;
         for (vi = digitStart; vi < de; ++vi) {
           #if DEBUG
@@ -2204,9 +2221,10 @@ TrappableRadixMath<EDecimal>(
 
           lv = checked((lv * 10) + (int)(str[vi] - '0'));
         }
+}
         if (negative) {
-          lv = -lv;
-        }
+  lv = -lv;
+}
         if (!negative || lv != 0) {
           ret = EDecimal.Create(lv, expo);
           if (ctx != null) {
@@ -2218,11 +2236,18 @@ TrappableRadixMath<EDecimal>(
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {
         if (haveDecimalPoint) {
+if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
+          mant = EInteger.FromSubstring(
+            str,
+            decimalDigitStart,
+            decimalDigitEnd);
+} else {
           string decstr = str.Substring(digitStart, digitEnd - digitStart) +
             str.Substring(
               decimalDigitStart,
               decimalDigitEnd - decimalDigitStart);
           mant = EInteger.FromString(decstr);
+}
         } else {
           mant = EInteger.FromSubstring(str, digitStart, digitEnd);
         }
