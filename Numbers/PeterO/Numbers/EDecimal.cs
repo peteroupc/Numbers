@@ -1154,20 +1154,23 @@ TrappableRadixMath<EDecimal>(
       }
       var negative = false;
       int endStr = tmpoffset + length;
-      if (str[tmpoffset] == '-') {
+      char c = str[tmpoffset];
+      if (c == '-') {
         negative = true;
         ++tmpoffset;
         if (tmpoffset >= endStr) {
           throw new FormatException();
         }
+        c = str[tmpoffset];
       } else if (str[tmpoffset] == '+') {
         ++tmpoffset;
         if (tmpoffset >= endStr) {
           throw new FormatException();
         }
+        c = str[tmpoffset];
       }
       int i = tmpoffset;
-      if (str[tmpoffset] < '0' || str[tmpoffset] > '9') {
+      if (c < '0' || c > '9') {
         EDecimal ed = ParseSpecialValue(str, i, endStr, negative, ctx);
         if (ed != null) {
           return ed;
