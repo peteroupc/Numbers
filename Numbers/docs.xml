@@ -5331,13 +5331,15 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int64,System.Int64)">
-<summary>Returns a number with the value
+
+            <summary>Returns a number with the value
             exponent*2^significand.</summary>
             <param name='mantissaLong'>Desired value for the
             significand.</param>
             <param name='exponentLong'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CreateNaN(PeterO.Numbers.EInteger)">
 
@@ -10504,13 +10506,15 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Create(System.Int64,System.Int64)">
-<summary>Creates a rational number with the given numerator and
+
+            <summary>Creates a rational number with the given numerator and
             denominator.</summary>
             <param name='numeratorLong'>The numerator.</param>
             <param name='denominatorLong'>The denominator.</param>
             <returns>An arbitrary-precision rational number.</returns>
             <exception cref='ArgumentException'>The denominator is
             zero.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CreateNaN(PeterO.Numbers.EInteger)">
 
