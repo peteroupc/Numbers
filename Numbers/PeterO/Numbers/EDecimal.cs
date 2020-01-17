@@ -3151,7 +3151,8 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating
-    /// decimal expansion.</returns>
+    /// decimal expansion; examples include 1 divided by any multiple of 3,
+    /// such as 1/3 or 1/12.</returns>
     public EDecimal Divide(EDecimal divisor) {
       return this.Divide(
           divisor,
@@ -3174,8 +3175,10 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// divisor and the dividend are 0; or, either <paramref name='ctx'/>
     /// is null or <paramref name='ctx'/> 's precision is 0, and the result
-    /// would have a nonterminating decimal expansion; or, the rounding
-    /// mode is ERounding.None and the result is not exact.</returns>
+    /// would have a nonterminating decimal expansion (examples include 1
+    /// divided by any multiple of 3, such as 1/3 or 1/12); or, the
+    /// rounding mode is ERounding.None and the result is not
+    /// exact.</returns>
     public EDecimal Divide(
       EDecimal divisor,
       EContext ctx) {
@@ -3977,7 +3980,8 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating
-    /// decimal expansion.</returns>
+    /// decimal expansion; examples include 1 divided by any multiple of 3,
+    /// such as 1/3 or 1/12.</returns>
     public EDecimal Divide(int intValue) {
       return this.Divide(EDecimal.FromInt32(intValue));
     }

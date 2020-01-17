@@ -186,7 +186,8 @@ namespace PeterO.Numbers {
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating
-    /// decimal expansion.</returns>
+    /// decimal expansion; examples include 1 divided by any multiple of 3,
+    /// such as 1/3 or 1/12.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EDecimal operator /(

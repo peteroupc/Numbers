@@ -1024,7 +1024,7 @@ Divides this object by an 32-bit signed integer and returns the result. When pos
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12.
 
 <a id="Divide_PeterO_Numbers_EDecimal"></a>
 ### Divide
@@ -1040,7 +1040,7 @@ Divides this object by another decimal number and returns the result. When possi
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12.
 
 <a id="Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Divide
@@ -1061,7 +1061,7 @@ Divides this arbitrary-precision decimal number by another arbitrary-precision d
 
 The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0; or, either  <i>ctx</i>
  is null or  <i>ctx</i>
- 's precision is 0, and the result would have a nonterminating decimal expansion; or, the rounding mode is ERounding.None and the result is not exact.
+ 's precision is 0, and the result would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode is ERounding.None and the result is not exact.
 
 <a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal"></a>
 ### DivideAndRemainderNaturalScale
@@ -2573,7 +2573,7 @@ Divides this object by another decimal number and returns the result. When possi
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12.
 
 <b>Exceptions:</b>
 
