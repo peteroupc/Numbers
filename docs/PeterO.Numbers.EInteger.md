@@ -87,6 +87,10 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this value is 0.
+* <code>[Max(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Max_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> -
+* <code>[MaxMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MaxMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> -
+* <code>[Min(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Min_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> -
+* <code>[MinMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MinMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> -
 * <code>[Mod(int)](#Mod_int)</code> - Finds the modulus remainder that results when this instance is divided by the value of another integer.
 * <code>[Mod(PeterO.Numbers.EInteger)](#Mod_PeterO_Numbers_EInteger)</code> - Finds the modulus remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when this arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.

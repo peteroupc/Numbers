@@ -88,6 +88,10 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[IsQuietNaN()](#IsQuietNaN)</code> - Returns whether this object is a quiet not-a-number value.
 * <code>[IsSignalingNaN()](#IsSignalingNaN)</code> - Returns whether this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class).
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this object's value equals 0.
+* <code>[Max(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#Max_PeterO_Numbers_ERational_PeterO_Numbers_ERational)</code> - Gets the greater value between two rational numbers.
+* <code>[MaxMagnitude(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#MaxMagnitude_PeterO_Numbers_ERational_PeterO_Numbers_ERational)</code> - Gets the greater value between two values, ignoring their signs.
+* <code>[Min(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#Min_PeterO_Numbers_ERational_PeterO_Numbers_ERational)</code> - Gets the lesser value between two rational numbers.
+* <code>[MinMagnitude(PeterO.Numbers.ERational, PeterO.Numbers.ERational)](#MinMagnitude_PeterO_Numbers_ERational_PeterO_Numbers_ERational)</code> - Gets the lesser value between two values, ignoring their signs.
 * <code>[Multiply(int)](#Multiply_int)</code> - Returns the value of this instance multiplied by a 32-bit signed integer.
 * <code>[Multiply(PeterO.Numbers.ERational)](#Multiply_PeterO_Numbers_ERational)</code> - Multiplies this instance by the value of an arbitrary-precision rational number.
 * <code>[public static readonly PeterO.Numbers.ERational NaN;](#NaN)</code> - A not-a-number value.
@@ -1249,6 +1253,82 @@ Returns whether this object is a signaling not-a-number value (which causes an e
 <b>Return Value:</b>
 
  `true`  if this object is a signaling not-a-number value (which causes an error if the value is passed to any arithmetic operation in this class); otherwise,  `false` .
+
+<a id="Max_PeterO_Numbers_ERational_PeterO_Numbers_ERational"></a>
+### Max
+
+    public static PeterO.Numbers.ERational Max(
+        PeterO.Numbers.ERational first,
+        PeterO.Numbers.ERational second);
+
+Gets the greater value between two rational numbers.
+
+<b>Parameters:</b>
+
+ * <i>first</i>: An arbitrary-precision rational number.
+
+ * <i>second</i>: Another arbitrary-precision rational number.
+
+<b>Return Value:</b>
+
+The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger denominator. If the two numbers are negative and have the same value, returns the one with the smaller denominator.
+
+<a id="MaxMagnitude_PeterO_Numbers_ERational_PeterO_Numbers_ERational"></a>
+### MaxMagnitude
+
+    public static PeterO.Numbers.ERational MaxMagnitude(
+        PeterO.Numbers.ERational first,
+        PeterO.Numbers.ERational second);
+
+Gets the greater value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Max.
+
+<b>Parameters:</b>
+
+ * <i>first</i>: The first value to compare.
+
+ * <i>second</i>: The second value to compare.
+
+<b>Return Value:</b>
+
+The larger value of the two numbers, ignoring their signs.
+
+<a id="Min_PeterO_Numbers_ERational_PeterO_Numbers_ERational"></a>
+### Min
+
+    public static PeterO.Numbers.ERational Min(
+        PeterO.Numbers.ERational first,
+        PeterO.Numbers.ERational second);
+
+Gets the lesser value between two rational numbers.
+
+<b>Parameters:</b>
+
+ * <i>first</i>: The first value to compare.
+
+ * <i>second</i>: The second value to compare.
+
+<b>Return Value:</b>
+
+The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller denominator. If the two numbers are negative and have the same value, returns the one with the larger denominator.
+
+<a id="MinMagnitude_PeterO_Numbers_ERational_PeterO_Numbers_ERational"></a>
+### MinMagnitude
+
+    public static PeterO.Numbers.ERational MinMagnitude(
+        PeterO.Numbers.ERational first,
+        PeterO.Numbers.ERational second);
+
+Gets the lesser value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Min.
+
+<b>Parameters:</b>
+
+ * <i>first</i>: The first value to compare.
+
+ * <i>second</i>: The second value to compare.
+
+<b>Return Value:</b>
+
+The smaller value of the two numbers, ignoring their signs.
 
 <a id="Multiply_int"></a>
 ### Multiply

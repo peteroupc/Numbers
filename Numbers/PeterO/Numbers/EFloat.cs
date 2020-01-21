@@ -1007,25 +1007,48 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>The larger value of the two numbers.</returns>
+    /// <returns>The larger value of the two numbers. If one is positive
+    /// zero and the other is negative zero, returns the positive zero. If
+    /// the two numbers are positive and have the same value, returns the
+    /// one with the larger exponent. If the two numbers are negative and
+    /// have the same value, returns the one with the smaller
+    /// exponent.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat Max(
       EFloat first,
       EFloat second,
       EContext ctx) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return MathValue.Max(first, second, ctx);
     }
 
     /// <summary>Gets the greater value between two binary floating-point
     /// numbers.</summary>
-    /// <param name='first'>An arbitrary-precision binary floating-point
-    /// number.</param>
-    /// <param name='second'>Another arbitrary-precision binary
-    /// floating-point number.</param>
-    /// <returns>The greater of the two arbitrary-precision
-    /// numbers.</returns>
+    /// <param name='first'>The first value to compare.</param>
+    /// <param name='second'>The second value to compare.</param>
+    /// <returns>The larger value of the two numbers. If one is positive
+    /// zero and the other is negative zero, returns the positive zero. If
+    /// the two numbers are positive and have the same value, returns the
+    /// one with the larger exponent. If the two numbers are negative and
+    /// have the same value, returns the one with the smaller
+    /// exponent.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat Max(
       EFloat first,
       EFloat second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return Max(first, second, null);
     }
 
@@ -1040,12 +1063,20 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The larger value of the two numbers, ignoring their
+    /// signs.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat MaxMagnitude(
       EFloat first,
       EFloat second,
       EContext ctx) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return MathValue.MaxMagnitude(first, second, ctx);
     }
 
@@ -1054,11 +1085,19 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// Max.</summary>
     /// <param name='first'>The first value to compare.</param>
     /// <param name='second'>The second value to compare.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The larger value of the two numbers, ignoring their
+    /// signs.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat MaxMagnitude(
       EFloat first,
       EFloat second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return MaxMagnitude(first, second, null);
     }
 
@@ -1072,11 +1111,24 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>The smaller value of the two numbers.</returns>
+    /// <returns>The smaller value of the two numbers. If one is positive
+    /// zero and the other is negative zero, returns the negative zero. If
+    /// the two numbers are positive and have the same value, returns the
+    /// one with the smaller exponent. If the two numbers are negative and
+    /// have the same value, returns the one with the larger
+    /// exponent.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat Min(
       EFloat first,
       EFloat second,
       EContext ctx) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return MathValue.Min(first, second, ctx);
     }
 
@@ -1084,11 +1136,23 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// numbers.</summary>
     /// <param name='first'>The first value to compare.</param>
     /// <param name='second'>The second value to compare.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The smaller value of the two numbers. If one is positive
+    /// zero and the other is negative zero, returns the negative zero. If
+    /// the two numbers are positive and have the same value, returns the
+    /// one with the smaller exponent. If the two numbers are negative and
+    /// have the same value, returns the one with the larger
+    /// exponent.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat Min(
       EFloat first,
       EFloat second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return Min(first, second, null);
     }
 
@@ -1103,12 +1167,20 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The smaller value of the two numbers, ignoring their
+    /// signs.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat MinMagnitude(
       EFloat first,
       EFloat second,
       EContext ctx) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return MathValue.MinMagnitude(first, second, ctx);
     }
 
@@ -1117,11 +1189,19 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
     /// Min.</summary>
     /// <param name='first'>The first value to compare.</param>
     /// <param name='second'>The second value to compare.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The smaller value of the two numbers, ignoring their
+    /// signs.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EFloat MinMagnitude(
       EFloat first,
       EFloat second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
       return MinMagnitude(first, second, null);
     }
 

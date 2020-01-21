@@ -1283,6 +1283,74 @@ EInteger(this.wordCount, this.words, false);
       return ((size > tempSize) ^ (sa <= 0)) ? 1 : -1;
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='first'>Not documented yet.</param>
+  /// <param name='second'>Not documented yet.</param>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='first'/> or <paramref name='second'/> is null.</exception>
+  public static EInteger Max(EInteger first, EInteger second) {
+ if (first == null) {
+   throw new ArgumentNullException(nameof(first));
+ }
+ if (second == null) {
+   throw new ArgumentNullException(nameof(second));
+ }
+ return first.CompareTo(second) > 0 ? first : second;
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='first'>Not documented yet.</param>
+  /// <param name='second'>Not documented yet.</param>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='first'/> or <paramref name='second'/> is null.</exception>
+  public static EInteger Min(EInteger first, EInteger second) {
+ if (first == null) {
+   throw new ArgumentNullException(nameof(first));
+ }
+ if (second == null) {
+   throw new ArgumentNullException(nameof(second));
+ }
+ return first.CompareTo(second) < 0 ? first : second;
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='first'>Not documented yet.</param>
+  /// <param name='second'>Not documented yet.</param>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='first'/> or <paramref name='second'/> is null.</exception>
+  public static EInteger MaxMagnitude(EInteger first, EInteger second) {
+ if (first == null) {
+   throw new ArgumentNullException(nameof(first));
+ }
+ if (second == null) {
+   throw new ArgumentNullException(nameof(second));
+ }
+ return first.Abs().CompareTo(second.Abs()) > 0 ? first : second;
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='first'>Not documented yet.</param>
+  /// <param name='second'>Not documented yet.</param>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='first'/> or <paramref name='second'/> is null.</exception>
+  public static EInteger MinMagnitude(EInteger first, EInteger second) {
+ if (first == null) {
+   throw new ArgumentNullException(nameof(first));
+ }
+ if (second == null) {
+   throw new ArgumentNullException(nameof(second));
+ }
+ return first.Abs().CompareTo(second.Abs()) < 0 ? first : second;
+}
+
     /// <summary>Adds this object and another object.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>

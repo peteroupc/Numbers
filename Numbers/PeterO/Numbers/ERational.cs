@@ -1034,6 +1034,119 @@ namespace PeterO.Numbers {
       return ad.CompareTo(bc);
     }
 
+    /// <summary>Gets the greater value between two rational
+    /// numbers.</summary>
+    /// <param name='first'>An arbitrary-precision rational number.</param>
+    /// <param name='second'>Another arbitrary-precision rational
+    /// number.</param>
+    /// <returns>The larger value of the two numbers. If one is positive
+    /// zero and the other is negative zero, returns the positive zero. If
+    /// the two numbers are positive and have the same value, returns the
+    /// one with the larger denominator. If the two numbers are negative
+    /// and have the same value, returns the one with the smaller
+    /// denominator.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
+    public static ERational Max(
+      ERational first,
+      ERational second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
+  int cmp = first.CompareToValue(second);
+  if (cmp == 0) {
+    if (first.IsNegative) {
+return (!second.IsNegative) ? second :
+(first.Denominator.CompareTo(second.Denominator) > 0 ? first : second);
+    } else {
+return second.IsNegative ? first :
+(first.Denominator.CompareTo(second.Denominator) < 0 ? first : second);
+    }
+  }
+  return cmp > 0 ? first : second;
+    }
+
+    /// <summary>Gets the greater value between two values, ignoring their
+    /// signs. If the absolute values are equal, has the same effect as
+    /// Max.</summary>
+    /// <param name='first'>The first value to compare.</param>
+    /// <param name='second'>The second value to compare.</param>
+    /// <returns>The larger value of the two numbers, ignoring their
+    /// signs.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
+    public static ERational MaxMagnitude(
+      ERational first,
+      ERational second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
+  int cmp = first.Abs().CompareToValue(second.Abs());
+return (cmp == 0) ? Max(first, second) : (cmp > 0 ? first : second);
+    }
+
+    /// <summary>Gets the lesser value between two rational
+    /// numbers.</summary>
+    /// <param name='first'>The first value to compare.</param>
+    /// <param name='second'>The second value to compare.</param>
+    /// <returns>The smaller value of the two numbers. If one is positive
+    /// zero and the other is negative zero, returns the negative zero. If
+    /// the two numbers are positive and have the same value, returns the
+    /// one with the smaller denominator. If the two numbers are negative
+    /// and have the same value, returns the one with the larger
+    /// denominator.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
+    public static ERational Min(
+      ERational first,
+      ERational second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
+  int cmp = first.CompareToValue(second);
+  if (cmp == 0) {
+    if (first.IsNegative) {
+return (!second.IsNegative) ? first :
+(first.Denominator.CompareTo(second.Denominator) < 0 ? first : second);
+    } else {
+return second.IsNegative ? second :
+(first.Denominator.CompareTo(second.Denominator) > 0 ? first : second);
+    }
+  }
+  return cmp < 0 ? first : second;
+    }
+
+    /// <summary>Gets the lesser value between two values, ignoring their
+    /// signs. If the absolute values are equal, has the same effect as
+    /// Min.</summary>
+    /// <param name='first'>The first value to compare.</param>
+    /// <param name='second'>The second value to compare.</param>
+    /// <returns>The smaller value of the two numbers, ignoring their
+    /// signs.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='first'/> or <paramref name='second'/> is null.</exception>
+    public static ERational MinMagnitude(
+      ERational first,
+      ERational second) {
+if (first == null) {
+  throw new ArgumentNullException(nameof(first));
+}
+if (second == null) {
+  throw new ArgumentNullException(nameof(second));
+}
+  int cmp = first.Abs().CompareToValue(second.Abs());
+return (cmp == 0) ? Min(first, second) : (cmp < 0 ? first : second);
+    }
+
     /// <summary>Compares the mathematical value of an arbitrary-precision
     /// rational number with that of this instance. This method currently
     /// uses the rules given in the CompareToValue method, so that it it is

@@ -2002,7 +2002,7 @@ Gets the greater value between two decimal numbers.
 
 <b>Return Value:</b>
 
-The larger value of the two numbers.
+The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
 
 <a id="Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Max
@@ -2024,7 +2024,7 @@ Gets the greater value between two decimal numbers.
 
 <b>Return Value:</b>
 
-The larger value of the two numbers.
+The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
 
 <a id="MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### MaxMagnitude
@@ -2043,7 +2043,7 @@ Gets the greater value between two values, ignoring their signs. If the absolute
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+The larger value of the two numbers, ignoring their signs.
 
 <a id="MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### MaxMagnitude
@@ -2065,7 +2065,7 @@ Gets the greater value between two values, ignoring their signs. If the absolute
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+The larger value of the two numbers, ignoring their signs.
 
 <a id="Min_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### Min
@@ -2084,7 +2084,7 @@ Gets the lesser value between two decimal numbers.
 
 <b>Return Value:</b>
 
-The smaller value of the two numbers.
+The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
 
 <a id="Min_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Min
@@ -2106,7 +2106,7 @@ Gets the lesser value between two decimal numbers.
 
 <b>Return Value:</b>
 
-The smaller value of the two numbers.
+The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
 
 <a id="MinMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### MinMagnitude
@@ -2125,7 +2125,7 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+The smaller value of the two numbers, ignoring their signs.
 
 <a id="MinMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### MinMagnitude
@@ -2147,7 +2147,7 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+The smaller value of the two numbers, ignoring their signs.
 
 <a id="MovePointLeft_int"></a>
 ### MovePointLeft
