@@ -563,6 +563,58 @@ TrappableRadixMath<EDecimal>(
     /// <summary>Creates a number with the value
     /// <c>exponent*10^significand</c>.</summary>
     /// <param name='mantissa'>Desired value for the significand.</param>
+    /// <param name='exponentSmall'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision decimal number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='mantissa'/> is
+    /// null.</exception>
+    public static EDecimal Create(
+      EInteger mantissa,
+      int exponentSmall) {
+      if (mantissa == null) {
+        throw new ArgumentNullException(nameof(mantissa));
+      }
+      if (mantissa.CanFitInInt32()) {
+        int mantissaSmall = mantissa.ToInt32Checked();
+        return Create(mantissaSmall, exponentSmall);
+      }
+      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      int sign = fi.Sign;
+      return new EDecimal(
+          sign < 0 ? fi.Negate() : fi,
+          FastIntegerFixed.FromInt32(exponentSmall),
+          (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
+    }
+
+    /// <summary>Creates a number with the value
+    /// <c>exponent*10^significand</c>.</summary>
+    /// <param name='mantissa'>Desired value for the significand.</param>
+    /// <param name='exponentLong'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision decimal number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='mantissa'/> is
+    /// null.</exception>
+    public static EDecimal Create(
+      EInteger mantissa,
+      long exponentLong) {
+      if (mantissa == null) {
+        throw new ArgumentNullException(nameof(mantissa));
+      }
+      if (mantissa.CanFitInInt64()) {
+        long mantissaLong = mantissa.ToInt64Checked();
+        return Create(mantissaLong, exponentLong);
+      }
+      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      int sign = fi.Sign;
+      return new EDecimal(
+          sign < 0 ? fi.Negate() : fi,
+          FastIntegerFixed.FromLong(exponentLong),
+          (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
+    }
+
+    /// <summary>Creates a number with the value
+    /// <c>exponent*10^significand</c>.</summary>
+    /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponent'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
