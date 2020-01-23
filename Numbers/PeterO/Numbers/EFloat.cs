@@ -311,11 +311,9 @@ namespace PeterO.Numbers {
       return Create((EInteger)mantissaLong, (EInteger)exponentLong);
     }
 
-
     /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
-    /// <param name='mantissa'>Desired value for the
-    /// significand.</param>
+    /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
@@ -325,8 +323,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
-    /// <param name='mantissa'>Desired value for the
-    /// significand.</param>
+    /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponentLong'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>

@@ -566,8 +566,7 @@ TrappableRadixMath<EDecimal>(
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='mantissa'/> is
-    /// null.</exception>
+    /// name='mantissa'/> is null.</exception>
     public static EDecimal Create(
       EInteger mantissa,
       int exponentSmall) {
@@ -592,8 +591,7 @@ TrappableRadixMath<EDecimal>(
     /// <param name='exponentLong'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='mantissa'/> is
-    /// null.</exception>
+    /// name='mantissa'/> is null.</exception>
     public static EDecimal Create(
       EInteger mantissa,
       long exponentLong) {
@@ -2861,8 +2859,8 @@ if (second == null) {
       }
       #endif
       if (ef.Exponent.CompareTo((EInteger)(-1000)) < 0) {
-        // For very low exponents, the conversion to decimal can take
-        // very long, so try this approach
+        // For very low exponents (less than 1000), the conversion to
+        // decimal can take very long, so try this approach
         if (ef.Abs(null).CompareTo(EFloat.One) < 0) {
           // Abs less than 1
           if (ed.Abs(null).CompareTo(EDecimal.One) >= 0) {
@@ -2876,7 +2874,8 @@ if (second == null) {
         EInteger absexp = ef.Exponent.Abs();
         if (absexp.CompareTo(bitCount) > 0) {
           // Float's absolute value is less than 1, so do a trial comparison
-          // using exponent closer to 0
+          // using a different EFloat with the same significand but
+          // with an exponent changed to be closer to 0
           EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(
                 -1000));
           int trialcmp = CompareEDecimalToEFloat(ed, trial);
@@ -2915,21 +2914,22 @@ if (second == null) {
           // DebugUtility.Log("taexp={0}, oaexp={1} ratio={2}"
           // , thisAdjExp, otherAdjExp, ratio);
           // Check the ratio of the negative binary exponent to
-          // negative the decimal exponent.
+          // the negative decimal exponent.
           // If the ratio times 1000, rounded down, is less than 3321, the
           // binary's absolute value is
-          // greater. If it's 3322 or greater, the decimal's absolute value is
+          // greater. If it's greater than 3322, the decimal's absolute value is
           // greater.
           // (If the two absolute values are equal, the ratio will approach
           // ln(10)/ln(2), or about 3.32193, as the exponents get higher and
-          // higher.) This check assumes that both exponents are 1000 or
-          // greater, when the ratio between exponents of equal values is
+          // higher.) If it's 3321 or 3322, the two numbers being compared may or may
+          //not be equal. This check assumes that both exponents are less than
+          // -1000, when the ratio between exponents of equal values is
           // close to ln(10)/ln(2).
           if (ratio.CompareTo((EInteger)3321) < 0) {
             // Binary abs. value is greater
             return (signA > 0) ? -1 : 1;
           }
-          if (ratio.CompareTo((EInteger)3322) >= 0) {
+          if (ratio.CompareTo((EInteger)3322) > 0) {
             return (signA > 0) ? 1 : -1;
           }
         }
