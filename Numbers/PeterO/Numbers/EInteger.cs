@@ -1287,7 +1287,7 @@ EInteger(this.wordCount, this.words, false);
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
   /// <param name='first'>Not documented yet.</param>
   /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -1304,7 +1304,7 @@ EInteger(this.wordCount, this.words, false);
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
   /// <param name='first'>Not documented yet.</param>
   /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -1321,7 +1321,7 @@ EInteger(this.wordCount, this.words, false);
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
   /// <param name='first'>Not documented yet.</param>
   /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -1338,7 +1338,7 @@ EInteger(this.wordCount, this.words, false);
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
   /// <param name='first'>Not documented yet.</param>
   /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -3532,9 +3532,9 @@ maxDigitEstimate : retval +
       } else if (bigintMult.wordCount >= Toom3Threshold &&
            this.wordCount >= Toom3Threshold) {
         EInteger er = Toom3(this.Abs(), bigintMult.Abs());
-if (this.negative != bigintMult.negative) {
-  er = er.Abs();
-}
+        if (this.negative != bigintMult.negative) {
+          er = er.Abs();
+        }
         return er;
       } else if (this.Equals(bigintMult)) {
         int words1Size = this.wordCount;
@@ -3596,17 +3596,17 @@ if (this.negative != bigintMult.negative) {
 
 private static EInteger Toom3(EInteger a, EInteger b) {
 #if DEBUG
-  if ((a) == null) {
+  if (a == null) {
     throw new ArgumentNullException(nameof(a));
   }
-  if ((b) == null) {
+  if (b == null) {
     throw new ArgumentNullException(nameof(b));
   }
-  if (!(a.wordCount>0 && b.wordCount>0)) {
+  if (!(a.wordCount >0 && b.wordCount>0)) {
     throw new ArgumentException("doesn't satisfy a.wordCount>0 &&" +
 "\u0020b.wordCount>0");
   }
-  if (!(!a.IsNegative && !b.IsNegative)) {
+  if (!(!a.negative && !b.negative)) {
     throw new ArgumentException("doesn't satisfy !a.IsNegative &&" +
 "\u0020!b.IsNegative");
   }
@@ -3614,37 +3614,41 @@ private static EInteger Toom3(EInteger a, EInteger b) {
 
   EInteger alimbs = EInteger.FromInt32(a.wordCount);
   EInteger blimbs = EInteger.FromInt32(b.wordCount);
-  EInteger mal = alimbs.CompareTo(blimbs)>0 ? alimbs : blimbs;
+  EInteger mal = alimbs.CompareTo(blimbs) > 0 ? alimbs : blimbs;
   EInteger m3 = mal.Add(2).Divide(3);
-  EInteger mask = EInteger.FromInt32(1).ShiftLeft(m3*16).Subtract(1);
+  EInteger m3mul16 = m3.ShiftLeft(4);
+  EInteger mask = EInteger.FromInt32(1).ShiftLeft(m3mul16).Subtract(1);
   EInteger x0 = a.And(mask);
-  EInteger x1 = a.ShiftRight(m3*16).And(mask);
-  EInteger x2 = a.ShiftRight(m3*2*16).And(mask);
+  EInteger x1 = a.ShiftRight(m3mul16).And(mask);
+  EInteger x2 = a.ShiftRight(m3mul16.Multiply(2)).And(mask);
   EInteger y0 = b.And(mask);
-  EInteger y1 = b.ShiftRight(m3*16).And(mask);
-  EInteger y2 = b.ShiftRight(m3*2*16).And(mask);
+  EInteger y1 = b.ShiftRight(m3mul16).And(mask);
+  EInteger y2 = b.ShiftRight(m3mul16.Multiply(2)).And(mask);
   EInteger w0 = x0.Multiply(y0);
   EInteger w4 = x2.Multiply(y2);
   EInteger x2x0 = x2.Add(x0);
   EInteger y2y0 = y2.Add(y0);
-  EInteger wt1=(x2x0.Add(x1)).Multiply(y2y0.Add(y1));
-  EInteger wt2=(x2x0.Subtract(x1)).Multiply(y2y0.Subtract(y1));
-  EInteger wt3=(x2.ShiftLeft(2).Add(x1.ShiftLeft(1)).Add(x0))
-      .Multiply(y2.ShiftLeft(2).Add(y1.ShiftLeft(1)).Add(y0));
+  EInteger wt1 = x2x0.Add(x1).Multiply(y2y0.Add(y1));
+  EInteger wt2 = x2x0.Subtract(x1).Multiply(y2y0.Subtract(y1));
+  EInteger wt3 = (x2.ShiftLeft(
+  2).Add(
+  x1.ShiftLeft(
+  1)).Add(x0)).Multiply(y2.ShiftLeft(2).Add(y1.ShiftLeft(1)).Add(y0));
   EInteger w4mul2 = w4.ShiftLeft(2);
   EInteger w4mul12 = w4mul2.Multiply(6);
   EInteger w0mul3 = w0.Multiply(3);
-  EInteger w3 = w0mul3.Subtract(w4mul12).Subtract(wt1.Multiply(3)).Subtract(wt2)
+  EInteger w3 = w0mul3.Subtract(w4mul12).Subtract(wt1.Multiply(3))
+     .Subtract(wt2)
      .Add(wt3).Divide(6);
   EInteger
 w2 = wt1.Add(wt2).Subtract(w0.ShiftLeft(1)).Subtract(w4mul2).ShiftRight(1);
   EInteger
 w1 = wt1.Multiply(6).Add(w4mul12).Subtract(wt3).Subtract(wt2).Subtract(wt2)
      .Subtract(w0mul3).Divide(6);
-  w0 = w0.Add(w1.ShiftLeft(16*m3));
-  w0 = w0.Add(w2.ShiftLeft(16*2*m3));
-  w0 = w0.Add(w3.ShiftLeft(16*3*m3));
-  w0 = w0.Add(w4.ShiftLeft(16*4*m3));
+  w0 = w0.Add(w1.ShiftLeft(m3mul16));
+  w0 = w0.Add(w2.ShiftLeft(m3mul16.Multiply(2)));
+  w0 = w0.Add(w3.ShiftLeft(m3mul16.Multiply(3)));
+  w0 = w0.Add(w4.ShiftLeft(m3mul16.Multiply(4)));
   return w0;
 }
 

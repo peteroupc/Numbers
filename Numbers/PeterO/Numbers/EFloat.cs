@@ -318,7 +318,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public static EFloat Create(EInteger mantissa, int exponentSmall) {
-      return Create(mantissa (EInteger)exponentSmall);
+      return Create(mantissa, EInteger.FromInt32(exponentSmall));
     }
 
     /// <summary>Returns a number with the value
@@ -328,7 +328,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public static EFloat Create(EInteger mantissa, long exponentLong) {
-      return Create(mantissa, (EInteger)exponentLong);
+      return Create(mantissa, EInteger.FromInt64(exponentLong));
     }
 
     /// <summary>Returns a number with the value

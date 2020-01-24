@@ -8,6 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
+// TODO: Add Create*(long, int)
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
@@ -1832,7 +1833,7 @@ TrappableRadixMath<EDecimal>(
   lv = -lv;
 }
         if (!negative || lv != 0) {
-          ret = EDecimal.Create(lv, expo);
+          ret = EDecimal.Create(lv, (long)expo);
           return ret;
         }
       }
@@ -2279,7 +2280,7 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
   lv = -lv;
 }
         if (!negative || lv != 0) {
-          ret = EDecimal.Create(lv, expo);
+          ret = EDecimal.Create(lv, (long)expo);
           if (ctx != null) {
             ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
           }
@@ -2922,7 +2923,7 @@ if (second == null) {
           // (If the two absolute values are equal, the ratio will approach
           // ln(10)/ln(2), or about 3.32193, as the exponents get higher and
           // higher.) If it's 3321 or 3322, the two numbers being compared may or may
-          //not be equal. This check assumes that both exponents are less than
+          // not be equal. This check assumes that both exponents are less than
           // -1000, when the ratio between exponents of equal values is
           // close to ln(10)/ln(2).
           if (ratio.CompareTo((EInteger)3321) < 0) {
