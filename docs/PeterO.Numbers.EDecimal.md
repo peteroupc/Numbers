@@ -153,6 +153,8 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[CopySign(PeterO.Numbers.EDecimal)](#CopySign_PeterO_Numbers_EDecimal)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 * <code>[Create(int, int)](#Create_int_int)</code> - Returns a number with the value exponent*10^significand.
 * <code>[Create(long, long)](#Create_long_long)</code> - Creates a number with the value exponent*10^significand.
+* <code>[Create(PeterO.Numbers.EInteger, int)](#Create_PeterO_Numbers_EInteger_int)</code> - Creates a number with the value exponent*10^significand.
+* <code>[Create(PeterO.Numbers.EInteger, long)](#Create_PeterO_Numbers_EInteger_long)</code> - Creates a number with the value exponent*10^significand.
 * <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Creates a number with the value exponent*10^significand.
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
@@ -924,6 +926,56 @@ An arbitrary-precision decimal number.
  * System.ArgumentNullException:
 The parameter  <i>mantissaLong</i>
  or  <i>exponentLong</i>
+ is null.
+
+<a id="Create_PeterO_Numbers_EInteger_int"></a>
+### Create
+
+    public static PeterO.Numbers.EDecimal Create(
+        PeterO.Numbers.EInteger mantissa,
+        int exponentSmall);
+
+Creates a number with the value  `exponent*10^significand` .
+
+<b>Parameters:</b>
+
+ * <i>mantissa</i>: Desired value for the significand.
+
+ * <i>exponentSmall</i>: Desired value for the exponent.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>mantissa</i>
+ is null.
+
+<a id="Create_PeterO_Numbers_EInteger_long"></a>
+### Create
+
+    public static PeterO.Numbers.EDecimal Create(
+        PeterO.Numbers.EInteger mantissa,
+        long exponentLong);
+
+Creates a number with the value  `exponent*10^significand` .
+
+<b>Parameters:</b>
+
+ * <i>mantissa</i>: Desired value for the significand.
+
+ * <i>exponentLong</i>: Desired value for the exponent.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>mantissa</i>
  is null.
 
 <a id="Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
@@ -2004,6 +2056,13 @@ Gets the greater value between two decimal numbers.
 
 The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
+
 <a id="Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Max
 
@@ -2026,6 +2085,13 @@ Gets the greater value between two decimal numbers.
 
 The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
+
 <a id="MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### MaxMagnitude
 
@@ -2044,6 +2110,13 @@ Gets the greater value between two values, ignoring their signs. If the absolute
 <b>Return Value:</b>
 
 The larger value of the two numbers, ignoring their signs.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### MaxMagnitude
@@ -2067,6 +2140,13 @@ Gets the greater value between two values, ignoring their signs. If the absolute
 
 The larger value of the two numbers, ignoring their signs.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
+
 <a id="Min_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### Min
 
@@ -2085,6 +2165,13 @@ Gets the lesser value between two decimal numbers.
 <b>Return Value:</b>
 
 The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="Min_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Min
@@ -2108,6 +2195,13 @@ Gets the lesser value between two decimal numbers.
 
 The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
+
 <a id="MinMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### MinMagnitude
 
@@ -2126,6 +2220,13 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 <b>Return Value:</b>
 
 The smaller value of the two numbers, ignoring their signs.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="MinMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### MinMagnitude
@@ -2148,6 +2249,13 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 <b>Return Value:</b>
 
 The smaller value of the two numbers, ignoring their signs.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="MovePointLeft_int"></a>
 ### MovePointLeft

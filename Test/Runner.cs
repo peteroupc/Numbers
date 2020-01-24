@@ -10,7 +10,7 @@ namespace PeterO {
   /// <summary>Description of Runner.</summary>
   public static class Runner {
     public static void Main() {
-//var ei = EInteger.One.ShiftLeft(13466917).Subtract(1);
+// var ei = EInteger.One.ShiftLeft(13466917).Subtract(1);
   new Test.EIntegerTest().TestSubtract();
   new Test.EIntegerTest().TestMultiplyDivideASpecific();
   new Test.EIntegerTest().TestMultiplyDivideSpecific();

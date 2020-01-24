@@ -1273,6 +1273,13 @@ Gets the greater value between two rational numbers.
 
 The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger denominator. If the two numbers are negative and have the same value, returns the one with the smaller denominator.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
+
 <a id="MaxMagnitude_PeterO_Numbers_ERational_PeterO_Numbers_ERational"></a>
 ### MaxMagnitude
 
@@ -1291,6 +1298,13 @@ Gets the greater value between two values, ignoring their signs. If the absolute
 <b>Return Value:</b>
 
 The larger value of the two numbers, ignoring their signs.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="Min_PeterO_Numbers_ERational_PeterO_Numbers_ERational"></a>
 ### Min
@@ -1311,6 +1325,13 @@ Gets the lesser value between two rational numbers.
 
 The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller denominator. If the two numbers are negative and have the same value, returns the one with the larger denominator.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
+
 <a id="MinMagnitude_PeterO_Numbers_ERational_PeterO_Numbers_ERational"></a>
 ### MinMagnitude
 
@@ -1329,6 +1350,13 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 <b>Return Value:</b>
 
 The smaller value of the two numbers, ignoring their signs.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="Multiply_int"></a>
 ### Multiply

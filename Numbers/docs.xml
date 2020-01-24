@@ -1181,6 +1181,22 @@
             null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,System.Int32)">
+<summary>Creates a number with the value
+            <c>exponent*10^significand</c>.</summary>
+            <param name='mantissa'>Desired value for the significand.</param>
+            <param name='exponentSmall'>Desired value for the exponent.</param>
+            <returns>An arbitrary-precision decimal number.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,System.Int64)">
+<summary>Creates a number with the value
+            <c>exponent*10^significand</c>.</summary>
+            <param name='mantissa'>Desired value for the significand.</param>
+            <param name='exponentLong'>Desired value for the exponent.</param>
+            <returns>An arbitrary-precision decimal number.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> is null.</exception>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)">
 
             <summary>Returns a number with the value
@@ -2155,17 +2171,23 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Max(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
-            <summary>Gets the greater value between two decimal
+            <summary>Gets the greater value of two decimal
             numbers.</summary>
             <param name='first'>An arbitrary-precision decimal number.</param>
             <param name='second'>Another arbitrary-precision decimal
             number.</param>
-            <returns>The larger value of the two numbers.  If one is positive zero and the other is negative zero, returns the positive zero.  If the two numbers are positive and have the same value, returns the one with the larger exponent.  If the two numbers are negative and have the same value, returns the one with the smaller exponent.</returns>
+            <returns>The larger value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the positive zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the larger exponent. If the two numbers are negative and
+            have the same value, returns the one with the smaller
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Max(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Gets the greater value between two decimal
+            <summary>Gets the greater value of two decimal
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
@@ -2175,22 +2197,30 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The larger value of the two numbers.  If one is positive zero and the other is negative zero, returns the positive zero.  If the two numbers are positive and have the same value, returns the one with the larger exponent.  If the two numbers are negative and have the same value, returns the one with the smaller exponent.</returns>
+            <returns>The larger value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the positive zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the larger exponent. If the two numbers are negative and
+            have the same value, returns the one with the smaller
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MaxMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
-            <summary>Gets the greater value between two values, ignoring their
+            <summary>Gets the greater value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Max.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The larger value of the two numbers, ignoring their signs.</returns>
+            <returns>The larger value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MaxMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Gets the greater value between two values, ignoring their
+            <summary>Gets the greater value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Max.</summary>
             <param name='first'>The first value to compare.</param>
@@ -2201,21 +2231,29 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The larger value of the two numbers, ignoring their signs.</returns>
+            <returns>The larger value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Min(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
-            <summary>Gets the lesser value between two decimal
+            <summary>Gets the smaller value of two decimal
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The smaller value of the two numbers.  If one is positive zero and the other is negative zero, returns the negative zero.  If the two numbers are positive and have the same value, returns the one with the smaller exponent.  If the two numbers are negative and have the same value, returns the one with the larger exponent.</returns>
+            <returns>The smaller value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the negative zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the smaller exponent. If the two numbers are negative and
+            have the same value, returns the one with the larger
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Min(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Gets the lesser value between two decimal
+            <summary>Gets the smaller value of two decimal
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
@@ -2225,22 +2263,30 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The smaller value of the two numbers.  If one is positive zero and the other is negative zero, returns the negative zero.  If the two numbers are positive and have the same value, returns the one with the smaller exponent.  If the two numbers are negative and have the same value, returns the one with the larger exponent.</returns>
+            <returns>The smaller value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the negative zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the smaller exponent. If the two numbers are negative and
+            have the same value, returns the one with the larger
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MinMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
-            <summary>Gets the lesser value between two values, ignoring their
+            <summary>Gets the smaller value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Min.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The smaller value of the two numbers, ignoring their signs.</returns>
+            <returns>The smaller value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MinMagnitude(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Gets the lesser value between two values, ignoring their
+            <summary>Gets the smaller value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Min.</summary>
             <param name='first'>The first value to compare.</param>
@@ -2251,7 +2297,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The smaller value of the two numbers, ignoring their signs.</returns>
+            <returns>The smaller value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MovePointLeft(PeterO.Numbers.EInteger)">
@@ -5324,6 +5372,22 @@
             null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,System.Int32)">
+<summary>Returns a number with the value
+            exponent*2^significand.</summary>
+            <param name='mantissa'>Desired value for the significand.</param>
+            <param name='exponentSmall'>Desired value for the exponent.</param>
+            <returns>An arbitrary-precision binary floating-point
+            number.</returns>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,System.Int64)">
+<summary>Returns a number with the value
+            exponent*2^significand.</summary>
+            <param name='mantissa'>Desired value for the significand.</param>
+            <param name='exponentLong'>Desired value for the exponent.</param>
+            <returns>An arbitrary-precision binary floating-point
+            number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)">
 
             <summary>Returns a number with the value
@@ -6100,16 +6164,22 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
-            <summary>Gets the greater value between two binary floating-point
+            <summary>Gets the greater value of two binary floating-point
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The larger value of the two numbers.  If one is positive zero and the other is negative zero, returns the positive zero.  If the two numbers are positive and have the same value, returns the one with the larger exponent.  If the two numbers are negative and have the same value, returns the one with the smaller exponent.</returns>
+            <returns>The larger value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the positive zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the larger exponent. If the two numbers are negative and
+            have the same value, returns the one with the smaller
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Max(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Gets the greater value between two binary floating-point
+            <summary>Gets the greater value of two binary floating-point
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
@@ -6119,22 +6189,30 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The larger value of the two numbers.  If one is positive zero and the other is negative zero, returns the positive zero.  If the two numbers are positive and have the same value, returns the one with the larger exponent.  If the two numbers are negative and have the same value, returns the one with the smaller exponent.</returns>
+            <returns>The larger value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the positive zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the larger exponent. If the two numbers are negative and
+            have the same value, returns the one with the smaller
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MaxMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
-            <summary>Gets the greater value between two values, ignoring their
+            <summary>Gets the greater value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Max.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The larger value of the two numbers, ignoring their signs.</returns>
+            <returns>The larger value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MaxMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Gets the greater value between two values, ignoring their
+            <summary>Gets the greater value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Max.</summary>
             <param name='first'>The first value to compare.</param>
@@ -6145,21 +6223,29 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The larger value of the two numbers, ignoring their signs.</returns>
+            <returns>The larger value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
-            <summary>Gets the lesser value between two binary floating-point
+            <summary>Gets the smaller value of two binary floating-point
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The smaller value of the two numbers.  If one is positive zero and the other is negative zero, returns the negative zero.  If the two numbers are positive and have the same value, returns the one with the smaller exponent.  If the two numbers are negative and have the same value, returns the one with the larger exponent.</returns>
+            <returns>The smaller value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the negative zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the smaller exponent. If the two numbers are negative and
+            have the same value, returns the one with the larger
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Min(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Gets the lesser value between two binary floating-point
+            <summary>Gets the smaller value of two binary floating-point
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
@@ -6169,22 +6255,30 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The smaller value of the two numbers.  If one is positive zero and the other is negative zero, returns the negative zero.  If the two numbers are positive and have the same value, returns the one with the smaller exponent.  If the two numbers are negative and have the same value, returns the one with the larger exponent.</returns>
+            <returns>The smaller value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the negative zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the smaller exponent. If the two numbers are negative and
+            have the same value, returns the one with the larger
+            exponent.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MinMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
-            <summary>Gets the lesser value between two values, ignoring their
+            <summary>Gets the smaller value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Min.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The smaller value of the two numbers, ignoring their signs.</returns>
+            <returns>The smaller value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MinMagnitude(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Gets the lesser value between two values, ignoring their
+            <summary>Gets the smaller value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Min.</summary>
             <param name='first'>The first value to compare.</param>
@@ -6195,7 +6289,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The smaller value of the two numbers, ignoring their signs.</returns>
+            <returns>The smaller value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MovePointLeft(PeterO.Numbers.EInteger)">
@@ -9311,6 +9407,18 @@
             <value><c>true</c> if this value is 0; otherwise, <c>false</c>.</value>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Max(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.MaxMagnitude(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Min(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.MinMagnitude(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
+<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)">
 
             <summary>Finds the modulus remainder that results when this
@@ -10907,35 +11015,59 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Max(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Gets the greater value between two rational
+
+            <summary>Gets the greater value of two rational
             numbers.</summary>
             <param name='first'>An arbitrary-precision rational number.</param>
             <param name='second'>Another arbitrary-precision rational
             number.</param>
-            <returns>The larger value of the two numbers.  If one is positive zero and the other is negative zero, returns the positive zero.  If the two numbers are positive and have the same value, returns the one with the larger denominator.  If the two numbers are negative and have the same value, returns the one with the smaller denominator.</returns>
+            <returns>The larger value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the positive zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the larger denominator. If the two numbers are negative
+            and have the same value, returns the one with the smaller
+            denominator.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.MaxMagnitude(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Gets the greater value between two values, ignoring their
+
+            <summary>Gets the greater value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Max.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The larger value of the two numbers, ignoring their signs.</returns>
+            <returns>The larger value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Min(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Gets the lesser value between two rational
+
+            <summary>Gets the smaller value of two rational
             numbers.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The smaller value of the two numbers.  If one is positive zero and the other is negative zero, returns the negative zero.  If the two numbers are positive and have the same value, returns the one with the smaller denominator.  If the two numbers are negative and have the same value, returns the one with the larger denominator.</returns>
+            <returns>The smaller value of the two numbers. If one is positive
+            zero and the other is negative zero, returns the negative zero. If
+            the two numbers are positive and have the same value, returns the
+            one with the smaller denominator. If the two numbers are negative
+            and have the same value, returns the one with the larger
+            denominator.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.MinMagnitude(PeterO.Numbers.ERational,PeterO.Numbers.ERational)">
-<summary>Gets the lesser value between two values, ignoring their
+
+            <summary>Gets the smaller value of two values, ignoring their
             signs. If the absolute values are equal, has the same effect as
             Min.</summary>
             <param name='first'>The first value to compare.</param>
             <param name='second'>The second value to compare.</param>
-            <returns>The smaller value of the two numbers, ignoring their signs.</returns>
+            <returns>The smaller value of the two numbers, ignoring their
+            signs.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Multiply(PeterO.Numbers.ERational)">
 

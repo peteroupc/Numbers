@@ -1285,13 +1285,14 @@ EInteger(this.wordCount, this.words, false);
       return ((size > tempSize) ^ (sa <= 0)) ? 1 : -1;
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
+  /// <param name='first'>The parameter <paramref name='first'/> is a
+  /// Numbers.EInteger object.</param>
+  /// <param name='second'>The parameter <paramref name='second'/> is a
+  /// Numbers.EInteger object.</param>
   /// <returns>The return value is not documented yet.</returns>
-  /// <param name='first'>Not documented yet.</param>
-  /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='first'/> or <paramref name='second'/> is null.</exception>
+  /// <summary>Not documented yet.</summary>
   public static EInteger Max(EInteger first, EInteger second) {
  if (first == null) {
    throw new ArgumentNullException(nameof(first));
@@ -1302,13 +1303,14 @@ EInteger(this.wordCount, this.words, false);
  return first.CompareTo(second) > 0 ? first : second;
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
+  /// <param name='first'>The parameter <paramref name='first'/> is a
+  /// Numbers.EInteger object.</param>
+  /// <param name='second'>The parameter <paramref name='second'/> is a
+  /// Numbers.EInteger object.</param>
   /// <returns>The return value is not documented yet.</returns>
-  /// <param name='first'>Not documented yet.</param>
-  /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='first'/> or <paramref name='second'/> is null.</exception>
+  /// <summary>Not documented yet.</summary>
   public static EInteger Min(EInteger first, EInteger second) {
  if (first == null) {
    throw new ArgumentNullException(nameof(first));
@@ -1319,13 +1321,14 @@ EInteger(this.wordCount, this.words, false);
  return first.CompareTo(second) < 0 ? first : second;
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
+  /// <param name='first'>The parameter <paramref name='first'/> is a
+  /// Numbers.EInteger object.</param>
+  /// <param name='second'>The parameter <paramref name='second'/> is a
+  /// Numbers.EInteger object.</param>
   /// <returns>The return value is not documented yet.</returns>
-  /// <param name='first'>Not documented yet.</param>
-  /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='first'/> or <paramref name='second'/> is null.</exception>
+  /// <summary>Not documented yet.</summary>
   public static EInteger MaxMagnitude(EInteger first, EInteger second) {
  if (first == null) {
    throw new ArgumentNullException(nameof(first));
@@ -1336,13 +1339,14 @@ EInteger(this.wordCount, this.words, false);
  return first.Abs().CompareTo(second.Abs()) > 0 ? first : second;
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
+  /// <param name='first'>The parameter <paramref name='first'/> is a
+  /// Numbers.EInteger object.</param>
+  /// <param name='second'>The parameter <paramref name='second'/> is a
+  /// Numbers.EInteger object.</param>
   /// <returns>The return value is not documented yet.</returns>
-  /// <param name='first'>Not documented yet.</param>
-  /// <param name='second'>Not documented yet.</param>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='first'/> or <paramref name='second'/> is null.</exception>
+  /// <summary>Not documented yet.</summary>
   public static EInteger MinMagnitude(EInteger first, EInteger second) {
  if (first == null) {
    throw new ArgumentNullException(nameof(first));
@@ -3602,7 +3606,7 @@ private static EInteger Toom3(EInteger a, EInteger b) {
   if (b == null) {
     throw new ArgumentNullException(nameof(b));
   }
-  if (!(a.wordCount >0 && b.wordCount>0)) {
+  if (!(a.wordCount > 0 && b.wordCount >0)) {
     throw new ArgumentException("doesn't satisfy a.wordCount>0 &&" +
 "\u0020b.wordCount>0");
   }
@@ -3630,9 +3634,7 @@ private static EInteger Toom3(EInteger a, EInteger b) {
   EInteger y2y0 = y2.Add(y0);
   EInteger wt1 = x2x0.Add(x1).Multiply(y2y0.Add(y1));
   EInteger wt2 = x2x0.Subtract(x1).Multiply(y2y0.Subtract(y1));
-  EInteger wt3 = (x2.ShiftLeft(
-  2).Add(
-  x1.ShiftLeft(
+  EInteger wt3 =(x2.ShiftLeft(2).Add(x1.ShiftLeft(
   1)).Add(x0)).Multiply(y2.ShiftLeft(2).Add(y1.ShiftLeft(1)).Add(y0));
   EInteger w4mul2 = w4.ShiftLeft(2);
   EInteger w4mul12 = w4mul2.Multiply(6);
