@@ -305,7 +305,7 @@ namespace PeterO.Numbers {
         "CA2104", Justification = "EDecimal is immutable")]
     #endif
     public static readonly EDecimal One = new EDecimal(
-      FastIntegerFixed.FromInt32(1),
+      FastIntegerFixed.FromInt32 (1),
       FastIntegerFixed.Zero,
       (byte)0);
 
@@ -340,7 +340,7 @@ namespace PeterO.Numbers {
         "CA2104", Justification = "EDecimal is immutable")]
     #endif
     public static readonly EDecimal Ten = new EDecimal(
-      FastIntegerFixed.FromInt32(10),
+      FastIntegerFixed.FromInt32 (10),
       FastIntegerFixed.Zero,
       (byte)0);
 
@@ -356,10 +356,10 @@ namespace PeterO.Numbers {
 
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
-    private static readonly EDecimal[] Cache = EDecimalCache(CacheFirst,
+    private static readonly EDecimal[] Cache = EDecimalCache (CacheFirst,
         CacheLast);
 
-    private static EDecimal[] EDecimalCache(int first, int last) {
+    private static EDecimal[] EDecimalCache (int first, int last) {
       #if DEBUG
       if (first < -65535) {
         throw new ArgumentException("first (" + first + ") is not greater" +
@@ -390,7 +390,7 @@ namespace PeterO.Numbers {
           cache[i - first] = Ten;
         } else {
           cache[i - first] = new EDecimal(
-            FastIntegerFixed.FromInt32(Math.Abs(i)),
+            FastIntegerFixed.FromInt32 (Math.Abs (i)),
             FastIntegerFixed.Zero,
             (byte)(i < 0 ? BigNumberFlags.FlagNegative : 0));
         }
@@ -398,11 +398,9 @@ namespace PeterO.Numbers {
       return cache;
     }
 
-    private static readonly IRadixMath<EDecimal> ExtendedMathValue = new
-RadixMath<EDecimal>(new DecimalMathHelper());
+    private static readonly IRadixMath<EDecimal> ExtendedMathValue = new RadixMath<EDecimal>(new DecimalMathHelper());
     //----------------------------------------------------------------
-    private static readonly IRadixMath<EDecimal> MathValue = new
-TrappableRadixMath<EDecimal>(
+    private static readonly IRadixMath<EDecimal> MathValue = new TrappableRadixMath<EDecimal>(
       new ExtendedOrSimpleRadixMath<EDecimal>(new
         DecimalMathHelper()));
 
@@ -531,32 +529,32 @@ TrappableRadixMath<EDecimal>(
     /// significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    public static EDecimal Create(int mantissaSmall, int exponentSmall) {
+    public static EDecimal Create (int mantissaSmall, int exponentSmall) {
       if (exponentSmall == 0 && mantissaSmall >= CacheFirst &&
         mantissaSmall <= CacheLast) {
         return Cache[mantissaSmall - CacheFirst];
       }
       if (mantissaSmall < 0) {
         if (mantissaSmall == Int32.MinValue) {
-          FastIntegerFixed fi = FastIntegerFixed.FromLong(Int32.MinValue);
+          FastIntegerFixed fi = FastIntegerFixed.FromLong (Int32.MinValue);
           return new EDecimal(
-            fi.Negate(),
-            FastIntegerFixed.FromInt32(exponentSmall),
-            (byte)BigNumberFlags.FlagNegative);
+              fi.Negate(),
+              FastIntegerFixed.FromInt32 (exponentSmall),
+              (byte)BigNumberFlags.FlagNegative);
         }
         return new EDecimal(
-            FastIntegerFixed.FromInt32(-mantissaSmall),
-            FastIntegerFixed.FromInt32(exponentSmall),
+            FastIntegerFixed.FromInt32 (-mantissaSmall),
+            FastIntegerFixed.FromInt32 (exponentSmall),
             (byte)BigNumberFlags.FlagNegative);
       } else if (mantissaSmall == 0) {
         return new EDecimal(
             FastIntegerFixed.Zero,
-            FastIntegerFixed.FromInt32(exponentSmall),
+            FastIntegerFixed.FromInt32 (exponentSmall),
             (byte)0);
       } else {
         return new EDecimal(
-            FastIntegerFixed.FromInt32(mantissaSmall),
-            FastIntegerFixed.FromInt32(exponentSmall),
+            FastIntegerFixed.FromInt32 (mantissaSmall),
+            FastIntegerFixed.FromInt32 (exponentSmall),
             (byte)0);
       }
     }
@@ -576,13 +574,13 @@ TrappableRadixMath<EDecimal>(
       }
       if (mantissa.CanFitInInt32()) {
         int mantissaSmall = mantissa.ToInt32Checked();
-        return Create(mantissaSmall, exponentSmall);
+        return Create (mantissaSmall, exponentSmall);
       }
-      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      FastIntegerFixed fi = FastIntegerFixed.FromBig (mantissa);
       int sign = fi.Sign;
       return new EDecimal(
           sign < 0 ? fi.Negate() : fi,
-          FastIntegerFixed.FromInt32(exponentSmall),
+          FastIntegerFixed.FromInt32 (exponentSmall),
           (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
     }
 
@@ -601,13 +599,13 @@ TrappableRadixMath<EDecimal>(
       }
       if (mantissa.CanFitInInt64()) {
         long mantissaLong = mantissa.ToInt64Checked();
-        return Create(mantissaLong, exponentLong);
+        return Create (mantissaLong, exponentLong);
       }
-      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      FastIntegerFixed fi = FastIntegerFixed.FromBig (mantissa);
       int sign = fi.Sign;
       return new EDecimal(
           sign < 0 ? fi.Negate() : fi,
-          FastIntegerFixed.FromLong(exponentLong),
+          FastIntegerFixed.FromLong (exponentLong),
           (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
     }
 
@@ -630,13 +628,13 @@ TrappableRadixMath<EDecimal>(
       }
       if (mantissa.CanFitInInt32() && exponent.IsZero) {
         int mantissaSmall = mantissa.ToInt32Checked();
-        return Create(mantissaSmall, 0);
+        return Create (mantissaSmall, 0);
       }
-      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      FastIntegerFixed fi = FastIntegerFixed.FromBig (mantissa);
       int sign = fi.Sign;
       return new EDecimal(
           sign < 0 ? fi.Negate() : fi,
-          FastIntegerFixed.FromBig(exponent),
+          FastIntegerFixed.FromBig (exponent),
           (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
     }
 
@@ -654,19 +652,19 @@ TrappableRadixMath<EDecimal>(
       long exponentLong) {
       if (mantissaLong >= Int32.MinValue && mantissaLong <= Int32.MaxValue &&
         exponentLong >= Int32.MinValue && exponentLong <= Int32.MaxValue) {
-        return Create((int)mantissaLong, (int)exponentLong);
+        return Create ((int)mantissaLong, (int)exponentLong);
       } else if (mantissaLong == Int64.MinValue) {
-        FastIntegerFixed fi = FastIntegerFixed.FromLong(mantissaLong);
+        FastIntegerFixed fi = FastIntegerFixed.FromLong (mantissaLong);
         return new EDecimal(
             fi.Negate(),
-            FastIntegerFixed.FromLong(exponentLong),
+            FastIntegerFixed.FromLong (exponentLong),
             (byte)((mantissaLong < 0) ? BigNumberFlags.FlagNegative : 0));
       } else {
-        FastIntegerFixed fi = FastIntegerFixed.FromLong(Math.Abs(
-            mantissaLong));
+        FastIntegerFixed fi = FastIntegerFixed.FromLong (Math.Abs(
+              mantissaLong));
         return new EDecimal(
             fi,
-            FastIntegerFixed.FromLong(exponentLong),
+            FastIntegerFixed.FromLong (exponentLong),
             (byte)((mantissaLong < 0) ? BigNumberFlags.FlagNegative : 0));
       }
     }
@@ -679,8 +677,8 @@ TrappableRadixMath<EDecimal>(
     /// arbitrary-precision decimal floating-point number, use that
     /// object's <c>UnsignedMantissa</c> property.</param>
     /// <returns>A quiet not-a-number.</returns>
-    public static EDecimal CreateNaN(EInteger diag) {
-      return CreateNaN(diag, false, false, null);
+    public static EDecimal CreateNaN (EInteger diag) {
+      return CreateNaN (diag, false, false, null);
     }
 
     /// <summary>Creates a not-a-number arbitrary-precision decimal
@@ -725,9 +723,9 @@ TrappableRadixMath<EDecimal>(
       if (ctx != null && ctx.HasMaxPrecision) {
         flags |= BigNumberFlags.FlagQuietNaN;
         var ef = new EDecimal(
-          FastIntegerFixed.FromBig(diag),
+          FastIntegerFixed.FromBig (diag),
           FastIntegerFixed.Zero,
-          (byte)flags).RoundToPrecision(ctx);
+          (byte)flags).RoundToPrecision (ctx);
 
         int newFlags = ef.flags;
         newFlags &= ~BigNumberFlags.FlagQuietNaN;
@@ -741,7 +739,7 @@ TrappableRadixMath<EDecimal>(
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
       return new EDecimal(
-          FastIntegerFixed.FromBig(diag),
+          FastIntegerFixed.FromBig (diag),
           FastIntegerFixed.Zero,
           (byte)flags);
     }
@@ -764,8 +762,8 @@ TrappableRadixMath<EDecimal>(
     /// floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as <paramref name='dbl'/>.</returns>
-    public static EDecimal FromDouble(double dbl) {
-      int[] value = Extras.DoubleToIntegers(dbl);
+    public static EDecimal FromDouble (double dbl) {
+      int[] value = Extras.DoubleToIntegers (dbl);
       var floatExponent = (int)((value[1] >> 20) & 0x7ff);
       bool neg = (value[1] >> 31) != 0;
       long lvalue;
@@ -776,12 +774,12 @@ TrappableRadixMath<EDecimal>(
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (value[1] & 0x80000) != 0;
         value[1] &= 0x7ffff;
-        lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
+        lvalue = unchecked ((value[0] & 0xffffffffL) | ((long)value[1] << 32));
         int flags = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
             BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         return lvalue == 0 ? (quiet ? NaN : SignalingNaN) :
           new EDecimal(
-            FastIntegerFixed.FromLong(lvalue),
+            FastIntegerFixed.FromLong (lvalue),
             FastIntegerFixed.Zero,
             (byte)flags);
       }
@@ -800,30 +798,30 @@ TrappableRadixMath<EDecimal>(
         return neg ? EDecimal.NegativeZero : EDecimal.Zero;
       }
       floatExponent -= 1075;
-      lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
+      lvalue = unchecked ((value[0] & 0xffffffffL) | ((long)value[1] << 32));
       if (floatExponent == 0) {
         if (neg) {
           lvalue = -lvalue;
         }
-        return EDecimal.FromInt64(lvalue);
+        return EDecimal.FromInt64 (lvalue);
       }
       if (floatExponent > 0) {
         // Value is an integer
         var bigmantissa = (EInteger)lvalue;
         bigmantissa <<= floatExponent;
         if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+          bigmantissa = - (EInteger)bigmantissa;
         }
-        return EDecimal.FromEInteger(bigmantissa);
+        return EDecimal.FromEInteger (bigmantissa);
       } else {
         // Value has a fractional part
         var bigmantissa = (EInteger)lvalue;
-        EInteger bigexp = NumberUtility.FindPowerOfFive(-floatExponent);
+        EInteger bigexp = NumberUtility.FindPowerOfFive (-floatExponent);
         bigmantissa *= (EInteger)bigexp;
         if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+          bigmantissa = - (EInteger)bigmantissa;
         }
-        return EDecimal.Create(bigmantissa, (EInteger)floatExponent);
+        return EDecimal.Create (bigmantissa, (EInteger)floatExponent);
       }
     }
 
@@ -832,8 +830,8 @@ TrappableRadixMath<EDecimal>(
     /// <param name='bigint'>An arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision decimal number with the exponent
     /// set to 0.</returns>
-    public static EDecimal FromEInteger(EInteger bigint) {
-      return EDecimal.Create(bigint, EInteger.Zero);
+    public static EDecimal FromEInteger (EInteger bigint) {
+      return EDecimal.Create (bigint, EInteger.Zero);
     }
 
     /// <summary>Converts an arbitrary-precision binary floating-point
@@ -842,8 +840,8 @@ TrappableRadixMath<EDecimal>(
     /// number.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
     [Obsolete("Renamed to FromEFloat.")]
-    public static EDecimal FromExtendedFloat(EFloat ef) {
-      return FromEFloat(ef);
+    public static EDecimal FromExtendedFloat (EFloat ef) {
+      return FromEFloat (ef);
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from an
@@ -853,7 +851,7 @@ TrappableRadixMath<EDecimal>(
     /// <returns>An arbitrary-precision decimal number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigfloat'/> is null.</exception>
-    public static EDecimal FromEFloat(EFloat bigfloat) {
+    public static EDecimal FromEFloat (EFloat bigfloat) {
       if (bigfloat == null) {
         throw new ArgumentNullException(nameof(bigfloat));
       }
@@ -875,35 +873,35 @@ TrappableRadixMath<EDecimal>(
       }
       if (bigintExp.IsZero) {
         // Integer
-        return EDecimal.FromEInteger(bigintMant);
+        return EDecimal.FromEInteger (bigintMant);
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
-        FastInteger intcurexp = FastInteger.FromBig(bigintExp);
+        FastInteger intcurexp = FastInteger.FromBig (bigintExp);
         EInteger bigmantissa = bigintMant;
         bool neg = bigmantissa.Sign < 0;
         if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+          bigmantissa = - (EInteger)bigmantissa;
         }
         while (intcurexp.Sign > 0) {
           var shift = 1000000;
-          if (intcurexp.CompareToInt(1000000) < 0) {
+          if (intcurexp.CompareToInt (1000000) < 0) {
             shift = intcurexp.AsInt32();
           }
           bigmantissa <<= shift;
-          intcurexp.AddInt(-shift);
+          intcurexp.AddInt (-shift);
         }
         if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+          bigmantissa = - (EInteger)bigmantissa;
         }
-        return EDecimal.FromEInteger(bigmantissa);
+        return EDecimal.FromEInteger (bigmantissa);
       } else {
         // Fractional number
         EInteger bigmantissa = bigintMant;
-        EInteger negbigintExp = -(EInteger)bigintExp;
-        negbigintExp = NumberUtility.FindPowerOfFiveFromBig(negbigintExp);
+        EInteger negbigintExp = - (EInteger)bigintExp;
+        negbigintExp = NumberUtility.FindPowerOfFiveFromBig (negbigintExp);
         bigmantissa *= (EInteger)negbigintExp;
-        return EDecimal.Create(bigmantissa, bigintExp);
+        return EDecimal.Create (bigmantissa, bigintExp);
       }
     }
 
@@ -912,7 +910,7 @@ TrappableRadixMath<EDecimal>(
     /// <param name='boolValue'>Either true or false.</param>
     /// <returns>The number 1 if <paramref name='boolValue'/> is true;
     /// otherwise, 0.</returns>
-    public static EDecimal FromBoolean(bool boolValue) {
+    public static EDecimal FromBoolean (bool boolValue) {
       return boolValue ? EDecimal.One : EDecimal.Zero;
     }
 
@@ -922,21 +920,21 @@ TrappableRadixMath<EDecimal>(
     /// name='valueSmaller'/> is a 32-bit signed integer.</param>
     /// <returns>An arbitrary-precision decimal number with the exponent
     /// set to 0.</returns>
-    public static EDecimal FromInt32(int valueSmaller) {
+    public static EDecimal FromInt32 (int valueSmaller) {
       if (valueSmaller >= CacheFirst && valueSmaller <= CacheLast) {
         return Cache[valueSmaller - CacheFirst];
       }
       if (valueSmaller == Int32.MinValue) {
-        return Create((EInteger)valueSmaller, EInteger.Zero);
+        return Create ((EInteger)valueSmaller, EInteger.Zero);
       }
       if (valueSmaller < 0) {
         return new EDecimal(
-            FastIntegerFixed.FromInt32(valueSmaller).Negate(),
+            FastIntegerFixed.FromInt32 (valueSmaller).Negate(),
             FastIntegerFixed.Zero,
             (byte)BigNumberFlags.FlagNegative);
       } else {
         return new EDecimal(
-            FastIntegerFixed.FromInt32(valueSmaller),
+            FastIntegerFixed.FromInt32 (valueSmaller),
             FastIntegerFixed.Zero,
             (byte)0);
       }
@@ -948,25 +946,25 @@ TrappableRadixMath<EDecimal>(
     /// name='valueSmall'/> is a 64-bit signed integer.</param>
     /// <returns>An arbitrary-precision decimal number with the exponent
     /// set to 0.</returns>
-    public static EDecimal FromInt64(long valueSmall) {
+    public static EDecimal FromInt64 (long valueSmall) {
       if (valueSmall >= CacheFirst && valueSmall <= CacheLast) {
-        return Cache[(int)(valueSmall - CacheFirst)];
+        return Cache[ (int)(valueSmall - CacheFirst)];
       }
       if (valueSmall > Int32.MinValue && valueSmall <= Int32.MaxValue) {
         if (valueSmall < 0) {
           return new EDecimal(
-              FastIntegerFixed.FromInt32((int)valueSmall).Negate(),
+              FastIntegerFixed.FromInt32 ((int)valueSmall).Negate(),
               FastIntegerFixed.Zero,
               (byte)BigNumberFlags.FlagNegative);
         } else {
           return new EDecimal(
-              FastIntegerFixed.FromInt32((int)valueSmall),
+              FastIntegerFixed.FromInt32 ((int)valueSmall),
               FastIntegerFixed.Zero,
               (byte)0);
         }
       }
       var bigint = (EInteger)valueSmall;
-      return EDecimal.Create(bigint, EInteger.Zero);
+      return EDecimal.Create (bigint, EInteger.Zero);
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from a
@@ -987,8 +985,8 @@ TrappableRadixMath<EDecimal>(
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as <paramref name='flt'/>.</returns>
-    public static EDecimal FromSingle(float flt) {
-      int value = BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0);
+    public static EDecimal FromSingle (float flt) {
+      int value = BitConverter.ToInt32 (BitConverter.GetBytes ((float)flt), 0);
       bool neg = (value >> 31) != 0;
       var floatExponent = (int)((value >> 23) & 0xff);
       int valueFpMantissa = value & 0x7fffff;
@@ -1004,7 +1002,7 @@ TrappableRadixMath<EDecimal>(
             BigNumberFlags.FlagSignalingNaN);
         return valueFpMantissa == 0 ? (quiet ? NaN : SignalingNaN) :
           new EDecimal(
-            FastIntegerFixed.FromInt32(valueFpMantissa),
+            FastIntegerFixed.FromInt32 (valueFpMantissa),
             FastIntegerFixed.Zero,
             (byte)value);
       }
@@ -1025,25 +1023,25 @@ TrappableRadixMath<EDecimal>(
         if (neg) {
           valueFpMantissa = -valueFpMantissa;
         }
-        return EDecimal.FromInt64(valueFpMantissa);
+        return EDecimal.FromInt64 (valueFpMantissa);
       }
       if (floatExponent > 0) {
         // Value is an integer
         var bigmantissa = (EInteger)valueFpMantissa;
         bigmantissa <<= floatExponent;
         if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+          bigmantissa = - (EInteger)bigmantissa;
         }
-        return EDecimal.FromEInteger(bigmantissa);
+        return EDecimal.FromEInteger (bigmantissa);
       } else {
         // Value has a fractional part
         var bigmantissa = (EInteger)valueFpMantissa;
-        EInteger bigexponent = NumberUtility.FindPowerOfFive(-floatExponent);
+        EInteger bigexponent = NumberUtility.FindPowerOfFive (-floatExponent);
         bigmantissa *= (EInteger)bigexponent;
         if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+          bigmantissa = - (EInteger)bigmantissa;
         }
-        return EDecimal.Create(bigmantissa, (EInteger)floatExponent);
+        return EDecimal.Create (bigmantissa, (EInteger)floatExponent);
       }
     }
 
@@ -1060,8 +1058,8 @@ TrappableRadixMath<EDecimal>(
     /// <exception cref='FormatException'>The parameter <paramref
     /// name='str'/> is not a correctly formatted number
     /// string.</exception>
-    public static EDecimal FromString(string str) {
-      return FromString(str, 0, str == null ? 0 : str.Length, null);
+    public static EDecimal FromString (string str) {
+      return FromString (str, 0, str == null ? 0 : str.Length, null);
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from a text
@@ -1081,8 +1079,8 @@ TrappableRadixMath<EDecimal>(
     /// as the given string.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
-    public static EDecimal FromString(string str, EContext ctx) {
-      return FromString(str, 0, str == null ? 0 : str.Length, ctx);
+    public static EDecimal FromString (string str, EContext ctx) {
+      return FromString (str, 0, str == null ? 0 : str.Length, ctx);
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from a text
@@ -1114,7 +1112,7 @@ TrappableRadixMath<EDecimal>(
       string str,
       int offset,
       int length) {
-      return FromString(str, offset, length, null);
+      return FromString (str, offset, length, null);
     }
 
     // private static readonly System.Diagnostics.Stopwatch swRound = new
@@ -1222,7 +1220,7 @@ TrappableRadixMath<EDecimal>(
       }
       int i = tmpoffset;
       if (c < '0' || c > '9') {
-        EDecimal ed = ParseSpecialValue(str, i, endStr, negative, ctx);
+        EDecimal ed = ParseSpecialValue (str, i, endStr, negative, ctx);
         if (ed != null) {
           return ed;
         }
@@ -1236,7 +1234,7 @@ TrappableRadixMath<EDecimal>(
             negative,
             ctx);
       } else {
-        return ParseOrdinaryNumber(str, i, endStr, negative, ctx);
+        return ParseOrdinaryNumber (str, i, endStr, negative, ctx);
       }
     }
 
@@ -1294,7 +1292,7 @@ TrappableRadixMath<EDecimal>(
           FastInteger maxDigits = null;
           haveDigits = false;
           if (ctx != null && ctx.HasMaxPrecision) {
-            maxDigits = FastInteger.FromBig(ctx.Precision);
+            maxDigits = FastInteger.FromBig (ctx.Precision);
             if (ctx.ClampNormalExponents) {
               maxDigits.Decrement();
             }
@@ -1311,7 +1309,7 @@ TrappableRadixMath<EDecimal>(
               }
               if (haveDigits && maxDigits != null) {
                 digitCount.Increment();
-                if (digitCount.CompareTo(maxDigits) > 0) {
+                if (digitCount.CompareTo (maxDigits) > 0) {
                   // NaN contains too many digits
                   throw new FormatException();
                 }
@@ -1321,14 +1319,14 @@ TrappableRadixMath<EDecimal>(
             }
           }
           if (mantInt > MaxSafeInt) {
-            mant = EInteger.FromSubstring(str, digitStart, endStr);
+            mant = EInteger.FromSubstring (str, digitStart, endStr);
           }
           EInteger bigmant = (mant == null) ? ((EInteger)mantInt) :
             mant;
           flags2 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagQuietNaN;
           return CreateWithFlags(
-              FastIntegerFixed.FromBig(bigmant),
+              FastIntegerFixed.FromBig (bigmant),
               FastIntegerFixed.Zero,
               flags2);
         }
@@ -1355,7 +1353,7 @@ TrappableRadixMath<EDecimal>(
           FastInteger maxDigits = null;
           haveDigits = false;
           if (ctx != null && ctx.HasMaxPrecision) {
-            maxDigits = FastInteger.FromBig(ctx.Precision);
+            maxDigits = FastInteger.FromBig (ctx.Precision);
             if (ctx.ClampNormalExponents) {
               maxDigits.Decrement();
             }
@@ -1372,7 +1370,7 @@ TrappableRadixMath<EDecimal>(
               }
               if (haveDigits && maxDigits != null) {
                 digitCount.Increment();
-                if (digitCount.CompareTo(maxDigits) > 0) {
+                if (digitCount.CompareTo (maxDigits) > 0) {
                   // NaN contains too many digits
                   throw new FormatException();
                 }
@@ -1382,7 +1380,7 @@ TrappableRadixMath<EDecimal>(
             }
           }
           if (mantInt > MaxSafeInt) {
-            mant = EInteger.FromSubstring(str, digitStart, endStr);
+            mant = EInteger.FromSubstring (str, digitStart, endStr);
           }
           int flags3 = (negative ? BigNumberFlags.FlagNegative : 0) |
             BigNumberFlags.FlagSignalingNaN;
@@ -1397,10 +1395,10 @@ TrappableRadixMath<EDecimal>(
       return null;
     }
 
-    private static EDecimal SignalUnderflow(EContext ec, bool negative, bool
+    private static EDecimal SignalUnderflow (EContext ec, bool negative, bool
       zeroSignificand) {
-      EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
-      eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
+      EInteger eTiny = ec.EMin.Subtract (ec.Precision.Subtract (1));
+      eTiny = eTiny.Subtract (1); // subtract 1 from proper eTiny to
       // trigger underflow
       EDecimal ret = EDecimal.Create(
           zeroSignificand ? EInteger.Zero : EInteger.One,
@@ -1408,19 +1406,19 @@ TrappableRadixMath<EDecimal>(
       if (negative) {
         ret = ret.Negate();
       }
-      return ret.RoundToPrecision(ec);
+      return ret.RoundToPrecision (ec);
     }
 
-    private static EDecimal SignalOverflow(EContext ec, bool negative, bool
+    private static EDecimal SignalOverflow (EContext ec, bool negative, bool
       zeroSignificand) {
       if (zeroSignificand) {
-        EDecimal ret = EDecimal.Create(EInteger.Zero, ec.EMax);
+        EDecimal ret = EDecimal.Create (EInteger.Zero, ec.EMax);
         if (negative) {
           ret = ret.Negate();
         }
-        return ret.RoundToPrecision(ec);
+        return ret.RoundToPrecision (ec);
       } else {
-        return GetMathValue(ec).SignalOverflow(ec, negative);
+        return GetMathValue (ec).SignalOverflow (ec, negative);
       }
     }
 
@@ -1453,14 +1451,14 @@ TrappableRadixMath<EDecimal>(
       var nonzeroBeyondMax = false;
       var beyondMax = false;
       var lastdigit = -1;
-      EInteger precisionPlusTwo = ctx.Precision.Add(2);
+      EInteger precisionPlusTwo = ctx.Precision.Add (2);
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
           haveDigits = true;
           haveNonzeroDigit |= thisdigit != 0;
-          if (beyondMax || (precisionPlusTwo.CompareTo(decimalPrec) < 0 &&
+          if (beyondMax || (precisionPlusTwo.CompareTo (decimalPrec) < 0 &&
               mantissaLong == Int64.MaxValue)) {
             // Well beyond maximum precision, significand is
             // max or bigger
@@ -1472,7 +1470,7 @@ TrappableRadixMath<EDecimal>(
               // NOTE: Absolute value will not be more than
               // the string portion's length, so will fit comfortably
               // in an 'int'.
-              newScaleInt = checked(newScaleInt + 1);
+              newScaleInt = checked (newScaleInt + 1);
             }
             continue;
           }
@@ -1495,7 +1493,7 @@ TrappableRadixMath<EDecimal>(
             // NOTE: Absolute value will not be more than
             // the string portion's length, so will fit comfortably
             // in an 'int'.
-            newScaleInt = checked(newScaleInt - 1);
+            newScaleInt = checked (newScaleInt - 1);
           }
         } else if (ch == '.') {
           if (haveDecimalPoint) {
@@ -1560,9 +1558,9 @@ TrappableRadixMath<EDecimal>(
           // Exponent that can't be compensated by digit
           // length without remaining higher than Int32.MaxValue
           if (expoffset < 0) {
-            return SignalUnderflow(ctx, negative, zeroMantissa);
+            return SignalUnderflow (ctx, negative, zeroMantissa);
           } else {
-            return SignalOverflow(ctx, negative, zeroMantissa);
+            return SignalOverflow (ctx, negative, zeroMantissa);
           }
         }
       }
@@ -1576,34 +1574,34 @@ TrappableRadixMath<EDecimal>(
         if (negative) {
           mantissaLong = -mantissaLong;
         }
-        EDecimal eret = EDecimal.Create(mantissaLong, finalexp);
+        EDecimal eret = EDecimal.Create (mantissaLong, finalexp);
         if (negative && zeroMantissa) {
           eret = eret.Negate();
         }
-        return eret.RoundToPrecision(ctx);
+        return eret.RoundToPrecision (ctx);
       }
       EInteger mant = null;
       EInteger exp = (!haveExponent) ? EInteger.Zero :
-        EInteger.FromSubstring(str, expDigitStart, endStr);
+        EInteger.FromSubstring (str, expDigitStart, endStr);
       if (expoffset < 0) {
         exp = exp.Negate();
       }
-      exp = exp.Add(newScaleInt);
+      exp = exp.Add (newScaleInt);
       if (nonzeroBeyondMax) {
-        exp = exp.Subtract(1);
+        exp = exp.Subtract (1);
         ++decimalPrec;
       }
       if (ctx.HasExponentRange) {
-        EInteger adjExpUpperBound = exp.Add(decimalPrec).Subtract(1);
+        EInteger adjExpUpperBound = exp.Add (decimalPrec).Subtract (1);
         EInteger adjExpLowerBound = exp;
-        EInteger eTiny = ctx.EMin.Subtract(ctx.Precision.Subtract(1));
-        eTiny = eTiny.Subtract(1);
+        EInteger eTiny = ctx.EMin.Subtract (ctx.Precision.Subtract (1));
+        eTiny = eTiny.Subtract (1);
         // DebugUtility.Log("exp=" + adjExpLowerBound + "~" +
         // adjExpUpperBound + ", emin={0} emax={1}", ctx.EMin, ctx.EMax);
-        if (adjExpUpperBound.CompareTo(eTiny) < 0) {
-          return SignalUnderflow(ctx, negative, zeroMantissa);
-        } else if (adjExpLowerBound.CompareTo(ctx.EMax) > 0) {
-          return SignalOverflow(ctx, negative, zeroMantissa);
+        if (adjExpUpperBound.CompareTo (eTiny) < 0) {
+          return SignalUnderflow (ctx, negative, zeroMantissa);
+        } else if (adjExpLowerBound.CompareTo (ctx.EMax) > 0) {
+          return SignalOverflow (ctx, negative, zeroMantissa);
         }
       }
       if (zeroMantissa) {
@@ -1613,24 +1611,24 @@ TrappableRadixMath<EDecimal>(
         if (negative) {
           ef = ef.Negate();
         }
-        return ef.RoundToPrecision(ctx);
+        return ef.RoundToPrecision (ctx);
       } else if (decimalDigitStart != decimalDigitEnd) {
-        string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
+        string tmpstr = str.Substring (digitStart, digitEnd - digitStart) +
           str.Substring(
             decimalDigitStart,
             decimalDigitEnd - decimalDigitStart);
-        mant = EInteger.FromString(tmpstr);
+        mant = EInteger.FromString (tmpstr);
       } else {
-        mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+        mant = EInteger.FromSubstring (str, digitStart, digitEnd);
       }
       if (nonzeroBeyondMax) {
-        mant = mant.Multiply(10).Add(1);
+        mant = mant.Multiply (10).Add (1);
       }
       if (negative) {
         mant = mant.Negate();
       }
-      return EDecimal.Create(mant, exp)
-        .RoundToPrecision(ctx);
+      return EDecimal.Create (mant, exp)
+        .RoundToPrecision (ctx);
     }
 
     private static EDecimal ParseOrdinaryNumberNoContext(
@@ -1655,7 +1653,7 @@ TrappableRadixMath<EDecimal>(
           // String portion is a single digit
           var si = (int)(tch - '0');
           return negative ? ((si == 0) ? NegativeZero :
-            Cache[-si - CacheFirst]) : Cache[si - CacheFirst];
+              Cache[-si - CacheFirst]) : Cache[si - CacheFirst];
         }
       }
       digitStart = i;
@@ -1684,18 +1682,18 @@ TrappableRadixMath<EDecimal>(
           if (haveDecimalPoint) {
             decimalDigitEnd = i + 1;
           } else {
-              digitEnd = i + 1;
-            }
-            if (mantInt <= MaxSafeInt) {
-              // multiply by 10
-              mantInt *= 10;
-              mantInt += thisdigit;
-            }
+            digitEnd = i + 1;
+          }
+          if (mantInt <= MaxSafeInt) {
+            // multiply by 10
+            mantInt *= 10;
+            mantInt += thisdigit;
+          }
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue ||
               newScaleInt == Int32.MaxValue) {
-              newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-              newScale = newScale.Subtract(1);
+              newScale = newScale ?? EInteger.FromInt32 (newScaleInt);
+              newScale = newScale.Subtract (1);
             } else {
               --newScaleInt;
             }
@@ -1784,13 +1782,13 @@ TrappableRadixMath<EDecimal>(
           if (tmplong >= Int32.MaxValue && tmplong <= Int32.MinValue) {
             newScaleInt = (int)tmplong;
           } else {
-            newScale = EInteger.FromInt64(tmplong);
+            newScale = EInteger.FromInt64 (tmplong);
           }
         } else {
           if (expoffset < 0) {
-            newScale = newScale.Subtract(expInt);
+            newScale = newScale.Subtract (expInt);
           } else if (expInt != 0) {
-            newScale = newScale.Add(expInt);
+            newScale = newScale.Add (expInt);
           }
         }
       }
@@ -1801,79 +1799,79 @@ TrappableRadixMath<EDecimal>(
         18) {
         // No more than 18 digits
         long lv = 0L;
-        int expo = -(dde - decimalDigitStart);
+        int expo = - (dde - decimalDigitStart);
         if (mantInt <= MaxSafeInt) {
           lv = mantInt;
         } else {
-        var vi = 0;
-        for (vi = digitStart; vi < de; ++vi) {
-          char chvi = str[vi];
-          #if DEBUG
-          if (!(chvi >= '0' && chvi <= '9')) {
-            throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
-              "\u0020chvi<= '9'");
-          }
-          #endif
+          var vi = 0;
+          for (vi = digitStart; vi < de; ++vi) {
+            char chvi = str[vi];
+            #if DEBUG
+            if (! (chvi >= '0' && chvi <= '9')) {
+              throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
+                "\u0020chvi<= '9'");
+            }
+            #endif
 
-          lv = checked((lv * 10) + (int)(chvi - '0'));
-        }
-        for (vi = decimalDigitStart; vi < dde; ++vi) {
-          char chvi = str[vi];
-          #if DEBUG
-          if (!(chvi >= '0' && chvi <= '9')) {
-            throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
-              "\u0020chvi<= '9'");
+            lv = checked ((lv * 10) + (int)(chvi - '0'));
           }
-          #endif
+          for (vi = decimalDigitStart; vi < dde; ++vi) {
+            char chvi = str[vi];
+            #if DEBUG
+            if (! (chvi >= '0' && chvi <= '9')) {
+              throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
+                "\u0020chvi<= '9'");
+            }
+            #endif
 
-          lv = checked((lv * 10) + (int)(chvi - '0'));
+            lv = checked ((lv * 10) + (int)(chvi - '0'));
+          }
         }
-}
         if (negative) {
-  lv = -lv;
-}
+          lv = -lv;
+        }
         if (!negative || lv != 0) {
-          ret = EDecimal.Create(lv, (long)expo);
+          ret = EDecimal.Create (lv, (long)expo);
           return ret;
         }
       }
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {
         if (haveDecimalPoint) {
-if (digitEnd - digitStart == 1 && firstdigit == 0) {
-          mant = EInteger.FromSubstring(
-            str,
-            decimalDigitStart,
-            decimalDigitEnd);
-} else {
-          string decstr = str.Substring(digitStart, digitEnd - digitStart) +
-            str.Substring(
-              decimalDigitStart,
-              decimalDigitEnd - decimalDigitStart);
-          mant = EInteger.FromString(decstr);
-}
+          if (digitEnd - digitStart == 1 && firstdigit == 0) {
+            mant = EInteger.FromSubstring(
+                str,
+                decimalDigitStart,
+                decimalDigitEnd);
+          } else {
+            string decstr = str.Substring (digitStart, digitEnd - digitStart) +
+              str.Substring(
+                decimalDigitStart,
+                decimalDigitEnd - decimalDigitStart);
+            mant = EInteger.FromString (decstr);
+          }
         } else {
-          mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+          mant = EInteger.FromSubstring (str, digitStart, digitEnd);
         }
       }
       if (haveExponent && expInt > MaxSafeInt) {
         // Parse exponent if it's "big"
-        exp = EInteger.FromSubstring(str, expDigitStart, endStr);
-        newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-        newScale = (expoffset < 0) ? newScale.Subtract(exp) :
-          newScale.Add(exp);
+        exp = EInteger.FromSubstring (str, expDigitStart, endStr);
+        newScale = newScale ?? EInteger.FromInt32 (newScaleInt);
+        newScale = (expoffset < 0) ? newScale.Subtract (exp) :
+          newScale.Add (exp);
       }
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
-          newScaleInt) : FastIntegerFixed.FromBig(newScale);
+          newScaleInt) : FastIntegerFixed.FromBig (newScale);
       if (mant == null) {
-        fastIntMant = FastIntegerFixed.FromInt32(mantInt);
+        fastIntMant = FastIntegerFixed.FromInt32 (mantInt);
       } else if (mant.CanFitInInt32()) {
         mantInt = mant.ToInt32Checked();
-        fastIntMant = FastIntegerFixed.FromInt32(mantInt);
+        fastIntMant = FastIntegerFixed.FromInt32 (mantInt);
       } else {
-        fastIntMant = FastIntegerFixed.FromBig(mant);
+        fastIntMant = FastIntegerFixed.FromBig (mant);
       }
       ret = new EDecimal(
         fastIntMant,
@@ -1889,7 +1887,7 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
       bool negative,
       EContext ctx) {
       if (ctx == null) {
-        return ParseOrdinaryNumberNoContext(str, i, endStr, negative);
+        return ParseOrdinaryNumberNoContext (str, i, endStr, negative);
       }
       // NOTE: Negative sign at beginning was omitted
       // from the string portion
@@ -1911,7 +1909,7 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
           cret = negative ? ((si == 0) ? NegativeZero : Cache[-si -
                 CacheFirst]) : Cache[si - CacheFirst];
           if (ctx != null) {
-            cret = GetMathValue(ctx).RoundAfterConversion(cret, ctx);
+            cret = GetMathValue (ctx).RoundAfterConversion (cret, ctx);
           }
           return cret;
         }
@@ -1957,7 +1955,7 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
           haveNonzeroDigit |= thisdigit != 0;
           haveDigits = true;
           beyondPrecision |= ctx != null && ctx.HasMaxPrecision &&
-            !ctx.IsPrecisionInBits && ctx.Precision.CompareTo(decimalPrec)
+            !ctx.IsPrecisionInBits && ctx.Precision.CompareTo (decimalPrec)
             <= 0;
           if (ctx != null) {
             if (ignoreNextDigit) {
@@ -1990,8 +1988,8 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
             zerorun = 0;
             if (newScaleInt == Int32.MinValue ||
               newScaleInt == Int32.MaxValue) {
-              newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-              newScale = newScale.Add(1);
+              newScale = newScale ?? EInteger.FromInt32 (newScaleInt);
+              newScale = newScale.Add (1);
             } else {
               ++newScaleInt;
             }
@@ -2019,8 +2017,8 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
           if (haveDecimalPoint) {
             if (newScaleInt == Int32.MinValue ||
               newScaleInt == Int32.MaxValue) {
-              newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-              newScale = newScale.Subtract(1);
+              newScale = newScale ?? EInteger.FromInt32 (newScaleInt);
+              newScale = newScale.Subtract (1);
             } else {
               --newScaleInt;
             }
@@ -2060,7 +2058,7 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
             decimalPrec - ctx.Precision.ToInt32Checked() > zerorun)) {
           if (haveDecimalPoint) {
             int decdigits = decimalDigitEnd - decimalDigitStart;
-            nondec = Math.Min(decdigits, zerorun);
+            nondec = Math.Min (decdigits, zerorun);
             decimalDigitEnd -= nondec;
             int remain = zerorun - nondec;
             digitEnd -= remain;
@@ -2075,8 +2073,8 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
             newScaleInt < Int32.MaxValue - nondec) {
             newScaleInt += nondec;
           } else {
-            newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-            newScale = newScale.Add(nondec);
+            newScale = newScale ?? EInteger.FromInt32 (newScaleInt);
+            newScale = newScale.Add (nondec);
           }
         }
         // DebugUtility.Log("-->zerorun={0} prec={1} [whole={2}, dec={3}]
@@ -2089,7 +2087,7 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
       // str.Length))) + "] " + (ctx.Rounding));
       // }
       if (
-        roundUp && ctx != null && ctx.Precision.CompareTo(decimalPrec) < 0) {
+        roundUp && ctx != null && ctx.Precision.CompareTo (decimalPrec) < 0) {
         int precdiff = decimalPrec - ctx.Precision.ToInt32Checked();
         // DebugUtility.Log("precdiff = " + precdiff + " [prec=" + (// decimalPrec) +
         // ",
@@ -2111,8 +2109,8 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
           if (newScaleInt < Int32.MaxValue - nondec) {
             newScaleInt += nondec;
           } else {
-            newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-            newScale = newScale.Add(nondec);
+            newScale = newScale ?? EInteger.FromInt32 (newScaleInt);
+            newScale = newScale.Add (nondec);
           }
         }
       }
@@ -2173,13 +2171,13 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
           if (tmplong >= Int32.MaxValue && tmplong <= Int32.MinValue) {
             newScaleInt = (int)tmplong;
           } else {
-            newScale = EInteger.FromInt64(tmplong);
+            newScale = EInteger.FromInt64 (tmplong);
           }
         } else {
           if (expoffset < 0) {
-            newScale = newScale.Subtract(expInt);
+            newScale = newScale.Subtract (expInt);
           } else if (expInt != 0) {
-            newScale = newScale.Add(expInt);
+            newScale = newScale.Add (expInt);
           }
         }
       }
@@ -2187,21 +2185,21 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
             expInt > MaxSafeInt))) {
         EInteger ns;
         if (expInt <= MaxSafeInt && ctx != null) {
-          ns = newScale ?? EInteger.FromInt32(newScaleInt);
+          ns = newScale ?? EInteger.FromInt32 (newScaleInt);
         } else {
-          EInteger trialExponent = EInteger.FromInt32(MaxSafeInt);
+          EInteger trialExponent = EInteger.FromInt32 (MaxSafeInt);
           if (expPrec > 25) {
             // Exponent has many significant digits; use a bigger trial exponent
-            trialExponent = EInteger.FromInt64(Int64.MaxValue);
+            trialExponent = EInteger.FromInt64 (Int64.MaxValue);
           }
           // Trial exponent; in case of overflow or
           // underflow, the real exponent will also overflow or underflow
           if (expoffset >= 0 && newScaleInt == 0 && newScale == null) {
             ns = trialExponent;
           } else {
-            ns = newScale ?? EInteger.FromInt32(newScaleInt);
-            ns = (expoffset < 0) ? ns.Subtract(trialExponent) :
-              ns.Add(trialExponent);
+            ns = newScale ?? EInteger.FromInt32 (newScaleInt);
+            ns = (expoffset < 0) ? ns.Subtract (trialExponent) :
+              ns.Add (trialExponent);
           }
         }
         int expwithin = CheckOverflowUnderflow(
@@ -2212,33 +2210,33 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
             expwithin == 3)) {
           // Significand is zero
           ret = new EDecimal(
-            FastIntegerFixed.FromInt32(0),
-            FastIntegerFixed.FromBig(ns),
+            FastIntegerFixed.FromInt32 (0),
+            FastIntegerFixed.FromBig (ns),
             (byte)(negative ? BigNumberFlags.FlagNegative : 0));
-          return GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+          return GetMathValue (ctx).RoundAfterConversion (ret, ctx);
         }
         if (expwithin == 1) {
           // Exponent indicates overflow
-          return GetMathValue(ctx).SignalOverflow(ctx, negative);
+          return GetMathValue (ctx).SignalOverflow (ctx, negative);
         }
         if (expwithin == 2 || (expwithin == 3 && mantInt < MaxSafeInt)) {
           // Exponent indicates underflow to zero
           ret = new EDecimal(
-            FastIntegerFixed.FromInt32(expwithin == 3 ? mantInt : 1),
-            FastIntegerFixed.FromBig(ns),
+            FastIntegerFixed.FromInt32 (expwithin == 3 ? mantInt : 1),
+            FastIntegerFixed.FromBig (ns),
             (byte)(negative ? BigNumberFlags.FlagNegative : 0));
-          return GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+          return GetMathValue (ctx).RoundAfterConversion (ret, ctx);
         } else if (expwithin == 3 && (ctx == null || ctx.Traps == 0)) {
           // Exponent indicates underflow to zero, adjust exponent
           ret = new EDecimal(
-            FastIntegerFixed.FromInt32(1),
-            FastIntegerFixed.FromBig(ns),
+            FastIntegerFixed.FromInt32 (1),
+            FastIntegerFixed.FromBig (ns),
             (byte)(negative ? BigNumberFlags.FlagNegative : 0));
-          ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
-          ns = ret.Exponent.Subtract(decimalPrec - 1);
+          ret = GetMathValue (ctx).RoundAfterConversion (ret, ctx);
+          ns = ret.Exponent.Subtract (decimalPrec - 1);
           ret = new EDecimal(
             ret.unsignedMantissa.Copy(),
-            FastIntegerFixed.FromBig(ns),
+            FastIntegerFixed.FromBig (ns),
             (byte)ret.flags);
           return ret;
         }
@@ -2250,39 +2248,39 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
         18) {
         // No more than 18 digits
         long lv = 0L;
-        int expo = -(dde - decimalDigitStart);
+        int expo = - (dde - decimalDigitStart);
         if (mantInt <= MaxSafeInt) {
           lv = mantInt;
         } else {
-        var vi = 0;
-        for (vi = digitStart; vi < de; ++vi) {
-          #if DEBUG
-          if (!(str[vi] >= '0' && str[vi] <= '9')) {
-            throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
-              "\u0020str[vi]<= '9'");
-          }
-          #endif
+          var vi = 0;
+          for (vi = digitStart; vi < de; ++vi) {
+            #if DEBUG
+            if (! (str[vi] >= '0' && str[vi] <= '9')) {
+              throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
+                "\u0020str[vi]<= '9'");
+            }
+            #endif
 
-          lv = checked((lv * 10) + (int)(str[vi] - '0'));
-        }
-        for (vi = decimalDigitStart; vi < dde; ++vi) {
-          #if DEBUG
-          if (!(str[vi] >= '0' && str[vi] <= '9')) {
-            throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
-              "\u0020str[vi]<= '9'");
+            lv = checked ((lv * 10) + (int)(str[vi] - '0'));
           }
-          #endif
+          for (vi = decimalDigitStart; vi < dde; ++vi) {
+            #if DEBUG
+            if (! (str[vi] >= '0' && str[vi] <= '9')) {
+              throw new ArgumentException("doesn't satisfy str[vi]>= '0' &&" +
+                "\u0020str[vi]<= '9'");
+            }
+            #endif
 
-          lv = checked((lv * 10) + (int)(str[vi] - '0'));
+            lv = checked ((lv * 10) + (int)(str[vi] - '0'));
+          }
         }
-}
         if (negative) {
-  lv = -lv;
-}
+          lv = -lv;
+        }
         if (!negative || lv != 0) {
-          ret = EDecimal.Create(lv, (long)expo);
+          ret = EDecimal.Create (lv, (long)expo);
           if (ctx != null) {
-            ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+            ret = GetMathValue (ctx).RoundAfterConversion (ret, ctx);
           }
           return ret;
         }
@@ -2290,47 +2288,47 @@ if (digitEnd - digitStart == 1 && firstdigit == 0) {
       // Parse significand if it's "big"
       if (mantInt > MaxSafeInt) {
         if (haveDecimalPoint) {
-if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
-          mant = EInteger.FromSubstring(
-            str,
-            decimalDigitStart,
-            decimalDigitEnd);
-} else {
-          string decstr = str.Substring(digitStart, digitEnd - digitStart) +
-            str.Substring(
-              decimalDigitStart,
-              decimalDigitEnd - decimalDigitStart);
-          mant = EInteger.FromString(decstr);
-}
+          if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
+            mant = EInteger.FromSubstring(
+                str,
+                decimalDigitStart,
+                decimalDigitEnd);
+          } else {
+            string decstr = str.Substring (digitStart, digitEnd - digitStart) +
+              str.Substring(
+                decimalDigitStart,
+                decimalDigitEnd - decimalDigitStart);
+            mant = EInteger.FromString (decstr);
+          }
         } else {
-          mant = EInteger.FromSubstring(str, digitStart, digitEnd);
+          mant = EInteger.FromSubstring (str, digitStart, digitEnd);
         }
       }
       if (haveExponent && expInt > MaxSafeInt) {
         // Parse exponent if it's "big"
-        exp = EInteger.FromSubstring(str, expDigitStart, endStr);
-        newScale = newScale ?? EInteger.FromInt32(newScaleInt);
-        newScale = (expoffset < 0) ? newScale.Subtract(exp) :
-          newScale.Add(exp);
+        exp = EInteger.FromSubstring (str, expDigitStart, endStr);
+        newScale = newScale ?? EInteger.FromInt32 (newScaleInt);
+        newScale = (expoffset < 0) ? newScale.Subtract (exp) :
+          newScale.Add (exp);
       }
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
-          newScaleInt) : FastIntegerFixed.FromBig(newScale);
+          newScaleInt) : FastIntegerFixed.FromBig (newScale);
       if (mant == null) {
-        fastIntMant = FastIntegerFixed.FromInt32(mantInt);
+        fastIntMant = FastIntegerFixed.FromInt32 (mantInt);
       } else if (mant.CanFitInInt32()) {
         mantInt = mant.ToInt32Checked();
-        fastIntMant = FastIntegerFixed.FromInt32(mantInt);
+        fastIntMant = FastIntegerFixed.FromInt32 (mantInt);
       } else {
-        fastIntMant = FastIntegerFixed.FromBig(mant);
+        fastIntMant = FastIntegerFixed.FromBig (mant);
       }
       ret = new EDecimal(
         fastIntMant,
         fastIntScale,
         (byte)(negative ? BigNumberFlags.FlagNegative : 0));
       if (ctx != null) {
-        ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
+        ret = GetMathValue (ctx).RoundAfterConversion (ret, ctx);
       }
       return ret;
     }
@@ -2359,46 +2357,46 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
         // If precision is in bits, this is too difficult to determine,
         // so ignore precision
         if (ec.IsPrecisionInBits) {
-          if (exponent.CompareTo(ec.EMax) > 0) {
+          if (exponent.CompareTo (ec.EMax) > 0) {
             return 2; // Underflow
           }
         } else {
-          EInteger adjExponent = exponent.Add(precisionInt).Subtract(1);
-          if (adjExponent.CompareTo(ec.EMax) > 0) {
+          EInteger adjExponent = exponent.Add (precisionInt).Subtract (1);
+          if (adjExponent.CompareTo (ec.EMax) > 0) {
             return 1; // Overflow
           }
           if (ec.HasMaxPrecision) {
-            EInteger etiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
-            etiny = etiny.Subtract(1); // Buffer in case of rounding
+            EInteger etiny = ec.EMin.Subtract (ec.Precision.Subtract (1));
+            etiny = etiny.Subtract (1); // Buffer in case of rounding
             // DebugUtility.Log("adj: adjexp=" + adjExponent + " exp=" + exponent + "
             // etiny="+etiny);
-            if (adjExponent.CompareTo(etiny) < 0) {
+            if (adjExponent.CompareTo (etiny) < 0) {
               return 2; // Underflow to zero
             }
           } else {
-            EInteger etiny = ec.EMin.Subtract(precisionInt - 1);
-            etiny = etiny.Subtract(1); // Buffer in case of rounding
+            EInteger etiny = ec.EMin.Subtract (precisionInt - 1);
+            etiny = etiny.Subtract (1); // Buffer in case of rounding
             // DebugUtility.Log("adj: adjexp=" + adjExponent + " exp=" + exponent + "
             // etiny="+etiny);
-            if (adjExponent.CompareTo(etiny) < 0) {
+            if (adjExponent.CompareTo (etiny) < 0) {
               return 3; // Underflow to zero
             }
           }
         }
       } else {
         // Exponent range is independent of precision
-        if (exponent.CompareTo(ec.EMax) > 0) {
+        if (exponent.CompareTo (ec.EMax) > 0) {
           return 1; // Overflow
         }
         if (!ec.IsPrecisionInBits) {
-          EInteger adjExponent = exponent.Add(precisionInt).Subtract(1);
+          EInteger adjExponent = exponent.Add (precisionInt).Subtract (1);
           EInteger etiny = ec.HasMaxPrecision ?
-            ec.EMin.Subtract(ec.Precision.Subtract(1)) :
-            ec.EMin.Subtract(precisionInt - 1);
-          etiny = etiny.Subtract(1); // Buffer in case of rounding
+            ec.EMin.Subtract (ec.Precision.Subtract (1)) :
+            ec.EMin.Subtract (precisionInt - 1);
+          etiny = etiny.Subtract (1); // Buffer in case of rounding
           // DebugUtility.Log("noadj: adjexp=" + adjExponent + " exp=" + exponent + "
           // etiny="+etiny);
-          if (adjExponent.CompareTo(etiny) < 0) {
+          if (adjExponent.CompareTo (etiny) < 0) {
             return 2; // Underflow to zero
           }
         }
@@ -2428,13 +2426,13 @@ if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
       EDecimal first,
       EDecimal second,
       EContext ctx) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return GetMathValue(ctx).Max(first, second, ctx);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return GetMathValue (ctx).Max (first, second, ctx);
     }
 
     /// <summary>Gets the greater value between two decimal
@@ -2453,13 +2451,13 @@ if (second == null) {
     public static EDecimal Max(
       EDecimal first,
       EDecimal second) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return Max(first, second, null);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return Max (first, second, null);
     }
 
     /// <summary>Gets the greater value between two values, ignoring their
@@ -2481,13 +2479,13 @@ if (second == null) {
       EDecimal first,
       EDecimal second,
       EContext ctx) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return GetMathValue(ctx).MaxMagnitude(first, second, ctx);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return GetMathValue (ctx).MaxMagnitude (first, second, ctx);
     }
 
     /// <summary>Gets the greater value between two values, ignoring their
@@ -2502,13 +2500,13 @@ if (second == null) {
     public static EDecimal MaxMagnitude(
       EDecimal first,
       EDecimal second) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return MaxMagnitude(first, second, null);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return MaxMagnitude (first, second, null);
     }
 
     /// <summary>Gets the lesser value between two decimal
@@ -2533,13 +2531,13 @@ if (second == null) {
       EDecimal first,
       EDecimal second,
       EContext ctx) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return GetMathValue(ctx).Min(first, second, ctx);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return GetMathValue (ctx).Min (first, second, ctx);
     }
 
     /// <summary>Gets the lesser value between two decimal
@@ -2557,13 +2555,13 @@ if (second == null) {
     public static EDecimal Min(
       EDecimal first,
       EDecimal second) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return Min(first, second, null);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return Min (first, second, null);
     }
 
     /// <summary>Gets the lesser value between two values, ignoring their
@@ -2585,13 +2583,13 @@ if (second == null) {
       EDecimal first,
       EDecimal second,
       EContext ctx) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return GetMathValue(ctx).MinMagnitude(first, second, ctx);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return GetMathValue (ctx).MinMagnitude (first, second, ctx);
     }
 
     /// <summary>Gets the lesser value between two values, ignoring their
@@ -2606,13 +2604,13 @@ if (second == null) {
     public static EDecimal MinMagnitude(
       EDecimal first,
       EDecimal second) {
-if (first == null) {
-  throw new ArgumentNullException(nameof(first));
-}
-if (second == null) {
-  throw new ArgumentNullException(nameof(second));
-}
-      return MinMagnitude(first, second, null);
+      if (first == null) {
+        throw new ArgumentNullException(nameof(first));
+      }
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return MinMagnitude (first, second, null);
     }
 
     /// <summary>Finds the constant π, the circumference of a circle
@@ -2627,8 +2625,8 @@ if (second == null) {
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public static EDecimal PI(EContext ctx) {
-      return GetMathValue(ctx).Pi(ctx);
+    public static EDecimal PI (EContext ctx) {
+      return GetMathValue (ctx).Pi (ctx);
     }
 
     /// <summary>Finds the absolute value of this object (if it's negative,
@@ -2658,7 +2656,7 @@ if (second == null) {
     /// <returns>An arbitrary-precision decimal number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
-    public EDecimal CopySign(EDecimal other) {
+    public EDecimal CopySign (EDecimal other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
       }
@@ -2679,9 +2677,9 @@ if (second == null) {
     /// unlimited and no rounding is needed.</param>
     /// <returns>The absolute value of this object. Signals FlagInvalid and
     /// returns quiet NaN if this value is signaling NaN.</returns>
-    public EDecimal Abs(EContext context) {
+    public EDecimal Abs (EContext context) {
       return ((context == null || context == EContext.UnlimitedHalfEven) ?
-          ExtendedMathValue : MathValue).Abs(this, context);
+          ExtendedMathValue : MathValue).Abs (this, context);
     }
 
     /// <summary>Adds this object and another decimal number and returns
@@ -2689,16 +2687,16 @@ if (second == null) {
     /// <param name='otherValue'>An arbitrary-precision decimal
     /// number.</param>
     /// <returns>The sum of the two objects.</returns>
-    public EDecimal Add(EDecimal otherValue) {
+    public EDecimal Add (EDecimal otherValue) {
       if (this.IsFinite && otherValue != null && otherValue.IsFinite &&
         ((this.flags | otherValue.flags) & BigNumberFlags.FlagNegative) == 0 &&
-        this.exponent.CompareTo(otherValue.exponent) == 0) {
+        this.exponent.CompareTo (otherValue.exponent) == 0) {
         FastIntegerFixed result = FastIntegerFixed.Add(
             this.unsignedMantissa,
             otherValue.unsignedMantissa);
         return new EDecimal(result, this.exponent, (byte)0);
       }
-      return this.Add(otherValue, EContext.UnlimitedHalfEven);
+      return this.Add (otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <summary>Finds the sum of this object and another object. The
@@ -2715,7 +2713,7 @@ if (second == null) {
     public EDecimal Add(
       EDecimal otherValue,
       EContext ctx) {
-      return GetMathValue(ctx).Add(this, otherValue, ctx);
+      return GetMathValue (ctx).Add (this, otherValue, ctx);
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -2736,8 +2734,8 @@ if (second == null) {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareTo(EDecimal other) {
-      return this.CompareToValue(other);
+    public int CompareTo (EDecimal other) {
+      return this.CompareToValue (other);
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -2751,8 +2749,8 @@ if (second == null) {
     /// <returns>Less than 0 if this object's value is less than the other
     /// value, or greater than 0 if this object's value is greater than the
     /// other value, or 0 if both values are equal.</returns>
-    public int CompareTo(int intOther) {
-      return this.CompareToValue(EDecimal.FromInt32(intOther));
+    public int CompareTo (int intOther) {
+      return this.CompareToValue (EDecimal.FromInt32 (intOther));
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -2771,8 +2769,8 @@ if (second == null) {
     /// <returns>Less than 0 if this object's value is less than the other
     /// value, or greater than 0 if this object's value is greater than the
     /// other value, or 0 if both values are equal.</returns>
-    public int CompareToValue(int intOther) {
-      return this.CompareToValue(EDecimal.FromInt32(intOther));
+    public int CompareToValue (int intOther) {
+      return this.CompareToValue (EDecimal.FromInt32 (intOther));
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -2798,8 +2796,8 @@ if (second == null) {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToValue(EDecimal other) {
-      return ExtendedMathValue.CompareTo(this, other);
+    public int CompareToValue (EDecimal other) {
+      return ExtendedMathValue.CompareTo (this, other);
     }
 
     /// <summary>Compares an arbitrary-precision binary floating-point
@@ -2818,10 +2816,10 @@ if (second == null) {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToBinary(EFloat other) {
-      return CompareEDecimalToEFloat(this, other);
+    public int CompareToBinary (EFloat other) {
+      return CompareEDecimalToEFloat (this, other);
     }
-    private static int CompareEDecimalToEFloat(EDecimal ed, EFloat ef) {
+    private static int CompareEDecimalToEFloat (EDecimal ed, EFloat ef) {
       if (ef == null) {
         return 1;
       }
@@ -2859,12 +2857,12 @@ if (second == null) {
         throw new InvalidOperationException("doesn't satisfy other.IsFinite");
       }
       #endif
-      if (ef.Exponent.CompareTo((EInteger)(-1000)) < 0) {
-        // For very low exponents (less than 1000), the conversion to
+      if (ef.Exponent.CompareTo ((EInteger)(-1000)) < 0) {
+        // For very low exponents (less than -1000), the conversion to
         // decimal can take very long, so try this approach
-        if (ef.Abs(null).CompareTo(EFloat.One) < 0) {
+        if (ef.Abs (null).CompareTo (EFloat.One) < 0) {
           // Abs less than 1
-          if (ed.Abs(null).CompareTo(EDecimal.One) >= 0) {
+          if (ed.Abs (null).CompareTo (EDecimal.One) >= 0) {
             // Abs 1 or more
             return (signA > 0) ? 1 : -1;
           }
@@ -2873,13 +2871,13 @@ if (second == null) {
         // (ef.Exponent));
         EInteger bitCount = ef.Mantissa.GetUnsignedBitLengthAsEInteger();
         EInteger absexp = ef.Exponent.Abs();
-        if (absexp.CompareTo(bitCount) > 0) {
+        if (absexp.CompareTo (bitCount) > 0) {
           // Float's absolute value is less than 1, so do a trial comparison
           // using a different EFloat with the same significand but
           // with an exponent changed to be closer to 0
-          EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(
+          EFloat trial = EFloat.Create (ef.Mantissa, EInteger.FromInt32(
                 -1000));
-          int trialcmp = CompareEDecimalToEFloat(ed, trial);
+          int trialcmp = CompareEDecimalToEFloat (ed, trial);
           if (ef.Sign < 0 && trialcmp < 0) {
             // if float and decimal are negative and
             // decimal is less than trial float (which in turn is
@@ -2895,23 +2893,23 @@ if (second == null) {
             return 1;
           }
         }
-        EInteger thisAdjExp = GetAdjustedExponent(ed);
-        EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
+        EInteger thisAdjExp = GetAdjustedExponent (ed);
+        EInteger otherAdjExp = GetAdjustedExponentBinary (ef);
         // DebugUtility.Log("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
         // DebugUtility.Log("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
         if (
-          thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000))
-          >= 0 && otherAdjExp.CompareTo((EInteger)(-4000)) < 0) {
+          thisAdjExp.Sign < 0 && thisAdjExp.CompareTo ((EInteger)(-1000))
+          >= 0 && otherAdjExp.CompareTo ((EInteger)(-4000)) < 0) {
           // With these exponent combinations, the binary's absolute
           // value is less than the decimal's
           return (signA > 0) ? 1 : -1;
         }
         if (
-          thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) <
-          0 && otherAdjExp.CompareTo((EInteger)(-1000)) < 0) {
-          thisAdjExp = thisAdjExp.Add(EInteger.One).Abs();
-          otherAdjExp = otherAdjExp.Add(EInteger.One).Abs();
-          EInteger ratio = otherAdjExp.Multiply(1000).Divide(thisAdjExp);
+          thisAdjExp.Sign < 0 && thisAdjExp.CompareTo ((EInteger)(-1000)) <
+          0 && otherAdjExp.CompareTo ((EInteger)(-1000)) < 0) {
+          thisAdjExp = thisAdjExp.Add (EInteger.One).Abs();
+          otherAdjExp = otherAdjExp.Add (EInteger.One).Abs();
+          EInteger ratio = otherAdjExp.Multiply (1000).Divide (thisAdjExp);
           // DebugUtility.Log("taexp={0}, oaexp={1} ratio={2}"
           // , thisAdjExp, otherAdjExp, ratio);
           // Check the ratio of the negative binary exponent to
@@ -2926,44 +2924,44 @@ if (second == null) {
           // not be equal. This check assumes that both exponents are less than
           // -1000, when the ratio between exponents of equal values is
           // close to ln(10)/ln(2).
-          if (ratio.CompareTo((EInteger)3321) < 0) {
+          if (ratio.CompareTo ((EInteger)3321) < 0) {
             // Binary abs. value is greater
             return (signA > 0) ? -1 : 1;
           }
-          if (ratio.CompareTo((EInteger)3322) > 0) {
+          if (ratio.CompareTo ((EInteger)3322) > 0) {
             return (signA > 0) ? 1 : -1;
           }
         }
       }
-      if (ef.Exponent.CompareTo((EInteger)1000) > 0) {
+      if (ef.Exponent.CompareTo ((EInteger)1000) > 0) {
         // Very high exponents
-        EInteger bignum = EInteger.One.ShiftLeft(999);
-        if (ed.Abs(null).CompareTo(EDecimal.FromEInteger(bignum)) <=
+        EInteger bignum = EInteger.One.ShiftLeft (999);
+        if (ed.Abs (null).CompareTo (EDecimal.FromEInteger (bignum)) <=
           0) {
           // this object's absolute value is less
           return (signA > 0) ? -1 : 1;
         }
         // NOTE: The following check assumes that both
         // operands are nonzero
-        EInteger thisAdjExp = GetAdjustedExponent(ed);
-        EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(otherAdjExp) >= 0) {
+        EInteger thisAdjExp = GetAdjustedExponent (ed);
+        EInteger otherAdjExp = GetAdjustedExponentBinary (ef);
+        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo (otherAdjExp) >= 0) {
           // This object's adjusted exponent is greater and is positive;
           // so this object's absolute value is greater, since exponents
           // have a greater value in decimal than in binary
           return (signA > 0) ? 1 : -1;
         }
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(1000) < 0 &&
-          otherAdjExp.CompareTo(4000) >= 0) {
+        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo (1000) < 0 &&
+          otherAdjExp.CompareTo (4000) >= 0) {
           // With these exponent combinations, the binary's absolute
           // value is greater than the decimal's
           return (signA > 0) ? -1 : 1;
         }
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)1000) >= 0 &&
-          otherAdjExp.CompareTo((EInteger)1000) >= 0) {
-          thisAdjExp = thisAdjExp.Add(EInteger.One);
-          otherAdjExp = otherAdjExp.Add(EInteger.One);
-          EInteger ratio = otherAdjExp.Multiply(1000).Divide(thisAdjExp);
+        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo ((EInteger)1000) >= 0 &&
+          otherAdjExp.CompareTo ((EInteger)1000) >= 0) {
+          thisAdjExp = thisAdjExp.Add (EInteger.One);
+          otherAdjExp = otherAdjExp.Add (EInteger.One);
+          EInteger ratio = otherAdjExp.Multiply (1000).Divide (thisAdjExp);
           // Check the ratio of the binary exponent to the decimal exponent.
           // If the ratio times 1000, rounded down, is less than 3321, the
           // decimal's absolute value is
@@ -2974,17 +2972,17 @@ if (second == null) {
           // higher.) This check assumes that both exponents are 1000 or
           // greater, when the ratio between exponents of equal values is
           // close to ln(10)/ln(2).
-          if (ratio.CompareTo((EInteger)3321) < 0) {
+          if (ratio.CompareTo ((EInteger)3321) < 0) {
             // Decimal abs. value is greater
             return (signA > 0) ? 1 : -1;
           }
-          if (ratio.CompareTo((EInteger)3322) >= 0) {
+          if (ratio.CompareTo ((EInteger)3322) >= 0) {
             return (signA > 0) ? -1 : 1;
           }
         }
       }
-      EDecimal otherDec = EDecimal.FromEFloat(ef);
-      return ed.CompareTo(otherDec);
+      EDecimal otherDec = EDecimal.FromEFloat (ef);
+      return ed.CompareTo (otherDec);
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -3013,7 +3011,7 @@ if (second == null) {
     public EDecimal CompareToSignal(
       EDecimal other,
       EContext ctx) {
-      return GetMathValue(ctx).CompareToWithContext(this, other, true, ctx);
+      return GetMathValue (ctx).CompareToWithContext (this, other, true, ctx);
     }
 
     /// <summary>Compares the absolute values of this object and another
@@ -3043,7 +3041,7 @@ if (second == null) {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotalMagnitude(EDecimal other) {
+    public int CompareToTotalMagnitude (EDecimal other) {
       if (other == null) {
         return 1;
       }
@@ -3076,7 +3074,7 @@ if (second == null) {
       } else if (valueIThis == 1) {
         return 0;
       } else {
-        cmp = this.Abs().CompareTo(other.Abs());
+        cmp = this.Abs().CompareTo (other.Abs());
         if (cmp == 0) {
           cmp = this.exponent.CompareTo(
               other.exponent);
@@ -3117,18 +3115,18 @@ if (second == null) {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotal(EDecimal other, EContext ctx) {
+    public int CompareToTotal (EDecimal other, EContext ctx) {
       if (other == null) {
         return 1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
-        return this.CompareToTotal(other);
+        return this.CompareToTotal (other);
       }
       if (ctx != null && ctx.IsSimplified) {
-        return this.RoundToPrecision(ctx)
-          .CompareToTotal(other.RoundToPrecision(ctx));
+        return this.RoundToPrecision (ctx)
+          .CompareToTotal (other.RoundToPrecision (ctx));
         } else {
-        return this.CompareToTotal(other);
+        return this.CompareToTotal (other);
       }
     }
 
@@ -3166,18 +3164,18 @@ if (second == null) {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotalMagnitude(EDecimal other, EContext ctx) {
+    public int CompareToTotalMagnitude (EDecimal other, EContext ctx) {
       if (other == null) {
         return 1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
-        return this.CompareToTotalMagnitude(other);
+        return this.CompareToTotalMagnitude (other);
       }
       if (ctx != null && ctx.IsSimplified) {
-        return this.RoundToPrecision(ctx)
-          .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
+        return this.RoundToPrecision (ctx)
+          .CompareToTotalMagnitude (other.RoundToPrecision (ctx));
         } else {
-        return this.CompareToTotalMagnitude(other);
+        return this.CompareToTotalMagnitude (other);
       }
     }
 
@@ -3208,7 +3206,7 @@ if (second == null) {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotal(EDecimal other) {
+    public int CompareToTotal (EDecimal other) {
       if (other == null) {
         return -1;
       }
@@ -3246,7 +3244,7 @@ if (second == null) {
       } else if (valueIThis == 1) {
         return 0;
       } else {
-        cmp = this.CompareTo(other);
+        cmp = this.CompareTo (other);
         if (cmp == 0) {
           cmp = this.exponent.CompareTo(
               other.exponent);
@@ -3282,7 +3280,7 @@ if (second == null) {
     public EDecimal CompareToWithContext(
       EDecimal other,
       EContext ctx) {
-      return GetMathValue(ctx).CompareToWithContext(this, other, false, ctx);
+      return GetMathValue (ctx).CompareToWithContext (this, other, false, ctx);
     }
 
     /// <summary>Divides this object by another decimal number and returns
@@ -3294,10 +3292,10 @@ if (second == null) {
     /// result can't be exact because it would have a nonterminating
     /// decimal expansion; examples include 1 divided by any multiple of 3,
     /// such as 1/3 or 1/12.</returns>
-    public EDecimal Divide(EDecimal divisor) {
+    public EDecimal Divide (EDecimal divisor) {
       return this.Divide(
           divisor,
-          EContext.ForRounding(ERounding.None));
+          EContext.ForRounding (ERounding.None));
     }
 
     /// <summary>Divides this arbitrary-precision decimal number by another
@@ -3323,7 +3321,7 @@ if (second == null) {
     public EDecimal Divide(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx).Divide(this, divisor, ctx);
+      return GetMathValue (ctx).Divide (this, divisor, ctx);
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -3333,9 +3331,9 @@ if (second == null) {
     /// <returns>A 2 element array consisting of the quotient and remainder
     /// in that order.</returns>
     [Obsolete("Renamed to DivRemNaturalScale.")]
-    public EDecimal[] DivideAndRemainderNaturalScale(EDecimal
+    public EDecimal[] DivideAndRemainderNaturalScale (EDecimal
       divisor) {
-      return this.DivRemNaturalScale(divisor, null);
+      return this.DivRemNaturalScale (divisor, null);
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -3358,7 +3356,7 @@ if (second == null) {
     public EDecimal[] DivideAndRemainderNaturalScale(
       EDecimal divisor,
       EContext ctx) {
-      return this.DivRemNaturalScale(divisor, ctx);
+      return this.DivRemNaturalScale (divisor, ctx);
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -3367,9 +3365,9 @@ if (second == null) {
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>A 2 element array consisting of the quotient and remainder
     /// in that order.</returns>
-    public EDecimal[] DivRemNaturalScale(EDecimal
+    public EDecimal[] DivRemNaturalScale (EDecimal
       divisor) {
-      return this.DivRemNaturalScale(divisor, null);
+      return this.DivRemNaturalScale (divisor, null);
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -3392,11 +3390,11 @@ if (second == null) {
       EDecimal divisor,
       EContext ctx) {
       var result = new EDecimal[2];
-      result[0] = this.DivideToIntegerNaturalScale(divisor, null);
+      result[0] = this.DivideToIntegerNaturalScale (divisor, null);
       result[1] = this.Subtract(
-          result[0].Multiply(divisor, null),
+          result[0].Multiply (divisor, null),
           ctx);
-      result[0] = result[0].RoundToPrecision(ctx);
+      result[0] = result[0].RoundToPrecision (ctx);
       return result;
     }
 
@@ -3496,7 +3494,7 @@ if (second == null) {
       return this.DivideToExponent(
           divisor,
           (EInteger)desiredExponentSmall,
-          EContext.ForRounding(rounding));
+          EContext.ForRounding (rounding));
     }
 
     /// <summary>Divides two arbitrary-precision decimal numbers, and gives
@@ -3523,7 +3521,7 @@ if (second == null) {
       return this.DivideToExponent(
           divisor,
           (EInteger)desiredExponentInt,
-          EContext.ForRounding(rounding));
+          EContext.ForRounding (rounding));
     }
 
     /// <summary>Divides two arbitrary-precision decimal numbers, and gives
@@ -3556,7 +3554,7 @@ if (second == null) {
       EDecimal divisor,
       EInteger exponent,
       EContext ctx) {
-      return GetMathValue(ctx).DivideToExponent(this, divisor, exponent, ctx);
+      return GetMathValue (ctx).DivideToExponent (this, divisor, exponent, ctx);
     }
 
     /// <summary>Divides two arbitrary-precision decimal numbers, and gives
@@ -3575,7 +3573,7 @@ if (second == null) {
     public EDecimal DivideToExponent(
       EDecimal divisor,
       EInteger exponent) {
-      return this.DivideToExponent(divisor, exponent, ERounding.HalfEven);
+      return this.DivideToExponent (divisor, exponent, ERounding.HalfEven);
     }
 
     /// <summary>Divides two arbitrary-precision decimal numbers, and gives
@@ -3644,7 +3642,7 @@ if (second == null) {
       return this.DivideToExponent(
           divisor,
           desiredExponent,
-          EContext.ForRounding(rounding));
+          EContext.ForRounding (rounding));
     }
 
     /// <summary>Divides two arbitrary-precision decimal numbers, and
@@ -3656,11 +3654,11 @@ if (second == null) {
     /// Signals FlagDivideByZero and returns infinity if the divisor is 0
     /// and the dividend is nonzero. Signals FlagInvalid and returns
     /// not-a-number (NaN) if the divisor and the dividend are 0.</returns>
-    public EDecimal DivideToIntegerNaturalScale(EDecimal
+    public EDecimal DivideToIntegerNaturalScale (EDecimal
       divisor) {
       return this.DivideToIntegerNaturalScale(
           divisor,
-          EContext.ForRounding(ERounding.Down));
+          EContext.ForRounding (ERounding.Down));
     }
 
     /// <summary>Divides this object by another object, and returns the
@@ -3682,7 +3680,7 @@ if (second == null) {
     public EDecimal DivideToIntegerNaturalScale(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx).DivideToIntegerNaturalScale(
+      return GetMathValue (ctx).DivideToIntegerNaturalScale(
           this,
           divisor,
           ctx);
@@ -3706,7 +3704,7 @@ if (second == null) {
     public EDecimal DivideToIntegerZeroScale(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx).DivideToIntegerZeroScale(this, divisor, ctx);
+      return GetMathValue (ctx).DivideToIntegerZeroScale (this, divisor, ctx);
     }
 
     /// <summary>Divides this object by another decimal number and returns
@@ -3727,7 +3725,7 @@ if (second == null) {
       return this.DivideToExponent(
           divisor,
           this.exponent.ToEInteger(),
-          EContext.ForRounding(rounding));
+          EContext.ForRounding (rounding));
     }
 
     /// <summary>Determines whether this object's significand, exponent,
@@ -3737,8 +3735,8 @@ if (second == null) {
     /// <param name='other'>An arbitrary-precision decimal number.</param>
     /// <returns><c>true</c> if this object's significand and exponent are
     /// equal to those of another object; otherwise, <c>false</c>.</returns>
-    public bool Equals(EDecimal other) {
-      return this.EqualsInternal(other);
+    public bool Equals (EDecimal other) {
+      return this.EqualsInternal (other);
     }
 
     /// <summary>Determines whether this object's significand, exponent,
@@ -3752,8 +3750,8 @@ if (second == null) {
     /// <c>false</c>. In this method, two objects are not equal if they
     /// don't have the same type or if one is null and the other
     /// isn't.</returns>
-    public override bool Equals(object obj) {
-      return this.EqualsInternal(obj as EDecimal);
+    public override bool Equals (object obj) {
+      return this.EqualsInternal (obj as EDecimal);
     }
 
     /// <summary>Finds e (the base of natural logarithms) raised to the
@@ -3770,8 +3768,8 @@ if (second == null) {
     /// Signals FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public EDecimal Exp(EContext ctx) {
-      return GetMathValue(ctx).Exp(this, ctx);
+    public EDecimal Exp (EContext ctx) {
+      return GetMathValue (ctx).Exp (this, ctx);
     }
 
     /// <summary>Calculates this object's hash code. No application or
@@ -3858,8 +3856,8 @@ if (second == null) {
     /// unlimited (the context's Precision property is 0). Signals no flags
     /// and returns negative infinity if this object's value is
     /// 0.</returns>
-    public EDecimal Log(EContext ctx) {
-      return GetMathValue(ctx).Ln(this, ctx);
+    public EDecimal Log (EContext ctx) {
+      return GetMathValue (ctx).Ln (this, ctx);
     }
 
     /// <summary>Finds the base-10 logarithm of this object, that is, the
@@ -3877,8 +3875,8 @@ if (second == null) {
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public EDecimal Log10(EContext ctx) {
-      return GetMathValue(ctx).Log10(this, ctx);
+    public EDecimal Log10 (EContext ctx) {
+      return GetMathValue (ctx).Log10 (this, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -3889,8 +3887,8 @@ if (second == null) {
     /// value.</param>
     /// <returns>A number whose exponent is decreased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EDecimal MovePointLeft(int places) {
-      return this.MovePointLeft((EInteger)places, null);
+    public EDecimal MovePointLeft (int places) {
+      return this.MovePointLeft ((EInteger)places, null);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -3907,8 +3905,8 @@ if (second == null) {
     /// isn't needed.</param>
     /// <returns>A number whose exponent is decreased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EDecimal MovePointLeft(int places, EContext ctx) {
-      return this.MovePointLeft((EInteger)places, ctx);
+    public EDecimal MovePointLeft (int places, EContext ctx) {
+      return this.MovePointLeft ((EInteger)places, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -3919,8 +3917,8 @@ if (second == null) {
     /// value.</param>
     /// <returns>A number whose exponent is decreased by <paramref
     /// name='bigPlaces'/>, but not to more than 0.</returns>
-    public EDecimal MovePointLeft(EInteger bigPlaces) {
-      return this.MovePointLeft(bigPlaces, null);
+    public EDecimal MovePointLeft (EInteger bigPlaces) {
+      return this.MovePointLeft (bigPlaces, null);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -3940,8 +3938,8 @@ if (second == null) {
     public EDecimal MovePointLeft(
       EInteger bigPlaces,
       EContext ctx) {
-      return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
-        this.MovePointRight(-(EInteger)bigPlaces, ctx);
+      return (!this.IsFinite) ? this.RoundToPrecision (ctx) :
+        this.MovePointRight (- (EInteger)bigPlaces, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -3952,8 +3950,8 @@ if (second == null) {
     /// value.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EDecimal MovePointRight(int places) {
-      return this.MovePointRight((EInteger)places, null);
+    public EDecimal MovePointRight (int places) {
+      return this.MovePointRight ((EInteger)places, null);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -3970,8 +3968,8 @@ if (second == null) {
     /// isn't needed.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EDecimal MovePointRight(int places, EContext ctx) {
-      return this.MovePointRight((EInteger)places, ctx);
+    public EDecimal MovePointRight (int places, EContext ctx) {
+      return this.MovePointRight ((EInteger)places, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -3982,8 +3980,8 @@ if (second == null) {
     /// value.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='bigPlaces'/>, but not to more than 0.</returns>
-    public EDecimal MovePointRight(EInteger bigPlaces) {
-      return this.MovePointRight(bigPlaces, null);
+    public EDecimal MovePointRight (EInteger bigPlaces) {
+      return this.MovePointRight (bigPlaces, null);
     }
 
     /// <summary>Returns a number similar to this number but with the
@@ -4004,23 +4002,23 @@ if (second == null) {
       EInteger bigPlaces,
       EContext ctx) {
       if (!this.IsFinite) {
-        return this.RoundToPrecision(ctx);
+        return this.RoundToPrecision (ctx);
       }
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
         EInteger mant = this.unsignedMantissa.ToEInteger();
-        EInteger bigPower = NumberUtility.FindPowerOfTenFromBig(bigExp);
+        EInteger bigPower = NumberUtility.FindPowerOfTenFromBig (bigExp);
         mant *= bigPower;
         return CreateWithFlags(
             mant,
             EInteger.Zero,
-            this.flags).RoundToPrecision(ctx);
+            this.flags).RoundToPrecision (ctx);
       }
       return CreateWithFlags(
           this.unsignedMantissa,
-          FastIntegerFixed.FromBig(bigExp),
-          this.flags).RoundToPrecision(ctx);
+          FastIntegerFixed.FromBig (bigExp),
+          this.flags).RoundToPrecision (ctx);
     }
 
     /// <summary>Multiplies two decimal numbers. The resulting exponent
@@ -4030,7 +4028,7 @@ if (second == null) {
     /// <returns>The product of the two decimal numbers.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
-    public EDecimal Multiply(EDecimal otherValue) {
+    public EDecimal Multiply (EDecimal otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
       }
@@ -4046,12 +4044,12 @@ if (second == null) {
               otherValue.exponent);
           if ((longA >> 31) == 0) {
             return new EDecimal(
-                FastIntegerFixed.FromInt32((int)longA),
+                FastIntegerFixed.FromInt32 ((int)longA),
                 exp,
                 (byte)newflags);
           } else {
             return new EDecimal(
-                FastIntegerFixed.FromBig((EInteger)longA),
+                FastIntegerFixed.FromBig ((EInteger)longA),
                 exp,
                 (byte)newflags);
           }
@@ -4059,12 +4057,12 @@ if (second == null) {
           EInteger eintA = this.unsignedMantissa.ToEInteger().Multiply(
               otherValue.unsignedMantissa.ToEInteger());
           return new EDecimal(
-              FastIntegerFixed.FromBig(eintA),
-              FastIntegerFixed.Add(this.exponent, otherValue.exponent),
+              FastIntegerFixed.FromBig (eintA),
+              FastIntegerFixed.Add (this.exponent, otherValue.exponent),
               (byte)newflags);
         }
       }
-      return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
+      return this.Multiply (otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <summary>Multiplies two decimal numbers. The resulting scale will
@@ -4079,8 +4077,8 @@ if (second == null) {
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
     /// <returns>The product of the two decimal numbers.</returns>
-    public EDecimal Multiply(EDecimal op, EContext ctx) {
-      return GetMathValue(ctx).Multiply(this, op, ctx);
+    public EDecimal Multiply (EDecimal op, EContext ctx) {
+      return GetMathValue (ctx).Multiply (this, op, ctx);
     }
 
     /// <summary>Adds this object and an 32-bit signed integer and returns
@@ -4088,8 +4086,8 @@ if (second == null) {
     /// <param name='intValue'>A 32-bit signed integer to add to this
     /// object.</param>
     /// <returns>The sum of the two objects.</returns>
-    public EDecimal Add(int intValue) {
-      return this.Add(EDecimal.FromInt32(intValue));
+    public EDecimal Add (int intValue) {
+      return this.Add (EDecimal.FromInt32 (intValue));
     }
 
     /// <summary>Subtracts a 32-bit signed integer from this object and
@@ -4097,9 +4095,9 @@ if (second == null) {
     /// <param name='intValue'>A 32-bit signed integer to subtract from
     /// this object.</param>
     /// <returns>The difference of the two objects.</returns>
-    public EDecimal Subtract(int intValue) {
+    public EDecimal Subtract (int intValue) {
       return (intValue == Int32.MinValue) ?
-        this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
+        this.Subtract (EDecimal.FromInt32 (intValue)) : this.Add (-intValue);
     }
 
     /// <summary>Multiplies this object by the given 32-bit signed integer.
@@ -4108,8 +4106,8 @@ if (second == null) {
     /// <param name='intValue'>A 32-bit signed integer to multiply this
     /// object by.</param>
     /// <returns>The product of the two numbers.</returns>
-    public EDecimal Multiply(int intValue) {
-      return this.Multiply(EDecimal.FromInt32(intValue));
+    public EDecimal Multiply (int intValue) {
+      return this.Multiply (EDecimal.FromInt32 (intValue));
     }
 
     /// <summary>Divides this object by an 32-bit signed integer and
@@ -4123,8 +4121,8 @@ if (second == null) {
     /// result can't be exact because it would have a nonterminating
     /// decimal expansion; examples include 1 divided by any multiple of 3,
     /// such as 1/3 or 1/12.</returns>
-    public EDecimal Divide(int intValue) {
-      return this.Divide(EDecimal.FromInt32(intValue));
+    public EDecimal Divide (int intValue) {
+      return this.Divide (EDecimal.FromInt32 (intValue));
     }
 
     /// <summary>Multiplies by one decimal number, and then adds another
@@ -4136,7 +4134,7 @@ if (second == null) {
     public EDecimal MultiplyAndAdd(
       EDecimal multiplicand,
       EDecimal augend) {
-      return this.MultiplyAndAdd(multiplicand, augend, null);
+      return this.MultiplyAndAdd (multiplicand, augend, null);
     }
 
     /// <summary>Multiplies by one value, and then adds another
@@ -4156,7 +4154,7 @@ if (second == null) {
       EDecimal op,
       EDecimal augend,
       EContext ctx) {
-      return GetMathValue(ctx).MultiplyAndAdd(this, op, augend, ctx);
+      return GetMathValue (ctx).MultiplyAndAdd (this, op, augend, ctx);
     }
 
     /// <summary>Multiplies by one value, and then subtracts another
@@ -4193,8 +4191,8 @@ if (second == null) {
             subtrahend.exponent,
             newflags);
       }
-      return GetMathValue(ctx)
-        .MultiplyAndAdd(this, op, negated, ctx);
+      return GetMathValue (ctx)
+        .MultiplyAndAdd (this, op, negated, ctx);
     }
 
     /// <summary>Gets an object with the same value as this one, but with
@@ -4223,9 +4221,9 @@ if (second == null) {
     /// <returns>An arbitrary-precision decimal number. If this value is
     /// positive zero, returns positive zero. Signals FlagInvalid and
     /// returns quiet NaN if this value is signaling NaN.</returns>
-    public EDecimal Negate(EContext context) {
+    public EDecimal Negate (EContext context) {
       return ((context == null || context == EContext.UnlimitedHalfEven) ?
-          ExtendedMathValue : MathValue).Negate(this, context);
+          ExtendedMathValue : MathValue).Negate (this, context);
     }
 
     /// <summary>Finds the largest value that's smaller than the given
@@ -4240,8 +4238,8 @@ if (second == null) {
     /// infinity. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// parameter <paramref name='ctx'/> is null, the precision is 0, or
     /// <paramref name='ctx'/> has an unlimited exponent range.</returns>
-    public EDecimal NextMinus(EContext ctx) {
-      return GetMathValue(ctx).NextMinus(this, ctx);
+    public EDecimal NextMinus (EContext ctx) {
+      return GetMathValue (ctx).NextMinus (this, ctx);
     }
 
     /// <summary>Finds the smallest value that's greater than the given
@@ -4255,8 +4253,8 @@ if (second == null) {
     /// value.Signals FlagInvalid and returns not-a-number (NaN) if the
     /// parameter <paramref name='ctx'/> is null, the precision is 0, or
     /// <paramref name='ctx'/> has an unlimited exponent range.</returns>
-    public EDecimal NextPlus(EContext ctx) {
-      return GetMathValue(ctx).NextPlus(this, ctx);
+    public EDecimal NextPlus (EContext ctx) {
+      return GetMathValue (ctx).NextPlus (this, ctx);
     }
 
     /// <summary>Finds the next value that is closer to the other object's
@@ -4278,8 +4276,8 @@ if (second == null) {
     public EDecimal NextToward(
       EDecimal otherValue,
       EContext ctx) {
-      return GetMathValue(ctx)
-        .NextToward(this, otherValue, ctx);
+      return GetMathValue (ctx)
+        .NextToward (this, otherValue, ctx);
     }
 
     /// <summary>Rounds this object's value to a given precision, using the
@@ -4292,8 +4290,8 @@ if (second == null) {
     /// specified precision. Returns the same value as this object if
     /// <paramref name='ctx'/> is null or the precision and exponent range
     /// are unlimited.</returns>
-    public EDecimal Plus(EContext ctx) {
-      return GetMathValue(ctx).Plus(this, ctx);
+    public EDecimal Plus (EContext ctx) {
+      return GetMathValue (ctx).Plus (this, ctx);
     }
 
     /// <summary>Raises this object's value to the given
@@ -4313,8 +4311,8 @@ if (second == null) {
     /// parameter <paramref name='ctx'/> is null or the precision is
     /// unlimited (the context's Precision property is 0), and the exponent
     /// has a fractional part.</returns>
-    public EDecimal Pow(EDecimal exponent, EContext ctx) {
-      return GetMathValue(ctx).Power(this, exponent, ctx);
+    public EDecimal Pow (EDecimal exponent, EContext ctx) {
+      return GetMathValue (ctx).Power (this, exponent, ctx);
     }
 
     /// <summary>Raises this object's value to the given exponent, using
@@ -4323,8 +4321,8 @@ if (second == null) {
     /// expressing the exponent to raise this object's value to.</param>
     /// <returns>This^exponent. Returns not-a-number (NaN) if the exponent
     /// has a fractional part.</returns>
-    public EDecimal Pow(EDecimal exponent) {
-      return this.Pow(exponent, null);
+    public EDecimal Pow (EDecimal exponent) {
+      return this.Pow (exponent, null);
     }
 
     /// <summary>Raises this object's value to the given
@@ -4339,8 +4337,8 @@ if (second == null) {
     /// isn't needed.</param>
     /// <returns>This^exponent. Signals the flag FlagInvalid and returns
     /// NaN if this object and exponent are both 0.</returns>
-    public EDecimal Pow(int exponentSmall, EContext ctx) {
-      return this.Pow(EDecimal.FromInt64(exponentSmall), ctx);
+    public EDecimal Pow (int exponentSmall, EContext ctx) {
+      return this.Pow (EDecimal.FromInt64 (exponentSmall), ctx);
     }
 
     /// <summary>Raises this object's value to the given
@@ -4349,8 +4347,8 @@ if (second == null) {
     /// value to.</param>
     /// <returns>This^exponent. Returns not-a-number (NaN) if this object
     /// and exponent are both 0.</returns>
-    public EDecimal Pow(int exponentSmall) {
-      return this.Pow(EDecimal.FromInt64(exponentSmall), null);
+    public EDecimal Pow (int exponentSmall) {
+      return this.Pow (EDecimal.FromInt64 (exponentSmall), null);
     }
 
     /// <summary>Finds the number of digits in this number's significand.
@@ -4415,7 +4413,7 @@ if (second == null) {
       EInteger desiredExponent,
       EContext ctx) {
       return this.Quantize(
-          EDecimal.Create(EInteger.One, desiredExponent),
+          EDecimal.Create (EInteger.One, desiredExponent),
           ctx);
     }
 
@@ -4449,8 +4447,8 @@ if (second == null) {
         return ret;
       }
       return this.Quantize(
-          EDecimal.Create(EInteger.One, (EInteger)desiredExponentInt),
-          EContext.ForRounding(rounding));
+          EDecimal.Create (EInteger.One, (EInteger)desiredExponentInt),
+          EContext.ForRounding (rounding));
     }
 
     /// <summary>
@@ -4510,7 +4508,7 @@ if (second == null) {
         }
       }
       return this.Quantize(
-          EDecimal.Create(EInteger.One, (EInteger)desiredExponentInt),
+          EDecimal.Create (EInteger.One, (EInteger)desiredExponentInt),
           ctx);
     }
 
@@ -4551,7 +4549,7 @@ if (second == null) {
     public EDecimal Quantize(
       EDecimal otherValue,
       EContext ctx) {
-      return GetMathValue(ctx).Quantize(this, otherValue, ctx);
+      return GetMathValue (ctx).Quantize (this, otherValue, ctx);
     }
 
     /// <summary>Returns an object with the same numerical value as this
@@ -4569,8 +4567,8 @@ if (second == null) {
     /// result has a very high exponent and the context says to clamp high
     /// exponents, there may still be some trailing zeros in the
     /// significand.</returns>
-    public EDecimal Reduce(EContext ctx) {
-      return GetMathValue(ctx).Reduce(this, ctx);
+    public EDecimal Reduce (EContext ctx) {
+      return GetMathValue (ctx).Reduce (this, ctx);
     }
 
     /// <summary>Finds the remainder that results when dividing two
@@ -4591,7 +4589,7 @@ if (second == null) {
     public EDecimal Remainder(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx).Remainder(this, divisor, ctx, true);
+      return GetMathValue (ctx).Remainder (this, divisor, ctx, true);
     }
 
     /// <summary>Finds the remainder that results when dividing two
@@ -4613,15 +4611,15 @@ if (second == null) {
     public EDecimal RemainderNoRoundAfterDivide(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx).Remainder(this, divisor, ctx, false);
+      return GetMathValue (ctx).Remainder (this, divisor, ctx, false);
     }
 
     /// <summary>Calculates the remainder of a number by the formula
     /// <c>"this" - (("this" / "divisor") * "divisor")</c>.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    public EDecimal RemainderNaturalScale(EDecimal divisor) {
-      return this.RemainderNaturalScale(divisor, null);
+    public EDecimal RemainderNaturalScale (EDecimal divisor) {
+      return this.RemainderNaturalScale (divisor, null);
     }
 
     /// <summary>Calculates the remainder of a number by the formula "this"
@@ -4643,7 +4641,7 @@ if (second == null) {
       EDecimal divisor,
       EContext ctx) {
       return this.Subtract(
-        this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
+        this.DivideToIntegerNaturalScale (divisor, null).Multiply (divisor, null),
         ctx);
     }
 
@@ -4681,8 +4679,8 @@ if (second == null) {
     public EDecimal RemainderNear(
       EDecimal divisor,
       EContext ctx) {
-      return GetMathValue(ctx)
-        .RemainderNear(this, divisor, ctx);
+      return GetMathValue (ctx)
+        .RemainderNear (this, divisor, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4714,8 +4712,8 @@ if (second == null) {
     public EDecimal RoundToExponent(
       EInteger exponent,
       EContext ctx) {
-      return GetMathValue(ctx)
-        .RoundToExponentSimple(this, exponent, ctx);
+      return GetMathValue (ctx)
+        .RoundToExponentSimple (this, exponent, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4737,7 +4735,7 @@ if (second == null) {
       EInteger exponent) {
       return this.RoundToExponent(
           exponent,
-          EContext.ForRounding(ERounding.HalfEven));
+          EContext.ForRounding (ERounding.HalfEven));
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4762,7 +4760,7 @@ if (second == null) {
       ERounding rounding) {
       return this.RoundToExponent(
           exponent,
-          EContext.ForRounding(rounding));
+          EContext.ForRounding (rounding));
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4782,7 +4780,7 @@ if (second == null) {
     /// closest value representable for the given exponent.</returns>
     public EDecimal RoundToExponent(
       int exponentSmall) {
-      return this.RoundToExponent(exponentSmall, ERounding.HalfEven);
+      return this.RoundToExponent (exponentSmall, ERounding.HalfEven);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4824,7 +4822,7 @@ if (second == null) {
           return ret;
         }
       }
-      return this.RoundToExponent((EInteger)exponentSmall, ctx);
+      return this.RoundToExponent ((EInteger)exponentSmall, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4854,7 +4852,7 @@ if (second == null) {
       }
       return this.RoundToExponent(
           exponentSmall,
-          EContext.ForRounding(rounding));
+          EContext.ForRounding (rounding));
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4888,8 +4886,8 @@ if (second == null) {
     public EDecimal RoundToExponentExact(
       EInteger exponent,
       EContext ctx) {
-      return GetMathValue(ctx)
-        .RoundToExponentExact(this, exponent, ctx);
+      return GetMathValue (ctx)
+        .RoundToExponentExact (this, exponent, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4923,7 +4921,7 @@ if (second == null) {
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       EContext ctx) {
-      return this.RoundToExponentExact((EInteger)exponentSmall, ctx);
+      return this.RoundToExponentExact ((EInteger)exponentSmall, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4949,7 +4947,7 @@ if (second == null) {
       ERounding rounding) {
       return this.RoundToExponentExact(
           (EInteger)exponentSmall,
-          EContext.Unlimited.WithRounding(rounding));
+          EContext.Unlimited.WithRounding (rounding));
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4971,8 +4969,8 @@ if (second == null) {
     /// exponent range, the new exponent must be changed to 0 when
     /// rounding, and 0 is outside of the valid range of the arithmetic
     /// context.</returns>
-    public EDecimal RoundToIntegerExact(EContext ctx) {
-      return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
+    public EDecimal RoundToIntegerExact (EContext ctx) {
+      return GetMathValue (ctx).RoundToExponentExact (this, EInteger.Zero, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -4996,9 +4994,9 @@ if (second == null) {
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to 0 when rounding, and 0 is outside of the valid range
     /// of the arithmetic context.</returns>
-    public EDecimal RoundToIntegerNoRoundedFlag(EContext ctx) {
-      return GetMathValue(ctx)
-        .RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
+    public EDecimal RoundToIntegerNoRoundedFlag (EContext ctx) {
+      return GetMathValue (ctx)
+        .RoundToExponentNoRoundedFlag (this, EInteger.Zero, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -5019,8 +5017,8 @@ if (second == null) {
     /// rounding, and 0 is outside of the valid range of the arithmetic
     /// context.</returns>
     [Obsolete("Renamed to RoundToIntegerExact.")]
-    public EDecimal RoundToIntegralExact(EContext ctx) {
-      return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
+    public EDecimal RoundToIntegralExact (EContext ctx) {
+      return GetMathValue (ctx).RoundToExponentExact (this, EInteger.Zero, ctx);
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
@@ -5042,9 +5040,9 @@ if (second == null) {
     /// be changed to 0 when rounding, and 0 is outside of the valid range
     /// of the arithmetic context.</returns>
     [Obsolete("Renamed to RoundToIntegerNoRoundedFlag.")]
-    public EDecimal RoundToIntegralNoRoundedFlag(EContext ctx) {
-      return GetMathValue(ctx)
-        .RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
+    public EDecimal RoundToIntegralNoRoundedFlag (EContext ctx) {
+      return GetMathValue (ctx)
+        .RoundToExponentNoRoundedFlag (this, EInteger.Zero, ctx);
     }
 
     /// <summary>Rounds this object's value to a given precision, using the
@@ -5059,16 +5057,16 @@ if (second == null) {
     /// specified precision. Returns the same value as this object if
     /// <paramref name='ctx'/> is null or the precision and exponent range
     /// are unlimited.</returns>
-    public EDecimal RoundToPrecision(EContext ctx) {
-      return GetMathValue(ctx).RoundToPrecision(this, ctx);
+    public EDecimal RoundToPrecision (EContext ctx) {
+      return GetMathValue (ctx).RoundToPrecision (this, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='places'>The power of 10 to scale by.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    public EDecimal ScaleByPowerOfTen(int places) {
-      return this.ScaleByPowerOfTen((EInteger)places, null);
+    public EDecimal ScaleByPowerOfTen (int places) {
+      return this.ScaleByPowerOfTen ((EInteger)places, null);
     }
 
     /// <summary>Returns a number similar to this number but with the scale
@@ -5081,16 +5079,16 @@ if (second == null) {
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    public EDecimal ScaleByPowerOfTen(int places, EContext ctx) {
-      return this.ScaleByPowerOfTen((EInteger)places, ctx);
+    public EDecimal ScaleByPowerOfTen (int places, EContext ctx) {
+      return this.ScaleByPowerOfTen ((EInteger)places, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='bigPlaces'>The power of 10 to scale by.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    public EDecimal ScaleByPowerOfTen(EInteger bigPlaces) {
-      return this.ScaleByPowerOfTen(bigPlaces, null);
+    public EDecimal ScaleByPowerOfTen (EInteger bigPlaces) {
+      return this.ScaleByPowerOfTen (bigPlaces, null);
     }
 
     /// <summary>Returns a number similar to this number but with its scale
@@ -5113,17 +5111,17 @@ if (second == null) {
         throw new ArgumentNullException(nameof(bigPlaces));
       }
       if (bigPlaces.IsZero) {
-        return this.RoundToPrecision(ctx);
+        return this.RoundToPrecision (ctx);
       }
       if (!this.IsFinite) {
-        return this.RoundToPrecision(ctx);
+        return this.RoundToPrecision (ctx);
       }
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       return CreateWithFlags(
           this.unsignedMantissa,
-          FastIntegerFixed.FromBig(bigExp),
-          this.flags).RoundToPrecision(ctx);
+          FastIntegerFixed.FromBig (bigExp),
+          this.flags).RoundToPrecision (ctx);
     }
 
     /// <summary>Finds the square root of this object's value.</summary>
@@ -5141,8 +5139,8 @@ if (second == null) {
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public EDecimal Sqrt(EContext ctx) {
-      return GetMathValue(ctx).SquareRoot(this, ctx);
+    public EDecimal Sqrt (EContext ctx) {
+      return GetMathValue (ctx).SquareRoot (this, ctx);
     }
 
     /// <summary>Finds the square root of this object's value.</summary>
@@ -5161,8 +5159,8 @@ if (second == null) {
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     [Obsolete("Renamed to Sqrt.")]
-    public EDecimal SquareRoot(EContext ctx) {
-      return GetMathValue(ctx).SquareRoot(this, ctx);
+    public EDecimal SquareRoot (EContext ctx) {
+      return GetMathValue (ctx).SquareRoot (this, ctx);
     }
 
     /// <summary>Subtracts an arbitrary-precision decimal number from this
@@ -5170,8 +5168,8 @@ if (second == null) {
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <returns>The difference of the two objects.</returns>
-    public EDecimal Subtract(EDecimal otherValue) {
-      return this.Subtract(otherValue, EContext.UnlimitedHalfEven);
+    public EDecimal Subtract (EDecimal otherValue) {
+      return this.Subtract (otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <summary>Subtracts an arbitrary-precision decimal number from this
@@ -5201,7 +5199,7 @@ if (second == null) {
             otherValue.exponent,
             newflags);
       }
-      return this.Add(negated, ctx);
+      return this.Add (negated, ctx);
     }
 
     private static readonly double[] ExactDoublePowersOfTen = {
@@ -5240,8 +5238,8 @@ if (second == null) {
         return Double.NegativeInfinity;
       }
       if (this.IsNegative && this.IsZero) {
-        int highbit = unchecked((int)(1 << 31));
-        return Extras.IntegersToDouble(new[] {
+        int highbit = unchecked ((int)(1 << 31));
+        return Extras.IntegersToDouble (new[] {
           0, highbit,
         });
       }
@@ -5249,13 +5247,13 @@ if (second == null) {
         return 0.0;
       }
       if (this.IsFinite) {
-        if (this.exponent.CompareToInt(309) > 0) {
+        if (this.exponent.CompareToInt (309) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Double.NegativeInfinity :
             Double.PositiveInfinity;
         }
-        if (this.exponent.CompareToInt(-22) >= 0 &&
-          this.exponent.CompareToInt(44) <= 0 &&
+        if (this.exponent.CompareToInt (-22) >= 0 &&
+          this.exponent.CompareToInt (44) <= 0 &&
           this.unsignedMantissa.CanFitInInt64()) {
           // Fast-path optimization (explained on exploringbinary.com)
           long ml = this.unsignedMantissa.AsInt64();
@@ -5264,7 +5262,7 @@ if (second == null) {
             ml *= 10;
             --iexp;
           }
-          int iabsexp = Math.Abs(iexp);
+          int iabsexp = Math.Abs (iexp);
           if (ml < 9007199254740992L && iabsexp <= 22) {
             double d = ExactDoublePowersOfTen[iabsexp];
             double dml = this.IsNegative ? (double)(-ml) : (double)ml;
@@ -5278,21 +5276,21 @@ if (second == null) {
             }
           }
         }
-        EInteger adjExp = GetAdjustedExponent(this);
-        if (adjExp.CompareTo((EInteger)(-326)) < 0) {
+        EInteger adjExp = GetAdjustedExponent (this);
+        if (adjExp.CompareTo ((EInteger)(-326)) < 0) {
           // Very low exponent, treat as 0
-          return this.IsNegative ? Extras.IntegersToDouble(new[] {
+          return this.IsNegative ? Extras.IntegersToDouble (new[] {
             0,
-            unchecked((int)(1 << 31)),
+            unchecked ((int)(1 << 31)),
           }) : 0.0;
         }
-        if (adjExp.CompareTo((EInteger)309) > 0) {
+        if (adjExp.CompareTo ((EInteger)309) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Double.NegativeInfinity :
             Double.PositiveInfinity;
         }
       }
-      return this.ToEFloat(EContext.Binary64).ToDouble();
+      return this.ToEFloat (EContext.Binary64).ToDouble();
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer. Any
@@ -5302,7 +5300,7 @@ if (second == null) {
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
     public EInteger ToEInteger() {
-      return this.ToEIntegerInternal(false);
+      return this.ToEIntegerInternal (false);
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
@@ -5313,7 +5311,7 @@ if (second == null) {
     /// or not-a-number (NaN).</exception>
     [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
-      return this.ToEIntegerInternal(true);
+      return this.ToEIntegerInternal (true);
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
@@ -5323,14 +5321,14 @@ if (second == null) {
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
     public EInteger ToEIntegerIfExact() {
-      return this.ToEIntegerInternal(true);
+      return this.ToEIntegerInternal (true);
     }
 
     /// <summary>Same as ToString(), except that when an exponent is used
     /// it will be a multiple of 3.</summary>
     /// <returns>A text string.</returns>
     public string ToEngineeringString() {
-      return this.ToStringInternal(1);
+      return this.ToStringInternal (1);
     }
 
     /// <summary>Creates a binary floating-point number from this object's
@@ -5342,7 +5340,7 @@ if (second == null) {
     /// number.</returns>
     [Obsolete("Renamed to ToEFloat.")]
     public EFloat ToExtendedFloat() {
-      return this.ToEFloat(EContext.UnlimitedHalfEven);
+      return this.ToEFloat (EContext.UnlimitedHalfEven);
     }
 
     /// <summary>Creates a binary floating-point number from this object's
@@ -5353,14 +5351,14 @@ if (second == null) {
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public EFloat ToEFloat() {
-      return this.ToEFloat(EContext.UnlimitedHalfEven);
+      return this.ToEFloat (EContext.UnlimitedHalfEven);
     }
 
     /// <summary>Converts this value to a string, but without using
     /// exponential notation.</summary>
     /// <returns>A text string.</returns>
     public string ToPlainString() {
-      return this.ToStringInternal(2);
+      return this.ToStringInternal (2);
     }
 
     /// <summary>Converts this value to its closest equivalent as a 32-bit
@@ -5386,14 +5384,14 @@ if (second == null) {
         return Single.NegativeInfinity;
       }
       if (this.IsNegative && this.IsZero) {
-        return BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0);
+        return BitConverter.ToSingle (BitConverter.GetBytes ((int)1 << 31), 0);
       }
       if (this.IsZero) {
         return 0.0f;
       }
       if (this.IsFinite) {
-        if (this.exponent.CompareToInt(-10) >= 0 &&
-          this.exponent.CompareToInt(20) <= 0 &&
+        if (this.exponent.CompareToInt (-10) >= 0 &&
+          this.exponent.CompareToInt (20) <= 0 &&
           this.unsignedMantissa.CanFitInInt32()) {
           // Fast-path optimization (version for 'double's explained
           // on exploringbinary.com)
@@ -5406,7 +5404,7 @@ if (second == null) {
             iml *= 10;
             --iexp;
           }
-          int iabsexp = Math.Abs(iexp);
+          int iabsexp = Math.Abs (iexp);
           // DebugUtility.Log("--> iml=" + iml + " absexp=" + iabsexp);
           if (iml < 16777216 && iabsexp <= 10) {
             float fd = ExactSinglePowersOfTen[iabsexp];
@@ -5421,20 +5419,20 @@ if (second == null) {
             }
           }
         }
-        EInteger adjExp = GetAdjustedExponent(this);
-        if (adjExp.CompareTo(-47) < 0) {
+        EInteger adjExp = GetAdjustedExponent (this);
+        if (adjExp.CompareTo (-47) < 0) {
           // Very low exponent, treat as 0
           return this.IsNegative ?
-            BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0) :
+            BitConverter.ToSingle (BitConverter.GetBytes ((int)1 << 31), 0) :
             0.0f;
         }
-        if (adjExp.CompareTo(39) > 0) {
+        if (adjExp.CompareTo (39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Single.NegativeInfinity :
             Single.PositiveInfinity;
         }
       }
-      return this.ToEFloat(EContext.Binary32).ToSingle();
+      return this.ToEFloat (EContext.Binary32).ToSingle();
     }
 
     /// <summary>Converts this value to a string. Returns a value
@@ -5444,7 +5442,7 @@ if (second == null) {
     /// or if the number's first nonzero digit is more than five digits
     /// after the decimal point.</returns>
     public override string ToString() {
-      return this.ToStringInternal(0);
+      return this.ToStringInternal (0);
     }
 
     /// <summary>Returns the unit in the last place. The significand will
@@ -5454,7 +5452,7 @@ if (second == null) {
     /// <returns>An arbitrary-precision decimal number.</returns>
     public EDecimal Ulp() {
       return (!this.IsFinite) ? EDecimal.One :
-        EDecimal.Create(EInteger.One, this.Exponent);
+        EDecimal.Create (EInteger.One, this.Exponent);
     }
 
     internal static EDecimal CreateWithFlags(
@@ -5494,42 +5492,42 @@ if (second == null) {
       }
       #endif
       return new EDecimal(
-          FastIntegerFixed.FromBig(mantissa),
-          FastIntegerFixed.FromBig(exponent),
+          FastIntegerFixed.FromBig (mantissa),
+          FastIntegerFixed.FromBig (exponent),
           (byte)flags);
     }
     private static bool AppendString(
       StringBuilder builder,
       char c,
       FastInteger count) {
-      if (count.CompareToInt(Int32.MaxValue) > 0 || count.Sign < 0) {
+      if (count.CompareToInt (Int32.MaxValue) > 0 || count.Sign < 0) {
         throw new NotSupportedException();
       }
       int icount = count.AsInt32();
       if (icount > RepeatDivideThreshold) {
         var sb2 = new StringBuilder(RepeatDivideThreshold);
         for (var i = 0; i < RepeatDivideThreshold; ++i) {
-          builder.Append(c);
+          builder.Append (c);
         }
         string sb2str = sb2.ToString();
         int rem, count2;
         count2 = icount / RepeatDivideThreshold;
         rem = icount % RepeatDivideThreshold;
         for (var i = 0; i < count2; ++i) {
-          builder.Append(sb2str);
+          builder.Append (sb2str);
         }
         for (var i = 0; i < rem; ++i) {
-          builder.Append(c);
+          builder.Append (c);
         }
       } else {
         for (var i = 0; i < icount; ++i) {
-          builder.Append(c);
+          builder.Append (c);
         }
       }
       return true;
     }
 
-    private static IRadixMath<EDecimal> GetMathValue(EContext ctx) {
+    private static IRadixMath<EDecimal> GetMathValue (EContext ctx) {
       if (ctx == null || ctx == EContext.UnlimitedHalfEven) {
         return ExtendedMathValue;
       }
@@ -5537,13 +5535,13 @@ if (second == null) {
         MathValue;
     }
 
-    private bool EqualsInternal(EDecimal otherValue) {
+    private bool EqualsInternal (EDecimal otherValue) {
       return (otherValue != null) && (this.flags == otherValue.flags &&
-          this.unsignedMantissa.Equals(otherValue.unsignedMantissa) &&
-          this.exponent.Equals(otherValue.exponent));
+          this.unsignedMantissa.Equals (otherValue.unsignedMantissa) &&
+          this.exponent.Equals (otherValue.exponent));
     }
 
-    private static EInteger GetAdjustedExponent(EDecimal ed) {
+    private static EInteger GetAdjustedExponent (EDecimal ed) {
       if (!ed.IsFinite) {
         return EInteger.Zero;
       }
@@ -5553,11 +5551,11 @@ if (second == null) {
       EInteger retEInt = ed.Exponent;
       EInteger valueEiPrecision =
         ed.UnsignedMantissa.GetDigitCountAsEInteger();
-      retEInt = retEInt.Add(valueEiPrecision.Subtract(1));
+      retEInt = retEInt.Add (valueEiPrecision.Subtract (1));
       return retEInt;
     }
 
-    private static EInteger GetAdjustedExponentBinary(EFloat ef) {
+    private static EInteger GetAdjustedExponentBinary (EFloat ef) {
       if (!ef.IsFinite) {
         return EInteger.Zero;
       }
@@ -5567,7 +5565,7 @@ if (second == null) {
       EInteger retEInt = ef.Exponent;
       EInteger valueEiPrecision =
         ef.UnsignedMantissa.GetSignedBitLengthAsEInteger();
-      retEInt = retEInt.Add(valueEiPrecision.Subtract(1));
+      retEInt = retEInt.Add (valueEiPrecision.Subtract (1));
       return retEInt;
     }
 
@@ -5588,8 +5586,8 @@ if (second == null) {
             if (diff >= 1 && diff <= 9) {
               thisMantissaSmall /= ValueTenPowers[diff];
               return new EDecimal(
-                  FastIntegerFixed.FromInt32(thisMantissaSmall),
-                  FastIntegerFixed.FromInt32(exponentSmall),
+                  FastIntegerFixed.FromInt32 (thisMantissaSmall),
+                  FastIntegerFixed.FromInt32 (exponentSmall),
                   this.flags);
             }
           } else if (rounding == ERounding.HalfEven &&
@@ -5608,8 +5606,8 @@ if (second == null) {
                 ++div2;
               }
               return new EDecimal(
-                  FastIntegerFixed.FromInt32(div2),
-                  FastIntegerFixed.FromInt32(exponentSmall),
+                  FastIntegerFixed.FromInt32 (div2),
+                  FastIntegerFixed.FromInt32 (exponentSmall),
                   this.flags);
             }
           }
@@ -5632,12 +5630,12 @@ if (second == null) {
         EInteger bigexponent = this.Exponent;
         EInteger digitCount = this.UnsignedMantissa
           .GetDigitCountAsEInteger();
-        return (digitCount.CompareTo(bigexponent) <= 0) ? true :
+        return (digitCount.CompareTo (bigexponent) <= 0) ? true :
           false;
       }
     }
 
-    private EInteger ToEIntegerInternal(bool exact) {
+    private EInteger ToEIntegerInternal (bool exact) {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -5652,7 +5650,7 @@ if (second == null) {
       if (sign > 0) {
         EInteger bigmantissa = this.Mantissa;
         EInteger bigexponent =
-          NumberUtility.FindPowerOfTenFromBig(this.Exponent);
+          NumberUtility.FindPowerOfTenFromBig (this.Exponent);
         bigmantissa *= (EInteger)bigexponent;
         return bigmantissa;
       } else {
@@ -5680,52 +5678,52 @@ if (second == null) {
       }
     }
 
-    private static bool HasTerminatingBinaryExpansion(EInteger
+    private static bool HasTerminatingBinaryExpansion (EInteger
       den) {
       if (den.IsZero) {
         return false;
       }
-      if (den.GetUnsignedBit(0) && den.CompareTo(EInteger.One) != 0) {
+      if (den.GetUnsignedBit (0) && den.CompareTo (EInteger.One) != 0) {
         return false;
       }
       // NOTE: Equivalent to (den >> lowBit(den)) == 1
       return den.GetUnsignedBitLengthAsEInteger()
-        .Equals(den.GetLowBitAsEInteger().Add(1));
+        .Equals (den.GetLowBitAsEInteger().Add (1));
     }
 
-    private EFloat WithThisSign(EFloat ef) {
+    private EFloat WithThisSign (EFloat ef) {
       return this.IsNegative ? ef.Negate() : ef;
     }
 
-    private static EInteger DigitCountUpperBound(EInteger ei) {
+    private static EInteger DigitCountUpperBound (EInteger ei) {
       EInteger bi = ei.GetUnsignedBitLengthAsEInteger();
-      if (bi.CompareTo(33) < 0) {
+      if (bi.CompareTo (33) < 0) {
         // Can easily be calculated without estimation
         return ei.GetDigitCountAsEInteger();
-      } else if (bi.CompareTo(2135) <= 0) {
+      } else if (bi.CompareTo (2135) <= 0) {
         // May overestimate by 1
-        return EInteger.FromInt32(1 + ((bi.ToInt32Checked() *
+        return EInteger.FromInt32 (1 + ((bi.ToInt32Checked() *
                 631305) >> 21));
       } else {
         // Bit length is big enough that dividing it by 3 will not
         // underestimate the true base-10 digit length.
-        return bi.Divide(3);
+        return bi.Divide (3);
       }
     }
 
-    private static EInteger DigitCountLowerBound(EInteger ei) {
+    private static EInteger DigitCountLowerBound (EInteger ei) {
       EInteger bi = ei.GetUnsignedBitLengthAsEInteger();
-      if (bi.CompareTo(33) < 0) {
+      if (bi.CompareTo (33) < 0) {
         // Can easily be calculated without estimation
         return ei.GetDigitCountAsEInteger();
-      } else if (bi.CompareTo(2135) <= 0) {
+      } else if (bi.CompareTo (2135) <= 0) {
         int ov = 1 + ((bi.ToInt32Checked() * 631305) >> 21);
-        return EInteger.FromInt32(ov - 2);
+        return EInteger.FromInt32 (ov - 2);
       } else {
         // Bit length is big enough that multiplying it by 100 and dividing by 335
         // will not
         // overestimate the true base-10 digit length.
-        return bi.Multiply(100).Divide(335);
+        return bi.Multiply (100).Divide (335);
       }
     }
 
@@ -5740,7 +5738,7 @@ if (second == null) {
     /// number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ec'/> is null.</exception>
-    public EFloat ToEFloat(EContext ec) {
+    public EFloat ToEFloat (EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
       if (this.IsNaN()) {
@@ -5751,58 +5749,58 @@ if (second == null) {
             ec);
       }
       if (this.IsPositiveInfinity()) {
-        return EFloat.PositiveInfinity.RoundToPrecision(ec);
+        return EFloat.PositiveInfinity.RoundToPrecision (ec);
       }
       if (this.IsNegativeInfinity()) {
-        return EFloat.NegativeInfinity.RoundToPrecision(ec);
+        return EFloat.NegativeInfinity.RoundToPrecision (ec);
       }
       if (bigintMant.IsZero) {
-        return this.IsNegative ? EFloat.NegativeZero.RoundToPrecision(ec) :
-          EFloat.Zero.RoundToPrecision(ec);
+        return this.IsNegative ? EFloat.NegativeZero.RoundToPrecision (ec) :
+          EFloat.Zero.RoundToPrecision (ec);
       }
       if (bigintExp.IsZero) {
         // Integer
         // DebugUtility.Log("Integer");
-        return this.WithThisSign(EFloat.FromEInteger(bigintMant))
-          .RoundToPrecision(ec);
+        return this.WithThisSign (EFloat.FromEInteger (bigintMant))
+          .RoundToPrecision (ec);
       }
       EContext b64 = EContext.Binary64;
       if (ec != null && ec.HasMaxPrecision && ec.HasExponentRange &&
-        !ec.IsSimplified && ec.EMax.CompareTo(b64.EMax) <= 0 &&
-        ec.EMin.CompareTo(b64.EMin) >= 0 &&
-        ec.Precision.CompareTo(b64.Precision) <= 0) {
+        !ec.IsSimplified && ec.EMax.CompareTo (b64.EMax) <= 0 &&
+        ec.EMin.CompareTo (b64.EMin) >= 0 &&
+        ec.Precision.CompareTo (b64.Precision) <= 0) {
         // Quick check for overflow or underflow
         EInteger adjexpLowerBound = bigintExp;
         EInteger adjexpUpperBound = bigintExp.Add(
-            DigitCountUpperBound(bigintMant.Abs()).Subtract(1));
-        if (adjexpUpperBound.CompareTo(-326) < 0) {
+            DigitCountUpperBound (bigintMant.Abs()).Subtract (1));
+        if (adjexpUpperBound.CompareTo (-326) < 0) {
           // Underflow to zero
-          EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
-          eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
+          EInteger eTiny = ec.EMin.Subtract (ec.Precision.Subtract (1));
+          eTiny = eTiny.Subtract (1); // subtract 1 from proper eTiny to
           // trigger underflow
-          EFloat ret = EFloat.Create(EInteger.FromInt32(
+          EFloat ret = EFloat.Create (EInteger.FromInt32(
                 this.IsNegative ? -1 : 1),
               eTiny);
-          return ret.RoundToPrecision(ec);
-        } else if (adjexpLowerBound.CompareTo(309) > 0) {
-          return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
+          return ret.RoundToPrecision (ec);
+        } else if (adjexpLowerBound.CompareTo (309) > 0) {
+          return EFloat.GetMathValue().SignalOverflow (ec, this.IsNegative);
         }
-        EInteger digitsLowerBound = DigitCountLowerBound(bigintMant.Abs());
-        if (digitsLowerBound.CompareTo(800) > 0) {
+        EInteger digitsLowerBound = DigitCountLowerBound (bigintMant.Abs());
+        if (digitsLowerBound.CompareTo (800) > 0) {
           string estr = this.ToString();
-          return EFloat.FromString(estr, ec);
+          return EFloat.FromString (estr, ec);
         }
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
         // --- Optimizations for Binary32 and Binary64
         if (ec == EContext.Binary32) {
-          if (bigintExp.CompareTo(39) > 0) {
+          if (bigintExp.CompareTo (39) > 0) {
             return this.IsNegative ? EFloat.NegativeInfinity :
               EFloat.PositiveInfinity;
           }
         } else if (ec == EContext.Binary64) {
-          if (bigintExp.CompareTo(309) > 0) {
+          if (bigintExp.CompareTo (309) > 0) {
             return this.IsNegative ? EFloat.NegativeInfinity :
               EFloat.PositiveInfinity;
           }
@@ -5810,10 +5808,10 @@ if (second == null) {
         // --- End optimizations for Binary32 and Binary64
         // DebugUtility.Log("Scaled integer");
         EInteger bigmantissa = bigintMant;
-        bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
+        bigintExp = NumberUtility.FindPowerOfTenFromBig (bigintExp);
         bigmantissa *= (EInteger)bigintExp;
-        return this.WithThisSign(EFloat.FromEInteger(bigmantissa))
-          .RoundToPrecision(ec);
+        return this.WithThisSign (EFloat.FromEInteger (bigmantissa))
+          .RoundToPrecision (ec);
         } else {
         // Fractional number
         // DebugUtility.Log("Fractional");
@@ -5821,12 +5819,12 @@ if (second == null) {
         EInteger bigmantissa = bigintMant;
         bool neg = bigmantissa.Sign < 0;
         if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
+          bigmantissa = - (EInteger)bigmantissa;
         }
         EInteger negscale = -scale;
         // DebugUtility.Log("scale=" + scale + " mantissaPrecision=" +
         // bigmantissa.GetDigitCountAsEInteger());
-        EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
+        EInteger divisor = NumberUtility.FindPowerOfTenFromBig (negscale);
         EInteger desiredHigh;
         EInteger desiredLow;
         var haveCopy = false;
@@ -5835,16 +5833,16 @@ if (second == null) {
         if (!ec.HasMaxPrecision) {
           EInteger num = bigmantissa;
           EInteger den = divisor;
-          EInteger gcd = num.Gcd(den);
-          if (gcd.CompareTo(EInteger.One) != 0) {
+          EInteger gcd = num.Gcd (den);
+          if (gcd.CompareTo (EInteger.One) != 0) {
             den /= gcd;
           }
           // DebugUtility.Log("num=" + (num/gcd));
           // DebugUtility.Log("den=" + den);
-          if (!HasTerminatingBinaryExpansion(den)) {
+          if (!HasTerminatingBinaryExpansion (den)) {
             // DebugUtility.Log("Approximate");
             // DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
-            ec = ec.WithPrecision(53).WithBlankFlags();
+            ec = ec.WithPrecision (53).WithBlankFlags();
             haveCopy = true;
           } else {
             bigmantissa /= gcd;
@@ -5853,47 +5851,47 @@ if (second == null) {
         }
         // NOTE: Precision raised by 2 to accommodate rounding
         // to odd
-        EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision.Add(2) :
+        EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision.Add (2) :
           ec.Precision;
-        desiredHigh = EInteger.One.ShiftLeft(valueEcPrec);
-        desiredLow = EInteger.One.ShiftLeft(valueEcPrec.Subtract(1));
+        desiredHigh = EInteger.One.ShiftLeft (valueEcPrec);
+        desiredLow = EInteger.One.ShiftLeft (valueEcPrec.Subtract (1));
         // DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
         EInteger[] quorem = ec.HasMaxPrecision ?
-          bigmantissa.DivRem(divisor) : null;
+          bigmantissa.DivRem (divisor) : null;
         // DebugUtility.Log("=>{0}\r\n->{1}", quorem[0], desiredHigh);
         var adjust = new FastInteger(0);
         if (!ec.HasMaxPrecision) {
           EInteger eterm = divisor.GetLowBitAsEInteger();
-          bigmantissa = bigmantissa.ShiftLeft(eterm);
-          adjust.SubtractBig(eterm);
-          quorem = bigmantissa.DivRem(divisor);
-        } else if (quorem[0].CompareTo(desiredHigh) >= 0) {
+          bigmantissa = bigmantissa.ShiftLeft (eterm);
+          adjust.SubtractBig (eterm);
+          quorem = bigmantissa.DivRem (divisor);
+        } else if (quorem[0].CompareTo (desiredHigh) >= 0) {
           do {
             var optimized = false;
             if (ec.ClampNormalExponents && valueEcPrec.Sign > 0) {
               EInteger valueBmBits =
                 bigmantissa.GetUnsignedBitLengthAsEInteger();
               EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-              if (divisor.CompareTo(bigmantissa) < 0) {
-                if (divBits.CompareTo(valueBmBits) < 0) {
-                  EInteger bitdiff = valueBmBits.Subtract(divBits);
-                  if (bitdiff.CompareTo(valueEcPrec.Add(1)) > 0) {
-                    bitdiff = bitdiff.Subtract(valueEcPrec).Subtract(1);
-                    divisor = divisor.ShiftLeft(bitdiff);
-                    adjust.AddBig(bitdiff);
+              if (divisor.CompareTo (bigmantissa) < 0) {
+                if (divBits.CompareTo (valueBmBits) < 0) {
+                  EInteger bitdiff = valueBmBits.Subtract (divBits);
+                  if (bitdiff.CompareTo (valueEcPrec.Add (1)) > 0) {
+                    bitdiff = bitdiff.Subtract (valueEcPrec).Subtract (1);
+                    divisor = divisor.ShiftLeft (bitdiff);
+                    adjust.AddBig (bitdiff);
                     optimized = true;
                   }
                 }
               } else {
-                if (valueBmBits.CompareTo(divBits) >= 0 &&
+                if (valueBmBits.CompareTo (divBits) >= 0 &&
                   valueEcPrec.CompareTo(
-                    EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <=
+                    EInteger.FromInt32 (Int32.MaxValue).Subtract (divBits)) <=
                   0) {
-                  EInteger vbb = divBits.Add(valueEcPrec);
-                  if (valueBmBits.CompareTo(vbb) < 0) {
-                    valueBmBits = vbb.Subtract(valueBmBits);
-                    divisor = divisor.ShiftLeft(valueBmBits);
-                    adjust.AddBig(valueBmBits);
+                  EInteger vbb = divBits.Add (valueEcPrec);
+                  if (valueBmBits.CompareTo (vbb) < 0) {
+                    valueBmBits = vbb.Subtract (valueBmBits);
+                    divisor = divisor.ShiftLeft (valueBmBits);
+                    adjust.AddBig (valueBmBits);
                     optimized = true;
                   }
                 }
@@ -5909,32 +5907,32 @@ if (second == null) {
             // DebugUtility.Log("deshigh " + (//
             // bigmantissa.GetUnsignedBitLengthAsEInteger()) + "/" + (//
             // divisor.GetUnsignedBitLengthAsEInteger()));
-            quorem = bigmantissa.DivRem(divisor);
+            quorem = bigmantissa.DivRem (divisor);
             if (quorem[1].IsZero) {
               EInteger valueBmBits = quorem[0].GetUnsignedBitLengthAsEInteger();
               EInteger divBits = desiredLow.GetUnsignedBitLengthAsEInteger();
-              if (valueBmBits.CompareTo(divBits) < 0) {
-                valueBmBits = divBits.Subtract(valueBmBits);
-                quorem[0] = quorem[0].ShiftLeft(valueBmBits);
-                adjust.AddBig(valueBmBits);
+              if (valueBmBits.CompareTo (divBits) < 0) {
+                valueBmBits = divBits.Subtract (valueBmBits);
+                quorem[0] = quorem[0].ShiftLeft (valueBmBits);
+                adjust.AddBig (valueBmBits);
               }
             }
             // DebugUtility.Log("quorem[0]="+quorem[0]);
             // DebugUtility.Log("quorem[1]="+quorem[1]);
             // DebugUtility.Log("desiredLow="+desiredLow);
             // DebugUtility.Log("desiredHigh="+desiredHigh);
-          } while (quorem[0].CompareTo(desiredHigh) >= 0);
-        } else if (quorem[0].CompareTo(desiredLow) < 0) {
+          } while (quorem[0].CompareTo (desiredHigh) >= 0);
+        } else if (quorem[0].CompareTo (desiredLow) < 0) {
           do {
             var optimized = false;
-            if (bigmantissa.CompareTo(divisor) < 0) {
+            if (bigmantissa.CompareTo (divisor) < 0) {
               EInteger valueBmBits =
                 bigmantissa.GetUnsignedBitLengthAsEInteger();
               EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-              if (valueBmBits.CompareTo(divBits) < 0) {
-                valueBmBits = divBits.Subtract(valueBmBits);
-                bigmantissa = bigmantissa.ShiftLeft(valueBmBits);
-                adjust.SubtractBig(valueBmBits);
+              if (valueBmBits.CompareTo (divBits) < 0) {
+                valueBmBits = divBits.Subtract (valueBmBits);
+                bigmantissa = bigmantissa.ShiftLeft (valueBmBits);
+                adjust.SubtractBig (valueBmBits);
                 optimized = true;
               }
             } else {
@@ -5942,15 +5940,15 @@ if (second == null) {
                 EInteger valueBmBits =
                   bigmantissa.GetUnsignedBitLengthAsEInteger();
                 EInteger divBits = divisor.GetUnsignedBitLengthAsEInteger();
-                if (valueBmBits.CompareTo(divBits) >= 0 &&
+                if (valueBmBits.CompareTo (divBits) >= 0 &&
                   valueEcPrec.CompareTo(
-                    EInteger.FromInt32(Int32.MaxValue).Subtract(divBits)) <=
+                    EInteger.FromInt32 (Int32.MaxValue).Subtract (divBits)) <=
                   0) {
-                  EInteger vbb = divBits.Add(valueEcPrec);
-                  if (valueBmBits.CompareTo(vbb) < 0) {
-                    valueBmBits = vbb.Subtract(valueBmBits);
-                    bigmantissa = bigmantissa.ShiftLeft(valueBmBits);
-                    adjust.SubtractBig(valueBmBits);
+                  EInteger vbb = divBits.Add (valueEcPrec);
+                  if (valueBmBits.CompareTo (vbb) < 0) {
+                    valueBmBits = vbb.Subtract (valueBmBits);
+                    bigmantissa = bigmantissa.ShiftLeft (valueBmBits);
+                    adjust.SubtractBig (valueBmBits);
                     optimized = true;
                   }
                 }
@@ -5963,21 +5961,21 @@ if (second == null) {
             // DebugUtility.Log("deslow " + (
             // bigmantissa.GetUnsignedBitLengthAsEInteger()) + "/" + (
             // divisor.GetUnsignedBitLengthAsEInteger()));
-            quorem = bigmantissa.DivRem(divisor);
+            quorem = bigmantissa.DivRem (divisor);
             if (quorem[1].IsZero) {
               EInteger valueBmBits = quorem[0].GetUnsignedBitLengthAsEInteger();
               EInteger divBits = desiredLow.GetUnsignedBitLengthAsEInteger();
-              if (valueBmBits.CompareTo(divBits) < 0) {
-                valueBmBits = divBits.Subtract(valueBmBits);
-                quorem[0] = quorem[0].ShiftLeft(valueBmBits);
-                adjust.SubtractBig(valueBmBits);
+              if (valueBmBits.CompareTo (divBits) < 0) {
+                valueBmBits = divBits.Subtract (valueBmBits);
+                quorem[0] = quorem[0].ShiftLeft (valueBmBits);
+                adjust.SubtractBig (valueBmBits);
               }
             }
-          } while (quorem[0].CompareTo(desiredLow) < 0);
+          } while (quorem[0].CompareTo (desiredLow) < 0);
         }
         // Round to odd to avoid rounding errors
         if (!quorem[1].IsZero && quorem[0].IsEven) {
-          quorem[0] = quorem[0].Add(EInteger.One);
+          quorem[0] = quorem[0].Add (EInteger.One);
         }
         EFloat efret = this.WithThisSign(
             EFloat.Create(
@@ -5985,7 +5983,7 @@ if (second == null) {
               adjust.AsEInteger()));
         // DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " +
         // efret.Exponent);
-        efret = efret.RoundToPrecision(ec);
+        efret = efret.RoundToPrecision (ec);
         if (ec == null) {
           throw new ArgumentNullException(nameof(ec));
         }
@@ -5996,7 +5994,7 @@ if (second == null) {
       }
     }
 
-    private string ToStringInternal(int mode) {
+    private string ToStringInternal (int mode) {
       bool negative = (this.flags & BigNumberFlags.FlagNegative) != 0;
       if (!this.IsFinite) {
         if ((this.flags & BigNumberFlags.FlagInfinity) != 0) {
@@ -6036,32 +6034,32 @@ if (second == null) {
               if (dp < 0) {
                 builder = new StringBuilder(mantissaString.Length + 6);
                 if (negative) {
-                  builder.Append("-0.");
+                  builder.Append ("-0.");
                 } else {
-                  builder.Append("0.");
+                  builder.Append ("0.");
                 }
                 dp = -dp;
                 for (var j = 0; j < dp; ++j) {
-                  builder.Append('0');
+                  builder.Append ('0');
                 }
-                builder.Append(mantissaString);
+                builder.Append (mantissaString);
                 return builder.ToString();
               } else if (dp == 0) {
                 builder = new StringBuilder(mantissaString.Length + 6);
                 if (negative) {
-                  builder.Append("-0.");
+                  builder.Append ("-0.");
                 } else {
-                  builder.Append("0.");
+                  builder.Append ("0.");
                 }
-                builder.Append(mantissaString);
+                builder.Append (mantissaString);
                 return builder.ToString();
               } else if (dp > 0 && dp <= mantissaString.Length) {
                 builder = new StringBuilder(mantissaString.Length + 6);
                 if (negative) {
-                  builder.Append('-');
+                  builder.Append ('-');
                 }
-                builder.Append(mantissaString, 0, dp);
-                builder.Append('.');
+                builder.Append (mantissaString, 0, dp);
+                builder.Append ('.');
                 builder.Append(
                   mantissaString,
                   dp,
@@ -6072,34 +6070,34 @@ if (second == null) {
           }
         }
       }
-      FastInteger adjustedExponent = FastInteger.FromBig(this.Exponent);
+      FastInteger adjustedExponent = FastInteger.FromBig (this.Exponent);
       var builderLength = new FastInteger(mantissaString.Length);
       FastInteger thisExponent = adjustedExponent.Copy();
-      adjustedExponent.Add(builderLength).Decrement();
+      adjustedExponent.Add (builderLength).Decrement();
       var decimalPointAdjust = new FastInteger(1);
       var threshold = new FastInteger(-6);
       if (mode == 1) {
         // engineering string adjustments
         FastInteger newExponent = adjustedExponent.Copy();
         bool adjExponentNegative = adjustedExponent.Sign < 0;
-        int intphase = adjustedExponent.Copy().Abs().Remainder(3).AsInt32();
-        if (iszero && (adjustedExponent.CompareTo(threshold) < 0 || scaleSign <
+        int intphase = adjustedExponent.Copy().Abs().Remainder (3).AsInt32();
+        if (iszero && (adjustedExponent.CompareTo (threshold) < 0 || scaleSign <
             0)) {
           if (intphase == 1) {
             if (adjExponentNegative) {
               decimalPointAdjust.Increment();
               newExponent.Increment();
             } else {
-              decimalPointAdjust.AddInt(2);
-              newExponent.AddInt(2);
+              decimalPointAdjust.AddInt (2);
+              newExponent.AddInt (2);
             }
           } else if (intphase == 2) {
             if (!adjExponentNegative) {
               decimalPointAdjust.Increment();
               newExponent.Increment();
             } else {
-              decimalPointAdjust.AddInt(2);
-              newExponent.AddInt(2);
+              decimalPointAdjust.AddInt (2);
+              newExponent.AddInt (2);
             }
           }
           threshold.Increment();
@@ -6109,37 +6107,37 @@ if (second == null) {
               decimalPointAdjust.Increment();
               newExponent.Decrement();
             } else {
-              decimalPointAdjust.AddInt(2);
-              newExponent.AddInt(-2);
+              decimalPointAdjust.AddInt (2);
+              newExponent.AddInt (-2);
             }
           } else if (intphase == 2) {
             if (adjExponentNegative) {
               decimalPointAdjust.Increment();
               newExponent.Decrement();
             } else {
-              decimalPointAdjust.AddInt(2);
-              newExponent.AddInt(-2);
+              decimalPointAdjust.AddInt (2);
+              newExponent.AddInt (-2);
             }
           }
         }
         adjustedExponent = newExponent;
       }
-      if (mode == 2 || (adjustedExponent.CompareTo(threshold) >= 0 &&
+      if (mode == 2 || (adjustedExponent.CompareTo (threshold) >= 0 &&
           scaleSign >= 0)) {
         if (scaleSign > 0) {
-          FastInteger decimalPoint = thisExponent.Copy().Add(builderLength);
-          int cmp = decimalPoint.CompareToInt(0);
+          FastInteger decimalPoint = thisExponent.Copy().Add (builderLength);
+          int cmp = decimalPoint.CompareToInt (0);
           builder = null;
           if (cmp < 0) {
-            var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
-            builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
+            var tmpFast = new FastInteger(mantissaString.Length).AddInt (6);
+            builder = new StringBuilder(tmpFast.CompareToInt (Int32.MaxValue) >
               0 ? Int32.MaxValue : tmpFast.AsInt32());
             if (negative) {
-              builder.Append('-');
+              builder.Append ('-');
             }
-            builder.Append("0.");
-            AppendString(builder, '0', decimalPoint.Copy().Negate());
-            builder.Append(mantissaString);
+            builder.Append ("0.");
+            AppendString (builder, '0', decimalPoint.Copy().Negate());
+            builder.Append (mantissaString);
           } else if (cmp == 0) {
             #if DEBUG
             if (!decimalPoint.CanFitInInt32()) {
@@ -6152,15 +6150,15 @@ if (second == null) {
             }
             #endif
 
-            var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
-            builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
+            var tmpFast = new FastInteger(mantissaString.Length).AddInt (6);
+            builder = new StringBuilder(tmpFast.CompareToInt (Int32.MaxValue) >
               0 ? Int32.MaxValue : tmpFast.AsInt32());
             if (negative) {
-              builder.Append('-');
+              builder.Append ('-');
             }
-            builder.Append("0.");
-            builder.Append(mantissaString);
-          } else if (decimalPoint.CompareToInt(mantissaString.Length) > 0) {
+            builder.Append ("0.");
+            builder.Append (mantissaString);
+          } else if (decimalPoint.CompareToInt (mantissaString.Length) > 0) {
             FastInteger insertionPoint = builderLength;
             if (!insertionPoint.CanFitInInt32()) {
               throw new NotSupportedException();
@@ -6169,18 +6167,18 @@ if (second == null) {
             if (tmpInt < 0) {
               tmpInt = 0;
             }
-            var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
-            builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
+            var tmpFast = new FastInteger(mantissaString.Length).AddInt (6);
+            builder = new StringBuilder(tmpFast.CompareToInt (Int32.MaxValue) >
               0 ? Int32.MaxValue : tmpFast.AsInt32());
             if (negative) {
-              builder.Append('-');
+              builder.Append ('-');
             }
-            builder.Append(mantissaString, 0, tmpInt);
+            builder.Append (mantissaString, 0, tmpInt);
             AppendString(
               builder,
               '0',
-              decimalPoint.Copy().SubtractInt(builder.Length));
-            builder.Append('.');
+              decimalPoint.Copy().SubtractInt (builder.Length));
+            builder.Append ('.');
             builder.Append(
               mantissaString,
               tmpInt,
@@ -6193,14 +6191,14 @@ if (second == null) {
             if (tmpInt < 0) {
               tmpInt = 0;
             }
-            var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
-            builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
+            var tmpFast = new FastInteger(mantissaString.Length).AddInt (6);
+            builder = new StringBuilder(tmpFast.CompareToInt (Int32.MaxValue) >
               0 ? Int32.MaxValue : tmpFast.AsInt32());
             if (negative) {
-              builder.Append('-');
+              builder.Append ('-');
             }
-            builder.Append(mantissaString, 0, tmpInt);
-            builder.Append('.');
+            builder.Append (mantissaString, 0, tmpInt);
+            builder.Append ('.');
             builder.Append(
               mantissaString,
               tmpInt,
@@ -6212,36 +6210,36 @@ if (second == null) {
           FastInteger negscale = thisExponent.Copy();
           builder = new StringBuilder();
           if (negative) {
-            builder.Append('-');
+            builder.Append ('-');
           }
-          builder.Append(mantissaString);
-          AppendString(builder, '0', negscale);
+          builder.Append (mantissaString);
+          AppendString (builder, '0', negscale);
           return builder.ToString();
         }
         return (!negative) ? mantissaString : ("-" + mantissaString);
       } else {
-        if (mode == 1 && iszero && decimalPointAdjust.CompareToInt(1) > 0) {
+        if (mode == 1 && iszero && decimalPointAdjust.CompareToInt (1) > 0) {
           builder = new StringBuilder();
           if (negative) {
-            builder.Append('-');
+            builder.Append ('-');
           }
-          builder.Append(mantissaString);
-          builder.Append('.');
+          builder.Append (mantissaString);
+          builder.Append ('.');
           AppendString(
             builder,
             '0',
             decimalPointAdjust.Copy().Decrement());
         } else {
           FastInteger tmp = decimalPointAdjust.Copy();
-          int cmp = tmp.CompareToInt(mantissaString.Length);
+          int cmp = tmp.CompareToInt (mantissaString.Length);
           if (cmp > 0) {
-            tmp.SubtractInt(mantissaString.Length);
+            tmp.SubtractInt (mantissaString.Length);
             builder = new StringBuilder();
             if (negative) {
-              builder.Append('-');
+              builder.Append ('-');
             }
-            builder.Append(mantissaString);
-            AppendString(builder, '0', tmp);
+            builder.Append (mantissaString);
+            AppendString (builder, '0', tmp);
           } else if (cmp < 0) {
             // Insert a decimal point at the right place
             if (!tmp.CanFitInInt32()) {
@@ -6251,14 +6249,14 @@ if (second == null) {
             if (tmp.Sign < 0) {
               tmpInt = 0;
             }
-            var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
-            builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
+            var tmpFast = new FastInteger(mantissaString.Length).AddInt (6);
+            builder = new StringBuilder(tmpFast.CompareToInt (Int32.MaxValue) >
               0 ? Int32.MaxValue : tmpFast.AsInt32());
             if (negative) {
-              builder.Append('-');
+              builder.Append ('-');
             }
-            builder.Append(mantissaString, 0, tmpInt);
-            builder.Append('.');
+            builder.Append (mantissaString, 0, tmpInt);
+            builder.Append ('.');
             builder.Append(
               mantissaString,
               tmpInt,
@@ -6270,26 +6268,26 @@ if (second == null) {
           } else {
             builder = new StringBuilder();
             if (negative) {
-              builder.Append('-');
+              builder.Append ('-');
             }
-            builder.Append(mantissaString);
+            builder.Append (mantissaString);
           }
         }
         if (adjustedExponent.Sign != 0) {
-          builder.Append(adjustedExponent.Sign < 0 ? "E-" : "E+");
+          builder.Append (adjustedExponent.Sign < 0 ? "E-" : "E+");
           adjustedExponent.Abs();
           var builderReversed = new StringBuilder();
           while (adjustedExponent.Sign != 0) {
             int digit =
-              adjustedExponent.Copy().Remainder(10).AsInt32();
+              adjustedExponent.Copy().Remainder (10).AsInt32();
             // Each digit is retrieved from right to left
-            builderReversed.Append((char)('0' + digit));
-            adjustedExponent.Divide(10);
+            builderReversed.Append ((char)('0' + digit));
+            adjustedExponent.Divide (10);
           }
           int count = builderReversed.Length;
           string builderReversedString = builderReversed.ToString();
           for (var i = 0; i < count; ++i) {
-            builder.Append(builderReversedString[count - 1 - i]);
+            builder.Append (builderReversedString[count - 1 - i]);
           }
         }
         return builder.ToString();
@@ -6306,34 +6304,34 @@ if (second == null) {
       /// <summary>This is an internal method.</summary>
       /// <param name='value'>An arbitrary-precision decimal number.</param>
       /// <returns>A 32-bit signed integer.</returns>
-      public int GetSign(EDecimal value) {
+      public int GetSign (EDecimal value) {
         return value.Sign;
       }
 
       /// <summary>This is an internal method.</summary>
       /// <param name='value'>An arbitrary-precision decimal number.</param>
       /// <returns>An arbitrary-precision integer.</returns>
-      public EInteger GetMantissa(EDecimal value) {
+      public EInteger GetMantissa (EDecimal value) {
         return value.unsignedMantissa.ToEInteger();
       }
 
       /// <summary>This is an internal method.</summary>
       /// <param name='value'>An arbitrary-precision decimal number.</param>
       /// <returns>An arbitrary-precision integer.</returns>
-      public EInteger GetExponent(EDecimal value) {
+      public EInteger GetExponent (EDecimal value) {
         return value.exponent.ToEInteger();
       }
 
-      public FastIntegerFixed GetMantissaFastInt(EDecimal value) {
+      public FastIntegerFixed GetMantissaFastInt (EDecimal value) {
         return value.unsignedMantissa;
       }
 
-      public FastIntegerFixed GetExponentFastInt(EDecimal value) {
+      public FastIntegerFixed GetExponentFastInt (EDecimal value) {
         return value.exponent;
       }
 
-      public FastInteger GetDigitLength(EInteger ei) {
-        return FastInteger.FromBig(ei.GetDigitCountAsEInteger());
+      public FastInteger GetDigitLength (EInteger ei) {
+        return FastInteger.FromBig (ei.GetDigitCountAsEInteger());
       }
 
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
@@ -6365,8 +6363,8 @@ if (second == null) {
         if (den.IsZero) {
           return null;
         }
-        EInteger gcd = den.Gcd(EInteger.FromInt32(10));
-        if (gcd.CompareTo(EInteger.One) == 0) {
+        EInteger gcd = den.Gcd (EInteger.FromInt32 (10));
+        if (gcd.CompareTo (EInteger.One) == 0) {
           return null;
         }
         if (den.IsZero) {
@@ -6374,14 +6372,14 @@ if (second == null) {
         }
         // Eliminate factors of 2
         EInteger elowbit = den.GetLowBitAsEInteger();
-        den = den.ShiftRight(elowbit);
+        den = den.ShiftRight (elowbit);
         // Eliminate factors of 5
         var fiveShift = new FastInteger(0);
         while (true) {
           EInteger bigrem;
           EInteger bigquo;
           {
-            EInteger[] divrem = den.DivRem((EInteger)5);
+            EInteger[] divrem = den.DivRem ((EInteger)5);
             bigquo = divrem[0];
             bigrem = divrem[1];
           }
@@ -6391,11 +6389,11 @@ if (second == null) {
           fiveShift.Increment();
           den = bigquo;
         }
-        if (den.CompareTo(EInteger.One) != 0) {
+        if (den.CompareTo (EInteger.One) != 0) {
           return null;
         }
-        FastInteger fastlowbit = FastInteger.FromBig(elowbit);
-        if (fiveShift.CompareTo(fastlowbit) > 0) {
+        FastInteger fastlowbit = FastInteger.FromBig (elowbit);
+        if (fiveShift.CompareTo (fastlowbit) > 0) {
           return fiveShift;
         } else {
           return fastlowbit;
@@ -6415,30 +6413,30 @@ if (second == null) {
           return tmpbigint;
         }
         EInteger bigtmp = null;
-        if (tmpbigint.CompareTo(EInteger.One) != 0) {
+        if (tmpbigint.CompareTo (EInteger.One) != 0) {
           if (fitsInInt32) {
             if (powerInt <= 10) {
-              bigtmp = NumberUtility.FindPowerOfTen(powerInt);
+              bigtmp = NumberUtility.FindPowerOfTen (powerInt);
               tmpbigint *= (EInteger)bigtmp;
             } else {
-              bigtmp = NumberUtility.FindPowerOfFive(powerInt);
+              bigtmp = NumberUtility.FindPowerOfFive (powerInt);
               tmpbigint *= (EInteger)bigtmp;
               tmpbigint <<= powerInt;
             }
           } else {
-            bigtmp = NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
+            bigtmp = NumberUtility.FindPowerOfTenFromBig (power.AsEInteger());
             tmpbigint *= (EInteger)bigtmp;
           }
           return tmpbigint;
         }
-        return fitsInInt32 ? NumberUtility.FindPowerOfTen(powerInt) :
-          NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
+        return fitsInInt32 ? NumberUtility.FindPowerOfTen (powerInt) :
+          NumberUtility.FindPowerOfTenFromBig (power.AsEInteger());
       }
 
       /// <summary>This is an internal method.</summary>
       /// <param name='value'>An arbitrary-precision decimal number.</param>
       /// <returns>A 32-bit signed integer.</returns>
-      public int GetFlags(EDecimal value) {
+      public int GetFlags (EDecimal value) {
         return ((int)value.flags) & 0xff;
       }
 
@@ -6455,8 +6453,8 @@ if (second == null) {
         EInteger exponent,
         int flags) {
         return CreateWithFlags(
-            FastIntegerFixed.FromBig(mantissa),
-            FastIntegerFixed.FromBig(exponent),
+            FastIntegerFixed.FromBig (mantissa),
+            FastIntegerFixed.FromBig (exponent),
             flags);
       }
 
@@ -6464,7 +6462,7 @@ if (second == null) {
         FastIntegerFixed fmantissa,
         FastIntegerFixed fexponent,
         int flags) {
-        return CreateWithFlags(fmantissa, fexponent, flags);
+        return CreateWithFlags (fmantissa, fexponent, flags);
       }
 
       /// <summary>This is an internal method.</summary>
@@ -6477,8 +6475,8 @@ if (second == null) {
       /// <param name='val'>The parameter <paramref name='val'/> is a 32-bit
       /// signed integer.</param>
       /// <returns>An arbitrary-precision decimal number.</returns>
-      public EDecimal ValueOf(int val) {
-        return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
+      public EDecimal ValueOf (int val) {
+        return (val == 0) ? Zero : ((val == 1) ? One : FromInt64 (val));
       }
     }
 
@@ -6487,7 +6485,7 @@ if (second == null) {
     /// <returns>The given arbitrary-precision decimal number plus
     /// one.</returns>
     public EDecimal Increment() {
-      return this.Add(1);
+      return this.Add (1);
     }
 
     /// <summary>Returns one subtracted from this arbitrary-precision
@@ -6495,7 +6493,7 @@ if (second == null) {
     /// <returns>The given arbitrary-precision decimal number minus
     /// one.</returns>
     public EDecimal Decrement() {
-      return this.Subtract(1);
+      return this.Subtract (1);
     }
 
     // Begin integer conversions
@@ -6516,7 +6514,7 @@ if (second == null) {
       if (this.IsIntegerPartZero()) {
         return (byte)0;
       }
-      if (this.exponent.CompareToInt(3) >= 0) {
+      if (this.exponent.CompareToInt (3) >= 0) {
         throw new OverflowException("Value out of range");
       }
       return this.ToEInteger().ToByteChecked();
@@ -6548,7 +6546,7 @@ if (second == null) {
       if (this.IsNegative) {
         throw new OverflowException("Value out of range");
       }
-      if (this.exponent.CompareToInt(3) >= 0) {
+      if (this.exponent.CompareToInt (3) >= 0) {
         throw new OverflowException("Value out of range");
       }
       return this.ToEIntegerIfExact().ToByteChecked();
@@ -6560,9 +6558,9 @@ if (second == null) {
     /// 255).</param>
     /// <returns>This number's value as an arbitrary-precision decimal
     /// number.</returns>
-    public static EDecimal FromByte(byte inputByte) {
+    public static EDecimal FromByte (byte inputByte) {
       int val = ((int)inputByte) & 0xff;
-      return FromInt32(val);
+      return FromInt32 (val);
     }
 
     /// <summary>Converts this number's value to a 16-bit signed integer if
@@ -6581,7 +6579,7 @@ if (second == null) {
       if (this.IsIntegerPartZero()) {
         return (short)0;
       }
-      if (this.exponent.CompareToInt(5) >= 0) {
+      if (this.exponent.CompareToInt (5) >= 0) {
         throw new OverflowException("Value out of range: ");
       }
       return this.ToEInteger().ToInt16Checked();
@@ -6610,7 +6608,7 @@ if (second == null) {
       if (this.IsZero) {
         return (short)0;
       }
-      if (this.exponent.CompareToInt(5) >= 0) {
+      if (this.exponent.CompareToInt (5) >= 0) {
         throw new OverflowException("Value out of range");
       }
       return this.ToEIntegerIfExact().ToInt16Checked();
@@ -6622,9 +6620,9 @@ if (second == null) {
     /// integer.</param>
     /// <returns>This number's value as an arbitrary-precision decimal
     /// number.</returns>
-    public static EDecimal FromInt16(short inputInt16) {
+    public static EDecimal FromInt16 (short inputInt16) {
       var val = (int)inputInt16;
-      return FromInt32(val);
+      return FromInt32 (val);
     }
 
     /// <summary>Converts this number's value to a 32-bit signed integer if
@@ -6643,7 +6641,7 @@ if (second == null) {
       if (this.IsIntegerPartZero()) {
         return (int)0;
       }
-      if (this.exponent.CompareToInt(10) >= 0) {
+      if (this.exponent.CompareToInt (10) >= 0) {
         throw new OverflowException("Value out of range: ");
       }
       return this.ToEInteger().ToInt32Checked();
@@ -6672,7 +6670,7 @@ if (second == null) {
       if (this.IsZero) {
         return (int)0;
       }
-      if (this.exponent.CompareToInt(10) >= 0) {
+      if (this.exponent.CompareToInt (10) >= 0) {
         throw new OverflowException("Value out of range");
       }
       return this.ToEIntegerIfExact().ToInt32Checked();
@@ -6694,7 +6692,7 @@ if (second == null) {
       if (this.IsIntegerPartZero()) {
         return 0L;
       }
-      if (this.exponent.CompareToInt(19) >= 0) {
+      if (this.exponent.CompareToInt (19) >= 0) {
         throw new OverflowException("Value out of range: ");
       }
       return this.ToEInteger().ToInt64Checked();
@@ -6724,7 +6722,7 @@ if (second == null) {
       if (this.IsZero) {
         return 0L;
       }
-      if (this.exponent.CompareToInt(19) >= 0) {
+      if (this.exponent.CompareToInt (19) >= 0) {
         throw new OverflowException("Value out of range");
       }
       return this.ToEIntegerIfExact().ToInt64Checked();

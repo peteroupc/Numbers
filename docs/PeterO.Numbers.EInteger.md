@@ -1175,13 +1175,13 @@ The given arbitrary-precision integer plus one.
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>first</i>: Not documented yet.
+ * <i>first</i>: The parameter  <i>first</i>
+ is a Numbers.EInteger object.
 
- * <i>second</i>: Not documented yet.
+ * <i>second</i>: The parameter  <i>second</i>
+ is a Numbers.EInteger object.
 
 <b>Return Value:</b>
 
@@ -1203,13 +1203,13 @@ The parameter  <i>first</i>
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>first</i>: Not documented yet.
+ * <i>first</i>: The parameter  <i>first</i>
+ is a Numbers.EInteger object.
 
- * <i>second</i>: Not documented yet.
+ * <i>second</i>: The parameter  <i>second</i>
+ is a Numbers.EInteger object.
 
 <b>Return Value:</b>
 
@@ -1231,13 +1231,13 @@ The parameter  <i>first</i>
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>first</i>: Not documented yet.
+ * <i>first</i>: The parameter  <i>first</i>
+ is a Numbers.EInteger object.
 
- * <i>second</i>: Not documented yet.
+ * <i>second</i>: The parameter  <i>second</i>
+ is a Numbers.EInteger object.
 
 <b>Return Value:</b>
 
@@ -1259,13 +1259,13 @@ The parameter  <i>first</i>
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>first</i>: Not documented yet.
+ * <i>first</i>: The parameter  <i>first</i>
+ is a Numbers.EInteger object.
 
- * <i>second</i>: Not documented yet.
+ * <i>second</i>: The parameter  <i>second</i>
+ is a Numbers.EInteger object.
 
 <b>Return Value:</b>
 

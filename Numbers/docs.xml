@@ -1182,20 +1182,24 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,System.Int32)">
-<summary>Creates a number with the value
+
+            <summary>Creates a number with the value
             <c>exponent*10^significand</c>.</summary>
             <param name='mantissa'>Desired value for the significand.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(PeterO.Numbers.EInteger,System.Int64)">
-<summary>Creates a number with the value
+
+            <summary>Creates a number with the value
             <c>exponent*10^significand</c>.</summary>
             <param name='mantissa'>Desired value for the significand.</param>
             <param name='exponentLong'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(System.Int32,System.Int32)">
 
@@ -5373,20 +5377,24 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,System.Int32)">
-<summary>Returns a number with the value
+
+            <summary>Returns a number with the value
             exponent*2^significand.</summary>
             <param name='mantissa'>Desired value for the significand.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,System.Int64)">
-<summary>Returns a number with the value
+
+            <summary>Returns a number with the value
             exponent*2^significand.</summary>
             <param name='mantissa'>Desired value for the significand.</param>
             <param name='exponentLong'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)">
 
@@ -9408,16 +9416,20 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Max(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
+        <summary>Returns the greater of two integers.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The greater of the two integers.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.MaxMagnitude(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
+        <summary>Of two integers, returns the one with the greater absolute value.  If both integers have the same absolute value, this method has the same effect as Max.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The integer with the greater absolute value.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Min(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
+        <summary>Returns the smaller of two integers.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The smaller of the two integers.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.MinMagnitude(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
-<param name='first'>The parameter <paramref name='first'/> is a Numbers.EInteger object.</param><param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
+        <summary>Of two integers, returns the one with the smaller absolute value.  If both integers have the same absolute value, this method has the same effect as Min.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The integer with the smaller absolute value.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)">
 
