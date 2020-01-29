@@ -130,7 +130,7 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat One =
-      EFloat.Create (EInteger.One, EInteger.Zero);
+      EFloat.Create(EInteger.One, EInteger.Zero);
 
     /// <summary>Positive infinity, greater than any other
     /// number.</summary>
@@ -161,7 +161,7 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat Ten =
-      EFloat.Create ((EInteger)10, EInteger.Zero);
+      EFloat.Create((EInteger)10, EInteger.Zero);
 
     /// <summary>Represents the number 0.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -169,9 +169,10 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat Zero =
-      EFloat.Create (EInteger.Zero, EInteger.Zero);
+      EFloat.Create(EInteger.Zero, EInteger.Zero);
     //----------------------------------------------------------------
-    private static readonly IRadixMath<EFloat> MathValue = new TrappableRadixMath<EFloat>(
+    private static readonly IRadixMath<EFloat> MathValue = new
+TrappableRadixMath<EFloat>(
       new ExtendedOrSimpleRadixMath<EFloat>(new BinaryMathHelper()));
 
     internal static IRadixMath<EFloat> GetMathValue() {
@@ -253,7 +254,7 @@ namespace PeterO.Numbers {
     /// object's value is negative (including a negative NaN).</value>
     public EInteger Mantissa {
       get {
-        return this.IsNegative ? (- (EInteger)this.unsignedMantissa) :
+        return this.IsNegative ? (-(EInteger)this.unsignedMantissa) :
           this.unsignedMantissa;
       }
     }
@@ -295,8 +296,8 @@ namespace PeterO.Numbers {
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public static EFloat Create (int mantissaSmall, int exponentSmall) {
-      return Create ((EInteger)mantissaSmall, (EInteger)exponentSmall);
+    public static EFloat Create(int mantissaSmall, int exponentSmall) {
+      return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     }
 
     /// <summary>Returns a number with the value
@@ -306,8 +307,8 @@ namespace PeterO.Numbers {
     /// <param name='exponentLong'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public static EFloat Create (long mantissaLong, long exponentLong) {
-      return Create ((EInteger)mantissaLong, (EInteger)exponentLong);
+    public static EFloat Create(long mantissaLong, long exponentLong) {
+      return Create((EInteger)mantissaLong, (EInteger)exponentLong);
     }
 
     /// <summary>Returns a number with the value
@@ -316,8 +317,8 @@ namespace PeterO.Numbers {
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public static EFloat Create (EInteger mantissa, int exponentSmall) {
-      return Create (mantissa, EInteger.FromInt32 (exponentSmall));
+    public static EFloat Create(EInteger mantissa, int exponentSmall) {
+      return Create(mantissa, EInteger.FromInt32(exponentSmall));
     }
 
     /// <summary>Returns a number with the value
@@ -326,8 +327,8 @@ namespace PeterO.Numbers {
     /// <param name='exponentLong'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public static EFloat Create (EInteger mantissa, long exponentLong) {
-      return Create (mantissa, EInteger.FromInt64 (exponentLong));
+    public static EFloat Create(EInteger mantissa, long exponentLong) {
+      return Create(mantissa, EInteger.FromInt64(exponentLong));
     }
 
     /// <summary>Returns a number with the value
@@ -350,7 +351,7 @@ namespace PeterO.Numbers {
       }
       int sign = mantissa.Sign;
       return new EFloat(
-          sign < 0 ? (- (EInteger)mantissa) : mantissa,
+          sign < 0 ? (-(EInteger)mantissa) : mantissa,
           exponent,
           (sign < 0) ? BigNumberFlags.FlagNegative : 0);
     }
@@ -365,8 +366,8 @@ namespace PeterO.Numbers {
     /// <returns>A quiet not-a-number.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='diag'/> is less than 0.</exception>
-    public static EFloat CreateNaN (EInteger diag) {
-      return CreateNaN (diag, false, false, null);
+    public static EFloat CreateNaN(EInteger diag) {
+      return CreateNaN(diag, false, false, null);
     }
 
     /// <summary>Creates a not-a-number arbitrary-precision binary
@@ -399,7 +400,8 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(diag));
       }
       if (diag.Sign < 0) {
-        throw new ArgumentException("Diagnostic information must be 0 or greater," +
+        throw new ArgumentException("Diagnostic information must be 0 or" +
+"\u0020greater," +
           "\u0020 was: " + diag);
       }
       if (diag.IsZero && !negative) {
@@ -414,7 +416,7 @@ namespace PeterO.Numbers {
         EFloat ef = CreateWithFlags(
             diag,
             EInteger.Zero,
-            flags).RoundToPrecision (ctx);
+            flags).RoundToPrecision(ctx);
         int newFlags = ef.flags;
         newFlags &= ~BigNumberFlags.FlagQuietNaN;
         newFlags |= signaling ? BigNumberFlags.FlagSignalingNaN :
@@ -423,7 +425,7 @@ namespace PeterO.Numbers {
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      return CreateWithFlags (diag, EInteger.Zero, flags);
+      return CreateWithFlags(diag, EInteger.Zero, flags);
     }
 
     /// <summary>Creates a binary floating-point number from a 64-bit
@@ -435,8 +437,8 @@ namespace PeterO.Numbers {
     /// floating-point number.</param>
     /// <returns>A binary floating-point number with the same value as
     /// <paramref name='dbl'/>.</returns>
-    public static EFloat FromDouble (double dbl) {
-      int[] value = Extras.DoubleToIntegers (dbl);
+    public static EFloat FromDouble(double dbl) {
+      int[] value = Extras.DoubleToIntegers(dbl);
       var floatExponent = (int)((value[1] >> 20) & 0x7ff);
       bool neg = (value[1] >> 31) != 0;
       long lvalue;
@@ -447,7 +449,7 @@ namespace PeterO.Numbers {
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (value[1] & 0x80000) != 0;
         value[1] &= 0x7ffff;
-        lvalue = unchecked ((value[0] & 0xffffffffL) | ((long)value[1] << 32));
+        lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
         if (lvalue == 0) {
           return quiet ? NaN : SignalingNaN;
         }
@@ -455,7 +457,7 @@ namespace PeterO.Numbers {
           (quiet ? BigNumberFlags.FlagQuietNaN :
             BigNumberFlags.FlagSignalingNaN);
         return CreateWithFlags(
-            EInteger.FromInt64 (lvalue),
+            EInteger.FromInt64(lvalue),
             EInteger.Zero,
             value[0]);
       }
@@ -471,9 +473,9 @@ namespace PeterO.Numbers {
       } else {
         return neg ? EFloat.NegativeZero : EFloat.Zero;
       }
-      lvalue = unchecked ((value[0] & 0xffffffffL) | ((long)value[1] << 32));
+      lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
       return CreateWithFlags(
-          EInteger.FromInt64 (lvalue),
+          EInteger.FromInt64(lvalue),
           (EInteger)(floatExponent - 1075),
           neg ? BigNumberFlags.FlagNegative : 0);
     }
@@ -483,8 +485,8 @@ namespace PeterO.Numbers {
     /// <param name='bigint'>An arbitrary-precision integer.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public static EFloat FromEInteger (EInteger bigint) {
-      return EFloat.Create (bigint, EInteger.Zero);
+    public static EFloat FromEInteger(EInteger bigint) {
+      return EFloat.Create(bigint, EInteger.Zero);
     }
 
     /// <summary>Creates a binary floating-point number from a 32-bit
@@ -496,8 +498,8 @@ namespace PeterO.Numbers {
     /// binary floating-point number.</param>
     /// <returns>A binary floating-point number with the same value as
     /// <paramref name='flt'/>.</returns>
-    public static EFloat FromSingle (float flt) {
-      int value = BitConverter.ToInt32 (BitConverter.GetBytes ((float)flt), 0);
+    public static EFloat FromSingle(float flt) {
+      int value = BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0);
       bool neg = (value >> 31) != 0;
       var floatExponent = (int)((value >> 23) & 0xff);
       int valueFpMantissa = value & 0x7fffff;
@@ -624,9 +626,9 @@ namespace PeterO.Numbers {
       }
       EContext b64 = EContext.Binary64;
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
-        !ctx.IsSimplified && ctx.EMax.CompareTo (b64.EMax) <= 0 &&
-        ctx.EMin.CompareTo (b64.EMin) >= 0 &&
-        ctx.Precision.CompareTo (b64.Precision) <= 0) {
+        !ctx.IsSimplified && ctx.EMax.CompareTo(b64.EMax) <= 0 &&
+        ctx.EMin.CompareTo(b64.EMin) >= 0 &&
+        ctx.Precision.CompareTo(b64.Precision) <= 0) {
         int tmpoffset = offset;
         int endpos = offset + length;
         if (length == 0) {
@@ -637,7 +639,7 @@ namespace PeterO.Numbers {
         }
         if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
               str[tmpoffset] <= '9') || str[tmpoffset] == '.')) {
-          EFloat ef = DoubleEFloatFromString (str, offset, length, ctx);
+          EFloat ef = DoubleEFloatFromString(str, offset, length, ctx);
           if (ef != null) {
             return ef;
           }
@@ -647,14 +649,14 @@ namespace PeterO.Numbers {
           str,
           offset,
           length,
-          EContext.Unlimited.WithSimplified (ctx != null && ctx.IsSimplified))
-        .ToEFloat (ctx);
+          EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
+        .ToEFloat(ctx);
     }
 
-    private static EFloat SignalUnderflow (EContext ec, bool negative, bool
+    private static EFloat SignalUnderflow(EContext ec, bool negative, bool
       zeroSignificand) {
-      EInteger eTiny = ec.EMin.Subtract (ec.Precision.Subtract (1));
-      eTiny = eTiny.Subtract (1); // subtract 1 from proper eTiny to
+      EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+      eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
       // trigger underflow
       EFloat ret = EFloat.Create(
           zeroSignificand ? EInteger.Zero : EInteger.One,
@@ -662,19 +664,19 @@ namespace PeterO.Numbers {
       if (negative) {
         ret = ret.Negate();
       }
-      return ret.RoundToPrecision (ec);
+      return ret.RoundToPrecision(ec);
     }
 
-    private static EFloat SignalOverflow (EContext ec, bool negative, bool
+    private static EFloat SignalOverflow(EContext ec, bool negative, bool
       zeroSignificand) {
       if (zeroSignificand) {
-        EFloat ret = EFloat.Create (EInteger.Zero, ec.EMax);
+        EFloat ret = EFloat.Create(EInteger.Zero, ec.EMax);
         if (negative) {
           ret = ret.Negate();
         }
-        return ret.RoundToPrecision (ec);
+        return ret.RoundToPrecision(ec);
       } else {
-        return MathValue.SignalOverflow (ec, negative);
+        return MathValue.SignalOverflow(ec, negative);
       }
     }
 
@@ -730,7 +732,7 @@ namespace PeterO.Numbers {
               // NOTE: Absolute value will not be more than
               // the string portion's length, so will fit comfortably
               // in an 'int'.
-              newScaleInt = checked (newScaleInt + 1);
+              newScaleInt = checked(newScaleInt + 1);
             }
             continue;
           }
@@ -753,7 +755,7 @@ namespace PeterO.Numbers {
             // NOTE: Absolute value will not be more than
             // the string portion's length, so will fit comfortably
             // in an 'int'.
-            newScaleInt = checked (newScaleInt - 1);
+            newScaleInt = checked(newScaleInt - 1);
           }
         } else if (ch == '.') {
           if (haveDecimalPoint) {
@@ -820,9 +822,9 @@ namespace PeterO.Numbers {
           // Exponent that can't be compensated by digit
           // length without remaining higher than Int32.MaxValue
           if (expoffset < 0) {
-            return SignalUnderflow (ctx, negative, zeroMantissa);
+            return SignalUnderflow(ctx, negative, zeroMantissa);
           } else {
-            return SignalOverflow (ctx, negative, zeroMantissa);
+            return SignalOverflow(ctx, negative, zeroMantissa);
           }
         }
       }
@@ -835,11 +837,11 @@ namespace PeterO.Numbers {
         if (mantissaLong == 0) {
           EFloat ef = EFloat.Create(
               EInteger.Zero,
-              EInteger.FromInt32 (expInt));
+              EInteger.FromInt32(expInt));
           if (negative) {
             ef = ef.Negate();
           }
-          return ef.RoundToPrecision (ctx);
+          return ef.RoundToPrecision(ctx);
         }
         var finalexp = (long)expInt + (long)newScaleInt;
         long ml = mantissaLong;
@@ -849,61 +851,61 @@ namespace PeterO.Numbers {
             ml *= 10;
             --iexp;
           }
-          int iabsexp = Math.Abs (iexp);
+          int iabsexp = Math.Abs(iexp);
           if (ml < 9007199254740992L && iabsexp == 0) {
-            return EFloat.FromInt64 (negative ?
-                -mantissaLong : mantissaLong).RoundToPrecision (ctx);
+            return EFloat.FromInt64(negative ?
+                -mantissaLong : mantissaLong).RoundToPrecision(ctx);
           } else if (ml < 9007199254740992L && iabsexp <= 22) {
             EFloat efn =
-              EFloat.FromEInteger (NumberUtility.FindPowerOfTen (iabsexp));
+              EFloat.FromEInteger(NumberUtility.FindPowerOfTen(iabsexp));
             if (negative) {
               ml = -ml;
             }
-            EFloat efml = EFloat.FromInt64 (ml);
+            EFloat efml = EFloat.FromInt64(ml);
             if (iexp < 0) {
-              return efml.Divide (efn, ctx);
+              return efml.Divide(efn, ctx);
             } else {
-              return efml.Multiply (efn, ctx);
+              return efml.Multiply(efn, ctx);
             }
           }
         }
         long adjexpUpperBound = finalexp + (decimalPrec - 1);
         long adjexpLowerBound = finalexp;
         if (adjexpUpperBound < -326) {
-          return SignalUnderflow (ctx, negative, zeroMantissa);
+          return SignalUnderflow(ctx, negative, zeroMantissa);
         } else if (adjexpLowerBound > 309) {
-          return SignalOverflow (ctx, negative, zeroMantissa);
+          return SignalOverflow(ctx, negative, zeroMantissa);
         }
         if (negative) {
           mantissaLong = -mantissaLong;
         }
-        long absfinalexp = Math.Abs (finalexp);
-        ef1 = EFloat.Create (EInteger.FromInt64 (mantissaLong), EInteger.Zero);
-        ef2 = EFloat.FromEInteger (NumberUtility.FindPowerOfTen (absfinalexp));
+        long absfinalexp = Math.Abs(finalexp);
+        ef1 = EFloat.Create(EInteger.FromInt64(mantissaLong), EInteger.Zero);
+        ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
         if (finalexp < 0) {
-          return ef1.Divide (ef2, ctx);
+          return ef1.Divide(ef2, ctx);
         } else {
-          return ef1.Multiply (ef2, ctx);
+          return ef1.Multiply(ef2, ctx);
         }
       }
       EInteger mant = null;
       EInteger exp = (!haveExponent) ? EInteger.Zero :
-        EInteger.FromSubstring (str, expDigitStart, endStr);
+        EInteger.FromSubstring(str, expDigitStart, endStr);
       if (expoffset < 0) {
         exp = exp.Negate();
       }
-      exp = exp.Add (newScaleInt);
+      exp = exp.Add(newScaleInt);
       if (nonzeroBeyondMax) {
-        exp = exp.Subtract (1);
+        exp = exp.Subtract(1);
         ++decimalPrec;
       }
-      EInteger adjExpUpperBound = exp.Add (decimalPrec).Subtract (1);
+      EInteger adjExpUpperBound = exp.Add(decimalPrec).Subtract(1);
       EInteger adjExpLowerBound = exp;
       // DebugUtility.Log("exp=" + adjExpLowerBound + "~" + (adjExpUpperBound));
-      if (adjExpUpperBound.CompareTo (-326) < 0) {
-        return SignalUnderflow (ctx, negative, zeroMantissa);
-      } else if (adjExpLowerBound.CompareTo (309) > 0) {
-        return SignalOverflow (ctx, negative, zeroMantissa);
+      if (adjExpUpperBound.CompareTo(-326) < 0) {
+        return SignalUnderflow(ctx, negative, zeroMantissa);
+      } else if (adjExpLowerBound.CompareTo(309) > 0) {
+        return SignalOverflow(ctx, negative, zeroMantissa);
       }
       if (zeroMantissa) {
         EFloat ef = EFloat.Create(
@@ -912,7 +914,7 @@ namespace PeterO.Numbers {
         if (negative) {
           ef = ef.Negate();
         }
-        return ef.RoundToPrecision (ctx);
+        return ef.RoundToPrecision(ctx);
       } else if (decimalDigitStart != decimalDigitEnd) {
         if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
           mant = EInteger.FromSubstring(
@@ -920,17 +922,17 @@ namespace PeterO.Numbers {
               decimalDigitStart,
               decimalDigitEnd);
         } else {
-          string tmpstr = str.Substring (digitStart, digitEnd - digitStart) +
+          string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
             str.Substring(
               decimalDigitStart,
               decimalDigitEnd - decimalDigitStart);
-          mant = EInteger.FromString (tmpstr);
+          mant = EInteger.FromString(tmpstr);
         }
       } else {
-        mant = EInteger.FromSubstring (str, digitStart, digitEnd);
+        mant = EInteger.FromSubstring(str, digitStart, digitEnd);
       }
       if (nonzeroBeyondMax) {
-        mant = mant.Multiply (10).Add (1);
+        mant = mant.Multiply(10).Add(1);
       }
       if (negative) {
         mant = mant.Negate();
@@ -938,13 +940,13 @@ namespace PeterO.Numbers {
       // DebugUtility.Log("c " + ((mant.Sign<0 && negative) || (mant.Sign>= 0
       // && !negative)) + " mant=" + (mant));
       EInteger absexp = exp.Abs();
-      ef1 = EFloat.Create (mant, EInteger.Zero);
-      ef2 = EFloat.FromEInteger (NumberUtility.FindPowerOfTenFromBig (absexp));
+      ef1 = EFloat.Create(mant, EInteger.Zero);
+      ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
       // DebugUtility.Log("c ef1=" + ef1 + " ef2=" + (ef2));
       if (exp.Sign < 0) {
-        return ef1.Divide (ef2, ctx);
+        return ef1.Divide(ef2, ctx);
       } else {
-        return ef1.Multiply (ef2, ctx);
+        return ef1.Multiply(ef2, ctx);
       }
     }
 
@@ -961,8 +963,8 @@ namespace PeterO.Numbers {
     /// <exception cref='FormatException'>The portion given of <paramref
     /// name='str'/> is not a correctly formatted number
     /// string.</exception>
-    public static EFloat FromString (string str) {
-      return FromString (str, 0, str == null ? 0 : str.Length, null);
+    public static EFloat FromString(string str) {
+      return FromString(str, 0, str == null ? 0 : str.Length, null);
     }
 
     /// <summary>Creates a binary floating-point number from a text string
@@ -983,8 +985,8 @@ namespace PeterO.Numbers {
     /// floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
-    public static EFloat FromString (string str, EContext ctx) {
-      return FromString (str, 0, str == null ? 0 : str.Length, ctx);
+    public static EFloat FromString(string str, EContext ctx) {
+      return FromString(str, 0, str == null ? 0 : str.Length, ctx);
     }
 
     /// <summary>Creates a binary floating-point number from a text string
@@ -1011,8 +1013,8 @@ namespace PeterO.Numbers {
     /// greater than <paramref name='str'/> 's length, or <paramref
     /// name='str'/> 's length minus <paramref name='offset'/> is less than
     /// <paramref name='length'/>.</exception>
-    public static EFloat FromString (string str, int offset, int length) {
-      return FromString (str, offset, length, null);
+    public static EFloat FromString(string str, int offset, int length) {
+      return FromString(str, offset, length, null);
     }
 
     /// <summary>Gets the greater value between two binary floating-point
@@ -1043,7 +1045,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return MathValue.Max (first, second, ctx);
+      return MathValue.Max(first, second, ctx);
     }
 
     /// <summary>Gets the greater value between two binary floating-point
@@ -1067,7 +1069,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return Max (first, second, null);
+      return Max(first, second, null);
     }
 
     /// <summary>Gets the greater value between two values, ignoring their
@@ -1095,7 +1097,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return MathValue.MaxMagnitude (first, second, ctx);
+      return MathValue.MaxMagnitude(first, second, ctx);
     }
 
     /// <summary>Gets the greater value between two values, ignoring their
@@ -1116,7 +1118,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return MaxMagnitude (first, second, null);
+      return MaxMagnitude(first, second, null);
     }
 
     /// <summary>Gets the lesser value between two binary floating-point
@@ -1147,7 +1149,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return MathValue.Min (first, second, ctx);
+      return MathValue.Min(first, second, ctx);
     }
 
     /// <summary>Gets the lesser value between two binary floating-point
@@ -1171,7 +1173,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return Min (first, second, null);
+      return Min(first, second, null);
     }
 
     /// <summary>Gets the lesser value between two values, ignoring their
@@ -1199,7 +1201,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return MathValue.MinMagnitude (first, second, ctx);
+      return MathValue.MinMagnitude(first, second, ctx);
     }
 
     /// <summary>Gets the lesser value between two values, ignoring their
@@ -1220,7 +1222,7 @@ namespace PeterO.Numbers {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
-      return MinMagnitude (first, second, null);
+      return MinMagnitude(first, second, null);
     }
 
     /// <summary>Finds the constant π, the circumference of a circle
@@ -1235,8 +1237,8 @@ namespace PeterO.Numbers {
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public static EFloat PI (EContext ctx) {
-      return MathValue.Pi (ctx);
+    public static EFloat PI(EContext ctx) {
+      return MathValue.Pi(ctx);
     }
 
     /// <summary>Finds the absolute value of this object (if it's negative,
@@ -1267,8 +1269,8 @@ namespace PeterO.Numbers {
     /// unlimited and no rounding is needed.</param>
     /// <returns>The absolute value of this object. Signals FlagInvalid and
     /// returns quiet NaN if this value is signaling NaN.</returns>
-    public EFloat Abs (EContext context) {
-      return MathValue.Abs (this, context);
+    public EFloat Abs(EContext context) {
+      return MathValue.Abs(this, context);
     }
 
     /// <summary>Adds this object and another number and returns the
@@ -1276,8 +1278,8 @@ namespace PeterO.Numbers {
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The sum of the two objects.</returns>
-    public EFloat Add (int intValue) {
-      return this.Add (EFloat.FromInt32 (intValue));
+    public EFloat Add(int intValue) {
+      return this.Add(EFloat.FromInt32(intValue));
     }
 
     /// <summary>Subtracts an arbitrary-precision integer from this
@@ -1285,9 +1287,9 @@ namespace PeterO.Numbers {
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
-    public EFloat Subtract (int intValue) {
+    public EFloat Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
-        this.Subtract (EFloat.FromInt32 (intValue)) : this.Add (-intValue);
+        this.Subtract(EFloat.FromInt32(intValue)) : this.Add(-intValue);
     }
 
     /// <summary>Multiplies this instance by the value of an
@@ -1299,8 +1301,8 @@ namespace PeterO.Numbers {
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
     ///  .
     /// </example>
-    public EFloat Multiply (int intValue) {
-      return this.Multiply (EFloat.FromInt32 (intValue));
+    public EFloat Multiply(int intValue) {
+      return this.Multiply(EFloat.FromInt32(intValue));
     }
 
     /// <summary>Divides this instance by the value of an
@@ -1313,8 +1315,8 @@ namespace PeterO.Numbers {
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    public EFloat Divide (int intValue) {
-      return this.Divide (EFloat.FromInt32 (intValue));
+    public EFloat Divide(int intValue) {
+      return this.Divide(EFloat.FromInt32(intValue));
     }
 
     /// <summary>Adds this object and another binary floating-point number
@@ -1322,8 +1324,8 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>An arbitrary-precision binary
     /// floating-point number.</param>
     /// <returns>The sum of the two objects.</returns>
-    public EFloat Add (EFloat otherValue) {
-      return this.Add (otherValue, EContext.UnlimitedHalfEven);
+    public EFloat Add(EFloat otherValue) {
+      return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <summary>Finds the sum of this object and another object. The
@@ -1341,7 +1343,7 @@ namespace PeterO.Numbers {
     public EFloat Add(
       EFloat otherValue,
       EContext ctx) {
-      return MathValue.Add (this, otherValue, ctx);
+      return MathValue.Add(this, otherValue, ctx);
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -1356,8 +1358,8 @@ namespace PeterO.Numbers {
     /// value, or greater than 0 if this object's value is greater than the
     /// other value or if <paramref name='other'/> is null, or 0 if both
     /// values are equal.</returns>
-    public int CompareTo (EFloat other) {
-      return MathValue.CompareTo (this, other);
+    public int CompareTo(EFloat other) {
+      return MathValue.CompareTo(this, other);
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -1377,8 +1379,8 @@ namespace PeterO.Numbers {
     /// value, or greater than 0 if this object's value is greater than the
     /// other value or if <paramref name='other'/> is null, or 0 if both
     /// values are equal.</returns>
-    public int CompareToValue (EFloat other) {
-      return MathValue.CompareTo (this, other);
+    public int CompareToValue(EFloat other) {
+      return MathValue.CompareTo(this, other);
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -1392,8 +1394,8 @@ namespace PeterO.Numbers {
     /// <returns>Less than 0 if this object's value is less than the other
     /// value, or greater than 0 if this object's value is greater than the
     /// other value, or 0 if both values are equal.</returns>
-    public int CompareTo (int intOther) {
-      return this.CompareToValue (EFloat.FromInt32 (intOther));
+    public int CompareTo(int intOther) {
+      return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -1411,8 +1413,8 @@ namespace PeterO.Numbers {
     /// <returns>Less than 0 if this object's value is less than the other
     /// value, or greater than 0 if this object's value is greater than the
     /// other value, or 0 if both values are equal.</returns>
-    public int CompareToValue (int intOther) {
-      return this.CompareToValue (EFloat.FromInt32 (intOther));
+    public int CompareToValue(int intOther) {
+      return this.CompareToValue(EFloat.FromInt32(intOther));
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -1442,7 +1444,7 @@ namespace PeterO.Numbers {
     public EFloat CompareToSignal(
       EFloat other,
       EContext ctx) {
-      return MathValue.CompareToWithContext (this, other, true, ctx);
+      return MathValue.CompareToWithContext(this, other, true, ctx);
     }
 
     /// <summary>Compares the values of this object and another object,
@@ -1476,18 +1478,18 @@ namespace PeterO.Numbers {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotal (EFloat other, EContext ctx) {
+    public int CompareToTotal(EFloat other, EContext ctx) {
       if (other == null) {
         return 1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
-        return this.CompareToTotal (other);
+        return this.CompareToTotal(other);
       }
       if (ctx != null && ctx.IsSimplified) {
-        return this.RoundToPrecision (ctx)
-          .CompareToTotal (other.RoundToPrecision (ctx));
+        return this.RoundToPrecision(ctx)
+          .CompareToTotal(other.RoundToPrecision(ctx));
         } else {
-        return this.CompareToTotal (other);
+        return this.CompareToTotal(other);
       }
     }
 
@@ -1525,18 +1527,18 @@ namespace PeterO.Numbers {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotalMagnitude (EFloat other, EContext ctx) {
+    public int CompareToTotalMagnitude(EFloat other, EContext ctx) {
       if (other == null) {
         return 1;
       }
       if (this.IsSignalingNaN() || other.IsSignalingNaN()) {
-        return this.CompareToTotalMagnitude (other);
+        return this.CompareToTotalMagnitude(other);
       }
       if (ctx != null && ctx.IsSimplified) {
-        return this.RoundToPrecision (ctx)
-          .CompareToTotalMagnitude (other.RoundToPrecision (ctx));
+        return this.RoundToPrecision(ctx)
+          .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
         } else {
-        return this.CompareToTotalMagnitude (other);
+        return this.CompareToTotalMagnitude(other);
       }
     }
 
@@ -1567,7 +1569,7 @@ namespace PeterO.Numbers {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotal (EFloat other) {
+    public int CompareToTotal(EFloat other) {
       if (other == null) {
         return 1;
       }
@@ -1605,7 +1607,7 @@ namespace PeterO.Numbers {
       } else if (valueIThis == 1) {
         return 0;
       } else {
-        cmp = this.CompareTo (other);
+        cmp = this.CompareTo(other);
         if (cmp == 0) {
           cmp = this.exponent.CompareTo(
               other.exponent);
@@ -1641,7 +1643,7 @@ namespace PeterO.Numbers {
     /// <c>Comparable.compareTo()</c> in Java ought to throw an exception
     /// if they receive a null argument rather than treating null as less
     /// or greater than any object.</para>.</returns>
-    public int CompareToTotalMagnitude (EFloat other) {
+    public int CompareToTotalMagnitude(EFloat other) {
       if (other == null) {
         return 1;
       }
@@ -1674,7 +1676,7 @@ namespace PeterO.Numbers {
       } else if (valueIThis == 1) {
         return 0;
       } else {
-        cmp = this.Abs().CompareTo (other.Abs());
+        cmp = this.Abs().CompareTo(other.Abs());
         if (cmp == 0) {
           cmp = this.exponent.CompareTo(
               other.exponent);
@@ -1711,7 +1713,7 @@ namespace PeterO.Numbers {
     public EFloat CompareToWithContext(
       EFloat other,
       EContext ctx) {
-      return MathValue.CompareToWithContext (this, other, false, ctx);
+      return MathValue.CompareToWithContext(this, other, false, ctx);
     }
 
     /// <summary>Returns a number with the same value as this one, but
@@ -1724,7 +1726,7 @@ namespace PeterO.Numbers {
     /// number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
-    public EFloat CopySign (EFloat other) {
+    public EFloat CopySign(EFloat other) {
       if (other == null) {
         throw new ArgumentNullException(nameof(other));
       }
@@ -1744,10 +1746,10 @@ namespace PeterO.Numbers {
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating binary
     /// expansion.</returns>
-    public EFloat Divide (EFloat divisor) {
+    public EFloat Divide(EFloat divisor) {
       return this.Divide(
           divisor,
-          EContext.ForRounding (ERounding.None));
+          EContext.ForRounding(ERounding.None));
     }
 
     /// <summary>Divides this arbitrary-precision binary floating-point
@@ -1771,7 +1773,7 @@ namespace PeterO.Numbers {
     public EFloat Divide(
       EFloat divisor,
       EContext ctx) {
-      return MathValue.Divide (this, divisor, ctx);
+      return MathValue.Divide(this, divisor, ctx);
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -1781,9 +1783,9 @@ namespace PeterO.Numbers {
     /// <returns>A 2 element array consisting of the quotient and remainder
     /// in that order.</returns>
     [Obsolete("Renamed to DivRemNaturalScale.")]
-    public EFloat[] DivideAndRemainderNaturalScale (EFloat
+    public EFloat[] DivideAndRemainderNaturalScale(EFloat
       divisor) {
-      return this.DivRemNaturalScale (divisor, null);
+      return this.DivRemNaturalScale(divisor, null);
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -1806,7 +1808,7 @@ namespace PeterO.Numbers {
     public EFloat[] DivideAndRemainderNaturalScale(
       EFloat divisor,
       EContext ctx) {
-      return this.DivRemNaturalScale (divisor, ctx);
+      return this.DivRemNaturalScale(divisor, ctx);
     }
 
     /// <summary>Divides two arbitrary-precision binary floating-point
@@ -1841,7 +1843,7 @@ namespace PeterO.Numbers {
       EContext ctx) {
       return this.DivideToExponent(
           divisor,
-          EInteger.FromInt64 (desiredExponentSmall),
+          EInteger.FromInt64(desiredExponentSmall),
           ctx);
     }
 
@@ -1867,8 +1869,8 @@ namespace PeterO.Numbers {
       ERounding rounding) {
       return this.DivideToExponent(
           divisor,
-          EInteger.FromInt64 (desiredExponentSmall),
-          EContext.ForRounding (rounding));
+          EInteger.FromInt64(desiredExponentSmall),
+          EContext.ForRounding(rounding));
     }
 
     /// <summary>Divides two arbitrary-precision binary floating-point
@@ -1901,7 +1903,7 @@ namespace PeterO.Numbers {
       EFloat divisor,
       EInteger exponent,
       EContext ctx) {
-      return MathValue.DivideToExponent (this, divisor, exponent, ctx);
+      return MathValue.DivideToExponent(this, divisor, exponent, ctx);
     }
 
     /// <summary>Divides two arbitrary-precision binary floating-point
@@ -1926,7 +1928,7 @@ namespace PeterO.Numbers {
       return this.DivideToExponent(
           divisor,
           desiredExponent,
-          EContext.ForRounding (rounding));
+          EContext.ForRounding(rounding));
     }
 
     /// <summary>Divides two arbitrary-precision binary floating-point
@@ -1942,7 +1944,7 @@ namespace PeterO.Numbers {
       EFloat divisor) {
       return this.DivideToIntegerNaturalScale(
           divisor,
-          EContext.ForRounding (ERounding.Down));
+          EContext.ForRounding(ERounding.Down));
     }
 
     /// <summary>Divides this object by another object, and returns the
@@ -1964,7 +1966,7 @@ namespace PeterO.Numbers {
     public EFloat DivideToIntegerNaturalScale(
       EFloat divisor,
       EContext ctx) {
-      return MathValue.DivideToIntegerNaturalScale (this, divisor, ctx);
+      return MathValue.DivideToIntegerNaturalScale(this, divisor, ctx);
     }
 
     /// <summary>Divides this object by another object, and returns the
@@ -1985,7 +1987,7 @@ namespace PeterO.Numbers {
     public EFloat DivideToIntegerZeroScale(
       EFloat divisor,
       EContext ctx) {
-      return MathValue.DivideToIntegerZeroScale (this, divisor, ctx);
+      return MathValue.DivideToIntegerZeroScale(this, divisor, ctx);
     }
 
     /// <summary>Divides this object by another binary floating-point
@@ -2006,7 +2008,7 @@ namespace PeterO.Numbers {
       return this.DivideToExponent(
           divisor,
           this.exponent,
-          EContext.ForRounding (rounding));
+          EContext.ForRounding(rounding));
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -2015,8 +2017,8 @@ namespace PeterO.Numbers {
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>A 2 element array consisting of the quotient and remainder
     /// in that order.</returns>
-    public EFloat[] DivRemNaturalScale (EFloat divisor) {
-      return this.DivRemNaturalScale (divisor, null);
+    public EFloat[] DivRemNaturalScale(EFloat divisor) {
+      return this.DivRemNaturalScale(divisor, null);
     }
 
     /// <summary>Calculates the quotient and remainder using the
@@ -2039,11 +2041,11 @@ namespace PeterO.Numbers {
       EFloat divisor,
       EContext ctx) {
       var result = new EFloat[2];
-      result[0] = this.DivideToIntegerNaturalScale (divisor, null);
+      result[0] = this.DivideToIntegerNaturalScale(divisor, null);
       result[1] = this.Subtract(
-          result[0].Multiply (divisor, null),
+          result[0].Multiply(divisor, null),
           ctx);
-      result[0] = result[0].RoundToPrecision (ctx);
+      result[0] = result[0].RoundToPrecision(ctx);
       return result;
     }
 
@@ -2055,8 +2057,8 @@ namespace PeterO.Numbers {
     /// number.</param>
     /// <returns><c>true</c> if this object's significand and exponent are
     /// equal to those of another object; otherwise, <c>false</c>.</returns>
-    public bool Equals (EFloat other) {
-      return this.EqualsInternal (other);
+    public bool Equals(EFloat other) {
+      return this.EqualsInternal(other);
     }
 
     /// <summary>Determines whether this object's significand, exponent,
@@ -2070,8 +2072,8 @@ namespace PeterO.Numbers {
     /// <c>false</c>. In this method, two objects are not equal if they
     /// don't have the same type or if one is null and the other
     /// isn't.</returns>
-    public override bool Equals (object obj) {
-      return this.EqualsInternal (obj as EFloat);
+    public override bool Equals(object obj) {
+      return this.EqualsInternal(obj as EFloat);
     }
 
     /// <summary>Determines whether this object's significand and exponent
@@ -2080,12 +2082,12 @@ namespace PeterO.Numbers {
     /// floating-point number.</param>
     /// <returns><c>true</c> if this object's significand and exponent are
     /// equal to those of another object; otherwise, <c>false</c>.</returns>
-    public bool EqualsInternal (EFloat otherValue) {
+    public bool EqualsInternal(EFloat otherValue) {
       if (otherValue == null) {
         return false;
       }
-      return this.exponent.Equals (otherValue.exponent) &&
-        this.unsignedMantissa.Equals (otherValue.unsignedMantissa) &&
+      return this.exponent.Equals(otherValue.exponent) &&
+        this.unsignedMantissa.Equals(otherValue.unsignedMantissa) &&
         this.flags == otherValue.flags;
     }
 
@@ -2103,8 +2105,8 @@ namespace PeterO.Numbers {
     /// Signals FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public EFloat Exp (EContext ctx) {
-      return MathValue.Exp (this, ctx);
+    public EFloat Exp(EContext ctx) {
+      return MathValue.Exp(this, ctx);
     }
 
     /// <summary>Calculates this object's hash code. No application or
@@ -2191,8 +2193,8 @@ namespace PeterO.Numbers {
     /// unlimited (the context's Precision property is 0). Signals no flags
     /// and returns negative infinity if this object's value is
     /// 0.</returns>
-    public EFloat Log (EContext ctx) {
-      return MathValue.Ln (this, ctx);
+    public EFloat Log(EContext ctx) {
+      return MathValue.Ln(this, ctx);
     }
 
     /// <summary>Finds the base-10 logarithm of this object, that is, the
@@ -2210,8 +2212,8 @@ namespace PeterO.Numbers {
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public EFloat Log10 (EContext ctx) {
-      return MathValue.Log10 (this, ctx);
+    public EFloat Log10(EContext ctx) {
+      return MathValue.Log10(this, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2222,8 +2224,8 @@ namespace PeterO.Numbers {
     /// value.</param>
     /// <returns>A number whose exponent is decreased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EFloat MovePointLeft (int places) {
-      return this.MovePointLeft ((EInteger)places, null);
+    public EFloat MovePointLeft(int places) {
+      return this.MovePointLeft((EInteger)places, null);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2240,8 +2242,8 @@ namespace PeterO.Numbers {
     /// isn't needed.</param>
     /// <returns>A number whose exponent is decreased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EFloat MovePointLeft (int places, EContext ctx) {
-      return this.MovePointLeft ((EInteger)places, ctx);
+    public EFloat MovePointLeft(int places, EContext ctx) {
+      return this.MovePointLeft((EInteger)places, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2252,8 +2254,8 @@ namespace PeterO.Numbers {
     /// value.</param>
     /// <returns>A number whose exponent is decreased by <paramref
     /// name='bigPlaces'/>, but not to more than 0.</returns>
-    public EFloat MovePointLeft (EInteger bigPlaces) {
-      return this.MovePointLeft (bigPlaces, null);
+    public EFloat MovePointLeft(EInteger bigPlaces) {
+      return this.MovePointLeft(bigPlaces, null);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2273,8 +2275,8 @@ namespace PeterO.Numbers {
     public EFloat MovePointLeft(
       EInteger bigPlaces,
       EContext ctx) {
-      return (!this.IsFinite) ? this.RoundToPrecision (ctx) :
-        this.MovePointRight (- (EInteger)bigPlaces, ctx);
+      return (!this.IsFinite) ? this.RoundToPrecision(ctx) :
+        this.MovePointRight(-(EInteger)bigPlaces, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2285,8 +2287,8 @@ namespace PeterO.Numbers {
     /// value.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EFloat MovePointRight (int places) {
-      return this.MovePointRight ((EInteger)places, null);
+    public EFloat MovePointRight(int places) {
+      return this.MovePointRight((EInteger)places, null);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2303,8 +2305,8 @@ namespace PeterO.Numbers {
     /// isn't needed.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='places'/>, but not to more than 0.</returns>
-    public EFloat MovePointRight (int places, EContext ctx) {
-      return this.MovePointRight ((EInteger)places, ctx);
+    public EFloat MovePointRight(int places, EContext ctx) {
+      return this.MovePointRight((EInteger)places, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2315,8 +2317,8 @@ namespace PeterO.Numbers {
     /// value.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='bigPlaces'/>, but not to more than 0.</returns>
-    public EFloat MovePointRight (EInteger bigPlaces) {
-      return this.MovePointRight (bigPlaces, null);
+    public EFloat MovePointRight(EInteger bigPlaces) {
+      return this.MovePointRight(bigPlaces, null);
     }
 
     /// <summary>Returns a number similar to this number but with the radix
@@ -2337,21 +2339,21 @@ namespace PeterO.Numbers {
       EInteger bigPlaces,
       EContext ctx) {
       if (!this.IsFinite) {
-        return this.RoundToPrecision (ctx);
+        return this.RoundToPrecision(ctx);
       }
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
-        EInteger mant = this.unsignedMantissa.ShiftLeft (bigExp);
+        EInteger mant = this.unsignedMantissa.ShiftLeft(bigExp);
         return CreateWithFlags(
             mant,
             EInteger.Zero,
-            this.flags).RoundToPrecision (ctx);
+            this.flags).RoundToPrecision(ctx);
       }
       return CreateWithFlags(
           this.unsignedMantissa,
           bigExp,
-          this.flags).RoundToPrecision (ctx);
+          this.flags).RoundToPrecision(ctx);
     }
 
     /// <summary>Multiplies two binary floating-point numbers. The
@@ -2363,26 +2365,26 @@ namespace PeterO.Numbers {
     /// numbers.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
-    public EFloat Multiply (EFloat otherValue) {
+    public EFloat Multiply(EFloat otherValue) {
       if (otherValue == null) {
         throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsFinite && otherValue.IsFinite) {
-        EInteger exp = this.exponent.Add (otherValue.exponent);
+        EInteger exp = this.exponent.Add(otherValue.exponent);
         int newflags = otherValue.flags ^ this.flags;
         if (this.unsignedMantissa.CanFitInInt32() &&
           otherValue.unsignedMantissa.CanFitInInt32()) {
           int integerA = this.unsignedMantissa.ToInt32Unchecked();
           int integerB = otherValue.unsignedMantissa.ToInt32Unchecked();
           long longA = ((long)integerA) * ((long)integerB);
-          return CreateWithFlags ((EInteger)longA, exp, newflags);
+          return CreateWithFlags((EInteger)longA, exp, newflags);
         } else {
           EInteger eintA = this.unsignedMantissa.Multiply(
               otherValue.unsignedMantissa);
-          return CreateWithFlags (eintA, exp, newflags);
+          return CreateWithFlags(eintA, exp, newflags);
         }
       }
-      return this.Multiply (otherValue, EContext.UnlimitedHalfEven);
+      return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
     }
 
     /// <summary>Multiplies two binary floating-point numbers. The
@@ -2402,7 +2404,7 @@ namespace PeterO.Numbers {
     public EFloat Multiply(
       EFloat op,
       EContext ctx) {
-      return MathValue.Multiply (this, op, ctx);
+      return MathValue.Multiply(this, op, ctx);
     }
 
     /// <summary>Multiplies by one binary floating-point number, and then
@@ -2414,7 +2416,7 @@ namespace PeterO.Numbers {
     public EFloat MultiplyAndAdd(
       EFloat multiplicand,
       EFloat augend) {
-      return this.MultiplyAndAdd (multiplicand, augend, null);
+      return this.MultiplyAndAdd(multiplicand, augend, null);
     }
 
     /// <summary>Multiplies by one value, and then adds another
@@ -2434,7 +2436,7 @@ namespace PeterO.Numbers {
       EFloat op,
       EFloat augend,
       EContext ctx) {
-      return MathValue.MultiplyAndAdd (this, op, augend, ctx);
+      return MathValue.MultiplyAndAdd(this, op, augend, ctx);
     }
 
     /// <summary>Multiplies by one value, and then subtracts another
@@ -2471,7 +2473,7 @@ namespace PeterO.Numbers {
             subtrahend.exponent,
             newflags);
       }
-      return MathValue.MultiplyAndAdd (this, op, negated, ctx);
+      return MathValue.MultiplyAndAdd(this, op, negated, ctx);
     }
 
     /// <summary>Gets an object with the same value as this one, but with
@@ -2501,8 +2503,8 @@ namespace PeterO.Numbers {
     /// this value is positive zero, returns positive zero. Signals
     /// FlagInvalid and returns quiet NaN if this value is signaling
     /// NaN.</returns>
-    public EFloat Negate (EContext context) {
-      return MathValue.Negate (this, context);
+    public EFloat Negate(EContext context) {
+      return MathValue.Negate(this, context);
     }
 
     /// <summary>Finds the largest value that's smaller than the given
@@ -2517,8 +2519,8 @@ namespace PeterO.Numbers {
     /// infinity. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// parameter <paramref name='ctx'/> is null, the precision is 0, or
     /// <paramref name='ctx'/> has an unlimited exponent range.</returns>
-    public EFloat NextMinus (EContext ctx) {
-      return MathValue.NextMinus (this, ctx);
+    public EFloat NextMinus(EContext ctx) {
+      return MathValue.NextMinus(this, ctx);
     }
 
     /// <summary>Finds the smallest value that's greater than the given
@@ -2532,8 +2534,8 @@ namespace PeterO.Numbers {
     /// value.Signals FlagInvalid and returns not-a-number (NaN) if the
     /// parameter <paramref name='ctx'/> is null, the precision is 0, or
     /// <paramref name='ctx'/> has an unlimited exponent range.</returns>
-    public EFloat NextPlus (EContext ctx) {
-      return MathValue.NextPlus (this, ctx);
+    public EFloat NextPlus(EContext ctx) {
+      return MathValue.NextPlus(this, ctx);
     }
 
     /// <summary>Finds the next value that is closer to the other object's
@@ -2555,7 +2557,7 @@ namespace PeterO.Numbers {
     public EFloat NextToward(
       EFloat otherValue,
       EContext ctx) {
-      return MathValue.NextToward (this, otherValue, ctx);
+      return MathValue.NextToward(this, otherValue, ctx);
     }
 
     /// <summary>Rounds this object's value to a given precision, using the
@@ -2568,8 +2570,8 @@ namespace PeterO.Numbers {
     /// specified precision. Returns the same value as this object if
     /// <paramref name='ctx'/> is null or the precision and exponent range
     /// are unlimited.</returns>
-    public EFloat Plus (EContext ctx) {
-      return MathValue.Plus (this, ctx);
+    public EFloat Plus(EContext ctx) {
+      return MathValue.Plus(this, ctx);
     }
 
     /// <summary>Raises this object's value to the given exponent, using
@@ -2579,8 +2581,8 @@ namespace PeterO.Numbers {
     /// to.</param>
     /// <returns>This^exponent. Returns not-a-number (NaN) if the exponent
     /// has a fractional part.</returns>
-    public EFloat Pow (EFloat exponent) {
-      return this.Pow (exponent, null);
+    public EFloat Pow(EFloat exponent) {
+      return this.Pow(exponent, null);
     }
 
     /// <summary>Raises this object's value to the given
@@ -2601,8 +2603,8 @@ namespace PeterO.Numbers {
     /// parameter <paramref name='ctx'/> is null or the precision is
     /// unlimited (the context's Precision property is 0), and the exponent
     /// has a fractional part.</returns>
-    public EFloat Pow (EFloat exponent, EContext ctx) {
-      return MathValue.Power (this, exponent, ctx);
+    public EFloat Pow(EFloat exponent, EContext ctx) {
+      return MathValue.Power(this, exponent, ctx);
     }
 
     /// <summary>Raises this object's value to the given
@@ -2617,8 +2619,8 @@ namespace PeterO.Numbers {
     /// isn't needed.</param>
     /// <returns>This^exponent. Signals the flag FlagInvalid and returns
     /// NaN if this object and exponent are both 0.</returns>
-    public EFloat Pow (int exponentSmall, EContext ctx) {
-      return this.Pow (EFloat.FromInt64 (exponentSmall), ctx);
+    public EFloat Pow(int exponentSmall, EContext ctx) {
+      return this.Pow(EFloat.FromInt64(exponentSmall), ctx);
     }
 
     /// <summary>Raises this object's value to the given
@@ -2627,8 +2629,8 @@ namespace PeterO.Numbers {
     /// value to.</param>
     /// <returns>This^exponent. Returns not-a-number (NaN) if this object
     /// and exponent are both 0.</returns>
-    public EFloat Pow (int exponentSmall) {
-      return this.Pow (EFloat.FromInt64 (exponentSmall), null);
+    public EFloat Pow(int exponentSmall) {
+      return this.Pow(EFloat.FromInt64(exponentSmall), null);
     }
 
     /// <summary>Finds the number of digits in this number's significand.
@@ -2693,7 +2695,7 @@ namespace PeterO.Numbers {
       EInteger desiredExponent,
       EContext ctx) {
       return this.Quantize(
-          EFloat.Create (EInteger.One, desiredExponent),
+          EFloat.Create(EInteger.One, desiredExponent),
           ctx);
     }
 
@@ -2745,7 +2747,7 @@ namespace PeterO.Numbers {
       int desiredExponentInt,
       EContext ctx) {
       return this.Quantize(
-          EFloat.Create (EInteger.One, (EInteger)desiredExponentInt),
+          EFloat.Create(EInteger.One, (EInteger)desiredExponentInt),
           ctx);
     }
 
@@ -2785,7 +2787,7 @@ namespace PeterO.Numbers {
     public EFloat Quantize(
       EFloat otherValue,
       EContext ctx) {
-      return MathValue.Quantize (this, otherValue, ctx);
+      return MathValue.Quantize(this, otherValue, ctx);
     }
 
     /// <summary>Returns an object with the same numerical value as this
@@ -2803,8 +2805,8 @@ namespace PeterO.Numbers {
     /// result has a very high exponent and the context says to clamp high
     /// exponents, there may still be some trailing zeros in the
     /// significand.</returns>
-    public EFloat Reduce (EContext ctx) {
-      return MathValue.Reduce (this, ctx);
+    public EFloat Reduce(EContext ctx) {
+      return MathValue.Reduce(this, ctx);
     }
 
     /// <summary>Finds the remainder that results when dividing two
@@ -2823,7 +2825,7 @@ namespace PeterO.Numbers {
     public EFloat Remainder(
       EFloat divisor,
       EContext ctx) {
-      return MathValue.Remainder (this, divisor, ctx, true);
+      return MathValue.Remainder(this, divisor, ctx, true);
     }
 
     /// <summary>Finds the remainder that results when dividing two
@@ -2842,7 +2844,7 @@ namespace PeterO.Numbers {
     public EFloat RemainderNoRoundAfterDivide(
       EFloat divisor,
       EContext ctx) {
-      return MathValue.Remainder (this, divisor, ctx, false);
+      return MathValue.Remainder(this, divisor, ctx, false);
     }
 
     /// <summary>Calculates the remainder of a number by the formula
@@ -2852,7 +2854,7 @@ namespace PeterO.Numbers {
     /// number.</returns>
     public EFloat RemainderNaturalScale(
       EFloat divisor) {
-      return this.RemainderNaturalScale (divisor, null);
+      return this.RemainderNaturalScale(divisor, null);
     }
 
     /// <summary>Calculates the remainder of a number by the formula "this"
@@ -2875,7 +2877,7 @@ namespace PeterO.Numbers {
       EFloat divisor,
       EContext ctx) {
       return this.Subtract(
-        this.DivideToIntegerNaturalScale (divisor, null).Multiply (divisor, null),
+        this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
         ctx);
     }
 
@@ -2913,7 +2915,7 @@ namespace PeterO.Numbers {
     public EFloat RemainderNear(
       EFloat divisor,
       EContext ctx) {
-      return MathValue.RemainderNear (this, divisor, ctx);
+      return MathValue.RemainderNear(this, divisor, ctx);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -2945,7 +2947,7 @@ namespace PeterO.Numbers {
     public EFloat RoundToExponent(
       EInteger exponent,
       EContext ctx) {
-      return MathValue.RoundToExponentSimple (this, exponent, ctx);
+      return MathValue.RoundToExponentSimple(this, exponent, ctx);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -2977,7 +2979,7 @@ namespace PeterO.Numbers {
     public EFloat RoundToExponent(
       int exponentSmall,
       EContext ctx) {
-      return this.RoundToExponent ((EInteger)exponentSmall, ctx);
+      return this.RoundToExponent((EInteger)exponentSmall, ctx);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -3010,7 +3012,7 @@ namespace PeterO.Numbers {
     public EFloat RoundToExponentExact(
       EInteger exponent,
       EContext ctx) {
-      return MathValue.RoundToExponentExact (this, exponent, ctx);
+      return MathValue.RoundToExponentExact(this, exponent, ctx);
     }
 
     /// <summary>Returns a binary number with the same value as this object
@@ -3035,7 +3037,7 @@ namespace PeterO.Numbers {
       return MathValue.RoundToExponentExact(
           this,
           exponent,
-          EContext.Unlimited.WithRounding (rounding));
+          EContext.Unlimited.WithRounding(rounding));
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -3068,7 +3070,7 @@ namespace PeterO.Numbers {
     public EFloat RoundToExponentExact(
       int exponentSmall,
       EContext ctx) {
-      return this.RoundToExponentExact ((EInteger)exponentSmall, ctx);
+      return this.RoundToExponentExact((EInteger)exponentSmall, ctx);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -3089,8 +3091,8 @@ namespace PeterO.Numbers {
     /// not-a-number (NaN) if the arithmetic context defines an exponent
     /// range, the new exponent must be changed to 0 when rounding, and 0
     /// is outside of the valid range of the arithmetic context.</returns>
-    public EFloat RoundToIntegerExact (EContext ctx) {
-      return MathValue.RoundToExponentExact (this, EInteger.Zero, ctx);
+    public EFloat RoundToIntegerExact(EContext ctx) {
+      return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -3114,8 +3116,8 @@ namespace PeterO.Numbers {
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to 0 when rounding, and 0 is outside of the valid range
     /// of the arithmetic context.</returns>
-    public EFloat RoundToIntegerNoRoundedFlag (EContext ctx) {
-      return MathValue.RoundToExponentNoRoundedFlag (this, EInteger.Zero, ctx);
+    public EFloat RoundToIntegerNoRoundedFlag(EContext ctx) {
+      return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -3135,8 +3137,8 @@ namespace PeterO.Numbers {
     /// range, the new exponent must be changed to 0 when rounding, and 0
     /// is outside of the valid range of the arithmetic context.</returns>
     [Obsolete("Renamed to RoundToIntegerExact.")]
-    public EFloat RoundToIntegralExact (EContext ctx) {
-      return MathValue.RoundToExponentExact (this, EInteger.Zero, ctx);
+    public EFloat RoundToIntegralExact(EContext ctx) {
+      return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -3158,8 +3160,8 @@ namespace PeterO.Numbers {
     /// be changed to 0 when rounding, and 0 is outside of the valid range
     /// of the arithmetic context.</returns>
     [Obsolete("Renamed to RoundToIntegerNoRoundedFlag.")]
-    public EFloat RoundToIntegralNoRoundedFlag (EContext ctx) {
-      return MathValue.RoundToExponentNoRoundedFlag (this, EInteger.Zero, ctx);
+    public EFloat RoundToIntegralNoRoundedFlag(EContext ctx) {
+      return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
     /// <summary>Rounds this object's value to a given precision, using the
@@ -3174,8 +3176,8 @@ namespace PeterO.Numbers {
     /// specified precision. Returns the same value as this object if
     /// <paramref name='ctx'/> is null or the precision and exponent range
     /// are unlimited.</returns>
-    public EFloat RoundToPrecision (EContext ctx) {
-      return MathValue.RoundToPrecision (this, ctx);
+    public EFloat RoundToPrecision(EContext ctx) {
+      return MathValue.RoundToPrecision(this, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the scale
@@ -3184,8 +3186,8 @@ namespace PeterO.Numbers {
     /// 32-bit signed integer.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public EFloat ScaleByPowerOfTwo (int places) {
-      return this.ScaleByPowerOfTwo ((EInteger)places, null);
+    public EFloat ScaleByPowerOfTwo(int places) {
+      return this.ScaleByPowerOfTwo((EInteger)places, null);
     }
 
     /// <summary>Returns a number similar to this number but with the scale
@@ -3199,8 +3201,8 @@ namespace PeterO.Numbers {
     /// Can be null.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    public EFloat ScaleByPowerOfTwo (int places, EContext ctx) {
-      return this.ScaleByPowerOfTwo ((EInteger)places, ctx);
+    public EFloat ScaleByPowerOfTwo(int places, EContext ctx) {
+      return this.ScaleByPowerOfTwo((EInteger)places, ctx);
     }
 
     /// <summary>Returns a number similar to this number but with the scale
@@ -3208,8 +3210,8 @@ namespace PeterO.Numbers {
     /// <param name='bigPlaces'>An arbitrary-precision integer.</param>
     /// <returns>A number whose exponent is increased by <paramref
     /// name='bigPlaces'/>.</returns>
-    public EFloat ScaleByPowerOfTwo (EInteger bigPlaces) {
-      return this.ScaleByPowerOfTwo (bigPlaces, null);
+    public EFloat ScaleByPowerOfTwo(EInteger bigPlaces) {
+      return this.ScaleByPowerOfTwo(bigPlaces, null);
     }
 
     /// <summary>Returns a number similar to this number but with its scale
@@ -3231,17 +3233,17 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(bigPlaces));
       }
       if (bigPlaces.IsZero) {
-        return this.RoundToPrecision (ctx);
+        return this.RoundToPrecision(ctx);
       }
       if (!this.IsFinite) {
-        return this.RoundToPrecision (ctx);
+        return this.RoundToPrecision(ctx);
       }
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       return CreateWithFlags(
           this.unsignedMantissa,
           bigExp,
-          this.flags).RoundToPrecision (ctx);
+          this.flags).RoundToPrecision(ctx);
     }
 
     /// <summary>Finds the square root of this object's value.</summary>
@@ -3259,8 +3261,8 @@ namespace PeterO.Numbers {
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
-    public EFloat Sqrt (EContext ctx) {
-      return MathValue.SquareRoot (this, ctx);
+    public EFloat Sqrt(EContext ctx) {
+      return MathValue.SquareRoot(this, ctx);
     }
 
     /// <summary>Finds the square root of this object's value.</summary>
@@ -3279,8 +3281,8 @@ namespace PeterO.Numbers {
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     [Obsolete("Renamed to Sqrt.")]
-    public EFloat SquareRoot (EContext ctx) {
-      return MathValue.SquareRoot (this, ctx);
+    public EFloat SquareRoot(EContext ctx) {
+      return MathValue.SquareRoot(this, ctx);
     }
 
     /// <summary>Subtracts an arbitrary-precision binary floating-point
@@ -3288,8 +3290,8 @@ namespace PeterO.Numbers {
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <returns>The difference of the two objects.</returns>
-    public EFloat Subtract (EFloat otherValue) {
-      return this.Subtract (otherValue, null);
+    public EFloat Subtract(EFloat otherValue) {
+      return this.Subtract(otherValue, null);
     }
 
     /// <summary>Subtracts an arbitrary-precision binary floating-point
@@ -3320,7 +3322,7 @@ namespace PeterO.Numbers {
             otherValue.exponent,
             newflags);
       }
-      return this.Add (negated, ctx);
+      return this.Add(negated, ctx);
     }
 
     /// <summary>Converts this value to a 64-bit floating-point
@@ -3337,7 +3339,7 @@ namespace PeterO.Numbers {
       if (this.IsNaN()) {
         int[] nan = { 0, 0x7ff00000 };
         if (this.IsNegative) {
-          nan[1] |= unchecked ((int)(1 << 31));
+          nan[1] |= unchecked((int)(1 << 31));
         }
         if (this.IsQuietNaN()) {
           // Quiet NaN is a NaN in which the highest bit of
@@ -3350,7 +3352,7 @@ namespace PeterO.Numbers {
         }
         if (!this.UnsignedMantissa.IsZero) {
           // Copy diagnostic information
-          int[] words = FastInteger.GetLastWords (this.UnsignedMantissa, 2);
+          int[] words = FastInteger.GetLastWords(this.UnsignedMantissa, 2);
           nan[0] = words[0];
           nan[1] |= words[1] & 0x7ffff;
           if ((words[0] | (words[1] & 0x7ffff)) == 0 && !this.IsQuietNaN()) {
@@ -3359,16 +3361,16 @@ namespace PeterO.Numbers {
             nan[1] |= 0x40000;
           }
         }
-        return Extras.IntegersToDouble (nan);
+        return Extras.IntegersToDouble(nan);
       }
-      EFloat thisValue = this.RoundToPrecision (EContext.Binary64);
+      EFloat thisValue = this.RoundToPrecision(EContext.Binary64);
       if (!thisValue.IsFinite) {
         return thisValue.ToDouble();
       }
       EInteger mant = thisValue.unsignedMantissa;
       if (thisValue.IsNegative && mant.IsZero) {
-        int highbit = unchecked ((int)(1 << 31));
-        return Extras.IntegersToDouble (new[] {
+        int highbit = unchecked((int)(1 << 31));
+        return Extras.IntegersToDouble(new[] {
           0, highbit,
         });
       } else if (mant.IsZero) {
@@ -3378,7 +3380,7 @@ namespace PeterO.Numbers {
       EInteger bitLength = mant.GetUnsignedBitLengthAsEInteger();
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
-      if (bitLength.CompareTo (53) < 0) {
+      if (bitLength.CompareTo(53) < 0) {
         int diff = 53 - bitLength.ToInt32Checked();
         expo -= diff;
         if (expo < -1074) {
@@ -3393,7 +3395,7 @@ namespace PeterO.Numbers {
       }
       // DebugUtility.Log("2->" + (mant.ToRadixString(2)) + ", " + expo);
       int[] mantissaBits;
-      mantissaBits = FastInteger.GetLastWords (mant, 2);
+      mantissaBits = FastInteger.GetLastWords(mant, 2);
       // Clear the high bits where the exponent and sign are
       mantissaBits[1] &= 0xfffff;
       if (!subnormal) {
@@ -3401,11 +3403,11 @@ namespace PeterO.Numbers {
         mantissaBits[1] |= smallexponent;
       }
       if (this.IsNegative) {
-        mantissaBits[1] |= unchecked ((int)(1 << 31));
+        mantissaBits[1] |= unchecked((int)(1 << 31));
       }
       // DebugUtility.Log("todouble ret -->" +
       // Extras.IntegersToDouble(mantissaBits));
-      return Extras.IntegersToDouble (mantissaBits);
+      return Extras.IntegersToDouble(mantissaBits);
     }
 
     /// <summary>Converts this value to an arbitrary-precision decimal
@@ -3413,7 +3415,7 @@ namespace PeterO.Numbers {
     /// <returns>This number, converted to an arbitrary-precision decimal
     /// number.</returns>
     public EDecimal ToEDecimal() {
-      return EDecimal.FromEFloat (this);
+      return EDecimal.FromEFloat(this);
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer. Any
@@ -3423,7 +3425,7 @@ namespace PeterO.Numbers {
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
     public EInteger ToEInteger() {
-      return this.ToEIntegerInternal (false);
+      return this.ToEIntegerInternal(false);
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
@@ -3433,7 +3435,7 @@ namespace PeterO.Numbers {
     /// or not-a-number (NaN).</exception>
     [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
-      return this.ToEIntegerInternal (true);
+      return this.ToEIntegerInternal(true);
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
@@ -3442,7 +3444,7 @@ namespace PeterO.Numbers {
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
     public EInteger ToEIntegerIfExact() {
-      return this.ToEIntegerInternal (true);
+      return this.ToEIntegerInternal(true);
     }
 
     /// <summary>Converts this value to an arbitrary-precision decimal
@@ -3458,7 +3460,7 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision decimal number.</returns>
     [Obsolete("Renamed to ToEDecimal.")]
     public EDecimal ToExtendedDecimal() {
-      return EDecimal.FromEFloat (this);
+      return EDecimal.FromEFloat(this);
     }
 
     /// <summary>Converts this value to a string, but without exponential
@@ -3469,7 +3471,7 @@ namespace PeterO.Numbers {
     }
 
     private string ToDebugString() {
-      return "[" + this.Mantissa.ToRadixString (2) +
+      return "[" + this.Mantissa.ToRadixString(2) +
         "," + this.Mantissa.GetUnsignedBitLengthAsEInteger() +
         "," + this.Exponent + "]";
     }
@@ -3506,7 +3508,7 @@ namespace PeterO.Numbers {
     ///  type in Java and.NET:</para>
     /// <code> String str = efloat.ToShortestString(EContext.Binary64); </code>
     /// </example>
-    public string ToShortestString (EContext ctx) {
+    public string ToShortestString(EContext ctx) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return this.ToString();
       }
@@ -3518,38 +3520,38 @@ namespace PeterO.Numbers {
             ctx).ToString();
       }
       if (this.IsInfinity()) {
-        return this.RoundToPrecision (ctx).ToString();
+        return this.RoundToPrecision(ctx).ToString();
       }
       EContext ctx2 = ctx.WithNoFlags();
-      EFloat valueEfRnd = this.RoundToPrecision (ctx);
+      EFloat valueEfRnd = this.RoundToPrecision(ctx);
       if (valueEfRnd.IsInfinity()) {
         return valueEfRnd.ToString();
       }
       if (this.IsZero) {
-        return this.RoundToPrecision (ctx).ToString();
+        return this.RoundToPrecision(ctx).ToString();
       }
       // NOTE: The original EFloat is converted to decimal,
       // not the rounded version, to avoid double rounding issues
       EDecimal dec = this.ToEDecimal();
-      if (ctx.Precision.CompareTo (10) >= 0) {
+      if (ctx.Precision.CompareTo(10) >= 0) {
         // Preround the decimal so the significand has closer to the
         // number of decimal digits of the maximum possible
         // decimal significand, to speed up further rounding
-        EInteger roundedPrec = ctx.Precision.ShiftRight (1).Add(
-            EInteger.FromInt32 (3));
+        EInteger roundedPrec = ctx.Precision.ShiftRight(1).Add(
+            EInteger.FromInt32(3));
         EInteger dmant = dec.UnsignedMantissa;
         EInteger dexp = dec.Exponent;
         bool dneg = dec.IsNegative;
         var dsa = new DigitShiftAccumulator(dmant, 0, 0);
-        dsa.ShiftToDigits (FastInteger.FromBig (roundedPrec), null, false);
+        dsa.ShiftToDigits(FastInteger.FromBig(roundedPrec), null, false);
         dmant = dsa.ShiftedInt;
-        dexp = dexp.Add (dsa.DiscardedDigitCount.AsEInteger());
+        dexp = dexp.Add(dsa.DiscardedDigitCount.AsEInteger());
         if (dsa.LastDiscardedDigit != 0 || dsa.OlderDiscardedDigits != 0) {
-          if (dmant.Remainder (10).ToInt32Checked() != 9) {
-            dmant = dmant.Add (1);
+          if (dmant.Remainder(10).ToInt32Checked() != 9) {
+            dmant = dmant.Add(1);
           }
         }
-        dec = EDecimal.Create (dmant, dexp);
+        dec = EDecimal.Create(dmant, dexp);
         if (dneg) {
           dec = dec.Negate();
         }
@@ -3557,29 +3559,29 @@ namespace PeterO.Numbers {
       bool mantissaIsPowerOfTwo = this.unsignedMantissa.IsPowerOfTwo;
       EInteger eprecision = EInteger.Zero;
       while (true) {
-        EInteger nextPrecision = eprecision.Add (EInteger.One);
-        EContext nextCtx = ctx2.WithBigPrecision (nextPrecision);
-        EDecimal nextDec = dec.RoundToPrecision (nextCtx);
-        EFloat newFloat = nextDec.ToEFloat (ctx2);
-        if (newFloat.CompareTo (valueEfRnd) == 0) {
+        EInteger nextPrecision = eprecision.Add(EInteger.One);
+        EContext nextCtx = ctx2.WithBigPrecision(nextPrecision);
+        EDecimal nextDec = dec.RoundToPrecision(nextCtx);
+        EFloat newFloat = nextDec.ToEFloat(ctx2);
+        if (newFloat.CompareTo(valueEfRnd) == 0) {
           if (mantissaIsPowerOfTwo && eprecision.Sign > 0) {
             nextPrecision = eprecision;
-            nextCtx = ctx2.WithBigPrecision (nextPrecision);
+            nextCtx = ctx2.WithBigPrecision(nextPrecision);
             #if DEBUG
             if (!nextCtx.HasMaxPrecision) {
               throw new InvalidOperationException("mant=" + this.Mantissa +
                 "," + "\u0020 exp=" + this.Exponent);
             }
             #endif
-            EDecimal nextDec2 = dec.RoundToPrecision (nextCtx);
-            nextDec2 = nextDec2.NextPlus (nextCtx);
-            newFloat = nextDec2.ToEFloat (ctx2);
-            if (newFloat.CompareTo (valueEfRnd) == 0) {
+            EDecimal nextDec2 = dec.RoundToPrecision(nextCtx);
+            nextDec2 = nextDec2.NextPlus(nextCtx);
+            newFloat = nextDec2.ToEFloat(ctx2);
+            if (newFloat.CompareTo(valueEfRnd) == 0) {
               nextDec = nextDec2;
             }
           }
           return (nextDec.Exponent.Sign > 0 &&
-              nextDec.Abs().CompareTo (EDecimal.FromInt32 (10000000)) < 0) ?
+              nextDec.Abs().CompareTo(EDecimal.FromInt32(10000000)) < 0) ?
             nextDec.ToPlainString() : nextDec.ToString();
         }
         eprecision = nextPrecision;
@@ -3611,7 +3613,7 @@ namespace PeterO.Numbers {
       if (this.IsNaN()) {
         var nan = 0x7f800000;
         if (this.IsNegative) {
-          nan |= unchecked ((int)(1 << 31));
+          nan |= unchecked((int)(1 << 31));
         }
         // IsQuietNaN(): the quiet bit for X86 at least
         // If signaling NaN and mantissa is 0: set 0x200000
@@ -3630,15 +3632,15 @@ namespace PeterO.Numbers {
             nan |= 0x200000;
           }
         }
-        return BitConverter.ToSingle (BitConverter.GetBytes (nan), 0);
+        return BitConverter.ToSingle(BitConverter.GetBytes(nan), 0);
       }
-      EFloat thisValue = this.RoundToPrecision (EContext.Binary32);
+      EFloat thisValue = this.RoundToPrecision(EContext.Binary32);
       if (!thisValue.IsFinite) {
         return thisValue.ToSingle();
       }
       EInteger mant = thisValue.unsignedMantissa;
       if (thisValue.IsNegative && mant.IsZero) {
-        return BitConverter.ToSingle (BitConverter.GetBytes ((int)1 << 31), 0);
+        return BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0);
       } else if (mant.IsZero) {
         return 0.0f;
       }
@@ -3648,7 +3650,7 @@ namespace PeterO.Numbers {
       EInteger bitLength = mant.GetUnsignedBitLengthAsEInteger();
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
-      if (bitLength.CompareTo (24) < 0) {
+      if (bitLength.CompareTo(24) < 0) {
         int diff = 24 - bitLength.ToInt32Checked();
         expo -= diff;
         if (expo < -149) {
@@ -3669,7 +3671,7 @@ namespace PeterO.Numbers {
         smallmantissa |= 1 << 31;
       }
       return BitConverter.ToSingle(
-          BitConverter.GetBytes ((int)smallmantissa),
+          BitConverter.GetBytes((int)smallmantissa),
           0);
     }
 
@@ -3682,7 +3684,7 @@ namespace PeterO.Numbers {
     /// number's first nonzero decimal digit is more than five digits after
     /// the decimal point.</returns>
     public override string ToString() {
-      return EDecimal.FromEFloat (this).ToString();
+      return EDecimal.FromEFloat(this).ToString();
     }
 
     /// <summary>Returns the unit in the last place. The significand will
@@ -3693,7 +3695,7 @@ namespace PeterO.Numbers {
     /// number.</returns>
     public EFloat Ulp() {
       return (!this.IsFinite) ? EFloat.One :
-        EFloat.Create (EInteger.One, this.exponent);
+        EFloat.Create(EInteger.One, this.exponent);
     }
 
     internal static EFloat CreateWithFlags(
@@ -3708,12 +3710,12 @@ namespace PeterO.Numbers {
       }
       int sign = mantissa == null ? 0 : mantissa.Sign;
       return new EFloat(
-          sign < 0 ? (- (EInteger)mantissa) : mantissa,
+          sign < 0 ? (-(EInteger)mantissa) : mantissa,
           exponent,
           flags);
     }
 
-    private EInteger ToEIntegerInternal (bool exact) {
+    private EInteger ToEIntegerInternal(bool exact) {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
@@ -3736,7 +3738,7 @@ namespace PeterO.Numbers {
         if (neg) {
           bigmantissa = -bigmantissa;
         }
-        bigmantissa = bigmantissa.ShiftLeft (curexp);
+        bigmantissa = bigmantissa.ShiftLeft(curexp);
         if (neg) {
           bigmantissa = -bigmantissa;
         }
@@ -3747,10 +3749,10 @@ namespace PeterO.Numbers {
           // number of bits, so can't be an exact integer
           throw new ArithmeticException("Not an exact integer");
         }
-        FastInteger bigexponent = FastInteger.FromBig (this.Exponent).Negate();
+        FastInteger bigexponent = FastInteger.FromBig(this.Exponent).Negate();
         EInteger bigmantissa = this.unsignedMantissa;
         var acc = new BitShiftAccumulator(bigmantissa, 0, 0);
-        acc.ShiftRight (bigexponent);
+        acc.ShiftRight(bigexponent);
         if (exact && (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits !=
             0)) {
           // Some digits were discarded
@@ -3775,7 +3777,7 @@ namespace PeterO.Numbers {
       /// <param name='value'>An arbitrary-precision binary floating-point
       /// number.</param>
       /// <returns>A 32-bit signed integer.</returns>
-      public int GetSign (EFloat value) {
+      public int GetSign(EFloat value) {
         return value.Sign;
       }
 
@@ -3783,7 +3785,7 @@ namespace PeterO.Numbers {
       /// <param name='value'>An arbitrary-precision binary floating-point
       /// number.</param>
       /// <returns>An arbitrary-precision integer.</returns>
-      public EInteger GetMantissa (EFloat value) {
+      public EInteger GetMantissa(EFloat value) {
         return value.unsignedMantissa;
       }
 
@@ -3791,20 +3793,20 @@ namespace PeterO.Numbers {
       /// <param name='value'>An arbitrary-precision binary floating-point
       /// number.</param>
       /// <returns>An arbitrary-precision integer.</returns>
-      public EInteger GetExponent (EFloat value) {
+      public EInteger GetExponent(EFloat value) {
         return value.exponent;
       }
 
-      public FastInteger GetDigitLength (EInteger ei) {
-        return FastInteger.FromBig (ei.GetUnsignedBitLengthAsEInteger());
+      public FastInteger GetDigitLength(EInteger ei) {
+        return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
       }
 
-      public FastIntegerFixed GetMantissaFastInt (EFloat value) {
-        return FastIntegerFixed.FromBig (value.unsignedMantissa);
+      public FastIntegerFixed GetMantissaFastInt(EFloat value) {
+        return FastIntegerFixed.FromBig(value.unsignedMantissa);
       }
 
-      public FastIntegerFixed GetExponentFastInt (EFloat value) {
-        return FastIntegerFixed.FromBig (value.exponent);
+      public FastIntegerFixed GetExponentFastInt(EFloat value) {
+        return FastIntegerFixed.FromBig(value.exponent);
       }
 
       /// <summary>This is an internal method.</summary>
@@ -3842,17 +3844,17 @@ namespace PeterO.Numbers {
       /// <param name='num'>An arbitrary-precision integer.</param>
       /// <param name='den'>Another arbitrary-precision integer.</param>
       /// <returns>A FastInteger object.</returns>
-      public FastInteger DivisionShift (EInteger num, EInteger den) {
+      public FastInteger DivisionShift(EInteger num, EInteger den) {
         if (den.IsZero) {
           return null;
         }
-        if (den.GetUnsignedBit (0) && den.CompareTo (EInteger.One) != 0) {
+        if (den.GetUnsignedBit(0) && den.CompareTo(EInteger.One) != 0) {
           return null;
         }
         EInteger valueELowBit = den.GetLowBitAsEInteger();
         return
-          den.GetUnsignedBitLengthAsEInteger().Equals (valueELowBit.Add (1)) ?
-          FastInteger.FromBig (valueELowBit) : null;
+          den.GetUnsignedBitLengthAsEInteger().Equals(valueELowBit.Add(1)) ?
+          FastInteger.FromBig(valueELowBit) : null;
       }
 
       /// <summary>This is an internal method.</summary>
@@ -3868,18 +3870,18 @@ namespace PeterO.Numbers {
         }
         if (tmpbigint.Sign < 0) {
           tmpbigint = -tmpbigint;
-          tmpbigint = power.ShiftEIntegerLeftByThis (tmpbigint);
+          tmpbigint = power.ShiftEIntegerLeftByThis(tmpbigint);
           tmpbigint = -tmpbigint;
           return tmpbigint;
         }
-        return power.ShiftEIntegerLeftByThis (tmpbigint);
+        return power.ShiftEIntegerLeftByThis(tmpbigint);
       }
 
       /// <summary>This is an internal method.</summary>
       /// <param name='value'>An arbitrary-precision binary floating-point
       /// number.</param>
       /// <returns>A 32-bit signed integer.</returns>
-      public int GetFlags (EFloat value) {
+      public int GetFlags(EFloat value) {
         return value.flags;
       }
 
@@ -3896,7 +3898,7 @@ namespace PeterO.Numbers {
         EInteger mantissa,
         EInteger exponent,
         int flags) {
-        return EFloat.CreateWithFlags (mantissa, exponent, flags);
+        return EFloat.CreateWithFlags(mantissa, exponent, flags);
       }
 
       public EFloat CreateNewWithFlagsFastInt(
@@ -3920,8 +3922,8 @@ namespace PeterO.Numbers {
       /// signed integer.</param>
       /// <returns>An arbitrary-precision binary floating-point
       /// number.</returns>
-      public EFloat ValueOf (int val) {
-        return FromInt64 (val);
+      public EFloat ValueOf(int val) {
+        return FromInt64(val);
       }
     }
 
@@ -3930,7 +3932,7 @@ namespace PeterO.Numbers {
     /// <returns>The given arbitrary-precision binary floating-point number
     /// plus one.</returns>
     public EFloat Increment() {
-      return this.Add (1);
+      return this.Add(1);
     }
 
     /// <summary>Returns one subtracted from this arbitrary-precision
@@ -3938,7 +3940,7 @@ namespace PeterO.Numbers {
     /// <returns>The given arbitrary-precision binary floating-point number
     /// minus one.</returns>
     public EFloat Decrement() {
-      return this.Subtract (1);
+      return this.Subtract(1);
     }
 
     // Begin integer conversions
@@ -3989,9 +3991,9 @@ namespace PeterO.Numbers {
     /// 255).</param>
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
-    public static EFloat FromByte (byte inputByte) {
+    public static EFloat FromByte(byte inputByte) {
       int val = ((int)inputByte) & 0xff;
-      return FromInt32 (val);
+      return FromInt32(val);
     }
 
     /// <summary>Converts this number's value to a 16-bit signed integer if
@@ -4041,9 +4043,9 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
-    public static EFloat FromInt16 (short inputInt16) {
+    public static EFloat FromInt16(short inputInt16) {
       var val = (int)inputInt16;
-      return FromInt32 (val);
+      return FromInt32(val);
     }
 
     /// <summary>Converts this number's value to a 32-bit signed integer if
@@ -4091,7 +4093,7 @@ namespace PeterO.Numbers {
     /// <param name='boolValue'>Either true or false.</param>
     /// <returns>The number 1 if <paramref name='boolValue'/> is true,
     /// otherwise, 0.</returns>
-    public static EFloat FromBoolean (bool boolValue) {
+    public static EFloat FromBoolean(bool boolValue) {
       return boolValue ? EFloat.One : EFloat.Zero;
     }
 
@@ -4101,8 +4103,8 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
-    public static EFloat FromInt32 (int inputInt32) {
-      return FromEInteger (EInteger.FromInt32 (inputInt32));
+    public static EFloat FromInt32(int inputInt32) {
+      return FromEInteger(EInteger.FromInt32(inputInt32));
     }
 
     /// <summary>Converts this number's value to a 64-bit signed integer if
@@ -4152,8 +4154,8 @@ namespace PeterO.Numbers {
     /// integer.</param>
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
-    public static EFloat FromInt64 (long inputInt64) {
-      return FromEInteger (EInteger.FromInt64 (inputInt64));
+    public static EFloat FromInt64(long inputInt64) {
+      return FromEInteger(EInteger.FromInt64(inputInt64));
     }
 
     // End integer conversions
