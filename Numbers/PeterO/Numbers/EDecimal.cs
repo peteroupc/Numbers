@@ -9,6 +9,9 @@ using System;
 using System.Text;
 
 // TODO: Add Create*(long, int)
+// TODO: Add ToEInteger method that restricts bit size of
+// outputs to EDecimal/EFloat/ERational
+// TODO: Add IsInteger method to EFloat and ERational
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
@@ -488,6 +491,17 @@ TrappableRadixMath<EDecimal>(
         return ((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
           this.unsignedMantissa.IsValueZero;
       }
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <returns>The return value is not documented yet.</returns>
+    public bool IsInteger() {
+        if (this.exponent.CompareToInt(0) >= 0) {
+          return true;
+        } else {
+          EDecimal r = this.Reduce(null);
+          return r.exponent.CompareToInt(0) >= 0;
+        }
     }
 
     /// <summary>Gets this object's unscaled value, or significand, and
@@ -5301,6 +5315,8 @@ TrappableRadixMath<EDecimal>(
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
+    /// <exception cref='NotSupportedException'>There is not enough memory
+    /// to store the value as an EInteger.</exception>
     public EInteger ToEInteger() {
       return this.ToEIntegerInternal(false);
     }
@@ -5629,9 +5645,17 @@ TrappableRadixMath<EDecimal>(
       if (sign >= 0) {
         return false;
       } else {
+        EInteger umantissa = this.UnsignedMantissa;
+        EInteger digitCountUpper = DigitCountUpperBound(umantissa);
+        EInteger digitCountLower = DigitCountLowerBound(umantissa);
         EInteger bigexponent = this.Exponent;
-        EInteger digitCount = this.UnsignedMantissa
-          .GetDigitCountAsEInteger();
+        if (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) {
+          return true;
+        }
+        if (digitCountLower.CompareTo(bigexponent.Abs()) > 0) {
+          return false;
+        }
+        EInteger digitCount = umantissa.GetDigitCountAsEInteger();
         return (digitCount.CompareTo(bigexponent) <= 0) ? true :
           false;
       }
@@ -5650,6 +5674,12 @@ TrappableRadixMath<EDecimal>(
         return bigmantissa;
       }
       if (sign > 0) {
+        EInteger exponent = this.Exponent;
+        EInteger exponentBitSize = exponent.GetUnsignedBitLengthAsEInteger();
+        if (exponentBitSize.CompareTo(64) > 0) {
+          throw new NotSupportedException(
+            "Not enough memory to store as EInteger.");
+        }
         EInteger bigmantissa = this.Mantissa;
         EInteger bigexponent =
           NumberUtility.FindPowerOfTenFromBig(this.Exponent);
@@ -6513,13 +6543,14 @@ TrappableRadixMath<EDecimal>(
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      if (this.IsIntegerPartZero()) {
+      if (this.IsZero) {
         return (byte)0;
       }
       if (this.exponent.CompareToInt(3) >= 0) {
         throw new OverflowException("Value out of range");
       }
-      return this.ToEInteger().ToByteChecked();
+      return this.IsIntegerPartZero() ? ((byte)0) :
+this.ToEInteger().ToByteChecked();
     }
 
     /// <summary>Converts this number's value to an integer by discarding
@@ -6528,7 +6559,17 @@ TrappableRadixMath<EDecimal>(
     /// <returns>This number, converted to a byte (from 0 to 255). Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public byte ToByteUnchecked() {
-      return this.IsFinite ? this.ToEInteger().ToByteUnchecked() : (byte)0;
+      if (this.IsFinite) {
+        if (this.IsZero) {
+          return (byte)0;
+        }
+        if (this.exponent.CompareToInt(8) >= 0) {
+          /* Whether positive or negative, 10^x mod 256 is always 0
+              for x >= 8 */ return (byte)0;
+        }
+        return this.ToEInteger().ToByteUnchecked();
+      }
+      return (byte)0;
     }
 
     /// <summary>Converts this number's value to a byte (from 0 to 255) if
@@ -6578,13 +6619,14 @@ TrappableRadixMath<EDecimal>(
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      if (this.IsIntegerPartZero()) {
+      if (this.IsZero) {
         return (short)0;
       }
       if (this.exponent.CompareToInt(5) >= 0) {
-        throw new OverflowException("Value out of range: ");
+        throw new OverflowException("Value out of range");
       }
-      return this.ToEInteger().ToInt16Checked();
+      return this.IsIntegerPartZero() ? ((short)0) :
+this.ToEInteger().ToInt16Checked();
     }
 
     /// <summary>Converts this number's value to an integer by discarding
@@ -6593,7 +6635,17 @@ TrappableRadixMath<EDecimal>(
     /// <returns>This number, converted to a 16-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public short ToInt16Unchecked() {
-      return this.IsFinite ? this.ToEInteger().ToInt16Unchecked() : (short)0;
+      if (this.IsFinite) {
+        if (this.IsZero) {
+          return (short)0;
+        }
+        if (this.exponent.CompareToInt(16) >= 0) {
+          /* Whether positive or negative, 10^x mod 65536 is always 0
+              for x >= 16 */ return (short)0;
+        }
+        return this.ToEInteger().ToInt16Unchecked();
+      }
+      return (short)0;
     }
 
     /// <summary>Converts this number's value to a 16-bit signed integer if
@@ -6640,13 +6692,14 @@ TrappableRadixMath<EDecimal>(
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      if (this.IsIntegerPartZero()) {
+      if (this.IsZero) {
         return (int)0;
       }
       if (this.exponent.CompareToInt(10) >= 0) {
-        throw new OverflowException("Value out of range: ");
+        throw new OverflowException("Value out of range");
       }
-      return this.ToEInteger().ToInt32Checked();
+      return this.IsIntegerPartZero() ? ((int)0) :
+this.ToEInteger().ToInt32Checked();
     }
 
     /// <summary>Converts this number's value to an integer by discarding
@@ -6655,7 +6708,17 @@ TrappableRadixMath<EDecimal>(
     /// <returns>This number, converted to a 32-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public int ToInt32Unchecked() {
-      return this.IsFinite ? this.ToEInteger().ToInt32Unchecked() : (int)0;
+      if (this.IsFinite) {
+        if (this.IsZero) {
+          return 0;
+        }
+        if (this.exponent.CompareToInt(32) >= 0) {
+          /* Whether positive or negative, 10^x mod 2^32 is always 0
+              for x >= 32 */ return 0;
+        }
+        return this.ToEInteger().ToInt32Unchecked();
+      }
+      return 0;
     }
 
     /// <summary>Converts this number's value to a 32-bit signed integer if
@@ -6691,13 +6754,14 @@ TrappableRadixMath<EDecimal>(
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      if (this.IsIntegerPartZero()) {
+      if (this.IsZero) {
         return 0L;
       }
       if (this.exponent.CompareToInt(19) >= 0) {
-        throw new OverflowException("Value out of range: ");
+        throw new OverflowException("Value out of range");
       }
-      return this.ToEInteger().ToInt64Checked();
+      return this.IsIntegerPartZero() ? 0L :
+this.ToEInteger().ToInt64Checked();
     }
 
     /// <summary>Converts this number's value to an integer by discarding
@@ -6706,7 +6770,17 @@ TrappableRadixMath<EDecimal>(
     /// <returns>This number, converted to a 64-bit signed integer. Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public long ToInt64Unchecked() {
-      return this.IsFinite ? this.ToEInteger().ToInt64Unchecked() : 0L;
+      if (this.IsFinite) {
+        if (this.IsZero) {
+          return 0L;
+        }
+        if (this.exponent.CompareToInt(64) >= 0) {
+          /* Whether positive or negative, 10^x mod 2^64 is always 0
+              for x >= 64 */ return 0L;
+        }
+        return this.ToEInteger().ToInt64Unchecked();
+      }
+      return 0L;
     }
 
     /// <summary>Converts this number's value to a 64-bit signed integer if

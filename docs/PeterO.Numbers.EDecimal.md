@@ -229,6 +229,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision decimal number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object is positive or negative infinity.
+* <code>[IsInteger()](#IsInteger)</code> - Not documented yet.
 * <code>[IsNaN()](#IsNaN)</code> - Gets a value indicating whether this object is not a number (NaN).
 * <code>[IsNegative](#IsNegative)</code> - Gets a value indicating whether this object is negative, including negative zero.
 * <code>[IsNegativeInfinity()](#IsNegativeInfinity)</code> - Returns whether this object is negative infinity.
@@ -1947,6 +1948,15 @@ Gets a value indicating whether this object is positive or negative infinity.
 <b>Return Value:</b>
 
  `true`  if this object is positive or negative infinity; otherwise,  `false` .
+
+<a id="IsInteger"></a>
+### IsInteger
+
+    public bool IsInteger();
+
+Not documented yet.
+
+<b>Return Value:</b>
 
 <a id="IsNaN"></a>
 ### IsNaN
@@ -4187,6 +4197,9 @@ An arbitrary-precision integer.
 
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
+
+ * System.NotSupportedException:
+There is not enough memory to store the value as an EInteger.
 
 <a id="ToEIntegerExact"></a>
 ### ToEIntegerExact

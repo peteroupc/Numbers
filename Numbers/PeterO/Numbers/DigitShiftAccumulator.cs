@@ -403,11 +403,17 @@ namespace PeterO.Numbers {
           // check the digit count to see if doing so can be avoided
           EInteger bigBitLength =
             this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
+          var bigPower = false;
+          if (bigBitLength.CompareTo(100) > 0 &&
+              bigBitLength.Add(5).CompareTo(digits) < 0) {
+            // Has much fewer bits than digits to shift, so all of them
+            // will be shifted to the right
+            bigPower = true;
+          } else {
           // NOTE: Overflowing bigBitLength will be MaxValue, which is OK
           // for the use of this variable
           int bitLength = bigBitLength.CanFitInInt32() ?
             bigBitLength.ToInt32Checked() : Int32.MaxValue;
-          var bigPower = false;
           // 10^48 has 160 bits; 10^98 has 326; bit length is cheaper
           // to calculate than base-10 digit length
           if (bitLength < 160 || (digits > 100 && bitLength < 326)) {
@@ -420,6 +426,7 @@ namespace PeterO.Numbers {
               // DebugUtility.Log("digitlength {0} [todiscard: {1}]"
               // , knownDigits, digits);
             }
+          }
           }
           if (bigPower) {
             // Power of 10 to be divided would be much bigger

@@ -2070,6 +2070,9 @@
             infinity; otherwise, <c>false</c>.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.IsInteger">
+<summary>Not documented yet.</summary><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.IsNaN">
 
             <summary>Gets a value indicating whether this object is not a
@@ -3534,6 +3537,8 @@
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
+            <exception cref='NotSupportedException'>There is not enough memory
+            to store the value as an EInteger.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEIntegerExact">
@@ -9417,19 +9422,45 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Max(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-        <summary>Returns the greater of two integers.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The greater of the two integers.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+            <summary>Returns the greater of two arbitrary-precision
+            integers.</summary>
+            <param name='first'>The first integer to compare.</param>
+            <param name='second'>The second integer to compare.</param>
+            <returns>The greater of the two integers.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.MaxMagnitude(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-        <summary>Of two integers, returns the one with the greater absolute value.  If both integers have the same absolute value, this method has the same effect as Max.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The integer with the greater absolute value.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+            <summary>Of two arbitrary-precision integers, returns the one with
+            the greater absolute value. If both integers have the same absolute
+            value, this method has the same effect as Max.</summary>
+            <param name='first'>The first integer to compare.</param>
+            <param name='second'>The second integer to compare.</param>
+            <returns>The integer with the greater absolute value.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Min(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-        <summary>Returns the smaller of two integers.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The smaller of the two integers.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+            <summary>Returns the smaller of two arbitrary-precision
+            integers.</summary>
+            <param name='first'>The first integer to compare.</param>
+            <param name='second'>The second integer to compare.</param>
+            <returns>The smaller of the two integers.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.MinMagnitude(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-        <summary>Of two integers, returns the one with the smaller absolute value.  If both integers have the same absolute value, this method has the same effect as Min.</summary><param name='first'>The first integer to compare.</param><param name='second'>The second integer to compare.</param><returns>The integer with the smaller absolute value.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+            <summary>Of two arbitrary-precision integers, returns the one with
+            the smaller absolute value. If both integers have the same absolute
+            value, this method has the same effect as Min.</summary>
+            <param name='first'>The first integer to compare.</param>
+            <param name='second'>The second integer to compare.</param>
+            <returns>The integer with the smaller absolute value.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='first'/> or <paramref name='second'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Mod(PeterO.Numbers.EInteger)">
 

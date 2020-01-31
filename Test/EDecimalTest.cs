@@ -364,12 +364,17 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(100000)]
     public void TestConversions() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {
+        EDecimal enumber = RandomObjects.RandomEDecimal (fr);
+        TestConversionsOne(enumber);
+      }
+    }
+    public static void TestConversionsOne(EDecimal enumber) {
         bool isNum, isTruncated, isInteger;
         EInteger eint;
-        EDecimal enumber = RandomObjects.RandomEDecimal (fr);
         if (!enumber.IsFinite) {
           try {
             enumber.ToByteChecked();
@@ -455,17 +460,18 @@ namespace Test {
             Assert.Fail (ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
           }
-          continue;
+          return;
         }
-        EDecimal enumberInteger = EDecimal.FromEInteger (enumber.ToEInteger());
-        isInteger = enumberInteger.CompareTo (enumber) == 0;
-        eint = enumber.ToEInteger();
-        isNum = enumber.CompareTo(
-            EDecimal.FromString ("0")) >= 0 && enumber.CompareTo(
-            EDecimal.FromString ("255")) <= 0;
-        isTruncated = enumber.ToEInteger().CompareTo(
-            EInteger.FromString ("0")) >= 0 && enumber.ToEInteger().CompareTo(
-            EInteger.FromString ("255")) <= 0;
+        try {
+if (enumber.Exponent.CompareTo(100)>=0 && !enumber.IsZero)eint=null;
+else          eint = enumber.ToEInteger();
+        } catch (InsufficientMemoryException ex) {
+          eint = null;
+        }
+        isInteger = enumber.IsInteger();
+        isNum = enumber.CompareTo(0) >= 0 && enumber.CompareTo(255) <= 0;
+        isTruncated = eint != null && eint.CompareTo(0) >= 0 &&
+eint.CompareTo(255) <= 0;
         if (isNum) {
           TestCommon.AssertEqualsHashCode(
             eint,
@@ -545,9 +551,8 @@ namespace Test {
         isNum = enumber.CompareTo(
             EDecimal.FromString ("-32768")) >= 0 && enumber.CompareTo(
             EDecimal.FromString ("32767")) <= 0;
-        isTruncated = enumber.ToEInteger().CompareTo(
-            EInteger.FromString ("-32768")) >= 0 && enumber.ToEInteger()
-          .CompareTo(
+        isTruncated = eint != null && eint.CompareTo(
+            EInteger.FromString ("-32768")) >= 0 && eint.CompareTo(
             EInteger.FromString ("32767")) <= 0;
         if (isNum) {
           TestCommon.AssertEqualsHashCode(
@@ -628,9 +633,9 @@ namespace Test {
         isNum = enumber.CompareTo(
             EDecimal.FromString ("-2147483648")) >= 0 && enumber.CompareTo(
             EDecimal.FromString ("2147483647")) <= 0;
-        isTruncated = enumber.ToEInteger().CompareTo(
+        isTruncated = eint != null && eint.CompareTo(
             EInteger.FromString ("-2147483648")) >= 0 &&
-          enumber.ToEInteger().CompareTo(
+          eint.CompareTo(
             EInteger.FromString ("2147483647")) <= 0;
         if (isNum) {
           TestCommon.AssertEqualsHashCode(
@@ -708,9 +713,9 @@ namespace Test {
             }
           }
         }
-        isTruncated = enumber.ToEInteger().CompareTo(
+        isTruncated = eint != null && eint.CompareTo(
             EInteger.FromString ("-9223372036854775808")) >= 0 &&
-          enumber.ToEInteger().CompareTo(
+          eint.CompareTo(
             EInteger.FromString ("9223372036854775807")) <= 0;
         isNum = isTruncated && enumber.CompareTo(
             EDecimal.FromString ("-9223372036854775808")) >= 0 &&
@@ -792,7 +797,6 @@ namespace Test {
             }
           }
         }
-      }
     }
 
     [Test]

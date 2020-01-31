@@ -87,10 +87,10 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this value is 0.
-* <code>[Max(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Max_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Not documented yet.
-* <code>[MaxMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MaxMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Not documented yet.
-* <code>[Min(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Min_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Not documented yet.
-* <code>[MinMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MinMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Not documented yet.
+* <code>[Max(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Max_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns the greater of two arbitrary-precision integers.
+* <code>[MaxMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MaxMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Of two arbitrary-precision integers, returns the one with the greater absolute value.
+* <code>[Min(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Min_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns the smaller of two arbitrary-precision integers.
+* <code>[MinMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MinMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Of two arbitrary-precision integers, returns the one with the smaller absolute value.
 * <code>[Mod(int)](#Mod_int)</code> - Finds the modulus remainder that results when this instance is divided by the value of another integer.
 * <code>[Mod(PeterO.Numbers.EInteger)](#Mod_PeterO_Numbers_EInteger)</code> - Finds the modulus remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when this arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
@@ -1173,19 +1173,17 @@ The given arbitrary-precision integer plus one.
         PeterO.Numbers.EInteger first,
         PeterO.Numbers.EInteger second);
 
-Not documented yet.
+Returns the greater of two arbitrary-precision integers.
 
 <b>Parameters:</b>
 
- * <i>first</i>: The parameter  <i>first</i>
- is a Numbers.EInteger object.
+ * <i>first</i>: The first integer to compare.
 
- * <i>second</i>: The parameter  <i>second</i>
- is a Numbers.EInteger object.
+ * <i>second</i>: The second integer to compare.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The greater of the two integers.
 
 <b>Exceptions:</b>
 
@@ -1201,19 +1199,17 @@ The parameter  <i>first</i>
         PeterO.Numbers.EInteger first,
         PeterO.Numbers.EInteger second);
 
-Not documented yet.
+Of two arbitrary-precision integers, returns the one with the greater absolute value. If both integers have the same absolute value, this method has the same effect as Max.
 
 <b>Parameters:</b>
 
- * <i>first</i>: The parameter  <i>first</i>
- is a Numbers.EInteger object.
+ * <i>first</i>: The first integer to compare.
 
- * <i>second</i>: The parameter  <i>second</i>
- is a Numbers.EInteger object.
+ * <i>second</i>: The second integer to compare.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The integer with the greater absolute value.
 
 <b>Exceptions:</b>
 
@@ -1229,19 +1225,17 @@ The parameter  <i>first</i>
         PeterO.Numbers.EInteger first,
         PeterO.Numbers.EInteger second);
 
-Not documented yet.
+Returns the smaller of two arbitrary-precision integers.
 
 <b>Parameters:</b>
 
- * <i>first</i>: The parameter  <i>first</i>
- is a Numbers.EInteger object.
+ * <i>first</i>: The first integer to compare.
 
- * <i>second</i>: The parameter  <i>second</i>
- is a Numbers.EInteger object.
+ * <i>second</i>: The second integer to compare.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The smaller of the two integers.
 
 <b>Exceptions:</b>
 
@@ -1257,19 +1251,17 @@ The parameter  <i>first</i>
         PeterO.Numbers.EInteger first,
         PeterO.Numbers.EInteger second);
 
-Not documented yet.
+Of two arbitrary-precision integers, returns the one with the smaller absolute value. If both integers have the same absolute value, this method has the same effect as Min.
 
 <b>Parameters:</b>
 
- * <i>first</i>: The parameter  <i>first</i>
- is a Numbers.EInteger object.
+ * <i>first</i>: The first integer to compare.
 
- * <i>second</i>: The parameter  <i>second</i>
- is a Numbers.EInteger object.
+ * <i>second</i>: The second integer to compare.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The integer with the smaller absolute value.
 
 <b>Exceptions:</b>
 

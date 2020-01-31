@@ -14,7 +14,6 @@ namespace Test {
   /// <summary>Description of RandomObjects.</summary>
   public static class RandomObjects {
     private const int MaxExclusiveStringLength = 0x2000;
-    private const int MaxExclusiveExponentLength = 0x2000;
     private const int MaxExclusiveShortStringLength = 50;
     private const int MaxNumberLength = 100000;
     private const int MaxShortNumberLength = 40;
@@ -159,7 +158,11 @@ namespace Test {
         // it doesn't round-trip as well
       }
       string str = RandomDecimalString(r);
-      return EDecimal.FromString(str);
+      if (str.Length < 1000 || str.IndexOf('E') < 0) {
+        return EDecimal.FromString(str);
+      } else {
+        return EDecimal.Create(RandomEInteger(r), RandomEInteger(r));
+      }
     }
 
     public static EInteger RandomEInteger(IRandomGenExtended r) {
@@ -167,12 +170,13 @@ namespace Test {
         throw new ArgumentNullException(nameof(r));
       }
       int selection = r.GetInt32(100);
-      if (selection < 40) {
-        StringAndBigInt sabi = StringAndBigInt.Generate(
-          r,
-          16,
-          MaxStringNumDigits);
-        return sabi.BigIntValue;
+      if (selection < 10) {
+        int count = r.GetInt32(MaxNumberLength) + 1;
+        var bytes = new byte[count];
+        for (var i = 0; i < count; ++i) {
+          bytes[i] = (byte)((int)r.GetInt32(256));
+        }
+        return EInteger.FromBytes(bytes, true);
       }
       if (selection < 50) {
         StringAndBigInt sabi = StringAndBigInt.Generate(
@@ -253,8 +257,10 @@ namespace Test {
       return RandomDecimalString(r, false, true);
     }
 
-    public static String RandomDecimalString(IRandomGenExtended r, bool
-extended, bool limitedExponent) {
+    public static String RandomDecimalString(
+      IRandomGenExtended r,
+      bool extended,
+      bool limitedExponent) {
       if (r == null) {
         throw new ArgumentNullException(nameof(r));
       }
@@ -283,7 +289,7 @@ r.GetInt32(MaxNumberLength)) / MaxNumberLength;
       }
       if (r.GetInt32(2) == 0) {
         int rr = r.GetInt32(3);
-if (rr == 0) {
+        if (rr == 0) {
           sb.Append("E");
         } else if (rr == 1) {
    sb.Append("E+");

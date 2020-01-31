@@ -42,6 +42,7 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(100000)]
     public void TestDecimalString() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
