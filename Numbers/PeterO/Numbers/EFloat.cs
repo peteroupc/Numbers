@@ -656,8 +656,8 @@ TrappableRadixMath<EFloat>(
     private static EFloat SignalUnderflow(EContext ec, bool negative, bool
       zeroSignificand) {
       EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
-      eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
-      // trigger underflow
+      eTiny = eTiny.Subtract(2); // subtract 2 from proper eTiny to
+      // trigger underflow (2, rather than 1, because of HalfUp mode)
       EFloat ret = EFloat.Create(
           zeroSignificand ? EInteger.Zero : EInteger.One,
           eTiny);

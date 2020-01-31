@@ -1400,8 +1400,8 @@ TrappableRadixMath<EDecimal>(
     private static EDecimal SignalUnderflow(EContext ec, bool negative, bool
       zeroSignificand) {
       EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
-      eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
-      // trigger underflow
+      eTiny = eTiny.Subtract(2); // subtract 2 from proper eTiny to
+      // trigger underflow (2, rather than 1, because of HalfUp mode)
       EDecimal ret = EDecimal.Create(
           zeroSignificand ? EInteger.Zero : EInteger.One,
           eTiny);
@@ -5778,8 +5778,8 @@ TrappableRadixMath<EDecimal>(
         if (adjexpUpperBound.CompareTo(-326) < 0) {
           // Underflow to zero
           EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
-          eTiny = eTiny.Subtract(1); // subtract 1 from proper eTiny to
-          // trigger underflow
+          eTiny = eTiny.Subtract(2); // subtract 2 from proper eTiny to
+          // trigger underflow (2, rather than 1, because of HalfUp mode)
           EFloat ret = EFloat.Create(EInteger.FromInt32(
                 this.IsNegative ? -1 : 1),
               eTiny);
