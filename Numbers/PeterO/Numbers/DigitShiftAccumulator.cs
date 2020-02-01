@@ -209,7 +209,7 @@ namespace PeterO.Numbers {
       if (this.isSmall) {
         this.ShiftRightSmall(digits);
       } else {
-        this.ShiftRightBig(digits, false);
+        this.ShiftRightBig(digits, false, false);
       }
     }
 
@@ -272,6 +272,22 @@ namespace PeterO.Numbers {
       }
     }
 
+    public void TruncateRightSimple(FastInteger fastint) {
+      if (fastint == null) {
+        throw new ArgumentNullException(nameof(fastint));
+      }
+      if (fastint.CanFitInInt32()) {
+        if (fastint.Sign < 0) {
+          return;
+        }
+        if (!this.isSmall && !this.shiftedBigInt.CanFitInInt64()) {
+          this.ShiftRightBig(fastint.AsInt32(), true, true);
+          return;
+        }
+      }
+      TruncateOrShiftRight(fastint, true);
+    }
+
     public void TruncateOrShiftRight(FastInteger fastint, bool truncate) {
       // 'Truncate' is true if the caller doesn't care about the exact identity
       // of the last digit and the discarded digits.
@@ -287,7 +303,7 @@ namespace PeterO.Numbers {
           if (this.shiftedBigInt.CanFitInInt64()) {
             this.TruncateRightLong(this.shiftedBigInt.ToInt64Checked(), fi);
           } else {
-            this.ShiftRightBig(fi, true);
+            this.ShiftRightBig(fi, true, false);
           }
         } else {
           this.TruncateRightSmall(fi);
@@ -381,7 +397,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    private void ShiftRightBig(int digits, bool truncate) {
+    private void ShiftRightBig(int digits, bool truncate, bool simple) {
       if (digits <= 0) {
         return;
       }
@@ -419,13 +435,9 @@ namespace PeterO.Numbers {
           if (bitLength < 160 || (digits > 100 && bitLength < 326)) {
             bigPower = true;
           } else {
-            FastInteger knownDigits = this.GetDigitLength();
-            bigPower = knownDigits.Copy().SubtractInt(digits)
+            FastInteger digitsUpperBound = OverestimateDigitLength();
+            bigPower = digitsUpperBound.Copy().SubtractInt(digits)
               .CompareToInt(-2) < 0;
-            if (!bigPower) {
-              // DebugUtility.Log("digitlength {0} [todiscard: {1}]"
-              // , knownDigits, digits);
-            }
           }
           }
           if (bigPower) {
@@ -442,7 +454,7 @@ namespace PeterO.Numbers {
             return;
           }
         }
-        if (this.shiftedBigInt.IsEven && this.bitLeftmost == 0) {
+        if (!simple && this.shiftedBigInt.IsEven && this.bitLeftmost == 0) {
           EInteger[] quorem = this.shiftedBigInt.DivRem(
               NumberUtility.FindPowerOfTen(digits));
           bigquo = quorem[0];

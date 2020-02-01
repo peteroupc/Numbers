@@ -463,8 +463,11 @@ namespace Test {
           return;
         }
         try {
-if (enumber.Exponent.CompareTo(100)>=0 && !enumber.IsZero)eint=null;
-else          eint = enumber.ToEInteger();
+if (enumber.Exponent.CompareTo(100) >= 0 && !enumber.IsZero) {
+  eint = null;
+} else {
+ eint = enumber.ToEInteger();
+}
         } catch (InsufficientMemoryException ex) {
           eint = null;
         }

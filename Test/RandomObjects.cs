@@ -158,7 +158,7 @@ namespace Test {
         // it doesn't round-trip as well
       }
       string str = RandomDecimalString(r);
-      if (str.Length < 1000 || str.IndexOf('E') < 0) {
+      if (str.Length < 1000 || (str.IndexOf('E') < 0 && str.IndexOf('.') < 0)) {
         return EDecimal.FromString(str);
       } else {
         return EDecimal.Create(RandomEInteger(r), RandomEInteger(r));
@@ -282,6 +282,8 @@ r.GetInt32(MaxNumberLength)) / MaxNumberLength;
         sb.Append('.');
         count = ((long)r.GetInt32(MaxNumberLength) *
 r.GetInt32(MaxNumberLength)) / MaxNumberLength;
+        count = ((long)count *
+r.GetInt32(MaxNumberLength)) / MaxNumberLength;
         count = Math.Max(1, count);
         for (var i = 0; i < count; ++i) {
           sb.Append((char)('0' + r.GetInt32(10)));
@@ -300,6 +302,8 @@ r.GetInt32(MaxNumberLength)) / MaxNumberLength;
    sb.Append(TestCommon.IntToString(r.GetInt32(10000)));
         } else {
           count = ((long)r.GetInt32(MaxNumberLength) *
+r.GetInt32(MaxNumberLength)) / MaxNumberLength;
+          count = ((long)count *
 r.GetInt32(MaxNumberLength)) / MaxNumberLength;
           count = Math.Max(1, count);
           for (var i = 0; i < count; ++i) {

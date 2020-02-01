@@ -59,10 +59,9 @@ namespace PeterO.Numbers {
     IEquatable<EInteger> {
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    private const int RecursiveDivisionLimit = 200;
-
     private const int Toom3Threshold = 100;
     private const int MultRecursionThreshold = 10;
+    private const int RecursiveDivisionLimit = Toom3Threshold * 2 + 1;
 
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
@@ -3529,13 +3528,6 @@ ShortMask) !=
             wc);
         productwordCount = productreg.Length;
         needShorten = false;
-      } else if (bigintMult.wordCount >= Toom3Threshold &&
-        this.wordCount >= Toom3Threshold) {
-        EInteger er = Toom3(this.Abs(), bigintMult.Abs());
-        if (this.negative != bigintMult.negative) {
-          er = er.Negate();
-        }
-        return er;
       } else if (this.Equals(bigintMult)) {
         int words1Size = this.wordCount;
         productreg = new short[words1Size + words1Size];
@@ -3595,53 +3587,62 @@ ShortMask) !=
           this.negative ^ bigintMult.negative);
     }
 
-    private static EInteger Toom3(EInteger eia, EInteger eib) {
-      #if DEBUG
-      if (eia == null) {
-        throw new ArgumentNullException(nameof(eia));
+    private static EInteger MakeEInteger(short[] words, int offset, int count) {
+if (offset >= words.Length) {
+  return EInteger.FromInt32(0);
+}
+      int ct = Math.Min(count, words.Length - offset);
+      while (ct != 0 && words[offset + ct - 1] == 0) {
+        --ct;
       }
-      if (eib == null) {
-        throw new ArgumentNullException(nameof(eib));
+if (ct == 0) {
+        return EInteger.FromInt32(0);
       }
-      if (!(eia.wordCount > 0 && eib.wordCount > 0)) {
-        throw new ArgumentException("doesn't satisfy eia.wordCount>0 &&" +
-          "\u0020eib.wordCount>0");
-      }
-      if (!(!eia.negative && !eib.negative)) {
-        throw new ArgumentException("doesn't satisfy !eia.IsNegative &&" +
-          "\u0020!eib.IsNegative");
-      }
-      #endif
+      var newwords = new short[ct];
+      Array.Copy(words, offset, newwords, 0, ct);
+      return new EInteger(ct, newwords, false);
+    }
 
-      EInteger alimbs = EInteger.FromInt32(eia.wordCount);
-      EInteger blimbs = EInteger.FromInt32(eib.wordCount);
-      EInteger mal = alimbs.CompareTo(blimbs) > 0 ? alimbs : blimbs;
-      EInteger m3 = mal.Add(2).Divide(3);
-      EInteger m3mul16 = m3.ShiftLeft(4);
-      EInteger mask = EInteger.FromInt32(1).ShiftLeft(m3mul16).Subtract(1);
-      EInteger x0 = eia.And(mask);
-      EInteger x1 = eia.ShiftRight(m3mul16).And(mask);
-      EInteger x2 = eia.ShiftRight(m3mul16.Multiply(2));
-      EInteger y0 = eib.And(mask);
-      EInteger y1 = eib.ShiftRight(m3mul16).And(mask);
-      EInteger y2 = eib.ShiftRight(m3mul16.Multiply(2));
-      #if DEBUG
-      // Assert no need to AND x2 and y2 with mask
-      if (!(x2.CompareTo(mask) <= 0)) {
-        throw new ArgumentException("doesn't satisfy x2.CompareTo(mask) <= 0");
+    private static void Toom3(
+          short[] resultArr,
+          int resultStart,
+          short[] wordsA,
+          int wordsAStart,
+          int countA,
+          short[] wordsB,
+          int wordsBStart,
+          int countB) {
+      int imal = Math.Max(countA, countB);
+      int im3 = (imal/3)+((imal%3) + 2) / imal;
+      EInteger m3mul16 = EInteger.FromInt32(im3).ShiftLeft(4);
+      EInteger x0 = MakeEInteger(wordsA, wordsAStart, im3);
+      EInteger x1 = MakeEInteger(wordsA, (wordsAStart + im3), im3);
+      EInteger x2 = MakeEInteger(wordsA, (wordsAStart + (im3 * 2)), im3);
+      EInteger w0, wt1, wt2, wt3, w4;
+      if (wordsA == wordsB && wordsAStart == wordsBStart &&
+          countA == countB) {
+        w0 = x0.Multiply(x0);
+        w4 = x2.Multiply(x2);
+        EInteger x2x0 = x2.Add(x0);
+        wt1 = x2x0.Add(x1);
+        wt2 = x2x0.Subtract(x1);
+        wt3 = x2.ShiftLeft(2).Add(x1.ShiftLeft(1)).Add(x0);
+        wt1 = wt1.Multiply(wt1);
+        wt2 = wt2.Multiply(wt2);
+        wt3 = wt3.Multiply(wt3);
+      } else {
+        EInteger y0 = MakeEInteger(wordsB, wordsBStart, im3);
+        EInteger y1 = MakeEInteger(wordsB, (wordsBStart + im3), im3);
+        EInteger y2 = MakeEInteger(wordsB, (wordsBStart + (im3 * 2)), im3);
+        w0 = x0.Multiply(y0);
+        w4 = x2.Multiply(y2);
+        EInteger x2x0 = x2.Add(x0);
+        EInteger y2y0 = y2.Add(y0);
+        wt1 = x2x0.Add(x1).Multiply(y2y0.Add(y1));
+        wt2 = x2x0.Subtract(x1).Multiply(y2y0.Subtract(y1));
+        wt3 = x2.ShiftLeft(2).Add(x1.ShiftLeft(1)).Add(x0)
+          .Multiply(y2.ShiftLeft(2).Add(y1.ShiftLeft(1)).Add(y0));
       }
-      if (!(y2.CompareTo(mask) <= 0)) {
-        throw new ArgumentException("doesn't satisfy y2.CompareTo(mask) <= 0");
-      }
-      #endif
-      EInteger w0 = x0.Multiply(y0);
-      EInteger w4 = x2.Multiply(y2);
-      EInteger x2x0 = x2.Add(x0);
-      EInteger y2y0 = y2.Add(y0);
-      EInteger wt1 = x2x0.Add(x1).Multiply(y2y0.Add(y1));
-      EInteger wt2 = x2x0.Subtract(x1).Multiply(y2y0.Subtract(y1));
-      EInteger wt3 = x2.ShiftLeft(2).Add(x1.ShiftLeft(1)).Add(x0)
-        .Multiply(y2.ShiftLeft(2).Add(y1.ShiftLeft(1)).Add(y0));
       EInteger w4mul2 = w4.ShiftLeft(1);
       EInteger w4mul12 = w4mul2.Multiply(6);
       EInteger w0mul3 = w0.Multiply(3);
@@ -3652,26 +3653,25 @@ ShortMask) !=
       EInteger w1 = wt1.Multiply(6).Add(w4mul12)
         .Subtract(wt3).Subtract(wt2).Subtract(wt2)
         .Subtract(w0mul3).Divide(6);
-      #if DEBUG
-      if (!wt1.Equals(w0.Add(w1).Add(w2).Add(w3).Add(w4))) {
-        throw new InvalidOperationException();
+      if (m3mul16.CompareTo(0x20000000) < 0) {
+        im3 <<= 4; // multiply by 16
+        w0 = w0.Add(w1.ShiftLeft(im3));
+        w0 = w0.Add(w2.ShiftLeft(im3 * 2));
+        w0 = w0.Add(w3.ShiftLeft(im3 * 3));
+        w0 = w0.Add(w4.ShiftLeft(im3 * 4));
+      } else {
+        w0 = w0.Add(w1.ShiftLeft(m3mul16));
+        w0 = w0.Add(w2.ShiftLeft(m3mul16.Multiply(2)));
+        w0 = w0.Add(w3.ShiftLeft(m3mul16.Multiply(3)));
+        w0 = w0.Add(w4.ShiftLeft(m3mul16.Multiply(4)));
       }
-      if (!wt2.Equals(w0.Subtract(w1).Add(w2).Subtract(w3).Add(w4))) {
-        throw new InvalidOperationException();
-      }
-      if (!wt3.Equals(
-          w0.Add(
-            w1.ShiftLeft(
-              1)).Add(
-                w2.ShiftLeft(2)).Add(w3.ShiftLeft(3)).Add(w4.ShiftLeft(4)))) {
-        throw new InvalidOperationException();
-      }
-      #endif
-      w0 = w0.Add(w1.ShiftLeft(m3mul16));
-      w0 = w0.Add(w2.ShiftLeft(m3mul16.Multiply(2)));
-      w0 = w0.Add(w3.ShiftLeft(m3mul16.Multiply(3)));
-      w0 = w0.Add(w4.ShiftLeft(m3mul16.Multiply(4)));
-      return w0;
+      Array.Clear(resultArr, resultStart, countA + countB);
+      Array.Copy(
+            w0.words,
+            0,
+            resultArr,
+            resultStart,
+            Math.Min(countA + countB, w0.wordCount));
     }
 
     /// <summary>Gets the value of this object with the sign
@@ -5402,6 +5402,17 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       if (words1Count <= MultRecursionThreshold && words2Count <=
         MultRecursionThreshold) {
         SchoolbookMultiply(
+          resultArr,
+          resultStart,
+          words1,
+          words1Start,
+          words1Count,
+          words2,
+          words2Start,
+          words2Count);
+      } else if (words1Count >= Toom3Threshold && words2Count >=
+Toom3Threshold) {
+        Toom3(
           resultArr,
           resultStart,
           words1,
@@ -7173,6 +7184,16 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
               count);
             break;
         }
+      } else if (count >= Toom3Threshold) {
+        Toom3(
+              resultArr,
+              resultStart,
+              words1,
+              words1Start,
+              count,
+              words1,
+              words1Start,
+              count);
       } else if ((count & 1) == 0) {
         int count2 = count >> 1;
         RecursiveSquare(
@@ -7431,6 +7452,16 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
               count);
             break;
         }
+      } else if (count >= Toom3Threshold) {
+        Toom3(
+              resultArr,
+              resultStart,
+              words1,
+              words1Start,
+              count,
+              words1,
+              words1Start,
+              count);
       } else {
         int countA = count;
         while (countA != 0 && words1[words1Start + countA - 1] == 0) {
