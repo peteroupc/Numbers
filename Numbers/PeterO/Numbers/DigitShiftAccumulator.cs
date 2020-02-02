@@ -285,7 +285,7 @@ namespace PeterO.Numbers {
           return;
         }
       }
-      TruncateOrShiftRight(fastint, true);
+      this.TruncateOrShiftRight(fastint, true);
     }
 
     public void TruncateOrShiftRight(FastInteger fastint, bool truncate) {
@@ -435,7 +435,7 @@ namespace PeterO.Numbers {
           if (bitLength < 160 || (digits > 100 && bitLength < 326)) {
             bigPower = true;
           } else {
-            FastInteger digitsUpperBound = OverestimateDigitLength();
+            FastInteger digitsUpperBound = this.OverestimateDigitLength();
             bigPower = digitsUpperBound.Copy().SubtractInt(digits)
               .CompareToInt(-2) < 0;
           }

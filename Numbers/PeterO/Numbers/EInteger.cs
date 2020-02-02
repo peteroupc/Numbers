@@ -61,7 +61,7 @@ namespace PeterO.Numbers {
 
     private const int Toom3Threshold = 100;
     private const int MultRecursionThreshold = 10;
-    private const int RecursiveDivisionLimit = Toom3Threshold * 2 + 1;
+    private const int RecursiveDivisionLimit = (Toom3Threshold * 2) + 1;
 
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
@@ -3587,20 +3587,24 @@ ShortMask) !=
           this.negative ^ bigintMult.negative);
     }
 
-    private static EInteger MakeEInteger(short[] words, int offset, int count) {
-if (offset >= words.Length) {
-  return EInteger.FromInt32(0);
+    private static EInteger MakeEInteger(
+      short[] words,
+      int wordsEnd,
+      int offset,
+      int count) {
+if (offset >= wordsEnd) {
+  return EInteger.Zero;
 }
-      int ct = Math.Min(count, words.Length - offset);
+      int ct = Math.Min(count, wordsEnd - offset);
       while (ct != 0 && words[offset + ct - 1] == 0) {
         --ct;
       }
 if (ct == 0) {
-        return EInteger.FromInt32(0);
+        return EInteger.Zero;
       }
       var newwords = new short[ct];
       Array.Copy(words, offset, newwords, 0, ct);
-      return new EInteger(ct, newwords, false);
+    return new EInteger(ct, newwords, false);
     }
 
     private static void Toom3(
@@ -3613,11 +3617,17 @@ if (ct == 0) {
           int wordsBStart,
           int countB) {
       int imal = Math.Max(countA, countB);
-      int im3 = (imal/3)+((imal%3) + 2) / imal;
+      int im3 = (imal/3) + (((imal % 3) + 2) / 3);
       EInteger m3mul16 = EInteger.FromInt32(im3).ShiftLeft(4);
-      EInteger x0 = MakeEInteger(wordsA, wordsAStart, im3);
-      EInteger x1 = MakeEInteger(wordsA, (wordsAStart + im3), im3);
-      EInteger x2 = MakeEInteger(wordsA, (wordsAStart + (im3 * 2)), im3);
+      EInteger x0 = MakeEInteger(
+        wordsA,
+        wordsAStart + countA,
+        wordsAStart,
+        im3);
+      EInteger x1 = MakeEInteger(wordsA, wordsAStart + countA, wordsAStart+
+im3, im3);
+      EInteger x2 = MakeEInteger(wordsA, wordsAStart + countA, wordsAStart+
+(im3 * 2), im3);
       EInteger w0, wt1, wt2, wt3, w4;
       if (wordsA == wordsB && wordsAStart == wordsBStart &&
           countA == countB) {
@@ -3631,9 +3641,20 @@ if (ct == 0) {
         wt2 = wt2.Multiply(wt2);
         wt3 = wt3.Multiply(wt3);
       } else {
-        EInteger y0 = MakeEInteger(wordsB, wordsBStart, im3);
-        EInteger y1 = MakeEInteger(wordsB, (wordsBStart + im3), im3);
-        EInteger y2 = MakeEInteger(wordsB, (wordsBStart + (im3 * 2)), im3);
+        EInteger y0 = MakeEInteger(
+          wordsB,
+          wordsBStart + countB,
+          wordsBStart,
+          im3);
+        EInteger y1 = MakeEInteger(
+          wordsB,
+          wordsBStart + countB,
+          wordsBStart + im3,
+          im3);
+        EInteger y2 = MakeEInteger(
+          wordsB,
+          wordsBStart + countB,
+          wordsBStart + (im3 * 2), im3);
         w0 = x0.Multiply(y0);
         w4 = x2.Multiply(y2);
         EInteger x2x0 = x2.Add(x0);
@@ -3653,7 +3674,7 @@ if (ct == 0) {
       EInteger w1 = wt1.Multiply(6).Add(w4mul12)
         .Subtract(wt3).Subtract(wt2).Subtract(wt2)
         .Subtract(w0mul3).Divide(6);
-      if (m3mul16.CompareTo(0x20000000) < 0) {
+      if (m3mul16.CompareTo(0x70000000) < 0) {
         im3 <<= 4; // multiply by 16
         w0 = w0.Add(w1.ShiftLeft(im3));
         w0 = w0.Add(w2.ShiftLeft(im3 * 2));
@@ -7459,8 +7480,8 @@ Toom3Threshold) {
               words1,
               words1Start,
               count,
-              words1,
-              words1Start,
+              words2,
+              words2Start,
               count);
       } else {
         int countA = count;

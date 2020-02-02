@@ -1719,12 +1719,20 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(100000)]
     public void TestConversions() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {
+        EFloat enumber = RandomObjects.RandomEFloat(fr);
+        TestConversionsOne(enumber);
+      }
+    }
+    public static void TestConversionsOne(EFloat enumber) {
         bool isNum, isTruncated, isInteger;
         EInteger eint;
-        EFloat enumber = RandomObjects.RandomEFloat(fr);
+        if (enumber == null) {
+          throw new ArgumentNullException(nameof(enumber));
+        }
         if (!enumber.IsFinite) {
           try {
             enumber.ToByteChecked();
@@ -1810,26 +1818,30 @@ namespace Test {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
           }
-          continue;
+          return;
         }
-        EFloat enumberInteger = EFloat.FromEInteger(enumber.ToEInteger());
-        isInteger = enumberInteger.CompareTo(enumber) == 0;
-        eint = enumber.ToEInteger();
-        isNum = enumber.CompareTo(
-            EFloat.FromString("0")) >= 0 && enumber.CompareTo(
-            EFloat.FromString("255")) <= 0;
-        isTruncated = enumber.ToEInteger().CompareTo(
-            EInteger.FromString("0")) >= 0 && enumber.ToEInteger().CompareTo(
-            EInteger.FromString("255")) <= 0;
+        try {
+eint = (enumber.Exponent.CompareTo(100) >= 0 && !enumber.IsZero) ? null :
+enumber.ToEInteger();
+        } catch (NotSupportedException) {
+          eint = null;
+        }
+       // TODO:
+        isInteger = enumber.Exponent.Sign >= 0 &&
+EFloat.FromEInteger(enumber.ToEInteger()).CompareToValue(enumber) == 0;
+       // isInteger = enumber.IsInteger();
+        isNum = enumber.CompareTo(0) >= 0 && enumber.CompareTo(255) <= 0;
+        isTruncated = eint != null && eint.CompareTo(0) >= 0 &&
+eint.CompareTo(255) <= 0;
         if (isNum) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromByte(enumber.ToByteChecked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromByte(enumber.ToByteUnchecked()));
           if (isInteger) {
-            TestCommon.AssertEquals(
+            TestCommon.AssertEqualsHashCode(
               eint,
               EInteger.FromByte(enumber.ToByteIfExact()));
           } else {
@@ -1844,10 +1856,10 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromByte(enumber.ToByteChecked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromByte(enumber.ToByteUnchecked()));
           try {
@@ -1900,19 +1912,18 @@ namespace Test {
         isNum = enumber.CompareTo(
             EFloat.FromString("-32768")) >= 0 && enumber.CompareTo(
             EFloat.FromString("32767")) <= 0;
-        isTruncated = enumber.ToEInteger().CompareTo(
-            EInteger.FromString("-32768")) >= 0 &&
-          enumber.ToEInteger().CompareTo(
+        isTruncated = eint != null && eint.CompareTo(
+            EInteger.FromString("-32768")) >= 0 && eint.CompareTo(
             EInteger.FromString("32767")) <= 0;
         if (isNum) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt16(enumber.ToInt16Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt16(enumber.ToInt16Unchecked()));
           if (isInteger) {
-            TestCommon.AssertEquals(
+            TestCommon.AssertEqualsHashCode(
               eint,
               EInteger.FromInt16(enumber.ToInt16IfExact()));
           } else {
@@ -1927,10 +1938,10 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt16(enumber.ToInt16Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt16(enumber.ToInt16Unchecked()));
           try {
@@ -1983,19 +1994,19 @@ namespace Test {
         isNum = enumber.CompareTo(
             EFloat.FromString("-2147483648")) >= 0 && enumber.CompareTo(
             EFloat.FromString("2147483647")) <= 0;
-        isTruncated = enumber.ToEInteger().CompareTo(
+        isTruncated = eint != null && eint.CompareTo(
             EInteger.FromString("-2147483648")) >= 0 &&
-          enumber.ToEInteger().CompareTo(
+          eint.CompareTo(
             EInteger.FromString("2147483647")) <= 0;
         if (isNum) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt32(enumber.ToInt32Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt32(enumber.ToInt32Unchecked()));
           if (isInteger) {
-            TestCommon.AssertEquals(
+            TestCommon.AssertEqualsHashCode(
               eint,
               EInteger.FromInt32(enumber.ToInt32IfExact()));
           } else {
@@ -2010,10 +2021,10 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt32(enumber.ToInt32Checked()));
-          TestCommon.AssertEquals(
+          TestCommon.AssertEqualsHashCode(
             eint,
             EInteger.FromInt32(enumber.ToInt32Unchecked()));
           try {
@@ -2063,23 +2074,25 @@ namespace Test {
             }
           }
         }
-        isNum = enumber.CompareTo(
+        isTruncated = eint != null && eint.CompareTo(
+            EInteger.FromString("-9223372036854775808")) >= 0 &&
+          eint.CompareTo(
+            EInteger.FromString("9223372036854775807")) <= 0;
+        isNum = isTruncated && enumber.CompareTo(
             EFloat.FromString("-9223372036854775808")) >= 0 &&
           enumber.CompareTo(
             EFloat.FromString("9223372036854775807")) <= 0;
-        isTruncated = enumber.ToEInteger().CompareTo(
-            EInteger.FromString("-9223372036854775808")) >= 0 &&
-          enumber.ToEInteger().CompareTo(
-            EInteger.FromString("9223372036854775807")) <= 0;
-        EInteger eb;
         if (isNum) {
-          eb = EInteger.FromInt64(enumber.ToInt64Checked());
-          TestCommon.AssertEquals(eint, eb);
-          eb = EInteger.FromInt64(enumber.ToInt64Unchecked());
-          TestCommon.AssertEquals(eint, eb);
+          TestCommon.AssertEqualsHashCode(
+            eint,
+            EInteger.FromInt64(enumber.ToInt64Checked()));
+          TestCommon.AssertEqualsHashCode(
+            eint,
+            EInteger.FromInt64(enumber.ToInt64Unchecked()));
           if (isInteger) {
-            eb = EInteger.FromInt64(enumber.ToInt64IfExact());
-            TestCommon.AssertEquals(eint, eb);
+            TestCommon.AssertEqualsHashCode(
+              eint,
+              EInteger.FromInt64(enumber.ToInt64IfExact()));
           } else {
             try {
               enumber.ToInt64IfExact();
@@ -2092,10 +2105,12 @@ namespace Test {
             }
           }
         } else if (isTruncated) {
-          eb = EInteger.FromInt64(enumber.ToInt64Checked());
-          TestCommon.AssertEquals(eint, eb);
-          eb = EInteger.FromInt64(enumber.ToInt64Unchecked());
-          TestCommon.AssertEquals(eint, eb);
+          TestCommon.AssertEqualsHashCode(
+            eint,
+            EInteger.FromInt64(enumber.ToInt64Checked()));
+          TestCommon.AssertEqualsHashCode(
+            eint,
+            EInteger.FromInt64(enumber.ToInt64Unchecked()));
           try {
             enumber.ToInt64IfExact();
             Assert.Fail("Should have failed");
@@ -2143,7 +2158,6 @@ namespace Test {
             }
           }
         }
-      }
     }
 
     [Test]

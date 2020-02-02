@@ -496,8 +496,11 @@ TrappableRadixMath<EDecimal>(
   /// <summary>Not documented yet.</summary>
   /// <returns>The return value is not documented yet.</returns>
     public bool IsInteger() {
+if (!this.IsFinite) {
+  return false;
+}
         if (this.exponent.CompareToInt(0) >= 0) {
-          return true;
+  return true;
         } else {
           EDecimal r = this.Reduce(null);
           return r.exponent.CompareToInt(0) >= 0;
@@ -6532,18 +6535,17 @@ TrappableRadixMath<EDecimal>(
     }
 
     // Begin integer conversions
-
-private void CheckTrivialOverflow(int maxDigits) {
+    private void CheckTrivialOverflow(int maxDigits) {
   if (this.IsZero) {
     return;
   }
   if (this.exponent.Sign < 0) {
     EInteger bigexponent = this.Exponent;
-   EInteger bigmantissa = this.UnsignedMantissa;
-   bigexponent = bigexponent.Abs();
-   bigmantissa = bigmantissa.Abs();
-   EInteger lowerBound = DigitCountLowerBound(bigmantissa);
-   if (lowerBound.Subtract(bigexponent).CompareTo(maxDigits) > 0) {
+    EInteger bigmantissa = this.UnsignedMantissa;
+    bigexponent = bigexponent.Abs();
+    bigmantissa = bigmantissa.Abs();
+    EInteger lowerBound = DigitCountLowerBound(bigmantissa);
+    if (lowerBound.Subtract(bigexponent).CompareTo(maxDigits) > 0) {
     throw new OverflowException("Value out of range");
    }
   } else {
@@ -6566,10 +6568,10 @@ private void CheckTrivialOverflow(int maxDigits) {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(3);
-if (this.IsIntegerPartZero()) {
-  return (byte)0;
-}
+      this.CheckTrivialOverflow(3);
+    if (this.IsIntegerPartZero()) {
+      return (byte)0;
+    }
 if (this.IsNegative) {
         throw new OverflowException("Value out of range");
       }
@@ -6609,7 +6611,7 @@ if (this.IsNegative) {
       if (this.IsNegative && !this.IsZero) {
         throw new OverflowException("Value out of range");
       }
-      CheckTrivialOverflow(3);
+      this.CheckTrivialOverflow(3);
       return this.ToEIntegerIfExact().ToByteChecked();
     }
 
@@ -6637,7 +6639,7 @@ if (this.IsNegative) {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(5);
+      this.CheckTrivialOverflow(5);
       return this.IsIntegerPartZero() ? ((short)0) :
 this.ToEInteger().ToInt16Checked();
     }
@@ -6672,7 +6674,7 @@ this.ToEInteger().ToInt16Checked();
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(5);
+      this.CheckTrivialOverflow(5);
       return this.ToEIntegerIfExact().ToInt16Checked();
     }
 
@@ -6700,7 +6702,7 @@ this.ToEInteger().ToInt16Checked();
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-CheckTrivialOverflow(10);
+      this.CheckTrivialOverflow(10);
       return this.IsIntegerPartZero() ? ((int)0) :
 this.ToEInteger().ToInt32Checked();
     }
@@ -6738,7 +6740,7 @@ this.ToEInteger().ToInt32Checked();
       if (this.IsZero) {
         return (int)0;
       }
-      CheckTrivialOverflow(10);
+      this.CheckTrivialOverflow(10);
       return this.ToEIntegerIfExact().ToInt32Checked();
     }
 
@@ -6755,7 +6757,7 @@ this.ToEInteger().ToInt32Checked();
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-CheckTrivialOverflow(19);
+      this.CheckTrivialOverflow(19);
       return this.IsIntegerPartZero() ? 0L :
 this.ToEInteger().ToInt64Checked();
     }
@@ -6794,7 +6796,7 @@ this.ToEInteger().ToInt64Checked();
       if (this.IsZero) {
         return 0L;
       }
-      CheckTrivialOverflow(19);
+      this.CheckTrivialOverflow(19);
       return this.ToEIntegerIfExact().ToInt64Checked();
     }
     // End integer conversions
