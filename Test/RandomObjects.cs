@@ -157,12 +157,13 @@ namespace Test {
         // Signaling NaN currently not generated because
         // it doesn't round-trip as well
       }
-      string str = RandomDecimalString(r);
-      if (str.Length < 1000 || (str.IndexOf('E') < 0 && str.IndexOf('.') < 0)) {
-        return EDecimal.FromString(str);
-      } else {
-        return EDecimal.Create(RandomEInteger(r), RandomEInteger(r));
+      if (r.GetInt32(100) < 10) {
+        string str = RandomDecimalString(r);
+        if (str.Length < 500) {
+          return EDecimal.FromString(str);
+        }
       }
+      return EDecimal.Create(RandomEInteger(r), RandomEInteger(r));
     }
 
     public static EInteger RandomEInteger(IRandomGenExtended r) {
