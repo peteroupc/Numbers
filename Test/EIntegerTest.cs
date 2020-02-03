@@ -3389,7 +3389,7 @@ namespace Test {
           "(\"" + bigintA.ToRadixString(16) +
           "\",16),\nEInteger.FromRadixString(\"" +
           bigintB.ToRadixString(16) + "\",16));";
-        Console.WriteLine(testLine);
+        // Console.WriteLine(testLine);
         throw new InvalidOperationException(ex.Message + "\n" +
           testLine,
           ex);

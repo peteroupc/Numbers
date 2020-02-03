@@ -2071,7 +2071,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.IsInteger">
-<summary>Not documented yet.</summary><returns>The return value is not documented yet.</returns>
+<summary>Not documented yet.</summary>
+            <returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.IsNaN">
 
@@ -3523,10 +3524,10 @@
             case the resulting binary floating-point number will be an
             approximation of this decimal number's value.</summary>
             <param name='ec'>An arithmetic context to control the precision,
-            rounding, and exponent range of the result. Can be null.</param>
+            rounding, and exponent range of the result. The precision is in
+            bits, and an example of this parameter is <c>EContext.Binary64</c>. Can be null.</param>
             <returns>An arbitrary-precision float floating-point
             number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='ec'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEInteger">

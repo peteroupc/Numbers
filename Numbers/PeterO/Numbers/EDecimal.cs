@@ -493,18 +493,18 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>The return value is not documented yet.</returns>
     public bool IsInteger() {
-if (!this.IsFinite) {
-  return false;
-}
-        if (this.exponent.CompareToInt(0) >= 0) {
-  return true;
-        } else {
-          EDecimal r = this.Reduce(null);
-          return r.exponent.CompareToInt(0) >= 0;
-        }
+      if (!this.IsFinite) {
+        return false;
+      }
+      if (this.exponent.CompareToInt(0) >= 0) {
+        return true;
+      } else {
+        EDecimal r = this.Reduce(null);
+        return r.exponent.CompareToInt(0) >= 0;
+      }
     }
 
     /// <summary>Gets this object's unscaled value, or significand, and
@@ -5638,6 +5638,8 @@ if (!this.IsFinite) {
     }
 
     private bool IsIntegerPartZero() {
+      // Returns whether the number, once its fractional part
+      // is discarded, is zero.
       if (!this.IsFinite) {
         return false;
       }
@@ -5655,12 +5657,8 @@ if (!this.IsFinite) {
         if (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) {
           return true;
         }
-        if (digitCountLower.CompareTo(bigexponent.Abs()) > 0) {
-          return false;
-        }
-        EInteger digitCount = umantissa.GetDigitCountAsEInteger();
-        return (digitCount.CompareTo(bigexponent) <= 0) ? true :
-          false;
+        return (digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? (false)
+:(this.CompareTo(-1) > 0 && this.CompareTo(1) < 0);
       }
     }
 
@@ -5698,15 +5696,15 @@ if (!this.IsFinite) {
         EInteger bigmantissa = this.unsignedMantissa.ToEInteger();
         var acc = new DigitShiftAccumulator(bigmantissa, 0, 0);
         if (exact) {
-        acc.TruncateOrShiftRight(
-          bigexponent,
-          true);
-        if (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits != 0) {
-          // Some digits were discarded
-          throw new ArithmeticException("Not an exact integer");
-        }
+          acc.TruncateOrShiftRight(
+            bigexponent,
+            true);
+          if (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits != 0) {
+            // Some digits were discarded
+            throw new ArithmeticException("Not an exact integer");
+          }
         } else {
-         acc.TruncateRightSimple(bigexponent);
+          acc.TruncateRightSimple(bigexponent);
         }
         bigmantissa = acc.ShiftedInt;
         if (this.IsNegative) {
@@ -5771,11 +5769,10 @@ if (!this.IsFinite) {
     /// case the resulting binary floating-point number will be an
     /// approximation of this decimal number's value.</summary>
     /// <param name='ec'>An arithmetic context to control the precision,
-    /// rounding, and exponent range of the result. Can be null.</param>
+    /// rounding, and exponent range of the result. The precision is in
+    /// bits, and an example of this parameter is <c>EContext.Binary64</c>. Can be null.</param>
     /// <returns>An arbitrary-precision float floating-point
     /// number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='ec'/> is null.</exception>
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigintMant = this.UnsignedMantissa;
@@ -5863,42 +5860,52 @@ if (!this.IsFinite) {
         // DebugUtility.Log("scale=" + scale + " mantissaPrecision=" +
         // bigmantissa.GetDigitCountAsEInteger());
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
+        if (ec != null && ec.HasMaxPrecision) {
+          EFloat efNum = EFloat.FromEInteger(bigmantissa);
+          EFloat efDen = EFloat.FromEInteger(divisor);
+          return efNum.Divide(efDen, ec);
+        }
         EInteger desiredHigh;
         EInteger desiredLow;
         var haveCopy = false;
         ec = ec ?? EContext.UnlimitedHalfEven;
         EContext originalEc = ec;
-        if (!ec.HasMaxPrecision) {
+        if (ec == null || !ec.HasMaxPrecision) {
           EInteger num = bigmantissa;
           EInteger den = divisor;
-          EInteger gcd = num.Gcd(den);
-          if (gcd.CompareTo(EInteger.One) != 0) {
-            den /= gcd;
-          }
-          // DebugUtility.Log("num=" + (num/gcd));
-          // DebugUtility.Log("den=" + den);
-          if (!HasTerminatingBinaryExpansion(den)) {
-            // DebugUtility.Log("Approximate");
-            // DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
-            ec = ec.WithPrecision(53).WithBlankFlags();
-            haveCopy = true;
-          } else {
-            bigmantissa /= gcd;
-            divisor = den;
+          // Console.WriteLine("num=2^" + num.GetUnsignedBitLengthAsEInteger());
+          // Console.WriteLine("den=10^" + negscale);
+          if (num.GetUnsignedBitLengthAsEInteger().CompareTo(10000) <= 0 &&
+            den.GetUnsignedBitLengthAsEInteger().CompareTo(10000) <= 0) {
+            EInteger gcd = num.Gcd(den);
+            if (gcd.CompareTo(EInteger.One) != 0) {
+              den /= gcd;
+            }
+            // DebugUtility.Log("num=" + (num/gcd));
+            // DebugUtility.Log("den=" + den);
+            if (!HasTerminatingBinaryExpansion(den)) {
+              // DebugUtility.Log("Approximate");
+              // DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
+              ec = ec.WithPrecision(53).WithBlankFlags();
+              haveCopy = true;
+            } else {
+              bigmantissa /= gcd;
+              divisor = den;
+            }
           }
         }
         // NOTE: Precision raised by 2 to accommodate rounding
         // to odd
-        EInteger valueEcPrec = ec.HasMaxPrecision ? ec.Precision.Add(2) :
-          ec.Precision;
+        EInteger valueEcPrec = ec == null ? EInteger.Zero : (
+            ec.HasMaxPrecision ? ec.Precision.Add(2) : ec.Precision);
         desiredHigh = EInteger.One.ShiftLeft(valueEcPrec);
         desiredLow = EInteger.One.ShiftLeft(valueEcPrec.Subtract(1));
         // DebugUtility.Log("=>{0}\r\n->{1}", bigmantissa, divisor);
-        EInteger[] quorem = ec.HasMaxPrecision ?
+        EInteger[] quorem = (ec != null && ec.HasMaxPrecision) ?
           bigmantissa.DivRem(divisor) : null;
         // DebugUtility.Log("=>{0}\r\n->{1}", quorem[0], desiredHigh);
         var adjust = new FastInteger(0);
-        if (!ec.HasMaxPrecision) {
+        if (ec == null || !ec.HasMaxPrecision) {
           EInteger eterm = divisor.GetLowBitAsEInteger();
           bigmantissa = bigmantissa.ShiftLeft(eterm);
           adjust.SubtractBig(eterm);
@@ -6022,10 +6029,7 @@ if (!this.IsFinite) {
         // DebugUtility.Log("-->" + (efret.Mantissa.ToRadixString(2)) + " " +
         // efret.Exponent);
         efret = efret.RoundToPrecision(ec);
-        if (ec == null) {
-          throw new ArgumentNullException(nameof(ec));
-        }
-        if (haveCopy && originalEc.HasFlags) {
+        if (ec != null && haveCopy && originalEc.HasFlags) {
           originalEc.Flags |= ec.Flags;
         }
         return efret;
@@ -6514,7 +6518,7 @@ if (!this.IsFinite) {
       /// signed integer.</param>
       /// <returns>An arbitrary-precision decimal number.</returns>
       public EDecimal ValueOf(int val) {
-        return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
+        return (val == 0) ? Zero :((val == 1) ? One : FromInt64(val));
       }
     }
 
@@ -6536,24 +6540,24 @@ if (!this.IsFinite) {
 
     // Begin integer conversions
     private void CheckTrivialOverflow(int maxDigits) {
-  if (this.IsZero) {
-    return;
-  }
-  if (this.exponent.Sign < 0) {
-    EInteger bigexponent = this.Exponent;
-    EInteger bigmantissa = this.UnsignedMantissa;
-    bigexponent = bigexponent.Abs();
-    bigmantissa = bigmantissa.Abs();
-    EInteger lowerBound = DigitCountLowerBound(bigmantissa);
-    if (lowerBound.Subtract(bigexponent).CompareTo(maxDigits) > 0) {
-    throw new OverflowException("Value out of range");
-   }
-  } else {
-   if (this.exponent.CompareToInt(maxDigits) >= 0) {
-    throw new OverflowException("Value out of range");
-   }
-  }
-}
+      if (this.IsZero) {
+        return;
+      }
+      if (this.exponent.Sign < 0) {
+        EInteger bigexponent = this.Exponent;
+        EInteger bigmantissa = this.UnsignedMantissa;
+        bigexponent = bigexponent.Abs();
+        bigmantissa = bigmantissa.Abs();
+        EInteger lowerBound = DigitCountLowerBound(bigmantissa);
+        if (lowerBound.Subtract(bigexponent).CompareTo(maxDigits) > 0) {
+          throw new OverflowException("Value out of range");
+        }
+      } else {
+        if (this.exponent.CompareToInt(maxDigits) >= 0) {
+          throw new OverflowException("Value out of range");
+        }
+      }
+    }
 
     /// <summary>Converts this number's value to a byte (from 0 to 255) if
     /// it can fit in a byte (from 0 to 255) after converting it to an
@@ -6569,10 +6573,9 @@ if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
       this.CheckTrivialOverflow(3);
-    if (this.IsIntegerPartZero()) {
-      return (byte)0;
-    }
-if (this.IsNegative) {
+      if (this.IsIntegerPartZero()) {
+        return (byte)0;
+      } else if (this.IsNegative) {
         throw new OverflowException("Value out of range");
       }
       return this.ToEInteger().ToByteChecked();
@@ -6641,7 +6644,7 @@ if (this.IsNegative) {
       }
       this.CheckTrivialOverflow(5);
       return this.IsIntegerPartZero() ? ((short)0) :
-this.ToEInteger().ToInt16Checked();
+        this.ToEInteger().ToInt16Checked();
     }
 
     /// <summary>Converts this number's value to an integer by discarding
@@ -6704,7 +6707,7 @@ this.ToEInteger().ToInt16Checked();
       }
       this.CheckTrivialOverflow(10);
       return this.IsIntegerPartZero() ? ((int)0) :
-this.ToEInteger().ToInt32Checked();
+        this.ToEInteger().ToInt32Checked();
     }
 
     /// <summary>Converts this number's value to an integer by discarding
@@ -6758,8 +6761,7 @@ this.ToEInteger().ToInt32Checked();
         throw new OverflowException("Value is infinity or NaN");
       }
       this.CheckTrivialOverflow(19);
-      return this.IsIntegerPartZero() ? 0L :
-this.ToEInteger().ToInt64Checked();
+      return this.IsIntegerPartZero() ? 0L : this.ToEInteger().ToInt64Checked();
     }
 
     /// <summary>Converts this number's value to an integer by discarding

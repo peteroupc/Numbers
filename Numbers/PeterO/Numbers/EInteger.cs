@@ -1333,7 +1333,7 @@ EInteger(this.wordCount, this.words, false);
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareTo(second.Abs());
-      return (cmp == 0) ? Max(first, second) : (cmp > 0 ? first : second);
+      return (cmp == 0) ? Max(first, second) :(cmp > 0 ? first : second);
     }
 
     /// <summary>Of two arbitrary-precision integers, returns the one with
@@ -1352,7 +1352,7 @@ EInteger(this.wordCount, this.words, false);
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareTo(second.Abs());
-      return (cmp == 0) ? Min(first, second) : (cmp < 0 ? first : second);
+      return (cmp == 0) ? Min(first, second) :(cmp < 0 ? first : second);
     }
 
     /// <summary>Adds this object and another object.</summary>
@@ -2858,7 +2858,8 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     ((value >= 100000000000000L) ? 15 : ((value
                           >= 10000000000000L) ?
                         14 : ((value >= 1000000000000L) ? 13 : ((value
-                >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
+                              >= 100000000000L) ? 12 : ((value >=
+10000000000L) ?
                               11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
@@ -3007,7 +3008,8 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
+                          minDigitEstimate)) >= 0 ? retval +
+maxDigitEstimate : retval +
                       minDigitEstimate;
                     done = true;
                     break;
@@ -3099,16 +3101,15 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                       13) & ShortMask) != 0) ? 2 : ((((c <<
                         12) & ShortMask) != 0) ? 3 : ((((c << 11) &
                         0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
-                5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
+                      5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
                                 8) & ShortMask) != 0) ? 7 : ((((c << 7) &
-ShortMask) !=
-                              0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
+                ShortMask) != 0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
                               ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
-                4) & ShortMask) != 0) ? 11 : ((((c << 3) &
+                                        4) & ShortMask) != 0) ? 11 : ((((c <<
+3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
                                           0xffff) != 0) ? 13 : ((((c << 1) &
-ShortMask) !=
-                                          0) ? 14 : 15))))))))))))));
+                ShortMask) != 0) ? 14 : 15))))))))))))));
           return EInteger.FromInt64(retSetBitLong).Add(
               EInteger.FromInt32(rsb));
         }
@@ -3592,45 +3593,51 @@ ShortMask) !=
       int wordsEnd,
       int offset,
       int count) {
-if (offset >= wordsEnd) {
-  return EInteger.Zero;
-}
+      if (offset >= wordsEnd) {
+        return EInteger.Zero;
+      }
       int ct = Math.Min(count, wordsEnd - offset);
       while (ct != 0 && words[offset + ct - 1] == 0) {
         --ct;
       }
-if (ct == 0) {
+      if (ct == 0) {
         return EInteger.Zero;
       }
       var newwords = new short[ct];
       Array.Copy(words, offset, newwords, 0, ct);
-    return new EInteger(ct, newwords, false);
+      return new EInteger(ct, newwords, false);
     }
 
     private static void Toom3(
-          short[] resultArr,
-          int resultStart,
-          short[] wordsA,
-          int wordsAStart,
-          int countA,
-          short[] wordsB,
-          int wordsBStart,
-          int countB) {
+      short[] resultArr,
+      int resultStart,
+      short[] wordsA,
+      int wordsAStart,
+      int countA,
+      short[] wordsB,
+      int wordsBStart,
+      int countB) {
       int imal = Math.Max(countA, countB);
-      int im3 = (imal/3) + (((imal % 3) + 2) / 3);
+      int im3 = (imal / 3) + (((imal % 3) + 2) / 3);
       EInteger m3mul16 = EInteger.FromInt32(im3).ShiftLeft(4);
       EInteger x0 = MakeEInteger(
+          wordsA,
+          wordsAStart + countA,
+          wordsAStart,
+          im3);
+      EInteger x1 = MakeEInteger(
         wordsA,
         wordsAStart + countA,
-        wordsAStart,
+        wordsAStart + im3,
         im3);
-      EInteger x1 = MakeEInteger(wordsA, wordsAStart + countA, wordsAStart+
-im3, im3);
-      EInteger x2 = MakeEInteger(wordsA, wordsAStart + countA, wordsAStart+
-(im3 * 2), im3);
+      EInteger x2 = MakeEInteger(
+        wordsA,
+        wordsAStart + countA,
+        wordsAStart +
+        (im3 * 2), im3);
       EInteger w0, wt1, wt2, wt3, w4;
       if (wordsA == wordsB && wordsAStart == wordsBStart &&
-          countA == countB) {
+        countA == countB) {
         w0 = x0.Multiply(x0);
         w4 = x2.Multiply(x2);
         EInteger x2x0 = x2.Add(x0);
@@ -3642,19 +3649,19 @@ im3, im3);
         wt3 = wt3.Multiply(wt3);
       } else {
         EInteger y0 = MakeEInteger(
-          wordsB,
-          wordsBStart + countB,
-          wordsBStart,
-          im3);
+            wordsB,
+            wordsBStart + countB,
+            wordsBStart,
+            im3);
         EInteger y1 = MakeEInteger(
-          wordsB,
-          wordsBStart + countB,
-          wordsBStart + im3,
-          im3);
+            wordsB,
+            wordsBStart + countB,
+            wordsBStart + im3,
+            im3);
         EInteger y2 = MakeEInteger(
-          wordsB,
-          wordsBStart + countB,
-          wordsBStart + (im3 * 2), im3);
+            wordsB,
+            wordsBStart + countB,
+            wordsBStart + (im3 * 2), im3);
         w0 = x0.Multiply(y0);
         w4 = x2.Multiply(y2);
         EInteger x2x0 = x2.Add(x0);
@@ -3688,11 +3695,11 @@ im3, im3);
       }
       Array.Clear(resultArr, resultStart, countA + countB);
       Array.Copy(
-            w0.words,
-            0,
-            resultArr,
-            resultStart,
-            Math.Min(countA + countB, w0.wordCount));
+        w0.words,
+        0,
+        resultArr,
+        resultStart,
+        Math.Min(countA + countB, w0.wordCount));
     }
 
     /// <summary>Gets the value of this object with the sign
@@ -5432,7 +5439,7 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
           words2Start,
           words2Count);
       } else if (words1Count >= Toom3Threshold && words2Count >=
-Toom3Threshold) {
+        Toom3Threshold) {
         Toom3(
           resultArr,
           resultStart,
@@ -5629,8 +5636,7 @@ Toom3Threshold) {
             int a1b1low = valueA1B1 & ShortMask;
             int a1b1high = ((int)(valueA1B1 >> 16)) & ShortMask;
             tempInt = (((int)(tempInt >> 16)) & ShortMask) +
-(((int)valueA0B0) &
-                0xffff) + (((int)d) & ShortMask) + a1b1low +
+              (((int)valueA0B0) & 0xffff) + (((int)d) & ShortMask) + a1b1low +
               (((int)c[csi + 1]) & ShortMask);
             c[csi + 1] = (short)(((int)tempInt) & ShortMask);
 
@@ -5671,8 +5677,7 @@ Toom3Threshold) {
             int a1b1low = valueA1B1 & ShortMask;
             int a1b1high = (valueA1B1 >> 16) & ShortMask;
             tempInt = (((int)(tempInt >> 16)) & ShortMask) +
-(((int)valueA0B0) &
-                0xffff) + (((int)d) & ShortMask) + a1b1low +
+              (((int)valueA0B0) & 0xffff) + (((int)d) & ShortMask) + a1b1low +
               (((int)c[csi + 1]) & ShortMask);
             c[csi + 1] = (short)(((int)tempInt) & ShortMask);
 
@@ -7207,14 +7212,14 @@ Toom3Threshold) {
         }
       } else if (count >= Toom3Threshold) {
         Toom3(
-              resultArr,
-              resultStart,
-              words1,
-              words1Start,
-              count,
-              words1,
-              words1Start,
-              count);
+          resultArr,
+          resultStart,
+          words1,
+          words1Start,
+          count,
+          words1,
+          words1Start,
+          count);
       } else if ((count & 1) == 0) {
         int count2 = count >> 1;
         RecursiveSquare(
@@ -7475,14 +7480,14 @@ Toom3Threshold) {
         }
       } else if (count >= Toom3Threshold) {
         Toom3(
-              resultArr,
-              resultStart,
-              words1,
-              words1Start,
-              count,
-              words2,
-              words2Start,
-              count);
+          resultArr,
+          resultStart,
+          words1,
+          words1Start,
+          count,
+          words2,
+          words2Start,
+          count);
       } else {
         int countA = count;
         while (countA != 0 && words1[words1Start + countA - 1] == 0) {
@@ -8014,7 +8019,8 @@ Toom3Threshold) {
                     words1Count);
           return;
                }
-         */ }
+         */
+      }
       int resultPos, carry, valueBint;
       if (words1Count < words2Count) {
         // words1 is shorter than words2, so put words2 on top
@@ -8259,8 +8265,7 @@ Toom3Threshold) {
         ++bstart;
       }
       u = 0 - unchecked((((int)words2[bstart]) & ShortMask) - (int)((u >>
-31) &
-            1));
+              31) & 1));
       c[cstart++] = unchecked((short)u);
       return (int)((u >> 31) & 1);
     }

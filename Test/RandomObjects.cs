@@ -25,9 +25,7 @@ namespace Test {
       }
       int x = rand.GetInt32(MaxExclusiveStringLength);
       var bytes = new byte[x];
-      for (var i = 0; i < x; ++i) {
-        bytes[i] = unchecked((byte)rand.GetInt32(256));
-      }
+      rand.GetBytes(bytes, 0, bytes.Length);
       return bytes;
     }
 
@@ -37,9 +35,7 @@ namespace Test {
       }
       int x = rand.GetInt32(MaxExclusiveShortStringLength);
       var bytes = new byte[x];
-      for (var i = 0; i < x; ++i) {
-        bytes[i] = unchecked((byte)rand.GetInt32(256));
-      }
+      rand.GetBytes(bytes, 0, bytes.Length);
       return bytes;
     }
 
@@ -174,9 +170,8 @@ namespace Test {
       if (selection < 10) {
         int count = r.GetInt32(MaxNumberLength) + 1;
         var bytes = new byte[count];
-        for (var i = 0; i < count; ++i) {
-          bytes[i] = (byte)((int)r.GetInt32(256));
-        }
+        r.GetBytes(bytes, 0, bytes.Length);
+
         return EInteger.FromBytes(bytes, true);
       }
       if (selection < 50) {
@@ -188,9 +183,7 @@ namespace Test {
       } else {
         int count = r.GetInt32(MaxShortNumberLength) + 1;
         var bytes = new byte[count];
-        for (var i = 0; i < count; ++i) {
-          bytes[i] = (byte)((int)r.GetInt32(256));
-        }
+        r.GetBytes(bytes, 0, bytes.Length);
         return EInteger.FromBytes(bytes, true);
       }
     }

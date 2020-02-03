@@ -1958,6 +1958,8 @@ Not documented yet.
 
 <b>Return Value:</b>
 
+The return value is not documented yet.
+
 <a id="IsNaN"></a>
 ### IsNaN
 
@@ -4159,17 +4161,11 @@ Creates a binary floating-point number from this object's value. Note that if th
 
 <b>Parameters:</b>
 
- * <i>ec</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. Can be null.
+ * <i>ec</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. The precision is in bits, and an example of this parameter is  `EContext.Binary64` . Can be null.
 
 <b>Return Value:</b>
 
 An arbitrary-precision float floating-point number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>ec</i>
- is null.
 
 <a id="ToEFloat"></a>
 ### ToEFloat
