@@ -1333,7 +1333,7 @@ EInteger(this.wordCount, this.words, false);
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareTo(second.Abs());
-      return (cmp == 0) ? Max(first, second) :(cmp > 0 ? first : second);
+      return (cmp == 0) ? Max(first, second) : (cmp > 0 ? first : second);
     }
 
     /// <summary>Of two arbitrary-precision integers, returns the one with
@@ -1352,7 +1352,7 @@ EInteger(this.wordCount, this.words, false);
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareTo(second.Abs());
-      return (cmp == 0) ? Min(first, second) :(cmp < 0 ? first : second);
+      return (cmp == 0) ? Min(first, second) : (cmp < 0 ? first : second);
     }
 
     /// <summary>Adds this object and another object.</summary>

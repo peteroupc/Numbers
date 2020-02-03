@@ -207,6 +207,15 @@ namespace PeterO.Numbers {
       }
     }
 
+    /// <summary>Returns whether this object's value is an
+    /// integer.</summary>
+    /// <returns><c>true</c> if this object's value is an integer;
+    /// otherwise, <c>false</c>.</returns>
+    public bool IsInteger() {
+      return this.IsFinite &&
+this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
+    }
+
     /// <summary>Gets this object's numerator.</summary>
     /// <value>This object's numerator. If this object is a not-a-number
     /// value, returns the diagnostic information (which will be negative

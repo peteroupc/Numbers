@@ -11,7 +11,6 @@ using System.Text;
 // TODO: Add Create*(long, int)
 // TODO: Add ToEInteger method that restricts bit size of
 // outputs to EDecimal/EFloat/ERational
-// TODO: Add IsInteger method to EFloat and ERational
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
@@ -493,8 +492,10 @@ TrappableRadixMath<EDecimal>(
       }
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Returns whether this object's value is an
+    /// integer.</summary>
+    /// <returns><c>true</c> if this object's value is an integer;
+    /// otherwise, <c>false</c>.</returns>
     public bool IsInteger() {
       if (!this.IsFinite) {
         return false;
@@ -5654,11 +5655,9 @@ TrappableRadixMath<EDecimal>(
         EInteger digitCountUpper = DigitCountUpperBound(umantissa);
         EInteger digitCountLower = DigitCountLowerBound(umantissa);
         EInteger bigexponent = this.Exponent;
-        if (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) {
-          return true;
-        }
-        return (digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? (false)
-:(this.CompareTo(-1) > 0 && this.CompareTo(1) < 0);
+        return (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) ? (true) :
+((digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? false :
+(this.CompareTo(-1) > 0 && this.CompareTo(1) < 0));
       }
     }
 
@@ -6518,7 +6517,7 @@ TrappableRadixMath<EDecimal>(
       /// signed integer.</param>
       /// <returns>An arbitrary-precision decimal number.</returns>
       public EDecimal ValueOf(int val) {
-        return (val == 0) ? Zero :((val == 1) ? One : FromInt64(val));
+        return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
       }
     }
 

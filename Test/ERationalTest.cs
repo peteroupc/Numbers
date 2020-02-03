@@ -11,6 +11,30 @@ namespace Test {
       Assert.AreEqual(ERational.Zero, ERational.FromBoolean(false));
       Assert.AreEqual(ERational.One, ERational.FromBoolean(true));
     }
+
+    [Test]
+    public void TestIsInteger() {
+      ERational ed = ERational.NaN;
+      Assert.IsFalse(ed.IsInteger());
+      ed = ERational.SignalingNaN;
+      Assert.IsFalse(ed.IsInteger());
+      ed = ERational.PositiveInfinity;
+      Assert.IsFalse(ed.IsInteger());
+      ed = ERational.NegativeInfinity;
+      Assert.IsFalse(ed.IsInteger());
+      ed = ERational.NegativeZero;
+      Assert.IsTrue(ed.IsInteger());
+      ed = ERational.FromInt32(0);
+      Assert.IsTrue(ed.IsInteger());
+      ed = ERational.FromInt32(999);
+      Assert.IsTrue(ed.IsInteger());
+      ed = ERational.Create(1, 1);
+      Assert.IsTrue(ed.IsInteger());
+      ed = ERational.Create(4, 3);
+      Assert.IsFalse(ed.IsInteger());
+      ed = ERational.Create(1998, 999);
+      Assert.IsTrue(ed.IsInteger());
+    }
     [Test]
     public void TestAbs() {
       // not implemented yet

@@ -883,6 +883,30 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
+    [Test]
+    public void TestIsInteger() {
+      EFloat ed = EFloat.NaN;
+      Assert.IsFalse(ed.IsInteger());
+      ed = EFloat.SignalingNaN;
+      Assert.IsFalse(ed.IsInteger());
+      ed = EFloat.PositiveInfinity;
+      Assert.IsFalse(ed.IsInteger());
+      ed = EFloat.NegativeInfinity;
+      Assert.IsFalse(ed.IsInteger());
+      ed = EFloat.NegativeZero;
+      Assert.IsTrue(ed.IsInteger());
+      ed = EFloat.FromInt32(0);
+      Assert.IsTrue(ed.IsInteger());
+      ed = EFloat.FromInt32(999);
+      Assert.IsTrue(ed.IsInteger());
+      ed = EFloat.Create(999, 999);
+      Assert.IsTrue(ed.IsInteger());
+      ed = EFloat.Create(999, -999);
+      Assert.IsFalse(ed.IsInteger());
+      ed = EFloat.Create(EInteger.FromInt32(999).ShiftLeft(999), -999);
+      Assert.IsTrue(ed.IsInteger());
+    }
     [Test]
     public void TestMovePointLeft() {
       EFloat ef;

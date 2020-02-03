@@ -2645,6 +2645,23 @@ TrappableRadixMath<EFloat>(
         this.unsignedMantissa.GetSignedBitLengthAsEInteger();
     }
 
+    /// <summary>Returns whether this object's value is an
+    /// integer.</summary>
+    /// <returns><c>true</c> if this object's value is an integer;
+    /// otherwise, <c>false</c>.</returns>
+    public bool IsInteger() {
+      if (!this.IsFinite) {
+        return false;
+      }
+      if (this.Exponent.CompareTo(0) >= 0) {
+        return true;
+      } else {
+        EInteger absexp = this.Exponent.Abs();
+        EInteger mant = this.UnsignedMantissa;
+        return mant.GetLowBitAsEInteger().CompareTo(absexp) >= 0;
+      }
+    }
+
     /// <summary>
     ///  Returns a binary floating-point number with the same
     /// value but a new exponent.
