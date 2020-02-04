@@ -3019,6 +3019,13 @@ null :
       Assert.AreEqual(
         EDecimal.Zero,
         EDecimal.NegativeZero.Plus(null));
+      Assert.AreEqual(EDecimal.NaN, EDecimal.SignalingNaN.Plus(null));
+    Assert.AreEqual(
+      EDecimal.NaN,
+      EDecimal.SignalingNaN.Plus(EContext.Unlimited));
+      Assert.AreEqual(
+        EDecimal.NaN,
+        EDecimal.SignalingNaN.Plus(EContext.Decimal128));
     }
     [Test]
     public void TestPow() {

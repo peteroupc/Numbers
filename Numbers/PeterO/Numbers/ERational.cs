@@ -1038,8 +1038,25 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
         // denominators are equal
         return numcmp;
       }
-      EInteger ad = this.Numerator * (EInteger)other.Denominator;
-      EInteger bc = this.Denominator * (EInteger)other.Numerator;
+      EInteger ea = this.Numerator;
+      EInteger eb = this.Denominator;
+      EInteger ec = other.Numerator;
+      EInteger ed = other.Denominator;
+      // Compare the number of bits of the products
+      EInteger bitsADUpper = ea.GetUnsignedBitLengthAsEInteger().Add(
+        ed.GetUnsignedBitLengthAsEInteger());
+      EInteger bitsBCUpper = eb.GetUnsignedBitLengthAsEInteger().Add(
+        ec.GetUnsignedBitLengthAsEInteger());
+      EInteger bitsADLower = bitsADUpper.Subtract(1);
+      EInteger bitsBCLower = bitsBCUpper.Subtract(1);
+      if (bitsADLower.CompareTo(bitsBCUpper) > 0) {
+        return signA < 0 ? -1 : 1;
+      }
+      if (bitsBCLower.CompareTo(bitsADUpper) > 0) {
+        return signA < 0 ? 1 : -1;
+      }
+      EInteger ad = ea.Multiply(ed);
+      EInteger bc = eb.Multiply(ec);
       return ad.CompareTo(bc);
     }
 
@@ -1069,14 +1086,12 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (cmp == 0) {
         if (first.IsNegative) {
           return (!second.IsNegative) ? second :
-(first.Denominator.CompareTo(second.Denominator) > 0 ? first :
-
-second);
+(first.Denominator.CompareTo(second.Denominator) > 0 ?
+   first : second);
         } else {
           return second.IsNegative ? first :
-(first.Denominator.CompareTo(second.Denominator) < 0 ? first :
-
-second);
+(first.Denominator.CompareTo(second.Denominator) < 0 ?
+    first : second);
         }
       }
       return cmp > 0 ? first : second;
@@ -1129,14 +1144,12 @@ second);
       if (cmp == 0) {
         if (first.IsNegative) {
           return (!second.IsNegative) ? first :
-(first.Denominator.CompareTo(second.Denominator) < 0 ? first :
-
-second);
+(first.Denominator.CompareTo(second.Denominator) < 0 ?
+    first : second);
         } else {
           return second.IsNegative ? second :
-(first.Denominator.CompareTo(second.Denominator) > 0 ? first :
-
-second);
+(first.Denominator.CompareTo(second.Denominator) > 0 ?
+   first : second);
         }
       }
       return cmp < 0 ? first : second;
@@ -1319,9 +1332,7 @@ second);
       // Console.WriteLine(this);
       // Console.WriteLine(other);
       ERational otherRational = ERational.FromEFloat(other);
-      EInteger ad = this.Numerator * (EInteger)otherRational.Denominator;
-      EInteger bc = this.Denominator * (EInteger)otherRational.Numerator;
-      return ad.CompareTo(bc);
+      return this.CompareToValue(otherRational);
     }
 
     /// <summary>Compares an arbitrary-precision decimal number with this
@@ -1442,13 +1453,8 @@ second);
       }
       // Convert to rational number and use usual rational number
       // comparison
-      // Console.WriteLine("no shortcircuit");
-      // Console.WriteLine(this);
-      // Console.WriteLine(other);
       ERational otherRational = ERational.FromEDecimal(other);
-      EInteger ad = this.Numerator * (EInteger)otherRational.Denominator;
-      EInteger bc = this.Denominator * (EInteger)otherRational.Numerator;
-      return ad.CompareTo(bc);
+      return this.CompareToValue(otherRational);
     }
 
     /// <summary>Returns a number with the same value as this one, but

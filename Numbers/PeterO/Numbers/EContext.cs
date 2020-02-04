@@ -1009,5 +1009,74 @@ this.simplified +
         this.simplified,
         this.traps);
     }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <returns/>
+    public EContext GetTrappable() {
+       return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='result'>Not documented yet.</param>
+  /// <param name='trappableContext'>Not documented yet.</param>
+    public T TriggerTraps<T>(
+      T result,
+      EContext trappableContext) {
+      if (trappableContext == null || trappableContext.Flags == 0) {
+        return result;
+      }
+      if (this.HasFlags) {
+        this.flags |= trappableContext.Flags;
+      }
+      int traps = this.Traps & trappableContext.Flags;
+      if (traps == 0) {
+        return result;
+      }
+      int mutexConditions = traps & (~(
+            EContext.FlagClamped | EContext.FlagInexact | EContext.FlagRounded |
+            EContext.FlagSubnormal));
+      if (mutexConditions != 0) {
+        for (var i = 0; i < 32; ++i) {
+          int flag = mutexConditions & (1 << i);
+          if (flag != 0) {
+            throw new ETrapException(traps, flag, this, result);
+          }
+        }
+      }
+      if ((traps & EContext.FlagSubnormal) != 0) {
+        throw new ETrapException(
+          traps,
+          traps & EContext.FlagSubnormal,
+          this,
+          result);
+      }
+      if ((traps & EContext.FlagInexact) != 0) {
+        throw new ETrapException(
+          traps,
+          traps & EContext.FlagInexact,
+          this,
+          result);
+      }
+      if ((traps & EContext.FlagRounded) != 0) {
+        throw new ETrapException(
+          traps,
+          traps & EContext.FlagRounded,
+          this,
+          result);
+      }
+      if ((traps & EContext.FlagClamped) != 0) {
+        throw new ETrapException(
+          traps,
+          traps & EContext.FlagClamped,
+          this,
+          result);
+      }
+      return result;
+    }
   }
 }

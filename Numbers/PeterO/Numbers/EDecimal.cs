@@ -80,12 +80,14 @@ namespace PeterO.Numbers {
   /// </para>
   /// <para>Passing a signaling NaN to any arithmetic operation shown
   /// here will signal the flag FlagInvalid and return a quiet NaN, even
-  /// if another operand to that operation is a quiet NaN, unless noted
-  /// otherwise.</para>
+  /// if another operand to that operation is a quiet NaN, unless the
+  /// operation's documentation expressly states that another result
+  /// happens when a signaling NaN is passed to that operation.</para>
   /// <para>Passing a quiet NaN to any arithmetic operation shown here
-  /// will return a quiet NaN, unless noted otherwise. Invalid operations
-  /// will also return a quiet NaN, as stated in the individual
-  /// methods.</para>
+  /// will return a quiet NaN, unless the operation's documentation
+  /// expressly states that another result happens when a quiet NaN is
+  /// passed to that operation. Invalid operations will also return a
+  /// quiet NaN, as stated in the individual methods.</para>
   /// <para>Unless noted otherwise, passing a null arbitrary-precision
   /// decimal argument to any method here will throw an exception.</para>
   /// <para>When an arithmetic operation signals the flag FlagInvalid,
@@ -4302,14 +4304,18 @@ TrappableRadixMath<EDecimal>(
 
     /// <summary>Rounds this object's value to a given precision, using the
     /// given rounding mode and range of exponent, and also converts
-    /// negative zero to positive zero.</summary>
+    /// negative zero to positive zero. The idiom
+    /// <c>EDecimal.SignalingNaN.Plus(ctx)</c> is useful for triggering an
+    /// invalid operation and returning not-a-number (NaN) for custom
+    /// arithmetic operations.</summary>
     /// <param name='ctx'>A context for controlling the precision, rounding
     /// mode, and exponent range. Can be null, in which case the precision
     /// is unlimited and rounding isn't needed.</param>
     /// <returns>The closest value to this object's value, rounded to the
-    /// specified precision. Returns the same value as this object if
-    /// <paramref name='ctx'/> is null or the precision and exponent range
-    /// are unlimited.</returns>
+    /// specified precision. If <paramref name='ctx'/> is null or the
+    /// precision and exponent range are unlimited, returns the same value
+    /// as this object (or a quiet NaN if this object is a signaling
+    /// NaN).</returns>
     public EDecimal Plus(EContext ctx) {
       return GetMathValue(ctx).Plus(this, ctx);
     }
@@ -5655,7 +5661,7 @@ TrappableRadixMath<EDecimal>(
         EInteger digitCountUpper = DigitCountUpperBound(umantissa);
         EInteger digitCountLower = DigitCountLowerBound(umantissa);
         EInteger bigexponent = this.Exponent;
-        return (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) ? (true) :
+        return (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) ? true :
 ((digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? false :
 (this.CompareTo(-1) > 0 && this.CompareTo(1) < 0));
       }
