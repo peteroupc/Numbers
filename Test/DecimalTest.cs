@@ -271,11 +271,11 @@ namespace Test {
         if (failures >= 100) {
           break;
         }
+        Console.WriteLine(f);
         if (!DecTestUtil.ToLowerCaseAscii(Path.GetFileName(f))
           .Contains(recordfailing ? ".dectest" : "failing.dectest")) {
           continue;
         }
-        Console.WriteLine(f);
         var context = new Dictionary<string, string>();
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
@@ -286,7 +286,7 @@ namespace Test {
             try {
               DecTestUtil.ParseDecTest(ln, context);
             } catch (Exception ex) {
-              Console.WriteLine(ln);
+              Console.WriteLine(ln.Substring(0, Math.Min(200, ln.Length)));
               if (!failedLines.ContainsKey(ln)) {
                 if (!context.ContainsKey("rounding")) {
                   context["rounding"] = "half_even";
@@ -324,6 +324,7 @@ namespace Test {
       } else {
         File.Delete(failingpath);
       }
+Console.WriteLine("done");
     }
   }
 }

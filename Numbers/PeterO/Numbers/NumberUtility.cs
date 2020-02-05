@@ -619,6 +619,64 @@ FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
       return ret;
     }
 
+    public static FastInteger[] DigitLengthBounds<THelper>(
+       IRadixMathHelper<THelper> helper,
+       EInteger ei) {
+      int radix = helper.GetRadix();
+      if (radix == 2) {
+        FastInteger fi =
+FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
+        return new FastInteger[] { fi, fi };
+      } else if (radix == 10) {
+        EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
+        if (bigBitLength.CompareTo(33) < 0) {
+          // Can easily be calculated without estimation
+          FastInteger fi = helper.GetDigitLength(ei);
+          return new FastInteger[] { fi, fi };
+        } else if (bigBitLength.CompareTo(2135) <= 0) {
+          int ov = 1 + ((bigBitLength.ToInt32Checked() * 631305) >> 21);
+          return new FastInteger[] {
+            new FastInteger(ov - 2), // lower bound
+            new FastInteger(ov), // upper bound
+          };
+        } else {
+          // Bit length is big enough that these bounds will
+          // overestimate or underestimate the true base-10 digit length
+          // as appropriate.
+          EInteger lowerBound = bigBitLength.Multiply(100).Divide(335);
+          EInteger upperBound = bigBitLength.Divide(3);
+          return new FastInteger[] {
+            FastInteger.FromBig(lowerBound), // lower bound
+            FastInteger.FromBig(upperBound), // upper bound
+          };
+        }
+      } else {
+        FastInteger fi = helper.GetDigitLength(ei);
+        return new FastInteger[] { fi, fi };
+      }
+    }
+
+    public static FastInteger DigitLengthUpperBound<THelper>(
+       IRadixMathHelper<THelper> helper, EInteger ei) {
+      int radix = helper.GetRadix();
+      if (radix == 2) {
+        return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
+      } else if (radix == 10) {
+        EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
+        if (bigBitLength.CompareTo(2135) <= 0) {
+          // May overestimate by 1
+          return new FastInteger(1 + ((bigBitLength.ToInt32Checked() *
+                  631305) >> 21));
+        } else {
+          // Bit length is big enough that dividing it by 3 will not
+          // underestimate the true base-10 digit length.
+          return FastInteger.FromBig(bigBitLength.Divide(3));
+        }
+      } else {
+        return helper.GetDigitLength(ei);
+      }
+    }
+
     public static EInteger ReduceTrailingZeros(
       EInteger bigmant,
       FastInteger exponentMutable,

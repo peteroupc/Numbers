@@ -10,11 +10,8 @@ namespace PeterO {
   /// <summary>Description of Runner.</summary>
   public static class Runner {
     public static void Main() {
-  new Test.EIntegerTest().TestPow();
-  new Test.EIntegerTest().TestSubtract();
-  new Test.EIntegerTest().TestMultiplyDivideASpecific();
-  new Test.EIntegerTest().TestMultiplyDivideSpecific();
-  new Test.EDecimalTest().TestStringContext();
+  new Test.DecimalTest().TestParser();
+ // new Test.DecimalTest().TestDecimalString();
     }
   }
 }

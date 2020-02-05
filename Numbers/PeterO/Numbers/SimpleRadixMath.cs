@@ -128,7 +128,7 @@ namespace PeterO.Numbers {
             null,
             null,
             null);
-          thisValue = this.GetHelper().CreateNewWithFlags (
+          thisValue = this.GetHelper().CreateNewWithFlags(
               mant,
               fastExp.AsEInteger(),
               thisFlags);
@@ -150,7 +150,7 @@ namespace PeterO.Numbers {
       EInteger mant = this.GetHelper().GetMantissa(thisValue).Abs();
       var mantChanged = false;
       if (!mant.IsZero && ctx != null && ctx.HasMaxPrecision) {
-        EInteger limit = this.GetHelper().MultiplyByRadixPower (
+        EInteger limit = this.GetHelper().MultiplyByRadixPower(
             EInteger.One,
             FastInteger.FromBig(ctx.Precision));
         if (mant.CompareTo(limit) >= 0) {
@@ -228,25 +228,42 @@ namespace PeterO.Numbers {
       return this.HandleNotANumber(val, val2, ctx);
     }
 
-    private T RoundBeforeOp(T val, EContext ctx) {
+    private T PreRound(T val, EContext ctx) {
+      return PreRound(val, ctx, this.GetHelper(), this.wrapper);
+    }  
+
+    private static THelper PreRound<THelper>(THelper val, EContext ctx,
+          IRadixMathHelper<THelper> helper, IRadixMath<THelper> wrapper) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return val;
       }
-      int thisFlags = this.GetHelper().GetFlags(val);
+      int thisFlags = helper.GetFlags(val);
       if ((thisFlags & BigNumberFlags.FlagSpecial) != 0) {
+        // Infinity or NaN
         return val;
       }
       FastInteger fastPrecision = FastInteger.FromBig(ctx.Precision);
-      EInteger mant = this.GetHelper().GetMantissa(val).Abs();
-      FastInteger digits = this.GetHelper().GetDigitLength(mant);
-      EContext ctx2 = ctx.WithBlankFlags().WithTraps(0);
-      if (digits.CompareTo(fastPrecision) <= 0) {
-        // Rounding is only to be done if the digit count is
-        // too big (distinguishing this case is material
-        // if the value also has an exponent that's out of range)
+      EInteger mant = helper.GetMantissa(val).Abs();
+      // Rounding is only to be done if the digit count is
+      // too big (distinguishing this case is material
+      // if the value also has an exponent that's out of range)
+      FastInteger[] digitBounds = NumberUtility.DigitLengthBounds(
+          helper,mant);
+      if (digitBounds[1].CompareTo(fastPrecision) <= 0) {
+        // Upper bound is less than or equal to precision
         return val;
       }
-      val = this.wrapper.RoundToPrecision(val, ctx2);
+      EContext ctx2 = ctx;
+      if (digitBounds[0].CompareTo(fastPrecision) <= 0) {
+        // Lower bound is less than or equal to precision, so
+        // calculate digit length more precisely
+        FastInteger digits = helper.GetDigitLength(mant);
+        ctx2 = ctx.WithBlankFlags().WithTraps(0);
+        if (digits.CompareTo(fastPrecision) <= 0) {
+          return val;
+        }
+      }
+      val = wrapper.RoundToPrecision(val, ctx2);
       // the only time rounding can signal an invalid
       // operation is if an operand is a signaling NaN, but
       // this was already checked beforehand
@@ -266,16 +283,13 @@ namespace PeterO.Numbers {
           ctx.Flags |= EContext.FlagRounded;
         }
       }
-      if ((ctx2.Flags & EContext.FlagSubnormal) != 0) {
-        // Console.WriteLine("Subnormal input: " + val);
-      }
-      if ((ctx2.Flags & EContext.FlagUnderflow) != 0) {
-        // Console.WriteLine("Underflow");
-      }
       if ((ctx2.Flags & EContext.FlagOverflow) != 0) {
         bool neg = (thisFlags & BigNumberFlags.FlagNegative) != 0;
-        ctx.Flags |= EContext.FlagLostDigits;
-        return this.SignalOverflow2(ctx, neg);
+        if (ctx.HasFlags) {
+          ctx.Flags |= EContext.FlagLostDigits;
+          ctx.Flags |= EContext.FlagOverflow |
+            EContext.FlagInexact | EContext.FlagRounded;
+        }
       }
       return val;
     }
@@ -289,8 +303,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      divisor = this.RoundBeforeOp(divisor, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      divisor = this.PreRound(divisor, ctx2);
       thisValue = this.wrapper.DivideToIntegerNaturalScale(
         thisValue,
         divisor,
@@ -307,8 +321,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      divisor = this.RoundBeforeOp(divisor, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      divisor = this.PreRound(divisor, ctx2);
       thisValue = this.wrapper.DivideToIntegerZeroScale(
         thisValue,
         divisor,
@@ -322,7 +336,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      value = this.RoundBeforeOp(value, ctx2);
+      value = this.PreRound(value, ctx2);
       value = this.wrapper.Abs(value, ctx2);
       return this.PostProcess(value, ctx, ctx2);
     }
@@ -333,20 +347,11 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      value = this.RoundBeforeOp(value, ctx2);
+      value = this.PreRound(value, ctx2);
       value = this.wrapper.Negate(value, ctx2);
       return this.PostProcess(value, ctx, ctx2);
     }
 
-    // <summary>Finds the remainder that results when dividing two T
-    // objects.</summary>
-    // <param name='thisValue'></param>
-    // <summary>Finds the remainder that results when dividing two T
-    // objects.</summary>
-    // <param name='thisValue'></param>
-    // <param name='divisor'></param>
-    // <param name='ctx'> (3).</param>
-    // <returns>The remainder of the two objects.</returns>
     public T Remainder(
       T thisValue,
       T divisor,
@@ -357,8 +362,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      divisor = this.RoundBeforeOp(divisor, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      divisor = this.PreRound(divisor, ctx2);
       thisValue = this.wrapper.Remainder(
         thisValue,
         divisor,
@@ -373,8 +378,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      divisor = this.RoundBeforeOp(divisor, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      divisor = this.PreRound(divisor, ctx2);
       thisValue = this.wrapper.RemainderNear(thisValue, divisor, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -384,7 +389,7 @@ namespace PeterO.Numbers {
     }
 
 #pragma warning disable CS0618 // certain ERounding values are obsolete
-    private T SignalOverflow2(EContext pc, bool neg) {
+    private static THelper SignalOverflow2<THelper>(EContext pc, bool neg, IRadixMathHelper<THelper> helper) {
       if (pc != null) {
         ERounding roundingOnOverflow = pc.Rounding;
         if (pc.HasFlags) {
@@ -402,22 +407,22 @@ namespace PeterO.Numbers {
           // the given precision
           EInteger overflowMant = EInteger.Zero;
           FastInteger fastPrecision = FastInteger.FromBig(pc.Precision);
-          overflowMant = this.GetHelper().MultiplyByRadixPower(
+          overflowMant = helper.MultiplyByRadixPower(
             EInteger.One,
             fastPrecision);
           overflowMant -= EInteger.One;
           FastInteger clamp =
             FastInteger.FromBig(pc.EMax).Increment().Subtract(fastPrecision);
-          return this.GetHelper().CreateNewWithFlags (
+          return helper.CreateNewWithFlags(
               overflowMant,
               clamp.AsEInteger(),
               neg ? BigNumberFlags.FlagNegative : 0);
         }
       }
       int flagneg = neg ? BigNumberFlags.FlagNegative : 0;
-      return this.GetHelper().GetArithmeticSupport() ==
+      return helper.GetArithmeticSupport() ==
         BigNumberFlags.FiniteOnly ?
-        default(T) : this.GetHelper().CreateNewWithFlags(
+        default(THelper) : helper.CreateNewWithFlags(
           EInteger.Zero,
           EInteger.Zero,
           flagneg | BigNumberFlags.FlagInfinity);
@@ -431,8 +436,8 @@ namespace PeterO.Numbers {
       }
       EContext ctx2 = GetContextWithFlags(ctx);
       // Console.WriteLine("op was " + thisValue + ", "+pow);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      pow = this.RoundBeforeOp(pow, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      pow = this.PreRound(pow, ctx2);
       // Console.WriteLine("op now " + thisValue + ", "+pow);
       int powSign = this.GetHelper().GetSign(pow);
       thisValue = (powSign == 0 && this.GetHelper().GetSign(thisValue) == 0) ?
@@ -450,7 +455,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.Log10(thisValue, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -462,7 +467,7 @@ namespace PeterO.Numbers {
       }
       EContext ctx2 = GetContextWithFlags(ctx);
       // Console.WriteLine("was: " + thisValue);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       // Console.WriteLine("now: " + thisValue);
       thisValue = this.wrapper.Ln(thisValue, ctx2);
       // Console.WriteLine("result: " + thisValue);
@@ -479,7 +484,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.Exp(thisValue, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -491,7 +496,7 @@ namespace PeterO.Numbers {
       }
       EContext ctx2 = GetContextWithFlags(ctx);
       // Console.WriteLine("op was " + thisValue);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       // Console.WriteLine("op now " + thisValue);
       thisValue = this.wrapper.SquareRoot(thisValue, ctx2);
       // Console.WriteLine("result was " + thisValue);
@@ -504,7 +509,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.NextMinus(thisValue, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -515,8 +520,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      otherValue = this.RoundBeforeOp(otherValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      otherValue = this.PreRound(otherValue, ctx2);
       thisValue = this.wrapper.NextToward(thisValue, otherValue, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -527,7 +532,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.NextPlus(thisValue, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -542,8 +547,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      divisor = this.RoundBeforeOp(divisor, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      divisor = this.PreRound(divisor, ctx2);
       thisValue = this.wrapper.DivideToExponent(
         thisValue,
         divisor,
@@ -565,8 +570,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      divisor = this.RoundBeforeOp(divisor, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      divisor = this.PreRound(divisor, ctx2);
       thisValue = this.wrapper.Divide(thisValue, divisor, ctx2);
       return this.PostProcessAfterDivision(thisValue, ctx, ctx2);
     }
@@ -577,8 +582,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      a = this.RoundBeforeOp(a, ctx2);
-      b = this.RoundBeforeOp(b, ctx2);
+      a = this.PreRound(a, ctx2);
+      b = this.PreRound(b, ctx2);
       a = this.wrapper.MinMagnitude(a, b, ctx2);
       return this.PostProcess(a, ctx, ctx2);
     }
@@ -589,8 +594,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      a = this.RoundBeforeOp(a, ctx2);
-      b = this.RoundBeforeOp(b, ctx2);
+      a = this.PreRound(a, ctx2);
+      b = this.PreRound(b, ctx2);
       a = this.wrapper.MaxMagnitude(a, b, ctx2);
       return this.PostProcess(a, ctx, ctx2);
     }
@@ -601,8 +606,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      a = this.RoundBeforeOp(a, ctx2);
-      b = this.RoundBeforeOp(b, ctx2);
+      a = this.PreRound(a, ctx2);
+      b = this.PreRound(b, ctx2);
       // choose the left operand if both are equal
       a = (this.CompareTo(a, b) >= 0) ? a : b;
       return this.PostProcess(a, ctx, ctx2);
@@ -614,8 +619,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      a = this.RoundBeforeOp(a, ctx2);
-      b = this.RoundBeforeOp(b, ctx2);
+      a = this.PreRound(a, ctx2);
+      b = this.PreRound(b, ctx2);
       // choose the left operand if both are equal
       a = (this.CompareTo(a, b) <= 0) ? a : b;
       return this.PostProcess(a, ctx, ctx2);
@@ -627,8 +632,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      other = this.RoundBeforeOp(other, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      other = this.PreRound(other, ctx2);
       thisValue = this.wrapper.Multiply(thisValue, other, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -643,9 +648,9 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      multiplicand = this.RoundBeforeOp(multiplicand, ctx2);
-      augend = this.RoundBeforeOp(augend, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      multiplicand = this.PreRound(multiplicand, ctx2);
+      augend = this.PreRound(augend, ctx2);
       // the only time the first operand to the addition can be
       // 0 is if either thisValue rounded or multiplicand
       // rounded is 0
@@ -673,7 +678,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.Plus(thisValue, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -684,7 +689,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.RoundToPrecision(thisValue, ctx2);
       return this.PostProcess(thisValue, ctx, ctx2);
     }
@@ -696,9 +701,9 @@ namespace PeterO.Numbers {
       }
       EContext ctx2 = GetContextWithFlags(ctx);
       // Console.WriteLine("was: "+thisValue+", "+otherValue);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       // Console.WriteLine("now: "+thisValue+", "+otherValue);
-      otherValue = this.RoundBeforeOp(otherValue, ctx2);
+      otherValue = this.PreRound(otherValue, ctx2);
       // Apparently, subnormal values of "otherValue" raise
       // an invalid operation flag, according to the test cases
       EContext ctx3 = ctx2 == null ? null : ctx2.WithBlankFlags();
@@ -720,7 +725,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.RoundToExponentExact(thisValue, expOther, ctx);
       return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     }
@@ -734,7 +739,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.RoundToExponentSimple(
         thisValue,
         expOther,
@@ -751,7 +756,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.RoundToExponentNoRoundedFlag(
         thisValue,
         exponent,
@@ -765,7 +770,7 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
       thisValue = this.wrapper.Reduce(thisValue, ctx);
       return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     }
@@ -776,8 +781,8 @@ namespace PeterO.Numbers {
         return ret;
       }
       EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.RoundBeforeOp(thisValue, ctx2);
-      other = this.RoundBeforeOp(other, ctx2);
+      thisValue = this.PreRound(thisValue, ctx2);
+      other = this.PreRound(other, ctx2);
       bool zeroA = this.GetHelper().GetSign(thisValue) == 0;
       bool zeroB = this.GetHelper().GetSign(other) == 0;
       if (zeroA) {
@@ -822,8 +827,8 @@ namespace PeterO.Numbers {
       if ((object)ret != (object)default(T)) {
         return ret;
       }
-      thisValue = this.RoundBeforeOp(thisValue, ctx);
-      otherValue = this.RoundBeforeOp(otherValue, ctx);
+      thisValue = this.PreRound(thisValue, ctx);
+      otherValue = this.PreRound(otherValue, ctx);
       return this.wrapper.CompareToWithContext(
         thisValue,
         otherValue,
@@ -842,7 +847,7 @@ namespace PeterO.Numbers {
 
     public T SignalOverflow(EContext ctx, bool neg) {
       EContext ctx2 = GetContextWithFlags(ctx);
-      T thisValue = this.SignalOverflow2(ctx2, neg);
+      T thisValue = this.wrapper.SignalOverflow(ctx, neg); // SignalOverflow2(ctx2, neg, this.GetHelper());
       return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     }
 
