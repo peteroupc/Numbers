@@ -904,6 +904,8 @@ namespace Test {
       Assert.IsTrue(ed.IsInteger());
       ed = EFloat.Create(999, -999);
       Assert.IsFalse(ed.IsInteger());
+      ed = EFloat.Create(0, -999);
+      Assert.IsTrue(ed.IsInteger());
       ed = EFloat.Create(EInteger.FromInt32(999).ShiftLeft(999), -999);
       Assert.IsTrue(ed.IsInteger());
     }
@@ -1850,10 +1852,7 @@ enumber.ToEInteger();
         } catch (NotSupportedException) {
           eint = null;
         }
-       // TODO:
-        isInteger = enumber.Exponent.Sign >= 0 &&
-EFloat.FromEInteger(enumber.ToEInteger()).CompareToValue(enumber) == 0;
-       // isInteger = enumber.IsInteger();
+        isInteger = enumber.IsInteger();
         isNum = enumber.CompareTo(0) >= 0 && enumber.CompareTo(255) <= 0;
         isTruncated = eint != null && eint.CompareTo(0) >= 0 &&
 eint.CompareTo(255) <= 0;

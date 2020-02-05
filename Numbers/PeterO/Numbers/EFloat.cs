@@ -314,6 +314,17 @@ TrappableRadixMath<EFloat>(
 
     /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
+    /// <param name='mantissaLong'>Desired value for the
+    /// significand.</param>
+    /// <param name='exponentSmall'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision binary floating-point
+    /// number.</returns>
+    public static EFloat Create(long mantissaLong, int exponentSmall) {
+      return Create((EInteger)mantissaLong, (EInteger)exponentSmall);
+    }
+
+    /// <summary>Returns a number with the value
+    /// exponent*2^significand.</summary>
     /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
@@ -2227,6 +2238,8 @@ return LogN(EFloat.FromInt32(10), ctx);
     /// unlimited (the context's Precision property is 0).</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='baseValue'/> is null.</exception>
+    /// <param name='baseValue'>Not documented yet.</param>
+    /// <param name='ctx'>Not documented yet.</param>
 public EFloat LogN(EFloat baseValue, EContext ctx) {
   EFloat value = this;
   if ((baseValue) == null) {
@@ -2741,7 +2754,7 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
       if (!this.IsFinite) {
         return false;
       }
-      if (this.Exponent.CompareTo(0) >= 0) {
+      if (this.IsZero || this.Exponent.CompareTo(0) >= 0) {
         return true;
       } else {
         EInteger absexp = this.Exponent.Abs();

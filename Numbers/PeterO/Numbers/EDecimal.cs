@@ -8,7 +8,6 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
-// TODO: Add Create*(long, int)
 // TODO: Add ToEInteger method that restricts bit size of
 // outputs to EDecimal/EFloat/ERational
 namespace PeterO.Numbers {
@@ -502,7 +501,7 @@ TrappableRadixMath<EDecimal>(
       if (!this.IsFinite) {
         return false;
       }
-      if (this.exponent.CompareToInt(0) >= 0) {
+      if (this.IsZero || this.exponent.CompareToInt(0) >= 0) {
         return true;
       } else {
         EDecimal r = this.Reduce(null);
@@ -658,6 +657,21 @@ TrappableRadixMath<EDecimal>(
           sign < 0 ? fi.Negate() : fi,
           FastIntegerFixed.FromBig(exponent),
           (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
+    }
+
+    /// <summary>Creates a number with the value
+    /// <c>exponent*10^significand</c>.</summary>
+    /// <param name='mantissaLong'>Desired value for the
+    /// significand.</param>
+    /// <param name='exponentSmall'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision decimal number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='mantissaLong'/> or <paramref name='exponentLong'/> is
+    /// null.</exception>
+    public static EDecimal Create(
+      long mantissaLong,
+      int exponentSmall) {
+      return Create(mantissaLong, (long)exponentSmall);
     }
 
     /// <summary>Creates a number with the value
@@ -3911,6 +3925,8 @@ return LogN(EDecimal.FromInt32(10), ctx);
     /// unlimited (the context's Precision property is 0).</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='baseValue'/> is null.</exception>
+    /// <param name='baseValue'>Not documented yet.</param>
+    /// <param name='ctx'>Not documented yet.</param>
 public EDecimal LogN(EDecimal baseValue, EContext ctx) {
   EDecimal value = this;
   if ((baseValue) == null) {

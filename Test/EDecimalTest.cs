@@ -381,6 +381,8 @@ namespace Test {
       Assert.IsTrue(ed.IsInteger());
       ed = EDecimal.Create(999, 999);
       Assert.IsTrue(ed.IsInteger());
+      ed = EDecimal.Create(0, -999);
+      Assert.IsTrue(ed.IsInteger());
       ed = EDecimal.Create(999, -999);
       Assert.IsFalse(ed.IsInteger());
     }
