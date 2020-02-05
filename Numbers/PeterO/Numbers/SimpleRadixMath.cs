@@ -229,71 +229,7 @@ namespace PeterO.Numbers {
     }
 
     private T PreRound(T val, EContext ctx) {
-      return PreRound(val, ctx, this.GetHelper(), this.wrapper);
-    }
-
-    // TODO: Have something like this as public method in EDecimal/EFloat
-    private static THelper PreRound<THelper>(THelper val, EContext ctx,
-          IRadixMathHelper<THelper> helper, IRadixMath<THelper> wrapper) {
-      if (ctx == null || !ctx.HasMaxPrecision) {
-        return val;
-      }
-      int thisFlags = helper.GetFlags(val);
-      if ((thisFlags & BigNumberFlags.FlagSpecial) != 0) {
-        // Infinity or NaN
-        return val;
-      }
-      FastInteger fastPrecision = FastInteger.FromBig(ctx.Precision);
-      EInteger mant = helper.GetMantissa(val).Abs();
-      // Rounding is only to be done if the digit count is
-      // too big (distinguishing this case is material
-      // if the value also has an exponent that's out of range)
-      FastInteger[] digitBounds = NumberUtility.DigitLengthBounds(
-        helper,
-        mant);
-      if (digitBounds[1].CompareTo(fastPrecision) <= 0) {
-        // Upper bound is less than or equal to precision
-        return val;
-      }
-      EContext ctx2 = ctx;
-      if (digitBounds[0].CompareTo(fastPrecision) <= 0) {
-        // Lower bound is less than or equal to precision, so
-        // calculate digit length more precisely
-        FastInteger digits = helper.GetDigitLength(mant);
-        ctx2 = ctx.WithBlankFlags().WithTraps(0);
-        if (digits.CompareTo(fastPrecision) <= 0) {
-          return val;
-        }
-      }
-      val = wrapper.RoundToPrecision(val, ctx2);
-      // the only time rounding can signal an invalid
-      // operation is if an operand is a signaling NaN, but
-      // this was already checked beforehand
-      #if DEBUG
-      if ((ctx2.Flags & EContext.FlagInvalid) != 0) {
-        throw new
-        ArgumentException("doesn't satisfy(ctx2.Flags&FlagInvalid)==0");
-      }
-      #endif
-      if ((ctx2.Flags & EContext.FlagInexact) != 0) {
-        if (ctx.HasFlags) {
-          ctx.Flags |= BigNumberFlags.LostDigitsFlags;
-        }
-      }
-      if ((ctx2.Flags & EContext.FlagRounded) != 0) {
-        if (ctx.HasFlags) {
-          ctx.Flags |= EContext.FlagRounded;
-        }
-      }
-      if ((ctx2.Flags & EContext.FlagOverflow) != 0) {
-        bool neg = (thisFlags & BigNumberFlags.FlagNegative) != 0;
-        if (ctx.HasFlags) {
-          ctx.Flags |= EContext.FlagLostDigits;
-          ctx.Flags |= EContext.FlagOverflow |
-            EContext.FlagInexact | EContext.FlagRounded;
-        }
-      }
-      return val;
+      return NumberUtility.PreRound(val, ctx, this.wrapper);
     }
 
     public T DivideToIntegerNaturalScale(
@@ -408,17 +344,6 @@ namespace PeterO.Numbers {
       thisValue = this.PostProcessAfterDivision(thisValue, ctx, ctx2);
       // Console.WriteLine("now " + thisValue);
       return thisValue;
-    }
-
-    public T Log10(T thisValue, EContext ctx) {
-      T ret = this.CheckNotANumber1(thisValue, ctx);
-      if ((object)ret != (object)default(T)) {
-        return ret;
-      }
-      EContext ctx2 = GetContextWithFlags(ctx);
-      thisValue = this.PreRound(thisValue, ctx2);
-      thisValue = this.wrapper.Log10(thisValue, ctx2);
-      return this.PostProcess(thisValue, ctx, ctx2);
     }
 
     public T Ln(T thisValue, EContext ctx) {

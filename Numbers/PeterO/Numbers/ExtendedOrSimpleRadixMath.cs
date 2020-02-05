@@ -73,17 +73,10 @@ namespace PeterO.Numbers {
 
     public T Power(T thisValue, T pow, EContext ctx) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.Power (
+          ctx == null || !ctx.IsSimplified) ? this.ext.Power(
           thisValue,
           pow,
           ctx) : this.simp.Power(thisValue, pow, ctx);
-    }
-
-    public T Log10(T thisValue, EContext ctx) {
-      return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.Log10 (
-          thisValue,
-          ctx) : this.simp.Log10(thisValue, ctx);
     }
 
     public T Ln(T thisValue, EContext ctx) {
@@ -100,7 +93,7 @@ namespace PeterO.Numbers {
       return (ctx == null || !ctx.IsSimplified) ?
         this.ext.SquareRoot(
           thisValue,
-          ctx) : this.simp.SquareRoot (
+          ctx) : this.simp.SquareRoot(
           thisValue,
           ctx);
     }
@@ -135,7 +128,7 @@ namespace PeterO.Numbers {
     }
     public T Divide(T thisValue, T divisor, EContext ctx) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.Divide (
+          ctx == null || !ctx.IsSimplified) ? this.ext.Divide(
           thisValue,
           divisor,
           ctx) : this.simp.Divide(thisValue, divisor, ctx);
@@ -143,7 +136,7 @@ namespace PeterO.Numbers {
 
     public T MinMagnitude(T a, T b, EContext ctx) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.MinMagnitude (
+          ctx == null || !ctx.IsSimplified) ? this.ext.MinMagnitude(
           a,
           b,
           ctx) : this.simp.MinMagnitude(a, b, ctx);
@@ -151,7 +144,7 @@ namespace PeterO.Numbers {
 
     public T MaxMagnitude(T a, T b, EContext ctx) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.MaxMagnitude (
+          ctx == null || !ctx.IsSimplified) ? this.ext.MaxMagnitude(
           a,
           b,
           ctx) : this.simp.MaxMagnitude(a, b, ctx);
@@ -185,7 +178,7 @@ namespace PeterO.Numbers {
 
     public T Plus(T thisValue, EContext ctx) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.Plus (
+          ctx == null || !ctx.IsSimplified) ? this.ext.Plus(
           thisValue,
           ctx) : this.simp.Plus(thisValue, ctx);
     }
@@ -242,14 +235,14 @@ namespace PeterO.Numbers {
 
     public T Reduce(T thisValue, EContext ctx) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.Reduce (
+          ctx == null || !ctx.IsSimplified) ? this.ext.Reduce(
           thisValue,
           ctx) : this.simp.Reduce(thisValue, ctx);
     }
 
     public T Add(T thisValue, T other, EContext ctx) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.Add (
+          ctx == null || !ctx.IsSimplified) ? this.ext.Add(
           thisValue,
           other,
           ctx) : this.simp.Add(thisValue, other, ctx);
@@ -261,7 +254,7 @@ namespace PeterO.Numbers {
       EContext ctx,
       bool roundToOperandPrecision) {
       return (
-          ctx == null || !ctx.IsSimplified) ? this.ext.AddEx (
+          ctx == null || !ctx.IsSimplified) ? this.ext.AddEx(
           thisValue,
           other,
           ctx,
@@ -279,7 +272,7 @@ namespace PeterO.Numbers {
           thisValue,
           otherValue,
           treatQuietNansAsSignaling,
-          ctx) : this.simp.CompareToWithContext (
+          ctx) : this.simp.CompareToWithContext(
           thisValue,
           otherValue,
           treatQuietNansAsSignaling,

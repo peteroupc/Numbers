@@ -93,12 +93,6 @@ namespace PeterO.Numbers {
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
 
-    public T Log10(T thisValue, EContext ctx) {
-      EContext tctx = (ctx == null) ? ctx : ctx.GetTrappable();
-      T result = this.math.Log10(thisValue, tctx);
-      return ctx == null ? result : ctx.TriggerTraps(result, tctx);
-    }
-
     public T Ln(T thisValue, EContext ctx) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetTrappable();
       T result = this.math.Ln(thisValue, tctx);

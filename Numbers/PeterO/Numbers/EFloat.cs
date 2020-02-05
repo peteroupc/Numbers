@@ -7,8 +7,6 @@ at: http://peteroupc.github.io/
  */
 using System;
 
-// TODO: Consider adding a logb (floor of log2) operation,
-  // as well as a Log2 method here and in EDecimal
 // TODO: Consider adding byte[] equivalent of FromString
 // here and in EDecimal
 namespace PeterO.Numbers {
@@ -2216,8 +2214,91 @@ TrappableRadixMath<EFloat>(
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     public EFloat Log10(EContext ctx) {
-      return MathValue.Log10(this, ctx);
+return LogN(EFloat.FromInt32(10), ctx);
     }
+
+    /// <summary>Finds the base-N logarithm of this object, that is, the
+    /// power (exponent) that the number N must be raised to in order to
+    /// equal this object's value.</summary>
+    /// <returns>Ln(this object)/Ln(baseValue). Signals the flag
+    /// FlagInvalid and returns not-a-number (NaN) if this object is less
+    /// than 0. Signals FlagInvalid and returns not-a-number (NaN) if the
+    /// parameter <paramref name='ctx'/> is null or the precision is
+    /// unlimited (the context's Precision property is 0).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='baseValue'/> is null.</exception>
+public EFloat LogN(EFloat baseValue, EContext ctx) {
+  EFloat value = this;
+  if ((baseValue) == null) {
+    throw new ArgumentNullException(nameof(baseValue));
+  }
+  if (value.IsNaN()) {
+    return value.Plus(ctx);
+  }
+  if (baseValue.IsNaN()) {
+    return baseValue.Plus(ctx);
+  }
+  if (ctx == null || !ctx.HasMaxPrecision ||
+     (value.IsNegative && !value.IsZero) ||
+     (baseValue.IsNegative && !baseValue.IsZero)) {
+    return EFloat.SignalingNaN.Plus(ctx);
+  }
+  if (ctx.Traps != 0) {
+    EContext tctx = ctx.GetTrappable();
+    EFloat ret = value.LogN(baseValue, tctx);
+    return ctx.TriggerTraps(ret, tctx);
+  } else if (ctx.IsSimplified) {
+    EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
+    EFloat ret = value.PreRound(ctx).LogN(baseValue.PreRound(ctx), tmpctx);
+    if (ctx.HasFlags) {
+      int flags = ctx.Flags;
+      ctx.Flags = flags | tmpctx.Flags;
+    }
+    //Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+    //[{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
+    // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
+    return ret.RoundToPrecision(ctx);
+  } else {
+    if (value.IsZero) {
+      return baseValue.CompareTo(1)<0 ? EFloat.PositiveInfinity :
+EFloat.NegativeInfinity;
+    } else if (value.IsPositiveInfinity()) {
+      return baseValue.CompareTo(1)<0 ? EFloat.NegativeInfinity :
+EFloat.PositiveInfinity;
+    }
+    if (baseValue.CompareTo(2) == 0) {
+      EFloat ev = value.Reduce(null);
+      if (ev.UnsignedMantissa.CompareTo(1) == 0) {
+        return EFloat.FromEInteger(ev.Exponent).Plus(ctx);
+      }
+    } else if (value.CompareTo(1) == 0) {
+      return EFloat.FromInt32(0).Plus(ctx);
+    } else if (value.CompareTo(baseValue) == 0) {
+      return EFloat.FromInt32(1).Plus(ctx);
+    }
+    int flags = ctx.Flags;
+    EContext tmpctx =
+ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
+    EFloat ret = value.Log(tmpctx).Divide(baseValue.Log(tmpctx), ctx);
+    if (ret.IsInteger() && !ret.IsZero) {
+      flags|=(EContext.FlagRounded|EContext.FlagInexact);
+      if (baseValue.Pow(ret).CompareToValue(value) == 0) {
+        EFloat rtmp = ret.Quantize(EFloat.FromInt32(1), ctx.WithNoFlags());
+        if (!rtmp.IsNaN()) {
+          flags &=~(EContext.FlagRounded|EContext.FlagInexact);
+          ret = rtmp;
+        }
+      }
+    } else {
+      flags|=tmpctx.Flags;
+    }
+    if (ctx.HasFlags) {
+      flags |= ctx.Flags;
+      ctx.Flags = flags;
+    }
+    return ret;
+  }
+}
 
     /// <summary>Returns a number similar to this number but with the radix
     /// point moved to the left.</summary>
@@ -3202,6 +3283,10 @@ TrappableRadixMath<EFloat>(
     /// are unlimited.</returns>
     public EFloat RoundToPrecision(EContext ctx) {
       return MathValue.RoundToPrecision(this, ctx);
+    }
+
+    public EFloat PreRound(EContext ctx) {
+      return NumberUtility.PreRound(this, ctx, MathValue);
     }
 
     /// <summary>Returns a number similar to this number but with the scale
