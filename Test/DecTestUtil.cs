@@ -239,44 +239,50 @@ namespace Test {
       return null;
     }
 
-
 public static EDecimal LogN(EDecimal value, EDecimal baseValue, EContext ctx) {
-  // ArgumentAssert.NotNull(value);
-  // ArgumentAssert.NotNull(baseValue);
+  if ((value) == null) {
+    throw new ArgumentNullException(nameof(value));
+  }
+  if ((baseValue) == null) {
+    throw new ArgumentNullException(nameof(baseValue));
+  }
   if (value.IsNaN()) {
     return value.Plus(ctx);
   }
   if (baseValue.IsNaN()) {
     return baseValue.Plus(ctx);
   }
-  if(ctx==null || !ctx.HasMaxPrecision || 
+  if (ctx == null || !ctx.HasMaxPrecision ||
      (value.IsNegative && !value.IsZero) ||
      (baseValue.IsNegative && !baseValue.IsZero)) {
     return EDecimal.SignalingNaN.Plus(ctx);
   }
  // if (baseValue.compareTo(10) == 0) {
- //   return value.Log10(ctx);
+ // return value.Log10(ctx);
  // }
 
-  if(ctx.Traps != 0) {
+  if (ctx.Traps != 0) {
     EContext tctx = ctx.GetTrappable();
     EDecimal ret = LogN(value, baseValue, tctx);
     return ctx.TriggerTraps(ret, tctx);
-  } else if(ctx.IsSimplified) {
+  } else if (ctx.IsSimplified) {
     EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
     EDecimal ret = LogN(value.Plus(ctx), baseValue.Plus(ctx), tmpctx);
-    if(ctx.HasFlags) {
+    if (ctx.HasFlags) {
       int flags = ctx.Flags;
       ctx.Flags = flags | tmpctx.Flags;
     }
-    //Console.WriteLine("{0} {1} [{4} {5}] -> {2} [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
-    //    value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
+    //Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+    //[{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
+    // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
     return ret.RoundToPrecision(ctx);
   } else {
     if (value.IsZero) {
-      return baseValue.CompareTo(1)<0 ? EDecimal.PositiveInfinity : EDecimal.NegativeInfinity;
+      return baseValue.CompareTo(1)<0 ? EDecimal.PositiveInfinity :
+EDecimal.NegativeInfinity;
     } else if (value.IsPositiveInfinity()) {
-      return baseValue.CompareTo(1)<0 ? EDecimal.NegativeInfinity : EDecimal.PositiveInfinity;
+      return baseValue.CompareTo(1)<0 ? EDecimal.NegativeInfinity :
+EDecimal.PositiveInfinity;
     }
     if (baseValue.CompareTo(10) == 0) {
       EDecimal ev = value.Reduce(null);
@@ -287,21 +293,22 @@ public static EDecimal LogN(EDecimal value, EDecimal baseValue, EContext ctx) {
       return EDecimal.FromInt32(1).Plus(ctx);
     }
     int flags = ctx.Flags;
-    EContext tmpctx = ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
+    EContext tmpctx =
+ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
     EDecimal ret = value.Log(tmpctx).Divide(baseValue.Log(tmpctx), ctx);
-    if(ret.IsInteger()) {
+    if (ret.IsInteger()) {
       flags|=(EContext.FlagRounded|EContext.FlagInexact);
-      if(baseValue.Pow(ret).CompareToValue(value) == 0) {
-        EDecimal rtmp=ret.Quantize(EDecimal.FromInt32(1), ctx.WithNoFlags());
-        if(!rtmp.IsNaN()) {
+      if (baseValue.Pow(ret).CompareToValue(value) == 0) {
+        EDecimal rtmp = ret.Quantize(EDecimal.FromInt32(1), ctx.WithNoFlags());
+        if (!rtmp.IsNaN()) {
           flags &=~(EContext.FlagRounded|EContext.FlagInexact);
-          ret=rtmp;
+          ret = rtmp;
         }
       }
     } else {
       flags|=tmpctx.Flags;
     }
-    if(ctx.HasFlags) {
+    if (ctx.HasFlags) {
       flags |= ctx.Flags;
       ctx.Flags = flags;
     }
@@ -631,7 +638,7 @@ public static EDecimal LogN(EDecimal value, EDecimal baseValue, EContext ctx) {
           // only round-half-even mode, but EDecimal Log10 is not limited
           // to that rounding mode
           ctx = ctx.WithRounding(ERounding.HalfEven);
-        //  d3 = LogN(d1, EDecimal.FromInt32(10), ctx);
+        // d3 = LogN(d1, EDecimal.FromInt32(10), ctx);
           d3 = d1.Log10(ctx);
         } else if (op.Equals("power", StringComparison.Ordinal)) {
           if (d2a != null) {

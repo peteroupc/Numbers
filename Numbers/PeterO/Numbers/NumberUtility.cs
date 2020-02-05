@@ -357,7 +357,7 @@ FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
           int icurexp = intcurexp.AsInt32();
           int halficurexp = icurexp / 2;
           bigpow = FindPowerOfFive(halficurexp);
-          bigpow = bigpow.Multiply (
+          bigpow = bigpow.Multiply(
               FindPowerOfFive(icurexp - halficurexp));
           mantissa *= (EInteger)bigpow;
           break;
@@ -657,7 +657,8 @@ FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
     }
 
     public static FastInteger DigitLengthUpperBound<THelper>(
-       IRadixMathHelper<THelper> helper, EInteger ei) {
+      IRadixMathHelper<THelper> helper,
+      EInteger ei) {
       int radix = helper.GetRadix();
       if (radix == 2) {
         return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());

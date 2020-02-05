@@ -86,10 +86,10 @@ namespace PeterO.Numbers {
       }
       EInteger mant = this.GetHelper().GetMantissa(thisValue).Abs();
       if (mant.IsZero) {
-        return afterQuantize ? this.GetHelper().CreateNewWithFlags (
+        return afterQuantize ? this.GetHelper().CreateNewWithFlags(
             mant,
             this.GetHelper().GetExponent(thisValue),
-            0) : this.wrapper.RoundToPrecision (
+            0) : this.wrapper.RoundToPrecision(
             this.GetHelper().ValueOf(0),
             ctxDest);
       }
@@ -136,9 +136,9 @@ namespace PeterO.Numbers {
       } else if (afterDivision && exp.Sign < 0) {
         FastInteger fastExp = FastInteger.FromBig(exp);
         int radix = this.GetHelper().GetRadix();
-        mant = NumberUtility.ReduceTrailingZeros (
+        mant = NumberUtility.ReduceTrailingZeros(
             mant, fastExp, radix, null, null, new FastInteger(0));
-        thisValue = this.GetHelper().CreateNewWithFlags (
+        thisValue = this.GetHelper().CreateNewWithFlags(
             mant,
             fastExp.AsEInteger(),
             thisFlags);
@@ -230,8 +230,9 @@ namespace PeterO.Numbers {
 
     private T PreRound(T val, EContext ctx) {
       return PreRound(val, ctx, this.GetHelper(), this.wrapper);
-    }  
+    }
 
+    // TODO: Have something like this as public method in EDecimal/EFloat
     private static THelper PreRound<THelper>(THelper val, EContext ctx,
           IRadixMathHelper<THelper> helper, IRadixMath<THelper> wrapper) {
       if (ctx == null || !ctx.HasMaxPrecision) {
@@ -248,7 +249,8 @@ namespace PeterO.Numbers {
       // too big (distinguishing this case is material
       // if the value also has an exponent that's out of range)
       FastInteger[] digitBounds = NumberUtility.DigitLengthBounds(
-          helper,mant);
+        helper,
+        mant);
       if (digitBounds[1].CompareTo(fastPrecision) <= 0) {
         // Upper bound is less than or equal to precision
         return val;
@@ -387,47 +389,6 @@ namespace PeterO.Numbers {
     public T Pi(EContext ctx) {
       return this.wrapper.Pi(ctx);
     }
-
-#pragma warning disable CS0618 // certain ERounding values are obsolete
-    private static THelper SignalOverflow2<THelper>(EContext pc, bool neg, IRadixMathHelper<THelper> helper) {
-      if (pc != null) {
-        ERounding roundingOnOverflow = pc.Rounding;
-        if (pc.HasFlags) {
-          pc.Flags |= EContext.FlagOverflow |
-            EContext.FlagInexact | EContext.FlagRounded;
-        }
-        if (pc.HasMaxPrecision && pc.HasExponentRange &&
-          (roundingOnOverflow == ERounding.Down ||
-            roundingOnOverflow == ERounding.ZeroFiveUp ||
-            roundingOnOverflow == ERounding.OddOrZeroFiveUp ||
-            roundingOnOverflow == ERounding.Odd ||
-            (roundingOnOverflow == ERounding.Ceiling && neg) ||
-            (roundingOnOverflow == ERounding.Floor && !neg))) {
-          // Set to the highest possible value for
-          // the given precision
-          EInteger overflowMant = EInteger.Zero;
-          FastInteger fastPrecision = FastInteger.FromBig(pc.Precision);
-          overflowMant = helper.MultiplyByRadixPower(
-            EInteger.One,
-            fastPrecision);
-          overflowMant -= EInteger.One;
-          FastInteger clamp =
-            FastInteger.FromBig(pc.EMax).Increment().Subtract(fastPrecision);
-          return helper.CreateNewWithFlags(
-              overflowMant,
-              clamp.AsEInteger(),
-              neg ? BigNumberFlags.FlagNegative : 0);
-        }
-      }
-      int flagneg = neg ? BigNumberFlags.FlagNegative : 0;
-      return helper.GetArithmeticSupport() ==
-        BigNumberFlags.FiniteOnly ?
-        default(THelper) : helper.CreateNewWithFlags(
-          EInteger.Zero,
-          EInteger.Zero,
-          flagneg | BigNumberFlags.FlagInfinity);
-    }
-#pragma warning restore CS0618
 
     public T Power(T thisValue, T pow, EContext ctx) {
       T ret = this.CheckNotANumber2(thisValue, pow, ctx);
@@ -810,14 +771,6 @@ namespace PeterO.Numbers {
       return this.Add(thisValue, other, ctx);
     }
 
-    // <summary>Compares a T object with this instance.</summary>
-    // <param name='thisValue'></param>
-    // <param name='otherValue'>A T object.</param>
-    // <param name='treatQuietNansAsSignaling'>A Boolean object.</param>
-    // <param name='ctx'>A PrecisionContext object.</param>
-    // <returns>Zero if the values are equal; a negative number if this
-    // instance is less, or a positive number if this instance is
-    // greater.</returns>
     public T CompareToWithContext(
       T thisValue,
       T otherValue,
@@ -836,18 +789,13 @@ namespace PeterO.Numbers {
         ctx);
     }
 
-    // <summary>Compares a T object with this instance.</summary>
-    // <param name='thisValue'></param>
-    // <returns>Zero if the values are equal; a negative number if this
-    // instance is less, or a positive number if this instance is
-    // greater.</returns>
     public int CompareTo(T thisValue, T otherValue) {
       return this.wrapper.CompareTo(thisValue, otherValue);
     }
 
     public T SignalOverflow(EContext ctx, bool neg) {
       EContext ctx2 = GetContextWithFlags(ctx);
-      T thisValue = this.wrapper.SignalOverflow(ctx, neg); // SignalOverflow2(ctx2, neg, this.GetHelper());
+      T thisValue = this.wrapper.SignalOverflow(ctx, neg);
       return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     }
 

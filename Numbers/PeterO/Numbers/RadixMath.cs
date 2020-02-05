@@ -2825,8 +2825,10 @@ if (op2Mantissa.IsZero) {
       if (expdiff.CompareToInt(200) >= 0) {
         EInteger op1MantAbs = op1Mantissa;
         EInteger op2MantAbs = op2Mantissa;
-        FastInteger[] op1DigitBounds = NumberUtility.DigitLengthBounds(helper, op1MantAbs);
-        FastInteger[] op2DigitBounds = NumberUtility.DigitLengthBounds(helper, op2MantAbs);
+        FastInteger[] op1DigitBounds =
+NumberUtility.DigitLengthBounds(helper, op1MantAbs);
+        FastInteger[] op2DigitBounds =
+NumberUtility.DigitLengthBounds(helper, op2MantAbs);
         FastInteger op2ExpUpperBound = fastOp2Exp.Copy().Add(op2DigitBounds[1]);
         FastInteger op1ExpLowerBound = fastOp1Exp.Copy().Add(op1DigitBounds[0]);
         if (op2ExpUpperBound.CompareTo(op1ExpLowerBound) < 0) {
@@ -3172,7 +3174,8 @@ op2DigitBounds[0].CompareTo(op2DigitBounds[1]) == 0 ?
               // difference
               // _________________________111111111111|_
               // ___222222222222222|____________________
-              FastInteger digitLength1 = NumberUtility.DigitLengthUpperBound(this.helper, op1MantAbs);
+              FastInteger digitLength1 =
+NumberUtility.DigitLengthUpperBound(this.helper, op1MantAbs);
               if (fastOp1Exp.Copy().Add(digitLength1).AddInt(2)
                 .CompareTo(fastOp2Exp) < 0) {
                 // first operand's mantissa can't reach the
@@ -3281,9 +3284,10 @@ op2DigitBounds[0].CompareTo(op2DigitBounds[1]) == 0 ?
               // difference
               // __111111111111|
               // ____________________222222222222222|
-              FastInteger digitLength2 = NumberUtility.DigitLengthUpperBound(this.helper, op2MantAbs);
+              FastInteger digitLength2 =
+NumberUtility.DigitLengthUpperBound(this.helper, op2MantAbs);
               // DebugUtility.Log("digitLength2 "
-              // +NumberUtility.DigitLengthUpperBound(this.helper,op2MantAbs));
+              // +NumberUtility.DigitLengthUpperBound(this.helper, op2MantAbs));
               // DebugUtility.Log("actualDigitLength2 "
               // +op2MantAbs.GetDigitCountAsEInteger());
               if (fastOp2Exp.Copy().Add(digitLength2).AddInt(2)
