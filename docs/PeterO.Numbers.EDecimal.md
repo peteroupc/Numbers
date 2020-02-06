@@ -24,9 +24,9 @@ This class implements the General Decimal Arithmetic Specification version 1.70 
 
 <b>Errors and Exceptions</b>
 
-Passing a signaling NaN to any arithmetic operation shown here will signal the flag FlagInvalid and return a quiet NaN, even if another operand to that operation is a quiet NaN, unless noted otherwise.
+Passing a signaling NaN to any arithmetic operation shown here will signal the flag FlagInvalid and return a quiet NaN, even if another operand to that operation is a quiet NaN, unless the operation's documentation expressly states that another result happens when a signaling NaN is passed to that operation.
 
-Passing a quiet NaN to any arithmetic operation shown here will return a quiet NaN, unless noted otherwise. Invalid operations will also return a quiet NaN, as stated in the individual methods.
+Passing a quiet NaN to any arithmetic operation shown here will return a quiet NaN, unless the operation's documentation expressly states that another result happens when a quiet NaN is passed to that operation. Invalid operations will also return a quiet NaN, as stated in the individual methods.
 
 Unless noted otherwise, passing a null arbitrary-precision decimal argument to any method here will throw an exception.
 
@@ -152,6 +152,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
 * <code>[CopySign(PeterO.Numbers.EDecimal)](#CopySign_PeterO_Numbers_EDecimal)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
 * <code>[Create(int, int)](#Create_int_int)</code> - Returns a number with the value exponent*10^significand.
+* <code>[Create(long, int)](#Create_long_int)</code> - Creates a number with the value exponent*10^significand.
 * <code>[Create(long, long)](#Create_long_long)</code> - Creates a number with the value exponent*10^significand.
 * <code>[Create(PeterO.Numbers.EInteger, int)](#Create_PeterO_Numbers_EInteger_int)</code> - Creates a number with the value exponent*10^significand.
 * <code>[Create(PeterO.Numbers.EInteger, long)](#Create_PeterO_Numbers_EInteger_long)</code> - Creates a number with the value exponent*10^significand.
@@ -229,7 +230,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision decimal number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object is positive or negative infinity.
-* <code>[IsInteger()](#IsInteger)</code> - Not documented yet.
+* <code>[IsInteger()](#IsInteger)</code> - Returns whether this object's value is an integer.
 * <code>[IsNaN()](#IsNaN)</code> - Gets a value indicating whether this object is not a number (NaN).
 * <code>[IsNegative](#IsNegative)</code> - Gets a value indicating whether this object is negative, including negative zero.
 * <code>[IsNegativeInfinity()](#IsNegativeInfinity)</code> - Returns whether this object is negative infinity.
@@ -239,6 +240,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this object's value equals 0.
 * <code>[Log(PeterO.Numbers.EContext)](#Log_PeterO_Numbers_EContext)</code> - Finds the natural logarithm of this object, that is, the power (exponent) that e (the base of natural logarithms) must be raised to in order to equal this object's value.
 * <code>[Log10(PeterO.Numbers.EContext)](#Log10_PeterO_Numbers_EContext)</code> - Finds the base-10 logarithm of this object, that is, the power (exponent) that the number 10 must be raised to in order to equal this object's value.
+* <code>[LogN(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#LogN_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the base-N logarithm of this object, that is, the power (exponent) that the number N must be raised to in order to equal this object's value.
 * <code>[Mantissa](#Mantissa)</code> - Gets this object's unscaled value, or significand, and makes it negative if this object is negative.
 * <code>[Max(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Gets the greater value between two decimal numbers.
 * <code>[Max(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Gets the greater value between two decimal numbers.
@@ -287,6 +289,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Pow(PeterO.Numbers.EDecimal)](#Pow_PeterO_Numbers_EDecimal)</code> - Raises this object's value to the given exponent, using unlimited precision.
 * <code>[Pow(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Pow_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
 * <code>[Precision()](#Precision)</code> - Finds the number of digits in this number's significand.
+* <code>[PreRound(PeterO.Numbers.EContext)](#PreRound_PeterO_Numbers_EContext)</code> -
 * <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value but a new exponent.
 * <code>[Quantize(int, PeterO.Numbers.ERounding)](#Quantize_int_PeterO_Numbers_ERounding)</code> - Returns an arbitrary-precision decimal number with the same value as this one but a new exponent.
 * <code>[Quantize(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the same exponent as another decimal number.
@@ -903,6 +906,25 @@ Returns a number with the value  `exponent*10^significand` .
 
 An arbitrary-precision decimal number.
 
+<a id="Create_long_int"></a>
+### Create
+
+    public static PeterO.Numbers.EDecimal Create(
+        long mantissaLong,
+        int exponentSmall);
+
+Creates a number with the value  `exponent*10^significand` .
+
+<b>Parameters:</b>
+
+ * <i>mantissaLong</i>: Desired value for the significand.
+
+ * <i>exponentSmall</i>: Desired value for the exponent.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number.
+
 <a id="Create_long_long"></a>
 ### Create
 
@@ -921,13 +943,6 @@ Creates a number with the value  `exponent*10^significand` .
 <b>Return Value:</b>
 
 An arbitrary-precision decimal number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>mantissaLong</i>
- or  <i>exponentLong</i>
- is null.
 
 <a id="Create_PeterO_Numbers_EInteger_int"></a>
 ### Create
@@ -1954,11 +1969,11 @@ Gets a value indicating whether this object is positive or negative infinity.
 
     public bool IsInteger();
 
-Not documented yet.
+Returns whether this object's value is an integer.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+ `true`  if this object's value is an integer; otherwise,  `false` .
 
 <a id="IsNaN"></a>
 ### IsNaN
@@ -2048,6 +2063,32 @@ Finds the base-10 logarithm of this object, that is, the power (exponent) that t
 
 Ln(this object)/Ln(10). Signals the flag FlagInvalid and returns not-a-number (NaN) if this object is less than 0. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
  is null or the precision is unlimited (the context's Precision property is 0).
+
+<a id="LogN_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
+### LogN
+
+    public PeterO.Numbers.EDecimal LogN(
+        PeterO.Numbers.EDecimal baseValue,
+        PeterO.Numbers.EContext ctx);
+
+Finds the base-N logarithm of this object, that is, the power (exponent) that the number N must be raised to in order to equal this object's value.
+
+<b>Parameters:</b>
+
+ * <i>baseValue</i>: Not documented yet.
+
+ * <i>ctx</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+Ln(this object)/Ln(baseValue). Signals the flag FlagInvalid and returns not-a-number (NaN) if this object is less than 0. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
+ is null or the precision is unlimited (the context's Precision property is 0).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>baseValue</i>
+ is null.
 
 <a id="Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
 ### Max
@@ -3354,7 +3395,7 @@ The constant π rounded to the given precision. Signals FlagInvalid and returns 
     public PeterO.Numbers.EDecimal Plus(
         PeterO.Numbers.EContext ctx);
 
-Rounds this object's value to a given precision, using the given rounding mode and range of exponent, and also converts negative zero to positive zero.
+Rounds this object's value to a given precision, using the given rounding mode and range of exponent, and also converts negative zero to positive zero. The idiom  `EDecimal.SignalingNaN.Plus(ctx)`  is useful for triggering an invalid operation and returning not-a-number (NaN) for custom arithmetic operations.
 
 <b>Parameters:</b>
 
@@ -3362,8 +3403,8 @@ Rounds this object's value to a given precision, using the given rounding mode a
 
 <b>Return Value:</b>
 
-The closest value to this object's value, rounded to the specified precision. Returns the same value as this object if  <i>ctx</i>
- is null or the precision and exponent range are unlimited.
+The closest value to this object's value, rounded to the specified precision. If  <i>ctx</i>
+ is null or the precision and exponent range are unlimited, returns the same value as this object (or a quiet NaN if this object is a signaling NaN).
 
 <a id="Pow_int"></a>
 ### Pow

@@ -1013,17 +1013,17 @@ this.simplified +
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <returns/>
-  /// <returns/>
     public EContext GetTrappable() {
        return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
     }
 
+  /// <param name='result'>The parameter <paramref name='result'/> is a
+  /// ``0 object.</param>
+  /// <param name='trappableContext'>The parameter <paramref
+  /// name='trappableContext'/> is a Numbers.EContext object.</param>
+  /// <returns>The return value is not documented yet.</returns>
   /// <summary>Not documented yet.</summary>
-  /// <returns/>
-  /// <summary>Not documented yet.</summary>
-  /// <returns/>
-  /// <param name='result'>Not documented yet.</param>
-  /// <param name='trappableContext'>Not documented yet.</param>
+  /// <typeparam name='T'>Type parameter not documented yet.</typeparam>
     public T TriggerTraps<T>(
       T result,
       EContext trappableContext) {

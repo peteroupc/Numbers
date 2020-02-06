@@ -430,6 +430,9 @@
             (FlagSubnormal).</para>.</value>
 
 </doc>
+<doc name="M:PeterO.Numbers.EContext.TriggerTraps``1(``0,PeterO.Numbers.EContext)">
+<param name='result'>The parameter <paramref name='result'/> is a ``0 object.</param><param name='trappableContext'>The parameter <paramref name='trappableContext'/> is a Numbers.EContext object.</param>
+</doc>
 <doc name="F:PeterO.Numbers.EContext.Unlimited">
 
             <summary>No specific (theoretical) limit on precision. Rounding
@@ -641,12 +644,14 @@
             <para><b>Errors and Exceptions</b> </para>
             <para>Passing a signaling NaN to any arithmetic operation shown
             here will signal the flag FlagInvalid and return a quiet NaN, even
-            if another operand to that operation is a quiet NaN, unless noted
-            otherwise.</para>
+            if another operand to that operation is a quiet NaN, unless the
+            operation's documentation expressly states that another result
+            happens when a signaling NaN is passed to that operation.</para>
             <para>Passing a quiet NaN to any arithmetic operation shown here
-            will return a quiet NaN, unless noted otherwise. Invalid operations
-            will also return a quiet NaN, as stated in the individual
-            methods.</para>
+            will return a quiet NaN, unless the operation's documentation
+            expressly states that another result happens when a quiet NaN is
+            passed to that operation. Invalid operations will also return a
+            quiet NaN, as stated in the individual methods.</para>
             <para>Unless noted otherwise, passing a null arbitrary-precision
             decimal argument to any method here will throw an exception.</para>
             <para>When an arithmetic operation signals the flag FlagInvalid,
@@ -1211,6 +1216,14 @@
             <returns>An arbitrary-precision decimal number.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.Create(System.Int64,System.Int32)">
+<summary>Creates a number with the value
+            <c>exponent*10^significand</c>.</summary>
+            <param name='mantissaLong'>Desired value for the
+            significand.</param>
+            <param name='exponentSmall'>Desired value for the exponent.</param>
+            <returns>An arbitrary-precision decimal number.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(System.Int64,System.Int64)">
 
             <summary>Creates a number with the value
@@ -1219,8 +1232,6 @@
             significand.</param>
             <param name='exponentLong'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissaLong'/> or <paramref name='exponentLong'/> is
-            null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CreateNaN(PeterO.Numbers.EInteger)">
@@ -2071,8 +2082,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.IsInteger">
-<summary>Not documented yet.</summary>
-            <returns>The return value is not documented yet.</returns>
+
+            <summary>Returns whether this object's value is an
+            integer.</summary>
+            <returns><c>true</c> if this object's value is an integer; otherwise, <c>false</c>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.IsNaN">
 
@@ -2166,6 +2180,15 @@
             <paramref name='ctx'/> is null or the precision is unlimited (the
             context's Precision property is 0).</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.LogN(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
+<summary>Finds the base-N logarithm of this object, that is, the
+            power (exponent) that the number N must be raised to in order to
+            equal this object's value.</summary><param name='baseValue'>The parameter <paramref name='baseValue'/> is a Numbers.EDecimal object.</param><param name='ctx'>The parameter <paramref name='ctx'/> is a Numbers.EContext object.</param><returns>Ln(this object)/Ln(baseValue). Signals the flag
+            FlagInvalid and returns not-a-number (NaN) if this object is less
+            than 0. Signals FlagInvalid and returns not-a-number (NaN) if the
+            parameter <paramref name='ctx'/> is null or the precision is
+            unlimited (the context's Precision property is 0).</returns><exception cref='ArgumentNullException'>The parameter <paramref name='baseValue'/> is null.</exception>
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.Mantissa">
 
@@ -2622,14 +2645,18 @@
 
             <summary>Rounds this object's value to a given precision, using the
             given rounding mode and range of exponent, and also converts
-            negative zero to positive zero.</summary>
+            negative zero to positive zero. The idiom
+            <c>EDecimal.SignalingNaN.Plus(ctx)</c> is useful for triggering an
+            invalid operation and returning not-a-number (NaN) for custom
+            arithmetic operations.</summary>
             <param name='ctx'>A context for controlling the precision, rounding
             mode, and exponent range. Can be null, in which case the precision
             is unlimited and rounding isn't needed.</param>
             <returns>The closest value to this object's value, rounded to the
-            specified precision. Returns the same value as this object if
-            <paramref name='ctx'/> is null or the precision and exponent range
-            are unlimited.</returns>
+            specified precision. If <paramref name='ctx'/> is null or the
+            precision and exponent range are unlimited, returns the same value
+            as this object (or a quiet NaN if this object is a signaling
+            NaN).</returns>
 
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.PositiveInfinity">
@@ -4877,10 +4904,13 @@
             and infinity.
             <para>Passing a signaling NaN to any arithmetic operation shown
             here will signal the flag FlagInvalid and return a quiet NaN, even
-            if another operand to that operation is a quiet NaN, unless noted
-            otherwise.</para>
+            if another operand to that operation is a quiet NaN, unless the
+            operation's documentation expressly states that another result
+            happens when a signaling NaN is passed to that operation.</para>
             <para>Passing a quiet NaN to any arithmetic operation shown here
-            will return a quiet NaN, unless noted otherwise.</para>
+            will return a quiet NaN, unless the operation's documentation
+            expressly states that another result happens when a quiet NaN is
+            passed to that operation.</para>
             <para>Unless noted otherwise, passing a null arbitrary-precision
             binary floating-point number argument to any method here will throw
             an exception.</para>
@@ -5412,6 +5442,15 @@
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.Create(System.Int64,System.Int32)">
+<summary>Returns a number with the value
+            exponent*2^significand.</summary>
+            <param name='mantissaLong'>Desired value for the
+            significand.</param>
+            <param name='exponentSmall'>Desired value for the exponent.</param>
+            <returns>An arbitrary-precision binary floating-point
+            number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int64,System.Int64)">
 
@@ -6073,6 +6112,11 @@
             infinity; otherwise, <c>false</c>.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.IsInteger">
+<summary>Returns whether this object's value is an
+            integer.</summary>
+            <returns><c>true</c> if this object's value is an integer; otherwise, <c>false</c>.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.IsNaN">
 
             <summary>Gets a value indicating whether this object is not a
@@ -6165,6 +6209,15 @@
             <paramref name='ctx'/> is null or the precision is unlimited (the
             context's Precision property is 0).</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.LogN(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
+<summary>Finds the base-N logarithm of this object, that is, the
+            power (exponent) that the number N must be raised to in order to
+            equal this object's value.</summary><param name='baseValue'>The parameter <paramref name='baseValue'/> is a Numbers.EFloat object.</param><param name='ctx'>The parameter <paramref name='ctx'/> is a Numbers.EContext object.</param><returns>Ln(this object)/Ln(baseValue). Signals the flag
+            FlagInvalid and returns not-a-number (NaN) if this object is less
+            than 0. Signals FlagInvalid and returns not-a-number (NaN) if the
+            parameter <paramref name='ctx'/> is null or the precision is
+            unlimited (the context's Precision property is 0).</returns><exception cref='ArgumentNullException'>The parameter <paramref name='baseValue'/> is null.</exception>
 </doc>
 <doc name="P:PeterO.Numbers.EFloat.Mantissa">
 
@@ -6626,14 +6679,18 @@
 
             <summary>Rounds this object's value to a given precision, using the
             given rounding mode and range of exponent, and also converts
-            negative zero to positive zero.</summary>
+            negative zero to positive zero. The idiom
+            <c>EDecimal.SignalingNaN.Plus(ctx)</c> is useful for triggering an
+            invalid operation and returning not-a-number (NaN) for custom
+            arithmetic operations.</summary>
             <param name='ctx'>A context for controlling the precision, rounding
             mode, and exponent range. Can be null, in which case the precision
             is unlimited and rounding isn't needed.</param>
             <returns>The closest value to this object's value, rounded to the
-            specified precision. Returns the same value as this object if
-            <paramref name='ctx'/> is null or the precision and exponent range
-            are unlimited.</returns>
+            specified precision. If <paramref name='ctx'/> is null or the
+            precision and exponent range are unlimited, returns the same value
+            as this object (or a quiet NaN if this object is a signaling
+            NaN).</returns>
 
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.PositiveInfinity">
@@ -11003,6 +11060,11 @@
             infinity.</summary>
             <returns><c>true</c> if this object's value is infinity; otherwise, <c>false</c>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.IsInteger">
+<summary>Returns whether this object's value is an
+            integer.</summary>
+            <returns><c>true</c> if this object's value is an integer; otherwise, <c>false</c>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.IsNaN">
 

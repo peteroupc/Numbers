@@ -34,6 +34,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[ForPrecision(int)](#ForPrecision_int)</code> - Creates a new arithmetic context using the given maximum number of digits, an unlimited exponent range, and the HalfUp rounding mode.
 * <code>[ForPrecisionAndRounding(int, PeterO.Numbers.ERounding)](#ForPrecisionAndRounding_int_PeterO_Numbers_ERounding)</code> - Creates a new EContext object initialized with an unlimited exponent range, and the given rounding mode and maximum precision.
 * <code>[ForRounding(PeterO.Numbers.ERounding)](#ForRounding_PeterO_Numbers_ERounding)</code> - Creates a new EContext object initialized with an unlimited precision, an unlimited exponent range, and the given rounding mode.
+* <code>[GetTrappable()](#GetTrappable)</code> - Not documented yet.
 * <code>[HasExponentRange](#HasExponentRange)</code> - Gets a value indicating whether this context defines a minimum and maximum exponent.
 * <code>[HasFlags](#HasFlags)</code> - Gets a value indicating whether this context has a mutable Flags field.
 * <code>[HasFlagsOrTraps](#HasFlagsOrTraps)</code> - Gets a value indicating whether this context has a mutable Flags field, one or more trap enablers, or both.
@@ -44,6 +45,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[Rounding](#Rounding)</code> - Gets the desired rounding mode when converting numbers that can't be represented in the given precision and exponent range.
 * <code>[ToString()](#ToString)</code> - Returns this object in a text form intended to be read by humans.
 * <code>[Traps](#Traps)</code> - Gets the traps that are set for each flag in the context.
+* <code>[TriggerTraps&lt;T&gt;(T, PeterO.Numbers.EContext)](#TriggerTraps_T_T_PeterO_Numbers_EContext)</code> - Not documented yet.
 * <code>[public static readonly PeterO.Numbers.EContext Unlimited;](#Unlimited)</code> - No specific (theoretical) limit on precision.
 * <code>[public static readonly PeterO.Numbers.EContext UnlimitedHalfEven;](#UnlimitedHalfEven)</code> - No specific (theoretical) limit on precision.
 * <code>[WithAdjustExponent(bool)](#WithAdjustExponent_bool)</code> - Copies this EContext and sets the copy's "AdjustExponent" property to the given value.
@@ -499,6 +501,19 @@ Creates a new EContext object initialized with an unlimited precision, an unlimi
 
 A context object for arbitrary-precision arithmetic settings.
 
+<a id="GetTrappable"></a>
+### GetTrappable
+
+    public PeterO.Numbers.EContext GetTrappable();
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Return Value:</b>
+
+<b>Return Value:</b>
+
 <a id="ToString"></a>
 ### ToString
 
@@ -509,6 +524,27 @@ Returns this object in a text form intended to be read by humans. The value retu
 <b>Return Value:</b>
 
 A string representation of this object.
+
+<a id="TriggerTraps_T_T_PeterO_Numbers_EContext"></a>
+### TriggerTraps
+
+    public T TriggerTraps<T>(
+        T result,
+        PeterO.Numbers.EContext trappableContext);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>result</i>: Not documented yet.
+
+ * <i>trappableContext</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+<b>Return Value:</b>
 
 <a id="WithAdjustExponent_bool"></a>
 ### WithAdjustExponent

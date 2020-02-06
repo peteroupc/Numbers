@@ -665,9 +665,6 @@ TrappableRadixMath<EDecimal>(
     /// significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='mantissaLong'/> or <paramref name='exponentLong'/> is
-    /// null.</exception>
     public static EDecimal Create(
       long mantissaLong,
       int exponentSmall) {
@@ -680,9 +677,6 @@ TrappableRadixMath<EDecimal>(
     /// significand.</param>
     /// <param name='exponentLong'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision decimal number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='mantissaLong'/> or <paramref name='exponentLong'/> is
-    /// null.</exception>
     public static EDecimal Create(
       long mantissaLong,
       long exponentLong) {
@@ -3912,12 +3906,16 @@ TrappableRadixMath<EDecimal>(
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     public EDecimal Log10(EContext ctx) {
-return LogN(EDecimal.FromInt32(10), ctx);
+return this.LogN(EDecimal.FromInt32(10), ctx);
     }
 
     /// <summary>Finds the base-N logarithm of this object, that is, the
     /// power (exponent) that the number N must be raised to in order to
     /// equal this object's value.</summary>
+    /// <param name='baseValue'>The parameter <paramref name='baseValue'/>
+    /// is a Numbers.EDecimal object.</param>
+    /// <param name='ctx'>The parameter <paramref name='ctx'/> is a
+    /// Numbers.EContext object.</param>
     /// <returns>Ln(this object)/Ln(baseValue). Signals the flag
     /// FlagInvalid and returns not-a-number (NaN) if this object is less
     /// than 0. Signals FlagInvalid and returns not-a-number (NaN) if the
@@ -3925,11 +3923,9 @@ return LogN(EDecimal.FromInt32(10), ctx);
     /// unlimited (the context's Precision property is 0).</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='baseValue'/> is null.</exception>
-    /// <param name='baseValue'>Not documented yet.</param>
-    /// <param name='ctx'>Not documented yet.</param>
-public EDecimal LogN(EDecimal baseValue, EContext ctx) {
+    public EDecimal LogN(EDecimal baseValue, EContext ctx) {
   EDecimal value = this;
-  if ((baseValue) == null) {
+  if (baseValue == null) {
     throw new ArgumentNullException(nameof(baseValue));
   }
   if (value.IsNaN()) {
@@ -3954,16 +3950,16 @@ public EDecimal LogN(EDecimal baseValue, EContext ctx) {
       int flags = ctx.Flags;
       ctx.Flags = flags | tmpctx.Flags;
     }
-    //Console.WriteLine("{0} {1} [{4} {5}] -> {2}
-    //[{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
+    // Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+    // [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
     // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
     return ret.RoundToPrecision(ctx);
   } else {
     if (value.IsZero) {
-      return baseValue.CompareTo(1)<0 ? EDecimal.PositiveInfinity :
+      return baseValue.CompareTo(1) < 0 ? EDecimal.PositiveInfinity :
 EDecimal.NegativeInfinity;
     } else if (value.IsPositiveInfinity()) {
-      return baseValue.CompareTo(1)<0 ? EDecimal.NegativeInfinity :
+      return baseValue.CompareTo(1) < 0 ? EDecimal.NegativeInfinity :
 EDecimal.PositiveInfinity;
     }
     if (baseValue.CompareTo(10) == 0) {
@@ -3981,16 +3977,16 @@ EDecimal.PositiveInfinity;
 ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
     EDecimal ret = value.Log(tmpctx).Divide(baseValue.Log(tmpctx), ctx);
     if (ret.IsInteger() && !ret.IsZero) {
-      flags|=(EContext.FlagRounded|EContext.FlagInexact);
+      flags |= EContext.FlagRounded |EContext.FlagInexact;
       if (baseValue.Pow(ret).CompareToValue(value) == 0) {
         EDecimal rtmp = ret.Quantize(EDecimal.FromInt32(1), ctx.WithNoFlags());
         if (!rtmp.IsNaN()) {
-          flags &=~(EContext.FlagRounded|EContext.FlagInexact);
+          flags &= ~(EContext.FlagRounded | EContext.FlagInexact);
           ret = rtmp;
         }
       }
     } else {
-      flags|=tmpctx.Flags;
+      flags |= tmpctx.Flags;
     }
     if (ctx.HasFlags) {
       flags |= ctx.Flags;
@@ -5186,6 +5182,10 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
       return GetMathValue(ctx).RoundToPrecision(this, ctx);
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='ctx'>Not documented yet.</param>
+  /// <returns/>
     public EDecimal PreRound(EContext ctx) {
       return NumberUtility.PreRound(this, ctx, GetMathValue(ctx));
     }
@@ -5804,10 +5804,7 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
         EInteger bigmantissa = this.unsignedMantissa.ToEInteger();
         var acc = new DigitShiftAccumulator(bigmantissa, 0, 0);
         if (exact) {
-          acc.TruncateOrShiftRight(
-            bigexponent,
-            true);
-          if (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits != 0) {
+          if (!acc.TruncateRightExact(bigexponent)) {
             // Some digits were discarded
             throw new ArithmeticException("Not an exact integer");
           }
@@ -5967,9 +5964,9 @@ DigitCountLowerBound(bigUnsignedMantissa.Abs());
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
         if (ec != null && ec.HasMaxPrecision) {
           EFloat efNum = EFloat.FromEInteger(bigmantissa);
-if (this.Sign < 0) {
-  efNum = efNum.Negate();
-}
+          if (this.Sign < 0) {
+            efNum = efNum.Negate();
+          }
           EFloat efDen = EFloat.FromEInteger(divisor);
           return efNum.Divide(efDen, ec);
         }

@@ -81,6 +81,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[Increment()](#Increment)</code> - Adds one to an arbitrary-precision rational number.
 * <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object's value is infinity.
+* <code>[IsInteger()](#IsInteger)</code> - Returns whether this object's value is an integer.
 * <code>[IsNaN()](#IsNaN)</code> - Returns whether this object is a not-a-number value.
 * <code>[IsNegative](#IsNegative)</code> - Gets a value indicating whether this object's value is negative (including negative zero).
 * <code>[IsNegativeInfinity()](#IsNegativeInfinity)</code> - Returns whether this object is negative infinity.
@@ -1198,6 +1199,17 @@ Gets a value indicating whether this object's value is infinity.
 <b>Return Value:</b>
 
  `true`  if this object's value is infinity; otherwise,  `false` .
+
+<a id="IsInteger"></a>
+### IsInteger
+
+    public bool IsInteger();
+
+Returns whether this object's value is an integer.
+
+<b>Return Value:</b>
+
+ `true`  if this object's value is an integer; otherwise,  `false` .
 
 <a id="IsNaN"></a>
 ### IsNaN

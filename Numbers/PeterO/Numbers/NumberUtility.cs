@@ -619,8 +619,10 @@ FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
       return ret;
     }
 
-    public static THelper PreRound<THelper>(THelper val, EContext ctx,
-          IRadixMath<THelper> wrapper) {
+    public static THelper PreRound<THelper>(
+      THelper val,
+      EContext ctx,
+      IRadixMath<THelper> wrapper) {
       if (ctx == null || !ctx.HasMaxPrecision) {
         return val;
       }

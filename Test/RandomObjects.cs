@@ -137,6 +137,9 @@ namespace Test {
 
     public static EDecimal GenerateEDecimalSmall(IRandomGenExtended wrapper) {
        var sb = new StringBuilder();
+       if (wrapper == null) {
+         throw new ArgumentNullException(nameof(wrapper));
+       }
        int len = 1 + wrapper.GetInt32(4);
        for (int i = 0; i < len; ++i) {
          sb.Append((char)(0x30 + wrapper.GetInt32(10)));
@@ -147,7 +150,7 @@ namespace Test {
          sb.Append((char)(0x30 + wrapper.GetInt32(10)));
        }
        sb.Append('E');
-       len = wrapper.GetInt32(25)-12;
+       len = wrapper.GetInt32(25) - 12;
        sb.Append(TestCommon.IntToString(len));
        return EDecimal.FromString(sb.ToString());
     }

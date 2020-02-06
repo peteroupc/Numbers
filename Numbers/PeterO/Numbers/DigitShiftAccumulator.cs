@@ -185,14 +185,37 @@ namespace PeterO.Numbers {
         if (fastint.Sign <= 0) {
           return;
         }
-        EInteger bi = fastint.AsEInteger();
-        while (bi.Sign > 0) {
+        EInteger digitsToShift = fastint.AsEInteger();
+        while (digitsToShift.Sign > 0) {
+          if (digitsToShift.CompareTo(1000000) >= 0 &&
+             (this.isSmall ||
+this.shiftedBigInt.GetUnsignedBitLengthAsEInteger().CompareTo(digitsToShift) <
+0)) {
+            // Bit length is less than digits to shift, and digits to shift is >= 1000000,
+            // so
+            // whole number would be shifted
+            // DebugUtility.Log("digits="+digitsToShift);
+            //
+            //
+            //  DebugUtility.Log("bits="+this.shiftedBigInt.GetUnsignedBitLengthAsEInteger());
+            this.discardedBitCount = this.discardedBitCount ?? new
+FastInteger(0);
+            this.discardedBitCount.AddBig(digitsToShift);
+            this.bitsAfterLeftmost |= this.bitLeftmost;
+            this.bitsAfterLeftmost |= (this.isSmall ? this.shiftedSmall == 0 :
+this.shiftedBigInt.IsZero) ? 0 : 1;
+            this.bitLeftmost = 0;
+            this.knownDigitLength = new FastInteger(1);
+            this.isSmall = true;
+            this.shiftedSmall = 0;
+            return;
+          }
           var count = 1000000;
-          if (bi.CompareTo((EInteger)1000000) < 0) {
-            count = (int)bi;
+          if (digitsToShift.CompareTo((EInteger)1000000) < 0) {
+            count = (int)digitsToShift;
           }
           this.ShiftRightInt(count);
-          bi -= (EInteger)count;
+          digitsToShift -= (EInteger)count;
           if (this.isSmall ? this.shiftedSmall == 0 :
             this.shiftedBigInt.IsZero) {
             break;
@@ -270,6 +293,32 @@ namespace PeterO.Numbers {
           this.ShiftRight(FastInteger.FromBig(bigintDiff));
         }
       }
+    }
+
+    public bool TruncateRightExact(FastInteger fastint) {
+      if (fastint == null) {
+        throw new ArgumentNullException(nameof(fastint));
+      }
+      if (fastint.CanFitInInt32()) {
+        if (fastint.Sign < 0) {
+          return (this.bitLeftmost | this.bitsAfterLeftmost) == 0;
+        }
+        if (!this.isSmall && !this.shiftedBigInt.CanFitInInt64()) {
+          int a = fastint.AsInt32();
+          if (a > 10) {
+            this.ShiftRightBig(10, true, true);
+            if ((this.bitLeftmost | this.bitsAfterLeftmost) != 0) {
+              return false;
+            }
+            this.ShiftRightBig(a - 10, true, true);
+          } else {
+            this.ShiftRightBig(a, true, true);
+          }
+          return (this.bitLeftmost | this.bitsAfterLeftmost) == 0;
+        }
+      }
+      this.TruncateOrShiftRight(fastint, true);
+      return (this.bitLeftmost | this.bitsAfterLeftmost) == 0;
     }
 
     public void TruncateRightSimple(FastInteger fastint) {
@@ -414,8 +463,9 @@ namespace PeterO.Numbers {
       // }
       if (truncate) {
         EInteger bigquo;
-        if (digits > 50) {
+        {
           // To avoid having to calculate a very big power of 10,
+          // or the digit length of a very big integer,
           // check the digit count to see if doing so can be avoided
           EInteger bigBitLength =
             this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
@@ -524,6 +574,16 @@ namespace PeterO.Numbers {
         }
         return;
       }
+      if (this.shiftedBigInt.CanFitInInt32()) {
+        this.isSmall = true;
+        this.shiftedSmall = (int)this.shiftedBigInt;
+        this.ShiftRightSmall(digits);
+        return;
+      }
+      if (this.shiftedBigInt.CanFitInInt64()) {
+        this.ShiftRightLong(this.shiftedBigInt.ToInt64Unchecked(), digits);
+        return;
+      }
       this.knownDigitLength = this.knownDigitLength ??
         this.CalcKnownDigitLength();
       if (new FastInteger(digits).Decrement().CompareTo(this.knownDigitLength)
@@ -537,16 +597,6 @@ namespace PeterO.Numbers {
         this.discardedBitCount.AddInt(digits);
         this.bitsAfterLeftmost |= this.bitLeftmost;
         this.bitLeftmost = 0;
-        return;
-      }
-      if (this.shiftedBigInt.CanFitInInt32()) {
-        this.isSmall = true;
-        this.shiftedSmall = (int)this.shiftedBigInt;
-        this.ShiftRightSmall(digits);
-        return;
-      }
-      if (this.shiftedBigInt.CanFitInInt64()) {
-        this.ShiftRightLong(this.shiftedBigInt.ToInt64Unchecked(), digits);
         return;
       }
       string str = this.shiftedBigInt.ToString();

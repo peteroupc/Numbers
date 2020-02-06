@@ -1559,6 +1559,9 @@ namespace Test {
 
     public static void TestToFloatRoundingOne(EFloat efa, bool dbl) {
       int bitCount = dbl ? 53 : 24;
+      if (efa == null) {
+        throw new ArgumentNullException(nameof(efa));
+      }
       EInteger emant = efa.Mantissa;
       bool fullPrecision =
 emant.GetUnsignedBitLengthAsEInteger().CompareTo(bitCount) == 0;
@@ -1727,7 +1730,10 @@ emant.GetUnsignedBitLengthAsEInteger().CompareTo(bitCount) == 0;
         TestShortestStringOne(efa);
       }
     }
-public static void TestShortestStringOne(EFloat efa) {
+    public static void TestShortestStringOne(EFloat efa) {
+        if (efa == null) {
+          throw new ArgumentNullException(nameof(efa));
+        }
         string shortestStr = efa.ToShortestString(EContext.Binary64);
         EFloat shortest = EFloat.FromString(
             shortestStr,
