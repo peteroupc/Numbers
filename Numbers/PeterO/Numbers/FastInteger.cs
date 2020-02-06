@@ -285,6 +285,10 @@ namespace PeterO.Numbers {
           throw new ArgumentException("other(" + other + ") is less than " +
             "0 ");
         }
+        // NOTE: Mutable numbers are always zero or positive,
+        // and this method assumes 'other' is less than or equal to this number
+        // Console.WriteLine("sub1="+this.ToEInteger());
+        // Console.WriteLine("sub2="+other);
         if (other != 0) {
           unchecked {
             // Ensure a length of at least 1
@@ -318,14 +322,17 @@ namespace PeterO.Numbers {
             }
           }
         }
+        // Console.WriteLine("result="+this.ToEInteger());
         return this;
       }
 
       internal MutableNumber Subtract(MutableNumber other) {
+        // NOTE: Mutable numbers are always zero or positive,
+        // and this method assumes 'other' is less than or equal to this number
         unchecked {
           {
-            // Console.WriteLine("" + this.data.Length + " " +
-            // (other.data.Length));
+            // Console.WriteLine("sub1="+this.ToEInteger());
+            // Console.WriteLine("sub2="+other.ToEInteger());
             int neededSize = (this.wordCount > other.wordCount) ?
               this.wordCount : other.wordCount;
             if (this.data.Length < neededSize) {
@@ -361,6 +368,7 @@ namespace PeterO.Numbers {
             while (this.wordCount != 0 && this.data[this.wordCount - 1] == 0) {
               --this.wordCount;
             }
+            // Console.WriteLine("result="+this.ToEInteger());
             return this;
           }
         }
@@ -691,11 +699,11 @@ switch (this.integerMode) {
           }
           break;
         case 1:
-          if (val.integerMode == 1) {
-            // NOTE: Mutable numbers are
-            // currently always zero or positive
+          if (val.integerMode == 1 && this.mnum.CompareTo(val.mnum) >= 0 &&
+              val.mnum.CompareToInt(0) >= 0) {
             this.mnum.Subtract(val.mnum);
-          } else if (val.integerMode == 0 && val.smallValue >= 0) {
+          } else if (val.integerMode == 0 && val.smallValue >= 0 &&
+              this.mnum.CompareToInt(val.smallValue) >= 0) {
             this.mnum.SubtractInt(val.smallValue);
           } else {
             this.integerMode = 2;

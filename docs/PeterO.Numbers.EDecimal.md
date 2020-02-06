@@ -289,7 +289,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Pow(PeterO.Numbers.EDecimal)](#Pow_PeterO_Numbers_EDecimal)</code> - Raises this object's value to the given exponent, using unlimited precision.
 * <code>[Pow(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Pow_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
 * <code>[Precision()](#Precision)</code> - Finds the number of digits in this number's significand.
-* <code>[PreRound(PeterO.Numbers.EContext)](#PreRound_PeterO_Numbers_EContext)</code> -
+* <code>[PreRound(PeterO.Numbers.EContext)](#PreRound_PeterO_Numbers_EContext)</code> - Not documented yet.
 * <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value but a new exponent.
 * <code>[Quantize(int, PeterO.Numbers.ERounding)](#Quantize_int_PeterO_Numbers_ERounding)</code> - Returns an arbitrary-precision decimal number with the same value as this one but a new exponent.
 * <code>[Quantize(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the same exponent as another decimal number.
@@ -2075,9 +2075,11 @@ Finds the base-N logarithm of this object, that is, the power (exponent) that th
 
 <b>Parameters:</b>
 
- * <i>baseValue</i>: Not documented yet.
+ * <i>baseValue</i>: The parameter  <i>baseValue</i>
+ is a Numbers.EDecimal object.
 
- * <i>ctx</i>: Not documented yet.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is a Numbers.EContext object.
 
 <b>Return Value:</b>
 
@@ -3487,6 +3489,22 @@ Finds the number of digits in this number's significand. Returns 1 if this value
 <b>Return Value:</b>
 
 An arbitrary-precision integer.
+
+<a id="PreRound_PeterO_Numbers_EContext"></a>
+### PreRound
+
+    public PeterO.Numbers.EDecimal PreRound(
+        PeterO.Numbers.EContext ctx);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>ctx</i>: Not documented yet.
+
+<b>Return Value:</b>
 
 <a id="Quantize_int_PeterO_Numbers_EContext"></a>
 ### Quantize

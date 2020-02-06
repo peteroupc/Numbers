@@ -192,12 +192,7 @@ namespace PeterO.Numbers {
 this.shiftedBigInt.GetUnsignedBitLengthAsEInteger().CompareTo(digitsToShift) <
 0)) {
             // Bit length is less than digits to shift, and digits to shift is >= 1000000,
-            // so
-            // whole number would be shifted
-            // DebugUtility.Log("digits="+digitsToShift);
-            //
-            //
-            //  DebugUtility.Log("bits="+this.shiftedBigInt.GetUnsignedBitLengthAsEInteger());
+            // so whole number would be shifted
             this.discardedBitCount = this.discardedBitCount ?? new
 FastInteger(0);
             this.discardedBitCount.AddBig(digitsToShift);
@@ -211,14 +206,14 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
             return;
           }
           var count = 1000000;
-          if (digitsToShift.CompareTo((EInteger)1000000) < 0) {
+          if (digitsToShift.CompareTo(1000000) < 0) {
             count = (int)digitsToShift;
           }
           this.ShiftRightInt(count);
           digitsToShift -= (EInteger)count;
           if (this.isSmall ? this.shiftedSmall == 0 :
             this.shiftedBigInt.IsZero) {
-            break;
+            return;
           }
         }
       }
@@ -458,9 +453,6 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
         this.knownDigitLength = new FastInteger(1);
         return;
       }
-      // if (digits > 50) {
-      // DebugUtility.Log("ShiftRightBig(" + digits + ")");
-      // }
       if (truncate) {
         EInteger bigquo;
         {
@@ -470,7 +462,8 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
           EInteger bigBitLength =
             this.shiftedBigInt.GetUnsignedBitLengthAsEInteger();
           var bigPower = false;
-          if (bigBitLength.CompareTo(100) > 0 &&
+          if (digits > 50 &&
+              bigBitLength.CompareTo(100) > 0 &&
               bigBitLength.Add(5).CompareTo(digits) < 0) {
             // Has much fewer bits than digits to shift, so all of them
             // will be shifted to the right
@@ -482,7 +475,8 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
             bigBitLength.ToInt32Checked() : Int32.MaxValue;
           // 10^48 has 160 bits; 10^98 has 326; bit length is cheaper
           // to calculate than base-10 digit length
-          if (bitLength < 160 || (digits > 100 && bitLength < 326)) {
+          if ((digits > 50 && bitLength < 160) ||
+              (digits > 100 && bitLength < 326)) {
             bigPower = true;
           } else {
             FastInteger digitsUpperBound = this.OverestimateDigitLength();
@@ -574,16 +568,6 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
         }
         return;
       }
-      if (this.shiftedBigInt.CanFitInInt32()) {
-        this.isSmall = true;
-        this.shiftedSmall = (int)this.shiftedBigInt;
-        this.ShiftRightSmall(digits);
-        return;
-      }
-      if (this.shiftedBigInt.CanFitInInt64()) {
-        this.ShiftRightLong(this.shiftedBigInt.ToInt64Unchecked(), digits);
-        return;
-      }
       this.knownDigitLength = this.knownDigitLength ??
         this.CalcKnownDigitLength();
       if (new FastInteger(digits).Decrement().CompareTo(this.knownDigitLength)
@@ -597,6 +581,16 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
         this.discardedBitCount.AddInt(digits);
         this.bitsAfterLeftmost |= this.bitLeftmost;
         this.bitLeftmost = 0;
+        return;
+      }
+      if (this.shiftedBigInt.CanFitInInt32()) {
+        this.isSmall = true;
+        this.shiftedSmall = (int)this.shiftedBigInt;
+        this.ShiftRightSmall(digits);
+        return;
+      }
+      if (this.shiftedBigInt.CanFitInInt64()) {
+        this.ShiftRightLong(this.shiftedBigInt.ToInt64Unchecked(), digits);
         return;
       }
       string str = this.shiftedBigInt.ToString();

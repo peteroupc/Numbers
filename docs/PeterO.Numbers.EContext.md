@@ -512,8 +512,6 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-<b>Return Value:</b>
-
 <a id="ToString"></a>
 ### ToString
 
@@ -534,17 +532,19 @@ A string representation of this object.
 
 Not documented yet.
 
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>result</i>: Not documented yet.
+ * <i>result</i>: The parameter  <i>result</i>
+ is a ``0 object.
 
- * <i>trappableContext</i>: Not documented yet.
+ * <i>trappableContext</i>: The parameter  <i>trappableContext</i>
+ is a Numbers.EContext object.
+
+ * &lt;T&gt;: Type parameter not documented yet.
 
 <b>Return Value:</b>
 
-<b>Return Value:</b>
+The return value is not documented yet.
 
 <a id="WithAdjustExponent_bool"></a>
 ### WithAdjustExponent
