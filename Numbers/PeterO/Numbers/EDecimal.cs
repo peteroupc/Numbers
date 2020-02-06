@@ -902,19 +902,19 @@ TrappableRadixMath<EDecimal>(
             flags);
       }
       EInteger bigintExp = bigfloat.Exponent;
-      EInteger bigintMant = bigfloat.Mantissa;
-      if (bigintMant.IsZero) {
+      EInteger bigSignedMantissa = bigfloat.Mantissa;
+      if (bigSignedMantissa.IsZero) {
         return bigfloat.IsNegative ? EDecimal.NegativeZero :
           EDecimal.Zero;
       }
       if (bigintExp.IsZero) {
         // Integer
-        return EDecimal.FromEInteger(bigintMant);
+        return EDecimal.FromEInteger(bigSignedMantissa);
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
         FastInteger intcurexp = FastInteger.FromBig(bigintExp);
-        EInteger bigmantissa = bigintMant;
+        EInteger bigmantissa = bigSignedMantissa;
         bool neg = bigmantissa.Sign < 0;
         if (neg) {
           bigmantissa = -(EInteger)bigmantissa;
@@ -933,7 +933,7 @@ TrappableRadixMath<EDecimal>(
         return EDecimal.FromEInteger(bigmantissa);
       } else {
         // Fractional number
-        EInteger bigmantissa = bigintMant;
+        EInteger bigmantissa = bigSignedMantissa;
         EInteger negbigintExp = -(EInteger)bigintExp;
         negbigintExp = NumberUtility.FindPowerOfFiveFromBig(negbigintExp);
         bigmantissa *= (EInteger)negbigintExp;
@@ -5883,7 +5883,7 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
     /// number.</returns>
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
-      EInteger bigintMant = this.UnsignedMantissa;
+      EInteger bigUnsignedMantissa = this.UnsignedMantissa;
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
             this.UnsignedMantissa,
@@ -5897,14 +5897,14 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
       if (this.IsNegativeInfinity()) {
         return EFloat.NegativeInfinity.RoundToPrecision(ec);
       }
-      if (bigintMant.IsZero) {
+      if (bigUnsignedMantissa.IsZero) {
         return this.IsNegative ? EFloat.NegativeZero.RoundToPrecision(ec) :
           EFloat.Zero.RoundToPrecision(ec);
       }
       if (bigintExp.IsZero) {
         // Integer
         // DebugUtility.Log("Integer");
-        return this.WithThisSign(EFloat.FromEInteger(bigintMant))
+        return this.WithThisSign(EFloat.FromEInteger(bigUnsignedMantissa))
           .RoundToPrecision(ec);
       }
       EContext b64 = EContext.Binary64;
@@ -5915,7 +5915,7 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
         // Quick check for overflow or underflow
         EInteger adjexpLowerBound = bigintExp;
         EInteger adjexpUpperBound = bigintExp.Add(
-            DigitCountUpperBound(bigintMant.Abs()).Subtract(1));
+            DigitCountUpperBound(bigUnsignedMantissa.Abs()).Subtract(1));
         if (adjexpUpperBound.CompareTo(-326) < 0) {
           // Underflow to zero
           EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
@@ -5928,7 +5928,8 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
         } else if (adjexpLowerBound.CompareTo(309) > 0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
-        EInteger digitsLowerBound = DigitCountLowerBound(bigintMant.Abs());
+        EInteger digitsLowerBound =
+DigitCountLowerBound(bigUnsignedMantissa.Abs());
         if (digitsLowerBound.CompareTo(800) > 0) {
           string estr = this.ToString();
           return EFloat.FromString(estr, ec);
@@ -5950,7 +5951,7 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
         }
         // --- End optimizations for Binary32 and Binary64
         // DebugUtility.Log("Scaled integer");
-        EInteger bigmantissa = bigintMant;
+        EInteger bigmantissa = bigUnsignedMantissa;
         bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
         bigmantissa *= (EInteger)bigintExp;
         return this.WithThisSign(EFloat.FromEInteger(bigmantissa))
@@ -5959,17 +5960,16 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
         // Fractional number
         // DebugUtility.Log("Fractional");
         EInteger scale = bigintExp;
-        EInteger bigmantissa = bigintMant;
-        bool neg = bigmantissa.Sign < 0;
-        if (neg) {
-          bigmantissa = -(EInteger)bigmantissa;
-        }
+        EInteger bigmantissa = bigUnsignedMantissa;
         EInteger negscale = -scale;
         // DebugUtility.Log("scale=" + scale + " mantissaPrecision=" +
         // bigmantissa.GetDigitCountAsEInteger());
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
         if (ec != null && ec.HasMaxPrecision) {
           EFloat efNum = EFloat.FromEInteger(bigmantissa);
+if (this.Sign < 0) {
+  efNum = efNum.Negate();
+}
           EFloat efDen = EFloat.FromEInteger(divisor);
           return efNum.Divide(efDen, ec);
         }

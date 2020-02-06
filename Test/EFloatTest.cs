@@ -1479,7 +1479,7 @@ namespace Test {
       }
     }
 
-    private static void TestStringToDoubleSingleOne(string str) {
+    public static void TestStringToDoubleSingleOne(string str) {
       TestStringToDoubleOne(str);
       TestStringToSingleOne(str);
     }
@@ -1557,8 +1557,12 @@ namespace Test {
     private static EFloat half = EFloat.FromString("0.5");
     private static EFloat threequarter = EFloat.FromString("0.75");
 
-    private static void TestToFloatRoundingOne(EFloat efa, bool dbl) {
-      bool isEven = efa.UnsignedMantissa.IsEven;
+    public static void TestToFloatRoundingOne(EFloat efa, bool dbl) {
+      int bitCount = dbl ? 53 : 24;
+      EInteger emant = efa.Mantissa;
+      bool fullPrecision =
+emant.GetUnsignedBitLengthAsEInteger().CompareTo(bitCount) == 0;
+      bool isEven = !fullPrecision || efa.UnsignedMantissa.IsEven;
       EFloat efprev = efa.NextMinus(dbl ? EContext.Binary64 :
           EContext.Binary32);
       EFloat efnext = efa.NextPlus(dbl ? EContext.Binary64 :
@@ -1720,6 +1724,10 @@ namespace Test {
       var fr = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
         EFloat efa = RandomDoubleEFloat(fr);
+        TestShortestStringOne(efa);
+      }
+    }
+public static void TestShortestStringOne(EFloat efa) {
         string shortestStr = efa.ToShortestString(EContext.Binary64);
         EFloat shortest = EFloat.FromString(
             shortestStr,
@@ -1732,9 +1740,7 @@ namespace Test {
             shortest,
             msg);
         }
-      }
-      Console.WriteLine("End TestToShortestString");
-    }
+}
     [Test]
     public void TestToSingleRounding() {
       var fr = new RandomGenerator();
