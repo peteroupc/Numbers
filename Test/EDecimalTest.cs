@@ -1180,21 +1180,21 @@ namespace Test {
           stringTemp);
       }
 
-EDecimal ed1 = EDecimal.FromString(
-  "-4.283595962816029891509990043176592129349E-265444677156");
-EDecimal ed2 = EDecimal.FromString(
-  "1.154883492783088701967E+230940250505264307520");
-EDecimalTest.TestDivideOne(ed1, ed2);
-ed1 = EDecimal.FromString(
-  "-3.77339248640695614E-16962706853");
-ed2 = EDecimal.FromString(
-  "-8.801467625870877584114178689458325778E+19649240327");
-EDecimalTest.TestDivideOne(ed1, ed2);
+      EDecimal ed1 = EDecimal.FromString(
+          "-4.283595962816029891509990043176592129349E-265444677156");
+      EDecimal ed2 = EDecimal.FromString(
+          "1.154883492783088701967E+230940250505264307520");
+      EDecimalTest.TestDivideOne (ed1, ed2);
+      ed1 = EDecimal.FromString(
+          "-3.77339248640695614E-16962706853");
+      ed2 = EDecimal.FromString(
+          "-8.801467625870877584114178689458325778E+19649240327");
+      EDecimalTest.TestDivideOne (ed1, ed2);
       var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
         ed1 = RandomObjects.RandomEDecimal (fr);
         ed2 = RandomObjects.RandomEDecimal (fr);
-TestDivideOne(ed1, ed2);
+        TestDivideOne (ed1, ed2);
       }
       try {
         EDecimal.FromString ("1").Divide (EDecimal.FromString ("3"), null);
@@ -1204,30 +1204,30 @@ TestDivideOne(ed1, ed2);
       }
     }
 
-public static void TestDivideOne(EDecimal ed1, EDecimal ed2) {
-        if (!ed1.IsFinite || !ed2.IsFinite) {
-          return;
+    public static void TestDivideOne (EDecimal ed1, EDecimal ed2) {
+      if (!ed1.IsFinite || !ed2.IsFinite) {
+        return;
+      }
+      EDecimal ed3 = ed1.Multiply (ed2);
+      Assert.IsTrue (ed3.IsFinite);
+      EDecimal ed4;
+      ed4 = ed3.Divide (ed1);
+      if (!ed1.IsZero) {
+        if (ed4.CompareTo (ed2) != 0) {
+          TestCommon.CompareTestEqual (ed4, ed2, "ed1=" + ed1 + "\ned2=" + ed2);
         }
-        EDecimal ed3 = ed1.Multiply (ed2);
-        Assert.IsTrue (ed3.IsFinite);
-        EDecimal ed4;
-        ed4 = ed3.Divide (ed1);
-        if (!ed1.IsZero) {
-          if (ed4.CompareTo(ed2) != 0) {
-            TestCommon.CompareTestEqual (ed4, ed2, "ed1="+ed1+"\ned2="+ed2);
-          }
-        } else {
-          Assert.IsTrue (ed4.IsNaN());
+      } else {
+        Assert.IsTrue (ed4.IsNaN());
+      }
+      ed4 = ed3.Divide (ed2);
+      if (!ed2.IsZero) {
+        if (ed4.CompareTo (ed1) != 0) {
+          TestCommon.CompareTestEqual (ed4, ed1, "ed1=" + ed1 + "\ned2=" + ed2);
         }
-        ed4 = ed3.Divide (ed2);
-        if (!ed2.IsZero) {
-          if (ed4.CompareTo(ed1) != 0) {
-            TestCommon.CompareTestEqual (ed4, ed1, "ed1="+ed1+"\ned2="+ed2);
-          }
-        } else {
-          Assert.IsTrue (ed4.IsNaN());
-        }
-}
+      } else {
+        Assert.IsTrue (ed4.IsNaN());
+      }
+    }
 
     [Test]
     public void TestDivideToExponent() {
@@ -5873,7 +5873,7 @@ public static void TestDivideOne(EDecimal ed1, EDecimal ed2) {
     [Test]
     public void TestStringContextSpecific6b() {
       EContext ec = EContext.Unlimited.WithPrecision (19).WithExponentRange
-(-353,
+        (-353,
           354).WithRounding(
           ERounding.Down).WithAdjustExponent(
           true).WithExponentClamp (false).WithSimplified (false);
