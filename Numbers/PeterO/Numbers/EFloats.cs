@@ -46,8 +46,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Returns whether the given arbitrary-precision number
-    /// object is in a canonical form. For the current version of EDecimal,
-    /// all EDecimal objects are in a canonical form.</summary>
+    /// object is in a canonical form. For the current version of EFloat,
+    /// all EFloat objects are in a canonical form.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Always <c>true</c>.</returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -160,9 +160,9 @@ namespace PeterO.Numbers {
       return EDecimals.NumberClassString(nc);
     }
 
-    /// <summary>Finds the number class for an arbitrary-precision decimal
+    /// <summary>Finds the number class for an arbitrary-precision binary
     /// number object.</summary>
-    /// <param name='ed'>An arbitrary-precision decimal number
+    /// <param name='ed'>An arbitrary-precision binary number
     /// object.</param>
     /// <param name='ec'>A context object that specifies the precision and
     /// exponent range of arbitrary-precision numbers. This is used only to
@@ -344,7 +344,7 @@ namespace PeterO.Numbers {
     /// by the given number of bits.</param>
     /// <param name='ec'>An arithmetic context to control the precision of
     /// arbitrary-precision numbers. Can be null.</param>
-    /// <returns>An arbitrary-precision decimal number whose significand is
+    /// <returns>An arbitrary-precision binary number whose significand is
     /// shifted the given number of bits. Signals an invalid operation and
     /// returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
     /// NaN or if <paramref name='ed2'/> is not an integer, is negative,
@@ -620,7 +620,7 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object with the
     /// value the result will have.</param>
     /// <param name='other'>The parameter <paramref name='other'/> is an
-    /// arbitrary-precision decimal floating-point number.</param>
+    /// arbitrary-precision binary floating-point number.</param>
     /// <returns>An arbitrary-precision number object with the same value
     /// as the first given number object but with a the same sign (positive
     /// or negative) as the second given number object.</returns>

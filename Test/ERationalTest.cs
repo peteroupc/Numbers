@@ -361,7 +361,11 @@ namespace Test {
         ERational enumberInteger = ERational.FromEInteger(
   enumber.ToEInteger());
         isInteger = enumberInteger.CompareTo(enumber) == 0;
-        eint = enumber.ToEInteger();
+        try {
+        eint = enumber.ToSizedEInteger(128);
+} catch (OverflowException) {
+        eint = null;
+}
         isNum = enumber.CompareTo(
             ERational.FromString("0")) >= 0 && enumber.CompareTo(
             ERational.FromString("255")) <= 0;

@@ -1820,6 +1820,67 @@ if (this.IsZero) {
       return Create(num.Divide(gcd), den.Divide(gcd));
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns>The return value is not documented yet.</returns>
+  /// <param name='maxBitLength'>Not documented yet.</param>
+    public EInteger ToSizedEInteger(int maxBitLength) {
+      if (maxBitLength < 1) {
+        throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
+"\u0020not greater or equal to 1");
+      }
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      EInteger unum = this.UnsignedNumerator;
+      EInteger uden = this.denominator;
+      if (unum.CompareTo(uden) < 0) {
+        return EInteger.Zero;
+      }
+      EInteger numBits = unum.GetUnsignedBitLengthAsEInteger();
+      EInteger denBits = uden.GetUnsignedBitLengthAsEInteger();
+      if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) > 0) {
+         throw new OverflowException("Value out of range");
+      }
+      unum = this.ToEInteger();
+      if (unum.GetSignedBitLengthAsInt64() > maxBitLength) {
+         throw new OverflowException("Value out of range");
+      }
+      return unum;
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns>The return value is not documented yet.</returns>
+  /// <param name='maxBitLength'>Not documented yet.</param>
+    public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
+      if (maxBitLength < 1) {
+        throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
+"\u0020not greater or equal to 1");
+      }
+      if (!this.IsFinite) {
+        throw new OverflowException("Value is infinity or NaN");
+      }
+      EInteger unum = this.UnsignedNumerator;
+      EInteger uden = this.denominator;
+      if (unum.IsZero) {
+        return EInteger.Zero;
+      }
+      if (unum.CompareTo(uden) < 0) {
+        throw new ArithmeticException("Value is not an integer");
+      }
+      EInteger numBits = unum.GetUnsignedBitLengthAsEInteger();
+      EInteger denBits = uden.GetUnsignedBitLengthAsEInteger();
+      if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) > 0) {
+         throw new OverflowException("Value out of range");
+      }
+      unum = this.ToEIntegerIfExact();
+      if (unum.GetSignedBitLengthAsInt64() > maxBitLength) {
+         throw new OverflowException("Value out of range");
+      }
+      return unum;
+    }
+
     /// <summary>Converts this value to an arbitrary-precision integer by
     /// dividing the numerator by the denominator and discarding the
     /// fractional part of the result.</summary>
@@ -1854,13 +1915,11 @@ if (this.IsZero) {
       }
       EInteger rem;
       EInteger quo;
-      {
-        EInteger[] divrem = this.Numerator.DivRem(this.denominator);
-        quo = divrem[0];
-        rem = divrem[1];
-      }
+      EInteger[] divrem = this.Numerator.DivRem(this.denominator);
+      quo = divrem[0];
+      rem = divrem[1];
       if (!rem.IsZero) {
-        throw new ArithmeticException("Value is not an integral value");
+        throw new ArithmeticException("Value is not an integer");
       }
       return quo;
     }

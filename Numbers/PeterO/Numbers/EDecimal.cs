@@ -8,8 +8,6 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
-// TODO: Add ToEInteger method that restricts bit size of
-// outputs to ERational
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
@@ -5846,7 +5844,7 @@ private static EInteger PowerOfRadixBitsUpperBound(EInteger e) {
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='maxBitLength'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
   public EInteger ToSizedEInteger(int maxBitLength) {
   return this.ToSizedEInteger(maxBitLength, false);
 }
@@ -5854,7 +5852,7 @@ private static EInteger PowerOfRadixBitsUpperBound(EInteger e) {
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='maxBitLength'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
   public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
   return this.ToSizedEInteger(maxBitLength, true);
 }
@@ -6274,16 +6272,58 @@ DigitCountLowerBound(bigUnsignedMantissa.Abs());
         }
       }
       int scaleSign = -this.exponent.Sign;
-      string mantissaString = this.unsignedMantissa.ToString();
+      string mantissaString;
       if (scaleSign == 0) {
+        mantissaString = this.unsignedMantissa.ToString();
         return negative ? "-" + mantissaString : mantissaString;
       }
       bool iszero = this.unsignedMantissa.IsValueZero;
       if (mode == 2 && iszero && scaleSign < 0) {
         // special case for zero in plain
+        mantissaString = this.unsignedMantissa.ToString();
         return negative ? "-" + mantissaString : mantissaString;
       }
       StringBuilder builder = null;
+      if (mode == 0 && this.unsignedMantissa.CanFitInInt32() &&
+         this.exponent.CanFitInInt32()) {
+        int intExp = this.exponent.AsInt32();
+        int intMant = this.unsignedMantissa.AsInt32();
+        if (intMant < 1000 && intExp == -2) {
+          int a, b, c;
+          var i = 0;
+          a = intMant % 10;
+          intMant /= 10;
+          b = intMant % 10;
+          intMant /= 10;
+          c = intMant;
+          int clength = (negative ? 1 : 0) + 4;
+          var chars = new char[clength];
+          if (negative) {
+            chars[i++] = '-';
+          }
+          chars[i++] = (char)(0x30 + c);
+          chars[i++] = '.';
+          chars[i++] = (char)(0x30 + b);
+          chars[i++] = (char)(0x30 + a);
+          return new String(chars, 0, clength);
+        } else if (intMant < 100 && intExp == -1) {
+          int a, b, c;
+          var i = 0;
+          a = intMant % 10;
+          intMant /= 10;
+          b = intMant;
+          int clength = (negative ? 1 : 0) + 3;
+          var chars = new char[clength];
+          if (negative) {
+            chars[i++] = '-';
+          }
+          chars[i++] = (char)(0x30 + b);
+          chars[i++] = '.';
+          chars[i++] = (char)(0x30 + a);
+          return new String(chars, 0, clength);
+        }
+      }
+      mantissaString = this.unsignedMantissa.ToString();
       if (mode == 0 && mantissaString.Length < 100 &&
         this.exponent.CanFitInInt32()) {
         int intExp = this.exponent.AsInt32();
@@ -6291,31 +6331,41 @@ DigitCountLowerBound(bigUnsignedMantissa.Abs());
           int adj = (intExp + mantissaString.Length) - 1;
           if (scaleSign >= 0 && adj >= -6) {
             if (scaleSign > 0) {
-              int dp = intExp + mantissaString.Length;
+              int ms = mantissaString.Length;
+              int dp = intExp + ms;
               if (dp < 0) {
-                builder = new StringBuilder(mantissaString.Length + 6);
-                if (negative) {
-                  builder.Append("-0.");
-                } else {
-                  builder.Append("0.");
-                }
                 dp = -dp;
-                for (var j = 0; j < dp; ++j) {
-                  builder.Append('0');
-                }
-                builder.Append(mantissaString);
-                return builder.ToString();
-              } else if (dp == 0) {
-                builder = new StringBuilder(mantissaString.Length + 6);
+                int clength = 2 + dp + (negative ? 1 : 0) + ms;
+                var chars = new char[clength];
+                var i = 0;
                 if (negative) {
-                  builder.Append("-0.");
-                } else {
-                  builder.Append("0.");
+                  chars[i++] = '-';
                 }
-                builder.Append(mantissaString);
-                return builder.ToString();
-              } else if (dp > 0 && dp <= mantissaString.Length) {
-                builder = new StringBuilder(mantissaString.Length + 6);
+                chars[i++] = '0';
+                chars[i++] = '.';
+                for (var j = 0; j < dp; ++j) {
+                  chars[i++] = '0';
+                }
+                for (var j = 0; j < ms; ++j) {
+                  chars[i++] = mantissaString[j];
+                }
+                return new String(chars, 0, clength);
+              } else if (dp == 0) {
+                int clength = 2 + (negative ? 1 : 0) + ms;
+                var chars = new char[clength];
+                var i = 0;
+                if (negative) {
+                  chars[i++] = '-';
+                }
+                chars[i++] = '0';
+                chars[i++] = '.';
+                for (var j = 0; j < ms; ++j) {
+                  chars[i++] = mantissaString[j];
+                }
+                return new String(chars, 0, clength);
+              } else if (dp > 0 && dp <= ms) {
+                int clength = 1 + (negative ? 1 : 0) + ms;
+                builder = new StringBuilder(clength);
                 if (negative) {
                   builder.Append('-');
                 }
