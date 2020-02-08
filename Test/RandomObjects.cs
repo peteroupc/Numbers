@@ -29,14 +29,22 @@ namespace Test {
       return bytes;
     }
 
+    public static byte[] RandomByteString(IRandomGenExtended rand, int length) {
+      if (rand == null) {
+        throw new ArgumentNullException(nameof(rand));
+      }
+      var bytes = new byte[length];
+      rand.GetBytes(bytes, 0, bytes.Length);
+      return bytes;
+    }
+
     public static byte[] RandomByteStringShort(IRandomGenExtended rand) {
       if (rand == null) {
         throw new ArgumentNullException(nameof(rand));
       }
-      int x = rand.GetInt32(MaxExclusiveShortStringLength);
-      var bytes = new byte[x];
-      rand.GetBytes(bytes, 0, bytes.Length);
-      return bytes;
+      return RandomByteString(
+        rand,
+        rand.GetInt32(MaxExclusiveShortStringLength));
     }
 
     public static ERational RandomERational(IRandomGenExtended rand) {
@@ -139,6 +147,13 @@ namespace Test {
        var sb = new StringBuilder();
        if (wrapper == null) {
          throw new ArgumentNullException(nameof(wrapper));
+       }
+       if (wrapper.GetInt32(2) == 0) {
+         EInteger eix = EInteger.FromBytes(
+            RandomByteString(wrapper, 1 + wrapper.GetInt32(36)),
+            true);
+         int exp = wrapper.GetInt32(25) - 12;
+         return EDecimal.Create(eix, exp);
        }
        int len = 1 + wrapper.GetInt32(4);
        for (int i = 0; i < len; ++i) {

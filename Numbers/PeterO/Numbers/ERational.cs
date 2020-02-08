@@ -1798,16 +1798,25 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
         .ToDouble();
     }
 
-    /// <summary>Converts this value to its form in lowest terms.  For example, (8/4) becomes (4/1).</summary>
-    /// <returns>An arbitrary-precision rational with the same value as this one but in lowest terms.  Returns this object if it is infinity or NaN.  Returns ERational.NegativeZero if this object is a negative zero.  Returns ERational.Zero if this object is a positive zero.</returns>
+    /// <summary>Converts this value to its form in lowest terms. For
+    /// example, (8/4) becomes (4/1).</summary>
+    /// <returns>An arbitrary-precision rational with the same value as
+    /// this one but in lowest terms. Returns this object if it is infinity
+    /// or NaN. Returns ERational.NegativeZero if this object is a negative
+    /// zero. Returns ERational.Zero if this object is a positive
+    /// zero.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
     public ERational ToLowestTerms() {
-      if(!this.IsFinite)return this;
-      if(this.IsZero)return this.IsNegative ? NegativeZero : Zero;
-      EInteger num=this.Numerator;
-      EInteger den=this.denominator;
-      EInteger gcd=num.Abs().Gcd(den);
+if (!this.IsFinite) {
+  return this;
+}
+if (this.IsZero) {
+  return this.IsNegative ? NegativeZero : Zero;
+}
+      EInteger num = this.Numerator;
+      EInteger den = this.denominator;
+      EInteger gcd = num.Abs().Gcd(den);
       return Create(num.Divide(gcd), den.Divide(gcd));
     }
 
@@ -1855,7 +1864,6 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       }
       return quo;
     }
-
 
     /// <summary>Converts this rational number to an arbitrary-precision
     /// decimal number.</summary>
@@ -2243,20 +2251,19 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
     }
 
     // Begin integer conversions
-
     private void CheckTrivialOverflow(int maxBits) {
       if (this.IsZero) {
         return;
       }
       if (!this.IsFinite) {
-          throw new OverflowException("Value out of range");          
+          throw new OverflowException("Value out of range");
       }
       EInteger bignum = this.UnsignedNumerator;
       EInteger bigden = this.Denominator;
       EInteger numbits = bignum.GetUnsignedBitLengthAsEInteger();
       EInteger denbits = bigden.GetUnsignedBitLengthAsEInteger();
       if (numbits.CompareTo(denbits.Add(1).Add(maxBits)) > 0) {
-          throw new OverflowException("Value out of range");          
+          throw new OverflowException("Value out of range");
       }
     }
 
@@ -2273,15 +2280,18 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      if (this.IsNegative && !this.IsZero && this.UnsignedNumerator.CompareTo(this.Denominator) >= 0)
+      if (this.IsNegative && !this.IsZero &&
+this.UnsignedNumerator.CompareTo(this.Denominator) >= 0) {
         throw new OverflowException("Value out of range");
-      CheckTrivialOverflow(8);
+      }
+      this.CheckTrivialOverflow(8);
       return this.IsZero ? ((byte)0) : this.ToEInteger().ToByteChecked();
     }
 
-    /// <summary>Converts this number's value to an integer (using ToEInteger),
-    /// and returns the least-significant bits of that integer's
-    /// two's-complement form as a byte (from 0 to 255).</summary>
+    /// <summary>Converts this number's value to an integer (using
+    /// ToEInteger), and returns the least-significant bits of that
+    /// integer's two's-complement form as a byte (from 0 to
+    /// 255).</summary>
     /// <returns>This number, converted to a byte (from 0 to 255). Returns
     /// 0 if this value is infinity or not-a-number.</returns>
     public byte ToByteUnchecked() {
@@ -2299,9 +2309,11 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      if (this.IsNegative && !this.IsZero && this.UnsignedNumerator.CompareTo(this.Denominator) >= 0)
+      if (this.IsNegative && !this.IsZero &&
+this.UnsignedNumerator.CompareTo(this.Denominator) >= 0) {
         throw new OverflowException("Value out of range");
-      CheckTrivialOverflow(8);
+      }
+      this.CheckTrivialOverflow(8);
       return this.IsZero ? ((byte)0) : this.ToEIntegerIfExact().ToByteChecked();
     }
 
@@ -2329,7 +2341,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(15);
+      this.CheckTrivialOverflow(15);
       return this.IsZero ? ((short)0) : this.ToEInteger().ToInt16Checked();
     }
 
@@ -2353,7 +2365,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(15);
+      this.CheckTrivialOverflow(15);
       return this.IsZero ? ((short)0) :
         this.ToEIntegerIfExact().ToInt16Checked();
     }
@@ -2382,7 +2394,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(31);
+      this.CheckTrivialOverflow(31);
       return this.IsZero ? ((int)0) : this.ToEInteger().ToInt32Checked();
     }
 
@@ -2406,7 +2418,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(31);
+      this.CheckTrivialOverflow(31);
       return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
     }
 
@@ -2442,7 +2454,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(63);
+      this.CheckTrivialOverflow(63);
       return this.IsZero ? 0L : this.ToEInteger().ToInt64Checked();
     }
 
@@ -2467,7 +2479,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      CheckTrivialOverflow(63);
+      this.CheckTrivialOverflow(63);
       return this.IsZero ? 0L : this.ToEIntegerIfExact().ToInt64Checked();
     }
 

@@ -9,7 +9,7 @@ using System;
 using System.Text;
 
 // TODO: Add ToEInteger method that restricts bit size of
-// outputs to EDecimal/EFloat/ERational
+// outputs to ERational
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
@@ -3977,7 +3977,7 @@ EDecimal.PositiveInfinity;
 ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
     EDecimal ret = value.Log(tmpctx).Divide(baseValue.Log(tmpctx), ctx);
     if (ret.IsInteger() && !ret.IsZero) {
-      flags |= EContext.FlagRounded |EContext.FlagInexact;
+      flags |= EContext.FlagRounded | EContext.FlagInexact;
       if (baseValue.Pow(ret).CompareToValue(value) == 0) {
         EDecimal rtmp = ret.Quantize(EDecimal.FromInt32(1), ctx.WithNoFlags());
         if (!rtmp.IsNaN()) {
@@ -5185,7 +5185,7 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
   /// <param name='ctx'>Not documented yet.</param>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public EDecimal PreRound(EContext ctx) {
       return NumberUtility.PreRound(this, ctx, GetMathValue(ctx));
     }
@@ -5424,7 +5424,12 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
 
     /// <summary>Converts this value to an arbitrary-precision integer. Any
     /// fractional part in this value will be discarded when converting to
-    /// an arbitrary-precision integer.</summary>
+    /// an arbitrary-precision integer. Note that depending on the value,
+    /// especially the exponent, generating the arbitrary-precision integer
+    /// may require a huge amount of memory. Use the ToSizedEInteger method
+    /// to convert a number to an EInteger only if the integer fits in a
+    /// bounded bit range; that method will throw an exception on
+    /// overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
@@ -5435,22 +5440,34 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
-    /// checking whether the fractional part of the value would be
-    /// lost.</summary>
+    /// checking whether the fractional part of the value would be lost.
+    /// Note that depending on the value, especially the exponent,
+    /// generating the arbitrary-precision integer may require a huge
+    /// amount of memory. Use the ToSizedEIntegerIfExact method to convert
+    /// a number to an EInteger only if the integer fits in a bounded bit
+    /// range; that method will throw an exception on overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
+    /// <exception cref='ArithmeticException'>This object's value is not an
+    /// exact integer.</exception>
     [Obsolete("Renamed to ToEIntegerIfExact.")]
     public EInteger ToEIntegerExact() {
       return this.ToEIntegerInternal(true);
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
-    /// checking whether the fractional part of the value would be
-    /// lost.</summary>
+    /// checking whether the fractional part of the value would be lost.
+    /// Note that depending on the value, especially the exponent,
+    /// generating the arbitrary-precision integer may require a huge
+    /// amount of memory. Use the ToSizedEIntegerIfExact method to convert
+    /// a number to an EInteger only if the integer fits in a bounded bit
+    /// range; that method will throw an exception on overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
+    /// <exception cref='ArithmeticException'>This object's value is not an
+    /// exact integer.</exception>
     public EInteger ToEIntegerIfExact() {
       return this.ToEIntegerInternal(true);
     }
@@ -5818,6 +5835,103 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
         return bigmantissa;
       }
     }
+
+private static EInteger PowerOfRadixBitsLowerBound(EInteger e) {
+  return e.Abs().Multiply(332).Divide(100).Add(1);
+}
+private static EInteger PowerOfRadixBitsUpperBound(EInteger e) {
+  return e.Abs().Multiply(333).Divide(100).Add(1);
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='maxBitLength'>Not documented yet.</param>
+  /// <returns/>
+  public EInteger ToSizedEInteger(int maxBitLength) {
+  return this.ToSizedEInteger(maxBitLength, false);
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='maxBitLength'>Not documented yet.</param>
+  /// <returns/>
+  public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
+  return this.ToSizedEInteger(maxBitLength, true);
+}
+
+private EInteger ToSizedEInteger(int maxBitLength, bool exact) {
+   if (maxBitLength < 1) {
+     throw new ArgumentException("maxBitLength (" + maxBitLength +
+") is not greater or equal to 1");
+   }
+   if (!this.IsFinite || this.IsZero) {
+     return exact ? this.ToEIntegerIfExact() : this.ToEInteger();
+   }
+   EInteger mant = this.Mantissa;
+   EInteger exp = this.Exponent;
+   if (exp.Sign > 0) {
+     // x * 10^y
+     long imantbits = mant.GetSignedBitLengthAsInt64();
+     if (imantbits >= maxBitLength) {
+       throw new OverflowException("Value out of range");
+     }
+     if (exp.CompareTo(0x100000) < 0 && imantbits < 0x100000) {
+       // Lower bound of bit count in 10^exp based on ln(10^exp)/ln(2)
+       long expBitsLowerBound = (exp.ToInt64Checked() * 332 / 100) + 1;
+       if ((imantbits - 1) + expBitsLowerBound > maxBitLength) {
+         throw new OverflowException("Value out of range");
+       }
+     } else if (exp.CompareTo(maxBitLength) > 0) {
+      // Digits in exp is more than max bit length, so out of range
+      throw new OverflowException("Value out of range");
+    } else {
+       EInteger mantbits = mant.GetSignedBitLengthAsEInteger();
+       if (mantbits.Subtract(1).Add(PowerOfRadixBitsLowerBound(exp))
+           .CompareTo(maxBitLength) > 0) {
+         throw new OverflowException("Value out of range");
+       }
+     }
+     mant = exact ? this.ToEIntegerIfExact() : this.ToEInteger();
+   } else if (exp.Sign < 0) {
+     // x * 10^-y. Check for trivial overflow cases before
+     // running ToEInteger.
+     exp = exp.Abs();
+     long imantbits = mant.GetSignedBitLengthAsInt64();
+     if (exp.CompareTo(0x100000) < 0 && imantbits < 0x100000) {
+       long expBitsUpperBound = (exp.ToInt64Checked() * 333 / 100) + 1;
+       long expBitsLowerBound = (exp.ToInt64Checked() * 332 / 100) + 1;
+       if (imantbits - 1 - expBitsUpperBound > maxBitLength) {
+         throw new OverflowException("Value out of range");
+       }
+       if (imantbits + 1 < expBitsLowerBound) {
+         // Less than one, so not exact
+if (exact) {
+           throw new ArithmeticException("Not an exact integer");
+         } else {
+ return EInteger.FromInt32(0);
+}
+       }
+     } else if (imantbits < 0x100000 && exp.CompareTo(0x400000) >= 0) {
+       // (mant / 10^exp) would be less than one, so not exact
+if (exact) {
+         throw new ArithmeticException("Not an exact integer");
+       } else {
+ return EInteger.FromInt32(0);
+}
+     } else {
+       EInteger mantbits = mant.GetSignedBitLengthAsEInteger();
+       if (mantbits.Subtract(1).Subtract(PowerOfRadixBitsUpperBound(exp))
+           .CompareTo(maxBitLength) > 0) {
+         throw new OverflowException("Value out of range");
+       }
+     }
+     mant = exact ? this.ToEIntegerIfExact() : this.ToEInteger();
+   }
+   if (mant.GetSignedBitLengthAsEInteger().CompareTo(maxBitLength) > 0) {
+       throw new OverflowException("Value out of range");
+   }
+   return mant;
+}
 
     private static bool HasTerminatingBinaryExpansion(EInteger
       den) {

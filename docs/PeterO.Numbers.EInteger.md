@@ -64,17 +64,21 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetBits(int, int)](#GetBits_int_int)</code> - Retrieves bits from this integer's two's-complement form.
 * <code>[GetDigitCount()](#GetDigitCount)</code> - <b>Deprecated:</b> This method may overflow. Use GetDigitCountAsEInteger instead.
 * <code>[GetDigitCountAsEInteger()](#GetDigitCountAsEInteger)</code> - Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
+* <code>[GetDigitCountAsInt64()](#GetDigitCountAsInt64)</code> - Returns the number of decimal digits used by this integer, in the form of a 64-bit signed integer.
 * <code>[GetHashCode()](#GetHashCode)</code> - Returns the hash code for this instance.
 * <code>[GetLowBit()](#GetLowBit)</code> - <b>Deprecated:</b> This method may overflow. Use GetLowBitAsEInteger instead.
-* <code>[GetLowBitAsEInteger()](#GetLowBitAsEInteger)</code> - Gets the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer.
+* <code>[GetLowBitAsEInteger()](#GetLowBitAsEInteger)</code> - Gets the bit position of the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer.
+* <code>[GetLowBitAsInt64()](#GetLowBitAsInt64)</code> - Gets the bit position of the lowest set bit in this number's absolute value, in the form of a 64-bit signed integer.
 * <code>[GetSignedBit(int)](#GetSignedBit_int)</code> - Returns whether a bit is set in the two's-complement form (see T:PeterO.
 * <code>[GetSignedBit(PeterO.Numbers.EInteger)](#GetSignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in the two's-complement form (see T:PeterO.
 * <code>[GetSignedBitLength()](#GetSignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
 * <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer.
+* <code>[GetSignedBitLengthAsInt64()](#GetSignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of a 64-bit signed integer.
 * <code>[GetUnsignedBit(int)](#GetUnsignedBit_int)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBit(PeterO.Numbers.EInteger)](#GetUnsignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
-* <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value.
+* <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value, in the form of an arbitrary-precision integer.
+* <code>[GetUnsignedBitLengthAsInt64()](#GetUnsignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this number's absolute value, in the form of a 64-bit signed integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(byte)](#implicit_operator_PeterO_Numbers_EInteger_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(int)](#implicit_operator_PeterO_Numbers_EInteger_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(long)](#implicit_operator_PeterO_Numbers_EInteger_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
@@ -986,6 +990,17 @@ Returns the number of decimal digits used by this integer, in the form of an arb
 
 The number of digits in the decimal form of this integer. Returns 1 if this number is 0.
 
+<a id="GetDigitCountAsInt64"></a>
+### GetDigitCountAsInt64
+
+    public long GetDigitCountAsInt64();
+
+Returns the number of decimal digits used by this integer, in the form of a 64-bit signed integer.
+
+<b>Return Value:</b>
+
+The number of digits in the decimal form of this integer. Returns 1 if this number is 0. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of decimal digits is 2^63 - 1 or greater. (Use  `GetDigitCountAsEInteger`  instead if the application relies on the exact number of decimal digits.)
+
 <a id="GetHashCode"></a>
 ### GetHashCode
 
@@ -1004,22 +1019,33 @@ A 32-bit signed integer.
 
 <b>Deprecated.</b> This method may overflow. Use GetLowBitAsEInteger instead.
 
-Gets the lowest set bit in this number's absolute value. (This will also be the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ).).
+Gets the bit position of the lowest set bit in this number's absolute value. (This will also be the position of the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ).).
 
 <b>Return Value:</b>
 
-The lowest bit set in the number, starting at 0. Returns -1 if this value is 0.
+The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0.
 
 <a id="GetLowBitAsEInteger"></a>
 ### GetLowBitAsEInteger
 
     public PeterO.Numbers.EInteger GetLowBitAsEInteger();
 
-Gets the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer. (This will also be the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ).).
+Gets the bit position of the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer. (This will also be the position of the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ).).
 
 <b>Return Value:</b>
 
-The lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
+The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
+
+<a id="GetLowBitAsInt64"></a>
+### GetLowBitAsInt64
+
+    public long GetLowBitAsInt64();
+
+Gets the bit position of the lowest set bit in this number's absolute value, in the form of a 64-bit signed integer. (This will also be the position of the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ).).
+
+<b>Return Value:</b>
+
+The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if this number is other than zero but the lowest set bit is at 2^63 - 1 or greater. (Use  `GetLowBitAsEInteger`  instead if the application relies on the exact value of the lowest set bit position.)
 
 <a id="GetSignedBit_int"></a>
 ### GetSignedBit
@@ -1070,7 +1096,7 @@ Finds the minimum number of bits needed to represent this object's value, except
 
 <b>Return Value:</b>
 
-The number of bits in this object's value. Returns 0 if this object's value is 0 or negative 1.
+The number of bits in this object's value, except for its sign. Returns 0 if this object's value is 0 or negative 1.
 
 <b>Exceptions:</b>
 
@@ -1086,7 +1112,18 @@ Finds the minimum number of bits needed to represent this object's value, except
 
 <b>Return Value:</b>
 
-The number of bits in this object's value. Returns 0 if this object's value is 0 or negative 1.
+The number of bits in this object's value, except for its sign. Returns 0 if this object's value is 0 or negative 1.
+
+<a id="GetSignedBitLengthAsInt64"></a>
+### GetSignedBitLengthAsInt64
+
+    public long GetSignedBitLengthAsInt64();
+
+Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of a 64-bit signed integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
+
+<b>Return Value:</b>
+
+The number of bits in this object's value, except for its sign. Returns 0 if this object's value is 0 or negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.)
 
 <a id="GetUnsignedBit_int"></a>
 ### GetUnsignedBit
@@ -1137,7 +1174,7 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 
 <b>Return Value:</b>
 
-The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
+The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
 
 <b>Exceptions:</b>
 
@@ -1149,11 +1186,22 @@ The return value would exceed the range of a 32-bit signed integer.
 
     public PeterO.Numbers.EInteger GetUnsignedBitLengthAsEInteger();
 
-Finds the minimum number of bits needed to represent this number's absolute value. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
+Finds the minimum number of bits needed to represent this number's absolute value, in the form of an arbitrary-precision integer. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
 
 <b>Return Value:</b>
 
-The number of bits in this object's value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
+The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1.
+
+<a id="GetUnsignedBitLengthAsInt64"></a>
+### GetUnsignedBitLengthAsInt64
+
+    public long GetUnsignedBitLengthAsInt64();
+
+Finds the minimum number of bits needed to represent this number's absolute value, in the form of a 64-bit signed integer. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
+
+<b>Return Value:</b>
+
+The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.)
 
 <a id="Increment"></a>
 ### Increment

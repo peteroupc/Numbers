@@ -1012,7 +1012,7 @@ this.simplified +
 
   /// <summary>Not documented yet.</summary>
   /// <summary>Not documented yet.</summary>
-  /// <returns/>
+  /// <returns>The return value is not documented yet.</returns>
     public EContext GetTrappable() {
        return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
     }

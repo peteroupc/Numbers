@@ -1859,9 +1859,8 @@ emant.GetUnsignedBitLengthAsEInteger().CompareTo(bitCount) == 0;
           return;
         }
         try {
-eint = (enumber.Exponent.CompareTo(100) >= 0 && !enumber.IsZero) ? null :
-enumber.ToEInteger();
-        } catch (NotSupportedException) {
+          eint = enumber.ToSizedEInteger(128);
+        } catch (OverflowException) {
           eint = null;
         }
         isInteger = enumber.IsInteger();

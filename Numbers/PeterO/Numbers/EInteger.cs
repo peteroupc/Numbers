@@ -2831,7 +2831,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
     /// <summary>Returns the number of decimal digits used by this integer,
     /// in the form of a 64-bit signed integer.</summary>
     /// <returns>The number of digits in the decimal form of this integer.
-    /// Returns 1 if this number is 0. Returns 2^63 - 1 (
+    /// Returns 1 if this number is 0. Returns 2^63 - 1(
     /// <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java) if
     /// the number of decimal digits is 2^63 - 1 or greater. (Use
     /// <c>GetDigitCountAsEInteger</c> instead if the application relies on
@@ -3139,7 +3139,7 @@ maxDigitEstimate : retval +
     /// <returns>The bit position of the lowest bit set in the number,
     /// starting at 0. Returns -1 if this value is 0 or odd.</returns>
     public EInteger GetLowBitAsEInteger() {
-       return EInteger.FromInt64(GetLowBitAsInt64());
+       return EInteger.FromInt64(this.GetLowBitAsInt64());
     }
 
     /// <summary>Returns whether a bit is set in the two's-complement form
@@ -3246,7 +3246,7 @@ maxDigitEstimate : retval +
     /// 1.</returns>
     public EInteger GetSignedBitLengthAsEInteger() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
-      return EInteger.FromInt64(GetSignedBitLengthAsInt64());
+      return EInteger.FromInt64(this.GetSignedBitLengthAsInt64());
     }
 
     /// <summary>Finds the minimum number of bits needed to represent this
@@ -3377,7 +3377,7 @@ maxDigitEstimate : retval +
     /// is negative 1.</returns>
     public EInteger GetUnsignedBitLengthAsEInteger() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
-      return EInteger.FromInt64(GetUnsignedBitLengthAsInt64());
+      return EInteger.FromInt64(this.GetUnsignedBitLengthAsInt64());
     }
 
     /// <summary>Finds the minimum number of bits needed to represent this
@@ -3398,7 +3398,7 @@ maxDigitEstimate : retval +
       int wc = this.wordCount;
       if (wc != 0) {
         int numberValue = ((int)this.words[wc - 1]) & ShortMask;
-        long longBase=((long)wc - 1) << 4;
+        long longBase = ((long)wc - 1) << 4;
         if (numberValue == 0) {
           return longBase;
         }
