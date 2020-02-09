@@ -272,6 +272,7 @@ namespace Test {
       }
     }
 
+    [Test]
     public void TestCompareToBinarySpecific1() {
       EFloat ef;
       EDecimal ed;
@@ -5671,7 +5672,9 @@ namespace Test {
         // even if the string has leading zeros)
         TestStringContextOneEFloatCore(
           leadingZeros.Substring(0, counts[i]) + str,
-          ec, ed, ef);
+          ec,
+          ed,
+          ef);
         if (noLeadingZerosTest || str.Length == 0 || str[0] == '-') {
           break;
         }

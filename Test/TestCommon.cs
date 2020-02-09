@@ -11,7 +11,7 @@ using NUnit.Framework;
 
 namespace Test {
   public static class TestCommon {
-    private const string ValueDigits = "0123456789";
+    private const string Digits = "0123456789";
 
     public static int StringToInt(string str) {
       var neg = false;
@@ -423,33 +423,50 @@ namespace Test {
       }
     }
 
-    public static string IntToString(int value) {
-      if (value == Int32.MinValue) {
-        return "-2147483648";
-      }
+    internal static string IntToString(int value) {
       if (value == 0) {
         return "0";
       }
+      if (value == Int32.MinValue) {
+        return "-2147483648";
+      }
+      char[] chars;
+      int count;
+      if ((value >> 15) == 0) {
+        chars = new char[5];
+        count = 4;
+        while (value > 9) {
+          int intdivvalue = (value * 26215) >> 18;
+          char digit = Digits[(int)(value - (intdivvalue * 10))];
+          chars[count--] = digit;
+          value = intdivvalue;
+        }
+        if (value != 0) {
+          chars[count--] = Digits[(int)value];
+        }
+        ++count;
+        return new String(chars, count, 5 - count);
+      }
       bool neg = value < 0;
-      var chars = new char[12];
-      var count = 11;
+      chars = new char[12];
+      count = 11;
       if (neg) {
         value = -value;
       }
       while (value > 43698) {
         int intdivvalue = value / 10;
-        char digit = ValueDigits[(int)(value - (intdivvalue * 10))];
+        char digit = Digits[(int)(value - (intdivvalue * 10))];
         chars[count--] = digit;
         value = intdivvalue;
       }
       while (value > 9) {
         int intdivvalue = (value * 26215) >> 18;
-        char digit = ValueDigits[(int)(value - (intdivvalue * 10))];
+        char digit = Digits[(int)(value - (intdivvalue * 10))];
         chars[count--] = digit;
         value = intdivvalue;
       }
       if (value != 0) {
-        chars[count--] = ValueDigits[(int)value];
+        chars[count--] = Digits[(int)value];
       }
       if (neg) {
         chars[count] = '-';
@@ -466,42 +483,12 @@ namespace Test {
       if (longValue == 0L) {
         return "0";
       }
-      if (longValue == (long)Int32.MinValue) {
-        return "-2147483648";
-      }
       bool neg = longValue < 0;
       var count = 0;
       char[] chars;
       int intlongValue = unchecked((int)longValue);
       if ((long)intlongValue == longValue) {
-        chars = new char[12];
-        count = 11;
-        if (neg) {
-          intlongValue = -intlongValue;
-        }
-        while (intlongValue > 43698) {
-          int intdivValue = intlongValue / 10;
-          char digit = ValueDigits[(int)(intlongValue - (intdivValue *
-10))];
-          chars[count--] = digit;
-          intlongValue = intdivValue;
-        }
-        while (intlongValue > 9) {
-          int intdivValue = (intlongValue * 26215) >> 18;
-          char digit = ValueDigits[(int)(intlongValue - (intdivValue *
-10))];
-          chars[count--] = digit;
-          intlongValue = intdivValue;
-        }
-        if (intlongValue != 0) {
-          chars[count--] = ValueDigits[(int)intlongValue];
-        }
-        if (neg) {
-          chars[count] = '-';
-        } else {
-          ++count;
-        }
-        return new String(chars, count, 12 - count);
+        return IntToString(intlongValue);
       } else {
         chars = new char[24];
         count = 23;
@@ -510,18 +497,18 @@ namespace Test {
         }
         while (longValue > 43698) {
           long divValue = longValue / 10;
-          char digit = ValueDigits[(int)(longValue - (divValue * 10))];
+          char digit = Digits[(int)(longValue - (divValue * 10))];
           chars[count--] = digit;
           longValue = divValue;
         }
         while (longValue > 9) {
           long divValue = (longValue * 26215) >> 18;
-          char digit = ValueDigits[(int)(longValue - (divValue * 10))];
+          char digit = Digits[(int)(longValue - (divValue * 10))];
           chars[count--] = digit;
           longValue = divValue;
         }
         if (longValue != 0) {
-          chars[count--] = ValueDigits[(int)longValue];
+          chars[count--] = Digits[(int)longValue];
         }
         if (neg) {
           chars[count] = '-';

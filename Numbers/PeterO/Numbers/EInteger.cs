@@ -8417,14 +8417,29 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       if (value == Int64.MinValue) {
         return "-9223372036854775808";
       }
-      if (value == (long)Int32.MinValue) {
-        return "-2147483648";
-      }
       bool neg = value < 0;
       var count = 0;
       char[] chars;
       int intvalue = unchecked((int)value);
       if ((long)intvalue == value) {
+        if ((intvalue >> 15) == 0) {
+        chars = new char[5];
+        count = 4;
+        while (intvalue > 9) {
+          int intdivvalue = (intvalue * 26215) >> 18;
+          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
+          chars[count--] = digit;
+          intvalue = intdivvalue;
+        }
+        if (intvalue != 0) {
+          chars[count--] = Digits[intvalue];
+        }
+        ++count;
+        return new String(chars, count, 5 - count);
+      }
+      if (intvalue == Int32.MinValue) {
+        return "-2147483648";
+      }
         chars = new char[12];
         count = 11;
         if (neg) {

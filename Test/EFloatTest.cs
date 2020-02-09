@@ -1564,8 +1564,11 @@ namespace Test {
       }
       EInteger emant = efa.Mantissa;
       bool fullPrecision =
-emant.GetUnsignedBitLengthAsEInteger().CompareTo(bitCount) == 0;
-      bool isEven = !fullPrecision || efa.UnsignedMantissa.IsEven;
+         emant.GetUnsignedBitLengthAsEInteger().CompareTo(bitCount) == 0;
+      bool isSubnormal = EFloats.IsSubnormal(efa, dbl ? EContext.Binary64 :
+          EContext.Binary32);
+      bool isEven = (!fullPrecision && !isSubnormal) ||
+          efa.UnsignedMantissa.IsEven;
       EFloat efprev = efa.NextMinus(dbl ? EContext.Binary64 :
           EContext.Binary32);
       EFloat efnext = efa.NextPlus(dbl ? EContext.Binary64 :

@@ -27,7 +27,7 @@ A class that implements additional operations on arbitrary-precision binary floa
 * <code>[IsSubnormal(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#IsSubnormal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns whether the given number is a subnormal number.
 * <code>[IsZero(PeterO.Numbers.EFloat)](#IsZero_PeterO_Numbers_EFloat)</code> - Returns whether the given arbitrary-precision number object is zero (positive zero or negative zero).
 * <code>[LogB(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#LogB_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns the base-2 exponent of an arbitrary-precision binary number (when that number is expressed in scientific notation with one nonzero digit before the radix point).
-* <code>[NumberClass(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#NumberClass_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the number class for an arbitrary-precision decimal number object.
+* <code>[NumberClass(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#NumberClass_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the number class for an arbitrary-precision binary number object.
 * <code>[NumberClassString(int)](#NumberClassString_int)</code> - Converts a number class identifier (ranging from 0 through 9) to a text string.
 * <code>[Or(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Or_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Performs a logical OR operation on two binary numbers in the form of logical operands.
 * <code>[Radix(PeterO.Numbers.EContext)](#Radix_PeterO_Numbers_EContext)</code> - Returns the number 2, the binary radix.
@@ -247,7 +247,7 @@ Returns an arbitrary-precision number object with the same value as the first gi
  * <i>ed</i>: An arbitrary-precision number object with the value the result will have.
 
  * <i>other</i>: The parameter  <i>other</i>
- is an arbitrary-precision decimal floating-point number.
+ is an arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -306,7 +306,7 @@ The result of the logical NOT operation as a logical operand. Signals an invalid
     public static bool IsCanonical(
         PeterO.Numbers.EFloat ed);
 
-Returns whether the given arbitrary-precision number object is in a canonical form. For the current version of EDecimal, all EDecimal objects are in a canonical form.
+Returns whether the given arbitrary-precision number object is in a canonical form. For the current version of EFloat, all EFloat objects are in a canonical form.
 
 <b>Parameters:</b>
 
@@ -506,11 +506,11 @@ The parameter  <i>ed</i>
         PeterO.Numbers.EFloat ed,
         PeterO.Numbers.EContext ec);
 
-Finds the number class for an arbitrary-precision decimal number object.
+Finds the number class for an arbitrary-precision binary number object.
 
 <b>Parameters:</b>
 
- * <i>ed</i>: An arbitrary-precision decimal number object.
+ * <i>ed</i>: An arbitrary-precision binary number object.
 
  * <i>ec</i>: A context object that specifies the precision and exponent range of arbitrary-precision numbers. This is used only to distinguish between normal and subnormal numbers. Can be null.
 
@@ -712,7 +712,7 @@ Shifts the bits of an arbitrary-precision binary floating point number's signifi
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number whose significand is shifted the given number of bits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
+An arbitrary-precision binary number whose significand is shifted the given number of bits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
 

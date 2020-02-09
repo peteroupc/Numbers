@@ -512,6 +512,8 @@ Not documented yet.
 
 <b>Return Value:</b>
 
+The return value is not documented yet.
+
 <a id="ToString"></a>
 ### ToString
 

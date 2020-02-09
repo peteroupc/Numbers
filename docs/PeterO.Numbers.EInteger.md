@@ -999,7 +999,7 @@ Returns the number of decimal digits used by this integer, in the form of a 64-b
 
 <b>Return Value:</b>
 
-The number of digits in the decimal form of this integer. Returns 1 if this number is 0. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of decimal digits is 2^63 - 1 or greater. (Use  `GetDigitCountAsEInteger`  instead if the application relies on the exact number of decimal digits.)
+The number of digits in the decimal form of this integer. Returns 1 if this number is 0. Returns 2^63 - 1(  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of decimal digits is 2^63 - 1 or greater. (Use  `GetDigitCountAsEInteger`  instead if the application relies on the exact number of decimal digits.)
 
 <a id="GetHashCode"></a>
 ### GetHashCode

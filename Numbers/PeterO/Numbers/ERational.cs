@@ -213,7 +213,7 @@ namespace PeterO.Numbers {
     /// otherwise, <c>false</c>.</returns>
     public bool IsInteger() {
       return this.IsFinite &&
-this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
+        this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
     }
 
     /// <summary>Gets this object's numerator.</summary>
@@ -325,8 +325,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       }
       if (diag.Sign < 0) {
         throw new ArgumentException("Diagnostic information must be 0 or" +
-"\u0020greater," +
-          "\u0020 was: " + diag);
+          "\u0020greater," + "\u0020 was: " + diag);
       }
       if (diag.IsZero && !negative) {
         return signaling ? SignalingNaN : NaN;
@@ -1044,9 +1043,9 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
       EInteger ed = other.Denominator;
       // Compare the number of bits of the products
       EInteger bitsADUpper = ea.GetUnsignedBitLengthAsEInteger().Add(
-        ed.GetUnsignedBitLengthAsEInteger());
+          ed.GetUnsignedBitLengthAsEInteger());
       EInteger bitsBCUpper = eb.GetUnsignedBitLengthAsEInteger().Add(
-        ec.GetUnsignedBitLengthAsEInteger());
+          ec.GetUnsignedBitLengthAsEInteger());
       EInteger bitsADLower = bitsADUpper.Subtract(1);
       EInteger bitsBCLower = bitsBCUpper.Subtract(1);
       if (bitsADLower.CompareTo(bitsBCUpper) > 0) {
@@ -1087,11 +1086,13 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
         if (first.IsNegative) {
           return (!second.IsNegative) ? second :
 (first.Denominator.CompareTo(second.Denominator) > 0 ?
-   first : second);
+
+              first : second);
         } else {
           return second.IsNegative ? first :
 (first.Denominator.CompareTo(second.Denominator) < 0 ?
-    first : second);
+
+              first : second);
         }
       }
       return cmp > 0 ? first : second;
@@ -1116,7 +1117,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareToValue(second.Abs());
-      return (cmp == 0) ? Max(first, second) : (cmp > 0 ? first : second);
+      return (cmp == 0) ? Max(first, second) :(cmp > 0 ? first : second);
     }
 
     /// <summary>Gets the lesser value between two rational
@@ -1145,11 +1146,13 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
         if (first.IsNegative) {
           return (!second.IsNegative) ? first :
 (first.Denominator.CompareTo(second.Denominator) < 0 ?
-    first : second);
+
+              first : second);
         } else {
           return second.IsNegative ? second :
 (first.Denominator.CompareTo(second.Denominator) > 0 ?
-   first : second);
+
+              first : second);
         }
       }
       return cmp < 0 ? first : second;
@@ -1174,7 +1177,7 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareToValue(second.Abs());
-      return (cmp == 0) ? Min(first, second) : (cmp < 0 ? first : second);
+      return (cmp == 0) ? Min(first, second) :(cmp < 0 ? first : second);
     }
 
     /// <summary>Compares the mathematical value of an arbitrary-precision
@@ -1808,26 +1811,26 @@ this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
     public ERational ToLowestTerms() {
-if (!this.IsFinite) {
-  return this;
-}
-if (this.IsZero) {
-  return this.IsNegative ? NegativeZero : Zero;
-}
+      if (!this.IsFinite) {
+        return this;
+      }
+      if (this.IsZero) {
+        return this.IsNegative ? NegativeZero : Zero;
+      }
       EInteger num = this.Numerator;
       EInteger den = this.denominator;
       EInteger gcd = num.Abs().Gcd(den);
       return Create(num.Divide(gcd), den.Divide(gcd));
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <param name='maxBitLength'>Not documented yet.</param>
+    /// <summary>Not documented yet.</summary>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <param name='maxBitLength'>Not documented yet.</param>
     public EInteger ToSizedEInteger(int maxBitLength) {
       if (maxBitLength < 1) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
-"\u0020not greater or equal to 1");
+          "\u0020not greater or equal to 1");
       }
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1839,24 +1842,25 @@ if (this.IsZero) {
       }
       EInteger numBits = unum.GetUnsignedBitLengthAsEInteger();
       EInteger denBits = uden.GetUnsignedBitLengthAsEInteger();
-      if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) > 0) {
-         throw new OverflowException("Value out of range");
+      if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) >
+0) {
+        throw new OverflowException("Value out of range");
       }
       unum = this.ToEInteger();
       if (unum.GetSignedBitLengthAsInt64() > maxBitLength) {
-         throw new OverflowException("Value out of range");
+        throw new OverflowException("Value out of range");
       }
       return unum;
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <param name='maxBitLength'>Not documented yet.</param>
+    /// <summary>Not documented yet.</summary>
+    /// <summary>Not documented yet.</summary>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <param name='maxBitLength'>Not documented yet.</param>
     public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
       if (maxBitLength < 1) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
-"\u0020not greater or equal to 1");
+          "\u0020not greater or equal to 1");
       }
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1871,12 +1875,13 @@ if (this.IsZero) {
       }
       EInteger numBits = unum.GetUnsignedBitLengthAsEInteger();
       EInteger denBits = uden.GetUnsignedBitLengthAsEInteger();
-      if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) > 0) {
-         throw new OverflowException("Value out of range");
+      if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) >
+0) {
+        throw new OverflowException("Value out of range");
       }
       unum = this.ToEIntegerIfExact();
       if (unum.GetSignedBitLengthAsInt64() > maxBitLength) {
-         throw new OverflowException("Value out of range");
+        throw new OverflowException("Value out of range");
       }
       return unum;
     }
@@ -2315,14 +2320,14 @@ if (this.IsZero) {
         return;
       }
       if (!this.IsFinite) {
-          throw new OverflowException("Value out of range");
+        throw new OverflowException("Value out of range");
       }
       EInteger bignum = this.UnsignedNumerator;
       EInteger bigden = this.Denominator;
       EInteger numbits = bignum.GetUnsignedBitLengthAsEInteger();
       EInteger denbits = bigden.GetUnsignedBitLengthAsEInteger();
       if (numbits.CompareTo(denbits.Add(1).Add(maxBits)) > 0) {
-          throw new OverflowException("Value out of range");
+        throw new OverflowException("Value out of range");
       }
     }
 
@@ -2340,7 +2345,7 @@ if (this.IsZero) {
         throw new OverflowException("Value is infinity or NaN");
       }
       if (this.IsNegative && !this.IsZero &&
-this.UnsignedNumerator.CompareTo(this.Denominator) >= 0) {
+        this.UnsignedNumerator.CompareTo(this.Denominator) >= 0) {
         throw new OverflowException("Value out of range");
       }
       this.CheckTrivialOverflow(8);
@@ -2369,7 +2374,7 @@ this.UnsignedNumerator.CompareTo(this.Denominator) >= 0) {
         throw new OverflowException("Value is infinity or NaN");
       }
       if (this.IsNegative && !this.IsZero &&
-this.UnsignedNumerator.CompareTo(this.Denominator) >= 0) {
+        this.UnsignedNumerator.CompareTo(this.Denominator) >= 0) {
         throw new OverflowException("Value out of range");
       }
       this.CheckTrivialOverflow(8);

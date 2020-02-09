@@ -172,12 +172,15 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public static FastIntegerFixed Add(FastIntegerFixed a,
       FastIntegerFixed b) {
-      if (a.integerMode == 0 && b.integerMode == 0) {
+      if ((a.integerMode | b.integerMode) == 0) {
         if (a.smallValue == 0) {
           return b;
         }
         if (b.smallValue == 0) {
           return a;
+        }
+        if (((a.smallValue | b.smallValue) >> 30) == 0) {
+          return FromInt32(a.smallValue + b.smallValue);
         }
         if ((a.smallValue < 0 && b.smallValue >= Int32.MinValue -
             a.smallValue) || (a.smallValue > 0 && b.smallValue <=

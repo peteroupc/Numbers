@@ -352,6 +352,8 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number.
+* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Not documented yet.
+* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Not documented yet.
 * <code>[ToString()](#ToString)</code> - Converts this value to a string.
 * <code>[ToUInt16Checked()](#ToUInt16Checked)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt16IfExact()](#ToUInt16IfExact)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
@@ -3506,6 +3508,8 @@ Not documented yet.
 
 <b>Return Value:</b>
 
+The return value is not documented yet.
+
 <a id="Quantize_int_PeterO_Numbers_EContext"></a>
 ### Quantize
 
@@ -4242,7 +4246,7 @@ An arbitrary-precision binary floating-point number.
 
     public PeterO.Numbers.EInteger ToEInteger();
 
-Converts this value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer.
+Converts this value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEInteger method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4263,7 +4267,7 @@ There is not enough memory to store the value as an EInteger.
 
 <b>Deprecated.</b> Renamed to ToEIntegerIfExact.
 
-Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.
+Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4273,13 +4277,16 @@ An arbitrary-precision integer.
 
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
+
+ * System.ArithmeticException:
+This object's value is not an exact integer.
 
 <a id="ToEIntegerIfExact"></a>
 ### ToEIntegerIfExact
 
     public PeterO.Numbers.EInteger ToEIntegerIfExact();
 
-Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.
+Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4289,6 +4296,9 @@ An arbitrary-precision integer.
 
  * System.OverflowException:
 This object's value is infinity or not-a-number (NaN).
+
+ * System.ArithmeticException:
+This object's value is not an exact integer.
 
 <a id="ToEngineeringString"></a>
 ### ToEngineeringString
@@ -4513,6 +4523,42 @@ Converts this value to its closest equivalent as a 32-bit floating-point number.
 <b>Return Value:</b>
 
 The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<a id="ToSizedEInteger_int"></a>
+### ToSizedEInteger
+
+    public PeterO.Numbers.EInteger ToSizedEInteger(
+        int maxBitLength);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>maxBitLength</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
+<a id="ToSizedEIntegerIfExact_int"></a>
+### ToSizedEIntegerIfExact
+
+    public PeterO.Numbers.EInteger ToSizedEIntegerIfExact(
+        int maxBitLength);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>maxBitLength</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="ToString"></a>
 ### ToString

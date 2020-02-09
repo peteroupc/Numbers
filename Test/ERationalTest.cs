@@ -358,9 +358,7 @@ namespace Test {
           }
           continue;
         }
-        ERational enumberInteger = ERational.FromEInteger(
-  enumber.ToEInteger());
-        isInteger = enumberInteger.CompareTo(enumber) == 0;
+        isInteger = enumber.IsInteger();
         try {
         eint = enumber.ToSizedEInteger(128);
 } catch (OverflowException) {

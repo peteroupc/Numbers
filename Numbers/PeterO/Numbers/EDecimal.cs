@@ -3904,7 +3904,7 @@ TrappableRadixMath<EDecimal>(
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
     public EDecimal Log10(EContext ctx) {
-return this.LogN(EDecimal.FromInt32(10), ctx);
+      return this.LogN(EDecimal.FromInt32(10), ctx);
     }
 
     /// <summary>Finds the base-N logarithm of this object, that is, the
@@ -3922,77 +3922,79 @@ return this.LogN(EDecimal.FromInt32(10), ctx);
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='baseValue'/> is null.</exception>
     public EDecimal LogN(EDecimal baseValue, EContext ctx) {
-  EDecimal value = this;
-  if (baseValue == null) {
-    throw new ArgumentNullException(nameof(baseValue));
-  }
-  if (value.IsNaN()) {
-    return value.Plus(ctx);
-  }
-  if (baseValue.IsNaN()) {
-    return baseValue.Plus(ctx);
-  }
-  if (ctx == null || !ctx.HasMaxPrecision ||
-     (value.IsNegative && !value.IsZero) ||
-     (baseValue.IsNegative && !baseValue.IsZero)) {
-    return EDecimal.SignalingNaN.Plus(ctx);
-  }
-  if (ctx.Traps != 0) {
-    EContext tctx = ctx.GetTrappable();
-    EDecimal ret = value.LogN(baseValue, tctx);
-    return ctx.TriggerTraps(ret, tctx);
-  } else if (ctx.IsSimplified) {
-    EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
-    EDecimal ret = value.PreRound(ctx).LogN(baseValue.PreRound(ctx), tmpctx);
-    if (ctx.HasFlags) {
-      int flags = ctx.Flags;
-      ctx.Flags = flags | tmpctx.Flags;
-    }
-    // Console.WriteLine("{0} {1} [{4} {5}] -> {2}
-    // [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
-    // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
-    return ret.RoundToPrecision(ctx);
-  } else {
-    if (value.IsZero) {
-      return baseValue.CompareTo(1) < 0 ? EDecimal.PositiveInfinity :
-EDecimal.NegativeInfinity;
-    } else if (value.IsPositiveInfinity()) {
-      return baseValue.CompareTo(1) < 0 ? EDecimal.NegativeInfinity :
-EDecimal.PositiveInfinity;
-    }
-    if (baseValue.CompareTo(10) == 0) {
-      EDecimal ev = value.Reduce(null);
-      if (ev.UnsignedMantissa.CompareTo(1) == 0) {
-        return EDecimal.FromEInteger(ev.Exponent).Plus(ctx);
+      EDecimal value = this;
+      if (baseValue == null) {
+        throw new ArgumentNullException(nameof(baseValue));
       }
-    } else if (value.CompareTo(1) == 0) {
-      return EDecimal.FromInt32(0).Plus(ctx);
-    } else if (value.CompareTo(baseValue) == 0) {
-      return EDecimal.FromInt32(1).Plus(ctx);
-    }
-    int flags = ctx.Flags;
-    EContext tmpctx =
-ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
-    EDecimal ret = value.Log(tmpctx).Divide(baseValue.Log(tmpctx), ctx);
-    if (ret.IsInteger() && !ret.IsZero) {
-      flags |= EContext.FlagRounded | EContext.FlagInexact;
-      if (baseValue.Pow(ret).CompareToValue(value) == 0) {
-        EDecimal rtmp = ret.Quantize(EDecimal.FromInt32(1), ctx.WithNoFlags());
-        if (!rtmp.IsNaN()) {
-          flags &= ~(EContext.FlagRounded | EContext.FlagInexact);
-          ret = rtmp;
+      if (value.IsNaN()) {
+        return value.Plus(ctx);
+      }
+      if (baseValue.IsNaN()) {
+        return baseValue.Plus(ctx);
+      }
+      if (ctx == null || !ctx.HasMaxPrecision ||
+        (value.IsNegative && !value.IsZero) ||
+        (baseValue.IsNegative && !baseValue.IsZero)) {
+        return EDecimal.SignalingNaN.Plus(ctx);
+      }
+      if (ctx.Traps != 0) {
+        EContext tctx = ctx.GetTrappable();
+        EDecimal ret = value.LogN(baseValue, tctx);
+        return ctx.TriggerTraps(ret, tctx);
+      } else if (ctx.IsSimplified) {
+        EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
+        EDecimal ret = value.PreRound(ctx).LogN(baseValue.PreRound(ctx),
+  tmpctx);
+        if (ctx.HasFlags) {
+          int flags = ctx.Flags;
+          ctx.Flags = flags | tmpctx.Flags;
         }
+        // Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+        // [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
+        // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
+        return ret.RoundToPrecision(ctx);
+      } else {
+        if (value.IsZero) {
+          return baseValue.CompareTo(1) < 0 ? EDecimal.PositiveInfinity :
+            EDecimal.NegativeInfinity;
+          } else if (value.IsPositiveInfinity()) {
+          return baseValue.CompareTo(1) < 0 ? EDecimal.NegativeInfinity :
+            EDecimal.PositiveInfinity;
+        }
+        if (baseValue.CompareTo(10) == 0) {
+          EDecimal ev = value.Reduce(null);
+          if (ev.UnsignedMantissa.CompareTo(1) == 0) {
+            return EDecimal.FromEInteger(ev.Exponent).Plus(ctx);
+          }
+        } else if (value.CompareTo(1) == 0) {
+          return EDecimal.FromInt32(0).Plus(ctx);
+        } else if (value.CompareTo(baseValue) == 0) {
+          return EDecimal.FromInt32(1).Plus(ctx);
+        }
+        int flags = ctx.Flags;
+        EContext tmpctx =
+          ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
+        EDecimal ret = value.Log(tmpctx).Divide(baseValue.Log(tmpctx), ctx);
+        if (ret.IsInteger() && !ret.IsZero) {
+          flags |= EContext.FlagRounded | EContext.FlagInexact;
+          if (baseValue.Pow(ret).CompareToValue(value) == 0) {
+            EDecimal rtmp = ret.Quantize(EDecimal.FromInt32(1),
+  ctx.WithNoFlags());
+            if (!rtmp.IsNaN()) {
+              flags &= ~(EContext.FlagRounded | EContext.FlagInexact);
+              ret = rtmp;
+            }
+          }
+        } else {
+          flags |= tmpctx.Flags;
+        }
+        if (ctx.HasFlags) {
+          flags |= ctx.Flags;
+          ctx.Flags = flags;
+        }
+        return ret;
       }
-    } else {
-      flags |= tmpctx.Flags;
     }
-    if (ctx.HasFlags) {
-      flags |= ctx.Flags;
-      ctx.Flags = flags;
-    }
-    return ret;
-  }
-}
 
     /// <summary>Returns a number similar to this number but with the
     /// decimal point moved to the left.</summary>
@@ -5180,10 +5182,10 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
       return GetMathValue(ctx).RoundToPrecision(this, ctx);
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='ctx'>Not documented yet.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
+    /// <summary>Not documented yet.</summary>
+    /// <param name='ctx'>Not documented yet.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EDecimal PreRound(EContext ctx) {
       return NumberUtility.PreRound(this, ctx, GetMathValue(ctx));
     }
@@ -5724,32 +5726,33 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
         if (thisExponentSmall == exponentSmall) {
           return this;
         }
-        int thisMantissaSmall = this.unsignedMantissa.AsInt32();
         if (thisExponentSmall >= -100 && thisExponentSmall <= 100 &&
           exponentSmall >= -100 && exponentSmall <= 100) {
           if (rounding == ERounding.Down) {
             int diff = exponentSmall - thisExponentSmall;
             if (diff >= 1 && diff <= 9) {
+              int thisMantissaSmall = this.unsignedMantissa.AsInt32();
               thisMantissaSmall /= ValueTenPowers[diff];
               return new EDecimal(
                   FastIntegerFixed.FromInt32(thisMantissaSmall),
                   FastIntegerFixed.FromInt32(exponentSmall),
                   this.flags);
             }
-          } else if (rounding == ERounding.HalfEven &&
-            thisMantissaSmall != Int32.MaxValue) {
+          } else if (rounding == ERounding.HalfEven) {
             int diff = exponentSmall - thisExponentSmall;
-            if (diff >= 1 && diff <= 9) {
+            int thisMantissaSmall = this.unsignedMantissa.AsInt32();
+            if (diff >= 1 && diff <= 9 && thisMantissaSmall != Int32.MaxValue) {
               int pwr = ValueTenPowers[diff - 1];
               int div = thisMantissaSmall / pwr;
               int div2 = (div > 43698) ? (div / 10) : ((div * 26215) >> 18);
+              // var div2 = (int)(((long)div*3435973837L) >> 35); // Division by 10
               int rem = div - (div2 * 10);
               if (rem > 5) {
                 ++div2;
-              } else if (rem == 5 && (thisMantissaSmall - (div * pwr)) != 0) {
-                ++div2;
-              } else if (rem == 5 && (div2 & 1) == 1) {
-                ++div2;
+              } else if (rem == 5) {
+                if ((div2 & 1) == 1 || (thisMantissaSmall - (div * pwr)) != 0) {
+                  ++div2;
+                }
               }
               return new EDecimal(
                   FastIntegerFixed.FromInt32(div2),
@@ -5834,102 +5837,102 @@ ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
       }
     }
 
-private static EInteger PowerOfRadixBitsLowerBound(EInteger e) {
-  return e.Abs().Multiply(332).Divide(100).Add(1);
-}
-private static EInteger PowerOfRadixBitsUpperBound(EInteger e) {
-  return e.Abs().Multiply(333).Divide(100).Add(1);
-}
+    private static EInteger PowerOfRadixBitsLowerBound(EInteger e) {
+      return e.Abs().Multiply(332).Divide(100).Add(1);
+    }
+    private static EInteger PowerOfRadixBitsUpperBound(EInteger e) {
+      return e.Abs().Multiply(333).Divide(100).Add(1);
+    }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='maxBitLength'>Not documented yet.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  public EInteger ToSizedEInteger(int maxBitLength) {
-  return this.ToSizedEInteger(maxBitLength, false);
-}
+    /// <summary>Not documented yet.</summary>
+    /// <summary>Not documented yet.</summary>
+    /// <param name='maxBitLength'>Not documented yet.</param>
+    /// <returns>The return value is not documented yet.</returns>
+    public EInteger ToSizedEInteger(int maxBitLength) {
+      return this.ToSizedEInteger(maxBitLength, false);
+    }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='maxBitLength'>Not documented yet.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
-  return this.ToSizedEInteger(maxBitLength, true);
-}
+    /// <summary>Not documented yet.</summary>
+    /// <summary>Not documented yet.</summary>
+    /// <param name='maxBitLength'>Not documented yet.</param>
+    /// <returns>The return value is not documented yet.</returns>
+    public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
+      return this.ToSizedEInteger(maxBitLength, true);
+    }
 
-private EInteger ToSizedEInteger(int maxBitLength, bool exact) {
-   if (maxBitLength < 1) {
-     throw new ArgumentException("maxBitLength (" + maxBitLength +
-") is not greater or equal to 1");
-   }
-   if (!this.IsFinite || this.IsZero) {
-     return exact ? this.ToEIntegerIfExact() : this.ToEInteger();
-   }
-   EInteger mant = this.Mantissa;
-   EInteger exp = this.Exponent;
-   if (exp.Sign > 0) {
-     // x * 10^y
-     long imantbits = mant.GetSignedBitLengthAsInt64();
-     if (imantbits >= maxBitLength) {
-       throw new OverflowException("Value out of range");
-     }
-     if (exp.CompareTo(0x100000) < 0 && imantbits < 0x100000) {
-       // Lower bound of bit count in 10^exp based on ln(10^exp)/ln(2)
-       long expBitsLowerBound = (exp.ToInt64Checked() * 332 / 100) + 1;
-       if ((imantbits - 1) + expBitsLowerBound > maxBitLength) {
-         throw new OverflowException("Value out of range");
-       }
-     } else if (exp.CompareTo(maxBitLength) > 0) {
-      // Digits in exp is more than max bit length, so out of range
-      throw new OverflowException("Value out of range");
-    } else {
-       EInteger mantbits = mant.GetSignedBitLengthAsEInteger();
-       if (mantbits.Subtract(1).Add(PowerOfRadixBitsLowerBound(exp))
-           .CompareTo(maxBitLength) > 0) {
-         throw new OverflowException("Value out of range");
-       }
-     }
-     mant = exact ? this.ToEIntegerIfExact() : this.ToEInteger();
-   } else if (exp.Sign < 0) {
-     // x * 10^-y. Check for trivial overflow cases before
-     // running ToEInteger.
-     exp = exp.Abs();
-     long imantbits = mant.GetSignedBitLengthAsInt64();
-     if (exp.CompareTo(0x100000) < 0 && imantbits < 0x100000) {
-       long expBitsUpperBound = (exp.ToInt64Checked() * 333 / 100) + 1;
-       long expBitsLowerBound = (exp.ToInt64Checked() * 332 / 100) + 1;
-       if (imantbits - 1 - expBitsUpperBound > maxBitLength) {
-         throw new OverflowException("Value out of range");
-       }
-       if (imantbits + 1 < expBitsLowerBound) {
-         // Less than one, so not exact
-if (exact) {
-           throw new ArithmeticException("Not an exact integer");
-         } else {
- return EInteger.FromInt32(0);
-}
-       }
-     } else if (imantbits < 0x100000 && exp.CompareTo(0x400000) >= 0) {
-       // (mant / 10^exp) would be less than one, so not exact
-if (exact) {
-         throw new ArithmeticException("Not an exact integer");
-       } else {
- return EInteger.FromInt32(0);
-}
-     } else {
-       EInteger mantbits = mant.GetSignedBitLengthAsEInteger();
-       if (mantbits.Subtract(1).Subtract(PowerOfRadixBitsUpperBound(exp))
-           .CompareTo(maxBitLength) > 0) {
-         throw new OverflowException("Value out of range");
-       }
-     }
-     mant = exact ? this.ToEIntegerIfExact() : this.ToEInteger();
-   }
-   if (mant.GetSignedBitLengthAsEInteger().CompareTo(maxBitLength) > 0) {
-       throw new OverflowException("Value out of range");
-   }
-   return mant;
-}
+    private EInteger ToSizedEInteger(int maxBitLength, bool exact) {
+      if (maxBitLength < 1) {
+        throw new ArgumentException("maxBitLength (" + maxBitLength +
+          ") is not greater or equal to 1");
+      }
+      if (!this.IsFinite || this.IsZero) {
+        return exact ? this.ToEIntegerIfExact() : this.ToEInteger();
+      }
+      EInteger mant = this.Mantissa;
+      EInteger exp = this.Exponent;
+      if (exp.Sign > 0) {
+        // x * 10^y
+        long imantbits = mant.GetSignedBitLengthAsInt64();
+        if (imantbits >= maxBitLength) {
+          throw new OverflowException("Value out of range");
+        }
+        if (exp.CompareTo(0x100000) < 0 && imantbits < 0x100000) {
+          // Lower bound of bit count in 10^exp based on ln(10^exp)/ln(2)
+          long expBitsLowerBound = (exp.ToInt64Checked() * 332 / 100) + 1;
+          if ((imantbits - 1) + expBitsLowerBound > maxBitLength) {
+            throw new OverflowException("Value out of range");
+          }
+        } else if (exp.CompareTo(maxBitLength) > 0) {
+          // Digits in exp is more than max bit length, so out of range
+          throw new OverflowException("Value out of range");
+        } else {
+          EInteger mantbits = mant.GetSignedBitLengthAsEInteger();
+          if (mantbits.Subtract(1).Add(PowerOfRadixBitsLowerBound(exp))
+            .CompareTo(maxBitLength) > 0) {
+            throw new OverflowException("Value out of range");
+          }
+        }
+        mant = exact ? this.ToEIntegerIfExact() : this.ToEInteger();
+      } else if (exp.Sign < 0) {
+        // x * 10^-y. Check for trivial overflow cases before
+        // running ToEInteger.
+        exp = exp.Abs();
+        long imantbits = mant.GetSignedBitLengthAsInt64();
+        if (exp.CompareTo(0x100000) < 0 && imantbits < 0x100000) {
+          long expBitsUpperBound = (exp.ToInt64Checked() * 333 / 100) + 1;
+          long expBitsLowerBound = (exp.ToInt64Checked() * 332 / 100) + 1;
+          if (imantbits - 1 - expBitsUpperBound > maxBitLength) {
+            throw new OverflowException("Value out of range");
+          }
+          if (imantbits + 1 < expBitsLowerBound) {
+            // Less than one, so not exact
+            if (exact) {
+              throw new ArithmeticException("Not an exact integer");
+            } else {
+              return EInteger.FromInt32(0);
+            }
+          }
+        } else if (imantbits < 0x100000 && exp.CompareTo(0x400000) >= 0) {
+          // (mant / 10^exp) would be less than one, so not exact
+          if (exact) {
+            throw new ArithmeticException("Not an exact integer");
+          } else {
+            return EInteger.FromInt32(0);
+          }
+        } else {
+          EInteger mantbits = mant.GetSignedBitLengthAsEInteger();
+          if (mantbits.Subtract(1).Subtract(PowerOfRadixBitsUpperBound(exp))
+            .CompareTo(maxBitLength) > 0) {
+            throw new OverflowException("Value out of range");
+          }
+        }
+        mant = exact ? this.ToEIntegerIfExact() : this.ToEInteger();
+      }
+      if (mant.GetSignedBitLengthAsEInteger().CompareTo(maxBitLength) > 0) {
+        throw new OverflowException("Value out of range");
+      }
+      return mant;
+    }
 
     private static bool HasTerminatingBinaryExpansion(EInteger
       den) {
@@ -6038,7 +6041,7 @@ if (exact) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
         EInteger digitsLowerBound =
-DigitCountLowerBound(bigUnsignedMantissa.Abs());
+          DigitCountLowerBound(bigUnsignedMantissa.Abs());
         if (digitsLowerBound.CompareTo(800) > 0) {
           string estr = this.ToString();
           return EFloat.FromString(estr, ec);
@@ -6283,9 +6286,8 @@ DigitCountLowerBound(bigUnsignedMantissa.Abs());
         mantissaString = this.unsignedMantissa.ToString();
         return negative ? "-" + mantissaString : mantissaString;
       }
-      StringBuilder builder = null;
       if (mode == 0 && this.unsignedMantissa.CanFitInInt32() &&
-         this.exponent.CanFitInInt32()) {
+        this.exponent.CanFitInInt32()) {
         int intExp = this.exponent.AsInt32();
         int intMant = this.unsignedMantissa.AsInt32();
         if (intMant < 1000 && intExp == -2) {
@@ -6307,7 +6309,7 @@ DigitCountLowerBound(bigUnsignedMantissa.Abs());
           chars[i++] = (char)(0x30 + a);
           return new String(chars, 0, clength);
         } else if (intMant < 100 && intExp == -1) {
-          int a, b, c;
+          int a, b;
           var i = 0;
           a = intMant % 10;
           intMant /= 10;
@@ -6365,22 +6367,26 @@ DigitCountLowerBound(bigUnsignedMantissa.Abs());
                 return new String(chars, 0, clength);
               } else if (dp > 0 && dp <= ms) {
                 int clength = 1 + (negative ? 1 : 0) + ms;
-                builder = new StringBuilder(clength);
+                var chars = new char[clength];
+                var i = 0;
+                var j = 0;
                 if (negative) {
-                  builder.Append('-');
+                  chars[i++] = '-';
                 }
-                builder.Append(mantissaString, 0, dp);
-                builder.Append('.');
-                builder.Append(
-                  mantissaString,
-                  dp,
-                  mantissaString.Length - dp);
-                return builder.ToString();
+                for (j = 0; j < dp; ++j) {
+                  chars[i++] = mantissaString[j];
+                }
+                chars[i++] = '.';
+                for (j = dp; j < ms; ++j) {
+                  chars[i++] = mantissaString[j];
+                }
+                return new String(chars, 0, clength);
               }
             }
           }
         }
       }
+      StringBuilder builder = null;
       FastInteger adjustedExponent = FastInteger.FromBig(this.Exponent);
       var builderLength = new FastInteger(mantissaString.Length);
       FastInteger thisExponent = adjustedExponent.Copy();
@@ -6787,7 +6793,7 @@ DigitCountLowerBound(bigUnsignedMantissa.Abs());
       /// signed integer.</param>
       /// <returns>An arbitrary-precision decimal number.</returns>
       public EDecimal ValueOf(int val) {
-        return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
+        return (val == 0) ? Zero :((val == 1) ? One : FromInt64(val));
       }
     }
 

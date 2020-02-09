@@ -119,7 +119,7 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[public static readonly PeterO.Numbers.ERational Ten;](#Ten)</code> - The rational number ten.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
-* <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
+* <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Converts this number's value to an integer (using ToEInteger), and returns the least-significant bits of that integer's two's-complement form as a byte (from 0 to 255).
 * <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to a decimal under the Common Language Infrastructure (usually a.
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to a 64-bit floating-point number.
 * <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this rational number to an arbitrary-precision decimal number.
@@ -146,10 +146,13 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[ToInt64Checked()](#ToInt64Checked)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToInt64IfExact()](#ToInt64IfExact)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer without rounding to a different numerical value.
 * <code>[ToInt64Unchecked()](#ToInt64Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
+* <code>[ToLowestTerms()](#ToLowestTerms)</code> - Converts this value to its form in lowest terms.
 * <code>[ToSByteChecked()](#ToSByteChecked)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToSingle()](#ToSingle)</code> - Converts this value to a 32-bit binary floating-point number.
+* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Not documented yet.
+* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Not documented yet.
 * <code>[ToString()](#ToString)</code> - Converts this object to a text string.
 * <code>[ToUInt16Checked()](#ToUInt16Checked)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt16IfExact()](#ToUInt16IfExact)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
@@ -2304,7 +2307,7 @@ This value is infinity or not-a-number, is not an exact integer, or is less than
 
     public byte ToByteUnchecked();
 
-Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
+Converts this number's value to an integer (using ToEInteger), and returns the least-significant bits of that integer's two's-complement form as a byte (from 0 to 255).
 
 <b>Return Value:</b>
 
@@ -2695,6 +2698,22 @@ Converts this number's value to an integer by discarding its fractional part, an
 
 This number, converted to a 64-bit signed integer. Returns 0 if this value is infinity or not-a-number.
 
+<a id="ToLowestTerms"></a>
+### ToLowestTerms
+
+    public PeterO.Numbers.ERational ToLowestTerms();
+
+Converts this value to its form in lowest terms. For example, (8/4) becomes (4/1).
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational with the same value as this one but in lowest terms. Returns this object if it is infinity or NaN. Returns ERational.NegativeZero if this object is a negative zero. Returns ERational.Zero if this object is a positive zero.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN).
+
 <a id="ToSByteChecked"></a>
 ### ToSByteChecked
 
@@ -2754,6 +2773,42 @@ Converts this value to a 32-bit binary floating-point number. The half-even roun
 <b>Return Value:</b>
 
 The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<a id="ToSizedEInteger_int"></a>
+### ToSizedEInteger
+
+    public PeterO.Numbers.EInteger ToSizedEInteger(
+        int maxBitLength);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>maxBitLength</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
+<a id="ToSizedEIntegerIfExact_int"></a>
+### ToSizedEIntegerIfExact
+
+    public PeterO.Numbers.EInteger ToSizedEIntegerIfExact(
+        int maxBitLength);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>maxBitLength</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="ToString"></a>
 ### ToString

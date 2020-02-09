@@ -1086,15 +1086,32 @@ switch (this.integerMode) {
     }
 
     internal static string IntToString(int value) {
-      if (value == Int32.MinValue) {
-        return "-2147483648";
-      }
       if (value == 0) {
         return "0";
       }
+      if (value == Int32.MinValue) {
+        return "-2147483648";
+      }
+      char[] chars;
+      int count;
+      if ((value >> 15) == 0) {
+        chars = new char[5];
+        count = 4;
+        while (value > 9) {
+          int intdivvalue = (value * 26215) >> 18;
+          char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
+          chars[count--] = digit;
+          value = intdivvalue;
+        }
+        if (value != 0) {
+          chars[count--] = HexAlphabet[(int)value];
+        }
+        ++count;
+        return new String(chars, count, 5 - count);
+      }
       bool neg = value < 0;
-      var chars = new char[12];
-      var count = 11;
+      chars = new char[12];
+      count = 11;
       if (neg) {
         value = -value;
       }
