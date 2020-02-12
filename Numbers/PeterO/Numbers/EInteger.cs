@@ -2835,7 +2835,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
     /// <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java) if
     /// the number of decimal digits is 2^63 - 1 or greater. (Use
     /// <c>GetDigitCountAsEInteger</c> instead if the application relies on
-    /// the exact number of decimal digits.)</returns>
+    /// the exact number of decimal digits.).</returns>
     public long GetDigitCountAsInt64() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
       EInteger ei = this;
@@ -3101,7 +3101,7 @@ maxDigitEstimate : retval +
     /// if this number is other than zero but the lowest set bit is at 2^63
     /// - 1 or greater. (Use <c>GetLowBitAsEInteger</c> instead if the
     /// application relies on the exact value of the lowest set bit
-    /// position.)</returns>
+    /// position.).</returns>
     public long GetLowBitAsInt64() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
       long retSetBitLong = 0;
@@ -3262,7 +3262,7 @@ maxDigitEstimate : retval +
     /// 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in
     /// Java) if the number of bits is 2^63 - 1 or greater. (Use
     /// <c>GetUnsignedBitLengthAsEInteger</c> instead if the application
-    /// relies on the exact number of bits.)</returns>
+    /// relies on the exact number of bits.).</returns>
     public long GetSignedBitLengthAsInt64() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
       int wc = this.wordCount;
@@ -3392,7 +3392,7 @@ maxDigitEstimate : retval +
     /// is negative 1. Returns 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or
     /// <c>Long.MAX_VALUE</c> in Java) if the number of bits is 2^63 - 1 or
     /// greater. (Use <c>GetUnsignedBitLengthAsEInteger</c> instead if the
-    /// application relies on the exact number of bits.)</returns>
+    /// application relies on the exact number of bits.).</returns>
     public long GetUnsignedBitLengthAsInt64() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
       int wc = this.wordCount;

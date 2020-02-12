@@ -289,7 +289,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Pow(PeterO.Numbers.EDecimal)](#Pow_PeterO_Numbers_EDecimal)</code> - Raises this object's value to the given exponent, using unlimited precision.
 * <code>[Pow(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Pow_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Raises this object's value to the given exponent.
 * <code>[Precision()](#Precision)</code> - Finds the number of digits in this number's significand.
-* <code>[PreRound(PeterO.Numbers.EContext)](#PreRound_PeterO_Numbers_EContext)</code> - Not documented yet.
+* <code>[PreRound(PeterO.Numbers.EContext)](#PreRound_PeterO_Numbers_EContext)</code> -
 * <code>[Quantize(int, PeterO.Numbers.EContext)](#Quantize_int_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value but a new exponent.
 * <code>[Quantize(int, PeterO.Numbers.ERounding)](#Quantize_int_PeterO_Numbers_ERounding)</code> - Returns an arbitrary-precision decimal number with the same value as this one but a new exponent.
 * <code>[Quantize(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the same exponent as another decimal number.
@@ -352,8 +352,8 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number.
-* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Not documented yet.
-* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Not documented yet.
+* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> -
+* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> -
 * <code>[ToString()](#ToString)</code> - Converts this value to a string.
 * <code>[ToUInt16Checked()](#ToUInt16Checked)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt16IfExact()](#ToUInt16IfExact)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
@@ -3498,13 +3498,10 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EDecimal PreRound(
         PeterO.Numbers.EContext ctx);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>ctx</i>: Not documented yet.
+ * <i>ctx</i>: The parameter  <i>ctx</i>
+ is a Numbers.EContext object.
 
 <b>Return Value:</b>
 
@@ -4530,13 +4527,10 @@ The closest 32-bit binary floating-point number to this value. The return value 
     public PeterO.Numbers.EInteger ToSizedEInteger(
         int maxBitLength);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>maxBitLength</i>: Not documented yet.
+ * <i>maxBitLength</i>: The parameter  <i>maxBitLength</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -4548,13 +4542,10 @@ The return value is not documented yet.
     public PeterO.Numbers.EInteger ToSizedEIntegerIfExact(
         int maxBitLength);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>maxBitLength</i>: Not documented yet.
+ * <i>maxBitLength</i>: The parameter  <i>maxBitLength</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 

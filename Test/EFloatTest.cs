@@ -1294,7 +1294,7 @@ namespace Test {
           ",\ngot----- " + OutputDouble(input.ToDouble()) +
           "\nsrc-----=" + OutputEF(src) + "\nexpected=" +
           OutputEF(expected) + "\ninput---=" + OutputEF(input);
-        Assert.Fail(msg);
+        throw new InvalidOperationException(msg);
       }
       string str = input.ToString();
       double inputDouble = EFloat.FromString(str,
@@ -1306,7 +1306,7 @@ namespace Test {
           "\nsrc-----=" + OutputEF(src) + "\nstr------=" + str +
           "\nexpected=" + OutputEF(expected) + "\ninput---=" + OutputEF(
   input);
-        Assert.Fail(msg);
+        throw new InvalidOperationException(msg);
       }
     }
 
@@ -1334,7 +1334,7 @@ namespace Test {
           OutputSingle(input.ToSingle()) + "\nsrc-----=" + OutputEF(src) +
           "\nexpected=" + OutputEF(expected) + "\ninput---=" +
           OutputEF(input);
-        Assert.Fail(msg);
+        throw new InvalidOperationException(msg);
       }
       float inputSingle = EFloat.FromString(str, EContext.Binary32).ToSingle();
       if (inputSingle != expectedSingle) {
@@ -1343,7 +1343,7 @@ namespace Test {
           OutputSingle(inputSingle) + "\nsrc-----=" + OutputEF(src) +
           "\nexpected=" + OutputEF(expected) + "\ninput---=" +
           OutputEF(input);
-        Assert.Fail(msg);
+         throw new InvalidOperationException(msg);
       }
     }
 
@@ -1563,12 +1563,20 @@ namespace Test {
         throw new ArgumentNullException(nameof(efa));
       }
       EInteger emant = efa.Mantissa;
-      bool fullPrecision =
-         emant.GetUnsignedBitLengthAsEInteger().CompareTo(bitCount) == 0;
+      int mantBits = emant.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
+      bool fullPrecision = mantBits == bitCount;
       bool isSubnormal = EFloats.IsSubnormal(efa, dbl ? EContext.Binary64 :
           EContext.Binary32);
-      bool isEven = (!fullPrecision && !isSubnormal) ||
-          efa.UnsignedMantissa.IsEven;
+      bool isEven = efa.UnsignedMantissa.IsEven;
+      if (isSubnormal) {
+        int minExponent = dbl ? -1074 : -149;
+        EInteger eexp = efa.Exponent;
+        if (eexp.CompareTo(minExponent) > 0) {
+          isEven = true;
+        }
+      } else if (!fullPrecision) {
+        isEven = true;
+      }
       EFloat efprev = efa.NextMinus(dbl ? EContext.Binary64 :
           EContext.Binary32);
       EFloat efnext = efa.NextPlus(dbl ? EContext.Binary64 :
@@ -1584,6 +1592,7 @@ namespace Test {
       EFloat efnext1q = efa.Add(efnextgap.Multiply(quarter));
       EFloat efnext2q = efa.Add(efnextgap.Multiply(half));
       EFloat efnext3q = efa.Add(efnextgap.Multiply(threequarter));
+   try {
       if (dbl) {
         TestDoubleRounding(efprev, efprev, efa);
         TestDoubleRounding(efprev, efprev1q, efa);
@@ -1605,6 +1614,20 @@ namespace Test {
         TestSingleRounding(efnext, efnext3q, efa);
         TestSingleRounding(efnext, efnext, efa);
       }
+   } catch (Exception ex) {
+string msg="" + ("dbl_____="+dbl+", full="+
+fullPrecision+",sub="+isSubnormal) + "\n" +
+("efprev__="+OutputEF(efprev)) +"\n" +
+("efprev1q="+OutputEF(efprev1q)) +"\n" +
+("efprev2q="+OutputEF(efprev2q)) +"\n" +
+("efprev3q="+OutputEF(efprev3q)) +"\n" +
+("efa_____="+OutputEF(efa)) +"\n" +
+("efnext1q="+OutputEF(efnext1q)) +"\n" +
+("efnext2q="+OutputEF(efnext2q)) +"\n" +
+("efnext3q="+OutputEF(efnext3q)) +"\n" +
+("efnext__="+OutputEF(efnext));
+     throw new InvalidOperationException(ex.Message  + "\n" + msg, ex);
+   }
     }
 
     private static string EFToString(EFloat ef) {
@@ -2219,6 +2242,14 @@ eint.CompareTo(255) <= 0;
         EFloat objectTemp = EFloat.Create(
           EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
           EInteger.FromInt32(-1074));
+        TestToFloatRoundingOne(objectTemp, true);
+objectTemp = EFloat.Create(
+          EInteger.FromRadixString("1010011", 2),
+          EInteger.FromInt32(-1034));
+        TestToFloatRoundingOne(objectTemp, true);
+objectTemp = EFloat.Create(
+  EInteger.FromRadixString("100110100000000011000010111000111111101", 2),
+          EInteger.FromInt32(-1073));
         TestToFloatRoundingOne(objectTemp, true);
       }
     }

@@ -8,7 +8,7 @@ using PeterO.Numbers;
 namespace Test {
   public static class DecTestUtil {
     private static readonly Regex ValuePropertyLine = new Regex(
-      "^(\\w+)\\:\\s*(\\S+)",
+      "^(\\w+)\\:\\s*(\\S+).*",
       RegexOptions.Compiled);
 
     private static readonly Regex ValueQuotes = new Regex(
@@ -263,6 +263,13 @@ namespace Test {
       ParseDecTest(ln, context, true);
     }
 
+    private static string TrimQuotes(string str) {
+      return (str == null || str.Length == 0 || (
+         str[0]!='\'' && str[0]!='\"' && str[str.Length-1]!='\'' &&
+str[str.Length-1]!='\"')) ? (str) : (ValueQuotes.Replace(str,
+  String.Empty));
+    }
+
     public static void ParseDecTest(
       string ln,
       IDictionary<string, string> context,
@@ -271,6 +278,9 @@ namespace Test {
       if (ln == null) {
         throw new ArgumentNullException(nameof(ln));
       }
+      if (context == null) {
+        throw new ArgumentNullException(nameof(context));
+      }
       if (ln.Contains("-- ")) {
         ln = ln.Substring(0, ln.IndexOf("-- ", StringComparison.Ordinal));
       }
@@ -278,9 +288,6 @@ namespace Test {
       if (match != null && match.Success) {
         string paramName = ToLowerCaseAscii(
             match.Groups[1].ToString());
-        if (context == null) {
-          throw new ArgumentNullException(nameof(context));
-        }
         context[paramName] = match.Groups[2].ToString();
         return;
       }
@@ -300,10 +307,10 @@ namespace Test {
         input3 = input3 ?? String.Empty;
         output = output ?? String.Empty;
         flags = flags ?? String.Empty;
-        input1 = ValueQuotes.Replace(input1, String.Empty);
-        input2 = ValueQuotes.Replace(input2, String.Empty);
-        input3 = ValueQuotes.Replace(input3, String.Empty);
-        output = ValueQuotes.Replace(output, String.Empty);
+        input1 = TrimQuotes(input1);
+        input2 = TrimQuotes(input2);
+        input3 = TrimQuotes(input3);
+        output = TrimQuotes(output);
         if (context == null) {
           throw new ArgumentNullException(nameof(context));
         }

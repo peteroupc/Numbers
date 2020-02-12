@@ -1823,14 +1823,13 @@ namespace PeterO.Numbers {
       return Create(num.Divide(gcd), den.Divide(gcd));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <summary>Not documented yet.</summary>
+    /// <param name='maxBitLength'>The parameter <paramref
+    /// name='maxBitLength'/> is a 32-bit signed integer.</param>
     /// <returns>The return value is not documented yet.</returns>
-    /// <param name='maxBitLength'>Not documented yet.</param>
     public EInteger ToSizedEInteger(int maxBitLength) {
-      if (maxBitLength < 1) {
+      if (maxBitLength < 0) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
-          "\u0020not greater or equal to 1");
+          "\u0020not greater or equal to 0");
       }
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
@@ -1853,14 +1852,13 @@ namespace PeterO.Numbers {
       return unum;
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <summary>Not documented yet.</summary>
+    /// <param name='maxBitLength'>The parameter <paramref
+    /// name='maxBitLength'/> is a 32-bit signed integer.</param>
     /// <returns>The return value is not documented yet.</returns>
-    /// <param name='maxBitLength'>Not documented yet.</param>
     public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
-      if (maxBitLength < 1) {
+      if (maxBitLength < 0) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
-          "\u0020not greater or equal to 1");
+          "\u0020not greater or equal to 0");
       }
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");

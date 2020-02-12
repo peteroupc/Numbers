@@ -309,6 +309,11 @@
             settings.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EContext.GetTrappable">
+
+            <returns>The return value is not documented yet.</returns>
+
+</doc>
 <doc name="P:PeterO.Numbers.EContext.HasExponentRange">
 
             <summary>Gets a value indicating whether this context defines a
@@ -1217,12 +1222,14 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(System.Int64,System.Int32)">
-<summary>Creates a number with the value
+
+            <summary>Creates a number with the value
             <c>exponent*10^significand</c>.</summary>
             <param name='mantissaLong'>Desired value for the
             significand.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision decimal number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Create(System.Int64,System.Int64)">
 
@@ -2182,13 +2189,21 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.LogN(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
-<summary>Finds the base-N logarithm of this object, that is, the
+
+            <summary>Finds the base-N logarithm of this object, that is, the
             power (exponent) that the number N must be raised to in order to
-            equal this object's value.</summary><param name='baseValue'>The parameter <paramref name='baseValue'/> is a Numbers.EDecimal object.</param><param name='ctx'>The parameter <paramref name='ctx'/> is a Numbers.EContext object.</param><returns>Ln(this object)/Ln(baseValue). Signals the flag
+            equal this object's value.</summary>
+            <param name='baseValue'>The parameter <paramref name='baseValue'/>
+            is a Numbers.EDecimal object.</param>
+            <param name='ctx'>The parameter <paramref name='ctx'/> is a
+            Numbers.EContext object.</param>
+            <returns>Ln(this object)/Ln(baseValue). Signals the flag
             FlagInvalid and returns not-a-number (NaN) if this object is less
             than 0. Signals FlagInvalid and returns not-a-number (NaN) if the
             parameter <paramref name='ctx'/> is null or the precision is
-            unlimited (the context's Precision property is 0).</returns><exception cref='ArgumentNullException'>The parameter <paramref name='baseValue'/> is null.</exception>
+            unlimited (the context's Precision property is 0).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='baseValue'/> is null.</exception>
+
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.Mantissa">
 
@@ -2721,6 +2736,13 @@
             <returns>This^exponent. Signals the flag FlagInvalid and returns
             NaN if this object and exponent are both 0.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.PreRound(PeterO.Numbers.EContext)">
+<summary>Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation in accordance with the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.</summary>
+<param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            Can be null, in which case the precision is unlimited.  Signals the flag LostDigits if the input number has greater precision than allowed and was rounded to a different numerical value in order to fit the precision.</param><returns>This object rounded to the given precision.  Returns this object and signals no flags if "ctx" is null or specifies an unlimited precision, if this object is infinity or not-a-number (including signaling NaN), or if the number's value has no more significant digits than the maximum precision given in "ctx".</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Precision">
 
@@ -3561,7 +3583,12 @@
 
             <summary>Converts this value to an arbitrary-precision integer. Any
             fractional part in this value will be discarded when converting to
-            an arbitrary-precision integer.</summary>
+            an arbitrary-precision integer. Note that depending on the value,
+            especially the exponent, generating the arbitrary-precision integer
+            may require a huge amount of memory. Use the ToSizedEInteger method
+            to convert a number to an EInteger only if the integer fits in a
+            bounded bit range; that method will throw an exception on
+            overflow.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
@@ -3572,21 +3599,33 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToEIntegerExact">
 
             <summary>Converts this value to an arbitrary-precision integer,
-            checking whether the fractional part of the value would be
-            lost.</summary>
+            checking whether the fractional part of the value would be lost.
+            Note that depending on the value, especially the exponent,
+            generating the arbitrary-precision integer may require a huge
+            amount of memory. Use the ToSizedEIntegerIfExact method to convert
+            a number to an EInteger only if the integer fits in a bounded bit
+            range; that method will throw an exception on overflow.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
+            <exception cref='ArithmeticException'>This object's value is not an
+            exact integer.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEIntegerIfExact">
 
             <summary>Converts this value to an arbitrary-precision integer,
-            checking whether the fractional part of the value would be
-            lost.</summary>
+            checking whether the fractional part of the value would be lost.
+            Note that depending on the value, especially the exponent,
+            generating the arbitrary-precision integer may require a huge
+            amount of memory. Use the ToSizedEIntegerIfExact method to convert
+            a number to an EInteger only if the integer fits in a bounded bit
+            range; that method will throw an exception on overflow.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
+            <exception cref='ArithmeticException'>This object's value is not an
+            exact integer.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEngineeringString">
@@ -3765,6 +3804,22 @@
             infinity if this value exceeds the range of a 32-bit floating point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToSizedEInteger(System.Int32)">
+<summary>Converts this value to an arbitrary-precision integer by discarding its fractional part and checking whether the resulting integer overflows the given signed bit count.  </summary>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='OverflowException'>This object's value is infinity
+            or not-a-number (NaN), or this number's value, once converted to an integer by discarding its fractional part, is less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
+<param name='maxBitLength'>The maximum number of signed bits the integer can have.  The integer's value may not be less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToSizedEIntegerIfExact(System.Int32)">
+<summary>Converts this value to an arbitrary-precision integer, only if this number's value is an exact integer and that integer does not overflow the given signed bit count.</summary>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='OverflowException'>This object's value is infinity
+            or not-a-number (NaN), or this number's value, once converted to an integer by discarding its fractional part, is less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
+            <exception cref='ArithmeticException'>This object's value is not an
+            exact integer.</exception>
+<param name='maxBitLength'>The maximum number of signed bits the integer can have.  The integer's value may not be less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToString">
 
@@ -5444,13 +5499,15 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int64,System.Int32)">
-<summary>Returns a number with the value
+
+            <summary>Returns a number with the value
             exponent*2^significand.</summary>
             <param name='mantissaLong'>Desired value for the
             significand.</param>
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int64,System.Int64)">
 
@@ -6113,9 +6170,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.IsInteger">
-<summary>Returns whether this object's value is an
+
+            <summary>Returns whether this object's value is an
             integer.</summary>
             <returns><c>true</c> if this object's value is an integer; otherwise, <c>false</c>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.IsNaN">
 
@@ -6211,13 +6270,21 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.LogN(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
-<summary>Finds the base-N logarithm of this object, that is, the
+
+            <summary>Finds the base-N logarithm of this object, that is, the
             power (exponent) that the number N must be raised to in order to
-            equal this object's value.</summary><param name='baseValue'>The parameter <paramref name='baseValue'/> is a Numbers.EFloat object.</param><param name='ctx'>The parameter <paramref name='ctx'/> is a Numbers.EContext object.</param><returns>Ln(this object)/Ln(baseValue). Signals the flag
+            equal this object's value.</summary>
+            <param name='baseValue'>The parameter <paramref name='baseValue'/>
+            is a Numbers.EFloat object.</param>
+            <param name='ctx'>The parameter <paramref name='ctx'/> is a
+            Numbers.EContext object.</param>
+            <returns>Ln(this object)/Ln(baseValue). Signals the flag
             FlagInvalid and returns not-a-number (NaN) if this object is less
             than 0. Signals FlagInvalid and returns not-a-number (NaN) if the
             parameter <paramref name='ctx'/> is null or the precision is
-            unlimited (the context's Precision property is 0).</returns><exception cref='ArgumentNullException'>The parameter <paramref name='baseValue'/> is null.</exception>
+            unlimited (the context's Precision property is 0).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='baseValue'/> is null.</exception>
+
 </doc>
 <doc name="P:PeterO.Numbers.EFloat.Mantissa">
 
@@ -6757,6 +6824,13 @@
             <returns>This^exponent. Signals the flag FlagInvalid and returns
             NaN if this object and exponent are both 0.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.PreRound(PeterO.Numbers.EContext)">
+<summary>Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation in accordance with the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.</summary>
+<param name='ctx'>An arithmetic context to control the precision, rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            Can be null, in which case the precision is unlimited.  Signals the flag LostDigits if the input number has greater precision than allowed and was rounded to a different numerical value in order to fit the precision.</param><returns>This object rounded to the given precision.  Returns this object and signals no flags if "ctx" is null or specifies an unlimited precision, if this object is infinity or not-a-number (including signaling NaN), or if the number's value has no more significant digits than the maximum precision given in "ctx".</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Precision">
 
@@ -7451,7 +7525,12 @@
 
             <summary>Converts this value to an arbitrary-precision integer. Any
             fractional part of this value will be discarded when converting to
-            an arbitrary-precision integer.</summary>
+            an arbitrary-precision integer. Note that depending on the value,
+            especially the exponent, generating the arbitrary-precision integer
+            may require a huge amount of memory. Use the ToSizedEInteger method
+            to convert a number to an EInteger only if the integer fits in a
+            bounded bit range; that method will throw an exception on
+            overflow.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
@@ -7460,19 +7539,33 @@
 <doc name="M:PeterO.Numbers.EFloat.ToEIntegerExact">
 
             <summary>Converts this value to an arbitrary-precision integer,
-            checking whether the value contains a fractional part.</summary>
+            checking whether the value contains a fractional part. Note that
+            depending on the value, especially the exponent, generating the
+            arbitrary-precision integer may require a huge amount of memory.
+            Use the ToSizedEIntegerIfExact method to convert a number to an
+            EInteger only if the integer fits in a bounded bit range; that
+            method will throw an exception on overflow.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
+            <exception cref='ArithmeticException'>This object's value is not an
+            exact integer.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToEIntegerIfExact">
 
             <summary>Converts this value to an arbitrary-precision integer,
-            checking whether the value contains a fractional part.</summary>
+            checking whether the value contains a fractional part. Note that
+            depending on the value, especially the exponent, generating the
+            arbitrary-precision integer may require a huge amount of memory.
+            Use the ToSizedEIntegerIfExact method to convert a number to an
+            EInteger only if the integer fits in a bounded bit range; that
+            method will throw an exception on overflow.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
+            <exception cref='ArithmeticException'>This object's value is not an
+            exact integer.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToEngineeringString">
@@ -7679,6 +7772,22 @@
             infinity if this value exceeds the range of a 32-bit floating point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToSizedEInteger(System.Int32)">
+<summary>Converts this value to an arbitrary-precision integer by discarding its fractional part and checking whether the resulting integer overflows the given signed bit count.  </summary>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='OverflowException'>This object's value is infinity
+            or not-a-number (NaN), or this number's value, once converted to an integer by discarding its fractional part, is less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
+<param name='maxBitLength'>The maximum number of signed bits the integer can have.  The integer's value may not be less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToSizedEIntegerIfExact(System.Int32)">
+<summary>Converts this value to an arbitrary-precision integer, only if this number's value is an exact integer and that integer does not overflow the given signed bit count.</summary>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='OverflowException'>This object's value is infinity
+            or not-a-number (NaN), or this number's value, once converted to an integer by discarding its fractional part, is less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
+            <exception cref='ArithmeticException'>This object's value is not an
+            exact integer.</exception>
+<param name='maxBitLength'>The maximum number of signed bits the integer can have.  The integer's value may not be less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToString">
 
@@ -8380,7 +8489,7 @@
             <param name='ed'>An arbitrary-precision number object with the
             value the result will have.</param>
             <param name='other'>The parameter <paramref name='other'/> is an
-            arbitrary-precision decimal floating-point number.</param>
+            arbitrary-precision binary floating-point number.</param>
             <returns>An arbitrary-precision number object with the same value
             as the first given number object but with a the same sign (positive
             or negative) as the second given number object.</returns>
@@ -8426,8 +8535,8 @@
 <doc name="M:PeterO.Numbers.EFloats.IsCanonical(PeterO.Numbers.EFloat)">
 
             <summary>Returns whether the given arbitrary-precision number
-            object is in a canonical form. For the current version of EDecimal,
-            all EDecimal objects are in a canonical form.</summary>
+            object is in a canonical form. For the current version of EFloat,
+            all EFloat objects are in a canonical form.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>Always <c>true</c>.</returns>
 
@@ -8573,9 +8682,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.NumberClass(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Finds the number class for an arbitrary-precision decimal
+            <summary>Finds the number class for an arbitrary-precision binary
             number object.</summary>
-            <param name='ed'>An arbitrary-precision decimal number
+            <param name='ed'>An arbitrary-precision binary number
             object.</param>
             <param name='ec'>A context object that specifies the precision and
             exponent range of arbitrary-precision numbers. This is used only to
@@ -8753,7 +8862,7 @@
             by the given number of bits.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. Can be null.</param>
-            <returns>An arbitrary-precision decimal number whose significand is
+            <returns>An arbitrary-precision binary number whose significand is
             shifted the given number of bits. Signals an invalid operation and
             returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
             NaN or if <paramref name='ed2'/> is not an integer, is negative,
@@ -9308,6 +9417,18 @@
             Returns 1 if this number is 0.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.GetDigitCountAsInt64">
+
+            <summary>Returns the number of decimal digits used by this integer,
+            in the form of a 64-bit signed integer.</summary>
+            <returns>The number of digits in the decimal form of this integer.
+            Returns 1 if this number is 0. Returns 2^63 - 1(
+            <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java) if
+            the number of decimal digits is 2^63 - 1 or greater. (Use
+            <c>GetDigitCountAsEInteger</c> instead if the application relies on
+            the exact number of decimal digits.).</returns>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.GetHashCode">
 
             <summary>Returns the hash code for this instance. No application or
@@ -9317,24 +9438,42 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetLowBit">
 
-            <summary>Gets the lowest set bit in this number's absolute value.
-            (This will also be the lowest set bit in the number's
-            two's-complement form (see
+            <summary>Gets the bit position of the lowest set bit in this
+            number's absolute value. (This will also be the position of the
+            lowest set bit in the number's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
             ).).</summary>
-            <returns>The lowest bit set in the number, starting at 0. Returns
-            -1 if this value is 0.</returns>
+            <returns>The bit position of the lowest bit set in the number,
+            starting at 0. Returns -1 if this value is 0.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetLowBitAsEInteger">
 
-            <summary>Gets the lowest set bit in this number's absolute value,
-            in the form of an arbitrary-precision integer. (This will also be
-            the lowest set bit in the number's two's-complement form (see
+            <summary>Gets the bit position of the lowest set bit in this
+            number's absolute value, in the form of an arbitrary-precision
+            integer. (This will also be the position of the lowest set bit in
+            the number's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
             ).).</summary>
-            <returns>The lowest bit set in the number, starting at 0. Returns
-            -1 if this value is 0 or odd.</returns>
+            <returns>The bit position of the lowest bit set in the number,
+            starting at 0. Returns -1 if this value is 0 or odd.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetLowBitAsInt64">
+
+            <summary>Gets the bit position of the lowest set bit in this
+            number's absolute value, in the form of a 64-bit signed integer.
+            (This will also be the position of the lowest set bit in the
+            number's two's-complement form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
+            ).).</summary>
+            <returns>The bit position of the lowest bit set in the number,
+            starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 -
+            1 ( <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java)
+            if this number is other than zero but the lowest set bit is at 2^63
+            - 1 or greater. (Use <c>GetLowBitAsEInteger</c> instead if the
+            application relies on the exact value of the lowest set bit
+            position.).</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetSignedBit(PeterO.Numbers.EInteger)">
@@ -9378,8 +9517,9 @@
             in Java's and.NET's <c>long</c> type, have a signed bit length of
             63 or less, and all other integers have a signed bit length of
             greater than 63.</summary>
-            <returns>The number of bits in this object's value. Returns 0 if
-            this object's value is 0 or negative 1.</returns>
+            <returns>The number of bits in this object's value, except for its
+            sign. Returns 0 if this object's value is 0 or negative
+            1.</returns>
             <exception cref='OverflowException'>The return value would exceed
             the range of a 32-bit signed integer.</exception>
 
@@ -9395,8 +9535,27 @@
             and.NET's <c>long</c> type, have a signed bit length of 63 or less,
             and all other integers have a signed bit length of greater than
             63.</summary>
-            <returns>The number of bits in this object's value. Returns 0 if
-            this object's value is 0 or negative 1.</returns>
+            <returns>The number of bits in this object's value, except for its
+            sign. Returns 0 if this object's value is 0 or negative
+            1.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetSignedBitLengthAsInt64">
+
+            <summary>Finds the minimum number of bits needed to represent this
+            object's value, except for its sign, in the form of a 64-bit signed
+            integer. If the value is negative, finds the number of bits in the
+            value equal to this object's absolute value minus 1. For example,
+            all integers in the interval [-(2^63), (2^63) - 1], which is the
+            same as the range of integers in Java's and.NET's <c>long</c> type,
+            have a signed bit length of 63 or less, and all other integers have
+            a signed bit length of greater than 63.</summary>
+            <returns>The number of bits in this object's value, except for its
+            sign. Returns 0 if this object's value is 0 or negative 1. Returns
+            2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in
+            Java) if the number of bits is 2^63 - 1 or greater. (Use
+            <c>GetUnsignedBitLengthAsEInteger</c> instead if the application
+            relies on the exact number of bits.).</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetUnsignedBit(PeterO.Numbers.EInteger)">
@@ -9430,9 +9589,9 @@
             less, and all other integers have an unsigned bit length of greater
             than 63. This interval is not the same as the range of integers in
             Java's and.NET's <c>long</c> type.</summary>
-            <returns>The number of bits in this object's value. Returns 0 if
-            this object's value is 0, and returns 1 if the value is negative
-            1.</returns>
+            <returns>The number of bits in this object's absolute value.
+            Returns 0 if this object's value is 0, and returns 1 if the value
+            is negative 1.</returns>
             <exception cref='OverflowException'>The return value would exceed
             the range of a 32-bit signed integer.</exception>
 
@@ -9440,14 +9599,32 @@
 <doc name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger">
 
             <summary>Finds the minimum number of bits needed to represent this
-            number's absolute value. For example, all integers in the interval
-            [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or
-            less, and all other integers have an unsigned bit length of greater
-            than 63. This interval is not the same as the range of integers in
-            Java's and.NET's <c>long</c> type.</summary>
-            <returns>The number of bits in this object's value. Returns 0 if
-            this object's value is 0, and returns 1 if the value is negative
-            1.</returns>
+            number's absolute value, in the form of an arbitrary-precision
+            integer. For example, all integers in the interval [-((2^63) - 1),
+            (2^63) - 1] have an unsigned bit length of 63 or less, and all
+            other integers have an unsigned bit length of greater than 63. This
+            interval is not the same as the range of integers in Java's
+            and.NET's <c>long</c> type.</summary>
+            <returns>The number of bits in this object's absolute value.
+            Returns 0 if this object's value is 0, and returns 1 if the value
+            is negative 1.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsInt64">
+
+            <summary>Finds the minimum number of bits needed to represent this
+            number's absolute value, in the form of a 64-bit signed integer.
+            For example, all integers in the interval [-((2^63) - 1), (2^63) -
+            1] have an unsigned bit length of 63 or less, and all other
+            integers have an unsigned bit length of greater than 63. This
+            interval is not the same as the range of integers in Java's
+            and.NET's <c>long</c> type.</summary>
+            <returns>The number of bits in this object's absolute value.
+            Returns 0 if this object's value is 0, and returns 1 if the value
+            is negative 1. Returns 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or
+            <c>Long.MAX_VALUE</c> in Java) if the number of bits is 2^63 - 1 or
+            greater. (Use <c>GetUnsignedBitLengthAsEInteger</c> instead if the
+            application relies on the exact number of bits.).</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
@@ -11062,9 +11239,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.IsInteger">
-<summary>Returns whether this object's value is an
+
+            <summary>Returns whether this object's value is an
             integer.</summary>
             <returns><c>true</c> if this object's value is an integer; otherwise, <c>false</c>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.IsNaN">
 
@@ -11317,9 +11496,10 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToByteUnchecked">
 
-            <summary>Converts this number's value to an integer by discarding
-            its fractional part, and returns the least-significant bits of its
-            two's-complement form as a byte (from 0 to 255).</summary>
+            <summary>Converts this number's value to an integer (using
+            ToEInteger), and returns the least-significant bits of that
+            integer's two's-complement form as a byte (from 0 to
+            255).</summary>
             <returns>This number, converted to a byte (from 0 to 255). Returns
             0 if this value is infinity or not-a-number.</returns>
 
@@ -11652,6 +11832,19 @@
             0 if this value is infinity or not-a-number.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.ToLowestTerms">
+
+            <summary>Converts this value to its form in lowest terms. For
+            example, (8/4) becomes (4/1).</summary>
+            <returns>An arbitrary-precision rational with the same value as
+            this one but in lowest terms. Returns this object if it is infinity
+            or NaN. Returns ERational.NegativeZero if this object is a negative
+            zero. Returns ERational.Zero if this object is a positive
+            zero.</returns>
+            <exception cref='OverflowException'>This object's value is infinity
+            or not-a-number (NaN).</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.ERational.ToSByteChecked">
 
             <summary>Converts this number's value to an 8-bit signed integer if
@@ -11693,6 +11886,18 @@
             value. The return value can be positive infinity or negative
             infinity if this value exceeds the range of a 32-bit floating point
             number.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToSizedEInteger(System.Int32)">
+
+            <param name='maxBitLength'>The parameter <paramref name='maxBitLength'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToSizedEIntegerIfExact(System.Int32)">
+
+            <param name='maxBitLength'>The parameter <paramref name='maxBitLength'/> is a 32-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToString">

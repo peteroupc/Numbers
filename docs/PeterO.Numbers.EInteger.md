@@ -999,7 +999,7 @@ Returns the number of decimal digits used by this integer, in the form of a 64-b
 
 <b>Return Value:</b>
 
-The number of digits in the decimal form of this integer. Returns 1 if this number is 0. Returns 2^63 - 1(  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of decimal digits is 2^63 - 1 or greater. (Use  `GetDigitCountAsEInteger`  instead if the application relies on the exact number of decimal digits.)
+The number of digits in the decimal form of this integer. Returns 1 if this number is 0. Returns 2^63 - 1(  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of decimal digits is 2^63 - 1 or greater. (Use  `GetDigitCountAsEInteger`  instead if the application relies on the exact number of decimal digits.).
 
 <a id="GetHashCode"></a>
 ### GetHashCode
@@ -1045,7 +1045,7 @@ Gets the bit position of the lowest set bit in this number's absolute value, in 
 
 <b>Return Value:</b>
 
-The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if this number is other than zero but the lowest set bit is at 2^63 - 1 or greater. (Use  `GetLowBitAsEInteger`  instead if the application relies on the exact value of the lowest set bit position.)
+The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if this number is other than zero but the lowest set bit is at 2^63 - 1 or greater. (Use  `GetLowBitAsEInteger`  instead if the application relies on the exact value of the lowest set bit position.).
 
 <a id="GetSignedBit_int"></a>
 ### GetSignedBit
@@ -1123,7 +1123,7 @@ Finds the minimum number of bits needed to represent this object's value, except
 
 <b>Return Value:</b>
 
-The number of bits in this object's value, except for its sign. Returns 0 if this object's value is 0 or negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.)
+The number of bits in this object's value, except for its sign. Returns 0 if this object's value is 0 or negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.).
 
 <a id="GetUnsignedBit_int"></a>
 ### GetUnsignedBit
@@ -1201,7 +1201,7 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 
 <b>Return Value:</b>
 
-The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.)
+The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.).
 
 <a id="Increment"></a>
 ### Increment

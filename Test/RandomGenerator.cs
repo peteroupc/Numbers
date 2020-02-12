@@ -158,7 +158,7 @@ namespace PeterO {
         u = 1.0 - this.Uniform();
         x2 = x * x;
       } while (u >= 1 - (0.0331 * x2 * x2) &&
-        Math.Log(u) >= (0.5 * x2) +(d *(1 - v + Math.Log(v))));
+        Math.Log(u) >= (0.5 * x2) + (d * (1 - v + Math.Log(v))));
       if (a < 1) {
         return d * v * Math.Exp(this.Exponential() / -a);
       } else {
@@ -418,7 +418,7 @@ namespace PeterO {
         if (diff <= Int32.MaxValue) {
           return minInclusive + this.UniformInt((int)diff);
         } else {
-          return(int)(minInclusive + this.UniformLong(diff));
+          return (int)(minInclusive + this.UniformLong(diff));
         }
       }
     }

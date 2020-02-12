@@ -1153,13 +1153,14 @@ namespace PeterO.Numbers {
           ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
             .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
           T quarter = this.Divide(one, this.helper.ValueOf(4), ctxCopy);
-          if (this.CompareTo(thisValue, quarter) <= 0) {
-            // One quarter or less
-            T half = this.Multiply(quarter, this.helper.ValueOf(2), null);
+          T threeQuarters = this.Multiply(quarter, this.helper.ValueOf(3),
+  null);
+          if (this.CompareTo(thisValue, threeQuarters) <= 0) {
+            // Three quarters or less
             var roots = new FastInteger(0);
             // Take square root until this value
-            // is one half or more
-            while (this.CompareTo(thisValue, half) < 0) {
+            // is 3/4 or more
+            while (this.CompareTo(thisValue, threeQuarters) < 0) {
               thisValue = this.SquareRoot(
                   thisValue,
                   ctxdiv.WithUnlimitedExponents());
@@ -1295,10 +1296,10 @@ namespace PeterO.Numbers {
               thisValue = this.Divide(one, thisValue, ctxdiv);
               // DebugUtility.Log("LnInternal B " +(thisValue as
               // EDecimal)?.ToDouble());
-              thisValue = this.LnInternal(
-                  thisValue,
-                  ctxdiv.Precision,
-                  ctxCopy);
+              // thisValue = this.LnInternal(
+                // thisValue, // ctxdiv.getPrecision()
+                // ,  ctxCopy);
+              thisValue = this.Ln(thisValue, ctxCopy);
               thisValue = this.NegateRaw(thisValue);
             }
           }

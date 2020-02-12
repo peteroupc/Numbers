@@ -3301,10 +3301,27 @@ TrappableRadixMath<EFloat>(
       return MathValue.RoundToPrecision(this, ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <summary>Not documented yet.</summary>
-    /// <param name='ctx'>Not documented yet.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Returns a number in which the value of this object is
+    /// rounded to fit the maximum precision allowed if it has more
+    /// significant digits than the maximum precision. The maximum
+    /// precision allowed is given in an arithmetic context. This method is
+    /// designed for preparing operands to a custom arithmetic operation in
+    /// accordance with the "simplified" arithmetic given in Appendix A of
+    /// the General Decimal Arithmetic Specification.</summary>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If <c>HasFlags</c> of
+    /// the context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Signals the
+    /// flag LostDigits if the input number has greater precision than
+    /// allowed and was rounded to a different numerical value in order to
+    /// fit the precision.</param>
+    /// <returns>This object rounded to the given precision. Returns this
+    /// object and signals no flags if "ctx" is null or specifies an
+    /// unlimited precision, if this object is infinity or not-a-number
+    /// (including signaling NaN), or if the number's value has no more
+    /// significant digits than the maximum precision given in
+    /// "ctx".</returns>
     public EFloat PreRound(EContext ctx) {
       return NumberUtility.PreRound(this, ctx, MathValue);
     }
@@ -3921,26 +3938,42 @@ TrappableRadixMath<EFloat>(
       return e.Abs().Add(1);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <summary>Not documented yet.</summary>
-    /// <param name='maxBitLength'>Not documented yet.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Converts this value to an arbitrary-precision integer by
+    /// discarding its fractional part and checking whether the resulting
+    /// integer overflows the given signed bit count.</summary>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN), or this number's value, once converted to an
+    /// integer by discarding its fractional part, is less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
+    /// integer can have. The integer's value may not be less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     public EInteger ToSizedEInteger(int maxBitLength) {
       return this.ToSizedEInteger(maxBitLength, false);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <summary>Not documented yet.</summary>
-    /// <param name='maxBitLength'>Not documented yet.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Converts this value to an arbitrary-precision integer,
+    /// only if this number's value is an exact integer and that integer
+    /// does not overflow the given signed bit count.</summary>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN), or this number's value, once converted to an
+    /// integer by discarding its fractional part, is less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
+    /// <exception cref='ArithmeticException'>This object's value is not an
+    /// exact integer.</exception>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
+    /// integer can have. The integer's value may not be less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
       return this.ToSizedEInteger(maxBitLength, true);
     }
 
     private EInteger ToSizedEInteger(int maxBitLength, bool exact) {
-      if (maxBitLength < 1) {
+      if (maxBitLength < 0) {
         throw new ArgumentException("maxBitLength (" + maxBitLength +
-          ") is not greater or equal to 1");
+          ") is not greater or equal to 0");
       }
       if (!this.IsFinite || this.IsZero) {
         return exact ? this.ToEIntegerIfExact() : this.ToEInteger();
