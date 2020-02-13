@@ -193,11 +193,13 @@ namespace Test {
           .Add(EDecimal.FromEInteger(bigintB));
         EDecimal ba2 = EDecimal.FromEInteger(bigintC);
         Assert.AreEqual(ba1.Sign, ba2.Sign);
-        Assert.AreEqual(ba1.ToString(), ba2.ToString());
-        TestCommon.CompareTestEqual(
-          ba1,
-          ba2,
-          bigintA.ToString() + "/" + bigintB.ToString());
+        if (!ba1.Equals(ba2)) {
+          Assert.AreEqual(ba1.ToString(), ba2.ToString());
+          TestCommon.CompareTestEqual(
+            ba1,
+            ba2,
+            bigintA.ToString() + "/" + bigintB.ToString());
+        }
       }
       TestCommon.CompareTestEqual(
         EDecimal.FromString("-1.603074425947290000E+2147483671"),
@@ -3590,19 +3592,8 @@ namespace Test {
       Assert.IsTrue(dbl == 0.0);
       for (var i = 0; i < 100000; ++i) {
         EDecimal edec;
-        string edecstr;
-        if (fr.UniformInt(100) < 10) {
-          string decimals = RandomObjects.RandomBigIntString(fr);
-          if (decimals[0] == '-') {
-            decimals = decimals.Substring(1);
-          }
-          edecstr = RandomObjects.RandomBigIntString(fr) +
-            "." + decimals + "e" + RandomObjects.RandomBigIntString(fr);
-          edec = EDecimal.FromString(edecstr);
-        } else {
-          edec = RandomObjects.RandomEDecimal(fr);
-          edecstr = edec.ToString();
-        }
+        var edecstr = new string[1];
+        edec = RandomObjects.RandomEDecimal(fr, edecstr);
         if (edec.IsFinite) {
           dbl = edec.ToDouble();
           if (Double.IsNegativeInfinity(dbl)) {
@@ -3610,40 +3601,40 @@ namespace Test {
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
               DoubleOverflowToInfinity,
-              edecstr);
+              edecstr[0]);
           } else if (Double.IsPositiveInfinity(dbl)) {
             Assert.IsTrue(!edec.IsNegative);
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
               DoubleOverflowToInfinity,
-              edecstr);
+              edecstr[0]);
           } else if (dbl == 0.0) {
             TestCommon.CompareTestLessEqual(
               edec.Abs(),
               DoubleUnderflowToZero,
-              edecstr);
+              edecstr[0]);
             Assert.AreEqual(
               edec.IsNegative,
               EDecimal.FromDouble(dbl).IsNegative,
-              edecstr);
+              edecstr[0]);
           } else {
             Assert.IsTrue(!Double.IsNaN(dbl));
             edec = edec.Abs();
             TestCommon.CompareTestGreater(
               edec,
               DoubleUnderflowToZero,
-              edecstr);
+              edecstr[0]);
             TestCommon.CompareTestLess(
               edec,
               DoubleOverflowToInfinity,
-              edecstr);
+              edecstr[0]);
             EDecimal halfUlp = GetHalfUlp(dbl);
             EDecimal difference = EDecimal.FromDouble(dbl).Abs()
               .Subtract(edec).Abs();
             TestCommon.CompareTestLessEqual(
               difference,
               halfUlp,
-              edecstr);
+              edecstr[0]);
           }
         }
       }
@@ -5119,19 +5110,8 @@ namespace Test {
       Assert.IsTrue(sng == 0.0);
       for (var i = 0; i < 100000; ++i) {
         EDecimal edec;
-        string edecstr;
-        if (fr.UniformInt(100) < 10) {
-          string decimals = RandomObjects.RandomBigIntString(fr);
-          if (decimals[0] == '-') {
-            decimals = decimals.Substring(1);
-          }
-          edecstr = RandomObjects.RandomBigIntString(fr) +
-            "." + decimals + "e" + RandomObjects.RandomBigIntString(fr);
-          edec = EDecimal.FromString(edecstr);
-        } else {
-          edec = RandomObjects.RandomEDecimal(fr);
-          edecstr = edec.ToString();
-        }
+        var edecstr = new string[1];
+        edec = RandomObjects.RandomEDecimal(fr, edecstr);
         if (edec.IsFinite) {
           sng = edec.ToSingle();
           if (Single.IsNegativeInfinity(sng)) {
@@ -5139,37 +5119,37 @@ namespace Test {
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
               SingleOverflowToInfinity,
-              edecstr);
+              edecstr[0]);
           } else if (Single.IsPositiveInfinity(sng)) {
             Assert.IsTrue(!edec.IsNegative);
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
               SingleOverflowToInfinity,
-              edecstr);
+              edecstr[0]);
           } else if (sng == 0.0f) {
             TestCommon.CompareTestLessEqual(
               edec.Abs(),
               SingleUnderflowToZero,
-              edecstr);
+              edecstr[0]);
             Assert.AreEqual(
               edec.IsNegative,
               EDecimal.FromSingle(sng).IsNegative,
-              edecstr);
+              edecstr[0]);
           } else {
             Assert.IsTrue(!Single.IsNaN(sng));
             edec = edec.Abs();
             TestCommon.CompareTestGreater(
               edec,
               SingleUnderflowToZero,
-              edecstr);
+              edecstr[0]);
             TestCommon.CompareTestLess(
               edec,
               SingleOverflowToInfinity,
-              edecstr);
+              edecstr[0]);
             EDecimal halfUlp = GetHalfUlp(sng);
             EDecimal difference = EDecimal.FromSingle(sng).Abs()
               .Subtract(edec).Abs();
-            TestCommon.CompareTestLessEqual(difference, halfUlp, edecstr);
+            TestCommon.CompareTestLessEqual(difference, halfUlp, edecstr[0]);
           }
         }
       }

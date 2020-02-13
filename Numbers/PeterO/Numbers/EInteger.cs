@@ -286,64 +286,60 @@ namespace PeterO.Numbers {
       }
       if (bytes.Length == 0) {
         return EInteger.Zero;
+      } else if (bytes.Length == 1) {
+        return (((int)bytes[0] & 0x80) == 0) ? FromInt32((int)bytes[0]) :
+           FromInt32(-1 - ((~bytes[0]) & 0x7f));
       }
       int len = bytes.Length;
-      int wordLength = ((int)len + 1) >> 1;
+      int wordLength = (len >> 1) + (len & 1);
       var newreg = new short[wordLength];
       int valueJIndex = littleEndian ? len - 1 : 0;
-      bool numIsNegative = (bytes[valueJIndex] & 0x80) != 0;
-      bool newnegative = numIsNegative;
+      var numIsNegative = false;
+      bool odd = (len & 1) != 0;
+      int evenedLen = odd ? len - 1 : len;
       var j = 0;
-      if (!numIsNegative) {
-        if (littleEndian) {
-          bool odd = (len & 1) != 0;
-          if (odd) {
-            --len;
-          }
-          for (var i = 0; i < len; i += 2, j++) {
+      if (littleEndian) {
+        for (var i = 0; i < evenedLen; i += 2, j++) {
             int index2 = i + 1;
             int nrj = ((int)bytes[i]) & 0xff;
-            nrj |= ((int)bytes[index2]) << 8;
+            nrj |= ((int)bytes[i + 1]) << 8;
             newreg[j] = unchecked((short)nrj);
           }
           if (odd) {
-            newreg[len >> 1] = unchecked((short)(((int)bytes[len]) & 0xff));
+            newreg[evenedLen >> 1] =
+unchecked((short)(((int)bytes[evenedLen]) & 0xff));
           }
+          numIsNegative = (bytes[len - 1] & 0x80) != 0;
         } else {
-          for (var i = 0; i < len; i += 2, j++) {
+          for (var i = 0; i < evenedLen; i += 2, j++) {
             int index = len - 1 - i;
             int index2 = len - 2 - i;
             int nrj = ((int)bytes[index]) & 0xff;
-            if (index2 >= 0 && index2 < len) {
-              nrj |= ((int)bytes[index2]) << 8;
-            }
+            nrj |= ((int)bytes[index2]) << 8;
             newreg[j] = unchecked((short)nrj);
           }
-        }
-      } else {
-        for (var i = 0; i < len; i += 2, j++) {
-          int index = littleEndian ? i : len - 1 - i;
-          int index2 = littleEndian ? i + 1 : len - 2 - i;
-          int nrj = ((int)bytes[index]) & 0xff;
-          if (index2 >= 0 && index2 < len) {
-            nrj |= ((int)bytes[index2]) << 8;
-          } else {
-            // sign extend the last byte
-            nrj |= 0xff00;
+          if (odd) {
+            newreg[evenedLen >> 1] = unchecked((short)(((int)bytes[0]) & 0xff));
           }
-          newreg[j] = unchecked((short)nrj);
+          numIsNegative = (bytes[0] & 0x80) != 0;
         }
-        for (; j < newreg.Length; ++j) {
-          newreg[j] = unchecked((short)0xffff); // sign extend remaining words
+        if (numIsNegative) {
+          // Sign extension and two's-complement
+          if (odd) {
+            newreg[len >> 1] |= unchecked((short)0xff00);
+          }
+          j = (len >> 1) + 1;
+          for (; j < newreg.Length; ++j) {
+            newreg[j] = unchecked((short)0xffff); // sign extend remaining words
+          }
+          TwosComplement(newreg, 0, (int)newreg.Length);
         }
-        TwosComplement(newreg, 0, (int)newreg.Length);
-      }
       int newwordCount = newreg.Length;
       while (newwordCount != 0 && newreg[newwordCount - 1] == 0) {
         --newwordCount;
       }
       return (newwordCount == 0) ? EInteger.Zero :
-        new EInteger(newwordCount, newreg, newnegative);
+        new EInteger(newwordCount, newreg, numIsNegative);
     }
 
     /// <summary>Converts a boolean value (true or false) to an

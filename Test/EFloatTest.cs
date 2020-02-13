@@ -1343,7 +1343,7 @@ namespace Test {
           OutputSingle(inputSingle) + "\nsrc-----=" + OutputEF(src) +
           "\nexpected=" + OutputEF(expected) + "\ninput---=" +
           OutputEF(input);
-         throw new InvalidOperationException(msg);
+        throw new InvalidOperationException(msg);
       }
     }
 
@@ -1592,7 +1592,7 @@ namespace Test {
       EFloat efnext1q = efa.Add(efnextgap.Multiply(quarter));
       EFloat efnext2q = efa.Add(efnextgap.Multiply(half));
       EFloat efnext3q = efa.Add(efnextgap.Multiply(threequarter));
-   try {
+      try {
       if (dbl) {
         TestDoubleRounding(efprev, efprev, efa);
         TestDoubleRounding(efprev, efprev1q, efa);
@@ -1615,18 +1615,18 @@ namespace Test {
         TestSingleRounding(efnext, efnext, efa);
       }
    } catch (Exception ex) {
-string msg="" + ("dbl_____="+dbl+", full="+
-fullPrecision+",sub="+isSubnormal) + "\n" +
-("efprev__="+OutputEF(efprev)) +"\n" +
-("efprev1q="+OutputEF(efprev1q)) +"\n" +
-("efprev2q="+OutputEF(efprev2q)) +"\n" +
-("efprev3q="+OutputEF(efprev3q)) +"\n" +
-("efa_____="+OutputEF(efa)) +"\n" +
-("efnext1q="+OutputEF(efnext1q)) +"\n" +
-("efnext2q="+OutputEF(efnext2q)) +"\n" +
-("efnext3q="+OutputEF(efnext3q)) +"\n" +
-("efnext__="+OutputEF(efnext));
-     throw new InvalidOperationException(ex.Message  + "\n" + msg, ex);
+string msg =String.Empty + ("dbl_____="+dbl+", full="+
+fullPrecision+",sub=" + isSubnormal) + "\n" +
+("efprev__=" +OutputEF(efprev)) + "\n" +
+("efprev1q=" +OutputEF(efprev1q)) + "\n" +
+("efprev2q=" +OutputEF(efprev2q)) + "\n" +
+("efprev3q=" +OutputEF(efprev3q)) + "\n" +
+("efa_____=" +OutputEF(efa)) + "\n" +
+("efnext1q=" +OutputEF(efnext1q)) + "\n" +
+("efnext2q=" +OutputEF(efnext2q)) + "\n" +
+("efnext3q=" +OutputEF(efnext3q)) + "\n" +
+     ("efnext__=" + OutputEF(efnext));
+     throw new InvalidOperationException(ex.Message + "\n" + msg, ex);
    }
     }
 
@@ -2243,13 +2243,13 @@ eint.CompareTo(255) <= 0;
           EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
           EInteger.FromInt32(-1074));
         TestToFloatRoundingOne(objectTemp, true);
-objectTemp = EFloat.Create(
+      objectTemp = EFloat.Create(
           EInteger.FromRadixString("1010011", 2),
           EInteger.FromInt32(-1034));
         TestToFloatRoundingOne(objectTemp, true);
-objectTemp = EFloat.Create(
+      objectTemp = EFloat.Create(
   EInteger.FromRadixString("100110100000000011000010111000111111101", 2),
-          EInteger.FromInt32(-1073));
+  EInteger.FromInt32(-1073));
         TestToFloatRoundingOne(objectTemp, true);
       }
     }

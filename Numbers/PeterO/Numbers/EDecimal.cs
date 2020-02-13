@@ -6626,19 +6626,7 @@ TrappableRadixMath<EDecimal>(
         if (adjustedExponent.Sign != 0) {
           builder.Append(adjustedExponent.Sign < 0 ? "E-" : "E+");
           adjustedExponent.Abs();
-          var builderReversed = new StringBuilder();
-          while (adjustedExponent.Sign != 0) {
-            int digit =
-              adjustedExponent.Copy().Remainder(10).AsInt32();
-            // Each digit is retrieved from right to left
-            builderReversed.Append((char)('0' + digit));
-            adjustedExponent.Divide(10);
-          }
-          int count = builderReversed.Length;
-          string builderReversedString = builderReversed.ToString();
-          for (var i = 0; i < count; ++i) {
-            builder.Append(builderReversedString[count - 1 - i]);
-          }
+          builder.Append(adjustedExponent.ToString());
         }
         return builder.ToString();
       }
@@ -6826,7 +6814,7 @@ TrappableRadixMath<EDecimal>(
       /// signed integer.</param>
       /// <returns>An arbitrary-precision decimal number.</returns>
       public EDecimal ValueOf(int val) {
-        return (val == 0) ? Zero :((val == 1) ? One : FromInt64(val));
+        return (val == 0) ? Zero : ((val == 1) ? One : FromInt64(val));
       }
     }
 

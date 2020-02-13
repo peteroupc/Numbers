@@ -143,8 +143,25 @@ namespace Test {
       return BitConverter.ToSingle(BitConverter.GetBytes((int)r), 0);
     }
 
-    public static EDecimal GenerateEDecimalSmall(IRandomGenExtended wrapper) {
+    private static string GenerateEDecimalSmallString(IRandomGenExtended
+wrapper, bool extended) {
        var sb = new StringBuilder();
+       int len = 1 + wrapper.GetInt32(4);
+       if (!extended) {
+        sb.Append((char)('1' + wrapper.GetInt32(9)));
+        --len;
+       }
+       AppendRandomDecimals(wrapper, sb, len);
+       sb.Append('.');
+       len = 1 + wrapper.GetInt32(36);
+       AppendRandomDecimals(wrapper, sb, len);
+       sb.Append('E');
+       len = wrapper.GetInt32(25) - 12;
+       sb.Append(TestCommon.IntToString(len));
+       return sb.ToString();
+    }
+
+    public static EDecimal GenerateEDecimalSmall(IRandomGenExtended wrapper) {
        if (wrapper == null) {
          throw new ArgumentNullException(nameof(wrapper));
        }
@@ -155,34 +172,36 @@ namespace Test {
          int exp = wrapper.GetInt32(25) - 12;
          return EDecimal.Create(eix, exp);
        }
-       int len = 1 + wrapper.GetInt32(4);
-       for (int i = 0; i < len; ++i) {
-         sb.Append((char)(0x30 + wrapper.GetInt32(10)));
-       }
-       sb.Append('.');
-       len = 1 + wrapper.GetInt32(36);
-       for (int i = 0; i < len; ++i) {
-         sb.Append((char)(0x30 + wrapper.GetInt32(10)));
-       }
-       sb.Append('E');
-       len = wrapper.GetInt32(25) - 12;
-       sb.Append(TestCommon.IntToString(len));
-       return EDecimal.FromString(sb.ToString());
+       return EDecimal.FromString(GenerateEDecimalSmallString(wrapper, false));
     }
 
     public static EDecimal RandomEDecimal(IRandomGenExtended r) {
+       return RandomEDecimal(r, null);
+    }
+
+    public static EDecimal RandomEDecimal(IRandomGenExtended r, string[]
+decimalString) {
       if (r == null) {
         throw new ArgumentNullException(nameof(r));
       }
       if (r.GetInt32(100) == 0) {
         int x = r.GetInt32(3);
         if (x == 0) {
+          if (decimalString != null) {
+            decimalString[0] = "Infinity";
+          }
           return EDecimal.PositiveInfinity;
         }
         if (x == 1) {
+          if (decimalString != null) {
+            decimalString[0] = "-Infinity";
+          }
           return EDecimal.NegativeInfinity;
         }
         if (x == 2) {
+          if (decimalString != null) {
+            decimalString[0] = "NaN";
+          }
           return EDecimal.NaN;
         }
         // Signaling NaN currently not generated because
@@ -191,10 +210,19 @@ namespace Test {
       if (r.GetInt32(100) < 10) {
         string str = RandomDecimalString(r);
         if (str.Length < 500) {
+          if (decimalString != null) {
+            decimalString[0] = str;
+          }
           return EDecimal.FromString(str);
         }
       }
-      return EDecimal.Create(RandomEInteger(r), RandomEInteger(r));
+      EInteger emant = RandomEInteger(r);
+      EInteger eexp = RandomEInteger(r);
+      EDecimal ed = EDecimal.Create(emant, eexp);
+      if (decimalString != null) {
+        decimalString[0] = emant.ToString() + "E" + eexp.ToString();
+      }
+      return ed;
     }
 
     public static EInteger RandomEInteger(IRandomGenExtended r) {
@@ -206,7 +234,6 @@ namespace Test {
         int count = r.GetInt32(MaxNumberLength) + 1;
         var bytes = new byte[count];
         r.GetBytes(bytes, 0, bytes.Length);
-
         return EInteger.FromBytes(bytes, true);
       }
       if (selection < 50) {
@@ -253,13 +280,9 @@ namespace Test {
       if (r.GetInt32(2) == 0) {
         sb.Append('-');
       }
-      for (var i = 0; i < count; ++i) {
-        if (i == 0) {
-          sb.Append((char)('1' + r.GetInt32(9)));
-        } else {
-          sb.Append((char)('0' + r.GetInt32(10)));
-        }
-      }
+      sb.Append((char)('1' + r.GetInt32(9)));
+      --count;
+      AppendRandomDecimals(r, sb, count);
       return sb.ToString();
     }
 
@@ -272,18 +295,47 @@ namespace Test {
       if (r.GetInt32(2) == 0) {
         sb.Append('-');
       }
-      for (var i = 0; i < count; ++i) {
-        if (i == 0) {
-          sb.Append((char)('1' + r.GetInt32(9)));
-        } else {
-          sb.Append((char)('0' + r.GetInt32(10)));
-        }
-      }
+      sb.Append((char)('1' + r.GetInt32(9)));
+      --count;
+      AppendRandomDecimals(r, sb, count);
       return EInteger.FromString(sb.ToString());
     }
 
     public static String RandomDecimalString(IRandomGenExtended r) {
       return RandomDecimalString(r, false, true);
+    }
+
+    private static void AppendRandomDecimalsLong(
+      IRandomGenExtended r,
+      StringBuilder sb,
+      long count) {
+      if (sb == null) {
+        throw new ArgumentNullException(nameof(sb));
+      }
+      if (r == null) {
+        throw new ArgumentNullException(nameof(r));
+      }
+      if (count > 0) {
+        var buflen = (int)Math.Min(0x10000, Math.Max(count + 8, 64));
+        var buffer = new byte[buflen];
+        while (count > 0) {
+          r.GetBytes(buffer, 0, buflen);
+          for (var i = 0; i < buflen && count > 0; ++i) {
+            int x = ((int)buffer[i]) & 31;
+            if (x < 30) {
+              sb.Append((char)(0x30 + (x % 10)));
+              --count;
+            }
+          }
+        }
+      }
+    }
+
+    private static void AppendRandomDecimals(
+      IRandomGenExtended r,
+      StringBuilder sb,
+      int smallCount) {
+      AppendRandomDecimalsLong(r, sb, smallCount);
     }
 
     public static String RandomDecimalString(
@@ -293,32 +345,50 @@ namespace Test {
       if (r == null) {
         throw new ArgumentNullException(nameof(r));
       }
+      if (r.GetInt32(100) < 10) {
+        return GenerateEDecimalSmallString(r, extended);
+      }
       long count = ((long)r.GetInt32(MaxNumberLength) *
 r.GetInt32(MaxNumberLength)) / MaxNumberLength;
       count = Math.Max(1, count);
-      var sb = new StringBuilder();
+      long afterPointCount = 0;
+      long exponentCount = 0;
+      var smallExponent = false;
+      if (r.GetInt32(2) == 0) {
+        afterPointCount = ((long)r.GetInt32(MaxNumberLength) *
+r.GetInt32(MaxNumberLength)) / MaxNumberLength;
+        afterPointCount = ((long)count *
+r.GetInt32(MaxNumberLength)) / MaxNumberLength;
+        afterPointCount = Math.Max(1, count);
+      }
+      if (r.GetInt32(2) == 0) {
+        if (limitedExponent || r.GetInt32(10) > 0) {
+          exponentCount = 5;
+        } else {
+          exponentCount = ((long)r.GetInt32(MaxNumberLength) *
+r.GetInt32(MaxNumberLength)) / MaxNumberLength;
+          exponentCount = ((long)count *
+r.GetInt32(MaxNumberLength)) / MaxNumberLength;
+          exponentCount = Math.Max(1, count);
+        }
+      }
+      var bufferSize = (int)Math.Min(
+         Int32.MaxValue,
+         8 + count + afterPointCount + exponentCount);
+      var sb = new StringBuilder(bufferSize);
       if (r.GetInt32(2) == 0) {
         sb.Append('-');
       }
-      for (var i = 0; i < count; ++i) {
-        if (i == 0 && count > 1 && !extended) {
-          sb.Append((char)('1' + r.GetInt32(9)));
-        } else {
-          sb.Append((char)('0' + r.GetInt32(10)));
-        }
+      if (!extended) {
+        sb.Append((char)('1' + r.GetInt32(9)));
+        --count;
       }
-      if (r.GetInt32(2) == 0) {
+      AppendRandomDecimalsLong(r, sb, count);
+      if (afterPointCount > 0) {
         sb.Append('.');
-        count = ((long)r.GetInt32(MaxNumberLength) *
-r.GetInt32(MaxNumberLength)) / MaxNumberLength;
-        count = ((long)count *
-r.GetInt32(MaxNumberLength)) / MaxNumberLength;
-        count = Math.Max(1, count);
-        for (var i = 0; i < count; ++i) {
-          sb.Append((char)('0' + r.GetInt32(10)));
-        }
+        AppendRandomDecimalsLong(r, sb, afterPointCount);
       }
-      if (r.GetInt32(2) == 0) {
+      if (exponentCount > 0) {
         int rr = r.GetInt32(3);
         if (rr == 0) {
           sb.Append("E");
@@ -327,17 +397,10 @@ r.GetInt32(MaxNumberLength)) / MaxNumberLength;
  } else if (rr == 2) {
    sb.Append("E-");
  }
-        if (limitedExponent || r.GetInt32(10) > 0) {
+        if (smallExponent) {
    sb.Append(TestCommon.IntToString(r.GetInt32(10000)));
         } else {
-          count = ((long)r.GetInt32(MaxNumberLength) *
-r.GetInt32(MaxNumberLength)) / MaxNumberLength;
-          count = ((long)count *
-r.GetInt32(MaxNumberLength)) / MaxNumberLength;
-          count = Math.Max(1, count);
-          for (var i = 0; i < count; ++i) {
-            sb.Append((char)(0x30 + r.GetInt32(10)));
-          }
+          AppendRandomDecimalsLong(r, sb, exponentCount);
         }
       }
       return sb.ToString();

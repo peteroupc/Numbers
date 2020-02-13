@@ -1117,7 +1117,7 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareToValue(second.Abs());
-      return (cmp == 0) ? Max(first, second) :(cmp > 0 ? first : second);
+      return (cmp == 0) ? Max(first, second) : (cmp > 0 ? first : second);
     }
 
     /// <summary>Gets the lesser value between two rational
@@ -1177,7 +1177,7 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(second));
       }
       int cmp = first.Abs().CompareToValue(second.Abs());
-      return (cmp == 0) ? Min(first, second) :(cmp < 0 ? first : second);
+      return (cmp == 0) ? Min(first, second) : (cmp < 0 ? first : second);
     }
 
     /// <summary>Compares the mathematical value of an arbitrary-precision
@@ -1826,6 +1826,7 @@ namespace PeterO.Numbers {
     /// <param name='maxBitLength'>The parameter <paramref
     /// name='maxBitLength'/> is a 32-bit signed integer.</param>
     /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
     public EInteger ToSizedEInteger(int maxBitLength) {
       if (maxBitLength < 0) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
@@ -1855,6 +1856,7 @@ namespace PeterO.Numbers {
     /// <param name='maxBitLength'>The parameter <paramref
     /// name='maxBitLength'/> is a 32-bit signed integer.</param>
     /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
     public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
       if (maxBitLength < 0) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
