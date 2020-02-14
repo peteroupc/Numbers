@@ -4850,8 +4850,10 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
         var rightBuilder = new StringBuilder();
         long digits = ((long)estimatedHalfDigitCountPerWord[radix] *
             this.wordCount) / 16;
-        EInteger pow = EInteger.FromInt32(radix).Pow(
-            EInteger.FromInt64(digits));
+        EInteger pow = null;
+        if(radix==10)pow=NumberUtility.FindPowerOfTen(digits);
+        else if(radix==5)pow=NumberUtility.FindPowerOfFiveFromBig(EInteger.FromInt64(digits));
+        else pow=EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits));
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
         // divrem[1].wordCount));

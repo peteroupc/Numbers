@@ -2713,6 +2713,27 @@ if (op2Mantissa.IsZero) {
   throw new InvalidOperationException();
 }
       #endif
+      long bitExp1 = op1Exponent.GetUnsignedBitLengthAsInt64();
+      long bitExp2 = op2Exponent.GetUnsignedBitLengthAsInt64();
+      if (bitExp1<Int64.MaxValue && bitExp2<Int64.MaxValue &&
+         helper.GetRadix() <= 10 && op1Exponent.Sign == op2Exponent.Sign && (
+         (bitExp2 > bitExp1 && (bitExp2 - bitExp1) > 128) ||
+         (bitExp1 > bitExp2 && (bitExp1 - bitExp2) > 128))) {
+        // Bit difference in two exponents means exponent difference
+        // is so big that the digit counts of the two significands
+        // can't keep up (that is, exponent difference is greater than 2^128,
+        // which is more than the maximum number of bits that
+        // a significand can currently have).
+        bool op2bigger=op1Exponent.Sign < 0 ? (bitExp2 < bitExp1) :
+           (bitExp2 > bitExp1);
+        if (op2bigger) {
+          // operand 2 has greater magnitude
+          return signA < 0 ? 1 : -1;
+        } else {
+          // operand 1 has greater magnitude
+          return signA < 0 ? -1 : 1;
+        }
+      }
       FastInteger fastOp1Exp = FastInteger.FromBig(op1Exponent);
       FastInteger fastOp2Exp = FastInteger.FromBig(op2Exponent);
       FastInteger expdiff = fastOp1Exp.Copy().Subtract(fastOp2Exp).Abs();

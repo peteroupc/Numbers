@@ -3390,6 +3390,145 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
+[Test]
+public void TestToSizedEInteger() {
+      try {
+        EDecimal.PositiveInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.NegativeInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.PositiveInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.NegativeInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.NaN.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.PositiveInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.NegativeInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.PositiveInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.NegativeInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EDecimal.NaN.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      var rg = new RandomGenerator();
+      for (var i = 0; i < 100000; ++i) {
+ TestSizedEIntegerOne(RandomObjects.RandomEDecimal(rg), rg.UniformInt(2) ==
+0, rg.UniformInt(129));
+}
+}
+
+public static bool TestSizedEIntegerOne(EDecimal ed, bool isExact, int
+maxSignedBits) {
+  if (ed == null) {
+    throw new ArgumentNullException(nameof(ed));
+  }
+  if (!ed.IsFinite || ed.IsZero) { return false;
+}
+  EInteger ei = null;
+  EInteger ei2 = null;
+  try {
+    ei = ed.Exponent.CompareTo(maxSignedBits + 6) > 0 ? null : (isExact ?
+ed.ToEIntegerIfExact() : ed.ToEInteger());
+    if (ei != null &&
+ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits) > 0) {
+      ei = null;
+    }
+  } catch (ArithmeticException ex) {
+    ei = null;
+  } catch (NotSupportedException ex) {
+    ei = null;
+  }
+  try {
+    ei2 = isExact ? ed.ToSizedEIntegerIfExact(maxSignedBits) :
+ed.ToSizedEInteger(maxSignedBits);
+  } catch (NotSupportedException ex) {
+    Assert.Fail(ed.ToString());
+  } catch (ArithmeticException exc) {
+    ei2 = null;
+  }
+  if (ei == null) {
+    Assert.IsTrue(ei2 == null);
+  } else {
+    Assert.AreEqual(ei, ei2);
+    Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits)
+<= 0);
+  }
+  return true;
+}
+
     [Test]
     public void TestToEInteger() {
       try {
@@ -3592,49 +3731,41 @@ namespace Test {
       Assert.IsTrue(dbl == 0.0);
       for (var i = 0; i < 100000; ++i) {
         EDecimal edec;
-        var edecstr = new string[1];
-        edec = RandomObjects.RandomEDecimal(fr, edecstr);
+        edec = RandomObjects.RandomEDecimal(fr);
         if (edec.IsFinite) {
           dbl = edec.ToDouble();
           if (Double.IsNegativeInfinity(dbl)) {
             Assert.IsTrue(edec.IsNegative);
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
-              DoubleOverflowToInfinity,
-              edecstr[0]);
+              DoubleOverflowToInfinity);
           } else if (Double.IsPositiveInfinity(dbl)) {
             Assert.IsTrue(!edec.IsNegative);
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
-              DoubleOverflowToInfinity,
-              edecstr[0]);
+              DoubleOverflowToInfinity);
           } else if (dbl == 0.0) {
             TestCommon.CompareTestLessEqual(
               edec.Abs(),
-              DoubleUnderflowToZero,
-              edecstr[0]);
+              DoubleUnderflowToZero);
             Assert.AreEqual(
               edec.IsNegative,
-              EDecimal.FromDouble(dbl).IsNegative,
-              edecstr[0]);
+              EDecimal.FromDouble(dbl).IsNegative);
           } else {
             Assert.IsTrue(!Double.IsNaN(dbl));
             edec = edec.Abs();
             TestCommon.CompareTestGreater(
               edec,
-              DoubleUnderflowToZero,
-              edecstr[0]);
+              DoubleUnderflowToZero);
             TestCommon.CompareTestLess(
               edec,
-              DoubleOverflowToInfinity,
-              edecstr[0]);
+              DoubleOverflowToInfinity);
             EDecimal halfUlp = GetHalfUlp(dbl);
             EDecimal difference = EDecimal.FromDouble(dbl).Abs()
               .Subtract(edec).Abs();
             TestCommon.CompareTestLessEqual(
               difference,
-              halfUlp,
-              edecstr[0]);
+              halfUlp);
           }
         }
       }
@@ -5110,46 +5241,39 @@ namespace Test {
       Assert.IsTrue(sng == 0.0);
       for (var i = 0; i < 100000; ++i) {
         EDecimal edec;
-        var edecstr = new string[1];
-        edec = RandomObjects.RandomEDecimal(fr, edecstr);
+        edec = RandomObjects.RandomEDecimal(fr);
         if (edec.IsFinite) {
           sng = edec.ToSingle();
           if (Single.IsNegativeInfinity(sng)) {
             Assert.IsTrue(edec.IsNegative);
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
-              SingleOverflowToInfinity,
-              edecstr[0]);
+              SingleOverflowToInfinity);
           } else if (Single.IsPositiveInfinity(sng)) {
             Assert.IsTrue(!edec.IsNegative);
             TestCommon.CompareTestGreaterEqual(
               edec.Abs(),
-              SingleOverflowToInfinity,
-              edecstr[0]);
+              SingleOverflowToInfinity);
           } else if (sng == 0.0f) {
             TestCommon.CompareTestLessEqual(
               edec.Abs(),
-              SingleUnderflowToZero,
-              edecstr[0]);
+              SingleUnderflowToZero);
             Assert.AreEqual(
               edec.IsNegative,
-              EDecimal.FromSingle(sng).IsNegative,
-              edecstr[0]);
+              EDecimal.FromSingle(sng).IsNegative);
           } else {
             Assert.IsTrue(!Single.IsNaN(sng));
             edec = edec.Abs();
             TestCommon.CompareTestGreater(
               edec,
-              SingleUnderflowToZero,
-              edecstr[0]);
+              SingleUnderflowToZero);
             TestCommon.CompareTestLess(
               edec,
-              SingleOverflowToInfinity,
-              edecstr[0]);
+              SingleOverflowToInfinity);
             EDecimal halfUlp = GetHalfUlp(sng);
             EDecimal difference = EDecimal.FromSingle(sng).Abs()
               .Subtract(edec).Abs();
-            TestCommon.CompareTestLessEqual(difference, halfUlp, edecstr[0]);
+            TestCommon.CompareTestLessEqual(difference, halfUlp);
           }
         }
       }

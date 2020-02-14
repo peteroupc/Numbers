@@ -5422,15 +5422,7 @@ TrappableRadixMath<EDecimal>(
             }
           }
         }
-        EInteger adjExp = GetAdjustedExponent(this);
-        if (adjExp.CompareTo((EInteger)(-326)) < 0) {
-          // Very low exponent, treat as 0
-          return this.IsNegative ? Extras.IntegersToDouble(new[] {
-            0,
-            unchecked((int)(1 << 31)),
-          }) : 0.0;
-        }
-        if (adjExp.CompareTo((EInteger)309) > 0) {
+        if (this.exponent.CompareToInt(309) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Double.NegativeInfinity :
             Double.PositiveInfinity;
@@ -5584,14 +5576,7 @@ TrappableRadixMath<EDecimal>(
             }
           }
         }
-        EInteger adjExp = GetAdjustedExponent(this);
-        if (adjExp.CompareTo(-47) < 0) {
-          // Very low exponent, treat as 0
-          return this.IsNegative ?
-            BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0) :
-            0.0f;
-        }
-        if (adjExp.CompareTo(39) > 0) {
+        if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Single.NegativeInfinity :
             Single.PositiveInfinity;
@@ -6058,9 +6043,10 @@ TrappableRadixMath<EDecimal>(
         ec.EMin.CompareTo(b64.EMin) >= 0 &&
         ec.Precision.CompareTo(b64.Precision) <= 0) {
         // Quick check for overflow or underflow
+        EInteger digitCountUpper = DigitCountUpperBound(bigUnsignedMantissa);
         EInteger adjexpLowerBound = bigintExp;
         EInteger adjexpUpperBound = bigintExp.Add(
-            DigitCountUpperBound(bigUnsignedMantissa.Abs()).Subtract(1));
+            digitCountUpper.Subtract(1));
         if (adjexpUpperBound.CompareTo(-326) < 0) {
           // Underflow to zero
           EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
@@ -6073,12 +6059,16 @@ TrappableRadixMath<EDecimal>(
         } else if (adjexpLowerBound.CompareTo(309) > 0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
-        EInteger digitsLowerBound =
-          DigitCountLowerBound(bigUnsignedMantissa.Abs());
-        if (digitsLowerBound.CompareTo(800) > 0) {
-          string estr = this.ToString();
-          return EFloat.FromString(estr, ec);
+        EInteger digitCountLower = DigitCountLowerBound(bigUnsignedMantissa);
+        if (bigintExp.Sign >= 0 && digitCountLower.Subtract(2).CompareTo(309) > 0) {
+          return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
+        } else if (digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309) > 0) {
+          return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
+        //if (digitCountLower.CompareTo(800) > 0) {
+        //  string estr = this.ToString();
+        //  return EFloat.FromString(estr, ec);
+        //}
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer

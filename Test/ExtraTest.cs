@@ -17,9 +17,11 @@ namespace Test {
       }
       string str = obj.ToString();
       EDecimal newobj = EDecimal.FromString(str);
-      string str2 = newobj.ToString();
-      TestCommon.AssertEqualsHashCode(obj, newobj);
-      TestCommon.AssertEqualsHashCode(str, str2);
+      if (str.Length < 100 || !obj.Equals(newobj)) {
+        TestCommon.AssertEqualsHashCode(obj, newobj);
+        string str2 = newobj.ToString();
+        TestCommon.AssertEqualsHashCode(str, str2);
+      }
     }
 
     public static void TestStringEqualRoundTrip(ERational obj) {
@@ -28,9 +30,11 @@ namespace Test {
       }
       string str = obj.ToString();
       ERational newobj = ERational.FromString(str);
-      string str2 = newobj.ToString();
-      TestCommon.AssertEqualsHashCode(obj, newobj);
-      TestCommon.AssertEqualsHashCode(str, str2);
+      if (str.Length < 100 || !obj.Equals(newobj)) {
+        TestCommon.AssertEqualsHashCode(obj, newobj);
+        string str2 = newobj.ToString();
+        TestCommon.AssertEqualsHashCode(str, str2);
+      }
     }
     public static void TestStringEqualRoundTrip(EInteger obj) {
       if (obj == null) {
@@ -38,9 +42,11 @@ namespace Test {
       }
       string str = obj.ToString();
       EInteger newobj = EInteger.FromString(str);
-      string str2 = newobj.ToString();
-      TestCommon.AssertEqualsHashCode(obj, newobj);
-      TestCommon.AssertEqualsHashCode(str, str2);
+      if (str.Length < 100 || !obj.Equals(newobj)) {
+        TestCommon.AssertEqualsHashCode(obj, newobj);
+        string str2 = newobj.ToString();
+        TestCommon.AssertEqualsHashCode(str, str2);
+      }
     }
   }
 }

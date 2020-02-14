@@ -1615,16 +1615,16 @@ namespace Test {
         TestSingleRounding(efnext, efnext, efa);
       }
    } catch (Exception ex) {
-string msg =String.Empty + ("dbl_____="+dbl+", full="+
-fullPrecision+",sub=" + isSubnormal) + "\n" +
-("efprev__=" +OutputEF(efprev)) + "\n" +
-("efprev1q=" +OutputEF(efprev1q)) + "\n" +
-("efprev2q=" +OutputEF(efprev2q)) + "\n" +
-("efprev3q=" +OutputEF(efprev3q)) + "\n" +
-("efa_____=" +OutputEF(efa)) + "\n" +
-("efnext1q=" +OutputEF(efnext1q)) + "\n" +
-("efnext2q=" +OutputEF(efnext2q)) + "\n" +
-("efnext3q=" +OutputEF(efnext3q)) + "\n" +
+string msg = String.Empty + ("dbl_____="+dbl+", full=" +
+fullPrecision + ",sub=" + isSubnormal) + "\n" +
+("efprev__=" + OutputEF(efprev)) + "\n" +
+("efprev1q=" + OutputEF(efprev1q)) + "\n" +
+("efprev2q=" + OutputEF(efprev2q)) + "\n" +
+("efprev3q=" + OutputEF(efprev3q)) + "\n" +
+("efa_____=" + OutputEF(efa)) + "\n" +
+("efnext1q=" + OutputEF(efnext1q)) + "\n" +
+("efnext2q=" + OutputEF(efnext2q)) + "\n" +
+("efnext3q=" + OutputEF(efnext3q)) + "\n" +
      ("efnext__=" + OutputEF(efnext));
      throw new InvalidOperationException(ex.Message + "\n" + msg, ex);
    }
@@ -2267,6 +2267,144 @@ eint.CompareTo(255) <= 0;
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
+[Test]
+public void TestToSizedEInteger() {
+      try {
+        EFloat.PositiveInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NegativeInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.PositiveInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NegativeInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NaN.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.PositiveInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NegativeInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.PositiveInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NegativeInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EFloat.NaN.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      var rg = new RandomGenerator();
+      for (var i = 0; i < 100000; ++i) {
+ TestSizedEIntegerOne(RandomObjects.RandomEFloat(rg), rg.UniformInt(2) == 0,
+  rg.UniformInt(129));
+}
+}
+
+public static bool TestSizedEIntegerOne(EFloat ed, bool isExact, int
+maxSignedBits) {
+  if (ed == null) {
+    throw new ArgumentNullException(nameof(ed));
+  }
+  if (!ed.IsFinite || ed.IsZero) { return false;
+}
+  EInteger ei = null;
+  EInteger ei2 = null;
+  try {
+    ei = ed.Exponent.CompareTo(maxSignedBits + 6) > 0 ? null : (isExact ?
+ed.ToEIntegerIfExact() : ed.ToEInteger());
+    if (ei != null &&
+ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits) > 0) {
+      ei = null;
+    }
+  } catch (ArithmeticException ex) {
+    ei = null;
+  } catch (NotSupportedException ex) {
+    ei = null;
+  }
+  try {
+    ei2 = isExact ? ed.ToSizedEIntegerIfExact(maxSignedBits) :
+ed.ToSizedEInteger(maxSignedBits);
+  } catch (NotSupportedException ex) {
+    Assert.Fail(ed.ToString());
+  } catch (ArithmeticException exc) {
+    ei2 = null;
+  }
+  if (ei == null) {
+    Assert.IsTrue(ei2 == null);
+  } else {
+    Assert.AreEqual(ei, ei2);
+    Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits)
+<= 0);
+  }
+  return true;
+}
 
     [Test]
     public void TestInfinities() {

@@ -1041,6 +1041,22 @@ namespace PeterO.Numbers {
       EInteger eb = this.Denominator;
       EInteger ec = other.Numerator;
       EInteger ed = other.Denominator;
+      int cmpThis = ea.Abs().CompareTo(eb);
+      int cmpOther = ec.Abs().CompareTo(ed);
+      if (cmpThis == 0 && cmpOther == 0) {
+        // Both numbers' absolute values are 1
+        return 0;
+      } else if (cmpThis == 0) {
+        // This number's abs is 1, the other's isn't.
+        return signA < 0 ? cmpOther : -cmpOther;
+      } else if (cmpOther == 0) {
+        // The other number's abs is 1, this one's isn't.
+        return signA < 0 ? -cmpThis : cmpThis;
+      } else if (cmpThis < 0 && cmpOther > 0) {
+        return signA < 0 ? 1 : -1;
+      } else if (cmpThis > 0 && cmpOther < 0) {
+        return signA < 0 ? -1 : 1;
+      }
       // Compare the number of bits of the products
       EInteger bitsADUpper = ea.GetUnsignedBitLengthAsEInteger().Add(
           ed.GetUnsignedBitLengthAsEInteger());

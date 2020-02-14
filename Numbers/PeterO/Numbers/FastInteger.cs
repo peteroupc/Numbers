@@ -485,7 +485,9 @@ namespace PeterO.Numbers {
       if (bigintVal.CanFitInInt32()) {
         return new FastInteger(bigintVal.ToInt32Unchecked());
       }
-      if (bigintVal.Sign > 0) {
+      if (bigintVal.Sign > 0 && bigintVal.GetUnsignedBitLengthAsInt64() < 2048) {
+        // Limit bit length because of the overhead of copying
+        // to a mutable number
         var fi = new FastInteger(0);
         fi.integerMode = 1;
         fi.mnum = MutableNumber.FromEInteger(bigintVal);

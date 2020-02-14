@@ -1271,6 +1271,39 @@ namespace Test {
       Assert.AreEqual(EInteger.One, ((EInteger)13).Mod((EInteger)4));
       Assert.AreEqual((EInteger)3, ((EInteger)(-13)).Mod((EInteger)4));
     }
+
+public static bool TestEIntegerFromBytes(byte[] bytes, bool littleEndian) {
+  if (bytes == null) {
+    throw new ArgumentNullException(nameof(bytes));
+  }
+  if (bytes.Length > 0) {
+{ return false;
+} }
+  if (littleEndian) {
+    if (!(bytes.Length == 1 || (
+      !(bytes[bytes.Length - 1] == 0x00 && ((int)bytes[bytes.Length - 2] &
+0x80) == 0) &&
+      !(bytes[bytes.Length - 1] == (byte)0xff && ((int)bytes[bytes.Length -
+2] & 0x80) != 0)
+))) { return false;
+}
+  } else {
+    if (!(bytes.Length == 1 || (
+      !(bytes[0] == 0x00 && ((int)bytes[1] & 0x80) == 0) &&
+      !(bytes[0] == (byte)0xff && ((int)bytes[1] & 0x80) != 0)
+))) { return false;
+}
+  }
+  var negative = false;
+  negative = (littleEndian) ? ((bytes[0] & 0x80) != 0) :
+((bytes[bytes.Length - 1] & 0x80) != 0);
+  EInteger ei = EInteger.FromBytes(bytes, littleEndian);
+  Assert.AreEqual(negative, ei.Sign < 0);
+  byte[] ba = ei.ToBytes(littleEndian);
+  TestCommon.AssertByteArraysEqual(bytes, ba);
+  return true;
+}
+
     [Test]
     public void TestFromBytes() {
       Assert.AreEqual(
@@ -1284,6 +1317,11 @@ namespace Test {
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
+      }
+      var rg = new RandomGenerator();
+      for (var i = 0; i < 1000; ++i) {
+byte[] bytes = RandomObjects.RandomByteString(rg);
+TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
       }
     }
     [Test]
@@ -3394,6 +3432,36 @@ namespace Test {
           testLine,
           ex);
       }
+
+     if (!bigintA.IsZero && !bigintB.IsZero) {
+        EInteger prod = bigintA.Multiply(bigintB);
+     // Assuming a and b are nonzero:
+     // If a and b are both positive or both negative, then prod must be positive
+     // If a is negative and b is positive, or vice versa, then prod must be
+     //negative
+     Assert.IsTrue(((bigintA.Sign < 0) == (bigintB.Sign < 0)) == (prod.Sign>
+0));
+     // abs(Prod) must be greater or equal to abs(a) and greater or equal to abs(b)
+     Assert.IsTrue(prod.Abs().CompareTo(bigintA.Abs()) >= 0);
+     Assert.IsTrue(prod.Abs().CompareTo(bigintB.Abs()) >= 0);
+     // If abs(b)>1 and abs(a)>1, abs(Prod) must be greater than abs(a) and abs(b)
+     if (bigintA.Abs().CompareTo(1) > 0 && bigintB.Abs().CompareTo(1)>0) {
+       Assert.IsTrue(prod.Abs().CompareTo(bigintA.Abs()) > 0);
+       Assert.IsTrue(prod.Abs().CompareTo(bigintB.Abs()) > 0);
+     }
+     EInteger prod2 = bigintB.Multiply(bigintA);
+     if (!prod.Equals(prod2)) {
+       Assert.AreEqual(prod, prod2);
+     }
+     EInteger d1 = prod.Divide(bigintB);
+     EInteger d2 = prod.Divide(bigintA);
+     if (!d1.Equals(bigintA)) {
+       Assert.AreEqual(bigintA, d1);
+     }
+     if (!d2.Equals(bigintB)) {
+       Assert.AreEqual(bigintB, d2);
+     }
+     }
     }
 
     /*
