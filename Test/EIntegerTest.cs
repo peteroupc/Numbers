@@ -1276,9 +1276,9 @@ public static bool TestEIntegerFromBytes(byte[] bytes, bool littleEndian) {
   if (bytes == null) {
     throw new ArgumentNullException(nameof(bytes));
   }
-  if (bytes.Length > 0) {
-{ return false;
-} }
+  if (bytes.Length == 0) {
+    return false;
+  }
   if (littleEndian) {
     if (!(bytes.Length == 1 || (
       !(bytes[bytes.Length - 1] == 0x00 && ((int)bytes[bytes.Length - 2] &
@@ -1295,7 +1295,7 @@ public static bool TestEIntegerFromBytes(byte[] bytes, bool littleEndian) {
 }
   }
   var negative = false;
-  negative = (littleEndian) ? ((bytes[0] & 0x80) != 0) :
+  negative = (!littleEndian) ? ((bytes[0] & 0x80) != 0) :
 ((bytes[bytes.Length - 1] & 0x80) != 0);
   EInteger ei = EInteger.FromBytes(bytes, littleEndian);
   Assert.AreEqual(negative, ei.Sign < 0);
@@ -3302,26 +3302,43 @@ TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
         TestCommon.CompareTestEqualAndConsistent(
           bigintC,
           bigintB.Multiply(bigintA));
+        if (!bigintA.IsZero && !bigintB.IsZero) {
+     // Assuming a and b are nonzero:
+     // If a and b are both positive or both negative, then product must be
+     //positive
+     // If a is negative and b is positive, or vice versa, then product must be
+     // negative
+     Assert.IsTrue(((bigintA.Sign < 0) == (bigintB.Sign < 0)) ==
+          (bigintC.Sign > 0));
+     // abs(product) must be greater or equal to abs(a) and greater or equal to
+     //abs(b)
+     Assert.IsTrue(bigintC.Abs().CompareTo(bigintA.Abs()) >= 0);
+     Assert.IsTrue(bigintC.Abs().CompareTo(bigintB.Abs()) >= 0);
+     // If abs(b)>1 and abs(a)>1, abs(product) must be greater than abs(a) and
+     //abs(b)
+     if (bigintA.Abs().CompareTo(1) > 0 && bigintB.Abs().CompareTo(1) > 0) {
+       Assert.IsTrue(bigintC.Abs().CompareTo(bigintA.Abs()) > 0);
+       Assert.IsTrue(bigintC.Abs().CompareTo(bigintB.Abs()) > 0);
+     }
+   }
         if (!bigintB.IsZero) {
-          {
-            EInteger[] divrem = bigintC.DivRem(bigintB);
+     EInteger[] divrem = bigintC.DivRem(bigintB);
             bigintD = divrem[0];
             bigintRem = divrem[1];
-          }
-          if (!bigintD.Equals(bigintA)) {
+            if (!bigintD.Equals(bigintA)) {
             TestCommon.CompareTestEqualAndConsistent(
               bigintD,
               bigintA,
               "bigintC = " + bigintC);
           }
           TestCommon.CompareTestEqual(EInteger.Zero, bigintRem);
-          bigintE = bigintC.Divide(bigintB);
+        bigintE = bigintC.Divide(bigintB);
           // Testing that DivRem and division method return
           // the same value
           TestCommon.CompareTestEqualAndConsistent(bigintD, bigintE);
-          bigintE = bigintC.Remainder(bigintB);
-          TestCommon.CompareTestEqualAndConsistent(bigintRem, bigintE);
-          if (bigintE.Sign > 0 && !bigintC.Mod(bigintB).Equals(bigintE)) {
+        bigintE = bigintC.Remainder(bigintB);
+        TestCommon.CompareTestEqualAndConsistent(bigintRem, bigintE);
+      if (bigintE.Sign > 0 && !bigintC.Mod(bigintB).Equals(bigintE)) {
             TestCommon.CompareTestEqualAndConsistent(
               bigintE,
               bigintC.Mod(bigintB));
@@ -3432,36 +3449,6 @@ TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
           testLine,
           ex);
       }
-
-     if (!bigintA.IsZero && !bigintB.IsZero) {
-        EInteger prod = bigintA.Multiply(bigintB);
-     // Assuming a and b are nonzero:
-     // If a and b are both positive or both negative, then prod must be positive
-     // If a is negative and b is positive, or vice versa, then prod must be
-     //negative
-     Assert.IsTrue(((bigintA.Sign < 0) == (bigintB.Sign < 0)) == (prod.Sign>
-0));
-     // abs(Prod) must be greater or equal to abs(a) and greater or equal to abs(b)
-     Assert.IsTrue(prod.Abs().CompareTo(bigintA.Abs()) >= 0);
-     Assert.IsTrue(prod.Abs().CompareTo(bigintB.Abs()) >= 0);
-     // If abs(b)>1 and abs(a)>1, abs(Prod) must be greater than abs(a) and abs(b)
-     if (bigintA.Abs().CompareTo(1) > 0 && bigintB.Abs().CompareTo(1)>0) {
-       Assert.IsTrue(prod.Abs().CompareTo(bigintA.Abs()) > 0);
-       Assert.IsTrue(prod.Abs().CompareTo(bigintB.Abs()) > 0);
-     }
-     EInteger prod2 = bigintB.Multiply(bigintA);
-     if (!prod.Equals(prod2)) {
-       Assert.AreEqual(prod, prod2);
-     }
-     EInteger d1 = prod.Divide(bigintB);
-     EInteger d2 = prod.Divide(bigintA);
-     if (!d1.Equals(bigintA)) {
-       Assert.AreEqual(bigintA, d1);
-     }
-     if (!d2.Equals(bigintB)) {
-       Assert.AreEqual(bigintB, d2);
-     }
-     }
     }
 
     /*

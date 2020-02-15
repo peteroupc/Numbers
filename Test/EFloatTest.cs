@@ -64,6 +64,42 @@ namespace Test {
       }
       return EFloat.Create(ret, (EInteger)smallExponent);
     }
+
+public static bool TestCompareToBinary2(EFloat ef) {
+   if (ef == null) {
+     throw new ArgumentNullException(nameof(ef));
+   }
+   if (!ef.IsFinite || ef.Sign == 0) {
+{ return false;
+} }
+   ef = ef.Abs();
+   int cmp;
+   EDecimal ed = EDecimal.FromEFloat(ef);
+   cmp = ed.CompareToBinary(ef);
+   Assert.AreEqual(0, cmp);
+   EDecimal ednew = EDecimal.Create(ed.Mantissa.Add(1), ed.Exponent);
+   cmp = ednew.CompareTo(ed);
+   Assert.AreEqual(1, cmp > 0 ? 1 : cmp);
+   ed = ednew;
+   cmp = ed.CompareToBinary(ef);
+   Assert.AreEqual(1, cmp > 0 ? 1 : cmp);
+   //----Rational
+   ERational er = ERational.FromEFloat(ef);
+   cmp = er.CompareToBinary(ef);
+   Assert.AreEqual(0, cmp);
+   er = ERational.Create(er.Numerator.Add(1), er.Denominator);
+   cmp = er.CompareToBinary(ef);
+   Assert.AreEqual(1, cmp > 0 ? 1 : cmp);
+   return true;
+}
+
+[Test]
+public void TestCompareToBinary2Test() {
+  var rg = new RandomGenerator();
+  for (int i = 0; i < 1000; ++i) {
+    TestCompareToBinary2(RandomObjects.RandomEFloat(rg));
+  }
+}
     [Test]
     public void TestFromBoolean() {
       Assert.AreEqual(EFloat.Zero, EFloat.FromBoolean(false));
@@ -93,6 +129,31 @@ namespace Test {
       TestAddCloseExponent(fr, Int32.MinValue);
       TestAddCloseExponent(fr, Int32.MaxValue);
     }
+
+[Test]
+public void TestDivSpecial() {
+ var rg = new RandomGenerator();
+ EContext ec = EContext.Unlimited.WithPrecision(2048);
+ for (int i = 0; i < 1000; ++i) {
+ int a = rg.GetInt32(900) + 1;
+ int b = rg.GetInt32(900) + 1;
+ EFloat ef = EFloat.Create(
+     EInteger.FromInt32(1).ShiftLeft(a).Subtract(1),
+     EInteger.FromInt32(-a));
+ EFloat ef2 = EFloat.Create(
+     EInteger.FromInt32(1).ShiftLeft(b).Subtract(1),
+     EInteger.FromInt32(-b));
+ EFloat efdiv = ef.Divide(ef2, ec);
+ for (int j = 1; j < 100; ++j) {
+   EFloat ef3 = EFloat.Create(
+       ef2.Mantissa.ShiftLeft(j),
+       ef2.Mantissa.Subtract(j));
+   Assert.AreEqual(0, ef2.CompareToValue(ef3));
+   Assert.AreEqual(0, efdiv.CompareToValue(ef.Divide(ef3, ec)));
+  }
+ }
+}
+
     [Test]
     public void TestCompareTo() {
       var r = new RandomGenerator();
@@ -1615,7 +1676,7 @@ namespace Test {
         TestSingleRounding(efnext, efnext, efa);
       }
    } catch (Exception ex) {
-string msg = String.Empty + ("dbl_____="+dbl+", full=" +
+string msg = String.Empty + ("dbl_____="+dbl + ", full=" +
 fullPrecision + ",sub=" + isSubnormal) + "\n" +
 ("efprev__=" + OutputEF(efprev)) + "\n" +
 ("efprev1q=" + OutputEF(efprev1q)) + "\n" +
@@ -1756,14 +1817,57 @@ fullPrecision + ",sub=" + isSubnormal) + "\n" +
         TestShortestStringOne(efa);
       }
     }
-    public static void TestShortestStringOne(EFloat efa) {
+
+public static bool TestShortestStringOne(float sng) {
+  EFloat ef = EFloat.FromSingle(sng);
+  if (!ef.IsFinite) { return false;
+}
+  Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(24)
+<= 0);
+  Assert.AreEqual(ef, EFloat.FromSingle(ef.ToSingle()));
+  return EFloatTest.TestShortestStringOne(ef, EContext.Binary32);
+}
+public static bool TestShortestStringOne(double dbl) {
+  EFloat ef = EFloat.FromDouble(dbl);
+  if (!ef.IsFinite) { return false;
+}
+  Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(53)
+<= 0);
+  Assert.AreEqual(ef, EFloat.FromDouble(ef.ToDouble()));
+  return EFloatTest.TestShortestStringOne(ef, EContext.Binary64);
+}
+
+public static bool TestSingleRoundingOne(float sng) {
+  EFloat ef = EFloat.FromSingle(sng);
+  if (!ef.IsFinite) { return false;
+}
+  Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(24)
+<= 0);
+  Assert.AreEqual(ef, EFloat.FromSingle(ef.ToSingle()));
+  EFloatTest.TestToFloatRoundingOne(ef, false);
+  return true;
+}
+public static bool TestDoubleRoundingOne(double dbl) {
+  EFloat ef = EFloat.FromDouble(dbl);
+  if (!ef.IsFinite) { return false;
+}
+  Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(53)
+<= 0);
+  Assert.AreEqual(ef, EFloat.FromDouble(ef.ToDouble()));
+  EFloatTest.TestToFloatRoundingOne(ef, true);
+  return true;
+}
+    public static bool TestShortestStringOne(EFloat efa) {
+       return TestShortestStringOne(efa, EContext.Binary64);
+    }
+    public static bool TestShortestStringOne(EFloat efa, EContext ctx) {
         if (efa == null) {
           throw new ArgumentNullException(nameof(efa));
         }
-        string shortestStr = efa.ToShortestString(EContext.Binary64);
+        string shortestStr = efa.ToShortestString(ctx);
         EFloat shortest = EFloat.FromString(
             shortestStr,
-            EContext.Binary64);
+            ctx);
         if (!efa.Equals(shortest)) {
           string msg = "\n" + EFToString(efa) + "\n" + EFToString(shortest) +
             "\n" + shortestStr;
@@ -1772,13 +1876,37 @@ fullPrecision + ",sub=" + isSubnormal) + "\n" +
             shortest,
             msg);
         }
+        return true;
 }
     [Test]
     public void TestToSingleRounding() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {
-        EFloat efa = RandomSingleEFloat(fr, i >= 250);
-        TestToFloatRoundingOne(efa, false);
+        TestSingleRoundingOne(RandomObjects.RandomSingle(fr));
+      }
+    }
+
+    [Test]
+    public void TestToDoubleRounding2() {
+      var fr = new RandomGenerator();
+      for (var i = 0; i < 1500; ++i) {
+        TestDoubleRoundingOne(RandomObjects.RandomDouble(fr));
+      }
+    }
+
+    [Test]
+    public void TestSingleShortestString() {
+      var fr = new RandomGenerator();
+      for (var i = 0; i < 1500; ++i) {
+        TestShortestStringOne(RandomObjects.RandomSingle(fr));
+      }
+    }
+
+    [Test]
+    public void TestDoubleShortestString() {
+      var fr = new RandomGenerator();
+      for (var i = 0; i < 1500; ++i) {
+        TestShortestStringOne(RandomObjects.RandomDouble(fr));
       }
     }
 
@@ -2372,7 +2500,9 @@ maxSignedBits) {
   if (ed == null) {
     throw new ArgumentNullException(nameof(ed));
   }
-  if (!ed.IsFinite || ed.IsZero) { return false;
+if (!ed.IsFinite || ed.IsZero) {
+     { return false;
+  }
 }
   EInteger ei = null;
   EInteger ei2 = null;

@@ -6,6 +6,169 @@ using PeterO.Numbers;
 namespace Test {
   [TestFixture]
   public class ERationalTest {
+public static bool TestSizedEIntegerOne(ERational ed, bool isExact, int
+maxSignedBits) {
+  if (ed == null) {
+    throw new ArgumentNullException(nameof(ed));
+  }
+  if (!ed.IsFinite || ed.IsZero) {
+{ return false;
+} }
+  EInteger ei = null;
+  EInteger ei2 = null;
+  try {
+    ei = isExact ? ed.ToEIntegerIfExact() : ed.ToEInteger();
+    if (ei != null &&
+ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits) > 0) {
+      ei = null;
+    }
+  } catch (ArithmeticException ex) {
+    ei = null;
+  } catch (NotSupportedException ex) {
+    ei = null;
+  }
+  try {
+    ei2 = isExact ? ed.ToSizedEIntegerIfExact(maxSignedBits) :
+ed.ToSizedEInteger(maxSignedBits);
+  } catch (NotSupportedException ex) {
+    Assert.Fail(ed.ToString());
+  } catch (ArithmeticException exc) {
+    ei2 = null;
+  }
+  if (ei == null) {
+    Assert.IsTrue(ei2 == null);
+  } else {
+    Assert.AreEqual(ei, ei2);
+    Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(128) <= 0);
+  }
+  return true;
+}
+
+public static bool TestCompareToValueSpecific(ERational a, ERational b) {
+  if (a == null) {
+    throw new ArgumentNullException(nameof(a));
+  }
+  if (b == null) {
+    throw new ArgumentNullException(nameof(b));
+  }
+  if (!a.IsFinite || !b.IsFinite || a.IsZero || b.IsZero) {
+{ return false;
+} }
+  EInteger ad = a.UnsignedNumerator.Multiply(b.Denominator);
+  EInteger bc = b.UnsignedNumerator.Multiply(a.Denominator);
+  int cmp = ad.CompareTo(bc);
+  cmp = (cmp < 0) ? -1 : ((cmp > 0) ? 1 : 0);
+  int cmp2 = a.Abs().CompareToValue(b.Abs());
+  cmp2 = (cmp2 < 0) ? -1 : ((cmp2 > 0) ? 1 : 0);
+  Assert.AreEqual(cmp, cmp2);
+  cmp2 = a.Abs().Negate().CompareToValue(b.Abs().Negate());
+  cmp2 = (cmp2 < 0) ? -1 : ((cmp2 > 0) ? 1 : 0);
+  Assert.AreEqual(-cmp, cmp2);
+  TestCommon.CompareTestReciprocal(a, b);
+  TestCommon.CompareTestReciprocal(a.Abs(), b.Abs());
+  TestCommon.CompareTestReciprocal(a.Abs().Negate(), b.Abs().Negate());
+  return true;
+}
+
+[Test]
+public void TestToSizedEInteger() {
+      try {
+        ERational.PositiveInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NegativeInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.PositiveInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NegativeInfinity.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NaN.ToSizedEInteger(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.PositiveInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NegativeInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.PositiveInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NegativeInfinity.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        ERational.NaN.ToSizedEIntegerIfExact(32);
+        Assert.Fail("Should have failed");
+      } catch (OverflowException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      var rg = new RandomGenerator();
+      for (var i = 0; i < 100000; ++i) {
+ TestSizedEIntegerOne(RandomObjects.RandomERational(rg), rg.UniformInt(2) == 0,
+  rg.UniformInt(129));
+}
+}
+
     [Test]
     public void TestFromBoolean() {
       Assert.AreEqual(ERational.Zero, ERational.FromBoolean(false));

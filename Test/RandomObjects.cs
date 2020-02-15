@@ -15,7 +15,7 @@ namespace Test {
   public static class RandomObjects {
     private const int MaxExclusiveStringLength = 0x2000;
     private const int MaxExclusiveShortStringLength = 50;
-    private const int MaxNumberLength = 100000;
+    private const int MaxNumberLength = 50000;
     private const int MaxShortNumberLength = 40;
     private const int MaxStringNumDigits = 50;
 
@@ -86,19 +86,26 @@ namespace Test {
       return sb.ToString();
     }
 
+    public static int RandomInt32(IRandomGenExtended rand) {
+      byte[] bytes = RandomByteString(rand, 4);
+      int ret = ((int)bytes[0]) & 0xff;
+      ret |= (((int)bytes[1]) & 0xff) << 8;
+      ret |= (((int)bytes[2]) & 0xff) << 16;
+      ret |= (((int)bytes[3]) & 0xff) << 24;
+      return ret;
+    }
+
     public static long RandomInt64(IRandomGenExtended rand) {
-      if (rand == null) {
-        throw new ArgumentNullException(nameof(rand));
-      }
-      long r = rand.GetInt32(0x10000);
-      r |= ((long)rand.GetInt32(0x10000)) << 16;
-      if (rand.GetInt32(2) == 0) {
-        r |= ((long)rand.GetInt32(0x10000)) << 32;
-        if (rand.GetInt32(2) == 0) {
-          r |= ((long)rand.GetInt32(0x10000)) << 48;
-        }
-      }
-      return r;
+      byte[] bytes = RandomByteString(rand, 8);
+      long ret = ((long)bytes[0]) & 0xff;
+      ret |= (((long)bytes[1]) & 0xff) << 8;
+      ret |= (((long)bytes[2]) & 0xff) << 16;
+      ret |= (((long)bytes[3]) & 0xff) << 24;
+      ret |= (((long)bytes[4]) & 0xff) << 32;
+      ret |= (((long)bytes[5]) & 0xff) << 40;
+      ret |= (((long)bytes[6]) & 0xff) << 48;
+      ret |= (((long)bytes[7]) & 0xff) << 56;
+      return ret;
     }
 
     public static double RandomDouble(IRandomGenExtended rand, int exponent) {
@@ -122,6 +129,16 @@ namespace Test {
       r &= ~0x7ff0000000000000L; // clear exponent
       r |= ((long)exponent) << 52; // set exponent
       return BitConverter.ToDouble(BitConverter.GetBytes((long)r), 0);
+    }
+
+    public static double RandomDouble(IRandomGenExtended rand) {
+      long r = RandomInt64(rand);
+      return BitConverter.ToDouble(BitConverter.GetBytes((long)r), 0);
+    }
+
+    public static float RandomSingle(IRandomGenExtended rand) {
+      int r = RandomInt32(rand);
+      return BitConverter.ToSingle(BitConverter.GetBytes((int)r), 0);
     }
 
     public static float RandomSingle(IRandomGenExtended rand, int exponent) {

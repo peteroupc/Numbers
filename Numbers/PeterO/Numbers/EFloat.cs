@@ -7,7 +7,8 @@ at: http://peteroupc.github.io/
  */
 using System;
 
-// TODO: Consider adding byte[] equivalent of FromString
+// TODO: In next major version or earlier, consider adding byte[] equivalent
+// of FromString
 // here and in EDecimal
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision binary floating-point
@@ -727,15 +728,26 @@ TrappableRadixMath<EFloat>(
       int decimalDigitEnd = i;
       var nonzeroBeyondMax = false;
       var lastdigit = -1;
+      // 768 is maximum precision of a decimal
+      // half-ULP in double format
+      var maxDecimalPrec = 768;
+      if (length > 21) {
+        int eminInt = ctx.EMin.ToInt32Checked();
+        int emaxInt = ctx.EMax.ToInt32Checked();
+        int precInt = ctx.Precision.ToInt32Checked();
+        if (eminInt >= -14 && emaxInt <= 15) {
+          maxDecimalPrec = (precInt <= 11) ? 21 : 63;
+        } else if (eminInt >= -126 && emaxInt <= 127) {
+          maxDecimalPrec = (precInt <= 24) ? 113 : 142;
+        }
+      }
       for (; i < endStr; ++i) {
         char ch = str[i];
         if (ch >= '0' && ch <= '9') {
           var thisdigit = (int)(ch - '0');
           haveDigits = true;
           haveNonzeroDigit |= thisdigit != 0;
-          if (decimalPrec > 768) {
-            // 768 is maximum precision of a decimal
-            // half-ULP in double format
+          if (decimalPrec > maxDecimalPrec) {
             if (thisdigit != 0) {
               nonzeroBeyondMax = true;
             }
@@ -894,7 +906,10 @@ TrappableRadixMath<EFloat>(
         ef1 = EFloat.Create(EInteger.FromInt64(mantissaLong), EInteger.Zero);
         ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
         if (finalexp < 0) {
-          return ef1.Divide(ef2, ctx);
+EFloat efret = ef1.Divide(ef2, ctx);
+/*
+Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
+          */ return efret;
         } else {
           return ef1.Multiply(ef2, ctx);
         }

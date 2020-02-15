@@ -3495,7 +3495,9 @@ maxSignedBits) {
   if (ed == null) {
     throw new ArgumentNullException(nameof(ed));
   }
-  if (!ed.IsFinite || ed.IsZero) { return false;
+if (!ed.IsFinite || ed.IsZero) {
+     { return false;
+  }
 }
   EInteger ei = null;
   EInteger ei2 = null;

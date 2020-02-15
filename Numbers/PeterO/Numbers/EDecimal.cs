@@ -6060,15 +6060,17 @@ TrappableRadixMath<EDecimal>(
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
         EInteger digitCountLower = DigitCountLowerBound(bigUnsignedMantissa);
-        if (bigintExp.Sign >= 0 && digitCountLower.Subtract(2).CompareTo(309) > 0) {
+        if (bigintExp.Sign >= 0 &&
+digitCountLower.Subtract(2).CompareTo(309) > 0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
-        } else if (digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309) > 0) {
+        } else if (digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309)>
+0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
-        //if (digitCountLower.CompareTo(800) > 0) {
-        //  string estr = this.ToString();
-        //  return EFloat.FromString(estr, ec);
-        //}
+        // if (digitCountLower.CompareTo(800) > 0) {
+        // string estr = this.ToString();
+        // return EFloat.FromString(estr, ec);
+        // }
       }
       if (bigintExp.Sign > 0) {
         // Scaled integer
