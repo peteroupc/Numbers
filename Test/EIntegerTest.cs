@@ -3305,17 +3305,17 @@ TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
         if (!bigintA.IsZero && !bigintB.IsZero) {
      // Assuming a and b are nonzero:
      // If a and b are both positive or both negative, then product must be
-     //positive
+     // positive
      // If a is negative and b is positive, or vice versa, then product must be
      // negative
      Assert.IsTrue(((bigintA.Sign < 0) == (bigintB.Sign < 0)) ==
           (bigintC.Sign > 0));
      // abs(product) must be greater or equal to abs(a) and greater or equal to
-     //abs(b)
+     // abs(b)
      Assert.IsTrue(bigintC.Abs().CompareTo(bigintA.Abs()) >= 0);
      Assert.IsTrue(bigintC.Abs().CompareTo(bigintB.Abs()) >= 0);
      // If abs(b)>1 and abs(a)>1, abs(product) must be greater than abs(a) and
-     //abs(b)
+     // abs(b)
      if (bigintA.Abs().CompareTo(1) > 0 && bigintB.Abs().CompareTo(1) > 0) {
        Assert.IsTrue(bigintC.Abs().CompareTo(bigintA.Abs()) > 0);
        Assert.IsTrue(bigintC.Abs().CompareTo(bigintB.Abs()) > 0);
@@ -3323,9 +3323,9 @@ TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
    }
         if (!bigintB.IsZero) {
      EInteger[] divrem = bigintC.DivRem(bigintB);
-            bigintD = divrem[0];
-            bigintRem = divrem[1];
-            if (!bigintD.Equals(bigintA)) {
+     bigintD = divrem[0];
+     bigintRem = divrem[1];
+     if (!bigintD.Equals(bigintA)) {
             TestCommon.CompareTestEqualAndConsistent(
               bigintD,
               bigintA,

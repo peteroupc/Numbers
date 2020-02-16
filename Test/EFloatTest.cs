@@ -147,9 +147,16 @@ public void TestDivSpecial() {
  for (int j = 1; j < 100; ++j) {
    EFloat ef3 = EFloat.Create(
        ef2.Mantissa.ShiftLeft(j),
-       ef2.Mantissa.Subtract(j));
-   Assert.AreEqual(0, ef2.CompareToValue(ef3));
-   Assert.AreEqual(0, efdiv.CompareToValue(ef.Divide(ef3, ec)));
+       ef2.Exponent.Subtract(j));
+   if (ef2.CompareToValue(ef3) != 0) {
+    Assert.Fail("a="+a+", b="+b + ", j=" + j +
+         "\nef2=" +OutputEF(ef2) + "\nef3=" + OutputEF(ef3));
+   }
+   EFloat efdiv2 = ef.Divide(ef3, ec);
+   if (efdiv.CompareToValue(efdiv2) != 0) {
+    Assert.Fail("a="+a+", b="+b + ", j=" + j +
+         "\nefdiv=" +OutputEF(efdiv) + "\nefdiv2=" + OutputEF(efdiv2));
+   }
   }
  }
 }
@@ -1431,6 +1438,20 @@ public void TestDivSpecial() {
       }
     }
 
+    private static bool IsPowerOfTwo(long v) {
+       while ((v & 1) == 0 && v > 0) {
+         v >>= 1;
+       }
+       return v == 1;
+    }
+
+    private static bool IsPowerOfTwo(int v) {
+       while ((v & 1) == 0 && v > 0) {
+         v >>= 1;
+       }
+       return v == 1;
+    }
+
     private static void TestStringToSingleOne(string str) {
       EDecimal ed = EDecimal.FromString(str);
       if (ed.IsInfinity() || ed.IsNaN()) {
@@ -1475,15 +1496,34 @@ public void TestDivSpecial() {
         Assert.IsTrue(lmant < (1 << 24));
         ERational ulp = PowerOfTwo(exp);
         ERational half = ulp.Divide(2);
-        ERational ulped = ERational.FromInt64(lmant).Multiply(ulp);
-        ERational efe = ulped.Subtract(ERational.FromEDecimal(ed).Abs());
-        Assert.IsTrue(!efe.IsNaN());
-        if (half.CompareTo(efe) < 0) {
+        ERational binValue = ERational.FromInt64(lmant).Multiply(ulp);
+        ERational decValue = ERational.FromEDecimal(ed).Abs();
+        ERational diffValue = decValue.Subtract(binValue);
+        if (IsPowerOfTwo(lmant)) {
+          // Different closeness check applies when approximate
+          // binary number is a power of 2
+          ERational negQuarter = ulp.Divide(4).Negate();
+          // NOTE: Order of subtraction in diffValue is important here
+          if (negQuarter.CompareTo(diffValue) > 0 ||
+              diffValue.CompareTo(half) > 0) {
+            string msg = "str=" + str + "\nef=" + OutputEF(ef) +
+              "\nmant=" + lmant + "\nexp=" + exp;
+            Assert.Fail(msg);
+          }
+        } else {
+          int cmp = diffValue.Abs().CompareTo(half);
+          if (cmp > 0 || (cmp == 0 && (lmant & 1) != 0)) {
+            string msg = "str=" + str + "\nef=" + OutputEF(ef) +
+              "\nmant=" + lmant + "\nexp=" + exp;
+            Assert.Fail(msg);
+          }
+        }
+        /* if (diffValue.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef) +
-            "\nmant=" + lmant + "\nexp=" + exp + "\nulped=" + ulped +
-            "\nhalf=" + half + "\nefe=" + efe;
+            "\nmant=" + lmant + "\nexp=" + exp;
           Assert.Fail(msg);
         }
+        */
       }
     }
 
@@ -1529,14 +1569,34 @@ public void TestDivSpecial() {
         Assert.IsTrue(lmant < (1L << 53));
         ERational ulp = PowerOfTwo(exp);
         ERational half = ulp.Divide(2);
-        ERational ulped = ERational.FromInt64(lmant).Multiply(ulp);
-        ERational efe = ulped.Subtract(ERational.FromEDecimal(ed).Abs());
-        Assert.IsTrue(!efe.IsNaN());
-        if (half.CompareTo(efe) < 0) {
+        ERational binValue = ERational.FromInt64(lmant).Multiply(ulp);
+        ERational decValue = ERational.FromEDecimal(ed).Abs();
+        ERational diffValue = decValue.Subtract(binValue);
+        if (IsPowerOfTwo(lmant)) {
+          // Different closeness check applies when approximate
+          // binary number is a power of 2
+          ERational negQuarter = ulp.Divide(4).Negate();
+          // NOTE: Order of subtraction in diffValue is important here
+          if (negQuarter.CompareTo(diffValue) > 0 ||
+              diffValue.CompareTo(half) > 0) {
+            string msg = "str=" + str + "\nef=" + OutputEF(ef) +
+              "\nmant=" + lmant + "\nexp=" + exp;
+            Assert.Fail(msg);
+          }
+        } else {
+          int cmp = diffValue.Abs().CompareTo(half);
+          if (cmp > 0 || (cmp == 0 && (lmant & 1) != 0)) {
+            string msg = "str=" + str + "\nef=" + OutputEF(ef) +
+              "\nmant=" + lmant + "\nexp=" + exp;
+            Assert.Fail(msg);
+          }
+        }
+        /* if (diffValue.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef) +
             "\nmant=" + lmant + "\nexp=" + exp;
           Assert.Fail(msg);
         }
+        */
       }
     }
 
@@ -1676,7 +1736,7 @@ public void TestDivSpecial() {
         TestSingleRounding(efnext, efnext, efa);
       }
    } catch (Exception ex) {
-string msg = String.Empty + ("dbl_____="+dbl + ", full=" +
+string msg = String.Empty + ("dbl_____=" + dbl + ", full=" +
 fullPrecision + ",sub=" + isSubnormal) + "\n" +
 ("efprev__=" + OutputEF(efprev)) + "\n" +
 ("efprev1q=" + OutputEF(efprev1q)) + "\n" +
@@ -1820,7 +1880,9 @@ fullPrecision + ",sub=" + isSubnormal) + "\n" +
 
 public static bool TestShortestStringOne(float sng) {
   EFloat ef = EFloat.FromSingle(sng);
-  if (!ef.IsFinite) { return false;
+if (!ef.IsFinite) {
+     { return false;
+  }
 }
   Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(24)
 <= 0);
@@ -1829,7 +1891,9 @@ public static bool TestShortestStringOne(float sng) {
 }
 public static bool TestShortestStringOne(double dbl) {
   EFloat ef = EFloat.FromDouble(dbl);
-  if (!ef.IsFinite) { return false;
+if (!ef.IsFinite) {
+     { return false;
+  }
 }
   Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(53)
 <= 0);
@@ -1839,7 +1903,9 @@ public static bool TestShortestStringOne(double dbl) {
 
 public static bool TestSingleRoundingOne(float sng) {
   EFloat ef = EFloat.FromSingle(sng);
-  if (!ef.IsFinite) { return false;
+if (!ef.IsFinite) {
+     { return false;
+  }
 }
   Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(24)
 <= 0);
@@ -1849,7 +1915,9 @@ public static bool TestSingleRoundingOne(float sng) {
 }
 public static bool TestDoubleRoundingOne(double dbl) {
   EFloat ef = EFloat.FromDouble(dbl);
-  if (!ef.IsFinite) { return false;
+if (!ef.IsFinite) {
+     { return false;
+  }
 }
   Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(53)
 <= 0);
@@ -2500,7 +2568,7 @@ maxSignedBits) {
   if (ed == null) {
     throw new ArgumentNullException(nameof(ed));
   }
-if (!ed.IsFinite || ed.IsZero) {
+  if (!ed.IsFinite || ed.IsZero) {
      { return false;
   }
 }

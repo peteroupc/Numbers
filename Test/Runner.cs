@@ -10,8 +10,6 @@ namespace PeterO {
   /// <summary>Description of Runner.</summary>
   public static class Runner {
     public static void Main() {
-  new Test.DecimalTest().TestParser();
- // new Test.DecimalTest().TestDecimalString();
     }
   }
 }

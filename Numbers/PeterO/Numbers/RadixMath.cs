@@ -2715,7 +2715,7 @@ if (op2Mantissa.IsZero) {
       #endif
       long bitExp1 = op1Exponent.GetUnsignedBitLengthAsInt64();
       long bitExp2 = op2Exponent.GetUnsignedBitLengthAsInt64();
-      if (bitExp1 < Int64.MaxValue && bitExp2<Int64.MaxValue &&
+      if (bitExp1 < Int64.MaxValue && bitExp2 < Int64.MaxValue &&
          helper.GetRadix() <= 10 && op1Exponent.Sign == op2Exponent.Sign && (
          (bitExp2 > bitExp1 && (bitExp2 - bitExp1) > 128) ||
          (bitExp1 > bitExp2 && (bitExp1 - bitExp2) > 128))) {

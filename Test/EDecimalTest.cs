@@ -2543,12 +2543,8 @@ namespace Test {
       var rand = new RandomGenerator();
       for (var i = 0; i < 3000; ++i) {
         string r = RandomObjects.RandomDecimalString(rand);
-        try {
-          EDecimal.FromString(r);
-        } catch (Exception ex) {
-          Assert.Fail(ex.ToString());
-          throw new InvalidOperationException(String.Empty, ex);
-        }
+        Console.WriteLine(r.Length);
+        EDecimal.FromString(r);
       }
     }
 
@@ -3495,7 +3491,7 @@ maxSignedBits) {
   if (ed == null) {
     throw new ArgumentNullException(nameof(ed));
   }
-if (!ed.IsFinite || ed.IsZero) {
+  if (!ed.IsFinite || ed.IsZero) {
      { return false;
   }
 }

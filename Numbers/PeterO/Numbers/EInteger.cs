@@ -58,6 +58,7 @@ namespace PeterO.Numbers {
     private const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private const int Toom3Threshold = 100;
+    private const int Toom4Threshold = 400;
     private const int MultRecursionThreshold = 10;
     private const int RecursiveDivisionLimit = (Toom3Threshold * 2) + 1;
 
@@ -687,10 +688,6 @@ unchecked((short)(((int)bytes[evenedLen]) & 0xff));
       }
     }
 
-    // private static System.Diagnostics.Stopwatch swPow = new
-    // System.Diagnostics.Stopwatch();
-    // private static System.Diagnostics.Stopwatch swMulAdd = new
-    // System.Diagnostics.Stopwatch();
     private static EInteger FromRadixSubstringGeneral(
       string str,
       int radix,
@@ -713,12 +710,17 @@ unchecked((short)(((int)bytes[evenedLen]) & 0xff));
             false);
         EInteger mult = null;
         // swPow.Restart();
-        mult = (radix == 10) ? NumberUtility.FindPowerOfTen(
-            endIndex - midIndex) :
-          EInteger.FromInt32(radix).Pow(endIndex - midIndex);
-        // swPow.Stop();swMulAdd.Restart();
-        eia = eia.Multiply(mult).Add(eib);
-        // swMulAdd.Stop();
+        int intpow = endIndex - midIndex;
+        if (radix == 10) {
+           eia = NumberUtility.MultiplyByPowerOfFive(eia,
+  intpow).ShiftLeft(intpow);
+        } else if (radix == 5) {
+          eia = NumberUtility.MultiplyByPowerOfFive(eia, intpow);
+         } else {
+           mult = EInteger.FromInt32(radix).Pow(endIndex - midIndex);
+           eia = eia.Multiply(mult);
+        }
+        eia = eia.Add(eib);
         // DebugUtility.Log("index={0} {1} {2} [pow={3}] [pow={4} ms, muladd={5} ms]",
         // index, midIndex, endIndex, endIndex-midIndex, swPow.ElapsedMilliseconds,
         // swMulAdd.ElapsedMilliseconds);
@@ -3695,6 +3697,7 @@ maxDigitEstimate : retval +
       EInteger w0, wt1, wt2, wt3, w4;
       if (wordsA == wordsB && wordsAStart == wordsBStart &&
         countA == countB) {
+        // Same array, offset, and count, so we're squaring
         w0 = x0.Multiply(x0);
         w4 = x2.Multiply(x2);
         EInteger x2x0 = x2.Add(x0);
@@ -3749,6 +3752,154 @@ maxDigitEstimate : retval +
         w0 = w0.Add(w2.ShiftLeft(m3mul16.Multiply(2)));
         w0 = w0.Add(w3.ShiftLeft(m3mul16.Multiply(3)));
         w0 = w0.Add(w4.ShiftLeft(m3mul16.Multiply(4)));
+      }
+      Array.Clear(resultArr, resultStart, countA + countB);
+      Array.Copy(
+        w0.words,
+        0,
+        resultArr,
+        resultStart,
+        Math.Min(countA + countB, w0.wordCount));
+    }
+
+private static EInteger Interpolate(EInteger[] wts, int[] values, int divisor) {
+  EInteger ret = EInteger.Zero;
+  for (int i = 0; i < wts.Length; ++i) {
+    int v = values[i];
+    int va = Math.Abs(v);
+    ret = ret.Add(wts[i].Multiply(v));
+  }
+  return ret.Divide(divisor);
+}
+/*
+public EInteger Toom4Multiply(EInteger eib) {
+  short[] r = new short[this.wordCount + eib.wordCount];
+  Toom4(r, 0, this.words, 0, this.wordCount, eib.words, 0, eib.wordCount);
+  EInteger ret = MakeEInteger(r, r.Length, 0, r.Length);
+  return (this.negative^eib.negative) ? ret.Negate() : ret;
+}
+*/
+    private static void Toom4(
+      short[] resultArr,
+      int resultStart,
+      short[] wordsA,
+      int wordsAStart,
+      int countA,
+      short[] wordsB,
+      int wordsBStart,
+      int countB) {
+      int imal = Math.Max(countA, countB);
+      int im3 = (imal / 4) + (((imal % 4) + 3) / 4);
+      EInteger m3mul16 = EInteger.FromInt32(im3).ShiftLeft(4);
+      EInteger x0 = MakeEInteger(
+          wordsA,
+          wordsAStart + countA,
+          wordsAStart,
+          im3);
+      EInteger x1 = MakeEInteger(
+        wordsA,
+        wordsAStart + countA,
+        wordsAStart + im3,
+        im3);
+      EInteger x2 = MakeEInteger(
+        wordsA,
+        wordsAStart + countA,
+        wordsAStart +
+        (im3 * 2), im3);
+      EInteger x3 = MakeEInteger(
+        wordsA,
+        wordsAStart + countA,
+        wordsAStart + (im3 * 3), im3);
+      EInteger w0, wt1, wt2, wt3, wt4, wt5, w6;
+      if (wordsA == wordsB && wordsAStart == wordsBStart &&
+        countA == countB) {
+        // Same array, offset, and count, so we're squaring
+        w0 = x0.Multiply(x0);
+        w6 = x3.Multiply(x3);
+        EInteger x2mul2 = x2.ShiftLeft(1);
+        EInteger x1mul4 = x1.ShiftLeft(2);
+        EInteger x0mul8 = x0.ShiftLeft(3);
+        EInteger x1x3 = x1.Add(x3);
+        EInteger x0x2 = x0.Add(x2);
+        wt1 = x3.Add(x2mul2).Add(x1mul4).Add(x0mul8);
+        wt2 = x3.Negate().Add(x2mul2).Subtract(x1mul4).Add(x0mul8);
+        wt3 = x0x2.Add(x1x3);
+        wt4 = x0x2.Subtract(x1x3);
+        wt5 = x0.Add(
+          x3.ShiftLeft(3)).Add(x2.ShiftLeft(2)).Add(x1.ShiftLeft(1));
+        wt1 = wt1.Multiply(wt1);
+        wt2 = wt2.Multiply(wt2);
+        wt3 = wt3.Multiply(wt3);
+        wt4 = wt4.Multiply(wt4);
+        wt5 = wt5.Multiply(wt5);
+      } else {
+        EInteger y0 = MakeEInteger(
+            wordsB,
+            wordsBStart + countB,
+            wordsBStart,
+            im3);
+        EInteger y1 = MakeEInteger(
+            wordsB,
+            wordsBStart + countB,
+            wordsBStart + im3,
+            im3);
+        EInteger y2 = MakeEInteger(
+            wordsB,
+            wordsBStart + countB,
+            wordsBStart + (im3 * 2), im3);
+        EInteger y3 = MakeEInteger(
+            wordsB,
+            wordsBStart + countB,
+            wordsBStart + (im3 * 3), im3);
+        w0 = x0.Multiply(y0);
+        w6 = x3.Multiply(y3);
+        EInteger x2mul2 = x2.ShiftLeft(1);
+        EInteger x1mul4 = x1.ShiftLeft(2);
+        EInteger x0mul8 = x0.ShiftLeft(3);
+        EInteger y2mul2 = y2.ShiftLeft(1);
+        EInteger y1mul4 = y1.ShiftLeft(2);
+        EInteger y0mul8 = y0.ShiftLeft(3);
+        EInteger x1x3 = x1.Add(x3);
+        EInteger x0x2 = x0.Add(x2);
+        EInteger y1y3 = y1.Add(y3);
+        EInteger y0y2 = y0.Add(y2);
+        wt1 = x3.Add(x2mul2).Add(x1mul4).Add(x0mul8);
+        wt1 = wt1.Multiply(y3.Add(y2mul2).Add(y1mul4).Add(y0mul8));
+        wt2 = x3.Negate().Add(x2mul2).Subtract(x1mul4).Add(x0mul8);
+        wt2 = wt2.Multiply(
+          y3.Negate().Add(y2mul2).Subtract(y1mul4).Add(y0mul8));
+        wt3 = x0x2.Add(x1x3);
+        wt3 = wt3.Multiply(y0y2.Add(y1y3));
+        wt4 = x0x2.Subtract(x1x3);
+        wt4 = wt4.Multiply(y0y2.Subtract(y1y3));
+        wt5 = x0.Add(
+          x3.ShiftLeft(3)).Add(x2.ShiftLeft(2)).Add(x1.ShiftLeft(1));
+        wt5 = wt5.Multiply(
+   y0.Add(y3.ShiftLeft(3)).Add(y2.ShiftLeft(2)).Add(y1.ShiftLeft(1)));
+      }
+      EInteger[] wts = { w0, wt1, wt2, wt3, wt4, wt5, w6 };
+      EInteger w1 = Interpolate(wts, new int[] { -90, 5, -3, -60, 20, 2, -90 }, 180);
+      EInteger w2 = Interpolate(wts, new int[] { -120, 1, 1, -4, -4, 0, 6 }, 24);
+      EInteger w3 = Interpolate(wts, new int[] { 45, -1, 0, 27, -7, -1, 45 }, 18);
+      EInteger w4 = Interpolate(wts, new int[] { 96, -1, -1, 16, 16, 0, -30 }, 24);
+      EInteger w5 = Interpolate(wts, new int[] {
+        -360, 5, 3, -120, -40, 8, -360
+      }, 180);
+      if (m3mul16.CompareTo(0x70000000) < 0) {
+        im3 <<= 4; // multiply by 16
+        w0 = w0.Add(w1.ShiftLeft(im3));
+        w0 = w0.Add(w2.ShiftLeft(im3 * 2));
+        w0 = w0.Add(w3.ShiftLeft(im3 * 3));
+        w0 = w0.Add(w4.ShiftLeft(im3 * 4));
+        w0 = w0.Add(w5.ShiftLeft(im3 * 5));
+        w0 = w0.Add(w6.ShiftLeft(im3 * 6));
+      } else {
+        w0 = w0.Add(w1.ShiftLeft(m3mul16));
+        w0 = w0.Add(w2.ShiftLeft(m3mul16.Multiply(2)));
+        w0 = w0.Add(w3.ShiftLeft(m3mul16.Multiply(3)));
+        w0 = w0.Add(w4.ShiftLeft(m3mul16.Multiply(4)));
+        w0 = w0.Add(w5.ShiftLeft(m3mul16.Multiply(5)));
+        w0 = w0.Add(w6.ShiftLeft(m3mul16.Multiply(6)));
       }
       Array.Clear(resultArr, resultStart, countA + countB);
       Array.Copy(
@@ -4851,13 +5002,12 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
         long digits = ((long)estimatedHalfDigitCountPerWord[radix] *
             this.wordCount) / 16;
         EInteger pow = null;
-if (radix == 10) {
-  pow = NumberUtility.FindPowerOfTen(digits);
-}
-        else if (radix == 5) {
-   pow = NumberUtility.FindPowerOfFiveFromBig(EInteger.FromInt64(digits));
- } else {
- pow = EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits));
+        if (radix == 10) {
+          pow = NumberUtility.FindPowerOfTen(digits);
+        } else {
+ pow = (radix == 5) ?
+(NumberUtility.FindPowerOfFiveFromBig(EInteger.FromInt64(digits))) :
+(EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits)));
 }
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
@@ -5494,6 +5644,17 @@ if (radix == 10) {
       if (words1Count <= MultRecursionThreshold && words2Count <=
         MultRecursionThreshold) {
         SchoolbookMultiply(
+          resultArr,
+          resultStart,
+          words1,
+          words1Start,
+          words1Count,
+          words2,
+          words2Start,
+          words2Count);
+      } else if (words1Count >= Toom4Threshold && words2Count >=
+        Toom4Threshold) {
+        Toom4(
           resultArr,
           resultStart,
           words1,
@@ -7274,6 +7435,16 @@ if (radix == 10) {
               count);
             break;
         }
+      } else if (count >= Toom4Threshold) {
+        Toom4(
+          resultArr,
+          resultStart,
+          words1,
+          words1Start,
+          count,
+          words1,
+          words1Start,
+          count);
       } else if (count >= Toom3Threshold) {
         Toom3(
           resultArr,
@@ -7542,6 +7713,16 @@ if (radix == 10) {
               count);
             break;
         }
+      } else if (count >= Toom4Threshold) {
+        Toom4(
+          resultArr,
+          resultStart,
+          words1,
+          words1Start,
+          count,
+          words2,
+          words2Start,
+          count);
       } else if (count >= Toom3Threshold) {
         Toom3(
           resultArr,
