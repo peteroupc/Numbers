@@ -1839,10 +1839,19 @@ namespace PeterO.Numbers {
       return Create(num.Divide(gcd), den.Divide(gcd));
     }
 
-    /// <param name='maxBitLength'>The parameter <paramref
-    /// name='maxBitLength'/> is a 32-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
-    /// <summary>Not documented yet.</summary>
+    /// <summary>Converts this value to an arbitrary-precision integer by
+    /// dividing the numerator by the denominator, discarding its
+    /// fractional part, and checking whether the resulting integer
+    /// overflows the given signed bit count.</summary>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN), or this number's value, once converted to an
+    /// integer by dividing the numerator by the denominator and discarding
+    /// its fractional part, is less than -(2^maxBitLength) or greater than
+    /// (2^maxBitLength) - 1.</exception>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
+    /// integer can have. The integer's value may not be less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     public EInteger ToSizedEInteger(int maxBitLength) {
       if (maxBitLength < 0) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +
@@ -1869,10 +1878,19 @@ namespace PeterO.Numbers {
       return unum;
     }
 
-    /// <param name='maxBitLength'>The parameter <paramref
-    /// name='maxBitLength'/> is a 32-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
-    /// <summary>Not documented yet.</summary>
+    /// <summary>Converts this value to an arbitrary-precision integer,
+    /// only if this number's value is an exact integer and that integer
+    /// does not overflow the given signed bit count.</summary>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='OverflowException'>This object's value is infinity
+    /// or not-a-number (NaN), or this number's value as an integer is less
+    /// than -(2^maxBitLength) or greater than (2^maxBitLength) -
+    /// 1.</exception>
+    /// <exception cref='ArithmeticException'>This object's value is not an
+    /// exact integer.</exception>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
+    /// integer can have. The integer's value may not be less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
       if (maxBitLength < 0) {
         throw new ArgumentException("maxBitLength (" + maxBitLength + ") is" +

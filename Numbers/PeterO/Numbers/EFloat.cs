@@ -2273,7 +2273,7 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
         return EFloat.SignalingNaN.Plus(ctx);
       }
       if (ctx.Traps != 0) {
-        EContext tctx = ctx.GetTrappable();
+        EContext tctx = ctx.GetNontrapping();
         EFloat ret = value.LogN(baseValue, tctx);
         return ctx.TriggerTraps(ret, tctx);
       } else if (ctx.IsSimplified) {
@@ -3332,11 +3332,11 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
     /// allowed and was rounded to a different numerical value in order to
     /// fit the precision.</param>
     /// <returns>This object rounded to the given precision. Returns this
-    /// object and signals no flags if "ctx" is null or specifies an
-    /// unlimited precision, if this object is infinity or not-a-number
-    /// (including signaling NaN), or if the number's value has no more
-    /// significant digits than the maximum precision given in
-    /// "ctx".</returns>
+    /// object and signals no flags if <paramref name='ctx'/> is null or
+    /// specifies an unlimited precision, if this object is infinity or
+    /// not-a-number (including signaling NaN), or if the number's value
+    /// has no more significant digits than the maximum precision given in
+    /// <paramref name='ctx'/>.</returns>
     public EFloat PreRound(EContext ctx) {
       return NumberUtility.PreRound(this, ctx, MathValue);
     }
@@ -3956,14 +3956,14 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
     /// <summary>Converts this value to an arbitrary-precision integer by
     /// discarding its fractional part and checking whether the resulting
     /// integer overflows the given signed bit count.</summary>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
+    /// integer can have. The integer's value may not be less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN), or this number's value, once converted to an
     /// integer by discarding its fractional part, is less than
     /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
-    /// <param name='maxBitLength'>The maximum number of signed bits the
-    /// integer can have. The integer's value may not be less than
-    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     public EInteger ToSizedEInteger(int maxBitLength) {
       return this.ToSizedEInteger(maxBitLength, false);
     }
@@ -3971,6 +3971,9 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// only if this number's value is an exact integer and that integer
     /// does not overflow the given signed bit count.</summary>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
+    /// integer can have. The integer's value may not be less than
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN), or this number's value, once converted to an
@@ -3978,9 +3981,6 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
     /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</exception>
     /// <exception cref='ArithmeticException'>This object's value is not an
     /// exact integer.</exception>
-    /// <param name='maxBitLength'>The maximum number of signed bits the
-    /// integer can have. The integer's value may not be less than
-    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
     public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
       return this.ToSizedEInteger(maxBitLength, true);
     }

@@ -17,7 +17,6 @@ namespace Test {
     private const int MaxExclusiveShortStringLength = 50;
     private const int MaxNumberLength = 50000;
     private const int MaxShortNumberLength = 40;
-    private const int MaxStringNumDigits = 50;
 
     public static byte[] RandomByteString(IRandomGenExtended rand) {
       if (rand == null) {
@@ -320,8 +319,8 @@ MaxNumberLength);
     }
 
     private static char[] charTable = {
-      '0', '0', '0', '1', '1', '1', '2','2','2','3','3','3','4','4','4',
-      '5', '5', '5', '6', '6', '6','7','7','7','8','8','8','9','9','9',
+      '0', '0', '0', '1', '1', '1', '2', '2', '2', '3', '3', '3', '4', '4', '4',
+      '5', '5', '5', '6', '6', '6', '7', '7', '7', '8', '8', '8', '9', '9', '9',
     };
 
     // Special 10-digit-long strings

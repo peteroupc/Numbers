@@ -442,7 +442,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    private const string HexAlphabet = "0123456789ABCDEF";
+    // Hexadecimal digits
+    private const string Digits = "0123456789ABCDEF";
     private int smallValue; // if integerMode is 0
     private MutableNumber mnum; // if integerMode is 1
     private EInteger largeValue; // if integerMode is 2
@@ -1087,50 +1088,59 @@ switch (this.integerMode) {
       }
     }
 
-    internal static string IntToString(int value) {
+    public static string IntToString(int value) {
       if (value == 0) {
         return "0";
       }
       if (value == Int32.MinValue) {
         return "-2147483648";
       }
+      bool neg = value < 0;
+      if (neg) {
+        value = -value;
+      }
       char[] chars;
       int count;
-      if ((value >> 15) == 0) {
-        chars = new char[5];
-        count = 4;
+      if (value < 100000) {
+        if (neg) {
+         chars = new char[6];
+         count = 5;
+        } else {
+         chars = new char[5];
+         count = 4;
+        }
         while (value > 9) {
-          int intdivvalue = (value * 26215) >> 18;
-          char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
+          int intdivvalue = unchecked((((value >> 1) * 52429) >> 18) & 16383);
+          char digit = Digits[(int)(value - (intdivvalue * 10))];
           chars[count--] = digit;
           value = intdivvalue;
         }
         if (value != 0) {
-          chars[count--] = HexAlphabet[(int)value];
+          chars[count--] = Digits[(int)value];
         }
-        ++count;
-        return new String(chars, count, 5 - count);
+        if (neg) {
+          chars[count] = '-';
+        } else {
+          ++count;
+        }
+        return new String(chars, count, chars.Length - count);
       }
-      bool neg = value < 0;
       chars = new char[12];
       count = 11;
-      if (neg) {
-        value = -value;
-      }
-      while (value > 43698) {
+      while (value >= 163840) {
         int intdivvalue = value / 10;
-        char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
+        char digit = Digits[(int)(value - (intdivvalue * 10))];
         chars[count--] = digit;
         value = intdivvalue;
       }
       while (value > 9) {
-        int intdivvalue = (value * 26215) >> 18;
-        char digit = HexAlphabet[(int)(value - (intdivvalue * 10))];
+        int intdivvalue = unchecked((((value >> 1) * 52429) >> 18) & 16383);
+        char digit = Digits[(int)(value - (intdivvalue * 10))];
         chars[count--] = digit;
         value = intdivvalue;
       }
       if (value != 0) {
-        chars[count--] = HexAlphabet[(int)value];
+        chars[count--] = Digits[(int)value];
       }
       if (neg) {
         chars[count] = '-';
@@ -1138,6 +1148,49 @@ switch (this.integerMode) {
         ++count;
       }
       return new String(chars, count, 12 - count);
+    }
+
+    public static string LongToString(long longValue) {
+      if (longValue == Int64.MinValue) {
+        return "-9223372036854775808";
+      }
+      if (longValue == 0L) {
+        return "0";
+      }
+      bool neg = longValue < 0;
+      var count = 0;
+      char[] chars;
+      int intlongValue = unchecked((int)longValue);
+      if ((long)intlongValue == longValue) {
+        return IntToString(intlongValue);
+      } else {
+        chars = new char[24];
+        count = 23;
+        if (neg) {
+          longValue = -longValue;
+        }
+        while (longValue >= 163840) {
+          long divValue = longValue / 10;
+          char digit = Digits[(int)(longValue - (divValue * 10))];
+          chars[count--] = digit;
+          longValue = divValue;
+        }
+        while (longValue > 9) {
+          long divValue = unchecked((((longValue >> 1) * 52429) >> 18) & 16383);
+          char digit = Digits[(int)(longValue - (divValue * 10))];
+          chars[count--] = digit;
+          longValue = divValue;
+        }
+        if (longValue != 0) {
+          chars[count--] = Digits[(int)longValue];
+        }
+        if (neg) {
+          chars[count] = '-';
+        } else {
+          ++count;
+        }
+        return new String(chars, count, 24 - count);
+      }
     }
 
     /// <summary>This is an internal API.</summary>

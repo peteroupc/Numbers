@@ -3387,8 +3387,8 @@ namespace Test {
       }
     }
 
-[Test]
-public void TestToSizedEInteger() {
+    [Test]
+    public void TestToSizedEInteger() {
       try {
         EDecimal.PositiveInfinity.ToSizedEInteger(32);
         Assert.Fail("Should have failed");
@@ -3481,51 +3481,52 @@ public void TestToSizedEInteger() {
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 100000; ++i) {
- TestSizedEIntegerOne(RandomObjects.RandomEDecimal(rg), rg.UniformInt(2) ==
-0, rg.UniformInt(129));
-}
-}
-
-public static bool TestSizedEIntegerOne(EDecimal ed, bool isExact, int
-maxSignedBits) {
-  if (ed == null) {
-    throw new ArgumentNullException(nameof(ed));
-  }
-  if (!ed.IsFinite || ed.IsZero) {
-     { return false;
-  }
-}
-  EInteger ei = null;
-  EInteger ei2 = null;
-  try {
-    ei = ed.Exponent.CompareTo(maxSignedBits + 6) > 0 ? null : (isExact ?
-ed.ToEIntegerIfExact() : ed.ToEInteger());
-    if (ei != null &&
-ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits) > 0) {
-      ei = null;
+        TestSizedEIntegerOne(RandomObjects.RandomEDecimal(rg),
+  rg.UniformInt(2) == 0,
+  rg.UniformInt(129));
+      }
     }
-  } catch (ArithmeticException ex) {
-    ei = null;
-  } catch (NotSupportedException ex) {
-    ei = null;
-  }
-  try {
-    ei2 = isExact ? ed.ToSizedEIntegerIfExact(maxSignedBits) :
-ed.ToSizedEInteger(maxSignedBits);
-  } catch (NotSupportedException ex) {
-    Assert.Fail(ed.ToString());
-  } catch (ArithmeticException exc) {
-    ei2 = null;
-  }
-  if (ei == null) {
-    Assert.IsTrue(ei2 == null);
-  } else {
-    Assert.AreEqual(ei, ei2);
-    Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits)
-<= 0);
-  }
-  return true;
-}
+
+    public static bool TestSizedEIntegerOne(EDecimal ed, bool isExact, int
+      maxSignedBits) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
+      if (!ed.IsFinite || ed.IsZero) {
+        { return false;
+        }
+      }
+      EInteger ei = null;
+      EInteger ei2 = null;
+      try {
+        ei = ed.Exponent.CompareTo(maxSignedBits + 6) > 0 ? null : (isExact ?
+            ed.ToEIntegerIfExact() : ed.ToEInteger());
+        if (ei != null &&
+          ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits) > 0) {
+          ei = null;
+        }
+      } catch (ArithmeticException) {
+        ei = null;
+      } catch (NotSupportedException) {
+        ei = null;
+      }
+      try {
+        ei2 = isExact ? ed.ToSizedEIntegerIfExact(maxSignedBits) :
+          ed.ToSizedEInteger(maxSignedBits);
+      } catch (NotSupportedException) {
+        Assert.Fail(ed.ToString());
+      } catch (ArithmeticException) {
+        ei2 = null;
+      }
+      if (ei == null) {
+        Assert.IsTrue(ei2 == null);
+      } else {
+        Assert.AreEqual(ei, ei2);
+        Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(
+  maxSignedBits) <= 0);
+      }
+      return true;
+    }
 
     [Test]
     public void TestToEInteger() {
@@ -5983,8 +5984,8 @@ ed.ToSizedEInteger(maxSignedBits);
     [Test]
     public void TestStringContextSpecific6b() {
       EContext ec = EContext.Unlimited.WithPrecision(19).WithExponentRange(
-        -353,
-        354).WithRounding(
+          -353,
+          354).WithRounding(
           ERounding.Down).WithAdjustExponent(
           true).WithExponentClamp(false).WithSimplified(false);
       String str =

@@ -266,8 +266,8 @@ namespace Test {
     private static string TrimQuotes(string str) {
       return (str == null || str.Length == 0 || (
          str[0] != '\'' && str[0] != '\"' && str[str.Length - 1] != '\'' &&
-str[str.Length - 1] != '\"')) ? str : (ValueQuotes.Replace(str,
-  String.Empty));
+str[str.Length - 1] != '\"')) ? str :
+   ValueQuotes.Replace(str, String.Empty);
     }
 
     public static void ParseDecTest(

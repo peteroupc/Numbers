@@ -352,8 +352,8 @@ FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
 
     internal static EInteger MultiplyByPowerOfFive(EInteger v, EInteger
 epower) {
-       return (epower.CanFitInInt32()) ? (MultiplyByPowerOfFive(v,
-  epower.ToInt32Checked())) : (v.Multiply(FindPowerOfFiveFromBig(epower)));
+       return epower.CanFitInInt32() ? MultiplyByPowerOfFive(v,
+  epower.ToInt32Checked()) : (v.Multiply(FindPowerOfFiveFromBig(epower)));
     }
 
     internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {
@@ -386,7 +386,7 @@ epower) {
       return ret;
     }
 
-    private static readonly EInteger ValueBigInt36 = (EInteger)36;
+
 
     internal static EInteger FindPowerOfTenFromBig(EInteger
       bigintExponent) {
@@ -397,9 +397,9 @@ epower) {
       if (sign == 0) {
         return EInteger.One;
       }
-      return (bigintExponent.CanFitInInt32()) ?
-(FindPowerOfTen(bigintExponent.ToInt32Checked())) :
-(FindPowerOfFiveFromBig(bigintExponent).ShiftLeft(bigintExponent));
+      return bigintExponent.CanFitInInt32() ?
+FindPowerOfTen(bigintExponent.ToInt32Checked()) :
+FindPowerOfFiveFromBig(bigintExponent).ShiftLeft(bigintExponent);
     }
 
     private static readonly EInteger ValueFivePower40 =

@@ -151,8 +151,8 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToSingle()](#ToSingle)</code> - Converts this value to a 32-bit binary floating-point number.
-* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> -
-* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> -
+* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Not documented yet.
+* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Not documented yet.
 * <code>[ToString()](#ToString)</code> - Converts this object to a text string.
 * <code>[ToUInt16Checked()](#ToUInt16Checked)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt16IfExact()](#ToUInt16IfExact)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
@@ -2780,6 +2780,8 @@ The closest 32-bit binary floating-point number to this value. The return value 
     public PeterO.Numbers.EInteger ToSizedEInteger(
         int maxBitLength);
 
+Not documented yet.
+
 <b>Parameters:</b>
 
  * <i>maxBitLength</i>: The parameter  <i>maxBitLength</i>
@@ -2794,6 +2796,8 @@ The return value is not documented yet.
 
     public PeterO.Numbers.EInteger ToSizedEIntegerIfExact(
         int maxBitLength);
+
+Not documented yet.
 
 <b>Parameters:</b>
 

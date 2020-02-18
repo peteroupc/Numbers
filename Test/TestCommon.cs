@@ -423,20 +423,29 @@ namespace Test {
       }
     }
 
-    internal static string IntToString(int value) {
+    public static string IntToString(int value) {
       if (value == 0) {
         return "0";
       }
       if (value == Int32.MinValue) {
         return "-2147483648";
       }
+      bool neg = value < 0;
+      if (neg) {
+        value = -value;
+      }
       char[] chars;
       int count;
-      if ((value >> 15) == 0) {
-        chars = new char[5];
-        count = 4;
+      if (value < 100000) {
+        if (neg) {
+         chars = new char[6];
+         count = 5;
+        } else {
+         chars = new char[5];
+         count = 4;
+        }
         while (value > 9) {
-          int intdivvalue = (value * 26215) >> 18;
+          int intdivvalue = unchecked((((value >> 1) * 52429) >> 18) & 16383);
           char digit = Digits[(int)(value - (intdivvalue * 10))];
           chars[count--] = digit;
           value = intdivvalue;
@@ -444,23 +453,23 @@ namespace Test {
         if (value != 0) {
           chars[count--] = Digits[(int)value];
         }
-        ++count;
-        return new String(chars, count, 5 - count);
+        if (neg) {
+          chars[count] = '-';
+        } else {
+          ++count;
+        }
+        return new String(chars, count, chars.Length - count);
       }
-      bool neg = value < 0;
       chars = new char[12];
       count = 11;
-      if (neg) {
-        value = -value;
-      }
-      while (value > 43698) {
+      while (value >= 163840) {
         int intdivvalue = value / 10;
         char digit = Digits[(int)(value - (intdivvalue * 10))];
         chars[count--] = digit;
         value = intdivvalue;
       }
       while (value > 9) {
-        int intdivvalue = (value * 26215) >> 18;
+        int intdivvalue = unchecked((((value >> 1) * 52429) >> 18) & 16383);
         char digit = Digits[(int)(value - (intdivvalue * 10))];
         chars[count--] = digit;
         value = intdivvalue;
@@ -495,14 +504,14 @@ namespace Test {
         if (neg) {
           longValue = -longValue;
         }
-        while (longValue > 43698) {
+        while (longValue >= 163840) {
           long divValue = longValue / 10;
           char digit = Digits[(int)(longValue - (divValue * 10))];
           chars[count--] = digit;
           longValue = divValue;
         }
         while (longValue > 9) {
-          long divValue = (longValue * 26215) >> 18;
+          long divValue = unchecked((((longValue >> 1) * 52429) >> 18) & 16383);
           char digit = Digits[(int)(longValue - (divValue * 10))];
           chars[count--] = digit;
           longValue = divValue;

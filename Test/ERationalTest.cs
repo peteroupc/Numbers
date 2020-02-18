@@ -6,72 +6,74 @@ using PeterO.Numbers;
 namespace Test {
   [TestFixture]
   public class ERationalTest {
-public static bool TestSizedEIntegerOne(ERational ed, bool isExact, int
-maxSignedBits) {
-  if (ed == null) {
-    throw new ArgumentNullException(nameof(ed));
-  }
-  if (!ed.IsFinite || ed.IsZero) {
-{ return false;
-} }
-  EInteger ei = null;
-  EInteger ei2 = null;
-  try {
-    ei = isExact ? ed.ToEIntegerIfExact() : ed.ToEInteger();
-    if (ei != null &&
-ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits) > 0) {
-      ei = null;
+    public static bool TestSizedEIntegerOne(ERational ed, bool isExact, int
+      maxSignedBits) {
+      if (ed == null) {
+        throw new ArgumentNullException(nameof(ed));
+      }
+      if (!ed.IsFinite || ed.IsZero) {
+        { return false;
+        }
+      }
+      EInteger ei = null;
+      EInteger ei2 = null;
+      try {
+        ei = isExact ? ed.ToEIntegerIfExact() : ed.ToEInteger();
+        if (ei != null &&
+          ei.GetSignedBitLengthAsEInteger().CompareTo(maxSignedBits) > 0) {
+          ei = null;
+        }
+      } catch (ArithmeticException) {
+        ei = null;
+      } catch (NotSupportedException) {
+        ei = null;
+      }
+      try {
+        ei2 = isExact ? ed.ToSizedEIntegerIfExact(maxSignedBits) :
+          ed.ToSizedEInteger(maxSignedBits);
+      } catch (NotSupportedException) {
+        Assert.Fail(ed.ToString());
+      } catch (ArithmeticException) {
+        ei2 = null;
+      }
+      if (ei == null) {
+        Assert.IsTrue(ei2 == null);
+      } else {
+        Assert.AreEqual(ei, ei2);
+        Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(128) <= 0);
+      }
+      return true;
     }
-  } catch (ArithmeticException ex) {
-    ei = null;
-  } catch (NotSupportedException ex) {
-    ei = null;
-  }
-  try {
-    ei2 = isExact ? ed.ToSizedEIntegerIfExact(maxSignedBits) :
-ed.ToSizedEInteger(maxSignedBits);
-  } catch (NotSupportedException ex) {
-    Assert.Fail(ed.ToString());
-  } catch (ArithmeticException exc) {
-    ei2 = null;
-  }
-  if (ei == null) {
-    Assert.IsTrue(ei2 == null);
-  } else {
-    Assert.AreEqual(ei, ei2);
-    Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(128) <= 0);
-  }
-  return true;
-}
 
-public static bool TestCompareToValueSpecific(ERational a, ERational b) {
-  if (a == null) {
-    throw new ArgumentNullException(nameof(a));
-  }
-  if (b == null) {
-    throw new ArgumentNullException(nameof(b));
-  }
-  if (!a.IsFinite || !b.IsFinite || a.IsZero || b.IsZero) {
-{ return false;
-} }
-  EInteger ad = a.UnsignedNumerator.Multiply(b.Denominator);
-  EInteger bc = b.UnsignedNumerator.Multiply(a.Denominator);
-  int cmp = ad.CompareTo(bc);
-  cmp = (cmp < 0) ? -1 : ((cmp > 0) ? 1 : 0);
-  int cmp2 = a.Abs().CompareToValue(b.Abs());
-  cmp2 = (cmp2 < 0) ? -1 : ((cmp2 > 0) ? 1 : 0);
-  Assert.AreEqual(cmp, cmp2);
-  cmp2 = a.Abs().Negate().CompareToValue(b.Abs().Negate());
-  cmp2 = (cmp2 < 0) ? -1 : ((cmp2 > 0) ? 1 : 0);
-  Assert.AreEqual(-cmp, cmp2);
-  TestCommon.CompareTestReciprocal(a, b);
-  TestCommon.CompareTestReciprocal(a.Abs(), b.Abs());
-  TestCommon.CompareTestReciprocal(a.Abs().Negate(), b.Abs().Negate());
-  return true;
-}
+    public static bool TestCompareToValueSpecific(ERational a, ERational b) {
+      if (a == null) {
+        throw new ArgumentNullException(nameof(a));
+      }
+      if (b == null) {
+        throw new ArgumentNullException(nameof(b));
+      }
+      if (!a.IsFinite || !b.IsFinite || a.IsZero || b.IsZero) {
+        { return false;
+        }
+      }
+      EInteger ad = a.UnsignedNumerator.Multiply(b.Denominator);
+      EInteger bc = b.UnsignedNumerator.Multiply(a.Denominator);
+      int cmp = ad.CompareTo(bc);
+      cmp = (cmp < 0) ? -1 : ((cmp > 0) ? 1 : 0);
+      int cmp2 = a.Abs().CompareToValue(b.Abs());
+      cmp2 = (cmp2 < 0) ? -1 : ((cmp2 > 0) ? 1 : 0);
+      Assert.AreEqual(cmp, cmp2);
+      cmp2 = a.Abs().Negate().CompareToValue(b.Abs().Negate());
+      cmp2 = (cmp2 < 0) ? -1 : ((cmp2 > 0) ? 1 : 0);
+      Assert.AreEqual(-cmp, cmp2);
+      TestCommon.CompareTestReciprocal(a, b);
+      TestCommon.CompareTestReciprocal(a.Abs(), b.Abs());
+      TestCommon.CompareTestReciprocal(a.Abs().Negate(), b.Abs().Negate());
+      return true;
+    }
 
-[Test]
-public void TestToSizedEInteger() {
+    [Test]
+    public void TestToSizedEInteger() {
       try {
         ERational.PositiveInfinity.ToSizedEInteger(32);
         Assert.Fail("Should have failed");
@@ -164,10 +166,11 @@ public void TestToSizedEInteger() {
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 100000; ++i) {
- TestSizedEIntegerOne(RandomObjects.RandomERational(rg), rg.UniformInt(2) == 0,
-  rg.UniformInt(129));
-}
-}
+        TestSizedEIntegerOne(RandomObjects.RandomERational(rg),
+          rg.UniformInt(2) == 0,
+          rg.UniformInt(129));
+      }
+    }
 
     [Test]
     public void TestFromBoolean() {
@@ -273,7 +276,10 @@ public void TestToSizedEInteger() {
         er = ERational.FromString(erstr);
         Assert.AreEqual(ei1, er.Numerator);
         Assert.AreEqual(ei2, er.Denominator);
-        ERational er2 = ERational.FromString("xyzxyz" + erstr, 6, erstr.Length);
+        ERational er2 = ERational.FromString(
+          "xyzxyz" + erstr,
+          6,
+          erstr.Length);
         Assert.AreEqual(er, er2);
         er2 = ERational.FromString(erstr + "xyzxyz", 0, erstr.Length);
         Assert.AreEqual(er, er2);
@@ -523,10 +529,10 @@ public void TestToSizedEInteger() {
         }
         isInteger = enumber.IsInteger();
         try {
-        eint = enumber.ToSizedEInteger(128);
-} catch (OverflowException) {
-        eint = null;
-}
+          eint = enumber.ToSizedEInteger(128);
+        } catch (OverflowException) {
+          eint = null;
+        }
         isNum = enumber.CompareTo(
             ERational.FromString("0")) >= 0 && enumber.CompareTo(
             ERational.FromString("255")) <= 0;
@@ -776,7 +782,7 @@ public void TestToSizedEInteger() {
         }
         isNum = enumber.CompareTo(
             ERational.FromString("-9223372036854775808")) >= 0 &&
-enumber.CompareTo(
+          enumber.CompareTo(
             ERational.FromString("9223372036854775807")) <= 0;
         isTruncated = eint != null && eint.CompareTo(
             EInteger.FromString("-9223372036854775808")) >= 0 &&
@@ -1101,7 +1107,7 @@ enumber.CompareTo(
       }
       {
         EInteger einu = EInteger.FromString(
-  "-1863418246957279563806778202220");
+            "-1863418246957279563806778202220");
         EInteger eide = EInteger.FromString("-19678578840082347944784");
         ERational er = ERational.Create(einu, eide);
         if (er.ToDouble() != 94692724.61697146) {
@@ -1207,13 +1213,13 @@ enumber.CompareTo(
         einu =
 
           EInteger.FromString(
-  "23834066907087289577452688867414558445296281531936833295325883");
+            "23834066907087289577452688867414558445296281531936833295325883");
         EInteger
 
         eide =
 
           EInteger.FromString(
-  "15534539262499368906407431994248182374430712739667361984187384");
+            "15534539262499368906407431994248182374430712739667361984187384");
         ERational er = ERational.Create(einu, eide);
         if (er.ToSingle() != 1.5342629f) {
           {

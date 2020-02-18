@@ -289,7 +289,7 @@ namespace PeterO.Numbers {
         return EInteger.Zero;
       } else if (bytes.Length == 1) {
         return (((int)bytes[0] & 0x80) == 0) ? FromInt32((int)bytes[0]) :
-           FromInt32(-1 - ((~bytes[0]) & 0x7f));
+          FromInt32(-1 -((~bytes[0]) & 0x7f));
       }
       int len = bytes.Length;
       int wordLength = (len >> 1) + (len & 1);
@@ -301,40 +301,40 @@ namespace PeterO.Numbers {
       var j = 0;
       if (littleEndian) {
         for (var i = 0; i < evenedLen; i += 2, j++) {
-            int index2 = i + 1;
-            int nrj = ((int)bytes[i]) & 0xff;
-            nrj |= ((int)bytes[i + 1]) << 8;
-            newreg[j] = unchecked((short)nrj);
-          }
-          if (odd) {
-            newreg[evenedLen >> 1] =
-unchecked((short)(((int)bytes[evenedLen]) & 0xff));
-          }
-          numIsNegative = (bytes[len - 1] & 0x80) != 0;
-        } else {
-          for (var i = 0; i < evenedLen; i += 2, j++) {
-            int index = len - 1 - i;
-            int index2 = len - 2 - i;
-            int nrj = ((int)bytes[index]) & 0xff;
-            nrj |= ((int)bytes[index2]) << 8;
-            newreg[j] = unchecked((short)nrj);
-          }
-          if (odd) {
-            newreg[evenedLen >> 1] = unchecked((short)(((int)bytes[0]) & 0xff));
-          }
-          numIsNegative = (bytes[0] & 0x80) != 0;
+          int index2 = i + 1;
+          int nrj = ((int)bytes[i]) & 0xff;
+          nrj |= ((int)bytes[i + 1]) << 8;
+          newreg[j] = unchecked((short)nrj);
         }
-        if (numIsNegative) {
-          // Sign extension and two's-complement
-          if (odd) {
-            newreg[len >> 1] |= unchecked((short)0xff00);
-          }
-          j = (len >> 1) + 1;
-          for (; j < newreg.Length; ++j) {
-            newreg[j] = unchecked((short)0xffff); // sign extend remaining words
-          }
-          TwosComplement(newreg, 0, (int)newreg.Length);
+        if (odd) {
+          newreg[evenedLen >> 1] =
+            unchecked((short)(((int)bytes[evenedLen]) & 0xff));
         }
+        numIsNegative = (bytes[len - 1] & 0x80) != 0;
+      } else {
+        for (var i = 0; i < evenedLen; i += 2, j++) {
+          int index = len - 1 - i;
+          int index2 = len - 2 - i;
+          int nrj = ((int)bytes[index]) & 0xff;
+          nrj |= ((int)bytes[index2]) << 8;
+          newreg[j] = unchecked((short)nrj);
+        }
+        if (odd) {
+          newreg[evenedLen >> 1] = unchecked((short)(((int)bytes[0]) & 0xff));
+        }
+        numIsNegative = (bytes[0] & 0x80) != 0;
+      }
+      if (numIsNegative) {
+        // Sign extension and two's-complement
+        if (odd) {
+          newreg[len >> 1] |= unchecked((short)0xff00);
+        }
+        j = (len >> 1) + 1;
+        for (; j < newreg.Length; ++j) {
+          newreg[j] = unchecked((short)0xffff); // sign extend remaining words
+        }
+        TwosComplement(newreg, 0, (int)newreg.Length);
+      }
       int newwordCount = newreg.Length;
       while (newwordCount != 0 && newreg[newwordCount - 1] == 0) {
         --newwordCount;
@@ -712,13 +712,13 @@ unchecked((short)(((int)bytes[evenedLen]) & 0xff));
         // swPow.Restart();
         int intpow = endIndex - midIndex;
         if (radix == 10) {
-           eia = NumberUtility.MultiplyByPowerOfFive(eia,
-  intpow).ShiftLeft(intpow);
+          eia = NumberUtility.MultiplyByPowerOfFive(eia,
+              intpow).ShiftLeft(intpow);
         } else if (radix == 5) {
           eia = NumberUtility.MultiplyByPowerOfFive(eia, intpow);
-         } else {
-           mult = EInteger.FromInt32(radix).Pow(endIndex - midIndex);
-           eia = eia.Multiply(mult);
+        } else {
+          mult = EInteger.FromInt32(radix).Pow(endIndex - midIndex);
+          eia = eia.Multiply(mult);
         }
         eia = eia.Add(eib);
         // DebugUtility.Log("index={0} {1} {2} [pow={3}] [pow={4} ms, muladd={5} ms]",
@@ -2756,7 +2756,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
             buc = WordsShiftRightOne(bu, buc);
             bvc = WordsShiftRightOne(bv, bvc);
           } else if (eu && !ev) {
-            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x0f) == 0) ?
+            buc =(Math.Abs(buc - bvc) > 1 && (bu[0] & 0x0f) == 0) ?
               WordsShiftRightFour(bu, buc) : WordsShiftRightOne(bu, buc);
             } else if (!eu && ev) {
             if ((bv[0] & 0xff) == 0 && Math.Abs(buc - bvc) > 1) {
@@ -2770,7 +2770,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
             }
           } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
             buc = WordsSubtract(bu, buc, bv, bvc);
-            buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x02) == 0) ?
+            buc =(Math.Abs(buc - bvc) > 1 && (bu[0] & 0x02) == 0) ?
               WordsShiftRightTwo(bu, buc) : WordsShiftRightOne(bu, buc);
             } else {
             short[] butmp = bv;
@@ -2843,7 +2843,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
       }
       retval = 0L;
       while (true) {
-        if (ei.HasSmallValue()) {
+        if (ei.CanFitInInt64()) {
           long value = ei.ToInt64Checked();
           if (value == 0) {
             // Treat zero after division as having no digits
@@ -2863,8 +2863,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     ((value >= 100000000000000L) ? 15 : ((value
                           >= 10000000000000L) ?
                         14 : ((value >= 1000000000000L) ? 13 : ((value
-                              >= 100000000000L) ? 12 : ((value >=
-10000000000L) ?
+                >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
                               11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
@@ -3013,8 +3012,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                          minDigitEstimate)) >= 0 ? retval +
-maxDigitEstimate : retval +
+                minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
                       minDigitEstimate;
                     done = true;
                     break;
@@ -3115,12 +3113,15 @@ maxDigitEstimate : retval +
                         0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
                       5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
                                 8) & ShortMask) != 0) ? 7 : ((((c << 7) &
-                ShortMask) != 0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
+                                ShortMask) != 0) ? 8 : ((((c << 6) &
+ShortMask) != 0) ? 9 :
                               ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
-                              4) & ShortMask) != 0) ? 11 : ((((c << 3) &
+                                        4) & ShortMask) != 0) ? 11 : ((((c <<
+3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
                                           0xffff) != 0) ? 13 : ((((c << 1) &
-                ShortMask) != 0) ? 14 : 15))))))))))))));
+                                            ShortMask) != 0) ? 14 :
+15))))))))))))));
           retSetBitLong += rsb;
           return retSetBitLong;
         }
@@ -3137,7 +3138,7 @@ maxDigitEstimate : retval +
     /// <returns>The bit position of the lowest bit set in the number,
     /// starting at 0. Returns -1 if this value is 0 or odd.</returns>
     public EInteger GetLowBitAsEInteger() {
-       return EInteger.FromInt64(this.GetLowBitAsInt64());
+      return EInteger.FromInt64(this.GetLowBitAsInt64());
     }
 
     /// <summary>Returns whether a bit is set in the two's-complement form
@@ -3685,15 +3686,15 @@ maxDigitEstimate : retval +
           wordsAStart,
           im3);
       EInteger x1 = MakeEInteger(
-        wordsA,
-        wordsAStart + countA,
-        wordsAStart + im3,
-        im3);
+          wordsA,
+          wordsAStart + countA,
+          wordsAStart + im3,
+          im3);
       EInteger x2 = MakeEInteger(
-        wordsA,
-        wordsAStart + countA,
-        wordsAStart +
-        (im3 * 2), im3);
+          wordsA,
+          wordsAStart + countA,
+          wordsAStart +
+          (im3 * 2), im3);
       EInteger w0, wt1, wt2, wt3, w4;
       if (wordsA == wordsB && wordsAStart == wordsBStart &&
         countA == countB) {
@@ -3721,7 +3722,8 @@ maxDigitEstimate : retval +
         EInteger y2 = MakeEInteger(
             wordsB,
             wordsBStart + countB,
-            wordsBStart + (im3 * 2), im3);
+            wordsBStart + (im3 * 2),
+          im3);
         w0 = x0.Multiply(y0);
         w4 = x2.Multiply(y2);
         EInteger x2x0 = x2.Add(x0);
@@ -3762,23 +3764,30 @@ maxDigitEstimate : retval +
         Math.Min(countA + countB, w0.wordCount));
     }
 
-private static EInteger Interpolate(EInteger[] wts, int[] values, int divisor) {
-  EInteger ret = EInteger.Zero;
-  for (int i = 0; i < wts.Length; ++i) {
-    int v = values[i];
-    int va = Math.Abs(v);
-    ret = ret.Add(wts[i].Multiply(v));
-  }
-  return ret.Divide(divisor);
+    private static EInteger Interpolate(
+      EInteger[] wts,
+      int[] values,
+      int divisor) {
+      EInteger ret = EInteger.Zero;
+      for (int i = 0; i < wts.Length; ++i) {
+        int v = values[i];
+        if (v == 0) {
+          continue;
+        } else {
+ ret = (v == 1) ? ret.Add(wts[i]) : ((v == -1) ? ret.Subtract(wts[i]) :
+ret.Add(wts[i].Multiply(v)));
 }
-/*
-public EInteger Toom4Multiply(EInteger eib) {
-  short[] r = new short[this.wordCount + eib.wordCount];
-  Toom4(r, 0, this.words, 0, this.wordCount, eib.words, 0, eib.wordCount);
-  EInteger ret = MakeEInteger(r, r.Length, 0, r.Length);
-  return (this.negative^eib.negative) ? ret.Negate() : ret;
-}
-*/
+      }
+      return ret.Divide(divisor);
+    }
+    /*
+    public EInteger Toom4Multiply(EInteger eib) {
+      var r = new short[this.wordCount + eib.wordCount];
+      Toom4(r, 0, this.words, 0, this.wordCount, eib.words, 0, eib.wordCount);
+      EInteger ret = MakeEInteger(r, r.Length, 0, r.Length);
+      return (this.negative^eib.negative) ? ret.Negate() : ret;
+    }
+    */
     private static void Toom4(
       short[] resultArr,
       int resultStart,
@@ -3797,19 +3806,20 @@ public EInteger Toom4Multiply(EInteger eib) {
           wordsAStart,
           im3);
       EInteger x1 = MakeEInteger(
-        wordsA,
-        wordsAStart + countA,
-        wordsAStart + im3,
-        im3);
+          wordsA,
+          wordsAStart + countA,
+          wordsAStart + im3,
+          im3);
       EInteger x2 = MakeEInteger(
-        wordsA,
-        wordsAStart + countA,
-        wordsAStart +
-        (im3 * 2), im3);
+          wordsA,
+          wordsAStart + countA,
+          wordsAStart +
+          (im3 * 2), im3);
       EInteger x3 = MakeEInteger(
-        wordsA,
-        wordsAStart + countA,
-        wordsAStart + (im3 * 3), im3);
+          wordsA,
+          wordsAStart + countA,
+          wordsAStart + (im3 * 3),
+        im3);
       EInteger w0, wt1, wt2, wt3, wt4, wt5, w6;
       if (wordsA == wordsB && wordsAStart == wordsBStart &&
         countA == countB) {
@@ -3826,7 +3836,7 @@ public EInteger Toom4Multiply(EInteger eib) {
         wt3 = x0x2.Add(x1x3);
         wt4 = x0x2.Subtract(x1x3);
         wt5 = x0.Add(
-          x3.ShiftLeft(3)).Add(x2.ShiftLeft(2)).Add(x1.ShiftLeft(1));
+            x3.ShiftLeft(3)).Add(x2.ShiftLeft(2)).Add(x1.ShiftLeft(1));
         wt1 = wt1.Multiply(wt1);
         wt2 = wt2.Multiply(wt2);
         wt3 = wt3.Multiply(wt3);
@@ -3846,11 +3856,13 @@ public EInteger Toom4Multiply(EInteger eib) {
         EInteger y2 = MakeEInteger(
             wordsB,
             wordsBStart + countB,
-            wordsBStart + (im3 * 2), im3);
+            wordsBStart + (im3 * 2),
+          im3);
         EInteger y3 = MakeEInteger(
             wordsB,
             wordsBStart + countB,
-            wordsBStart + (im3 * 3), im3);
+            wordsBStart + (im3 * 3),
+          im3);
         w0 = x0.Multiply(y0);
         w6 = x3.Multiply(y3);
         EInteger x2mul2 = x2.ShiftLeft(1);
@@ -3867,24 +3879,64 @@ public EInteger Toom4Multiply(EInteger eib) {
         wt1 = wt1.Multiply(y3.Add(y2mul2).Add(y1mul4).Add(y0mul8));
         wt2 = x3.Negate().Add(x2mul2).Subtract(x1mul4).Add(x0mul8);
         wt2 = wt2.Multiply(
-          y3.Negate().Add(y2mul2).Subtract(y1mul4).Add(y0mul8));
+            y3.Negate().Add(y2mul2).Subtract(y1mul4).Add(y0mul8));
         wt3 = x0x2.Add(x1x3);
         wt3 = wt3.Multiply(y0y2.Add(y1y3));
         wt4 = x0x2.Subtract(x1x3);
         wt4 = wt4.Multiply(y0y2.Subtract(y1y3));
         wt5 = x0.Add(
-          x3.ShiftLeft(3)).Add(x2.ShiftLeft(2)).Add(x1.ShiftLeft(1));
+            x3.ShiftLeft(3)).Add(x2.ShiftLeft(2)).Add(x1.ShiftLeft(1));
         wt5 = wt5.Multiply(
-   y0.Add(y3.ShiftLeft(3)).Add(y2.ShiftLeft(2)).Add(y1.ShiftLeft(1)));
+            y0.Add(
+              y3.ShiftLeft(3)).Add(y2.ShiftLeft(2)).Add(y1.ShiftLeft(1)));
       }
       EInteger[] wts = { w0, wt1, wt2, wt3, wt4, wt5, w6 };
-      EInteger w1 = Interpolate(wts, new int[] { -90, 5, -3, -60, 20, 2, -90 }, 180);
-      EInteger w2 = Interpolate(wts, new int[] { -120, 1, 1, -4, -4, 0, 6 }, 24);
-      EInteger w3 = Interpolate(wts, new int[] { 45, -1, 0, 27, -7, -1, 45 }, 18);
-      EInteger w4 = Interpolate(wts, new int[] { 96, -1, -1, 16, 16, 0, -30 }, 24);
+      EInteger w1 = Interpolate(wts, new int[] {
+        -90, 5, -3, -60, 20, 2,
+        -90,
+      },
+ 180);
+      EInteger w2 = Interpolate(
+        wts,
+        new int[] {
+          -120,
+          1,
+          1,
+          -4,
+          -4,
+          0,
+          6,
+        },
+ 24);
+      EInteger w3 = Interpolate(
+        wts,
+        new int[] {
+          45,
+          -1,
+          0,
+          27,
+          -7,
+          -1,
+          45,
+        },
+ 18);
+      EInteger w4 = Interpolate(
+        wts,
+        new int[] {
+          96,
+          -1,
+          -1,
+          16,
+          16,
+          0,
+          -30,
+        },
+ 24);
       EInteger w5 = Interpolate(wts, new int[] {
-        -360, 5, 3, -120, -40, 8, -360
-      }, 180);
+        -360, 5, 3, -120, -40, 8,
+        -360,
+      },
+ 180);
       if (m3mul16.CompareTo(0x70000000) < 0) {
         im3 <<= 4; // multiply by 16
         w0 = w0.Add(w1.ShiftLeft(im3));
@@ -3961,7 +4013,7 @@ public EInteger Toom4Multiply(EInteger eib) {
         bp = bp.Subtract(Int32.MaxValue);
       }
       int lastp = bp.ToInt32Checked();
-      ret = (lastp == Int32.MaxValue) ? ret.Multiply(rmax) :
+      ret =(lastp == Int32.MaxValue) ? ret.Multiply(rmax) :
         ret.Multiply(this.Pow(lastp));
       return ret;
     }
@@ -5005,10 +5057,10 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
         if (radix == 10) {
           pow = NumberUtility.FindPowerOfTen(digits);
         } else {
- pow = (radix == 5) ?
-(NumberUtility.FindPowerOfFiveFromBig(EInteger.FromInt64(digits))) :
+          pow = (radix == 5)?
+NumberUtility.FindPowerOfFiveFromBig(EInteger.FromInt64(digits)) :
 (EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits)));
-}
+        }
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
         // divrem[1].wordCount));
@@ -5024,8 +5076,8 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       short[] tempReg;
       int numWordCount;
       if (radix == 10) {
-        if (this.HasSmallValue()) {
-          outputSB.Append(this.SmallValueToString());
+        if (this.CanFitInInt64()) {
+          outputSB.Append(FastInteger.LongToString(this.ToInt64Unchecked()));
           return;
         }
         tempReg = new short[this.wordCount];
@@ -5051,7 +5103,8 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
             int rest = ((int)tempReg[0]) & ShortMask;
             rest |= (((int)tempReg[1]) & ShortMask) << 16;
             while (rest != 0) {
-              int newrest = (rest < 43698) ? ((rest * 26215) >> 18) : (rest /
+              int newrest = (rest < 81920) ? (((rest * 52429) >> 19) & 8191) :
+(rest /
                   10);
               s[i++] = Digits[rest - (newrest * 10)];
               rest = newrest;
@@ -5170,8 +5223,8 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       }
       if (radix == 10) {
         // Decimal
-        if (this.HasSmallValue()) {
-          return this.SmallValueToString();
+        if (this.CanFitInInt64()) {
+          return FastInteger.LongToString(this.ToInt64Unchecked());
         }
         var sb = new StringBuilder();
         if (this.negative) {
@@ -5247,7 +5300,8 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       if (this.IsZero) {
         return "0";
       }
-      return this.HasSmallValue() ? this.SmallValueToString() :
+      return this.CanFitInInt64() ?
+FastInteger.LongToString(this.ToInt64Unchecked()) :
         this.ToRadixString(10);
     }
 
@@ -7226,8 +7280,9 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       for (var i = 0; i < count; ++i) {
         currentDividend = ((int)dividendReg[ds]) & ShortMask;
         currentDividend |= rem << 16;
-        quo = (currentDividend < 43698) ? ((currentDividend * 26215) >> 18) :
-          (currentDividend / 10);
+        // Fast division by 10
+        quo = (currentDividend >= 81920) ? currentDividend / 10 :
+          (((currentDividend * 52429) >> 19) & 8191);
         quotientReg[qs] = unchecked((short)quo);
         rem = currentDividend - (10 * quo);
         --ds;
@@ -7249,7 +7304,17 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       int ds = dividendStart + count - 1;
       int qs = quotientStart + count - 1;
       int currentDividend;
-      if (idivisor >= 0x8000) {
+      if (idivisor < 0x8000) {
+        for (var i = 0; i < count; ++i) {
+          currentDividend = ((int)dividendReg[ds]) & ShortMask;
+          currentDividend |= rem << 16;
+          quo = currentDividend / idivisor;
+          quotientReg[qs] = unchecked((short)quo);
+          rem = currentDividend - (idivisor * quo);
+          --ds;
+          --qs;
+        }
+      } else {
         for (var i = 0; i < count; ++i) {
           currentDividend = ((int)dividendReg[ds]) & ShortMask;
           currentDividend |= rem << 16;
@@ -7264,16 +7329,6 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
             quotientReg[qs] = unchecked((short)quo);
             rem = unchecked(currentDividend - (idivisor * quo));
           }
-          --ds;
-          --qs;
-        }
-      } else {
-        for (var i = 0; i < count; ++i) {
-          currentDividend = ((int)dividendReg[ds]) & ShortMask;
-          currentDividend |= rem << 16;
-          quo = currentDividend / idivisor;
-          quotientReg[qs] = unchecked((short)quo);
-          rem = currentDividend - (idivisor * quo);
           --ds;
           --qs;
         }
@@ -8572,19 +8627,6 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
       return (s == 0) ? wc : (((s >> 8) == 0) ? wc + 1 : wc + 2);
     }
 
-    private bool HasSmallValue() {
-      var c = (int)this.wordCount;
-      if (c > 4) {
-        return false;
-      }
-      if (c == 4 && (this.words[3] & 0x8000) != 0) {
-        return this.negative && this.words[3] == unchecked((short)0x8000) &&
-          this.words[2] == 0 && this.words[1] == 0 &&
-          this.words[0] == 0;
-      }
-      return true;
-    }
-
     private int PositiveCompare(EInteger t) {
       int size = this.wordCount, tempSize = t.wordCount;
       return (
@@ -8594,84 +8636,6 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
           t.words,
           0,
           (int)size) : (size > tempSize ? 1 : -1);
-    }
-
-    private string SmallValueToString() {
-      long value = this.ToInt64Unchecked();
-      if (value == Int64.MinValue) {
-        return "-9223372036854775808";
-      }
-      bool neg = value < 0;
-      var count = 0;
-      char[] chars;
-      int intvalue = unchecked((int)value);
-      if ((long)intvalue == value) {
-        if ((intvalue >> 15) == 0) {
-        chars = new char[5];
-        count = 4;
-        while (intvalue > 9) {
-          int intdivvalue = (intvalue * 26215) >> 18;
-          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
-          chars[count--] = digit;
-          intvalue = intdivvalue;
-        }
-        if (intvalue != 0) {
-          chars[count--] = Digits[intvalue];
-        }
-        ++count;
-        return new String(chars, count, 5 - count);
-      }
-      if (intvalue == Int32.MinValue) {
-        return "-2147483648";
-      }
-        chars = new char[12];
-        count = 11;
-        if (neg) {
-          intvalue = -intvalue;
-        }
-        while (intvalue > 43698) {
-          int intdivvalue = intvalue / 10;
-          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
-          chars[count--] = digit;
-          intvalue = intdivvalue;
-        }
-        while (intvalue > 9) {
-          int intdivvalue = (intvalue * 26215) >> 18;
-          char digit = Digits[(int)(intvalue - (intdivvalue * 10))];
-          chars[count--] = digit;
-          intvalue = intdivvalue;
-        }
-        if (intvalue != 0) {
-          chars[count--] = Digits[intvalue];
-        }
-        if (neg) {
-          chars[count] = '-';
-        } else {
-          ++count;
-        }
-        return new String(chars, count, 12 - count);
-      } else {
-        chars = new char[24];
-        count = 23;
-        if (neg) {
-          value = -value;
-        }
-        while (value > 9) {
-          long divvalue = value / 10;
-          char digit = Digits[(int)(value - (divvalue * 10))];
-          chars[count--] = digit;
-          value = divvalue;
-        }
-        if (value != 0) {
-          chars[count--] = Digits[(int)value];
-        }
-        if (neg) {
-          chars[count] = '-';
-        } else {
-          ++count;
-        }
-        return new String(chars, count, 24 - count);
-      }
     }
 
     private EInteger[] SqrtRemInternal(bool useRem) {

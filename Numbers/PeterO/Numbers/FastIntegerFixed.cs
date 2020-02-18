@@ -212,6 +212,16 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
       return FastIntegerFixed.FromBig(bigA.Subtract(bigB));
     }
 
+    public int CompareTo(EInteger evalue) {
+      switch (this.integerMode) {
+        case 0:
+          return -evalue.CompareTo(this.smallValue);
+        case 2:
+          return this.largeValue.CompareTo(evalue);
+        default: throw new InvalidOperationException();
+      }
+    }
+
     public int CompareTo(FastIntegerFixed val) {
       switch ((this.integerMode << 2) | val.integerMode) {
         case (0 << 2) | 0: {
@@ -220,7 +230,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
               1);
         }
         case (0 << 2) | 2:
-          return this.ToEInteger().CompareTo(val.largeValue);
+          return -val.largeValue.CompareTo(this.smallValue);
         case (2 << 2) | 0:
         case (2 << 2) | 2:
           return this.largeValue.CompareTo(val.ToEInteger());
