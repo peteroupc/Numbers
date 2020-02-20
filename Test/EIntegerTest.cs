@@ -2730,7 +2730,7 @@ namespace Test {
     private static EInteger ZerosAndOnesInteger(int size) {
       EInteger ei = EInteger.FromInt32(0xffff);
       for (var i = 1; i < size; ++i) {
-        ei =(i % 2 == 0) ? ei.ShiftLeft(16).Add(EInteger.FromInt32(
+        ei = (i % 2 == 0) ? ei.ShiftLeft(16).Add(EInteger.FromInt32(
               0xffff)) : ei.ShiftLeft(16);
       }
       return ei;

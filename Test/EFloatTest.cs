@@ -1510,7 +1510,7 @@ namespace Test {
             string msg = "str=" + str + "\nef=" + OutputEF(ef) +
               "\nmant=" + lmant + "\nexp=" + exp +
               "\nnegQuarter=" + negQuarter + "\n" +
-              "\ndiffValue="+ diffValue + "\n" + "\nhalf=" + half + "\n";
+              "\ndiffValue=" + diffValue + "\n" + "\nhalf=" + half + "\n";
             Assert.Fail(msg);
           }
         } else {
@@ -1689,8 +1689,8 @@ namespace Test {
       EInteger emant = efa.Mantissa;
       int mantBits = emant.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
       bool fullPrecision = mantBits == bitCount;
-      bool isSubnormal = EFloats.IsSubnormal(efa, dbl ? EContext.Binary64 :
-          EContext.Binary32);
+      bool isSubnormal = EFloats.IsSubnormal(efa,
+ dbl ? EContext.Binary64 : EContext.Binary32);
       bool isEven = efa.UnsignedMantissa.IsEven;
       if (isSubnormal) {
         int minExponent = dbl ? -1074 : -149;
@@ -2562,9 +2562,10 @@ OutputEF(efprev)) + "\n" +
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 100000; ++i) {
-        TestSizedEIntegerOne(RandomObjects.RandomEFloat(rg), rg.UniformInt(
+        TestSizedEIntegerOne(RandomObjects.RandomEFloat(rg),
+ rg.UniformInt(
   2) == 0,
-          rg.UniformInt(129));
+  rg.UniformInt(129));
       }
     }
 

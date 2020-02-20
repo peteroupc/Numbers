@@ -114,7 +114,7 @@ Cache[intVal - CacheFirst] :
       new FastIntegerFixed((byte)0, intVal, null);
     }
 
-    internal static FastIntegerFixed FromLong(long longVal) {
+    internal static FastIntegerFixed FromInt64(long longVal) {
       return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ?
 FromInt32((int)longVal) : new FastIntegerFixed(
           (byte)2,

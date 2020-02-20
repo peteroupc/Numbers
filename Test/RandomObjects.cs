@@ -324,7 +324,7 @@ MaxNumberLength);
     };
 
     // Special 10-digit-long strings
-    private static string[] SpecialDecimals = {
+    private static string[] valueSpecialDecimals = {
       "1000000000",
       "0000000001",
       "4999999999",
@@ -336,7 +336,7 @@ MaxNumberLength);
     };
 
     // Special 40-digit-long strings
-    private static string[] SpecialDecimals2 = {
+    private static string[] valueSpecialDecimals2 = {
       "1000000000000000000000000000000000000000",
       "0000000000000000000000000000000000000001",
       "4999999999999999999999999999999999999999",
@@ -370,13 +370,15 @@ MaxNumberLength);
                 --count;
                 ++i;
               } else if (count >= 40 && i + 1 < buflen) {
-                int y = (((int)buffer[i + 1]) & 0xff) % SpecialDecimals2.Length;
-                sb.Append(SpecialDecimals2[y]);
+                int y = (((int)buffer[i + 1]) & 0xff) %
+valueSpecialDecimals2.Length;
+                sb.Append(valueSpecialDecimals2[y]);
                 count -= 40;
                 i += 2;
               } else if (count >= 10 && i + 1 < buflen) {
-                int y = (((int)buffer[i + 1]) & 0xff) % SpecialDecimals.Length;
-                sb.Append(SpecialDecimals[y]);
+                int y = (((int)buffer[i + 1]) & 0xff) %
+valueSpecialDecimals.Length;
+                sb.Append(valueSpecialDecimals[y]);
                 count -= 10;
                 i += 2;
               } else {
