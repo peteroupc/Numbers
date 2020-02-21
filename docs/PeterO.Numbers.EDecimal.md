@@ -3506,7 +3506,9 @@ Returns a number in which the value of this object is rounded to fit the maximum
 
 <b>Return Value:</b>
 
-This object rounded to the given precision. Returns this object and signals no flags if "ctx" is null or specifies an unlimited precision, if this object is infinity or not-a-number (including signaling NaN), or if the number's value has no more significant digits than the maximum precision given in "ctx".
+This object rounded to the given precision. Returns this object and signals no flags if  <i>ctx</i>
+ is null or specifies an unlimited precision, if this object is infinity or not-a-number (including signaling NaN), or if the number's value has no more significant digits than the maximum precision given in  <i>ctx</i>
+.
 
 <a id="Quantize_int_PeterO_Numbers_EContext"></a>
 ### Quantize

@@ -151,8 +151,8 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToSingle()](#ToSingle)</code> - Converts this value to a 32-bit binary floating-point number.
-* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Not documented yet.
-* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Not documented yet.
+* <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Converts this value to an arbitrary-precision integer by dividing the numerator by the denominator, discarding its fractional part, and checking whether the resulting integer overflows the given signed bit count.
+* <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Converts this value to an arbitrary-precision integer, only if this number's value is an exact integer and that integer does not overflow the given signed bit count.
 * <code>[ToString()](#ToString)</code> - Converts this object to a text string.
 * <code>[ToUInt16Checked()](#ToUInt16Checked)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ToUInt16IfExact()](#ToUInt16IfExact)</code> - Converts this number's value to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer without rounding to a different numerical value.
@@ -2780,16 +2780,20 @@ The closest 32-bit binary floating-point number to this value. The return value 
     public PeterO.Numbers.EInteger ToSizedEInteger(
         int maxBitLength);
 
-Not documented yet.
+Converts this value to an arbitrary-precision integer by dividing the numerator by the denominator, discarding its fractional part, and checking whether the resulting integer overflows the given signed bit count.
 
 <b>Parameters:</b>
 
- * <i>maxBitLength</i>: The parameter  <i>maxBitLength</i>
- is a 32-bit signed integer.
+ * <i>maxBitLength</i>: The maximum number of signed bits the integer can have. The integer's value may not be less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN), or this number's value, once converted to an integer by dividing the numerator by the denominator and discarding its fractional part, is less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.
 
 <a id="ToSizedEIntegerIfExact_int"></a>
 ### ToSizedEIntegerIfExact
@@ -2797,16 +2801,23 @@ The return value is not documented yet.
     public PeterO.Numbers.EInteger ToSizedEIntegerIfExact(
         int maxBitLength);
 
-Not documented yet.
+Converts this value to an arbitrary-precision integer, only if this number's value is an exact integer and that integer does not overflow the given signed bit count.
 
 <b>Parameters:</b>
 
- * <i>maxBitLength</i>: The parameter  <i>maxBitLength</i>
- is a 32-bit signed integer.
+ * <i>maxBitLength</i>: The maximum number of signed bits the integer can have. The integer's value may not be less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+An arbitrary-precision integer.
+
+<b>Exceptions:</b>
+
+ * System.OverflowException:
+This object's value is infinity or not-a-number (NaN), or this number's value as an integer is less than -(2^maxBitLength) or greater than (2^maxBitLength) - 1.
+
+ * System.ArithmeticException:
+This object's value is not an exact integer.
 
 <a id="ToString"></a>
 ### ToString

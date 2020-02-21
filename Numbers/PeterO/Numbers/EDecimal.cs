@@ -147,6 +147,40 @@ namespace PeterO.Numbers {
   ///  </list>
   /// <para>Applications should instead use dedicated security libraries
   /// to handle big numbers in security-sensitive algorithms.</para>
+  /// <para><b>Reproducibility note</b>
+  /// </para>
+  /// <para>Some applications, such as simulations, care about results
+  /// that are reproducible, bit for bit, across computers and across
+  /// runs of the application. When it comes to floating-point numbers,
+  /// results are often not reproducible because of differences in how
+  /// floating-point number operations are implemented, including in
+  /// terms of accuracy, rounding, and order of operations. EDecimal and
+  /// EFloat are also floating-point number classes, but for these
+  /// classes, many of these differences can be reduced by choosing one
+  /// version of this library and sticking to it, and also by passing an
+  /// EContext explicitly to this class's arithmetic methods (EContext
+  /// specifies rules for precision and rounding, among other things).
+  /// Also, the EDecimal and EFloat classes avoid the use of "native"
+  /// floating-point data types, where most of these differences can
+  /// occur (except for methods that convert to or from <c>float</c>
+  ///  ,
+  /// <c>double</c>
+  ///  , or <c>System.Decimal</c>
+  ///  ).</para>
+  /// <para>EContext allows arithmetic operations in this class to return
+  /// results rounded to a given precision and exponent range. Note,
+  /// however, that by limiting the precision of floating-point numbers
+  /// (including <c>EDecimal</c>
+  ///  and <c>EFloat</c>
+  ///  ) in this way,
+  /// operations such as addition and multiplication on three or more
+  /// numbers can be <i>non-associative</i>
+  ///  , meaning the result can
+  /// change depending on the order in which those numbers are added or
+  /// multiplied. This property means that if an algorithm does not
+  /// ensure such numbers are added or multiplied in the same order every
+  /// time, its results may not be reproducible across computers or
+  /// across runs of the application.</para>
   /// <para><b>Forms of numbers</b>
   /// </para>
   /// <para>There are several other types of numbers that are mentioned
@@ -5398,35 +5432,6 @@ TrappableRadixMath<EDecimal>(
           return this.IsNegative ? Double.NegativeInfinity :
             Double.PositiveInfinity;
         }
-        if (this.exponent.CompareToInt(-22) >= 0 &&
-          this.exponent.CompareToInt(44) <= 0 &&
-          this.unsignedMantissa.CanFitInInt64()) {
-          // Fast-path optimization (explained on exploringbinary.com)
-          long ml = this.unsignedMantissa.AsInt64();
-          int iexp = this.exponent.AsInt32();
-          while (ml <= 900719925474099L && iexp > 22) {
-            ml *= 10;
-            --iexp;
-          }
-          int iabsexp = Math.Abs(iexp);
-          if (ml < 9007199254740992L && iabsexp <= 22) {
-            double d = ExactDoublePowersOfTen[iabsexp];
-            double dml = this.IsNegative ? (double)(-ml) : (double)ml;
-            // NOTE: This method assumes the division given below
-            // is rounded as necessary by the round-to-nearest
-            // (ties to even) mode by the runtime
-            if (iexp < 0) {
-              return dml / d;
-            } else {
-              return dml * d;
-            }
-          }
-        }
-        if (this.exponent.CompareToInt(309) > 0) {
-          // Very high exponent, treat as infinity
-          return this.IsNegative ? Double.NegativeInfinity :
-            Double.PositiveInfinity;
-        }
       }
       return this.ToEFloat(EContext.Binary64).ToDouble();
     }
@@ -5547,35 +5552,6 @@ TrappableRadixMath<EDecimal>(
         return 0.0f;
       }
       if (this.IsFinite) {
-        if (this.exponent.CompareToInt(-10) >= 0 &&
-          this.exponent.CompareToInt(20) <= 0 &&
-          this.unsignedMantissa.CanFitInInt32()) {
-          // Fast-path optimization (version for 'double's explained
-          // on exploringbinary.com)
-          int iml = this.unsignedMantissa.AsInt32();
-          int iexp = this.exponent.AsInt32();
-          // DebugUtility.Log("this=" + (this.ToString()));
-          // DebugUtility.Log("iml=" + iml + " iexp=" + iexp + " neg=" +
-          // (this.IsNegative));
-          while (iml <= 1677721 && iexp > 10) {
-            iml *= 10;
-            --iexp;
-          }
-          int iabsexp = Math.Abs(iexp);
-          // DebugUtility.Log("--> iml=" + iml + " absexp=" + iabsexp);
-          if (iml < 16777216 && iabsexp <= 10) {
-            float fd = ExactSinglePowersOfTen[iabsexp];
-            float fml = this.IsNegative ? (float)(-iml) : (float)iml;
-            // NOTE: This method assumes the division given below
-            // is rounded as necessary by the round-to-nearest
-            // (ties to even) mode by the runtime
-            if (iexp < 0) {
-              return fml / fd;
-            } else {
-              return fml * fd;
-            }
-          }
-        }
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Single.NegativeInfinity :

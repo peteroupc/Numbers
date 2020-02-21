@@ -510,7 +510,7 @@ Not documented yet.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+Returns this context if it doesn't set traps, or a context without traps and with blank flags if it does. This is not a general-purpose method; it is intended to support custom implementations of arithmetic operations.
 
 <a id="ToString"></a>
 ### ToString

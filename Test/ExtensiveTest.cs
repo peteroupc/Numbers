@@ -1192,7 +1192,7 @@ namespace Test {
           if ((expectedFlags & (EContext.FlagInexact |
                 EContext.FlagInvalid)) == 0) {
             d3 = op1.Add(op2, null);
-            Test.TestCommon.CompareTestEqual(result, d3, ln);
+            TestCommon.CompareTestEqual(result, d3, ln);
           }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
@@ -1210,7 +1210,7 @@ namespace Test {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
             0) {
             d3 = op1.Subtract(op2, null);
-            Test.TestCommon.CompareTestEqual(result, d3, ln);
+            TestCommon.CompareTestEqual(result, d3, ln);
           }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
@@ -1228,7 +1228,7 @@ namespace Test {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
             0) {
             d3 = op1.Multiply(op2, null);
-            Test.TestCommon.CompareTestEqual(result, d3, ln);
+            TestCommon.CompareTestEqual(result, d3, ln);
           }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
@@ -1246,7 +1246,7 @@ namespace Test {
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
             0) {
             d3 = op1.Divide(op2, null);
-            Test.TestCommon.CompareTestEqual(result, d3, ln);
+            TestCommon.CompareTestEqual(result, d3, ln);
           }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
@@ -1273,7 +1273,7 @@ op3.IsSignalingNaN())) ||
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
             0) {
             d3 = op1.MultiplyAndAdd(op2, op3, null);
-            Test.TestCommon.CompareTestEqual(result, d3, ln);
+            TestCommon.CompareTestEqual(result, d3, ln);
           }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
@@ -1291,7 +1291,7 @@ op3.IsSignalingNaN())) ||
           if ((expectedFlags & (EContext.FlagInexact | EContext.FlagInvalid)) ==
             0) {
             d3 = op1.MultiplyAndSubtract(op2, op3, null);
-            Test.TestCommon.CompareTestEqual(result, d3, ln);
+            TestCommon.CompareTestEqual(result, d3, ln);
           }
           AssertFlags(expectedFlags, ctx.Flags, ln);
         }
@@ -1318,7 +1318,7 @@ op3.IsSignalingNaN())) ||
 
     [Test]
     public void TestParser() {
-      IgnoreIfDebug();
+      // IgnoreIfDebug();
       long failures = 0;
       var errors = new List<string>();
       var dirfiles = new List<string>();
@@ -1331,21 +1331,21 @@ op3.IsSignalingNaN())) ||
       dirfiles.AddRange(GetTestFiles());
       foreach (var f in dirfiles) {
         Console.WriteLine(f);
-        if (errors.Count > 100) {
+        if (errors.Count > 20) {
           break;
         }
         ++x;
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") &&
-          !lowerF.Contains(".txt") &&
+          // !lowerF.Contains(".txt") &&
           !lowerF.Contains(".dectest") &&
           !lowerF.Contains(".fptest")) {
           continue;
         }
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
-            if (errors.Count > 100) {
+            if (errors.Count > 10) {
               break;
             }
             var ln = w.ReadLine();
@@ -1358,6 +1358,7 @@ op3.IsSignalingNaN())) ||
                   ParseLine(ln, valueSwProcessing);
                 }
               } catch (Exception ex) {
+                throw;
                 errors.Add(ex.ToString());
                 try {
                   Console.SetOut(standardOut);
@@ -1387,7 +1388,7 @@ op3.IsSignalingNaN())) ||
       // Ratio of number processing time to total running time
       Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
           1.0 / sw.ElapsedMilliseconds) + "%");
-      if (failures > 0) {
+      if (errors.Count > 0) {
         foreach (string err in errors) {
           Console.WriteLine(err);
         }

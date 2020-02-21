@@ -309,14 +309,14 @@ namespace PeterO.Numbers {
     NumberUtility.PowerCache();
 
     public static EInteger FindPowerOfTen(long diffLong) {
-if (diffLong < 0) {
-  return EInteger.Zero;
-}
-if (diffLong == 0) {
-  return EInteger.One;
-}
-return (diffLong <= Int32.MaxValue) ? FindPowerOfTen((int)diffLong) :
-FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
+      if (diffLong < 0) {
+        return EInteger.Zero;
+      }
+      if (diffLong == 0) {
+        return EInteger.One;
+      }
+      return (diffLong <= Int32.MaxValue) ? FindPowerOfTen((int)diffLong) :
+        FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
     }
 
     internal static EInteger MultiplyByPowerOfFive(EInteger v, int precision) {
@@ -351,10 +351,12 @@ FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
     }
 
     internal static EInteger MultiplyByPowerOfFive(EInteger v, EInteger
-epower) {
-       return epower.CanFitInInt32() ? MultiplyByPowerOfFive(v,
-  epower.ToInt32Checked()) : v.Multiply(FindPowerOfFiveFromBig(epower)); }
-  internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {
+      epower) {
+      return epower.CanFitInInt32() ? MultiplyByPowerOfFive(v,
+          epower.ToInt32Checked()) : v.Multiply(FindPowerOfFiveFromBig(
+  epower));
+    }
+    internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {
       int sign = diff.Sign;
       if (sign < 0) {
         return EInteger.Zero;
@@ -372,7 +374,8 @@ epower) {
           EInteger otherPower = ValuePowerOfFiveCache.GetCachedPower(epowprec);
           if (otherPower == null) {
             // NOTE: Assumes powprec is 2 or greater and is a power of 2
-            EInteger prevPower = FindPowerOfFiveFromBig(epowprec.ShiftRight(1));
+            EInteger prevPower = FindPowerOfFiveFromBig(epowprec.ShiftRight(
+  1));
             otherPower = prevPower.Multiply(prevPower);
             ValuePowerOfFiveCache.AddPower(epowprec, otherPower);
           }
@@ -394,8 +397,8 @@ epower) {
         return EInteger.One;
       }
       return bigintExponent.CanFitInInt32() ?
-FindPowerOfTen(bigintExponent.ToInt32Checked()) :
-FindPowerOfFiveFromBig(bigintExponent).ShiftLeft(bigintExponent);
+        FindPowerOfTen(bigintExponent.ToInt32Checked()) :
+        FindPowerOfFiveFromBig(bigintExponent).ShiftLeft(bigintExponent);
     }
 
     private static readonly EInteger ValueFivePower40 =
@@ -446,7 +449,7 @@ FindPowerOfFiveFromBig(bigintExponent).ShiftLeft(bigintExponent);
       while (precision > 0) {
         if ((precision & 1) == 1) {
           EInteger otherPower =
-ValuePowerOfFiveCache.GetCachedPowerInt(powprec);
+            ValuePowerOfFiveCache.GetCachedPowerInt(powprec);
           // Console.WriteLine("pow="+powprec+",precision="+precision);
           if (otherPower == null) {
             // NOTE: Assumes powprec is 2 or greater and is a power of 2
@@ -460,66 +463,66 @@ ValuePowerOfFiveCache.GetCachedPowerInt(powprec);
         precision >>= 1;
       }
       return ret;
-    /* var first = true;
-      bigpow = EInteger.Zero;
-      while (true) {
-        otherPower =
-          ValuePowerOfFiveCache.FindCachedPowerIntOrSmaller(precision);
-        if (otherPower != null) {
-          EInteger otherPower0 = otherPower[0];
-          EInteger otherPower1 = otherPower[1];
-          precision -= (int)otherPower0;
-          if (first) {
-            bigpow = otherPower[1];
+      /* var first = true;
+        bigpow = EInteger.Zero;
+        while (true) {
+          otherPower =
+            ValuePowerOfFiveCache.FindCachedPowerIntOrSmaller(precision);
+          if (otherPower != null) {
+            EInteger otherPower0 = otherPower[0];
+            EInteger otherPower1 = otherPower[1];
+            precision -= (int)otherPower0;
+            if (first) {
+              bigpow = otherPower[1];
+            } else {
+              bigpow *= (EInteger)otherPower1;
+            }
+            first = false;
           } else {
-            bigpow *= (EInteger)otherPower1;
+            break;
           }
-          first = false;
-        } else {
-          break;
         }
-      }
-      ret = !first ? bigpow : EInteger.One;
-      while (precision > 0) {
-        if (precision <= 27) {
-          bigpow = ValueBigIntPowersOfFive[(int)precision];
+        ret = !first ? bigpow : EInteger.One;
+        while (precision > 0) {
+          if (precision <= 27) {
+            bigpow = ValueBigIntPowersOfFive[(int)precision];
+            if (first) {
+              ret = bigpow;
+            } else {
+              ret *= (EInteger)bigpow;
+            }
+            first = false;
+            break;
+          }
+          if (precision <= 9999999) {
+            // DebugUtility.Log("calcing pow for "+precision);
+            bigpow = ValueBigIntPowersOfFive[1].Pow(precision);
+            if (precision != startPrecision) {
+              var bigprec = (EInteger)precision;
+              ValuePowerOfFiveCache.AddPower(bigprec, bigpow);
+            }
+            if (first) {
+              ret = bigpow;
+            } else {
+              ret *= (EInteger)bigpow;
+            }
+            first = false;
+            break;
+          }
+          if (bigpow.IsZero) {
+            bigpow = FindPowerOfFive(9999999);
+          }
           if (first) {
             ret = bigpow;
           } else {
             ret *= (EInteger)bigpow;
           }
           first = false;
-          break;
+          precision -= 9999999;
         }
-        if (precision <= 9999999) {
-          // DebugUtility.Log("calcing pow for "+precision);
-          bigpow = ValueBigIntPowersOfFive[1].Pow(precision);
-          if (precision != startPrecision) {
-            var bigprec = (EInteger)precision;
-            ValuePowerOfFiveCache.AddPower(bigprec, bigpow);
-          }
-          if (first) {
-            ret = bigpow;
-          } else {
-            ret *= (EInteger)bigpow;
-          }
-          first = false;
-          break;
-        }
-        if (bigpow.IsZero) {
-          bigpow = FindPowerOfFive(9999999);
-        }
-        if (first) {
-          ret = bigpow;
-        } else {
-          ret *= (EInteger)bigpow;
-        }
-        first = false;
-        precision -= 9999999;
-      }
-      ValuePowerOfFiveCache.AddPower(origPrecision, ret);
-      return ret;
-      */
+        ValuePowerOfFiveCache.AddPower(origPrecision, ret);
+        return ret;
+        */
     }
 
     internal static EInteger FindPowerOfTen(int precision) {
@@ -642,8 +645,8 @@ ValuePowerOfFiveCache.GetCachedPowerInt(powprec);
       // too big (distinguishing this case is material
       // if the value also has an exponent that's out of range)
       FastInteger[] digitBounds = NumberUtility.DigitLengthBounds(
-        helper,
-        mant);
+          helper,
+          mant);
       if (digitBounds[1].CompareTo(fastPrecision) <= 0) {
         // Upper bound is less than or equal to precision
         return val;
@@ -664,8 +667,8 @@ ValuePowerOfFiveCache.GetCachedPowerInt(powprec);
       // this was already checked beforehand
       #if DEBUG
       if ((ctx2.Flags & EContext.FlagInvalid) != 0) {
-        throw new
-        ArgumentException("doesn't satisfy(ctx2.Flags&FlagInvalid)==0");
+        throw new ArgumentException("doesn't" +
+"\u0020satisfy(ctx2.Flags&FlagInvalid)==0");
       }
       #endif
       if ((ctx2.Flags & EContext.FlagInexact) != 0) {
@@ -690,12 +693,12 @@ ValuePowerOfFiveCache.GetCachedPowerInt(powprec);
     }
 
     public static FastInteger[] DigitLengthBounds<THelper>(
-       IRadixMathHelper<THelper> helper,
-       EInteger ei) {
+      IRadixMathHelper<THelper> helper,
+      EInteger ei) {
       int radix = helper.GetRadix();
       if (radix == 2) {
         FastInteger fi =
-FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
+          FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
         return new FastInteger[] { fi, fi };
       } else if (radix == 10) {
         EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
@@ -758,7 +761,7 @@ FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
       #if DEBUG
       if (precision != null && digits == null) {
         throw new ArgumentException("doesn't satisfy precision==null ||" +
-"\u0020digits!=null");
+          "\u0020digits!=null");
       }
       #endif
       if (bigmant.IsZero) {

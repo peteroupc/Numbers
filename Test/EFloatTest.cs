@@ -1690,7 +1690,7 @@ namespace Test {
       int mantBits = emant.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
       bool fullPrecision = mantBits == bitCount;
       bool isSubnormal = EFloats.IsSubnormal(efa,
- dbl ? EContext.Binary64 : EContext.Binary32);
+          dbl ? EContext.Binary64 : EContext.Binary32);
       bool isEven = efa.UnsignedMantissa.IsEven;
       if (isSubnormal) {
         int minExponent = dbl ? -1074 : -149;
@@ -1741,8 +1741,8 @@ namespace Test {
       } catch (Exception ex) {
         string msg = String.Empty + ("dbl_____=" + dbl + ", full=" +
             fullPrecision + ",sub=" + isSubnormal) + "\n" + ("efprev__=" +
-OutputEF(efprev)) + "\n" +
-          ("efprev1q=" + OutputEF(efprev1q)) + "\n" +
+            OutputEF(efprev)) + "\n" + ("efprev1q=" + OutputEF(efprev1q)) +
+"\n" +
           ("efprev2q=" + OutputEF(efprev2q)) + "\n" +
           ("efprev3q=" + OutputEF(efprev3q)) + "\n" +
           ("efa_____=" + OutputEF(efa)) + "\n" +
@@ -2449,7 +2449,7 @@ OutputEF(efprev)) + "\n" +
         TestToFloatRoundingOne(objectTemp, true);
         objectTemp = EFloat.Create(
   EInteger.FromRadixString("100110100000000011000010111000111111101", 2),
-  EInteger.FromInt32(-1073));
+          EInteger.FromInt32(-1073));
         TestToFloatRoundingOne(objectTemp, true);
       }
     }
@@ -2563,9 +2563,9 @@ OutputEF(efprev)) + "\n" +
       var rg = new RandomGenerator();
       for (var i = 0; i < 100000; ++i) {
         TestSizedEIntegerOne(RandomObjects.RandomEFloat(rg),
- rg.UniformInt(
-  2) == 0,
-  rg.UniformInt(129));
+          rg.UniformInt(
+            2) == 0,
+          rg.UniformInt(129));
       }
     }
 
@@ -2605,7 +2605,7 @@ OutputEF(efprev)) + "\n" +
       } else {
         Assert.AreEqual(ei, ei2);
         Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(
-  maxSignedBits) <= 0);
+            maxSignedBits) <= 0);
       }
       return true;
     }

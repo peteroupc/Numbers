@@ -86,8 +86,35 @@ namespace PeterO.Numbers {
   /// other aspects of such communications to derive keying material or
   /// cleartext indirectly.</item></list>
   /// <para>Applications should instead use dedicated security libraries
-  /// to handle big numbers in security-sensitive
-  /// algorithms.</para></summary>
+  /// to handle big numbers in security-sensitive algorithms.</para>
+  /// <para><b>Reproducibility note</b></para>
+  /// <para>Some applications, such as simulations, care about results
+  /// that are reproducible, bit for bit, across computers and across
+  /// runs of the application. When it comes to floating-point numbers,
+  /// results are often not reproducible because of differences in how
+  /// floating-point number operations are implemented, including in
+  /// terms of accuracy, rounding, and order of operations. EDecimal and
+  /// EFloat are also floating-point number classes, but for these
+  /// classes, many of these differences can be reduced by choosing one
+  /// version of this library and sticking to it, and also by passing an
+  /// EContext explicitly to this class's arithmetic methods (EContext
+  /// specifies rules for precision and rounding, among other things).
+  /// Also, the EDecimal and EFloat classes avoid the use of "native"
+  /// floating-point data types, where most of these differences can
+  /// occur (except for methods that convert to or from <c>float</c>,
+  /// <c>double</c>, or <c>System.Decimal</c> ).</para>
+  /// <para>EContext allows arithmetic operations in this class to return
+  /// results rounded to a given precision and exponent range. Note,
+  /// however, that by limiting the precision of floating-point numbers
+  /// (including <c>EDecimal</c> and <c>EFloat</c> ) in this way,
+  /// operations such as addition and multiplication on three or more
+  /// numbers can be
+  /// <i>non-associative</i>, meaning the result can change depending on
+  /// the order in which those numbers are added or multiplied. This
+  /// property means that if an algorithm does not ensure such numbers
+  /// are added or multiplied in the same order every time, its results
+  /// may not be reproducible across computers or across runs of the
+  /// application.</para></summary>
   [System.Diagnostics.CodeAnalysis.SuppressMessage(
       "Microsoft.Design",
       "CA1036",

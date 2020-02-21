@@ -289,7 +289,7 @@ namespace PeterO.Numbers {
         return EInteger.Zero;
       } else if (bytes.Length == 1) {
         return (((int)bytes[0] & 0x80) == 0) ? FromInt32((int)bytes[0]) :
-          FromInt32(-1 - ((~bytes[0]) & 0x7f));
+          FromInt32(- 1 - ((~bytes[0]) & 0x7f));
       }
       int len = bytes.Length;
       int wordLength = (len >> 1) + (len & 1);
@@ -2863,7 +2863,8 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     ((value >= 100000000000000L) ? 15 : ((value
                           >= 10000000000000L) ?
                         14 : ((value >= 1000000000000L) ? 13 : ((value
-                >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
+                              >= 100000000000L) ? 12 : ((value >=
+10000000000L) ?
                               11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
@@ -3012,7 +3013,8 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
+                          minDigitEstimate)) >= 0 ? retval +
+maxDigitEstimate : retval +
                       minDigitEstimate;
                     done = true;
                     break;
@@ -3113,15 +3115,12 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
                         0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
                       5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
                                 8) & ShortMask) != 0) ? 7 : ((((c << 7) &
-                                ShortMask) != 0) ? 8 : ((((c << 6) &
-ShortMask) != 0) ? 9 :
+                ShortMask) != 0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
                               ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
-                                        4) & ShortMask) != 0) ? 11 : ((((c <<
-3) &
+                4) & ShortMask) != 0) ? 11 : ((((c << 3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
                                           0xffff) != 0) ? 13 : ((((c << 1) &
-                                            ShortMask) != 0) ? 14 :
-15))))))))))))));
+                ShortMask) != 0) ? 14 : 15))))))))))))));
           retSetBitLong += rsb;
           return retSetBitLong;
         }
@@ -3723,7 +3722,7 @@ ShortMask) != 0) ? 9 :
             wordsB,
             wordsBStart + countB,
             wordsBStart + (im3 * 2),
-          im3);
+            im3);
         w0 = x0.Multiply(y0);
         w4 = x2.Multiply(y2);
         EInteger x2x0 = x2.Add(x0);
@@ -3774,9 +3773,9 @@ ShortMask) != 0) ? 9 :
         if (v == 0) {
           continue;
         } else {
- ret = (v == 1) ? ret.Add(wts[i]) : ((v == -1) ? ret.Subtract(wts[i]) :
-ret.Add(wts[i].Multiply(v)));
-}
+          ret = (v == 1) ? ret.Add(wts[i]) : ((v == -1) ? ret.Subtract(
+  wts[i]) : ret.Add(wts[i].Multiply(v)));
+        }
       }
       return ret.Divide(divisor);
     }
@@ -3819,7 +3818,7 @@ ret.Add(wts[i].Multiply(v)));
           wordsA,
           wordsAStart + countA,
           wordsAStart + (im3 * 3),
-        im3);
+          im3);
       EInteger w0, wt1, wt2, wt3, wt4, wt5, w6;
       if (wordsA == wordsB && wordsAStart == wordsBStart &&
         countA == countB) {
@@ -3857,12 +3856,12 @@ ret.Add(wts[i].Multiply(v)));
             wordsB,
             wordsBStart + countB,
             wordsBStart + (im3 * 2),
-          im3);
+            im3);
         EInteger y3 = MakeEInteger(
             wordsB,
             wordsBStart + countB,
             wordsBStart + (im3 * 3),
-          im3);
+            im3);
         w0 = x0.Multiply(y0);
         w6 = x3.Multiply(y3);
         EInteger x2mul2 = x2.ShiftLeft(1);
@@ -3892,53 +3891,53 @@ ret.Add(wts[i].Multiply(v)));
       }
       EInteger[] wts = { w0, wt1, wt2, wt3, wt4, wt5, w6 };
       EInteger w1 = Interpolate(wts,
- new int[] {
-   -90, 5, -3, -60, 20, 2,
-   -90,
- },
- 180);
+      new int[] {
+        -90, 5, -3, -60, 20, 2,
+        -90,
+      },
+      180);
       EInteger w2 = Interpolate(
-        wts,
-        new int[] {
-          -120,
-          1,
-          1,
-          -4,
-          -4,
-          0,
-          6,
-        },
-        24);
+          wts,
+          new int[] {
+            -120,
+            1,
+            1,
+            -4,
+            -4,
+            0,
+            6,
+          },
+          24);
       EInteger w3 = Interpolate(
-        wts,
-        new int[] {
-          45,
-          -1,
-          0,
-          27,
-          -7,
-          -1,
-          45,
-        },
-        18);
+          wts,
+          new int[] {
+            45,
+            -1,
+            0,
+            27,
+            -7,
+            -1,
+            45,
+          },
+          18);
       EInteger w4 = Interpolate(
-        wts,
-        new int[] {
-          96,
-          -1,
-          -1,
-          16,
-          16,
-          0,
-          -30,
-        },
-        24);
+          wts,
+          new int[] {
+            96,
+            -1,
+            -1,
+            16,
+            16,
+            0,
+            -30,
+          },
+          24);
       EInteger w5 = Interpolate(wts,
- new int[] {
-   -360, 5, 3, -120, -40, 8,
-   -360,
- },
- 180);
+      new int[] {
+        -360, 5, 3, -120, -40, 8,
+        -360,
+      },
+      180);
       if (m3mul16.CompareTo(0x70000000) < 0) {
         im3 <<= 4; // multiply by 16
         w0 = w0.Add(w1.ShiftLeft(im3));
@@ -5060,8 +5059,8 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
           pow = NumberUtility.FindPowerOfTen(digits);
         } else {
           pow = (radix == 5) ?
-NumberUtility.FindPowerOfFiveFromBig(EInteger.FromInt64(digits)) :
-EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits));
+            NumberUtility.FindPowerOfFiveFromBig(EInteger.FromInt64(digits)) :
+            EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits));
         }
         EInteger[] divrem = this.DivRem(pow);
         // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
@@ -5106,8 +5105,7 @@ EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits));
             rest |= (((int)tempReg[1]) & ShortMask) << 16;
             while (rest != 0) {
               int newrest = (rest < 81920) ? (((rest * 52429) >> 19) & 8191) :
-(rest /
-                  10);
+                (rest / 10);
               s[i++] = Digits[rest - (newrest * 10)];
               rest = newrest;
             }
@@ -5303,7 +5301,7 @@ EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits));
         return "0";
       }
       return this.CanFitInInt64() ?
-FastInteger.LongToString(this.ToInt64Unchecked()) :
+        FastInteger.LongToString(this.ToInt64Unchecked()) :
         this.ToRadixString(10);
     }
 
