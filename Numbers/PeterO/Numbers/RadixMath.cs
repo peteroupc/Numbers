@@ -976,9 +976,9 @@ namespace PeterO.Numbers {
           EInteger newMax;
           ctxdiv.Flags = 0;
           newMax = ctx.EMax;
-          EInteger expdiff = ctx.EMin;
-          expdiff = newMax - (EInteger)expdiff;
-          newMax += (EInteger)expdiff;
+          EInteger eintExpdiff = ctx.EMin;
+          eintExpdiff = newMax - (EInteger)eintExpdiff;
+          newMax += (EInteger)eintExpdiff;
           ctxdiv = ctxdiv.WithBigExponentRange(ctxdiv.EMin, newMax);
           thisValue = this.Exp(this.NegateRaw(thisValue), ctxdiv);
           if ((ctxdiv.Flags & EContext.FlagOverflow) != 0) {
@@ -3471,12 +3471,6 @@ FastInteger(2);
       IRadixMathHelper<TMath> helper) {
       int signA = helper.GetSign(thisValue);
       int signB = helper.GetSign(otherValue);
-      // if (compareNone%50 == 0) {
-      // DebugUtility.Log("compare=" + compareNone + "," + (//compareFast) +
-      // "," +
-      // compareSlow);
-      // }
-      // compareNone++;
       if (signA != signB) {
         return (signA < signB) ? -1 : 1;
       }
@@ -3559,9 +3553,8 @@ FastInteger(2);
         }
         bool flagsNeg = ((this.helper.GetFlags(thisValue) &
               BigNumberFlags.FlagNegative) != 0) ^
-((this.helper.GetFlags(divisor) &
-
-              BigNumberFlags.FlagNegative) != 0);
+               ((this.helper.GetFlags(divisor) &
+               BigNumberFlags.FlagNegative) != 0);
         return this.SignalDivideByZero(ctx, flagsNeg);
       }
       int radix = this.thisRadix;
@@ -3593,20 +3586,16 @@ FastInteger(2);
       } else {
         EInteger mantissaDividend = this.helper.GetMantissa(thisValue);
         EInteger mantissaDivisor = this.helper.GetMantissa(divisor);
-        FastInteger expDividend =
-          this.helper.GetExponentFastInt(thisValue).ToFastInteger();
-        FastInteger expDivisor =
-          this.helper.GetExponentFastInt(divisor).ToFastInteger();
-        FastInteger expdiff = expDividend.Copy().Subtract(expDivisor);
-        var adjust = new FastInteger(0);
-        var result = new FastInteger(0);
-        FastInteger naturalExponent = expdiff.Copy();
-        bool hasPrecision = ctx != null && ctx.Precision.Sign != 0;
+        FastIntegerFixed expDividend =
+this.helper.GetExponentFastInt(thisValue);
+        FastIntegerFixed expDivisor = this.helper.GetExponentFastInt(divisor);
         bool resultNeg = (this.helper.GetFlags(thisValue) &
             BigNumberFlags.FlagNegative) != (this.helper.GetFlags(divisor) &
             BigNumberFlags.FlagNegative);
-        FastInteger fastPrecision = (!hasPrecision) ? new FastInteger(0) :
-          FastInteger.FromBig(ctx.Precision);
+        FastInteger expdiff = FastIntegerFixed.Subtract(expDividend,
+  expDivisor).ToFastInteger();
+        EInteger eintPrecision = (ctx == null || !ctx.HasMaxPrecision) ?
+EInteger.Zero : ctx.Precision;
         FastInteger dividendPrecision = null;
         FastInteger divisorPrecision = null;
         if (integerMode == IntegerModeFixedScale) {
@@ -3638,7 +3627,7 @@ FastInteger(2);
                 ctx);
           }
           if (ctx != null && ctx.Precision.Sign != 0 &&
-            expdiff.Copy().SubtractInt(8).CompareTo(fastPrecision) >
+            expdiff.Copy().SubtractInt(8).CompareTo(eintPrecision) >
             0) {
             // NOTE: 8 guard digits
             // Result would require a too-high precision since
@@ -3674,6 +3663,28 @@ FastInteger(2);
         if (integerMode == IntegerModeRegular) {
           EInteger rem = null;
           EInteger quo = null;
+          FastInteger natexp = null;
+          bool binaryOpt = this.thisRadix == 2 &&
+           expDivisor.CompareToInt(0) == 0 && expDividend.CompareToInt(0) ==
+0 &&
+           ctx != null && ctx.HasMaxPrecision && ctx.Precision.CompareTo(53)
+<= 0 &&
+           mantissaDividend.CanFitInInt64() && mantissaDivisor.CanFitInInt64();
+         if (binaryOpt) {
+           EInteger absdivd = mantissaDividend.Abs();
+           EInteger absdivs = mantissaDivisor.Abs();
+           int maxprec = ctx.Precision.ToInt32Checked();
+           var divdCount = (int)absdivd.GetUnsignedBitLengthAsInt64();
+           var divsCount = (int)mantissaDivisor.GetUnsignedBitLengthAsInt64();
+           int dividendShift = (divdCount <= divsCount) ? ((divsCount -
+divdCount)+ maxprec + 1) : (Math.Max(0, (maxprec +
+1)-(divdCount-divsCount))); absdivd = absdivd.ShiftLeft(dividendShift);
+EInteger[] divrem3 = absdivd.DivRem(absdivs);
+           quo = divrem3[0];
+           rem = divrem3[1];
+           natexp = new FastInteger(-dividendShift);
+        }
+        if (!binaryOpt) {
           EInteger[] divrem = mantissaDividend.DivRem(mantissaDivisor);
           quo = divrem[0];
           rem = divrem[1];
@@ -3688,15 +3699,9 @@ FastInteger(2);
                 resultNeg ? BigNumberFlags.FlagNegative : 0);
             return this.RoundToPrecision(fi, ctx);
           }
-          rem = null;
-          quo = null;
-          if (hasPrecision) {
-            #if DEBUG
-            if (ctx == null) {
-              throw new ArgumentNullException(nameof(ctx));
-            }
-            #endif
-            // DebugUtility.Log("has precision");
+         }
+         if (ctx != null && ctx.HasMaxPrecision) {
+           if (!binaryOpt) {
             EInteger divid = mantissaDividend;
             FastInteger shift = FastInteger.FromBig(ctx.Precision);
             dividendPrecision = this.helper.GetDigitLength(mantissaDividend);
@@ -3749,25 +3754,39 @@ FastInteger(2);
               quo = divrem2[0];
               rem = divrem2[1];
             }
+            natexp = expdiff.Copy().Subtract(shift);
+            }
             // DebugUtility.Log(String.Format("" + divid + "" +
             // mantissaDivisor + " -> quo= " + quo + " rem= " +
             // (rem)));
-            int[] digitStatus = this.RoundToScaleStatus(
+          int[] digitStatus = this.RoundToScaleStatus(
                 rem,
                 mantissaDivisor,
                 ctx);
-            if (digitStatus == null) {
+              if (digitStatus == null) {
               // NOTE: Can only happen for ERounding.None
               return this.SignalInvalidWithMessage(
                   ctx,
                   "Rounding was required");
             }
-            FastInteger natexp = naturalExponent.Copy().Subtract(shift);
-            EContext ctxcopy = ctx.WithBlankFlags();
             T retval2 = this.helper.CreateNewWithFlags(
                 quo,
                 natexp.AsEInteger(),
                 resultNeg ? BigNumberFlags.FlagNegative : 0);
+              if ((ctx == null || !ctx.HasFlagsOrTraps) &&
+               (digitStatus[0] | digitStatus[1]) != 0) {
+              // Context doesn't care about flags, and
+              // we already know the result is inexact, so no
+              // need to create a blank flag context to find that out
+              return this.RoundToPrecisionInternal(
+                retval2,
+                digitStatus[0],
+                digitStatus[1],
+                null,
+                false,
+                ctx);
+            }
+            EContext ctxcopy = ctx.WithBlankFlags();
             retval2 = this.RoundToPrecisionInternal(
                 retval2,
                 digitStatus[0],
@@ -3775,10 +3794,10 @@ FastInteger(2);
                 null,
                 false,
                 ctxcopy);
-            if ((ctxcopy.Flags & EContext.FlagInexact) != 0) {
-              if (ctx.HasFlags) {
-                ctx.Flags |= ctxcopy.Flags;
-              }
+              if ((ctxcopy.Flags & EContext.FlagInexact) != 0) {
+                if (ctx.HasFlags) {
+                  ctx.Flags |= ctxcopy.Flags;
+                }
               return retval2;
             }
             if (ctx.HasFlags) {
@@ -3787,12 +3806,14 @@ FastInteger(2);
             return this.ReduceToPrecisionAndIdealExponent(
                 retval2,
                 ctx,
-                rem.IsZero ? null : fastPrecision,
+                rem.IsZero ? null : FastInteger.FromBig(eintPrecision),
                 expdiff);
           }
         }
         // Rest of method assumes unlimited precision
         // and IntegerModeRegular
+        var adjust = new FastInteger(0);
+        var result = new FastInteger(0);
         int mantcmp = mantissaDividend.CompareTo(mantissaDivisor);
         if (mantcmp == 0) {
           result = new FastInteger(1);
@@ -3840,9 +3861,8 @@ FastInteger(2);
         if (!mantissaDividend.IsZero) {
           if (rounding == ERounding.HalfDown || rounding ==
             ERounding.HalfEven || rounding == ERounding.HalfUp) {
-            EInteger halfDivisor = mantissaDivisor >> 1;
-            int cmpHalf = mantissaDividend.CompareTo(halfDivisor);
-            if ((cmpHalf == 0) && mantissaDivisor.IsEven) {
+            int cmpHalf = CompareToHalf(mantissaDividend, mantissaDivisor);
+            if (cmpHalf == 0) {
               // remainder is exactly half
               lastDiscarded = radix / 2;
               olderDiscarded = 0;
@@ -4634,23 +4654,6 @@ FastInteger(2);
       return incremented;
     }
 
-    private static int BitLength(long mantlong) {
-      #if DEBUG
-      if (mantlong < 0) {
-        throw new ArgumentException("mantlong (" + mantlong +
-          ") is not greater or equal" + "\u0020to 0");
-      }
-      #endif
-
-      var intDigitCount = 0;
-      long mltmp = mantlong;
-      while (mltmp > 0) {
-        ++intDigitCount;
-        mltmp >>= 1;
-      }
-      return Math.Max(1, intDigitCount);
-    }
-
     private static readonly EContext DefaultUnlimited =
       EContext.UnlimitedHalfEven.WithRounding(ERounding.HalfEven);
 
@@ -4792,7 +4795,7 @@ BigNumberFlags.FlagNegative) !=
               thisValue = this.EnsureSign(thisValue, false);
               thisFlags = 0;
             }
-            intDigitCount = BitLength(mantlong);
+            intDigitCount = NumberUtility.BitLength(mantlong);
             if (intDigitCount < intPrecision) {
               var withRounding = false;
               var stillWithinPrecision = false;
@@ -4809,7 +4812,7 @@ BigNumberFlags.FlagNegative) !=
               } else {
                 withRounding = true;
                 ++mantlong;
-                intDigitCount = BitLength(mantlong);
+                intDigitCount = NumberUtility.BitLength(mantlong);
                 if (intDigitCount < intPrecision ||
                   (intDigitCount == intPrecision && (this.thisRadix & 1) == 0 &&
                     (mantlong & 1) != 0)) {
@@ -4857,16 +4860,11 @@ BigNumberFlags.FlagNegative) !=
           mantissaWasZero = mantlong == 0 &&
             (lastDiscarded | olderDiscarded) == 0;
           flags = 0;
-          intDigitCount = BitLength(mantlong);
+          intDigitCount = NumberUtility.BitLength(mantlong);
           nonHalfRounding = rounding != ERounding.HalfEven &&
             rounding != ERounding.HalfUp && rounding != ERounding.HalfDown;
           var intDiscardedBits = 0;
-          /*
-          DebugUtility.Log("mantlong was {0}, ld={1}, od={2} [dcmp={3},
-
-  ish={4}]",EInteger.FromInt64(mantlong).ToRadixString(2),lastDiscarded,olderDiscarded,intDigitCount
-- intPrecision, intShift);
-          */ if (intDigitCount > intPrecision) {
+          if (intDigitCount > intPrecision) {
             int bitShift = intDigitCount - intPrecision;
             intDiscardedBits += bitShift;
             olderDiscarded |= lastDiscarded;
@@ -4892,17 +4890,13 @@ BigNumberFlags.FlagNegative) !=
             }
             intDiscardedBits += intShift;
           }
-          /* DebugUtility.Log("mantlong now {0}, ld={1}, od={2} [dcmp={3},
-
-  ish={4}]",EInteger.FromInt64(mantlong).ToRadixString(2),lastDiscarded,olderDiscarded,intDigitCount
-- intPrecision, intShift);
-          */ explong += intDiscardedBits;
+          explong += intDiscardedBits;
           long intFinalMantissa = 0;
           var intFinalExponent = 0;
           finalizing = false;
           adjustedExp = explong;
           if (ctx.AdjustExponent) {
-            adjustedExp += BitLength(mantlong) - 1;
+            adjustedExp += NumberUtility.BitLength(mantlong) - 1;
           }
           if (adjustedExp > intEMax) {
             if (mantissaWasZero) {
@@ -4928,25 +4922,21 @@ BigNumberFlags.FlagNegative) !=
             }
             if (ctx.HasFlags && mantlong != 0) {
               int newAdjExponent = adjustedExp;
-              /* DebugUtility.Log("was nae=" + newAdjExponent + ", iem=" +
-intEMin + " " + (mantlong >> intPrecision));*/
               if (this.RoundGivenDigits(
                 lastDiscarded,
                 olderDiscarded,
                 rounding,
                 neg,
                 mantlong)) {
-                long earlyRounded = mantlong + 1;
-                if ((earlyRounded >> intPrecision) != 0) {
+                long intEarlyRounded = mantlong + 1;
+                if ((intEarlyRounded >> intPrecision) != 0) {
                   newAdjExponent = ctx.AdjustExponent ?
                     explong + intPrecision - 1 : explong;
                   } else {
                   newAdjExponent = ctx.AdjustExponent ?
-                    explong + BitLength(earlyRounded) - 1 : explong;
+                    explong + NumberUtility.BitLength(intEarlyRounded) - 1 :
+explong;
                 }
-                /*
-                DebugUtility.Log("nae=" + newAdjExponent + ", iem=" +
-intEMin + " " + (earlyRounded >> intPrecision));*/
               }
               if (newAdjExponent < intEMin) {
                 flags |= EContext.FlagSubnormal;
@@ -4954,28 +4944,22 @@ intEMin + " " + (earlyRounded >> intPrecision));*/
             }
             int subExp = explong;
             if (subExp < etiny) {
-              int expdiff = etiny - subExp;
-              intDigitCount = BitLength(mantlong);
-              /*
-              DebugUtility.Log("subexp={0}, etiny={1},
-  expdiff={2}",subExp,etiny,expdiff);
-              DebugUtility.Log("mantlong was {0}, ld={1}, od={2}
-
-  [ed={3}]",EInteger.FromInt64(mantlong).ToRadixString(2),lastDiscarded,olderDiscarded,expdiff);
-              */ if (mantlong != 0) {
+              int intExpDiff = etiny - subExp;
+              intDigitCount = NumberUtility.BitLength(mantlong);
+              if (mantlong != 0) {
                 olderDiscarded |= lastDiscarded;
-                if (expdiff > intDigitCount) {
+                if (intExpDiff > intDigitCount) {
                   olderDiscarded |= 1;
                   lastDiscarded = 0;
                   mantlong = 0;
                 } else {
                   // bottommost expdiff minus 1 bits
-                  olderDiscarded |= (expdiff > 1 && (mantlong <<
-                        (64 - expdiff + 1)) != 0) ? 1 : 0;
-                  lastDiscarded = (int)((mantlong >> (expdiff - 1)) & 0x01);
-                  mantlong >>= expdiff;
+                  olderDiscarded |= (intExpDiff > 1 && (mantlong <<
+                        (64 - intExpDiff + 1)) != 0) ? 1 : 0;
+                  lastDiscarded = (int)((mantlong >> (intExpDiff - 1)) & 0x01);
+                  mantlong >>= intExpDiff;
                 }
-                intDiscardedBits += expdiff;
+                intDiscardedBits += intExpDiff;
               }
               /* DebugUtility.Log("mantlong now {0}, ld={1}, od={2} [ed={3},
 
@@ -5058,7 +5042,7 @@ intEMin + " " + (earlyRounded >> intPrecision));*/
               // Check for overflow again
               adjustedExp = explong;
               if (ctx.AdjustExponent) {
-                adjustedExp += BitLength(mantlong) - 1;
+                adjustedExp += NumberUtility.BitLength(mantlong) - 1;
               }
               if (adjustedExp > intEMax) {
                 return this.SignalOverflow(ctx, neg);
@@ -5507,6 +5491,32 @@ intEMin + " " + (earlyRounded >> intPrecision));*/
           neg ? BigNumberFlags.FlagNegative : 0);
     }
 
+    // Compare bigLeft with half of toCompareWith, while avoiding
+    // the need to compute half of toCompareWith in many cases.
+    // Assumes both inputs are non-negative.
+    private static int CompareToHalf(EInteger bigLeft, EInteger toCompareWith) {
+      /*
+#if DEBUG
+       if (!(bigLeft.Sign > 0 && toCompareWith.Sign > 0)) {
+         throw new ArgumentException("doesn't satisfy bigLeft.Sign > 0 &&
+toCompareWith.Sign > 0");
+       }
+#endif
+
+      */ long a = bigLeft.GetUnsignedBitLengthAsInt64();
+      long b = toCompareWith.GetUnsignedBitLengthAsInt64();
+      if (a != Int64.MaxValue && b != Int64.MaxValue) {
+        if (b - 1 > a) {
+          return -1;
+        }
+        if (a - 1 > b) {
+          return 1;
+        }
+      }
+      int cmp = bigLeft.CompareTo(toCompareWith.ShiftRight(1));
+      return (cmp == 0 && !toCompareWith.IsEven) ? (cmp =-1) : cmp;
+    }
+
     private T RoundToScale(
       EInteger mantissa,
       EInteger remainder,
@@ -5532,9 +5542,8 @@ intEMin + " " + (earlyRounded >> intPrecision));*/
       if (!remainder.IsZero) {
         if (rounding == ERounding.HalfDown || rounding == ERounding.HalfUp ||
           rounding == ERounding.HalfEven) {
-          EInteger halfDivisor = divisor >> 1;
-          int cmpHalf = remainder.CompareTo(halfDivisor);
-          if ((cmpHalf == 0) && divisor.IsEven) {
+          int cmpHalf = CompareToHalf(remainder, divisor);
+          if (cmpHalf == 0) {
             // remainder is exactly half
             lastDiscarded = this.thisRadix / 2;
             olderDiscarded = 0;
@@ -5627,9 +5636,8 @@ intEMin + " " + (earlyRounded >> intPrecision));*/
       if (!remainder.IsZero) {
         if (rounding == ERounding.HalfDown || rounding == ERounding.HalfUp ||
           rounding == ERounding.HalfEven) {
-          EInteger halfDivisor = divisor.ShiftRight(1);
-          int cmpHalf = remainder.CompareTo(halfDivisor);
-          if ((cmpHalf == 0) && divisor.IsEven) {
+          int cmpHalf = CompareToHalf(remainder, divisor);
+          if (cmpHalf == 0) {
             // remainder is exactly half
             lastDiscarded = this.thisRadix / 2;
             olderDiscarded = 0;

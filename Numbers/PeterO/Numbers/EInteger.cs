@@ -20,6 +20,9 @@ using System.Text;
 // to return MaxValue on overflow
 // TODO: In next major version, perhaps change GetLowBit/GetDigitCount
 // to return MaxValue on overflow
+// TODO: In next version after 1.6, add long overloads in addition to int
+// overloads
+// in EDecimal/EFloat/EInteger/ERational (including CompareTo and DivRem)
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
   /// for "extended", and has this prefix to group it with the other
@@ -289,7 +292,7 @@ namespace PeterO.Numbers {
         return EInteger.Zero;
       } else if (bytes.Length == 1) {
         return (((int)bytes[0] & 0x80) == 0) ? FromInt32((int)bytes[0]) :
-          FromInt32(- 1 - ((~bytes[0]) & 0x7f));
+          FromInt32(-1 - ((~bytes[0]) & 0x7f));
       }
       int len = bytes.Length;
       int wordLength = (len >> 1) + (len & 1);
@@ -2483,12 +2486,23 @@ EInteger(this.wordCount, this.words, false);
       }
     }
 
+    /// <summary>Divides this object by a 32-bit signed integer and returns
+    /// the quotient and remainder.</summary>
+    /// <param name='intDivisor'>The number to divide by.</param>
+    /// <returns>An array with two arbitrary-precision integers: the first
+    /// is the quotient, and the second is the remainder.</returns>
+    /// <exception cref='DivideByZeroException'>The parameter "intDivisor"
+    /// is 0.</exception>
+    public EInteger[] DivRem(int intDivisor) {
+      return this.DivRem(EInteger.FromInt32(intDivisor));
+    }
+
     /// <summary>Divides this object by another arbitrary-precision integer
     /// and returns the quotient and remainder.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An array with two arbitrary-precision integers: the first
     /// is the quotient, and the second is the remainder.</returns>
-    /// <exception cref='DivideByZeroException'>The parameter divisor is
+    /// <exception cref='DivideByZeroException'>The parameter "divisor" is
     /// 0.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>

@@ -102,7 +102,19 @@ namespace PeterO.Numbers {
   /// Also, the EDecimal and EFloat classes avoid the use of "native"
   /// floating-point data types, where most of these differences can
   /// occur (except for methods that convert to or from <c>float</c>,
-  /// <c>double</c>, or <c>System.Decimal</c> ).</para>
+  /// <c>double</c>, or <c>System.Decimal</c> ). In general, the
+  /// operations defined in the General Decimal Arithmetic Specification
+  /// require delivering the correctly rounded result, with the exception
+  /// of square root, logarithm, exponential, and power. In addition, the
+  /// pi constant generator in this class has not been verified to be
+  /// correctly rounded in all cases.</para>
+  /// <para>As for the ToDouble, ToSingle, FromDouble, and FromSingle
+  /// methods, note that some implementations of Java and.NET may or may
+  /// not support preserving the value of subnormal numbers (numbers with
+  /// the lowest possible exponent, but are not zero) or the payloads
+  /// held in a not-a-number (NaN) value of <c>float</c> or <c>double</c>
+  /// ; thus these methods should not be considered reproducible across
+  /// computers.</para>
   /// <para>EContext allows arithmetic operations in this class to return
   /// results rounded to a given precision and exponent range. Note,
   /// however, that by limiting the precision of floating-point numbers
@@ -3551,25 +3563,26 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
         }
         return Extras.IntegersToDouble(nan);
       }
+      // TODO: Avoid conversion in certain cases
       EFloat thisValue = this.RoundToPrecision(EContext.Binary64);
       if (!thisValue.IsFinite) {
         return thisValue.ToDouble();
       }
-      EInteger mant = thisValue.unsignedMantissa;
-      if (thisValue.IsNegative && mant.IsZero) {
+      long longmant = thisValue.unsignedMantissa.ToInt64Checked();
+      if (thisValue.IsNegative && longmant == 0) {
         int highbit = unchecked((int)(1 << 31));
         return Extras.IntegersToDouble(new[] {
           0, highbit,
         });
-      } else if (mant.IsZero) {
+      } else if (longmant == 0) {
         return 0.0;
       }
       // DebugUtility.Log("todouble -->" + this);
-      EInteger bitLength = mant.GetUnsignedBitLengthAsEInteger();
+      long longBitLength = NumberUtility.BitLength(longmant);
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
-      if (bitLength.CompareTo(53) < 0) {
-        int diff = 53 - bitLength.ToInt32Checked();
+      if (longBitLength < 53) {
+        int diff = 53 - (int)longBitLength;
         expo -= diff;
         if (expo < -1074) {
           // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
@@ -3578,24 +3591,20 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
           expo = -1074;
           subnormal = true;
         }
-        mant <<= diff;
-        bitLength += diff;
+        longmant <<= diff;
       }
-      // DebugUtility.Log("2->" + (mant.ToRadixString(2)) + ", " + expo);
-      int[] mantissaBits;
-      mantissaBits = FastInteger.GetLastWords(mant, 2);
+      int mb0 = unchecked((int)(longmant & 0xffffffffL));
+      int mb1 = unchecked((int)((longmant >> 32) & 0xffffffffL));
       // Clear the high bits where the exponent and sign are
-      mantissaBits[1] &= 0xfffff;
+      mb1 &= 0xfffff;
       if (!subnormal) {
         int smallexponent = (expo + 1075) << 20;
-        mantissaBits[1] |= smallexponent;
+        mb1 |= smallexponent;
       }
       if (this.IsNegative) {
-        mantissaBits[1] |= unchecked((int)(1 << 31));
+        mb1 |= unchecked((int)(1 << 31));
       }
-      // DebugUtility.Log("todouble ret -->" +
-      // Extras.IntegersToDouble(mantissaBits));
-      return Extras.IntegersToDouble(mantissaBits);
+      return Extras.IntegersToDouble(mb0, mb1);
     }
 
     /// <summary>Converts this value to an arbitrary-precision decimal
@@ -3841,24 +3850,25 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
         }
         return BitConverter.ToSingle(BitConverter.GetBytes(nan), 0);
       }
+      // TODO: Avoid conversion in certain cases
       EFloat thisValue = this.RoundToPrecision(EContext.Binary32);
       if (!thisValue.IsFinite) {
         return thisValue.ToSingle();
       }
-      EInteger mant = thisValue.unsignedMantissa;
-      if (thisValue.IsNegative && mant.IsZero) {
+      int intmant = thisValue.unsignedMantissa.ToInt32Checked();
+      if (thisValue.IsNegative && intmant == 0) {
         return BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0);
-      } else if (mant.IsZero) {
+      } else if (intmant == 0) {
         return 0.0f;
       }
       // DebugUtility.Log("-->" + (//
       // thisValue.unsignedMantissa.ToRadixString(2)) + ", " + (//
       // thisValue.exponent));
-      EInteger bitLength = mant.GetUnsignedBitLengthAsEInteger();
+      int intBitLength = NumberUtility.BitLength(intmant);
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
-      if (bitLength.CompareTo(24) < 0) {
-        int diff = 24 - bitLength.ToInt32Checked();
+      if (intBitLength < 24) {
+        int diff = 24 - intBitLength;
         expo -= diff;
         if (expo < -149) {
           // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
@@ -3867,10 +3877,9 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
           expo = -149;
           subnormal = true;
         }
-        mant <<= diff;
+        intmant <<= diff;
       }
-      // DebugUtility.Log("2->" + (mant.ToRadixString(2)) + ", " + expo);
-      int smallmantissa = ((int)mant.ToInt32Checked()) & 0x7fffff;
+      int smallmantissa = intmant & 0x7fffff;
       if (!subnormal) {
         smallmantissa |= (expo + 150) << 23;
       }

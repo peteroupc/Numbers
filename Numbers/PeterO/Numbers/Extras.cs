@@ -21,8 +21,13 @@ namespace PeterO.Numbers {
 
     public static double IntegersToDouble(int[] integers) {
       // NOTE: least significant word first
-      long value = ((long)integers[0]) & 0xffffffffL;
-      value |= (((long)integers[1]) & 0xffffffffL) << 32;
+      return IntegersToDouble(integers[0], integers[1]);
+    }
+
+    public static double IntegersToDouble(int lsw, int msw) {
+      // NOTE: least significant word first
+      long value = ((long)lsw) & 0xffffffffL;
+      value |= (((long)msw) & 0xffffffffL) << 32;
       return BitConverter.ToDouble(BitConverter.GetBytes((long)value), 0);
     }
   }

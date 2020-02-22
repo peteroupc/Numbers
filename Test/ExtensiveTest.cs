@@ -1338,7 +1338,7 @@ op3.IsSignalingNaN())) ||
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") &&
-          // !lowerF.Contains(".txt") &&
+          !lowerF.Contains(".txt") &&
           !lowerF.Contains(".dectest") &&
           !lowerF.Contains(".fptest")) {
           continue;
@@ -1357,8 +1357,9 @@ op3.IsSignalingNaN())) ||
                 } else {
                   ParseLine(ln, valueSwProcessing);
                 }
-              } catch (Exception ex) {
+              } catch (Exception) {
                 throw;
+                /*
                 errors.Add(ex.ToString());
                 try {
                   Console.SetOut(standardOut);
@@ -1372,8 +1373,7 @@ op3.IsSignalingNaN())) ||
                   Console.WriteLine(ex2.ToString());
                   errors.Add(ex2.ToString());
                   Console.SetOut(standardOut);
-                }
-              }
+                }*/ }
             }
           }
         }

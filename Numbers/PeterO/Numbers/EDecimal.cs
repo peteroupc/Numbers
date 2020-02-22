@@ -166,7 +166,20 @@ namespace PeterO.Numbers {
   ///  ,
   /// <c>double</c>
   ///  , or <c>System.Decimal</c>
-  ///  ).</para>
+  ///  ). In general, the
+  /// operations defined in the General Decimal Arithmetic Specification
+  /// require delivering the correctly rounded result, with the exception
+  /// of square root, logarithm, exponential, and power. In addition, the
+  /// pi constant generator in this class has not been verified to be
+  /// correctly rounded in all cases.</para>
+  /// <para>As for the ToDouble, ToSingle, FromDouble, and FromSingle
+  /// methods, note that some implementations of Java and.NET may or may
+  /// not support preserving the value of subnormal numbers (numbers with
+  /// the lowest possible exponent, but are not zero) or the payloads
+  /// held in a not-a-number (NaN) value of <c>float</c>
+  ///  or <c>double</c>
+  /// ; thus these methods should not be considered reproducible across
+  /// computers.</para>
   /// <para>EContext allows arithmetic operations in this class to return
   /// results rounded to a given precision and exponent range. Note,
   /// however, that by limiting the precision of floating-point numbers
@@ -433,13 +446,15 @@ namespace PeterO.Numbers {
       return cache;
     }
 
+    private static readonly DecimalMathHelper HelperValue = new
+DecimalMathHelper();
+
     private static readonly IRadixMath<EDecimal> ExtendedMathValue = new
-RadixMath<EDecimal>(new DecimalMathHelper());
+RadixMath<EDecimal>(HelperValue);
     //----------------------------------------------------------------
     private static readonly IRadixMath<EDecimal> MathValue = new
 TrappableRadixMath<EDecimal>(
-      new ExtendedOrSimpleRadixMath<EDecimal>(new
-        DecimalMathHelper()));
+      new ExtendedOrSimpleRadixMath<EDecimal>(HelperValue));
 
     private static readonly int[] ValueTenPowers = {
       1, 10, 100, 1000, 10000, 100000,
@@ -5427,6 +5442,14 @@ TrappableRadixMath<EDecimal>(
         return 0.0;
       }
       if (this.IsFinite) {
+        if (this.exponent.CompareToInt(0) > 0 &&
+this.unsignedMantissa.CanFitInInt64()) {
+          long v = this.unsignedMantissa.AsInt64();
+          if (v <= (1L << 53)) {
+            // This integer fits exactly in double
+            return this.IsNegative ? (double)(-v) : (double)v;
+          }
+        }
         if (this.exponent.CompareToInt(309) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Double.NegativeInfinity :
@@ -5552,6 +5575,14 @@ TrappableRadixMath<EDecimal>(
         return 0.0f;
       }
       if (this.IsFinite) {
+        if (this.exponent.CompareToInt(0) > 0 &&
+this.unsignedMantissa.CanFitInInt32()) {
+          int v = this.unsignedMantissa.AsInt32();
+          if (v <= (1 << 24)) {
+            // This integer fits exactly in float
+            return this.IsNegative ? (float)(-v) : (float)v;
+          }
+        }
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? Single.NegativeInfinity :
@@ -5757,8 +5788,9 @@ TrappableRadixMath<EDecimal>(
         return false;
       } else {
         EInteger umantissa = this.UnsignedMantissa;
-        EInteger digitCountUpper = DigitCountUpperBound(umantissa);
-        EInteger digitCountLower = DigitCountLowerBound(umantissa);
+        EInteger[] bounds = DigitCountBounds(umantissa);
+        EInteger digitCountUpper = bounds[1];
+        EInteger digitCountLower = bounds[0];
         EInteger bigexponent = this.Exponent;
         return (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) ? true :
 ((digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? false :
@@ -5945,35 +5977,27 @@ TrappableRadixMath<EDecimal>(
       return this.IsNegative ? ef.Negate() : ef;
     }
 
-    private static EInteger DigitCountUpperBound(EInteger ei) {
+    private static EInteger[] DigitCountBounds(EInteger ei) {
       EInteger bi = ei.GetUnsignedBitLengthAsEInteger();
       if (bi.CompareTo(33) < 0) {
         // Can easily be calculated without estimation
-        return ei.GetDigitCountAsEInteger();
+        EInteger eintcnt = ei.GetDigitCountAsEInteger();
+        return new EInteger[] { eintcnt, eintcnt };
       } else if (bi.CompareTo(2135) <= 0) {
-        // May overestimate by 1
-        return EInteger.FromInt32(1 + ((bi.ToInt32Checked() *
-                631305) >> 21));
+        int ov = 1 + ((bi.ToInt32Checked() * 631305) >> 21);
+        return new EInteger[] {
+          EInteger.FromInt32(ov - 2),
+          EInteger.FromInt32(ov),
+        };
       } else {
         // Bit length is big enough that dividing it by 3 will not
         // underestimate the true base-10 digit length.
-        return bi.Divide(3);
-      }
-    }
-
-    private static EInteger DigitCountLowerBound(EInteger ei) {
-      EInteger bi = ei.GetUnsignedBitLengthAsEInteger();
-      if (bi.CompareTo(33) < 0) {
-        // Can easily be calculated without estimation
-        return ei.GetDigitCountAsEInteger();
-      } else if (bi.CompareTo(2135) <= 0) {
-        int ov = 1 + ((bi.ToInt32Checked() * 631305) >> 21);
-        return EInteger.FromInt32(ov - 2);
-      } else {
+        EInteger eintupper = bi.Divide(3);
         // Bit length is big enough that multiplying it by 100 and dividing by 335
         // will not
         // overestimate the true base-10 digit length.
-        return bi.Multiply(100).Divide(335);
+        EInteger eintlower = bi.Multiply(100).Divide(335);
+        return new EInteger[] { eintlower, eintupper };
       }
     }
 
@@ -6019,7 +6043,8 @@ TrappableRadixMath<EDecimal>(
         ec.EMin.CompareTo(b64.EMin) >= 0 &&
         ec.Precision.CompareTo(b64.Precision) <= 0) {
         // Quick check for overflow or underflow
-        EInteger digitCountUpper = DigitCountUpperBound(bigUnsignedMantissa);
+        EInteger[] bounds = DigitCountBounds(bigUnsignedMantissa);
+        EInteger digitCountUpper = bounds[1];
         EInteger adjexpLowerBound = bigintExp;
         EInteger adjexpUpperBound = bigintExp.Add(
             digitCountUpper.Subtract(1));
@@ -6035,7 +6060,7 @@ TrappableRadixMath<EDecimal>(
         } else if (adjexpLowerBound.CompareTo(309) > 0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
-        EInteger digitCountLower = DigitCountLowerBound(bigUnsignedMantissa);
+        EInteger digitCountLower = bounds[0];
         if (bigintExp.Sign >= 0 &&
 digitCountLower.Subtract(2).CompareTo(309) > 0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
@@ -6807,7 +6832,7 @@ digitCountLower.Subtract(2).CompareTo(309) > 0) {
         EInteger bigmantissa = this.UnsignedMantissa;
         bigexponent = bigexponent.Abs();
         bigmantissa = bigmantissa.Abs();
-        EInteger lowerBound = DigitCountLowerBound(bigmantissa);
+        EInteger lowerBound = DigitCountBounds(bigmantissa)[0];
         if (lowerBound.Subtract(bigexponent).CompareTo(maxDigits) > 0) {
           throw new OverflowException("Value out of range");
         }

@@ -486,7 +486,8 @@ namespace PeterO.Numbers {
       if (bigintVal.CanFitInInt32()) {
         return new FastInteger(bigintVal.ToInt32Unchecked());
       }
-      if (bigintVal.Sign > 0 && bigintVal.GetUnsignedBitLengthAsInt64() < 2048) {
+      if (bigintVal.Sign > 0 && bigintVal.GetUnsignedBitLengthAsInt64() <
+2048) {
         // Limit bit length because of the overhead of copying
         // to a mutable number
         var fi = new FastInteger(0);
@@ -1005,6 +1006,17 @@ switch (this.integerMode) {
       }
     }
 
+    internal FastInteger AddInt64(long longVal) {
+      return longVal >= Int32.MinValue && longVal <= Int32.MaxValue ?
+         this.AddInt((int)longVal) : this.AddBig(EInteger.FromInt64(longVal));
+    }
+
+    internal FastInteger SubtractInt64(long longVal) {
+      return longVal >= Int32.MinValue && longVal <= Int32.MaxValue ?
+         this.SubtractInt((int)longVal) :
+this.SubtractBig(EInteger.FromInt64(longVal));
+    }
+
     internal FastInteger AddInt(int val) {
       #if DEBUG
       if (this.frozen) {
@@ -1105,7 +1117,7 @@ switch (this.integerMode) {
         if (neg) {
          chars = new char[6];
          count = 5;
-        } else {
+       } else {
          chars = new char[5];
          count = 4;
         }
