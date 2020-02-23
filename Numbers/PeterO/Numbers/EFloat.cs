@@ -3563,8 +3563,17 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
         }
         return Extras.IntegersToDouble(nan);
       }
-      // TODO: Avoid conversion in certain cases
-      EFloat thisValue = this.RoundToPrecision(EContext.Binary64);
+      EFloat thisValue = this;
+      // TODO: In next version after 1.6, use CompareTo(long) instead
+      // --
+      // Check whether rounding can be avoided for common cases
+      // where the value already fits a double
+      if (!thisValue.IsFinite ||
+          thisValue.unsignedMantissa.GetUnsignedBitLengthAsInt64() > 53 ||
+          thisValue.exponent.CompareTo(-900) < 0 ||
+          thisValue.exponent.CompareTo(900) > 0) {
+        thisValue = this.RoundToPrecision(EContext.Binary64);
+      }
       if (!thisValue.IsFinite) {
         return thisValue.ToDouble();
       }
@@ -3850,8 +3859,15 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
         }
         return BitConverter.ToSingle(BitConverter.GetBytes(nan), 0);
       }
-      // TODO: Avoid conversion in certain cases
-      EFloat thisValue = this.RoundToPrecision(EContext.Binary32);
+      EFloat thisValue = this;
+      // Check whether rounding can be avoided for common cases
+      // where the value already fits a single
+      if (!thisValue.IsFinite ||
+          thisValue.unsignedMantissa.CompareTo(0x1000000) >= 0 ||
+          thisValue.exponent.CompareTo(-95) < 0 ||
+          thisValue.exponent.CompareTo(95) > 0) {
+        thisValue = this.RoundToPrecision(EContext.Binary32);
+      }
       if (!thisValue.IsFinite) {
         return thisValue.ToSingle();
       }

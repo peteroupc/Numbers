@@ -419,8 +419,16 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
                   10000000) ? 8 : ((v2 >= 1000000) ? 7 : 6)));
         }
         return new FastInteger(kb);
+      } else {
+        long digits = this.shiftedBigInt.GetDigitCountAsInt64();
+        if (digits == Int64.MaxValue) {
+           return FastInteger.FromBig(this.shiftedBigInt.GetDigitCountAsEInteger());
+        } else if (digits < Int32.MaxValue) {
+           return new FastInteger((int)digits);
+        } else {
+           return FastInteger.FromBig(EInteger.FromInt64(digits));
+        }
       }
-      return FastInteger.FromBig(this.shiftedBigInt.GetDigitCountAsEInteger());
     }
 
     private void UpdateKnownLengthInt(int digits) {
@@ -667,7 +675,7 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
             this.shiftedSmall = (int)div;
             this.knownDigitLength = (div < 10) ? new FastInteger(1) :
               new FastInteger(LongDigitLength(div));
-            } else {
+          } else {
             this.shiftedBigInt = EInteger.FromInt64(div);
             this.knownDigitLength = (div < 10) ? new FastInteger(1) :
               this.CalcKnownDigitLength();

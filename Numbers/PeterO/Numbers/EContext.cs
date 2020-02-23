@@ -1023,8 +1023,8 @@ this.simplified +
   /// ``0 object.</param>
   /// <param name='trappableContext'>The parameter <paramref
   /// name='trappableContext'/> is a Numbers.EContext object.</param>
-  /// <returns>The return value is not documented yet.</returns>
   /// <summary>Not documented yet.</summary>
+  /// <returns>The return value is not documented yet.</returns>
   /// <typeparam name='T'>Type parameter not documented yet.</typeparam>
     public T TriggerTraps<T>(
       T result,

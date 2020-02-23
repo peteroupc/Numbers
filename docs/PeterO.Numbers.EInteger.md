@@ -33,6 +33,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision integer.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[Divide(PeterO.Numbers.EInteger)](#Divide_PeterO_Numbers_EInteger)</code> - Divides this instance by the value of an arbitrary-precision integer.
+* <code>[DivRem(int)](#DivRem_int)</code> - Divides this object by a 32-bit signed integer and returns the quotient and remainder.
 * <code>[DivRem(PeterO.Numbers.EInteger)](#DivRem_PeterO_Numbers_EInteger)</code> - Divides this object by another arbitrary-precision integer and returns the quotient and remainder.
 * <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Use the DivRem instance method instead.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
@@ -519,6 +520,27 @@ The parameter  <i>bigintDivisor</i>
  * System.DivideByZeroException:
 Attempted to divide by zero.
 
+<a id="DivRem_int"></a>
+### DivRem
+
+    public PeterO.Numbers.EInteger[] DivRem(
+        int intDivisor);
+
+Divides this object by a 32-bit signed integer and returns the quotient and remainder.
+
+<b>Parameters:</b>
+
+ * <i>intDivisor</i>: The number to divide by.
+
+<b>Return Value:</b>
+
+An array with two arbitrary-precision integers: the first is the quotient, and the second is the remainder.
+
+<b>Exceptions:</b>
+
+ * System.DivideByZeroException:
+The parameter "intDivisor" is 0.
+
 <a id="DivRem_PeterO_Numbers_EInteger"></a>
 ### DivRem
 
@@ -538,7 +560,7 @@ An array with two arbitrary-precision integers: the first is the quotient, and t
 <b>Exceptions:</b>
 
  * System.DivideByZeroException:
-The parameter divisor is 0.
+The parameter "divisor" is 0.
 
  * System.ArgumentNullException:
 The parameter  <i>divisor</i>
