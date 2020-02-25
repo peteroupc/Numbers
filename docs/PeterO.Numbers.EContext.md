@@ -34,7 +34,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[ForPrecision(int)](#ForPrecision_int)</code> - Creates a new arithmetic context using the given maximum number of digits, an unlimited exponent range, and the HalfUp rounding mode.
 * <code>[ForPrecisionAndRounding(int, PeterO.Numbers.ERounding)](#ForPrecisionAndRounding_int_PeterO_Numbers_ERounding)</code> - Creates a new EContext object initialized with an unlimited exponent range, and the given rounding mode and maximum precision.
 * <code>[ForRounding(PeterO.Numbers.ERounding)](#ForRounding_PeterO_Numbers_ERounding)</code> - Creates a new EContext object initialized with an unlimited precision, an unlimited exponent range, and the given rounding mode.
-* <code>[GetNontrapping()](#GetNontrapping)</code> - Not documented yet.
+* <code>[GetNontrapping()](#GetNontrapping)</code> - Returns this context if it doesn't set traps, or a context without traps and with blank flags if it does, so that the resulting context does not cause trap exceptions to occur.
 * <code>[HasExponentRange](#HasExponentRange)</code> - Gets a value indicating whether this context defines a minimum and maximum exponent.
 * <code>[HasFlags](#HasFlags)</code> - Gets a value indicating whether this context has a mutable Flags field.
 * <code>[HasFlagsOrTraps](#HasFlagsOrTraps)</code> - Gets a value indicating whether this context has a mutable Flags field, one or more trap enablers, or both.
@@ -506,11 +506,11 @@ A context object for arbitrary-precision arithmetic settings.
 
     public PeterO.Numbers.EContext GetNontrapping();
 
-Not documented yet.
+Returns this context if it doesn't set traps, or a context without traps and with blank flags if it does, so that the resulting context does not cause trap exceptions to occur. This is not a general-purpose method; it is intended to support custom implementations of arithmetic operations.
 
 <b>Return Value:</b>
 
-Returns this context if it doesn't set traps, or a context without traps and with blank flags if it does. This is not a general-purpose method; it is intended to support custom implementations of arithmetic operations.
+This context if it doesn't set traps, or a context without traps and with blank flags if it does.
 
 <a id="ToString"></a>
 ### ToString

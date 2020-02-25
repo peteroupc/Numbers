@@ -1010,11 +1010,13 @@ this.simplified +
         this.traps);
     }
 
-  /// <returns>Returns this context if it doesn't set traps, or a context
-  /// without traps and with blank flags if it does. This is not a
-  /// general-purpose method; it is intended to support custom
-  /// implementations of arithmetic operations.</returns>
-  /// <summary>Not documented yet.</summary>
+  /// <returns>This context if it doesn't set traps, or a context without
+  /// traps and with blank flags if it does.</returns>
+  /// <summary>Returns this context if it doesn't set traps, or a context
+  /// without traps and with blank flags if it does, so that the
+  /// resulting context does not cause trap exceptions to occur. This is
+  /// not a general-purpose method; it is intended to support custom
+  /// implementations of arithmetic operations.</summary>
     public EContext GetNontrapping() {
        return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
     }

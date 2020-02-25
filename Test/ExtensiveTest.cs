@@ -68,16 +68,10 @@ namespace Test {
             var ln = w.ReadLine();
             {
               try {
-                // Console.SetOut(nullWriter);
-                if (isinput) {
-                  DecTestUtil.ParseLineInput(ln, null);
-                } else {
-                  ParseLine(ln, valueSwProcessing);
-                }
+                DecTestUtil.ParseLine(ln);
               } catch (Exception) {
                 throw;
-                /*
-                errors.Add(ex.ToString());
+                /* errors.Add(ex.ToString());
                 try {
                   Console.SetOut(standardOut);
                   if (isinput) {

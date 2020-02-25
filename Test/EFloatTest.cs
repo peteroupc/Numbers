@@ -2569,8 +2569,10 @@ namespace Test {
       }
     }
 
-    public static bool TestSizedEIntegerOne(EFloat ed, bool isExact, int
-      maxSignedBits) {
+    public static bool TestSizedEIntegerOne(
+      EFloat ed,
+      bool isExact,
+      int maxSignedBits) {
       if (ed == null) {
         throw new ArgumentNullException(nameof(ed));
       }

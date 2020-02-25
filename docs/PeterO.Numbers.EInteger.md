@@ -539,7 +539,8 @@ An array with two arbitrary-precision integers: the first is the quotient, and t
 <b>Exceptions:</b>
 
  * System.DivideByZeroException:
-The parameter "intDivisor" is 0.
+The parameter  <i>intDivisor</i>
+ is 0.
 
 <a id="DivRem_PeterO_Numbers_EInteger"></a>
 ### DivRem
@@ -560,7 +561,8 @@ An array with two arbitrary-precision integers: the first is the quotient, and t
 <b>Exceptions:</b>
 
  * System.DivideByZeroException:
-The parameter "divisor" is 0.
+The parameter  <i>divisor</i>
+ is 0.
 
  * System.ArgumentNullException:
 The parameter  <i>divisor</i>

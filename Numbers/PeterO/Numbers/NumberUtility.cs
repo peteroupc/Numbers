@@ -232,10 +232,18 @@ namespace PeterO.Numbers {
         return null;
       }
 
-      public EInteger GetCachedPowerInt(int bi) {
+      public EInteger GetCachedPowerInt(int ibi) {
         lock (this.outputs) {
+          if (ibi > 0 && this.size < 64) {
+            for (var i = 0; i < this.size; ++i) {
+              if (this.inputsInts[i] == ibi) {
+                return this.outputs[i];
+              }
+            }
+            return null;
+          }
           for (var i = 0; i < this.size; ++i) {
-            if (this.inputsInts[i] >= 0 && this.inputsInts[i] == bi) {
+            if (this.inputsInts[i] >= 0 && this.inputsInts[i] == ibi) {
               if (i != 0) {
                 EInteger tmp;
                 // Move to head of cache if it isn't already
@@ -354,7 +362,7 @@ namespace PeterO.Numbers {
       epower) {
       return epower.CanFitInInt32() ? MultiplyByPowerOfFive(v,
           epower.ToInt32Checked()) : v.Multiply(FindPowerOfFiveFromBig(
-  epower));
+            epower));
     }
     internal static EInteger FindPowerOfFiveFromBig(EInteger diff) {
       int sign = diff.Sign;
@@ -375,7 +383,7 @@ namespace PeterO.Numbers {
           if (otherPower == null) {
             // NOTE: Assumes powprec is 2 or greater and is a power of 2
             EInteger prevPower = FindPowerOfFiveFromBig(epowprec.ShiftRight(
-  1));
+                  1));
             otherPower = prevPower.Multiply(prevPower);
             ValuePowerOfFiveCache.AddPower(epowprec, otherPower);
           }
@@ -479,6 +487,7 @@ namespace PeterO.Numbers {
       if (bigpow != null) {
         return bigpow;
       }
+      // Console.WriteLine("power="+precision);
       if (precision <= 27) {
         ret = ValueBigIntPowersOfFive[precision];
         ret <<= precision;
@@ -512,26 +521,26 @@ namespace PeterO.Numbers {
       }
       var wcextra = 64;
       if ((mantlong >> 32) == 0) {
-              mantlong <<= 32;
-              wcextra -= 32;
-            }
-            if ((mantlong >> 48) == 0) {
-              mantlong <<= 16;
-              wcextra -= 16;
-            }
-            if ((mantlong >> 56) == 0) {
-              mantlong <<= 8;
-              wcextra -= 8;
-            }
-            if ((mantlong >> 60) == 0) {
-              mantlong <<= 4;
-              wcextra -= 4;
-            }
-            if ((mantlong >> 62) == 0) {
-              mantlong <<= 2;
-              wcextra -= 2;
-            }
-            return ((mantlong >> 63) == 0) ? wcextra - 1 : wcextra;
+        mantlong <<= 32;
+        wcextra -= 32;
+      }
+      if ((mantlong >> 48) == 0) {
+        mantlong <<= 16;
+        wcextra -= 16;
+      }
+      if ((mantlong >> 56) == 0) {
+        mantlong <<= 8;
+        wcextra -= 8;
+      }
+      if ((mantlong >> 60) == 0) {
+        mantlong <<= 4;
+        wcextra -= 4;
+      }
+      if ((mantlong >> 62) == 0) {
+        mantlong <<= 2;
+        wcextra -= 2;
+      }
+      return ((mantlong >> 63) == 0) ? wcextra - 1 : wcextra;
     }
 
     public static THelper PreRound<THelper>(
@@ -576,7 +585,7 @@ namespace PeterO.Numbers {
       #if DEBUG
       if ((ctx2.Flags & EContext.FlagInvalid) != 0) {
         throw new ArgumentException("doesn't" +
-"\u0020satisfy(ctx2.Flags&FlagInvalid)==0");
+          "\u0020satisfy(ctx2.Flags&FlagInvalid)==0");
       }
       #endif
       if ((ctx2.Flags & EContext.FlagInexact) != 0) {
@@ -673,11 +682,11 @@ namespace PeterO.Numbers {
       }
       #endif
       /*
-#if DEBUG
+      #if DEBUG
       if (!(bigmant.Sign >= 0)) {
         throw new ArgumentException("doesn't satisfy bigmant.Sign >= 0");
       }
-#endif
+      #endif
 
       */ if (bigmant.IsZero) {
         exponentMutable.SetInt(0);
@@ -690,30 +699,30 @@ namespace PeterO.Numbers {
         long lowbit = bigmant.GetLowBitAsInt64();
         if (lowbit != Int64.MaxValue) {
           if (precision != null && digits.CompareTo(precision) >= 0) {
-          // Limit by digits minus precision
-          EInteger tmp = digits.AsEInteger().Subtract(precision.AsEInteger());
-          if (tmp.CompareTo(EInteger.FromInt64(lowbit)) < 0) {
-            lowbit = tmp.ToInt64Checked();
+            // Limit by digits minus precision
+            EInteger tmp = digits.AsEInteger().Subtract(precision.AsEInteger());
+            if (tmp.CompareTo(EInteger.FromInt64(lowbit)) < 0) {
+              lowbit = tmp.ToInt64Checked();
+            }
           }
-        }
-        if (idealExp != null && exponentMutable.CompareTo(idealExp) <= 0) {
-          // Limit by idealExp minus exponentMutable
-          EInteger tmp =
-idealExp.AsEInteger().Subtract(exponentMutable.AsEInteger());
-          if (tmp.CompareTo(EInteger.FromInt64(lowbit)) < 0) {
-            lowbit = tmp.ToInt64Checked();
+          if (idealExp != null && exponentMutable.CompareTo(idealExp) <= 0) {
+            // Limit by idealExp minus exponentMutable
+            EInteger tmp =
+              idealExp.AsEInteger().Subtract(exponentMutable.AsEInteger());
+            if (tmp.CompareTo(EInteger.FromInt64(lowbit)) < 0) {
+              lowbit = tmp.ToInt64Checked();
+            }
           }
-        }
-        bigmant = (lowbit <= Int32.MaxValue) ?
-bigmant.ShiftRight((int)lowbit) :
-bigmant.ShiftRight(EInteger.FromInt64(lowbit));
-if (digits != null) {
-  digits.SubtractInt64(lowbit);
-}
-if (exponentMutable != null) {
-  exponentMutable.AddInt64(lowbit);
-}
-        return bigmant;
+          bigmant = (lowbit <= Int32.MaxValue) ?
+            bigmant.ShiftRight((int)lowbit) :
+            bigmant.ShiftRight(EInteger.FromInt64(lowbit));
+          if (digits != null) {
+            digits.SubtractInt64(lowbit);
+          }
+          if (exponentMutable != null) {
+            exponentMutable.AddInt64(lowbit);
+          }
+          return bigmant;
         }
       }
       var bigradix = (EInteger)radix;

@@ -17,7 +17,33 @@ namespace Test {
 
     private static readonly Regex ValueTestLine = new Regex(
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)",
-  RegexOptions.Compiled);
+      RegexOptions.Compiled);
+
+    public static string[] SplitAtFast(string str, char c, int minChunks,
+  int maxChunks) {
+      var chunks = new int[maxChunks];
+      string[] ret;
+      var chunk = 0;
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      for (var i = 0;i < str.Length && chunk < maxChunks; ++i) {
+        if (str[i] == c) {
+          chunks[chunk++] = i;
+        }
+      }
+      if (chunk >= minChunks - 1 && chunk < maxChunks) {
+        chunks[chunk++] = str.Length;
+      } else if (chunk < minChunks) {
+        return null;
+      }
+      ret = new string[chunk];
+      for (var i = 0; i < chunk; ++i) {
+        int st = (i == 0) ? 0 : chunks[i - 1] + 1;
+        ret[i] = str.Substring(st, chunks[i] - st);
+      }
+      return ret;
+    }
 
     public static string[] SplitAt(string str, string delimiter) {
       if (delimiter == null) {
@@ -272,8 +298,10 @@ namespace Test {
       return null;
     }
 
-    public static void AssertFlagsRestricted(int expected, int actual,
-  string str) {
+    public static void AssertFlagsRestricted(
+      int expected,
+      int actual,
+      string str) {
       actual &= EContext.FlagInexact | EContext.FlagUnderflow |
         EContext.FlagOverflow | EContext.FlagInvalid |
         EContext.FlagDivideByZero;
@@ -304,7 +332,7 @@ namespace Test {
 
     private static bool Contains(string str, string sub) {
       return (sub.Length == 1) ? (str.IndexOf(sub[0]) >= 0) :
-(str.IndexOf(sub, StringComparison.Ordinal) >= 0);
+        (str.IndexOf(sub, StringComparison.Ordinal) >= 0);
     }
 
     private static bool StartsWith(string str, string sub) {
@@ -335,7 +363,7 @@ namespace Test {
         ctx = ctx.WithRounding(ERounding.HalfEven);
       }
       if (round.Equals("h>", StringComparison.Ordinal) ||
-         round.Equals("=^", StringComparison.Ordinal)) {
+        round.Equals("=^", StringComparison.Ordinal)) {
         ctx = ctx.WithRounding(ERounding.HalfUp);
       }
       if (round.Equals("h<", StringComparison.Ordinal)) {
@@ -346,7 +374,7 @@ namespace Test {
 
     private static string ConvertOp(string s) {
       return s.Equals("S", StringComparison.Ordinal) ? "sNaN" :
-((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#",
+        ((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#",
               StringComparison.Ordinal)) ? "NaN" : s);
     }
 
@@ -463,9 +491,9 @@ namespace Test {
         IExtendedNumber c,
         EContext ctx) {
         return Create(this.ed.MultiplyAndSubtract(
-            ToValue(b),
-            ToValue(c),
-            ctx));
+              ToValue(b),
+              ToValue(c),
+              ctx));
       }
 
       public bool IsQuietNaN() {
@@ -718,7 +746,7 @@ namespace Test {
           if (exponent == 2047) {
             return (mantissaNonzero == 0) ? Create(neg ?
                 EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
-(((mantissa & 0x00080000) != 0) ? Create(EFloat.NaN) :
+              (((mantissa & 0x00080000) != 0) ? Create(EFloat.NaN) :
 
                 Create(EFloat.SignalingNaN));
           }
@@ -759,7 +787,7 @@ namespace Test {
           if (exponent == 0x7fff) {
             return (mantissaNonzero == 0) ? Create(neg ?
                 EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
-(((mantissa & 0x00008000) != 0) ? Create(EFloat.NaN) :
+              (((mantissa & 0x00008000) != 0) ? Create(EFloat.NaN) :
 
                 Create(EFloat.SignalingNaN));
           }
@@ -886,7 +914,7 @@ namespace Test {
             (EInteger)2,
             ToValue(this).Exponent);
         return ToValue(this).Subtract(ToValue(bn)).Abs().CompareTo(
-  ulpdiff) <= 0;
+            ulpdiff) <= 0;
       }
 
       public void ComparePrint(IExtendedNumber bn) {
@@ -935,13 +963,14 @@ namespace Test {
       }
     }
 
-    internal static int ParseLineInput(string ln, object sw) {
+    internal static int ParseLineInput(string ln) {
       if (ln.Length == 0) {
-{ return 0;
-} }
+        { return 0;
+        }
+      }
       int ix = ln.IndexOf(' ');
       // NOTE: ix < 2 includes cases where space is not found
-      if (ix < 2 || (ln[ix-1] != 'd' && ln[ix-1]!='s' && ln[ix-1]!='q')) {
+      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix-1]!='s' && ln[ix-1]!='q')) {
         return 0;
       }
       string[] chunks = SplitAtSpaceRuns(ln);
@@ -969,10 +998,10 @@ namespace Test {
         return 0;
       }
       string round = chunks[1];
-if (round.Length != 1) {
-         { return 0;
+      if (round.Length != 1) {
+        { return 0;
+        }
       }
-}
       string flags = chunks[3];
       string compareOp = chunks[2];
       // sw.Start();
@@ -1310,13 +1339,13 @@ if (round.Length != 1) {
       return 0;
     }
 
-    internal static int ParseLine(string ln, object sw) {
-        return ParseLine(ln, sw, false);
+    internal static int ParseLine(string ln) {
+      return ParseLine(ln, false);
     }
 
-    internal static int ParseLine(string ln, object sw, bool exactResultCheck) {
-      string[] chunks = SplitAt(ln, " ");
-      if (chunks.Length < 4) {
+    internal static int ParseLine(string ln, bool exactResultCheck) {
+      string[] chunks = SplitAtFast(ln, (char)0x20, 4, 8);
+      if (chunks == null) {
         return 0;
       }
       string type = chunks[0];
@@ -1373,14 +1402,12 @@ if (round.Length != 1) {
       if (Contains(traps, "u") || Contains(traps, "o")) {
         // skip tests that trap underflow or overflow,
         // the results there may be wrong
-/*
-try {
-  throw new InvalidOperationException();
- } catch (InvalidOperationException ex) {
-  Console.Write(ln+"\n"+ex);
-}
-*/
-        return 0;
+        /* try {
+          throw new InvalidOperationException();
+         } catch (InvalidOperationException ex) {
+          Console.Write(ln+"\n"+ex);
+        }
+        */ return 0;
       }
       string op1str = ConvertOp(chunks[2 + offset]);
       string op2str = ConvertOp(chunks[3 + offset]);
@@ -1479,8 +1506,7 @@ try {
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-EContext.FlagInvalid)) ==
-            0) {
+                EContext.FlagInvalid)) == 0) {
             d3 = op1.Subtract(op2, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1498,8 +1524,7 @@ EContext.FlagInvalid)) ==
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-EContext.FlagInvalid)) ==
-            0) {
+                EContext.FlagInvalid)) == 0) {
             d3 = op1.Multiply(op2, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1517,8 +1542,7 @@ EContext.FlagInvalid)) ==
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-EContext.FlagInvalid)) ==
-            0) {
+                EContext.FlagInvalid)) == 0) {
             d3 = op1.Divide(op2, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1537,7 +1561,7 @@ EContext.FlagInvalid)) ==
         }
         if (binaryFP && (
             (op1.IsQuietNaN() && (op2.IsSignalingNaN() ||
-op3.IsSignalingNaN())) ||
+                op3.IsSignalingNaN())) ||
             (op2.IsQuietNaN() && op3.IsSignalingNaN()))) {
           // Don't check flags for binary test cases involving quiet
           // NaN followed by signaling NaN, as the semantics for
@@ -1545,8 +1569,7 @@ op3.IsSignalingNaN())) ||
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-EContext.FlagInvalid)) ==
-            0) {
+                EContext.FlagInvalid)) == 0) {
             d3 = op1.MultiplyAndAdd(op2, op3, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1564,8 +1587,7 @@ EContext.FlagInvalid)) ==
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-EContext.FlagInvalid)) ==
-            0) {
+                EContext.FlagInvalid)) == 0) {
             d3 = op1.MultiplyAndSubtract(op2, op3, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1601,9 +1623,9 @@ EContext.FlagInvalid)) ==
 
     private static string TrimQuotes(string str) {
       return (str == null || str.Length == 0 || (
-         str[0] != '\'' && str[0] != '\"' && str[str.Length - 1] != '\'' &&
-str[str.Length - 1] != '\"')) ? str :
-   ValueQuotes.Replace(str, String.Empty);
+            str[0] != '\'' && str[0] != '\"' && str[str.Length - 1] != '\'' &&
+            str[str.Length - 1] != '\"')) ? str :
+        ValueQuotes.Replace(str, String.Empty);
     }
 
     public static void ParseDecTest(
@@ -1617,10 +1639,10 @@ str[str.Length - 1] != '\"')) ? str :
       if (context == null) {
         throw new ArgumentNullException(nameof(context));
       }
-      if (ParseLineInput(ln, null) != 0) {
+      if (ParseLineInput(ln) != 0) {
         return;
       }
-      if (ParseLine(ln, null) != 0) {
+      if (ParseLine(ln) != 0) {
         return;
       }
       if (ln.Contains("-- ")) {
@@ -1687,22 +1709,22 @@ str[str.Length - 1] != '\"')) ? str :
         if (name.Equals("S", StringComparison.Ordinal)) {
           return;
         }
-      if (name.Equals("Q", StringComparison.Ordinal)) {
+        if (name.Equals("Q", StringComparison.Ordinal)) {
           return;
         }
 
-      if (StartsWith(name, "d32")) {
-        return;
-      }
-      if (StartsWith(name, "d64")) {
-        return;
-      }
-      if (StartsWith(name, "b32")) {
-        return;
-      }
-      if (StartsWith(name, "d128")) {
-        return;
-      }
+        if (StartsWith(name, "d32")) {
+          return;
+        }
+        if (StartsWith(name, "d64")) {
+          return;
+        }
+        if (StartsWith(name, "b32")) {
+          return;
+        }
+        if (StartsWith(name, "d128")) {
+          return;
+        }
         // Skip some tests that assume a maximum
         // supported precision of 999999999
         if (name.Equals("pow250", StringComparison.Ordinal) ||
@@ -1840,16 +1862,16 @@ str[str.Length - 1] != '\"')) ? str :
           !op.Equals("toeng", StringComparison.Ordinal) &&
           !op.Equals("class", StringComparison.Ordinal) &&
           !op.Equals("format", StringComparison.Ordinal)) {
-try {
-          d1 = String.IsNullOrEmpty(input1) ? EDecimal.Zero :
-            EDecimal.FromString(input1);
-          d2 = String.IsNullOrEmpty(input2) ? null :
-            EDecimal.FromString(input2);
-          d2a = String.IsNullOrEmpty(input3) ? null :
-            EDecimal.FromString(input3);
-} catch (FormatException ex) {
-throw new InvalidOperationException(ln, ex);
-}
+          try {
+            d1 = String.IsNullOrEmpty(input1) ? EDecimal.Zero :
+              EDecimal.FromString(input1);
+            d2 = String.IsNullOrEmpty(input2) ? null :
+              EDecimal.FromString(input2);
+            d2a = String.IsNullOrEmpty(input3) ? null :
+              EDecimal.FromString(input3);
+          } catch (FormatException ex) {
+            throw new InvalidOperationException(ln, ex);
+          }
         }
         EDecimal d3 = null;
         if (op.Equals("fma", StringComparison.Ordinal) && !extended) {

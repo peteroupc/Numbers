@@ -482,6 +482,13 @@ namespace PeterO.Numbers {
       return fi;
     }
 
+    internal static FastInteger FromInt64(long longVal) {
+      if (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) {
+        return new FastInteger((int)longVal);
+      }
+      return FromBig(EInteger.FromInt64(longVal));
+    }
+
     internal static FastInteger FromBig(EInteger bigintVal) {
       if (bigintVal.CanFitInInt32()) {
         return new FastInteger(bigintVal.ToInt32Unchecked());

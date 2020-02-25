@@ -38,6 +38,8 @@ namespace PeterO.Numbers {
 
     void TruncateOrShiftRight(FastInteger bits, bool truncate);
 
+    int ShiftedIntMod(int mod);
+
     void ShiftRightInt(int bits);
 
     void ShiftToDigits(FastInteger bits, FastInteger preShift, bool truncate);

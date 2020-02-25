@@ -697,7 +697,7 @@ namespace PeterO.Numbers {
       int index,
       int endIndex,
       bool negative) {
-      if (endIndex - index > 32) {
+      if (endIndex - index > 72) {
         int midIndex = index + ((endIndex - index) / 2);
         EInteger eia = FromRadixSubstringGeneral(
             str,
@@ -736,6 +736,19 @@ namespace PeterO.Numbers {
       }
     }
 
+    // Approximate number of digits, multiplied by 100, that fit in
+    // each 16-bit word of an EInteger. This is used to calculate
+    // an upper bound on the EInteger's word array size based on
+    // the radix and the number of digits. Calculated from:
+    // ceil(ln(65536)*100/ln(radix)).
+    private static readonly int[] DigitsInWord = {
+      0, 0,
+      1600, 1010, 800, 690, 619, 570, 534, 505, 482, 463, 447,
+      433, 421, 410, 400, 392, 384, 377, 371, 365, 359, 354,
+      349, 345, 341, 337, 333, 330, 327, 323, 320, 318, 315,
+      312, 310, 308,
+    };
+
     private static EInteger FromRadixSubstringInner(
       string str,
       int radix,
@@ -747,20 +760,112 @@ namespace PeterO.Numbers {
       }
       if (endIndex - index <= 18 && radix <= 10) {
         long rv = 0;
-        for (int i = index; i < endIndex; ++i) {
+        if (radix == 10) {
+          for (int i = index; i < endIndex; ++i) {
+            char c = str[i];
+            var digit = (int)c - 0x30;
+            if (digit >= radix || digit < 0) {
+              throw new FormatException("Illegal character found");
+            }
+            rv = (rv * 10) + digit;
+          }
+          return FromInt64(negative ? -rv : rv);
+        } else {
+          for (int i = index; i < endIndex; ++i) {
+            char c = str[i];
+            int digit = (c >= 0x80) ? 36 : ((int)c - 0x30);
+            if (digit >= radix || digit < 0) {
+              throw new FormatException("Illegal character found");
+            }
+            rv = (rv * radix) + digit;
+          }
+          return FromInt64(negative ? -rv : rv);
+        }
+      }
+      long lsize = ((long)(endIndex - index) * 100 / DigitsInWord[radix]) + 1;
+      lsize = Math.Min(lsize, Int32.MaxValue);
+      lsize = Math.Max(lsize, 4);
+      var bigint = new short[(int)lsize];
+      int maxShortPlusOneMinusRadix = 65536 - 10;
+      if (radix == 10) {
+         long rv = 0;
+         int ei = endIndex - index <= 18 ? endIndex : index + 18;
+         for (int i = index; i < ei; ++i) {
           char c = str[i];
-          int digit = (c >= 0x80) ? 36 : ValueCharToDigit[(int)c];
-          if (digit >= radix) {
+          var digit = (int)c - 0x30;
+          if (digit >= radix || digit < 0) {
             throw new FormatException("Illegal character found");
           }
-          rv = (rv * radix) + digit;
+          rv = (rv * 10) + digit;
+         }
+         bigint[0] = unchecked((short)(rv & ShortMask));
+         bigint[1] = unchecked((short)((rv >> 16) & ShortMask));
+         bigint[2] = unchecked((short)((rv >> 32) & ShortMask));
+         bigint[3] = unchecked((short)((rv >> 48) & ShortMask));
+         int bn = Math.Min(bigint.Length, 5);
+         for (int i = ei; i < endIndex; ++i) {
+          short carry = 0;
+          var digit = 0;
+          var overf = 0;
+          if (i < endIndex - 3) {
+          overf = 55536; // 2**16 minus 10**4
+          var d1 = (int)str[i] - 0x30;
+          var d2 = (int)str[i + 1] - 0x30;
+          var d3 = (int)str[i + 2] - 0x30;
+          var d4 = (int)str[i + 3] - 0x30;
+          i += 3;
+          if (d1 >= 10 || d1 < 0 || d2 >= 10 || d2 < 0 || d3 >= 10 ||
+              d3 < 0 || d4 >= 10 || d4 < 0) {
+            throw new FormatException("Illegal character found");
+          }
+          digit = (d1 * 1000) + (d2 * 100) + (d3 * 10) + d4;
+          // Multiply by 10**4
+          for (int j = 0; j < bn; ++j) {
+            int p;
+            p = unchecked((((int)bigint[j]) & ShortMask) * 10000);
+            int p2 = ((int)carry) & ShortMask;
+            p = unchecked(p + p2);
+            bigint[j] = unchecked((short)p);
+            carry = unchecked((short)(p >> 16));
+          }
+          } else {
+          overf = 65526; // 2**16 minus radix 10
+          char c = str[i];
+          digit = (int)c - 0x30;
+          if (digit >= 10 || digit < 0) {
+            throw new FormatException("Illegal character found");
+          }
+          // Multiply by 10
+          for (int j = 0; j < bn; ++j) {
+            int p;
+            p = unchecked((((int)bigint[j]) & ShortMask) * 10);
+            int p2 = ((int)carry) & ShortMask;
+            p = unchecked(p + p2);
+            bigint[j] = unchecked((short)p);
+            carry = unchecked((short)(p >> 16));
+          }
+          }
+          if (carry != 0) {
+            bigint = GrowForCarry(bigint, carry);
+          }
+          // Add the parsed digit
+          if (digit != 0) {
+            int d = bigint[0] & ShortMask;
+            if (d <= overf) {
+              bigint[0] = unchecked((short)(d + digit));
+            } else if (IncrementWords(
+                bigint,
+                0,
+                bigint.Length,
+                (short)digit) != 0) {
+              bigint = GrowForCarry(bigint, (short)1);
+            }
+          }
+          bn = Math.Min(bigint.Length, bn + 1);
         }
-        return FromInt64(negative ? -rv : rv);
-      }
-      var bigint = new short[4];
+      } else {
       var haveSmallInt = true;
       int maxSafeInt = ValueMaxSafeInts[radix - 2];
-      int maxShortPlusOneMinusRadix = 65536 - radix;
       var smallInt = 0;
       for (int i = index; i < endIndex; ++i) {
         char c = str[i];
@@ -769,8 +874,7 @@ namespace PeterO.Numbers {
           throw new FormatException("Illegal character found");
         }
         if (haveSmallInt && smallInt < maxSafeInt) {
-          smallInt *= radix;
-          smallInt += digit;
+          smallInt = (smallInt * radix) + digit;
         } else {
           if (haveSmallInt) {
             bigint[0] = unchecked((short)(smallInt & ShortMask));
@@ -809,6 +913,7 @@ namespace PeterO.Numbers {
       if (haveSmallInt) {
         bigint[0] = unchecked((short)(smallInt & ShortMask));
         bigint[1] = unchecked((short)((smallInt >> 16) & ShortMask));
+      }
       }
       int count = CountWords(bigint);
       return (count == 0) ? EInteger.Zero : new EInteger(
@@ -2892,7 +2997,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
         // NOTE: Bitlength accurate for wordCount<1000000 here, only as
         // an approximation
         int bitlen = (ei.wordCount < 1000000) ?
-          ei.GetUnsignedBitLengthAsEInteger().ToInt32Checked() :
+          (int)ei.GetUnsignedBitLengthAsInt64() :
           Int32.MaxValue;
         var maxDigits = 0;
         var minDigits = 0;
@@ -3706,8 +3811,8 @@ maxDigitEstimate : retval +
       EInteger x2 = MakeEInteger(
           wordsA,
           wordsAStart + countA,
-          wordsAStart +
-          (im3 * 2), im3);
+          wordsAStart + (im3 * 2),
+          im3);
       EInteger w0, wt1, wt2, wt3, w4;
       if (wordsA == wordsB && wordsAStart == wordsBStart &&
         countA == countB) {
@@ -3826,8 +3931,8 @@ maxDigitEstimate : retval +
       EInteger x2 = MakeEInteger(
           wordsA,
           wordsAStart + countA,
-          wordsAStart +
-          (im3 * 2), im3);
+          wordsAStart + (im3 * 2),
+          im3);
       EInteger x3 = MakeEInteger(
           wordsA,
           wordsAStart + countA,
@@ -3904,7 +4009,7 @@ maxDigitEstimate : retval +
               y3.ShiftLeft(3)).Add(y2.ShiftLeft(2)).Add(y1.ShiftLeft(1)));
       }
       EInteger[] wts = { w0, wt1, wt2, wt3, wt4, wt5, w6 };
-      int[] wts2 = new int[] {
+      var wts2 = new int[] {
         -90, 5, -3, -60, 20, 2,
         -90,
       };

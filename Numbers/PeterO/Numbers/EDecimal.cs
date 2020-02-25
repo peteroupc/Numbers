@@ -447,13 +447,13 @@ namespace PeterO.Numbers {
     }
 
     private static readonly DecimalMathHelper HelperValue = new
-DecimalMathHelper();
+    DecimalMathHelper();
 
     private static readonly IRadixMath<EDecimal> ExtendedMathValue = new
-RadixMath<EDecimal>(HelperValue);
+    RadixMath<EDecimal>(HelperValue);
     //----------------------------------------------------------------
     private static readonly IRadixMath<EDecimal> MathValue = new
-TrappableRadixMath<EDecimal>(
+    TrappableRadixMath<EDecimal>(
       new ExtendedOrSimpleRadixMath<EDecimal>(HelperValue));
 
     private static readonly int[] ValueTenPowers = {
@@ -3202,7 +3202,7 @@ TrappableRadixMath<EDecimal>(
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotal(other.RoundToPrecision(ctx));
-        } else {
+      } else {
         return this.CompareToTotal(other);
       }
     }
@@ -3251,7 +3251,7 @@ TrappableRadixMath<EDecimal>(
       if (ctx != null && ctx.IsSimplified) {
         return this.RoundToPrecision(ctx)
           .CompareToTotalMagnitude(other.RoundToPrecision(ctx));
-        } else {
+      } else {
         return this.CompareToTotalMagnitude(other);
       }
     }
@@ -3993,7 +3993,7 @@ TrappableRadixMath<EDecimal>(
       } else if (ctx.IsSimplified) {
         EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
         EDecimal ret = value.PreRound(ctx).LogN(baseValue.PreRound(ctx),
-  tmpctx);
+            tmpctx);
         if (ctx.HasFlags) {
           int flags = ctx.Flags;
           ctx.Flags = flags | tmpctx.Flags;
@@ -4006,7 +4006,7 @@ TrappableRadixMath<EDecimal>(
         if (value.IsZero) {
           return baseValue.CompareTo(1) < 0 ? EDecimal.PositiveInfinity :
             EDecimal.NegativeInfinity;
-          } else if (value.IsPositiveInfinity()) {
+        } else if (value.IsPositiveInfinity()) {
           return baseValue.CompareTo(1) < 0 ? EDecimal.NegativeInfinity :
             EDecimal.PositiveInfinity;
         }
@@ -4028,7 +4028,7 @@ TrappableRadixMath<EDecimal>(
           flags |= EContext.FlagRounded | EContext.FlagInexact;
           if (baseValue.Pow(ret).CompareToValue(value) == 0) {
             EDecimal rtmp = ret.Quantize(EDecimal.FromInt32(1),
-  ctx.WithNoFlags());
+                ctx.WithNoFlags());
             if (!rtmp.IsNaN()) {
               flags &= ~(EContext.FlagRounded | EContext.FlagInexact);
               ret = rtmp;
@@ -4811,8 +4811,8 @@ TrappableRadixMath<EDecimal>(
       EDecimal divisor,
       EContext ctx) {
       return this.Subtract(
-        this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
-        ctx);
+          this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
+          ctx);
     }
 
     /// <summary>Finds the distance to the closest multiple of the given
@@ -5430,7 +5430,7 @@ TrappableRadixMath<EDecimal>(
       }
       if (this.IsFinite) {
         if (this.exponent.CompareToInt(0) == 0 &&
-this.unsignedMantissa.CanFitInInt64()) {
+          this.unsignedMantissa.CanFitInInt64()) {
           long v = this.unsignedMantissa.AsInt64();
           if (v <= (1L << 53)) {
             // This integer fits exactly in double
@@ -5438,30 +5438,30 @@ this.unsignedMantissa.CanFitInInt64()) {
           }
         }
         if (this.exponent.CompareToInt(0) < 0 &&
-           this.exponent.CompareToInt(-8) >= 0 &&
-           this.unsignedMantissa.CanFitInInt32()) {
+          this.exponent.CompareToInt(-8) >= 0 &&
+          this.unsignedMantissa.CanFitInInt32()) {
           int m = this.unsignedMantissa.AsInt32();
           int iex = -this.exponent.AsInt32();
           int vtp = ValueTenPowers[iex];
           if (m != Int32.MinValue) {
             if (m % vtp == 0) {
-            var dn = (double)(m / vtp);
-            return this.IsNegative ? -dn : dn;
+              var dn = (double)(m / vtp);
+              return this.IsNegative ? -dn : dn;
+            }
+            // Shift significand to be a 53-bit number (which
+            // can fit exactly in a double)
+            long am = Math.Abs(m);
+            while (am < (1 << 52)) {
+              am <<= 1;
+            }
+            if (am % vtp == 0) {
+              // Converting to double and doing floating-point
+              // division will be exact and will not require
+              // rounding
+              var dn = (double)m / (double)vtp;
+              return this.IsNegative ? -dn : dn;
+            }
           }
-          // Shift significand to be a 53-bit number (which
-          // can fit exactly in a double)
-          long am = Math.Abs(m);
-          while (am < (1 << 52)) {
-            am <<= 1;
-          }
-          if (am % vtp == 0) {
-          // Converting to double and doing floating-point
-          // division will be exact and will not require
-          // rounding
-          var dn = (double)m / (double)vtp;
-          return this.IsNegative ? -dn : dn;
-         }
-        }
         }
         if (this.exponent.CompareToInt(309) > 0) {
           // Very high exponent, treat as infinity
@@ -5589,7 +5589,7 @@ this.unsignedMantissa.CanFitInInt64()) {
       }
       if (this.IsFinite) {
         if (this.exponent.CompareToInt(0) == 0 &&
-this.unsignedMantissa.CanFitInInt32()) {
+          this.unsignedMantissa.CanFitInInt32()) {
           int v = this.unsignedMantissa.AsInt32();
           if (v <= (1 << 24)) {
             // This integer fits exactly in float
@@ -5597,30 +5597,30 @@ this.unsignedMantissa.CanFitInInt32()) {
           }
         }
         if (this.exponent.CompareToInt(0) < 0 &&
-           this.exponent.CompareToInt(-6) >= 0 &&
-           this.unsignedMantissa.CanFitInInt32()) {
+          this.exponent.CompareToInt(-6) >= 0 &&
+          this.unsignedMantissa.CanFitInInt32()) {
           int m = this.unsignedMantissa.AsInt32();
           int iex = -this.exponent.AsInt32();
           int vtp = ValueTenPowers[iex];
           if (m >= -(1 << 23) && m < (1 << 23)) {
             if (m % vtp == 0) {
-            var dn = (float)(m / vtp);
-            return this.IsNegative ? -dn : dn;
+              var dn = (float)(m / vtp);
+              return this.IsNegative ? -dn : dn;
+            }
+            // Shift significand to be a 24-bit number (which
+            // can fit exactly in a single)
+            long am = Math.Abs(m);
+            while (am < (1 << 23)) {
+              am <<= 1;
+            }
+            if (am % vtp == 0) {
+              // Converting to double and doing floating-point
+              // division will be exact and will not require
+              // rounding
+              var dn = (float)m / (float)vtp;
+              return this.IsNegative ? -dn : dn;
+            }
           }
-          // Shift significand to be a 24-bit number (which
-          // can fit exactly in a single)
-          long am = Math.Abs(m);
-          while (am < (1 << 23)) {
-            am <<= 1;
-          }
-          if (am % vtp == 0) {
-          // Converting to double and doing floating-point
-          // division will be exact and will not require
-          // rounding
-          var dn = (float)m / (float)vtp;
-          return this.IsNegative ? -dn : dn;
-         }
-        }
         }
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
@@ -5832,8 +5832,8 @@ this.unsignedMantissa.CanFitInInt32()) {
         EInteger digitCountLower = bounds[0];
         EInteger bigexponent = this.Exponent;
         return (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) ? true :
-((digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? false :
-(this.CompareTo(-1) > 0 && this.CompareTo(1) < 0));
+          ((digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? false :
+            (this.CompareTo(-1) > 0 && this.CompareTo(1) < 0));
       }
     }
 
@@ -6101,10 +6101,10 @@ this.unsignedMantissa.CanFitInInt32()) {
         }
         EInteger digitCountLower = bounds[0];
         if (bigintExp.Sign >= 0 &&
-digitCountLower.Subtract(2).CompareTo(309) > 0) {
+          digitCountLower.Subtract(2).CompareTo(309) > 0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         } else if (digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309) >
-0) {
+          0) {
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
       }
@@ -6129,7 +6129,7 @@ digitCountLower.Subtract(2).CompareTo(309) > 0) {
         bigmantissa *= (EInteger)bigintExp;
         return this.WithThisSign(EFloat.FromEInteger(bigmantissa))
           .RoundToPrecision(ec);
-        } else {
+      } else {
         // Fractional number
         // DebugUtility.Log("Fractional");
         EInteger scale = bigintExp;
@@ -6783,11 +6783,11 @@ digitCountLower.Subtract(2).CompareTo(309) > 0) {
             return tmpbigint.Multiply(NumberUtility.FindPowerOfTen(powerInt));
           } else if (fitsInInt32) {
             return NumberUtility.MultiplyByPowerOfFive(tmpbigint, powerInt)
-               .ShiftLeft(powerInt);
-             } else {
+              .ShiftLeft(powerInt);
+          } else {
             EInteger eipower = power.AsEInteger();
             return NumberUtility.MultiplyByPowerOfFive(tmpbigint, eipower)
-               .ShiftLeft(eipower);
+              .ShiftLeft(eipower);
           }
         }
         return fitsInInt32 ? NumberUtility.FindPowerOfTen(powerInt) :

@@ -102,9 +102,9 @@ There are several other types of numbers that are mentioned in this class and el
 
  * B. Next 11 bits: Exponent area:
 
- * If all bits are ones, this value is infinity (positive or negative depending on the C bit) if all bits in area A are zeros, or not-a-number (NaN) otherwise.
+ * If all bits are ones, the final stored value is infinity (positive or negative depending on the C bit) if all bits in area A are zeros, or not-a-number (NaN) otherwise.
 
- * If all bits are zeros, this is a subnormal number. The exponent is EMin and the highest bit of the significand is zero.
+ * If all bits are zeros, the final stored value is a subnormal number, the exponent is EMin, and the highest bit of the significand is zero.
 
  * If any other number, the exponent is this value reduced by 1, then raised by EMin, and the highest bit of the significand is one.
 
