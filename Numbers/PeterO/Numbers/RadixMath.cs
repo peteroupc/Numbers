@@ -1130,11 +1130,13 @@ namespace PeterO.Numbers {
               ctxCopy);
         } else if (cmpOne < 0) {
           // Less than 1
-          var error = new FastInteger(10);
+          T quarter = this.Divide(one, this.helper.ValueOf(4), ctxCopy);
+          FastInteger error;
+          error = (this.CompareTo(thisValue, quarter) < 0) ? (new
+FastInteger(20)) : (new FastInteger(10));
           EInteger bigError = error.AsEInteger();
           ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
             .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
-          T quarter = this.Divide(one, this.helper.ValueOf(4), ctxCopy);
           T threeQuarters = this.Multiply(
               quarter,
               this.helper.ValueOf(3),
@@ -1148,12 +1150,14 @@ namespace PeterO.Numbers {
               thisValue = this.SquareRoot(
                   thisValue,
                   ctxdiv.WithUnlimitedExponents());
+              // DebugUtility.Log("--> " +thisValue);
               roots.Increment();
             }
             for (int i = 0; i < 6; ++i) {
               thisValue = this.SquareRoot(
                   thisValue,
                   ctxdiv.WithUnlimitedExponents());
+              // DebugUtility.Log("--> " +thisValue);
               roots.Increment();
             }
             // DebugUtility.Log("LnInternal AA " +(thisValue as
@@ -1204,7 +1208,9 @@ namespace PeterO.Numbers {
             var roots = new FastInteger(0);
             FastInteger error;
             EInteger bigError;
-            error = new FastInteger(10);
+            error = (this.CompareTo(thisValue,
+  this.helper.ValueOf(Int32.MaxValue)) >= 0) ? (new FastInteger(16)) : (new
+FastInteger(10));
             bigError = error.AsEInteger();
             ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
               .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
@@ -2509,7 +2515,7 @@ namespace PeterO.Numbers {
         inexact = true;
       }
       EInteger oldexp = currentExp;
-      currentExp /= (EInteger)2;
+      currentExp = currentExp.ShiftRight(1);
       if (oldexp.Sign < 0 && !oldexp.IsEven) {
         // Round towards negative infinity; BigInteger's
         // division operation rounds towards zero
@@ -5003,7 +5009,7 @@ namespace PeterO.Numbers {
               /* DebugUtility.Log("mantlong now {0}, ld={1}, od={2} [ed={3},
                  flags={4}]",EInteger.FromInt64(mantlong).ToRadixString(2),
                  lastDiscarded,
-                 olderDiscarded,expdiff,flags);
+                 olderDiscarded, expdiff, flags);
               */
               bool nonZeroDiscardedDigits = (lastDiscarded | olderDiscarded) !=
                 0;

@@ -310,7 +310,13 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EContext.GetNontrapping">
-<returns>Returns this context if it doesn't set traps, or a context without traps and with blank flags if it does.  This is not a general-purpose method; it is intended to support custom implementations of arithmetic operations.</returns>
+
+        <summary>Returns this context if it doesn't set traps, or a context
+            without traps and with blank flags if it does, so that the
+            resulting context does not cause trap exceptions to occur. This is
+            not a general-purpose method; it is intended to support custom
+            implementations of arithmetic operations.</summary><returns>This context if it doesn't set traps, or a context without
+            traps and with blank flags if it does.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EContext.HasExponentRange">
 
@@ -715,42 +721,75 @@
             <para><b>Reproducibility note</b> </para>
             <para>Some applications, such as simulations, care about results
             that are reproducible, bit for bit, across computers and across
-            runs of the application. When it comes to floating-point numbers,
-            results are often not reproducible because of differences in how
-            floating-point number operations are implemented, including in
-            terms of accuracy, rounding, and order of operations. EDecimal and
-            EFloat are also floating-point number classes, but for these
-            classes, many of these differences can be reduced by choosing one
-            version of this library and sticking to it, and also by passing an
-            EContext explicitly to this class's arithmetic methods (EContext
-            specifies rules for precision and rounding, among other things).
-            Also, the EDecimal and EFloat classes avoid the use of "native"
-            floating-point data types, where most of these differences can
-            occur (except for methods that convert to or from <c>float</c> ,
-            <c>double</c> , or <c>System.Decimal</c> ). In general, the
-            operations defined in the General Decimal Arithmetic Specification
-            require delivering the correctly rounded result, with the exception
-            of square root, logarithm, exponential, and power. In addition, the
-            pi constant generator in this class has not been verified to be
-            correctly rounded in all cases.</para>
-            <para>As for the ToDouble, ToSingle, FromDouble, and FromSingle
-            methods, note that some implementations of Java and.NET may or may
-            not support preserving the value of subnormal numbers (numbers with
-            the lowest possible exponent, but are not zero) or the payloads
-            held in a not-a-number (NaN) value of <c>float</c> or <c>double</c> ; thus these methods should not be considered reproducible across
-            computers.</para>
-            <para>EContext allows arithmetic operations in this class to return
-            results rounded to a given precision and exponent range. Note,
-            however, that by limiting the precision of floating-point numbers
-            (including <c>EDecimal</c> and <c>EFloat</c> ) in this way,
-            operations such as addition and multiplication on three or more
-            numbers can be <i>non-associative</i>
-             , meaning the result can
-            change depending on the order in which those numbers are added or
-            multiplied. This property means that if an algorithm does not
-            ensure such numbers are added or multiplied in the same order every
-            time, its results may not be reproducible across computers or
-            across runs of the application.</para>
+            runs of the application. Bruce Dawson, in "Floating-Point
+            Determinism" (
+            https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/),
+            identified many reproducibility issues with floating-point numbers,
+            and here is how they relate to the EDecimal and EFloat classes of
+            this library:</para>
+            <list><item>Runtime floating-point settings: All the settings that
+            change how EDecimal and EFloat behave are given as parameters to
+            the appropriate methods, especially via EContext objects, which
+            specify the precision, rounding, and exponent range of numbers,
+            among other things. The EDecimal and EFloat classes avoid the use
+            of "native" floating-point data types (except for methods that
+            convert to or from <c>float</c> , <c>double</c> , or
+            <c>System.Decimal</c> ). Such "native" types are often subject to
+            runtime settings that change how floating-point math behaves with
+            them, and these settings are often not accessible to .NET or Java
+            code.</item>
+             <item>Non-associativity and intermediate precisions:
+            In general, EDecimal and EFloat use "unlimited" precision in their
+            calculations unless specified otherwise by an EContext object.
+            However, by limiting the precision of EDecimal, EFloat, and other
+            floating-point numbers in this way, operations such as addition and
+            multiplication on three or more numbers can be
+            <i>non-associative</i>
+             , meaning the result can change depending on
+            the order in which those numbers are added or multiplied. This
+            property means that if an algorithm does not ensure such numbers
+            are added or multiplied in the same order every time, its results
+            may not be reproducible across computers or across runs of the
+            application. This non-associativity problem can happen, for
+            example, if an application splits a calculation across several
+            threads and combines their results in the end. The problems with an
+            unspecified order of operations (in the same line of code) and
+            intermediate precisions (problems present in C and C++, for
+            example) don't exist with method calls to EDecimal and EFloat
+            methods, especially since they require limited-precision support to
+            be declared explicitly via EContext.</item>
+             <item>fmadd
+            instruction: EDecimal and EFloat include a MultiplyAndAdd method
+            with the same semantics as in the General Decimal Arithmetic
+            Specification, which requires delivering correctly rounded results
+            for this method.</item>
+             <item>Square root estimate: Not applicable
+            since EDecimal and EFloat don't include any estimates to square
+            root.</item>
+             <item>Transcendental functions: This includes
+            logarithms, exponentials, and the Pi method. For these functions,
+            results are not guaranteed to always be correctly rounded. When
+            using transcendentals, an application that cares about
+            reproducibility should choose one version of this library and stick
+            to it; this at least has the advantage that the implementation will
+            be the same across computers, unlike with "native" floating-point
+            types where the choice of implementation is often not within the
+            application's control.</item>
+             <item>Conversions: Conversions
+            between EDecimal or EFloat and text strings have the same
+            implementation across computers for the same version of this
+            library (see also the advice for transcendentals above). But as for
+            the ToDouble, ToSingle, FromDouble, and FromSingle methods, note
+            that some implementations of Java and.NET may or may not support
+            preserving the value of subnormal numbers (numbers with the lowest
+            possible exponent, but are not zero) or the payloads held in a
+            not-a-number (NaN) value of float or double; thus these methods
+            should not be considered reproducible across computers.</item>
+            <item>Compiler differences: Not applicable where these classes
+            don't use "native" floating-point types.</item>
+             <item>Uninitialized
+            data; per-processor code: Not applicable.</item>
+             </list>
             <para><b>Forms of numbers</b> </para>
             <para>There are several other types of numbers that are mentioned
             in this class and elsewhere in this documentation. For reference,
@@ -801,19 +840,19 @@
             <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code> <list><item>A. Low 52 bits (Precision minus 1 bits): Lowest bits of
             the significand.</item>
              <item>B. Next 11 bits: Exponent area:
-            <list><item>If all bits are ones, this value is infinity (positive
-            or negative depending on the C bit) if all bits in area A are
-            zeros, or not-a-number (NaN) otherwise.</item>
-             <item>If all bits
-            are zeros, this is a subnormal number. The exponent is EMin and the
-            highest bit of the significand is zero.</item>
-             <item>If any other
-            number, the exponent is this value reduced by 1, then raised by
-            EMin, and the highest bit of the significand is one.</item>
+            <list><item>If all bits are ones, the final stored value is
+            infinity (positive or negative depending on the C bit) if all bits
+            in area A are zeros, or not-a-number (NaN) otherwise.</item>
+            <item>If all bits are zeros, the final stored value is a subnormal
+            number, the exponent is EMin, and the highest bit of the
+            significand is zero.</item>
+             <item>If any other number, the exponent
+            is this value reduced by 1, then raised by EMin, and the highest
+            bit of the significand is one.</item>
              </list>
-            </item>
-             <item>C. Highest bit: If one, this is a negative
-            number.</item>
+             </item>
+             <item>C.
+            Highest bit: If one, this is a negative number.</item>
              </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
@@ -5097,44 +5136,8 @@
             <para>Applications should instead use dedicated security libraries
             to handle big numbers in security-sensitive algorithms.</para>
             <para><b>Reproducibility note</b></para>
-            <para>Some applications, such as simulations, care about results
-            that are reproducible, bit for bit, across computers and across
-            runs of the application. When it comes to floating-point numbers,
-            results are often not reproducible because of differences in how
-            floating-point number operations are implemented, including in
-            terms of accuracy, rounding, and order of operations. EDecimal and
-            EFloat are also floating-point number classes, but for these
-            classes, many of these differences can be reduced by choosing one
-            version of this library and sticking to it, and also by passing an
-            EContext explicitly to this class's arithmetic methods (EContext
-            specifies rules for precision and rounding, among other things).
-            Also, the EDecimal and EFloat classes avoid the use of "native"
-            floating-point data types, where most of these differences can
-            occur (except for methods that convert to or from <c>float</c>,
-            <c>double</c>, or <c>System.Decimal</c> ). In general, the
-            operations defined in the General Decimal Arithmetic Specification
-            require delivering the correctly rounded result, with the exception
-            of square root, logarithm, exponential, and power. In addition, the
-            pi constant generator in this class has not been verified to be
-            correctly rounded in all cases.</para>
-            <para>As for the ToDouble, ToSingle, FromDouble, and FromSingle
-            methods, note that some implementations of Java and.NET may or may
-            not support preserving the value of subnormal numbers (numbers with
-            the lowest possible exponent, but are not zero) or the payloads
-            held in a not-a-number (NaN) value of <c>float</c> or <c>double</c> ; thus these methods should not be considered reproducible across
-            computers.</para>
-            <para>EContext allows arithmetic operations in this class to return
-            results rounded to a given precision and exponent range. Note,
-            however, that by limiting the precision of floating-point numbers
-            (including <c>EDecimal</c> and <c>EFloat</c> ) in this way,
-            operations such as addition and multiplication on three or more
-            numbers can be
-            <i>non-associative</i>, meaning the result can change depending on
-            the order in which those numbers are added or multiplied. This
-            property means that if an algorithm does not ensure such numbers
-            are added or multiplied in the same order every time, its results
-            may not be reproducible across computers or across runs of the
-            application.</para></summary>
+            <para>See the reproducibility note in the EDecimal class's
+            documentation.</para></summary>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Abs">
@@ -9237,10 +9240,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)">
 
-        <summary>Divides this object by another arbitrary-precision integer
-            and returns the quotient and remainder.</summary><param name='divisor'>The number to divide by.</param><returns>An array with two arbitrary-precision integers: the first
-            is the quotient, and the second is the remainder.</returns><exception cref='DivideByZeroException'>The parameter <paramref name='divisor'/> is
-            0.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='divisor'/> is null.</exception>
+            <summary>Divides this object by another arbitrary-precision integer
+            and returns the quotient and remainder.</summary>
+            <param name='divisor'>The number to divide by.</param>
+            <returns>An array with two arbitrary-precision integers: the first
+            is the quotient, and the second is the remainder.</returns>
+            <exception cref='DivideByZeroException'>The parameter <paramref name='divisor'/> is 0.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='divisor'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)">
 
@@ -9259,10 +9266,14 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(System.Int32)">
-<summary>Divides this object by a 32-bit signed integer and returns
-            the quotient and remainder.</summary><param name='intDivisor'>The number to divide by.</param><returns>An array with two arbitrary-precision integers: the first
-            is the quotient, and the second is the remainder.</returns><exception cref='DivideByZeroException'>The parameter <paramref name='intDivisor'/>
-            is 0.</exception>
+
+            <summary>Divides this object by a 32-bit signed integer and returns
+            the quotient and remainder.</summary>
+            <param name='intDivisor'>The number to divide by.</param>
+            <returns>An array with two arbitrary-precision integers: the first
+            is the quotient, and the second is the remainder.</returns>
+            <exception cref='DivideByZeroException'>The parameter <paramref name='intDivisor'/> is 0.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)">
 
@@ -12034,7 +12045,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSizedEInteger(System.Int32)">
 
-        <summary>Converts this value to an arbitrary-precision integer by
+            <summary>Converts this value to an arbitrary-precision integer by
             dividing the numerator by the denominator, discarding its
             fractional part, and checking whether the resulting integer
             overflows the given signed bit count.</summary><param name='maxBitLength'>The maximum number of signed bits the
@@ -12044,10 +12055,11 @@
             integer by dividing the numerator by the denominator and discarding
             its fractional part, is less than -(2^maxBitLength) or greater than
             (2^maxBitLength) - 1.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSizedEIntegerIfExact(System.Int32)">
 
-        <summary>Converts this value to an arbitrary-precision integer,
+            <summary>Converts this value to an arbitrary-precision integer,
             only if this number's value is an exact integer and that integer
             does not overflow the given signed bit count.</summary><param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
@@ -12056,6 +12068,7 @@
             than -(2^maxBitLength) or greater than (2^maxBitLength) -
             1.</exception><exception cref='ArithmeticException'>This object's value is not an
             exact integer.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToString">
 

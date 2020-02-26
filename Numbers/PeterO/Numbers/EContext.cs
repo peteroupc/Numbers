@@ -1010,13 +1010,13 @@ this.simplified +
         this.traps);
     }
 
-  /// <returns>This context if it doesn't set traps, or a context without
-  /// traps and with blank flags if it does.</returns>
   /// <summary>Returns this context if it doesn't set traps, or a context
   /// without traps and with blank flags if it does, so that the
   /// resulting context does not cause trap exceptions to occur. This is
   /// not a general-purpose method; it is intended to support custom
   /// implementations of arithmetic operations.</summary>
+  /// <returns>This context if it doesn't set traps, or a context without
+  /// traps and with blank flags if it does.</returns>
     public EContext GetNontrapping() {
        return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
     }
@@ -1025,8 +1025,8 @@ this.simplified +
   /// ``0 object.</param>
   /// <param name='trappableContext'>The parameter <paramref
   /// name='trappableContext'/> is a Numbers.EContext object.</param>
-  /// <summary>Not documented yet.</summary>
   /// <returns>The return value is not documented yet.</returns>
+  /// <summary>Not documented yet.</summary>
   /// <typeparam name='T'>Type parameter not documented yet.</typeparam>
     public T TriggerTraps<T>(
       T result,

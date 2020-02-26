@@ -17,17 +17,20 @@ namespace Test {
 
     private static readonly Regex ValueTestLine = new Regex(
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)",
-      RegexOptions.Compiled);
+  RegexOptions.Compiled);
 
-    public static string[] SplitAtFast(string str, char c, int minChunks,
-  int maxChunks) {
+    public static string[] SplitAtFast(
+      string str,
+      char c,
+      int minChunks,
+      int maxChunks) {
       var chunks = new int[maxChunks];
       string[] ret;
       var chunk = 0;
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
       }
-      for (var i = 0;i < str.Length && chunk < maxChunks; ++i) {
+      for (var i = 0; i < str.Length && chunk < maxChunks; ++i) {
         if (str[i] == c) {
           chunks[chunk++] = i;
         }
@@ -970,7 +973,7 @@ namespace Test {
       }
       int ix = ln.IndexOf(' ');
       // NOTE: ix < 2 includes cases where space is not found
-      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix-1]!='s' && ln[ix-1]!='q')) {
+      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix -1] != 's' && ln[ix- 1]!='q')) {
         return 0;
       }
       string[] chunks = SplitAtSpaceRuns(ln);
