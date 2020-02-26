@@ -2326,7 +2326,7 @@ namespace PeterO.Numbers {
         this.helper.GetMantissa(ret2).IsZero) {
         ret2 = this.EnsureSign(
           ret2,
-          (this.helper.GetFlags(thisValue) & BigNumberFlags.FlagNegative)!= 0);
+          (this.helper.GetFlags(thisValue) & BigNumberFlags.FlagNegative) != 0);
       }
       TransferFlags(
         ctx,
@@ -3679,8 +3679,8 @@ namespace PeterO.Numbers {
             var divdCount = (int)absdivd.GetUnsignedBitLengthAsInt64();
             var divsCount = (int)mantissaDivisor.GetUnsignedBitLengthAsInt64();
             int dividendShift = (divdCount <= divsCount) ? ((divsCount -
-                  divdCount) + maxprec + 1) : (Math.Max(0,
-                  (maxprec + 1) - (divdCount - divsCount)));
+                  divdCount) + maxprec + 1) : Math.Max(0,
+                  (maxprec + 1) - (divdCount - divsCount));
             absdivd = absdivd.ShiftLeft(dividendShift);
             EInteger[] divrem3 = absdivd.DivRem(absdivs);
             quo = divrem3[0];
@@ -5001,8 +5001,9 @@ namespace PeterO.Numbers {
                 intDiscardedBits += intExpDiff;
               }
               /* DebugUtility.Log("mantlong now {0}, ld={1}, od={2} [ed={3},
-
-  flags={4}]",EInteger.FromInt64(mantlong).ToRadixString(2),lastDiscarded,olderDiscarded,expdiff,flags);
+                 flags={4}]",EInteger.FromInt64(mantlong).ToRadixString(2),
+                 lastDiscarded,
+                 olderDiscarded,expdiff,flags);
               */
               bool nonZeroDiscardedDigits = (lastDiscarded | olderDiscarded) !=
                 0;
@@ -5534,14 +5535,13 @@ namespace PeterO.Numbers {
     // the need to compute half of toCompareWith in many cases.
     // Assumes both inputs are non-negative.
     private static int CompareToHalf(EInteger bigLeft, EInteger toCompareWith) {
-      /* #if DEBUG
-       if (!(bigLeft.Sign > 0 && toCompareWith.Sign > 0)) {
-         throw new ArgumentException("doesn't satisfy bigLeft.Sign > 0 &&
-      toCompareWith.Sign > 0");
-       }
+      #if DEBUG
+      if (!(bigLeft.Sign > 0 && toCompareWith.Sign > 0)) {
+         throw new ArgumentException("doesn't satisfy bigLeft.Sign > 0 && " +
+           "toCompareWith.Sign > 0");
+      }
       #endif
-
-      */ long a = bigLeft.GetUnsignedBitLengthAsInt64();
+      long a = bigLeft.GetUnsignedBitLengthAsInt64();
       long b = toCompareWith.GetUnsignedBitLengthAsInt64();
       if (a != Int64.MaxValue && b != Int64.MaxValue) {
         if (b - 1 > a) {
@@ -5552,7 +5552,7 @@ namespace PeterO.Numbers {
         }
       }
       int cmp = bigLeft.CompareTo(toCompareWith.ShiftRight(1));
-      return (cmp == 0 && !toCompareWith.IsEven) ? (cmp = -1) : cmp;
+      return (cmp == 0 && !toCompareWith.IsEven) ? -1 : cmp;
     }
 
     private T RoundToScale(
