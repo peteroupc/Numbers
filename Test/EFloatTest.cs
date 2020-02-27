@@ -809,10 +809,10 @@ namespace Test {
       EFloat efa = EFloat.Create(
   EInteger.FromString("7692406748247399"),
   EInteger.FromString("-465")).Log(EContext.Binary64);
-EFloat efb = EFloat.Create(
+  EFloat efb = EFloat.Create(
   EInteger.FromString("-5026693231795637"),
   EInteger.FromString("-44"));
-Assert.AreEqual(efb, efa);
+  Assert.AreEqual(efb, efa);
 }
 {
 EFloat efa = EFloat.Create(

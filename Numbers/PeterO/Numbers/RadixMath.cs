@@ -1132,8 +1132,8 @@ namespace PeterO.Numbers {
           // Less than 1
           T quarter = this.Divide(one, this.helper.ValueOf(4), ctxCopy);
           FastInteger error;
-          error = (this.CompareTo(thisValue, quarter) < 0) ? (new
-FastInteger(20)) : (new FastInteger(10));
+          error = (this.CompareTo(thisValue, quarter) < 0) ? new
+FastInteger(20) : (new FastInteger(10));
           EInteger bigError = error.AsEInteger();
           ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
             .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
@@ -1210,8 +1210,7 @@ FastInteger(20)) : (new FastInteger(10));
             EInteger bigError;
             error = (this.CompareTo(thisValue,
   this.helper.ValueOf(Int32.MaxValue)) >= 0) ? (new FastInteger(16)) : (new
-FastInteger(10));
-            bigError = error.AsEInteger();
+FastInteger(10)); bigError = error.AsEInteger();
             ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
               .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
             T smallfrac = (ctxdiv.Precision.CompareTo(400) > 0) ?

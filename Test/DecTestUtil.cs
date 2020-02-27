@@ -973,7 +973,8 @@ namespace Test {
       }
       int ix = ln.IndexOf(' ');
       // NOTE: ix < 2 includes cases where space is not found
-      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix -1] != 's' && ln[ix- 1]!='q')) {
+      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' && ln[ix- 1 ]
+!='q')) {
         return 0;
       }
       string[] chunks = SplitAtSpaceRuns(ln);
@@ -2127,7 +2128,7 @@ namespace Test {
                 string messageTemp = name + ": expected: [" +
                   d4.UnsignedMantissa + " " + d4.Exponent +
                   "]\n" + "but was: [" + d3.UnsignedMantissa + " " +
-                  d3.Exponent + "]\n" + ln;
+                  d3.Exponent + "]\n" + ln + "\n" + ctx;
                 Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
               }
             }

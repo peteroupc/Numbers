@@ -131,22 +131,18 @@ namespace PeterO.Numbers {
     }
 
     public int ShiftedIntMod(int mod) {
-      /*
-#if DEBUG
       if (mod < 1) {
-        throw new ArgumentException("mod (" + mod + ") is not greater or
-equal to 1");
+        throw new ArgumentException("mod (" + mod +
+           ") is not greater or equal to 1");
       }
-#endif
-
-      */ switch (mod) {
+      switch (mod) {
         case 1:
           return 0;
         case 2:
           return this.isSmall ? (this.shiftedSmall & 1) :
             (this.shiftedBigInt.IsEven ? 0 : 1);
         default:
-          return this.isSmall ? (this.shiftedSmall & 1) :
+          return this.isSmall ? (this.shiftedSmall % mod) :
             this.shiftedBigInt.Mod(mod).ToInt32Checked();
       }
     }

@@ -1945,6 +1945,10 @@ namespace PeterO.Numbers {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
+      if (this.denominator.IsEven && !this.unsignedNumerator.IsEven) {
+        // Even denominator, odd numerator, so not an integer
+        throw new ArithmeticException("Value is not an integer");
+      }
       EInteger rem;
       EInteger quo;
       EInteger[] divrem = this.Numerator.DivRem(this.denominator);

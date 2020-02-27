@@ -6167,18 +6167,50 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("scale=" + scale + " mantissaPrecision=" +
         // bigmantissa.GetDigitCountAsEInteger());
         EInteger divisor = NumberUtility.FindPowerOfTenFromBig(negscale);
-        if (ec != null && ec.HasMaxPrecision) {
+        ec = ec ?? EContext.UnlimitedHalfEven;
+        if (ec.HasMaxPrecision) {
           EFloat efNum = EFloat.FromEInteger(bigmantissa);
           if (this.Sign < 0) {
             efNum = efNum.Negate();
           }
           EFloat efDen = EFloat.FromEInteger(divisor);
           return efNum.Divide(efDen, ec);
+        } else if (!ec.HasFlagsOrTraps) {
+          EFloat efNum = EFloat.FromEInteger(bigmantissa);
+          if (this.Sign < 0) {
+            efNum = efNum.Negate();
+          }
+          EFloat efDen = EFloat.FromEInteger(divisor);
+          EFloat ret = efNum.Divide(efDen, ec);
+          if (!ret.IsNaN()) {
+            return ret;
+          }
+          return efNum.Divide(efDen, ec.WithPrecision(53));
+        } else if (ec.Traps != 0) {
+          EContext tctx = ec.GetNontrapping();
+          EFloat ret = this.ToEFloat(tctx);
+          return ec.TriggerTraps(ret, tctx);
+        } else {
+          EContext tmpctx = ec.WithBlankFlags();
+          EFloat efNum = EFloat.FromEInteger(bigmantissa);
+          if (this.Sign < 0) {
+            efNum = efNum.Negate();
+          }
+          EFloat efDen = EFloat.FromEInteger(divisor);
+          EFloat ret = efNum.Divide(efDen, tmpctx);
+          if (!ret.IsNaN()) {
+            ec.Flags |= tmpctx.Flags;
+            return ret;
+          }
+          tmpctx = ec.WithPrecision(53).WithBlankFlags();
+          ret = efNum.Divide(efDen, tmpctx);
+          ec.Flags |= tmpctx.Flags;
+          return ret;
         }
+        /*
         EInteger desiredHigh;
         EInteger desiredLow;
         var haveCopy = false;
-        ec = ec ?? EContext.UnlimitedHalfEven;
         EContext originalEc = ec;
         if (ec == null || !ec.HasMaxPrecision) {
           EInteger num = bigmantissa;
@@ -6343,6 +6375,7 @@ namespace PeterO.Numbers {
           originalEc.Flags |= ec.Flags;
         }
         return efret;
+      */
       }
     }
 

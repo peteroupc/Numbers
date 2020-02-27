@@ -784,9 +784,8 @@ namespace PeterO.Numbers {
       }
       long lsize = ((long)(endIndex - index) * 100 / DigitsInWord[radix]) + 1;
       lsize = Math.Min(lsize, Int32.MaxValue);
-      lsize = Math.Max(lsize, 4);
+      lsize = Math.Max(lsize, 5);
       var bigint = new short[(int)lsize];
-      int maxShortPlusOneMinusRadix = 65536 - 10;
       if (radix == 10) {
          long rv = 0;
          int ei = endIndex - index <= 18 ? endIndex : index + 18;
@@ -866,6 +865,7 @@ namespace PeterO.Numbers {
       } else {
       var haveSmallInt = true;
       int maxSafeInt = ValueMaxSafeInts[radix - 2];
+      int maxShortPlusOneMinusRadix = 65536 - radix;
       var smallInt = 0;
       for (int i = index; i < endIndex; ++i) {
         char c = str[i];
@@ -2834,6 +2834,73 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
         long v = bigintSecond.ToInt64Unchecked();
         return GcdLong(u, v);
       } else {
+bool bigger = thisValue.CompareTo(bigintSecond) >= 0;
+if (!bigger) {
+  EInteger ta = thisValue;
+  thisValue = bigintSecond;
+  bigintSecond = ta;
+}
+EInteger eia = thisValue;
+EInteger eib = bigintSecond;
+        // DebugUtility.Log("wc="+eia.wordCount+"/"+eib.wordCount);
+        while (eib.wordCount > 3) {
+// Lehmer's algorithm
+EInteger eiaa, eibb, eicc, eidd;
+EInteger eish = eia.GetUnsignedBitLengthAsEInteger().Subtract(48);
+EInteger eiee = eia.ShiftRight(eish);
+EInteger eiff = eib.ShiftRight(eish);
+eiaa = eidd = EInteger.One;
+eibb = eicc = EInteger.Zero;
+while (true) {
+  EInteger eifc = eiff.Add(eicc);
+  EInteger eifd = eiff.Add(eidd);
+  if (eifc.IsZero || eifd.IsZero) {
+    EInteger ta = eibb.IsZero ? eib :
+       eia.Multiply(eiaa).Add(eib.Multiply(eibb));
+    EInteger tb = eibb.IsZero ? eia.Remainder(eib) :
+       eia.Multiply(eicc).Add(eib.Multiply(eidd));
+    eia = ta;
+    eib = tb;
+    // DebugUtility.Log("z tawc="+eia.wordCount+"/"+eib.wordCount);
+    break;
+  }
+  EInteger eiq = eiee.Add(eiaa).Divide(eifc);
+  EInteger eiq2 = eiee.Add(eibb).Divide(eifd);
+  if (!eiq.Equals(eiq2)) {
+    EInteger ta = eibb.IsZero ? eib :
+       eia.Multiply(eiaa).Add(eib.Multiply(eibb));
+    EInteger tb = eibb.IsZero ? eia.Remainder(eib) :
+       eia.Multiply(eicc).Add(eib.Multiply(eidd));
+    eia = ta;
+    eib = tb;
+// DebugUtility.Log("q tawc="+eia.wordCount+"/"+eib.wordCount);
+    break;
+  } else {
+    EInteger t = eiff;
+    eiff = eiee.Subtract(eiff.Multiply(eiq));
+    eiee = t;
+    t = eicc;
+    eicc = eiaa.Subtract(eicc.Multiply(eiq));
+    eiaa = t;
+    t = eidd;
+    eidd = eibb.Subtract(eidd.Multiply(eiq));
+    eibb = t;
+  }
+}
+        }
+if (eib.IsZero) {
+{ return eia;
+} }
+while (!eib.IsZero) {
+  if (eia.wordCount <= 3 && eib.wordCount <= 3) {
+    return GcdLong(eia.ToInt64Checked(), eib.ToInt64Checked());
+  }
+  EInteger ta = eib;
+  eib = eia.Remainder(eib);
+  eia = ta;
+}
+return eia;
+/*
         // Big integer version of code above
         var bshl = 0;
         EInteger ebshl = null;
@@ -2917,6 +2984,7 @@ EInteger(quoCount, quotientreg, this.negative ^ divisor.negative);
               ebshl);
         }
         return valueBuVar;
+*/
       }
     }
 
