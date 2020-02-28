@@ -865,6 +865,19 @@ namespace PeterO.Numbers {
       return ret;
     }
 
+    private T SignalUnderflow(EContext ec, bool negative, bool
+        zeroSignificand) {
+      EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
+      eTiny = eTiny.Subtract(2); // subtract 2 from proper eTiny to
+      // trigger underflow (2, rather than 1, because of HalfUp mode)
+      T ret = this.helper.CreateNewWithFlags(
+          zeroSignificand ? EInteger.Zero : EInteger.One,
+          eTiny,
+          negative ? BigNumberFlags.FlagNegative : 0);
+      // DebugUtility.Log(ret+" underflow "+ec);
+      return this.RoundToPrecision(ret, ec);
+    }
+
     public T DivideToIntegerZeroScale(
       T thisValue,
       T divisor,
@@ -964,29 +977,8 @@ namespace PeterO.Numbers {
           ctxdiv = ctxdiv.WithBigExponentRange(ctxdiv.EMin, newMax);
           thisValue = this.Exp(this.NegateRaw(thisValue), ctxdiv);
           if ((ctxdiv.Flags & EContext.FlagOverflow) != 0) {
-            // Still overflowed
-            if (ctx.HasFlags) {
-              ctx.Flags |= BigNumberFlags.UnderflowFlags;
-            }
-            // Return a "subnormal" zero, with fake extra digits to stimulate
-            // rounding
-            EInteger ctxdivPrec = ctxdiv.Precision;
-            newMax = ctx.EMin;
-            if (ctx.AdjustExponent) {
-              newMax -= (EInteger)ctxdivPrec;
-              newMax += EInteger.One;
-            }
-            thisValue = this.helper.CreateNewWithFlags(
-                EInteger.Zero,
-                newMax,
-                0);
-            return this.RoundToPrecisionInternal(
-                thisValue,
-                0,
-                1,
-                null,
-                false,
-                ctx);
+            // Still overflowed, so trigger underflow
+            return this.SignalUnderflow(ctx, false, false);
           }
         } else {
           thisValue = val;
@@ -1132,8 +1124,8 @@ namespace PeterO.Numbers {
           // Less than 1
           T quarter = this.Divide(one, this.helper.ValueOf(4), ctxCopy);
           FastInteger error;
-          error = (this.CompareTo(thisValue, quarter) < 0) ? new
-FastInteger(20) : (new FastInteger(10));
+          error = (this.CompareTo(thisValue, quarter) < 0) ?
+            new FastInteger(20) : new FastInteger(10);
           EInteger bigError = error.AsEInteger();
           ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
             .WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
@@ -1250,7 +1242,7 @@ FastInteger(10)); bigError = error.AsEInteger();
             T ei3 = this.Multiply(
                 thisValue,
                 this.helper.CreateNewWithFlags(bigintRoots, EInteger.Zero, 0),
-                ctxCopy.WithRounding(ERounding.HalfEven));
+                ctxCopy.WithRounding(ERounding.OddOrZeroFiveUp));
             // DebugUtility.Log("After LnInternal Mult<ei3> " +(ei3 as
             // EDecimal)?.ToDouble());
             thisValue = this.Multiply(
@@ -1815,7 +1807,7 @@ FastInteger(10)); bigError = error.AsEInteger();
       EContext ctxdiv = SetPrecisionIfLimited(
           ctx,
           ctx.Precision + (EInteger)10)
-        .WithRounding(ERounding.OddOrZeroFiveUp);
+        .WithRounding(ERounding.HalfEven);
       T two = this.helper.ValueOf(2);
       T b = this.Divide(a, this.SquareRoot(two, ctxdiv), ctxdiv);
       T four = this.helper.ValueOf(4);
@@ -2109,13 +2101,14 @@ FastInteger(10)); bigError = error.AsEInteger();
           ctx.Precision + guardDigits);
       ctxdiv = ctxdiv.WithRounding(ERounding.OddOrZeroFiveUp).WithBlankFlags();
       T lnresult = this.Ln(thisValue, ctxdiv);
-      /* DebugUtility.Log("guard= " + guardDigits + " prec=" + ctx.Precision+
-        " newprec= " + ctxdiv.Precision);
-      DebugUtility.Log("pwrIn " + pow);
-      DebugUtility.Log("lnIn " + thisValue);
-      DebugUtility.Log("lnOut " + lnresult);
-      DebugUtility.Log("lnOut[n] "+this.NextPlus(lnresult,ctxdiv));*/
-      lnresult = this.Multiply(lnresult, pow, ctxdiv);
+      /*
+      DebugUtility.Log("guard= " + guardDigits + " prec=" +
+        ctx.Precision + " newprec= " + ctxdiv.Precision);
+      // DebugUtility.Log("pwrIn " + pow);
+      // DebugUtility.Log("lnIn " + thisValue);
+      // DebugUtility.Log("lnOut " + lnresult);
+      // DebugUtility.Log("lnOut[n] "+this.NextPlus(lnresult,ctxdiv));
+      */ lnresult = this.Multiply(lnresult, pow, ctxdiv);
       // DebugUtility.Log("expIn " + lnresult);
       // Now use original precision and rounding mode
       ctxdiv = ctx.WithBlankFlags();
@@ -4390,10 +4383,10 @@ FastInteger(10)); bigError = error.AsEInteger();
       if (powIntBig.Equals(EInteger.One)) {
         return this.RoundToPrecision(thisValue, ctx);
       }
-      if (powIntBig.Equals((EInteger)2)) {
+      if (powIntBig.CompareTo(2) == 0) {
         return this.Multiply(thisValue, thisValue, ctx);
       }
-      if (powIntBig.Equals((EInteger)3)) {
+      if (powIntBig.CompareTo(3) == 0) {
         return this.Multiply(
             thisValue,
             this.Multiply(thisValue, thisValue, null),
@@ -4542,7 +4535,7 @@ FastInteger(10)); bigError = error.AsEInteger();
     private bool IsNullOrInt32FriendlyContext(EContext ctx) {
       return ctx == null || (
           (!ctx.HasFlags && ctx.Traps == 0) && (!ctx.HasExponentRange ||
-            (ctx.EMin.CompareTo(-10) < 0 && ctx.EMax.CompareTo(0) >= 0)) &&
+            (ctx.EMin.CompareTo(-10) < 0 && ctx.EMax.Sign >= 0)) &&
           ctx.Rounding != ERounding.Floor && (!ctx.HasMaxPrecision ||
             (this.thisRadix >= 10 && !ctx.IsPrecisionInBits &&
               ctx.Precision.CompareTo(10) >= 0) ||
@@ -4826,6 +4819,7 @@ FastInteger(10)); bigError = error.AsEInteger();
           int adjustedExp;
           int normalMin;
           int intDigitCount;
+          long origmant = mantlong;
           // get the exponent range
           // Fast path to check if rounding is necessary at all
           // NOTE: At this point, the number won't be infinity or NaN
@@ -4894,7 +4888,7 @@ FastInteger(10)); bigError = error.AsEInteger();
           // Console.WriteLine("slowpath mantexp="+mantlong+","+explong);
           neg = (thisFlags & BigNumberFlags.FlagNegative) != 0;
           if (adjustNegativeZero && neg && (ctx.Rounding != ERounding.Floor) &&
-            this.helper.GetMantissa(thisValue).IsZero) {
+            origmant == 0) {
             // Change negative zero to positive zero
             // except if the rounding mode is Floor
             thisValue = this.EnsureSign(thisValue, false);
@@ -5538,7 +5532,7 @@ FastInteger(10)); bigError = error.AsEInteger();
 
     // Compare bigLeft with half of toCompareWith, while avoiding
     // the need to compute half of toCompareWith in many cases.
-    // Assumes both inputs are non-negative.
+    // Assumes both inputs are positive.
     private static int CompareToHalf(EInteger bigLeft, EInteger toCompareWith) {
       #if DEBUG
       if (!(bigLeft.Sign > 0 && toCompareWith.Sign > 0)) {

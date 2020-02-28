@@ -15,14 +15,9 @@ namespace PeterO.Numbers {
     internal const int FlagInfinity = 2;
     internal const int FlagSpecial = FlagQuietNaN | FlagSignalingNaN |
       FlagInfinity;
-
     internal const int FlagNaN = FlagQuietNaN | FlagSignalingNaN;
-    internal const int UnderflowFlags = EContext.FlagInexact |
-      EContext.FlagSubnormal | EContext.FlagUnderflow | EContext.FlagRounded;
-
     internal const int LostDigitsFlags = EContext.FlagLostDigits |
       EContext.FlagInexact | EContext.FlagRounded;
-
     internal const int FiniteOnly = 0;
     internal const int FiniteAndNonFinite = 1;
   }

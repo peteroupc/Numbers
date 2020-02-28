@@ -973,8 +973,8 @@ namespace Test {
       }
       int ix = ln.IndexOf(' ');
       // NOTE: ix < 2 includes cases where space is not found
-      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' && ln[ix- 1 ]
-!='q')) {
+      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' && ln[ix - 1]!=
+'q')) {
         return 0;
       }
       string[] chunks = SplitAtSpaceRuns(ln);
@@ -2195,75 +2195,89 @@ namespace Test {
       }
       var sb = new System.Text.StringBuilder();
       if ((flags & EContext.FlagInexact) != 0) {
-        sb.Append(" Inexact");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Inexact");
       }
       if ((flags & EContext.FlagRounded) != 0) {
-        sb.Append(" Rounded");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Rounded");
       }
       if ((flags & EContext.FlagSubnormal) != 0) {
-        sb.Append(" Subnormal");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Subnormal");
       }
       if ((flags & EContext.FlagOverflow) != 0) {
-        sb.Append(" Overflow");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Overflow");
       }
       if ((flags & EContext.FlagUnderflow) != 0) {
-        sb.Append(" Underflow");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Underflow");
       }
       if ((flags & EContext.FlagClamped) != 0) {
-        sb.Append(" Clamped");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Clamped");
       }
       if ((flags & EContext.FlagInvalid) != 0) {
-        sb.Append(" Invalid");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Invalid");
       }
       if ((flags & EContext.FlagDivideByZero) != 0) {
-        sb.Append(" Divide_by_zero");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Divide_by_zero");
       }
       if ((flags & EContext.FlagLostDigits) != 0) {
-        sb.Append(" Lost_digits");
+        if (sb.Length > 0) {
+          sb.Append(" ");
+        }
+        sb.Append("Lost_digits");
       }
       return sb.ToString();
     }
-
+    public static void AssertOneFlag(
+      int expected,
+      int actual,
+      int flag,
+      string name) {
+      if (((expected & flag) != 0) != ((actual & flag) != 0)) {
+        string msg = name + ": " + FlagsToString(flag) +
+           "\nExpected flags: " + FlagsToString(expected) +
+           "\nActual flags..: " + FlagsToString(actual);
+        Assert.AreEqual(
+          (expected & flag) != 0,
+          (actual & flag) != 0,
+          msg);
+      }
+    }
     public static void AssertFlags(int expected, int actual, string name) {
       if (expected == actual) {
         return;
       }
-      Assert.AreEqual(
-        (expected & EContext.FlagInexact) != 0,
-        (actual & EContext.FlagInexact) != 0,
-        name + ": Inexact");
-      Assert.AreEqual(
-        (expected & EContext.FlagRounded) != 0,
-        (actual & EContext.FlagRounded) != 0,
-        name + ": Rounded");
-      Assert.AreEqual(
-        (expected & EContext.FlagSubnormal) != 0,
-        (actual & EContext.FlagSubnormal) != 0,
-        name + ": Subnormal");
-      Assert.AreEqual(
-        (expected & EContext.FlagOverflow) != 0,
-        (actual & EContext.FlagOverflow) != 0,
-        name + ": Overflow");
-      Assert.AreEqual(
-        (expected & EContext.FlagUnderflow) != 0,
-        (actual & EContext.FlagUnderflow) != 0,
-        name + ": Underflow");
-      Assert.AreEqual(
-        (expected & EContext.FlagClamped) != 0,
-        (actual & EContext.FlagClamped) != 0,
-        name + ": Clamped");
-      Assert.AreEqual(
-        (expected & EContext.FlagInvalid) != 0,
-        (actual & EContext.FlagInvalid) != 0,
-        name + ": Invalid");
-      Assert.AreEqual(
-        (expected & EContext.FlagDivideByZero) != 0,
-        (actual & EContext.FlagDivideByZero) != 0,
-        name + ": DivideByZero");
-      Assert.AreEqual(
-        (expected & EContext.FlagLostDigits) != 0,
-        (actual & EContext.FlagLostDigits) != 0,
-        name + ": LostDigits");
+      AssertOneFlag(expected, actual, EContext.FlagInexact, name);
+      AssertOneFlag(expected, actual, EContext.FlagRounded, name);
+      AssertOneFlag(expected, actual, EContext.FlagSubnormal, name);
+      AssertOneFlag(expected, actual, EContext.FlagOverflow, name);
+      AssertOneFlag(expected, actual, EContext.FlagUnderflow, name);
+      AssertOneFlag(expected, actual, EContext.FlagClamped, name);
+      AssertOneFlag(expected, actual, EContext.FlagInvalid, name);
+      AssertOneFlag(expected, actual, EContext.FlagDivideByZero, name);
+      AssertOneFlag(expected, actual, EContext.FlagLostDigits, name);
     }
   }
 }

@@ -2543,7 +2543,6 @@ namespace Test {
       var rand = new RandomGenerator();
       for (var i = 0; i < 3000; ++i) {
         string r = RandomObjects.RandomDecimalString(rand);
-        Console.WriteLine(r.Length);
         EDecimal.FromString(r);
       }
     }
