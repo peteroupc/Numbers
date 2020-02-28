@@ -153,20 +153,7 @@ FastInteger(0);
         // Can easily be calculated without estimation
         return this.GetDigitLength();
       } else {
-        EInteger sbi = this.shiftedBigInt;
-        long longBitLength = sbi.GetUnsignedBitLengthAsInt64();
-        if (longBitLength <= 2135) {
-          // May overestimate by 1
-          return new FastInteger(1 + (((int)longBitLength *
-                  631305) >> 21));
-        } else if (longBitLength != Int64.MaxValue) {
-          // Bit length is big enough that dividing it by 3 will not
-          // underestimate the true base-10 digit length.
-          return FastInteger.FromInt64(longBitLength / 3);
-        } else {
-          return FastInteger.FromBig(
-             sbi.GetUnsignedBitLengthAsEInteger().Divide(3));
-        }
+        return NumberUtility.DecimalDigitLengthBounds(this.shiftedBigInt)[1];
       }
     }
 
@@ -179,18 +166,7 @@ FastInteger(0);
         // Can easily be calculated without estimation
         return this.GetDigitLength();
       } else {
-        EInteger sbi = this.shiftedBigInt;
-        EInteger bigBitLength = sbi.GetUnsignedBitLengthAsEInteger();
-        if (bigBitLength.CompareTo(2135) <= 0) {
-          int ov = 1 + ((bigBitLength.ToInt32Checked() *
-                631305) >> 21);
-          return new FastInteger(ov - 2);
-        } else {
-          // Bit length is big enough that multiplying it by 100 and dividing by 335
-          // will not
-          // overestimate the true base-10 digit length.
-          return FastInteger.FromBig(bigBitLength.Multiply(100).Divide(335));
-        }
+        return NumberUtility.DecimalDigitLengthBounds(this.shiftedBigInt)[0];
       }
     }
 

@@ -5856,7 +5856,8 @@ namespace PeterO.Numbers {
         return false;
       } else {
         EInteger umantissa = this.UnsignedMantissa;
-        EInteger[] bounds = DigitCountBounds(umantissa);
+        EInteger[] bounds =
+NumberUtility.DecimalDigitLengthBoundsAsEI(umantissa);
         EInteger digitCountUpper = bounds[1];
         EInteger digitCountLower = bounds[0];
         EInteger bigexponent = this.Exponent;
@@ -6045,30 +6046,6 @@ namespace PeterO.Numbers {
       return this.IsNegative ? ef.Negate() : ef;
     }
 
-    private static EInteger[] DigitCountBounds(EInteger ei) {
-      EInteger bi = ei.GetUnsignedBitLengthAsEInteger();
-      if (bi.CompareTo(33) < 0) {
-        // Can easily be calculated without estimation
-        EInteger eintcnt = ei.GetDigitCountAsEInteger();
-        return new EInteger[] { eintcnt, eintcnt };
-      } else if (bi.CompareTo(2135) <= 0) {
-        int ov = 1 + ((bi.ToInt32Checked() * 631305) >> 21);
-        return new EInteger[] {
-          EInteger.FromInt32(ov - 2),
-          EInteger.FromInt32(ov),
-        };
-      } else {
-        // Bit length is big enough that dividing it by 3 will not
-        // underestimate the true base-10 digit length.
-        EInteger eintupper = bi.Divide(3);
-        // Bit length is big enough that multiplying it by 100 and dividing by 335
-        // will not
-        // overestimate the true base-10 digit length.
-        EInteger eintlower = bi.Multiply(100).Divide(335);
-        return new EInteger[] { eintlower, eintupper };
-      }
-    }
-
     /// <summary>Creates a binary floating-point number from this object's
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
@@ -6076,8 +6053,7 @@ namespace PeterO.Numbers {
     /// approximation of this decimal number's value.</summary>
     /// <param name='ec'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. The precision is in
-    /// bits, and an example of this parameter is <c>EContext.Binary64</c>.
-    /// Can be null.</param>
+    /// bits, and an example of this parameter is <c>EContext.Binary64</c>. Can be null.</param>
     /// <returns>An arbitrary-precision float floating-point
     /// number.</returns>
     public EFloat ToEFloat(EContext ec) {
@@ -6112,7 +6088,8 @@ namespace PeterO.Numbers {
         ec.EMin.CompareTo(b64.EMin) >= 0 &&
         ec.Precision.CompareTo(b64.Precision) <= 0) {
         // Quick check for overflow or underflow
-        EInteger[] bounds = DigitCountBounds(bigUnsignedMantissa);
+        EInteger[] bounds =
+NumberUtility.DecimalDigitLengthBoundsAsEI(bigUnsignedMantissa);
         EInteger digitCountUpper = bounds[1];
         EInteger adjexpLowerBound = bigintExp;
         EInteger adjexpUpperBound = bigintExp.Add(
@@ -6763,7 +6740,8 @@ namespace PeterO.Numbers {
         EInteger bigmantissa = this.UnsignedMantissa;
         bigexponent = bigexponent.Abs();
         bigmantissa = bigmantissa.Abs();
-        EInteger lowerBound = DigitCountBounds(bigmantissa)[0];
+        EInteger lowerBound =
+NumberUtility.DecimalDigitLengthBoundsAsEI(bigmantissa)[0];
         if (lowerBound.Subtract(bigexponent).CompareTo(maxDigits) > 0) {
           throw new OverflowException("Value out of range");
         }

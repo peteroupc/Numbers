@@ -609,6 +609,134 @@ namespace PeterO.Numbers {
       return val;
     }
 
+    internal static int ApproxLogTenOfTwo(int bitlen) {
+      int bitlenLow = bitlen & 0xffff;
+      int bitlenHigh = (bitlen >> 16) & 0xffff;
+      short resultLow = 0;
+      short resultHigh = 0;
+      unchecked {
+        int p;
+        short c;
+        int d;
+        p = bitlenLow * 0x84fb;
+        d = ((int)p >> 16) & 0xffff;
+        c = (short)d;
+        d = ((int)d >> 16) & 0xffff;
+        p = bitlenLow * 0x209a;
+        p += ((int)c) & 0xffff;
+        c = (short)p;
+        d += ((int)p >> 16) & 0xffff;
+        p = bitlenHigh * 0x84fb;
+        p += ((int)c) & 0xffff;
+        d += ((int)p >> 16) & 0xffff;
+        c = (short)d;
+        d = ((int)d >> 16) & 0xffff;
+        p = bitlenLow * 0x9a;
+        p += ((int)c) & 0xffff;
+        c = (short)p;
+        d += ((int)p >> 16) & 0xffff;
+        p = bitlenHigh * 0x209a;
+        p += ((int)c) & 0xffff;
+        c = (short)p;
+        d += ((int)p >> 16) & 0xffff;
+        p = ((int)c) & 0xffff;
+        c = (short)p;
+        resultLow = c;
+        c = (short)d;
+        d = ((int)d >> 16) & 0xffff;
+        p = bitlenHigh * 0x9a;
+        p += ((int)c) & 0xffff;
+        resultHigh = (short)p;
+        int result = ((int)resultLow) & 0xffff;
+        result |= (((int)resultHigh) & 0xffff) << 16;
+        return (result & 0x7fffffff) >> 9;
+      }
+    }
+
+    public static EInteger[] DecimalDigitLengthBoundsAsEI(EInteger ei) {
+        long longBitLength = ei.GetUnsignedBitLengthAsInt64();
+        if (longBitLength < 33) {
+          // Can easily be calculated without estimation
+          EInteger eintcnt = EInteger.FromInt32((int)ei.GetDigitCountAsInt64());
+          return new EInteger[] { eintcnt, eintcnt };
+        } else if (longBitLength <= 2135) {
+          var bitlen = (int)longBitLength;
+          int minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
+          int maxDigits = 1 + ((bitlen * 631305) >> 21);
+          if (minDigits == maxDigits) {
+            EInteger eintcnt = EInteger.FromInt32(minDigits);
+            return new EInteger[] { eintcnt, eintcnt };
+          } else {
+            return new EInteger[] {
+              EInteger.FromInt32(minDigits), // lower bound
+              EInteger.FromInt32(maxDigits), // upper bound
+            };
+          }
+        } else if (longBitLength <= 6432162) {
+          var bitlen = (int)longBitLength;
+          int minDigits = ApproxLogTenOfTwo(bitlen - 1);
+          int maxDigits = ApproxLogTenOfTwo(bitlen);
+          if (minDigits == maxDigits) {
+            EInteger eintcnt = EInteger.FromInt32(minDigits);
+            return new EInteger[] { eintcnt, eintcnt };
+          } else {
+            return new EInteger[] {
+              EInteger.FromInt32(minDigits), // lower bound
+              EInteger.FromInt32(maxDigits), // upper bound
+            };
+          }
+        } else {
+          FastInteger[] fis = DecimalDigitLengthBounds(ei);
+          return new EInteger[] { fis[0].AsEInteger(), fis[1].AsEInteger() };
+        }
+    }
+
+    public static FastInteger[] DecimalDigitLengthBounds(EInteger ei) {
+        long longBitLength = ei.GetUnsignedBitLengthAsInt64();
+        if (longBitLength < 33) {
+          // Can easily be calculated without estimation
+          var fi = new FastInteger((int)ei.GetDigitCountAsInt64());
+          return new FastInteger[] { fi, fi };
+        } else if (longBitLength <= 2135) {
+          var bitlen = (int)longBitLength;
+          int minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
+          int maxDigits = 1 + ((bitlen * 631305) >> 21);
+          if (minDigits == maxDigits) {
+            var fi = new FastInteger(minDigits);
+            return new FastInteger[] { fi, fi };
+          } else {
+            return new FastInteger[] {
+              new FastInteger(minDigits), // lower bound
+              new FastInteger(maxDigits), // upper bound
+            };
+          }
+        } else if (longBitLength <= 6432162) {
+          var bitlen = (int)longBitLength;
+          int minDigits = ApproxLogTenOfTwo(bitlen - 1);
+          int maxDigits = ApproxLogTenOfTwo(bitlen);
+          if (minDigits == maxDigits) {
+            var fi = new FastInteger(minDigits);
+            return new FastInteger[] { fi, fi };
+          } else {
+            return new FastInteger[] {
+              new FastInteger(minDigits), // lower bound
+              new FastInteger(maxDigits), // upper bound
+            };
+          }
+        } else {
+          // Bit length is big enough that these bounds will
+          // overestimate or underestimate the true base-10 digit length
+          // as appropriate.
+          EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
+          EInteger lowerBound = bigBitLength.Multiply(100).Divide(335);
+          EInteger upperBound = bigBitLength.Divide(3);
+          return new FastInteger[] {
+            FastInteger.FromBig(lowerBound), // lower bound
+            FastInteger.FromBig(upperBound), // upper bound
+          };
+        }
+    }
+
     public static FastInteger[] DigitLengthBounds<THelper>(
       IRadixMathHelper<THelper> helper,
       EInteger ei) {
@@ -618,28 +746,7 @@ namespace PeterO.Numbers {
           FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
         return new FastInteger[] { fi, fi };
       } else if (radix == 10) {
-        EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
-        if (bigBitLength.CompareTo(33) < 0) {
-          // Can easily be calculated without estimation
-          FastInteger fi = helper.GetDigitLength(ei);
-          return new FastInteger[] { fi, fi };
-        } else if (bigBitLength.CompareTo(2135) <= 0) {
-          int ov = 1 + ((bigBitLength.ToInt32Checked() * 631305) >> 21);
-          return new FastInteger[] {
-            new FastInteger(ov - 2), // lower bound
-            new FastInteger(ov), // upper bound
-          };
-        } else {
-          // Bit length is big enough that these bounds will
-          // overestimate or underestimate the true base-10 digit length
-          // as appropriate.
-          EInteger lowerBound = bigBitLength.Multiply(100).Divide(335);
-          EInteger upperBound = bigBitLength.Divide(3);
-          return new FastInteger[] {
-            FastInteger.FromBig(lowerBound), // lower bound
-            FastInteger.FromBig(upperBound), // upper bound
-          };
-        }
+        return DecimalDigitLengthBounds(ei);
       } else {
         FastInteger fi = helper.GetDigitLength(ei);
         return new FastInteger[] { fi, fi };

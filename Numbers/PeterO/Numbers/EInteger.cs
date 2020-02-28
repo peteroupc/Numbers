@@ -3085,8 +3085,8 @@ return eia;
           }
         } else if (bitlen <= 6432162) {
           // Much more accurate approximation
-          minDigits = ApproxLogTenOfTwo(bitlen - 1);
-          maxDigits = ApproxLogTenOfTwo(bitlen);
+          minDigits = NumberUtility.ApproxLogTenOfTwo(bitlen - 1);
+          maxDigits = NumberUtility.ApproxLogTenOfTwo(bitlen);
           if (minDigits == maxDigits) {
             // Number of digits is the same for
             // all numbers with this bit length
@@ -3208,8 +3208,8 @@ maxDigitEstimate : retval +
                   }
                 } else if (bitlen <= 6432162) {
                   // Much more accurate approximation
-                  minDigits = ApproxLogTenOfTwo(bitlen - 1);
-                  maxDigits = ApproxLogTenOfTwo(bitlen);
+                  minDigits = NumberUtility.ApproxLogTenOfTwo(bitlen - 1);
+                  maxDigits = NumberUtility.ApproxLogTenOfTwo(bitlen);
                   if (minDigits == maxDigits) {
                     // Number of digits is the same for
                     // all numbers with this bit length
@@ -5594,51 +5594,6 @@ EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
           c[cstart + i] = (short)u;
         }
         return ((int)u >> 16) & ShortMask;
-      }
-    }
-
-    private static int ApproxLogTenOfTwo(int bitlen) {
-      int bitlenLow = bitlen & ShortMask;
-      int bitlenHigh = (bitlen >> 16) & ShortMask;
-      short resultLow = 0;
-      short resultHigh = 0;
-      unchecked {
-        int p;
-        short c;
-        int d;
-        p = bitlenLow * 0x84fb;
-        d = ((int)p >> 16) & ShortMask;
-        c = (short)d;
-        d
-          = ((int)d >> 16) & ShortMask;
-        p = bitlenLow * 0x209a;
-        p += ((int)c) & ShortMask;
-        c = (short)p;
-        d += ((int)p >> 16) & ShortMask;
-        p = bitlenHigh * 0x84fb;
-        p += ((int)c) & ShortMask;
-        d += ((int)p >> 16) & ShortMask;
-        c = (short)d;
-        d = ((int)d >> 16) & ShortMask;
-        p = bitlenLow * 0x9a;
-        p += ((int)c) & ShortMask;
-        c = (short)p;
-        d += ((int)p >> 16) & ShortMask;
-        p = bitlenHigh * 0x209a;
-        p += ((int)c) & ShortMask;
-        c = (short)p;
-        d += ((int)p >> 16) & ShortMask;
-        p = ((int)c) & ShortMask;
-        c = (short)p;
-        resultLow = c;
-        c = (short)d;
-        d = ((int)d >> 16) & ShortMask;
-        p = bitlenHigh * 0x9a;
-        p += ((int)c) & ShortMask;
-        resultHigh = (short)p;
-        int result = ((int)resultLow) & ShortMask;
-        result |= (((int)resultHigh) & ShortMask) << 16;
-        return (result & 0x7fffffff) >> 9;
       }
     }
 
