@@ -3751,6 +3751,7 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
         EContext nextCtx = ctx2.WithBigPrecision(nextPrecision);
         EDecimal nextDec = dec.RoundToPrecision(nextCtx);
         EFloat newFloat = nextDec.ToEFloat(ctx2);
+        // DebugUtility.Log("nextDec=" + nextDec);
         if (newFloat.CompareTo(valueEfRnd) == 0) {
           if (mantissaIsPowerOfTwo && eprecision.Sign > 0) {
             nextPrecision = eprecision;

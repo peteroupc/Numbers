@@ -77,8 +77,8 @@ namespace PeterO.Numbers {
           ctxDest.Flags |= ctxSrc.Flags;
           if ((ctxSrc.Flags & EContext.FlagSubnormal) != 0) {
             // Treat subnormal numbers as underflows
-            ctxDest.Flags |= (EContext.FlagUnderflow |
-EContext.FlagSubnormal | EContext.FlagInexact | EContext.FlagRounded);
+            ctxDest.Flags |= EContext.FlagUnderflow |
+EContext.FlagSubnormal | EContext.FlagInexact | EContext.FlagRounded;
           }
         }
       }

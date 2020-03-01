@@ -6162,6 +6162,7 @@ NumberUtility.DecimalDigitLengthBoundsAsEI(bigUnsignedMantissa);
             return ret;
           }
           EInteger bitprec = bigmantissa.GetUnsignedBitLengthAsEInteger();
+          bitprec = EInteger.Max(bitprec, EInteger.FromInt32(53));
           return efNum.Divide(
             efDen,
             ec.WithBigPrecision(bitprec));
@@ -6182,6 +6183,7 @@ NumberUtility.DecimalDigitLengthBoundsAsEI(bigUnsignedMantissa);
             return ret;
           }
           EInteger bitprec = bigmantissa.GetUnsignedBitLengthAsEInteger();
+          bitprec = EInteger.Max(bitprec, EInteger.FromInt32(53));
           tmpctx = ec.WithBigPrecision(bitprec).WithBlankFlags();
           ret = efNum.Divide(efDen, tmpctx);
           ec.Flags |= tmpctx.Flags;

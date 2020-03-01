@@ -805,42 +805,42 @@ namespace Test {
     public void TestLog() {
       Assert.IsTrue(EFloat.One.Log(null).IsNaN());
       Assert.IsTrue(EFloat.One.Log(EContext.Unlimited).IsNaN());
-    {
-      EFloat efa = EFloat.Create(
-  EInteger.FromString("7692406748247399"),
-  EInteger.FromString("-465")).Log(EContext.Binary64);
-  EFloat efb = EFloat.Create(
-  EInteger.FromString("-5026693231795637"),
-  EInteger.FromString("-44"));
-  Assert.AreEqual(efb, efa);
-}
-{
-EFloat efa = EFloat.Create(
-  EInteger.FromString("5591241150794165"),
-  EInteger.FromString("-944")).Log(EContext.Binary64);
-EFloat efb = EFloat.Create(
-  EInteger.FromString("-339788104073483"),
-  EInteger.FromString("-39"));
-Assert.AreEqual(efb, efa);
-}
-{
-EFloat efa = EFloat.Create(
-  EInteger.FromString("5309985732671123"),
-  EInteger.FromString("276")).Log(EContext.Binary64);
-EFloat efb = EFloat.Create(
-  EInteger.FromString("1000630292553943"),
-  EInteger.FromString("-42"));
-Assert.AreEqual(efb, efa);
-}
-{
-EFloat efa = EFloat.Create(
-  EInteger.FromString("8242379924809039"),
-  EInteger.FromString("-234")).Log(EContext.Binary64);
-EFloat efb = EFloat.Create(
-  EInteger.FromString("-276083795723785"),
-  EInteger.FromString("-41"));
-Assert.AreEqual(efb, efa);
-}
+      {
+        EFloat efa = EFloat.Create(
+            EInteger.FromString("7692406748247399"),
+            EInteger.FromString("-465")).Log(EContext.Binary64);
+        EFloat efb = EFloat.Create(
+            EInteger.FromString("-5026693231795637"),
+            EInteger.FromString("-44"));
+        Assert.AreEqual(efb, efa);
+      }
+      {
+        EFloat efa = EFloat.Create(
+            EInteger.FromString("5591241150794165"),
+            EInteger.FromString("-944")).Log(EContext.Binary64);
+        EFloat efb = EFloat.Create(
+            EInteger.FromString("-339788104073483"),
+            EInteger.FromString("-39"));
+        Assert.AreEqual(efb, efa);
+      }
+      {
+        EFloat efa = EFloat.Create(
+            EInteger.FromString("5309985732671123"),
+            EInteger.FromString("276")).Log(EContext.Binary64);
+        EFloat efb = EFloat.Create(
+            EInteger.FromString("1000630292553943"),
+            EInteger.FromString("-42"));
+        Assert.AreEqual(efb, efa);
+      }
+      {
+        EFloat efa = EFloat.Create(
+            EInteger.FromString("8242379924809039"),
+            EInteger.FromString("-234")).Log(EContext.Binary64);
+        EFloat efb = EFloat.Create(
+            EInteger.FromString("-276083795723785"),
+            EInteger.FromString("-41"));
+        Assert.AreEqual(efb, efa);
+      }
     }
     [Test]
     public void TestLog10() {
@@ -1672,6 +1672,13 @@ Assert.AreEqual(efb, efa);
     }
 
     [Test]
+    public void TestStringToDoubleSpecificA() {
+      string str =
+  "395327047447757233151852025916007341543830859020311182348280049405196796002596109672166636419495856284607016106216608940280159980410562166599659829549836399698289289291865158130408917411887384321629920907652092446340673107744633313627817849916899822288644199811238047243389339131191051062809216261025215824523.4450649076678708780046658731481724174843552673744114894507741447375332545091864773666544122664744761333144781246291659228465651037706198817528715653479238826021855332253112859123685832653222952164708641577926580176434675271038652656763152189489079211898438385589908245057380361924564889535903026779733005698423207728797753101352096950270825633677221801202735885609696599439158086869381984718373482202897732285374878471795568389970731523802567947950548336665365358918558902407299370109971613731348136804887326596306602541763433746075226973971630905830686044475031568633180101625817896363428603835057150659940109566037118543874354367476000190935017225290762348459773388606367426256772899921636";
+      TestStringToDoubleSingleOne(str);
+    }
+
+    [Test]
     public void TestStringToDoubleExp() {
       var s1list = new List<string>();
       var s2list = new List<string>();
@@ -1777,8 +1784,7 @@ Assert.AreEqual(efb, efa);
         string msg = String.Empty + ("dbl_____=" + dbl + ", full=" +
             fullPrecision + ",sub=" + isSubnormal) + "\n" + ("efprev__=" +
             OutputEF(efprev)) + "\n" + ("efprev1q=" + OutputEF(efprev1q)) +
-"\n" +
-          ("efprev2q=" + OutputEF(efprev2q)) + "\n" +
+          "\n" + ("efprev2q=" + OutputEF(efprev2q)) + "\n" +
           ("efprev3q=" + OutputEF(efprev3q)) + "\n" +
           ("efa_____=" + OutputEF(efa)) + "\n" +
           ("efnext1q=" + OutputEF(efnext1q)) + "\n" +
@@ -2597,9 +2603,10 @@ Assert.AreEqual(efb, efa);
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 100000; ++i) {
-        TestSizedEIntegerOne(RandomObjects.RandomEFloat(rg),
-          rg.UniformInt(
-            2) == 0,
+        bool b = rg.UniformInt(2) == 0;
+        TestSizedEIntegerOne(
+          RandomObjects.RandomEFloat(rg),
+          b,
           rg.UniformInt(129));
       }
     }

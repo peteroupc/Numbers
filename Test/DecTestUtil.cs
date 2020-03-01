@@ -973,8 +973,8 @@ namespace Test {
       }
       int ix = ln.IndexOf(' ');
       // NOTE: ix < 2 includes cases where space is not found
-      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' && ln[ix - 1]!=
-'q')) {
+      if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' &&
+         ln[ix - 1] != 'q')) {
         return 0;
       }
       string[] chunks = SplitAtSpaceRuns(ln);
