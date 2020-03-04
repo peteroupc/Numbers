@@ -62,7 +62,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 
 <b>Reproducibility note</b>
 
-Some applications, such as simulations, care about results that are reproducible, bit for bit, across computers and across runs of the application. Bruce Dawson, in "Floating-Point Determinism" ( https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/), identified many reproducibility issues with floating-point numbers, and here is how they relate to the EDecimal and EFloat classes of this library:
+Some applications, such as simulations, care about results that are reproducible, bit for bit, across computers and across runs of the application. Bruce Dawson, in "Floating-Point Determinism" (  `https://randomascii.wordpress.com/`  `2013/07/16/floating-point-determinism/` ), identified many reproducibility issues with floating-point numbers, and here is how they relate to the EDecimal and EFloat classes of this library:
 
  * Runtime floating-point settings: All the settings that change how EDecimal and EFloat behave are given as parameters to the appropriate methods, especially via EContext objects, which specify the precision, rounding, and exponent range of numbers, among other things. The EDecimal and EFloat classes avoid the use of "native" floating-point data types (except for methods that convert to or from  `float`  ,  `double`  , or  `System.Decimal`  ). Such "native" types are often subject to runtime settings that change how floating-point math behaves with them, and these settings are often not accessible to .NET or Java code.
 

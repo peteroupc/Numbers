@@ -311,12 +311,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EContext.GetNontrapping">
 
-        <summary>Returns this context if it doesn't set traps, or a context
+            <summary>Returns this context if it doesn't set traps, or a context
             without traps and with blank flags if it does, so that the
             resulting context does not cause trap exceptions to occur. This is
             not a general-purpose method; it is intended to support custom
-            implementations of arithmetic operations.</summary><returns>This context if it doesn't set traps, or a context without
+            implementations of arithmetic operations.</summary>
+            <returns>This context if it doesn't set traps, or a context without
             traps and with blank flags if it does.</returns>
+
 </doc>
 <doc name="P:PeterO.Numbers.EContext.HasExponentRange">
 
@@ -440,7 +442,9 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EContext.TriggerTraps``1(``0,PeterO.Numbers.EContext)">
-<param name='result'>The parameter <paramref name='result'/> is a ``0 object.</param><param name='trappableContext'>The parameter <paramref name='trappableContext'/> is a Numbers.EContext object.</param>
+
+            <param name='result'>The parameter <paramref name='result'/> is a ``0 object.</param><param name='trappableContext'>The parameter <paramref name='trappableContext'/> is a Numbers.EContext object.</param>
+
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Unlimited">
 
@@ -723,7 +727,7 @@
             that are reproducible, bit for bit, across computers and across
             runs of the application. Bruce Dawson, in "Floating-Point
             Determinism" (
-            https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/),
+            <c>https://randomascii.wordpress.com/</c> <c>2013/07/16/floating-point-determinism/</c>),
             identified many reproducibility issues with floating-point numbers,
             and here is how they relate to the EDecimal and EFloat classes of
             this library:</para>

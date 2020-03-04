@@ -45,7 +45,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[Rounding](#Rounding)</code> - Gets the desired rounding mode when converting numbers that can't be represented in the given precision and exponent range.
 * <code>[ToString()](#ToString)</code> - Returns this object in a text form intended to be read by humans.
 * <code>[Traps](#Traps)</code> - Gets the traps that are set for each flag in the context.
-* <code>[TriggerTraps&lt;T&gt;(T, PeterO.Numbers.EContext)](#TriggerTraps_T_T_PeterO_Numbers_EContext)</code> - Not documented yet.
+* <code>[TriggerTraps&lt;T&gt;(T, PeterO.Numbers.EContext)](#TriggerTraps_T_T_PeterO_Numbers_EContext)</code> -
 * <code>[public static readonly PeterO.Numbers.EContext Unlimited;](#Unlimited)</code> - No specific (theoretical) limit on precision.
 * <code>[public static readonly PeterO.Numbers.EContext UnlimitedHalfEven;](#UnlimitedHalfEven)</code> - No specific (theoretical) limit on precision.
 * <code>[WithAdjustExponent(bool)](#WithAdjustExponent_bool)</code> - Copies this EContext and sets the copy's "AdjustExponent" property to the given value.
@@ -530,8 +530,6 @@ A string representation of this object.
         T result,
         PeterO.Numbers.EContext trappableContext);
 
-Not documented yet.
-
 <b>Parameters:</b>
 
  * <i>result</i>: The parameter  <i>result</i>
@@ -539,12 +537,6 @@ Not documented yet.
 
  * <i>trappableContext</i>: The parameter  <i>trappableContext</i>
  is a Numbers.EContext object.
-
- * &lt;T&gt;: Type parameter not documented yet.
-
-<b>Return Value:</b>
-
-The return value is not documented yet.
 
 <a id="WithAdjustExponent_bool"></a>
 ### WithAdjustExponent

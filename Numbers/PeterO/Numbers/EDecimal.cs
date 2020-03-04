@@ -152,11 +152,12 @@ namespace PeterO.Numbers {
   /// <para>Some applications, such as simulations, care about results
   /// that are reproducible, bit for bit, across computers and across
   /// runs of the application. Bruce Dawson, in "Floating-Point
-  /// Determinism" (
-  /// <c>https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/</c>),
-  /// identified many reproducibility issues with floating-point numbers,
-  /// and here is how they relate to the EDecimal and EFloat classes of
-  /// this library:</para>
+  /// Determinism" ( <c>https://randomascii.wordpress.com/</c>
+  /// <c>2013/07/16/floating-point-determinism/</c>
+  ///  ), identified many
+  /// reproducibility issues with floating-point numbers, and here is how
+  /// they relate to the EDecimal and EFloat classes of this
+  /// library:</para>
   /// <list><item>Runtime floating-point settings: All the settings that
   /// change how EDecimal and EFloat behave are given as parameters to
   /// the appropriate methods, especially via EContext objects, which
