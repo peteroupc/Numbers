@@ -153,7 +153,7 @@ namespace PeterO.Numbers {
   /// that are reproducible, bit for bit, across computers and across
   /// runs of the application. Bruce Dawson, in "Floating-Point
   /// Determinism" (
-  /// https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/),
+  /// <c>https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/</c>),
   /// identified many reproducibility issues with floating-point numbers,
   /// and here is how they relate to the EDecimal and EFloat classes of
   /// this library:</para>
