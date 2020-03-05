@@ -808,38 +808,42 @@ namespace Test {
       {
         EFloat efa = EFloat.Create(
             EInteger.FromString("7692406748247399"),
-            EInteger.FromString("-465")).Log(EContext.Binary64);
+            EInteger.FromString("-465")).Log(EContext.Binary64).Reduce(null);
         EFloat efb = EFloat.Create(
             EInteger.FromString("-5026693231795637"),
             EInteger.FromString("-44"));
-        Assert.AreEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        Assert.AreEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(
             EInteger.FromString("5591241150794165"),
-            EInteger.FromString("-944")).Log(EContext.Binary64);
+            EInteger.FromString("-944")).Log(EContext.Binary64).Reduce(null);
         EFloat efb = EFloat.Create(
             EInteger.FromString("-339788104073483"),
             EInteger.FromString("-39"));
-        Assert.AreEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        Assert.AreEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(
             EInteger.FromString("5309985732671123"),
-            EInteger.FromString("276")).Log(EContext.Binary64);
+            EInteger.FromString("276")).Log(EContext.Binary64).Reduce(null);
         EFloat efb = EFloat.Create(
             EInteger.FromString("1000630292553943"),
             EInteger.FromString("-42"));
-        Assert.AreEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        Assert.AreEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(
             EInteger.FromString("8242379924809039"),
-            EInteger.FromString("-234")).Log(EContext.Binary64);
+            EInteger.FromString("-234")).Log(EContext.Binary64).Reduce(null);
         EFloat efb = EFloat.Create(
             EInteger.FromString("-276083795723785"),
             EInteger.FromString("-41"));
-        Assert.AreEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        Assert.AreEqual(efb, efa, str);
       }
     }
     [Test]

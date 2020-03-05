@@ -1035,8 +1035,34 @@ namespace PeterO.Numbers {
       } else {
         T intpart = default(T);
         var haveIntPart = false;
-        if (this.CompareTo(thisValue, this.helper.ValueOf(50000)) > 0 &&
-          ctx.HasExponentRange) {
+        if (ctx.HasExponentRange && this.thisRadix >= 2 &&
+            this.thisRadix <= 12 &&
+            this.CompareTo(thisValue, this.helper.ValueOf(10)) > 0) {
+          // FastInteger[] precBounds = NumberUtility.DigitLengthBounds(
+            // this.helper, // this.helper.GetMantissa(thisValue));
+          // Calculated with ceil(ln(radix))+1 (radixes 0 and 1 are
+          // not used and have entries of 1)
+          int[] upperDivisors = {
+            1, 1, 71, 111, 140, 162, 181, 196, 209, 221, 232, 241, 250,
+          };
+          // Calculate an upper bound on the overflow threshold
+          // for exp
+          EInteger maxexp = ctx.EMax.Add(ctx.Precision);
+          maxexp = maxexp.Multiply(upperDivisors[this.thisRadix])
+            .Divide(100).Add(2);
+          maxexp = EInteger.Max(EInteger.FromInt32(10), maxexp);
+          T mxe = this.helper.CreateNewWithFlags(
+            maxexp,
+            EInteger.Zero,
+            0);
+          if (this.CompareTo(thisValue, mxe) > 0) {
+             // Greater than overflow bound, so this is an overflow
+             // DebugUtility.Log("thisValue > mxe: " + thisValue + " " + mxe);
+             return this.SignalOverflow(ctx, false);
+          }
+        }
+        if (ctx.HasExponentRange &&
+          this.CompareTo(thisValue, this.helper.ValueOf(50000)) > 0) {
           // Try to check for overflow quickly
           // Do a trial powering using a lower number than e,
           // and a power of 50000
@@ -2115,7 +2141,7 @@ namespace PeterO.Numbers {
         ctxdiv = ctxdiv.WithRounding(ctx.Rounding)
          .WithBlankFlags();
       } else {
-        ctxdiv = ctxdiv.WithRounding(ERounding.HalfEven)
+        ctxdiv = ctxdiv.WithRounding(ERounding.Up)
           .WithBlankFlags();
       }
       T lnresult = this.Ln(thisValue, ctxdiv);
