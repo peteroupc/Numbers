@@ -3086,8 +3086,9 @@ WordsShiftRightOne(bv, bvc);
           }
         } else if (bitlen <= 6432162) {
           // Much more accurate approximation
-          minDigits = NumberUtility.ApproxLogTenOfTwo(bitlen - 1);
-          maxDigits = NumberUtility.ApproxLogTenOfTwo(bitlen);
+          // Approximation of ln(2)/ln(10)
+          minDigits = 1 + (int)(((long)(bitlen - 1) * 661971961083L) >> 41);
+          maxDigits = 1 + (int)(((long)bitlen * 661971961083L) >> 41);
           if (minDigits == maxDigits) {
             // Number of digits is the same for
             // all numbers with this bit length
@@ -3208,9 +3209,10 @@ WordsShiftRightOne(bv, bvc);
                   }
                 } else if (bitlen <= 6432162) {
                   // Much more accurate approximation
-                  minDigits = NumberUtility.ApproxLogTenOfTwo(bitlen - 1);
-                  maxDigits = NumberUtility.ApproxLogTenOfTwo(bitlen);
-                  if (minDigits == maxDigits) {
+          // Approximation of ln(2)/ln(10)
+          minDigits = 1 + (int)(((long)(bitlen - 1) * 661971961083L) >> 41);
+          maxDigits = 1 + (int)(((long)bitlen * 661971961083L) >> 41);
+          if (minDigits == maxDigits) {
                     // Number of digits is the same for
                     // all numbers with this bit length
                     retval += 1 + minDigits + 4;

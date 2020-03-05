@@ -361,6 +361,60 @@ namespace Test {
       ef = EFloat.Create(eim, eie);
       Assert.AreEqual(-1, ed.CompareToBinary(ef));
     }
+
+private static string DigitString(IRandomGenExtended r, int count) {
+  if (count <= 0) {
+    throw new ArgumentOutOfRangeException(nameof(count));
+  }
+  var sb = new StringBuilder();
+  sb.Append((char)(0x31 + r.GetInt32(9)));
+  for (int i = 1; i < count; ++i) {
+ sb.Append((char)(0x30 + r.GetInt32(10)));
+ }
+  return sb.ToString();
+}
+[Test]
+public void TestBadCompare() {
+  // Regression test for bug where X compares
+  // as less than Y, but X compares as greater than
+  // Y + Z, where X and Y have the same number
+  // of digits and Z is a number in (0, 1).
+  var r = new RandomGenerator();
+  for (int i = 0; i < 1000; ++i) {
+    int digits = r.GetInt32(400) + 1;
+    string ds1 = DigitString(r, digits);
+    string ds2 = DigitString(r, digits);
+    EInteger ei1 = EInteger.FromString(ds1);
+    EInteger ei2 = EInteger.FromString(ds2);
+    int cmp = ei1.CompareTo(ei2);
+    if (cmp < 0) {
+      EDecimal ed1 = EDecimal.FromString(ds1);
+      EDecimal ed2 = EDecimal.FromString(ds2);
+      Assert.IsTrue(ed1.CompareToValue(ed2) < 0);
+      digits = r.GetInt32(400) + 1;
+      ds2 += "." +DigitString(r, digits);
+      ed2 = EDecimal.FromString(ds2);
+      Assert.IsTrue(ed1.CompareToValue(ed2) < 0, ds1+"\n" +ds2);
+    } else if (cmp == 0) {
+      EDecimal ed1 = EDecimal.FromString(ds1);
+      EDecimal ed2 = EDecimal.FromString(ds2);
+      Assert.IsTrue(ed1.CompareToValue(ed2) == 0);
+      digits = r.GetInt32(400) + 1;
+      ds2 += "." +DigitString(r, digits);
+      ed2 = EDecimal.FromString(ds2);
+      Assert.IsTrue(ed1.CompareToValue(ed2) < 0, ds1+"\n" +ds2);
+    } else {
+      EDecimal ed1 = EDecimal.FromString(ds1);
+      EDecimal ed2 = EDecimal.FromString(ds2);
+      Assert.IsTrue(ed1.CompareToValue(ed2) > 0);
+      digits = r.GetInt32(400) + 1;
+      ds1 += "." +DigitString(r, digits);
+      ed1 = EDecimal.FromString(ds1);
+      Assert.IsTrue(ed1.CompareToValue(ed2) > 0, ds1+"\n" +ds2);
+    }
+  }
+}
+
     [Test]
     public void TestCompareToSignal() {
       // not implemented yet

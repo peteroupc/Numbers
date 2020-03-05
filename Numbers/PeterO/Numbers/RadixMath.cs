@@ -121,7 +121,8 @@ namespace PeterO.Numbers {
           int value = checked(1 + ((prec.AsInt32() * 631305) >> 21));
           result = new FastInteger(value);
         } else if (this.thisRadix == 10 && prec.CompareToInt(6432162) <= 0) {
-          int value = NumberUtility.ApproxLogTenOfTwo(prec.AsInt32());
+          // Approximation of ln(2)/ln(10)
+          int value = 1 + (int)(((long)prec.AsInt32() * 661971961083L) >> 41);
           result = new FastInteger(value);
         } else {
           return this.helper.GetDigitLength(
@@ -913,6 +914,10 @@ namespace PeterO.Numbers {
     }
 
     public T Exp(T thisValue, EContext ctx) {
+      return this.Exp(thisValue, ctx, ctx == null ? null : ctx.Precision);
+    }
+
+    private T Exp(T thisValue, EContext ctx, EInteger workingPrecision) {
       if (ctx == null) {
         return this.SignalInvalidWithMessage(ctx, "ctx is null");
       }
@@ -952,17 +957,17 @@ namespace PeterO.Numbers {
       int sign = this.helper.GetSign(thisValue);
       T one = this.helper.ValueOf(1);
       EInteger guardDigits = this.thisRadix == 2 ?
-          ctx.Precision.Add(10) : (EInteger)10;
+          workingPrecision.Add(10) : (EInteger)10;
       EContext ctxdiv = SetPrecisionIfLimited(
           ctx,
-          ctx.Precision + guardDigits)
+          workingPrecision + guardDigits)
         .WithRounding(ERounding.HalfEven).WithBlankFlags();
       if (sign == 0) {
         thisValue = this.RoundToPrecision(one, ctxCopy);
       } else if (sign > 0 && this.CompareTo(thisValue, one) <= 0) {
         T closeToZero = this.Divide(
           this.helper.ValueOf(1),
-          this.helper.ValueOf(0x1000),
+          this.helper.ValueOf(0x800),
           null);
         if (this.IsFinite(closeToZero) &&
             this.CompareTo(thisValue, closeToZero) <= 0) {
@@ -989,13 +994,17 @@ namespace PeterO.Numbers {
       } else if (sign < 0) {
         T closeToZero = this.Divide(
           this.helper.ValueOf(-1),
-          this.helper.ValueOf(0x1000),
+          this.helper.ValueOf(0x800),
           null);
+        // DebugUtility.Log("ctz="+closeToZero+", wp="+
+        // workingPrecision+
+        // " ctxp="+ctx.Precision);
         if (this.IsFinite(closeToZero) &&
             this.CompareTo(thisValue, closeToZero) >= 0) {
           // Call ExpInternal for magnitudes close to 0, to avoid
           // issues when thisValue's magnitude is extremely
           // close to 0
+          // DebugUtility.Log("very ctx: thisValue="+thisValue);
           thisValue = this.ExpInternalVeryCloseToZero(
             thisValue,
             ctxdiv.Precision,
@@ -1006,6 +1015,7 @@ namespace PeterO.Numbers {
           }
           return thisValue;
         }
+        // DebugUtility.Log("ordinary: thisValue="+thisValue);
         // exp(x) = 1/exp(-x) where x<0
         T val = this.Exp(this.NegateRaw(thisValue), ctxdiv);
         if ((ctxdiv.Flags & EContext.FlagOverflow) != 0 ||
@@ -2148,6 +2158,7 @@ namespace PeterO.Numbers {
       // DebugUtility.Log("rounding="+ctxdiv.Rounding);
       // DebugUtility.Log("before mul="+lnresult);
       lnresult = this.Multiply(lnresult, pow, ctxdiv);
+      EInteger workingPrecision = ctxdiv.Precision;
       // Now use original precision and rounding mode
       ctxdiv = ctx.WithBlankFlags();
       // DebugUtility.Log("before exp="+lnresult);
@@ -2773,6 +2784,13 @@ namespace PeterO.Numbers {
             op2DigitBounds[1]);
         FastInteger op1ExpLowerBound = fastOp1Exp.Copy().Add(
             op1DigitBounds[0]);
+        /* DebugUtility.Log("bounds1="+op1DigitBounds[0]+" "+
+          op1DigitBounds[1]+ " bounds2="+op2DigitBounds[0]+" "+
+          op2DigitBounds[1]+" real1="+op1MantAbs.GetDigitCountAsEInteger()+
+          " real2="+op2MantAbs.GetDigitCountAsEInteger());
+        DebugUtility.Log("2ub="+op2ExpUpperBound +
+          " 1lb="+op1ExpLowerBound+" exp1="+fastOp1Exp+" exp2="+
+          fastOp2Exp); */
         if (op2ExpUpperBound.CompareTo(op1ExpLowerBound) < 0) {
           // Operand 2's magnitude can't reach highest digit of operand 1,
           // meaning operand 1 has a greater magnitude
@@ -2782,19 +2800,21 @@ namespace PeterO.Numbers {
             op1DigitBounds[1]);
         FastInteger op2ExpLowerBound = fastOp2Exp.Copy().Add(
             op2DigitBounds[0]);
+        // DebugUtility.Log("1ub="+op1ExpUpperBound +
+        // " 2lb="+op2ExpLowerBound);
         if (op1ExpUpperBound.CompareTo(op2ExpLowerBound) < 0) {
           // Operand 1's magnitude can't reach highest digit of operand 2,
           // meaning operand 2 has a greater magnitude
           return signA < 0 ? 1 : -1;
         }
-        /* Console.WriteLine(
+        /* DebugUtility.Log(
               "op1 digits=("+op1DigitBounds[0]+"/"+op1DigitBounds[1]+
               ") exp="+fastOp1Exp+" bits="+
               op1MantAbs.GetUnsignedBitLengthAsInt64());
-        Console.WriteLine(
+        DebugUtility.Log(
               "op2 digits=("+op2DigitBounds[0]+"/"+op2DigitBounds[1]+
-              ") exp="+fastOp2Exp+ op2MantAbs.GetUnsignedBitLengthAsInt64());
-        */ FastInteger precision1 =
+              ") exp="+fastOp2Exp+ op2MantAbs.GetUnsignedBitLengthAsInt64());*/
+        FastInteger precision1 =
           op1DigitBounds[0].CompareTo(op1DigitBounds[1]) == 0 ?
           op1DigitBounds[0] : helper.GetDigitLength(op1MantAbs);
         FastInteger precision2 =
@@ -4000,9 +4020,12 @@ namespace PeterO.Numbers {
       T thisValue,
       EInteger workingPrecision,
       EContext ctx) {
+      // NOTE: Assumes 'thisValue' is very close to zero
+      // and either positive or negative.
       // DebugUtility.Log("ExpInternalVeryCloseToZero");
       T zero = this.helper.ValueOf(0);
-      if (this.CompareTo(thisValue, zero) == 0) {
+      int cmpZero = this.CompareTo(thisValue, zero);
+      if (cmpZero == 0) {
          // NOTE: Should not happen here, because
          // the check for zero should have happened earlier
          throw new InvalidOperationException();
@@ -4015,7 +4038,6 @@ namespace PeterO.Numbers {
         .WithRounding(ERounding.HalfEven);
       var bigintN = (EInteger)2;
       EInteger facto = EInteger.One;
-
       T guess;
       // Guess starts with thisValue
       guess = thisValue;
@@ -4025,6 +4047,7 @@ namespace PeterO.Numbers {
       var more = true;
       var lastCompare = 0;
       var vacillations = 0;
+      int maxvac = cmpZero < 0 ? 10 : 3;
       while (true) {
         lastGuess = guess;
         // Iterate by:
@@ -4038,19 +4061,19 @@ namespace PeterO.Numbers {
             this.helper.CreateNewWithFlags(facto, EInteger.Zero, 0),
             ctxdiv);
         T newGuess = this.Add(guess, tmp, ctxdiv);
-        // DebugUtility.Log("newguess " +
-        // this.helper.GetMantissa(newGuess));
+        // DebugUtility.Log("newguess " + newGuess);
         // DebugUtility.Log("newguessN " + NextPlus(newGuess,ctxdiv));
         {
           int guessCmp = this.CompareTo(lastGuess, newGuess);
-          // DebugUtility.Log("guessCmp = " + guessCmp);
+          // DebugUtility.Log("guessCmp = " + guessCmp + ", vac=" + vacillations);
           if (guessCmp == 0) {
             more = false;
           } else if ((guessCmp > 0 && lastCompare < 0) || (lastCompare > 0 &&
               guessCmp < 0)) {
             // Guesses are vacillating
             ++vacillations;
-            more &= vacillations <= 3 || guessCmp <= 0;
+            more &= vacillations <= maxvac ||
+               (cmpZero < 0 ? guessCmp >= 0 : guessCmp <= 0);
           }
           lastCompare = guessCmp;
         }
