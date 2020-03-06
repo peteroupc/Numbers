@@ -3092,7 +3092,7 @@ WordsShiftRightOne(bv, bvc);
           if (minDigits == maxDigits) {
             // Number of digits is the same for
             // all numbers with this bit length
-            retval += 1 + minDigits;
+            retval += minDigits;
             break;
           }
         }
@@ -3215,7 +3215,7 @@ WordsShiftRightOne(bv, bvc);
           if (minDigits == maxDigits) {
                     // Number of digits is the same for
                     // all numbers with this bit length
-                    retval += 1 + minDigits + 4;
+                    retval += minDigits + 4;
                     done = true;
                     break;
                   }

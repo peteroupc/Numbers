@@ -35,14 +35,12 @@ namespace Test {
 
     [Test]
     public void TestParser() {
-      // IgnoreIfDebug();
       long failures = 0;
       var errors = new List<string>();
       var dirfiles = new List<string>();
       var sw = new System.Diagnostics.Stopwatch();
       sw.Start();
       var valueSwProcessing = new System.Diagnostics.Stopwatch();
-      // var nullWriter = TextWriter.Null;
       var standardOut = Console.Out;
       var x = 0;
       dirfiles.AddRange(GetTestFiles());
@@ -52,6 +50,7 @@ namespace Test {
           break;
         }
         ++x;
+        var context = new Dictionary<string, string>();
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
         var isinput = lowerF.Contains(".input");
         if (!lowerF.Contains(".input") &&
@@ -66,26 +65,7 @@ namespace Test {
               break;
             }
             var ln = w.ReadLine();
-            {
-              try {
-                DecTestUtil.ParseLine(ln);
-              } catch (Exception) {
-                throw;
-                /* errors.Add(ex.ToString());
-                try {
-                  Console.SetOut(standardOut);
-                  if (isinput) {
-                    this.ParseLineInput(ln, valueSwProcessing);
-                  } else {
-                    ParseLine(ln, valueSwProcessing);
-                  }
-                } catch (Exception ex2) {
-                  Console.WriteLine(ln);
-                  Console.WriteLine(ex2.ToString());
-                  errors.Add(ex2.ToString());
-                  Console.SetOut(standardOut);
-                }*/ }
-            }
+            DecTestUtil.ParseDecTest(ln, context);
           }
         }
       }

@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O. in 2013-2020.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -2964,6 +2964,7 @@ namespace PeterO.Numbers {
         throw new InvalidOperationException("doesn't satisfy other.IsFinite");
       }
       #endif
+      // DebugUtility.Log("efexp=" + ef.Exponent);
       if (ef.Exponent.CompareTo((EInteger)(-1000)) < 0) {
         // For very low exponents (less than -1000), the conversion to
         // decimal can take very long, so try this approach
@@ -2975,7 +2976,7 @@ namespace PeterO.Numbers {
           }
         }
         // DebugUtility.Log("edexp=" + ed.Exponent + ", efexp=" +
-        // (ef.Exponent));
+        // ef.Exponent);
         EInteger bitCount = ef.Mantissa.GetUnsignedBitLengthAsEInteger();
         EInteger absexp = ef.Exponent.Abs();
         if (absexp.CompareTo(bitCount) > 0) {
@@ -2985,6 +2986,7 @@ namespace PeterO.Numbers {
           EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(
                 -1000));
           int trialcmp = CompareEDecimalToEFloat(ed, trial);
+          // DebugUtility.Log("trialcmp result="+trialcmp);
           if (ef.Sign < 0 && trialcmp < 0) {
             // if float and decimal are negative and
             // decimal is less than trial float (which in turn is
@@ -3000,25 +3002,20 @@ namespace PeterO.Numbers {
             return 1;
           }
         }
-        EInteger thisAdjExp = GetAdjustedExponent(ed);
+        EInteger[] thisAdjExpBounds = GetAdjustedExponentDecimalBounds(ed);
         EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
         // DebugUtility.Log("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
         // DebugUtility.Log("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
-        if (
-          thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000))
-          >= 0 && otherAdjExp.CompareTo((EInteger)(-4000)) < 0) {
+        if (thisAdjExpBounds[0].Sign < 0 &&
+          thisAdjExpBounds[0].CompareTo(-1000) >= 0 &&
+          otherAdjExp.CompareTo(-4000) < 0) {
           // With these exponent combinations, the binary's absolute
           // value is less than the decimal's
           return (signA > 0) ? 1 : -1;
         }
-        if (
-          thisAdjExp.Sign < 0 && thisAdjExp.CompareTo((EInteger)(-1000)) <
-          0 && otherAdjExp.CompareTo((EInteger)(-1000)) < 0) {
-          thisAdjExp = thisAdjExp.Add(EInteger.One).Abs();
-          otherAdjExp = otherAdjExp.Add(EInteger.One).Abs();
-          EInteger ratio = otherAdjExp.Multiply(1000).Divide(thisAdjExp);
-          // DebugUtility.Log("taexp={0}, oaexp={1} ratio={2}"
-          // , thisAdjExp, otherAdjExp, ratio);
+        if (thisAdjExpBounds[1].Sign < 0 &&
+            thisAdjExpBounds[1].CompareTo(-1000) < 0 &&
+            otherAdjExp.CompareTo(-1000) < 0) {
           // Check the ratio of the negative binary exponent to
           // the negative decimal exponent.
           // If the ratio times 1000, rounded down, is less than 3321, the
@@ -3027,48 +3024,61 @@ namespace PeterO.Numbers {
           // greater.
           // (If the two absolute values are equal, the ratio will approach
           // ln(10)/ln(2), or about 3.32193, as the exponents get higher and
-          // higher.) If it's 3321 or 3322, the two numbers being compared may or may
+          // higher.) If it's 3321 to 3322, the two numbers being compared may or may
           // not be equal. This check assumes that both exponents are less than
           // -1000, when the ratio between exponents of equal values is
           // close to ln(10)/ln(2).
-          if (ratio.CompareTo((EInteger)3321) < 0) {
+          EInteger ratio;
+          EInteger adjexp;
+          EInteger divisor1 = thisAdjExpBounds[0].Add(1).Abs();
+          EInteger divisor2 = thisAdjExpBounds[1].Add(1).Abs();
+          otherAdjExp = otherAdjExp.Add(1).Abs();
+          adjexp = EInteger.Min(divisor1, divisor2);
+          ratio = otherAdjExp.Multiply(1000).Divide(adjexp);
+          // DebugUtility.Log("taexp=" + adjexp + ", oaexp=" +
+          // otherAdjExp + " ratio=" + ratio);
+          if (ratio.CompareTo(3321) < 0) {
             // Binary abs. value is greater
             return (signA > 0) ? -1 : 1;
           }
-          if (ratio.CompareTo((EInteger)3322) > 0) {
+          adjexp = EInteger.Max(divisor1, divisor2);
+          ratio = otherAdjExp.Multiply(1000).Divide(adjexp);
+          if (ratio.CompareTo(3322) > 0) {
             return (signA > 0) ? 1 : -1;
           }
         }
       }
-      if (ef.Exponent.CompareTo((EInteger)1000) > 0) {
+      if (ef.Exponent.CompareTo(1000) > 0) {
         // Very high exponents
         EInteger bignum = EInteger.One.ShiftLeft(999);
-        if (ed.Abs(null).CompareTo(EDecimal.FromEInteger(bignum)) <=
+        if (ed.Abs(null).CompareToValue(EDecimal.FromEInteger(bignum)) <=
           0) {
           // this object's absolute value is less
           return (signA > 0) ? -1 : 1;
         }
         // NOTE: The following check assumes that both
         // operands are nonzero
-        EInteger thisAdjExp = GetAdjustedExponent(ed);
+        EInteger[] thisAdjExpBounds = GetAdjustedExponentDecimalBounds(ed);
         EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(otherAdjExp) >= 0) {
-          // This object's adjusted exponent is greater and is positive;
-          // so this object's absolute value is greater, since exponents
-          // have a greater value in decimal than in binary
+        if (thisAdjExpBounds[0].Sign > 0 &&
+            thisAdjExpBounds[0].CompareTo(otherAdjExp) >= 0) {
+          // This object's adjusted exponent lower bound
+          // is greater and is positive;
+          // so this (decimal) object's absolute value is greater,
+          // since exponents have a greater value in decimal than in binary
           return (signA > 0) ? 1 : -1;
         }
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo(1000) < 0 &&
-          otherAdjExp.CompareTo(4000) >= 0) {
-          // With these exponent combinations, the binary's absolute
+        if (thisAdjExpBounds[1].Sign > 0 &&
+            thisAdjExpBounds[1].CompareTo(1000) < 0 &&
+            otherAdjExp.CompareTo(4000) >= 0) {
+          // With these exponent combinations (using the adjusted exponent
+          // upper bound), the binary's absolute
           // value is greater than the decimal's
           return (signA > 0) ? -1 : 1;
         }
-        if (thisAdjExp.Sign > 0 && thisAdjExp.CompareTo((EInteger)1000) >= 0 &&
-          otherAdjExp.CompareTo((EInteger)1000) >= 0) {
-          thisAdjExp = thisAdjExp.Add(EInteger.One);
-          otherAdjExp = otherAdjExp.Add(EInteger.One);
-          EInteger ratio = otherAdjExp.Multiply(1000).Divide(thisAdjExp);
+        if (thisAdjExpBounds[0].Sign > 0 &&
+            thisAdjExpBounds[0].CompareTo(1000) >= 0 &&
+          otherAdjExp.CompareTo(1000) >= 0) {
           // Check the ratio of the binary exponent to the decimal exponent.
           // If the ratio times 1000, rounded down, is less than 3321, the
           // decimal's absolute value is
@@ -3079,16 +3089,34 @@ namespace PeterO.Numbers {
           // higher.) This check assumes that both exponents are 1000 or
           // greater, when the ratio between exponents of equal values is
           // close to ln(10)/ln(2).
-          if (ratio.CompareTo((EInteger)3321) < 0) {
+          EInteger ratio;
+          EInteger adjexp;
+          EInteger divisor1 = thisAdjExpBounds[0].Add(1);
+          EInteger divisor2 = thisAdjExpBounds[1].Add(1);
+          otherAdjExp = otherAdjExp.Add(1);
+          adjexp = EInteger.Min(divisor1, divisor2);
+          ratio = otherAdjExp.Multiply(1000).Divide(adjexp);
+          if (ratio.CompareTo(3321) < 0) {
             // Decimal abs. value is greater
             return (signA > 0) ? 1 : -1;
           }
-          if (ratio.CompareTo((EInteger)3322) >= 0) {
+          adjexp = EInteger.Max(divisor1, divisor2);
+          ratio = otherAdjExp.Multiply(1000).Divide(adjexp);
+          if (ratio.CompareTo(3322) >= 0) {
             return (signA > 0) ? -1 : 1;
           }
         }
       }
       EDecimal otherDec = EDecimal.FromEFloat(ef);
+      /* DebugUtility.Log("Traditional compare");
+      DebugUtility.Log("ef="+ef);
+      string ed0=""+ed;
+      string od0=""+otherDec;
+      if (!ed0.Equals(od0)) {
+        DebugUtility.Log("ed="+ed0);
+        DebugUtility.Log("od="+od0);
+      }
+      */
       return ed.CompareTo(otherDec);
     }
 
@@ -4052,7 +4080,7 @@ namespace PeterO.Numbers {
         }
         int flags = ctx.Flags;
         EContext tmpctx =
-          ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
+          ctx.WithBigPrecision(ctx.Precision.Add(5)).WithBlankFlags();
         EDecimal ret = value.Log(tmpctx).Divide(baseValue.Log(tmpctx), ctx);
         if (ret.IsInteger() && !ret.IsZero) {
           flags |= EContext.FlagRounded | EContext.FlagInexact;
@@ -5767,18 +5795,23 @@ namespace PeterO.Numbers {
           this.exponent.Equals(otherValue.exponent));
     }
 
-    private static EInteger GetAdjustedExponent(EDecimal ed) {
+    private static EInteger[] GetAdjustedExponentDecimalBounds(
+        EDecimal ed) {
       if (!ed.IsFinite) {
-        return EInteger.Zero;
+        return new EInteger[] { EInteger.Zero, EInteger.Zero };
       }
       if (ed.IsZero) {
-        return EInteger.Zero;
+        return new EInteger[] { EInteger.Zero, EInteger.Zero };
       }
       EInteger retEInt = ed.Exponent;
-      EInteger valueEiPrecision =
-        ed.UnsignedMantissa.GetDigitCountAsEInteger();
-      retEInt = retEInt.Add(valueEiPrecision.Subtract(1));
-      return retEInt;
+      EInteger[] sigPrecBounds = NumberUtility.DecimalDigitLengthBoundsAsEI(
+        ed.UnsignedMantissa);
+      EInteger eia = retEInt.Add(sigPrecBounds[0].Subtract(1));
+      EInteger eib = retEInt.Add(sigPrecBounds[1].Subtract(1));
+      return new EInteger[] {
+        EInteger.Min(eia, eib),
+        EInteger.Max(eia, eib),
+      };
     }
 
     private static EInteger GetAdjustedExponentBinary(EFloat ef) {

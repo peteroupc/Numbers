@@ -275,7 +275,7 @@ namespace Test {
     }
 
     [Test]
-    public void TestCompareToBinarySpecific1() {
+    public void TestCompareToBinarySpecific1A() {
       EFloat ef;
       EDecimal ed;
       ef = EFloat.Create(
@@ -283,11 +283,21 @@ namespace Test {
   -17247);
       ed = EDecimal.FromEFloat(ef);
       Assert.AreEqual(0, ed.CompareToBinary(ef));
+    }
+    [Test]
+    public void TestCompareToBinarySpecific1B() {
+      EFloat ef;
+      EDecimal ed;
       ef = EFloat.Create(
   EInteger.FromString("-2467365858090833230674801431449857270755907368718802724012643203913243742810052368602482131073985474496270026402026901711301805506483138316932981526091018161243282613098255694573218797136340778209470766121110562843973682548635610931370244160852853706133513187695008443087958097846576792398400512366911345362406722788893972946659265028631132327775167697067574535402565194880977992197706600276103283316072610566206275168152573770312869585911831390513851119697252481532540704706697299199745684224875503861044195414865414501211853220204780962526179105198234107560421422472675347263283990608089697319048891315126404866394172515587870915984406737373646406191043645162091665444977123227178202520024830788089974236992351854383678539013034083419874455158726412688896635633819017324077511735883476845008734150221821164999757875534151181805265806734244829066298005793659243034786743021850398154955226684325077441797994355484078284651814522091252889035546936605403702617900755410567544044017356945337917854344068537582739700174480391485976108360704358539233556356055416272178277957515564601573063597136628104876885194939300236889051122715898223511987845895344284500599930150533252352792434580138801671556601310092800472408049970821810559885509976187264868852561693833270555422604022272867933389426568067071959374066789450739921141187691825889495918119483261575309"),
   -11254);
       ed = EDecimal.FromEFloat(ef);
       Assert.AreEqual(0, ed.CompareToBinary(ef));
+    }
+    [Test]
+    public void TestCompareToBinarySpecific1C() {
+      EFloat ef;
+      EDecimal ed;
       ef = EFloat.Create(
   EInteger.FromString("-325087637545375466523593319915642000166507448768479353748943585507647929726919984092640176973845417409613528524759214900494790101204316104560025164009709666878119359566275239162086759961271534412991410161699457719070992680179292505"),
   -22909);
@@ -362,58 +372,58 @@ namespace Test {
       Assert.AreEqual(-1, ed.CompareToBinary(ef));
     }
 
-private static string DigitString(IRandomGenExtended r, int count) {
-  if (count <= 0) {
-    throw new ArgumentOutOfRangeException(nameof(count));
-  }
-  var sb = new StringBuilder();
-  sb.Append((char)(0x31 + r.GetInt32(9)));
-  for (int i = 1; i < count; ++i) {
- sb.Append((char)(0x30 + r.GetInt32(10)));
- }
-  return sb.ToString();
-}
-[Test]
-public void TestBadCompare() {
-  // Regression test for bug where X compares
-  // as less than Y, but X compares as greater than
-  // Y + Z, where X and Y have the same number
-  // of digits and Z is a number in (0, 1).
-  var r = new RandomGenerator();
-  for (int i = 0; i < 1000; ++i) {
-    int digits = r.GetInt32(400) + 1;
-    string ds1 = DigitString(r, digits);
-    string ds2 = DigitString(r, digits);
-    EInteger ei1 = EInteger.FromString(ds1);
-    EInteger ei2 = EInteger.FromString(ds2);
-    int cmp = ei1.CompareTo(ei2);
-    if (cmp < 0) {
-      EDecimal ed1 = EDecimal.FromString(ds1);
-      EDecimal ed2 = EDecimal.FromString(ds2);
-      Assert.IsTrue(ed1.CompareToValue(ed2) < 0);
-      digits = r.GetInt32(400) + 1;
-      ds2 += "." +DigitString(r, digits);
-      ed2 = EDecimal.FromString(ds2);
-      Assert.IsTrue(ed1.CompareToValue(ed2) < 0, ds1+"\n" +ds2);
-    } else if (cmp == 0) {
-      EDecimal ed1 = EDecimal.FromString(ds1);
-      EDecimal ed2 = EDecimal.FromString(ds2);
-      Assert.IsTrue(ed1.CompareToValue(ed2) == 0);
-      digits = r.GetInt32(400) + 1;
-      ds2 += "." +DigitString(r, digits);
-      ed2 = EDecimal.FromString(ds2);
-      Assert.IsTrue(ed1.CompareToValue(ed2) < 0, ds1+"\n" +ds2);
-    } else {
-      EDecimal ed1 = EDecimal.FromString(ds1);
-      EDecimal ed2 = EDecimal.FromString(ds2);
-      Assert.IsTrue(ed1.CompareToValue(ed2) > 0);
-      digits = r.GetInt32(400) + 1;
-      ds1 += "." +DigitString(r, digits);
-      ed1 = EDecimal.FromString(ds1);
-      Assert.IsTrue(ed1.CompareToValue(ed2) > 0, ds1+"\n" +ds2);
+    private static string DigitString(IRandomGenExtended r, int count) {
+      if (count <= 0) {
+        throw new ArgumentOutOfRangeException(nameof(count));
+      }
+      var sb = new StringBuilder();
+      sb.Append((char)(0x31 + r.GetInt32(9)));
+      for (int i = 1; i < count; ++i) {
+        sb.Append((char)(0x30 + r.GetInt32(10)));
+      }
+      return sb.ToString();
     }
-  }
-}
+    [Test]
+    public void TestBadCompare() {
+      // Regression test for bug where X compares
+      // as less than Y, but X compares as greater than
+      // Y + Z, where X and Y have the same number
+      // of digits and Z is a number in (0, 1).
+      var r = new RandomGenerator();
+      for (int i = 0; i < 1000; ++i) {
+        int digits = r.GetInt32(400) + 1;
+        string ds1 = DigitString(r, digits);
+        string ds2 = DigitString(r, digits);
+        EInteger ei1 = EInteger.FromString(ds1);
+        EInteger ei2 = EInteger.FromString(ds2);
+        int cmp = ei1.CompareTo(ei2);
+        if (cmp < 0) {
+          EDecimal ed1 = EDecimal.FromString(ds1);
+          EDecimal ed2 = EDecimal.FromString(ds2);
+          Assert.IsTrue(ed1.CompareToValue(ed2) < 0);
+          digits = r.GetInt32(400) + 1;
+          ds2 += "." + DigitString(r, digits);
+          ed2 = EDecimal.FromString(ds2);
+          Assert.IsTrue(ed1.CompareToValue(ed2) < 0, ds1 + "\n" + ds2);
+        } else if (cmp == 0) {
+          EDecimal ed1 = EDecimal.FromString(ds1);
+          EDecimal ed2 = EDecimal.FromString(ds2);
+          Assert.IsTrue(ed1.CompareToValue(ed2) == 0);
+          digits = r.GetInt32(400) + 1;
+          ds2 += "." + DigitString(r, digits);
+          ed2 = EDecimal.FromString(ds2);
+          Assert.IsTrue(ed1.CompareToValue(ed2) < 0, ds1 + "\n" + ds2);
+        } else {
+          EDecimal ed1 = EDecimal.FromString(ds1);
+          EDecimal ed2 = EDecimal.FromString(ds2);
+          Assert.IsTrue(ed1.CompareToValue(ed2) > 0);
+          digits = r.GetInt32(400) + 1;
+          ds1 += "." + DigitString(r, digits);
+          ed1 = EDecimal.FromString(ds1);
+          Assert.IsTrue(ed1.CompareToValue(ed2) > 0, ds1 + "\n" + ds2);
+        }
+      }
+    }
 
     [Test]
     public void TestCompareToSignal() {
@@ -3535,8 +3545,8 @@ public void TestBadCompare() {
       var rg = new RandomGenerator();
       for (var i = 0; i < 100000; ++i) {
         TestSizedEIntegerOne(RandomObjects.RandomEDecimal(rg),
-  rg.UniformInt(2) == 0,
-  rg.UniformInt(129));
+          rg.UniformInt(2) == 0,
+          rg.UniformInt(129));
       }
     }
 
@@ -3576,7 +3586,7 @@ public void TestBadCompare() {
       } else {
         Assert.AreEqual(ei, ei2);
         Assert.IsTrue(ei.GetSignedBitLengthAsEInteger().CompareTo(
-  maxSignedBits) <= 0);
+            maxSignedBits) <= 0);
       }
       return true;
     }
@@ -5566,6 +5576,21 @@ public void TestBadCompare() {
     }
 
     [Test]
+    public void TestStringContextSpecific4e() {
+EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+  1023).WithRounding(
+  ERounding.Down).WithAdjustExponent(
+  false).WithExponentClamp(true).WithSimplified(false);
+string str = String.Empty + TestCommon.Repeat("8", 257) + "." +
+TestCommon.Repeat("8",
+  120) + "E+60";
+EFloat ef = EFloat.FromString(str, ec);
+EFloat ef2 = EDecimal.FromString(str).ToEFloat(ec);
+Assert.AreEqual(ef, ef2);
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+    }
+
+    [Test]
     public void TestStringContextUnderflow() {
       EContext ec = EContext.Binary64.WithRounding(
           ERounding.HalfUp);
@@ -5759,7 +5784,7 @@ public void TestBadCompare() {
             ed.Exponent + "\n";
           bstr += "# was: " + str.Substring(0, Math.Min(str.Length, 200)) +
             (str.Length > 200 ? "..." : String.Empty);
-          } else {
+        } else {
           bstr += "# " + str.Substring(0, Math.Min(str.Length, 200)) +
             (str.Length > 200 ? "..." : String.Empty);
           bstr += "\n# " + ECString(ec);
@@ -5852,15 +5877,11 @@ public void TestBadCompare() {
       }
       EFloat ef2 = null;
       EContext noneRounding = ec.WithRounding(
-          ERounding.None); // .WithTraps(EContext.FlagInvalid);
+          ERounding.None);
       EContext downRounding = ec.WithRounding(ERounding.Down);
       ef2 = EFloat.FromString("xyzxyz" + str, 6, str.Length, ec);
       EFloat ef3 = EFloat.NaN;
-      // try {
       ef3 = EFloat.FromString(str, noneRounding);
-      // } catch (ETrapException) {
-      // NOTE: Intentionally empty
-      // }
       EDecimal edef2 = (ec.Rounding == ERounding.Down ?
           ef2 : EFloat.FromString(str, downRounding)).ToEDecimal();
       if ((ef3 != null && !ef3.IsNaN()) && ed != null &&
@@ -5901,18 +5922,18 @@ public void TestBadCompare() {
         string bstr = String.Empty;
         if (ec.HasMaxPrecision) {
           EContext ecf = ec.WithBlankFlags();
-          EDecimal.FromString(str).RoundToPrecision(ecf);
           // bstr += DecTestUtil.ContextToDecTestForm(ecf);
           // bstr += "untitled toSci " + str + " -> " + ef.ToString() +
           // DecTestUtil.FlagsToString(ecf.Flags) + "\n";
           bstr += "{\nEContext ec = " + ECString(ec) + ";\n";
           bstr += "string str = \"" + str + "\";\n";
-          bstr += "TestStringContextOneEFloat(str, ec);\n}\n";
+          bstr += "EDecimalTest.TestStringContextOneEFloat(str, ec);\n}\n";
           str = ef2.ToString();
-          // bstr += "// expected: about " + Double.Parse (str) + "\n";
+          bstr += "// expected: " + EFloatTest.OutputEF(ef) + "\n";
+          bstr += "// was: " + EFloatTest.OutputEF(ef2) + "\n";
           bstr += "// was: " + str.Substring(0, Math.Min(str.Length, 200)) +
             (str.Length > 200 ? "..." : String.Empty);
-          } else {
+        } else {
           bstr += "# " + str.Substring(0, Math.Min(str.Length, 200)) +
             (str.Length > 200 ? "..." : String.Empty);
           bstr += "\n# " + ECString(ec);
@@ -6263,6 +6284,9 @@ public void TestBadCompare() {
 
     public static void TestStringContextCore(EContext[] econtexts, bool
       efloat) {
+      if (econtexts == null) {
+        throw new ArgumentNullException(nameof(econtexts));
+      }
       ERounding[] roundings = {
         ERounding.Down, ERounding.Up,
         ERounding.OddOrZeroFiveUp, ERounding.HalfUp,
@@ -6322,7 +6346,7 @@ public void TestBadCompare() {
           }
         }
         string sbs;
-        if (rand.UniformInt(2) == 0) {
+        if (rand.UniformInt(100) < 90) {
           var sb = new StringBuilder();
           AppendDigits(sb, rand, prec, point);
           sb.Append(rand.UniformInt(2) == 0 ? "E+" : "E-");
@@ -6334,9 +6358,6 @@ public void TestBadCompare() {
           sbs = sb.ToString();
         } else {
           sbs = RandomObjects.RandomDecimalString(rand);
-        }
-        if (econtexts == null) {
-          throw new ArgumentNullException(nameof(econtexts));
         }
         for (var j = 0; j < econtexts.Length; ++j) {
           ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
