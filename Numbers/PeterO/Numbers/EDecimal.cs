@@ -6117,7 +6117,8 @@ NumberUtility.DecimalDigitLengthBoundsAsEI(umantissa);
           .RoundToPrecision(ec);
       }
       EContext b64 = EContext.Binary64;
-      if (ec != null && ec.HasMaxPrecision && ec.HasExponentRange &&
+      if (ec != null && ec.HasMaxPrecision &&
+        ec.HasExponentRange &&
         !ec.IsSimplified && ec.EMax.CompareTo(b64.EMax) <= 0 &&
         ec.EMin.CompareTo(b64.EMin) >= 0 &&
         ec.Precision.CompareTo(b64.Precision) <= 0) {

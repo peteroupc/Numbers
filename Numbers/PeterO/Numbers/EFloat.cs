@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -845,7 +845,7 @@ TrappableRadixMath<EFloat>(
         expInt *= expoffset;
         if (expPrec > 12) {
           // Exponent that can't be compensated by digit
-          // length without remaining higher than Int32.MaxValue
+          // length without remaining beyond Int32 range
           if (expoffset < 0) {
             return SignalUnderflow(ctx, negative, zeroMantissa);
           } else {
@@ -908,9 +908,8 @@ TrappableRadixMath<EFloat>(
         ef1 = EFloat.Create(EInteger.FromInt64(mantissaLong), EInteger.Zero);
         ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
         if (finalexp < 0) {
-EFloat efret = ef1.Divide(ef2, ctx);
-/*
-Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
+          EFloat efret = ef1.Divide(ef2, ctx);
+          /* Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
           */ return efret;
         } else {
           return ef1.Multiply(ef2, ctx);
@@ -965,17 +964,21 @@ Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
       if (negative) {
         mant = mant.Negate();
       }
-      // DebugUtility.Log("c " + ((mant.Sign<0 && negative) || (mant.Sign>= 0
-      // && !negative)) + " mant=" + (mant));
-      EInteger absexp = exp.Abs();
-      ef1 = EFloat.Create(mant, EInteger.Zero);
+      // DebugUtility.Log("c " + ((mant.Sign<0 && negative) ||
+      // (mant.Sign >= 0 && !negative)));
+      return EDecimal.Create(mant, exp).ToEFloat(ctx);
+      /* EInteger absexp = exp.Abs();
+      ef1 = EFloat.FromEInteger(mant);
       ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
-      // DebugUtility.Log("c ef1=" + ef1 + " ef2=" + (ef2));
+      DebugUtility.Log("c ef1=" + ef1 + " ef2=" + ef2);
       if (exp.Sign < 0) {
         return ef1.Divide(ef2, ctx);
       } else {
+        DebugUtility.Log("mult=" + ef1.Multiply(ef2, null));
+        DebugUtility.Log("mult=" + ef1.Multiply(ef2, ctx));
         return ef1.Multiply(ef2, ctx);
       }
+      */
     }
 
     /// <summary>Creates a binary floating-point number from a text string

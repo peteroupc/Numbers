@@ -5581,7 +5581,7 @@ EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
   1023).WithRounding(
   ERounding.Down).WithAdjustExponent(
   false).WithExponentClamp(true).WithSimplified(false);
-string str = String.Empty + TestCommon.Repeat("8", 257) + "." +
+string str = TestCommon.Repeat("8", 257) + "." +
 TestCommon.Repeat("8",
   120) + "E+60";
 EFloat ef = EFloat.FromString(str, ec);
