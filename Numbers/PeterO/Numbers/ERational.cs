@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2014.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -1842,9 +1842,12 @@ namespace PeterO.Numbers {
     /// <summary>Converts this value to an arbitrary-precision integer by
     /// dividing the numerator by the denominator, discarding its
     /// fractional part, and checking whether the resulting integer
-    /// overflows the given signed bit count.</summary><param name='maxBitLength'>The maximum number of signed bits the
+    /// overflows the given signed bit count.</summary>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
     /// integer can have. The integer's value may not be less than
-    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param><returns>An arbitrary-precision integer.</returns><exception cref='OverflowException'>This object's value is infinity
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN), or this number's value, once converted to an
     /// integer by dividing the numerator by the denominator and discarding
     /// its fractional part, is less than -(2^maxBitLength) or greater than
@@ -1877,12 +1880,16 @@ namespace PeterO.Numbers {
 
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// only if this number's value is an exact integer and that integer
-    /// does not overflow the given signed bit count.</summary><param name='maxBitLength'>The maximum number of signed bits the
+    /// does not overflow the given signed bit count.</summary>
+    /// <param name='maxBitLength'>The maximum number of signed bits the
     /// integer can have. The integer's value may not be less than
-    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param><returns>An arbitrary-precision integer.</returns><exception cref='OverflowException'>This object's value is infinity
+    /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
+    /// <returns>An arbitrary-precision integer.</returns>
+    /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN), or this number's value as an integer is less
     /// than -(2^maxBitLength) or greater than (2^maxBitLength) -
-    /// 1.</exception><exception cref='ArithmeticException'>This object's value is not an
+    /// 1.</exception>
+    /// <exception cref='ArithmeticException'>This object's value is not an
     /// exact integer.</exception>
     public EInteger ToSizedEIntegerIfExact(int maxBitLength) {
       if (maxBitLength < 0) {

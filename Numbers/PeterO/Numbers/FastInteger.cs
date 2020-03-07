@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -483,10 +483,8 @@ namespace PeterO.Numbers {
     }
 
     internal static FastInteger FromInt64(long longVal) {
-      if (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) {
-        return new FastInteger((int)longVal);
-      }
-      return FromBig(EInteger.FromInt64(longVal));
+      return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ? new
+FastInteger((int)longVal) : (FromBig(EInteger.FromInt64(longVal)));
     }
 
     internal static FastInteger FromBig(EInteger bigintVal) {

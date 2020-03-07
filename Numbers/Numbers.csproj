@@ -6,7 +6,7 @@
     <Version>1.5.1</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
-    <Copyright>Written by Peter O. in 2019.  Any copyright is released to the Public Domain.</Copyright>
+    <Copyright>Written by Peter O.  Any copyright is released to the Public Domain.</Copyright>
     <Authors>Peter Occil</Authors>
     <PackageId>PeterO.Numbers</PackageId>
     <Title>Arbitrary-Precision Number Library</Title>
@@ -49,4 +49,4 @@ Version 1.5.0
   <ItemGroup>
 
   <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.113'/><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='2.9.8'/></ItemGroup>
-<PropertyGroup/><PropertyGroup/>            </Project>
+<PropertyGroup/><PropertyGroup/>               </Project>

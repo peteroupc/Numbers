@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -1021,13 +1021,18 @@ this.simplified +
        return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
     }
 
-  /// <param name='result'>The parameter <paramref name='result'/> is a
-  /// ``0 object.</param>
-  /// <param name='trappableContext'>The parameter <paramref
-  /// name='trappableContext'/> is a Numbers.EContext object.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
-  /// <typeparam name='T'>Type parameter not documented yet.</typeparam>
+  /// <summary>Throws trap exceptions if the given context has flags set
+  /// that also have traps enabled for them in this context, and adds the
+  /// given context's flags to this context if HasFlags for this context
+  /// is true. This is not a general-purpose method; it is intended to
+  /// support custom implementations of arithmetic operations.</summary>
+  /// <typeparam name='T'>Data type for the result of the
+  /// operation.</typeparam>
+  /// <param name='result'>The result of the operation.</param>
+  /// <param name='trappableContext'>An arithmetic context, usually a
+  /// context returned by the GetNontrapping method. Can be null.</param>
+  /// <returns>The parameter "result" if no trap exceptions were
+  /// thrown.</returns>
     public T TriggerTraps<T>(
       T result,
       EContext trappableContext) {
@@ -1042,8 +1047,8 @@ this.simplified +
         return result;
       }
       int mutexConditions = traps & (~(
-            EContext.FlagClamped | EContext.FlagInexact | EContext.FlagRounded |
-            EContext.FlagSubnormal));
+            EContext.FlagClamped | EContext.FlagInexact |
+            EContext.FlagRounded | EContext.FlagSubnormal));
       if (mutexConditions != 0) {
         for (var i = 0; i < 32; ++i) {
           int flag = mutexConditions & (1 << i);

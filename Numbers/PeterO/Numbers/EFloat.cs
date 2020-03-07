@@ -96,14 +96,56 @@ namespace PeterO.Numbers {
       Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class EFloat : IComparable<EFloat>,
     IEquatable<EFloat> {
-    //----------------------------------------------------------------
+    //-----------------------------------------------
+    private const int CacheFirst = -24;
+    private const int CacheLast = 128;
+
+    private static readonly EFloat[] Cache = EFloatCache(CacheFirst,
+        CacheLast);
+
+    private static EFloat[] EFloatCache(int first, int last) {
+      #if DEBUG
+      if (first < -65535) {
+        throw new ArgumentException("first (" + first + ") is not greater" +
+          "\u0020or equal" + "\u0020to " + (-65535));
+      }
+      if (first > 65535) {
+        throw new ArgumentException("first (" + first + ") is not less or" +
+          "\u0020equal to" + "\u002065535");
+      }
+      if (last < -65535) {
+        throw new ArgumentException("last (" + last + ") is not greater or" +
+          "\u0020equal" + "\u0020to " + (-65535));
+      }
+      if (last > 65535) {
+        throw new ArgumentException("last (" + last + ") is not less or" +
+          "\u0020equal to" + "65535");
+      }
+      #endif
+
+      var cache = new EFloat[(last - first) + 1];
+      int i;
+      for (i = first; i <= last; ++i) {
+        if (i == 0) {
+          cache[i - first] = Zero;
+        } else if (i == 1) {
+          cache[i - first] = One;
+        } else if (i == 10) {
+          cache[i - first] = Ten;
+        } else {
+          cache[i - first] = new EFloat(
+            EInteger.FromInt32(Math.Abs(i)),
+            EInteger.Zero,
+            (i < 0 ? BigNumberFlags.FlagNegative : 0)); } }
+      return cache;
+    }
 
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat NaN = CreateWithFlags(
+    public static readonly EFloat NaN = new EFloat(
         EInteger.Zero,
         EInteger.Zero,
         BigNumberFlags.FlagQuietNaN);
@@ -113,7 +155,7 @@ namespace PeterO.Numbers {
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat NegativeInfinity = CreateWithFlags(
+    public static readonly EFloat NegativeInfinity = new EFloat(
         EInteger.Zero,
         EInteger.Zero,
         BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
@@ -123,7 +165,7 @@ namespace PeterO.Numbers {
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat NegativeZero = CreateWithFlags(
+    public static readonly EFloat NegativeZero = new EFloat(
         EInteger.Zero,
         EInteger.Zero,
         BigNumberFlags.FlagNegative);
@@ -133,8 +175,10 @@ namespace PeterO.Numbers {
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat One =
-      EFloat.Create(EInteger.One, EInteger.Zero);
+    public static readonly EFloat One = new EFloat(
+        EInteger.One,
+        EInteger.Zero,
+        BigNumberFlags.FlagNegative);
 
     /// <summary>Positive infinity, greater than any other
     /// number.</summary>
@@ -142,7 +186,7 @@ namespace PeterO.Numbers {
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat PositiveInfinity = CreateWithFlags(
+    public static readonly EFloat PositiveInfinity = new EFloat(
         EInteger.Zero,
         EInteger.Zero,
         BigNumberFlags.FlagInfinity);
@@ -154,7 +198,7 @@ namespace PeterO.Numbers {
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat SignalingNaN = CreateWithFlags(
+    public static readonly EFloat SignalingNaN = new EFloat(
         EInteger.Zero,
         EInteger.Zero,
         BigNumberFlags.FlagSignalingNaN);
@@ -164,16 +208,20 @@ namespace PeterO.Numbers {
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat Ten =
-      EFloat.Create((EInteger)10, EInteger.Zero);
+    public static readonly EFloat Ten = new EFloat(
+        EInteger.FromInt32(10),
+        EInteger.Zero,
+        0);
 
     /// <summary>Represents the number 0.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
         "CA2104",
         Justification = "EFloat is immutable")]
-    public static readonly EFloat Zero =
-      EFloat.Create(EInteger.Zero, EInteger.Zero);
+    public static readonly EFloat Zero = new EFloat(
+        EInteger.Zero,
+        EInteger.Zero,
+        0);
     //----------------------------------------------------------------
     private static readonly IRadixMath<EFloat> MathValue = new
 TrappableRadixMath<EFloat>(
@@ -301,8 +349,9 @@ TrappableRadixMath<EFloat>(
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public static EFloat Create(int mantissaSmall, int exponentSmall) {
-      return Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
-    }
+      return (exponentSmall == 0 && mantissaSmall >= CacheFirst &&
+        mantissaSmall <= CacheLast) ? (Cache[mantissaSmall - CacheFirst]) :
+(Create((EInteger)mantissaSmall, (EInteger)exponentSmall)); }
 
     /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
@@ -312,8 +361,9 @@ TrappableRadixMath<EFloat>(
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public static EFloat Create(long mantissaLong, long exponentLong) {
-      return Create((EInteger)mantissaLong, (EInteger)exponentLong);
-    }
+      return (exponentLong == 0 && mantissaLong >= CacheFirst &&
+        mantissaLong <= CacheLast) ? (Cache[(int)mantissaLong - CacheFirst]):
+(Create((EInteger)mantissaLong, (EInteger)exponentLong)); }
 
     /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
@@ -323,8 +373,9 @@ TrappableRadixMath<EFloat>(
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public static EFloat Create(long mantissaLong, int exponentSmall) {
-      return Create((EInteger)mantissaLong, (EInteger)exponentSmall);
-    }
+      return (exponentSmall == 0 && mantissaLong >= CacheFirst &&
+        mantissaLong <= CacheLast) ? (Cache[(int)mantissaLong - CacheFirst]):
+(Create((EInteger)mantissaLong, (EInteger)exponentSmall)); }
 
     /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
@@ -332,8 +383,16 @@ TrappableRadixMath<EFloat>(
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='mantissa'/> is null.</exception>
     public static EFloat Create(EInteger mantissa, int exponentSmall) {
-      return Create(mantissa, EInteger.FromInt32(exponentSmall));
+      if (mantissa == null) {
+        throw new ArgumentNullException(nameof(mantissa));
+      }
+      return (exponentSmall == 0 && mantissa.CompareTo(CacheFirst) >= 0 &&
+        mantissa.CompareTo(CacheLast) <= 0) ?
+Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
+  EInteger.FromInt32(exponentSmall)));
     }
 
     /// <summary>Returns a number with the value
@@ -342,8 +401,16 @@ TrappableRadixMath<EFloat>(
     /// <param name='exponentLong'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='mantissa'/> is null.</exception>
     public static EFloat Create(EInteger mantissa, long exponentLong) {
-      return Create(mantissa, EInteger.FromInt64(exponentLong));
+      if (mantissa == null) {
+        throw new ArgumentNullException(nameof(mantissa));
+      }
+      return (exponentLong == 0 && mantissa.CompareTo(CacheFirst) >= 0 &&
+        mantissa.CompareTo(CacheLast) <= 0) ?
+Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
+  EInteger.FromInt64(exponentLong)));
     }
 
     /// <summary>Returns a number with the value
@@ -363,6 +430,10 @@ TrappableRadixMath<EFloat>(
       }
       if (exponent == null) {
         throw new ArgumentNullException(nameof(exponent));
+      }
+      if (exponent.IsZero && mantissa.CompareTo(CacheFirst) >= 0 &&
+        mantissa.CompareTo(CacheLast) <= 0) {
+        return Cache[mantissa.ToInt32Checked() - CacheFirst];
       }
       int sign = mantissa.Sign;
       return new EFloat(
@@ -4235,7 +4306,7 @@ TrappableRadixMath<EFloat>(
       /// <returns>An arbitrary-precision binary floating-point
       /// number.</returns>
       public EFloat ValueOf(int val) {
-        return FromInt64(val);
+        return FromInt32(val);
       }
     }
 
@@ -4416,7 +4487,9 @@ TrappableRadixMath<EFloat>(
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
     public static EFloat FromInt32(int inputInt32) {
-      return FromEInteger(EInteger.FromInt32(inputInt32));
+      return (inputInt32 >= CacheFirst && inputInt32 <= CacheLast) ?
+Cache[inputInt32 - CacheFirst] :
+FromEInteger(EInteger.FromInt32(inputInt32));
     }
 
     /// <summary>Converts this number's value to a 64-bit signed integer if
@@ -4467,7 +4540,9 @@ TrappableRadixMath<EFloat>(
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
     public static EFloat FromInt64(long inputInt64) {
-      return FromEInteger(EInteger.FromInt64(inputInt64));
+      return (inputInt64 >= CacheFirst && inputInt64 <= CacheLast) ?
+Cache[(int)inputInt64 - CacheFirst] :
+FromEInteger(EInteger.FromInt64(inputInt64));
     }
 
     // End integer conversions
