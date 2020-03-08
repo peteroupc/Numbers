@@ -5519,6 +5519,51 @@ namespace PeterO.Numbers {
               var dn = (double)m / (double)vtp;
               return this.IsNegative ? -dn : dn;
             }
+int divdCount = NumberUtility.BitLength(m);
+       int divsCount = NumberUtility.BitLength(vtp);
+            int dividendShift = (divdCount <= divsCount) ? ((divsCount -
+                  divdCount) + 53 + 1) : Math.Max(0,
+                  (53 + 1) - (divdCount - divsCount));
+long lquo = -1;
+long lrem = -1;
+  if (divsCount + dividendShift > 63) {
+    EInteger eim = EInteger.FromInt32(m).ShiftLeft(dividendShift);
+    EInteger[] divrem3 = eim.DivRem(EInteger.FromInt32(vtp));
+    EInteger equo = divrem3[0];
+    EInteger erem = divrem3[1];
+    if (equo.CanFitInInt64() && erem.CanFitInInt64()) {
+      lquo = equo.ToInt64Checked();
+      lrem = erem.ToInt64Checked();
+    }
+  } else {
+    long ldividend = ((long)m) << dividendShift;
+    lquo = ldividend / vtp;
+    lrem = ldividend - (lquo * vtp);
+  }
+  int nexp = -dividendShift;
+  if (lquo >= (1L << 53)) {
+                while (lquo >= (1L << 54)) {
+                  lrem |= lquo & 1L;
+                  lquo >>= 1;
+                  ++nexp;
+                }
+                if ((lquo & 3L) != 0 && lrem == 0) {
+                  lquo >>= 1;
+                  ++lquo;
+                  ++nexp;
+                } else if ((lquo & 1L) != 0 && lrem != 0) {
+                  lquo >>= 1;
+                  ++lquo;
+                  ++nexp;
+                } else {
+                  lquo >>= 1;
+                  ++nexp;
+                }
+                double d = ((double)lquo) * Math.Pow(2, nexp);
+                if(this.IsNegative)d=-d;
+                return d;
+              }
+
           }
         }
         if (this.exponent.CompareToInt(309) > 0) {
@@ -5678,6 +5723,52 @@ namespace PeterO.Numbers {
               var dn = (float)m / (float)vtp;
               return this.IsNegative ? -dn : dn;
             }
+
+int divdCount = NumberUtility.BitLength(m);
+       int divsCount = NumberUtility.BitLength(vtp);
+            int dividendShift = (divdCount <= divsCount) ? ((divsCount -
+                  divdCount) + 24 + 1) : Math.Max(0,
+                  (24 + 1) - (divdCount - divsCount));
+long lquo = -1;
+long lrem = -1;
+  if (divsCount + dividendShift > 63) {
+    EInteger eim = EInteger.FromInt32(m).ShiftLeft(dividendShift);
+    EInteger[] divrem3 = eim.DivRem(EInteger.FromInt32(vtp));
+    EInteger equo = divrem3[0];
+    EInteger erem = divrem3[1];
+    if (equo.CanFitInInt64() && erem.CanFitInInt64()) {
+      lquo = equo.ToInt64Checked();
+      lrem = erem.ToInt64Checked();
+    }
+  } else {
+    long ldividend = ((long)m) << dividendShift;
+    lquo = ldividend / vtp;
+    lrem = ldividend - (lquo * vtp);
+  }
+  int nexp = -dividendShift;
+  if (lquo >= (1L << 24)) {
+                while (lquo >= (1L << 25)) {
+                  lrem |= lquo & 1L;
+                  lquo >>= 1;
+                  ++nexp;
+                }
+                if ((lquo & 3L) != 0 && lrem == 0) {
+                  lquo >>= 1;
+                  ++lquo;
+                  ++nexp;
+                } else if ((lquo & 1L) != 0 && lrem != 0) {
+                  lquo >>= 1;
+                  ++lquo;
+                  ++nexp;
+                } else {
+                  lquo >>= 1;
+                  ++nexp;
+                }
+                float d = ((float)lquo) * (float)Math.Pow(2, nexp);
+                if(this.IsNegative)d=-d;
+                return d;
+              }
+
           }
         }
         if (this.exponent.CompareToInt(39) > 0) {

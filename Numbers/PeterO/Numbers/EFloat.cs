@@ -99,47 +99,6 @@ namespace PeterO.Numbers {
     //-----------------------------------------------
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
-
-    private static readonly EFloat[] Cache = EFloatCache(CacheFirst,
-        CacheLast);
-
-    private static EFloat[] EFloatCache(int first, int last) {
-      #if DEBUG
-      if (first < -65535) {
-        throw new ArgumentException("first (" + first + ") is not greater" +
-          "\u0020or equal" + "\u0020to " + (-65535));
-      }
-      if (first > 65535) {
-        throw new ArgumentException("first (" + first + ") is not less or" +
-          "\u0020equal to" + "\u002065535");
-      }
-      if (last < -65535) {
-        throw new ArgumentException("last (" + last + ") is not greater or" +
-          "\u0020equal" + "\u0020to " + (-65535));
-      }
-      if (last > 65535) {
-        throw new ArgumentException("last (" + last + ") is not less or" +
-          "\u0020equal to" + "65535");
-      }
-      #endif
-
-      var cache = new EFloat[(last - first) + 1];
-      int i;
-      for (i = first; i <= last; ++i) {
-        if (i == 0) {
-          cache[i - first] = Zero;
-        } else if (i == 1) {
-          cache[i - first] = One;
-        } else if (i == 10) {
-          cache[i - first] = Ten;
-        } else {
-          cache[i - first] = new EFloat(
-            EInteger.FromInt32(Math.Abs(i)),
-            EInteger.Zero,
-            (i < 0 ? BigNumberFlags.FlagNegative : 0)); } }
-      return cache;
-    }
-
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
@@ -178,7 +137,7 @@ namespace PeterO.Numbers {
     public static readonly EFloat One = new EFloat(
         EInteger.One,
         EInteger.Zero,
-        BigNumberFlags.FlagNegative);
+        0);
 
     /// <summary>Positive infinity, greater than any other
     /// number.</summary>
@@ -222,6 +181,49 @@ namespace PeterO.Numbers {
         EInteger.Zero,
         EInteger.Zero,
         0);
+
+    private static readonly EFloat[] Cache = EFloatCache(CacheFirst,
+        CacheLast);
+
+    private static EFloat[] EFloatCache(int first, int last) {
+      #if DEBUG
+      if (first < -65535) {
+        throw new ArgumentException("first (" + first + ") is not greater" +
+          "\u0020or equal" + "\u0020to " + (-65535));
+      }
+      if (first > 65535) {
+        throw new ArgumentException("first (" + first + ") is not less or" +
+          "\u0020equal to" + "\u002065535");
+      }
+      if (last < -65535) {
+        throw new ArgumentException("last (" + last + ") is not greater or" +
+          "\u0020equal" + "\u0020to " + (-65535));
+      }
+      if (last > 65535) {
+        throw new ArgumentException("last (" + last + ") is not less or" +
+          "\u0020equal to" + "65535");
+      }
+      #endif
+
+      var cache = new EFloat[(last - first) + 1];
+      int i;
+      for (i = first; i <= last; ++i) {
+        if (i == 0) {
+          cache[i - first] = Zero;
+        } else if (i == 1) {
+          cache[i - first] = One;
+        } else if (i == 10) {
+          cache[i - first] = Ten;
+        } else {
+          cache[i - first] = new EFloat(
+            EInteger.FromInt32(Math.Abs(i)),
+            EInteger.Zero,
+            (i < 0) ? BigNumberFlags.FlagNegative : 0);
+        }
+      }
+      return cache;
+    }
+
     //----------------------------------------------------------------
     private static readonly IRadixMath<EFloat> MathValue = new
 TrappableRadixMath<EFloat>(
@@ -389,10 +391,15 @@ TrappableRadixMath<EFloat>(
       if (mantissa == null) {
         throw new ArgumentNullException(nameof(mantissa));
       }
-      return (exponentSmall == 0 && mantissa.CompareTo(CacheFirst) >= 0 &&
-        mantissa.CompareTo(CacheLast) <= 0) ?
-Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
-  EInteger.FromInt32(exponentSmall)));
+      if (exponentSmall == 0 && mantissa.CompareTo(CacheFirst) >= 0 &&
+        mantissa.CompareTo(CacheLast) <= 0) {
+        return Cache[mantissa.ToInt32Checked() - CacheFirst];
+      }
+      int sign = mantissa.Sign;
+      return new EFloat(
+          sign < 0 ? (-(EInteger)mantissa) : mantissa,
+          EInteger.FromInt32(exponentSmall),
+          (sign < 0) ? BigNumberFlags.FlagNegative : 0);
     }
 
     /// <summary>Returns a number with the value
@@ -571,7 +578,7 @@ Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public static EFloat FromEInteger(EInteger bigint) {
-      return EFloat.Create(bigint, EInteger.Zero);
+      return EFloat.Create(bigint, (int)0);
     }
 
     /// <summary>Creates a binary floating-point number from a 32-bit
@@ -976,7 +983,7 @@ Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
           mantissaLong = -mantissaLong;
         }
         long absfinalexp = Math.Abs(finalexp);
-        ef1 = EFloat.Create(EInteger.FromInt64(mantissaLong), EInteger.Zero);
+        ef1 = EFloat.Create(mantissaLong, (int)0);
         ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
         if (finalexp < 0) {
           EFloat efret = ef1.Divide(ef2, ctx);
@@ -2959,7 +2966,7 @@ Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
       int desiredExponentInt,
       EContext ctx) {
       return this.Quantize(
-          EFloat.Create(EInteger.One, (EInteger)desiredExponentInt),
+          EFloat.Create(1, desiredExponentInt),
           ctx);
     }
 
@@ -4487,9 +4494,15 @@ Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
     public static EFloat FromInt32(int inputInt32) {
-      return (inputInt32 >= CacheFirst && inputInt32 <= CacheLast) ?
-Cache[inputInt32 - CacheFirst] :
-FromEInteger(EInteger.FromInt32(inputInt32));
+      if (inputInt32 >= CacheFirst && inputInt32 <= CacheLast)
+        return Cache[inputInt32 - CacheFirst];
+      if (inputInt32 == Int32.MinValue) {
+         return FromEInteger(EInteger.FromInt32(inputInt32));
+      }
+      return new EFloat(
+          EInteger.FromInt32(inputInt32),
+          EInteger.Zero,
+          (inputInt32 < 0) ? BigNumberFlags.FlagNegative : 0);
     }
 
     /// <summary>Converts this number's value to a 64-bit signed integer if
@@ -4540,9 +4553,15 @@ FromEInteger(EInteger.FromInt32(inputInt32));
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
     public static EFloat FromInt64(long inputInt64) {
-      return (inputInt64 >= CacheFirst && inputInt64 <= CacheLast) ?
-Cache[(int)inputInt64 - CacheFirst] :
-FromEInteger(EInteger.FromInt64(inputInt64));
+      if (inputInt64 >= CacheFirst && inputInt64 <= CacheLast)
+         return Cache[(int)inputInt64 - CacheFirst];
+      if (inputInt64 == Int64.MinValue) {
+         return FromEInteger(EInteger.FromInt64(inputInt64));
+      }
+      return new EFloat(
+          EInteger.FromInt64(inputInt64),
+          EInteger.Zero,
+          (inputInt64 < 0) ? BigNumberFlags.FlagNegative : 0);
     }
 
     // End integer conversions

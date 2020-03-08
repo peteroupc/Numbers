@@ -3742,8 +3742,8 @@ namespace PeterO.Numbers {
             quo = divrem3[0];
             rem = divrem3[1];
             if (ctx == EContext.Binary64 &&
-                quo.GetUnsignedBitLengthAsInt64() < 63 &&
-                rem.GetUnsignedBitLengthAsInt64() < 63) {
+                quo.CanFitInInt64() &&
+                rem.CanFitInInt64()) {
               long lquo = quo.ToInt64Checked();
               long lrem = rem.ToInt64Checked();
               int nexp = -dividendShift;
@@ -3772,8 +3772,8 @@ namespace PeterO.Numbers {
               }
             }
             if (ctx == EContext.Binary32 &&
-                quo.GetUnsignedBitLengthAsInt64() < 63 &&
-                rem.GetUnsignedBitLengthAsInt64() < 63) {
+                quo.CanFitInInt64() &&
+                rem.CanFitInInt64()) {
               long lquo = quo.ToInt64Checked();
               long lrem = rem.ToInt64Checked();
               int nexp = -dividendShift;

@@ -1596,7 +1596,11 @@ namespace Test {
         string msg = "str=" + str + "\nef=" + OutputEF(ef);
         Assert.Fail(msg);
       } else {
-        Assert.IsTrue(ed.IsNegative == ef.IsNegative);
+        if (ed.IsNegative != ef.IsNegative){
+          string msg = "not negative str=" + str +
+              "\nef=" + OutputEF(ef);
+          Assert.Fail(msg);
+        }
         EInteger eimant = ef.Abs().Mantissa;
         long lmant = eimant.ToInt64Checked();
         int exp = ef.Exponent.ToInt32Checked();
@@ -1608,7 +1612,9 @@ namespace Test {
           ++exp;
           lmant >>= 1;
         }
-        Assert.IsTrue(lmant < (1L << 53));
+        if (lmant >= (1L << 53)) {
+
+        }
         ERational ulp = PowerOfTwo(exp);
         ERational half = ulp.Divide(2);
         ERational binValue = ERational.FromInt64(lmant).Multiply(ulp);
