@@ -3741,8 +3741,7 @@ namespace PeterO.Numbers {
             EInteger[] divrem3 = absdivd.DivRem(absdivs);
             quo = divrem3[0];
             rem = divrem3[1];
-            if (ctx == EContext.Binary64 &&
-                quo.CanFitInInt64() &&
+            if (ctx == EContext.Binary64 && quo.CanFitInInt64() &&
                 rem.CanFitInInt64()) {
               long lquo = quo.ToInt64Checked();
               long lrem = rem.ToInt64Checked();
@@ -3753,7 +3752,7 @@ namespace PeterO.Numbers {
                   lquo >>= 1;
                   ++nexp;
                 }
-                if ((lquo & 3L) != 0 && lrem == 0) {
+                if ((lquo & 3L) == 3 && lrem == 0) {
                   lquo >>= 1;
                   ++lquo;
                   ++nexp;
@@ -3765,14 +3764,17 @@ namespace PeterO.Numbers {
                   lquo >>= 1;
                   ++nexp;
                 }
+                while (lquo >= (1L << 53)) {
+                  lquo >>= 1;
+                  ++nexp;
+                }
                 return this.helper.CreateNewWithFlags(
                    EInteger.FromInt64(lquo),
                    EInteger.FromInt64(nexp),
                    resultNeg ? BigNumberFlags.FlagNegative : 0);
               }
             }
-            if (ctx == EContext.Binary32 &&
-                quo.CanFitInInt64() &&
+            if (ctx == EContext.Binary32 && quo.CanFitInInt64() &&
                 rem.CanFitInInt64()) {
               long lquo = quo.ToInt64Checked();
               long lrem = rem.ToInt64Checked();
@@ -3783,7 +3785,7 @@ namespace PeterO.Numbers {
                   lquo >>= 1;
                   ++nexp;
                 }
-                if ((lquo & 3L) != 0 && lrem == 0) {
+                if ((lquo & 3L) == 3 && lrem == 0) {
                   lquo >>= 1;
                   ++lquo;
                   ++nexp;
@@ -3792,6 +3794,10 @@ namespace PeterO.Numbers {
                   ++lquo;
                   ++nexp;
                 } else {
+                  lquo >>= 1;
+                  ++nexp;
+                }
+                while (lquo >= (1L << 24)) {
                   lquo >>= 1;
                   ++nexp;
                 }

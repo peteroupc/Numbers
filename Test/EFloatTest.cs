@@ -1596,7 +1596,7 @@ namespace Test {
         string msg = "str=" + str + "\nef=" + OutputEF(ef);
         Assert.Fail(msg);
       } else {
-        if (ed.IsNegative != ef.IsNegative){
+        if (ed.IsNegative != ef.IsNegative) {
           string msg = "not negative str=" + str +
               "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -1613,7 +1613,6 @@ namespace Test {
           lmant >>= 1;
         }
         if (lmant >= (1L << 53)) {
-
         }
         ERational ulp = PowerOfTwo(exp);
         ERational half = ulp.Divide(2);
@@ -1689,9 +1688,11 @@ EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
   false).WithExponentClamp(true).WithSimplified(false);
 EInteger
   emant =
+
   EInteger.FromString("88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
 EInteger
   eexp =
+
   EInteger.FromString("1000000000000000000000000000000000000000000000000000000000000");
 EFloat efmant = EFloat.FromEInteger(emant);
 EFloat efexp = EFloat.FromEInteger(eexp);

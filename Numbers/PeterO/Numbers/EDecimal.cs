@@ -5456,7 +5456,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Converts this value to its closest equivalent as a 64-bit
-    /// floating-point number. The half-even rounding mode is used.
+    /// floating-point number, using the half-even rounding mode.
     /// <para>If this value is a NaN, sets the high bit of the 64-bit
     /// floating point number's significand area for a quiet NaN, and
     /// clears it for a signaling NaN. Then the other bits of the
@@ -5519,14 +5519,14 @@ namespace PeterO.Numbers {
               var dn = (double)m / (double)vtp;
               return this.IsNegative ? -dn : dn;
             }
-int divdCount = NumberUtility.BitLength(m);
-       int divsCount = NumberUtility.BitLength(vtp);
+            int divdCount = NumberUtility.BitLength(m);
+            int divsCount = NumberUtility.BitLength(vtp);
             int dividendShift = (divdCount <= divsCount) ? ((divsCount -
                   divdCount) + 53 + 1) : Math.Max(0,
                   (53 + 1) - (divdCount - divsCount));
-long lquo = -1;
-long lrem = -1;
-  if (divsCount + dividendShift > 63) {
+                long lquo = -1;
+                long lrem = -1;
+                if (divsCount + dividendShift > 63) {
     EInteger eim = EInteger.FromInt32(m).ShiftLeft(dividendShift);
     EInteger[] divrem3 = eim.DivRem(EInteger.FromInt32(vtp));
     EInteger equo = divrem3[0];
@@ -5542,12 +5542,12 @@ long lrem = -1;
   }
   int nexp = -dividendShift;
   if (lquo >= (1L << 53)) {
-                while (lquo >= (1L << 54)) {
+    while (lquo >= (1L << 54)) {
                   lrem |= lquo & 1L;
                   lquo >>= 1;
                   ++nexp;
                 }
-                if ((lquo & 3L) != 0 && lrem == 0) {
+                if ((lquo & 3L) == 3 && lrem == 0) {
                   lquo >>= 1;
                   ++lquo;
                   ++nexp;
@@ -5559,11 +5559,21 @@ long lrem = -1;
                   lquo >>= 1;
                   ++nexp;
                 }
-                double d = ((double)lquo) * Math.Pow(2, nexp);
-                if(this.IsNegative)d=-d;
-                return d;
+                while (lquo >= (1L << 53)) {
+                  lquo >>= 1;
+                  ++nexp;
+                }
+                int mb0 = unchecked((int)(lquo & 0xffffffffL));
+                int mb1 = unchecked((int)((lquo >> 32) & 0xffffffffL));
+      // Clear the high bits where the exponent and sign are
+      mb1 &= 0xfffff;
+      // NOTE: Assumed not to be subnormal
+      mb1 |= (nexp + 1075) << 20;
+      if (this.IsNegative) {
+        mb1 |= unchecked((int)(1 << 31));
+      }
+      return Extras.IntegersToDouble(mb0, mb1);
               }
-
           }
         }
         if (this.exponent.CompareToInt(309) > 0) {
@@ -5575,14 +5585,13 @@ long lrem = -1;
       return this.ToEFloat(EContext.Binary64).ToDouble();
     }
 
-    /// <summary>Converts this value to an arbitrary-precision integer. Any
-    /// fractional part in this value will be discarded when converting to
-    /// an arbitrary-precision integer. Note that depending on the value,
-    /// especially the exponent, generating the arbitrary-precision integer
-    /// may require a huge amount of memory. Use the ToSizedEInteger method
-    /// to convert a number to an EInteger only if the integer fits in a
-    /// bounded bit range; that method will throw an exception on
-    /// overflow.</summary>
+    /// <summary>Converts this value to an arbitrary-precision integer,
+    /// discarding the fractional part in this value. Note that depending
+    /// on the value, especially the exponent, generating the
+    /// arbitrary-precision integer may require a huge amount of memory.
+    /// Use the ToSizedEInteger method to convert a number to an EInteger
+    /// only if the integer fits in a bounded bit range; that method will
+    /// throw an exception on overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
@@ -5636,7 +5645,8 @@ long lrem = -1;
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
     /// case the resulting binary floating-point number will be an
-    /// approximation of this decimal number's value.</summary>
+    /// approximation of this decimal number's value, using the half-even
+    /// rounding mode.</summary>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     [Obsolete("Renamed to ToEFloat.")]
@@ -5648,7 +5658,8 @@ long lrem = -1;
     /// value. Note that if the binary floating-point number contains a
     /// negative exponent, the resulting value might not be exact, in which
     /// case the resulting binary floating-point number will be an
-    /// approximation of this decimal number's value.</summary>
+    /// approximation of this decimal number's value, using the half-even
+    /// rounding mode.</summary>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
     public EFloat ToEFloat() {
@@ -5663,7 +5674,7 @@ long lrem = -1;
     }
 
     /// <summary>Converts this value to its closest equivalent as a 32-bit
-    /// floating-point number. The half-even rounding mode is used.
+    /// floating-point number, using the half-even rounding mode.
     /// <para>If this value is a NaN, sets the high bit of the 32-bit
     /// floating point number's significand area for a quiet NaN, and
     /// clears it for a signaling NaN. Then the other bits of the
@@ -5724,14 +5735,14 @@ long lrem = -1;
               return this.IsNegative ? -dn : dn;
             }
 
-int divdCount = NumberUtility.BitLength(m);
+       int divdCount = NumberUtility.BitLength(m);
        int divsCount = NumberUtility.BitLength(vtp);
             int dividendShift = (divdCount <= divsCount) ? ((divsCount -
                   divdCount) + 24 + 1) : Math.Max(0,
                   (24 + 1) - (divdCount - divsCount));
-long lquo = -1;
-long lrem = -1;
-  if (divsCount + dividendShift > 63) {
+                long lquo = -1;
+                long lrem = -1;
+                if (divsCount + dividendShift > 63) {
     EInteger eim = EInteger.FromInt32(m).ShiftLeft(dividendShift);
     EInteger[] divrem3 = eim.DivRem(EInteger.FromInt32(vtp));
     EInteger equo = divrem3[0];
@@ -5747,12 +5758,12 @@ long lrem = -1;
   }
   int nexp = -dividendShift;
   if (lquo >= (1L << 24)) {
-                while (lquo >= (1L << 25)) {
+    while (lquo >= (1L << 25)) {
                   lrem |= lquo & 1L;
                   lquo >>= 1;
                   ++nexp;
                 }
-                if ((lquo & 3L) != 0 && lrem == 0) {
+                if ((lquo & 3L) == 3 && lrem == 0) {
                   lquo >>= 1;
                   ++lquo;
                   ++nexp;
@@ -5764,11 +5775,20 @@ long lrem = -1;
                   lquo >>= 1;
                   ++nexp;
                 }
-                float d = ((float)lquo) * (float)Math.Pow(2, nexp);
-                if(this.IsNegative)d=-d;
-                return d;
+                while (lquo >= (1L << 24)) {
+                  lquo >>= 1;
+                  ++nexp;
+                }
+                var smallmantissa = (int)(lquo & 0x7fffff);
+      // NOTE: Assumed not to be subnormal
+      smallmantissa |= (nexp + 150) << 23;
+      if (this.IsNegative) {
+        smallmantissa |= 1 << 31;
+      }
+      return BitConverter.ToSingle(
+          BitConverter.GetBytes((int)smallmantissa),
+          0);
               }
-
           }
         }
         if (this.exponent.CompareToInt(39) > 0) {

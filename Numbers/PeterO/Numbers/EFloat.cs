@@ -99,6 +99,7 @@ namespace PeterO.Numbers {
     //-----------------------------------------------
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
+
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
@@ -416,8 +417,8 @@ TrappableRadixMath<EFloat>(
       }
       return (exponentLong == 0 && mantissa.CompareTo(CacheFirst) >= 0 &&
         mantissa.CompareTo(CacheLast) <= 0) ?
-Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
-  EInteger.FromInt64(exponentLong)));
+Cache[mantissa.ToInt32Checked() - CacheFirst] : Create(mantissa,
+  EInteger.FromInt64(exponentLong));
     }
 
     /// <summary>Returns a number with the value
@@ -4494,13 +4495,14 @@ Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
     public static EFloat FromInt32(int inputInt32) {
-      if (inputInt32 >= CacheFirst && inputInt32 <= CacheLast)
-        return Cache[inputInt32 - CacheFirst];
+if (inputInt32 >= CacheFirst && inputInt32 <= CacheLast) {
+  return Cache[inputInt32 - CacheFirst];
+}
       if (inputInt32 == Int32.MinValue) {
-         return FromEInteger(EInteger.FromInt32(inputInt32));
-      }
+  return FromEInteger(EInteger.FromInt32(inputInt32));
+}
       return new EFloat(
-          EInteger.FromInt32(inputInt32),
+          EInteger.FromInt32(Math.Abs(inputInt32)),
           EInteger.Zero,
           (inputInt32 < 0) ? BigNumberFlags.FlagNegative : 0);
     }
@@ -4553,13 +4555,14 @@ Cache[mantissa.ToInt32Checked() - CacheFirst] : (Create(mantissa,
     /// <returns>This number's value as an arbitrary-precision binary
     /// floating-point number.</returns>
     public static EFloat FromInt64(long inputInt64) {
-      if (inputInt64 >= CacheFirst && inputInt64 <= CacheLast)
-         return Cache[(int)inputInt64 - CacheFirst];
+if (inputInt64 >= CacheFirst && inputInt64 <= CacheLast) {
+  return Cache[(int)inputInt64 - CacheFirst];
+}
       if (inputInt64 == Int64.MinValue) {
-         return FromEInteger(EInteger.FromInt64(inputInt64));
-      }
+  return FromEInteger(EInteger.FromInt64(inputInt64));
+}
       return new EFloat(
-          EInteger.FromInt64(inputInt64),
+          EInteger.FromInt64(Math.Abs(inputInt64)),
           EInteger.Zero,
           (inputInt64 < 0) ? BigNumberFlags.FlagNegative : 0);
     }
