@@ -350,10 +350,10 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
 * <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
 * <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to a decimal under the Common Language Infrastructure (see T:PeterO.
-* <code>[ToDouble()](#ToDouble)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number.
+* <code>[ToDouble()](#ToDouble)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number, using the half-even rounding mode.
 * <code>[ToEFloat()](#ToEFloat)</code> - Creates a binary floating-point number from this object's value.
 * <code>[ToEFloat(PeterO.Numbers.EContext)](#ToEFloat_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from this object's value.
-* <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer.
+* <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer, discarding the fractional part in this value.
 * <code>[ToEIntegerExact()](#ToEIntegerExact)</code> - <b>Deprecated:</b> Renamed to ToEIntegerIfExact.
 * <code>[ToEIntegerIfExact()](#ToEIntegerIfExact)</code> - Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost.
 * <code>[ToEngineeringString()](#ToEngineeringString)</code> - Same as ToString(), except that when an exponent is used it will be a multiple of 3.
@@ -371,7 +371,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[ToSByteChecked()](#ToSByteChecked)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
-* <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number.
+* <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number, using the half-even rounding mode.
 * <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Converts this value to an arbitrary-precision integer by discarding its fractional part and checking whether the resulting integer overflows the given signed bit count.
 * <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Converts this value to an arbitrary-precision integer, only if this number's value is an exact integer and that integer does not overflow the given signed bit count.
 * <code>[ToString()](#ToString)</code> - Converts this value to a string.
@@ -4228,7 +4228,7 @@ A  `decimal`  under the Common Language Infrastructure (usually a.NET Framework 
 
     public double ToDouble();
 
-Converts this value to its closest equivalent as a 64-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+Converts this value to its closest equivalent as a 64-bit floating-point number, using the half-even rounding mode. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Return Value:</b>
 
@@ -4255,7 +4255,7 @@ An arbitrary-precision float floating-point number.
 
     public PeterO.Numbers.EFloat ToEFloat();
 
-Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value.
+Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value, using the half-even rounding mode.
 
 <b>Return Value:</b>
 
@@ -4266,7 +4266,7 @@ An arbitrary-precision binary floating-point number.
 
     public PeterO.Numbers.EInteger ToEInteger();
 
-Converts this value to an arbitrary-precision integer. Any fractional part in this value will be discarded when converting to an arbitrary-precision integer. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEInteger method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
+Converts this value to an arbitrary-precision integer, discarding the fractional part in this value. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEInteger method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4338,7 +4338,7 @@ A text string.
 
 <b>Deprecated.</b> Renamed to ToEFloat.
 
-Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value.
+Creates a binary floating-point number from this object's value. Note that if the binary floating-point number contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value, using the half-even rounding mode.
 
 <b>Return Value:</b>
 
@@ -4538,7 +4538,7 @@ This number, converted to an 8-bit signed integer. Returns 0 if this value is in
 
     public float ToSingle();
 
-Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+Converts this value to its closest equivalent as a 32-bit floating-point number, using the half-even rounding mode. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Return Value:</b>
 

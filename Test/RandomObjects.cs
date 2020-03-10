@@ -403,7 +403,7 @@ valueSpecialDecimals.Length;
       if (r == null) {
         throw new ArgumentNullException(nameof(r));
       }
-      if (r.GetInt32(100) < 10) {
+      if (r.GetInt32(100) < 95) {
         return GenerateEDecimalSmallString(r, extended);
       }
       long count = ((long)r.GetInt32(MaxNumberLength) *

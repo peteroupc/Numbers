@@ -837,6 +837,12 @@ Returns a number with the value exponent*2^significand.
 
 An arbitrary-precision binary floating-point number.
 
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>mantissa</i>
+ is null.
+
 <a id="Create_PeterO_Numbers_EInteger_long"></a>
 ### Create
 
@@ -855,6 +861,12 @@ Returns a number with the value exponent*2^significand.
 <b>Return Value:</b>
 
 An arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>mantissa</i>
+ is null.
 
 <a id="Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Create

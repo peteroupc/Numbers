@@ -5379,6 +5379,9 @@ namespace Test {
         // and mantissa
         EInteger mantBig = RandomObjects.RandomEInteger(fr);
         EInteger expBig = RandomObjects.RandomEInteger(fr);
+        Console.WriteLine("i="+i+" mant="+
+           mantBig.GetUnsignedBitLengthAsInt64()+" expBig="+
+           expBig.GetUnsignedBitLengthAsInt64());
         EDecimal dec = EDecimal.Create(mantBig, expBig);
         ExtraTest.TestStringEqualRoundTrip(dec);
       }
@@ -5577,17 +5580,17 @@ namespace Test {
 
     [Test]
     public void TestStringContextSpecific4e() {
-EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+  EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
   1023).WithRounding(
   ERounding.Down).WithAdjustExponent(
   false).WithExponentClamp(true).WithSimplified(false);
-string str = TestCommon.Repeat("8", 257) + "." +
+  string str = TestCommon.Repeat("8", 257) + "." +
 TestCommon.Repeat("8",
   120) + "E+60";
-EFloat ef = EFloat.FromString(str, ec);
-EFloat ef2 = EDecimal.FromString(str).ToEFloat(ec);
-Assert.AreEqual(ef, ef2);
-EDecimalTest.TestStringContextOneEFloat(str, ec);
+  EFloat ef = EFloat.FromString(str, ec);
+  EFloat ef2 = EDecimal.FromString(str).ToEFloat(ec);
+  Assert.AreEqual(ef, ef2);
+  EDecimalTest.TestStringContextOneEFloat(str, ec);
     }
 
     [Test]
@@ -5690,46 +5693,38 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
       }
     }
 
+    public static void TestStringContextOne(
+      string str,
+      EContext ec) {
+      TestStringContextOne(str, null, ec);
+    }
+
     // Test potential cases where FromString is implemented
     // to take context into account when building the EDecimal
-    public static void TestStringContextOne(string str, EContext ec) {
+    public static void TestStringContextOne(
+      string str,
+      EDecimal ed,
+      EContext ec) {
       if (ec == null) {
         throw new ArgumentNullException(nameof(ec));
       }
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      //Console.WriteLine("TestStringContextOne length=" + str.Length);
       EContext noneRounding = ec.WithRounding(
           ERounding.None).WithTraps(EContext.FlagInvalid);
       EContext downRounding = ec.WithRounding(ERounding.Down);
-      EDecimal ed, ed2;
-      // Console.Write("TestStringContextOne ---- ec=" + (ec));
-      // swUnopt.Restart();
-      ed = EDecimal.FromString(str);
-      EDecimal edorig = ed;
-      // swUnoptRound.Restart();
-      ed = ed.RoundToPrecision(ec);
-      /*
-       swUnoptRound.Stop();
-       swUnopt.Stop();
-       swOpt2.Restart();
-      */
-      ed2 = EDecimal.FromString(str, ec);
-      /*
-      swOpt2.Stop();
-      unoptTime+=swUnopt.ElapsedMilliseconds;
-      unoptRoundTime+=swUnoptRound.ElapsedMilliseconds;
-      optTime+=swOpt2.ElapsedMilliseconds;
-      if (swUnopt.ElapsedMilliseconds>100 &&
-         swUnopt.ElapsedMilliseconds/4 <= swOpt2.ElapsedMilliseconds) {
-       string bstr = str.Substring(0, Math.Min(str.Length, 200)) +
-         (str.Length > 200 ? "..." : String.Empty);
-       string edstr = ed.ToString();
-       edstr = edstr.Substring(0, Math.Min(edstr.Length, 200)) +
-         (edstr.Length > 200 ? "..." : String.Empty);
-       Console.WriteLine(bstr +"\nresult=" + edstr + "\n" + ECString(ec)
-      +"\nunopt="+
-            swUnopt.ElapsedMilliseconds+" ms; opt="+swOpt2.ElapsedMilliseconds);
+      EDecimal ed2;
+      ed = ed ?? EDecimal.FromString(str);
+      if (ed == null) {
+        Assert.Fail();
       }
-      */
-
+      EDecimal edorig = ed;
+      ed = ed.RoundToPrecision(ec);
+      ed2 = EDecimal.FromString(str, ec);
+      // Console.WriteLine("exponent "+ed.Exponent+
+      // " "+ed2.Exponent);
       EDecimal ef3 = EDecimal.NaN;
       try {
         ef3 = EDecimal.FromString(str, noneRounding);
@@ -5778,7 +5773,7 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
           bstr += "# " + ecf.Precision + " / " + ec.Precision + "\r\n";
           bstr += DecTestUtil.ContextToDecTestForm(ecf);
           bstr += "untitled toSci " + str + " -> " + ed.ToString() +
-            DecTestUtil.FlagsToString(ecf.Flags) + "\n";
+            " " + DecTestUtil.FlagsToString(ecf.Flags) + "\n";
           str = ed2.ToString();
           bstr += "# exponent: actual " + ed2.Exponent + ", expected " +
             ed.Exponent + "\n";
@@ -5787,8 +5782,8 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
         } else {
           bstr += "# " + str.Substring(0, Math.Min(str.Length, 200)) +
             (str.Length > 200 ? "..." : String.Empty);
-          bstr += "\n# " + ECString(ec);
         }
+        bstr += "\n# " + ECString(ec);
         throw new InvalidOperationException(bstr);
       }
     }
@@ -5823,15 +5818,23 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
 
     public static void TestStringContextOneEFloatSimple(string str, EContext
       ec) {
-      TestStringContextOneEFloat(str, ec, true);
+      TestStringContextOneEFloat(str, null, ec, true);
     }
 
     public static void TestStringContextOneEFloat(string str, EContext ec) {
-      TestStringContextOneEFloat(str, ec, false);
+      TestStringContextOneEFloat(str, null, ec, false);
     }
 
     public static void TestStringContextOneEFloat(
       string str,
+      EDecimal ed,
+      EContext ec) {
+      TestStringContextOneEFloat(str, ed, ec, false);
+    }
+
+    public static void TestStringContextOneEFloat(
+      string str,
+      EDecimal ed,
       EContext ec,
       bool noLeadingZerosTest) {
       if (ec == null) {
@@ -5840,12 +5843,15 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
       }
+      // Console.WriteLine("EFloat size="+str.Length);
       string leadingZeros = TestCommon.Repeat('0', 800);
       int[] counts = {
-        0, 1, 2, 4, 6, 8, 10, 50, 100, 200, 300, 400,
-        500, 600, 700, 800,
+        0, 1, 2, 50, 200, 600, 800,
       };
-      EDecimal ed = EDecimal.FromString("xyzxyz" + str, 6, str.Length);
+      ed = ed ?? EDecimal.FromString("xyzxyz" + str, 6, str.Length);
+      if (ed == null) {
+        Assert.Fail();
+      }
       EFloat ef = ed.ToEFloat(ec);
       for (var i = 0; i < counts.Length; ++i) {
         // Parse a string with leading zeros (to test whether
@@ -6033,6 +6039,21 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
       TestStringContextOne(sb.ToString(), ec);
     }
 
+ [Test]
+ public void TestStringContextSpecific7a() {
+  EContext ec =
+EContext.Unlimited.WithPrecision(
+  9).WithRounding(
+  ERounding.HalfEven).WithAdjustExponent(
+  true).WithExponentClamp(false).WithSimplified(false);
+  string str =
+
+  "-54887844326635" + TestCommon.Repeat("0", 1562) + "." + TestCommon.Repeat("0", 613) + "";
+  EDecimal ed = EDecimal.FromString(str, ec);
+  Assert.AreEqual(EInteger.FromInt32(1567), ed.Exponent);
+  TestStringContextOne(str, ec);
+}
+
     [Test]
     public void TestStringContextSpecific6() {
       var sb = new StringBuilder();
@@ -6135,7 +6156,7 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
           EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
             1023).WithRounding(ERounding.Down).WithAdjustExponent(
             true).WithExponentClamp(true).WithSimplified(false);
-        string str = String.Empty + TestCommon.Repeat("6", 4605) + "." +
+        string str = TestCommon.Repeat("6", 4605) + "." +
           TestCommon.Repeat("6",
             1538) + "E-999";
         TestStringContextOneEFloat(str, ec);
@@ -6146,7 +6167,7 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
           EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
             1023).WithRounding(ERounding.Ceiling).WithAdjustExponent(
             true).WithExponentClamp(true).WithSimplified(false);
-        string str = String.Empty + TestCommon.Repeat("2", 6125) + "E-6143";
+        string str = TestCommon.Repeat("2", 6125) + "E-6143";
         TestStringContextOneEFloat(str, ec);
       }
       {
@@ -6154,7 +6175,7 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
           EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
             1023).WithRounding(ERounding.Down).WithAdjustExponent(
             true).WithExponentClamp(true).WithSimplified(false);
-        string str = String.Empty + TestCommon.Repeat("2", 6165) + "E-6144";
+        string str = TestCommon.Repeat("2", 6165) + "E-6144";
         TestStringContextOneEFloat(str, ec);
       }
       {
@@ -6244,7 +6265,7 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
     public static void TestStringContextEDecimal() {
       EContext[] econtexts = {
         EContext.Basic,
-        EContext.Basic.WithExponentRange(-95, 96),
+        /* EContext.Basic.WithExponentRange(-95, 96),
         EContext.Basic.WithAdjustExponent(false),
         EContext.Decimal32,
         EContext.Decimal32.WithAdjustExponent(false),
@@ -6260,6 +6281,7 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
         EContext.Decimal64,
         EContext.Decimal64.WithAdjustExponent(false),
         EContext.Unlimited.WithExponentRange(-64, 64),
+        */
       };
       TestStringContextCore(econtexts, false);
     }
@@ -6359,15 +6381,16 @@ EDecimalTest.TestStringContextOneEFloat(str, ec);
         } else {
           sbs = RandomObjects.RandomDecimalString(rand);
         }
+        EDecimal ed = EDecimal.FromString("xyzxyz" + sbs, 6, sbs.Length);
         for (var j = 0; j < econtexts.Length; ++j) {
           ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
           EContext ec = econtexts[j];
           ERounding thisrounding = ec.Rounding;
           ec = (rounding == thisrounding) ? ec : ec.WithRounding(rounding);
           if (efloat) {
-            TestStringContextOneEFloat(sbs, ec);
+            TestStringContextOneEFloat(sbs, ed, ec, false);
           }
-          TestStringContextOne(sbs, ec);
+          TestStringContextOne(sbs, ed, ec);
         }
       }
       TearDown();
