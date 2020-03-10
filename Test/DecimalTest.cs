@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -45,37 +45,58 @@ namespace Test {
     [Timeout(100000)]
     public void TestDecimalString() {
       var fr = new RandomGenerator();
+      // var sw = new System.Diagnostics.Stopwatch();
+      // var sw2 = new System.Diagnostics.Stopwatch();
       for (var i = 0; i < 10000; ++i) {
+        if (i % 100 == 0) {
+          Console.WriteLine(i);
+        }
         EDecimal ed = RandomObjects.RandomEDecimal(fr);
+        // Reduce to Decimal128. Without this reduction,
+        // Decimal.Parse would run significantly more slowly // on average for random
+        // EDecimals than
+        // EDecimal.FromString(CliDecimal) does.
+        // Decimal128 covers all numbers representable
+        // in a CliDecimal.
+        ed = ed.RoundToPrecision(EContext.Decimal128);
         if (!ed.IsFinite) {
           continue;
         }
+        string edString = ed.ToString();
+        // Console.WriteLine("eds=" + (//edString.Length) + " sw=" +
+        //sw.ElapsedMilliseconds + ", " + (sw2.ElapsedMilliseconds));
         decimal d;
         try {
           System.Globalization.NumberStyles numstyles =
             System.Globalization.NumberStyles.AllowExponent |
             System.Globalization.NumberStyles.Number;
+// sw.Start();
           d = Decimal.Parse(
-              ed.ToString(),
+              edString,
               numstyles,
               System.Globalization.CultureInfo.InvariantCulture);
+// sw.Stop();
+// sw2.Start();
           EDecimal ed3 = EDecimal.FromString(
-              ed.ToString(),
+              edString,
               EContext.CliDecimal);
-          string msg = ed.ToString() + " (expanded: " +
-            EDecimal.FromString(ed.ToString()) + ")";
-          TestCommon.CompareTestEqual(
-            (EDecimal)d,
-            ed3,
-            msg);
+// sw2.Stop();
+          var edd = (EDecimal)d;
+          if (!edd.Equals(ed3)) {
+            string msg = ed.ToString() + " (expanded: " +
+              EDecimal.FromString(ed.ToString()) + ")";
+            TestCommon.CompareTestEqual(
+              (EDecimal)d,
+              ed3,
+              msg);
+          }
         } catch (OverflowException ex) {
           EDecimal ed2 = EDecimal.FromString(
-              ed.ToString(),
+              edString,
               EContext.CliDecimal);
-          Assert.IsTrue(
-            ed2.IsInfinity(),
-            ed.ToString(),
-            ex.ToString());
+          if (!ed2.IsInfinity()) {
+            Assert.Fail(edString + "\n" + ex.ToString());
+          }
         }
       }
     }

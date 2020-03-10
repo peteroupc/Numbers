@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -22,6 +22,7 @@ namespace Test {
         var list = new List<string>(
           Directory.GetFiles(Path.GetDirectoryName(
               System.Reflection.Assembly.GetExecutingAssembly().Location)));
+        list.Sort();
         return list.ToArray();
       } catch (IOException) {
         return new string[0];
@@ -34,6 +35,7 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(1500000)]
     public void TestParser() {
       long failures = 0;
       var errors = new List<string>();
