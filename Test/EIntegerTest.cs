@@ -2696,12 +2696,13 @@ namespace Test {
 
     private static EInteger WordAlignedInteger(RandomGenerator r) {
       int size = r.UniformInt(150) + 1;
-      EInteger ei = EInteger.Zero;
+      var bytes = new byte[(size * 2) + 1];
       for (var i = 0; i < size; ++i) {
-        ei = ei.ShiftLeft(16).Add(EInteger.FromInt32(r.UniformInt(0x10000) |
-              0x8000));
+        int ex = r.UniformInt(0x10000) | 0x8000;
+        bytes[2 * i] = (byte)(ex & 0xff);
+        bytes[(2 * i) + 1] = (byte)((ex >> 8) & 0xff);
       }
-      return ei;
+      return EInteger.FromBytes(bytes, true);
     }
 
     private static EInteger FuzzInteger(
@@ -2872,9 +2873,14 @@ namespace Test {
         } while (bigA.CompareTo(bigB) <= 0);
         TestMultiplyDivideOne(bigA, bigB);
       }
-      for (var i = 0; i < 10000; ++i) {
+      for (var i = 0; i < 100; ++i) {
         EInteger bigA = RandomObjects.RandomEInteger(r);
         EInteger bigB = RandomObjects.RandomEInteger(r);
+        TestMultiplyDivideOne(bigA, bigB);
+      }
+      for (var i = 0; i < 10000; ++i) {
+        EInteger bigA = RandomObjects.RandomEIntegerSmall(r);
+        EInteger bigB = RandomObjects.RandomEIntegerSmall(r);
         TestMultiplyDivideOne(bigA, bigB);
       }
       TestMultiplyDivideOne(EInteger.FromInt32(-985), EInteger.FromInt32(0));

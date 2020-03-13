@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -77,7 +77,7 @@ namespace PeterO.Numbers {
       return i;
     }
 
-    internal static int BitPrecisionInt(int numberValue) {
+    internal static int BitLength(int numberValue) {
       if (numberValue == 0) {
         return 0;
       }
@@ -325,6 +325,24 @@ namespace PeterO.Numbers {
       }
       return (diffLong <= Int32.MaxValue) ? FindPowerOfTen((int)diffLong) :
         FindPowerOfTenFromBig(EInteger.FromInt64(diffLong));
+    }
+
+    internal static EInteger MultiplyByPowerOfTen(EInteger v, int precision) {
+      if (precision < 0 || v.IsZero) {
+        return EInteger.Zero;
+      }
+      if (precision < ValueBigIntPowersOfTen.Length) {
+        return v.Multiply(ValueBigIntPowersOfTen[precision]);
+      }
+      return (precision <= 94) ?
+v.Multiply(FindPowerOfFive(precision)).ShiftLeft(precision) :
+MultiplyByPowerOfFive(v, precision).ShiftLeft(precision);
+    }
+
+    internal static EInteger MultiplyByPowerOfTen(EInteger v, EInteger
+eprecision) {
+      return (eprecision.Sign < 0 || v.IsZero) ? EInteger.Zero :
+MultiplyByPowerOfFive(v, eprecision).ShiftLeft(eprecision);
     }
 
     internal static EInteger MultiplyByPowerOfFive(EInteger v, int precision) {
@@ -609,6 +627,47 @@ namespace PeterO.Numbers {
       return val;
     }
 
+    public static int DecimalDigitLength(int v2) {
+        /*
+#if DEBUG
+        if (!(v2 >= 0)) {
+          throw new ArgumentException("doesn't satisfy v2 >= 0");
+        }
+#endif
+
+        */ if (v2 < 100000) {
+          return (v2 >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
+                3 : ((v2 >= 10) ? 2 : 1)));
+        } else {
+          return (v2 >= 1000000000) ? 10 : ((v2 >= 100000000) ? 9 : ((v2 >=
+                  10000000) ? 8 : ((v2 >= 1000000) ? 7 : 6)));
+        }
+    }
+
+    public static int DecimalDigitLength(long value) {
+      #if DEBUG
+      if (!(value >= 0)) {
+        throw new ArgumentException("doesn't satisfy value>= 0");
+      }
+      #endif
+      if (value >= 1000000000L) {
+        return (value >= 1000000000000000000L) ? 19 : ((value >=
+              100000000000000000L) ? 18 : ((value >= 10000000000000000L) ?
+              17 : ((value >= 1000000000000000L) ? 16 :
+                ((value >= 100000000000000L) ? 15 : ((value
+                      >= 10000000000000L) ?
+                    14 : ((value >= 1000000000000L) ? 13 : ((value
+                          >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
+                          11 : ((value >= 1000000000L) ? 10 : 9)))))))));
+      } else {
+        var v2 = (int)value;
+        return (v2 >= 100000000) ? 9 : ((v2 >= 10000000) ? 8 : ((v2 >=
+                1000000) ? 7 : ((v2 >= 100000) ? 6 : ((v2
+                    >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
+                      3 : ((v2 >= 10) ? 2 : 1)))))));
+      }
+    }
+
     public static EInteger[] DecimalDigitLengthBoundsAsEI(EInteger ei) {
         long longBitLength = ei.GetUnsignedBitLengthAsInt64();
         if (longBitLength < 33) {
@@ -645,7 +704,7 @@ namespace PeterO.Numbers {
           }
         } else {
           FastInteger[] fis = DecimalDigitLengthBounds(ei);
-          return new EInteger[] { fis[0].AsEInteger(), fis[1].AsEInteger() };
+          return new EInteger[] { fis[0].ToEInteger(), fis[1].ToEInteger() };
         }
     }
 
@@ -712,26 +771,92 @@ namespace PeterO.Numbers {
       }
     }
 
+    private static FastIntegerFixed FastPathDigitLength(
+      FastIntegerFixed fei,
+      int radix) {
+      if (fei.CanFitInInt32()) {
+        int ifei = fei.ToInt32();
+        if (ifei != Int32.MinValue) {
+          if (radix == 2) {
+            return FastIntegerFixed.FromInt32((int)BitLength(Math.Abs(ifei)));
+          } else if (radix == 10) {
+              return FastIntegerFixed.FromInt32(
+                 (int)DecimalDigitLength(Math.Abs(ifei)));
+           }
+        }
+      } else {
+        if (radix == 2) {
+          long i64 = fei.ToEInteger().GetUnsignedBitLengthAsInt64();
+          if (i64 != Int64.MaxValue) {
+            return FastIntegerFixed.FromInt64(i64);
+          }
+        } else if (radix == 10) {
+          EInteger ei = fei.ToEInteger();
+          long i64 = ei.GetUnsignedBitLengthAsInt64();
+          if (i64 < 33) {
+            // Can easily be calculated without estimation
+            return FastIntegerFixed.FromInt32(
+              (int)ei.GetDigitCountAsInt64());
+          } else if (i64 <= 2135) {
+            var bitlen = (int)i64;
+            // Approximation of ln(2)/ln(10)
+            int minDigits = 1 + (((bitlen - 1) * 631305) >> 21);
+            int maxDigits = 1 + ((bitlen * 631305) >> 21);
+            if (minDigits == maxDigits) {
+              return FastIntegerFixed.FromInt32(minDigits);
+            }
+          } else if (i64 <= 6432162) {
+            var bitlen = (int)i64;
+            // Approximation of ln(2)/ln(10)
+            int minDigits = 1 + (int)(((long)(bitlen - 1) * 661971961083L) >>
+41);
+            int maxDigits = 1 + (int)(((long)bitlen * 661971961083L) >> 41);
+            if (minDigits == maxDigits) {
+              return FastIntegerFixed.FromInt32(minDigits);
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    public static FastIntegerFixed[] DigitLengthBoundsFixed<THelper>(
+      IRadixMathHelper<THelper> helper,
+      FastIntegerFixed fei) {
+      int radix = helper.GetRadix();
+      FastIntegerFixed fastpath = FastPathDigitLength(fei, radix);
+      if (fastpath != null) {
+        return new FastIntegerFixed[] { fastpath, fastpath };
+      }
+      if (radix == 10) {
+        EInteger[] fi = DecimalDigitLengthBoundsAsEI(fei.ToEInteger());
+        return new FastIntegerFixed[] {
+          FastIntegerFixed.FromBig(fi[0]),
+          FastIntegerFixed.FromBig(fi[1]),
+        };
+      } else {
+        FastInteger fi = helper.GetDigitLength(fei.ToEInteger());
+        FastIntegerFixed fif = FastIntegerFixed.FromFastInteger(fi);
+        return new FastIntegerFixed[] { fif, fif };
+      }
+    }
+
+    public static FastIntegerFixed DigitLengthFixed<THelper>(
+      IRadixMathHelper<THelper> helper,
+      FastIntegerFixed fei) {
+       FastIntegerFixed fastpath = FastPathDigitLength(fei, helper.GetRadix());
+       if (fastpath != null) {
+         return fastpath;
+       }
+       FastInteger fi = helper.GetDigitLength(fei.ToEInteger());
+       FastIntegerFixed fif = FastIntegerFixed.FromFastInteger(fi);
+       return fif;
+    }
+
     public static FastInteger DigitLengthUpperBound<THelper>(
       IRadixMathHelper<THelper> helper,
       EInteger ei) {
-      int radix = helper.GetRadix();
-      if (radix == 2) {
-        return FastInteger.FromBig(ei.GetUnsignedBitLengthAsEInteger());
-      } else if (radix == 10) {
-        EInteger bigBitLength = ei.GetUnsignedBitLengthAsEInteger();
-        if (bigBitLength.CompareTo(2135) <= 0) {
-          // May overestimate by 1
-          return new FastInteger(1 + ((bigBitLength.ToInt32Checked() *
-                  631305) >> 21));
-        } else {
-          // Bit length is big enough that dividing it by 3 will not
-          // underestimate the true base-10 digit length.
-          return FastInteger.FromBig(bigBitLength.Divide(3));
-        }
-      } else {
-        return helper.GetDigitLength(ei);
-      }
+      return DigitLengthBounds(helper, ei)[1];
     }
 
     public static EInteger ReduceTrailingZeros(
@@ -766,7 +891,7 @@ namespace PeterO.Numbers {
         if (lowbit != Int64.MaxValue) {
           if (precision != null && digits.CompareTo(precision) >= 0) {
             // Limit by digits minus precision
-            EInteger tmp = digits.AsEInteger().Subtract(precision.AsEInteger());
+            EInteger tmp = digits.ToEInteger().Subtract(precision.ToEInteger());
             if (tmp.CompareTo(EInteger.FromInt64(lowbit)) < 0) {
               lowbit = tmp.ToInt64Checked();
             }
@@ -774,7 +899,7 @@ namespace PeterO.Numbers {
           if (idealExp != null && exponentMutable.CompareTo(idealExp) <= 0) {
             // Limit by idealExp minus exponentMutable
             EInteger tmp =
-              idealExp.AsEInteger().Subtract(exponentMutable.AsEInteger());
+              idealExp.ToEInteger().Subtract(exponentMutable.ToEInteger());
             if (tmp.CompareTo(EInteger.FromInt64(lowbit)) < 0) {
               lowbit = tmp.ToInt64Checked();
             }

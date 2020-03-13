@@ -507,7 +507,7 @@ FastInteger((int)longVal) : FromBig(EInteger.FromInt64(longVal));
       }
     }
 
-    internal int AsInt32() {
+    internal int ToInt32() {
       switch (this.integerMode) {
         case 0:
           return this.smallValue;
@@ -524,7 +524,7 @@ switch (this.integerMode) {
  case 0:
    return -ei.CompareTo(this.smallValue);
  case 1:
-   return this.AsEInteger().CompareTo(ei);
+   return this.ToEInteger().CompareTo(ei);
  case 2:
    return this.largeValue.CompareTo(ei);
  default: throw new InvalidOperationException();
@@ -547,11 +547,11 @@ switch (this.integerMode) {
         case (1 << 2) | 1:
           return this.mnum.CompareTo(val.mnum);
         case (1 << 2) | 2:
-          return this.AsEInteger().CompareTo(val.largeValue);
+          return this.ToEInteger().CompareTo(val.largeValue);
         case (2 << 2) | 0:
         case (2 << 2) | 1:
         case (2 << 2) | 2:
-          return this.largeValue.CompareTo(val.AsEInteger());
+          return this.largeValue.CompareTo(val.ToEInteger());
         default: throw new InvalidOperationException();
       }
     }
@@ -703,7 +703,7 @@ switch (this.integerMode) {
           } else {
             this.integerMode = 2;
             this.largeValue = (EInteger)this.smallValue;
-            valValue = val.AsEInteger();
+            valValue = val.ToEInteger();
             this.largeValue -= (EInteger)valValue;
           }
           break;
@@ -717,12 +717,12 @@ switch (this.integerMode) {
           } else {
             this.integerMode = 2;
             this.largeValue = this.mnum.ToEInteger();
-            valValue = val.AsEInteger();
+            valValue = val.ToEInteger();
             this.largeValue -= (EInteger)valValue;
           }
           break;
         case 2:
-          valValue = val.AsEInteger();
+          valValue = val.ToEInteger();
           this.largeValue -= (EInteger)valValue;
           break;
         default: throw new InvalidOperationException();
@@ -848,7 +848,7 @@ switch (this.integerMode) {
           } else {
             this.integerMode = 2;
             this.largeValue = (EInteger)this.smallValue;
-            valValue = val.AsEInteger();
+            valValue = val.ToEInteger();
             this.largeValue += (EInteger)valValue;
           }
           break;
@@ -858,12 +858,12 @@ switch (this.integerMode) {
           } else {
             this.integerMode = 2;
             this.largeValue = this.mnum.ToEInteger();
-            valValue = val.AsEInteger();
+            valValue = val.ToEInteger();
             this.largeValue += (EInteger)valValue;
           }
           break;
         case 2:
-          valValue = val.AsEInteger();
+          valValue = val.ToEInteger();
           this.largeValue += (EInteger)valValue;
           break;
         default: throw new InvalidOperationException();
@@ -1084,7 +1084,7 @@ this.SubtractBig(EInteger.FromInt64(longVal));
         case 0:
           return true;
         case 1:
-          return this.AsEInteger().CanFitInInt64();
+          return this.ToEInteger().CanFitInInt64();
         case 2:
           return this.largeValue.CanFitInInt64();
 
@@ -1092,12 +1092,12 @@ this.SubtractBig(EInteger.FromInt64(longVal));
       }
     }
 
-    internal long AsInt64() {
+    internal long ToInt64() {
       switch (this.integerMode) {
         case 0:
           return (long)this.smallValue;
         case 1:
-          return this.AsEInteger().ToInt64Unchecked();
+          return this.ToEInteger().ToInt64Unchecked();
         case 2:
           return this.largeValue.ToInt64Unchecked();
 
@@ -1270,7 +1270,7 @@ this.SubtractBig(EInteger.FromInt64(longVal));
       }
     }
 
-    internal EInteger AsEInteger() {
+    internal EInteger ToEInteger() {
       switch (this.integerMode) {
         case 0:
           return EInteger.FromInt32(this.smallValue);

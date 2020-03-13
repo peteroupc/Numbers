@@ -1708,15 +1708,23 @@ namespace PeterO.Numbers {
       #endif
       var a = 0;
       var b = 0;
-      var cc = 0;
       const int SMask = ShortMask;
+      var cc = 0;
+      if (factor1 == 0) {
+        for (var i = 0; i < factor2Count; ++i) {
+          b = ((int)minuendArr[minuendArrStart + i] & SMask) - cc;
+          resultArr[resultStart + i] = unchecked((short)b);
+          cc = (b >> 31) & 1;
+        }
+      } else {
       for (var i = 0; i < factor2Count; ++i) {
         a = unchecked((((int)factor2[factor2Start + i]) & SMask) * factor1);
         a = unchecked(a + cc);
         b = ((int)minuendArr[minuendArrStart + i] & SMask) - (a & SMask);
         resultArr[resultStart + i] = unchecked((short)b);
-        cc = ((a >> 16) & SMask) + ((b >> 31) & 1);
+        cc = (a >> 16) + ((b >> 31) & 1);
         cc &= SMask;
+      }
       }
       a = cc;
       b = ((int)minuendArr[minuendArrStart + factor2Count] & SMask) - a;

@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -131,7 +131,7 @@ EContext.FlagSubnormal | EContext.FlagInexact | EContext.FlagRounded;
             null);
           thisValue = this.GetHelper().CreateNewWithFlags(
               mant,
-              fastExp.AsEInteger(),
+              fastExp.ToEInteger(),
               thisFlags);
         }
       } else if (afterDivision && exp.Sign < 0) {
@@ -141,7 +141,7 @@ EContext.FlagSubnormal | EContext.FlagInexact | EContext.FlagRounded;
             mant, fastExp, radix, null, null, new FastInteger(0));
         thisValue = this.GetHelper().CreateNewWithFlags(
             mant,
-            fastExp.AsEInteger(),
+            fastExp.ToEInteger(),
             thisFlags);
       }
       return thisValue;

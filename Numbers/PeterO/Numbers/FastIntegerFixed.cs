@@ -128,16 +128,16 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
         FastIntegerFixed((byte)2, 0, bigintVal);
     }
 
-    internal int AsInt32() {
+    internal int ToInt32() {
       return (this.integerMode == 0) ?
         this.smallValue : this.largeValue.ToInt32Unchecked();
     }
 
     public static FastIntegerFixed FromFastInteger(FastInteger fi) {
       if (fi.CanFitInInt32()) {
-        return FromInt32(fi.AsInt32());
+        return FromInt32(fi.ToInt32());
       } else {
-        return FastIntegerFixed.FromBig(fi.AsEInteger());
+        return FastIntegerFixed.FromBig(fi.ToEInteger());
       }
     }
 
@@ -212,6 +212,95 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
       return FastIntegerFixed.FromBig(bigA.Subtract(bigB));
     }
 
+    public FastIntegerFixed Add(int ib) {
+      FastIntegerFixed a = this;
+      if (this.integerMode == 0) {
+        if (ib == 0) {
+          return this;
+        }
+        if (this.smallValue == 0) {
+          return FromInt32(ib);
+        }
+        if (((a.smallValue | ib) >> 30) == 0) {
+          return FromInt32(a.smallValue + ib);
+        }
+        if ((a.smallValue < 0 && ib >= Int32.MinValue -
+            a.smallValue) || (a.smallValue > 0 && ib <=
+            Int32.MaxValue - a.smallValue)) {
+          return FromInt32(a.smallValue + ib);
+        }
+      }
+      EInteger bigA = a.ToEInteger();
+      return FastIntegerFixed.FromBig(bigA.Add(ib));
+    }
+
+    public FastIntegerFixed Subtract(int ib) {
+      if (ib == 0) {
+        return this;
+      }
+      if (this.integerMode == 0) {
+        if (
+          (ib < 0 && Int32.MaxValue + ib >= this.smallValue) ||
+          (ib > 0 && Int32.MinValue + ib <= this.smallValue)) {
+          return FromInt32(this.smallValue - ib);
+        }
+      }
+      EInteger bigA = this.ToEInteger();
+      return FastIntegerFixed.FromBig(bigA.Subtract(ib));
+    }
+
+    public FastIntegerFixed Add(
+      FastIntegerFixed b) {
+      return Add(this, b);
+    }
+
+    public FastIntegerFixed Subtract(
+      FastIntegerFixed b) {
+      return Subtract(this, b);
+    }
+
+    public FastIntegerFixed Add(
+      EInteger b) {
+      return Add(this, FastIntegerFixed.FromBig(b));
+    }
+
+    public FastIntegerFixed Subtract(
+      EInteger b) {
+      return Subtract(this, FastIntegerFixed.FromBig(b));
+    }
+
+    public FastIntegerFixed Abs() {
+      switch (this.integerMode) {
+        case 0:
+          if (this.smallValue == Int32.MinValue) {
+            return FastIntegerFixed.FromInt32(Int32.MaxValue).Increment();
+          } else if (this.smallValue < 0) {
+            return FastIntegerFixed.FromInt32(-this.smallValue);
+          } else {
+            return this;
+          }
+        case 2:
+          return this.largeValue.Sign < 0 ? new
+            FastIntegerFixed((byte)2, 0, this.largeValue.Abs()) :
+            this;
+        default: throw new InvalidOperationException();
+      }
+    }
+
+    public FastIntegerFixed Negate() {
+      switch (this.integerMode) {
+        case 0:
+          if (this.smallValue == Int32.MinValue) {
+            return FastIntegerFixed.FromInt32(Int32.MaxValue).Increment();
+          } else {
+            return FastIntegerFixed.FromInt32(-this.smallValue);
+          }
+        case 2:
+          return new FastIntegerFixed((byte)2, 0, this.largeValue.Negate());
+        default: throw new InvalidOperationException();
+      }
+    }
+
     public int CompareTo(EInteger evalue) {
       switch (this.integerMode) {
         case 0:
@@ -244,22 +333,6 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
           return FromInt32(this.smallValue);
         case 2:
           return FastIntegerFixed.FromBig(this.largeValue);
-        default: throw new InvalidOperationException();
-      }
-    }
-
-    /// <summary>This is an internal API.</summary>
-    /// <returns>A FastIntegerFixed object.</returns>
-    internal FastIntegerFixed Negate() {
-      switch (this.integerMode) {
-        case 0:
-          if (this.smallValue == Int32.MinValue) {
-            return FastIntegerFixed.FromBig(ValueNegativeInt32MinValue);
-          } else {
-            return FromInt32(-this.smallValue);
-          }
-        case 2:
-          return FastIntegerFixed.FromBig(-(EInteger)this.largeValue);
         default: throw new InvalidOperationException();
       }
     }
@@ -332,7 +405,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
       }
     }
 
-    internal long AsInt64() {
+    internal long ToInt64() {
       switch (this.integerMode) {
         case 0:
           return (long)this.smallValue;

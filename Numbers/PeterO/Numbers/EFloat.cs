@@ -366,10 +366,11 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// number.</returns>
     public static EFloat Create(long mantissaLong, long exponentLong) {
       return (exponentLong == 0 && mantissaLong >= CacheFirst &&
-          mantissaLong <= CacheLast) ? (Cache[(int)mantissaLong -
-CacheFirst]) : (Create((EInteger)mantissaLong, (EInteger)exponentLong)); }
+          mantissaLong <= CacheLast) ? Cache[(int)mantissaLong - CacheFirst] :
+          Create((EInteger)mantissaLong, (EInteger)exponentLong);
+    }
 
-/// <summary>Returns a number with the value
+    /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
     /// <param name='mantissaLong'>Desired value for the
     /// significand.</param>
@@ -378,16 +379,17 @@ CacheFirst]) : (Create((EInteger)mantissaLong, (EInteger)exponentLong)); }
     /// number.</returns>
     public static EFloat Create(long mantissaLong, int exponentSmall) {
       return (exponentSmall == 0 && mantissaLong >= CacheFirst &&
-          mantissaLong <= CacheLast) ? (Cache[(int)mantissaLong -
-CacheFirst]) : (Create((EInteger)mantissaLong, (EInteger)exponentSmall)); }
+          mantissaLong <= CacheLast) ? Cache[(int)mantissaLong - CacheFirst] :
+          Create((EInteger)mantissaLong, (EInteger)exponentSmall);
+    }
 
-/// <summary>Returns a number with the value
+    /// <summary>Returns a number with the value
     /// exponent*2^significand.</summary>
     /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='mantissa'/> is null.</exception>
     public static EFloat Create(EInteger mantissa, int exponentSmall) {
       if (mantissa == null) {
@@ -3816,7 +3818,7 @@ CacheFirst]) : (Create((EInteger)mantissaLong, (EInteger)exponentSmall)); }
         var dsa = new DigitShiftAccumulator(dmant, 0, 0);
         dsa.ShiftToDigits(FastInteger.FromBig(roundedPrec), null, false);
         dmant = dsa.ShiftedInt;
-        dexp = dexp.Add(dsa.DiscardedDigitCount.AsEInteger());
+        dexp = dexp.Add(dsa.DiscardedDigitCount.ToEInteger());
         if (dsa.LastDiscardedDigit != 0 || dsa.OlderDiscardedDigits != 0) {
           if (dmant.Remainder(10).ToInt32Checked() != 9) {
             dmant = dmant.Add(1);
@@ -4221,7 +4223,7 @@ CacheFirst]) : (Create((EInteger)mantissaLong, (EInteger)exponentSmall)); }
         int olderDigits) {
         if (fastInt.CanFitInInt32()) {
           return new BitShiftAccumulator(
-              fastInt.AsInt32(),
+              fastInt.ToInt32(),
               lastDigit,
               olderDigits);
         } else {
@@ -4267,6 +4269,18 @@ CacheFirst]) : (Create((EInteger)mantissaLong, (EInteger)exponentSmall)); }
           return tmpbigint;
         }
         return power.ShiftEIntegerLeftByThis(tmpbigint);
+      }
+
+      public FastIntegerFixed MultiplyByRadixPowerFastInt(
+        FastIntegerFixed fbigint,
+        FastIntegerFixed fpower) {
+        if (fpower.Sign <= 0) {
+          return fbigint;
+        }
+        EInteger ei = this.MultiplyByRadixPower(
+          fbigint.ToEInteger(),
+          FastInteger.FromBig(fpower.ToEInteger()));
+        return FastIntegerFixed.FromBig(ei);
       }
 
       /// <summary>This is an internal method.</summary>

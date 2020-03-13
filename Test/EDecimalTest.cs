@@ -3695,19 +3695,32 @@ namespace Test {
       return edecarr;
     }
 
-    private static readonly EDecimal[] UlpTable = MakeUlpTable();
+    private static readonly object UlpSync = new Object();
+    private static EDecimal[] valueUlpTable = null;
 
     private static EDecimal GetHalfUlp(double dbl) {
-      long value = BitConverter.ToInt64(
-          BitConverter.GetBytes((double)dbl),
-          0);
-      var exponent = (int)((value >> 52) & 0x7ffL);
-      if (exponent == 0) {
-        return UlpTable[exponent];
-      } else if (exponent == 2047) {
-        throw new ArgumentException("dbl is non-finite");
-      } else {
-        return UlpTable[exponent - 1];
+      lock (UlpSync) {
+        valueUlpTable = valueUlpTable ?? (new EDecimal[2048]);
+        long value = BitConverter.ToInt64(
+            BitConverter.GetBytes((double)dbl),
+            0);
+        var exponent = (int)((value >> 52) & 0x7ffL);
+        if (exponent == 0) {
+          if (valueUlpTable[exponent] == null) {
+            valueUlpTable[exponent] = EFloat.Create(1, exponent - 1075)
+               .ToEDecimal();
+          }
+          return valueUlpTable[exponent];
+        } else if (exponent == 2047) {
+          throw new ArgumentException("dbl is non-finite");
+        } else {
+          int e1 = exponent - 1;
+          if (valueUlpTable[e1] == null) {
+            valueUlpTable[e1] = EFloat.Create(1, e1 - 1075)
+               .ToEDecimal();
+          }
+          return valueUlpTable[e1];
+        }
       }
     }
 
@@ -3717,11 +3730,11 @@ namespace Test {
           0);
       var exponent = (int)((value >> 23) & 0xff);
       if (exponent == 0) {
-        return UlpTable[exponent + 925];
+        return valueUlpTable[exponent + 925];
       } else if (exponent == 255) {
         throw new ArgumentException("sng is non-finite");
       } else {
-        return UlpTable[exponent + 924];
+        return valueUlpTable[exponent + 924];
       }
     }
 
@@ -5360,6 +5373,13 @@ namespace Test {
       }
     }
 
+    private static EInteger RandomEIntegerShort(
+      IRandomGenExtended rg) {
+      byte[] bytes = RandomObjects.RandomByteStringShort(rg);
+      return (bytes.Length == 0) ? EInteger.Zero :
+         EInteger.FromBytes(bytes, true);
+    }
+
     [Test]
     public void TestToString() {
       for (var i = 0; i < ValueTestStrings.Length; i += 4) {
@@ -5377,16 +5397,12 @@ namespace Test {
       for (var i = 0; i < 1000; ++i) {
         // Generate arbitrary-precision integers for exponent
         // and mantissa
-        EInteger mantBig = RandomObjects.RandomEInteger(fr);
-        EInteger expBig = RandomObjects.RandomEInteger(fr);
-        // Console.WriteLine("i="+i+" mant="+
-        // mantBig.GetUnsignedBitLengthAsInt64()+" expBig="+
-        // expBig.GetUnsignedBitLengthAsInt64());
+        EInteger mantBig = RandomEIntegerShort(fr);
+        EInteger expBig = RandomEIntegerShort(fr);
+        Console.WriteLine("i=" + i + " mant=" +
+         mantBig.GetUnsignedBitLengthAsInt64() + " expBig=" +
+         expBig.GetUnsignedBitLengthAsInt64());
         EDecimal dec = EDecimal.Create(mantBig, expBig);
-        ExtraTest.TestStringEqualRoundTrip(dec);
-      }
-      for (var i = 0; i < 1000; ++i) {
-        EDecimal dec = RandomObjects.RandomEDecimal(fr);
         ExtraTest.TestStringEqualRoundTrip(dec);
       }
     }

@@ -1,5 +1,5 @@
 /*
-Written by Peter O. in 2013.
+Written by Peter O.
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
@@ -175,7 +175,7 @@ FastInteger(0);
         throw new ArgumentNullException(nameof(fastint));
       }
       if (fastint.CanFitInInt32()) {
-        int fi = fastint.AsInt32();
+        int fi = fastint.ToInt32();
         if (fi < 0) {
           return;
         }
@@ -184,7 +184,7 @@ FastInteger(0);
         if (fastint.Sign <= 0) {
           return;
         }
-        EInteger digitsToShift = fastint.AsEInteger();
+        EInteger digitsToShift = fastint.ToEInteger();
         while (digitsToShift.Sign > 0) {
           if (digitsToShift.CompareTo(1000000) >= 0 &&
              (this.isSmall ||
@@ -265,7 +265,7 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
         }
       }
       if (bits.CanFitInInt32()) {
-        int intval = bits.AsInt32();
+        int intval = bits.ToInt32();
         if (intval < 0) {
           throw new ArgumentException("intval(" + intval + ") is less than " +
             "0");
@@ -278,8 +278,8 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
       } else {
         FastInteger kdl = this.knownDigitLength ?? this.CalcKnownDigitLength();
         this.knownDigitLength = kdl;
-        EInteger bigintDiff = kdl.AsEInteger();
-        EInteger bitsBig = bits.AsEInteger();
+        EInteger bigintDiff = kdl.ToEInteger();
+        EInteger bitsBig = bits.ToEInteger();
         bigintDiff -= (EInteger)bitsBig;
         if (bigintDiff.Sign > 0) {
           // current length is greater than the
@@ -298,7 +298,7 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
           return (this.bitLeftmost | this.bitsAfterLeftmost) == 0;
         }
         if (!this.isSmall && !this.shiftedBigInt.CanFitInInt64()) {
-          int a = fastint.AsInt32();
+          int a = fastint.ToInt32();
           if (a > 10) {
             this.ShiftRightBig(10, true, true);
             if ((this.bitLeftmost | this.bitsAfterLeftmost) != 0) {
@@ -324,7 +324,7 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
           return;
         }
         if (!this.isSmall && !this.shiftedBigInt.CanFitInInt64()) {
-          this.ShiftRightBig(fastint.AsInt32(), true, true);
+          this.ShiftRightBig(fastint.ToInt32(), true, true);
           return;
         }
       }
@@ -338,7 +338,7 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
         throw new ArgumentNullException(nameof(fastint));
       }
       if (truncate && fastint.CanFitInInt32()) {
-        int fi = fastint.AsInt32();
+        int fi = fastint.ToInt32();
         if (fi < 0) {
           return;
         }
@@ -382,41 +382,9 @@ this.shiftedBigInt.IsZero) ? 0 : 1;
       // }
     }
 
-    private static int LongDigitLength(long value) {
-      #if DEBUG
-      if (!(value >= 0)) {
-        throw new ArgumentException("doesn't satisfy value>= 0");
-      }
-      #endif
-      if (value >= 1000000000L) {
-        return (value >= 1000000000000000000L) ? 19 : ((value >=
-              100000000000000000L) ? 18 : ((value >= 10000000000000000L) ?
-              17 : ((value >= 1000000000000000L) ? 16 :
-                ((value >= 100000000000000L) ? 15 : ((value
-                      >= 10000000000000L) ?
-                    14 : ((value >= 1000000000000L) ? 13 : ((value
-                          >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
-                          11 : ((value >= 1000000000L) ? 10 : 9)))))))));
-      } else {
-        var v2 = (int)value;
-        return (v2 >= 100000000) ? 9 : ((v2 >= 10000000) ? 8 : ((v2 >=
-                1000000) ? 7 : ((v2 >= 100000) ? 6 : ((v2
-                    >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
-                      3 : ((v2 >= 10) ? 2 : 1)))))));
-      }
-    }
-
     private FastInteger CalcKnownDigitLength() {
       if (this.isSmall) {
-        var kb = 0;
-        int v2 = this.shiftedSmall;
-        if (v2 < 100000) {
-          kb = (v2 >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
-                3 : ((v2 >= 10) ? 2 : 1)));
-        } else {
-          kb = (v2 >= 1000000000) ? 10 : ((v2 >= 100000000) ? 9 : ((v2 >=
-                  10000000) ? 8 : ((v2 >= 1000000) ? 7 : 6)));
-        }
+        int kb = NumberUtility.DecimalDigitLength(this.shiftedSmall);
         return new FastInteger(kb);
       } else {
         long digits = this.shiftedBigInt.GetDigitCountAsInt64();
@@ -697,7 +665,7 @@ FastInteger(
           if (this.isSmall) {
             this.shiftedSmall = (int)div;
             this.knownDigitLength = (div < 10) ? new FastInteger(1) :
-              new FastInteger(LongDigitLength(div));
+              new FastInteger(NumberUtility.DecimalDigitLength(div));
           } else {
             this.shiftedBigInt = EInteger.FromInt64(div);
             this.knownDigitLength = (div < 10) ? new FastInteger(1) :
@@ -734,7 +702,7 @@ FastInteger(
         }
       }
       this.knownDigitLength = new FastInteger(
-        LongDigitLength(shiftedLong));
+        NumberUtility.DecimalDigitLength(shiftedLong));
       if (this.discardedDigitCount != null) {
         this.discardedDigitCount.AddInt(digits);
       } else {
@@ -844,7 +812,7 @@ FastInteger(0);
       }
       if (digitDiff.CompareToInt(9) <= 0) {
         EInteger bigrem;
-        int diffInt = digitDiff.AsInt32();
+        int diffInt = digitDiff.ToInt32();
         EInteger radixPower = NumberUtility.FindPowerOfTen(diffInt);
         EInteger bigquo;
         EInteger[] divrem = this.shiftedBigInt.DivRem(radixPower);
@@ -891,7 +859,7 @@ FastInteger(0);
         EInteger bigquo;
         EInteger[] divrem;
         EInteger radixPower;
-        int power = digitDiff.AsInt32() - 1;
+        int power = digitDiff.ToInt32() - 1;
         if (!this.shiftedBigInt.IsEven || this.bitsAfterLeftmost != 0) {
           // DebugUtility.Log("f=" + sw.ElapsedMilliseconds + " ms [pow=" + power +
           // "]");

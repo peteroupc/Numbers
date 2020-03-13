@@ -993,7 +993,7 @@ namespace PeterO.Numbers {
         while (intcurexp.Sign > 0) {
           var shift = 1000000;
           if (intcurexp.CompareToInt(1000000) < 0) {
-            shift = intcurexp.AsInt32();
+            shift = intcurexp.ToInt32();
           }
           bigmantissa <<= shift;
           intcurexp.AddInt(-shift);
@@ -2193,7 +2193,7 @@ namespace PeterO.Numbers {
       // (// ctx.Precision) + ", str=" + (// str.Substring(0, Math.Min(20,
       // str.Length))) + "] " + (ctx.Rounding));
       // }
-      //DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
+      // DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
          //  "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
       if (
         roundUp && ctx != null &&
@@ -2327,8 +2327,7 @@ namespace PeterO.Numbers {
         } else if (expwithin == 1) {
           // Exponent indicates overflow
           return GetMathValue(ctx).SignalOverflow(ctx, negative);
-        } else if (expwithin == 2 ||
-              (expwithin == 3 && mantInt < MaxSafeInt)) {
+        } else if (expwithin == 2 || (expwithin == 3 && mantInt < MaxSafeInt)) {
           // Exponent indicates underflow to zero
           ret = new EDecimal(
             FastIntegerFixed.FromInt32(expwithin == 3 ? mantInt : 1),
@@ -2350,7 +2349,7 @@ namespace PeterO.Numbers {
           return ret;
         }
       }
-      //DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
+      // DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
          //  "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
       int de = digitEnd;
       int dde = decimalDigitEnd;
@@ -2427,7 +2426,7 @@ namespace PeterO.Numbers {
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
           newScaleInt) : FastIntegerFixed.FromBig(newScale);
-      //DebugUtility.Log("fim="+ Chop(mant) + ", exp=" + fastIntScale);
+      // DebugUtility.Log("fim="+ Chop(mant) + ", exp=" + fastIntScale);
       if (mant == null) {
         fastIntMant = FastIntegerFixed.FromInt32(mantInt);
       } else if (mant.CanFitInInt32()) {
@@ -4278,8 +4277,8 @@ private static string Chop(object o) {
         int newflags = otherValue.flags ^ this.flags;
         if (this.unsignedMantissa.CanFitInInt32() &&
           otherValue.unsignedMantissa.CanFitInInt32()) {
-          int integerA = this.unsignedMantissa.AsInt32();
-          int integerB = otherValue.unsignedMantissa.AsInt32();
+          int integerA = this.unsignedMantissa.ToInt32();
+          int integerB = otherValue.unsignedMantissa.ToInt32();
           long longA = ((long)integerA) * ((long)integerB);
           FastIntegerFixed exp = FastIntegerFixed.Add(
               this.exponent,
@@ -5507,7 +5506,7 @@ private static string Chop(object o) {
       if (this.IsFinite) {
         if (this.exponent.CompareToInt(0) == 0 &&
           this.unsignedMantissa.CanFitInInt64()) {
-          long v = this.unsignedMantissa.AsInt64();
+          long v = this.unsignedMantissa.ToInt64();
           if (v <= (1L << 53)) {
             // This integer fits exactly in double
             return this.IsNegative ? (double)(-v) : (double)v;
@@ -5516,8 +5515,8 @@ private static string Chop(object o) {
         if (this.exponent.CompareToInt(0) < 0 &&
           this.exponent.CompareToInt(-8) >= 0 &&
           this.unsignedMantissa.CanFitInInt32()) {
-          int m = this.unsignedMantissa.AsInt32();
-          int iex = -this.exponent.AsInt32();
+          int m = this.unsignedMantissa.ToInt32();
+          int iex = -this.exponent.ToInt32();
           int vtp = ValueTenPowers[iex];
           if (m != Int32.MinValue) {
             if (m % vtp == 0) {
@@ -5722,7 +5721,7 @@ private static string Chop(object o) {
       if (this.IsFinite) {
         if (this.exponent.CompareToInt(0) == 0 &&
           this.unsignedMantissa.CanFitInInt32()) {
-          int v = this.unsignedMantissa.AsInt32();
+          int v = this.unsignedMantissa.ToInt32();
           if (v <= (1 << 24)) {
             // This integer fits exactly in float
             return this.IsNegative ? (float)(-v) : (float)v;
@@ -5731,8 +5730,8 @@ private static string Chop(object o) {
         if (this.exponent.CompareToInt(0) < 0 &&
           this.exponent.CompareToInt(-6) >= 0 &&
           this.unsignedMantissa.CanFitInInt32()) {
-          int m = this.unsignedMantissa.AsInt32();
-          int iex = -this.exponent.AsInt32();
+          int m = this.unsignedMantissa.ToInt32();
+          int iex = -this.exponent.ToInt32();
           int vtp = ValueTenPowers[iex];
           if (m >= -(1 << 23) && m < (1 << 23)) {
             if (m % vtp == 0) {
@@ -5886,7 +5885,7 @@ private static string Chop(object o) {
       if (count.CompareToInt(Int32.MaxValue) > 0 || count.Sign < 0) {
         throw new NotSupportedException();
       }
-      int icount = count.AsInt32();
+      int icount = count.ToInt32();
       if (icount > RepeatDivideThreshold) {
         var sb2 = new StringBuilder(RepeatDivideThreshold);
         for (var i = 0; i < RepeatDivideThreshold; ++i) {
@@ -5962,7 +5961,7 @@ private static string Chop(object o) {
       ERounding rounding) {
       if (this.IsFinite && this.exponent.CanFitInInt32() &&
         this.unsignedMantissa.CanFitInInt32()) {
-        int thisExponentSmall = this.exponent.AsInt32();
+        int thisExponentSmall = this.exponent.ToInt32();
         if (thisExponentSmall == exponentSmall) {
           return this;
         }
@@ -5971,7 +5970,7 @@ private static string Chop(object o) {
           if (rounding == ERounding.Down) {
             int diff = exponentSmall - thisExponentSmall;
             if (diff >= 1 && diff <= 9) {
-              int thisMantissaSmall = this.unsignedMantissa.AsInt32();
+              int thisMantissaSmall = this.unsignedMantissa.ToInt32();
               thisMantissaSmall /= ValueTenPowers[diff];
               return new EDecimal(
                   FastIntegerFixed.FromInt32(thisMantissaSmall),
@@ -5980,7 +5979,7 @@ private static string Chop(object o) {
             }
           } else if (rounding == ERounding.HalfEven) {
             int diff = exponentSmall - thisExponentSmall;
-            int thisMantissaSmall = this.unsignedMantissa.AsInt32();
+            int thisMantissaSmall = this.unsignedMantissa.ToInt32();
             if (diff >= 1 && diff <= 9 && thisMantissaSmall != Int32.MaxValue) {
               int pwr = ValueTenPowers[diff - 1];
               int div = thisMantissaSmall / pwr;
@@ -6388,8 +6387,8 @@ private static string Chop(object o) {
       }
       if (mode == 0 && this.unsignedMantissa.CanFitInInt32() &&
         this.exponent.CanFitInInt32()) {
-        int intExp = this.exponent.AsInt32();
-        int intMant = this.unsignedMantissa.AsInt32();
+        int intExp = this.exponent.ToInt32();
+        int intMant = this.unsignedMantissa.ToInt32();
         if (intMant < 1000 && intExp == -2) {
           int a, b, c;
           var i = 0;
@@ -6428,7 +6427,7 @@ private static string Chop(object o) {
       mantissaString = this.unsignedMantissa.ToString();
       if (mode == 0 && mantissaString.Length < 100 &&
         this.exponent.CanFitInInt32()) {
-        int intExp = this.exponent.AsInt32();
+        int intExp = this.exponent.ToInt32();
         if (intExp > -100 && intExp < 100) {
           int adj = (intExp + mantissaString.Length) - 1;
           if (scaleSign >= 0 && adj >= -6) {
@@ -6497,7 +6496,7 @@ private static string Chop(object o) {
         // engineering string adjustments
         FastInteger newExponent = adjustedExponent.Copy();
         bool adjExponentNegative = adjustedExponent.Sign < 0;
-        int intphase = adjustedExponent.Copy().Abs().Remainder(3).AsInt32();
+        int intphase = adjustedExponent.Copy().Abs().Remainder(3).ToInt32();
         if (iszero && (adjustedExponent.CompareTo(threshold) < 0 || scaleSign <
             0)) {
           if (intphase == 1) {
@@ -6548,7 +6547,7 @@ private static string Chop(object o) {
           if (cmp < 0) {
             var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
             builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
-              0 ? Int32.MaxValue : tmpFast.AsInt32());
+              0 ? Int32.MaxValue : tmpFast.ToInt32());
             if (negative) {
               builder.Append('-');
             }
@@ -6561,15 +6560,15 @@ private static string Chop(object o) {
               throw new ArgumentException("doesn't satisfy" +
                 "\u0020decimalPoint.CanFitInInt32()");
             }
-            if (decimalPoint.AsInt32() != 0) {
+            if (decimalPoint.ToInt32() != 0) {
               throw new ArgumentException("doesn't satisfy" +
-                "\u0020decimalPoint.AsInt32() == 0");
+                "\u0020decimalPoint.ToInt32() == 0");
             }
             #endif
 
             var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
             builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
-              0 ? Int32.MaxValue : tmpFast.AsInt32());
+              0 ? Int32.MaxValue : tmpFast.ToInt32());
             if (negative) {
               builder.Append('-');
             }
@@ -6580,13 +6579,13 @@ private static string Chop(object o) {
             if (!insertionPoint.CanFitInInt32()) {
               throw new NotSupportedException();
             }
-            int tmpInt = insertionPoint.AsInt32();
+            int tmpInt = insertionPoint.ToInt32();
             if (tmpInt < 0) {
               tmpInt = 0;
             }
             var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
             builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
-              0 ? Int32.MaxValue : tmpFast.AsInt32());
+              0 ? Int32.MaxValue : tmpFast.ToInt32());
             if (negative) {
               builder.Append('-');
             }
@@ -6604,13 +6603,13 @@ private static string Chop(object o) {
             if (!decimalPoint.CanFitInInt32()) {
               throw new NotSupportedException();
             }
-            int tmpInt = decimalPoint.AsInt32();
+            int tmpInt = decimalPoint.ToInt32();
             if (tmpInt < 0) {
               tmpInt = 0;
             }
             var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
             builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
-              0 ? Int32.MaxValue : tmpFast.AsInt32());
+              0 ? Int32.MaxValue : tmpFast.ToInt32());
             if (negative) {
               builder.Append('-');
             }
@@ -6662,13 +6661,13 @@ private static string Chop(object o) {
             if (!tmp.CanFitInInt32()) {
               throw new NotSupportedException();
             }
-            int tmpInt = tmp.AsInt32();
+            int tmpInt = tmp.ToInt32();
             if (tmp.Sign < 0) {
               tmpInt = 0;
             }
             var tmpFast = new FastInteger(mantissaString.Length).AddInt(6);
             builder = new StringBuilder(tmpFast.CompareToInt(Int32.MaxValue) >
-              0 ? Int32.MaxValue : tmpFast.AsInt32());
+              0 ? Int32.MaxValue : tmpFast.ToInt32());
             if (negative) {
               builder.Append('-');
             }
@@ -6736,7 +6735,12 @@ private static string Chop(object o) {
       }
 
       public FastInteger GetDigitLength(EInteger ei) {
-        return FastInteger.FromBig(ei.GetDigitCountAsEInteger());
+        long i64 = ei.GetDigitCountAsInt64();
+        if (i64 != Int64.MaxValue) {
+          return FastInteger.FromInt64(i64);
+        } else {
+          return FastInteger.FromBig(ei.GetDigitCountAsEInteger());
+        }
       }
 
       public IShiftAccumulator CreateShiftAccumulatorWithDigits(
@@ -6752,7 +6756,7 @@ private static string Chop(object o) {
         int olderDigits) {
         if (fastInt.CanFitInInt32()) {
           return new DigitShiftAccumulator(
-              fastInt.AsInt32(),
+              fastInt.ToInt32(),
               lastDigit,
               olderDigits);
         } else {
@@ -6805,32 +6809,55 @@ private static string Chop(object o) {
         }
       }
 
+      public FastIntegerFixed MultiplyByRadixPowerFastInt(
+        FastIntegerFixed fbigint,
+        FastIntegerFixed fpower) {
+        // DebugUtility.Log("mbrp "+fbigint+"/"+fpower);
+        if (fbigint.IsValueZero) {
+          return fbigint;
+        }
+        bool fitsInInt32 = fpower.CanFitInInt32();
+        int powerInt = fitsInInt32 ? fpower.ToInt32() : 0;
+        if (fitsInInt32 && powerInt == 0) {
+          return fbigint;
+        }
+        EInteger bigint = fbigint.ToEInteger();
+        EInteger ret = null;
+        if (bigint.CompareTo(1) != 0) {
+          if (fitsInInt32) {
+            ret = NumberUtility.MultiplyByPowerOfTen(bigint, powerInt);
+          } else {
+            EInteger eipower = fpower.ToEInteger();
+            ret = NumberUtility.MultiplyByPowerOfTen(bigint, eipower);
+          }
+        } else {
+          ret = fitsInInt32 ? NumberUtility.FindPowerOfTen(powerInt) :
+          NumberUtility.FindPowerOfTenFromBig(fpower.ToEInteger());
+        }
+        return FastIntegerFixed.FromBig(ret);
+      }
+
       public EInteger MultiplyByRadixPower(
         EInteger bigint,
         FastInteger power) {
-        EInteger tmpbigint = bigint;
-        if (tmpbigint.IsZero) {
-          return tmpbigint;
+        if (bigint.IsZero) {
+          return bigint;
         }
         bool fitsInInt32 = power.CanFitInInt32();
-        int powerInt = fitsInInt32 ? power.AsInt32() : 0;
+        int powerInt = fitsInInt32 ? power.ToInt32() : 0;
         if (fitsInInt32 && powerInt == 0) {
-          return tmpbigint;
+          return bigint;
         }
-        if (tmpbigint.CompareTo(EInteger.One) != 0) {
-          if (fitsInInt32 && powerInt < 10) {
-            return tmpbigint.Multiply(NumberUtility.FindPowerOfTen(powerInt));
-          } else if (fitsInInt32) {
-            return NumberUtility.MultiplyByPowerOfFive(tmpbigint, powerInt)
-              .ShiftLeft(powerInt);
+        if (bigint.CompareTo(1) != 0) {
+          if (fitsInInt32) {
+            return NumberUtility.MultiplyByPowerOfTen(bigint, powerInt);
           } else {
-            EInteger eipower = power.AsEInteger();
-            return NumberUtility.MultiplyByPowerOfFive(tmpbigint, eipower)
-              .ShiftLeft(eipower);
+            EInteger eipower = power.ToEInteger();
+            return NumberUtility.MultiplyByPowerOfTen(bigint, eipower);
           }
         }
         return fitsInInt32 ? NumberUtility.FindPowerOfTen(powerInt) :
-          NumberUtility.FindPowerOfTenFromBig(power.AsEInteger());
+          NumberUtility.FindPowerOfTenFromBig(power.ToEInteger());
       }
 
       /// <summary>This is an internal method.</summary>

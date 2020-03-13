@@ -159,9 +159,12 @@ namespace Test {
       return BitConverter.ToSingle(BitConverter.GetBytes((int)r), 0);
     }
 
-    private static string GenerateEDecimalSmallString(IRandomGenExtended
+    public static string RandomDecimalStringShort(IRandomGenExtended
 wrapper, bool extended) {
        var sb = new StringBuilder();
+       if (wrapper == null) {
+         throw new ArgumentNullException(nameof(wrapper));
+       }
        int len = 1 + wrapper.GetInt32(4);
        if (!extended) {
         sb.Append((char)('1' + wrapper.GetInt32(9)));
@@ -188,7 +191,7 @@ wrapper, bool extended) {
          int exp = wrapper.GetInt32(25) - 12;
          return EDecimal.Create(eix, exp);
        }
-       return EDecimal.FromString(GenerateEDecimalSmallString(wrapper, false));
+       return EDecimal.FromString(RandomDecimalStringShort(wrapper, false));
     }
 
     public static EDecimal RandomEDecimal(IRandomGenExtended r) {
@@ -261,6 +264,16 @@ MaxNumberLength);
           r.GetInt32(MaxShortNumberLength) + 1);
         return EInteger.FromBytes(bytes, true);
       }
+    }
+
+    public static EInteger RandomEIntegerSmall(IRandomGenExtended r) {
+      if (r == null) {
+        throw new ArgumentNullException(nameof(r));
+      }
+      byte[] bytes = RandomByteString(
+        r,
+        r.GetInt32(MaxShortNumberLength) + 1);
+      return EInteger.FromBytes(bytes, true);
     }
 
     public static EFloat RandomEFloat(IRandomGenExtended r) {
@@ -396,6 +409,11 @@ valueSpecialDecimals.Length;
       AppendRandomDecimalsLong(r, sb, smallCount);
     }
 
+    public static String RandomDecimalStringShort(
+      IRandomGenExtended r) {
+     return RandomDecimalStringShort(r, false);
+    }
+
     public static String RandomDecimalString(
       IRandomGenExtended r,
       bool extended,
@@ -404,7 +422,7 @@ valueSpecialDecimals.Length;
         throw new ArgumentNullException(nameof(r));
       }
       if (r.GetInt32(100) < 95) {
-        return GenerateEDecimalSmallString(r, extended);
+        return RandomDecimalStringShort(r, extended);
       }
       long count = ((long)r.GetInt32(MaxNumberLength) *
 r.GetInt32(MaxNumberLength)) / MaxNumberLength;

@@ -1560,12 +1560,6 @@ namespace Test {
             Assert.Fail(msg);
           }
         }
-        /* if (diffValue.Abs().CompareTo(half) < 0) {
-          string msg = "str=" + str + "\nef=" + OutputEF(ef) +
-            "\nmant=" + lmant + "\nexp=" + exp;
-          Assert.Fail(msg);
-        }
-        */
       }
     }
 

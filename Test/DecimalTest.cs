@@ -53,7 +53,8 @@ namespace Test {
         }
         EDecimal ed = RandomObjects.RandomEDecimal(fr);
         // Reduce to Decimal128. Without this reduction,
-        // Decimal.Parse would run significantly more slowly // on average for random
+        // Decimal.Parse would run significantly more slowly
+        // on average for random
         // EDecimals than
         // EDecimal.FromString(CliDecimal) does.
         // Decimal128 covers all numbers representable
@@ -64,23 +65,23 @@ namespace Test {
         }
         string edString = ed.ToString();
         // Console.WriteLine("eds=" + (//edString.Length) + " sw=" +
-        //sw.ElapsedMilliseconds + ", " + (sw2.ElapsedMilliseconds));
+        // sw.ElapsedMilliseconds + ", " + (sw2.ElapsedMilliseconds));
         decimal d;
         try {
           System.Globalization.NumberStyles numstyles =
             System.Globalization.NumberStyles.AllowExponent |
             System.Globalization.NumberStyles.Number;
-// sw.Start();
+          // sw.Start();
           d = Decimal.Parse(
               edString,
               numstyles,
               System.Globalization.CultureInfo.InvariantCulture);
-// sw.Stop();
-// sw2.Start();
+          // sw.Stop();
+          // sw2.Start();
           EDecimal ed3 = EDecimal.FromString(
               edString,
               EContext.CliDecimal);
-// sw2.Stop();
+          // sw2.Stop();
           var edd = (EDecimal)d;
           if (!edd.Equals(ed3)) {
             string msg = ed.ToString() + " (expanded: " +
