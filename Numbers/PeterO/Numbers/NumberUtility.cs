@@ -85,7 +85,7 @@ namespace PeterO.Numbers {
       unchecked {
         if ((numberValue >> 16) == 0) {
           numberValue <<= 16;
-          i -= 8;
+          i -= 16;
         }
         if ((numberValue >> 24) == 0) {
           numberValue <<= 8;
@@ -628,14 +628,12 @@ MultiplyByPowerOfFive(v, eprecision).ShiftLeft(eprecision);
     }
 
     public static int DecimalDigitLength(int v2) {
-        /*
 #if DEBUG
         if (!(v2 >= 0)) {
           throw new ArgumentException("doesn't satisfy v2 >= 0");
         }
 #endif
-
-        */ if (v2 < 100000) {
+        if (v2 < 100000) {
           return (v2 >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
                 3 : ((v2 >= 10) ? 2 : 1)));
         } else {
@@ -871,15 +869,11 @@ MultiplyByPowerOfFive(v, eprecision).ShiftLeft(eprecision);
         throw new ArgumentException("doesn't satisfy precision==null ||" +
           "\u0020digits!=null");
       }
-      #endif
-      /*
-      #if DEBUG
       if (!(bigmant.Sign >= 0)) {
         throw new ArgumentException("doesn't satisfy bigmant.Sign >= 0");
       }
       #endif
-
-      */ if (bigmant.IsZero) {
+      if (bigmant.IsZero) {
         exponentMutable.SetInt(0);
         return bigmant;
       }

@@ -1607,6 +1607,7 @@ namespace Test {
     }
     [Test]
     public void TestEDecimalSingle() {
+      TestEDecimalSingleCore(-5.41868103E-41f, null);
       var rand = new RandomGenerator();
       for (var i = 0; i < 255; ++i) {
         // Try a random float with a given
@@ -3699,18 +3700,22 @@ namespace Test {
     private static EDecimal[] valueUlpTable = null;
 
     private static EDecimal GetHalfUlp(double dbl) {
-      lock (UlpSync) {
-        valueUlpTable = valueUlpTable ?? (new EDecimal[2048]);
         long value = BitConverter.ToInt64(
             BitConverter.GetBytes((double)dbl),
             0);
         var exponent = (int)((value >> 52) & 0x7ffL);
+        lock (UlpSync) {
+        valueUlpTable = valueUlpTable ?? new EDecimal[2048];
         if (exponent == 0) {
           if (valueUlpTable[exponent] == null) {
             valueUlpTable[exponent] = EFloat.Create(1, exponent - 1075)
                .ToEDecimal();
           }
-          return valueUlpTable[exponent];
+          EDecimal ed = valueUlpTable[exponent];
+          if (ed == null) {
+            Assert.Fail();
+          }
+          return ed;
         } else if (exponent == 2047) {
           throw new ArgumentException("dbl is non-finite");
         } else {
@@ -3719,7 +3724,11 @@ namespace Test {
             valueUlpTable[e1] = EFloat.Create(1, e1 - 1075)
                .ToEDecimal();
           }
-          return valueUlpTable[e1];
+          EDecimal ed = valueUlpTable[e1];
+          if (ed == null) {
+            Assert.Fail();
+          }
+          return ed;
         }
       }
     }
@@ -3729,12 +3738,35 @@ namespace Test {
           BitConverter.GetBytes((float)sng),
           0);
       var exponent = (int)((value >> 23) & 0xff);
-      if (exponent == 0) {
-        return valueUlpTable[exponent + 925];
+
+      lock (UlpSync) {
+        valueUlpTable = valueUlpTable ?? new EDecimal[2048];
+        if (exponent == 0) {
+        exponent += 925;
+
+          if (valueUlpTable[exponent] == null) {
+            valueUlpTable[exponent] = EFloat.Create(1, exponent - 1075)
+               .ToEDecimal();
+          }
+          EDecimal ed = valueUlpTable[exponent];
+          if (ed == null) {
+            Assert.Fail();
+          }
+          return ed;
       } else if (exponent == 255) {
         throw new ArgumentException("sng is non-finite");
       } else {
-        return valueUlpTable[exponent + 924];
+        exponent += 924;
+        if (valueUlpTable[exponent] == null) {
+            valueUlpTable[exponent] = EFloat.Create(1, exponent - 1075)
+               .ToEDecimal();
+          }
+          EDecimal ed = valueUlpTable[exponent];
+          if (ed == null) {
+            Assert.Fail();
+          }
+          return ed;
+      }
       }
     }
 
@@ -5330,6 +5362,7 @@ namespace Test {
               edec.Abs(),
               SingleOverflowToInfinity);
           } else if (sng == 0.0f) {
+            Assert.NotNull(SingleUnderflowToZero, "ufZero");
             TestCommon.CompareTestLessEqual(
               edec.Abs(),
               SingleUnderflowToZero);
@@ -5348,6 +5381,8 @@ namespace Test {
             EDecimal halfUlp = GetHalfUlp(sng);
             EDecimal difference = EDecimal.FromSingle(sng).Abs()
               .Subtract(edec).Abs();
+            Assert.NotNull(difference, "difference");
+            Assert.NotNull(halfUlp, "halfUlp");
             TestCommon.CompareTestLessEqual(difference, halfUlp);
           }
         }
@@ -5447,7 +5482,7 @@ namespace Test {
       Assert.AreEqual((double)oldd, d);
     }
 
-    private static void TestEDecimalSingleCore(float d, string s) {
+    internal static void TestEDecimalSingleCore(float d, string s) {
       float oldd = d;
       EDecimal bf = EDecimal.FromSingle(d);
       if (s != null) {

@@ -3909,6 +3909,8 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
         return BitConverter.ToSingle(BitConverter.GetBytes(nan), 0);
       }
       EFloat thisValue = this;
+      // DebugUtility.Log("beforeround=" +thisValue + " ["+
+      //  thisValue.Mantissa + " " + thisValue.Exponent);
       // Check whether rounding can be avoided for common cases
       // where the value already fits a single
       if (!thisValue.IsFinite ||
@@ -3917,6 +3919,8 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
         thisValue.exponent.CompareTo(95) > 0) {
         thisValue = this.RoundToPrecision(EContext.Binary32);
       }
+      // DebugUtility.Log("afterround=" +thisValue + " ["+
+      //  thisValue.Mantissa + " " + thisValue.Exponent);
       if (!thisValue.IsFinite) {
         return thisValue.ToSingle();
       }
@@ -3926,9 +3930,6 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
       } else if (intmant == 0) {
         return 0.0f;
       }
-      // DebugUtility.Log("-->" + (//
-      // thisValue.unsignedMantissa.ToRadixString(2)) + ", " + (//
-      // thisValue.exponent));
       int intBitLength = NumberUtility.BitLength(intmant);
       int expo = thisValue.exponent.ToInt32Checked();
       var subnormal = false;
@@ -3944,6 +3945,9 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
         }
         intmant <<= diff;
       }
+      // DebugUtility.Log("intmant=" + intmant + " " + intBitLength +
+      //  " expo=" + expo +
+      //  " subnormal=" + subnormal);
       int smallmantissa = intmant & 0x7fffff;
       if (!subnormal) {
         smallmantissa |= (expo + 150) << 23;

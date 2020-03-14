@@ -3990,11 +3990,12 @@ this.helper.GetDigitLength(op2Mantissa.ToEInteger());
             if (ctx.HasFlags) {
               ctx.Flags |= ctxcopy.Flags & ~EContext.FlagRounded;
             }
-            return this.ReduceToPrecisionAndIdealExponent(
+            retval2 = this.ReduceToPrecisionAndIdealExponent(
                 retval2,
                 ctx,
                 rem.IsZero ? null : FastInteger.FromBig(eintPrecision),
                 expdiff);
+            return retval2;
           }
         }
         // Rest of method assumes unlimited precision
