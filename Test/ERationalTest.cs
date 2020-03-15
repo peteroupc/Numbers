@@ -440,6 +440,11 @@ namespace Test {
         bool isNum, isTruncated, isInteger;
         EInteger eint;
         ERational enumber = RandomObjects.RandomERational(fr);
+        bool numDenClose = !enumber.IsFinite ||
+          enumber.Numerator.GetUnsignedBitLengthAsEInteger()
+            .Subtract(enumber.Denominator.GetUnsignedBitLengthAsEInteger())
+            .Abs().CompareTo(130) < 0 ||
+            enumber.Denominator.CompareTo(enumber.UnsignedNumerator) >= 0;
         if (!enumber.IsFinite) {
           try {
             enumber.ToByteChecked();
@@ -543,9 +548,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromByte(enumber.ToByteChecked()));
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromByte(enumber.ToByteUnchecked()));
+          if (numDenClose) {
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromByte(enumber.ToByteUnchecked()));
+          }
           if (isInteger) {
             TestCommon.AssertEquals(
               eint,
@@ -565,9 +572,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromByte(enumber.ToByteChecked()));
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromByte(enumber.ToByteUnchecked()));
+          if (numDenClose) {
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromByte(enumber.ToByteUnchecked()));
+          }
           try {
             enumber.ToByteIfExact();
             Assert.Fail("Should have failed");
@@ -588,7 +597,9 @@ namespace Test {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-            enumber.ToByteUnchecked();
+if (numDenClose) {
+  enumber.ToByteUnchecked();
+}
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
@@ -625,9 +636,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromInt16(enumber.ToInt16Checked()));
+          if (numDenClose) {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromInt16(enumber.ToInt16Unchecked()));
+          }
           if (isInteger) {
             TestCommon.AssertEquals(
               eint,
@@ -647,9 +660,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromInt16(enumber.ToInt16Checked()));
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromInt16(enumber.ToInt16Unchecked()));
+          if (numDenClose) {
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromInt16(enumber.ToInt16Unchecked()));
+          }
           try {
             enumber.ToInt16IfExact();
             Assert.Fail("Should have failed");
@@ -670,7 +685,9 @@ namespace Test {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-            enumber.ToInt16Unchecked();
+if (numDenClose) {
+  enumber.ToInt16Unchecked();
+}
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
@@ -708,9 +725,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromInt32(enumber.ToInt32Checked()));
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          if (numDenClose) {
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          }
           if (isInteger) {
             TestCommon.AssertEquals(
               eint,
@@ -730,9 +749,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromInt32(enumber.ToInt32Checked()));
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          if (numDenClose) {
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromInt32(enumber.ToInt32Unchecked()));
+          }
           try {
             enumber.ToInt32IfExact();
             Assert.Fail("Should have failed");
@@ -753,7 +774,9 @@ namespace Test {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-            enumber.ToInt32Unchecked();
+if (numDenClose) {
+  enumber.ToInt32Unchecked();
+}
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
@@ -792,9 +815,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromInt64(enumber.ToInt64Checked()));
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          if (numDenClose) {
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          }
           if (isInteger) {
             TestCommon.AssertEquals(
               eint,
@@ -814,9 +839,11 @@ namespace Test {
           TestCommon.AssertEquals(
             eint,
             EInteger.FromInt64(enumber.ToInt64Checked()));
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          if (numDenClose) {
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromInt64(enumber.ToInt64Unchecked()));
+          }
           try {
             enumber.ToInt64IfExact();
             Assert.Fail("Should have failed");
@@ -837,7 +864,9 @@ namespace Test {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-            enumber.ToInt64Unchecked();
+if (numDenClose) {
+  enumber.ToInt64Unchecked();
+}
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);

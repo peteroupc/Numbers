@@ -261,12 +261,22 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public FastIntegerFixed Add(
       EInteger b) {
-      return Add(this, FastIntegerFixed.FromBig(b));
+      if (this.integerMode == 0 && b.CanFitInInt32()) {
+        return this.Add(b.ToInt32Unchecked());
+      } else {
+        return FastIntegerFixed.FromBig(
+           this.ToEInteger().Add(b));
+      }
     }
 
     public FastIntegerFixed Subtract(
       EInteger b) {
-      return Subtract(this, FastIntegerFixed.FromBig(b));
+      if (this.integerMode == 0 && b.CanFitInInt32()) {
+        return this.Subtract(b.ToInt32Unchecked());
+      } else {
+        return FastIntegerFixed.FromBig(
+           this.ToEInteger().Subtract(b));
+      }
     }
 
     public FastIntegerFixed Abs() {
