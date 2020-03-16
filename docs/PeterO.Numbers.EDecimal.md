@@ -4013,7 +4013,9 @@ Returns a number similar to this number but with the scale adjusted.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+A number whose exponent is increased by  <i>places</i>
+. For example, if  <i>places</i>
+ is 5, "78E-2" becomes "78E+3" and has a bigger value.
 
 <a id="ScaleByPowerOfTen_int_PeterO_Numbers_EContext"></a>
 ### ScaleByPowerOfTen
@@ -4032,7 +4034,9 @@ Returns a number similar to this number but with the scale adjusted.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+A number whose exponent is generally increased by  <i>places</i>
+. For example, in general, if  <i>places</i>
+ is 5, "78E-2" becomes "78E+3" and has a bigger value.
 
 <a id="ScaleByPowerOfTen_PeterO_Numbers_EInteger"></a>
 ### ScaleByPowerOfTen
@@ -4048,7 +4052,9 @@ Returns a number similar to this number but with the scale adjusted.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number.
+A number whose exponent is increased by  <i>bigPlaces</i>
+. For example, if  <i>bigPlaces</i>
+ is 5, "78E-2" becomes "78E+3" and has a bigger value.
 
 <a id="ScaleByPowerOfTen_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### ScaleByPowerOfTen
@@ -4067,8 +4073,9 @@ Returns a number similar to this number but with its scale adjusted.
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by  <i>bigPlaces</i>
-.
+A number whose exponent is generally increased by  <i>bigPlaces</i>
+. For example, in general, if  <i>bigPlaces</i>
+ is 5, "78E-2" becomes "78E+3" and has a bigger value.
 
 <b>Exceptions:</b>
 

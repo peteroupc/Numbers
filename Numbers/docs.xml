@@ -442,7 +442,15 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EContext.TriggerTraps``1(``0,PeterO.Numbers.EContext)">
-<param name='result'>The parameter <paramref name='result'/> is a ``0 object.</param><param name='trappableContext'>The parameter <paramref name='trappableContext'/> is a Numbers.EContext object.</param>
+
+        <summary>Throws trap exceptions if the given context has flags set
+            that also have traps enabled for them in this context, and adds the
+            given context's flags to this context if HasFlags for this context
+            is true. This is not a general-purpose method; it is intended to
+            support custom implementations of arithmetic operations.</summary><param name='result'>The result of the operation.</param><param name='trappableContext'>An arithmetic context, usually a
+            context returned by the GetNontrapping method. Can be null.</param><typeparam name='T'>Data type for the result of the
+            operation.</typeparam><returns>The parameter <paramref name='result'/> if no trap exceptions were
+            thrown.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Unlimited">
 
@@ -782,8 +790,8 @@
             library (see also the advice for transcendentals above). But as for
             the ToDouble, ToSingle, FromDouble, and FromSingle methods, note
             that some implementations of Java and.NET may or may not support
-            preserving the value of subnormal numbers (numbers with the lowest
-            possible exponent, but are not zero) or the payloads held in a
+            preserving the value of subnormal numbers (numbers other than zero
+            with the lowest possible exponent) or the payloads held in a
             not-a-number (NaN) value of float or double; thus these methods
             should not be considered reproducible across computers.</item>
             <item>Compiler differences: Not applicable where these classes
@@ -3455,7 +3463,8 @@
             <summary>Returns a number similar to this number but with the scale
             adjusted.</summary>
             <param name='bigPlaces'>The power of 10 to scale by.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+            <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>. For example, if <paramref name='bigPlaces'/>
+            is 5, "78E-2" becomes "78E+3" and has a bigger value.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ScaleByPowerOfTen(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
@@ -3469,7 +3478,10 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
             rounding is needed.</param>
-            <returns>A number whose exponent is increased by <paramref name='bigPlaces'/>.</returns>
+            <returns>A number whose exponent is generally increased by
+            <paramref name='bigPlaces'/>. For example, in general, if
+            <paramref name='bigPlaces'/> is 5, "78E-2" becomes "78E+3" and has
+            a bigger value.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigPlaces'/> is null.</exception>
 
 </doc>
@@ -3478,7 +3490,8 @@
             <summary>Returns a number similar to this number but with the scale
             adjusted.</summary>
             <param name='places'>The power of 10 to scale by.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+            <returns>A number whose exponent is increased by <paramref name='places'/>. For example, if <paramref name='places'/> is 5,
+            "78E-2" becomes "78E+3" and has a bigger value.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ScaleByPowerOfTen(System.Int32,PeterO.Numbers.EContext)">
@@ -3492,7 +3505,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
             rounding is needed.</param>
-            <returns>An arbitrary-precision decimal number.</returns>
+            <returns>A number whose exponent is generally increased by
+            <paramref name='places'/>. For example, in general, if <paramref name='places'/> is 5, "78E-2" becomes "78E+3" and has a bigger
+            value.</returns>
 
 </doc>
 <doc name="P:PeterO.Numbers.EDecimal.Sign">
@@ -3633,7 +3648,7 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToDouble">
 
             <summary>Converts this value to its closest equivalent as a 64-bit
-            floating-point number. The half-even rounding mode is used.
+            floating-point number, using the half-even rounding mode.
             <para>If this value is a NaN, sets the high bit of the 64-bit
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
@@ -3655,7 +3670,8 @@
             value. Note that if the binary floating-point number contains a
             negative exponent, the resulting value might not be exact, in which
             case the resulting binary floating-point number will be an
-            approximation of this decimal number's value.</summary>
+            approximation of this decimal number's value, using the half-even
+            rounding mode.</summary>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
@@ -3676,14 +3692,13 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEInteger">
 
-            <summary>Converts this value to an arbitrary-precision integer. Any
-            fractional part in this value will be discarded when converting to
-            an arbitrary-precision integer. Note that depending on the value,
-            especially the exponent, generating the arbitrary-precision integer
-            may require a huge amount of memory. Use the ToSizedEInteger method
-            to convert a number to an EInteger only if the integer fits in a
-            bounded bit range; that method will throw an exception on
-            overflow.</summary>
+            <summary>Converts this value to an arbitrary-precision integer,
+            discarding the fractional part in this value. Note that depending
+            on the value, especially the exponent, generating the
+            arbitrary-precision integer may require a huge amount of memory.
+            Use the ToSizedEInteger method to convert a number to an EInteger
+            only if the integer fits in a bounded bit range; that method will
+            throw an exception on overflow.</summary>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN).</exception>
@@ -3736,7 +3751,8 @@
             value. Note that if the binary floating-point number contains a
             negative exponent, the resulting value might not be exact, in which
             case the resulting binary floating-point number will be an
-            approximation of this decimal number's value.</summary>
+            approximation of this decimal number's value, using the half-even
+            rounding mode.</summary>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
@@ -3884,7 +3900,7 @@
 <doc name="M:PeterO.Numbers.EDecimal.ToSingle">
 
             <summary>Converts this value to its closest equivalent as a 32-bit
-            floating-point number. The half-even rounding mode is used.
+            floating-point number, using the half-even rounding mode.
             <para>If this value is a NaN, sets the high bit of the 32-bit
             floating point number's significand area for a quiet NaN, and
             clears it for a signaling NaN. Then the other bits of the
@@ -5588,6 +5604,7 @@
             <param name='exponentSmall'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(PeterO.Numbers.EInteger,System.Int64)">
@@ -5598,6 +5615,7 @@
             <param name='exponentLong'>Desired value for the exponent.</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='mantissa'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Create(System.Int32,System.Int32)">
@@ -12049,9 +12067,12 @@
             <summary>Converts this value to an arbitrary-precision integer by
             dividing the numerator by the denominator, discarding its
             fractional part, and checking whether the resulting integer
-            overflows the given signed bit count.</summary><param name='maxBitLength'>The maximum number of signed bits the
+            overflows the given signed bit count.</summary>
+            <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
-            -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param><returns>An arbitrary-precision integer.</returns><exception cref='OverflowException'>This object's value is infinity
+            -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN), or this number's value, once converted to an
             integer by dividing the numerator by the denominator and discarding
             its fractional part, is less than -(2^maxBitLength) or greater than
@@ -12062,12 +12083,16 @@
 
             <summary>Converts this value to an arbitrary-precision integer,
             only if this number's value is an exact integer and that integer
-            does not overflow the given signed bit count.</summary><param name='maxBitLength'>The maximum number of signed bits the
+            does not overflow the given signed bit count.</summary>
+            <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
-            -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param><returns>An arbitrary-precision integer.</returns><exception cref='OverflowException'>This object's value is infinity
+            -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
+            <returns>An arbitrary-precision integer.</returns>
+            <exception cref='OverflowException'>This object's value is infinity
             or not-a-number (NaN), or this number's value as an integer is less
             than -(2^maxBitLength) or greater than (2^maxBitLength) -
-            1.</exception><exception cref='ArithmeticException'>This object's value is not an
+            1.</exception>
+            <exception cref='ArithmeticException'>This object's value is not an
             exact integer.</exception>
 
 </doc>
@@ -12879,10 +12904,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.FastIntegerFixed.Negate">
-
-            <summary>This is an internal API.</summary>
+<summary>This is an internal API.</summary>
             <returns>A FastIntegerFixed object.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.FastIntegerFixed.ToString">
 

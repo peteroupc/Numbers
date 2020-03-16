@@ -457,10 +457,17 @@ namespace Test {
     [Test]
     [Timeout(100000)]
     public void TestConversions() {
+      TestConversionsOne(EDecimal.FromString("4766857907817990.0000000000"));
       var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {
         EDecimal enumber = RandomObjects.RandomEDecimal(fr);
+        try {
         TestConversionsOne(enumber);
+ } catch (Exception ex) {
+        throw new InvalidOperationException(
+           enumber.ToString(),
+           ex);
+ }
       }
       TestConversionsOne(EDecimal.FromString("-0.8995"));
       TestConversionsOne(EDecimal.FromString("-4.061532283038E+14"));
@@ -3668,6 +3675,13 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
+      var rg = new RandomGenerator();
+      for (var i = 0; i < 1000; ++i) {
+ EInteger ei = RandomObjects.RandomEInteger(rg);
+ EDecimal ed = EDecimal.FromEInteger(ei).ScaleByPowerOfTen(
+   rg.UniformInt(20));
+ Assert.AreEqual(ei, ed.ToEIntegerIfExact());
+ }
     }
 
     private static readonly EDecimal DoubleUnderflowToZero =
@@ -3700,16 +3714,16 @@ namespace Test {
     private static EDecimal[] valueUlpTable = null;
 
     private static EDecimal GetHalfUlp(double dbl) {
-        long value = BitConverter.ToInt64(
-            BitConverter.GetBytes((double)dbl),
-            0);
-        var exponent = (int)((value >> 52) & 0x7ffL);
-        lock (UlpSync) {
+      long value = BitConverter.ToInt64(
+          BitConverter.GetBytes((double)dbl),
+          0);
+      var exponent = (int)((value >> 52) & 0x7ffL);
+      lock (UlpSync) {
         valueUlpTable = valueUlpTable ?? new EDecimal[2048];
         if (exponent == 0) {
           if (valueUlpTable[exponent] == null) {
             valueUlpTable[exponent] = EFloat.Create(1, exponent - 1075)
-               .ToEDecimal();
+              .ToEDecimal();
           }
           EDecimal ed = valueUlpTable[exponent];
           if (ed == null) {
@@ -3722,7 +3736,7 @@ namespace Test {
           int e1 = exponent - 1;
           if (valueUlpTable[e1] == null) {
             valueUlpTable[e1] = EFloat.Create(1, e1 - 1075)
-               .ToEDecimal();
+              .ToEDecimal();
           }
           EDecimal ed = valueUlpTable[e1];
           if (ed == null) {
@@ -3742,31 +3756,31 @@ namespace Test {
       lock (UlpSync) {
         valueUlpTable = valueUlpTable ?? new EDecimal[2048];
         if (exponent == 0) {
-        exponent += 925;
+          exponent += 925;
 
           if (valueUlpTable[exponent] == null) {
             valueUlpTable[exponent] = EFloat.Create(1, exponent - 1075)
-               .ToEDecimal();
+              .ToEDecimal();
           }
           EDecimal ed = valueUlpTable[exponent];
           if (ed == null) {
             Assert.Fail();
           }
           return ed;
-      } else if (exponent == 255) {
-        throw new ArgumentException("sng is non-finite");
-      } else {
-        exponent += 924;
-        if (valueUlpTable[exponent] == null) {
+        } else if (exponent == 255) {
+          throw new ArgumentException("sng is non-finite");
+        } else {
+          exponent += 924;
+          if (valueUlpTable[exponent] == null) {
             valueUlpTable[exponent] = EFloat.Create(1, exponent - 1075)
-               .ToEDecimal();
+              .ToEDecimal();
           }
           EDecimal ed = valueUlpTable[exponent];
           if (ed == null) {
             Assert.Fail();
           }
           return ed;
-      }
+        }
       }
     }
 
@@ -5412,7 +5426,7 @@ namespace Test {
       IRandomGenExtended rg) {
       byte[] bytes = RandomObjects.RandomByteStringShort(rg);
       return (bytes.Length == 0) ? EInteger.Zero :
-         EInteger.FromBytes(bytes, true);
+        EInteger.FromBytes(bytes, true);
     }
 
     [Test]
@@ -5435,8 +5449,8 @@ namespace Test {
         EInteger mantBig = RandomEIntegerShort(fr);
         EInteger expBig = RandomEIntegerShort(fr);
         Console.WriteLine("i=" + i + " mant=" +
-         mantBig.GetUnsignedBitLengthAsInt64() + " expBig=" +
-         expBig.GetUnsignedBitLengthAsInt64());
+          mantBig.GetUnsignedBitLengthAsInt64() + " expBig=" +
+          expBig.GetUnsignedBitLengthAsInt64());
         EDecimal dec = EDecimal.Create(mantBig, expBig);
         ExtraTest.TestStringEqualRoundTrip(dec);
       }
@@ -5632,7 +5646,7 @@ namespace Test {
     [Test]
     public void TestStringContextSpecific4e() {
       EContext ec =
-EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+        EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
           1023).WithRounding(
           ERounding.Down).WithAdjustExponent(
           false).WithExponentClamp(true).WithSimplified(false);
@@ -6189,18 +6203,18 @@ EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
       }
     }
 
- [Test]
- public void TestPowerOneExpNonInteger() {
-  // In the General Decimal Arithmetic Specification, power(1, noninteger)
-  // is specified as inexact, perhaps due to an oversight
-  string str = "precision: 34\nrounding: half_even\nminexponent: " +
-   "-6143\nmaxexponent: 6144\nextended: 1\n" +
-   "untitled power 1.0 -268575.66 -> " +
-   "1." + TestCommon.Repeat("0", 33) + " Inexact Rounded";
-  DecTestUtil.ParseDecTests(
-    str,
-    false);
- }
+    [Test]
+    public void TestPowerOneExpNonInteger() {
+      // In the General Decimal Arithmetic Specification, power(1, noninteger)
+      // is specified as inexact, perhaps due to an oversight
+      string str = "precision: 34\nrounding: half_even\nminexponent: " +
+        "-6143\nmaxexponent: 6144\nextended: 1\n" +
+        "untitled power 1.0 -268575.66 -> " +
+        "1." + TestCommon.Repeat("0", 33) + " Inexact Rounded";
+      DecTestUtil.ParseDecTests(
+        str,
+        false);
+    }
 
     [Test]
     public void TestStringContextSpecificMore() {

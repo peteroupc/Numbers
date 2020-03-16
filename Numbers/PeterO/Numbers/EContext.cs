@@ -1026,13 +1026,13 @@ this.simplified +
   /// given context's flags to this context if HasFlags for this context
   /// is true. This is not a general-purpose method; it is intended to
   /// support custom implementations of arithmetic operations.</summary>
-  /// <typeparam name='T'>Data type for the result of the
-  /// operation.</typeparam>
   /// <param name='result'>The result of the operation.</param>
   /// <param name='trappableContext'>An arithmetic context, usually a
   /// context returned by the GetNontrapping method. Can be null.</param>
-  /// <returns>The parameter "result" if no trap exceptions were
-  /// thrown.</returns>
+  /// <typeparam name='T'>Data type for the result of the
+  /// operation.</typeparam>
+  /// <returns>The parameter <paramref name='result'/> if no trap
+  /// exceptions were thrown.</returns>
     public T TriggerTraps<T>(
       T result,
       EContext trappableContext) {

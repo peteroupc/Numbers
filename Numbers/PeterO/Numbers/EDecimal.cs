@@ -5334,7 +5334,9 @@ private static string Chop(object o) {
     /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='places'>The power of 10 to scale by.</param>
-    /// <returns>An arbitrary-precision decimal number.</returns>
+    /// <returns>A number whose exponent is increased by <paramref
+    /// name='places'/>. For example, if <paramref name='places'/> is 5,
+    /// "78E-2" becomes "78E+3" and has a bigger value.</returns>
     public EDecimal ScaleByPowerOfTen(int places) {
       return this.ScaleByPowerOfTen((EInteger)places, null);
     }
@@ -5348,7 +5350,10 @@ private static string Chop(object o) {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>An arbitrary-precision decimal number.</returns>
+    /// <returns>A number whose exponent is generally increased by
+    /// <paramref name='places'/>. For example, in general, if <paramref
+    /// name='places'/> is 5, "78E-2" becomes "78E+3" and has a bigger
+    /// value.</returns>
     public EDecimal ScaleByPowerOfTen(int places, EContext ctx) {
       return this.ScaleByPowerOfTen((EInteger)places, ctx);
     }
@@ -5356,7 +5361,9 @@ private static string Chop(object o) {
     /// <summary>Returns a number similar to this number but with the scale
     /// adjusted.</summary>
     /// <param name='bigPlaces'>The power of 10 to scale by.</param>
-    /// <returns>An arbitrary-precision decimal number.</returns>
+    /// <returns>A number whose exponent is increased by <paramref
+    /// name='bigPlaces'/>. For example, if <paramref name='bigPlaces'/>
+    /// is 5, "78E-2" becomes "78E+3" and has a bigger value.</returns>
     public EDecimal ScaleByPowerOfTen(EInteger bigPlaces) {
       return this.ScaleByPowerOfTen(bigPlaces, null);
     }
@@ -5370,8 +5377,10 @@ private static string Chop(object o) {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>A number whose exponent is increased by <paramref
-    /// name='bigPlaces'/>.</returns>
+    /// <returns>A number whose exponent is generally increased by
+    /// <paramref name='bigPlaces'/>. For example, in general, if
+    /// <paramref name='bigPlaces'/> is 5, "78E-2" becomes "78E+3" and has
+    /// a bigger value.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigPlaces'/> is null.</exception>
     public EDecimal ScaleByPowerOfTen(

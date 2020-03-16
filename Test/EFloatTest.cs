@@ -2541,6 +2541,13 @@ Assert.IsTrue(ef2.IsFinite);
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
+      for (var i = 0; i < 1000; ++i) {
+var rg = new RandomGenerator();
+EInteger ei = RandomObjects.RandomEInteger(rg);
+EFloat ed = EFloat.FromEInteger(ei).ScaleByPowerOfTwo(
+   rg.UniformInt(20));
+Assert.AreEqual(ei, ed.ToEIntegerIfExact());
+}
     }
 
     [Test]
