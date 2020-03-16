@@ -215,8 +215,8 @@ namespace PeterO.Numbers {
   /// library (see also the advice for transcendentals above). But as for
   /// the ToDouble, ToSingle, FromDouble, and FromSingle methods, note
   /// that some implementations of Java and.NET may or may not support
-  /// preserving the value of subnormal numbers (numbers with the lowest
-  /// possible exponent, but are not zero) or the payloads held in a
+  /// preserving the value of subnormal numbers (numbers other than zero
+  /// with the lowest possible exponent) or the payloads held in a
   /// not-a-number (NaN) value of float or double; thus these methods
   /// should not be considered reproducible across computers.</item>
   /// <item>Compiler differences: Not applicable where these classes

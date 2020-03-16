@@ -2060,7 +2060,8 @@ namespace PeterO.Numbers {
       if (isPowIntegral) {
         EInteger signedMant;
         // Special case for 1 in certain cases
-        if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0) {
+        if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0 &&
+            isPowIntegral) {
           EInteger thisExponent = this.helper.GetExponent(thisValue);
           if (thisExponent.Sign == 0) {
             return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
@@ -2106,8 +2107,9 @@ namespace PeterO.Numbers {
         return this.PowerIntegral(thisValue, signedMant, ctx);
       }
       // Special case for 1
-      if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0 && powSign >
-        0) {
+      if (this.CompareTo(thisValue, this.helper.ValueOf(1)) == 0
+        // && powSign > 0
+) {
         // DebugUtility.Log("Special case 1B");
         return (!this.IsWithinExponentRangeForPow(pow, ctx)) ?
           this.SignalInvalid(ctx) :

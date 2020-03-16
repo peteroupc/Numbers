@@ -6193,9 +6193,10 @@ EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
  public void TestPowerOneExpNonInteger() {
   // In the General Decimal Arithmetic Specification, power(1, noninteger)
   // is specified as inexact, perhaps due to an oversight
-  string str = "precision: 34\nrounding: half_even\nminexponent:
--6143\nmaxexponent: 6144\nextended: 1\nuntitled power 1.0 -268575.66 ->
-1.000000000000000000000000000000000 Inexact Rounded";
+  string str = "precision: 34\nrounding: half_even\nminexponent: " +
+   "-6143\nmaxexponent: 6144\nextended: 1\n" +
+   "untitled power 1.0 -268575.66 -> " +
+   "1." + TestCommon.Repeat("0", 33) + " Inexact Rounded";
   DecTestUtil.ParseDecTests(
     str,
     false);
