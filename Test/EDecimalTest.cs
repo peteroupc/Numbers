@@ -3678,8 +3678,9 @@ namespace Test {
       var rg = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
  EInteger ei = RandomObjects.RandomEInteger(rg);
- EDecimal ed = EDecimal.FromEInteger(ei).ScaleByPowerOfTen(
-   rg.UniformInt(20));
+ int expo = rg.UniformInt(20);
+ EDecimal ed = EDecimal.FromEInteger(ei)
+   .ScaleByPowerOfTen(expo).MovePointLeft(expo);
  Assert.AreEqual(ei, ed.ToEIntegerIfExact());
  }
     }

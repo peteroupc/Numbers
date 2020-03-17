@@ -1252,7 +1252,7 @@ this.SubtractBig(EInteger.FromInt64(longVal));
           case 2:
             return this.largeValue.IsZero;
           default:
-            return false;
+            throw new InvalidOperationException();
         }
       }
     }
@@ -1266,7 +1266,7 @@ this.SubtractBig(EInteger.FromInt64(longVal));
           return this.mnum.ToEInteger().CompareTo((EInteger)val);
         case 2:
           return this.largeValue.CompareTo((EInteger)val);
-        default: return 0;
+        default: throw new InvalidOperationException();
       }
     }
 

@@ -226,7 +226,7 @@ decimalString) {
         // Signaling NaN currently not generated because
         // it doesn't round-trip as well
       }
-      if (r.GetInt32(100) < 10) {
+      if (r.GetInt32(100) < 30) {
         string str = RandomDecimalString(r);
         if (str.Length < 500) {
           if (decimalString != null) {
@@ -236,7 +236,18 @@ decimalString) {
         }
       }
       EInteger emant = RandomEInteger(r);
-      EInteger eexp = RandomEInteger(r);
+      EInteger eexp = null;
+      if (r.GetInt32(100) < 95) {
+        int exp = 0;
+        if (r.GetInt32(100) < 80) {
+          exp = r.GetInt32(50) - 25;
+        } else {
+          exp = r.GetInt32(5000) - 2500;
+        }
+        eexp = EInteger.FromInt32(exp);
+      } else {
+        eexp = RandomEInteger(r);
+      }
       EDecimal ed = EDecimal.Create(emant, eexp);
       if (decimalString != null) {
         decimalString[0] = emant.ToString() + "E" + eexp.ToString();

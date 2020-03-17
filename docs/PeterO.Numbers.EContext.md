@@ -534,15 +534,16 @@ Throws trap exceptions if the given context has flags set that also have traps e
 
 <b>Parameters:</b>
 
- * &lt;T&gt;: Data type for the result of the operation.
-
  * <i>result</i>: The result of the operation.
 
  * <i>trappableContext</i>: An arithmetic context, usually a context returned by the GetNontrapping method. Can be null.
 
+ * &lt;T&gt;: Data type for the result of the operation.
+
 <b>Return Value:</b>
 
-The parameter "result" if no trap exceptions were thrown.
+The parameter  <i>result</i>
+ if no trap exceptions were thrown.
 
 <a id="WithAdjustExponent_bool"></a>
 ### WithAdjustExponent

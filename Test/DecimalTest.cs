@@ -47,11 +47,16 @@ namespace Test {
       var fr = new RandomGenerator();
       // var sw = new System.Diagnostics.Stopwatch();
       // var sw2 = new System.Diagnostics.Stopwatch();
+      // var sw3 = new System.Diagnostics.Stopwatch();
       for (var i = 0; i < 10000; ++i) {
         if (i % 100 == 0) {
-          Console.WriteLine(i);
+        // Console.WriteLine(i + " sw=" +
+        // sw.ElapsedMilliseconds + ", " + (sw2.ElapsedMilliseconds) +
+        // ", " + (sw3.ElapsedMilliseconds));
         }
+        // sw3.Start();
         EDecimal ed = RandomObjects.RandomEDecimal(fr);
+        // sw3.Stop();
         // Reduce to Decimal128. Without this reduction,
         // Decimal.Parse would run significantly more slowly
         // on average for random
@@ -60,12 +65,11 @@ namespace Test {
         // Decimal128 covers all numbers representable
         // in a CliDecimal.
         ed = ed.RoundToPrecision(EContext.Decimal128);
+
         if (!ed.IsFinite) {
           continue;
         }
         string edString = ed.ToString();
-        // Console.WriteLine("eds=" + (//edString.Length) + " sw=" +
-        // sw.ElapsedMilliseconds + ", " + (sw2.ElapsedMilliseconds));
         decimal d;
         try {
           System.Globalization.NumberStyles numstyles =
@@ -91,6 +95,7 @@ namespace Test {
               ed3,
               msg);
           }
+          // sw3.Stop();
         } catch (OverflowException ex) {
           EDecimal ed2 = EDecimal.FromString(
               edString,

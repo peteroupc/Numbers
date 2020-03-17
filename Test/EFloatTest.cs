@@ -2542,12 +2542,13 @@ Assert.IsTrue(ef2.IsFinite);
         throw new InvalidOperationException(String.Empty, ex);
       }
       for (var i = 0; i < 1000; ++i) {
-var rg = new RandomGenerator();
-EInteger ei = RandomObjects.RandomEInteger(rg);
-EFloat ed = EFloat.FromEInteger(ei).ScaleByPowerOfTwo(
-   rg.UniformInt(20));
-Assert.AreEqual(ei, ed.ToEIntegerIfExact());
-}
+ var rg = new RandomGenerator();
+ EInteger ei = RandomObjects.RandomEInteger(rg);
+ int expo = rg.UniformInt(20);
+ EFloat ed = EFloat.FromEInteger(ei).ScaleByPowerOfTwo(
+   expo).MovePointLeft(expo);
+ Assert.AreEqual(ei, ed.ToEIntegerIfExact());
+ }
     }
 
     [Test]

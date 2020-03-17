@@ -25,12 +25,6 @@ namespace PeterO.Numbers {
       1,
       null);
 
-    private static readonly EInteger ValueInt32MinValue =
-      (EInteger)Int32.MinValue;
-
-    private static readonly EInteger ValueNegativeInt32MinValue =
-      -(EInteger)ValueInt32MinValue;
-
     private static readonly FastIntegerFixed[] Cache =
 FastIntegerFixedCache(CacheFirst,
   CacheLast);
@@ -317,6 +311,16 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
           return -evalue.CompareTo(this.smallValue);
         case 2:
           return this.largeValue.CompareTo(evalue);
+        default: throw new InvalidOperationException();
+      }
+    }
+
+    public int CompareTo(FastInteger fint) {
+      switch (this.integerMode) {
+        case 0:
+          return -fint.CompareToInt(this.smallValue);
+        case 2:
+          return -fint.CompareTo(this.largeValue);
         default: throw new InvalidOperationException();
       }
     }

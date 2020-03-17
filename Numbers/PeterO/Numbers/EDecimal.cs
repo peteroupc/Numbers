@@ -2482,7 +2482,7 @@ private static string Chop(object o) {
         // so ignore precision
         if (ec.IsPrecisionInBits) {
           if (exponent.CompareTo(ec.EMax) > 0) {
-            return 2; // Underflow
+            return 1; // Overflow
           }
         } else {
           EInteger adjExponent = exponent.Add(precisionInt).Subtract(1);
