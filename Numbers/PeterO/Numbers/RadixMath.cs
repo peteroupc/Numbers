@@ -4809,9 +4809,11 @@ ctxdiv.Flags));*/
 
     private bool IsNullOrInt32FriendlyContext(EContext ctx) {
       return ctx == null || (
-          (!ctx.HasFlags && ctx.Traps == 0) && (!ctx.HasExponentRange ||
+          (!ctx.HasFlags && ctx.Traps == 0) &&
+          (!ctx.HasExponentRange ||
             (ctx.EMin.CompareTo(-10) < 0 && ctx.EMax.Sign >= 0)) &&
-          ctx.Rounding != ERounding.Floor && (!ctx.HasMaxPrecision ||
+          ctx.Rounding != ERounding.Floor &&
+           (!ctx.HasMaxPrecision ||
             (this.thisRadix >= 10 && !ctx.IsPrecisionInBits &&
               ctx.Precision.CompareTo(10) >= 0) ||
             ((this.thisRadix >= 2 || ctx.IsPrecisionInBits) &&
@@ -5054,12 +5056,11 @@ ctxdiv.Flags));*/
           }
         }
       }
-      if (this.IsNullOrInt32FriendlyContext(ctx) &&
-        (lastDiscarded | olderDiscarded) == 0 &&
+      if ((lastDiscarded | olderDiscarded) == 0 &&
         (shift == null || shift.IsValueZero)) {
         // DebugUtility.Log("fastpath for "+ctx+", "+thisValue);
         FastIntegerFixed expabs = this.helper.GetExponentFastInt(thisValue);
-        if (expabs.IsValueZero) {
+        if (expabs.IsValueZero && this.IsNullOrInt32FriendlyContext(ctx)) {
           FastIntegerFixed mantabs = this.helper.GetMantissaFastInt(thisValue);
           if (mantabs.IsValueZero && adjustNegativeZero &&
             (thisFlags & BigNumberFlags.FlagNegative) != 0) {
@@ -5550,24 +5551,30 @@ this.DigitLengthUpperBoundForBitPrecision(fastPrecision);
           lowExpBound = lowExpBound.Add(bounds[0]).Subtract(2);
         }
         FastIntegerFixed highExpBound = expfixed;
-        if (ctx.AdjustExponent) {
-          highExpBound = highExpBound.Add(bounds[1]);
-        }
+        highExpBound = highExpBound.Add(bounds[1]);
+        FastIntegerFixed fpf = FastIntegerFixed.FromFastInteger(fastPrecision);
         /*
         string ch1=""+lowExpBound;ch1=ch1.Substring(0,Math.Min(12,ch1.Length));
         string ch2=""+highExpBound;ch2=ch2.Substring(0,Math.Min(12,ch2.Length));
-        DebugUtility.Log("bounds="+ch1+"/"+ch2+"/"+fastEMax); */
+        DebugUtility.Log("exp="+expfixed);
+        DebugUtility.Log("bounds="+ch1+"/"+ch2+"/"+fastEMax+
+          " fpf="+fastPrecision + " highexp=" +highExpBound.Add(fpf).Add(4));
+        */
         if (lowExpBound.CompareTo(fastEMax) > 0) {
            // Overflow.
            return this.SignalOverflow(ctx, neg);
         }
-        FastIntegerFixed fpf = FastIntegerFixed.FromFastInteger(fastPrecision);
-        if (highExpBound.Add(fpf).Add(4).CompareTo(
-            fastEMin) < 0) {
+        FastIntegerFixed underflowBound = highExpBound.Add(fpf).Add(4);
+        // FastIntegerFixed underflowBound2 = highExpBound.Add(bounds[1]).Add(4);
+        // if (underflowBound2.CompareTo(underflowBound) > 0) {
+        //   underflowBound = underflowBound2;
+        // }
+        // DebugUtility.Log("underflowBound="+underflowBound);
+        if (underflowBound.CompareTo(fastEMin) < 0) {
            // Underflow.
            // NOTE: Due to estMantDigits check
            // above, we know significand is neither zero nor 1(
-           // SignalUnderflow will pass 0 or 1 significands to
+           // SignalUnderflow will pass significands of 0 or 1 to
            // RoundToPrecision).
            return this.SignalUnderflow(ctx, neg, false);
         }

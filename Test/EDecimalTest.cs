@@ -459,15 +459,9 @@ namespace Test {
     public void TestConversions() {
       TestConversionsOne(EDecimal.FromString("4766857907817990.0000000000"));
       var fr = new RandomGenerator();
-      for (var i = 0; i < 20000; ++i) {
+      for (var i = 0; i < 5000; ++i) {
         EDecimal enumber = RandomObjects.RandomEDecimal(fr);
-        try {
         TestConversionsOne(enumber);
- } catch (Exception ex) {
-        throw new InvalidOperationException(
-           enumber.ToString(),
-           ex);
- }
       }
       TestConversionsOne(EDecimal.FromString("-0.8995"));
       TestConversionsOne(EDecimal.FromString("-4.061532283038E+14"));
@@ -1688,11 +1682,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(2.2936E-7).ToString();
         {
-          object objectTemp =
-
-  "2.29360000000000010330982488752915582352898127282969653606414794921875E-7";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"2.29360000000000010330982488752915582352898127282969653606414794921875E-7";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -1729,11 +1721,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(1.9512E-6).ToString();
         {
-          object objectTemp =
-
-  "0.0000019512000000000000548530838806460252499164198525249958038330078125";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.0000019512000000000000548530838806460252499164198525249958038330078125";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -1765,10 +1755,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(3.1035E-5).ToString();
         {
-          object objectTemp =
-  "0.0000310349999999999967797807698399736864303122274577617645263671875";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.0000310349999999999967797807698399736864303122274577617645263671875";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -1849,11 +1838,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(3.237E-6).ToString();
         {
-          object objectTemp =
-
-  "0.00000323700000000000009386523676380154057596882921643555164337158203125";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.00000323700000000000009386523676380154057596882921643555164337158203125";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -1995,11 +1982,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(2.2818E-7).ToString();
         {
-          object objectTemp =
-
-  "2.28179999999999995794237200343046456652018605382181704044342041015625E-7";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"2.28179999999999995794237200343046456652018605382181704044342041015625E-7";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -2061,11 +2046,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(3.8025E-6).ToString();
         {
-          object objectTemp =
-
-  "0.00000380250000000000001586513038998038638283105683512985706329345703125";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.00000380250000000000001586513038998038638283105683512985706329345703125";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
 
@@ -2097,10 +2080,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(3.9116E-7).ToString();
         {
-          object objectTemp =
-  "3.911600000000000165617541382501176627783934236504137516021728515625E-7";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"3.911600000000000165617541382501176627783934236504137516021728515625E-7";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
 
@@ -2169,32 +2151,27 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(1.3414E-4).ToString();
         {
-          object objectTemp =
-  "0.00013414000000000001334814203612921801322954706847667694091796875";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.00013414000000000001334814203612921801322954706847667694091796875";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
 
       {
         stringTemp = EDecimal.FromDouble(3.445E-7).ToString();
         {
-          object objectTemp =
-
-  "3.4449999999999999446924077266263264363033158588223159313201904296875E-7";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"3.4449999999999999446924077266263264363033158588223159313201904296875E-7";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
 
       {
         stringTemp = EDecimal.FromDouble(1.361E-7).ToString();
         {
-          object objectTemp =
-
-  "1.3610000000000000771138253079228785935583800892345607280731201171875E-7";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"1.3610000000000000771138253079228785935583800892345607280731201171875E-7";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -2213,10 +2190,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(6.0E-6).ToString();
         {
-          object objectTemp =
-  "0.00000600000000000000015200514458246772164784488268196582794189453125";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.00000600000000000000015200514458246772164784488268196582794189453125";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -2247,10 +2223,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(2.331E-4).ToString();
         {
-          object objectTemp =
-  "0.00023310000000000000099260877295392901942250318825244903564453125";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.00023310000000000000099260877295392901942250318825244903564453125";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -2308,10 +2283,9 @@ namespace Test {
       {
         stringTemp = EDecimal.FromDouble(1.83E-5).ToString();
         {
-          object objectTemp =
-  "0.00001830000000000000097183545932910675446692039258778095245361328125";
-          object objectTemp2 = stringTemp;
-          Assert.AreEqual(objectTemp, objectTemp2);
+          string stringTemp2 =
+"0.00001830000000000000097183545932910675446692039258778095245361328125";
+Assert.AreEqual(stringTemp2, stringTemp);
         }
       }
       {
@@ -3551,11 +3525,39 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       var rg = new RandomGenerator();
-      for (var i = 0; i < 100000; ++i) {
-        TestSizedEIntegerOne(RandomObjects.RandomEDecimal(rg),
-          rg.UniformInt(2) == 0,
-          rg.UniformInt(129));
+      for (var i = 0; i < 75000; ++i) {
+        EDecimal ed = RandomObjects.RandomEDecimal(rg);
+        bool bv = rg.UniformInt(2) == 0;
+        int msb = rg.UniformInt(129);
+        try {
+          TestSizedEIntegerOne(ed, bv, msb);
+        } catch (InvalidOperationException ex) {
+           throw new InvalidOperationException(
+             ed + " " + bv + " " + msb,
+             ex);
+        }
       }
+      for (var i = 0; i < 10000; ++i) {
+        EInteger ei = RandomObjects.RandomEInteger(rg);
+        int expo = rg.UniformInt(20);
+        bool bv = rg.UniformInt(2) == 0;
+        int msb = rg.UniformInt(129);
+        EDecimal ed = EDecimal.FromEInteger(ei)
+         .ScaleByPowerOfTen(expo).MovePointLeft(expo);
+        TestSizedEIntegerOne(ed, bv, msb);
+      }
+    }
+
+    [Test]
+    public void TestSizedEIntegerSpecific1() {
+      TestSizedEIntegerOne(
+         EDecimal.FromString("1478.0619950000000000"),
+         true,
+         105);
+      TestSizedEIntegerOne(
+         EDecimal.FromString("1478.0619950000000000"),
+         false,
+         105);
     }
 
     public static bool TestSizedEIntegerOne(EDecimal ed, bool isExact, int
@@ -6153,6 +6155,17 @@ namespace Test {
       String str =
 
   "-66534305690092119160982082298.6117943850214200578102634919915948108612006388913171795430645264401356581996334057250931572660709458186036652420658265819852148081219105264213931192572998661457444645337884797981765786873164189138929912494098111738350059458760047160519097327194211787079276441238232334641699878542658228963741574816826153104358339605788240136295139854413718595196475956646218991803499475021107664682894173676216342285575942409166581979296601101999863633968466436458631641517841792";
+      TestStringContextOneEFloat(str, ec);
+    }
+
+    [Test]
+    public void TestStringContextSpecific6c() {
+      EContext ec =
+EContext.Unlimited.WithPrecision(11).WithExponentRange(-14,
+  15).WithRounding(
+  ERounding.Up).WithAdjustExponent(
+  false).WithExponentClamp(true).WithSimplified(false);
+      String str = "111111111111111." + TestCommon.Repeat("1", 87) + "E+3";
       TestStringContextOneEFloat(str, ec);
     }
     [Test]
