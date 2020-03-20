@@ -1,17 +1,12 @@
 <package
-><metadata><version>1.5.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.5.1
+><metadata><version>1.6.0</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.6.0
 
-- Fix bugs in EDecimal.FromString and ERational.FromString involving substrings containing negative numbers.
-
-Version 1.5.0
-
-- Major performance improvements in certain number parsing and generating methods, including the FromString methods of EInteger, EDecimal, EFloat, and ERational, and the ToEFloat method of EDecimal, especially where they take an arithmetic context (EContext) that specifies a limited precision and exponent range.
-- There were also performance improvements in digit count calculation and in rounding many-digit-long numbers.
-- Add int overloads to EDecimal.Pow and EFloat.Pow.
-- Add int overloads to several ERational methods.
-- Add CompareTo overloads and CompareToValue (which implements current CompareTo) in EDecimal, EFloat, and ERational.  In a future version, CompareTo&apos;s behavior might change to CompareToTotal in each of these classes.  Also certain CompareTo* methods now have consistent behavior when they receive a null argument.
-- ETrapException now has an Errors property that holds all errors that occur at the same time as the primary error.
-- Fixed edge cases when ToShortestString might return an incorrect result.
-- Fixed bug when some ETrapExceptions aren&apos;t thrown as they should.
-- Other bug fixes.</releaseNotes><summary></summary><license type='expression'>CC0-1.0</license><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags><dependencies><group /></dependencies></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
+- Numerous performance improvements in the EInteger, EDecimal, EFloat, and ERational classes.  Among them is the use of caches for small EInteger, EDecimal, and EFloat values, and faster multiplication algorithms for large EIntegers.
+- Correctness fixes to the Log() methods in EDecimal and EFloat
+- New LogN() method in EDecimal and EFloat
+- New methods in EInteger, including FromBytes, GetDigitCountAsEInteger, and DivRem(long)
+- New ToSizedEInteger/ToSizedEIntegerIfExact/IsInteger methods in EDecimal, EFloat, and ERational
+- New Create overloads in EFloat and ERational
+- New Min and Max methods in EInteger and ERational
+- Bug fixes</releaseNotes><summary></summary><license type='expression'>CC0-1.0</license><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags><dependencies><group /></dependencies></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
 >

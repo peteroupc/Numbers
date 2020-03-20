@@ -37,11 +37,11 @@ Version 1.6.0
     <DebugType>full</DebugType>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Release|AnyCPU&apos; '>
-    <DebugType/>
+    <DebugType>none</DebugType>
     <DocumentationFile>bin\Release\netstandard1.0\Numbers.xml</DocumentationFile>
 
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>
 
   <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.113'/><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='2.9.8'/></ItemGroup>
-<PropertyGroup/><PropertyGroup/>                  </Project>
+<PropertyGroup/><PropertyGroup/>                     </Project>

@@ -4372,7 +4372,7 @@ ShortMask) != 0) ? 9 :
     /// Thus, for negative values, the arbitrary-precision integer is
     /// sign-extended.</summary>
     /// <param name='eshift'>The number of bits to shift. Can be negative,
-    /// in which case this is the same as shiftLeft with the absolute value
+    /// in which case this is the same as ShiftLeft with the absolute value
     /// of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -4399,7 +4399,7 @@ ShortMask) != 0) ? 9 :
     /// value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by
     /// 16, and so on.</summary>
     /// <param name='eshift'>The number of bits to shift. Can be negative,
-    /// in which case this is the same as shiftRight with the absolute
+    /// in which case this is the same as ShiftRight with the absolute
     /// value of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -4437,18 +4437,37 @@ ShortMask) != 0) ? 9 :
           this.ShiftRight(1).ShiftRight(Int32.MaxValue) :
           this.ShiftRight(-numberBits);
       }
-      var numWords = (int)this.wordCount;
+      int numWords = this.wordCount;
       var shiftWords = (int)(numberBits >> 4);
       var shiftBits = (int)(numberBits & 15);
       if (!this.negative) {
-        var ret = new short[numWords + BitsToWords((int)numberBits)];
+        // Determine shifted integer's word count in advance;
+        // it's more cache-friendly to do so because the
+        // unshifted word has less memory
+        int lastWordBL = NumberUtility.BitLength(
+           (int)(this.words[this.wordCount - 1]) & 0xffff);
+        lastWordBL += shiftBits;
+        var newWordCount = 0;
+        if (lastWordBL <= 16) {
+           // New bit count is such that an additional word
+           // is not needed
+           newWordCount = numWords + shiftWords;
+        } else {
+           newWordCount = numWords + BitsToWords(numberBits);
+        }
+        var ret = new short[newWordCount];
         Array.Copy(this.words, 0, ret, shiftWords, numWords);
         ShiftWordsLeftByBits(
           ret,
-          (int)shiftWords,
-          numWords + BitsToWords(shiftBits),
+          shiftWords,
+          newWordCount - shiftWords,
           shiftBits);
-        return new EInteger(CountWords(ret), ret, false);
+        #if DEBUG
+        if (newWordCount <= 0 || ret[newWordCount - 1] == 0) {
+          throw new InvalidOperationException();
+        }
+        #endif
+        return new EInteger(newWordCount, ret, false);
       } else {
         var ret = new short[numWords + BitsToWords((int)numberBits)];
         Array.Copy(this.words, ret, numWords);
@@ -8567,7 +8586,7 @@ ShortMask) != 0) ? 9 :
     private static short ShiftWordsLeftByBits(
       short[] r,
       int rstart,
-      int n,
+      int count,
       int shiftBits) {
       #if DEBUG
       if (shiftBits >= 16) {
@@ -8579,7 +8598,7 @@ ShortMask) != 0) ? 9 :
       if (shiftBits != 0) {
         int sb16 = 16 - shiftBits;
         int rs = rstart;
-        for (var i = 0; i < n; ++i, ++rs) {
+        for (var i = 0; i < count; ++i, ++rs) {
           u = r[rs];
           r[rs] = unchecked((short)((u << shiftBits) | carry));
           carry = (u & ShortMask) >> sb16;

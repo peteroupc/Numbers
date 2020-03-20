@@ -1535,14 +1535,14 @@ namespace Test {
         }
         Assert.IsTrue(lmant < (1 << 24));
         ERational ulp = PowerOfTwo(exp);
-        ERational half = ulp.Divide(2);
+        ERational half = PowerOfTwo(exp - 1);
         ERational binValue = ERational.FromInt64(lmant).Multiply(ulp);
         ERational decValue = ERational.FromEDecimal(ed).Abs();
         ERational diffValue = decValue.Subtract(binValue);
         if (IsPowerOfTwo(lmant) && exp != -149) {
           // Different closeness check applies when approximate
           // binary number is a power of 2
-          ERational negQuarter = ulp.Divide(4).Negate();
+          ERational negQuarter = PowerOfTwo(exp - 2).Negate();
           // NOTE: Order of subtraction in diffValue is important here
           if (negQuarter.CompareTo(diffValue) > 0 ||
             diffValue.CompareTo(half) > 0) {
@@ -1606,17 +1606,15 @@ namespace Test {
           ++exp;
           lmant >>= 1;
         }
-        if (lmant >= (1L << 53)) {
-        }
         ERational ulp = PowerOfTwo(exp);
-        ERational half = ulp.Divide(2);
+        ERational half = PowerOfTwo(exp - 1);
         ERational binValue = ERational.FromInt64(lmant).Multiply(ulp);
         ERational decValue = ERational.FromEDecimal(ed).Abs();
         ERational diffValue = decValue.Subtract(binValue);
         if (IsPowerOfTwo(lmant) && exp != -1074) {
           // Different closeness check applies when approximate
           // binary number is a power of 2
-          ERational negQuarter = ulp.Divide(4).Negate();
+          ERational negQuarter = PowerOfTwo(exp - 2).Negate();
           // NOTE: Order of subtraction in diffValue is important here
           if (negQuarter.CompareTo(diffValue) > 0 ||
             diffValue.CompareTo(half) > 0) {
@@ -1632,12 +1630,6 @@ namespace Test {
             Assert.Fail(msg);
           }
         }
-        /* if (diffValue.Abs().CompareTo(half) < 0) {
-          string msg = "str=" + str + "\nef=" + OutputEF(ef) +
-            "\nmant=" + lmant + "\nexp=" + exp;
-          Assert.Fail(msg);
-        }
-        */
       }
     }
 
@@ -2058,7 +2050,6 @@ Assert.IsTrue(ef2.IsFinite);
     }
 
     [Test]
-    [Timeout(100000)]
     public void TestConversions() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {

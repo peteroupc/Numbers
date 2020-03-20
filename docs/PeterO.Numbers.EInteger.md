@@ -2546,7 +2546,7 @@ Returns an arbitrary-precision integer with the bits shifted to the left by a nu
 
 <b>Parameters:</b>
 
- * <i>eshift</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftRight with the absolute value of this parameter.
+ * <i>eshift</i>: The number of bits to shift. Can be negative, in which case this is the same as ShiftRight with the absolute value of this parameter.
 
 <b>Return Value:</b>
 
@@ -2584,7 +2584,7 @@ Returns an arbitrary-precision integer with the bits shifted to the right. For t
 
 <b>Parameters:</b>
 
- * <i>eshift</i>: The number of bits to shift. Can be negative, in which case this is the same as shiftLeft with the absolute value of this parameter.
+ * <i>eshift</i>: The number of bits to shift. Can be negative, in which case this is the same as ShiftLeft with the absolute value of this parameter.
 
 <b>Return Value:</b>
 

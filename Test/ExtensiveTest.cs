@@ -19,9 +19,10 @@ namespace Test {
   public class ExtensiveTest {
     public static string[] GetTestFiles() {
       try {
+        var path = Path.GetDirectoryName(
+              System.Reflection.Assembly.GetExecutingAssembly().Location);
         var list = new List<string>(
-          Directory.GetFiles(Path.GetDirectoryName(
-              System.Reflection.Assembly.GetExecutingAssembly().Location)));
+          Directory.GetFiles(path));
         list.Sort();
         return list.ToArray();
       } catch (IOException) {
@@ -35,9 +36,7 @@ namespace Test {
     }
 
     [Test]
-    [Timeout(1500000)]
     public void TestParser() {
-      long failures = 0;
       var errors = new List<string>();
       var dirfiles = new List<string>();
       var sw = new System.Diagnostics.Stopwatch();
@@ -47,10 +46,7 @@ namespace Test {
       var x = 0;
       dirfiles.AddRange(GetTestFiles());
       foreach (var f in dirfiles) {
-        Console.WriteLine(f);
-        if (errors.Count > 20) {
-          break;
-        }
+        Console.WriteLine((sw.ElapsedMilliseconds/1000.0)+" " +f);
         ++x;
         var context = new Dictionary<string, string>();
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
@@ -61,17 +57,20 @@ namespace Test {
           !lowerF.Contains(".fptest")) {
           continue;
         }
+        int lines = 0;
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
-            if (errors.Count > 10) {
+            ++lines;
+            if (lines >= 150) {
               break;
             }
             var ln = w.ReadLine();
+            valueSwProcessing.Start();
             DecTestUtil.ParseDecTest(ln, context);
+            valueSwProcessing.Stop();
           }
         }
       }
-      Console.SetOut(standardOut);
       sw.Stop();
       // Total running time
       Console.WriteLine("Time: " + (sw.ElapsedMilliseconds / 1000.0) + " s");
@@ -80,13 +79,7 @@ namespace Test {
           1000.0) + " s");
       // Ratio of number processing time to total running time
       Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
-          1.0 / sw.ElapsedMilliseconds) + "%");
-      if (errors.Count > 0) {
-        foreach (string err in errors) {
-          Console.WriteLine(err);
-        }
-        Assert.Fail(failures + " failure(s)");
-      }
+          100.0 / sw.ElapsedMilliseconds) + "%");
     }
   }
 }
