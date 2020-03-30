@@ -23,6 +23,8 @@ using System.Text;
 // TODO: In next version after 1.6, add long overloads in addition to int
 // overloads
 // in EDecimal/EFloat/EInteger/ERational (including CompareTo and DivRem)
+// TODO: better document and/or/not/xor
+// TODO: AndNot, Implication (Imp/OrNot), Equivalence (Eqv/XorNot)
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
   /// for "extended", and has this prefix to group it with the other
@@ -4444,9 +4446,9 @@ ShortMask) != 0) ? 9 :
         // Determine shifted integer's word count in advance;
         // it's more cache-friendly to do so because the
         // unshifted word has less memory
-        int lastWordBL = NumberUtility.BitLength(
-           (int)(this.words[this.wordCount - 1]) & 0xffff);
-        lastWordBL += shiftBits;
+        int lastWord = ((int)this.words[this.wordCount - 1]) & 0xffff;
+        int lastWordBL = NumberUtility.BitLength(lastWord) +
+           shiftBits;
         var newWordCount = 0;
         if (lastWordBL <= 16) {
            // New bit count is such that an additional word

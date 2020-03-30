@@ -443,14 +443,19 @@
 </doc>
 <doc name="M:PeterO.Numbers.EContext.TriggerTraps``1(``0,PeterO.Numbers.EContext)">
 
-        <summary>Throws trap exceptions if the given context has flags set
+            <summary>Throws trap exceptions if the given context has flags set
             that also have traps enabled for them in this context, and adds the
             given context's flags to this context if HasFlags for this context
             is true. This is not a general-purpose method; it is intended to
-            support custom implementations of arithmetic operations.</summary><param name='result'>The result of the operation.</param><param name='trappableContext'>An arithmetic context, usually a
-            context returned by the GetNontrapping method. Can be null.</param><typeparam name='T'>Data type for the result of the
-            operation.</typeparam><returns>The parameter <paramref name='result'/> if no trap exceptions were
-            thrown.</returns>
+            support custom implementations of arithmetic operations.</summary>
+            <param name='result'>The result of the operation.</param>
+            <param name='trappableContext'>An arithmetic context, usually a
+            context returned by the GetNontrapping method. Can be null.</param>
+            <typeparam name='T'>Data type for the result of the
+            operation.</typeparam>
+            <returns>The parameter <paramref name='result'/> if no trap
+            exceptions were thrown.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EContext.Unlimited">
 
@@ -10073,7 +10078,7 @@
             value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by
             16, and so on.</summary>
             <param name='eshift'>The number of bits to shift. Can be negative,
-            in which case this is the same as shiftRight with the absolute
+            in which case this is the same as ShiftRight with the absolute
             value of this parameter.</param>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='eshift'/> is null.</exception>
@@ -10100,7 +10105,7 @@
             Thus, for negative values, the arbitrary-precision integer is
             sign-extended.</summary>
             <param name='eshift'>The number of bits to shift. Can be negative,
-            in which case this is the same as shiftLeft with the absolute value
+            in which case this is the same as ShiftLeft with the absolute value
             of this parameter.</param>
             <returns>An arbitrary-precision integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='eshift'/> is null.</exception>

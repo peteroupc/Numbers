@@ -46,7 +46,7 @@ namespace Test {
       var x = 0;
       dirfiles.AddRange(GetTestFiles());
       foreach (var f in dirfiles) {
-        Console.WriteLine((sw.ElapsedMilliseconds/1000.0)+" " +f);
+        Console.WriteLine((sw.ElapsedMilliseconds / 1000.0) + " " + f);
         ++x;
         var context = new Dictionary<string, string>();
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
@@ -57,7 +57,7 @@ namespace Test {
           !lowerF.Contains(".fptest")) {
           continue;
         }
-        int lines = 0;
+        var lines = 0;
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
             ++lines;

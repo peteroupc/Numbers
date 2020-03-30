@@ -8,6 +8,13 @@ at: http://peteroupc.github.io/
 using System;
 using System.Text;
 
+/*
+TODO: FromString(char[]) in E* classes
+TODO: FromString(char[], ..., ...) in E* classes
+TODO: add one/zero/ten to Java version; maybe change to fields in next major
+version
+TODO: Use FastIntegerFixed in EFloat and ERational
+*/
 namespace PeterO.Numbers {
   /// <summary>
   ///  Represents an arbitrary-precision decimal
