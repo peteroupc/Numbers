@@ -214,9 +214,24 @@ namespace PeterO.Numbers {
     /// greater than 0; otherwise, <c>false</c>.</value>
     public bool IsPowerOfTwo {
       get {
-        return !this.negative && this.wordCount > 0 &&
-          this.GetUnsignedBitLengthAsEInteger().Subtract(1)
-          .Equals(this.GetLowBitAsEInteger());
+            int wc = this.wordCount;
+            if (this.negative || wc == 0 ||
+                (wc > 1 && this.words[0] != 0)) {
+              return false;
+            }
+            for (var i = 0; i < wc - 1; ++i) {
+              if (this.words[i] != 0) {
+                return false;
+              }
+            }
+            int lastw = ((int)this.words[wc - 1]) & 0xffff;
+            if (lastw == 0) {
+              throw new InvalidOperationException();
+            }
+            while ((lastw & 1) == 0) {
+              lastw >>= 1;
+            }
+            return lastw == 1;
       }
     }
 
@@ -3470,13 +3485,12 @@ ShortMask) != 0) ? 9 :
         if (this.negative) {
           // Two's complement operation
           EInteger eiabs = this.Abs();
-          if (wc > 1 && eiabs.words[0] != 0) {
-            // No need to subtract by 1; the signed bit length will
-            // be the same in either case
-            return eiabs.GetSignedBitLengthAsInt64();
-          } else {
-            return eiabs.Subtract(EInteger.One).GetSignedBitLengthAsInt64();
+          long eiabsbl = eiabs.GetSignedBitLengthAsInt64();
+          if (eiabs.IsPowerOfTwo) {
+            // Absolute value is a power of 2
+            --eiabsbl;
           }
+          return eiabsbl;
         }
         int numberValue = ((int)this.words[wc - 1]) & ShortMask;
         var wcextra = 0;
