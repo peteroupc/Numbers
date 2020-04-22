@@ -14,6 +14,7 @@ TODO: FromString(char[], ..., ...) in E* classes
 TODO: add one/zero/ten to Java version; maybe change to fields in next major
 version
 TODO: Use FastIntegerFixed in EFloat and ERational
+TODO: Log1P and ExpM1 in EFloat and ERational
 */
 namespace PeterO.Numbers {
   /// <summary>
