@@ -1145,7 +1145,49 @@ namespace Test {
     }
     [Test]
     public void TestPow() {
-      // not implemented yet
+      var ecs = new EContext[] {
+        EContext.Binary32,
+        EContext.Binary64,
+      };
+      var powers = new EInteger[] {
+        EInteger.One.ShiftLeft(63).Subtract(2),
+        EInteger.One.ShiftLeft(63).Subtract(1),
+        EInteger.One.ShiftLeft(63),
+        EInteger.One.ShiftLeft(64).Subtract(2),
+        EInteger.One.ShiftLeft(64).Subtract(1),
+        EInteger.One.ShiftLeft(64),
+      };
+      EFloat efi = EFloat.PositiveInfinity;
+      var powerlist = new List<EInteger>();
+      foreach (EInteger ei in powers) {
+        powerlist.Add(ei);
+      }
+      var rg = new RandomGenerator();
+      for (var i = 0; i < 500; ++i) {
+         EInteger ei = RandomObjects.RandomEInteger(rg);
+         EInteger thresh = EInteger.FromInt64(6999999999999999999L);
+         if (ei.Abs().CompareTo(thresh) < 0) {
+           ei = ei.Add(ei.Sign < 0 ? thresh.Negate() : thresh);
+         }
+         powerlist.Add(ei);
+      }
+      foreach (EContext ec in ecs) {
+        EFloat efa = EFloat.FromInt32(1).NextPlus(ec).Negate();
+        EFloat efb = EFloat.FromInt32(1).NextMinus(ec).Negate();
+        foreach (EInteger ei in powerlist) {
+          EFloat efp = efa.Pow(EFloat.FromEInteger(ei));
+          EFloat efexp = null;
+          efexp = (ei.IsEven) ? (ei.Sign >= 0 ? EFloat.PositiveInfinity :
+EFloat.Zero) : (ei.Sign >= 0 ? EFloat.NegativeInfinity :
+EFloat.NegativeZero);
+          Assert.AreEqual(efexp, efp);
+          efp = efb.Pow(EFloat.FromEInteger(ei));
+          efexp = (ei.IsEven) ? (ei.Sign < 0 ? EFloat.PositiveInfinity :
+EFloat.Zero) : (ei.Sign < 0 ? EFloat.NegativeInfinity :
+EFloat.NegativeZero);
+          Assert.AreEqual(efexp, efp);
+        }
+      }
     }
     [Test]
     public void TestQuantize() {

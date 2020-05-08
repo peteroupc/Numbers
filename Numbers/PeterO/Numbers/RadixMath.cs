@@ -1159,6 +1159,79 @@ namespace PeterO.Numbers {
       return this.helper;
     }
 
+    public T Ln1P(T thisValue, EContext ctx) {
+      if (ctx == null) {
+        return this.SignalInvalidWithMessage(ctx, "ctx is null");
+      }
+      if (!ctx.HasMaxPrecision) {
+        return this.SignalInvalidWithMessage(
+            ctx,
+            "ctx has unlimited precision");
+      }
+      int flags = this.helper.GetFlags(thisValue);
+      if ((flags & BigNumberFlags.FlagSignalingNaN) != 0) {
+        // NOTE: Returning a signaling NaN is independent of
+        // rounding mode
+        return this.SignalingNaNInvalid(thisValue, ctx);
+      }
+      if ((flags & BigNumberFlags.FlagQuietNaN) != 0) {
+        // NOTE: Returning a quiet NaN is independent of
+        // rounding mode
+        return this.ReturnQuietNaN(thisValue, ctx);
+      }
+      int sign = this.helper.GetSign(thisValue);
+      if (sign < 0) {
+        if ((flags & BigNumberFlags.FlagInfinity) != 0) {
+          return this.SignalInvalid(ctx);
+        }
+        EFloat eabs = this.AbsRaw(thisValue);
+        int cmpOne = this.CompareTo(eabs, one);
+        if (cmp == 0) {
+           // ln(0), so negative infinity
+           return this.helper.CreateNewWithFlags(
+             EInteger.Zero,
+             EInteger.Zero,
+             BigNumberFlags.FlagNegative | BigNumberFlags.FlagInfinity);
+        } else if (cmp > 0) {
+           // ln(negative)
+           return this.SignalInvalid(ctx);
+        } else {
+           // TODO: ln(0 > x < 1)
+           throw new NotImplementedException();
+        }
+      }
+      if ((flags & BigNumberFlags.FlagInfinity) != 0) {
+        return thisValue;
+      }
+      EContext ctxCopy = ctx.WithBlankFlags();
+      T one = this.helper.ValueOf(1);
+      ERounding intermedRounding = ERounding.HalfEven;
+      if (sign == 0) {
+        return this.RoundToPrecision(
+              this.helper.CreateNewWithFlags(EInteger.Zero, EInteger.Zero, 0),
+              ctxCopy);
+      } else {
+        int cmpOne = this.CompareTo(thisValue, one);
+        EContext ctxdiv = null;
+        if (cmpOne == 0) {
+          // ln(2)
+          thisValue = this.RoundToPrecision(
+              this.helper.CreateNewWithFlags(EInteger.Zero, EInteger.Zero, 0),
+              ctxCopy);
+        } else if (cmpOne < 0) {
+          // TODO: ln(1 > x < 2)
+          throw new NotImplementedException();
+        } else {
+          // TODO: ln(x > 2)
+          throw new NotImplementedException();
+        }
+      }
+      if (ctx.HasFlags) {
+        ctx.Flags |= ctxCopy.Flags;
+      }
+      return thisValue;
+    }
+
     public T Ln(T thisValue, EContext ctx) {
       if (ctx == null) {
         return this.SignalInvalidWithMessage(ctx, "ctx is null");
@@ -4812,8 +4885,7 @@ ctxdiv.Flags));*/
           (!ctx.HasFlags && ctx.Traps == 0) &&
           (!ctx.HasExponentRange ||
             (ctx.EMin.CompareTo(-10) < 0 && ctx.EMax.Sign >= 0)) &&
-          ctx.Rounding != ERounding.Floor &&
-           (!ctx.HasMaxPrecision ||
+          ctx.Rounding != ERounding.Floor && (!ctx.HasMaxPrecision ||
             (this.thisRadix >= 10 && !ctx.IsPrecisionInBits &&
               ctx.Precision.CompareTo(10) >= 0) ||
             ((this.thisRadix >= 2 || ctx.IsPrecisionInBits) &&
@@ -5559,15 +5631,14 @@ this.DigitLengthUpperBoundForBitPrecision(fastPrecision);
         DebugUtility.Log("exp="+expfixed);
         DebugUtility.Log("bounds="+ch1+"/"+ch2+"/"+fastEMax+
           " fpf="+fastPrecision + " highexp=" +highExpBound.Add(fpf).Add(4));
-        */
-        if (lowExpBound.CompareTo(fastEMax) > 0) {
+        */ if (lowExpBound.CompareTo(fastEMax) > 0) {
            // Overflow.
            return this.SignalOverflow(ctx, neg);
         }
         FastIntegerFixed underflowBound = highExpBound.Add(fpf).Add(4);
         // FastIntegerFixed underflowBound2 = highExpBound.Add(bounds[1]).Add(4);
         // if (underflowBound2.CompareTo(underflowBound) > 0) {
-        //   underflowBound = underflowBound2;
+        // underflowBound = underflowBound2;
         // }
         // DebugUtility.Log("underflowBound="+underflowBound);
         if (underflowBound.CompareTo(fastEMin) < 0) {

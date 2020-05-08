@@ -23,7 +23,6 @@ using System.Text;
 // TODO: In next version after 1.6, add long overloads in addition to int
 // overloads
 // in EDecimal/EFloat/EInteger/ERational (including CompareTo and DivRem)
-// TODO: better document and/or/not/xor
 // TODO: AndNot, Implication (Imp/OrNot), Equivalence (Eqv/XorNot)
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
@@ -4524,8 +4523,18 @@ ShortMask) != 0) ? 9 :
     }
 
     /// <summary>Returns an arbitrary-precision integer with every bit
-    /// flipped from this one.</summary>
-    /// <returns>An arbitrary-precision integer.</returns>
+    /// flipped from this one (also called an inversion or NOT
+    /// operation).</summary>
+    /// <returns>An arbitrary-precision integer in which each bit in its
+    /// two's complement representation is set if the corresponding bit of
+    /// this integer is clear, and vice versa. Returns -1 if this integer
+    /// is 0. If this integer is positive, the return value is negative,
+    /// and vice versa. This method uses the two's complement form of
+    /// negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, NOT 10100 = ...11101011 (or in decimal, NOT 20
+    /// = -21). In binary, NOT ...11100110 = 11001 (or in decimal, NOT -26
+    /// = 25).</returns>
     public EInteger Not() {
       if (this.wordCount == 0) {
         return EInteger.FromInt32(-1);
@@ -4550,12 +4559,19 @@ ShortMask) != 0) ? 9 :
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <summary>Does an AND operation between two arbitrary-precision
-    /// integer values.</summary>
-    /// <param name='other'>An arbitrary-precision integer.</param>
+    /// <summary>Does an AND operation between this arbitrary-precision
+    /// integer and another one.</summary>
+    /// <param name='other'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
-    /// the corresponding bits of this integer and the other integer are
-    /// both set.</returns>
+    /// the corresponding bits of this integer and the other integer (in
+    /// their two's-complement representation) are both set. For example,
+    /// in binary, 10110 AND 01100 = 00100 (or in decimal, 22 AND 12 = 4).
+    /// This method uses the two's complement form of negative integers
+    /// (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11100111 AND 01100 = 00100 (or in decimal,
+    /// -25 AND 12 = 4).</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
@@ -4615,16 +4631,27 @@ ShortMask) != 0) ? 9 :
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <summary>Does an OR operation between two arbitrary-precision
-    /// integer instances.</summary>
-    /// <param name='second'>The second operand.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
+    /// <summary>Does an OR operation between this arbitrary-precision
+    /// integer and another one.</summary>
+    /// <param name='second'>Another arbitrary-precision integer that participates
+    ///in the operation.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit of this integer is set, the other integer's
+    ///corresponding bit is set, or both. For example, in binary, 10110 OR 11010 =
+    ///11110 (or in decimal, 22 OR 26 = 30). This method uses the two's complement
+    ///form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    ///example, in binary, ...11101110 OR 01011 = ...11101111 (or in decimal, -18
+    ///OR 11 = -17).
+</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
+    /// <returns/>
+    /// <param name='second'>Not documented yet.</param>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
@@ -4697,16 +4724,18 @@ ShortMask) != 0) ? 9 :
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-    /// <summary>Finds the exclusive "or" of two arbitrary-precision
-    /// integer objects.
-    /// <para>Each arbitrary-precision integer is treated as a
-    /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
-    /// the purposes of this operator.</para></summary>
-    /// <param name='other'>An arbitrary-precision integer.</param>
+    /// <summary>Does an exclusive OR (XOR) operation between this
+    /// arbitrary-precision integer and another one.</summary>
+    /// <param name='other'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bit is set in one input integer but not in the
-    /// other.</returns>
+    /// other. For example, in binary, 11010 XOR 01001 = 10011 (or in
+    /// decimal, 26 XOR 9 = 19). This method uses the two's complement form
+    /// of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101101 XOR 00011 = ...11101110 (or in
+    /// decimal, -19 XOR 3 = -18).</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
     public EInteger Xor(EInteger other) {

@@ -43,5 +43,5 @@ Version 1.6.0
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>
 
-  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.164'/><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='3.0.0-beta3.final'/></ItemGroup>
+  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.164'/><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='3.0.0'/></ItemGroup>
 <PropertyGroup/><PropertyGroup/>                     </Project>
