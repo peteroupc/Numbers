@@ -1184,15 +1184,15 @@ namespace PeterO.Numbers {
         if ((flags & BigNumberFlags.FlagInfinity) != 0) {
           return this.SignalInvalid(ctx);
         }
-        EFloat eabs = this.AbsRaw(thisValue);
-        int cmpOne = this.CompareTo(eabs, one);
-        if (cmp == 0) {
+        T eabs = this.AbsRaw(thisValue);
+        int cmpOne = this.CompareTo(eabs, this.helper.ValueOf(1));
+        if (cmpOne == 0) {
            // ln(0), so negative infinity
            return this.helper.CreateNewWithFlags(
              EInteger.Zero,
              EInteger.Zero,
              BigNumberFlags.FlagNegative | BigNumberFlags.FlagInfinity);
-        } else if (cmp > 0) {
+        } else if (cmpOne > 0) {
            // ln(negative)
            return this.SignalInvalid(ctx);
         } else {

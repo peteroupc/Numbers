@@ -4633,25 +4633,23 @@ ShortMask) != 0) ? 9 :
 
     /// <summary>Does an OR operation between this arbitrary-precision
     /// integer and another one.</summary>
-    /// <param name='second'>Another arbitrary-precision integer that participates
-    ///in the operation.</param>
+    /// <param name='second'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
     /// the corresponding bit of this integer is set, the other integer's
-    ///corresponding bit is set, or both. For example, in binary, 10110 OR 11010 =
-    ///11110 (or in decimal, 22 OR 26 = 30). This method uses the two's complement
-    ///form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
-    ///example, in binary, ...11101110 OR 01011 = ...11101111 (or in decimal, -18
-    ///OR 11 = -17).
-</returns>
+    /// corresponding bit is set, or both. For example, in binary, 10110 OR
+    /// 11010 = 11110 (or in decimal, 22 OR 26 = 30). This method uses the
+    /// two's complement form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101110 OR 01011 = ...11101111 (or in
+    /// decimal, -18 OR 11 = -17).</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
-    /// <returns/>
-    /// <param name='second'>Not documented yet.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
