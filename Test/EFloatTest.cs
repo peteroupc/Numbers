@@ -443,6 +443,60 @@ namespace Test {
         enumber);
     }
 
+[Test]
+public static void TestDoubleSingleBitsSpecific() {
+{
+  string str = "-0.0230382307472970331019279655038189957849681377410888671875";
+  EFloat ed = EFloat.FromDoubleBits(-4641074497532188517L);
+  EFloat edExp = EFloat.FromString(str);
+  Assert.AreEqual(0, edExp.CompareToValue(ed));
+  Assert.AreEqual(-4641074497532188517L, ed.ToDoubleBits());
+}
+{
+string
+  str =
+  "19501289696574533000000000000000000000000000000000000000000000000000000000000000";
+EFloat ed = EFloat.FromDoubleBits(5793051147329279713L);
+EFloat edExp = EFloat.FromString(str);
+Assert.AreEqual(
+  0,
+  edExp.CompareToValue(ed),
+
+  "19501289696574533000000000000000000000000000000000000000000000000000000000000000");
+Assert.AreEqual(5793051147329279713L, ed.ToDoubleBits());
+}
+{
+string str = "-0.023038230747297033";
+EFloat ed = EFloat.FromDoubleBits(-4641074497532188517L);
+EFloat edExp = EFloat.FromString(str);
+Assert.AreEqual(
+  0,
+  edExp.CompareToValue(ed),
+  "-0.023038230747297033");
+Assert.AreEqual(-4641074497532188517L, ed.ToDoubleBits());
+}
+{
+string str = "-5761315294415299";
+EDecimal ed = EDecimal.FromDoubleBits(-4380744721764447805L);
+EDecimal edExp = EDecimal.FromString(str);
+Assert.AreEqual(
+  0,
+  edExp.CompareToValue(ed),
+  "-5761315294415299");
+Assert.AreEqual(-4380744721764447805L, ed.ToDoubleBits());
+}
+{
+string str = "4569138";
+EDecimal ed = EDecimal.FromSingleBits(1250652260);
+EDecimal edExp = EDecimal.FromString(str);
+Assert.AreEqual(
+  0,
+  edExp.CompareToValue(ed),
+  "4569138");
+Assert.AreEqual(1250652260, ed.ToSingleBits());
+}
+}
+
     [Test]
     public void TestFloatDecimalSpecific() {
       string str =
@@ -1144,6 +1198,7 @@ namespace Test {
         EFloat.NegativeZero.Plus(null));
     }
     [Test]
+    [Timeout(100000)]
     public void TestPow() {
       var ecs = new EContext[] {
         EContext.Binary32,

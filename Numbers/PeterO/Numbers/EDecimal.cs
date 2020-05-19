@@ -879,10 +879,10 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as <paramref name='dbl'/>.</returns>
     public static EDecimal FromDouble(double dbl) {
-      long value = BitConverter.ToInt64(
+      long lvalue = BitConverter.ToInt64(
           BitConverter.GetBytes((double)dbl),
           0);
-      return FromDoubleBits(value);
+      return FromDoubleBits(lvalue);
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from a
@@ -5538,6 +5538,38 @@ private static string Chop(object o) {
       return this.Add(negated, ctx);
     }
 
+    private static long IntegerToDoubleBits(long v, int expshift, bool neg) {
+            int nexp = expshift;
+            while (v < (1L << 53)) {
+                v <<= 1;
+                --nexp;
+             }
+             // Clear the high bits where the exponent and sign are
+             v &= 0xfffffffffffffL;
+             // NOTE: Assumed not to be subnormal
+             v |= (long)(nexp + 1075) << 52;
+             if (neg) {
+               v |= unchecked((long)(1L << 63));
+             }
+              return v;
+    }
+
+    private static int IntegerToSingleBits(int iv, int expshift, bool neg) {
+            int nexp = expshift;
+            while (iv < (1 << 24)) {
+                iv <<= 1;
+                --nexp;
+             }
+             // Clear the high bits where the exponent and sign are
+             iv &= 0x7fffff;
+             // NOTE: Assumed not to be subnormal
+             iv |= (nexp + 150) << 23;
+             if (neg) {
+               iv |= 1 << 31;
+             }
+              return iv;
+    }
+
     /// <summary>Converts this value to its closest equivalent as a 64-bit
     /// floating-point number encoded in the IEEE 754 binary64 format,
     /// using the half-even rounding mode.
@@ -5571,8 +5603,7 @@ private static string Chop(object o) {
           long v = this.unsignedMantissa.ToInt64();
           if (v <= (1L << 53)) {
             // This integer fits exactly in double
-            double dbl = this.IsNegative ? (double)(-v) : (double)v;
-            throw new NotImplementedException();
+            return IntegerToDoubleBits(v, 0, this.IsNegative);
           }
         }
         if (this.exponent.CompareToInt(0) < 0 &&
@@ -5583,23 +5614,17 @@ private static string Chop(object o) {
           int vtp = ValueTenPowers[iex];
           if (m != Int32.MinValue) {
             if (m % vtp == 0) {
-              var dn = (double)(m / vtp);
-              double dbl = this.IsNegative ? -dn : dn;
-              throw new NotImplementedException();
-            }
+              // Will fit in double without rounding
+              // DebugUtility.Log("m=" + m + " vtp=" + vtp);
+               return IntegerToDoubleBits(m / vtp, 0, this.IsNegative);
+             }
             // Shift significand to be a 53-bit number (which
             // can fit exactly in a double)
             long am = Math.Abs(m);
+            var expshift = 0;
             while (am < (1 << 52)) {
               am <<= 1;
-            }
-            if (am % vtp == 0) {
-              // Converting to double and doing floating-point
-              // division will be exact and will not require
-              // rounding
-              var dn = (double)m / (double)vtp;
-              double dbl = this.IsNegative ? -dn : dn;
-              throw new NotImplementedException();
+              --expshift;
             }
             int divdCount = NumberUtility.BitLength(m);
             int divsCount = NumberUtility.BitLength(vtp);
@@ -5650,7 +5675,7 @@ private static string Chop(object o) {
               // NOTE: Assumed not to be subnormal
               lquo |= (long)(nexp + 1075) << 52;
               if (this.IsNegative) {
-                lquo |= unchecked((int)(1L << 63));
+                lquo |= unchecked((long)(1L << 63));
               }
               return lquo;
             }
@@ -5766,8 +5791,8 @@ private static string Chop(object o) {
       return this.ToEFloat(EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Converts this value to a string, but without using
-    /// exponential notation.</summary>
+    /// <summary>Converts this value to a string as though with the
+    /// ToString method, but without using exponential notation.</summary>
     /// <returns>A text string.</returns>
     public string ToPlainString() {
       return this.ToStringInternal(2);
@@ -5787,38 +5812,18 @@ private static string Chop(object o) {
     /// value, encoded in the IEEE 754 binary32 format. The return value
     /// can be positive infinity or negative infinity if this value exceeds
     /// the range of a 32-bit floating point number.</returns>
-    public float ToSingleBits() {
-       // TODO
-       throw new NotImplementedException();
-    }
-
-    /// <summary>Converts this value to its closest equivalent as a 32-bit
-    /// floating-point number, using the half-even rounding mode.
-    /// <para>If this value is a NaN, sets the high bit of the 32-bit
-    /// floating point number's significand area for a quiet NaN, and
-    /// clears it for a signaling NaN. Then the other bits of the
-    /// significand area are set to the lowest bits of this object's
-    /// unsigned significand, and the next-highest bit of the significand
-    /// area is set if those bits are all zeros and this is a signaling
-    /// NaN. Unfortunately, in the.NET implementation, the return value of
-    /// this method may be a quiet NaN even if a signaling NaN would
-    /// otherwise be generated.</para></summary>
-    /// <returns>The closest 32-bit binary floating-point number to this
-    /// value. The return value can be positive infinity or negative
-    /// infinity if this value exceeds the range of a 32-bit floating point
-    /// number.</returns>
-    public float ToSingle() {
+    public int ToSingleBits() {
       if (this.IsPositiveInfinity()) {
-        return Single.PositiveInfinity;
+        return 0x7f800000;
       }
       if (this.IsNegativeInfinity()) {
-        return Single.NegativeInfinity;
+        return unchecked((int)0xff800000);
       }
       if (this.IsNegative && this.IsZero) {
-        return BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0);
+        return (int)1 << 31;
       }
       if (this.IsZero) {
-        return 0.0f;
+        return 0;
       }
       if (this.IsFinite) {
         if (this.exponent.CompareToInt(0) == 0 &&
@@ -5826,7 +5831,7 @@ private static string Chop(object o) {
           int v = this.unsignedMantissa.ToInt32();
           if (v <= (1 << 24)) {
             // This integer fits exactly in float
-            return this.IsNegative ? (float)(-v) : (float)v;
+            return IntegerToSingleBits(v, 0, this.IsNegative);
           }
         }
         if (this.exponent.CompareToInt(0) < 0 &&
@@ -5837,8 +5842,7 @@ private static string Chop(object o) {
           int vtp = ValueTenPowers[iex];
           if (m >= -(1 << 23) && m < (1 << 23)) {
             if (m % vtp == 0) {
-              var dn = (float)(m / vtp);
-              return this.IsNegative ? -dn : dn;
+              return IntegerToSingleBits(m / vtp, 0, this.IsNegative);
             }
             // Shift significand to be a 24-bit number (which
             // can fit exactly in a single)
@@ -5846,14 +5850,6 @@ private static string Chop(object o) {
             while (am < (1 << 23)) {
               am <<= 1;
             }
-            if (am % vtp == 0) {
-              // Converting to double and doing floating-point
-              // division will be exact and will not require
-              // rounding
-              var dn = (float)m / (float)vtp;
-              return this.IsNegative ? -dn : dn;
-            }
-
             int divdCount = NumberUtility.BitLength(m);
             int divsCount = NumberUtility.BitLength(vtp);
             int dividendShift = (divdCount <= divsCount) ? ((divsCount -
@@ -5904,19 +5900,37 @@ private static string Chop(object o) {
               if (this.IsNegative) {
                 smallmantissa |= 1 << 31;
               }
-              return BitConverter.ToSingle(
-                  BitConverter.GetBytes((int)smallmantissa),
-                  0);
+              return smallmantissa;
             }
           }
         }
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
-          return this.IsNegative ? Single.NegativeInfinity :
-            Single.PositiveInfinity;
+          return this.IsNegative ? unchecked((int)0xff800000) :
+            0x7f800000;
         }
       }
-      return this.ToEFloat(EContext.Binary32).ToSingle();
+      return this.ToEFloat(EContext.Binary32).ToSingleBits();
+    }
+
+    /// <summary>Converts this value to its closest equivalent as a 32-bit
+    /// floating-point number, using the half-even rounding mode.
+    /// <para>If this value is a NaN, sets the high bit of the 32-bit
+    /// floating point number's significand area for a quiet NaN, and
+    /// clears it for a signaling NaN. Then the other bits of the
+    /// significand area are set to the lowest bits of this object's
+    /// unsigned significand, and the next-highest bit of the significand
+    /// area is set if those bits are all zeros and this is a signaling
+    /// NaN. Unfortunately, in the.NET implementation, the return value of
+    /// this method may be a quiet NaN even if a signaling NaN would
+    /// otherwise be generated.</para></summary>
+    /// <returns>The closest 32-bit binary floating-point number to this
+    /// value. The return value can be positive infinity or negative
+    /// infinity if this value exceeds the range of a 32-bit floating point
+    /// number.</returns>
+    public float ToSingle() {
+       int sb = this.ToSingleBits();
+       return BitConverter.ToSingle(BitConverter.GetBytes(sb), 0);
     }
 
     /// <summary>Converts this value to a string. Returns a value

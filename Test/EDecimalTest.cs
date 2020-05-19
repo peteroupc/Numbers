@@ -3407,7 +3407,7 @@ namespace Test {
       // NaNs it may otherwise generate
       Assert.IsTrue(
         EDecimal.FromDouble(ed.ToDouble()).IsNaN(),
-        str);
+        str + " -> " + EDecimal.FromDouble(ed.ToDouble()));
       Assert.IsTrue(EDecimal.FromSingle(ed.ToSingle()).IsNaN());
       Assert.IsTrue(EFloat.FromDouble(ef.ToDouble()).IsNaN());
       Assert.IsTrue(EFloat.FromSingle(ef.ToSingle()).IsNaN());

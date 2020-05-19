@@ -7,6 +7,7 @@ at: http://peteroupc.github.io/
  */
 using System;
 
+// TODO: CompareTo(long)
 // TODO: In next major version or earlier, consider adding byte[] equivalent
 // of FromString
 // here and in EDecimal
@@ -529,25 +530,64 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// method computes the exact value of the floating point number, not
     /// an approximation, as is often the case by converting the floating
     /// point number to a string first.</summary>
-    /// <returns>A binary floating-point number with the same value as
-    /// <paramref name='dbl'/>.</returns>
+    /// <returns>A binary floating-point number with the same value as the
+    /// floating-point number encoded in <paramref name='dbl'/>.</returns>
     /// <param name='dblBits'/>
     public static EFloat FromDoubleBits(long dblBits) {
-      // TODO
-      throw new NotImplementedException();
+      var floatExponent = (int)((dblBits >> 52) & 0x7ff);
+      bool neg = (dblBits >> 63) != 0;
+      long lvalue;
+      if (floatExponent == 2047) {
+        if ((dblBits & ((1L << 52) - 1)) == 0) {
+          return neg ? EFloat.NegativeInfinity : EFloat.PositiveInfinity;
+        }
+        // Treat high bit of mantissa as quiet/signaling bit
+        bool quiet = ((dblBits >> 32) & 0x80000) != 0;
+        lvalue = dblBits & ((1L << 51) - 1);
+        if (lvalue == 0) {
+          return quiet ? NaN : SignalingNaN;
+        }
+        int flags = (neg ? BigNumberFlags.FlagNegative : 0) |
+          (quiet ? BigNumberFlags.FlagQuietNaN :
+            BigNumberFlags.FlagSignalingNaN);
+        return CreateWithFlags(
+            EInteger.FromInt64(lvalue),
+            EInteger.Zero,
+            flags);
+      }
+      lvalue = dblBits & ((1L << 52) - 1); // Mask out the exponent and sign
+      if (floatExponent == 0) {
+        ++floatExponent;
+      } else {
+        lvalue |= 1L << 52;
+      }
+      if (lvalue != 0) {
+        // Shift away trailing zeros
+        while ((lvalue & 1L) != 0) {
+           lvalue >>= 1;
+           ++floatExponent;
+        }
+      } else {
+        return neg ? EFloat.NegativeZero : EFloat.Zero;
+      }
+      return CreateWithFlags(
+          EInteger.FromInt64(lvalue),
+          (EInteger)(floatExponent - 1075),
+          neg ? BigNumberFlags.FlagNegative : 0);
     }
 
     /// <summary>Creates a binary floating-point number from a 32-bit
-    /// floating-point number encoded in the IEEE 754 binary32 format. This
-    /// method computes the exact value of the floating point number, not
-    /// an approximation, as is often the case by converting the floating
-    /// point number to a string first.</summary>
+    /// floating-point number. This method computes the exact value of the
+    /// floating point number, not an approximation, as is often the case
+    /// by converting the floating point number to a string
+    /// first.</summary>
+    /// <param name='flt'>The parameter <paramref name='flt'/> is a 64-bit
+    /// floating-point number.</param>
     /// <returns>A binary floating-point number with the same value as
-    /// <paramref name='dbl'/>.</returns>
-    /// <param name='singleBits'/>
-    public static EFloat FromSingleBits(int singleBits) {
-      // TODO
-      throw new NotImplementedException();
+    /// <paramref name='flt'/>.</returns>
+    public static EFloat FromSingle(float flt) {
+      return FromSingleBits(
+    BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0));
     }
 
     /// <summary>Creates a binary floating-point number from a 64-bit
@@ -560,46 +600,10 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// <returns>A binary floating-point number with the same value as
     /// <paramref name='dbl'/>.</returns>
     public static EFloat FromDouble(double dbl) {
-      int[] value = Extras.DoubleToIntegers(dbl);
-      var floatExponent = (int)((value[1] >> 20) & 0x7ff);
-      bool neg = (value[1] >> 31) != 0;
-      long lvalue;
-      if (floatExponent == 2047) {
-        if ((value[1] & 0xfffff) == 0 && value[0] == 0) {
-          return neg ? NegativeInfinity : PositiveInfinity;
-        }
-        // Treat high bit of mantissa as quiet/signaling bit
-        bool quiet = (value[1] & 0x80000) != 0;
-        value[1] &= 0x7ffff;
-        lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
-        if (lvalue == 0) {
-          return quiet ? NaN : SignalingNaN;
-        }
-        value[0] = (neg ? BigNumberFlags.FlagNegative : 0) |
-          (quiet ? BigNumberFlags.FlagQuietNaN :
-            BigNumberFlags.FlagSignalingNaN);
-        return CreateWithFlags(
-            EInteger.FromInt64(lvalue),
-            EInteger.Zero,
-            value[0]);
-      }
-      value[1] &= 0xfffff; // Mask out the exponent and sign
-      if (floatExponent == 0) {
-        ++floatExponent;
-      } else {
-        value[1] |= 0x100000;
-      }
-      if ((value[1] | value[0]) != 0) {
-        floatExponent += NumberUtility.ShiftAwayTrailingZerosTwoElements(
-            value);
-      } else {
-        return neg ? EFloat.NegativeZero : EFloat.Zero;
-      }
-      lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
-      return CreateWithFlags(
-          EInteger.FromInt64(lvalue),
-          (EInteger)(floatExponent - 1075),
-          neg ? BigNumberFlags.FlagNegative : 0);
+      long lvalue = BitConverter.ToInt64(
+          BitConverter.GetBytes((double)dbl),
+          0);
+      return FromDoubleBits(lvalue);
     }
 
     /// <summary>Converts an arbitrary-precision integer to the same value
@@ -612,16 +616,15 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     }
 
     /// <summary>Creates a binary floating-point number from a 32-bit
-    /// floating-point number. This method computes the exact value of the
-    /// floating point number, not an approximation, as is often the case
-    /// by converting the floating point number to a string
-    /// first.</summary>
-    /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
-    /// binary floating-point number.</param>
-    /// <returns>A binary floating-point number with the same value as
-    /// <paramref name='flt'/>.</returns>
-    public static EFloat FromSingle(float flt) {
-      int value = BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0);
+    /// floating-point number encoded in the IEEE 754 binary32 format. This
+    /// method computes the exact value of the floating point number, not
+    /// an approximation, as is often the case by converting the floating
+    /// point number to a string first.</summary>
+    /// <param name='value'>A 32-bit binary floating-point number encoded
+    /// in the IEEE 754 binary32 format.</param>
+    /// <returns>A binary floating-point number with the same
+    /// floating-point value as <paramref name='flt'/>.</returns>
+    public static EFloat FromSingleBits(int value) {
       bool neg = (value >> 31) != 0;
       var floatExponent = (int)((value >> 23) & 0xff);
       int valueFpMantissa = value & 0x7fffff;
@@ -3602,10 +3605,12 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// <summary>Converts this value to a 64-bit floating-point number
     /// encoded in the IEEE 754 binary64 format.</summary>
     /// <returns>This number, converted to a 64-bit floating-point number
-    /// encoded in the IEEE 754 binary64 format.</returns>
-    public long ToDoubleBits() {
-      // TODO
-      throw new NotImplementedException();
+    /// encoded in the IEEE 754 binary64 format. The return value can be
+    /// positive infinity or negative infinity if this value exceeds the
+    /// range of a 64-bit floating point number.</returns>
+    public double ToDouble() {
+      long value = this.ToDoubleBits();
+      return BitConverter.ToDouble(BitConverter.GetBytes((long)value), 0);
     }
 
     /// <summary>Converts this value to a 32-bit floating-point number
@@ -3613,20 +3618,98 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// <returns>This number, converted to a 32-bit floating-point number
     /// encoded in the IEEE 754 binary32 format.</returns>
     public int ToSingleBits() {
-      // TODO
-      throw new NotImplementedException();
+      if (this.IsPositiveInfinity()) {
+        return 0x7f800000;
+      }
+      if (this.IsNegativeInfinity()) {
+        return unchecked((int)0xff800000);
+      }
+      if (this.IsNaN()) {
+        var nan = 0x7f800000;
+        if (this.IsNegative) {
+          nan |= unchecked((int)(1 << 31));
+        }
+        // IsQuietNaN(): the quiet bit for X86 at least
+        // If signaling NaN and mantissa is 0: set 0x200000
+        // bit to keep the mantissa from being zero
+        if (this.IsQuietNaN()) {
+          nan |= 0x400000;
+        } else if (this.UnsignedMantissa.IsZero) {
+          nan |= 0x200000;
+        }
+        if (!this.UnsignedMantissa.IsZero) {
+          // Transfer diagnostic information
+          EInteger bigdata = this.UnsignedMantissa % (EInteger)0x400000;
+          var intData = (int)bigdata;
+          nan |= intData;
+          if (intData == 0 && !this.IsQuietNaN()) {
+            nan |= 0x200000;
+          }
+        }
+        return nan;
+      }
+      EFloat thisValue = this;
+      // DebugUtility.Log("beforeround=" +thisValue + " ["+
+      // thisValue.Mantissa + " " + thisValue.Exponent);
+      // Check whether rounding can be avoided for common cases
+      // where the value already fits a single
+      if (!thisValue.IsFinite ||
+        thisValue.unsignedMantissa.CompareTo(0x1000000) >= 0 ||
+        thisValue.exponent.CompareTo(-95) < 0 ||
+        thisValue.exponent.CompareTo(95) > 0) {
+        thisValue = this.RoundToPrecision(EContext.Binary32);
+      }
+      // DebugUtility.Log("afterround=" +thisValue + " ["+
+      // thisValue.Mantissa + " " + thisValue.Exponent);
+      if (!thisValue.IsFinite) {
+        return thisValue.ToSingleBits();
+      }
+      int intmant = thisValue.unsignedMantissa.ToInt32Checked();
+      if (thisValue.IsNegative && intmant == 0) {
+        return (int)1 << 31;
+      } else if (intmant == 0) {
+        return 0;
+      }
+      int intBitLength = NumberUtility.BitLength(intmant);
+      int expo = thisValue.exponent.ToInt32Checked();
+      var subnormal = false;
+      if (intBitLength < 24) {
+        int diff = 24 - intBitLength;
+        expo -= diff;
+        if (expo < -149) {
+          // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
+          // (-149 - expo)));
+          diff -= -149 - expo;
+          expo = -149;
+          subnormal = true;
+        }
+        intmant <<= diff;
+      }
+      // DebugUtility.Log("intmant=" + intmant + " " + intBitLength +
+      // " expo=" + expo +
+      // " subnormal=" + subnormal);
+      int smallmantissa = intmant & 0x7fffff;
+      if (!subnormal) {
+        smallmantissa |= (expo + 150) << 23;
+      }
+      if (this.IsNegative) {
+        smallmantissa |= 1 << 31;
+      }
+      return smallmantissa;
     }
 
     /// <summary>Converts this value to a 64-bit floating-point
     /// number.</summary>
-    /// <returns>This number, converted to a 64-bit floating-point
+    /// <returns>This number, converted to a 64-bit floating-point number.
+    /// The return value can express positive infinity or negative infinity
+    /// if this value exceeds the range of a 64-bit floating point
     /// number.</returns>
-    public double ToDouble() {
+    public long ToDoubleBits() {
       if (this.IsPositiveInfinity()) {
-        return Double.PositiveInfinity;
+        return unchecked((long)0x7ff0000000000000L);
       }
       if (this.IsNegativeInfinity()) {
-        return Double.NegativeInfinity;
+        return unchecked((long)0xfff0000000000000L);
       }
       if (this.IsNaN()) {
         int[] nan = { 0, 0x7ff00000 };
@@ -3653,7 +3736,11 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
             nan[1] |= 0x40000;
           }
         }
-        return Extras.IntegersToDouble(nan);
+        long lret = unchecked(((long)nan[0]) & 0xffffffffL);
+        lret |= unchecked(((long)nan[1]) << 32);
+        /*
+         DebugUtility.Log("lret={0:X8} {1:X8} {2:X}", nan[0], nan[1], lret);
+        */ return lret;
       }
       EFloat thisValue = this;
       // TODO: In next version after 1.6, use CompareTo(long) instead
@@ -3667,16 +3754,13 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
         thisValue = this.RoundToPrecision(EContext.Binary64);
       }
       if (!thisValue.IsFinite) {
-        return thisValue.ToDouble();
+        return thisValue.ToDoubleBits();
       }
       long longmant = thisValue.unsignedMantissa.ToInt64Checked();
       if (thisValue.IsNegative && longmant == 0) {
-        int highbit = unchecked((int)(1 << 31));
-        return Extras.IntegersToDouble(new[] {
-          0, highbit,
-        });
+        return 1L << 63;
       } else if (longmant == 0) {
-        return 0.0;
+        return 0L;
       }
       // DebugUtility.Log("todouble -->" + this);
       long longBitLength = NumberUtility.BitLength(longmant);
@@ -3694,18 +3778,15 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
         }
         longmant <<= diff;
       }
-      int mb0 = unchecked((int)(longmant & 0xffffffffL));
-      int mb1 = unchecked((int)((longmant >> 32) & 0xffffffffL));
-      // Clear the high bits where the exponent and sign are
-      mb1 &= 0xfffff;
-      if (!subnormal) {
-        int smallexponent = (expo + 1075) << 20;
-        mb1 |= smallexponent;
-      }
-      if (this.IsNegative) {
-        mb1 |= unchecked((int)(1 << 31));
-      }
-      return Extras.IntegersToDouble(mb0, mb1);
+              // Clear the high bits where the exponent and sign are
+              longmant &= 0xfffffffffffffL;
+              if (!subnormal) {
+                longmant |= (long)(expo + 1075) << 52;
+              }
+              if (this.IsNegative) {
+                longmant |= unchecked((long)(1L << 63));
+              }
+              return longmant;
     }
 
     /// <summary>Converts this value to an arbitrary-precision decimal
@@ -3922,86 +4003,8 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
     public float ToSingle() {
-      if (this.IsPositiveInfinity()) {
-        return Single.PositiveInfinity;
-      }
-      if (this.IsNegativeInfinity()) {
-        return Single.NegativeInfinity;
-      }
-      if (this.IsNaN()) {
-        var nan = 0x7f800000;
-        if (this.IsNegative) {
-          nan |= unchecked((int)(1 << 31));
-        }
-        // IsQuietNaN(): the quiet bit for X86 at least
-        // If signaling NaN and mantissa is 0: set 0x200000
-        // bit to keep the mantissa from being zero
-        if (this.IsQuietNaN()) {
-          nan |= 0x400000;
-        } else if (this.UnsignedMantissa.IsZero) {
-          nan |= 0x200000;
-        }
-        if (!this.UnsignedMantissa.IsZero) {
-          // Transfer diagnostic information
-          EInteger bigdata = this.UnsignedMantissa % (EInteger)0x400000;
-          var intData = (int)bigdata;
-          nan |= intData;
-          if (intData == 0 && !this.IsQuietNaN()) {
-            nan |= 0x200000;
-          }
-        }
-        return BitConverter.ToSingle(BitConverter.GetBytes(nan), 0);
-      }
-      EFloat thisValue = this;
-      // DebugUtility.Log("beforeround=" +thisValue + " ["+
-      // thisValue.Mantissa + " " + thisValue.Exponent);
-      // Check whether rounding can be avoided for common cases
-      // where the value already fits a single
-      if (!thisValue.IsFinite ||
-        thisValue.unsignedMantissa.CompareTo(0x1000000) >= 0 ||
-        thisValue.exponent.CompareTo(-95) < 0 ||
-        thisValue.exponent.CompareTo(95) > 0) {
-        thisValue = this.RoundToPrecision(EContext.Binary32);
-      }
-      // DebugUtility.Log("afterround=" +thisValue + " ["+
-      // thisValue.Mantissa + " " + thisValue.Exponent);
-      if (!thisValue.IsFinite) {
-        return thisValue.ToSingle();
-      }
-      int intmant = thisValue.unsignedMantissa.ToInt32Checked();
-      if (thisValue.IsNegative && intmant == 0) {
-        return BitConverter.ToSingle(BitConverter.GetBytes((int)1 << 31), 0);
-      } else if (intmant == 0) {
-        return 0.0f;
-      }
-      int intBitLength = NumberUtility.BitLength(intmant);
-      int expo = thisValue.exponent.ToInt32Checked();
-      var subnormal = false;
-      if (intBitLength < 24) {
-        int diff = 24 - intBitLength;
-        expo -= diff;
-        if (expo < -149) {
-          // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
-          // (-149 - expo)));
-          diff -= -149 - expo;
-          expo = -149;
-          subnormal = true;
-        }
-        intmant <<= diff;
-      }
-      // DebugUtility.Log("intmant=" + intmant + " " + intBitLength +
-      // " expo=" + expo +
-      // " subnormal=" + subnormal);
-      int smallmantissa = intmant & 0x7fffff;
-      if (!subnormal) {
-        smallmantissa |= (expo + 150) << 23;
-      }
-      if (this.IsNegative) {
-        smallmantissa |= 1 << 31;
-      }
-      return BitConverter.ToSingle(
-          BitConverter.GetBytes((int)smallmantissa),
-          0);
+       int sb = this.ToSingleBits();
+       return BitConverter.ToSingle(BitConverter.GetBytes(sb), 0);
     }
 
     /// <summary>Converts this number's value to a text string.</summary>
