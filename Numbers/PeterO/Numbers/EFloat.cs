@@ -563,7 +563,7 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
       }
       if (lvalue != 0) {
         // Shift away trailing zeros
-        while ((lvalue & 1L) != 0) {
+        while ((lvalue & 1L) == 0) {
            lvalue >>= 1;
            ++floatExponent;
         }
