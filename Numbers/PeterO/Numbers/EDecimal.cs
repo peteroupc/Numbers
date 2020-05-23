@@ -5601,7 +5601,7 @@ private static string Chop(object o) {
         if (this.exponent.CompareToInt(0) == 0 &&
           this.unsignedMantissa.CanFitInInt64()) {
           long v = this.unsignedMantissa.ToInt64();
-          if (v <= (1L << 53)) {
+          if (v < (1L << 53)) {
             // This integer fits exactly in double
             return IntegerToDoubleBits(v, 0, this.IsNegative);
           }
@@ -5829,7 +5829,7 @@ private static string Chop(object o) {
         if (this.exponent.CompareToInt(0) == 0 &&
           this.unsignedMantissa.CanFitInInt32()) {
           int v = this.unsignedMantissa.ToInt32();
-          if (v <= (1 << 24)) {
+          if (v < (1 << 24)) {
             // This integer fits exactly in float
             return IntegerToSingleBits(v, 0, this.IsNegative);
           }
