@@ -1151,22 +1151,22 @@ TestIntegerDoubleSingleOne(ei);
     while (ei2.IsEven && !ei2.IsZero) {
       ei2 = ei2.ShiftRight(1);
     }
-    if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) { return false;
+if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) {
+       { return false;
+    }
 }
     long db = EDecimal.FromEInteger(ei).ToDoubleBits();
     EFloat ef = EFloat.FromDoubleBits(db);
 
     if (
-      !(
-      ei.Equals(
-      EFloat.FromEInteger(
+      !(ei.Equals(EFloat.FromEInteger(
       ei).RoundToPrecision(EContext.Binary64).ToEInteger()))) {
   return false;
  }
     Assert.AreEqual(
       ei.ToString(),
       ef.ToString(),
-      "dbl origdb="+db+" newdb=" +ef.ToDoubleBits());
+      "dbl origdb="+db +" newdb=" + ef.ToDoubleBits());
     int sb = EDecimal.FromEInteger(ei).ToSingleBits();
     ef = EFloat.FromSingleBits(sb);
     if
@@ -1175,7 +1175,7 @@ TestIntegerDoubleSingleOne(ei);
        Assert.AreEqual(
          ei.ToString(),
          ef.ToString(),
-         "sng origdb="+sb+" newdb=" +ef.ToSingleBits());
+         "sng origdb="+sb +" newdb=" + ef.ToSingleBits());
     }
     return true;
     }
@@ -1185,13 +1185,7 @@ TestIntegerDoubleSingleOne(ei);
       for (var i = 0; i < ValueFPIntegersExp.Length; ++i) {
         // Positive
         EFloat ef = EFloat.Create(1, ValueFPIntegersExp[i]);
-{
-p[0]} object objectTemp = ValueFPIntegers[i];
-p[0]} object objectTemp2 = ef.ToString();
-p[0]} tring messageTemp = String.Empty +
-ValueFPIntegersExp;
-          Assert.AreEqual(objectTemp, objectTemp2, messageTemp);
-p[0]}}
+        Assert.AreEqual(ValueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDoubleBits(ef.ToDoubleBits());
         Assert.AreEqual(ValueFPIntegers[i], ef.ToString());
         ef = EFloat.FromDoubleBits(
