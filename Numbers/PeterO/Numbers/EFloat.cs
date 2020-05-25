@@ -7,7 +7,6 @@ at: http://peteroupc.github.io/
  */
 using System;
 
-// TODO: CompareTo(long)
 // TODO: In next major version or earlier, consider adding byte[] equivalent
 // of FromString
 // here and in EDecimal
@@ -1447,12 +1446,12 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
       return this.Multiply(EFloat.FromInt32(intValue));
     }
 
-    /// <summary>Divides this instance by the value of an
-    /// arbitrary-precision integer. The result is rounded down (the
-    /// fractional part is discarded). Except if the result is 0, it will
-    /// be negative if this object is positive and the other is negative,
-    /// or vice versa, and will be positive if both are positive or both
-    /// are negative.</summary>
+    /// <summary>Divides this instance by the value of a 32-bit signed
+    /// integer. The result is rounded down (the fractional part is
+    /// discarded). Except if the result is 0, it will be negative if this
+    /// object is positive and the other is negative, or vice versa, and
+    /// will be positive if both are positive or both are
+    /// negative.</summary>
     /// <param name='intValue'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -1460,6 +1459,47 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     public EFloat Divide(int intValue) {
       return this.Divide(EFloat.FromInt32(intValue));
     }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EFloat Add(long longValue) {
+return this.Add(EFloat.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EFloat Subtract(long longValue) {
+return this.Subtract(EFloat.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EFloat Multiply(long longValue) {
+return this.Multiply(EFloat.FromInt64(longValue));
+}
+
+    /// <summary>Divides this instance by the value of a 64-bit signed
+    /// integer. The result is rounded down (the fractional part is
+    /// discarded). Except if the result is 0, it will be negative if this
+    /// object is positive and the other is negative, or vice versa, and
+    /// will be positive if both are positive or both are
+    /// negative.</summary>
+    /// <missing-param name='intValue'/>
+    /// <missing-param name='intValue'/>
+    /// <returns>The quotient of the two objects.</returns>
+    /// <exception cref='DivideByZeroException'>Attempted to divide by
+    /// zero.</exception>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is not documented yet.</param>
+    public EFloat Divide(long longValue) {
+return this.Divide(EFloat.FromInt64(longValue));
+}
 
     /// <summary>Adds this object and another binary floating-point number
     /// and returns the result.</summary>
@@ -1557,6 +1597,40 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// other value, or 0 if both values are equal.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EFloat.FromInt32(intOther));
+    }
+
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values.
+    /// <para>This method is not consistent with the Equals method because
+    /// two different numbers with the same mathematical value, but
+    /// different exponents, will compare as equal.</para>
+    /// <para>In this method, negative zero and positive zero are
+    /// considered equal.</para>
+    /// <para>If this object is a quiet NaN or signaling NaN, this method
+    /// will not trigger an error. Instead, NaN will compare greater than
+    /// any other number, including infinity.</para></summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 64-bit signed integer.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value, or 0 if both values are equal.</returns>
+    public int CompareToValue(long intOther) {
+      return this.CompareToValue(FromInt64(intOther));
+    }
+
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values. This method currently uses
+    /// the rules given in the CompareToValue method, so that it it is not
+    /// consistent with the Equals method, but it may change in a future
+    /// version to use the rules for the CompareToTotal method
+    /// instead.</summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 64-bit signed integer.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value, or 0 if both values are equal.</returns>
+    public int CompareTo(long intOther) {
+      return this.CompareToValue(FromInt64(intOther));
     }
 
     /// <summary>Compares the mathematical values of this object and

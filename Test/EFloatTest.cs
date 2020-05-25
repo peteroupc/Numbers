@@ -1151,7 +1151,7 @@ TestIntegerDoubleSingleOne(ei);
     while (ei2.IsEven && !ei2.IsZero) {
       ei2 = ei2.ShiftRight(1);
     }
-if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) {
+    if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) {
        { return false;
     }
 }
@@ -1159,14 +1159,16 @@ if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) {
     EFloat ef = EFloat.FromDoubleBits(db);
 
     if (
-      !(ei.Equals(EFloat.FromEInteger(
-      ei).RoundToPrecision(EContext.Binary64).ToEInteger()))) {
+      !(
+        ei.Equals(
+        EFloat.FromEInteger(
+        ei).RoundToPrecision(EContext.Binary64).ToEInteger()))) {
   return false;
  }
     Assert.AreEqual(
       ei.ToString(),
       ef.ToString(),
-      "dbl origdb="+db +" newdb=" + ef.ToDoubleBits());
+      "dbl origdb=" + db + " newdb=" + ef.ToDoubleBits());
     int sb = EDecimal.FromEInteger(ei).ToSingleBits();
     ef = EFloat.FromSingleBits(sb);
     if
@@ -1175,7 +1177,7 @@ if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) {
        Assert.AreEqual(
          ei.ToString(),
          ef.ToString(),
-         "sng origdb="+sb +" newdb=" + ef.ToSingleBits());
+         "sng origdb=" + sb + " newdb=" + ef.ToSingleBits());
     }
     return true;
     }

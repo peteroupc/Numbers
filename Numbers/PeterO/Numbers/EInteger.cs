@@ -20,10 +20,6 @@ using System.Text;
 // to return MaxValue on overflow
 // TODO: In next major version, perhaps change GetLowBit/GetDigitCount
 // to return MaxValue on overflow
-// TODO: In next version after 1.6, add long overloads in addition to int
-// overloads
-// in EDecimal/EFloat/EInteger/ERational (including CompareTo and DivRem)
-// TODO: AndNot, Implication (Imp/OrNot), Equivalence (Eqv/XorNot)
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
   /// for "extended", and has this prefix to group it with the other
@@ -728,7 +724,6 @@ namespace PeterO.Numbers {
             endIndex,
             false);
         EInteger mult = null;
-        // swPow.Restart();
         int intpow = endIndex - midIndex;
         if (radix == 10) {
           eia = NumberUtility.MultiplyByPowerOfFive(eia,
@@ -2625,6 +2620,62 @@ namespace PeterO.Numbers {
     public EInteger[] DivRem(int intDivisor) {
       return this.DivRem(EInteger.FromInt32(intDivisor));
     }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EInteger Add(long longValue) {
+return this.Add(EInteger.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EInteger Subtract(long longValue) {
+return this.Subtract(EInteger.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EInteger Multiply(long longValue) {
+return this.Multiply(EInteger.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EInteger Divide(long longValue) {
+return this.Divide(EInteger.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EInteger Remainder(long longValue) {
+return this.Remainder(EInteger.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public int CompareTo(long longValue) {
+return this.CompareTo(EInteger.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='intDivisor'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EInteger[] DivRem(long intDivisor) {
+      return this.DivRem(EInteger.FromInt64(intDivisor));
+}
 
     /// <summary>Divides this object by another arbitrary-precision integer
     /// and returns the quotient and remainder.</summary>
@@ -4649,7 +4700,6 @@ ShortMask) != 0) ? 9 :
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
-    /// <returns>The return value is not documented yet.</returns>
     public EInteger Or(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
@@ -4721,6 +4771,135 @@ ShortMask) != 0) ? 9 :
       return (valueXaWordCount == 0) ? EInteger.Zero : new
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
+
+    /// <summary>Does an AND NOT operation between this arbitrary-precision
+    /// integer and another one.</summary>
+    /// <param name='second'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit of this integer is set, and the other
+    /// integer's corresponding bit is
+    /// <i>not</i> set. For example, in binary, 10110 AND NOT 11010 = 00100
+    /// (or in decimal, 22 AND NOT 26 = 4). This method uses the two's
+    /// complement form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101110 AND NOT 01011 = 00100 (or in
+    /// decimal, -18 OR 11 = 4).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='second'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
+    public EInteger AndNot(EInteger second) {
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return this.And(second.Not());
+   }
+
+    /// <summary>Does an OR NOT operation (or implication or IMP operation)
+    /// between this arbitrary-precision integer and another one.</summary>
+    /// <param name='second'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit of this integer is set, the other integer's
+    /// corresponding bit is
+    /// <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
+    /// = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the
+    /// two's complement form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in
+    /// decimal, -18 OR 11 = -2).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='second'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
+    public EInteger OrNot(EInteger second) {
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return this.Or(second.Not());
+   }
+
+    /// <summary>Does an OR NOT operation (or implication or IMP operation)
+    /// between this arbitrary-precision integer and another one.</summary>
+    /// <param name='second'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit of this integer is set, the other integer's
+    /// corresponding bit is
+    /// <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
+    /// = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the
+    /// two's complement form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in
+    /// decimal, -18 OR 11 = -2).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='second'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
+    public EInteger Imp(EInteger second) {
+      return this.OrNot(second);
+   }
+
+    /// <summary>Does an XOR NOT operation (or equivalence operation, EQV
+    /// operation, or exclusive-OR NOT operation) between this
+    /// arbitrary-precision integer and another one.</summary>
+    /// <param name='second'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit of this integer is set or the other integer's
+    /// corresponding bit is
+    /// <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT
+    /// 11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses
+    /// the two's complement form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in
+    /// decimal, -18 OR 11 = -6).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='second'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
+    public EInteger XorNot(EInteger second) {
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return this.Xor(second.Not());
+   }
+
+    /// <summary>Does an XOR NOT operation (or equivalence operation, EQV
+    /// operation, or exclusive-OR NOT operation) between this
+    /// arbitrary-precision integer and another one.</summary>
+    /// <param name='second'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit of this integer is set or the other integer's
+    /// corresponding bit is
+    /// <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT
+    /// 11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses
+    /// the two's complement form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in
+    /// decimal, -18 OR 11 = -6).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='second'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
+    public EInteger Eqv(EInteger second) {
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return this.XorNot(second);
+   }
 
     /// <summary>Does an exclusive OR (XOR) operation between this
     /// arbitrary-precision integer and another one.</summary>

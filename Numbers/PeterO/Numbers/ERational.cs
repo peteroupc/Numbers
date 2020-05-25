@@ -1226,6 +1226,40 @@ namespace PeterO.Numbers {
       return this.CompareToValue(ERational.FromInt32(intOther));
     }
 
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values.
+    /// <para>This method is not consistent with the Equals method because
+    /// two different numbers with the same mathematical value, but
+    /// different exponents, will compare as equal.</para>
+    /// <para>In this method, negative zero and positive zero are
+    /// considered equal.</para>
+    /// <para>If this object is a quiet NaN or
+    /// signaling NaN, this method will not trigger an error. Instead, NaN
+    /// will compare greater than any other number, including infinity.</para></summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 64-bit signed integer.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value, or 0 if both values are equal.</returns>
+    public int CompareToValue(long intOther) {
+      return this.CompareToValue(FromInt64(intOther));
+    }
+
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values. This method currently uses
+    /// the rules given in the CompareToValue method, so that it it is not
+    /// consistent with the Equals method, but it may change in a future
+    /// version to use the rules for the CompareToTotal method
+    /// instead.</summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 64-bit signed integer.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value, or 0 if both values are equal.</returns>
+    public int CompareTo(long intOther) {
+      return this.CompareToValue(FromInt64(intOther));
+    }
+
     /// <summary>Compares an arbitrary-precision binary floating-point
     /// number with this instance. In this method, NaN values are greater
     /// than any other ERational or EFloat value, and two NaN values (even
@@ -2330,8 +2364,8 @@ namespace PeterO.Numbers {
       return this.Multiply(FromInt32(v));
     }
 
-    /// <summary>Divides this instance by the value of an
-    /// arbitrary-precision rational number object.</summary>
+    /// <summary>Divides this instance by the value of a 32-bit
+    /// signed integer.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -2342,14 +2376,63 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of an arbitrary-precision rational
-    /// number.</summary>
+    /// divided by the value of a 32-bit
+    /// signed integer.</summary>
     /// <param name='v'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Remainder(int v) {
       return this.Remainder(FromInt32(v));
+    }
+
+    /// <summary>Returns the sum of a rational number and a 64-bit signed
+    /// integer.</summary>
+    /// <param name='v'>A 64-bit signed integer.</param>
+    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+    /// this object is NaN.</returns>
+    public ERational Add(long v) {
+      return this.Add(FromInt64(v));
+    }
+
+    /// <summary>Returns the result of subtracting a 64-bit signed integer
+    /// from this instance.</summary>
+    /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
+    /// signed integer.</param>
+    /// <returns>The difference of the two objects.</returns>
+    public ERational Subtract(long v) {
+      return this.Subtract(FromInt64(v));
+    }
+
+    /// <summary>Returns the value of this instance multiplied by a 64-bit
+    /// signed integer.</summary>
+    /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
+    /// signed integer.</param>
+    /// <returns>The product of the two numbers.</returns>
+    public ERational Multiply(long v) {
+      return this.Multiply(FromInt64(v));
+    }
+
+    /// <summary>Divides this instance by the value of a 64-bit
+    /// signed integer.</summary>
+    /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
+    /// signed integer.</param>
+    /// <returns>The quotient of the two objects.</returns>
+    /// <exception cref='ArithmeticException'>The parameter <paramref
+    /// name='v'/> is zero.</exception>
+    public ERational Divide(long v) {
+      return this.Divide(FromInt64(v));
+    }
+
+    /// <summary>Finds the remainder that results when this instance is
+    /// divided by the value of a 64-bit
+    /// signed integer.</summary>
+    /// <param name='v'>The divisor.</param>
+    /// <returns>The remainder of the two numbers.</returns>
+    /// <exception cref='ArgumentException'>The parameter <paramref
+    /// name='v'/> is zero.</exception>
+    public ERational Remainder(long v) {
+      return this.Remainder(FromInt64(v));
     }
 
     // Begin integer conversions

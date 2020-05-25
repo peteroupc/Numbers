@@ -2941,10 +2941,9 @@ private static string Chop(object o) {
     /// different exponents, will compare as equal.</para>
     /// <para>In this method, negative zero and positive zero are
     /// considered equal.</para>
-    /// <para>If this object or the other object is a quiet NaN or
-    /// signaling NaN, this method will not trigger an error. Instead, NaN
-    /// will compare greater than any other number, including infinity. Two
-    /// different NaN values will be considered equal.</para></summary>
+    /// <para>If this object is a quiet NaN or signaling NaN, this method
+    /// will not trigger an error. Instead, NaN will compare greater than
+    /// any other number, including infinity.</para></summary>
     /// <param name='intOther'>The parameter <paramref name='intOther'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>Less than 0 if this object's value is less than the other
@@ -2952,6 +2951,40 @@ private static string Chop(object o) {
     /// other value, or 0 if both values are equal.</returns>
     public int CompareToValue(int intOther) {
       return this.CompareToValue(EDecimal.FromInt32(intOther));
+    }
+
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values. This method currently uses
+    /// the rules given in the CompareToValue method, so that it it is not
+    /// consistent with the Equals method, but it may change in a future
+    /// version to use the rules for the CompareToTotal method
+    /// instead.</summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 64-bit signed integer.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value, or 0 if both values are equal.</returns>
+    public int CompareTo(long intOther) {
+      return this.CompareToValue(EDecimal.FromInt64(intOther));
+    }
+
+    /// <summary>Compares the mathematical values of this object and
+    /// another object, accepting NaN values.
+    /// <para>This method is not consistent with the Equals method because
+    /// two different numbers with the same mathematical value, but
+    /// different exponents, will compare as equal.</para>
+    /// <para>In this method, negative zero and positive zero are
+    /// considered equal.</para>
+    /// <para>If this object is a quiet NaN or signaling NaN, this method
+    /// will not trigger an error. Instead, NaN will compare greater than
+    /// any other number, including infinity.</para></summary>
+    /// <param name='intOther'>The parameter <paramref name='intOther'/> is
+    /// a 64-bit signed integer.</param>
+    /// <returns>Less than 0 if this object's value is less than the other
+    /// value, or greater than 0 if this object's value is greater than the
+    /// other value, or 0 if both values are equal.</returns>
+    public int CompareToValue(long intOther) {
+      return this.CompareToValue(EDecimal.FromInt64(intOther));
     }
 
     /// <summary>Compares the mathematical values of this object and
@@ -4379,6 +4412,50 @@ private static string Chop(object o) {
       return GetMathValue(ctx).Multiply(this, op, ctx);
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EDecimal Add(long longValue) {
+return this.Add(EDecimal.FromInt64(longValue));
+}
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='longValue'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+    public EDecimal Subtract(long longValue) {
+return this.Subtract(EDecimal.FromInt64(longValue));
+}
+
+    /// <summary>Multiplies this object by the given 64-bit signed integer.
+    /// The resulting exponent will be the sum of the exponents of the two
+    /// numbers.</summary>
+    /// <missing-param name='intValue'/>
+    /// <missing-param name='intValue'/>
+    /// <returns>The product of the two numbers.</returns>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is not documented yet.</param>
+    public EDecimal Multiply(long longValue) {
+return this.Multiply(EDecimal.FromInt64(longValue));
+}
+
+    /// <summary>Divides this object by a 64-bit signed integer and returns
+    /// the result. When possible, the result will be exact.</summary>
+    /// <missing-param name='intValue'/>
+    /// <missing-param name='intValue'/>
+    /// <returns>The quotient of the two numbers. Returns infinity if the
+    /// divisor is 0 and the dividend is nonzero. Returns not-a-number
+    /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
+    /// result can't be exact because it would have a nonterminating
+    /// decimal expansion; examples include 1 divided by any multiple of 3,
+    /// such as 1/3 or 1/12.</returns>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is not documented yet.</param>
+    public EDecimal Divide(long longValue) {
+return this.Divide(EDecimal.FromInt64(longValue));
+}
+
     /// <summary>Adds this object and an 32-bit signed integer and returns
     /// the result.</summary>
     /// <param name='intValue'>A 32-bit signed integer to add to this
@@ -4408,9 +4485,8 @@ private static string Chop(object o) {
       return this.Multiply(EDecimal.FromInt32(intValue));
     }
 
-    /// <summary>Divides this object by an 32-bit signed integer and
-    /// returns the result. When possible, the result will be
-    /// exact.</summary>
+    /// <summary>Divides this object by a 32-bit signed integer and returns
+    /// the result. When possible, the result will be exact.</summary>
     /// <param name='intValue'>A 32-bit signed integer, the divisor, to
     /// divide this object by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
@@ -5551,7 +5627,7 @@ private static string Chop(object o) {
              if (neg) {
                v |= unchecked((long)(1L << 63));
              }
-              return v;
+             return v;
     }
 
     private static int IntegerToSingleBits(int iv, int expshift, bool neg) {
@@ -5567,7 +5643,7 @@ private static string Chop(object o) {
              if (neg) {
                iv |= 1 << 31;
              }
-              return iv;
+             return iv;
     }
 
     /// <summary>Converts this value to its closest equivalent as a 64-bit
