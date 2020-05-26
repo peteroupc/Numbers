@@ -529,9 +529,10 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// method computes the exact value of the floating point number, not
     /// an approximation, as is often the case by converting the floating
     /// point number to a string first.</summary>
+    /// <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
+    /// 64-bit signed integer.</param>
     /// <returns>A binary floating-point number with the same value as the
     /// floating-point number encoded in <paramref name='dbl'/>.</returns>
-    /// <param name='dblBits'/>
     public static EFloat FromDoubleBits(long dblBits) {
       var floatExponent = (int)((dblBits >> 52) & 0x7ff);
       bool neg = (dblBits >> 63) != 0;
@@ -1460,25 +1461,22 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
       return this.Divide(EFloat.FromInt32(intValue));
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EFloat Add(long longValue) {
 return this.Add(EFloat.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EFloat Subtract(long longValue) {
 return this.Subtract(EFloat.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EFloat Multiply(long longValue) {
 return this.Multiply(EFloat.FromInt64(longValue));
@@ -1490,13 +1488,11 @@ return this.Multiply(EFloat.FromInt64(longValue));
     /// object is positive and the other is negative, or vice versa, and
     /// will be positive if both are positive or both are
     /// negative.</summary>
-    /// <missing-param name='intValue'/>
-    /// <missing-param name='intValue'/>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <param name='longValue'>The parameter <paramref name='longValue'/>
-    /// is not documented yet.</param>
     public EFloat Divide(long longValue) {
 return this.Divide(EFloat.FromInt64(longValue));
 }

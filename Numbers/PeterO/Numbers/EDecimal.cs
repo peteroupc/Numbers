@@ -898,9 +898,10 @@ namespace PeterO.Numbers {
     /// closest "double" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from a decimal value, use
     /// FromString instead in most cases.</summary>
+    /// <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
+    /// 64-bit signed integer.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as <paramref name='value'/>.</returns>
-    /// <param name='dblBits'/>
     public static EDecimal FromDoubleBits(long dblBits) {
       var value = new int[] {
         unchecked((int)(dblBits & 0xffffffffL)),
@@ -4412,17 +4413,15 @@ private static string Chop(object o) {
       return GetMathValue(ctx).Multiply(this, op, ctx);
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EDecimal Add(long longValue) {
 return this.Add(EDecimal.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EDecimal Subtract(long longValue) {
 return this.Subtract(EDecimal.FromInt64(longValue));
@@ -4431,27 +4430,23 @@ return this.Subtract(EDecimal.FromInt64(longValue));
     /// <summary>Multiplies this object by the given 64-bit signed integer.
     /// The resulting exponent will be the sum of the exponents of the two
     /// numbers.</summary>
-    /// <missing-param name='intValue'/>
-    /// <missing-param name='intValue'/>
-    /// <returns>The product of the two numbers.</returns>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
-    /// is not documented yet.</param>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The product of the two numbers.</returns>
     public EDecimal Multiply(long longValue) {
 return this.Multiply(EDecimal.FromInt64(longValue));
 }
 
     /// <summary>Divides this object by a 64-bit signed integer and returns
     /// the result. When possible, the result will be exact.</summary>
-    /// <missing-param name='intValue'/>
-    /// <missing-param name='intValue'/>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating
     /// decimal expansion; examples include 1 divided by any multiple of 3,
     /// such as 1/3 or 1/12.</returns>
-    /// <param name='longValue'>The parameter <paramref name='longValue'/>
-    /// is not documented yet.</param>
     public EDecimal Divide(long longValue) {
 return this.Divide(EDecimal.FromInt64(longValue));
 }

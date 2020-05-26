@@ -156,9 +156,11 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Abs()](#Abs)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Add(int)](#Add_int)</code> - Adds this object and an 32-bit signed integer and returns the result.
+* <code>[Add(long)](#Add_long)</code> - Not documented yet.
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
+* <code>[CompareTo(long)](#CompareTo_long)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareTo(PeterO.Numbers.EDecimal)](#CompareTo_PeterO_Numbers_EDecimal)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToBinary(PeterO.Numbers.EFloat)](#CompareToBinary_PeterO_Numbers_EFloat)</code> - Compares an arbitrary-precision binary floating-point number with this instance.
 * <code>[CompareToSignal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToSignal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object, treating quiet NaN as signaling.
@@ -167,6 +169,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EDecimal)](#CompareToTotalMagnitude_PeterO_Numbers_EDecimal)</code> - Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
 * <code>[CompareToTotalMagnitude(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToTotalMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the values of this object and another object, imposing a total ordering on all possible values (ignoring their signs).
 * <code>[CompareToValue(int)](#CompareToValue_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
+* <code>[CompareToValue(long)](#CompareToValue_long)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToValue(PeterO.Numbers.EDecimal)](#CompareToValue_PeterO_Numbers_EDecimal)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareToWithContext(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
@@ -180,7 +183,8 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision decimal number.
-* <code>[Divide(int)](#Divide_int)</code> - Divides this object by an 32-bit signed integer and returns the result.
+* <code>[Divide(int)](#Divide_int)</code> - Divides this object by a 32-bit signed integer and returns the result.
+* <code>[Divide(long)](#Divide_long)</code> - Divides this object by a 64-bit signed integer and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this object by another decimal number and returns the result.
 * <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number.
 * <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
@@ -221,6 +225,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision decimal number.
 * <code>[FromDecimal(decimal)](#FromDecimal_decimal)</code> - Converts a decimal under the Common Language Infrastructure (see T:PeterO.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number.
+* <code>[FromDoubleBits(long)](#FromDoubleBits_long)</code> - Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number, encoded in the IEEE 754 binary64 format.
 * <code>[FromEFloat(PeterO.Numbers.EFloat)](#FromEFloat_PeterO_Numbers_EFloat)</code> - Creates an arbitrary-precision decimal number from an arbitrary-precision binary floating-point number.
 * <code>[FromEInteger(PeterO.Numbers.EInteger)](#FromEInteger_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to an arbitrary precision decimal.
 * <code>[FromExtendedFloat(PeterO.Numbers.EFloat)](#FromExtendedFloat_PeterO_Numbers_EFloat)</code> - <b>Deprecated:</b> Renamed to FromEFloat.
@@ -229,6 +234,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Creates an arbitrary-precision decimal number from a 64-bit signed integer.
 * <code>[FromSByte(sbyte)](#FromSByte_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision decimal number.
 * <code>[FromSingle(float)](#FromSingle_float)</code> - Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number.
+* <code>[FromSingleBits(int)](#FromSingleBits_int)</code> - Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number encoded in the IEEE 754 binary32 format.
 * <code>[FromString(string)](#FromString_string)</code> - Creates an arbitrary-precision decimal number from a text string that represents a number.
 * <code>[FromString(string, int, int)](#FromString_string_int_int)</code> - Creates an arbitrary-precision decimal number from a text string that represents a number.
 * <code>[FromString(string, int, int, PeterO.Numbers.EContext)](#FromString_string_int_int_PeterO_Numbers_EContext)</code> - Creates an arbitrary-precision decimal number from a text string that represents a number.
@@ -279,6 +285,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[MovePointRight(PeterO.Numbers.EInteger)](#MovePointRight_PeterO_Numbers_EInteger)</code> - Returns a number similar to this number but with the decimal point moved to the right.
 * <code>[MovePointRight(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#MovePointRight_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a number similar to this number but with the decimal point moved to the right.
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this object by the given 32-bit signed integer.
+* <code>[Multiply(long)](#Multiply_long)</code> - Multiplies this object by the given 64-bit signed integer.
 * <code>[Multiply(PeterO.Numbers.EDecimal)](#Multiply_PeterO_Numbers_EDecimal)</code> - Multiplies two decimal numbers.
 * <code>[Multiply(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Multiply_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies two decimal numbers.
 * <code>[MultiplyAndAdd(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#MultiplyAndAdd_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Multiplies by one decimal number, and then adds another decimal number.
@@ -343,6 +350,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Sqrt(PeterO.Numbers.EContext)](#Sqrt_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to Sqrt.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this object and returns the result.
+* <code>[Subtract(long)](#Subtract_long)</code> - Not documented yet.
 * <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal number from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal number from this instance.
 * <code>[public static readonly PeterO.Numbers.EDecimal Ten;](#Ten)</code> - Represents the number 10.
@@ -351,6 +359,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
 * <code>[ToDecimal()](#ToDecimal)</code> - Converts this value to a decimal under the Common Language Infrastructure (see T:PeterO.
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number, using the half-even rounding mode.
+* <code>[ToDoubleBits()](#ToDoubleBits)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number encoded in the IEEE 754 binary64 format, using the half-even rounding mode.
 * <code>[ToEFloat()](#ToEFloat)</code> - Creates a binary floating-point number from this object's value.
 * <code>[ToEFloat(PeterO.Numbers.EContext)](#ToEFloat_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from this object's value.
 * <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer, discarding the fractional part in this value.
@@ -367,11 +376,12 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[ToInt64Checked()](#ToInt64Checked)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToInt64IfExact()](#ToInt64IfExact)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer without rounding to a different numerical value.
 * <code>[ToInt64Unchecked()](#ToInt64Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 64-bit signed integer.
-* <code>[ToPlainString()](#ToPlainString)</code> - Converts this value to a string, but without using exponential notation.
+* <code>[ToPlainString()](#ToPlainString)</code> - Converts this value to a string as though with the ToString method, but without using exponential notation.
 * <code>[ToSByteChecked()](#ToSByteChecked)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number, using the half-even rounding mode.
+* <code>[ToSingleBits()](#ToSingleBits)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number encoded in the IEEE 754 binary32 format, using the half-even rounding mode.
 * <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Converts this value to an arbitrary-precision integer by discarding its fractional part and checking whether the resulting integer overflows the given signed bit count.
 * <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Converts this value to an arbitrary-precision integer, only if this number's value is an exact integer and that integer does not overflow the given signed bit count.
 * <code>[ToString()](#ToString)</code> - Converts this value to a string.
@@ -564,6 +574,24 @@ Adds this object and an 32-bit signed integer and returns the result.
 
 The sum of the two objects.
 
+<a id="Add_long"></a>
+### Add
+
+    public PeterO.Numbers.EDecimal Add(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="Add_PeterO_Numbers_EDecimal"></a>
 ### Add
 
@@ -611,6 +639,23 @@ Compares the mathematical values of this object and another object, accepting Na
 
  * <i>intOther</i>: The parameter  <i>intOther</i>
  is a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value, or 0 if both values are equal.
+
+<a id="CompareTo_long"></a>
+### CompareTo
+
+    public int CompareTo(
+        long intOther);
+
+Compares the mathematical values of this object and another object, accepting NaN values. This method currently uses the rules given in the CompareToValue method, so that it it is not consistent with the Equals method, but it may change in a future version to use the rules for the CompareToTotal method instead.
+
+<b>Parameters:</b>
+
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -817,12 +862,33 @@ Compares the mathematical values of this object and another object, accepting Na
 
 In this method, negative zero and positive zero are considered equal.
 
-If this object or the other object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number, including infinity. Two different NaN values will be considered equal.
+If this object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number, including infinity.
 
 <b>Parameters:</b>
 
  * <i>intOther</i>: The parameter  <i>intOther</i>
  is a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+Less than 0 if this object's value is less than the other value, or greater than 0 if this object's value is greater than the other value, or 0 if both values are equal.
+
+<a id="CompareToValue_long"></a>
+### CompareToValue
+
+    public int CompareToValue(
+        long intOther);
+
+Compares the mathematical values of this object and another object, accepting NaN values. This method is not consistent with the Equals method because two different numbers with the same mathematical value, but different exponents, will compare as equal.
+
+In this method, negative zero and positive zero are considered equal.
+
+If this object is a quiet NaN or signaling NaN, this method will not trigger an error. Instead, NaN will compare greater than any other number, including infinity.
+
+<b>Parameters:</b>
+
+ * <i>intOther</i>: The parameter  <i>intOther</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1106,11 +1172,28 @@ The given arbitrary-precision decimal number minus one.
     public PeterO.Numbers.EDecimal Divide(
         int intValue);
 
-Divides this object by an 32-bit signed integer and returns the result. When possible, the result will be exact.
+Divides this object by a 32-bit signed integer and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
  * <i>intValue</i>: A 32-bit signed integer, the divisor, to divide this object by.
+
+<b>Return Value:</b>
+
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12.
+
+<a id="Divide_long"></a>
+### Divide
+
+    public PeterO.Numbers.EDecimal Divide(
+        long longValue);
+
+Divides this object by a 64-bit signed integer and returns the result. When possible, the result will be exact.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -1596,7 +1679,7 @@ An arbitrary-precision decimal floating-point number.
     public static PeterO.Numbers.EDecimal FromDouble(
         double dbl);
 
-Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromDouble(0.1)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
+Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `EDecimal.FromDouble(0.1)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `EDecimal.FromString("0.1")`  ).
 
 <b>Parameters:</b>
 
@@ -1606,6 +1689,23 @@ Creates an arbitrary-precision decimal number from a 64-bit binary floating-poin
 <b>Return Value:</b>
 
 An arbitrary-precision decimal number with the same value as  <i>dbl</i>
+.
+
+<a id="FromDoubleBits_long"></a>
+### FromDoubleBits
+
+    public static PeterO.Numbers.EDecimal FromDoubleBits(
+        long dblBits);
+
+Creates an arbitrary-precision decimal number from a 64-bit binary floating-point number, encoded in the IEEE 754 binary64 format. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 64-bit binary floating-point number is not always the value that results when passing a literal decimal number, since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the value of the closest "double" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases.
+
+<b>Parameters:</b>
+
+ * <i>dblBits</i>:
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number with the same value as  <i>value</i>
 .
 
 <a id="FromEFloat_PeterO_Numbers_EFloat"></a>
@@ -1738,7 +1838,7 @@ This number's value as an arbitrary-precision decimal number.
     public static PeterO.Numbers.EDecimal FromSingle(
         float flt);
 
-Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `ExtendedDecimal.FromSingle(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `ExtendedDecimal.FromString("0.1")`  ).
+Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number (for example, calling  `EDecimal.FromSingle(0.1f)`  ), since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases (for example:  `EDecimal.FromString("0.1")`  ).
 
 <b>Parameters:</b>
 
@@ -1748,6 +1848,24 @@ Creates an arbitrary-precision decimal number from a 32-bit binary floating-poin
 <b>Return Value:</b>
 
 An arbitrary-precision decimal number with the same value as  <i>flt</i>
+.
+
+<a id="FromSingleBits_int"></a>
+### FromSingleBits
+
+    public static PeterO.Numbers.EDecimal FromSingleBits(
+        int value);
+
+Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number encoded in the IEEE 754 binary32 format. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. Remember, though, that the exact value of a 32-bit binary floating-point number is not always the value that results when passing a literal decimal number, since not all decimal numbers can be converted to exact binary numbers (in the example given, the resulting arbitrary-precision decimal will be the the value of the closest "float" to 0.1, not 0.1 exactly). To create an arbitrary-precision decimal number from a decimal value, use FromString instead in most cases.
+
+<b>Parameters:</b>
+
+ * <i>value</i>: The parameter  <i>flt</i>
+ is a 32-bit binary floating-point number encoded in the IEEE 754 binary32 format.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number with the same value as  <i>value</i>
 .
 
 <a id="FromString_string"></a>
@@ -2493,6 +2611,23 @@ Multiplies this object by the given 32-bit signed integer. The resulting exponen
 <b>Parameters:</b>
 
  * <i>intValue</i>: A 32-bit signed integer to multiply this object by.
+
+<b>Return Value:</b>
+
+The product of the two numbers.
+
+<a id="Multiply_long"></a>
+### Multiply
+
+    public PeterO.Numbers.EDecimal Multiply(
+        long longValue);
+
+Multiplies this object by the given 64-bit signed integer. The resulting exponent will be the sum of the exponents of the two numbers.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is not documented yet.
 
 <b>Return Value:</b>
 
@@ -4135,6 +4270,24 @@ Subtracts a 32-bit signed integer from this object and returns the result.
 
 The difference of the two objects.
 
+<a id="Subtract_long"></a>
+### Subtract
+
+    public PeterO.Numbers.EDecimal Subtract(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="Subtract_PeterO_Numbers_EDecimal"></a>
 ### Subtract
 
@@ -4240,6 +4393,17 @@ Converts this value to its closest equivalent as a 64-bit floating-point number,
 <b>Return Value:</b>
 
 The closest 64-bit floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+
+<a id="ToDoubleBits"></a>
+### ToDoubleBits
+
+    public long ToDoubleBits();
+
+Converts this value to its closest equivalent as a 64-bit floating-point number encoded in the IEEE 754 binary64 format, using the half-even rounding mode. If this value is a NaN, sets the high bit of the binary64 value's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN.
+
+<b>Return Value:</b>
+
+The closest 64-bit floating-point number to this value, encoded in the IEEE 754 binary64 format. The return value can be positive infinity or negative infinity, encoded in the IEEE 754 binary64 format, if this value exceeds the range of a 64-bit floating point number.
 
 <a id="ToEFloat_PeterO_Numbers_EContext"></a>
 ### ToEFloat
@@ -4485,7 +4649,7 @@ This number, converted to a 64-bit signed integer. Returns 0 if this value is in
 
     public string ToPlainString();
 
-Converts this value to a string, but without using exponential notation.
+Converts this value to a string as though with the ToString method, but without using exponential notation.
 
 <b>Return Value:</b>
 
@@ -4550,6 +4714,17 @@ Converts this value to its closest equivalent as a 32-bit floating-point number,
 <b>Return Value:</b>
 
 The closest 32-bit binary floating-point number to this value. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
+
+<a id="ToSingleBits"></a>
+### ToSingleBits
+
+    public int ToSingleBits();
+
+Converts this value to its closest equivalent as a 32-bit floating-point number encoded in the IEEE 754 binary32 format, using the half-even rounding mode. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN.
+
+<b>Return Value:</b>
+
+The closest 32-bit binary floating-point number to this value, encoded in the IEEE 754 binary32 format. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
 <a id="ToSizedEInteger_int"></a>
 ### ToSizedEInteger

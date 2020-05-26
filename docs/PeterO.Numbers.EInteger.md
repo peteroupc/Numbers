@@ -19,9 +19,11 @@ Applications should instead use dedicated security libraries to handle big numbe
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this object's value.
 * <code>[Add(int)](#Add_int)</code> - Adds this object and another object.
+* <code>[Add(long)](#Add_long)</code> - Not documented yet.
 * <code>[Add(PeterO.Numbers.EInteger)](#Add_PeterO_Numbers_EInteger)</code> - Adds this object and another object.
-* <code>[And(PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
+* <code>[And(PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger)</code> - Does an AND operation between this arbitrary-precision integer and another one.
 * <code>[And(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
+* <code>[AndNot(PeterO.Numbers.EInteger)](#AndNot_PeterO_Numbers_EInteger)</code> - Does an AND NOT operation between this arbitrary-precision integer and another one.
 * <code>[AsInt32Checked()](#AsInt32Checked)</code> - <b>Deprecated:</b> Renamed to ToInt32Checked.
 * <code>[AsInt32Unchecked()](#AsInt32Unchecked)</code> - <b>Deprecated:</b> Renamed to ToInt32Unchecked.
 * <code>[AsInt64Checked()](#AsInt64Checked)</code> - <b>Deprecated:</b> Renamed to ToInt64Checked.
@@ -29,15 +31,19 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CanFitInInt32()](#CanFitInInt32)</code> - Returns whether this object's value can fit in a 32-bit signed integer.
 * <code>[CanFitInInt64()](#CanFitInInt64)</code> - Returns whether this object's value can fit in a 64-bit signed integer.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares an arbitrary-precision integer with this instance.
+* <code>[CompareTo(long)](#CompareTo_long)</code> - Not documented yet.
 * <code>[CompareTo(PeterO.Numbers.EInteger)](#CompareTo_PeterO_Numbers_EInteger)</code> - Compares an arbitrary-precision integer with this instance.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision integer.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
+* <code>[Divide(long)](#Divide_long)</code> - Not documented yet.
 * <code>[Divide(PeterO.Numbers.EInteger)](#Divide_PeterO_Numbers_EInteger)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[DivRem(int)](#DivRem_int)</code> - Divides this object by a 32-bit signed integer and returns the quotient and remainder.
+* <code>[DivRem(long)](#DivRem_long)</code> - Not documented yet.
 * <code>[DivRem(PeterO.Numbers.EInteger)](#DivRem_PeterO_Numbers_EInteger)</code> - Divides this object by another arbitrary-precision integer and returns the quotient and remainder.
 * <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Use the DivRem instance method instead.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
 * <code>[Equals(PeterO.Numbers.EInteger)](#Equals_PeterO_Numbers_EInteger)</code> - Determines whether this object and another object are equal.
+* <code>[Eqv(PeterO.Numbers.EInteger)](#Eqv_PeterO_Numbers_EInteger)</code> - Does an XOR NOT operation (or equivalence operation, EQV operation, or exclusive-OR NOT operation) between this arbitrary-precision integer and another one.
 * <code>[explicit operator byte(PeterO.Numbers.EInteger)](#explicit_operator_byte_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255).
 * <code>[explicit operator int(PeterO.Numbers.EInteger)](#explicit_operator_int_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer.
 * <code>[explicit operator long(PeterO.Numbers.EInteger)](#explicit_operator_long_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 64-bit signed integer if it can fit in a 64-bit signed integer.
@@ -80,6 +86,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value, in the form of an arbitrary-precision integer.
 * <code>[GetUnsignedBitLengthAsInt64()](#GetUnsignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this number's absolute value, in the form of a 64-bit signed integer.
+* <code>[Imp(PeterO.Numbers.EInteger)](#Imp_PeterO_Numbers_EInteger)</code> - Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
 * <code>[implicit operator PeterO.Numbers.EInteger(byte)](#implicit_operator_PeterO_Numbers_EInteger_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(int)](#implicit_operator_PeterO_Numbers_EInteger_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(long)](#implicit_operator_PeterO_Numbers_EInteger_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
@@ -101,9 +108,10 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when this arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when an arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
+* <code>[Multiply(long)](#Multiply_long)</code> - Not documented yet.
 * <code>[Multiply(PeterO.Numbers.EInteger)](#Multiply_PeterO_Numbers_EInteger)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Negate()](#Negate)</code> - Gets the value of this object with the sign reversed.
-* <code>[Not()](#Not)</code> - Returns an arbitrary-precision integer with every bit flipped from this one.
+* <code>[Not()](#Not)</code> - Returns an arbitrary-precision integer with every bit flipped from this one (also called an inversion or NOT operation).
 * <code>[Not(PeterO.Numbers.EInteger)](#Not_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with every bit flipped.
 * <code>[One](#One)</code> - Gets the number 1 as an arbitrary-precision integer.
 * <code>[PeterO.Numbers.EInteger operator +(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_Addition)</code> - Adds two arbitrary-precision integer objects and returns the result.
@@ -124,12 +132,14 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[PeterO.Numbers.EInteger operator &gt;&gt;(PeterO.Numbers.EInteger, int)](#op_RightShift)</code> - Shifts the bits of an arbitrary-precision integer to the right.
 * <code>[PeterO.Numbers.EInteger operator -(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#op_Subtraction)</code> - Subtracts two arbitrary-precision integer values.
 * <code>[PeterO.Numbers.EInteger operator -(PeterO.Numbers.EInteger)](#op_UnaryNegation)</code> - Negates an arbitrary-precision integer.
-* <code>[Or(PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
+* <code>[Or(PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger)</code> - Does an OR operation between this arbitrary-precision integer and another one.
 * <code>[Or(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
+* <code>[OrNot(PeterO.Numbers.EInteger)](#OrNot_PeterO_Numbers_EInteger)</code> - Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
 * <code>[Remainder(int)](#Remainder_int)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
+* <code>[Remainder(long)](#Remainder_long)</code> - Not documented yet.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[ShiftLeft(int)](#ShiftLeft_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
 * <code>[ShiftLeft(PeterO.Numbers.EInteger)](#ShiftLeft_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer.
@@ -139,6 +149,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Sqrt()](#Sqrt)</code> - Finds the square root of this instance's value, rounded down.
 * <code>[SqrtRem()](#SqrtRem)</code> - Calculates the square root and the remainder.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
+* <code>[Subtract(long)](#Subtract_long)</code> - Not documented yet.
 * <code>[Subtract(PeterO.Numbers.EInteger)](#Subtract_PeterO_Numbers_EInteger)</code> - Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
 * <code>[Ten](#Ten)</code> - Gets the number 10 as an arbitrary-precision integer.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255).
@@ -160,8 +171,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ToUInt32Unchecked()](#ToUInt32Unchecked)</code> - Converts this number to a 32-bit signed integer, returning the least-significant bits of this number's two's-complement form.
 * <code>[ToUInt64Checked()](#ToUInt64Checked)</code> - Converts this number's value to a 64-bit signed integer if it can fit in a 64-bit signed integer.
 * <code>[ToUInt64Unchecked()](#ToUInt64Unchecked)</code> - Converts this number to a 64-bit signed integer, returning the least-significant bits of this number's two's-complement form.
-* <code>[Xor(PeterO.Numbers.EInteger)](#Xor_PeterO_Numbers_EInteger)</code> - Finds the exclusive "or" of two arbitrary-precision integer objects.
+* <code>[Xor(PeterO.Numbers.EInteger)](#Xor_PeterO_Numbers_EInteger)</code> - Does an exclusive OR (XOR) operation between this arbitrary-precision integer and another one.
 * <code>[Xor(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Xor_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Finds the exclusive "or" of two arbitrary-precision integer objects.
+* <code>[XorNot(PeterO.Numbers.EInteger)](#XorNot_PeterO_Numbers_EInteger)</code> - Does an XOR NOT operation (or equivalence operation, EQV operation, or exclusive-OR NOT operation) between this arbitrary-precision integer and another one.
 * <code>[Zero](#Zero)</code> - Gets the number zero as an arbitrary-precision integer.
 
 <a id="IsEven"></a>
@@ -269,6 +281,24 @@ Adds this object and another object.
 
 An arbitrary-precision integer.
 
+<a id="Add_long"></a>
+### Add
+
+    public PeterO.Numbers.EInteger Add(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="Add_PeterO_Numbers_EInteger"></a>
 ### Add
 
@@ -297,17 +327,17 @@ The parameter  <i>bigintAugend</i>
     public PeterO.Numbers.EInteger And(
         PeterO.Numbers.EInteger other);
 
-Does an AND operation between two arbitrary-precision integer values.
+Does an AND operation between this arbitrary-precision integer and another one.
 
 Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision integer.
+ * <i>other</i>: Another arbitrary-precision integer that participates in the operation.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer in which each bit is set if the corresponding bits of this integer and the other integer are both set.
+An arbitrary-precision integer in which each bit is set if the corresponding bits of this integer and the other integer (in their two's-complement representation) are both set. For example, in binary, 10110 AND 01100 = 00100 (or in decimal, 22 AND 12 = 4). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11100111 AND 01100 = 00100 (or in decimal, -25 AND 12 = 4).
 
 <b>Exceptions:</b>
 
@@ -341,6 +371,30 @@ An arbitrary-precision integer in which each bit is set if the corresponding bit
  * System.ArgumentNullException:
 The parameter  <i>a</i>
  or  <i>b</i>
+ is null.
+
+<a id="AndNot_PeterO_Numbers_EInteger"></a>
+### AndNot
+
+    public PeterO.Numbers.EInteger AndNot(
+        PeterO.Numbers.EInteger second);
+
+Does an AND NOT operation between this arbitrary-precision integer and another one.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>second</i>: Another arbitrary-precision integer that participates in the operation.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer in which each bit is set if the corresponding bit of this integer is set, and the other integer's corresponding bit is <i>not</i> set. For example, in binary, 10110 AND NOT 11010 = 00100 (or in decimal, 22 AND NOT 26 = 4). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101110 AND NOT 01011 = 00100 (or in decimal, -18 OR 11 = 4).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>second</i>
  is null.
 
 <a id="AsInt32Checked"></a>
@@ -444,6 +498,24 @@ Compares an arbitrary-precision integer with this instance.
 
 Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
+<a id="CompareTo_long"></a>
+### CompareTo
+
+    public int CompareTo(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="CompareTo_PeterO_Numbers_EInteger"></a>
 ### CompareTo
 
@@ -495,6 +567,24 @@ The quotient of the two objects.
  * System.DivideByZeroException:
 Attempted to divide by zero.
 
+<a id="Divide_long"></a>
+### Divide
+
+    public PeterO.Numbers.EInteger Divide(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="Divide_PeterO_Numbers_EInteger"></a>
 ### Divide
 
@@ -541,6 +631,24 @@ An array with two arbitrary-precision integers: the first is the quotient, and t
  * System.DivideByZeroException:
 The parameter  <i>intDivisor</i>
  is 0.
+
+<a id="DivRem_long"></a>
+### DivRem
+
+    public PeterO.Numbers.EInteger[] DivRem(
+        long intDivisor);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>intDivisor</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="DivRem_PeterO_Numbers_EInteger"></a>
 ### DivRem
@@ -631,6 +739,30 @@ Determines whether this object and another object are equal.
 <b>Return Value:</b>
 
  `true`  if this object and another object are equal; otherwise,  `false` .
+
+<a id="Eqv_PeterO_Numbers_EInteger"></a>
+### Eqv
+
+    public PeterO.Numbers.EInteger Eqv(
+        PeterO.Numbers.EInteger second);
+
+Does an XOR NOT operation (or equivalence operation, EQV operation, or exclusive-OR NOT operation) between this arbitrary-precision integer and another one.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>second</i>: Another arbitrary-precision integer that participates in the operation.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer in which each bit is set if the corresponding bit of this integer is set or the other integer's corresponding bit is <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT 11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in decimal, -18 OR 11 = -6).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>second</i>
+ is null.
 
 <a id="FromBoolean_bool"></a>
 ### FromBoolean
@@ -1227,6 +1359,30 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 
 The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.).
 
+<a id="Imp_PeterO_Numbers_EInteger"></a>
+### Imp
+
+    public PeterO.Numbers.EInteger Imp(
+        PeterO.Numbers.EInteger second);
+
+Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>second</i>: Another arbitrary-precision integer that participates in the operation.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer in which each bit is set if the corresponding bit of this integer is set, the other integer's corresponding bit is <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010 = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in decimal, -18 OR 11 = -2).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>second</i>
+ is null.
+
 <a id="Increment"></a>
 ### Increment
 
@@ -1468,6 +1624,24 @@ Multiplies this instance by the value of an arbitrary-precision integer object.
 
 The product of the two numbers.
 
+<a id="Multiply_long"></a>
+### Multiply
+
+    public PeterO.Numbers.EInteger Multiply(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
 <a id="Multiply_PeterO_Numbers_EInteger"></a>
 ### Multiply
 
@@ -1506,11 +1680,11 @@ This object's value with the sign reversed.
 
     public PeterO.Numbers.EInteger Not();
 
-Returns an arbitrary-precision integer with every bit flipped from this one.
+Returns an arbitrary-precision integer with every bit flipped from this one (also called an inversion or NOT operation).
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer in which each bit in its two's complement representation is set if the corresponding bit of this integer is clear, and vice versa. Returns -1 if this integer is 0. If this integer is positive, the return value is negative, and vice versa. This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, NOT 10100 = ...11101011 (or in decimal, NOT 20 = -21). In binary, NOT ...11100110 = 11001 (or in decimal, NOT -26 = 25).
 
 <a id="Not_PeterO_Numbers_EInteger"></a>
 ### Not
@@ -2353,17 +2527,17 @@ The parameter  <i>bigValue</i>
     public PeterO.Numbers.EInteger Or(
         PeterO.Numbers.EInteger second);
 
-Does an OR operation between two arbitrary-precision integer instances.
+Does an OR operation between this arbitrary-precision integer and another one.
 
 Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
 
 <b>Parameters:</b>
 
- * <i>second</i>: The second operand.
+ * <i>second</i>: Another arbitrary-precision integer that participates in the operation.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+An arbitrary-precision integer in which each bit is set if the corresponding bit of this integer is set, the other integer's corresponding bit is set, or both. For example, in binary, 10110 OR 11010 = 11110 (or in decimal, 22 OR 26 = 30). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101110 OR 01011 = ...11101111 (or in decimal, -18 OR 11 = -17).
 
 <b>Exceptions:</b>
 
@@ -2397,6 +2571,30 @@ An arbitrary-precision integer.
  * System.ArgumentNullException:
 The parameter  <i>first</i>
  or  <i>second</i>
+ is null.
+
+<a id="OrNot_PeterO_Numbers_EInteger"></a>
+### OrNot
+
+    public PeterO.Numbers.EInteger OrNot(
+        PeterO.Numbers.EInteger second);
+
+Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>second</i>: Another arbitrary-precision integer that participates in the operation.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer in which each bit is set if the corresponding bit of this integer is set, the other integer's corresponding bit is <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010 = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in decimal, -18 OR 11 = -2).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>second</i>
  is null.
 
 <a id="Pow_int"></a>
@@ -2494,6 +2692,24 @@ Attempted to divide by zero.
  * System.ArgumentNullException:
 The parameter  <i>intValue</i>
  is null.
+
+<a id="Remainder_long"></a>
+### Remainder
+
+    public PeterO.Numbers.EInteger Remainder(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="Remainder_PeterO_Numbers_EInteger"></a>
 ### Remainder
@@ -2634,6 +2850,24 @@ Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
 <b>Return Value:</b>
 
 The difference of the two objects.
+
+<a id="Subtract_long"></a>
+### Subtract
+
+    public PeterO.Numbers.EInteger Subtract(
+        long longValue);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>longValue</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <a id="Subtract_PeterO_Numbers_EInteger"></a>
 ### Subtract
@@ -2938,15 +3172,15 @@ This number, converted to a 64-bit signed integer.
     public PeterO.Numbers.EInteger Xor(
         PeterO.Numbers.EInteger other);
 
-Finds the exclusive "or" of two arbitrary-precision integer objects. Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
+Does an exclusive OR (XOR) operation between this arbitrary-precision integer and another one.
 
 <b>Parameters:</b>
 
- * <i>other</i>: An arbitrary-precision integer.
+ * <i>other</i>: Another arbitrary-precision integer that participates in the operation.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer in which each bit is set if the corresponding bit is set in one input integer but not in the other.
+An arbitrary-precision integer in which each bit is set if the corresponding bit is set in one input integer but not in the other. For example, in binary, 11010 XOR 01001 = 10011 (or in decimal, 26 XOR 9 = 19). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101101 XOR 00011 = ...11101110 (or in decimal, -19 XOR 3 = -18).
 
 <b>Exceptions:</b>
 
@@ -2978,4 +3212,28 @@ An arbitrary-precision integer in which each bit is set if the corresponding bit
  * System.ArgumentNullException:
 The parameter  <i>a</i>
  or  <i>b</i>
+ is null.
+
+<a id="XorNot_PeterO_Numbers_EInteger"></a>
+### XorNot
+
+    public PeterO.Numbers.EInteger XorNot(
+        PeterO.Numbers.EInteger second);
+
+Does an XOR NOT operation (or equivalence operation, EQV operation, or exclusive-OR NOT operation) between this arbitrary-precision integer and another one.
+
+Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
+
+<b>Parameters:</b>
+
+ * <i>second</i>: Another arbitrary-precision integer that participates in the operation.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer in which each bit is set if the corresponding bit of this integer is set or the other integer's corresponding bit is <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT 11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in decimal, -18 OR 11 = -6).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>second</i>
  is null.

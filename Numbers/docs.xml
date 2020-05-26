@@ -966,6 +966,9 @@
             <returns>The sum of the two objects.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.Add(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)">
 
             <summary>Compares the mathematical values of this object and
@@ -1001,6 +1004,19 @@
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareTo(System.Int64)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values. This method currently uses
+            the rules given in the CompareToValue method, so that it it is not
+            consistent with the Equals method, but it may change in a future
+            version to use the rules for the CompareToTotal method
+            instead.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 64-bit signed integer.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value, or 0 if both values are equal.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)">
 
@@ -1213,16 +1229,32 @@
             different exponents, will compare as equal.</para>
             <para>In this method, negative zero and positive zero are
             considered equal.</para>
-            <para>If this object or the other object is a quiet NaN or
-            signaling NaN, this method will not trigger an error. Instead, NaN
-            will compare greater than any other number, including infinity. Two
-            different NaN values will be considered equal.</para></summary>
+            <para>If this object is a quiet NaN or signaling NaN, this method
+            will not trigger an error. Instead, NaN will compare greater than
+            any other number, including infinity.</para></summary>
             <param name='intOther'>The parameter <paramref name='intOther'/> is
             a 32-bit signed integer.</param>
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.CompareToValue(System.Int64)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values.
+            <para>This method is not consistent with the Equals method because
+            two different numbers with the same mathematical value, but
+            different exponents, will compare as equal.</para>
+            <para>In this method, negative zero and positive zero are
+            considered equal.</para>
+            <para>If this object is a quiet NaN or signaling NaN, this method
+            will not trigger an error. Instead, NaN will compare greater than
+            any other number, including infinity.</para></summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 64-bit signed integer.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value, or 0 if both values are equal.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
@@ -1503,9 +1535,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(System.Int32)">
 
-            <summary>Divides this object by an 32-bit signed integer and
-            returns the result. When possible, the result will be
-            exact.</summary>
+            <summary>Divides this object by a 32-bit signed integer and returns
+            the result. When possible, the result will be exact.</summary>
             <param name='intValue'>A 32-bit signed integer, the divisor, to
             divide this object by.</param>
             <returns>The quotient of the two numbers. Returns infinity if the
@@ -1515,6 +1546,15 @@
             decimal expansion; examples include 1 divided by any multiple of 3,
             such as 1/3 or 1/12.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.Divide(System.Int64)">
+<summary>Divides this object by a 64-bit signed integer and returns
+            the result. When possible, the result will be exact.</summary><param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The quotient of the two numbers. Returns infinity if the
+            divisor is 0 and the dividend is nonzero. Returns not-a-number
+            (NaN) if the divisor and the dividend are 0. Returns NaN if the
+            result can't be exact because it would have a nonterminating
+            decimal expansion; examples include 1 divided by any multiple of 3,
+            such as 1/3 or 1/12.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)">
 
@@ -1907,18 +1947,34 @@
             first. Remember, though, that the exact value of a 64-bit binary
             floating-point number is not always the value that results when
             passing a literal decimal number (for example, calling
-            <c>ExtendedDecimal.FromDouble(0.1)</c> ), since not all decimal
-            numbers can be converted to exact binary numbers (in the example
-            given, the resulting arbitrary-precision decimal will be the value
-            of the closest "double" to 0.1, not 0.1 exactly). To create an
+            <c>EDecimal.FromDouble(0.1)</c> ), since not all decimal numbers
+            can be converted to exact binary numbers (in the example given, the
+            resulting arbitrary-precision decimal will be the value of the
+            closest "double" to 0.1, not 0.1 exactly). To create an
             arbitrary-precision decimal number from a decimal value, use
             FromString instead in most cases (for example:
-            <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
+            <c>EDecimal.FromString("0.1")</c> ).</summary>
             <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
             floating-point number.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as <paramref name='dbl'/>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromDoubleBits(System.Int64)">
+<summary>Creates an arbitrary-precision decimal number from a
+            64-bit binary floating-point number, encoded in the IEEE 754
+            binary64 format. This method computes the exact value of the
+            floating point number, not an approximation, as is often the case
+            by converting the floating point number to a string first.
+            Remember, though, that the exact value of a 64-bit binary
+            floating-point number is not always the value that results when
+            passing a literal decimal number, since not all decimal numbers can
+            be converted to exact binary numbers (in the example given, the
+            resulting arbitrary-precision decimal will be the value of the
+            closest "double" to 0.1, not 0.1 exactly). To create an
+            arbitrary-precision decimal number from a decimal value, use
+            FromString instead in most cases.</summary><param name='dblBits'>The parameter <paramref name='dblBits'/> is a 64-bit signed integer.</param><returns>An arbitrary-precision decimal number with the same value
+            as <paramref name='value'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromEFloat(PeterO.Numbers.EFloat)">
 
@@ -1995,18 +2051,38 @@
             first. Remember, though, that the exact value of a 32-bit binary
             floating-point number is not always the value that results when
             passing a literal decimal number (for example, calling
-            <c>ExtendedDecimal.FromSingle(0.1f)</c> ), since not all decimal
-            numbers can be converted to exact binary numbers (in the example
-            given, the resulting arbitrary-precision decimal will be the the
-            value of the closest "float" to 0.1, not 0.1 exactly). To create an
+            <c>EDecimal.FromSingle(0.1f)</c> ), since not all decimal numbers
+            can be converted to exact binary numbers (in the example given, the
+            resulting arbitrary-precision decimal will be the the value of the
+            closest "float" to 0.1, not 0.1 exactly). To create an
             arbitrary-precision decimal number from a decimal value, use
             FromString instead in most cases (for example:
-            <c>ExtendedDecimal.FromString("0.1")</c> ).</summary>
+            <c>EDecimal.FromString("0.1")</c> ).</summary>
             <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
             binary floating-point number.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as <paramref name='flt'/>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromSingleBits(System.Int32)">
+<summary>Creates an arbitrary-precision decimal number from a
+            32-bit binary floating-point number encoded in the IEEE 754
+            binary32 format. This method computes the exact value of the
+            floating point number, not an approximation, as is often the case
+            by converting the floating point number to a string first.
+            Remember, though, that the exact value of a 32-bit binary
+            floating-point number is not always the value that results when
+            passing a literal decimal number, since not all decimal numbers can
+            be converted to exact binary numbers (in the example given, the
+            resulting arbitrary-precision decimal will be the the value of the
+            closest "float" to 0.1, not 0.1 exactly). To create an
+            arbitrary-precision decimal number from a decimal value, use
+            FromString instead in most cases.</summary>
+            <param name='value'>The parameter <paramref name='flt'/> is a
+            32-bit binary floating-point number encoded in the IEEE 754
+            binary32 format.</param>
+            <returns>An arbitrary-precision decimal number with the same value
+            as <paramref name='value'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromString(System.String)">
 
@@ -2585,6 +2661,11 @@
             object by.</param>
             <returns>The product of the two numbers.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.Multiply(System.Int64)">
+<summary>Multiplies this object by the given 64-bit signed integer.
+            The resulting exponent will be the sum of the exponents of the two
+            numbers.</summary><param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The product of the two numbers.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
@@ -3602,6 +3683,9 @@
             <returns>The difference of the two objects.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="F:PeterO.Numbers.EDecimal.Ten">
 
             <summary>Represents the number 10.</summary>
@@ -3668,6 +3752,22 @@
             this value exceeds the range of a 64-bit floating point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToDoubleBits">
+<summary>Converts this value to its closest equivalent as a 64-bit
+            floating-point number encoded in the IEEE 754 binary64 format,
+            using the half-even rounding mode.
+            <para>If this value is a NaN, sets the high bit of the binary64
+            value's significand area for a quiet NaN, and clears it for a
+            signaling NaN. Then the other bits of the significand area are set
+            to the lowest bits of this object's unsigned significand, and the
+            next-highest bit of the significand area is set if those bits are
+            all zeros and this is a signaling NaN.</para></summary>
+            <returns>The closest 64-bit floating-point number to this value,
+            encoded in the IEEE 754 binary64 format. The return value can be
+            positive infinity or negative infinity, encoded in the IEEE 754
+            binary64 format, if this value exceeds the range of a 64-bit
+            floating point number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEFloat">
 
@@ -3864,8 +3964,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToPlainString">
 
-            <summary>Converts this value to a string, but without using
-            exponential notation.</summary>
+            <summary>Converts this value to a string as though with the
+            ToString method, but without using exponential notation.</summary>
             <returns>A text string.</returns>
 
 </doc>
@@ -3920,6 +4020,22 @@
             infinity if this value exceeds the range of a 32-bit floating point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToSingleBits">
+<summary>Converts this value to its closest equivalent as a 32-bit
+            floating-point number encoded in the IEEE 754 binary32 format,
+            using the half-even rounding mode.
+            <para>If this value is a NaN, sets the high bit of the 32-bit
+            floating point number's significand area for a quiet NaN, and
+            clears it for a signaling NaN. Then the other bits of the
+            significand area are set to the lowest bits of this object's
+            unsigned significand, and the next-highest bit of the significand
+            area is set if those bits are all zeros and this is a signaling
+            NaN.</para></summary>
+            <returns>The closest 32-bit binary floating-point number to this
+            value, encoded in the IEEE 754 binary32 format. The return value
+            can be positive infinity or negative infinity if this value exceeds
+            the range of a 32-bit floating point number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToSizedEInteger(System.Int32)">
 
@@ -5221,6 +5337,9 @@
             <returns>The sum of the two objects.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.Add(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
             <summary>This is an internal method.</summary>
@@ -5343,6 +5462,19 @@
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareTo(System.Int64)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values. This method currently uses
+            the rules given in the CompareToValue method, so that it it is not
+            consistent with the Equals method, but it may change in a future
+            version to use the rules for the CompareToTotal method
+            instead.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 64-bit signed integer.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value, or 0 if both values are equal.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5540,6 +5672,23 @@
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.CompareToValue(System.Int64)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values.
+            <para>This method is not consistent with the Equals method because
+            two different numbers with the same mathematical value, but
+            different exponents, will compare as equal.</para>
+            <para>In this method, negative zero and positive zero are
+            considered equal.</para>
+            <para>If this object is a quiet NaN or signaling NaN, this method
+            will not trigger an error. Instead, NaN will compare greater than
+            any other number, including infinity.</para></summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 64-bit signed integer.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value, or 0 if both values are equal.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5768,17 +5917,26 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(System.Int32)">
 
-            <summary>Divides this instance by the value of an
-            arbitrary-precision integer. The result is rounded down (the
-            fractional part is discarded). Except if the result is 0, it will
-            be negative if this object is positive and the other is negative,
-            or vice versa, and will be positive if both are positive or both
-            are negative.</summary>
+            <summary>Divides this instance by the value of a 32-bit signed
+            integer. The result is rounded down (the fractional part is
+            discarded). Except if the result is 0, it will be negative if this
+            object is positive and the other is negative, or vice versa, and
+            will be positive if both are positive or both are
+            negative.</summary>
             <param name='intValue'>The divisor.</param>
             <returns>The quotient of the two objects.</returns>
             <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.Divide(System.Int64)">
+<summary>Divides this instance by the value of a 64-bit signed
+            integer. The result is rounded down (the fractional part is
+            discarded). Except if the result is 0, it will be negative if this
+            object is positive and the other is negative, or vice versa, and
+            will be positive if both are positive or both are
+            negative.</summary><param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The quotient of the two objects.</returns><exception cref='DivideByZeroException'>Attempted to divide by
+            zero.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)">
 
@@ -6071,6 +6229,14 @@
             <paramref name='dbl'/>.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.FromDoubleBits(System.Int64)">
+<summary>Creates a binary floating-point number from a 64-bit
+            floating-point number encoded in the IEEE 754 binary64 format. This
+            method computes the exact value of the floating point number, not
+            an approximation, as is often the case by converting the floating
+            point number to a string first.</summary><param name='dblBits'>The parameter <paramref name='dblBits'/> is a 64-bit signed integer.</param><returns>A binary floating-point number with the same value as the
+            floating-point number encoded in <paramref name='dbl'/>.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.FromEInteger(PeterO.Numbers.EInteger)">
 
             <summary>Converts an arbitrary-precision integer to the same value
@@ -6127,11 +6293,22 @@
             floating point number, not an approximation, as is often the case
             by converting the floating point number to a string
             first.</summary>
-            <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
-            binary floating-point number.</param>
+            <param name='flt'>The parameter <paramref name='flt'/> is a 64-bit
+            floating-point number.</param>
             <returns>A binary floating-point number with the same value as
             <paramref name='flt'/>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.FromSingleBits(System.Int32)">
+<summary>Creates a binary floating-point number from a 32-bit
+            floating-point number encoded in the IEEE 754 binary32 format. This
+            method computes the exact value of the floating point number, not
+            an approximation, as is often the case by converting the floating
+            point number to a string first.</summary>
+            <param name='value'>A 32-bit binary floating-point number encoded
+            in the IEEE 754 binary32 format.</param>
+            <returns>A binary floating-point number with the same
+            floating-point value as <paramref name='flt'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
 
@@ -6716,6 +6893,9 @@
             <example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code> .
             </example>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.Multiply(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
@@ -7621,6 +7801,9 @@
             <returns>The difference of the two objects.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="F:PeterO.Numbers.EFloat.Ten">
 
             <summary>Represents the number 10.</summary>
@@ -7661,11 +7844,21 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToDouble">
 
-            <summary>Converts this value to a 64-bit floating-point
-            number.</summary>
-            <returns>This number, converted to a 64-bit floating-point
-            number.</returns>
+            <summary>Converts this value to a 64-bit floating-point number
+            encoded in the IEEE 754 binary64 format.</summary>
+            <returns>This number, converted to a 64-bit floating-point number
+            encoded in the IEEE 754 binary64 format. The return value can be
+            positive infinity or negative infinity if this value exceeds the
+            range of a 64-bit floating point number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToDoubleBits">
+<summary>Converts this value to a 64-bit floating-point
+            number.</summary>
+            <returns>This number, converted to a 64-bit floating-point number.
+            The return value can express positive infinity or negative infinity
+            if this value exceeds the range of a 64-bit floating point
+            number.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToEDecimal">
 
@@ -7926,6 +8119,12 @@
             infinity if this value exceeds the range of a 32-bit floating point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToSingleBits">
+<summary>Converts this value to a 32-bit floating-point number
+            encoded in the IEEE 754 binary32 format.</summary>
+            <returns>This number, converted to a 32-bit floating-point number
+            encoded in the IEEE 754 binary32 format.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSizedEInteger(System.Int32)">
 
@@ -9143,14 +9342,24 @@
             <returns>An arbitrary-precision integer.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Add(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)">
 
-            <summary>Does an AND operation between two arbitrary-precision
-            integer values.</summary>
-            <param name='other'>An arbitrary-precision integer.</param>
+            <summary>Does an AND operation between this arbitrary-precision
+            integer and another one.</summary>
+            <param name='other'>Another arbitrary-precision integer that
+            participates in the operation.</param>
             <returns>An arbitrary-precision integer in which each bit is set if
-            the corresponding bits of this integer and the other integer are
-            both set.</returns>
+            the corresponding bits of this integer and the other integer (in
+            their two's-complement representation) are both set. For example,
+            in binary, 10110 AND 01100 = 00100 (or in decimal, 22 AND 12 = 4).
+            This method uses the two's complement form of negative integers
+            (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11100111 AND 01100 = 00100 (or in decimal,
+            -25 AND 12 = 4).</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
             <remarks>Each arbitrary-precision integer is treated as a
             two's-complement form (see
@@ -9172,6 +9381,26 @@
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.AndNot(PeterO.Numbers.EInteger)">
+<summary>Does an AND NOT operation between this arbitrary-precision
+            integer and another one.</summary>
+            <param name='second'>Another arbitrary-precision integer that
+            participates in the operation.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            the corresponding bit of this integer is set, and the other
+            integer's corresponding bit is
+            <i>not</i> set. For example, in binary, 10110 AND NOT 11010 = 00100
+            (or in decimal, 22 AND NOT 26 = 4). This method uses the two's
+            complement form of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101110 AND NOT 01011 = 00100 (or in
+            decimal, -18 OR 11 = 4).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a
+            two's-complement form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+            the purposes of this operator.</remarks>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.AsInt32Checked">
 
@@ -9255,6 +9484,9 @@
             greater.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.CompareTo(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Decrement">
 
             <summary>Returns one subtracted from this arbitrary-precision
@@ -9299,6 +9531,9 @@
             <exception cref='DivideByZeroException'>The parameter <paramref name='intDivisor'/> is 0.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.DivRem(System.Int64)">
+<param name='intDivisor'>The parameter <paramref name='intDivisor'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)">
 
             <summary>Divides this instance by the value of an
@@ -9328,6 +9563,9 @@
             zero.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Divide(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)">
 
             <summary>Determines whether this object and another object are
@@ -9344,6 +9582,27 @@
             arbitrary object.</param>
             <returns><c>true</c> if this object and another object are equal; otherwise, <c>false</c>.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Eqv(PeterO.Numbers.EInteger)">
+<summary>Does an XOR NOT operation (or equivalence operation, EQV
+            operation, or exclusive-OR NOT operation) between this
+            arbitrary-precision integer and another one.</summary>
+            <param name='second'>Another arbitrary-precision integer that
+            participates in the operation.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            the corresponding bit of this integer is set or the other integer's
+            corresponding bit is
+            <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT
+            11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses
+            the two's complement form of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in
+            decimal, -18 OR 11 = -6).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a
+            two's-complement form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+            the purposes of this operator.</remarks>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)">
 
@@ -9806,6 +10065,26 @@
             application relies on the exact number of bits.).</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Imp(PeterO.Numbers.EInteger)">
+<summary>Does an OR NOT operation (or implication or IMP operation)
+            between this arbitrary-precision integer and another one.</summary>
+            <param name='second'>Another arbitrary-precision integer that
+            participates in the operation.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            the corresponding bit of this integer is set, the other integer's
+            corresponding bit is
+            <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
+            = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the
+            two's complement form of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in
+            decimal, -18 OR 11 = -2).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a
+            two's-complement form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+            the purposes of this operator.</remarks>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
 
             <summary>Returns one added to this arbitrary-precision
@@ -9947,6 +10226,9 @@
             </example>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Multiply(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Negate">
 
             <summary>Gets the value of this object with the sign
@@ -9957,8 +10239,18 @@
 <doc name="M:PeterO.Numbers.EInteger.Not">
 
             <summary>Returns an arbitrary-precision integer with every bit
-            flipped from this one.</summary>
-            <returns>An arbitrary-precision integer.</returns>
+            flipped from this one (also called an inversion or NOT
+            operation).</summary>
+            <returns>An arbitrary-precision integer in which each bit in its
+            two's complement representation is set if the corresponding bit of
+            this integer is clear, and vice versa. Returns -1 if this integer
+            is 0. If this integer is positive, the return value is negative,
+            and vice versa. This method uses the two's complement form of
+            negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, NOT 10100 = ...11101011 (or in decimal, NOT 20
+            = -21). In binary, NOT ...11100110 = 11001 (or in decimal, NOT -26
+            = 25).</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Not(PeterO.Numbers.EInteger)">
@@ -9980,10 +10272,18 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Or(PeterO.Numbers.EInteger)">
 
-            <summary>Does an OR operation between two arbitrary-precision
-            integer instances.</summary>
-            <param name='second'>The second operand.</param>
-            <returns>An arbitrary-precision integer.</returns>
+            <summary>Does an OR operation between this arbitrary-precision
+            integer and another one.</summary>
+            <param name='second'>Another arbitrary-precision integer that
+            participates in the operation.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            the corresponding bit of this integer is set, the other integer's
+            corresponding bit is set, or both. For example, in binary, 10110 OR
+            11010 = 11110 (or in decimal, 22 OR 26 = 30). This method uses the
+            two's complement form of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101110 OR 01011 = ...11101111 (or in
+            decimal, -18 OR 11 = -17).</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
             <remarks>Each arbitrary-precision integer is treated as a
             two's-complement form (see
@@ -10004,6 +10304,26 @@
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.OrNot(PeterO.Numbers.EInteger)">
+<summary>Does an OR NOT operation (or implication or IMP operation)
+            between this arbitrary-precision integer and another one.</summary>
+            <param name='second'>Another arbitrary-precision integer that
+            participates in the operation.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            the corresponding bit of this integer is set, the other integer's
+            corresponding bit is
+            <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
+            = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the
+            two's complement form of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in
+            decimal, -18 OR 11 = -2).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a
+            two's-complement form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+            the purposes of this operator.</remarks>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger)">
 
@@ -10069,6 +10389,9 @@
             zero.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='intValue'/> is null.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Remainder(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)">
 
@@ -10167,6 +10490,9 @@
             a 32-bit signed integer.</param>
             <returns>The difference of the two objects.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Subtract(System.Int64)">
+<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Ten">
 
@@ -10365,16 +10691,18 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Xor(PeterO.Numbers.EInteger)">
 
-            <summary>Finds the exclusive "or" of two arbitrary-precision
-            integer objects.
-            <para>Each arbitrary-precision integer is treated as a
-            two's-complement form (see
-            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
-            the purposes of this operator.</para></summary>
-            <param name='other'>An arbitrary-precision integer.</param>
+            <summary>Does an exclusive OR (XOR) operation between this
+            arbitrary-precision integer and another one.</summary>
+            <param name='other'>Another arbitrary-precision integer that
+            participates in the operation.</param>
             <returns>An arbitrary-precision integer in which each bit is set if
             the corresponding bit is set in one input integer but not in the
-            other.</returns>
+            other. For example, in binary, 11010 XOR 01001 = 10011 (or in
+            decimal, 26 XOR 9 = 19). This method uses the two's complement form
+            of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101101 XOR 00011 = ...11101110 (or in
+            decimal, -19 XOR 3 = -18).</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='other'/> is null.</exception>
 
 </doc>
@@ -10393,6 +10721,27 @@
             other.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='a'/> or <paramref name='b'/> is null.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.XorNot(PeterO.Numbers.EInteger)">
+<summary>Does an XOR NOT operation (or equivalence operation, EQV
+            operation, or exclusive-OR NOT operation) between this
+            arbitrary-precision integer and another one.</summary>
+            <param name='second'>Another arbitrary-precision integer that
+            participates in the operation.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            the corresponding bit of this integer is set or the other integer's
+            corresponding bit is
+            <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT
+            11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses
+            the two's complement form of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in
+            decimal, -18 OR 11 = -6).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a
+            two's-complement form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+            the purposes of this operator.</remarks>
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Zero">
 
@@ -10867,6 +11216,13 @@
             this object is NaN.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.Add(System.Int64)">
+<summary>Returns the sum of a rational number and a 64-bit signed
+            integer.</summary>
+            <param name='v'>A 64-bit signed integer.</param>
+            <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+            this object is NaN.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)">
 
             <summary>Compares the mathematical value of an arbitrary-precision
@@ -10900,6 +11256,19 @@
             instance is less, or a positive number if this instance is
             greater.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.CompareTo(System.Int64)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values. This method currently uses
+            the rules given in the CompareToValue method, so that it it is not
+            consistent with the Equals method, but it may change in a future
+            version to use the rules for the CompareToTotal method
+            instead.</summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 64-bit signed integer.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value, or 0 if both values are equal.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)">
 
@@ -11028,6 +11397,23 @@
             greater.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.CompareToValue(System.Int64)">
+<summary>Compares the mathematical values of this object and
+            another object, accepting NaN values.
+            <para>This method is not consistent with the Equals method because
+            two different numbers with the same mathematical value, but
+            different exponents, will compare as equal.</para>
+            <para>In this method, negative zero and positive zero are
+            considered equal.</para>
+            <para>If this object is a quiet NaN or
+            signaling NaN, this method will not trigger an error. Instead, NaN
+            will compare greater than any other number, including infinity.</para></summary>
+            <param name='intOther'>The parameter <paramref name='intOther'/> is
+            a 64-bit signed integer.</param>
+            <returns>Less than 0 if this object's value is less than the other
+            value, or greater than 0 if this object's value is greater than the
+            other value, or 0 if both values are equal.</returns>
+</doc>
 <doc name="M:PeterO.Numbers.ERational.Copy">
 
             <summary>Creates a copy of this arbitrary-precision rational
@@ -11135,13 +11521,21 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Divide(System.Int32)">
 
-            <summary>Divides this instance by the value of an
-            arbitrary-precision rational number object.</summary>
+            <summary>Divides this instance by the value of a 32-bit
+            signed integer.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 32-bit
             signed integer.</param>
             <returns>The quotient of the two objects.</returns>
             <exception cref='ArithmeticException'>The parameter <paramref name='v'/> is zero.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.Divide(System.Int64)">
+<summary>Divides this instance by the value of a 64-bit
+            signed integer.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 64-bit
+            signed integer.</param>
+            <returns>The quotient of the two objects.</returns>
+            <exception cref='ArithmeticException'>The parameter <paramref name='v'/> is zero.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)">
 
@@ -11552,6 +11946,13 @@
             <returns>The product of the two numbers.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.ERational.Multiply(System.Int64)">
+<summary>Returns the value of this instance multiplied by a 64-bit
+            signed integer.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 64-bit
+            signed integer.</param>
+            <returns>The product of the two numbers.</returns>
+</doc>
 <doc name="F:PeterO.Numbers.ERational.NaN">
 
             <summary>A not-a-number value.</summary>
@@ -11607,12 +12008,20 @@
 <doc name="M:PeterO.Numbers.ERational.Remainder(System.Int32)">
 
             <summary>Finds the remainder that results when this instance is
-            divided by the value of an arbitrary-precision rational
-            number.</summary>
+            divided by the value of a 32-bit
+            signed integer.</summary>
             <param name='v'>The divisor.</param>
             <returns>The remainder of the two numbers.</returns>
             <exception cref='ArgumentException'>The parameter <paramref name='v'/> is zero.</exception>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.Remainder(System.Int64)">
+<summary>Finds the remainder that results when this instance is
+            divided by the value of a 64-bit
+            signed integer.</summary>
+            <param name='v'>The divisor.</param>
+            <returns>The remainder of the two numbers.</returns>
+            <exception cref='ArgumentException'>The parameter <paramref name='v'/> is zero.</exception>
 </doc>
 <doc name="P:PeterO.Numbers.ERational.Sign">
 
@@ -11643,6 +12052,13 @@
             signed integer.</param>
             <returns>The difference of the two objects.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.Subtract(System.Int64)">
+<summary>Returns the result of subtracting a 64-bit signed integer
+            from this instance.</summary>
+            <param name='v'>The parameter <paramref name='v'/> is a 64-bit
+            signed integer.</param>
+            <returns>The difference of the two objects.</returns>
 </doc>
 <doc name="F:PeterO.Numbers.ERational.Ten">
 

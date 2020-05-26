@@ -2621,57 +2621,50 @@ namespace PeterO.Numbers {
       return this.DivRem(EInteger.FromInt32(intDivisor));
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EInteger Add(long longValue) {
 return this.Add(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EInteger Subtract(long longValue) {
 return this.Subtract(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EInteger Multiply(long longValue) {
 return this.Multiply(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EInteger Divide(long longValue) {
 return this.Divide(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EInteger Remainder(long longValue) {
 return this.Remainder(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>Not documented yet.</param>
+  /// <param name='longValue'>The parameter <paramref name='longValue'/>
+  /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(long longValue) {
 return this.CompareTo(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='intDivisor'>Not documented yet.</param>
+  /// <param name='intDivisor'>The parameter <paramref
+  /// name='intDivisor'/> is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
     public EInteger[] DivRem(long intDivisor) {
       return this.DivRem(EInteger.FromInt64(intDivisor));
