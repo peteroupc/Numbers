@@ -4416,6 +4416,7 @@ private static string Chop(object o) {
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
+  /// <summary>Not documented yet.</summary>
     public EDecimal Add(long longValue) {
 return this.Add(EDecimal.FromInt64(longValue));
 }
@@ -4423,6 +4424,7 @@ return this.Add(EDecimal.FromInt64(longValue));
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
+  /// <summary>Not documented yet.</summary>
     public EDecimal Subtract(long longValue) {
 return this.Subtract(EDecimal.FromInt64(longValue));
 }

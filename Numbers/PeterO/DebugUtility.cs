@@ -16,13 +16,11 @@ namespace PeterO {
       string name,
       Type[] parameters) {
       #if NET40 || NET20
-      {
         return t.GetMethod(name, parameters);
-      }
       #else
 {
-        return t?.GetRuntimeMethod(name, parameters);
-      }
+ return t?.GetRuntimeMethod(name, parameters);
+}
       #endif
     }
 

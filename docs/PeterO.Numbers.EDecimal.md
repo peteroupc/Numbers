@@ -156,7 +156,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Abs()](#Abs)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Add(int)](#Add_int)</code> - Adds this object and an 32-bit signed integer and returns the result.
-* <code>[Add(long)](#Add_long)</code> - Not documented yet.
+* <code>[Add(long)](#Add_long)</code> -
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
@@ -350,7 +350,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Sqrt(PeterO.Numbers.EContext)](#Sqrt_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to Sqrt.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this object and returns the result.
-* <code>[Subtract(long)](#Subtract_long)</code> - Not documented yet.
+* <code>[Subtract(long)](#Subtract_long)</code> -
 * <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal number from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal number from this instance.
 * <code>[public static readonly PeterO.Numbers.EDecimal Ten;](#Ten)</code> - Represents the number 10.
@@ -580,13 +580,10 @@ The sum of the two objects.
     public PeterO.Numbers.EDecimal Add(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1193,7 +1190,7 @@ Divides this object by a 64-bit signed integer and returns the result. When poss
 <b>Parameters:</b>
 
  * <i>longValue</i>: The parameter  <i>longValue</i>
- is not documented yet.
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1701,7 +1698,8 @@ Creates an arbitrary-precision decimal number from a 64-bit binary floating-poin
 
 <b>Parameters:</b>
 
- * <i>dblBits</i>:
+ * <i>dblBits</i>: The parameter  <i>dblBits</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -2627,7 +2625,7 @@ Multiplies this object by the given 64-bit signed integer. The resulting exponen
 <b>Parameters:</b>
 
  * <i>longValue</i>: The parameter  <i>longValue</i>
- is not documented yet.
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -4276,13 +4274,10 @@ The difference of the two objects.
     public PeterO.Numbers.EDecimal Subtract(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 

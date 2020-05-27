@@ -1464,6 +1464,7 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
+  /// <summary>Not documented yet.</summary>
     public EFloat Add(long longValue) {
 return this.Add(EFloat.FromInt64(longValue));
 }
@@ -1471,6 +1472,7 @@ return this.Add(EFloat.FromInt64(longValue));
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
+  /// <summary>Not documented yet.</summary>
     public EFloat Subtract(long longValue) {
 return this.Subtract(EFloat.FromInt64(longValue));
 }
@@ -1478,6 +1480,7 @@ return this.Subtract(EFloat.FromInt64(longValue));
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
+  /// <summary>Not documented yet.</summary>
     public EFloat Multiply(long longValue) {
 return this.Multiply(EFloat.FromInt64(longValue));
 }

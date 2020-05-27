@@ -46,7 +46,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[Abs()](#Abs)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Add(int)](#Add_int)</code> - Adds this object and another number and returns the result.
-* <code>[Add(long)](#Add_long)</code> - Not documented yet.
+* <code>[Add(long)](#Add_long)</code> -
 * <code>[Add(PeterO.Numbers.EFloat)](#Add_PeterO_Numbers_EFloat)</code> - Adds this object and another binary floating-point number and returns the result.
 * <code>[Add(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
@@ -167,7 +167,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[MovePointRight(PeterO.Numbers.EInteger)](#MovePointRight_PeterO_Numbers_EInteger)</code> - Returns a number similar to this number but with the radix point moved to the right.
 * <code>[MovePointRight(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#MovePointRight_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a number similar to this number but with the radix point moved to the right.
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
-* <code>[Multiply(long)](#Multiply_long)</code> - Not documented yet.
+* <code>[Multiply(long)](#Multiply_long)</code> -
 * <code>[Multiply(PeterO.Numbers.EFloat)](#Multiply_PeterO_Numbers_EFloat)</code> - Multiplies two binary floating-point numbers.
 * <code>[Multiply(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Multiply_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Multiplies two binary floating-point numbers.
 * <code>[MultiplyAndAdd(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#MultiplyAndAdd_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Multiplies by one binary floating-point number, and then adds another binary floating-point number.
@@ -227,7 +227,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[Sqrt(PeterO.Numbers.EContext)](#Sqrt_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to Sqrt.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
-* <code>[Subtract(long)](#Subtract_long)</code> - Not documented yet.
+* <code>[Subtract(long)](#Subtract_long)</code> -
 * <code>[Subtract(PeterO.Numbers.EFloat)](#Subtract_PeterO_Numbers_EFloat)</code> - Subtracts an arbitrary-precision binary floating-point number from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision binary floating-point number from this instance.
 * <code>[public static readonly PeterO.Numbers.EFloat Ten;](#Ten)</code> - Represents the number 10.
@@ -457,13 +457,10 @@ The sum of the two objects.
     public PeterO.Numbers.EFloat Add(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1056,7 +1053,7 @@ Divides this instance by the value of a 64-bit signed integer. The result is rou
 <b>Parameters:</b>
 
  * <i>longValue</i>: The parameter  <i>longValue</i>
- is not documented yet.
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1467,7 +1464,8 @@ Creates a binary floating-point number from a 64-bit floating-point number encod
 
 <b>Parameters:</b>
 
- * <i>dblBits</i>:
+ * <i>dblBits</i>: The parameter  <i>dblBits</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -2358,13 +2356,10 @@ The product of the two numbers.
     public PeterO.Numbers.EFloat Multiply(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -3920,13 +3915,10 @@ The difference of the two objects.
     public PeterO.Numbers.EFloat Subtract(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 

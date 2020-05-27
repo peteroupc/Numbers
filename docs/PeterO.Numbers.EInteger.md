@@ -19,7 +19,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this object's value.
 * <code>[Add(int)](#Add_int)</code> - Adds this object and another object.
-* <code>[Add(long)](#Add_long)</code> - Not documented yet.
+* <code>[Add(long)](#Add_long)</code> -
 * <code>[Add(PeterO.Numbers.EInteger)](#Add_PeterO_Numbers_EInteger)</code> - Adds this object and another object.
 * <code>[And(PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger)</code> - Does an AND operation between this arbitrary-precision integer and another one.
 * <code>[And(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
@@ -31,14 +31,14 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CanFitInInt32()](#CanFitInInt32)</code> - Returns whether this object's value can fit in a 32-bit signed integer.
 * <code>[CanFitInInt64()](#CanFitInInt64)</code> - Returns whether this object's value can fit in a 64-bit signed integer.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares an arbitrary-precision integer with this instance.
-* <code>[CompareTo(long)](#CompareTo_long)</code> - Not documented yet.
+* <code>[CompareTo(long)](#CompareTo_long)</code> -
 * <code>[CompareTo(PeterO.Numbers.EInteger)](#CompareTo_PeterO_Numbers_EInteger)</code> - Compares an arbitrary-precision integer with this instance.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision integer.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of an arbitrary-precision integer.
-* <code>[Divide(long)](#Divide_long)</code> - Not documented yet.
+* <code>[Divide(long)](#Divide_long)</code> -
 * <code>[Divide(PeterO.Numbers.EInteger)](#Divide_PeterO_Numbers_EInteger)</code> - Divides this instance by the value of an arbitrary-precision integer.
 * <code>[DivRem(int)](#DivRem_int)</code> - Divides this object by a 32-bit signed integer and returns the quotient and remainder.
-* <code>[DivRem(long)](#DivRem_long)</code> - Not documented yet.
+* <code>[DivRem(long)](#DivRem_long)</code> -
 * <code>[DivRem(PeterO.Numbers.EInteger)](#DivRem_PeterO_Numbers_EInteger)</code> - Divides this object by another arbitrary-precision integer and returns the quotient and remainder.
 * <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Use the DivRem instance method instead.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
@@ -108,7 +108,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when this arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 * <code>[ModPow(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#ModPow_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Calculates the remainder when an arbitrary-precision integer raised to a certain power is divided by another arbitrary-precision integer.
 * <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
-* <code>[Multiply(long)](#Multiply_long)</code> - Not documented yet.
+* <code>[Multiply(long)](#Multiply_long)</code> -
 * <code>[Multiply(PeterO.Numbers.EInteger)](#Multiply_PeterO_Numbers_EInteger)</code> - Multiplies this instance by the value of an arbitrary-precision integer object.
 * <code>[Negate()](#Negate)</code> - Gets the value of this object with the sign reversed.
 * <code>[Not()](#Not)</code> - Returns an arbitrary-precision integer with every bit flipped from this one (also called an inversion or NOT operation).
@@ -139,7 +139,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
 * <code>[Remainder(int)](#Remainder_int)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
-* <code>[Remainder(long)](#Remainder_long)</code> - Not documented yet.
+* <code>[Remainder(long)](#Remainder_long)</code> -
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Finds the remainder that results when this instance is divided by the value of an arbitrary-precision integer.
 * <code>[ShiftLeft(int)](#ShiftLeft_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
 * <code>[ShiftLeft(PeterO.Numbers.EInteger)](#ShiftLeft_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer.
@@ -149,7 +149,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Sqrt()](#Sqrt)</code> - Finds the square root of this instance's value, rounded down.
 * <code>[SqrtRem()](#SqrtRem)</code> - Calculates the square root and the remainder.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
-* <code>[Subtract(long)](#Subtract_long)</code> - Not documented yet.
+* <code>[Subtract(long)](#Subtract_long)</code> -
 * <code>[Subtract(PeterO.Numbers.EInteger)](#Subtract_PeterO_Numbers_EInteger)</code> - Subtracts an arbitrary-precision integer from this arbitrary-precision integer.
 * <code>[Ten](#Ten)</code> - Gets the number 10 as an arbitrary-precision integer.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255).
@@ -287,13 +287,10 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EInteger Add(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -504,13 +501,10 @@ Zero if the values are equal; a negative number if this instance is less, or a p
     public int CompareTo(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -573,13 +567,10 @@ Attempted to divide by zero.
     public PeterO.Numbers.EInteger Divide(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -638,13 +629,10 @@ The parameter  <i>intDivisor</i>
     public PeterO.Numbers.EInteger[] DivRem(
         long intDivisor);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>intDivisor</i>: Not documented yet.
+ * <i>intDivisor</i>: The parameter  <i>intDivisor</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1630,13 +1618,10 @@ The product of the two numbers.
     public PeterO.Numbers.EInteger Multiply(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -2699,13 +2684,10 @@ The parameter  <i>intValue</i>
     public PeterO.Numbers.EInteger Remainder(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -2857,13 +2839,10 @@ The difference of the two objects.
     public PeterO.Numbers.EInteger Subtract(
         long longValue);
 
-Not documented yet.
-
-Not documented yet.
-
 <b>Parameters:</b>
 
- * <i>longValue</i>: Not documented yet.
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 

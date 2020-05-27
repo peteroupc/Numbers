@@ -967,7 +967,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)">
 
@@ -1006,7 +1010,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(System.Int64)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values. This method currently uses
             the rules given in the CompareToValue method, so that it it is not
             consistent with the Equals method, but it may change in a future
@@ -1017,6 +1022,7 @@
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToBinary(PeterO.Numbers.EFloat)">
 
@@ -1240,7 +1246,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToValue(System.Int64)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values.
             <para>This method is not consistent with the Equals method because
             two different numbers with the same mathematical value, but
@@ -1255,6 +1262,7 @@
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareToWithContext(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
@@ -1548,13 +1556,18 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(System.Int64)">
-<summary>Divides this object by a 64-bit signed integer and returns
-            the result. When possible, the result will be exact.</summary><param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The quotient of the two numbers. Returns infinity if the
+
+            <summary>Divides this object by a 64-bit signed integer and returns
+            the result. When possible, the result will be exact.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The quotient of the two numbers. Returns infinity if the
             divisor is 0 and the dividend is nonzero. Returns not-a-number
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating
             decimal expansion; examples include 1 divided by any multiple of 3,
             such as 1/3 or 1/12.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)">
 
@@ -1961,7 +1974,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromDoubleBits(System.Int64)">
-<summary>Creates an arbitrary-precision decimal number from a
+
+            <summary>Creates an arbitrary-precision decimal number from a
             64-bit binary floating-point number, encoded in the IEEE 754
             binary64 format. This method computes the exact value of the
             floating point number, not an approximation, as is often the case
@@ -1973,8 +1987,12 @@
             resulting arbitrary-precision decimal will be the value of the
             closest "double" to 0.1, not 0.1 exactly). To create an
             arbitrary-precision decimal number from a decimal value, use
-            FromString instead in most cases.</summary><param name='dblBits'>The parameter <paramref name='dblBits'/> is a 64-bit signed integer.</param><returns>An arbitrary-precision decimal number with the same value
+            FromString instead in most cases.</summary>
+            <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
+            64-bit signed integer.</param>
+            <returns>An arbitrary-precision decimal number with the same value
             as <paramref name='value'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromEFloat(PeterO.Numbers.EFloat)">
 
@@ -2065,7 +2083,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromSingleBits(System.Int32)">
-<summary>Creates an arbitrary-precision decimal number from a
+
+            <summary>Creates an arbitrary-precision decimal number from a
             32-bit binary floating-point number encoded in the IEEE 754
             binary32 format. This method computes the exact value of the
             floating point number, not an approximation, as is often the case
@@ -2083,6 +2102,7 @@
             binary32 format.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as <paramref name='value'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromString(System.String)">
 
@@ -2663,9 +2683,14 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(System.Int64)">
-<summary>Multiplies this object by the given 64-bit signed integer.
+
+            <summary>Multiplies this object by the given 64-bit signed integer.
             The resulting exponent will be the sum of the exponents of the two
-            numbers.</summary><param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The product of the two numbers.</returns>
+            numbers.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The product of the two numbers.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
@@ -3684,7 +3709,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.Ten">
 
@@ -3754,7 +3783,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToDoubleBits">
-<summary>Converts this value to its closest equivalent as a 64-bit
+
+            <summary>Converts this value to its closest equivalent as a 64-bit
             floating-point number encoded in the IEEE 754 binary64 format,
             using the half-even rounding mode.
             <para>If this value is a NaN, sets the high bit of the binary64
@@ -3768,6 +3798,7 @@
             positive infinity or negative infinity, encoded in the IEEE 754
             binary64 format, if this value exceeds the range of a 64-bit
             floating point number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEFloat">
 
@@ -4022,7 +4053,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToSingleBits">
-<summary>Converts this value to its closest equivalent as a 32-bit
+
+            <summary>Converts this value to its closest equivalent as a 32-bit
             floating-point number encoded in the IEEE 754 binary32 format,
             using the half-even rounding mode.
             <para>If this value is a NaN, sets the high bit of the 32-bit
@@ -4036,6 +4068,7 @@
             value, encoded in the IEEE 754 binary32 format. The return value
             can be positive infinity or negative infinity if this value exceeds
             the range of a 32-bit floating point number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToSizedEInteger(System.Int32)">
 
@@ -5338,7 +5371,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
@@ -5464,7 +5501,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareTo(System.Int64)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values. This method currently uses
             the rules given in the CompareToValue method, so that it it is not
             consistent with the Equals method, but it may change in a future
@@ -5475,6 +5513,7 @@
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToSignal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5674,7 +5713,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToValue(System.Int64)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values.
             <para>This method is not consistent with the Equals method because
             two different numbers with the same mathematical value, but
@@ -5689,6 +5729,7 @@
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.CompareToWithContext(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5930,13 +5971,19 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(System.Int64)">
-<summary>Divides this instance by the value of a 64-bit signed
+
+            <summary>Divides this instance by the value of a 64-bit signed
             integer. The result is rounded down (the fractional part is
             discarded). Except if the result is 0, it will be negative if this
             object is positive and the other is negative, or vice versa, and
             will be positive if both are positive or both are
-            negative.</summary><param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The quotient of the two objects.</returns><exception cref='DivideByZeroException'>Attempted to divide by
+            negative.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The quotient of the two objects.</returns>
+            <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)">
 
@@ -6180,8 +6227,7 @@
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter can't be null, as the exponential function's
-            results are generally not exact.</i> (Unlike in the General Binary
-            Arithmetic Specification, any rounding mode is allowed.).</param>
+            results are generally not exact.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).</param>
             <returns>Exponential of this object. If this object's value is 1,
             returns an approximation to " e" within the given precision.
             Signals FlagInvalid and returns not-a-number (NaN) if the parameter
@@ -6230,12 +6276,17 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromDoubleBits(System.Int64)">
-<summary>Creates a binary floating-point number from a 64-bit
+
+            <summary>Creates a binary floating-point number from a 64-bit
             floating-point number encoded in the IEEE 754 binary64 format. This
             method computes the exact value of the floating point number, not
             an approximation, as is often the case by converting the floating
-            point number to a string first.</summary><param name='dblBits'>The parameter <paramref name='dblBits'/> is a 64-bit signed integer.</param><returns>A binary floating-point number with the same value as the
+            point number to a string first.</summary>
+            <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
+            64-bit signed integer.</param>
+            <returns>A binary floating-point number with the same value as the
             floating-point number encoded in <paramref name='dbl'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromEInteger(PeterO.Numbers.EInteger)">
 
@@ -6300,7 +6351,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromSingleBits(System.Int32)">
-<summary>Creates a binary floating-point number from a 32-bit
+
+            <summary>Creates a binary floating-point number from a 32-bit
             floating-point number encoded in the IEEE 754 binary32 format. This
             method computes the exact value of the floating point number, not
             an approximation, as is often the case by converting the floating
@@ -6309,6 +6361,7 @@
             in the IEEE 754 binary32 format.</param>
             <returns>A binary floating-point number with the same
             floating-point value as <paramref name='flt'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
 
@@ -6550,7 +6603,7 @@
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter can't be null, as the ln function's results are
-            generally not exact.</i> (Unlike in the General Binary Arithmetic
+            generally not exact.</i> (Unlike in the General Decimal Arithmetic
             Specification, any rounding mode is allowed.).</param>
             <returns>Ln(this object). Signals the flag FlagInvalid and returns
             NaN if this object is less than 0 (the result would be a complex
@@ -6573,7 +6626,7 @@
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter can't be null, as the ln function's results are
-            generally not exact.</i> (Unlike in the General Binary Arithmetic
+            generally not exact.</i> (Unlike in the General Decimal Arithmetic
             Specification, any rounding mode is allowed.).</param>
             <returns>Ln(this object)/Ln(10). Signals the flag FlagInvalid and
             returns not-a-number (NaN) if this object is less than 0. Signals
@@ -6895,7 +6948,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
@@ -7737,7 +7794,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter can't be null, as the square root function's
             results are generally not exact for many inputs.</i> (Unlike in the
-            General Binary Arithmetic Specification, any rounding mode is
+            General Decimal Arithmetic Specification, any rounding mode is
             allowed.).</param>
             <returns>The square root. Signals the flag FlagInvalid and returns
             NaN if this object is less than 0 (the square root would be a
@@ -7756,7 +7813,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter can't be null, as the square root function's
             results are generally not exact for many inputs.</i> (Unlike in the
-            General Binary Arithmetic Specification, any rounding mode is
+            General Decimal Arithmetic Specification, any rounding mode is
             allowed.).</param>
             <returns>The square root. Signals the flag FlagInvalid and returns
             NaN if this object is less than 0 (the square root would be a
@@ -7802,7 +7859,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.Ten">
 
@@ -7853,12 +7914,14 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToDoubleBits">
-<summary>Converts this value to a 64-bit floating-point
+
+            <summary>Converts this value to a 64-bit floating-point
             number.</summary>
             <returns>This number, converted to a 64-bit floating-point number.
             The return value can express positive infinity or negative infinity
             if this value exceeds the range of a 64-bit floating point
             number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToEDecimal">
 
@@ -8121,10 +8184,12 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSingleBits">
-<summary>Converts this value to a 32-bit floating-point number
+
+            <summary>Converts this value to a 32-bit floating-point number
             encoded in the IEEE 754 binary32 format.</summary>
             <returns>This number, converted to a 32-bit floating-point number
             encoded in the IEEE 754 binary32 format.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSizedEInteger(System.Int32)">
 
@@ -9343,7 +9408,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Add(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)">
 
@@ -9383,7 +9452,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.AndNot(PeterO.Numbers.EInteger)">
-<summary>Does an AND NOT operation between this arbitrary-precision
+
+            <summary>Does an AND NOT operation between this arbitrary-precision
             integer and another one.</summary>
             <param name='second'>Another arbitrary-precision integer that
             participates in the operation.</param>
@@ -9401,6 +9471,7 @@
             two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.AsInt32Checked">
 
@@ -9485,7 +9556,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.CompareTo(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Decrement">
 
@@ -9532,7 +9607,10 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(System.Int64)">
-<param name='intDivisor'>The parameter <paramref name='intDivisor'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='intDivisor'>The parameter <paramref name='intDivisor'/> is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)">
 
@@ -9564,7 +9642,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Divide(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)">
 
@@ -9584,7 +9666,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Eqv(PeterO.Numbers.EInteger)">
-<summary>Does an XOR NOT operation (or equivalence operation, EQV
+
+            <summary>Does an XOR NOT operation (or equivalence operation, EQV
             operation, or exclusive-OR NOT operation) between this
             arbitrary-precision integer and another one.</summary>
             <param name='second'>Another arbitrary-precision integer that
@@ -9603,6 +9686,7 @@
             two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromBoolean(System.Boolean)">
 
@@ -10066,7 +10150,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Imp(PeterO.Numbers.EInteger)">
-<summary>Does an OR NOT operation (or implication or IMP operation)
+
+            <summary>Does an OR NOT operation (or implication or IMP operation)
             between this arbitrary-precision integer and another one.</summary>
             <param name='second'>Another arbitrary-precision integer that
             participates in the operation.</param>
@@ -10084,6 +10169,7 @@
             two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
 
@@ -10227,7 +10313,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Multiply(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Negate">
 
@@ -10306,7 +10396,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.OrNot(PeterO.Numbers.EInteger)">
-<summary>Does an OR NOT operation (or implication or IMP operation)
+
+            <summary>Does an OR NOT operation (or implication or IMP operation)
             between this arbitrary-precision integer and another one.</summary>
             <param name='second'>Another arbitrary-precision integer that
             participates in the operation.</param>
@@ -10324,6 +10415,7 @@
             two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Pow(PeterO.Numbers.EInteger)">
 
@@ -10391,7 +10483,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Remainder(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)">
 
@@ -10492,7 +10588,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Subtract(System.Int64)">
-<param name='longValue'>The parameter <paramref name='longValue'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Ten">
 
@@ -10723,7 +10823,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.XorNot(PeterO.Numbers.EInteger)">
-<summary>Does an XOR NOT operation (or equivalence operation, EQV
+
+            <summary>Does an XOR NOT operation (or equivalence operation, EQV
             operation, or exclusive-OR NOT operation) between this
             arbitrary-precision integer and another one.</summary>
             <param name='second'>Another arbitrary-precision integer that
@@ -10742,6 +10843,7 @@
             two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
+
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Zero">
 
@@ -11217,11 +11319,13 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Add(System.Int64)">
-<summary>Returns the sum of a rational number and a 64-bit signed
+
+            <summary>Returns the sum of a rational number and a 64-bit signed
             integer.</summary>
             <param name='v'>A 64-bit signed integer.</param>
             <returns>The sum of the two numbers. Returns not-a-number (NaN) if
             this object is NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)">
 
@@ -11258,7 +11362,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(System.Int64)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values. This method currently uses
             the rules given in the CompareToValue method, so that it it is not
             consistent with the Equals method, but it may change in a future
@@ -11269,6 +11374,7 @@
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToBinary(PeterO.Numbers.EFloat)">
 
@@ -11398,7 +11504,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareToValue(System.Int64)">
-<summary>Compares the mathematical values of this object and
+
+            <summary>Compares the mathematical values of this object and
             another object, accepting NaN values.
             <para>This method is not consistent with the Equals method because
             two different numbers with the same mathematical value, but
@@ -11413,6 +11520,7 @@
             <returns>Less than 0 if this object's value is less than the other
             value, or greater than 0 if this object's value is greater than the
             other value, or 0 if both values are equal.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Copy">
 
@@ -11530,12 +11638,14 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Divide(System.Int64)">
-<summary>Divides this instance by the value of a 64-bit
+
+            <summary>Divides this instance by the value of a 64-bit
             signed integer.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 64-bit
             signed integer.</param>
             <returns>The quotient of the two objects.</returns>
             <exception cref='ArithmeticException'>The parameter <paramref name='v'/> is zero.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Equals(PeterO.Numbers.ERational)">
 
@@ -11947,11 +12057,13 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Multiply(System.Int64)">
-<summary>Returns the value of this instance multiplied by a 64-bit
+
+            <summary>Returns the value of this instance multiplied by a 64-bit
             signed integer.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 64-bit
             signed integer.</param>
             <returns>The product of the two numbers.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.ERational.NaN">
 
@@ -12016,12 +12128,14 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Remainder(System.Int64)">
-<summary>Finds the remainder that results when this instance is
+
+            <summary>Finds the remainder that results when this instance is
             divided by the value of a 64-bit
             signed integer.</summary>
             <param name='v'>The divisor.</param>
             <returns>The remainder of the two numbers.</returns>
             <exception cref='ArgumentException'>The parameter <paramref name='v'/> is zero.</exception>
+
 </doc>
 <doc name="P:PeterO.Numbers.ERational.Sign">
 
@@ -12054,11 +12168,13 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Subtract(System.Int64)">
-<summary>Returns the result of subtracting a 64-bit signed integer
+
+            <summary>Returns the result of subtracting a 64-bit signed integer
             from this instance.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 64-bit
             signed integer.</param>
             <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.ERational.Ten">
 
