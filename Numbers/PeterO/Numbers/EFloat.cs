@@ -354,7 +354,7 @@ namespace PeterO.Numbers {
     public static EFloat Create(int mantissaSmall, int exponentSmall) {
       return (exponentSmall == 0 && mantissaSmall >= CacheFirst &&
           mantissaSmall <= CacheLast) ? Cache[mantissaSmall - CacheFirst] :
-Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
+        Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     }
 
     /// <summary>Returns a number with the value
@@ -367,7 +367,7 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     public static EFloat Create(long mantissaLong, long exponentLong) {
       return (exponentLong == 0 && mantissaLong >= CacheFirst &&
           mantissaLong <= CacheLast) ? Cache[(int)mantissaLong - CacheFirst] :
-          Create((EInteger)mantissaLong, (EInteger)exponentLong);
+        Create((EInteger)mantissaLong, (EInteger)exponentLong);
     }
 
     /// <summary>Returns a number with the value
@@ -380,7 +380,7 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     public static EFloat Create(long mantissaLong, int exponentSmall) {
       return (exponentSmall == 0 && mantissaLong >= CacheFirst &&
           mantissaLong <= CacheLast) ? Cache[(int)mantissaLong - CacheFirst] :
-          Create((EInteger)mantissaLong, (EInteger)exponentSmall);
+        Create((EInteger)mantissaLong, (EInteger)exponentSmall);
     }
 
     /// <summary>Returns a number with the value
@@ -564,8 +564,8 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
       if (lvalue != 0) {
         // Shift away trailing zeros
         while ((lvalue & 1L) == 0) {
-           lvalue >>= 1;
-           ++floatExponent;
+          lvalue >>= 1;
+          ++floatExponent;
         }
       } else {
         return neg ? EFloat.NegativeZero : EFloat.Zero;
@@ -587,7 +587,7 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
     /// <paramref name='flt'/>.</returns>
     public static EFloat FromSingle(float flt) {
       return FromSingleBits(
-    BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0));
+          BitConverter.ToInt32(BitConverter.GetBytes((float)flt), 0));
     }
 
     /// <summary>Creates a binary floating-point number from a 64-bit
@@ -1461,29 +1461,29 @@ Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
       return this.Divide(EFloat.FromInt32(intValue));
     }
 
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
     public EFloat Add(long longValue) {
-return this.Add(EFloat.FromInt64(longValue));
-}
+      return this.Add(EFloat.FromInt64(longValue));
+    }
 
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
     public EFloat Subtract(long longValue) {
-return this.Subtract(EFloat.FromInt64(longValue));
-}
+      return this.Subtract(EFloat.FromInt64(longValue));
+    }
 
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
     public EFloat Multiply(long longValue) {
-return this.Multiply(EFloat.FromInt64(longValue));
-}
+      return this.Multiply(EFloat.FromInt64(longValue));
+    }
 
     /// <summary>Divides this instance by the value of a 64-bit signed
     /// integer. The result is rounded down (the fractional part is
@@ -1497,8 +1497,8 @@ return this.Multiply(EFloat.FromInt64(longValue));
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     public EFloat Divide(long longValue) {
-return this.Divide(EFloat.FromInt64(longValue));
-}
+      return this.Divide(EFloat.FromInt64(longValue));
+    }
 
     /// <summary>Adds this object and another binary floating-point number
     /// and returns the result.</summary>
@@ -3851,15 +3851,15 @@ return this.Divide(EFloat.FromInt64(longValue));
         }
         longmant <<= diff;
       }
-              // Clear the high bits where the exponent and sign are
-              longmant &= 0xfffffffffffffL;
-              if (!subnormal) {
-                longmant |= (long)(expo + 1075) << 52;
-              }
-              if (this.IsNegative) {
-                longmant |= unchecked((long)(1L << 63));
-              }
-              return longmant;
+      // Clear the high bits where the exponent and sign are
+      longmant &= 0xfffffffffffffL;
+      if (!subnormal) {
+        longmant |= (long)(expo + 1075) << 52;
+      }
+      if (thisValue.IsNegative) {
+        longmant |= unchecked((long)(1L << 63));
+      }
+      return longmant;
     }
 
     /// <summary>Converts this value to an arbitrary-precision decimal
@@ -4076,8 +4076,8 @@ return this.Divide(EFloat.FromInt64(longValue));
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
     public float ToSingle() {
-       int sb = this.ToSingleBits();
-       return BitConverter.ToSingle(BitConverter.GetBytes(sb), 0);
+      int sb = this.ToSingleBits();
+      return BitConverter.ToSingle(BitConverter.GetBytes(sb), 0);
     }
 
     /// <summary>Converts this number's value to a text string.</summary>
@@ -4402,8 +4402,8 @@ return this.Divide(EFloat.FromInt64(longValue));
           return fbigint;
         }
         EInteger ei = this.MultiplyByRadixPower(
-          fbigint.ToEInteger(),
-          FastInteger.FromBig(fpower.ToEInteger()));
+            fbigint.ToEInteger(),
+            FastInteger.FromBig(fpower.ToEInteger()));
         return FastIntegerFixed.FromBig(ei);
       }
 

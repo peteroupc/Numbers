@@ -9,8 +9,8 @@ using System;
 using System.Text;
 
 /*
-TODO: FromString(char[]) in E* classes
-TODO: FromString(char[], ..., ...) in E* classes
+TODO: FromString(char[]) in EDecimal/Float/Rational classes
+TODO: FromString(char[], ..., ...) in EDecimal/Float/Rational classes
 TODO: add one/zero/ten to Java version; maybe change to fields in next major
 version
 TODO: Use FastIntegerFixed in EFloat and ERational
@@ -2252,7 +2252,7 @@ namespace PeterO.Numbers {
       // str.Length))) + "] " + (ctx.Rounding));
       // }
       // DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
-         // "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
+      // "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
       if (
         roundUp && ctx != null &&
         ctx.Precision.CompareTo(decimalPrec) < 0) {
@@ -2408,7 +2408,7 @@ namespace PeterO.Numbers {
         }
       }
       // DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
-         // "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
+      // "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
       int de = digitEnd;
       int dde = decimalDigitEnd;
       if (!haveExponent && haveDecimalPoint &&
@@ -2506,15 +2506,15 @@ namespace PeterO.Numbers {
       }
       return ret;
     }
-/*
-private static string Chop(object o) {
-  string str = o == null ? "null" : o.ToString();
-  if (str.Length > 50) {
-    str = str.Substring(0, 50) + "...";
-  }
-  return str;
-}
-*/
+    /*
+    private static string Chop(object o) {
+      string str = o == null ? "null" : o.ToString();
+      if (str.Length > 50) {
+        str = str.Substring(0, 50) + "...";
+      }
+      return str;
+    }
+    */
     // 1 = Overflow; 2 = Underflow, adjust significand to 1; 0 = None;
     // 3 = Underflow, adjust significant to have precision
     private static int CheckOverflowUnderflow(
@@ -4413,21 +4413,21 @@ private static string Chop(object o) {
       return GetMathValue(ctx).Multiply(this, op, ctx);
     }
 
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
     public EDecimal Add(long longValue) {
-return this.Add(EDecimal.FromInt64(longValue));
-}
+      return this.Add(EDecimal.FromInt64(longValue));
+    }
 
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
     public EDecimal Subtract(long longValue) {
-return this.Subtract(EDecimal.FromInt64(longValue));
-}
+      return this.Subtract(EDecimal.FromInt64(longValue));
+    }
 
     /// <summary>Multiplies this object by the given 64-bit signed integer.
     /// The resulting exponent will be the sum of the exponents of the two
@@ -4436,8 +4436,8 @@ return this.Subtract(EDecimal.FromInt64(longValue));
     /// is a 64-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
     public EDecimal Multiply(long longValue) {
-return this.Multiply(EDecimal.FromInt64(longValue));
-}
+      return this.Multiply(EDecimal.FromInt64(longValue));
+    }
 
     /// <summary>Divides this object by a 64-bit signed integer and returns
     /// the result. When possible, the result will be exact.</summary>
@@ -4450,8 +4450,8 @@ return this.Multiply(EDecimal.FromInt64(longValue));
     /// decimal expansion; examples include 1 divided by any multiple of 3,
     /// such as 1/3 or 1/12.</returns>
     public EDecimal Divide(long longValue) {
-return this.Divide(EDecimal.FromInt64(longValue));
-}
+      return this.Divide(EDecimal.FromInt64(longValue));
+    }
 
     /// <summary>Adds this object and an 32-bit signed integer and returns
     /// the result.</summary>
@@ -5612,35 +5612,35 @@ return this.Divide(EDecimal.FromInt64(longValue));
     }
 
     private static long IntegerToDoubleBits(long v, int expshift, bool neg) {
-            int nexp = expshift;
-            while (v < (1L << 52)) {
-                v <<= 1;
-                --nexp;
-             }
-             // Clear the high bits where the exponent and sign are
-             v &= 0xfffffffffffffL;
-             // NOTE: Assumed not to be subnormal
-             v |= (long)(nexp + 1075) << 52;
-             if (neg) {
-               v |= unchecked((long)(1L << 63));
-             }
-             return v;
+      int nexp = expshift;
+      while (v < (1L << 52)) {
+        v <<= 1;
+        --nexp;
+      }
+      // Clear the high bits where the exponent and sign are
+      v &= 0xfffffffffffffL;
+      // NOTE: Assumed not to be subnormal
+      v |= (long)(nexp + 1075) << 52;
+      if (neg) {
+        v |= unchecked((long)(1L << 63));
+      }
+      return v;
     }
 
     private static int IntegerToSingleBits(int iv, int expshift, bool neg) {
-            int nexp = expshift;
-            while (iv < (1 << 23)) {
-                iv <<= 1;
-                --nexp;
-             }
-             // Clear the high bits where the exponent and sign are
-             iv &= 0x7fffff;
-             // NOTE: Assumed not to be subnormal
-             iv |= (nexp + 150) << 23;
-             if (neg) {
-               iv |= 1 << 31;
-             }
-             return iv;
+      int nexp = expshift;
+      while (iv < (1 << 23)) {
+        iv <<= 1;
+        --nexp;
+      }
+      // Clear the high bits where the exponent and sign are
+      iv &= 0x7fffff;
+      // NOTE: Assumed not to be subnormal
+      iv |= (nexp + 150) << 23;
+      if (neg) {
+        iv |= 1 << 31;
+      }
+      return iv;
     }
 
     /// <summary>Converts this value to its closest equivalent as a 64-bit
@@ -5689,8 +5689,8 @@ return this.Divide(EDecimal.FromInt64(longValue));
             if (m % vtp == 0) {
               // Will fit in double without rounding
               // DebugUtility.Log("m=" + m + " vtp=" + vtp);
-               return IntegerToDoubleBits(m / vtp, 0, this.IsNegative);
-             }
+              return IntegerToDoubleBits(m / vtp, 0, this.IsNegative);
+            }
             // Shift significand to be a 53-bit number (which
             // can fit exactly in a double)
             long am = Math.Abs(m);
@@ -6002,8 +6002,8 @@ return this.Divide(EDecimal.FromInt64(longValue));
     /// infinity if this value exceeds the range of a 32-bit floating point
     /// number.</returns>
     public float ToSingle() {
-       int sb = this.ToSingleBits();
-       return BitConverter.ToSingle(BitConverter.GetBytes(sb), 0);
+      int sb = this.ToSingleBits();
+      return BitConverter.ToSingle(BitConverter.GetBytes(sb), 0);
     }
 
     /// <summary>Converts this value to a string. Returns a value
@@ -7021,7 +7021,7 @@ return this.Divide(EDecimal.FromInt64(longValue));
           }
         } else {
           ret = fitsInInt32 ? NumberUtility.FindPowerOfTen(powerInt) :
-          NumberUtility.FindPowerOfTenFromBig(fpower.ToEInteger());
+            NumberUtility.FindPowerOfTenFromBig(fpower.ToEInteger());
         }
         return FastIntegerFixed.FromBig(ret);
       }

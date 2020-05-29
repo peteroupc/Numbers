@@ -1141,7 +1141,16 @@ namespace Test {
     [Test]
     public void TestExceptions() {
       try {
-        EInteger.FromString(null);
+        EInteger.FromString((char[])null);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentNullException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EInteger.FromString((string)null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -1329,7 +1338,7 @@ namespace Test {
     [Test]
     public void TestFromRadixString() {
       try {
-        EInteger.FromRadixString(null, 10);
+        EInteger.FromRadixString((string)null, 10);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -1395,7 +1404,7 @@ namespace Test {
     [Test]
     public void TestFromRadixSubstring() {
       try {
-        EInteger.FromRadixSubstring(null, 10, 0, 1);
+        EInteger.FromRadixSubstring((string)null, 10, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -1595,7 +1604,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EInteger.FromString(null);
+        EInteger.FromString((string)null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -1680,7 +1689,7 @@ namespace Test {
     [Test]
     public void TestFromSubstring() {
       try {
-        EInteger.FromSubstring(null, 0, 1);
+        EInteger.FromSubstring((string)null, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty

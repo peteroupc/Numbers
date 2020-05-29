@@ -443,52 +443,53 @@ namespace Test {
         enumber);
     }
 
-[Test]
-public static void TestDoubleSingleBitsSpecific() {
-{
-  string str = "-0.0230382307472970331019279655038189957849681377410888671875";
-  EFloat ed = EFloat.FromDoubleBits(-4641074497532188517L);
-  EFloat edExp = EFloat.FromString(str);
-  Assert.AreEqual(0, edExp.CompareToValue(ed));
-  Assert.AreEqual(-4641074497532188517L, ed.ToDoubleBits());
-}
-{
-string str = "-0.023038230747297033";
-EFloat ed = EFloat.FromDoubleBits(-4641074497532188517L);
-EFloat edExp = EFloat.FromString(str);
-String messageTemp = "-0.023038230747297033" +
-   "\n" + ed.ToString() + "\n" + edExp.ToString();
- Assert.AreEqual(
-  0,
-  edExp.CompareToValue(ed),
-  messageTemp);
-Assert.AreEqual(-4641074497532188517L, ed.ToDoubleBits());
-}
-{
-string str = "-5761315294415299";
-EDecimal ed = EDecimal.FromDoubleBits(-4380744721764447805L);
-EDecimal edExp = EDecimal.FromString(str);
-String messageTemp = "-5761315294415299" +
-   "\n" + ed.ToString() + "\n" + edExp.ToString();
- Assert.AreEqual(
-  0,
-  edExp.CompareToValue(ed),
-  messageTemp);
-Assert.AreEqual(-4380744721764447805L, ed.ToDoubleBits());
-}
-{
-string str = "4569138";
-EDecimal ed = EDecimal.FromSingleBits(1250652260);
-EDecimal edExp = EDecimal.FromString(str);
-String messageTemp = "4569138" +
-   "\n" + ed.ToString() + "\n" + edExp.ToString();
- Assert.AreEqual(
-  0,
-  edExp.CompareToValue(ed),
-  messageTemp);
-Assert.AreEqual(1250652260, ed.ToSingleBits());
-}
-}
+    [Test]
+    public static void TestDoubleSingleBitsSpecific() {
+      {
+        string str =
+"-0.0230382307472970331019279655038189957849681377410888671875";
+        EFloat ed = EFloat.FromDoubleBits(-4641074497532188517L);
+        EFloat edExp = EFloat.FromString(str);
+        Assert.AreEqual(0, edExp.CompareToValue(ed));
+        Assert.AreEqual(-4641074497532188517L, ed.ToDoubleBits());
+      }
+      {
+        string str = "-0.023038230747297033";
+        EFloat ed = EFloat.FromDoubleBits(-4641074497532188517L);
+        EFloat edExp = EFloat.FromString(str);
+        String messageTemp = "-0.023038230747297033" +
+          "\n" + ed.ToString() + "\n" + edExp.ToString();
+        Assert.AreEqual(
+          0,
+          edExp.CompareToValue(ed),
+          messageTemp);
+        Assert.AreEqual(-4641074497532188517L, ed.ToDoubleBits());
+      }
+      {
+        string str = "-5761315294415299";
+        EDecimal ed = EDecimal.FromDoubleBits(-4380744721764447805L);
+        EDecimal edExp = EDecimal.FromString(str);
+        String messageTemp = "-5761315294415299" +
+          "\n" + ed.ToString() + "\n" + edExp.ToString();
+        Assert.AreEqual(
+          0,
+          edExp.CompareToValue(ed),
+          messageTemp);
+        Assert.AreEqual(-4380744721764447805L, ed.ToDoubleBits());
+      }
+      {
+        string str = "4569138";
+        EDecimal ed = EDecimal.FromSingleBits(1250652260);
+        EDecimal edExp = EDecimal.FromString(str);
+        String messageTemp = "4569138" +
+          "\n" + ed.ToString() + "\n" + edExp.ToString();
+        Assert.AreEqual(
+          0,
+          edExp.CompareToValue(ed),
+          messageTemp);
+        Assert.AreEqual(1250652260, ed.ToSingleBits());
+      }
+    }
 
     [Test]
     public void TestFloatDecimalSpecific() {
@@ -852,11 +853,12 @@ Assert.AreEqual(1250652260, ed.ToSingleBits());
     public void TestLog() {
       Assert.IsTrue(EFloat.One.Log(null).IsNaN());
       Assert.IsTrue(EFloat.One.Log(EContext.Unlimited).IsNaN());
-    {
-      EFloat efa = EFloat.Create(6202238844624971L, 908).Log(EContext.Binary64);
-      EFloat efb = EFloat.Create(731990329769283L, -40);
-      Assert.AreEqual(efb, efa);
-}
+      {
+        EFloat efa = EFloat.Create(6202238844624971L,
+  908).Log(EContext.Binary64);
+        EFloat efb = EFloat.Create(731990329769283L, -40);
+        Assert.AreEqual(efb, efa);
+      }
       {
         EFloat efa = EFloat.Create(
             EInteger.FromString("7692406748247399"),
@@ -1135,49 +1137,50 @@ Assert.AreEqual(1250652260, ed.ToSingleBits());
     [Test]
     public void TestIntegerDoubleSingle() {
       TestIntegerDoubleSingleOne(EInteger.FromString("16777216"));
-    TestIntegerDoubleSingleOne(EInteger.FromString("9007199254740992"));
-  var rg = new RandomGenerator();
-  for (var i = 0; i < 1000; ++i) {
-EInteger ei = RandomObjects.RandomEInteger(rg);
-TestIntegerDoubleSingleOne(ei);
-}
+      TestIntegerDoubleSingleOne(EInteger.FromString("9007199254740992"));
+      var rg = new RandomGenerator();
+      for (var i = 0; i < 1000; ++i) {
+        EInteger ei = RandomObjects.RandomEInteger(rg);
+        TestIntegerDoubleSingleOne(ei);
+      }
     }
 
     public static bool TestIntegerDoubleSingleOne(EInteger ei) {
-    EInteger ei2 = ei;
-    if (ei == null) {
-      throw new ArgumentNullException(nameof(ei));
-    }
-    while (ei2.IsEven && !ei2.IsZero) {
-      ei2 = ei2.ShiftRight(1);
-    }
-    if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) {
-       { return false;
-    }
-}
-    long db = EDecimal.FromEInteger(ei).ToDoubleBits();
-    EFloat ef = EFloat.FromDoubleBits(db);
+      EInteger ei2 = ei;
+      if (ei == null) {
+        throw new ArgumentNullException(nameof(ei));
+      }
+      while (ei2.IsEven && !ei2.IsZero) {
+        ei2 = ei2.ShiftRight(1);
+      }
+      if (!(ei2.GetUnsignedBitLengthAsInt64() <= 64)) {
+        { return false;
+        }
+      }
+      long db = EDecimal.FromEInteger(ei).ToDoubleBits();
+      EFloat ef = EFloat.FromDoubleBits(db);
 
-    if (
-      !(ei.Equals(EFloat.FromEInteger(
-        ei).RoundToPrecision(EContext.Binary64).ToEInteger()))) {
-  return false;
- }
-    Assert.AreEqual(
-      ei.ToString(),
-      ef.ToString(),
-      "dbl origdb=" + db + " newdb=" + ef.ToDoubleBits());
-    int sb = EDecimal.FromEInteger(ei).ToSingleBits();
-    ef = EFloat.FromSingleBits(sb);
-    if
-(ei.Equals(
-  EFloat.FromEInteger(ei).RoundToPrecision(EContext.Binary32).ToEInteger())) {
-       Assert.AreEqual(
-         ei.ToString(),
-         ef.ToString(),
-         "sng origdb=" + sb + " newdb=" + ef.ToSingleBits());
-    }
-    return true;
+      if (
+        !(ei.Equals(EFloat.FromEInteger(
+          ei).RoundToPrecision(EContext.Binary64).ToEInteger()))) {
+        return false;
+      }
+      Assert.AreEqual(
+        ei.ToString(),
+        ef.ToString(),
+        "dbl origdb=" + db + " newdb=" + ef.ToDoubleBits());
+      int sb = EDecimal.FromEInteger(ei).ToSingleBits();
+      ef = EFloat.FromSingleBits(sb);
+      if
+      (ei.Equals(
+          EFloat.FromEInteger(
+            ei).RoundToPrecision(EContext.Binary32).ToEInteger())) {
+        Assert.AreEqual(
+          ei.ToString(),
+          ef.ToString(),
+          "sng origdb=" + sb + " newdb=" + ef.ToSingleBits());
+      }
+      return true;
     }
 
     [Test]
@@ -1314,12 +1317,12 @@ TestIntegerDoubleSingleOne(ei);
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-         EInteger ei = RandomObjects.RandomEInteger(rg);
-         EInteger thresh = EInteger.FromInt64(6999999999999999999L);
-         if (ei.Abs().CompareTo(thresh) < 0) {
-           ei = ei.Add(ei.Sign < 0 ? thresh.Negate() : thresh);
-         }
-         powerlist.Add(ei);
+        EInteger ei = RandomObjects.RandomEInteger(rg);
+        EInteger thresh = EInteger.FromInt64(6999999999999999999L);
+        if (ei.Abs().CompareTo(thresh) < 0) {
+          ei = ei.Add(ei.Sign < 0 ? thresh.Negate() : thresh);
+        }
+        powerlist.Add(ei);
       }
       foreach (EContext ec in ecs) {
         EFloat efa = EFloat.FromInt32(1).NextPlus(ec).Negate();
@@ -1784,7 +1787,7 @@ EFloat.NegativeZero);
       } else {
         if (ed.IsNegative != ef.IsNegative) {
           string msg = "not negative str=" + str +
-              "\nef=" + OutputEF(ef);
+            "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
         }
         EInteger eimant = ef.Abs().Mantissa;
@@ -1860,27 +1863,26 @@ EFloat.NegativeZero);
 
     [Test]
     public void TestCloseToOverflowSpecific() {
-EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
-  1023).WithRounding(
-  ERounding.Down).WithAdjustExponent(
-  false).WithExponentClamp(true).WithSimplified(false);
-EInteger
-  emant =
+      EContext ec =
+EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+          1023).WithRounding(
+          ERounding.Down).WithAdjustExponent(
+          false).WithExponentClamp(true).WithSimplified(false);
+      EInteger emant =
 
   EInteger.FromString("88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
-EInteger
-  eexp =
+      EInteger eexp =
 
   EInteger.FromString("1000000000000000000000000000000000000000000000000000000000000");
-EFloat efmant = EFloat.FromEInteger(emant);
-EFloat efexp = EFloat.FromEInteger(eexp);
-EFloat ef2 = efmant.Multiply(efexp, ec);
-// should be finite because rounding mode is
-// ERounding.Down
-Assert.IsTrue(ef2.IsFinite);
-ef2 = efmant.Multiply(efexp, null);
-Assert.IsTrue(ef2.IsFinite);
-}
+      EFloat efmant = EFloat.FromEInteger(emant);
+      EFloat efexp = EFloat.FromEInteger(eexp);
+      EFloat ef2 = efmant.Multiply(efexp, ec);
+      // should be finite because rounding mode is
+      // ERounding.Down
+      Assert.IsTrue(ef2.IsFinite);
+      ef2 = efmant.Multiply(efexp, null);
+      Assert.IsTrue(ef2.IsFinite);
+    }
 
     [Test]
     public void TestStringToDoubleSpecificA() {
@@ -2725,13 +2727,13 @@ Assert.IsTrue(ef2.IsFinite);
         throw new InvalidOperationException(String.Empty, ex);
       }
       for (var i = 0; i < 1000; ++i) {
- var rg = new RandomGenerator();
- EInteger ei = RandomObjects.RandomEInteger(rg);
- int expo = rg.UniformInt(20);
- EFloat ed = EFloat.FromEInteger(ei).ScaleByPowerOfTwo(
-   expo).MovePointLeft(expo);
- Assert.AreEqual(ei, ed.ToEIntegerIfExact());
- }
+        var rg = new RandomGenerator();
+        EInteger ei = RandomObjects.RandomEInteger(rg);
+        int expo = rg.UniformInt(20);
+        EFloat ed = EFloat.FromEInteger(ei).ScaleByPowerOfTwo(
+            expo).MovePointLeft(expo);
+        Assert.AreEqual(ei, ed.ToEIntegerIfExact());
+      }
     }
 
     [Test]
