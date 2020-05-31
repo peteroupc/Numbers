@@ -8,8 +8,7 @@ at: http://peteroupc.github.io/
 using System;
 
 // TODO: In next major version or earlier, consider adding byte[] equivalent
-// of FromString
-// here and in EDecimal
+// of FromString here and in EDecimal
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision binary floating-point
   /// number. (The "E" stands for "extended", meaning that instances of
@@ -106,9 +105,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat NaN = new EFloat(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagQuietNaN);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.Zero,
+      (byte)BigNumberFlags.FlagQuietNaN);
 
     /// <summary>Negative infinity, less than any other number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -116,9 +115,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat NegativeInfinity = new EFloat(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.Zero,
+      (byte)(BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative));
 
     /// <summary>Represents the number negative zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -126,9 +125,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat NegativeZero = new EFloat(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagNegative);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.Zero,
+      (byte)BigNumberFlags.FlagNegative);
 
     /// <summary>Represents the number 1.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -136,9 +135,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat One = new EFloat(
-      EInteger.One,
-      EInteger.Zero,
-      0);
+      FastIntegerFixed.One,
+      FastIntegerFixed.Zero,
+      (byte)0);
 
     /// <summary>Positive infinity, greater than any other
     /// number.</summary>
@@ -147,9 +146,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat PositiveInfinity = new EFloat(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagInfinity);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.Zero,
+      (byte)BigNumberFlags.FlagInfinity);
 
     /// <summary>A not-a-number value that signals an invalid operation
     /// flag when it's passed as an argument to any arithmetic operation in
@@ -159,9 +158,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat SignalingNaN = new EFloat(
-      EInteger.Zero,
-      EInteger.Zero,
-      BigNumberFlags.FlagSignalingNaN);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.Zero,
+      (byte)BigNumberFlags.FlagSignalingNaN);
 
     /// <summary>Represents the number 10.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -169,9 +168,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat Ten = new EFloat(
-      EInteger.FromInt32(10),
-      EInteger.Zero,
-      0);
+      FastIntegerFixed.FromInt32(10),
+      FastIntegerFixed.Zero,
+      (byte)0);
 
     /// <summary>Represents the number 0.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -179,9 +178,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "EFloat is immutable")]
     public static readonly EFloat Zero = new EFloat(
-      EInteger.Zero,
-      EInteger.Zero,
-      0);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.Zero,
+      (byte)0);
 
     private static readonly EFloat[] Cache = EFloatCache(CacheFirst,
         CacheLast);
@@ -217,9 +216,9 @@ namespace PeterO.Numbers {
           cache[i - first] = Ten;
         } else {
           cache[i - first] = new EFloat(
-            EInteger.FromInt32(Math.Abs(i)),
-            EInteger.Zero,
-            (i < 0) ? BigNumberFlags.FlagNegative : 0);
+            FastIntegerFixed.FromInt32(Math.Abs(i)),
+            FastIntegerFixed.Zero,
+            (byte)((i < 0) ? BigNumberFlags.FlagNegative : 0));
         }
       }
       return cache;
@@ -234,14 +233,14 @@ namespace PeterO.Numbers {
       return MathValue;
     }
 
-    private readonly EInteger exponent;
-    private readonly int flags;
-    private readonly EInteger unsignedMantissa;
+    private readonly FastIntegerFixed exponent;
+    private readonly FastIntegerFixed unsignedMantissa;
+    private readonly byte flags;
 
     private EFloat(
-      EInteger unsignedMantissa,
-      EInteger exponent,
-      int flags) {
+      FastIntegerFixed unsignedMantissa,
+      FastIntegerFixed exponent,
+      byte flags) {
       #if DEBUG
       if (unsignedMantissa == null) {
         throw new ArgumentNullException(nameof(unsignedMantissa));
@@ -264,14 +263,14 @@ namespace PeterO.Numbers {
     /// integer if the exponent is positive or zero.</value>
     public EInteger Exponent {
       get {
-        return this.exponent;
+        return this.exponent.ToEInteger();
       }
     }
 
     /// <summary>Gets a value indicating whether this object is finite (not
-    /// infinity or NaN).</summary>
-    /// <value><c>true</c> if this object is finite (not infinity or NaN);
-    /// otherwise, <c>false</c>.</value>
+    /// infinity or not-a-number, NaN).</summary>
+    /// <value><c>true</c> if this object is finite (not infinity or
+    /// not-a-number, NaN); otherwise, <c>false</c>.</value>
     public bool IsFinite {
       get {
         return (this.flags & (BigNumberFlags.FlagInfinity |
@@ -297,7 +296,7 @@ namespace PeterO.Numbers {
     public bool IsZero {
       get {
         return ((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
-          this.unsignedMantissa.IsZero;
+          this.unsignedMantissa.IsValueZero;
       }
     }
 
@@ -309,8 +308,8 @@ namespace PeterO.Numbers {
     /// object's value is negative (including a negative NaN).</value>
     public EInteger Mantissa {
       get {
-        return this.IsNegative ? (-(EInteger)this.unsignedMantissa) :
-          this.unsignedMantissa;
+        return this.IsNegative ? this.unsignedMantissa.ToEInteger().Negate() :
+          this.unsignedMantissa.ToEInteger();
       }
     }
 
@@ -321,7 +320,7 @@ namespace PeterO.Numbers {
     public int Sign {
       get {
         return (((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
-            this.unsignedMantissa.IsZero) ? 0 :
+            this.unsignedMantissa.IsValueZero) ? 0 :
           (((this.flags & BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       }
     }
@@ -332,7 +331,7 @@ namespace PeterO.Numbers {
     /// <value>The absolute value of this object's unscaled value.</value>
     public EInteger UnsignedMantissa {
       get {
-        return this.unsignedMantissa;
+        return this.unsignedMantissa.ToEInteger();
       }
     }
 
@@ -344,92 +343,97 @@ namespace PeterO.Numbers {
       return new EFloat(this.unsignedMantissa, this.exponent, this.flags);
     }
 
-    /// <summary>Returns a number with the value
-    /// exponent*2^significand.</summary>
+    /// <summary>Returns an arbitrary-precision number with the value
+    /// <c>exponent*2^significand</c>.</summary>
     /// <param name='mantissaSmall'>Desired value for the
     /// significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>An arbitrary-precision binary number.</returns>
     public static EFloat Create(int mantissaSmall, int exponentSmall) {
-      return (exponentSmall == 0 && mantissaSmall >= CacheFirst &&
-          mantissaSmall <= CacheLast) ? Cache[mantissaSmall - CacheFirst] :
-        Create((EInteger)mantissaSmall, (EInteger)exponentSmall);
+      if (exponentSmall == 0 && mantissaSmall >= CacheFirst &&
+        mantissaSmall <= CacheLast) {
+        return Cache[mantissaSmall - CacheFirst];
+      }
+      if (mantissaSmall < 0) {
+        if (mantissaSmall == Int32.MinValue) {
+          FastIntegerFixed fi = FastIntegerFixed.FromInt64(Int32.MinValue);
+          return new EFloat(
+              fi.Negate(),
+              FastIntegerFixed.FromInt32(exponentSmall),
+              (byte)BigNumberFlags.FlagNegative);
+        }
+        return new EFloat(
+            FastIntegerFixed.FromInt32(-mantissaSmall),
+            FastIntegerFixed.FromInt32(exponentSmall),
+            (byte)BigNumberFlags.FlagNegative);
+      } else if (mantissaSmall == 0) {
+        return new EFloat(
+            FastIntegerFixed.Zero,
+            FastIntegerFixed.FromInt32(exponentSmall),
+            (byte)0);
+      } else {
+        return new EFloat(
+            FastIntegerFixed.FromInt32(mantissaSmall),
+            FastIntegerFixed.FromInt32(exponentSmall),
+            (byte)0);
+      }
     }
 
-    /// <summary>Returns a number with the value
-    /// exponent*2^significand.</summary>
-    /// <param name='mantissaLong'>Desired value for the
-    /// significand.</param>
-    /// <param name='exponentLong'>Desired value for the exponent.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
-    public static EFloat Create(long mantissaLong, long exponentLong) {
-      return (exponentLong == 0 && mantissaLong >= CacheFirst &&
-          mantissaLong <= CacheLast) ? Cache[(int)mantissaLong - CacheFirst] :
-        Create((EInteger)mantissaLong, (EInteger)exponentLong);
-    }
-
-    /// <summary>Returns a number with the value
-    /// exponent*2^significand.</summary>
-    /// <param name='mantissaLong'>Desired value for the
-    /// significand.</param>
-    /// <param name='exponentSmall'>Desired value for the exponent.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
-    public static EFloat Create(long mantissaLong, int exponentSmall) {
-      return (exponentSmall == 0 && mantissaLong >= CacheFirst &&
-          mantissaLong <= CacheLast) ? Cache[(int)mantissaLong - CacheFirst] :
-        Create((EInteger)mantissaLong, (EInteger)exponentSmall);
-    }
-
-    /// <summary>Returns a number with the value
-    /// exponent*2^significand.</summary>
+    /// <summary>Returns an arbitrary-precision number with the value
+    /// <c>exponent*2^significand</c>.</summary>
     /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponentSmall'>Desired value for the exponent.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>An arbitrary-precision binary number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='mantissa'/> is null.</exception>
-    public static EFloat Create(EInteger mantissa, int exponentSmall) {
+    public static EFloat Create(
+      EInteger mantissa,
+      int exponentSmall) {
       if (mantissa == null) {
         throw new ArgumentNullException(nameof(mantissa));
       }
-      if (exponentSmall == 0 && mantissa.CompareTo(CacheFirst) >= 0 &&
-        mantissa.CompareTo(CacheLast) <= 0) {
-        return Cache[mantissa.ToInt32Checked() - CacheFirst];
+      if (mantissa.CanFitInInt32()) {
+        int mantissaSmall = mantissa.ToInt32Checked();
+        return Create(mantissaSmall, exponentSmall);
       }
-      int sign = mantissa.Sign;
+      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      int sign = fi.Sign;
       return new EFloat(
-          sign < 0 ? (-(EInteger)mantissa) : mantissa,
-          EInteger.FromInt32(exponentSmall),
-          (sign < 0) ? BigNumberFlags.FlagNegative : 0);
+          sign < 0 ? fi.Negate() : fi,
+          FastIntegerFixed.FromInt32(exponentSmall),
+          (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
     }
 
-    /// <summary>Returns a number with the value
-    /// exponent*2^significand.</summary>
+    /// <summary>Returns an arbitrary-precision number with the value
+    /// <c>exponent*2^significand</c>.</summary>
     /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponentLong'>Desired value for the exponent.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>An arbitrary-precision binary number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='mantissa'/> is null.</exception>
-    public static EFloat Create(EInteger mantissa, long exponentLong) {
+    public static EFloat Create(
+      EInteger mantissa,
+      long exponentLong) {
       if (mantissa == null) {
         throw new ArgumentNullException(nameof(mantissa));
       }
-      return (exponentLong == 0 && mantissa.CompareTo(CacheFirst) >= 0 &&
-          mantissa.CompareTo(CacheLast) <= 0) ?
-        Cache[mantissa.ToInt32Checked() - CacheFirst] : Create(mantissa,
-          EInteger.FromInt64(exponentLong));
+      if (mantissa.CanFitInInt64()) {
+        long mantissaLong = mantissa.ToInt64Checked();
+        return Create(mantissaLong, exponentLong);
+      }
+      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      int sign = fi.Sign;
+      return new EFloat(
+          sign < 0 ? fi.Negate() : fi,
+          FastIntegerFixed.FromInt64(exponentLong),
+          (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
     }
 
-    /// <summary>Returns a number with the value
-    /// exponent*2^significand.</summary>
+    /// <summary>Returns an arbitrary-precision number with the value
+    /// <c>exponent*2^significand</c>.</summary>
     /// <param name='mantissa'>Desired value for the significand.</param>
     /// <param name='exponent'>Desired value for the exponent.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>An arbitrary-precision binary number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='mantissa'/> or <paramref name='exponent'/> is
     /// null.</exception>
@@ -442,33 +446,72 @@ namespace PeterO.Numbers {
       if (exponent == null) {
         throw new ArgumentNullException(nameof(exponent));
       }
-      if (exponent.IsZero && mantissa.CompareTo(CacheFirst) >= 0 &&
-        mantissa.CompareTo(CacheLast) <= 0) {
-        return Cache[mantissa.ToInt32Checked() - CacheFirst];
+      if (mantissa.CanFitInInt32() && exponent.IsZero) {
+        int mantissaSmall = mantissa.ToInt32Checked();
+        return Create(mantissaSmall, 0);
       }
-      int sign = mantissa.Sign;
+      FastIntegerFixed fi = FastIntegerFixed.FromBig(mantissa);
+      int sign = fi.Sign;
       return new EFloat(
-          sign < 0 ? (-(EInteger)mantissa) : mantissa,
-          exponent,
-          (sign < 0) ? BigNumberFlags.FlagNegative : 0);
+          sign < 0 ? fi.Negate() : fi,
+          FastIntegerFixed.FromBig(exponent),
+          (byte)((sign < 0) ? BigNumberFlags.FlagNegative : 0));
+    }
+
+    /// <summary>Returns an arbitrary-precision number with the value
+    /// <c>exponent*2^significand</c>.</summary>
+    /// <param name='mantissaLong'>Desired value for the
+    /// significand.</param>
+    /// <param name='exponentSmall'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision binary number.</returns>
+    public static EFloat Create(
+      long mantissaLong,
+      int exponentSmall) {
+      return Create(mantissaLong, (long)exponentSmall);
+    }
+
+    /// <summary>Returns an arbitrary-precision number with the value
+    /// <c>exponent*2^significand</c>.</summary>
+    /// <param name='mantissaLong'>Desired value for the
+    /// significand.</param>
+    /// <param name='exponentLong'>Desired value for the exponent.</param>
+    /// <returns>An arbitrary-precision binary number.</returns>
+    public static EFloat Create(
+      long mantissaLong,
+      long exponentLong) {
+      if (mantissaLong >= Int32.MinValue && mantissaLong <= Int32.MaxValue &&
+        exponentLong >= Int32.MinValue && exponentLong <= Int32.MaxValue) {
+        return Create((int)mantissaLong, (int)exponentLong);
+      } else if (mantissaLong == Int64.MinValue) {
+        FastIntegerFixed fi = FastIntegerFixed.FromInt64(mantissaLong);
+        return new EFloat(
+            fi.Negate(),
+            FastIntegerFixed.FromInt64(exponentLong),
+            (byte)((mantissaLong < 0) ? BigNumberFlags.FlagNegative : 0));
+      } else {
+        FastIntegerFixed fi = FastIntegerFixed.FromInt64(Math.Abs(
+              mantissaLong));
+        return new EFloat(
+            fi,
+            FastIntegerFixed.FromInt64(exponentLong),
+            (byte)((mantissaLong < 0) ? BigNumberFlags.FlagNegative : 0));
+      }
     }
 
     /// <summary>Creates a not-a-number arbitrary-precision binary
-    /// floating-point number.</summary>
+    /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
     /// be zero. To get the diagnostic information from another
     /// arbitrary-precision binary floating-point number, use that object's
     /// <c>UnsignedMantissa</c> property.</param>
     /// <returns>A quiet not-a-number.</returns>
-    /// <exception cref='ArgumentException'>The parameter <paramref
-    /// name='diag'/> is less than 0.</exception>
     public static EFloat CreateNaN(EInteger diag) {
       return CreateNaN(diag, false, false, null);
     }
 
     /// <summary>Creates a not-a-number arbitrary-precision binary
-    /// floating-point number.</summary>
+    /// number.</summary>
     /// <param name='diag'>An integer, 0 or greater, to use as diagnostic
     /// information associated with this object. If none is needed, should
     /// be zero. To get the diagnostic information from another
@@ -479,15 +522,14 @@ namespace PeterO.Numbers {
     /// <param name='negative'>Whether the return value is
     /// negative.</param>
     /// <param name='ctx'>An arithmetic context to control the precision
-    /// (in bits) of the diagnostic information. The rounding and exponent
-    /// range of this context will be ignored. Can be null. The only flag
-    /// that can be signaled in this context is FlagInvalid, which happens
-    /// if diagnostic information needs to be truncated and too much memory
-    /// is required to do so.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// (in binary digits) of the diagnostic information. The rounding and
+    /// exponent range of this context will be ignored. Can be null. The
+    /// only flag that can be signaled in this context is FlagInvalid,
+    /// which happens if diagnostic information needs to be truncated and
+    /// too much memory is required to do so.</param>
+    /// <returns>An arbitrary-precision binary number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='diag'/> is null.</exception>
+    /// name='diag'/> is null or is less than 0.</exception>
     public static EFloat CreateNaN(
       EInteger diag,
       bool signaling,
@@ -509,19 +551,26 @@ namespace PeterO.Numbers {
       }
       if (ctx != null && ctx.HasMaxPrecision) {
         flags |= BigNumberFlags.FlagQuietNaN;
-        EFloat ef = CreateWithFlags(
-            diag,
-            EInteger.Zero,
-            flags).RoundToPrecision(ctx);
+        var ef = new EFloat(
+          FastIntegerFixed.FromBig(diag),
+          FastIntegerFixed.Zero,
+          (byte)flags).RoundToPrecision(ctx);
+
         int newFlags = ef.flags;
         newFlags &= ~BigNumberFlags.FlagQuietNaN;
         newFlags |= signaling ? BigNumberFlags.FlagSignalingNaN :
           BigNumberFlags.FlagQuietNaN;
-        return new EFloat(ef.unsignedMantissa, ef.exponent, newFlags);
+        return new EFloat(
+            ef.unsignedMantissa,
+            ef.exponent,
+            (byte)newFlags);
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      return CreateWithFlags(diag, EInteger.Zero, flags);
+      return new EFloat(
+          FastIntegerFixed.FromBig(diag),
+          FastIntegerFixed.Zero,
+          (byte)flags);
     }
 
     /// <summary>Creates a binary floating-point number from a 64-bit
@@ -1395,7 +1444,7 @@ namespace PeterO.Numbers {
         var er = new EFloat(
           this.unsignedMantissa,
           this.exponent,
-          this.flags & ~BigNumberFlags.FlagNegative);
+          (byte)(this.flags & ~BigNumberFlags.FlagNegative));
         return er;
       }
       return this;
@@ -2222,7 +2271,7 @@ namespace PeterO.Numbers {
       ERounding rounding) {
       return this.DivideToExponent(
           divisor,
-          this.exponent,
+          this.exponent.ToEInteger(),
           EContext.ForRounding(rounding));
     }
 
@@ -2648,14 +2697,14 @@ namespace PeterO.Numbers {
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
       if (bigExp.Sign > 0) {
-        EInteger mant = this.unsignedMantissa.ShiftLeft(bigExp);
+        EInteger mant = this.UnsignedMantissa.ShiftLeft(bigExp);
         return CreateWithFlags(
             mant,
             EInteger.Zero,
             this.flags).RoundToPrecision(ctx);
       }
       return CreateWithFlags(
-          this.unsignedMantissa,
+          this.UnsignedMantissa,
           bigExp,
           this.flags).RoundToPrecision(ctx);
     }
@@ -2674,17 +2723,17 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsFinite && otherValue.IsFinite) {
-        EInteger exp = this.exponent.Add(otherValue.exponent);
+        EInteger exp = this.Exponent.Add(otherValue.Exponent);
         int newflags = otherValue.flags ^ this.flags;
         if (this.unsignedMantissa.CanFitInInt32() &&
           otherValue.unsignedMantissa.CanFitInInt32()) {
-          int integerA = this.unsignedMantissa.ToInt32Unchecked();
-          int integerB = otherValue.unsignedMantissa.ToInt32Unchecked();
+          int integerA = this.unsignedMantissa.ToInt32();
+          int integerB = otherValue.unsignedMantissa.ToInt32();
           long longA = ((long)integerA) * ((long)integerB);
-          return CreateWithFlags((EInteger)longA, exp, newflags);
+          return CreateWithFlags(longA, exp, newflags);
         } else {
-          EInteger eintA = this.unsignedMantissa.Multiply(
-              otherValue.unsignedMantissa);
+          EInteger eintA = this.UnsignedMantissa.Multiply(
+              otherValue.UnsignedMantissa);
           return CreateWithFlags(eintA, exp, newflags);
         }
       }
@@ -2772,10 +2821,10 @@ namespace PeterO.Numbers {
       EFloat negated = subtrahend;
       if ((subtrahend.flags & BigNumberFlags.FlagNaN) == 0) {
         int newflags = subtrahend.flags ^ BigNumberFlags.FlagNegative;
-        negated = CreateWithFlags(
+        negated = new EFloat(
             subtrahend.unsignedMantissa,
             subtrahend.exponent,
-            newflags);
+            (byte)newflags);
       }
       return MathValue.MultiplyAndAdd(this, op, negated, ctx);
     }
@@ -2792,7 +2841,7 @@ namespace PeterO.Numbers {
       return new EFloat(
           this.unsignedMantissa,
           this.exponent,
-          this.flags ^ BigNumberFlags.FlagNegative);
+          (byte)(this.flags ^ BigNumberFlags.FlagNegative));
     }
 
     /// <summary>Returns a binary floating-point number with the same value
@@ -2950,7 +2999,7 @@ namespace PeterO.Numbers {
         return EInteger.Zero;
       }
       return this.IsZero ? EInteger.One :
-        this.unsignedMantissa.GetSignedBitLengthAsEInteger();
+        this.UnsignedMantissa.GetSignedBitLengthAsEInteger();
     }
 
     /// <summary>Returns whether this object's value is an
@@ -3590,10 +3639,10 @@ namespace PeterO.Numbers {
       }
       EInteger bigExp = this.Exponent;
       bigExp += bigPlaces;
-      return CreateWithFlags(
+      return new EFloat(
           this.unsignedMantissa,
-          bigExp,
-          this.flags).RoundToPrecision(ctx);
+          FastIntegerFixed.FromBig(bigExp),
+          (byte)this.flags).RoundToPrecision(ctx);
     }
 
     /// <summary>Finds the square root of this object's value.</summary>
@@ -3667,10 +3716,10 @@ namespace PeterO.Numbers {
       EFloat negated = otherValue;
       if ((otherValue.flags & BigNumberFlags.FlagNaN) == 0) {
         int newflags = otherValue.flags ^ BigNumberFlags.FlagNegative;
-        negated = CreateWithFlags(
+        negated = new EFloat(
             otherValue.unsignedMantissa,
             otherValue.exponent,
-            newflags);
+            (byte)newflags);
       }
       return this.Add(negated, ctx);
     }
@@ -3737,14 +3786,14 @@ namespace PeterO.Numbers {
       if (!thisValue.IsFinite) {
         return thisValue.ToSingleBits();
       }
-      int intmant = thisValue.unsignedMantissa.ToInt32Checked();
+      int intmant = thisValue.unsignedMantissa.ToInt32();
       if (thisValue.IsNegative && intmant == 0) {
         return (int)1 << 31;
       } else if (intmant == 0) {
         return 0;
       }
       int intBitLength = NumberUtility.BitLength(intmant);
-      int expo = thisValue.exponent.ToInt32Checked();
+      int expo = thisValue.exponent.ToInt32();
       var subnormal = false;
       if (intBitLength < 24) {
         int diff = 24 - intBitLength;
@@ -3816,12 +3865,10 @@ namespace PeterO.Numbers {
         */ return lret;
       }
       EFloat thisValue = this;
-      // TODO: In next version after 1.6, use CompareTo(long) instead
-      // --
       // Check whether rounding can be avoided for common cases
       // where the value already fits a double
       if (!thisValue.IsFinite ||
-        thisValue.unsignedMantissa.GetUnsignedBitLengthAsInt64() > 53 ||
+        thisValue.unsignedMantissa.CompareTo(1L << 52) >= 0 ||
         thisValue.exponent.CompareTo(-900) < 0 ||
         thisValue.exponent.CompareTo(900) > 0) {
         thisValue = this.RoundToPrecision(EContext.Binary64);
@@ -3829,7 +3876,7 @@ namespace PeterO.Numbers {
       if (!thisValue.IsFinite) {
         return thisValue.ToDoubleBits();
       }
-      long longmant = thisValue.unsignedMantissa.ToInt64Checked();
+      long longmant = thisValue.unsignedMantissa.ToInt64();
       if (thisValue.IsNegative && longmant == 0) {
         return 1L << 63;
       } else if (longmant == 0) {
@@ -3837,7 +3884,7 @@ namespace PeterO.Numbers {
       }
       // DebugUtility.Log("todouble -->" + this);
       long longBitLength = NumberUtility.BitLength(longmant);
-      int expo = thisValue.exponent.ToInt32Checked();
+      int expo = thisValue.exponent.ToInt32();
       var subnormal = false;
       if (longBitLength < 53) {
         int diff = 53 - (int)longBitLength;
@@ -4027,7 +4074,7 @@ namespace PeterO.Numbers {
           dec = dec.Negate();
         }
       }
-      bool mantissaIsPowerOfTwo = this.unsignedMantissa.IsPowerOfTwo;
+      bool mantissaIsPowerOfTwo = this.UnsignedMantissa.IsPowerOfTwo;
       EInteger eprecision = EInteger.Zero;
       while (true) {
         EInteger nextPrecision = eprecision.Add(EInteger.One);
@@ -4100,7 +4147,20 @@ namespace PeterO.Numbers {
     /// number.</returns>
     public EFloat Ulp() {
       return (!this.IsFinite) ? EFloat.One :
-        EFloat.Create(EInteger.One, this.exponent);
+        EFloat.Create(EInteger.One, this.Exponent);
+    }
+
+    internal static EFloat CreateWithFlags(
+      long mantissa,
+      EInteger exponent,
+      int flags) {
+      if (exponent == null) {
+        throw new ArgumentNullException(nameof(exponent));
+      }
+      return new EFloat(
+          FastIntegerFixed.FromInt64(mantissa).Abs(),
+          FastIntegerFixed.FromBig(exponent),
+          (byte)flags);
     }
 
     internal static EFloat CreateWithFlags(
@@ -4113,11 +4173,10 @@ namespace PeterO.Numbers {
       if (exponent == null) {
         throw new ArgumentNullException(nameof(exponent));
       }
-      int sign = mantissa == null ? 0 : mantissa.Sign;
       return new EFloat(
-          sign < 0 ? (-(EInteger)mantissa) : mantissa,
-          exponent,
-          flags);
+          FastIntegerFixed.FromBig(mantissa).Abs(),
+          FastIntegerFixed.FromBig(exponent),
+          (byte)flags);
     }
 
     private EInteger ToEIntegerInternal(bool exact) {
@@ -4149,13 +4208,13 @@ namespace PeterO.Numbers {
         }
         return bigmantissa;
       } else {
-        if (exact && !this.unsignedMantissa.IsEven) {
+        if (exact && !this.unsignedMantissa.IsEvenNumber) {
           // Mantissa is odd and will have to shift a nonzero
           // number of bits, so can't be an exact integer
           throw new ArithmeticException("Not an exact integer");
         }
         FastInteger bigexponent = FastInteger.FromBig(this.Exponent).Negate();
-        EInteger bigmantissa = this.unsignedMantissa;
+        EInteger bigmantissa = this.UnsignedMantissa;
         var acc = new BitShiftAccumulator(bigmantissa, 0, 0);
         acc.ShiftRight(bigexponent);
         if (exact && (acc.LastDiscardedDigit != 0 || acc.OlderDiscardedDigits !=
@@ -4304,7 +4363,7 @@ namespace PeterO.Numbers {
       /// number.</param>
       /// <returns>An arbitrary-precision integer.</returns>
       public EInteger GetMantissa(EFloat value) {
-        return value.unsignedMantissa;
+        return value.unsignedMantissa.ToEInteger();
       }
 
       /// <summary>This is an internal method.</summary>
@@ -4312,7 +4371,7 @@ namespace PeterO.Numbers {
       /// number.</param>
       /// <returns>An arbitrary-precision integer.</returns>
       public EInteger GetExponent(EFloat value) {
-        return value.exponent;
+        return value.exponent.ToEInteger();
       }
 
       public FastInteger GetDigitLength(EInteger ei) {
@@ -4320,11 +4379,11 @@ namespace PeterO.Numbers {
       }
 
       public FastIntegerFixed GetMantissaFastInt(EFloat value) {
-        return FastIntegerFixed.FromBig(value.unsignedMantissa);
+        return value.unsignedMantissa;
       }
 
       public FastIntegerFixed GetExponentFastInt(EFloat value) {
-        return FastIntegerFixed.FromBig(value.exponent);
+        return value.exponent;
       }
 
       /// <summary>This is an internal method.</summary>
@@ -4428,17 +4487,19 @@ namespace PeterO.Numbers {
         EInteger mantissa,
         EInteger exponent,
         int flags) {
-        return EFloat.CreateWithFlags(mantissa, exponent, flags);
+        return new EFloat(FastIntegerFixed.FromBig(mantissa),
+            FastIntegerFixed.FromBig(exponent),
+          (byte)flags);
       }
 
       public EFloat CreateNewWithFlagsFastInt(
         FastIntegerFixed fmantissa,
         FastIntegerFixed fexponent,
         int flags) {
-        return CreateWithFlags(
-            fmantissa.ToEInteger(),
-            fexponent.ToEInteger(),
-            flags);
+        return new EFloat(
+          fmantissa,
+          fexponent,
+          (byte)flags);
       }
 
       /// <summary>This is an internal method.</summary>
@@ -4641,9 +4702,9 @@ namespace PeterO.Numbers {
         return FromEInteger(EInteger.FromInt32(inputInt32));
       }
       return new EFloat(
-          EInteger.FromInt32(Math.Abs(inputInt32)),
-          EInteger.Zero,
-          (inputInt32 < 0) ? BigNumberFlags.FlagNegative : 0);
+          FastIntegerFixed.FromInt32(Math.Abs(inputInt32)),
+          FastIntegerFixed.Zero,
+          (byte)((inputInt32 < 0) ? BigNumberFlags.FlagNegative : 0));
     }
 
     /// <summary>Converts this number's value to a 64-bit signed integer if
@@ -4701,9 +4762,9 @@ namespace PeterO.Numbers {
         return FromEInteger(EInteger.FromInt64(inputInt64));
       }
       return new EFloat(
-          EInteger.FromInt64(Math.Abs(inputInt64)),
-          EInteger.Zero,
-          (inputInt64 < 0) ? BigNumberFlags.FlagNegative : 0);
+          FastIntegerFixed.FromInt64(Math.Abs(inputInt64)),
+          FastIntegerFixed.Zero,
+          (byte)((inputInt64 < 0) ? BigNumberFlags.FlagNegative : 0));
     }
 
     // End integer conversions
