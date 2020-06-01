@@ -497,7 +497,7 @@ namespace PeterO.Numbers {
     /// binary32 format.</param>
     /// <returns>A rational number with the same floating-point value as
     /// <paramref name='flt'/>.</returns>
-    public static EFloat FromSingleBits(int value) {
+    public static ERational FromSingleBits(int value) {
       return FromEFloat(EFloat.FromSingleBits(value));
     }
 
@@ -510,7 +510,7 @@ namespace PeterO.Numbers {
     /// binary64 format.</param>
     /// <returns>A rational number with the same floating-point value as
     /// <paramref name='flt'/>.</returns>
-    public static EFloat FromDoubleBits(long value) {
+    public static ERational FromDoubleBits(long value) {
       return FromEFloat(EFloat.FromDoubleBits(value));
     }
 

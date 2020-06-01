@@ -1161,7 +1161,9 @@ namespace Test {
       EFloat ef = EFloat.FromDoubleBits(db);
 
       if (
-        !(ei.Equals(EFloat.FromEInteger(
+        !(
+          ei.Equals(
+          EFloat.FromEInteger(
           ei).RoundToPrecision(EContext.Binary64).ToEInteger()))) {
         return false;
       }
