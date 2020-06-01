@@ -1919,7 +1919,7 @@ namespace PeterO.Numbers {
     /// return value can be positive infinity or negative infinity if this
     /// value exceeds the range of a 32-bit floating point
     /// number.</returns>
-    public long ToSingleBits() {
+    public int ToSingleBits() {
       if (!this.IsFinite) {
         return this.ToEFloat(EContext.Binary32).ToSingleBits();
       }
