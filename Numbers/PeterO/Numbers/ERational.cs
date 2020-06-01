@@ -488,6 +488,32 @@ namespace PeterO.Numbers {
       return FromEFloat(EFloat.FromSingle(flt));
     }
 
+    /// <summary>Creates a binary rational number from a 32-bit
+    /// floating-point number encoded in the IEEE 754 binary32 format. This
+    /// method computes the exact value of the floating point number, not
+    /// an approximation, as is often the case by converting the number to
+    /// a string.</summary>
+    /// <param name='value'>A 32-bit integer encoded in the IEEE 754
+    /// binary32 format.</param>
+    /// <returns>A rational number with the same floating-point value as
+    /// <paramref name='flt'/>.</returns>
+    public static EFloat FromSingleBits(int value) {
+      return FromEFloat(EFloat.FromSingleBits(value));
+    }
+
+    /// <summary>Creates a binary rational number from a 64-bit
+    /// floating-point number encoded in the IEEE 754 binary64 format. This
+    /// method computes the exact value of the floating point number, not
+    /// an approximation, as is often the case by converting the number to
+    /// a string.</summary>
+    /// <param name='value'>A 64-bit integer encoded in the IEEE 754
+    /// binary64 format.</param>
+    /// <returns>A rational number with the same floating-point value as
+    /// <paramref name='flt'/>.</returns>
+    public static EFloat FromDoubleBits(long value) {
+      return FromEFloat(EFloat.FromDoubleBits(value));
+    }
+
     /// <summary>Creates a rational number from a text string that
     /// represents a number. See <c>FromString(String, int, int)</c> for
     /// more information.</summary>
@@ -1233,9 +1259,9 @@ namespace PeterO.Numbers {
     /// different exponents, will compare as equal.</para>
     /// <para>In this method, negative zero and positive zero are
     /// considered equal.</para>
-    /// <para>If this object is a quiet NaN or
-    /// signaling NaN, this method will not trigger an error. Instead, NaN
-    /// will compare greater than any other number, including infinity.</para></summary>
+    /// <para>If this object is a quiet NaN or signaling NaN, this method
+    /// will not trigger an error. Instead, NaN will compare greater than
+    /// any other number, including infinity.</para></summary>
     /// <param name='intOther'>The parameter <paramref name='intOther'/> is
     /// a 64-bit signed integer.</param>
     /// <returns>Less than 0 if this object's value is less than the other
@@ -1851,6 +1877,60 @@ namespace PeterO.Numbers {
         .ToDouble();
     }
 
+    /// <summary>Converts this value to its closest equivalent as a 64-bit
+    /// floating-point number, expressed as an integer in the IEEE 754
+    /// binary64 format. The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the 64-bit
+    /// floating point number's significand area for a quiet NaN, and
+    /// clears it for a signaling NaN. Then the other bits of the
+    /// significand area are set to the lowest bits of this object's
+    /// unsigned significand, and the next-highest bit of the significand
+    /// area is set if those bits are all zeros and this is a signaling
+    /// NaN.</para></summary>
+    /// <returns>The closest 64-bit binary floating-point number to this
+    /// value, expressed as an integer in the IEEE 754 binary64 format. The
+    /// return value can be positive infinity or negative infinity if this
+    /// value exceeds the range of a 64-bit floating point
+    /// number.</returns>
+    public long ToDoubleBits() {
+      if (!this.IsFinite) {
+        return this.ToEFloat(EContext.Binary64).ToDoubleBits();
+      }
+      if (this.IsNegative && this.IsZero) {
+        return EFloat.NegativeZero.ToDoubleBits();
+      }
+      return EFloat.FromEInteger(this.Numerator)
+        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary64)
+        .ToDoubleBits();
+    }
+
+    /// <summary>Converts this value to its closest equivalent as 32-bit
+    /// floating-point number, expressed as an integer in the IEEE 754
+    /// binary32 format. The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the 32-bit
+    /// floating point number's significand area for a quiet NaN, and
+    /// clears it for a signaling NaN. Then the other bits of the
+    /// significand area are set to the lowest bits of this object's
+    /// unsigned significand, and the next-highest bit of the significand
+    /// area is set if those bits are all zeros and this is a signaling
+    /// NaN.</para></summary>
+    /// <returns>The closest 32-bit binary floating-point number to this
+    /// value, expressed as an integer in the IEEE 754 binary32 format. The
+    /// return value can be positive infinity or negative infinity if this
+    /// value exceeds the range of a 32-bit floating point
+    /// number.</returns>
+    public long ToSingleBits() {
+      if (!this.IsFinite) {
+        return this.ToEFloat(EContext.Binary32).ToSingleBits();
+      }
+      if (this.IsNegative && this.IsZero) {
+        return EFloat.NegativeZero.ToSingleBits();
+      }
+      return EFloat.FromEInteger(this.Numerator)
+        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary32)
+        .ToSingleBits();
+    }
+
     /// <summary>Converts this value to its form in lowest terms. For
     /// example, (8/4) becomes (4/1).</summary>
     /// <returns>An arbitrary-precision rational with the same value as
@@ -2364,8 +2444,8 @@ namespace PeterO.Numbers {
       return this.Multiply(FromInt32(v));
     }
 
-    /// <summary>Divides this instance by the value of a 32-bit
-    /// signed integer.</summary>
+    /// <summary>Divides this instance by the value of a 32-bit signed
+    /// integer.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -2376,8 +2456,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of a 32-bit
-    /// signed integer.</summary>
+    /// divided by the value of a 32-bit signed integer.</summary>
     /// <param name='v'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
@@ -2413,8 +2492,8 @@ namespace PeterO.Numbers {
       return this.Multiply(FromInt64(v));
     }
 
-    /// <summary>Divides this instance by the value of a 64-bit
-    /// signed integer.</summary>
+    /// <summary>Divides this instance by the value of a 64-bit signed
+    /// integer.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -2425,8 +2504,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of a 64-bit
-    /// signed integer.</summary>
+    /// divided by the value of a 64-bit signed integer.</summary>
     /// <param name='v'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref

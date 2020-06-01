@@ -2497,24 +2497,13 @@ namespace PeterO.Numbers {
         fastIntMant,
         fastIntScale,
         (byte)(negative ? BigNumberFlags.FlagNegative : 0));
-      // DebugUtility.Log("ret="+Chop(ret));
-      // DebugUtility.Log("ctx="+ctx+", "+(ctx != null));
       if (ctx != null) {
         // DebugUtility.Log("rounding");
         ret = GetMathValue(ctx).RoundAfterConversion(ret, ctx);
-        // DebugUtility.Log("ret2="+Chop(ret));
       }
       return ret;
     }
-    /*
-    private static string Chop(object o) {
-      string str = o == null ? "null" : o.ToString();
-      if (str.Length > 50) {
-        str = str.Substring(0, 50) + "...";
-      }
-      return str;
-    }
-    */
+
     // 1 = Overflow; 2 = Underflow, adjust significand to 1; 0 = None;
     // 3 = Underflow, adjust significant to have precision
     private static int CheckOverflowUnderflow(

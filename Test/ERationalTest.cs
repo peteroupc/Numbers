@@ -1228,6 +1228,12 @@ if (numDenClose) {
         EFloat f2 = EFloat.FromSingle(er.ToSingle());
         TestCommon.CompareTestEqual(d1, d2);
         TestCommon.CompareTestEqual(f1, f2);
+         d1 = er.ToEFloat(EContext.Binary64);
+         d2 = EFloat.FromDoubleBits(er.ToDoubleBits());
+         f1 = er.ToEFloat(EContext.Binary32);
+         f2 = EFloat.FromSingleBits(er.ToSingleBits());
+        TestCommon.CompareTestEqual(d1, d2);
+        TestCommon.CompareTestEqual(f1, f2);
       }
     }
     [Test]

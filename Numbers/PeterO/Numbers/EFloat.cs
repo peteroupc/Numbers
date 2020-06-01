@@ -3735,10 +3735,21 @@ namespace PeterO.Numbers {
       return BitConverter.ToDouble(BitConverter.GetBytes((long)value), 0);
     }
 
-    /// <summary>Converts this value to a 32-bit floating-point number
-    /// encoded in the IEEE 754 binary32 format.</summary>
-    /// <returns>This number, converted to a 32-bit floating-point number
-    /// encoded in the IEEE 754 binary32 format.</returns>
+    /// <summary>Converts this value to its closest equivalent as 32-bit
+    /// floating-point number, expressed as an integer in the IEEE 754
+    /// binary32 format. The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the 32-bit
+    /// floating point number's significand area for a quiet NaN, and
+    /// clears it for a signaling NaN. Then the other bits of the
+    /// significand area are set to the lowest bits of this object's
+    /// unsigned significand, and the next-highest bit of the significand
+    /// area is set if those bits are all zeros and this is a signaling
+    /// NaN.</para></summary>
+    /// <returns>The closest 32-bit binary floating-point number to this
+    /// value, expressed as an integer in the IEEE 754 binary32 format. The
+    /// return value can be positive infinity or negative infinity if this
+    /// value exceeds the range of a 32-bit floating point
+    /// number.</returns>
     public int ToSingleBits() {
       if (this.IsPositiveInfinity()) {
         return 0x7f800000;
@@ -3820,11 +3831,20 @@ namespace PeterO.Numbers {
       return smallmantissa;
     }
 
-    /// <summary>Converts this value to a 64-bit floating-point
-    /// number.</summary>
-    /// <returns>This number, converted to a 64-bit floating-point number.
-    /// The return value can express positive infinity or negative infinity
-    /// if this value exceeds the range of a 64-bit floating point
+    /// <summary>Converts this value to its closest equivalent as a 64-bit
+    /// floating-point number, expressed as an integer in the IEEE 754
+    /// binary64 format. The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the 64-bit
+    /// floating point number's significand area for a quiet NaN, and
+    /// clears it for a signaling NaN. Then the other bits of the
+    /// significand area are set to the lowest bits of this object's
+    /// unsigned significand, and the next-highest bit of the significand
+    /// area is set if those bits are all zeros and this is a signaling
+    /// NaN.</para></summary>
+    /// <returns>The closest 64-bit binary floating-point number to this
+    /// value, expressed as an integer in the IEEE 754 binary64 format. The
+    /// return value can be positive infinity or negative infinity if this
+    /// value exceeds the range of a 64-bit floating point
     /// number.</returns>
     public long ToDoubleBits() {
       if (this.IsPositiveInfinity()) {
@@ -4107,7 +4127,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Converts this value to its closest equivalent as 32-bit
+    /// <summary>Converts this value to its closest equivalent as a 32-bit
     /// floating-point number. The half-even rounding mode is used.
     /// <para>If this value is a NaN, sets the high bit of the 32-bit
     /// floating point number's significand area for a quiet NaN, and
