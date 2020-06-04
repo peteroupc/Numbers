@@ -3787,9 +3787,9 @@ namespace PeterO.Numbers {
       // Check whether rounding can be avoided for common cases
       // where the value already fits a single
       if (!thisValue.IsFinite ||
-        thisValue.unsignedMantissa.CompareTo(0x1000000) >= 0 ||
-        thisValue.exponent.CompareTo(-95) < 0 ||
-        thisValue.exponent.CompareTo(95) > 0) {
+        thisValue.unsignedMantissa.CompareToInt(0x1000000) >= 0 ||
+        thisValue.exponent.CompareToInt(-95) < 0 ||
+        thisValue.exponent.CompareToInt(95) > 0) {
         thisValue = this.RoundToPrecision(EContext.Binary32);
       }
       // DebugUtility.Log("afterround=" +thisValue + " ["+
@@ -3888,9 +3888,9 @@ namespace PeterO.Numbers {
       // Check whether rounding can be avoided for common cases
       // where the value already fits a double
       if (!thisValue.IsFinite ||
-        thisValue.unsignedMantissa.CompareTo(1L << 52) >= 0 ||
-        thisValue.exponent.CompareTo(-900) < 0 ||
-        thisValue.exponent.CompareTo(900) > 0) {
+        thisValue.unsignedMantissa.CompareToInt64(1L << 52) >= 0 ||
+        thisValue.exponent.CompareToInt(-900) < 0 ||
+        thisValue.exponent.CompareToInt(900) > 0) {
         thisValue = this.RoundToPrecision(EContext.Binary64);
       }
       if (!thisValue.IsFinite) {

@@ -60,10 +60,6 @@ namespace Test {
         var lines = 0;
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
-            ++lines;
-            if (lines >= 150) {
-              break;
-            }
             var ln = w.ReadLine();
             valueSwProcessing.Start();
             DecTestUtil.ParseDecTest(ln, context);
