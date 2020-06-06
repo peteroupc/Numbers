@@ -2425,7 +2425,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EDecimal.FromString(null);
+        EDecimal.FromString((string)null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -2438,7 +2438,7 @@ namespace Test {
         EDecimal.Zero,
         EDecimal.FromString("0", null));
       try {
-        EDecimal.FromString(null, null);
+        EDecimal.FromString((string)null, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -2456,7 +2456,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EDecimal.FromString(null, 0, 1);
+        EDecimal.FromString((string)null, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -2539,7 +2539,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EDecimal.FromString(null, 0, 1, null);
+        EDecimal.FromString((string)null, 0, 1, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty

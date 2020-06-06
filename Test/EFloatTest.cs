@@ -1138,6 +1138,8 @@ namespace Test {
     public void TestIntegerDoubleSingle() {
       TestIntegerDoubleSingleOne(EInteger.FromString("16777216"));
       TestIntegerDoubleSingleOne(EInteger.FromString("9007199254740992"));
+
+  TestIntegerDoubleSingleOne(EInteger.FromString("36410213260593956497280175692088585748480"));
       var rg = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         EInteger ei = RandomObjects.RandomEInteger(rg);
@@ -1159,10 +1161,8 @@ namespace Test {
       }
       long db = EDecimal.FromEInteger(ei).ToDoubleBits();
       EFloat ef = EFloat.FromDoubleBits(db);
-
-      if (
-        !(ei.Equals(EFloat.FromEInteger(
-          ei).RoundToPrecision(EContext.Binary64).ToEInteger()))) {
+      EFloat eif = EFloat.FromEInteger(ei).RoundToPrecision(EContext.Binary32);
+      if (!eif.IsFinite || !ei.Equals(eif.ToEInteger())) {
         return false;
       }
       Assert.AreEqual(
@@ -1171,10 +1171,8 @@ namespace Test {
         "dbl origdb=" + db + " newdb=" + ef.ToDoubleBits());
       int sb = EDecimal.FromEInteger(ei).ToSingleBits();
       ef = EFloat.FromSingleBits(sb);
-      if
-      (ei.Equals(
-          EFloat.FromEInteger(
-            ei).RoundToPrecision(EContext.Binary32).ToEInteger())) {
+      eif = EFloat.FromEInteger(ei).RoundToPrecision(EContext.Binary32);
+      if (eif.IsFinite && ei.Equals(eif.ToEInteger())) {
         Assert.AreEqual(
           ei.ToString(),
           ef.ToString(),

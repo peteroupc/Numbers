@@ -63,14 +63,14 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[CompareToWithContext(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareToWithContext_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the mathematical values of this object and another object.
 * <code>[Copy()](#Copy)</code> - Creates a copy of this arbitrary-precision binary number.
 * <code>[CopySign(PeterO.Numbers.EFloat)](#CopySign_PeterO_Numbers_EFloat)</code> - Returns a number with the same value as this one, but copying the sign (positive or negative) of another number.
-* <code>[Create(int, int)](#Create_int_int)</code> - Returns a number with the value exponent*2^significand.
-* <code>[Create(long, int)](#Create_long_int)</code> - Returns a number with the value exponent*2^significand.
-* <code>[Create(long, long)](#Create_long_long)</code> - Returns a number with the value exponent*2^significand.
-* <code>[Create(PeterO.Numbers.EInteger, int)](#Create_PeterO_Numbers_EInteger_int)</code> - Returns a number with the value exponent*2^significand.
-* <code>[Create(PeterO.Numbers.EInteger, long)](#Create_PeterO_Numbers_EInteger_long)</code> - Returns a number with the value exponent*2^significand.
-* <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns a number with the value exponent*2^significand.
-* <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision binary floating-point number.
-* <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision binary floating-point number.
+* <code>[Create(int, int)](#Create_int_int)</code> - Returns an arbitrary-precision number with the value exponent*2^significand.
+* <code>[Create(long, int)](#Create_long_int)</code> - Returns an arbitrary-precision number with the value exponent*2^significand.
+* <code>[Create(long, long)](#Create_long_long)</code> - Returns an arbitrary-precision number with the value exponent*2^significand.
+* <code>[Create(PeterO.Numbers.EInteger, int)](#Create_PeterO_Numbers_EInteger_int)</code> - Returns an arbitrary-precision number with the value exponent*2^significand.
+* <code>[Create(PeterO.Numbers.EInteger, long)](#Create_PeterO_Numbers_EInteger_long)</code> - Returns an arbitrary-precision number with the value exponent*2^significand.
+* <code>[Create(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Create_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision number with the value exponent*2^significand.
+* <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision binary number.
+* <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision binary number.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision binary floating-point number.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this instance by the value of a 32-bit signed integer.
 * <code>[Divide(long)](#Divide_long)</code> - Divides this instance by the value of a 64-bit signed integer.
@@ -136,7 +136,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[implicit operator PeterO.Numbers.EFloat(ulong)](#implicit_operator_PeterO_Numbers_EFloat_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision binary floating-point number.
 * <code>[implicit operator PeterO.Numbers.EFloat(ushort)](#implicit_operator_PeterO_Numbers_EFloat_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision binary floating-point number.
 * <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision binary floating-point number.
-* <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or NaN).
+* <code>[IsFinite](#IsFinite)</code> - Gets a value indicating whether this object is finite (not infinity or not-a-number, NaN).
 * <code>[IsInfinity()](#IsInfinity)</code> - Gets a value indicating whether this object is positive or negative infinity.
 * <code>[IsInteger()](#IsInteger)</code> - Returns whether this object's value is an integer.
 * <code>[IsNaN()](#IsNaN)</code> - Gets a value indicating whether this object is not a number (NaN).
@@ -235,7 +235,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
 * <code>[ToByteUnchecked()](#ToByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a byte (from 0 to 255).
 * <code>[ToDouble()](#ToDouble)</code> - Converts this value to a 64-bit floating-point number encoded in the IEEE 754 binary64 format.
-* <code>[ToDoubleBits()](#ToDoubleBits)</code> - Converts this value to a 64-bit floating-point number.
+* <code>[ToDoubleBits()](#ToDoubleBits)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number, expressed as an integer in the IEEE 754 binary64 format.
 * <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this value to an arbitrary-precision decimal number.
 * <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer.
 * <code>[ToEIntegerExact()](#ToEIntegerExact)</code> - <b>Deprecated:</b> Renamed to ToEIntegerIfExact.
@@ -256,8 +256,8 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[ToSByteIfExact()](#ToSByteIfExact)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer without rounding to a different numerical value.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as an 8-bit signed integer.
 * <code>[ToShortestString(PeterO.Numbers.EContext)](#ToShortestString_PeterO_Numbers_EContext)</code> - Returns a string representation of this number's value after rounding that value to the given precision (using the given arithmetic context, such as EContext.
-* <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as 32-bit floating-point number.
-* <code>[ToSingleBits()](#ToSingleBits)</code> - Converts this value to a 32-bit floating-point number encoded in the IEEE 754 binary32 format.
+* <code>[ToSingle()](#ToSingle)</code> - Converts this value to its closest equivalent as a 32-bit floating-point number.
+* <code>[ToSingleBits()](#ToSingleBits)</code> - Converts this value to its closest equivalent as 32-bit floating-point number, expressed as an integer in the IEEE 754 binary32 format.
 * <code>[ToSizedEInteger(int)](#ToSizedEInteger_int)</code> - Converts this value to an arbitrary-precision integer by discarding its fractional part and checking whether the resulting integer overflows the given signed bit count.
 * <code>[ToSizedEIntegerIfExact(int)](#ToSizedEIntegerIfExact_int)</code> - Converts this value to an arbitrary-precision integer, only if this number's value is an exact integer and that integer does not overflow the given signed bit count.
 * <code>[ToString()](#ToString)</code> - Converts this number's value to a text string.
@@ -346,11 +346,11 @@ This object's exponent. This object's value will be an integer if the exponent i
 
     public bool IsFinite { get; }
 
-Gets a value indicating whether this object is finite (not infinity or NaN).
+Gets a value indicating whether this object is finite (not infinity or not-a-number, NaN).
 
 <b>Returns:</b>
 
- `true`  if this object is finite (not infinity or NaN); otherwise,  `false` .
+ `true`  if this object is finite (not infinity or not-a-number, NaN); otherwise,  `false` .
 
 <a id="IsNegative"></a>
 ### IsNegative
@@ -833,7 +833,7 @@ The parameter  <i>other</i>
         int mantissaSmall,
         int exponentSmall);
 
-Returns a number with the value exponent*2^significand.
+Returns an arbitrary-precision number with the value  `exponent*2^significand` .
 
 <b>Parameters:</b>
 
@@ -843,7 +843,7 @@ Returns a number with the value exponent*2^significand.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+An arbitrary-precision binary number.
 
 <a id="Create_long_int"></a>
 ### Create
@@ -852,7 +852,7 @@ An arbitrary-precision binary floating-point number.
         long mantissaLong,
         int exponentSmall);
 
-Returns a number with the value exponent*2^significand.
+Returns an arbitrary-precision number with the value  `exponent*2^significand` .
 
 <b>Parameters:</b>
 
@@ -862,7 +862,7 @@ Returns a number with the value exponent*2^significand.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+An arbitrary-precision binary number.
 
 <a id="Create_long_long"></a>
 ### Create
@@ -871,7 +871,7 @@ An arbitrary-precision binary floating-point number.
         long mantissaLong,
         long exponentLong);
 
-Returns a number with the value exponent*2^significand.
+Returns an arbitrary-precision number with the value  `exponent*2^significand` .
 
 <b>Parameters:</b>
 
@@ -881,7 +881,7 @@ Returns a number with the value exponent*2^significand.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+An arbitrary-precision binary number.
 
 <a id="Create_PeterO_Numbers_EInteger_int"></a>
 ### Create
@@ -890,7 +890,7 @@ An arbitrary-precision binary floating-point number.
         PeterO.Numbers.EInteger mantissa,
         int exponentSmall);
 
-Returns a number with the value exponent*2^significand.
+Returns an arbitrary-precision number with the value  `exponent*2^significand` .
 
 <b>Parameters:</b>
 
@@ -900,7 +900,7 @@ Returns a number with the value exponent*2^significand.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+An arbitrary-precision binary number.
 
 <b>Exceptions:</b>
 
@@ -915,7 +915,7 @@ The parameter  <i>mantissa</i>
         PeterO.Numbers.EInteger mantissa,
         long exponentLong);
 
-Returns a number with the value exponent*2^significand.
+Returns an arbitrary-precision number with the value  `exponent*2^significand` .
 
 <b>Parameters:</b>
 
@@ -925,7 +925,7 @@ Returns a number with the value exponent*2^significand.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+An arbitrary-precision binary number.
 
 <b>Exceptions:</b>
 
@@ -940,7 +940,7 @@ The parameter  <i>mantissa</i>
         PeterO.Numbers.EInteger mantissa,
         PeterO.Numbers.EInteger exponent);
 
-Returns a number with the value exponent*2^significand.
+Returns an arbitrary-precision number with the value  `exponent*2^significand` .
 
 <b>Parameters:</b>
 
@@ -950,7 +950,7 @@ Returns a number with the value exponent*2^significand.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+An arbitrary-precision binary number.
 
 <b>Exceptions:</b>
 
@@ -965,7 +965,7 @@ The parameter  <i>mantissa</i>
     public static PeterO.Numbers.EFloat CreateNaN(
         PeterO.Numbers.EInteger diag);
 
-Creates a not-a-number arbitrary-precision binary floating-point number.
+Creates a not-a-number arbitrary-precision binary number.
 
 <b>Parameters:</b>
 
@@ -974,12 +974,6 @@ Creates a not-a-number arbitrary-precision binary floating-point number.
 <b>Return Value:</b>
 
 A quiet not-a-number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentException:
-The parameter  <i>diag</i>
- is less than 0.
 
 <a id="CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext"></a>
 ### CreateNaN
@@ -990,7 +984,7 @@ The parameter  <i>diag</i>
         bool negative,
         PeterO.Numbers.EContext ctx);
 
-Creates a not-a-number arbitrary-precision binary floating-point number.
+Creates a not-a-number arbitrary-precision binary number.
 
 <b>Parameters:</b>
 
@@ -1000,17 +994,17 @@ Creates a not-a-number arbitrary-precision binary floating-point number.
 
  * <i>negative</i>: Whether the return value is negative.
 
- * <i>ctx</i>: An arithmetic context to control the precision (in bits) of the diagnostic information. The rounding and exponent range of this context will be ignored. Can be null. The only flag that can be signaled in this context is FlagInvalid, which happens if diagnostic information needs to be truncated and too much memory is required to do so.
+ * <i>ctx</i>: An arithmetic context to control the precision (in binary digits) of the diagnostic information. The rounding and exponent range of this context will be ignored. Can be null. The only flag that can be signaled in this context is FlagInvalid, which happens if diagnostic information needs to be truncated and too much memory is required to do so.
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+An arbitrary-precision binary number.
 
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
 The parameter  <i>diag</i>
- is null.
+ is null or is less than 0.
 
 <a id="Decrement"></a>
 ### Decrement
@@ -4030,11 +4024,11 @@ This number, converted to a 64-bit floating-point number encoded in the IEEE 754
 
     public long ToDoubleBits();
 
-Converts this value to a 64-bit floating-point number.
+Converts this value to its closest equivalent as a 64-bit floating-point number, expressed as an integer in the IEEE 754 binary64 format. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 64-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN.
 
 <b>Return Value:</b>
 
-This number, converted to a 64-bit floating-point number. The return value can express positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
+The closest 64-bit binary floating-point number to this value, expressed as an integer in the IEEE 754 binary64 format. The return value can be positive infinity or negative infinity if this value exceeds the range of a 64-bit floating point number.
 
 <a id="ToEDecimal"></a>
 ### ToEDecimal
@@ -4341,7 +4335,7 @@ Shortest decimal form of this number's value for the given arithmetic context. T
 
     public float ToSingle();
 
-Converts this value to its closest equivalent as 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
+Converts this value to its closest equivalent as a 32-bit floating-point number. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN. Unfortunately, in the.NET implementation, the return value of this method may be a quiet NaN even if a signaling NaN would otherwise be generated.
 
 <b>Return Value:</b>
 
@@ -4352,11 +4346,11 @@ The closest 32-bit binary floating-point number to this value. The return value 
 
     public int ToSingleBits();
 
-Converts this value to a 32-bit floating-point number encoded in the IEEE 754 binary32 format.
+Converts this value to its closest equivalent as 32-bit floating-point number, expressed as an integer in the IEEE 754 binary32 format. The half-even rounding mode is used. If this value is a NaN, sets the high bit of the 32-bit floating point number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN.
 
 <b>Return Value:</b>
 
-This number, converted to a 32-bit floating-point number encoded in the IEEE 754 binary32 format.
+The closest 32-bit binary floating-point number to this value, expressed as an integer in the IEEE 754 binary32 format. The return value can be positive infinity or negative infinity if this value exceeds the range of a 32-bit floating point number.
 
 <a id="ToSizedEInteger_int"></a>
 ### ToSizedEInteger

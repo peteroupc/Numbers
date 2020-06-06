@@ -59,10 +59,14 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt32(int)](#FromInt32_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
+* <code>[FromRadixString(char[], int)](#FromRadixString_char_int)</code> - Converts a sequence of char s to an arbitrary-precision integer in a given radix.
 * <code>[FromRadixString(string, int)](#FromRadixString_string_int)</code> - Converts a string to an arbitrary-precision integer in a given radix.
+* <code>[FromRadixSubstring(char[], int, int, int)](#FromRadixSubstring_char_int_int_int)</code> - Converts a portion of a sequence of char s to an arbitrary-precision integer in a given radix.
 * <code>[FromRadixSubstring(string, int, int, int)](#FromRadixSubstring_string_int_int_int)</code> - Converts a portion of a string to an arbitrary-precision integer in a given radix.
 * <code>[FromSByte(sbyte)](#FromSByte_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision integer.
+* <code>[FromString(char[])](#FromString_char)</code> - Converts a sequence of char s to an arbitrary-precision integer.
 * <code>[FromString(string)](#FromString_string)</code> - Converts a string to an arbitrary-precision integer.
+* <code>[FromSubstring(char[], int, int)](#FromSubstring_char_int_int)</code> - Converts a portion of a sequence of char s to an arbitrary-precision integer.
 * <code>[FromSubstring(string, int, int)](#FromSubstring_string_int_int)</code> - Converts a portion of a string to an arbitrary-precision integer.
 * <code>[FromUInt16(ushort)](#FromUInt16_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision integer.
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
@@ -879,6 +883,34 @@ Converts a 64-bit signed integer to an arbitrary-precision integer.
 
 An arbitrary-precision integer with the same value as the 64-bit number.
 
+<a id="FromRadixString_char_int"></a>
+### FromRadixString
+
+    public static PeterO.Numbers.EInteger FromRadixString(
+        char[] cs,
+        int radix);
+
+Converts a sequence of  `char`  s to an arbitrary-precision integer in a given radix.
+
+<b>Parameters:</b>
+
+ * <i>cs</i>: A sequence of  `char`  s described by the FromRadixSubstring method.
+
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of  `char`  s can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the sequence of  `char`  s, the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer with the same value as the given sequence of  `char`  s.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>cs</i>
+ is null.
+
+ * System.FormatException:
+The sequence of  `char`  s is empty or in an invalid format.
+
 <a id="FromRadixString_string_int"></a>
 ### FromRadixString
 
@@ -903,6 +935,43 @@ An arbitrary-precision integer with the same value as the given string.
  * System.ArgumentNullException:
 The parameter  <i>str</i>
  is null.
+
+ * System.FormatException:
+The string is empty or in an invalid format.
+
+<a id="FromRadixSubstring_char_int_int_int"></a>
+### FromRadixSubstring
+
+    public static PeterO.Numbers.EInteger FromRadixSubstring(
+        char[] cs,
+        int radix,
+        int index,
+        int endIndex);
+
+Converts a portion of a sequence of  `char`  s to an arbitrary-precision integer in a given radix.
+
+<b>Parameters:</b>
+
+ * <i>cs</i>: A text sequence of  `char`  s. The desired portion of the sequence of  `char`  s must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
+
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of  `char`  s can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the sequence of  `char`  s, the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+
+ * <i>index</i>: The index of the sequence of  `char`  s that starts the desired portion.
+
+ * <i>endIndex</i>: The index of the sequence of  `char`  s that ends the desired portion. The length will be index + endIndex - 1.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer with the same value as given in the sequence's portion.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>cs</i>
+ is null.
+
+ * System.FormatException:
+The portion is empty or in an invalid format.
 
 <a id="FromRadixSubstring_string_int_int_int"></a>
 ### FromRadixSubstring
@@ -956,6 +1025,32 @@ Converts an 8-bit signed integer to an arbitrary-precision integer.
 
 This number's value as an arbitrary-precision integer.
 
+<a id="FromString_char"></a>
+### FromString
+
+    public static PeterO.Numbers.EInteger FromString(
+        char[] cs);
+
+Converts a sequence of  `char`  s to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>cs</i>: A sequence of  `char`  s describing an integer in base-10 (decimal) form. The sequence must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The sequence is not allowed to contain white space characters, including spaces. The sequence may start with any number of zeros.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer with the same value as given in the sequence of  `char`  s.
+
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter  <i>cs</i>
+ is in an invalid format.
+
+ * System.ArgumentNullException:
+The parameter  <i>cs</i>
+ is null.
+
 <a id="FromString_string"></a>
 ### FromString
 
@@ -980,6 +1075,41 @@ The parameter  <i>str</i>
 
  * System.ArgumentNullException:
 The parameter  <i>str</i>
+ is null.
+
+<a id="FromSubstring_char_int_int"></a>
+### FromSubstring
+
+    public static PeterO.Numbers.EInteger FromSubstring(
+        char[] cs,
+        int index,
+        int endIndex);
+
+Converts a portion of a sequence of  `char`  s to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>cs</i>: A sequence of  `char`  s, the desired portion of which describes an integer in base-10 (decimal) form. The desired portion of the sequence of  `char`  s must contain only basic digits 0 to 9 (U+0030 to U+0039), except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
+
+ * <i>index</i>: The index of the sequence of  `char`  s that starts the desired portion.
+
+ * <i>endIndex</i>: The index of the sequence of  `char`  s that ends the desired portion. The length will be index + endIndex - 1.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer with the same value as given in the sequence of  `char`  s portion.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The parameter  <i>index</i>
+ is less than 0,  <i>endIndex</i>
+ is less than 0, or either is greater than the sequence's length, or  <i>endIndex</i>
+ is less than  <i>index</i>
+.
+
+ * System.ArgumentNullException:
+The parameter  <i>cs</i>
  is null.
 
 <a id="FromSubstring_string_int_int"></a>
