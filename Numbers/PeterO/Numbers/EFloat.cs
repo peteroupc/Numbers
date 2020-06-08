@@ -7,8 +7,7 @@ at: http://peteroupc.github.io/
  */
 using System;
 
-// TODO: In next major version or earlier, consider adding byte[] equivalent
-// of FromString here and in EDecimal
+// TODO: Add byte[] equivalent of FromString in EFloat and ERational
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision binary floating-point
   /// number. (The "E" stands for "extended", meaning that instances of

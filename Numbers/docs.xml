@@ -968,8 +968,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)">
 
@@ -2102,23 +2105,30 @@
             as <paramref name='value'/>.</returns>
 
 </doc>
-<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[])">
-<summary>Creates an arbitrary-precision decimal number from a  sequence of <c>char</c>s that represents a number. See <c>FromString(String, int,
-            int, EContext)</c> for more information. Note that calling the
-            overload that takes an EContext is often much faster than creating
-            the EDecimal then calling <c>RoundToPrecision</c> on that EDecimal,
-            especially if the context specifies a precision limit and exponent
-            range.</summary>
-            <param name='chars'>A sequence that represents a number.</param>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Byte[])">
+
+            <summary>Creates an arbitrary-precision decimal number from a
+            sequence of bytes (interpreted as text) that represents a number. See
+            <c>FromString(String, int, int, EContext)</c> for more information.
+            Note that calling the overload that takes an EContext is often much
+            faster than creating the EDecimal then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</summary>
+            <param name='bytes'>A sequence that represents a number.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c>s.</returns>
-            <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted number
+            as the given sequence of bytes (interpreted as text).</returns>
+            <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted number
             sequence.</exception>
+
 </doc>
-<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[],PeterO.Numbers.EContext)">
-<summary>Creates an arbitrary-precision decimal number from a sequence of <c>char</c>s that represents a number. See <c>FromString(String, int,
-            int, EContext)</c> for more information.</summary>
-            <param name='chars'>A sequence of <c>char</c>s that represents a number.</param>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Byte[],PeterO.Numbers.EContext)">
+
+            <summary>Creates an arbitrary-precision decimal number from a
+            sequence of bytes (interpreted as text) that represents a number. See
+            <c>FromString(String, int, int, EContext)</c> for more
+            information.</summary>
+            <param name='bytes'>A sequence of bytes (interpreted as text) that represents a
+            number.</param>
             <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
@@ -2129,32 +2139,38 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c>s.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
+            as the given sequence of bytes (interpreted as text).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+
 </doc>
-<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[],System.Int32,System.Int32)">
-<summary>Creates an arbitrary-precision decimal number from a  sequence of <c>char</c>s that represents a number. See <c>FromString(String, int,
-            int, EContext)</c> for more information. Note that calling the
-            overload that takes an EContext is often much faster than creating
-            the EDecimal then calling <c>RoundToPrecision</c> on that EDecimal,
-            especially if the context specifies a precision limit and exponent
-            range.</summary>
-            <param name='chars'>A sequence that represents a number.</param>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Byte[],System.Int32,System.Int32)">
+
+            <summary>Creates an arbitrary-precision decimal number from a
+            sequence of bytes (interpreted as text) that represents a number. See
+            <c>FromString(String, int, int, EContext)</c> for more information.
+            Note that calling the overload that takes an EContext is often much
+            faster than creating the EDecimal then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</summary>
+            <param name='bytes'>A sequence that represents a number.</param>
             <param name='offset'>An index starting at 0 showing where the
-            desired portion of <paramref name='chars'/> begins.</param>
+            desired portion of <paramref name='bytes'/> begins.</param>
             <param name='length'>The length, in code units, of the desired
-            portion of <paramref name='chars'/> (but not more than <paramref name='chars'/> 's length).</param>
+            portion of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c>s.</returns>
-            <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted number
+            as the given sequence of bytes (interpreted as text).</returns>
+            <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted number
             sequence.</exception>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-            greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
 </doc>
-<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[],System.Int32,System.Int32,PeterO.Numbers.EContext)">
-<summary><para>Creates an arbitrary-precision decimal number from a  sequence of <c>char</c>s that represents a number.</para>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Byte[],System.Int32,System.Int32,PeterO.Numbers.EContext)">
+
+            <summary><para>Creates an arbitrary-precision decimal number from a sequence
+            of bytes (interpreted as text) that represents a number.  Each byte in the sequence has to be a code point in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.</para>
             <para>The format of the sequence generally consists of:</para>
             <list type=''>
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
@@ -2178,8 +2194,120 @@
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
             allowed to contain white space characters, including
             spaces.</para></summary>
-            <param name='chars'>A  sequence of <c>char</c>s, a portion of which represents a
+            <param name='bytes'>A sequence of bytes (interpreted as text), a portion of which
+            represents a number.</param>
+            <param name='offset'>An index starting at 0 showing where the
+            desired portion of <paramref name='bytes'/> begins.</param>
+            <param name='length'>The length, in code units, of the desired
+            portion of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
+            <param name='ctx'>An arithmetic context to control the precision,
+            rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            Can be null, in which case the precision is unlimited and rounding
+            isn't needed. Note that providing a context is often much faster
+            than creating the EDecimal without a context then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</param>
+            <returns>An arbitrary-precision decimal number with the same value
+            as the given sequence of bytes (interpreted as text).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+            <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+            greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[])">
+
+            <summary>Creates an arbitrary-precision decimal number from a
+            sequence of <c>char</c> s that represents a number. See
+            <c>FromString(String, int, int, EContext)</c> for more information.
+            Note that calling the overload that takes an EContext is often much
+            faster than creating the EDecimal then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</summary>
+            <param name='chars'>A sequence that represents a number.</param>
+            <returns>An arbitrary-precision decimal number with the same value
+            as the given sequence of <c>char</c> s.</returns>
+            <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted number
+            sequence.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[],PeterO.Numbers.EContext)">
+
+            <summary>Creates an arbitrary-precision decimal number from a
+            sequence of <c>char</c> s that represents a number. See
+            <c>FromString(String, int, int, EContext)</c> for more
+            information.</summary>
+            <param name='chars'>A sequence of <c>char</c> s that represents a
             number.</param>
+            <param name='ctx'>An arithmetic context to control the precision,
+            rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            Can be null, in which case the precision is unlimited and rounding
+            isn't needed. Note that providing a context is often much faster
+            than creating the EDecimal without a context then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</param>
+            <returns>An arbitrary-precision decimal number with the same value
+            as the given sequence of <c>char</c> s.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[],System.Int32,System.Int32)">
+
+            <summary>Creates an arbitrary-precision decimal number from a
+            sequence of <c>char</c> s that represents a number. See
+            <c>FromString(String, int, int, EContext)</c> for more information.
+            Note that calling the overload that takes an EContext is often much
+            faster than creating the EDecimal then calling
+            <c>RoundToPrecision</c> on that EDecimal, especially if the context
+            specifies a precision limit and exponent range.</summary>
+            <param name='chars'>A sequence that represents a number.</param>
+            <param name='offset'>An index starting at 0 showing where the
+            desired portion of <paramref name='chars'/> begins.</param>
+            <param name='length'>The length, in code units, of the desired
+            portion of <paramref name='chars'/> (but not more than <paramref name='chars'/> 's length).</param>
+            <returns>An arbitrary-precision decimal number with the same value
+            as the given sequence of <c>char</c> s.</returns>
+            <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted number
+            sequence.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
+            <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+            greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromString(System.Char[],System.Int32,System.Int32,PeterO.Numbers.EContext)">
+
+            <summary><para>Creates an arbitrary-precision decimal number from a sequence
+            of <c>char</c> s that represents a number.</para>
+            <para>The format of the sequence generally consists of:</para>
+            <list type=''>
+            <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+            U+002D) (if the minus sign, the value is negative.)</item>
+            <item>One or more digits, with a single optional decimal point
+            (".", U+002E) before or after those digits or between two of them.
+            These digits may begin with any number of zeros.</item>
+            <item>Optionally, "E"/"e" followed by an optional (positive
+            exponent) or "-" (negative exponent) and followed by one or more
+            digits specifying the exponent (these digits may begin with any
+            number of zeros).</item></list>
+            <para>The sequence can also be "-INF", "-Infinity", "Infinity",
+            "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits
+            (these digits may begin with any number of zeros), or signaling NaN
+            ("sNaN" /"-sNaN") followed by any number of digits (these digits
+            may begin with any number of zeros), all where the letters can be
+            any combination of basic upper-case and/or basic lower-case
+            letters.</para>
+            <para>All characters mentioned above are the corresponding
+            characters in the Basic Latin range. In particular, the digits must
+            be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
+            allowed to contain white space characters, including
+            spaces.</para></summary>
+            <param name='chars'>A sequence of <c>char</c> s, a portion of which
+            represents a number.</param>
             <param name='offset'>An index starting at 0 showing where the
             desired portion of <paramref name='chars'/> begins.</param>
             <param name='length'>The length, in code units, of the desired
@@ -2194,11 +2322,12 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c>s.</returns>
+            as the given sequence of <c>char</c> s.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-            greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromString(System.String)">
 
@@ -3806,8 +3935,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.Ten">
 
@@ -5466,8 +5598,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
@@ -7034,8 +7169,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
@@ -7943,8 +8081,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.Ten">
 
@@ -9510,8 +9651,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Add(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)">
 
@@ -9656,8 +9800,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.CompareTo(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Decrement">
 
@@ -9705,7 +9852,10 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='intDivisor'>The parameter <paramref name='intDivisor'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='intDivisor'>The parameter <paramref name='intDivisor'/> is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)">
 
@@ -9738,8 +9888,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Divide(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)">
 
@@ -9866,8 +10019,29 @@
             64-bit number.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.FromRadixString(System.Byte[],System.Int32)">
+
+            <summary>Converts a sequence of bytes (interpreted as text) to an
+            arbitrary-precision integer in a given radix.  Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.</summary>
+            <param name='bytes'>A sequence of bytes (interpreted as text) described by the
+            FromRadixSubstring method.</param>
+            <param name='radix'>A base from 2 to 36. Depending on the radix,
+            the sequence of bytes can use the basic digits 0 to 9
+            (U+0030 to U+0039) and then the basic upper-case letters A to Z
+            (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F
+            in radix 16. Where a basic upper-case letter A to Z is allowed in
+            the sequence of bytes, the corresponding basic lower-case
+            letter (U+0061 to U+007a) is allowed instead.</param>
+            <returns>An arbitrary-precision integer with the same value as the
+            given sequence of bytes.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+            <exception cref='FormatException'>The sequence of bytes (interpreted as text) is
+            empty or in an invalid format.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.FromRadixString(System.Char[],System.Int32)">
-<summary>Converts a sequence of <c>char</c> s to an
+
+            <summary>Converts a sequence of <c>char</c> s to an
             arbitrary-precision integer in a given radix.</summary>
             <param name='cs'>A sequence of <c>char</c> s described by the
             FromRadixSubstring method.</param>
@@ -9883,6 +10057,7 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='cs'/> is null.</exception>
             <exception cref='FormatException'>The sequence of <c>char</c> s is
             empty or in an invalid format.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromRadixString(System.String,System.Int32)">
 
@@ -9904,8 +10079,39 @@
             invalid format.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.Byte[],System.Int32,System.Int32,System.Int32)">
+
+            <summary>Converts a portion of a sequence of bytes (interpreted as text) to an
+            arbitrary-precision integer in a given radix.  Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.</summary>
+            <param name='bytes'>A sequence of bytes (interpreted as text). The desired
+            portion of the sequence of bytes (interpreted as text) must contain only
+            characters allowed by the given radix, except that it may start
+            with a minus sign ("-", U+002D) to indicate a negative number. The
+            desired portion is not allowed to contain white space characters,
+            including spaces. The desired portion may start with any number of
+            zeros.</param>
+            <param name='radix'>A base from 2 to 36. Depending on the radix,
+            the sequence of bytes (interpreted as text) can use the basic digits 0 to 9
+            (U+0030 to U+0039) and then the basic upper-case letters A to Z
+            (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F
+            in radix 16. Where a basic upper-case letter A to Z is allowed in
+            the sequence of bytes (interpreted as text), the corresponding basic lower-case
+            letter (U+0061 to U+007a) is allowed instead.</param>
+            <param name='index'>The index of the sequence of bytes (interpreted as text) that
+            starts the desired portion.</param>
+            <param name='endIndex'>The index of the sequence of bytes (interpreted as text)
+            that ends the desired portion. The length will be index + endIndex
+            - 1.</param>
+            <returns>An arbitrary-precision integer with the same value as
+            given in the sequence's portion.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+            <exception cref='FormatException'>The portion is empty or in an
+            invalid format.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.Char[],System.Int32,System.Int32,System.Int32)">
-<summary>Converts a portion of a sequence of <c>char</c> s to an
+
+            <summary>Converts a portion of a sequence of <c>char</c> s to an
             arbitrary-precision integer in a given radix.</summary>
             <param name='cs'>A text sequence of <c>char</c> s. The desired
             portion of the sequence of <c>char</c> s must contain only
@@ -9931,6 +10137,7 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='cs'/> is null.</exception>
             <exception cref='FormatException'>The portion is empty or in an
             invalid format.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromRadixSubstring(System.String,System.Int32,System.Int32,System.Int32)">
 
@@ -9970,8 +10177,26 @@
             integer.</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.FromString(System.Byte[])">
+
+            <summary>Converts a sequence of bytes (interpreted as text) to an
+            arbitrary-precision integer.  Each byte in the sequence has to be a code point in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.</summary>
+            <param name='bytes'>A sequence of bytes describing an integer
+            in base-10 (decimal) form. The sequence must contain only basic
+            digits 0 to 9 (U+0030 to U+0039), except that it may start with a
+            minus sign ("-", U+002D) to indicate a negative number. The
+            sequence is not allowed to contain white space characters,
+            including spaces. The sequence may start with any number of
+            zeros.</param>
+            <returns>An arbitrary-precision integer with the same value as
+            given in the sequence of bytes.</returns>
+            <exception cref='FormatException'>The parameter <paramref name='bytes'/> is in an invalid format.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.FromString(System.Char[])">
-<summary>Converts a sequence of <c>char</c> s to an
+
+            <summary>Converts a sequence of <c>char</c> s to an
             arbitrary-precision integer.</summary>
             <param name='cs'>A sequence of <c>char</c> s describing an integer
             in base-10 (decimal) form. The sequence must contain only basic
@@ -9984,6 +10209,7 @@
             given in the sequence of <c>char</c> s.</returns>
             <exception cref='FormatException'>The parameter <paramref name='cs'/> is in an invalid format.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='cs'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromString(System.String)">
 
@@ -10001,8 +10227,34 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.FromSubstring(System.Byte[],System.Int32,System.Int32)">
+
+            <summary>Converts a portion of a sequence of bytes (interpreted as text) to an
+            arbitrary-precision integer.  Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.</summary>
+            <param name='bytes'>A sequence of bytes (interpreted as text), the desired portion
+            of which describes an integer in base-10 (decimal) form. The
+            desired portion of the sequence of bytes (interpreted as text) must contain only
+            basic digits 0 to 9 (U+0030 to U+0039), except that it may start
+            with a minus sign ("-", U+002D) to indicate a negative number. The
+            desired portion is not allowed to contain white space characters,
+            including spaces. The desired portion may start with any number of
+            zeros.</param>
+            <param name='index'>The index of the sequence of bytes (interpreted as text) that
+            starts the desired portion.</param>
+            <param name='endIndex'>The index of the sequence of bytes (interpreted as text)
+            that ends the desired portion. The length will be index + endIndex
+            - 1.</param>
+            <returns>An arbitrary-precision integer with the same value as
+            given in the sequence of bytes (interpreted as text) portion.</returns>
+            <exception cref='ArgumentException'>The parameter <paramref name='index'/> is less than 0, <paramref name='endIndex'/> is less
+            than 0, or either is greater than the sequence's length, or
+            <paramref name='endIndex'/> is less than <paramref name='index'/>.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.FromSubstring(System.Char[],System.Int32,System.Int32)">
-<summary>Converts a portion of a sequence of <c>char</c> s to an
+
+            <summary>Converts a portion of a sequence of <c>char</c> s to an
             arbitrary-precision integer.</summary>
             <param name='cs'>A sequence of <c>char</c> s, the desired portion
             of which describes an integer in base-10 (decimal) form. The
@@ -10023,6 +10275,7 @@
             than 0, or either is greater than the sequence's length, or
             <paramref name='endIndex'/> is less than <paramref name='index'/>.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='cs'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromSubstring(System.String,System.Int32,System.Int32)">
 
@@ -10493,8 +10746,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Multiply(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Negate">
 
@@ -10661,8 +10917,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Remainder(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)">
 
@@ -10764,8 +11023,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Subtract(System.Int64)">
 
-        <summary>Not documented yet.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Not documented yet.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Ten">
 
@@ -11887,7 +12149,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromDoubleBits(System.Int64)">
-<summary>Creates a binary rational number from a 64-bit
+
+            <summary>Creates a binary rational number from a 64-bit
             floating-point number encoded in the IEEE 754 binary64 format. This
             method computes the exact value of the floating point number, not
             an approximation, as is often the case by converting the number to
@@ -11896,6 +12159,7 @@
             binary64 format.</param>
             <returns>A rational number with the same floating-point value as
             <paramref name='flt'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)">
 
@@ -11997,7 +12261,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromSingleBits(System.Int32)">
-<summary>Creates a binary rational number from a 32-bit
+
+            <summary>Creates a binary rational number from a 32-bit
             floating-point number encoded in the IEEE 754 binary32 format. This
             method computes the exact value of the floating point number, not
             an approximation, as is often the case by converting the number to
@@ -12006,6 +12271,7 @@
             binary32 format.</param>
             <returns>A rational number with the same floating-point value as
             <paramref name='flt'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromString(System.String)">
 
@@ -12429,7 +12695,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToDoubleBits">
-<summary>Converts this value to its closest equivalent as a 64-bit
+
+            <summary>Converts this value to its closest equivalent as a 64-bit
             floating-point number, expressed as an integer in the IEEE 754
             binary64 format. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 64-bit
@@ -12444,6 +12711,7 @@
             return value can be positive infinity or negative infinity if this
             value exceeds the range of a 64-bit floating point
             number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToEDecimal">
 
@@ -12810,7 +13078,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSingleBits">
-<summary>Converts this value to its closest equivalent as 32-bit
+
+            <summary>Converts this value to its closest equivalent as 32-bit
             floating-point number, expressed as an integer in the IEEE 754
             binary32 format. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
@@ -12825,6 +13094,7 @@
             return value can be positive infinity or negative infinity if this
             value exceeds the range of a 32-bit floating point
             number.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSizedEInteger(System.Int32)">
 

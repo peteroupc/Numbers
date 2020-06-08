@@ -1205,14 +1205,14 @@ namespace PeterO.Numbers {
       }
       EContext ctxCopy = ctx.WithBlankFlags();
       T one = this.helper.ValueOf(1);
-      ERounding intermedRounding = ERounding.HalfEven;
+      // ERounding intermedRounding = ERounding.HalfEven;
       if (sign == 0) {
         return this.RoundToPrecision(
               this.helper.CreateNewWithFlags(EInteger.Zero, EInteger.Zero, 0),
               ctxCopy);
       } else {
         int cmpOne = this.CompareTo(thisValue, one);
-        EContext ctxdiv = null;
+        // EContext ctxdiv = null;
         if (cmpOne == 0) {
           // ln(2)
           thisValue = this.RoundToPrecision(

@@ -6189,6 +6189,15 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
+        EDecimal.FromString(
+          ("xyzxyz" + tstr).ToCharArray(),
+          6,
+          tstr.Length);
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
         EFloat.FromString("xyzxyz" + tstr, 6, tstr.Length);
       } catch (Exception ex) {
         Assert.Fail(ex.ToString());
@@ -6403,6 +6412,18 @@ namespace Test {
       TestStringContextCore(econtexts, true);
     }
 
+    public static byte[] StringToBytes(string str) {
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      var bytes = new byte[str.Length];
+      for (var i = 0; i < str.Length; ++i) {
+        var b = (byte)(str[i] >= 0x80 ? (byte)'?' : (byte)str[i]);
+        bytes[i] = b;
+      }
+      return bytes;
+    }
+
     public static void TestStringContextCore(EContext[] econtexts, bool
       efloat) {
       if (econtexts == null) {
@@ -6481,6 +6502,18 @@ namespace Test {
           sbs = RandomObjects.RandomDecimalString(rand);
         }
         EDecimal ed = EDecimal.FromString("xyzxyz" + sbs, 6, sbs.Length);
+        if (rand.UniformInt(100) < 10) {
+          EDecimal ed2 = EDecimal.FromString(("xyzxyz" + sbs).ToCharArray(),
+  6,
+  sbs.Length);
+          Assert.AreEqual(ed, ed2);
+        }
+        if (rand.UniformInt(100) < 10) {
+          EDecimal ed2 = EDecimal.FromString(StringToBytes("xyzxyz" + sbs),
+  6,
+  sbs.Length);
+          Assert.AreEqual(ed, ed2);
+        }
         for (var j = 0; j < econtexts.Length; ++j) {
           ERounding rounding = roundings[rand.UniformInt(roundings.Length)];
           EContext ec = econtexts[j];
