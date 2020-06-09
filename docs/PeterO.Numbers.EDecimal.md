@@ -155,10 +155,10 @@ The elements described above are in the same order as the order of each bit of e
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
-* <code>[Add(int)](#Add_int)</code> - Adds this object and a 32-bit signed integer and returns the result.
-* <code>[Add(long)](#Add_long)</code> - Adds this object and an 64-bit signed integer and returns the result.
-* <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
-* <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
+* <code>[Add(int)](#Add_int)</code> - Adds this arbitrary-precision decimal floating-point number and a 32-bit signed integer and returns the result.
+* <code>[Add(long)](#Add_long)</code> - Adds this arbitrary-precision decimal floating-point number and a 64-bit signed integer and returns the result.
+* <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.
+* <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareTo(long)](#CompareTo_long)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
 * <code>[CompareTo(PeterO.Numbers.EDecimal)](#CompareTo_PeterO_Numbers_EDecimal)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
@@ -183,10 +183,10 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision decimal number.
-* <code>[Divide(int)](#Divide_int)</code> - Divides this object by a 32-bit signed integer and returns the result.
-* <code>[Divide(long)](#Divide_long)</code> - Divides this object by a 64-bit signed integer and returns the result.
-* <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this object by another decimal number and returns the result.
-* <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number.
+* <code>[Divide(int)](#Divide_int)</code> - Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result.
+* <code>[Divide(long)](#Divide_long)</code> - Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result.
+* <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
+* <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 * <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
 * <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
 * <code>[DivideToExponent(PeterO.Numbers.EDecimal, int)](#DivideToExponent_PeterO_Numbers_EDecimal_int)</code> - Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
@@ -292,10 +292,10 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[MovePointRight(int, PeterO.Numbers.EContext)](#MovePointRight_int_PeterO_Numbers_EContext)</code> - Returns a number similar to this number but with the decimal point moved to the right.
 * <code>[MovePointRight(PeterO.Numbers.EInteger)](#MovePointRight_PeterO_Numbers_EInteger)</code> - Returns a number similar to this number but with the decimal point moved to the right.
 * <code>[MovePointRight(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#MovePointRight_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns a number similar to this number but with the decimal point moved to the right.
-* <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this object by the given 32-bit signed integer.
-* <code>[Multiply(long)](#Multiply_long)</code> - Multiplies this object by the given 64-bit signed integer.
-* <code>[Multiply(PeterO.Numbers.EDecimal)](#Multiply_PeterO_Numbers_EDecimal)</code> - Multiplies two decimal numbers.
-* <code>[Multiply(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Multiply_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies two decimal numbers.
+* <code>[Multiply(int)](#Multiply_int)</code> - Multiplies this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result.
+* <code>[Multiply(long)](#Multiply_long)</code> - Multiplies this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result.
+* <code>[Multiply(PeterO.Numbers.EDecimal)](#Multiply_PeterO_Numbers_EDecimal)</code> - Multiplies this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
+* <code>[Multiply(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Multiply_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 * <code>[MultiplyAndAdd(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#MultiplyAndAdd_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Multiplies by one decimal number, and then adds another decimal number.
 * <code>[MultiplyAndAdd(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#MultiplyAndAdd_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies by one value, and then adds another value.
 * <code>[MultiplyAndSubtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#MultiplyAndSubtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Multiplies by one value, and then subtracts another value.
@@ -308,12 +308,12 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[NextPlus(PeterO.Numbers.EContext)](#NextPlus_PeterO_Numbers_EContext)</code> - Finds the smallest value that's greater than the given value.
 * <code>[NextToward(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#NextToward_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the next value that is closer to the other object's value than this object's value.
 * <code>[public static readonly PeterO.Numbers.EDecimal One;](#One)</code> - Represents the number 1.
-* <code>[PeterO.Numbers.EDecimal operator +(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Addition)</code> - Adds two arbitrary-precision decimal floating-point numbers and returns the result.
+* <code>[PeterO.Numbers.EDecimal operator +(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Addition)</code> - Adds an arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.
 * <code>[PeterO.Numbers.EDecimal operator --(PeterO.Numbers.EDecimal)](#op_Decrement)</code> - Subtracts one from an arbitrary-precision decimal number.
 * <code>[PeterO.Numbers.EDecimal operator /(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Division)</code> - Divides this object by another decimal number and returns the result.
 * <code>[PeterO.Numbers.EDecimal operator ++(PeterO.Numbers.EDecimal)](#op_Increment)</code> - Adds one to an arbitrary-precision decimal number.
-* <code>[PeterO.Numbers.EDecimal operator %(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Modulus)</code> - Finds the remainder when dividing one arbitrary-precision decimal number by another.
-* <code>[PeterO.Numbers.EDecimal operator &#x2a;(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Multiply)</code> - Multiplies two decimal numbers.
+* <code>[PeterO.Numbers.EDecimal operator %(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Modulus)</code> - Returns the remainder that would result when an arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number.
+* <code>[PeterO.Numbers.EDecimal operator &#x2a;(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Multiply)</code> - Multiplies an arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 * <code>[PeterO.Numbers.EDecimal operator -(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#op_Subtraction)</code> - Subtracts one arbitrary-precision decimal number from another and returns the result.
 * <code>[PeterO.Numbers.EDecimal operator -(PeterO.Numbers.EDecimal)](#op_UnaryNegation)</code> - Gets an arbitrary-precision decimal number with the same value as the given one, but with the sign reversed.
 * <code>[PI(PeterO.Numbers.EContext)](#PI_PeterO_Numbers_EContext)</code> - Finds the constant π, the circumference of a circle divided by its diameter.
@@ -330,7 +330,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Quantize(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the same exponent as another decimal number.
 * <code>[Quantize(PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#Quantize_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value but a new exponent.
 * <code>[Reduce(PeterO.Numbers.EContext)](#Reduce_PeterO_Numbers_EContext)</code> - Returns an object with the same numerical value as this one but with trailing zeros removed from its significand.
-* <code>[Remainder(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the remainder that results when dividing two arbitrary-precision decimal numbers.
+* <code>[Remainder(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Remainder_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns the remainder that would result when this arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number.
 * <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal)](#RemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNaturalScale(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Calculates the remainder of a number by the formula "this" - (("this" / "divisor") * "divisor").
 * <code>[RemainderNear(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#RemainderNear_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the distance to the closest multiple of the given divisor, based on the result of dividing this object's value by another object's value.
@@ -357,10 +357,10 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[public static readonly PeterO.Numbers.EDecimal SignalingNaN;](#SignalingNaN)</code> - A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision decimal.
 * <code>[Sqrt(PeterO.Numbers.EContext)](#Sqrt_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to Sqrt.
-* <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this object and returns the result.
-* <code>[Subtract(long)](#Subtract_long)</code> - Subtracts a 64-bit signed integer from this object and returns the result.
-* <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal number from this instance and returns the result.
-* <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal number from this instance.
+* <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result.
+* <code>[Subtract(long)](#Subtract_long)</code> - Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result.
+* <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result.
+* <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result.
 * <code>[public static readonly PeterO.Numbers.EDecimal Ten;](#Ten)</code> - Represents the number 10.
 * <code>[ToByteChecked()](#ToByteChecked)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) after converting it to an integer by discarding its fractional part.
 * <code>[ToByteIfExact()](#ToByteIfExact)</code> - Converts this number's value to a byte (from 0 to 255) if it can fit in a byte (from 0 to 255) without rounding to a different numerical value.
@@ -572,7 +572,7 @@ An arbitrary-precision decimal number. Returns signaling NaN if this value is si
     public PeterO.Numbers.EDecimal Add(
         int intValue);
 
-Adds this object and a 32-bit signed integer and returns the result.
+Adds this arbitrary-precision decimal floating-point number and a 32-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
@@ -588,11 +588,11 @@ The sum of the two objects.
     public PeterO.Numbers.EDecimal Add(
         long longValue);
 
-Adds this object and an 64-bit signed integer and returns the result.
+Adds this arbitrary-precision decimal floating-point number and a 64-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: A 64-bit signed integer to add to this object.
+ * <i>longValue</i>:
 
 <b>Return Value:</b>
 
@@ -604,7 +604,7 @@ The sum of the two objects.
     public PeterO.Numbers.EDecimal Add(
         PeterO.Numbers.EDecimal otherValue);
 
-Adds this object and another decimal number and returns the result.
+Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -621,7 +621,7 @@ The sum of the two objects.
         PeterO.Numbers.EDecimal otherValue,
         PeterO.Numbers.EContext ctx);
 
-Finds the sum of this object and another object. The result's exponent is set to the lower of the exponents of the two operands.
+Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -1178,7 +1178,7 @@ The given arbitrary-precision decimal number minus one.
     public PeterO.Numbers.EDecimal Divide(
         int intValue);
 
-Divides this object by a 32-bit signed integer and returns the result. When possible, the result will be exact.
+Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
@@ -1194,7 +1194,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
     public PeterO.Numbers.EDecimal Divide(
         long longValue);
 
-Divides this object by a 64-bit signed integer and returns the result. When possible, the result will be exact.
+Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
@@ -1211,7 +1211,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
     public PeterO.Numbers.EDecimal Divide(
         PeterO.Numbers.EDecimal divisor);
 
-Divides this object by another decimal number and returns the result. When possible, the result will be exact.
+Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -1228,7 +1228,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EContext ctx);
 
-Divides this arbitrary-precision decimal number by another arbitrary-precision decimal number. The preferred exponent for the result is this object's exponent minus the divisor's exponent.
+Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -2905,7 +2905,7 @@ A number whose exponent is increased by  <i>bigPlaces</i>
     public PeterO.Numbers.EDecimal Multiply(
         int intValue);
 
-Multiplies this object by the given 32-bit signed integer. The resulting exponent will be the sum of the exponents of the two numbers.
+Multiplies this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
@@ -2921,7 +2921,7 @@ The product of the two numbers.
     public PeterO.Numbers.EDecimal Multiply(
         long longValue);
 
-Multiplies this object by the given 64-bit signed integer. The resulting exponent will be the sum of the exponents of the two numbers.
+Multiplies this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
@@ -2939,7 +2939,7 @@ The product of the two numbers.
         PeterO.Numbers.EDecimal op,
         PeterO.Numbers.EContext ctx);
 
-Multiplies two decimal numbers. The resulting scale will be the sum of the scales of the two decimal numbers. The result's sign is positive if both operands have the same sign, and negative if they have different signs.
+Multiplies this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -2957,7 +2957,7 @@ The product of the two decimal numbers.
     public PeterO.Numbers.EDecimal Multiply(
         PeterO.Numbers.EDecimal otherValue);
 
-Multiplies two decimal numbers. The resulting exponent will be the sum of the exponents of the two decimal numbers.
+Multiplies this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -3134,7 +3134,7 @@ Returns the next value that is closer to the other object' s value than this obj
         PeterO.Numbers.EDecimal bthis,
         PeterO.Numbers.EDecimal otherValue);
 
-Adds two arbitrary-precision decimal floating-point numbers and returns the result.
+Adds an arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -3738,7 +3738,7 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EDecimal dividend,
         PeterO.Numbers.EDecimal divisor);
 
-Finds the remainder when dividing one arbitrary-precision decimal number by another.
+Returns the remainder that would result when an arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number.
 
 <b>Parameters:</b>
 
@@ -3763,7 +3763,7 @@ The parameter  <i>dividend</i>
         PeterO.Numbers.EDecimal operand1,
         PeterO.Numbers.EDecimal operand2);
 
-Multiplies two decimal numbers. The resulting exponent will be the sum of the exponents of the two decimal numbers.
+Multiplies an arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -4088,7 +4088,7 @@ This value with trailing zeros removed. Note that if the result has a very high 
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EContext ctx);
 
-Finds the remainder that results when dividing two arbitrary-precision decimal numbers. The remainder is the value that remains when the absolute value of this object is divided by the absolute value of the other object; the remainder has the same sign (positive or negative) as this object's value.
+Returns the remainder that would result when this arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number.
 
 <b>Parameters:</b>
 
@@ -4559,7 +4559,7 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
     public PeterO.Numbers.EDecimal Subtract(
         int intValue);
 
-Subtracts a 32-bit signed integer from this object and returns the result.
+Subtracts a 32-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -4575,11 +4575,11 @@ The difference of the two objects.
     public PeterO.Numbers.EDecimal Subtract(
         long longValue);
 
-Subtracts a 64-bit signed integer from this object and returns the result.
+Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: A 64-bit signed integer to subtract from this object.
+ * <i>longValue</i>:
 
 <b>Return Value:</b>
 
@@ -4591,7 +4591,7 @@ The difference of the two objects.
     public PeterO.Numbers.EDecimal Subtract(
         PeterO.Numbers.EDecimal otherValue);
 
-Subtracts an arbitrary-precision decimal number from this instance and returns the result.
+Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 
@@ -4608,7 +4608,7 @@ The difference of the two objects.
         PeterO.Numbers.EDecimal otherValue,
         PeterO.Numbers.EContext ctx);
 
-Subtracts an arbitrary-precision decimal number from this instance.
+Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result.
 
 <b>Parameters:</b>
 

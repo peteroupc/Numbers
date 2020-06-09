@@ -1497,7 +1497,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Divides this arbitrary-precision binary floating-point
-    /// number by a 32-bit signed integer and returns the result.</summary>
+    /// number by a 32-bit signed integer and returns the result. When
+    /// possible, the result will be exact.</summary>
     /// <param name='intValue'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -1518,26 +1519,29 @@ namespace PeterO.Numbers {
     /// <summary>Subtracts a 64-bit signed integer from this
     /// arbitrary-precision binary floating-point number and returns the
     /// result.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <param name='longValue'/>
     public EFloat Subtract(long longValue) {
       return this.Subtract(EFloat.FromInt64(longValue));
     }
 
     /// <summary>Multiplies this arbitrary-precision binary floating-point
     /// number by a 64-bit signed integer and returns the result.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200L);</code>
     ///  .
     /// </example>
-    /// <param name='longValue'/>
     public EFloat Multiply(long longValue) {
       return this.Multiply(EFloat.FromInt64(longValue));
     }
 
     /// <summary>Divides this arbitrary-precision binary floating-point
-    /// number by a 64-bit signed integer and returns the result.</summary>
+    /// number by a 64-bit signed integer and returns the result. When
+    /// possible, the result will be exact.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -2002,7 +2006,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Divides this arbitrary-precision binary floating-point
     /// number by another arbitrary-precision binary floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. When possible, the result will be
+    /// exact.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
@@ -2017,7 +2022,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Divides this arbitrary-precision binary floating-point
     /// number by another arbitrary-precision binary floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. When possible, the result will be
+    /// exact.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of

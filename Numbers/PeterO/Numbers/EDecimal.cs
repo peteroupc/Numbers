@@ -3796,7 +3796,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
     /// number by another arbitrary-precision decimal floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. When possible, the result will be
+    /// exact.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
@@ -3812,7 +3813,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
     /// number by another arbitrary-precision decimal floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. When possible, the result will be
+    /// exact.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4683,8 +4685,9 @@ namespace PeterO.Numbers {
     /// <summary>Adds this arbitrary-precision decimal floating-point
     /// number and a 64-bit signed integer and returns the
     /// result.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
     /// <returns>The sum of the two objects.</returns>
-    /// <param name='longValue'/>
     public EDecimal Add(long longValue) {
       return this.Add(EDecimal.FromInt64(longValue));
     }
@@ -4692,8 +4695,9 @@ namespace PeterO.Numbers {
     /// <summary>Subtracts a 64-bit signed integer from this
     /// arbitrary-precision decimal floating-point number and returns the
     /// result.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
-    /// <param name='longValue'/>
     public EDecimal Subtract(long longValue) {
       return this.Subtract(EDecimal.FromInt64(longValue));
     }
@@ -4708,7 +4712,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
-    /// number by a 64-bit signed integer and returns the result.</summary>
+    /// number by a 64-bit signed integer and returns the result. When
+    /// possible, the result will be exact.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
@@ -4752,7 +4757,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
-    /// number by a 32-bit signed integer and returns the result.</summary>
+    /// number by a 32-bit signed integer and returns the result. When
+    /// possible, the result will be exact.</summary>
     /// <param name='intValue'>A 32-bit signed integer, the divisor, to
     /// divide this object by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
